@@ -1,0 +1,1010 @@
+﻿<#@ assembly name="System.Core"
+#><#@ assembly name="System.Data.Linq"
+#><#@ assembly name="EnvDTE"
+#><#@ assembly name="System.Xml"
+#><#@ assembly name="System.Xml.Linq"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.IO"
+#><#@ import namespace="System.Linq" #><#+
+
+void GenerateEF6(Manager manager, ModelRoot modelRoot)
+{
+   // Entities
+
+   foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>())
+   {
+      manager.StartNewFile(Path.Combine(modelRoot.EntityOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
+      Output("using System;");
+      Output("using System.Collections.Generic;");
+      Output("using System.Collections.ObjectModel;");
+      Output("using System.Linq;");
+      List<string> additionalUsings = GetAdditionalUsingStatements(modelRoot);
+      if (additionalUsings.Any())
+         Output(string.Join("\n", additionalUsings));
+      NL();
+
+      BeginNamespace(modelClass.Namespace);
+
+      string baseClass = modelClass.Superclass != null ? $" : {modelClass.Superclass.Name}" : string.Empty;
+      string isAbstract = modelClass.IsAbstract ? "abstract " : "";
+      Output($"public {isAbstract}partial class {modelClass.Name}{baseClass}");
+      Output("{");
+
+      WriteConstructor(modelClass);
+      WritePersistentProperties(modelClass);
+      WriteCalculatedProperties(modelClass);
+      WritePersistentNavigationProperties(modelClass);
+      WriteCalculatedNavigationProperties(modelClass);
+
+      Output("}");
+
+      EndNamespace(modelClass.Namespace);
+      NL();
+   }
+
+   // Enums
+
+   foreach (ModelEnum modelEnum in modelRoot.Enums)
+   {
+      manager.StartNewFile(Path.Combine(modelRoot.EnumOutputDirectory, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
+
+      Output("using System;");
+      NL();
+
+      BeginNamespace(modelEnum.Namespace);
+
+      Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
+      Output("{");
+
+      ModelEnumValue[] values = modelEnum.Values.ToArray();
+      for (int index = 0; index < values.Length; ++index)
+         Output($"{values[index].Name}{(index < values.Length - 1 ? "," : "")}");
+      Output("}");
+
+      EndNamespace(modelEnum.Namespace);
+   }
+
+   manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
+   WriteDatabaseInitializer(modelRoot);
+   
+   manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
+   WriteMigrationConfiguration(modelRoot);
+
+   manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}.{modelRoot.FileNameMarker}.cs"));
+   WriteDbContext(modelRoot);
+}
+
+List<string> GetAdditionalUsingStatements(ModelRoot modelRoot)
+{
+   List<string> result = new List<string>();
+   List<string> attributeTypes = modelRoot.Types.OfType<ModelClass>().SelectMany(c => c.Attributes).Select(a => a.Type).Distinct().ToList();
+
+   if (attributeTypes.Any(t => t.IndexOf("Geometry", StringComparison.Ordinal) > -1 || t.IndexOf("Geography", StringComparison.Ordinal) > -1))
+   {
+      result.Add("using System.Data.Entity.Spatial;"); 
+   }
+
+   return result;
+}
+
+void NL()
+{
+   WriteLine("");
+}
+
+static string[] NonNullableTypes = {
+   "Binary",
+   "Geography",
+   "GeographyCollection",
+   "GeographyLineString",
+   "GeographyMultiLineString",
+   "GeographyMultiPoint",
+   "GeographyMultiPolygon",
+   "GeographyPoint",
+   "GeographyPolygon",
+   "Geometry",
+   "GeometryCollection",
+   "GeometryLineString",
+   "GeometryMultiLineString",
+   "GeometryMultiPoint",
+   "GeometryMultiPolygon",
+   "GeometryPoint",
+   "GeometryPolygon",
+   "String"
+};
+
+bool IsNullable(ModelAttribute modelAttribute)
+{
+   return !modelAttribute.Required &&
+          !modelAttribute.IsIdentity &&
+          !modelAttribute.IsConcurrencyToken &&
+          !NonNullableTypes.Contains(modelAttribute.Type);
+}
+
+void Output(string text)
+{
+   if (text.StartsWith("}"))
+      PopIndent();
+   WriteLine(text);
+   if (text.EndsWith("{"))
+      PushIndent("   ");
+}
+
+void Output(string template, params object[] items)
+{
+   string text = string.Format(template, items);
+   Output(text);
+}
+
+void OutputChopped(IEnumerable<string> segments)
+{
+   if (!segments.Any())
+      return;
+
+   string[] segmentArray = segments.ToArray();
+   int indent = segmentArray[0].IndexOf('.');
+
+   if (indent == -1) 
+   {
+      if (segmentArray.Length > 1)
+      {
+         segmentArray[0] = $"{segmentArray[0]}.{segmentArray[1]}";
+         indent = segmentArray[0].IndexOf('.');
+         segmentArray = segmentArray.Where((source, index) => index != 1).ToArray();
+      }
+   }
+
+   for (int index = 1; index < segmentArray.Length; ++index)
+      segmentArray[index] = $"{new string(' ', indent)}.{segmentArray[index]}";
+
+   if (!segmentArray[segmentArray.Length - 1].Trim().EndsWith(";"))
+      segmentArray[segmentArray.Length - 1] = segmentArray[segmentArray.Length - 1] + ";";
+
+   foreach (string segment in segmentArray)
+      Output(segment);
+}
+
+void BeginNamespace(string ns)
+{
+   if (!string.IsNullOrEmpty(ns))
+   {
+      Output($"namespace {ns}");
+      Output("{");
+   }
+}
+
+void EndNamespace(string ns)
+{
+   if (!string.IsNullOrEmpty(ns))
+      Output("}");
+}
+
+List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults = null)
+{
+   List<string> requiredParameters = new List<string>();
+   
+   if (haveDefaults != true)
+   {
+      requiredParameters.AddRange(modelClass.AllRequiredAttributes
+         .Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public && string.IsNullOrEmpty(x.InitialValue))
+         .Select(x => $"{x.CLRType} _{x.Name.ToLower()}"));
+
+      requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
+         .Select(x => $"{x.ClassType.Name} _{x.PropertyName.ToLower().Trim('_')}"));
+   }
+   
+   if (haveDefaults != false)
+   {
+      requiredParameters.AddRange(modelClass.AllRequiredAttributes
+         .Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public &&
+                     !string.IsNullOrEmpty(x.InitialValue))
+         .Select(x =>
+         {
+            string quote = x.CLRType == "string" ? "\"" : x.CLRType == "char" ? "'" : "";
+            string value = x.InitialValue.Trim('"', '\'');
+            return $"{x.CLRType} _{x.Name.ToLower()} = {quote}{value}{quote}";
+         }));
+   }
+
+   return requiredParameters;
+}
+
+List<string> GetRequiredParameterNames(ModelClass modelClass)
+{
+   List<string> requiredParameterNames = modelClass.AllRequiredAttributes
+      .Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public &&
+                  string.IsNullOrEmpty(x.InitialValue))
+      .Select(x => $"_{x.Name.ToLower()}")
+      .ToList();
+
+   requiredParameterNames.AddRange(modelClass.AllRequiredNavigationProperties()
+      .Select(x => $"_{x.PropertyName.ToLower()}"));
+
+   requiredParameterNames.AddRange(modelClass.AllRequiredAttributes
+      .Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public &&
+                  !string.IsNullOrEmpty(x.InitialValue))
+      .Select(x => $"_{x.Name.ToLower()}"));
+
+   return requiredParameterNames;
+}
+
+void WriteDefaultConstructorBody(ModelClass modelClass)
+{
+   foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public && 
+                                                                              !string.IsNullOrEmpty(x.InitialValue) && 
+                                                                              x.InitialValue != "null"))
+   {
+      string quote = modelAttribute.Type == "String" ? "\"" : modelAttribute.Type == "Char" ? "'" : "";
+      Output($"{modelAttribute.Name} = {quote}{modelAttribute.InitialValue}{quote};");
+   }
+
+   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
+      Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.Name}>();");
+
+   NL();
+   Output("Init();");
+}
+
+void WriteConstructor(ModelClass modelClass)
+{
+   Output("partial void Init();");
+   NL();
+
+   /***********************************************************************/
+   // Default constructor
+   /***********************************************************************/
+
+   string visibility = GetRequiredParameters(modelClass, false).Any() ? "protected" : "public";
+
+   if (visibility == "public")
+   {
+      Output("/// <summary>");
+      Output("/// Default constructor");
+      Output("/// </summary>");
+   }
+   else
+   {
+      Output("/// <summary>");
+      Output("/// Default constructor. Protected due to required properties, but present because EF needs it.");
+      Output("/// </summary>");
+   }
+                           
+   if (modelClass.Superclass != null)
+      Output($"{visibility} {modelClass.Name}(): base()");
+   else
+      Output($"{visibility} {modelClass.Name}()");
+   Output("{");
+
+   WriteDefaultConstructorBody(modelClass);
+
+   Output("}");
+   NL();
+
+   /***********************************************************************/
+   // Constructor with required parameters (if necessary)
+   /***********************************************************************/
+   
+   if (visibility == "protected")
+   {
+      Output("/// <summary>");
+      Output("/// Public constructor with required data");
+      Output("/// </summary>");
+      WriteConstructorComments(modelClass);
+      Output($"public {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass))})");
+      Output("{");
+
+      foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public))
+      {
+         if (requiredAttribute.Type == "String")
+            Output($"if (string.IsNullOrEmpty(_{requiredAttribute.Name.ToLower().Trim('_')})) throw new ArgumentNullException(nameof(_{requiredAttribute.Name.ToLower().Trim('_')}));");
+         else if (requiredAttribute.Type.StartsWith("Geo"))
+            Output($"if (_{requiredAttribute.Name.ToLower().Trim('_')} == null) throw new ArgumentNullException(nameof(_{requiredAttribute.Name.ToLower().Trim('_')}));");
+         Output($"{requiredAttribute.Name} = _{requiredAttribute.Name.ToLower().Trim('_')};");
+      }
+
+      foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties())
+      {
+         string parameterName = requiredNavigationProperty.PropertyName.ToLower().Trim('_');
+         Output($"if (_{parameterName} == null) throw new ArgumentNullException(nameof(_{parameterName}));");
+      
+         if (requiredNavigationProperty.IsCollection)
+            Output($"{requiredNavigationProperty.PropertyName}.Add(_{parameterName});");
+         else if (requiredNavigationProperty.ConstructorParameterOnly)
+         {
+            UnidirectionalAssociation association = requiredNavigationProperty.AssociationObject as UnidirectionalAssociation;
+            if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+               Output($"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName}.Add(this);");
+            else
+               Output($"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName} = this;");
+         }
+         else
+            Output($"{requiredNavigationProperty.PropertyName} = _{parameterName};");
+      
+         NL();
+      }
+
+      foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
+         Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.Name}>();");
+
+      Output("}");
+      NL();
+
+
+      Output("/// <summary>");
+      Output("/// Static create function (for use in LINQ queries, etc.)");
+      Output("/// </summary>");
+      WriteConstructorComments(modelClass);
+      Output($"public static {modelClass.Name} Create({string.Join(", ", GetRequiredParameters(modelClass))})");
+      Output("{");
+      Output($"return new {modelClass.Name}({string.Join(", ", GetRequiredParameterNames(modelClass))});");
+      Output("}");
+      NL();
+
+
+   }
+}
+
+   void WriteConstructorComments(ModelClass modelClass)
+   {
+      foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public))
+         Output($@"/// <param name=""_{requiredAttribute.Name.ToLower().Trim('_')}"">{requiredAttribute.Summary}</param>");
+      // TODO: Add comment if available
+      foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties())
+         Output($@"/// <param name=""_{requiredNavigationProperty.PropertyName.ToLower().Trim('_')}""></param>");
+   }
+
+void WritePersistentProperties(ModelClass modelClass)
+{
+   if (!modelClass.Attributes.Any(x => x.Persistent))
+      return;
+
+   Output("// Persistent properties");
+   List<string> segments = new List<string>();
+   NL();
+
+   foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent))
+   {
+      segments.Clear();
+
+      if (modelAttribute.IsIdentity)
+         segments.Add("Identity");
+      if (modelAttribute.Required || modelAttribute.IsIdentity)
+         segments.Add("Required");
+      if (modelAttribute.Indexed)
+         segments.Add("Indexed");
+      if (modelAttribute.MaxLength > 0)
+         segments.Add($"Max length = {modelAttribute.MaxLength}");
+      if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
+      {
+         string quote = modelAttribute.CLRType == "string" ? "\"" : modelAttribute.CLRType == "char" ? "'" : "";
+         segments.Add($"Default value = {quote}{modelAttribute.InitialValue}{quote}");
+      }
+
+      string nullable = IsNullable(modelAttribute) ? "?" : "";
+
+      if (!modelAttribute.AutoProperty)
+      {
+         Output($"public {modelAttribute.CLRType}{nullable} _{modelAttribute.Name} {{ get; set; }}");
+         Output($"partial void Set{modelAttribute.Name}({modelAttribute.CLRType}{nullable} oldValue, ref {modelAttribute.CLRType}{nullable} newValue);");
+         Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.CLRType}{nullable} result);");
+         NL();
+      }
+
+      if (!string.IsNullOrEmpty(modelAttribute.Summary) || segments.Any())
+      {
+         Output("/// <summary>");
+         if (segments.Any())
+            Output($"/// {string.Join(", ", segments)}");
+         if (!string.IsNullOrEmpty(modelAttribute.Summary))
+            Output("/// {0}", modelAttribute.Summary);
+         Output("/// </summary>");
+      }
+
+      string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
+
+
+      if (modelAttribute.AutoProperty)
+         Output($"public {modelAttribute.CLRType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
+      else
+      {
+         Output("[System.ComponentModel.DataAnnotations.Schema.NotMapped]");
+         Output($"public {modelAttribute.CLRType}{nullable} {modelAttribute.Name}");
+         Output("{");
+         Output($"get {{ {modelAttribute.CLRType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
+         Output($"{setterVisibility}set {{ {modelAttribute.CLRType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; }}");
+         Output("}");
+      }
+
+      NL();
+   }
+
+   if (!modelClass.AllAttributes.Any(x => x.IsConcurrencyToken) && 
+       (modelClass.Concurrency == ConcurrencyOverride.Optimistic || modelClass.ModelRoot.ConcurrencyDefault == Concurrency.Optimistic))
+   {
+      Output("/// <summary>");
+      Output("/// Concurrency token");
+      Output("/// </summary>");
+      Output("public DateTime Timestamp { get; set; }");
+      NL();
+   }
+}
+
+void WriteCalculatedProperties(ModelClass modelClass)
+{
+   if (modelClass.Attributes.All(x => x.Persistent))
+      return;
+
+   Output("// Calculated properties");
+   NL();
+
+   foreach (ModelAttribute calculatedAttribute in modelClass.Attributes.Where(x => !x.Persistent))
+   {
+      string nullable = IsNullable(calculatedAttribute) ? "?" : "";
+
+      Output("partial void Get{0}(ref {1}{2} value);", calculatedAttribute.Name, calculatedAttribute.CLRType, nullable);
+      Output("partial void Set{0}({1}{2} value);", calculatedAttribute.Name, calculatedAttribute.CLRType, nullable);
+
+      Output("/// <summary>");
+      Output("/// Calculated property");
+      if (!string.IsNullOrEmpty(calculatedAttribute.Summary))
+         Output("/// {0}", calculatedAttribute.Summary);
+      Output("/// </summary>");
+
+      if (!string.IsNullOrEmpty(calculatedAttribute.Description))
+      {
+         Output("/// <remarks>");
+         Output("/// {0}", calculatedAttribute.Description);
+         Output("/// </remarks>");
+      }
+
+      string setterVisibility = calculatedAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : calculatedAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
+      string isVirtual = calculatedAttribute.Virtual ? "virtual " : "";
+
+      Output($"public {isVirtual}{calculatedAttribute.CLRType}{nullable} {calculatedAttribute.Name}");
+      Output("{");
+      Output($"get {{ {calculatedAttribute.CLRType}{nullable} value = default({calculatedAttribute.CLRType}{nullable}); Get{calculatedAttribute.Name}(ref value); return value; }}");
+      Output($"{setterVisibility}set {{ Set{calculatedAttribute.Name}(value); }}");
+      Output("}");
+      NL();
+   }
+}
+
+void WritePersistentNavigationProperties(ModelClass modelClass)
+{
+   if (!modelClass.LocalNavigationProperties().Any(x => x.AssociationObject.Persistent))
+      return;
+
+   Output("// Persistent navigation properties");
+   NL();
+
+   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
+   {
+      string type = navigationProperty.IsCollection
+                        ? $"ICollection<{navigationProperty.ClassType.Name}>"
+                        : navigationProperty.ClassType.Name;
+
+      List<string> comments = new List<string>();
+      if (navigationProperty.Required)
+         comments.Add("Required");
+      string comment = comments.Count > 0 ? $" // {string.Join(", ", comments)}" : "";
+
+      Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; set; }} {comment}");
+   }
+}
+
+void WriteCalculatedNavigationProperties(ModelClass modelClass)
+{
+   if (modelClass.LocalNavigationProperties().All(x => x.AssociationObject.Persistent))
+      return;
+
+   Output("// Calculated navigation properties");
+   NL();
+
+   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => !x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
+   {
+      string type = navigationProperty.IsCollection
+                        ? $"ICollection<{navigationProperty.ClassType.Name}>"
+                        : navigationProperty.ClassType.Name;
+
+      Output($"partial void Get{navigationProperty.PropertyName}(ref {type} value);");
+      Output($"partial void Set{navigationProperty.PropertyName}({type} value);");
+
+      Output($"public {type} {navigationProperty.PropertyName}");
+      Output("{");
+      Output($"get {{ {type} value = null; Get{navigationProperty.PropertyName}(ref value); return value; }}");
+      Output($"set {{ Set{navigationProperty.PropertyName}(value); }}");
+      Output("}");
+      NL();
+   }
+}
+
+void WriteDatabaseInitializer(ModelRoot modelRoot)
+{
+   Output("using System.Data.Entity;");
+   NL();
+
+   BeginNamespace(modelRoot.Namespace);
+
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
+      Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>");
+   else
+      Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.EntityContainerName}>");
+
+   Output("{");
+   Output("}");
+   EndNamespace(modelRoot.Namespace);
+}
+
+void WriteMigrationConfiguration(ModelRoot modelRoot)
+{
+   //if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
+   //   return;
+
+   Output("using System.Data.Entity.Migrations;");
+   NL();
+
+   BeginNamespace(modelRoot.Namespace);
+   Output("public sealed partial class {0}DbMigrationConfiguration : DbMigrationsConfiguration<{0}>", modelRoot.EntityContainerName);
+
+   Output("{");
+   Output("partial void Init();");
+   NL();
+
+   Output("public {0}DbMigrationConfiguration()", modelRoot.EntityContainerName);
+   Output("{");
+   Output("AutomaticMigrationsEnabled = {0};", modelRoot.AutomaticMigrationsEnabled.ToString().ToLower());
+   Output("AutomaticMigrationDataLossAllowed = false;");
+   Output("Init();");
+   Output("}");
+
+   Output("}");
+   EndNamespace(modelRoot.Namespace);
+}
+
+   private readonly string[] SpatialTypes =
+   {
+      "Geography",
+      "GeographyCollection",
+      "GeographyLineString",
+      "GeographyMultiLineString",
+      "GeographyMultiPoint",
+      "GeographyMultiPolygon",
+      "GeographyPoint",
+      "GeographyPolygon",
+      "Geometry",
+      "GeometryCollection",
+      "GeometryLineString",
+      "GeometryMultiLineString",
+      "GeometryMultiPoint",
+      "GeometryMultiPolygon",
+      "GeometryPoint",
+      "GeometryPolygon"
+   };
+
+void WriteDbContext(ModelRoot modelRoot)
+{
+   Output("using System;");
+   Output("using System.Collections.Generic;");
+   Output("using System.Linq;");
+   Output("using System.ComponentModel.DataAnnotations.Schema;");
+   Output("using System.Data.Entity.Infrastructure.Annotations;");
+   NL();
+
+   BeginNamespace(modelRoot.Namespace);
+
+   Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : System.Data.Entity.DbContext");
+   Output("{");
+
+   PluralizationService pluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
+   
+   /***********************************************************************/
+   // generate DBSets
+   /***********************************************************************/
+   
+   IEnumerable<ModelClass> classesWithTables = null;
+
+   switch (modelRoot.InheritanceStrategy)
+   {
+      case CodeStrategy.TablePerType:
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().OrderBy(x => x.Name);
+         break;
+      case CodeStrategy.TablePerConcreteType:
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsAbstract).OrderBy(x => x.Name);
+         break;
+      case CodeStrategy.TablePerHierarchy:
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(x => x.Superclass == null).OrderBy(x => x.Name);
+         break;
+   }
+
+   if (classesWithTables != null)
+   {
+      foreach (ModelClass modelClass in classesWithTables)
+      {
+         string dbSetName;
+
+         if (!string.IsNullOrEmpty(modelClass.DbSetName))
+            dbSetName = modelClass.DbSetName;
+         else
+            dbSetName = pluralizationService.IsSingular(modelClass.Name)
+               ? pluralizationService.Pluralize(modelClass.Name)
+               : modelClass.Name;
+
+         Output($"public System.Data.Entity.DbSet<{modelClass.Name}> {dbSetName} {{ get; set; }}");
+      }
+
+      NL();
+   }
+
+   /***********************************************************************/
+   // constructors
+   /***********************************************************************/
+
+   if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
+   {
+      string connectionString = string.IsNullOrEmpty(modelRoot.ConnectionString) 
+                                   ? $"Name={modelRoot.ConnectionStringName}"
+                                   : modelRoot.ConnectionString;
+
+      Output($"public {modelRoot.EntityContainerName}() : base(@\"{connectionString}\")");
+      Output("{");
+      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+      Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+      Output("CustomInit();");
+      Output("}");
+      NL();
+   }
+   else
+   {
+      Output($"#warning Default constructor not generated for {modelRoot.EntityContainerName} since no default connection string was specified in the model");
+      NL();
+   }
+
+   Output($"public {modelRoot.EntityContainerName}(string connectionString) : base(connectionString)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
+
+   Output($"public {modelRoot.EntityContainerName}(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
+
+   Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
+
+   Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
+
+   Output("partial void CustomInit();");
+   Output("partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
+   Output("partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
+   NL();
+   
+   /***********************************************************************/
+   // OnModelCreating 
+   /***********************************************************************/
+   Output("protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)");
+   Output("{");
+   Output("base.OnModelCreating(modelBuilder);");
+   Output("OnModelCreatingImpl(modelBuilder);");
+   NL();
+   
+   Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
+
+   List<string> segments = new List<string>();
+
+   Sawczyn.EFDesigner.EFModel.Multiplicity[] singles = { Sawczyn.EFDesigner.EFModel.Multiplicity.One, Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne };
+   Sawczyn.EFDesigner.EFModel.Multiplicity[] multiples = { Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany };
+   List<Association> visited = new List<Association>();
+   List<string> foreignKeyColumns = new List<string>();
+
+   foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>().OrderBy(x => x.Name))
+   {
+      segments.Clear();
+      foreignKeyColumns.Clear();
+      NL();
+
+      // class level
+      segments.Add($"modelBuilder.Entity<{modelClass.Name}>()");
+
+      // note: this must come before the 'ToTable' call or there's a runtime error
+      if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
+         segments.Add("Map(x => x.MapInheritedProperties())");
+
+      if (classesWithTables.Contains(modelClass))
+      {
+         if (modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema)
+            segments.Add($"ToTable(\"{modelClass.TableName}\")");
+         else
+            segments.Add($"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+      }
+
+      List<string> identityProperties = modelClass.IdentityPropertyNames.ToList();
+      if (identityProperties.Count == 1)
+         segments.Add($"HasKey(t => t.{identityProperties[0]})");
+      else
+         segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityProperties)} }})");
+
+      foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
+         segments.Add($"Ignore(t => t.{transient.Name})");
+
+      if (modelRoot.ChopMethodChains)
+         OutputChopped(segments);
+      else
+         Output(string.Join(".", segments) + ";");
+
+      // attribute level
+      foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
+      {
+         segments.Clear();
+
+         if (modelAttribute.MaxLength > 0)
+            segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
+         if (modelAttribute.Required)
+            segments.Add("IsRequired()");
+         if (modelAttribute.Indexed)
+            segments.Add("HasColumnAnnotation(\"Index\", new IndexAnnotation(new IndexAttribute()))");
+         if (modelAttribute.IsConcurrencyToken)
+            segments.Add("IsRowVersion()");
+         if (modelAttribute.IsIdentity)
+            segments.Add("HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)");
+         if (!modelAttribute.AutoProperty)
+            segments.Add($@"HasColumnName(""{modelAttribute.Name}"")");
+
+         if (segments.Any())
+         {
+            string propertyName = modelAttribute.AutoProperty ? modelAttribute.Name : "_" + modelAttribute.Name;
+            segments.Insert(0, $"modelBuilder.Entity<{modelClass.Name}>()");
+            segments.Insert(1, $"Property(t => t.{propertyName})");
+
+            if (modelRoot.ChopMethodChains)
+               OutputChopped(segments);
+            else
+               Output(string.Join(".", segments) + ";");
+         }
+      }
+
+      // Navigation endpoints are distingished as Source and Target. They are also distinguished as Principal
+      // and Dependent. How do these map?
+      // In the case of one-to-one or zero-to-one-to-zero-to-one, it's model dependent and the user has to tell us
+      // In all other cases, we can tell by the cardinalities of the associations
+      // What matters is the Principal and Dependent classifications, so we look at those. 
+      // Source and Target are accidents of where the user started drawing the association.
+
+      // navigation properties
+      foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass).OfType<UnidirectionalAssociation>())
+      {
+         if (visited.Contains(association)) continue;
+         visited.Add(association);
+
+         // Certain associations cascade delete automatically. Also, the user may ask for it.
+         // We only generate a cascade delete call if the user asks for it. EF will handle the rest automatically, and it can
+         // cause issues if we make the call when it's not needed.
+         bool cascadeDelete = association.TargetDeleteAction != DeleteAction.None;
+
+         segments.Clear();
+         segments.Add($"modelBuilder.Entity<{modelClass.Name}>()");
+
+         switch (association.TargetMultiplicity) // realized by property on source
+         {
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+               segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
+               segments.Add($"HasRequired(x => x.{association.TargetPropertyName})");
+               cascadeDelete = true;
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
+               segments.Add($"HasOptional(x => x.{association.TargetPropertyName})");
+               break;
+            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+            //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+            //   break;
+         }
+
+         switch (association.SourceMultiplicity) // realized by property on target, but no property on target
+         {
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+               segments.Add("WithMany()");
+               if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+               {
+                  segments.Add("Map(x => { " +
+                     $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + 
+                     $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     "})");
+               }
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
+               if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+               {
+                  if (association.TargetRole == EndpointRole.Dependent)
+                     segments.Add("WithRequiredDependent()");
+                  else
+                     segments.Add("WithRequiredPrincipal()");
+               }
+               else
+               {
+                  segments.Add("WithRequired()");
+               }
+
+               cascadeDelete = true; 
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
+               if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
+               {
+                  if (association.TargetRole == EndpointRole.Dependent)
+                     segments.Add("WithOptionalDependent()");
+                  else
+                     segments.Add("WithOptionalPrincipal()");
+               }
+               else
+               {
+                  segments.Add("WithOptional()");
+               }
+               
+               break;
+            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+            //   segments.Add("HasMany()");
+            //   break;
+         }
+
+         string foreignKeySegment = CreateForeignKeyColumnSegment(association, foreignKeyColumns);
+         if (foreignKeySegment != null) segments.Add(foreignKeySegment);
+
+         if (cascadeDelete)
+            segments.Add("WillCascadeOnDelete()");
+
+         if (modelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
+      }
+
+      foreach (BidirectionalAssociation association in Association.GetLinksToSources(modelClass).OfType<BidirectionalAssociation>())
+      {
+         if (visited.Contains(association)) continue;
+         visited.Add(association);
+
+         // TODO: fix cascade delete
+         bool cascadeDelete = association.SourceDeleteAction != DeleteAction.None;
+
+         segments.Clear();
+         segments.Add($"modelBuilder.Entity<{modelClass.Name}>()");
+
+         switch (association.SourceMultiplicity) // realized by property on target
+         {
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+               segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
+               segments.Add($"HasRequired(x => x.{association.SourcePropertyName})");
+               cascadeDelete = true;
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
+               segments.Add($"HasOptional(x => x.{association.SourcePropertyName})");
+               break;
+            //one or more constraint not supported in EF6. TODO: make this possible ... later
+            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+            //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
+            //   break;
+         }
+
+         switch (association.TargetMultiplicity) // realized by property on source
+         {
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+               segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
+               if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+               {
+                  segments.Add("Map(x => { " +
+                     $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + 
+                     $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     "})");
+               }
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
+               if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+               {
+                  if (association.SourceRole == EndpointRole.Dependent)
+                     segments.Add($"WithRequiredDependent(x => x.{association.TargetPropertyName})");
+                  else
+                     segments.Add($"WithRequiredPrincipal(x => x.{association.TargetPropertyName})");
+               }
+               else
+               {
+                  segments.Add($"WithRequired(x => x.{association.TargetPropertyName})");
+               }
+               
+               cascadeDelete = true; 
+               break;
+            case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
+               if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
+               {
+                  if (association.SourceRole == EndpointRole.Dependent)
+                     segments.Add($"WithOptionalDependent(x => x.{association.TargetPropertyName})");
+                  else
+                     segments.Add($"WithOptionalPrincipal(x => x.{association.TargetPropertyName})");
+               }
+               else 
+               {
+                  segments.Add($"WithOptional(x => x.{association.TargetPropertyName})");
+               }
+
+               break;
+            //one or more constraint not supported in EF6. TODO: make this possible ... later
+            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+            //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+            //   break;
+         }
+
+         string foreignKeySegment = CreateForeignKeyColumnSegment(association, foreignKeyColumns);
+         if (foreignKeySegment != null) segments.Add(foreignKeySegment);
+
+         if (cascadeDelete)
+            segments.Add("WillCascadeOnDelete()");
+
+         if (modelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
+      }
+   }
+
+   NL();
+   
+   Output("OnModelCreatedImpl(modelBuilder);");
+   Output("}");
+
+   Output("}");
+
+   EndNamespace(modelRoot.Namespace);
+}
+
+string CreateForeignKeyColumnSegment(Association association, List<string> foreignKeyColumns)
+{
+   // foreign key definitions always go in the table representing the Dependent end of the association
+   // if there is no dependent end (i.e., many-to-many), there are no foreign keys
+   string nameBase = string.Empty;
+   if (association.SourceRole == EndpointRole.Dependent)
+      nameBase = association.TargetPropertyName;
+   else if (association.TargetRole == EndpointRole.Dependent)
+      nameBase = (association as BidirectionalAssociation)?.SourcePropertyName ?? association.Source.Name;
+   else
+      return null;
+
+   string columnName = $"{nameBase}_Id";
+   if (foreignKeyColumns.Contains(columnName))
+   {
+      int index = 0;
+      do
+      {
+         columnName = $"{nameBase}{++index}_Id";
+      } while (foreignKeyColumns.Contains(columnName));
+   }
+   foreignKeyColumns.Add(columnName);
+   return $@"Map(x => x.MapKey(""{columnName}""))";
+}
+
+#>

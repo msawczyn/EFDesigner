@@ -1,0 +1,3 @@
+[$RootKey$\TextTemplating\IncludeFolders]
+[$RootKey$\TextTemplating\IncludeFolders\.tt]
+"IncludeEFDsl"="$PackageFolder$\TextTemplates"

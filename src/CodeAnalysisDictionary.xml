@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dictionary>
+  <Words>
+    <Unrecognized>
+      <!-- Words to be excluded from the existing dictionary -->
+      <!-- <Word>instate</Word> -->
+    </Unrecognized>
+    <Recognized>
+      <!-- Words to augment the existing dictionary -->
+      <!-- If your company or product name is an unusal word, you may want to include it. -->
+      <!-- For compound words, include the individual words (if necessary) -->
+      <!--<Word>Sawczyn</Word>-->
+      <!--<Word>EFDesigner</Word>-->
+      <Word>superclass</Word>
+      <Word>implementor</Word>
+      <Word>implementors</Word>
+      <Word>postcondition</Word>
+    </Recognized>
+    <Acronyms>
+      <!-- Company, domain, or project specific acronyms -->
+      <CasingExceptions>
+        <!-- If your company or product name is an acroynm, you may want to include these here -->
+        <!--<Acronym>Sawczyn</Acronym>-->
+        <!--<Acronym>EFDesigner</Acronym>-->
+      </CasingExceptions>
+    </Acronyms>
+  </Words>
+</Dictionary>

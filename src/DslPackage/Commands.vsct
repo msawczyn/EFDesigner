@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <!-- -->
+   <!-- This file contains custom command definitions. -->
+   <!-- -->
+   <!-- NOTE: Each time commands are added or changed, the "version" parameter to the -->
+   <!-- ProvideMenuResource attribute in Shell\Package.tt should be incremented. -->
+   <!-- This causes Visual Studio to re-merge the menu definitions for the package. -->
+   <!-- Otherwise, changes won't take effect until the next time devenv /setup is run. -->
+   <!-- -->
+   <Extern href="stdidcmd.h"/>
+   <Extern href="vsshlids.h"/>
+   <Extern href="virtkeys.h"/>
+   <Extern href="DSLToolsCmdID.h"/>
+   <Include href="GeneratedCode\GeneratedVsct.vsct"/>
+   <Commands package="guidPkg">
+      <Groups>
+         <Group guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" priority="0x0100">
+            <!-- These symbols are defined in GeneratedVSCT.vsct -->
+            <Parent guid="guidCmdSet" id="menuidContext" />
+         </Group>
+      </Groups>
+      <Buttons>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Layout Diagram</ButtonText>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Hide</ButtonText>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Show hidden</ButtonText>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Generate Code</ButtonText>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Add Properties via Code</ButtonText>
+            </Strings>
+         </Button>
+
+      </Buttons>
+   </Commands>
+   <VisibilityConstraints>
+      <!-- Ensures the command is only loaded for this DSL -->
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram" context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape" context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape" context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode" context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" context="guidEditor"/>
+   </VisibilityConstraints>
+   <Symbols>
+      <!-- Substitute a unique GUID for the placeholder: -->
+      <GuidSymbol name="guidEFDiagramMenuCmdSet" value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
+         <IDSymbol name="grpidEFDiagram" value="0x01001"/>
+         <IDSymbol name="cmdidLayoutDiagram" value="0x00001"/>
+         <IDSymbol name="cmdidHideShape" value="0x00002"/>
+         <IDSymbol name="cmdidShowShape" value="0x00003"/>
+         <IDSymbol name="cmdidGenerateCode" value="0x00004"/>
+         <IDSymbol name="cmdidAddCodeProperties" value="0x00005"/>
+      </GuidSymbol>
+   </Symbols>
+</CommandTable>
