@@ -6,6 +6,11 @@ An Entity Framework design surface and code generation for EF6, Core and beyond.
 - [Documentation](#documentation)
   - [Templates](#templates)
   - [Designer](#designer)
+    - [Entities](#entity)
+    - [Associations](#associations)
+    - [Inheritance](#inheritance)
+    - [Comments](#comments)
+    - [Enums](#enums)
 - [Development](#development)
 - [License](#licence)
 
@@ -14,8 +19,11 @@ This Visual Studio 2017 extension adds a new file type (.efmodel) that allows fo
 Enumerations are also included in the visual model, as is the ability to add text blocks to explain potentially arcane
 parts of your design.
 
-The modeler was created to provide all the things that annoyed me for their not being there. Things like 
+If you are used to the EF visual modeling that comes with VStudio, you'll be pretty much at home.
+The goal was to duplicate at least those features and, in addition, 
+all the things that annoyed me for their not being there. Things like 
 - the ability to show and hide parts of the model
+- easy customization of generated output
 - class nodes can be colored to visually group the model
 - different concerns can be generated into different subdirectories (entities, enums, dbcontext)
 - entities by default are generated as partials so the default code can be easily modified
@@ -36,7 +44,7 @@ know what needs fixing. It's been used in production (i.e., generating code for 
 
 ## Installation
 
-Run the Sawczyn.EFDesigner.EFModel.DslPackage.vsix file to install the extension into Visual Studio. VS2017 is required, but any edition of VS2017 should work.
+Run the `Sawczyn.EFDesigner.EFModel.DslPackage.vsix` file to install the extension into Visual Studio. VS2017 is required, but any edition of VS2017 should work.
 
 ## Documentation
 
@@ -146,8 +154,8 @@ Four templates are installed with the extension:
 
       #>
       ``` 
-  1. You can tidy it up farther by removing the switch statement and replacing that directly with the call to `GenerateEF6` -- the switch
-     statement is there so we're ready for `EFCoreDesigner.ttinclude` to be finished (see the bit about pull requests above :-) )
+   You can tidy it up farther by removing the switch statement and replacing that directly with the call to `GenerateEF6` -- the switch
+   statement is there so we're ready for `EFCoreDesigner.ttinclude` to be finished.
 
 ### Designer
 
@@ -156,10 +164,10 @@ you give them here will (or should, if you make changes to the T4 templates) dri
 
 When the designer is active, the VStudio Toolbox will display various items that can be added to the designer.
 
-![toolbox](https://github.com/msawczyn/efdesigner/raw/master/docs/toolbox.jpg"
+![toolbox](https://raw.githubusercontent.com/msawczyn/EFDesigner/master/docs/Toolbox.jpg)
 
 | Tool                       | Description                                          |
-| -------------------------- | :--------------------------------------------------- |
+| :------------------------- | :--------------------------------------------------- |
 | Entity                     | A persistent class to be generated |
 | Unidirectional Association | A navigation property that only goes one way. The starting class will have a property of the type of the ending class (or a collection of them, depending on cardinality), but not the other way around. |
 | Bidirectional Association  | A navigation property that will create properties in classes on both ends. |
@@ -167,6 +175,22 @@ When the designer is active, the VStudio Toolbox will display various items that
 | Comment                    | Add a comment box anywhere on the model |
 | Comment Link               | Link an existing comment to an Entity or Enum. Not required since comments can be free-floating, but nice to have if the comment refers to something specific on the diagram. |
 | Enum                       | An enumeration to be generated |
+
+#### Entities
+
+#### Associations (navigation properties)
+
+##### Unidirectional Associations
+
+##### Bidirectional Associations
+
+#### Inheritance
+
+#### Comments
+
+#### Comment Links
+
+#### Enums
 
 
 
