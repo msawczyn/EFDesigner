@@ -178,21 +178,35 @@ When the designer is active, the VStudio Toolbox will display various items that
 
 #### Entities
 
+Coming soon
+
 #### Associations (navigation properties)
+
+Coming soon
 
 ##### Unidirectional Associations
 
+Coming soon
+
 ##### Bidirectional Associations
+
+Coming soon
 
 #### Inheritance
 
+Coming soon
+
 #### Comments
+
+Coming soon
 
 #### Comment Links
 
+Coming soon
+
 #### Enums
 
-
+Coming soon
 
 ## Development
 
