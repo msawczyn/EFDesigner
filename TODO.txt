@@ -13,8 +13,12 @@ T4:  How to code FluentAPI for Geography and Geometry types?
 DSL: Context menu items should apply to model explorer as well as diagram
 
 DSL: Implement default value in ModelAttribute text parse
+DSL: Add default to graphical display ( => value )
 
 T4:  Use HTML5Type in code generation
+
+DSL: Add enum values to properties and display
+
 
 
 ===============================================================
