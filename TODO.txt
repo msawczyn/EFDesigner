@@ -17,10 +17,6 @@ DSL: Add default to graphical display ( => value )
 
 T4:  Use HTML5Type in code generation
 
-DSL: Add enum values to properties and display
-
-
-
 ===============================================================
 Extension: Add DeleteType enum to ModelClass (soft, hard)
 T4:  Implement soft delete where marked in model
