@@ -5558,7 +5558,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for ValueType
 		/// </summary>
-		private EnumValueTypes valueTypePropertyStorage = EnumValueTypes.Int32;
+		private EnumValueType valueTypePropertyStorage = EnumValueType.Int32;
 		
 		/// <summary>
 		/// Gets or sets the value of ValueType domain property.
@@ -5566,9 +5566,9 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnum/ValueType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnum/ValueType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(EnumValueTypes.Int32)]
+		[global::System.ComponentModel.DefaultValue(EnumValueType.Int32)]
 		[DslModeling::DomainObjectId("123f14ef-96ff-4a05-9440-888c43c44e36")]
-		public EnumValueTypes ValueType
+		public EnumValueType ValueType
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -5584,7 +5584,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Value handler for the ModelEnum.ValueType domain property.
 		/// </summary>
-		internal sealed partial class ValueTypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnum, EnumValueTypes>
+		internal sealed partial class ValueTypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnum, EnumValueType>
 		{
 			private ValueTypePropertyHandler() { }
 		
@@ -5610,7 +5610,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed EnumValueTypes GetValue(ModelEnum element)
+			public override sealed EnumValueType GetValue(ModelEnum element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.valueTypePropertyStorage;
@@ -5621,11 +5621,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelEnum element, EnumValueTypes newValue)
+			public override sealed void SetValue(ModelEnum element, EnumValueType newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				EnumValueTypes oldValue = GetValue(element);
+				EnumValueType oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
@@ -6159,6 +6159,94 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.namePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Value domain property code
+		
+		/// <summary>
+		/// Value domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ValueDomainPropertyId = new global::System.Guid(0x23fd110b, 0xaff0, 0x4abd, 0x87, 0xf6, 0xc3, 0x8a, 0xb7, 0xba, 0x3f, 0x19);
+		
+		/// <summary>
+		/// Storage for Value
+		/// </summary>
+		private global::System.String valuePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Value domain property.
+		/// Optional value for this enum element. Must be in the range of the enum's
+		/// ValueType
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("23fd110b-aff0-4abd-87f6-c38ab7ba3f19")]
+		public global::System.String Value
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return valuePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ValuePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelEnumValue.Value domain property.
+		/// </summary>
+		internal sealed partial class ValuePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnumValue, global::System.String>
+		{
+			private ValuePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelEnumValue.Value domain property value handler.
+			/// </summary>
+			public static readonly ValuePropertyHandler Instance = new ValuePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelEnumValue.Value domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ValueDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelEnumValue element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.valuePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelEnumValue element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.valuePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

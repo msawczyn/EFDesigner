@@ -28,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      private void compartment_MouseDown(object sender, DiagramMouseEventArgs e)
+      private void Compartment_MouseDown(object sender, DiagramMouseEventArgs e)
       {
          dragStartElement = e.HitDiagramItem.RepresentedElements.OfType<ModelEnumValue>().FirstOrDefault();
          compartmentBounds = e.HitDiagramItem.Shape.AbsoluteBoundingBox;
@@ -41,7 +41,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      private void compartment_MouseMove(object sender, DiagramMouseEventArgs e)
+      private void Compartment_MouseMove(object sender, DiagramMouseEventArgs e)
       {
          if (dragStartElement != null && dragStartElement != e.HitDiagramItem.RepresentedElements.OfType<ModelEnumValue>().FirstOrDefault())
          {
@@ -55,7 +55,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      private void compartment_MouseUp(object sender, DiagramMouseEventArgs e)
+      private void Compartment_MouseUp(object sender, DiagramMouseEventArgs e)
       {
          dragStartElement = null;
       }
@@ -123,9 +123,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          foreach (Compartment compartment in NestedChildShapes.OfType<Compartment>())
          {
-            compartment.MouseDown += compartment_MouseDown;
-            compartment.MouseUp += compartment_MouseUp;
-            compartment.MouseMove += compartment_MouseMove;
+            compartment.MouseDown += Compartment_MouseDown;
+            compartment.MouseUp += Compartment_MouseUp;
+            compartment.MouseMove += Compartment_MouseMove;
          }
       }
 

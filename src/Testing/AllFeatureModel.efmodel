@@ -200,10 +200,10 @@
       <modelEnum Id="d999f148-5d0f-4b8d-a3fc-5abf12f0242b" namespace="Testing" name="Enum1">
         <values>
           <modelEnumHasValues Id="b3b0eac4-2d59-42e5-9902-85d2b01f5e08">
-            <modelEnumValue Id="4e672162-e4da-41c9-958d-49b812a416a4" name="A" />
+            <modelEnumValue Id="4e672162-e4da-41c9-958d-49b812a416a4" name="D" value="1" />
           </modelEnumHasValues>
           <modelEnumHasValues Id="1ba20c21-9e6e-459a-b277-a4349810710f">
-            <modelEnumValue Id="f4a39f63-eb94-4c0d-b972-1073fd6f9ab2" name="B" />
+            <modelEnumValue Id="f4a39f63-eb94-4c0d-b972-1073fd6f9ab2" name="B" value="3" />
           </modelEnumHasValues>
           <modelEnumHasValues Id="d2ec8a0a-1ada-4a6a-bc69-24d06df1c771">
             <modelEnumValue Id="1f47604f-8379-443e-99e1-9803d3a77b7c" name="C" />

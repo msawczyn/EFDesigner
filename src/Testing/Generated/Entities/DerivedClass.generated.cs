@@ -18,6 +18,9 @@ namespace Testing
    {
       partial void Init();
 
+      /// <summary>
+      /// Default constructor
+      /// </summary>
       public DerivedClass(): base()
       {
 

@@ -6320,14 +6320,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				string attribValueType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "valueType");
 				if (attribValueType != null)
 				{
-					EnumValueTypes valueOfValueType;
-					if (DslModeling::SerializationUtilities.TryGetValue<EnumValueTypes>(serializationContext, attribValueType, out valueOfValueType))
+					EnumValueType valueOfValueType;
+					if (DslModeling::SerializationUtilities.TryGetValue<EnumValueType>(serializationContext, attribValueType, out valueOfValueType))
 					{
 						instanceOfModelEnum.ValueType = valueOfValueType;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "valueType", typeof(EnumValueTypes), attribValueType);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "valueType", typeof(EnumValueType), attribValueType);
 					}
 				}
 			}
@@ -6897,8 +6897,8 @@ namespace Sawczyn.EFDesigner.EFModel
 			// ValueType
 			if (!serializationContext.Result.Failed)
 			{
-				EnumValueTypes propValue = instanceOfModelEnum.ValueType;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<EnumValueTypes>(serializationContext, propValue);
+				EnumValueType propValue = instanceOfModelEnum.ValueType;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<EnumValueType>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Int32") != 0)
@@ -7204,6 +7204,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					else
 					{	// Invalid property value, ignored.
 						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "name", typeof(global::System.String), attribName);
+					}
+				}
+			}
+			// Value
+			if (!serializationContext.Result.Failed)
+			{
+				string attribValue = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "value");
+				if (attribValue != null)
+				{
+					global::System.String valueOfValue;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribValue, out valueOfValue))
+					{
+						instanceOfModelEnumValue.Value = valueOfValue;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "value", typeof(global::System.String), attribValue);
 					}
 				}
 			}
@@ -7619,6 +7636,17 @@ namespace Sawczyn.EFDesigner.EFModel
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "name", propValue);
 					}
+				}
+			}
+			// Value
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelEnumValue.Value;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "value", propValue);
+	
 				}
 			}
 		}

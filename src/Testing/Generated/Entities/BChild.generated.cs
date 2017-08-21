@@ -18,6 +18,9 @@ namespace Testing
    {
       partial void Init();
 
+      /// <summary>
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// </summary>
       protected BChild()
       {
          BParentCollection = new ObservableCollection<BParentCollection>();
@@ -27,6 +30,12 @@ namespace Testing
          Init();
       }
 
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_bparentrequired"></param>
+      /// <param name="_bparentrequired_1"></param>
+      /// <param name="_bparentrequired_2"></param>
       public BChild(BParentRequired _bparentrequired, BParentRequired _bparentrequired_1, BParentRequired _bparentrequired_2)
       {
          if (_bparentrequired == null) throw new ArgumentNullException(nameof(_bparentrequired));
@@ -41,6 +50,17 @@ namespace Testing
          BParentCollection = new ObservableCollection<BParentCollection>();
          BParentCollection_1 = new ObservableCollection<BParentCollection>();
          BParentCollection_2 = new ObservableCollection<BParentCollection>();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_bparentrequired"></param>
+      /// <param name="_bparentrequired_1"></param>
+      /// <param name="_bparentrequired_2"></param>
+      public static BChild Create(BParentRequired _bparentrequired, BParentRequired _bparentrequired_1, BParentRequired _bparentrequired_2)
+      {
+         return new BChild(_bparentrequired, _bparentrequired_1, _bparentrequired_2);
       }
 
       // Persistent properties

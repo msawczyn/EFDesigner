@@ -306,8 +306,8 @@ namespace Sawczyn.EFDesigner.EFModel
 			shapeFields.Add(field1);
 			
 			DslDiagrams::ChevronButtonField field2 = new DslDiagrams::ChevronButtonField("ExpandCollapse");
-			field2.DefaultSelectable = false;
-			field2.DefaultFocusable = false;
+			field2.DefaultSelectable = true;
+			field2.DefaultFocusable = true;
 			shapeFields.Add(field2);
 			
 			DslDiagrams::ImageField field3 = new DslDiagrams::ImageField("EntityGlyph");
@@ -1579,8 +1579,8 @@ namespace Sawczyn.EFDesigner.EFModel
 			shapeFields.Add(field1);
 			
 			DslDiagrams::ChevronButtonField field2 = new DslDiagrams::ChevronButtonField("ExpandCollapse");
-			field2.DefaultSelectable = false;
-			field2.DefaultFocusable = false;
+			field2.DefaultSelectable = true;
+			field2.DefaultFocusable = true;
 			shapeFields.Add(field2);
 			
 			DslDiagrams::ImageField field3 = new DslDiagrams::ImageField("EnumGlyph");
@@ -1715,13 +1715,20 @@ namespace Sawczyn.EFDesigner.EFModel
 					{
 						baseMappings.CopyTo(mappings, 0);
 					}
+					////////
+					// CompartmentMap.DisplaysCustomString == true
+					// Please provide the following method to get the string to be
+					// displayed in the compartment list: 
+					//
+					// static string GetDisplayPropertyFromModelEnumForValuesCompartment(DslModeling::ModelElement element)
+					////////
 					mappings[localCompartmentMappingsOffset+0] = new DslDiagrams::ElementListCompartmentMapping(
 																				"ValuesCompartment", 
 																				global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.NameDomainPropertyId, 
 																				global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.DomainClassId, 
 																				GetElementsFromModelEnumForValuesCompartment,
 																				null,
-																				null,
+																				GetDisplayPropertyFromModelEnumForValuesCompartment,	// This method needs to be provided. Please see comment-block above.
 																				null);
 					compartmentMappings.Add(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnum), mappings);
 				}

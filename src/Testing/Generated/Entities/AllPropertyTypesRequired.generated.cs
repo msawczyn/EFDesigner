@@ -18,12 +18,32 @@ namespace Testing
    {
       partial void Init();
 
+      /// <summary>
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// </summary>
       protected AllPropertyTypesRequired()
       {
 
          Init();
       }
 
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_binaryattr"></param>
+      /// <param name="_booleanattr"></param>
+      /// <param name="_byteattr"></param>
+      /// <param name="_datetimeattr"></param>
+      /// <param name="_datetimeoffsetattr"></param>
+      /// <param name="_decimalattr"></param>
+      /// <param name="_doubleattr"></param>
+      /// <param name="_guidattr"></param>
+      /// <param name="_int16attr"></param>
+      /// <param name="_int32attr"></param>
+      /// <param name="_int64attr"></param>
+      /// <param name="_singleattr"></param>
+      /// <param name="_stringattr"></param>
+      /// <param name="_timeattr"></param>
       public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
       {
          BinaryAttr = _binaryattr;
@@ -41,6 +61,28 @@ namespace Testing
          if (string.IsNullOrEmpty(_stringattr)) throw new ArgumentNullException(nameof(_stringattr));
          StringAttr = _stringattr;
          TimeAttr = _timeattr;
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_binaryattr"></param>
+      /// <param name="_booleanattr"></param>
+      /// <param name="_byteattr"></param>
+      /// <param name="_datetimeattr"></param>
+      /// <param name="_datetimeoffsetattr"></param>
+      /// <param name="_decimalattr"></param>
+      /// <param name="_doubleattr"></param>
+      /// <param name="_guidattr"></param>
+      /// <param name="_int16attr"></param>
+      /// <param name="_int32attr"></param>
+      /// <param name="_int64attr"></param>
+      /// <param name="_singleattr"></param>
+      /// <param name="_stringattr"></param>
+      /// <param name="_timeattr"></param>
+      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
+      {
+         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _stringattr, _timeattr);
       }
 
       // Persistent properties

@@ -715,7 +715,7 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: ValueType -->
-        <xsd:attribute name="valueType" type="EnumValueTypes" >
+        <xsd:attribute name="valueType" type="EnumValueType" >
           <xsd:annotation>
             <xsd:documentation>CLR type implementing this enum (usually Int32)</xsd:documentation>
           </xsd:annotation>
@@ -766,6 +766,12 @@
         </xsd:attribute>
         <!-- Property: Name -->
         <xsd:attribute name="name" type="xsd:string" />
+        <!-- Property: Value -->
+        <xsd:attribute name="value" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Optional value for this enum element. Must be in the range of the enum&apos;s ValueType</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1366,8 +1372,8 @@
     </xsd:restriction>
   </xsd:simpleType>
   
-  <!-- Enum EnumValueTypes -->
-  <xsd:simpleType name="EnumValueTypes">
+  <!-- Enum EnumValueType -->
+  <xsd:simpleType name="EnumValueType">
     <xsd:annotation>
       <xsd:documentation>No description available</xsd:documentation>
     </xsd:annotation>

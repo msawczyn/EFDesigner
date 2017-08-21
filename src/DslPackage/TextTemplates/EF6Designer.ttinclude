@@ -58,7 +58,12 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 
       ModelEnumValue[] values = modelEnum.Values.ToArray();
       for (int index = 0; index < values.Length; ++index)
-         Output($"{values[index].Name}{(index < values.Length - 1 ? "," : "")}");
+      {
+         if (string.IsNullOrEmpty(values[index].Value))
+            Output($"{values[index].Name}{(index < values.Length - 1 ? "," : "")}");
+         else
+            Output($"{values[index].Name} = {values[index].Value}{(index < values.Length - 1 ? "," : "")}");
+      }
       Output("}");
 
       EndNamespace(modelEnum.Namespace);

@@ -18,6 +18,9 @@ namespace Testing
    {
       partial void Init();
 
+      /// <summary>
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// </summary>
       protected UParentCollection()
       {
          UChildCollection = new ObservableCollection<UChild>();
@@ -25,12 +28,25 @@ namespace Testing
          Init();
       }
 
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_uchildrequired"></param>
       public UParentCollection(UChild _uchildrequired)
       {
          if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
          UChildRequired = _uchildrequired;
 
          UChildCollection = new ObservableCollection<UChild>();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_uchildrequired"></param>
+      public static UParentCollection Create(UChild _uchildrequired)
+      {
+         return new UParentCollection(_uchildrequired);
       }
 
       // Persistent properties

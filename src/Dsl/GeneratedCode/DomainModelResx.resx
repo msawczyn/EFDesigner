@@ -849,6 +849,14 @@
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.Description" xml:space="preserve">
+    <value>Optional value for this enum element. Must be in the range of the enum&apos;s ValueType</value>
+    <comment>Description for DomainProperty &apos;Value&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.DisplayName" xml:space="preserve">
+    <value>Value</value>
+    <comment>DisplayName for DomainProperty &apos;Value&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>
@@ -1521,29 +1529,29 @@
     <value>No description available</value>
     <comment>Description for EnumerationLiteral &apos;HashSet&apos; on DomainEnumeration &apos;CollectionType&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int16.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int16.DisplayName" xml:space="preserve">
     <value>Int16</value>
-    <comment>Display name for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;EnumValueTypes&apos;</comment>
+    <comment>Display name for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int16.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int16.Description" xml:space="preserve">
     <value>No description available</value>
-    <comment>Description for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;EnumValueTypes&apos;</comment>
+    <comment>Description for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int32.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int32.DisplayName" xml:space="preserve">
     <value>Int32</value>
-    <comment>Display name for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;EnumValueTypes&apos;</comment>
+    <comment>Display name for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int32.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int32.Description" xml:space="preserve">
     <value>No description available</value>
-    <comment>Description for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;EnumValueTypes&apos;</comment>
+    <comment>Description for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int64.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int64.DisplayName" xml:space="preserve">
     <value>Int64</value>
-    <comment>Display name for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;EnumValueTypes&apos;</comment>
+    <comment>Display name for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int64.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int64.Description" xml:space="preserve">
     <value>No description available</value>
-    <comment>Description for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;EnumValueTypes&apos;</comment>
+    <comment>Description for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/CreateDatabaseIfNotExists.DisplayName" xml:space="preserve">
     <value>CreateDatabaseIfNotExists</value>

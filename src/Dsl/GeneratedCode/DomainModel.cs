@@ -171,6 +171,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelEnum), "IsNamespaceTracking", ModelEnum.IsNamespaceTrackingDomainPropertyId, typeof(ModelEnum.IsNamespaceTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "Name", ModelEnum.NameDomainPropertyId, typeof(ModelEnum.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnumValue), "Name", ModelEnumValue.NameDomainPropertyId, typeof(ModelEnumValue.NamePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelEnumValue), "Value", ModelEnumValue.ValueDomainPropertyId, typeof(ModelEnumValue.ValuePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "TargetMultiplicity", Association.TargetMultiplicityDomainPropertyId, typeof(Association.TargetMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "TargetPropertyName", Association.TargetPropertyNameDomainPropertyId, typeof(Association.TargetPropertyNamePropertyHandler)),
@@ -777,29 +778,29 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// DomainEnumeration: EnumValueTypes
+	/// DomainEnumeration: EnumValueType
 	/// No description available
 	/// </summary>
 	[global::System.CLSCompliant(true)]
-	public enum EnumValueTypes
+	public enum EnumValueType
 	{
 		/// <summary>
 		/// Int16
 		/// No description available
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int16.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int16.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Int16,
 		/// <summary>
 		/// Int32
 		/// No description available
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int32.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int32.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Int32,
 		/// <summary>
 		/// Int64
 		/// No description available
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueTypes/Int64.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int64.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Int64,
 	}
 }

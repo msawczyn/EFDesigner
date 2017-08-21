@@ -38,6 +38,15 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError("Enum has no values", "MEENoValues", this);
       }
 
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
+      private void EnumValueInitializationsShouldBeAllOrNothing(ValidationContext context)
+      {
+         if (Values.Any(x => !string.IsNullOrEmpty(x.Value)) && Values.Any(x => string.IsNullOrEmpty(x.Value)))
+            context.LogWarning($"Enum {Name} has some, but not all, values initialized. Please ensure this is what was intended.", "MWPartialEnumValueInitialization", this);
+      }
+
+
       #region Namespace tracking property
 
       private string namespaceStorage;

@@ -18,12 +18,21 @@ namespace Testing
    {
       partial void Init();
 
+      /// <summary>
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// </summary>
       protected UChild()
       {
 
          Init();
       }
 
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_uparentrequired0"></param>
+      /// <param name="_uparentrequired1"></param>
+      /// <param name="_uparentrequired2"></param>
       public UChild(UParentRequired _uparentrequired0, UParentRequired _uparentrequired1, UParentRequired _uparentrequired2)
       {
          if (_uparentrequired0 == null) throw new ArgumentNullException(nameof(_uparentrequired0));
@@ -35,6 +44,17 @@ namespace Testing
          if (_uparentrequired2 == null) throw new ArgumentNullException(nameof(_uparentrequired2));
          _uparentrequired2.UChildOptional = this;
 
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_uparentrequired0"></param>
+      /// <param name="_uparentrequired1"></param>
+      /// <param name="_uparentrequired2"></param>
+      public static UChild Create(UParentRequired _uparentrequired0, UParentRequired _uparentrequired1, UParentRequired _uparentrequired2)
+      {
+         return new UChild(_uparentrequired0, _uparentrequired1, _uparentrequired2);
       }
 
       // Persistent properties

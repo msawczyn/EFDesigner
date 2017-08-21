@@ -404,7 +404,7 @@
       <Properties>
         <DomainProperty Id="123f14ef-96ff-4a05-9440-888c43c44e36" Description="CLR type implementing this enum (usually Int32)" Name="ValueType" DisplayName="Value Type" DefaultValue="Int32">
           <Type>
-            <DomainEnumerationMoniker Name="EnumValueTypes" />
+            <DomainEnumerationMoniker Name="EnumValueType" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="14138023-9e10-4ffd-848b-d77ce3de3cfc" Description="Overrides default namespace" Name="Namespace" DisplayName="Namespace" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
@@ -443,6 +443,11 @@
       </BaseClass>
       <Properties>
         <DomainProperty Id="f67322ba-10ef-44d8-bd5f-b54955cb70ff" Description="" Name="Name" DisplayName="Name" DefaultValue="" IsElementName="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="23fd110b-aff0-4abd-87f6-c38ab7ba3f19" Description="Optional value for this enum element. Must be in the range of the enum's ValueType" Name="Value" DisplayName="Value">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -809,7 +814,7 @@
         <EnumerationLiteral Description="No description available" Name="HashSet" Value="" />
       </Literals>
     </DomainEnumeration>
-    <DomainEnumeration Name="EnumValueTypes" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
+    <DomainEnumeration Name="EnumValueType" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
       <Literals>
         <EnumerationLiteral Description="No description available" Name="Int16" Value="" />
         <EnumerationLiteral Description="No description available" Name="Int32" Value="" />
@@ -1411,6 +1416,9 @@
           <XmlPropertyData XmlName="name">
             <DomainPropertyMoniker Name="ModelEnumValue/Name" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="value">
+            <DomainPropertyMoniker Name="ModelEnumValue/Value" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelEnumHasValues" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelEnumHasValuesMoniker" ElementName="modelEnumHasValues" MonikerTypeName="ModelEnumHasValuesMoniker">
@@ -1608,7 +1616,7 @@
           </PropertyDisplayed>
         </DecoratorMap>
         <CompartmentShapeMoniker Name="EnumShape" />
-        <CompartmentMap>
+        <CompartmentMap DisplaysCustomString="true">
           <CompartmentMoniker Name="EnumShape/ValuesCompartment" />
           <ElementsDisplayed>
             <DomainPath>ModelEnumHasValues.Values/!Value</DomainPath>

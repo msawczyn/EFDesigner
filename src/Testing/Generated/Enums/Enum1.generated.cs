@@ -13,8 +13,8 @@ namespace Testing
 {
    public enum Enum1 : Int32
    {
-      A,
-      B,
+      D = 1,
+      B = 3,
       C
    }
 }

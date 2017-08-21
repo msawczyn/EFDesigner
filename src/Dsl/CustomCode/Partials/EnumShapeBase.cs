@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -29,6 +30,17 @@ namespace Sawczyn.EFDesigner.EFModel
             Show();
          else
             Hide();
+      }
+
+      static string GetDisplayPropertyFromModelEnumForValuesCompartment(ModelElement element)
+      {
+         ModelEnumValue enumValue = element as ModelEnumValue;
+         if (enumValue == null)
+            return "?";
+
+         return !string.IsNullOrWhiteSpace(enumValue.Value)
+                   ? $"{enumValue.Name} = {enumValue.Value}"
+                   : enumValue.Name;
       }
    }
 }

@@ -77,6 +77,7 @@ namespace Sawczyn.EFDesigner.EFModel
             case "Byte":
                return byte.TryParse(InitialValue, out byte _byte);
             case "DateTime":
+               if (InitialValue == "DateTime.Now") return true;
                return DateTime.TryParse(InitialValue, out DateTime _dateTime);
             case "DateTimeOffset":
                return DateTimeOffset.TryParse(InitialValue, out DateTimeOffset _dateTimeOffset);
@@ -103,9 +104,18 @@ namespace Sawczyn.EFDesigner.EFModel
                                              CultureInfo.InvariantCulture,
                                              DateTimeStyles.None,
                                              out DateTime _time);
+            default:
+               if (InitialValue.Contains("."))
+               {
+                  string[] parts = InitialValue.Split('.');
+                  ModelEnum enumType = ModelClass.ModelRoot.Enums.FirstOrDefault(x => x.Name == parts[0]);
+                  return enumType != null && parts.Length == 2 && enumType.Values.Any(x => x.Name == parts[1]);
+               }
+
+               break;
          }
 
-         return true;
+         return false;
       }
 #pragma warning restore 168
 
