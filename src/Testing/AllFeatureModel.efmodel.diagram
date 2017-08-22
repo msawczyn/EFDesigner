@@ -20,10 +20,10 @@
         <elementListCompartment Id="259d8e6c-be2b-4b0a-ac39-d9fbca1f638b" absoluteBounds="1.515, 2.435, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f9a6c404-1fc6-4f49-84d6-1a5c751b11b4" absoluteBounds="8.125, 3.125, 1.5, 0.85169108072916666" fillColor="Green" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+    <classShape Id="f9a6c404-1fc6-4f49-84d6-1a5c751b11b4" absoluteBounds="8.125, 3.125, 2.75, 0.85169108072916666" fillColor="Green" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
       <modelClassMoniker Id="b4d4c136-e081-4fbd-83e2-0c563649e4fb" />
       <nestedChildShapes>
-        <elementListCompartment Id="adac0290-0405-4633-b7a8-ecf54f4b9c5f" absoluteBounds="8.14, 3.435, 1.4700000000000002, 0.44169108072916663" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="adac0290-0405-4633-b7a8-ecf54f4b9c5f" absoluteBounds="8.14, 3.435, 2.7199999999999998, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="4e08597b-0fa5-4ad9-9e4e-e9ef796ae57c" absoluteBounds="1.5, 4.125, 1.5, 0.85169108072916666" fillColor="Green" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -86,7 +86,7 @@
         <classShapeMoniker Id="496181c5-d129-4345-a19d-c4c1e992dc15" />
       </nodes>
     </unidirectionalConnector>
-    <unidirectionalConnector Id="3d16b688-eaee-4f36-9874-12cab7da9283" edgePoints="[(8.125 : 3.77951349894206); (5.75 : 3.77951349894206)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <unidirectionalConnector Id="3d16b688-eaee-4f36-9874-12cab7da9283" edgePoints="[(8.125 : 3.80289090474446); (5.75 : 3.80289090474446)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Black" dashStyle="Solid">
       <unidirectionalAssociationMoniker Id="f3ca8a28-1de6-4ab2-b6a7-c9b23b4057e0" />
       <relativeChildShapes />
       <nodes>
@@ -94,7 +94,7 @@
         <classShapeMoniker Id="496181c5-d129-4345-a19d-c4c1e992dc15" />
       </nodes>
     </unidirectionalConnector>
-    <unidirectionalConnector Id="987d4983-780e-434c-846d-0dcad66163d4" edgePoints="[(8.125 : 3.50409072875976); (5.75 : 3.50409072875976)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <unidirectionalConnector Id="987d4983-780e-434c-846d-0dcad66163d4" edgePoints="[(8.125 : 3.52746813456217); (5.75 : 3.52746813456217)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Black" dashStyle="Solid">
       <unidirectionalAssociationMoniker Id="8b9e764b-578f-4259-9a4c-2ae29fc34e6e" />
       <relativeChildShapes />
       <nodes>
@@ -102,7 +102,7 @@
         <classShapeMoniker Id="496181c5-d129-4345-a19d-c4c1e992dc15" />
       </nodes>
     </unidirectionalConnector>
-    <unidirectionalConnector Id="972c88fd-d22c-47e6-9523-67970a701891" edgePoints="[(8.125 : 3.25204536437988); (5.75 : 3.25204536437988)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Red" dashStyle="Dash">
+    <unidirectionalConnector Id="972c88fd-d22c-47e6-9523-67970a701891" edgePoints="[(8.125 : 3.26373406728109); (5.75 : 3.26373406728109)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Red" dashStyle="Dash">
       <unidirectionalAssociationMoniker Id="33be5c3f-5e9f-4bc2-a78a-4c740b7f774d" />
       <relativeChildShapes />
       <nodes>
@@ -243,7 +243,7 @@
         <elementListCompartment Id="ece651f7-20de-4026-acb9-0378f78dccd4" absoluteBounds="8.14, 1.435, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="4aa27c04-9e6a-495d-9b96-752d7db7c199" edgePoints="[(8.875 : 1.97669108072917); (8.875 : 3.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <generalizationConnector Id="4aa27c04-9e6a-495d-9b96-752d7db7c199" edgePoints="[(8.875 : 1.97669108072917); (8.875 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <generalizationMoniker Id="44269a1e-892e-497f-bd78-4fc9fb139ead" />
       <nodes>
         <classShapeMoniker Id="9885f002-9f44-4b19-a3cd-2e7cd69a80a2" />

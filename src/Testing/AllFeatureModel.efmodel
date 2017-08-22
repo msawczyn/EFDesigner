@@ -68,7 +68,7 @@
         </unidirectionalAssociation>
       </unidirectionalTargets>
       <attributes>
-        <modelAttribute Id="b0fcb235-4d2a-4185-a6dd-3624616bb1cd" indexed="false" indexedUnique="false" stringType="None" name="PropertyInChild" />
+        <modelAttribute Id="b0fcb235-4d2a-4185-a6dd-3624616bb1cd" initialValue="hello" indexed="false" indexedUnique="false" stringType="None" name="PropertyInChild" />
       </attributes>
     </modelClass>
     <modelClass Id="a2c26bfb-0eec-4ca2-8eb2-fe6d0dde4116" tableName="UParentCollections" databaseSchema="dbo" namespace="Testing" dbSetName="UParentCollections" name="UParentCollection">

@@ -77,7 +77,7 @@ namespace Sawczyn.EFDesigner.EFModel
             case "Byte":
                return byte.TryParse(InitialValue, out byte _byte);
             case "DateTime":
-               if (InitialValue == "DateTime.Now") return true;
+               if (InitialValue?.Trim() == "DateTime.Now") return true;
                return DateTime.TryParse(InitialValue, out DateTime _dateTime);
             case "DateTimeOffset":
                return DateTimeOffset.TryParse(InitialValue, out DateTimeOffset _dateTimeOffset);
@@ -97,6 +97,8 @@ namespace Sawczyn.EFDesigner.EFModel
             //   return sbyte.TryParse(InitialValue, out sbyte _sbyte);
             case "Single":
                return float.TryParse(InitialValue, out float _single);
+            case "String":
+               return true;
             case "Time":
                return DateTime.TryParseExact(
                                              InitialValue,
@@ -236,28 +238,39 @@ namespace Sawczyn.EFDesigner.EFModel
 
       // Note: gave some thought to making this be an LALR parser, but that's WAY overkill for what needs done here. Regex is good enough.
 
-      private const string NAME = "(?<name>[A-Za-z_][A-za-z0-9_]*)";
-      private const string TYPE = "(?<type>[A-Za-z_][A-za-z0-9_]*)";
-      private const string LENGTH = @"(?<length>\d+)";
-      private const string NULLABLE = @"(?<nullable>\?)";
+      private const string NAME        = "(?<name>[A-Za-z_][A-za-z0-9_]*)";
+      private const string TYPE        = "(?<type>[A-Za-z_][A-za-z0-9_]*)";
+      private const string LENGTH      = @"(?<length>\d+)";
+      private const string NULLABLE    = @"(?<nullable>\?)";
       private const string STRING_TYPE = "(?<type>[Ss]tring)";
-      private const string VISIBILITY = @"(?<visibility>public\s+|protected\s+)";
-      private const string WS = @"\s";
+      private const string VISIBILITY  = @"(?<visibility>public\s+|protected\s+)";
+      private const string INITIAL     = @"(=\s*(?<initialValue>.+))";
+      private const string WS          = @"\s*";
 
-      private static readonly Regex NameOnly = new Regex($"^{WS}*{VISIBILITY}?{NAME}{WS}*$", RegexOptions.Compiled);
-      private static readonly Regex StringAndLengthAndName = new Regex($@"^{WS}*{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]{WS}+{NAME}{WS}*;?{WS}*$|^{WS}*{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\({LENGTH}\){WS}+{NAME}{WS}*;?{WS}*$", RegexOptions.Compiled);
-      private static readonly Regex NameAndStringAndLength = new Regex($@"^{WS}*{VISIBILITY}?{NAME}{WS}*:{WS}*{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]{WS}*;?{WS}*$|^{WS}*{VISIBILITY}?{NAME}{WS}*:{WS}*{STRING_TYPE}{NULLABLE}?\({LENGTH}\){WS}*;?{WS}*$", RegexOptions.Compiled);
-      private static readonly Regex TypeAndName = new Regex($"^{WS}*{VISIBILITY}?{TYPE}{NULLABLE}?{WS}+{NAME}{WS}*;?{WS}*$", RegexOptions.Compiled);
-      private static readonly Regex NameAndType = new Regex($"^{WS}*{VISIBILITY}?{NAME}{WS}*:{WS}*{TYPE}{NULLABLE}?{WS}*;?{WS}*$", RegexOptions.Compiled);
+      //private static readonly Regex NameOnly               = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?$", RegexOptions.Compiled);
+      //private static readonly Regex StringAndLengthAndName = new Regex($@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" + 
+      //                                                                 $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$", RegexOptions.Compiled);
+      //private static readonly Regex NameAndStringAndLength = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]{WS}{INITIAL}?$|" + 
+      //                                                                 $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\({LENGTH}\){WS}{INITIAL}?$", RegexOptions.Compiled);
+      //private static readonly Regex TypeAndName            = new Regex($@"^{WS}{VISIBILITY}?{TYPE}{NULLABLE}?\s+{NAME}{WS}{INITIAL}?$", RegexOptions.Compiled);
+      //private static readonly Regex NameAndType            = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{NULLABLE}?{WS}{INITIAL}?$", RegexOptions.Compiled);
 
-      private static readonly Regex[] ParseSequence =
-      {
-         NameOnly,
-         StringAndLengthAndName,
-         NameAndStringAndLength,
-         TypeAndName,
-         NameAndType
-      };
+      //private static readonly Regex[] ParseSequence =
+      //{
+      //   NameOnly,
+      //   StringAndLengthAndName,
+      //   NameAndStringAndLength,
+      //   TypeAndName,
+      //   NameAndType
+      //};
+
+      private static readonly Regex Pattern = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]{WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\({LENGTH}\){WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{TYPE}{NULLABLE}?\s+{NAME}{WS}{INITIAL}?;?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{NULLABLE}?{WS}{INITIAL}?$", RegexOptions.Compiled);
 
       public class ParseResult
       {
@@ -266,13 +279,16 @@ namespace Sawczyn.EFDesigner.EFModel
          public string Type { get; set; }
          public bool? Required { get; set; }
          public int? MaxLength { get; set; }
+         public string InitialValue { get; set; }
       }
 
       public static ParseResult Parse(ModelRoot modelRoot, string input)
       {
-         ParseResult result = new ParseResult();
-         foreach (Match match in ParseSequence.Select(regex => regex.Match(input)).Where(match => match.Success))
+         Match match = Pattern.Match(input);
+         if (match.Success)
          {
+            ParseResult result = new ParseResult();
+
             if (match.Groups["visibility"].Success)
                result.SetterVisibility = match.Groups["visibility"].Value.Trim() == "protected" ? SetterAccessModifier.Protected : SetterAccessModifier.Public;
 
@@ -295,6 +311,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (result.Type == "String" && match.Groups["length"].Success && !string.IsNullOrWhiteSpace(match.Groups["length"].Value.Trim()))
                result.MaxLength = int.Parse(match.Groups["length"].Value.Trim());
+
+            if (match.Groups["initialValue"].Success)
+               result.InitialValue = match.Groups["initialValue"].Value.Trim();
 
             return result;
          }

@@ -8,7 +8,14 @@ namespace Sawczyn.EFDesigner.EFModel
       private static string GetDisplayPropertyFromModelClassForAttributesCompartment(ModelElement element)
       {
          ModelAttribute attribute = (ModelAttribute)element;
-         return $"{attribute.Name} : {attribute.Type}{(attribute.Required ? "" : "?")}{(attribute.MaxLength > 0 ? "[" + attribute.MaxLength + "]" : "")}";
+
+         string nullable = attribute.Required ? "" : "?";
+         string name = attribute.Name;
+         string type = attribute.Type;
+         string length = attribute.MaxLength > 0 ? $"[{attribute.MaxLength}]" : "";
+         string initial = !string.IsNullOrEmpty(attribute.InitialValue) ? " = " + attribute.InitialValue : "";
+
+         return $"{name} : {type}{nullable}{length}{initial}";
       }
 
       internal sealed partial class FillColorPropertyHandler

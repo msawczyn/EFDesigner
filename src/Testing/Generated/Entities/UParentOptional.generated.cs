@@ -23,6 +23,7 @@ namespace Testing
       /// </summary>
       protected UParentOptional(): base()
       {
+         PropertyInChild = "hello";
          UChildCollection = new ObservableCollection<UChild>();
 
          Init();
@@ -51,6 +52,9 @@ namespace Testing
 
       // Persistent properties
 
+      /// <summary>
+      /// Default value = "hello"
+      /// </summary>
       public string PropertyInChild { get; set; }
 
       // Persistent navigation properties
