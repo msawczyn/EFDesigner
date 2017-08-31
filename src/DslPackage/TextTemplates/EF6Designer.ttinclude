@@ -836,8 +836,8 @@ void WriteDbContext(ModelRoot modelRoot)
                {
                   segments.Add("Map(x => { " +
                      $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + 
-                     $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                     $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
                      "})");
                }
                break;
@@ -924,8 +924,8 @@ void WriteDbContext(ModelRoot modelRoot)
                {
                   segments.Add("Map(x => { " +
                      $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + 
-                     $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                     $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                     $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
                      "})");
                }
                break;
