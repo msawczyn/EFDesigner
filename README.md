@@ -1,5 +1,5 @@
 # Entity Framework Designer
-An Entity Framework design surface and code generation for EF6, Core and beyond.
+Entity Framework visual design surface and code-first code generation for EF6, Core and beyond.
 
 - [About](#about)
 - [Installation](#installation)
