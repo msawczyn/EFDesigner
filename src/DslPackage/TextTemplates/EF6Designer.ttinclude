@@ -389,7 +389,7 @@ void WritePersistentProperties(ModelClass modelClass)
 
       if (!modelAttribute.AutoProperty)
       {
-         Output($"public {modelAttribute.CLRType}{nullable} _{modelAttribute.Name} {{ get; set; }}");
+         Output($"private {modelAttribute.CLRType}{nullable} _{modelAttribute.Name};");
          Output($"partial void Set{modelAttribute.Name}({modelAttribute.CLRType}{nullable} oldValue, ref {modelAttribute.CLRType}{nullable} newValue);");
          Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.CLRType}{nullable} result);");
          NL();
@@ -407,12 +407,10 @@ void WritePersistentProperties(ModelClass modelClass)
 
       string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
 
-
       if (modelAttribute.AutoProperty)
          Output($"public {modelAttribute.CLRType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
       else
       {
-         Output("[System.ComponentModel.DataAnnotations.Schema.NotMapped]");
          Output($"public {modelAttribute.CLRType}{nullable} {modelAttribute.Name}");
          Output("{");
          Output($"get {{ {modelAttribute.CLRType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
@@ -774,14 +772,11 @@ void WriteDbContext(ModelRoot modelRoot)
             segments.Add("IsRowVersion()");
          if (modelAttribute.IsIdentity)
             segments.Add("HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)");
-         if (!modelAttribute.AutoProperty)
-            segments.Add($@"HasColumnName(""{modelAttribute.Name}"")");
 
          if (segments.Any())
          {
-            string propertyName = modelAttribute.AutoProperty ? modelAttribute.Name : "_" + modelAttribute.Name;
             segments.Insert(0, $"modelBuilder.Entity<{modelClass.Name}>()");
-            segments.Insert(1, $"Property(t => t.{propertyName})");
+            segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
             if (modelRoot.ChopMethodChains)
                OutputChopped(segments);
