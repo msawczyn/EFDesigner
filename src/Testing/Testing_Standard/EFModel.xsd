@@ -219,36 +219,6 @@
             <xsd:documentation>Will chop generated code method chains</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: InheritanceStrategy -->
-        <xsd:attribute name="inheritanceStrategy" type="CodeStrategy" >
-          <xsd:annotation>
-            <xsd:documentation>How tables will be created/used to handle inheritance</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: DefaultCollectionClass -->
-        <xsd:attribute name="defaultCollectionClass" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>The type of container generated to represent associations if not overridden. Must implement ICollection&lt;T&gt;.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: ProxyGenerationEnabled -->
-        <xsd:attribute name="proxyGenerationEnabled" type="xsd:boolean" >
-          <xsd:annotation>
-            <xsd:documentation>If true, context will generate proxies for POCO entities</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: TransformOnSave -->
-        <xsd:attribute name="transformOnSave" type="xsd:boolean" >
-          <xsd:annotation>
-            <xsd:documentation>If true, will run Transform All Templates when this model is saved</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: DefaultIdentityType -->
-        <xsd:attribute name="defaultIdentityType" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Default type for ID properties in new classes</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -400,12 +370,8 @@
         </xsd:attribute>
         <!-- Property: Name -->
         <xsd:attribute name="name" type="xsd:string" />
-        <!-- Property: ImplementNotify -->
-        <xsd:attribute name="implementNotify" type="xsd:boolean" >
-          <xsd:annotation>
-            <xsd:documentation>Should this class implement INotifyPropertyChanged?</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
+        <!-- Property: BaseClass -->
+        <xsd:attribute name="baseClass" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -543,7 +509,7 @@
         <!-- Property: AutoProperty -->
         <xsd:attribute name="autoProperty" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+            <xsd:documentation>If true, will generate as auto-property. If false, will generate as property with backing store and ability to add logic in getter and setter.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -721,7 +687,7 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: ValueType -->
-        <xsd:attribute name="valueType" type="EnumValueType" >
+        <xsd:attribute name="valueType" type="EnumValueTypes" >
           <xsd:annotation>
             <xsd:documentation>CLR type implementing this enum (usually Int32)</xsd:documentation>
           </xsd:annotation>
@@ -772,12 +738,6 @@
         </xsd:attribute>
         <!-- Property: Name -->
         <xsd:attribute name="name" type="xsd:string" />
-        <!-- Property: Value -->
-        <xsd:attribute name="value" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Optional value for this enum element. Must be in the range of the enum&apos;s ValueType</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -853,9 +813,9 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: CollectionClass -->
-        <xsd:attribute name="collectionClass" type="xsd:string" >
+        <xsd:attribute name="collectionClass" type="CollectionType" >
           <xsd:annotation>
-            <xsd:documentation>Class used to instanciate association properties. Implements ICollection&lt;&gt;</xsd:documentation>
+            <xsd:documentation>Class used to instanciate association properties. Must implement ICollection&lt;&gt;</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: TargetDescription -->
@@ -874,30 +834,6 @@
         <xsd:attribute name="summary" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Brief code documentation</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: IsCollectionClassTracking -->
-        <xsd:attribute name="isCollectionClassTracking" type="xsd:boolean" >
-          <xsd:annotation>
-            <xsd:documentation>If true, Association.CollectionClass tracks ModelRoot.DefaultCollectionClass</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: SourceRole -->
-        <xsd:attribute name="sourceRole" type="EndpointRole" >
-          <xsd:annotation>
-            <xsd:documentation>Which object(s) in this association is/are the principal object(s)?</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: TargetRole -->
-        <xsd:attribute name="targetRole" type="EndpointRole" >
-          <xsd:annotation>
-            <xsd:documentation>Which object(s) in this association is/are the dependent object(s)?</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: ForeignKeyLocation -->
-        <xsd:attribute name="foreignKeyLocation" type="ForeignKeyOwner" >
-          <xsd:annotation>
-            <xsd:documentation>Which class should hold the foreign key for this relationship</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1282,6 +1218,18 @@
     </xsd:complexContent>
   </xsd:complexType>
   
+  <!-- Enum AccessModifier -->
+  <xsd:simpleType name="AccessModifier">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Public"/>
+      <xsd:enumeration value="Assembly"/>
+      <xsd:enumeration value="Private"/>
+      <xsd:enumeration value="Family"/>
+      <xsd:enumeration value="FamilyOrAssembly"/>
+      <xsd:enumeration value="FamilyAndAssembly"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
   <!-- Enum TypeAccessModifier -->
   <xsd:simpleType name="TypeAccessModifier">
     <xsd:restriction base="xsd:string">
@@ -1315,6 +1263,15 @@
       <xsd:enumeration value="ZeroMany"/>
       <xsd:enumeration value="One"/>
       <xsd:enumeration value="ZeroOne"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum OperationConcurrency -->
+  <xsd:simpleType name="OperationConcurrency">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Sequential"/>
+      <xsd:enumeration value="Guarded"/>
+      <xsd:enumeration value="Concurrent"/>
     </xsd:restriction>
   </xsd:simpleType>
   
@@ -1378,8 +1335,8 @@
     </xsd:restriction>
   </xsd:simpleType>
   
-  <!-- Enum EnumValueType -->
-  <xsd:simpleType name="EnumValueType">
+  <!-- Enum EnumValueTypes -->
+  <xsd:simpleType name="EnumValueTypes">
     <xsd:annotation>
       <xsd:documentation>No description available</xsd:documentation>
     </xsd:annotation>
@@ -1598,84 +1555,6 @@
       <xsd:enumeration value="Protected">
         <xsd:annotation>
           <xsd:documentation>Property is protected</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Internal">
-        <xsd:annotation>
-          <xsd:documentation>Property is internal</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-    </xsd:restriction>
-  </xsd:simpleType>
-  
-  <!-- Enum CodeStrategy -->
-  <xsd:simpleType name="CodeStrategy">
-    <xsd:annotation>
-      <xsd:documentation>Which database strategy to use in code generation</xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="TablePerType">
-        <xsd:annotation>
-          <xsd:documentation>A table will be used for every class</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="TablePerConcreteType">
-        <xsd:annotation>
-          <xsd:documentation>Only concrete (not abstract) classes will have tables</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="TablePerHierarchy">
-        <xsd:annotation>
-          <xsd:documentation>A table will be used for every inheritance chain</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-    </xsd:restriction>
-  </xsd:simpleType>
-  
-  <!-- Enum EndpointRole -->
-  <xsd:simpleType name="EndpointRole">
-    <xsd:annotation>
-      <xsd:documentation>Role a class plays on an association</xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Dependent">
-        <xsd:annotation>
-          <xsd:documentation>Class is the dependent part of the association</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Principal">
-        <xsd:annotation>
-          <xsd:documentation>Class is the controlling (i.e, principal) part of the association</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="NotApplicable"/>
-      <xsd:enumeration value="NotSet">
-        <xsd:annotation>
-          <xsd:documentation>Dependent/Principal roles are design decisions and have not been set</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-    </xsd:restriction>
-  </xsd:simpleType>
-  
-  <!-- Enum ForeignKeyOwner -->
-  <xsd:simpleType name="ForeignKeyOwner">
-    <xsd:annotation>
-      <xsd:documentation>The class that contains the foreign key in a relationship</xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="None">
-        <xsd:annotation>
-          <xsd:documentation>No foreign key should be generated</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Source">
-        <xsd:annotation>
-          <xsd:documentation>Foreign key is contained in the Source class</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Target">
-        <xsd:annotation>
-          <xsd:documentation>Foreign key is contained in the Target class</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

@@ -111,7 +111,7 @@ namespace Testing
          modelBuilder.Entity<BChild>().HasRequired(x => x.BParentRequired_1).WithRequiredPrincipal(x => x.BChildRequired).Map(x => x.MapKey("BParentRequired_1_Id")).WillCascadeOnDelete();
          modelBuilder.Entity<BChild>().HasRequired(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentRequired_2_Id")).WillCascadeOnDelete();
          modelBuilder.Entity<BChild>().HasMany(x => x.BParentCollection).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired_Id")).WillCascadeOnDelete();
-         modelBuilder.Entity<BChild>().HasMany(x => x.BParentCollection_1).WithMany(x => x.BChildCollection).Map(x => { x.ToTable("BParentCollection_1_x_BChildCollection"); x.MapLeftKey("BChild_Id"); x.MapRightKey("BParentCollection_Id"); });
+         modelBuilder.Entity<BChild>().HasMany(x => x.BParentCollection_1).WithMany(x => x.BChildCollection).Map(x => { x.ToTable("BParentCollection_1_x_BChildCollection"); x.MapLeftKey("BParentCollection_Id"); x.MapRightKey("BChild_Id"); });
          modelBuilder.Entity<BChild>().HasMany(x => x.BParentCollection_2).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BChildOptional_Id"));
          modelBuilder.Entity<BChild>().HasOptional(x => x.BParentOptional).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired1_Id")).WillCascadeOnDelete();
          modelBuilder.Entity<BChild>().HasOptional(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentOptional_1_Id"));
@@ -148,7 +148,7 @@ namespace Testing
          modelBuilder.Entity<UParentCollection>().ToTable("UParentCollections").HasKey(t => t.Id);
          modelBuilder.Entity<UParentCollection>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<UParentCollection>().HasRequired(x => x.UChildRequired).WithMany().Map(x => x.MapKey("UChildRequired_Id")).WillCascadeOnDelete();
-         modelBuilder.Entity<UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UChild_Id"); x.MapRightKey("UParentCollection_Id"); });
+         modelBuilder.Entity<UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
          modelBuilder.Entity<UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
 
          modelBuilder.Entity<UParentOptional>().HasKey(t => t.Id);

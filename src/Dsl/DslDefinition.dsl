@@ -153,6 +153,18 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="07688b4c-ba00-4e51-9abd-7353a4df233d" Description="Default type for ID properties in new classes" Name="DefaultIdentityType" DisplayName="Default Identity Type" DefaultValue="Int32" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(IdentityAttributeTypeTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1186,6 +1198,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="transformOnSave">
             <DomainPropertyMoniker Name="ModelRoot/TransformOnSave" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="defaultIdentityType">
+            <DomainPropertyMoniker Name="ModelRoot/DefaultIdentityType" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -17,8 +17,6 @@ T4:  Use HTML5Type in code generation
 DSL: Add column name option for property, default to property name
 T4:  Generate HasColumnName(name) for property if overrides
 
-DSL: Add Default ID Type (int, guid, etc.) to ModelRoot
-
 DSL: Add OutputDirectory to Classes, Enums
 T4:  Honor Class/Enum OutputDirectory override
 

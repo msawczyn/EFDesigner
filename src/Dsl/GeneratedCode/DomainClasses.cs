@@ -2036,6 +2036,96 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region DefaultIdentityType domain property code
+		
+		/// <summary>
+		/// DefaultIdentityType domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DefaultIdentityTypeDomainPropertyId = new global::System.Guid(0x07688b4c, 0xba00, 0x4e51, 0x9a, 0xbd, 0x73, 0x53, 0xa4, 0xdf, 0x23, 0x3d);
+		
+		/// <summary>
+		/// Storage for DefaultIdentityType
+		/// </summary>
+		private global::System.String defaultIdentityTypePropertyStorage = "Int32";
+		
+		/// <summary>
+		/// Gets or sets the value of DefaultIdentityType domain property.
+		/// Default type for ID properties in new classes
+		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(IdentityAttributeTypeTypeConverter))]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("Int32")]
+		[DslModeling::DomainObjectId("07688b4c-ba00-4e51-9abd-7353a4df233d")]
+		public global::System.String DefaultIdentityType
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return defaultIdentityTypePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DefaultIdentityTypePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DefaultIdentityType domain property.
+		/// </summary>
+		internal sealed partial class DefaultIdentityTypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DefaultIdentityTypePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DefaultIdentityType domain property value handler.
+			/// </summary>
+			public static readonly DefaultIdentityTypePropertyHandler Instance = new DefaultIdentityTypePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DefaultIdentityType domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DefaultIdentityTypeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.defaultIdentityTypePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.defaultIdentityTypePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

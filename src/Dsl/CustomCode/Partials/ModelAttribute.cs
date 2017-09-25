@@ -247,23 +247,6 @@ namespace Sawczyn.EFDesigner.EFModel
       private const string INITIAL     = @"(=\s*(?<initialValue>.+))";
       private const string WS          = @"\s*";
 
-      //private static readonly Regex NameOnly               = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?$", RegexOptions.Compiled);
-      //private static readonly Regex StringAndLengthAndName = new Regex($@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" + 
-      //                                                                 $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$", RegexOptions.Compiled);
-      //private static readonly Regex NameAndStringAndLength = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]{WS}{INITIAL}?$|" + 
-      //                                                                 $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\({LENGTH}\){WS}{INITIAL}?$", RegexOptions.Compiled);
-      //private static readonly Regex TypeAndName            = new Regex($@"^{WS}{VISIBILITY}?{TYPE}{NULLABLE}?\s+{NAME}{WS}{INITIAL}?$", RegexOptions.Compiled);
-      //private static readonly Regex NameAndType            = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{NULLABLE}?{WS}{INITIAL}?$", RegexOptions.Compiled);
-
-      //private static readonly Regex[] ParseSequence =
-      //{
-      //   NameOnly,
-      //   StringAndLengthAndName,
-      //   NameAndStringAndLength,
-      //   TypeAndName,
-      //   NameAndType
-      //};
-
       private static readonly Regex Pattern = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?$|" +
                                                         $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" +
                                                         $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$|" +
@@ -308,6 +291,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (match.Groups["nullable"].Success)
                result.Required = string.IsNullOrEmpty(match.Groups["nullable"].Value.Trim());
+            else
+               result.Required = true;
 
             if (result.Type == "String" && match.Groups["length"].Success && !string.IsNullOrWhiteSpace(match.Groups["length"].Value.Trim()))
                result.MaxLength = int.Parse(match.Groups["length"].Value.Trim());

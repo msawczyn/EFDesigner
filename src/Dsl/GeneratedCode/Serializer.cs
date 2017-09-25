@@ -1006,6 +1006,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// DefaultIdentityType
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDefaultIdentityType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "defaultIdentityType");
+				if (attribDefaultIdentityType != null)
+				{
+					global::System.String valueOfDefaultIdentityType;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDefaultIdentityType, out valueOfDefaultIdentityType))
+					{
+						instanceOfModelRoot.DefaultIdentityType = valueOfDefaultIdentityType;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "defaultIdentityType", typeof(global::System.String), attribDefaultIdentityType);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1883,6 +1900,18 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "transformOnSave", serializedPropValue);
+					}
+				}
+			}
+			// DefaultIdentityType
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.DefaultIdentityType;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "Int32") != 0))
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "defaultIdentityType", propValue);
 					}
 				}
 			}
