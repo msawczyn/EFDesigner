@@ -22,6 +22,10 @@ DSL: Add Default ID Type (int, guid, etc.) to ModelRoot
 DSL: Add OutputDirectory to Classes, Enums
 T4:  Honor Class/Enum OutputDirectory override
 
+T4: Generate connection string in api.config
+
+T4: DatabaseInitializer and MigrationConfiguration should be internal?
+
 ===============================================================
 Extension: Add DeleteType enum to ModelClass (soft, hard)
 T4:  Implement soft delete where marked in model
