@@ -115,6 +115,7 @@
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomCode\WizardImplementation.cs" />
+    <Compile Include="TextTemplates\Class1.cs" />
     <Content Include="Microsoft.Data.ConnectionUI.Dialog.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
