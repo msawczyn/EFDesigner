@@ -1,31 +1,20 @@
-﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" 
-             debug="true"
-             hostSpecific="true" 
-             language="C#" 
-             compilerOptions="/langversion:latest"
-#><#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true"   
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true"
+             hostSpecific="true" language="C#" compilerOptions="/langversion:latest"#>
+<#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" #>  
+<#@ assembly name="System.Data.Entity.Design.dll" 
 #><#@ assembly name="EnvDTE"
-#><#@ assembly name="System.Core"
-#><#@ assembly name="System.Data.Entity.Design.dll" 
-#><#@ assembly name="System.Data.Linq"
-#><#@ assembly name="System.Xml"
-#><#@ assembly name="System.Xml.Linq"
-#><#@ import namespace="EnvDTE"
-#><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
-#><#@ import namespace="Sawczyn.EFDesigner.EFModel" 
-#><#@ import namespace="System" 
-#><#@ import namespace="System.Collections.Generic"
-#><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
-#><#@ import namespace="System.Globalization" 
-#><#@ import namespace="System.IO"
-#><#@ import namespace="System.Linq" 
-#><#@ import namespace="System.Text"
+#><#@ include file="MultipleOutputHelper.ttinclude" once="true"
 #><#@ include file="VSIntegration.ttinclude" once="true"
+#><#@ include file="EFDesigner.ttinclude" once="true"
 #><#@ include file="EF6Designer.ttinclude" once="true"
 #><#@ include file="EFCoreDesigner.ttinclude" once="true"
-#><#@ include file="MultipleOutputHelper.ttinclude" once="true"
-#><#@ output extension=".cs" #> 
-<#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='AllFeatureModel.efmodel'"  
+#><#@ output extension=".cs" 
+#><#@ import namespace="System.Linq" 
+#><#@ import namespace="System" 
+#><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
+#><#@ import namespace="System.Globalization" 
+#><#@ import namespace="Sawczyn.EFDesigner.EFModel" 
+#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='AllFeatureModel.efmodel'"  
 #><#
    Manager manager = Manager.Create(Host, GenerationEnvironment);
    manager.FileNameMarker = ModelRoot.FileNameMarker;
@@ -46,10 +35,10 @@
       switch (ModelRoot.EntityFrameworkVersion)
       {
          case EFVersion.EF6:
-            EF6.GenerateEF6(manager, this.ModelRoot);
+            GenerateEF6(manager, this.ModelRoot);
             break;
          case EFVersion.EFCore:
-            EFCore.Generate(manager, this.ModelRoot);
+            GenerateEFCore(manager, this.ModelRoot);
             break;
       }
 

@@ -32,7 +32,7 @@
       Output("//------------------------------------------------------------------------------");
       NL();
 
-      switch (ModelRoot.EntityFrameworkVersion) 
+      switch (ModelRoot.EntityFrameworkVersion)
       {
          case EFVersion.EF6:
             GenerateEF6(manager, this.ModelRoot);

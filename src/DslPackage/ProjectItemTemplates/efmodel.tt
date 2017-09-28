@@ -5,6 +5,7 @@
 #><#@ assembly name="EnvDTE"
 #><#@ include file="MultipleOutputHelper.ttinclude" once="true"
 #><#@ include file="VSIntegration.ttinclude" once="true"
+#><#@ include file="EFDesigner.ttinclude" once="true"
 #><#@ include file="EF6Designer.ttinclude" once="true"
 #><#@ include file="EFCoreDesigner.ttinclude" once="true"
 #><#@ output extension=".cs" 
@@ -37,6 +38,7 @@
             GenerateEF6(manager, this.ModelRoot);
             break;
          case EFVersion.EFCore:
+            GenerateEFCore(manager, this.ModelRoot);
             break;
       }
 
