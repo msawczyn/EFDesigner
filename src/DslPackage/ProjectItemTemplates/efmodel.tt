@@ -1,11 +1,12 @@
-﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" 
-             hostSpecific="true" language="C#" compilerOptions="/langversion:6"#>
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true"
+             hostSpecific="true" language="C#" compilerOptions="/langversion:latest"#>
+<#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" #>  
 <#@ assembly name="System.Data.Entity.Design.dll" 
 #><#@ assembly name="EnvDTE"
-#><#@ include file="MultipleOutputHelper.ttinclude"
-#><#@ include file="VSIntegration.ttinclude"
-#><#@ include file="EF6Designer.ttinclude"
-#><#@ include file="EFCoreDesigner.ttinclude"
+#><#@ include file="MultipleOutputHelper.ttinclude" once="true"
+#><#@ include file="VSIntegration.ttinclude" once="true"
+#><#@ include file="EF6Designer.ttinclude" once="true"
+#><#@ include file="EFCoreDesigner.ttinclude" once="true"
 #><#@ output extension=".cs" 
 #><#@ import namespace="System.Linq" 
 #><#@ import namespace="System" 

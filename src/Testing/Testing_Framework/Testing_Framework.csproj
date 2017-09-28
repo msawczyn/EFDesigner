@@ -59,24 +59,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Generated\Context\AllFeatureModel.generated.cs" />
-    <Compile Include="Generated\Context\AllFeatureModelDatabaseInitializer.generated.cs" />
-    <Compile Include="Generated\Context\AllFeatureModelDbMigrationConfiguration.generated.cs" />
-    <Compile Include="Generated\Entities\AllPropertyTypesOptional.generated.cs" />
-    <Compile Include="Generated\Entities\AllPropertyTypesRequired.generated.cs" />
-    <Compile Include="Generated\Entities\BaseClass.generated.cs" />
-    <Compile Include="Generated\Entities\BChild.generated.cs" />
-    <Compile Include="Generated\Entities\BParentCollection.generated.cs" />
-    <Compile Include="Generated\Entities\BParentOptional.generated.cs" />
-    <Compile Include="Generated\Entities\BParentRequired.generated.cs" />
-    <Compile Include="Generated\Entities\DerivedClass.generated.cs" />
-    <Compile Include="Generated\Entities\HiddenEntity.generated.cs" />
-    <Compile Include="Generated\Entities\ParserTest.generated.cs" />
-    <Compile Include="Generated\Entities\UChild.generated.cs" />
-    <Compile Include="Generated\Entities\UParentCollection.generated.cs" />
-    <Compile Include="Generated\Entities\UParentOptional.generated.cs" />
-    <Compile Include="Generated\Entities\UParentRequired.generated.cs" />
-    <Compile Include="Generated\Enums\Enum1.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +78,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Generated\Context\" />
+    <Folder Include="Generated\Entities\" />
+    <Folder Include="Generated\Enums\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
