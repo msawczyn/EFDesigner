@@ -86,7 +86,7 @@ namespace Sawczyn.EFDesigner.EFModel
                              .Select(parseResult => new ModelAttribute(element.Store,
                                                                        new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name),
                                                                        new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"),
-                                                                       new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? false),
+                                                                       new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true),
                                                                        new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0),
                                                                        new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
                                                                        ));

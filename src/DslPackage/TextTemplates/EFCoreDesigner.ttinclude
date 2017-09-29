@@ -522,7 +522,7 @@ string CreateForeignKeyColumnSegmentEFCore(Association association, List<string>
       } while (foreignKeyColumns.Contains(columnName));
    }
    foreignKeyColumns.Add(columnName);
-   return $@"HasForeignKey<{dependentClass}>(b => b.{columnName});";
+   return $@"HasForeignKey<{dependentClass}>(b => b.{columnName})";
 }
 
 
