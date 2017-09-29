@@ -425,7 +425,7 @@ void WriteCalculatedProperties(ModelClass modelClass)
    }
 }
 
-void WritePersistentNavigationProperties(ModelClass modelClass)
+void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirtual)
 {
    if (!modelClass.LocalNavigationProperties().Any(x => x.AssociationObject.Persistent))
       return;
@@ -443,8 +443,9 @@ void WritePersistentNavigationProperties(ModelClass modelClass)
       if (navigationProperty.Required)
          comments.Add("Required");
       string comment = comments.Count > 0 ? $" // {string.Join(", ", comments)}" : "";
+      string _virtual = requireVirtual ? "virtual " : "";
 
-      Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; set; }} {comment}");
+      Output($"public {_virtual}{type} {navigationProperty.PropertyName} {{ get; set; }} {comment}");
    }
 }
 

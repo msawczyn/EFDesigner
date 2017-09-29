@@ -122,6 +122,21 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TableName = newDefaultName;
                }
                break;
+
+            case "Namespace":
+               // TODO: tech debt - duplicated code in ModelRoot, ModelEnum and ModelClass change rules
+               string newNamespace = (string)e.NewValue;
+               bool isBad = string.IsNullOrWhiteSpace(newNamespace);
+               if (!isBad)
+               {
+                  string[] namespaceParts = newNamespace.Split('.');
+                  foreach (string namespacePart in namespaceParts)
+                     isBad &= CodeGenerator.IsValidLanguageIndependentIdentifier(namespacePart);
+               }
+
+               if (isBad)
+                  errorMessage = "Namespace must exist and consist of valid .NET identifiers";
+               break;
          }
 
          if (errorMessage != null)

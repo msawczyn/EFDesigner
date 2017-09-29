@@ -16,8 +16,6 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       manager.StartNewFile(Path.Combine(modelRoot.EntityOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
       Output("using System;");
       Output("using System.Collections.Generic;");
-      Output("using System.Collections.ObjectModel;");
-      Output("using System.Linq;");
       List<string> additionalUsings = GetAdditionalUsingStatementsEFCore(modelRoot);
       if (additionalUsings.Any())
          Output(string.Join("\n", additionalUsings));
@@ -33,7 +31,7 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       WriteConstructor(modelClass);
       WritePersistentProperties(modelClass);
       WriteCalculatedProperties(modelClass);
-      WritePersistentNavigationProperties(modelClass);
+      WritePersistentNavigationProperties(modelClass, false);
       WriteCalculatedNavigationProperties(modelClass);
 
       Output("}");
@@ -330,13 +328,12 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          switch (association.TargetMultiplicity) // realized by property on source
          {
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+               // TODO: Implement many-to-many
                if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
-               required = true;
-               cascadeDelete = true;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
@@ -349,27 +346,14 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          switch (association.SourceMultiplicity) // realized by property on target, but no property on target
          {
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+               // TODO: Implement many-to-many
                if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   segments.Add("WithMany()");
-                  // TODO: Generate join classes (not supported by EFCore yet)
-                  // segments.Add("Map(x => { " +
-                  //    $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + 
-                  //    $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                  //    $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                  //    "})");
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-               if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-               {
-                  segments.Add("WithOne()");
-                  required = true;
-               }
-               else
-               {
-                  segments.Add("WithOne()");
-               }
-
-               cascadeDelete = true; 
+               segments.Add("WithOne()");
+               required = true;
+               cascadeDelete = true;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                segments.Add("WithOne()");
@@ -379,8 +363,8 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             //   break;
          }
 
-         string foreignKeySegment = CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns);
-         if (foreignKeySegment != null) segments.Add(foreignKeySegment);
+         if (association.SourceRole == EndpointRole.Dependent) 
+            segments.Add(CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns));
 
          if (required)
             segments.Add("IsRequired()");
@@ -401,6 +385,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
          // TODO: fix cascade delete
          bool cascadeDelete = association.SourceDeleteAction != DeleteAction.None;
+         bool required = false;
 
          segments.Clear();
          segments.Add($"modelBuilder.Entity<{modelClass.Name}>()");
@@ -408,16 +393,16 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          switch (association.SourceMultiplicity) // realized by property on target
          {
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-               segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
+               // TODO: Implement many-to-many
+               if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                  segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-               segments.Add($"HasRequired(x => x.{association.SourcePropertyName})");
-               cascadeDelete = true;
+               segments.Add($"HasOne(x => x.{association.SourcePropertyName})");
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-               segments.Add($"HasOptional(x => x.{association.SourcePropertyName})");
+               segments.Add($"HasOne(x => x.{association.SourcePropertyName})");
                break;
-            //one or more constraint not supported in EF. TODO: make this possible ... later
             //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
             //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
             //   break;
@@ -426,56 +411,31 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          switch (association.TargetMultiplicity) // realized by property on source
          {
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-               segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
-               if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
-               {
-                  segments.Add("Map(x => { " +
-                     $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + 
-                     $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                     $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                     "})");
-               }
+               // TODO: Implement many-to-many
+               if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                  segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-               if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-               {
-                  if (association.SourceRole == EndpointRole.Dependent)
-                     segments.Add($"WithRequiredDependent(x => x.{association.TargetPropertyName})");
-                  else
-                     segments.Add($"WithRequiredPrincipal(x => x.{association.TargetPropertyName})");
-               }
-               else
-               {
-                  segments.Add($"WithRequired(x => x.{association.TargetPropertyName})");
-               }
-               
-               cascadeDelete = true; 
+               segments.Add($"WithOne(x => x.{association.TargetPropertyName})");
+               cascadeDelete = true;
+               required = true;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-               if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
-               {
-                  if (association.SourceRole == EndpointRole.Dependent)
-                     segments.Add($"WithOptionalDependent(x => x.{association.TargetPropertyName})");
-                  else
-                     segments.Add($"WithOptionalPrincipal(x => x.{association.TargetPropertyName})");
-               }
-               else 
-               {
-                  segments.Add($"WithOptional(x => x.{association.TargetPropertyName})");
-               }
-
+               segments.Add($"WithOne(x => x.{association.TargetPropertyName})");
                break;
-            //one or more constraint not supported in EF. TODO: make this possible ... later
             //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
             //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
             //   break;
          }
 
-         string foreignKeySegment = CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns);
-         if (foreignKeySegment != null) segments.Add(foreignKeySegment);
+         if (association.SourceRole == EndpointRole.Dependent) 
+            segments.Add(CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns));
+
+          if (required)
+            segments.Add("IsRequired()");
 
          if (cascadeDelete)
-            segments.Add("WillCascadeOnDelete()");
+            segments.Add("OnDelete(DeleteBehavior.Cascade)");
 
          if (modelRoot.ChopMethodChains)
             OutputChopped(segments);
@@ -524,7 +484,7 @@ string CreateForeignKeyColumnSegmentEFCore(Association association, List<string>
       } while (foreignKeyColumns.Contains(columnName));
    }
    foreignKeyColumns.Add(columnName);
-   return $@"HasForeignKey<{dependentClass}>(b => b.{columnName})";
+   return $@"HasForeignKey(""{columnName}"")";
 }
 
 

@@ -33,7 +33,7 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
       WriteConstructor(modelClass);
       WritePersistentProperties(modelClass);
       WriteCalculatedProperties(modelClass);
-      WritePersistentNavigationProperties(modelClass);
+      WritePersistentNavigationProperties(modelClass, true);
       WriteCalculatedNavigationProperties(modelClass);
 
       Output("}");
