@@ -249,6 +249,12 @@
             <xsd:documentation>Default type for ID properties in new classes</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: ShowCascadeDeletes -->
+        <xsd:attribute name="showCascadeDeletes" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will display cascade deleted associations as dashed red lines</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

@@ -1023,6 +1023,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// ShowCascadeDeletes
+			if (!serializationContext.Result.Failed)
+			{
+				string attribShowCascadeDeletes = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "showCascadeDeletes");
+				if (attribShowCascadeDeletes != null)
+				{
+					global::System.Boolean valueOfShowCascadeDeletes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribShowCascadeDeletes, out valueOfShowCascadeDeletes))
+					{
+						instanceOfModelRoot.ShowCascadeDeletes = valueOfShowCascadeDeletes;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "showCascadeDeletes", typeof(global::System.Boolean), attribShowCascadeDeletes);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1913,6 +1930,16 @@ namespace Sawczyn.EFDesigner.EFModel
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "defaultIdentityType", propValue);
 					}
+				}
+			}
+			// ShowCascadeDeletes
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.ShowCascadeDeletes;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showCascadeDeletes", serializedPropValue);
 				}
 			}
 		}

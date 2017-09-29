@@ -417,6 +417,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;DefaultIdentityType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowCascadeDeletes.Description" xml:space="preserve">
+    <value>If true, will display cascade deleted associations as dashed red lines</value>
+    <comment>Description for DomainProperty &apos;ShowCascadeDeletes&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowCascadeDeletes.DisplayName" xml:space="preserve">
+    <value>Show Cascade Deletes</value>
+    <comment>DisplayName for DomainProperty &apos;ShowCascadeDeletes&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowCascadeDeletes.Category" xml:space="preserve">
+    <value>Misc</value>
+    <comment>Category for DomainProperty &apos;ShowCascadeDeletes&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>

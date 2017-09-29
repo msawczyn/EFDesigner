@@ -504,9 +504,9 @@ namespace Sawczyn.EFDesigner.EFModel
 					///// </summary>
 					///// <param name="serializationResult">Stores serialization result from the load operation.</param>
 					///// <param name="partition">Partition in which the new ModelRoot instance will be created.</param>
-					///// <param name="location">Name of the file from which the ModelRoot instance will be deserialized.</param>
+					///// <param name="fileName">Name of the file from which the ModelRoot instance will be deserialized.</param>
 					///// <param name="modelRoot">The root of the file that was loaded.</param>
-					// private void OnPostLoadModel(DslModeling::SerializationResult serializationResult, DslModeling::Partition partition, string location, ModelRoot modelRoot )
+					// private void OnPostLoadModel(DslModeling::SerializationResult serializationResult, DslModeling::Partition partition, string fileName, ModelRoot modelRoot )
 	
 					this.OnPostLoadModel(serializationResult, partition, location, modelRoot);
 					if (serializationResult.Failed)

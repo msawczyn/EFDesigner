@@ -30,15 +30,10 @@ namespace Sawczyn.EFDesigner.EFModel
          using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("StyleConnectors"))
          {
             // style association connectors if needed
-            foreach (Association element in modelRoot.Store
-                                                     .ElementDirectory
-                                                     .FindElements<Association>())
+            foreach (Association element in modelRoot.Store.ElementDirectory.FindElements<Association>())
             {
-               AssociationChangeRules.UpdateDisplayForPersistence(element, element.Persistent);
-               AssociationChangeRules.UpdateDisplayForCascadeDelete(element, element.SourceMultiplicity == Multiplicity.One ||
-                                                                             element.TargetMultiplicity == Multiplicity.One ||
-                                                                             element.SourceDeleteAction == DeleteAction.Cascade ||
-                                                                             element.TargetDeleteAction == DeleteAction.Cascade);
+               AssociationChangeRules.UpdateDisplayForPersistence(element);
+               AssociationChangeRules.UpdateDisplayForCascadeDelete(element);
             }
             tx.Commit();
          }

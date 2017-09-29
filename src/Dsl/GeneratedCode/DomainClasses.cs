@@ -2126,6 +2126,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ShowCascadeDeletes domain property code
+		
+		/// <summary>
+		/// ShowCascadeDeletes domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShowCascadeDeletesDomainPropertyId = new global::System.Guid(0x267e37bd, 0x159f, 0x4b8b, 0x88, 0xc3, 0xf1, 0x56, 0x1b, 0xf5, 0x76, 0xe0);
+		
+		/// <summary>
+		/// Storage for ShowCascadeDeletes
+		/// </summary>
+		private global::System.Boolean showCascadeDeletesPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of ShowCascadeDeletes domain property.
+		/// If true, will display cascade deleted associations as dashed red lines
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowCascadeDeletes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowCascadeDeletes.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowCascadeDeletes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("267e37bd-159f-4b8b-88c3-f1561bf576e0")]
+		public global::System.Boolean ShowCascadeDeletes
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return showCascadeDeletesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ShowCascadeDeletesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.ShowCascadeDeletes domain property.
+		/// </summary>
+		internal sealed partial class ShowCascadeDeletesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private ShowCascadeDeletesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.ShowCascadeDeletes domain property value handler.
+			/// </summary>
+			public static readonly ShowCascadeDeletesPropertyHandler Instance = new ShowCascadeDeletesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.ShowCascadeDeletes domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShowCascadeDeletesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.showCascadeDeletesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.showCascadeDeletesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

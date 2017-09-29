@@ -69,11 +69,13 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       EndNamespace(modelEnum.Namespace);
    }
 
-   manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
-   WriteDatabaseInitializerEFCore(modelRoot);
+   // not supported as of EF Core 2.0
+   // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
+   // WriteDatabaseInitializerEFCore(modelRoot);
    
-   manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
-   WriteMigrationConfigurationEFCore(modelRoot);
+   // not supported as of EF Core 2.0
+   // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
+   // WriteMigrationConfigurationEFCore(modelRoot);
 
    manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}.{modelRoot.FileNameMarker}.cs"));
    WriteDbContextEFCore(modelRoot);

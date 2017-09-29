@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
+using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 {
@@ -59,6 +60,11 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                if (!Regex.Match($"a.{element.FileNameMarker}.cs",
                                 @"^(?!^(PRN|AUX|CLOCK\$|NUL|CON|COM\d|LPT\d|\..*)(\..+)?$)[^\x00-\x1f\\?*:\"";|/]+$").Success)
                   errorMessage = "Invalid value to make part of file name";
+               break;
+
+            case "ShowCascadeDeletes":
+               foreach (Association association in store.ElementDirectory.FindElements<Association>())
+                  AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
                break;
          }
 

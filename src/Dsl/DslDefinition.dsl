@@ -165,6 +165,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="267e37bd-159f-4b8b-88c3-f1561bf576e0" Description="If true, will display cascade deleted associations as dashed red lines" Name="ShowCascadeDeletes" DisplayName="Show Cascade Deletes" Category="Misc">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1201,6 +1206,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="defaultIdentityType">
             <DomainPropertyMoniker Name="ModelRoot/DefaultIdentityType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="showCascadeDeletes">
+            <DomainPropertyMoniker Name="ModelRoot/ShowCascadeDeletes" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
