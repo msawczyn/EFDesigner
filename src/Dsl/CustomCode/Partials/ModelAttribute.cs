@@ -246,13 +246,14 @@ namespace Sawczyn.EFDesigner.EFModel
       private const string VISIBILITY  = @"(?<visibility>public\s+|protected\s+)";
       private const string INITIAL     = @"(=\s*(?<initialValue>.+))";
       private const string WS          = @"\s*";
+      private const string BODY        = @"(\{.+)";
 
       private static readonly Regex Pattern = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?$|" +
                                                         $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" +
                                                         $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$|" +
                                                         $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]{WS}{INITIAL}?$|" +
                                                         $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\({LENGTH}\){WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{TYPE}{NULLABLE}?\s+{NAME}{WS}{INITIAL}?;?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{TYPE}{NULLABLE}?\s+{NAME}{WS}({INITIAL}?;?|{BODY})?$|" +
                                                         $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{NULLABLE}?{WS}{INITIAL}?$", RegexOptions.Compiled);
 
       public class ParseResult

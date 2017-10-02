@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
@@ -24,7 +22,7 @@ namespace Testing
       protected UParentOptional(): base()
       {
          PropertyInChild = "hello";
-         UChildCollection = new ObservableCollection<UChild>();
+         UChildCollection = new HashSet<UChild>();
 
          Init();
       }
@@ -38,7 +36,7 @@ namespace Testing
          if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
          UChildRequired = _uchildrequired;
 
-         UChildCollection = new ObservableCollection<UChild>();
+         UChildCollection = new HashSet<UChild>();
       }
 
       /// <summary>
@@ -59,9 +57,9 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual UChild UChildOptional { get; set; } 
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildRequired { get; set; }  // Required
+      public UChild UChildOptional { get; set; } 
+      public ICollection<UChild> UChildCollection { get; set; } 
+      public UChild UChildRequired { get; set; }  // Required
    }
 }
 

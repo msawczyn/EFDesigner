@@ -183,7 +183,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
-         Output($"public System.Data.Entity.DbSet<{modelClass.Name}> {dbSetName} {{ get; set; }}");
+         Output($"public Microsoft.EntityFrameworkCore.DbSet<{modelClass.Namespace}.{modelClass.Name}> {dbSetName} {{ get; set; }}");
       }
 
       NL();
@@ -280,7 +280,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       NL();
 
       // class level
-      segments.Add($"modelBuilder.Entity<{modelClass.Name}>()");
+      segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
 
       // note: this must come before the 'ToTable' call or there's a runtime error
       if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
@@ -326,7 +326,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 
          if (segments.Any())
          {
-            segments.Insert(0, $"modelBuilder.Entity<{modelClass.Name}>()");
+            segments.Insert(0, $"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
             segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
             if (modelRoot.ChopMethodChains)
@@ -355,7 +355,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          bool cascadeDelete = association.TargetDeleteAction != DeleteAction.None;
 
          segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.Name}>()");
+         segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
 
          switch (association.TargetMultiplicity) // realized by property on source
          {
@@ -442,7 +442,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          bool cascadeDelete = association.SourceDeleteAction != DeleteAction.None;
 
          segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.Name}>()");
+         segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
 
          switch (association.SourceMultiplicity) // realized by property on target
          {
