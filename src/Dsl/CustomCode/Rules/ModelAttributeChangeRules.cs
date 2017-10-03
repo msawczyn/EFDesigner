@@ -8,12 +8,11 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
    [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.TopLevelCommit)]
    public class ModelAttributeChangeRules : ChangeRule
    {
-      private static readonly string[] ValidIdentityAttributeTypes =
+      public static readonly string[] ValidIdentityAttributeTypes =
       {
          "Int16",
          "Int32",
          "Int64",
-         "Decimal",
          "Byte",
          "Guid"
       };

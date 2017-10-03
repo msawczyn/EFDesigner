@@ -219,6 +219,9 @@
     <Content Include="TextTemplates\EFCoreDesigner.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="TextTemplates\EFDesigner.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dsl\Dsl.csproj">

@@ -153,6 +153,23 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="07688b4c-ba00-4e51-9abd-7353a4df233d" Description="Default type for ID properties in new classes" Name="DefaultIdentityType" DisplayName="Default Identity Type" DefaultValue="Int32" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(IdentityAttributeTypeTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="267e37bd-159f-4b8b-88c3-f1561bf576e0" Description="If true, will display cascade deleted associations as dashed red lines" Name="ShowCascadeDeletes" DisplayName="Show Cascade Deletes" Category="Misc">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1186,6 +1203,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="transformOnSave">
             <DomainPropertyMoniker Name="ModelRoot/TransformOnSave" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="defaultIdentityType">
+            <DomainPropertyMoniker Name="ModelRoot/DefaultIdentityType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="showCascadeDeletes">
+            <DomainPropertyMoniker Name="ModelRoot/ShowCascadeDeletes" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

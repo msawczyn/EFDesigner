@@ -39,7 +39,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void TPCEndpointsOnlyOnLeafNodes(ValidationContext context)
       {
-         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
          if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType && (Target.Subclasses.Any() || Source.Subclasses.Any()))
             context.LogError("Association endpoints can only be to most-derived classes in TPC inheritance strategy", "AEWrongEndpoints", this);
       }
@@ -64,7 +64,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!loading && IsCollectionClassTracking)
             try
             {
-               ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+               ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
                return modelRoot?.DefaultCollectionClass;
             }
             catch (NullReferenceException)

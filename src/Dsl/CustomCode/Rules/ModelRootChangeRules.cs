@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
+using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 {
@@ -34,10 +35,18 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "Namespace":
+               // TODO: tech debt - duplicated code in ModelRoot, ModelEnum and ModelClass change rules
                string newNamespace = (string)e.NewValue;
+               bool isBad = string.IsNullOrWhiteSpace(newNamespace);
+               if (!isBad)
+               {
+                  string[] namespaceParts = newNamespace.Split('.');
+                  foreach (string namespacePart in namespaceParts)
+                     isBad &= CodeGenerator.IsValidLanguageIndependentIdentifier(namespacePart);
+               }
 
-               if (!string.IsNullOrEmpty(newNamespace) && !CodeGenerator.IsValidLanguageIndependentIdentifier(newNamespace))
-                  errorMessage = "Namespace must be a valid .NET identifier";
+               if (isBad)
+                  errorMessage = "Namespace must exist and consist of valid .NET identifiers";
                break;
 
             case "EntityOutputDirectory":
@@ -59,6 +68,11 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                if (!Regex.Match($"a.{element.FileNameMarker}.cs",
                                 @"^(?!^(PRN|AUX|CLOCK\$|NUL|CON|COM\d|LPT\d|\..*)(\..+)?$)[^\x00-\x1f\\?*:\"";|/]+$").Success)
                   errorMessage = "Invalid value to make part of file name";
+               break;
+
+            case "ShowCascadeDeletes":
+               foreach (Association association in store.ElementDirectory.FindElements<Association>())
+                  AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
                break;
          }
 

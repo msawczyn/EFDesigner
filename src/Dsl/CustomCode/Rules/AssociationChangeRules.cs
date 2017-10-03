@@ -18,6 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Association element = (Association)e.ModelElement;
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
+         ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
 
          if (current.IsSerializing)
             return;
@@ -27,9 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (e.DomainProperty.Name)
          {
             case "Persistent":
-               bool persistent = (bool)e.NewValue;
-               UpdateDisplayForPersistence(element, persistent);
-
+               UpdateDisplayForPersistence(element);
                break;
 
             case "TargetPropertyName":
@@ -51,10 +50,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               UpdateDisplayForCascadeDelete(element, newSourceMultiplicity == Multiplicity.One ||
-                                                      element.TargetMultiplicity == Multiplicity.One ||
-                                                      element.SourceDeleteAction == DeleteAction.Cascade ||
-                                                      element.TargetDeleteAction == DeleteAction.Cascade);
+               UpdateDisplayForCascadeDelete(element);
                break;
 
             case "TargetMultiplicity":
@@ -68,10 +64,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               UpdateDisplayForCascadeDelete(element, newTargetMultiplicity == Multiplicity.One ||
-                                                      element.SourceMultiplicity == Multiplicity.One ||
-                                                      element.SourceDeleteAction == DeleteAction.Cascade ||
-                                                      element.TargetDeleteAction == DeleteAction.Cascade);
+               UpdateDisplayForCascadeDelete(element);
                break;
 
             case "SourceRole":
@@ -94,19 +87,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "SourceDeleteAction":
                DeleteAction sourceDeleteAction = (DeleteAction) e.NewValue;
-               UpdateDisplayForCascadeDelete(element, element.SourceMultiplicity == Multiplicity.One || 
-                  element.TargetMultiplicity == Multiplicity.One || 
-                  sourceDeleteAction == DeleteAction.Cascade || 
-                  element.TargetDeleteAction == DeleteAction.Cascade);
+               UpdateDisplayForCascadeDelete(element);
 
                break;
 
             case "TargetDeleteAction":
                DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
-               UpdateDisplayForCascadeDelete(element, element.SourceMultiplicity == Multiplicity.One ||
-                                                      element.TargetMultiplicity == Multiplicity.One || 
-                                                      targetDeleteAction == DeleteAction.Cascade || 
-                                                      element.SourceDeleteAction == DeleteAction.Cascade);
+               UpdateDisplayForCascadeDelete(element);
                break;
          }
 
@@ -117,24 +104,26 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      internal static void UpdateDisplayForPersistence(Association element, bool persistent)
+      internal static void UpdateDisplayForPersistence(Association element)
       {
          foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>())
          {
-            connector.Color = persistent ? Color.Black : Color.DarkGray;
-            connector.DashStyle = persistent ? DashStyle.Solid : DashStyle.Dash;
+            connector.Color = element.Persistent ? Color.Black : Color.DarkGray;
+            connector.DashStyle = element.Persistent ? DashStyle.Solid : DashStyle.Dash;
          }
       }
 
-      internal static void UpdateDisplayForCascadeDelete(Association element, bool cascade)
+      internal static void UpdateDisplayForCascadeDelete(Association element)
       {
-         if (element.Persistent)
+         ModelRoot modelRoot = element.Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
+         bool cascade = modelRoot.ShowCascadeDeletes && element.Persistent &&
+                        (element.SourceMultiplicity == Multiplicity.One || element.TargetMultiplicity == Multiplicity.One ||
+                        element.TargetDeleteAction == DeleteAction.Cascade || element.SourceDeleteAction == DeleteAction.Cascade);
+
+         foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>())
          {
-            foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>())
-            {
-               connector.Color = cascade ? Color.Red : Color.Black;
-               connector.DashStyle = cascade ? DashStyle.Dash : DashStyle.Solid;
-            }
+            connector.Color = cascade ? Color.Red : Color.Black;
+            connector.DashStyle = cascade ? DashStyle.Dash : DashStyle.Solid;
          }
       }
 

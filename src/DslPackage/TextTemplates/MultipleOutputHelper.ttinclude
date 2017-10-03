@@ -66,6 +66,10 @@ class Manager
       currentBlock = null;
    }
 
+   public virtual string OutputPath {
+      get { return Path.GetDirectoryName(host.TemplateFile); }
+   }
+
    public virtual void Process(bool split)
    {
       if (split)
@@ -73,14 +77,13 @@ class Manager
          EndBlock();
          string headerText = template.ToString(header.Start, header.Length);
          string footerText = template.ToString(footer.Start, footer.Length);
-         string outputPath = Path.GetDirectoryName(host.TemplateFile);
          files.Reverse();
          if (!footer.IncludeInDefault)
             template.Remove(footer.Start, footer.Length);
 
          foreach (Block block in files)
          {
-            string fileName = Path.Combine(outputPath, block.Name);
+            string fileName = Path.Combine(OutputPath, block.Name);
             string directoryPrefix = block.Name.IndexOf('\\') > -1 ? block.Name.Substring(0, block.Name.LastIndexOf('\\')) : ".";
             string content = headerText + template.ToString(block.Start, block.Length) + footerText;
             generatedFileNames.Add(fileName);
@@ -138,8 +141,6 @@ class Manager
    {
       private readonly EnvDTE.ProjectItem templateProjectItem;
       private readonly EnvDTE.DTE dte;
-      private readonly Action<string> checkOutAction;
-      private readonly Action<List<string>> projectSyncAction;
 
       public override string DefaultProjectNamespace
       {
@@ -157,8 +158,6 @@ class Manager
             throw new ArgumentNullException("Could not obtain DTE from host");
 
          templateProjectItem = dte.Solution.FindProjectItem(host.TemplateFile);
-         checkOutAction = fileName => dte.SourceControl.CheckOutItem(fileName);
-         projectSyncAction = keepFileNames => ProjectSync(keepFileNames);
       }
 
       public override void Process(bool split)
@@ -167,7 +166,7 @@ class Manager
             return;
 
          base.Process(split);
-         projectSyncAction.EndInvoke(projectSyncAction.BeginInvoke(generatedFileNames, null, null));
+         ProjectSync(generatedFileNames);
       }
 
       protected override void CreateFile(string fileName, string content)
@@ -177,6 +176,10 @@ class Manager
             CheckoutFileIfRequired(fileName);
             File.WriteAllText(fileName, content);
          }
+      }
+
+      public override string OutputPath {
+         get { return Path.GetDirectoryName(templateProjectItem.ContainingProject.FullName);}
       }
 
       private ProjectItem GetOrCreateParentItem(string filePath)
@@ -231,6 +234,7 @@ class Manager
 
       internal void ProjectSync(IEnumerable<string> keepFileNames)
       {
+         return;
          Dictionary<ProjectItem, List<string>> current = GetCurrentState();
          Dictionary<ProjectItem, List<string>> target = GetTargetState(keepFileNames);
 
@@ -281,7 +285,7 @@ class Manager
          Dictionary<ProjectItem, List<string>> result = new Dictionary<ProjectItem, List<string>>();
          Project currentProject = templateProjectItem.ContainingProject;
          string projectDirectory = Path.GetDirectoryName(currentProject.FullName);
-         string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, $"*.{FileNameMarker}.cs");
+         string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, string.Format("*.{0}.cs", FileNameMarker));
 
          foreach (string fileName in existingGeneratedFiles)
          {
@@ -300,9 +304,9 @@ class Manager
 
       private void CheckoutFileIfRequired(string fileName)
       {
-         var sc = dte.SourceControl;
+         SourceControl sc = dte.SourceControl;
          if (sc != null && sc.IsItemUnderSCC(fileName) && !sc.IsItemCheckedOut(fileName))
-            checkOutAction.EndInvoke(checkOutAction.BeginInvoke(fileName, null, null));
+            sc.CheckOutItem(fileName);
       }
    }
 }

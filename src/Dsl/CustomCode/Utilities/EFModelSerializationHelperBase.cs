@@ -11,14 +11,14 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          // Two passes required - one to set all elements to storage-based then another to set 
          // some back to being tracking.  
-         foreach (ModelClass element in store.ElementDirectory.AllElements.OfType<ModelClass>())
+         foreach (ModelClass element in store.ElementDirectory.FindElements<ModelClass>())
             element.PreResetIsTrackingProperties();
-         foreach (ModelClass element in store.ElementDirectory.AllElements.OfType<ModelClass>())
+         foreach (ModelClass element in store.ElementDirectory.FindElements<ModelClass>())
             element.ResetIsTrackingProperties();
 
-         foreach (ModelEnum element in store.ElementDirectory.AllElements.OfType<ModelEnum>())
+         foreach (ModelEnum element in store.ElementDirectory.FindElements<ModelEnum>())
             element.PreResetIsTrackingProperties();
-         foreach (ModelEnum element in store.ElementDirectory.AllElements.OfType<ModelEnum>())
+         foreach (ModelEnum element in store.ElementDirectory.FindElements<ModelEnum>())
             element.ResetIsTrackingProperties();
       }
 
