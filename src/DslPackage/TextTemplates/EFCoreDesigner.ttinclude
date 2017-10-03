@@ -197,7 +197,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    Output("{");
    Output("}");
    NL();
-   Output($"public {modelRoot.EntityContainerName}(DbContextOptions options) : base(options)");
+   Output($"public {modelRoot.EntityContainerName}(DbContextOptions<{modelRoot.EntityContainerName}> options) : base(options)");
    Output("{");
    Output("}");
    NL();
