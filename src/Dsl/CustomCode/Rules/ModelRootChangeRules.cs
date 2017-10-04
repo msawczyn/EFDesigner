@@ -1,4 +1,6 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
@@ -35,18 +37,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "Namespace":
-               // TODO: tech debt - duplicated code in ModelRoot, ModelEnum and ModelClass change rules
-               string newNamespace = (string)e.NewValue;
-               bool isBad = string.IsNullOrWhiteSpace(newNamespace);
-               if (!isBad)
-               {
-                  string[] namespaceParts = newNamespace.Split('.');
-                  foreach (string namespacePart in namespaceParts)
-                     isBad &= CodeGenerator.IsValidLanguageIndependentIdentifier(namespacePart);
-               }
-
-               if (isBad)
-                  errorMessage = "Namespace must exist and consist of valid .NET identifiers";
+               errorMessage = CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier);
                break;
 
             case "EntityOutputDirectory":
@@ -57,6 +48,11 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             case "EnumOutputDirectory":
                if (string.IsNullOrEmpty((string)e.NewValue) && !string.IsNullOrEmpty(element.EntityOutputDirectory))
                   element.EnumOutputDirectory = element.EntityOutputDirectory;
+               break;
+
+            case "EntityFrameworkVersion":
+               if (element.EntityFrameworkVersion == EFVersion.EFCore)
+                  errorMessage = ImposeEFCoreRestrictions(element, store);
                break;
 
             case "DatabaseSchema":
@@ -70,6 +66,12 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   errorMessage = "Invalid value to make part of file name";
                break;
 
+            case "InheritanceStrategy":
+               //TODO: EFCore limitation as of 2.0. Review for each new release.
+               if (element.EntityFrameworkVersion == EFVersion.EFCore)
+                  element.InheritanceStrategy = CodeStrategy.TablePerHierarchy; 
+               break;
+
             case "ShowCascadeDeletes":
                foreach (Association association in store.ElementDirectory.FindElements<Association>())
                   AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
@@ -81,6 +83,37 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             current.Rollback();
             MessageBox.Show(errorMessage);
          }
+      }
+
+      private string ImposeEFCoreRestrictions(ModelRoot modelRoot, Store store)
+      {
+         //TODO: EFCore limitations as of 2.0. Review for each new release.
+
+         List<string> errors = new List<string>();
+
+         if (modelRoot.InheritanceStrategy != CodeStrategy.TablePerHierarchy)
+            errors.Add($"{modelRoot.InheritanceStrategy} inheritance strategy");
+
+         List<Association> unsupportedAssociations = store.ElementDirectory
+                                                          .AllElements
+                                                          .OfType<Association>()
+                                                          .Where(a => a.SourceMultiplicity == Multiplicity.ZeroMany && 
+                                                                      a.TargetMultiplicity == Multiplicity.ZeroMany)
+                                                          .ToList();
+
+         if (unsupportedAssociations.Any())
+         {
+            List<string> classes = new List<string>();
+
+            foreach (Association assoc in unsupportedAssociations)
+               classes.Add($"{assoc.Source.Name} and {assoc.Target.Name}");
+            
+            errors.Add($"many-to-many associations between the following classes: {string.Join(", ", classes)}");
+         }
+
+         return errors.Any() 
+                   ? $"Found model elements not (yet) supported in EFCore: {string.Join(", ", errors)}" 
+                   : null;
       }
    }
 }

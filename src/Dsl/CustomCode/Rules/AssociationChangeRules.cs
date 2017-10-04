@@ -41,30 +41,50 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "SourceMultiplicity":
                Multiplicity newSourceMultiplicity = (Multiplicity) e.NewValue;
-               if (newSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One ||
-                   newSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne)
+
+               //TODO: EFCore limitation as of 2.0. Review for each new release.
+               if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore && 
+                   newSourceMultiplicity == Multiplicity.ZeroMany && 
+                   element.TargetMultiplicity == Multiplicity.ZeroMany)
                {
-                  element.SourceRole = EndpointRole.NotSet;
-                  element.TargetRole = EndpointRole.NotSet;
+                  errorMessage = "Many-to-many relationships not yet supported for EntityFramework Core";
                }
                else
-                  SetEndpointRoles(element);
+               {
+                  if (newSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One || newSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne)
+                  {
+                     element.SourceRole = EndpointRole.NotSet;
+                     element.TargetRole = EndpointRole.NotSet;
+                  }
+                  else
+                     SetEndpointRoles(element);
 
-               UpdateDisplayForCascadeDelete(element);
+                  UpdateDisplayForCascadeDelete(element);
+               }
                break;
 
             case "TargetMultiplicity":
                Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
-               if (element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One ||
-                   element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne)
+
+               //TODO: EFCore limitation as of 2.0. Review for each new release.
+               if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore && 
+                   newTargetMultiplicity == Multiplicity.ZeroMany && 
+                   element.SourceMultiplicity == Multiplicity.ZeroMany)
                {
-                  element.SourceRole = EndpointRole.NotSet;
-                  element.TargetRole = EndpointRole.NotSet;
+                  errorMessage = "Many-to-many relationships not yet supported for EntityFramework Core";
                }
                else
-                  SetEndpointRoles(element);
+               {
+                  if (element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One || element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne)
+                  {
+                     element.SourceRole = EndpointRole.NotSet;
+                     element.TargetRole = EndpointRole.NotSet;
+                  }
+                  else
+                     SetEndpointRoles(element);
 
-               UpdateDisplayForCascadeDelete(element);
+                  UpdateDisplayForCascadeDelete(element);
+               }
                break;
 
             case "SourceRole":

@@ -109,6 +109,7 @@
     <Compile Include="CustomCode\Partials\UnidirectionalConnector.cs" />
     <Compile Include="CustomCode\Rules\AssociationAddRules.cs" />
     <Compile Include="CustomCode\Rules\AssociationChangeRules.cs" />
+    <Compile Include="CustomCode\Rules\CommonRules.cs" />
     <Compile Include="CustomCode\Rules\GeneralizationAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelAttributeChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelClassAddRules.cs" />
