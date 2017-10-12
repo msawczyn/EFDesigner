@@ -284,6 +284,8 @@ void WriteConstructor(ModelClass modelClass)
       foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
          Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.Name}>();");
 
+      Output("Init();");
+      NL();
       Output("}");
       NL();
 

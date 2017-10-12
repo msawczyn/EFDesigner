@@ -13,12 +13,12 @@ using System.Runtime.ConstrainedExecution;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle(@"")]
+[assembly: AssemblyTitle(@"EntityFramework Designer")]
 [assembly: AssemblyDescription(@"")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany(@"Sawczyn")]
+[assembly: AssemblyCompany(@"Michael Sawczyn")]
 [assembly: AssemblyProduct(@"EFDesigner")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("(c) 2017 Michael Sawczyn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: System.Resources.NeutralResourcesLanguage("en")]
