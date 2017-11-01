@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using EnvDTE;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Shell;
-using Microsoft.VisualStudio.TextTemplating;
-using Microsoft.VisualStudio.TextTemplating.VSHost;
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -19,8 +15,10 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
    internal partial class EFModelCommandSet
    {
-      private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
+      // ReSharper disable once UnusedMember.Local
       private const int grpidEFDiagram = 0x01001;
+
+      private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
       private const int cmdidLayoutDiagram = 1;
       private const int cmdidHideShape = 2;
       private const int cmdidShowShape = 3;
@@ -59,8 +57,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnStatusAddProperties(object sender, EventArgs e)
       {
-         MenuCommand command = sender as MenuCommand;
-         if (command != null)
+         if (sender is MenuCommand command)
          {
             command.Visible = true;
             command.Enabled = CurrentSelection.OfType<ClassShape>().Count() == 1;
@@ -70,8 +67,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuAddProperties(object sender, EventArgs e)
       {
          NodeShape shapeElement = CurrentSelection.OfType<ClassShape>().FirstOrDefault();
-         ModelClass element = shapeElement?.ModelElement as ModelClass;
-         if (element != null)
+         
+         if (shapeElement?.ModelElement is ModelClass element)
          {
             AddCodeForm codeForm = new AddCodeForm(element);
             if (codeForm.ShowDialog() == DialogResult.OK)
@@ -88,6 +85,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                        new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"),
                                                                        new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true),
                                                                        new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0),
+                                                                       new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue),
+                                                                       new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity),
                                                                        new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
                                                                        ));
                   element.Attributes.AddRange(modelAttributes);
@@ -102,8 +101,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnStatusGenerateCode(object sender, EventArgs e)
       {
-         MenuCommand command = sender as MenuCommand;
-         if (command != null)
+         if (sender is MenuCommand command)
          {
             // not yet. Need to work this some more.
             command.Visible = false; //true;
@@ -128,8 +126,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnStatusShowShape(object sender, EventArgs e)
       {
-         MenuCommand command = sender as MenuCommand;
-         if (command != null)
+         if (sender is MenuCommand command)
          {
             command.Visible = true;
 
@@ -163,8 +160,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnStatusHideShape(object sender, EventArgs e)
       {
-         MenuCommand command = sender as MenuCommand;
-         if (command != null)
+         if (sender is MenuCommand command)
          {
             command.Visible = true;
             command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
@@ -192,8 +188,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnStatusLayoutDiagram(object sender, EventArgs e)
       {
-         MenuCommand command = sender as MenuCommand;
-         if (command != null)
+         if (sender is MenuCommand command)
          {
             command.Visible = true;
             command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();

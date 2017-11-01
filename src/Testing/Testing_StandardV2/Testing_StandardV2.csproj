@@ -34,7 +34,7 @@
     <Compile Update="Model\AllFeatureModel.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AllFeatureModel.tt</DependentUpon>
+      <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
     </Compile>
   </ItemGroup>
 

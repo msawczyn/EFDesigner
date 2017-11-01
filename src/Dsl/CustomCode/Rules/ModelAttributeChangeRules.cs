@@ -181,6 +181,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                         if (fragment.Required != null) element.Required = fragment.Required.Value;
                         if (fragment.MaxLength != null) element.MaxLength = fragment.MaxLength.Value;
                         if (fragment.InitialValue != null) element.InitialValue = fragment.InitialValue;
+                        if (fragment.IsIdentity) element.IsIdentity = true; // don't reset to false if not entered as part of name
                      }
                   }
                }

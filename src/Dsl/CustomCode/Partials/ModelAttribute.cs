@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -9,7 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelAttribute
    {
-      public static string[] ValidTypes =
+      public static readonly string[] ValidTypes =
       {
          "Binary",
          "Boolean",
@@ -238,7 +239,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       // Note: gave some thought to making this be an LALR parser, but that's WAY overkill for what needs done here. Regex is good enough.
 
-      private const string NAME        = "(?<name>[A-Za-z_][A-za-z0-9_]*)";
+      private const string NAME        = "(?<name>[A-Za-z_][A-za-z0-9_]*[!]?)";
       private const string TYPE        = "(?<type>[A-Za-z_][A-za-z0-9_]*)";
       private const string LENGTH      = @"(?<length>\d+)";
       private const string NULLABLE    = @"(?<nullable>\?)";
@@ -256,6 +257,30 @@ namespace Sawczyn.EFDesigner.EFModel
                                                         $@"^{WS}{VISIBILITY}?{TYPE}{NULLABLE}?\s+{NAME}{WS}({INITIAL}?;?|{BODY})?$|" +
                                                         $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{NULLABLE}?{WS}{INITIAL}?$", RegexOptions.Compiled);
 
+      /// <summary>Returns a string that represents the current object.</summary>
+      /// <returns>A string that represents the current object.</returns>
+      public override string ToString()
+      {
+         List<string> parts = new List<string>
+                              {
+                                 SetterVisibility.ToString(),
+                                 $"{Type}{(Required ? "" : "?")}",
+                                 $"{Name}{(IsIdentity ? "!" : "")}"
+                              };
+
+         if (Type?.ToLower() == "string" && MaxLength > 0)
+            parts.Add($"[{MaxLength}]");
+         
+         if (!string.IsNullOrEmpty(InitialValue))
+         {
+            string initialValue = InitialValue;
+            if (Type?.ToLower() == "string") initialValue = $@"""{InitialValue}""";
+            parts.Add($"= {initialValue}");
+         }
+
+         return string.Join(" ", parts);
+      }
+
       public class ParseResult
       {
          public SetterAccessModifier? SetterVisibility { get; set; }
@@ -264,6 +289,7 @@ namespace Sawczyn.EFDesigner.EFModel
          public bool? Required { get; set; }
          public int? MaxLength { get; set; }
          public string InitialValue { get; set; }
+         public bool IsIdentity { get; set; }
       }
 
       public static ParseResult Parse(ModelRoot modelRoot, string input)
@@ -277,7 +303,11 @@ namespace Sawczyn.EFDesigner.EFModel
                result.SetterVisibility = match.Groups["visibility"].Value.Trim() == "protected" ? SetterAccessModifier.Protected : SetterAccessModifier.Public;
 
             if (match.Groups["name"].Success)
+            {
                result.Name = match.Groups["name"].Value.Trim();
+               result.IsIdentity = result.Name.EndsWith("!");
+               result.Name = result.Name.Trim('!');
+            }
 
             if (match.Groups["type"].Success)
             {
