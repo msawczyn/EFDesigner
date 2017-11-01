@@ -240,9 +240,8 @@ namespace Sawczyn.EFDesigner.EFModel
       // Note: gave some thought to making this be an LALR parser, but that's WAY overkill for what needs done here. Regex is good enough.
 
       private const string NAME        = "(?<name>[A-Za-z_][A-za-z0-9_]*[!]?)";
-      private const string TYPE        = "(?<type>[A-Za-z_][A-za-z0-9_]*)";
+      private const string TYPE        = "(?<type>[A-Za-z_][A-za-z0-9_]*[?]?)";
       private const string LENGTH      = @"(?<length>\d+)";
-      private const string NULLABLE    = @"(?<nullable>\?)";
       private const string STRING_TYPE = "(?<type>[Ss]tring)";
       private const string VISIBILITY  = @"(?<visibility>public\s+|protected\s+)";
       private const string INITIAL     = @"(=\s*(?<initialValue>.+))";
@@ -250,12 +249,12 @@ namespace Sawczyn.EFDesigner.EFModel
       private const string BODY        = @"(\{.+)";
 
       private static readonly Regex Pattern = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}{NULLABLE}?\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\[{LENGTH}\]{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}{NULLABLE}?\({LENGTH}\){WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{TYPE}{NULLABLE}?\s+{NAME}{WS}({INITIAL}?;?|{BODY})?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{NULLABLE}?{WS}{INITIAL}?$", RegexOptions.Compiled);
+                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\[{LENGTH}\]{WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\({LENGTH}\){WS}{INITIAL}?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{TYPE}\s+{NAME}{WS}({INITIAL}?;?|{BODY})?$|" +
+                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{WS}{INITIAL}?$", RegexOptions.Compiled);
 
       /// <summary>Returns a string that represents the current object.</summary>
       /// <returns>A string that represents the current object.</returns>
@@ -305,25 +304,25 @@ namespace Sawczyn.EFDesigner.EFModel
             if (match.Groups["name"].Success)
             {
                result.Name = match.Groups["name"].Value.Trim();
-               result.IsIdentity = result.Name.EndsWith("!");
+               if (result.Name.EndsWith("!")) result.IsIdentity = true;
                result.Name = result.Name.Trim('!');
             }
 
             if (match.Groups["type"].Success)
             {
                result.Type = match.Groups["type"].Value.Trim();
+               result.Required = !result.Type.EndsWith("?");
+               result.Type = result.Type.Trim('?');
                if (!ValidTypes.Contains(result.Type))
                {
                   result.Type = FromCLRType(result.Type);
                   if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
+                  {
                      result.Type = null;
+                     result.Required = null;
+                  }
                }
             }
-
-            if (match.Groups["nullable"].Success)
-               result.Required = string.IsNullOrEmpty(match.Groups["nullable"].Value.Trim());
-            else
-               result.Required = true;
 
             if (result.Type == "String" && match.Groups["length"].Success && !string.IsNullOrWhiteSpace(match.Groups["length"].Value.Trim()))
                result.MaxLength = int.Parse(match.Groups["length"].Value.Trim());
