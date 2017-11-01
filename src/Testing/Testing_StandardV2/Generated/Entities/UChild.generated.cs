@@ -42,6 +42,8 @@ namespace Testing
          if (_uparentrequired2 == null) throw new ArgumentNullException(nameof(_uparentrequired2));
          _uparentrequired2.UChildOptional = this;
 
+         Init();
+
       }
 
       /// <summary>

@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
@@ -50,6 +48,8 @@ namespace Testing
          BParentCollection = new ObservableCollection<BParentCollection>();
          BParentCollection_1 = new ObservableCollection<BParentCollection>();
          BParentCollection_2 = new ObservableCollection<BParentCollection>();
+         Init();
+
       }
 
       /// <summary>
@@ -72,15 +72,15 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual BParentRequired BParentRequired { get; set; }  // Required
-      public virtual BParentRequired BParentRequired_1 { get; set; }  // Required
-      public virtual BParentRequired BParentRequired_2 { get; set; }  // Required
-      public virtual ICollection<BParentCollection> BParentCollection { get; set; } 
-      public virtual ICollection<BParentCollection> BParentCollection_1 { get; set; } 
-      public virtual ICollection<BParentCollection> BParentCollection_2 { get; set; } 
-      public virtual BParentOptional BParentOptional { get; set; } 
-      public virtual BParentOptional BParentOptional_1 { get; set; } 
-      public virtual BParentOptional BParentOptional_2 { get; set; } 
+      public BParentRequired BParentRequired { get; set; }  // Required
+      public BParentRequired BParentRequired_1 { get; set; }  // Required
+      public BParentRequired BParentRequired_2 { get; set; }  // Required
+      public ICollection<BParentCollection> BParentCollection { get; set; } 
+      public ICollection<BParentCollection> BParentCollection_1 { get; set; } 
+      public ICollection<BParentCollection> BParentCollection_2 { get; set; } 
+      public BParentOptional BParentOptional { get; set; } 
+      public BParentOptional BParentOptional_1 { get; set; } 
+      public BParentOptional BParentOptional_2 { get; set; } 
    }
 }
 

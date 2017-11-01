@@ -234,7 +234,7 @@ class Manager
 
       internal void ProjectSync(IEnumerable<string> keepFileNames)
       {
-         return;
+         /*
          Dictionary<ProjectItem, List<string>> current = GetCurrentState();
          Dictionary<ProjectItem, List<string>> target = GetTargetState(keepFileNames);
 
@@ -262,6 +262,7 @@ class Manager
             if (!keepUnderTemplate.Contains(templateProjectItem.ProjectItems.Item(index).Name))
                templateProjectItem.ProjectItems.Item(index--).Delete();
          }
+         */
       }
 
       private Dictionary<ProjectItem, List<string>> GetTargetState(IEnumerable<string> fileNames)

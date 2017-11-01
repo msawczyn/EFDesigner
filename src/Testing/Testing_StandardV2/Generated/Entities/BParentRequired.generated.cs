@@ -36,6 +36,8 @@ namespace Testing
          BChildRequired = _bchildrequired;
 
          BChildCollection = new HashSet<BChild>();
+         Init();
+
       }
 
       /// <summary>

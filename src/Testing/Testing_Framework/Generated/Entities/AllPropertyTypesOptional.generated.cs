@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
@@ -30,7 +28,7 @@ namespace Testing
       // Persistent properties
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Required
       /// </summary>
       public int Id { get; set; }
 
@@ -57,11 +55,6 @@ namespace Testing
       public long? Int64Attr { get; set; }
 
       public Single? SingleAttr { get; set; }
-
-      /// <summary>
-      /// Max length = 10
-      /// </summary>
-      public string StringAttr { get; set; }
 
       public TimeSpan? TimeAttr { get; set; }
 

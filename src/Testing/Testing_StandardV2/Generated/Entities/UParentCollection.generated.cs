@@ -36,6 +36,8 @@ namespace Testing
          UChildRequired = _uchildrequired;
 
          UChildCollection = new HashSet<UChild>();
+         Init();
+
       }
 
       /// <summary>

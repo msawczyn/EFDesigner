@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
@@ -38,6 +36,8 @@ namespace Testing
          BChildRequired = _bchildrequired;
 
          BChildCollection = new ObservableCollection<BChild>();
+         Init();
+
       }
 
       /// <summary>
@@ -58,9 +58,9 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual BChild BChildOptional { get; set; } 
-      public virtual BChild BChildRequired { get; set; }  // Required
-      public virtual ICollection<BChild> BChildCollection { get; set; } 
+      public BChild BChildOptional { get; set; } 
+      public BChild BChildRequired { get; set; }  // Required
+      public ICollection<BChild> BChildCollection { get; set; } 
    }
 }
 

@@ -295,7 +295,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e3b492a9-5341-4694-afa5-cb566ae813a7" Description="If true, cannot be blank or default value" Name="Required" DisplayName="Required" DefaultValue="false" Category="Code Generation">
+        <DomainProperty Id="e3b492a9-5341-4694-afa5-cb566ae813a7" Description="If true, cannot be null" Name="Required" DisplayName="Required" DefaultValue="false" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>

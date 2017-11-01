@@ -463,7 +463,7 @@
         <!-- Property: Required -->
         <xsd:attribute name="required" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, cannot be blank or default value</xsd:documentation>
+            <xsd:documentation>If true, cannot be null</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: Persistent -->

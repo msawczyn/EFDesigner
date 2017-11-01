@@ -2,16 +2,16 @@
 <eFModelDiagram dslVersion="1.0.0.0" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 13.25, 17.625" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
-    <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+    <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.3516097005208341" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
       <modelClassMoniker Id="9899b04a-e795-40c5-a435-46cdfde26980" />
       <nestedChildShapes>
-        <elementListCompartment Id="70939a3b-e9f0-4ae3-bc75-9f2049d14058" absoluteBounds="1.265, 9.185, 3.8449999999999998, 3.1339111328125" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="70939a3b-e9f0-4ae3-bc75-9f2049d14058" absoluteBounds="1.265, 9.185, 3.8449999999999998, 2.941609700520833" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="51476105-1baf-4246-9a68-441d28053b5f" absoluteBounds="6.375, 8.875, 4, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+    <classShape Id="51476105-1baf-4246-9a68-441d28053b5f" absoluteBounds="6.375, 8.875, 4, 3.3516097005208341" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
       <modelClassMoniker Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" />
       <nestedChildShapes>
-        <elementListCompartment Id="e26598fd-f0d9-4a27-928a-76d9b28b6951" absoluteBounds="6.39, 9.185, 3.9699999999999998, 3.1339111328125" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e26598fd-f0d9-4a27-928a-76d9b28b6951" absoluteBounds="6.39, 9.185, 3.9699999999999998, 2.941609700520833" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="e766650d-8db2-4b12-8676-f13d7e7ea414" absoluteBounds="1.5, 2.125, 1.5, 0.85169108072916666" fillColor="Green" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -174,7 +174,7 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="71c6003b-454c-4739-ba7f-43703879c4b6" edgePoints="[(3 : 8.17002081054688); (5.5312525 : 8.17002081054688); (5.5312525 : 7.35169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="71c6003b-454c-4739-ba7f-43703879c4b6" edgePoints="[(3 : 8.17002081054687); (5.5312525 : 8.17002081054687); (5.5312525 : 7.35169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="9a8e24ab-f156-496b-8682-dcaf71d2a6e5" />
       <relativeChildShapes />
       <nodes>

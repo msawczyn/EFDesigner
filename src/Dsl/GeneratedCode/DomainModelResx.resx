@@ -590,7 +590,7 @@
     <comment>Category for DomainProperty &apos;IsIdentity&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/Required.Description" xml:space="preserve">
-    <value>If true, cannot be blank or default value</value>
+    <value>If true, cannot be null</value>
     <comment>Description for DomainProperty &apos;Required&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/Required.DisplayName" xml:space="preserve">

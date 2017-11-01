@@ -4,11 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using DslEditorPowerToy.VisualStudio;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Shell.Interop;
+using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
+using VSLangProj;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -84,66 +85,30 @@ namespace Sawczyn.EFDesigner.EFModel
 
          DTE2 dte2 = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SDTE)) as DTE2;
 
-         //DTE dte = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(DTE)) as DTE;
-         //Project currentProject = GetActiveProject(dte);
-
-         string filename = dte2.ActiveDocument.Name.Split('.')[0] + ".tt";
-         ProjectItem item = dte2.Solution.FindProjectItem(filename);
-
+         string filename = Path.ChangeExtension(dte2.ActiveDocument.FullName, "tt");
+         VSProjectItem item = dte2.Solution.FindProjectItem(filename)?.Object as VSProjectItem;
+         
          if (item != null)
          {
             try
             {
-               item.DTE.ExecuteCommand("Project.RunCustomTool");
+               item.RunCustomTool();
             }
             catch (COMException)
             {
-               MessageBox.Show($"Encountered an error generating code from {filename}. Please run custom tool manually.");
+               string message = $"Encountered an error generating code from {filename}. Please run custom tool manually.";
+               Messages.AddError(message);
+               MessageBox.Show(message);
             }
          }
          else
          {
-            MessageBox.Show($"Tried to generate code but couldn\'t find {filename} in the solution.");
+            string message = $"Tried to generate code but couldn\'t find {filename} in the solution.";
+            Messages.AddError(message);
+            MessageBox.Show(message);
          }
-
-         //IVsCommandWindow commandWindow = (IVsCommandWindow)ServiceProvider.GetService(typeof(IVsCommandWindow));
-         //commandWindow?.ExecuteCommand("TextTransformation.TransformAllTemplates");
       }
 
-      //public static ProjectItem FindProjectItemInProject(Project project, string name, bool recursive)
-      //{
-      //   ProjectItem projectItem = null;
-
-      //   if (project.Kind != Constants.vsProjectKindSolutionItems)
-      //   {
-      //      if (project.ProjectItems != null && project.ProjectItems.Count > 0)
-      //      {
-      //         projectItem = DteHelper.FindItemByName(project.ProjectItems, name, recursive);
-      //      }
-      //   }
-      //   else
-      //   {
-      //      // if solution folder, one of its ProjectItems might be a real project
-      //      foreach (ProjectItem item in project.ProjectItems)
-      //      {
-      //         Project realProject = item.Object as Project;
-
-      //         if (realProject != null)
-      //         {
-      //            projectItem = FindProjectItemInProject(realProject, name, recursive);
-
-      //            if (projectItem != null)
-      //            {
-      //               break;
-      //            }
-      //         }
-      //      }
-      //   }
-
-      //   return projectItem;
-      //}
-      
-      
       internal static Project GetActiveProject(DTE dte)
       {
          Project activeProject = null;

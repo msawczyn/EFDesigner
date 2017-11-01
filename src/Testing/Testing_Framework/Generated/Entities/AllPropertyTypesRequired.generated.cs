@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
@@ -42,9 +40,8 @@ namespace Testing
       /// <param name="_int32attr"></param>
       /// <param name="_int64attr"></param>
       /// <param name="_singleattr"></param>
-      /// <param name="_stringattr"></param>
       /// <param name="_timeattr"></param>
-      public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
+      public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr)
       {
          BinaryAttr = _binaryattr;
          BooleanAttr = _booleanattr;
@@ -58,9 +55,9 @@ namespace Testing
          Int32Attr = _int32attr;
          Int64Attr = _int64attr;
          SingleAttr = _singleattr;
-         if (string.IsNullOrEmpty(_stringattr)) throw new ArgumentNullException(nameof(_stringattr));
-         StringAttr = _stringattr;
          TimeAttr = _timeattr;
+         Init();
+
       }
 
       /// <summary>
@@ -78,17 +75,16 @@ namespace Testing
       /// <param name="_int32attr"></param>
       /// <param name="_int64attr"></param>
       /// <param name="_singleattr"></param>
-      /// <param name="_stringattr"></param>
       /// <param name="_timeattr"></param>
-      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
+      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr)
       {
-         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _stringattr, _timeattr);
+         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _timeattr);
       }
 
       // Persistent properties
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Required
       /// </summary>
       public int Id { get; set; }
 
@@ -151,11 +147,6 @@ namespace Testing
       /// Required
       /// </summary>
       public Single SingleAttr { get; set; }
-
-      /// <summary>
-      /// Required, Max length = 10
-      /// </summary>
-      public string StringAttr { get; set; }
 
       /// <summary>
       /// Required

@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
@@ -43,6 +41,8 @@ namespace Testing
 
          if (_uparentrequired2 == null) throw new ArgumentNullException(nameof(_uparentrequired2));
          _uparentrequired2.UChildOptional = this;
+
+         Init();
 
       }
 

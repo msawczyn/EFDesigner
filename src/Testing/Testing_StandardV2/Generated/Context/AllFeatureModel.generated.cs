@@ -34,7 +34,7 @@ namespace Testing
       {
       }
 
-      public AllFeatureModel(DbContextOptions options) : base(options)
+      public AllFeatureModel(DbContextOptions<AllFeatureModel> options) : base(options)
       {
       }
 

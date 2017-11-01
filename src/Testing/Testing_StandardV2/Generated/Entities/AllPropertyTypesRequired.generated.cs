@@ -59,6 +59,8 @@ namespace Testing
          if (string.IsNullOrEmpty(_stringattr)) throw new ArgumentNullException(nameof(_stringattr));
          StringAttr = _stringattr;
          TimeAttr = _timeattr;
+         Init();
+
       }
 
       /// <summary>

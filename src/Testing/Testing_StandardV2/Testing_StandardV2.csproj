@@ -11,8 +11,7 @@
 
   <ItemGroup>
     <None Update="Model\AllFeatureModel.efmodel">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
+      <Generator></Generator>
     </None>
     <None Update="Model\AllFeatureModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -28,14 +27,6 @@
     <Folder Include="Generated\Context\" />
     <Folder Include="Generated\Entities\" />
     <Folder Include="Generated\Enums\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Model\AllFeatureModel.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>

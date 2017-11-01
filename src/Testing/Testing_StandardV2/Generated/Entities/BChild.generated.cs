@@ -48,6 +48,8 @@ namespace Testing
          BParentCollection = new HashSet<BParentCollection>();
          BParentCollection_1 = new HashSet<BParentCollection>();
          BParentCollection_2 = new HashSet<BParentCollection>();
+         Init();
+
       }
 
       /// <summary>

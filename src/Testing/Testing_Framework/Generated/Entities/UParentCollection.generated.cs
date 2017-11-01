@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
@@ -38,6 +36,8 @@ namespace Testing
          UChildRequired = _uchildrequired;
 
          UChildCollection = new ObservableCollection<UChild>();
+         Init();
+
       }
 
       /// <summary>
@@ -58,9 +58,9 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildOptional { get; set; } 
+      public UChild UChildRequired { get; set; }  // Required
+      public ICollection<UChild> UChildCollection { get; set; } 
+      public UChild UChildOptional { get; set; } 
    }
 }
 

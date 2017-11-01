@@ -263,7 +263,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          List<string> parts = new List<string>
                               {
-                                 SetterVisibility.ToString(),
+                                 SetterVisibility.ToString().ToLower(),
                                  $"{Type}{(Required ? "" : "?")}",
                                  $"{Name}{(IsIdentity ? "!" : "")}"
                               };
