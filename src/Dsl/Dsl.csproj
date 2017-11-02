@@ -98,6 +98,7 @@
     <Compile Include="CustomCode\Partials\BidirectionalConnector.cs" />
     <Compile Include="CustomCode\Partials\CommentConnector.cs" />
     <Compile Include="CustomCode\Partials\EFModelDiagram.cs" />
+    <Compile Include="CustomCode\Partials\EFModelSerializationHelper.cs" />
     <Compile Include="CustomCode\Partials\EnumShape.cs" />
     <Compile Include="CustomCode\Partials\EnumShapeBase.cs" />
     <Compile Include="CustomCode\Partials\Generalization.cs" />
