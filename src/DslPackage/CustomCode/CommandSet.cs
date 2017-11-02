@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
@@ -24,6 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidShowShape = 3;
       private const int cmdidGenerateCode = 4;
       private const int cmdidAddCodeProperties = 5;
+      private const int cmdidSaveAsImage = 6;
 
       protected override IList<MenuCommand> GetMenuCommands()
       {
@@ -48,6 +52,10 @@ namespace Sawczyn.EFDesigner.EFModel
          DynamicStatusMenuCommand generateCodeCommand =
             new DynamicStatusMenuCommand(OnStatusGenerateCode, OnMenuGenerateCode, new CommandID(guidEFDiagramMenuCmdSet, cmdidGenerateCode));
          commands.Add(generateCodeCommand);
+
+         DynamicStatusMenuCommand saveAsImageCommand =
+               new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
+         commands.Add(saveAsImageCommand);
 
          // Add more commands here.  
          return commands;
@@ -104,21 +112,14 @@ namespace Sawczyn.EFDesigner.EFModel
          if (sender is MenuCommand command)
          {
             // not yet. Need to work this some more.
-            command.Visible = false; //true;
-            command.Enabled = false; // IsDiagramSelected() && !IsCurrentDiagramEmpty();
+            command.Visible = true;
+            command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
          }
       }
 
       private void OnMenuGenerateCode(object sender, EventArgs e)
       {
-         //DTE dte = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
-         //if (dte == null) return;
-
-         //string activeDocumentFullName = dte.ActiveDocument.FullName;
-         //string t4FullName = Path.ChangeExtension(activeDocumentFullName, "tt");
-
-         //ITextTemplating t4 = ServiceProvider.GetService(typeof(STextTemplating)) as ITextTemplating;
-         //string output = t4.ProcessTemplate("", File.ReadAllText(t4FullName));
+         EFModelDocData.GenerateCode();
       }
 
       #endregion Generate Code
@@ -212,5 +213,75 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Layout Diagram
+      #region Save as Image
+
+      private void OnStatusSaveAsImage(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
+         }
+      }
+
+      private void OnMenuSaveAsImage(object sender, EventArgs e)
+      {
+         Diagram currentDiagram = CurrentDocView?.CurrentDiagram;
+
+         if (currentDiagram != null)
+         {
+            Bitmap bitmap = currentDiagram.CreateBitmap(currentDiagram.NestedChildShapes,
+                                                        Diagram.CreateBitmapPreference.FavorClarityOverSmallSize);
+            
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+               dlg.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|TIFF files (*.tiff)|*.tiff|WMF files (*.wmf)|*.wmf";
+               dlg.FilterIndex = 4;
+               dlg.OverwritePrompt = true;
+               dlg.AddExtension = true;
+               dlg.CheckPathExists = true;
+               dlg.DefaultExt = "png";
+
+               if (dlg.ShowDialog() == DialogResult.OK)
+               {
+                  try
+                  {
+                     bitmap.Save(dlg.FileName, GetFormat(dlg.FileName));
+                  }
+                  catch (ArgumentException)
+                  {
+                     MessageBox.Show($"Can't create a {Path.GetExtension(dlg.FileName)} image", "Bad image type", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                  }
+                  catch
+                  {
+                     MessageBox.Show($"Error saving {dlg.FileName}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                  }
+               }
+            }
+         }
+      }
+
+      private ImageFormat GetFormat(string fileName)
+      {
+         switch (Path.GetExtension(fileName).ToLowerInvariant())
+         {
+            case ".bmp":
+               return ImageFormat.Bmp;
+            case ".gif":
+               return ImageFormat.Gif;
+            case ".jpg":
+               return ImageFormat.Jpeg;
+            case ".png":
+               return ImageFormat.Png;
+            case ".tiff":
+               return ImageFormat.Tiff;
+            case ".wmf":
+               return ImageFormat.Wmf;
+         }
+
+         throw new ArgumentException();
+      }
+
+      #endregion
    }
 }

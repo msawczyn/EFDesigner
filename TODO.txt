@@ -17,11 +17,6 @@ T4:  Use HTML5Type in code generation
 DSL: Add column name option for property, default to property name
 T4:  Generate HasColumnName(name) for property if overrides
 
-DSL: Add OutputDirectory to Classes, Enums
-T4:  Honor Class/Enum OutputDirectory override
-
-T4: Generate connection string in api.config
-
 T4: DatabaseInitializer and MigrationConfiguration should be internal?
 
 ===============================================================

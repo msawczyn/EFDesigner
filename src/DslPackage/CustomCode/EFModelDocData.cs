@@ -83,11 +83,16 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = RootElement as ModelRoot;
          if (modelRoot?.TransformOnSave != true) return;
 
+         GenerateCode();
+      }
+
+      internal static void GenerateCode()
+      {
          DTE2 dte2 = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SDTE)) as DTE2;
 
          string filename = Path.ChangeExtension(dte2.ActiveDocument.FullName, "tt");
          VSProjectItem item = dte2.Solution.FindProjectItem(filename)?.Object as VSProjectItem;
-         
+
          if (item != null)
          {
             try

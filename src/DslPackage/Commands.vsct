@@ -30,6 +30,14 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Save as Image</ButtonText>
+            </Strings>
+         </Button>
+
          <Button guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape" priority="0x0100" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
@@ -71,9 +79,9 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape" context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode" context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage" context="guidEditor"/>
    </VisibilityConstraints>
    <Symbols>
-      <!-- Substitute a unique GUID for the placeholder: -->
       <GuidSymbol name="guidEFDiagramMenuCmdSet" value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
          <IDSymbol name="grpidEFDiagram" value="0x01001"/>
          <IDSymbol name="cmdidLayoutDiagram" value="0x00001"/>
@@ -81,6 +89,7 @@
          <IDSymbol name="cmdidShowShape" value="0x00003"/>
          <IDSymbol name="cmdidGenerateCode" value="0x00004"/>
          <IDSymbol name="cmdidAddCodeProperties" value="0x00005"/>
+         <IDSymbol name="cmdidSaveAsImage" value="0x00006"/>
       </GuidSymbol>
    </Symbols>
 </CommandTable>
