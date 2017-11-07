@@ -61,6 +61,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return commands;
       }
 
+
       #region Add Properties
 
       private void OnStatusAddProperties(object sender, EventArgs e)

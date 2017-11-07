@@ -34,7 +34,7 @@ using System.Runtime.ConstrainedExecution;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion(@"1.0.3.0")]
+[assembly: AssemblyVersion(@"1.0.3.3")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]
