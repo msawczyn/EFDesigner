@@ -98,11 +98,12 @@ namespace Sawczyn.EFDesigner.EFModel
             case "Name":
                string newName = element.Name;
                string oldName = (string)e.OldValue;
-               if (current.Name.ToLowerInvariant() == "paste")
+               if (string.Equals(current.Name, "paste", System.StringComparison.InvariantCultureIgnoreCase))
                   return;
 
 
-               if (current.Name.ToLowerInvariant() != "paste" && (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
+               if (current.Name.ToLowerInvariant() != "paste" && 
+                   (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
                   errorMessage = "Name must be a valid .NET identifier";
                else if (store.ElementDirectory
                              .AllElements
