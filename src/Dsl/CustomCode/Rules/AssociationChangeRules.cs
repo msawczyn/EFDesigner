@@ -32,11 +32,11 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TargetPropertyName":
-               errorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
+               errorMessage = ValidateAssociationIdentifier(element, element.Source, element.Target, (string)e.NewValue);
                break;
 
             case "SourcePropertyName":
-               errorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
+               errorMessage = ValidateAssociationIdentifier(element, element.Target, element.Source, (string)e.NewValue);
                break;
 
             case "SourceMultiplicity":
@@ -204,10 +204,13 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static string ValidateAssociationIdentifier(Association association, ModelClass targetedClass, string identifier)
+      private static string ValidateAssociationIdentifier(Association association, ModelClass targetedClass, ModelClass enclosingClass, string identifier)
       {
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
             return "Name must be a valid .NET identifier";
+
+         if (identifier == enclosingClass.Name)
+            return "Member names cannot be the same as their enclosing type.";
 
          ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass
                                           ?? targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
