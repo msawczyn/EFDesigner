@@ -26,8 +26,10 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             case "Name":
                string newName = (string)e.NewValue;
+               if (current.Name.ToLowerInvariant() == "paste")
+                  return;
 
-               if (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName))
+               if (current.Name.ToLowerInvariant() != "paste" && (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
                   errorMessage = "Name must be a valid .NET identifier";
                else if (store.ElementDirectory
                              .AllElements
@@ -44,7 +46,8 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "Namespace":
-               errorMessage = CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier);
+               if (current.Name.ToLowerInvariant() != "paste")
+                  errorMessage = CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier);
                break;
          }
 

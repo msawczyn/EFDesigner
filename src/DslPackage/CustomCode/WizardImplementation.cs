@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.AccessControl;
 using EnvDTE;
 using Microsoft.VisualStudio.TemplateWizard;
 
@@ -7,7 +8,8 @@ namespace Sawczyn.EFDesigner.EFModel
    public class WizardImplementation : IWizard
    {
       private static string modelPath;
-      private static string xsdPath;
+      private static string diagramPath;
+      //private static string xsdPath;
       private static string ttPath;
       private static DTE dte;
 
@@ -27,14 +29,18 @@ namespace Sawczyn.EFDesigner.EFModel
          dte = dte ?? projectItem.DTE;
          string path = projectItem.FileNames[0];
 
-         if (path.EndsWith("EFModel.xsd"))
-            xsdPath = path;
-         else if (path.EndsWith(".efmodel"))
+         //if (path.EndsWith("EFModel.xsd"))
+         //   xsdPath = path;
+         //else 
+         if (path.EndsWith(".efmodel"))
             modelPath = path;
+         else if (path.EndsWith(".diagram"))
+            diagramPath = path;
          else if (path.EndsWith(".tt"))
             ttPath = path;
       }
 
+      
       public bool ShouldAddProjectItem(string filePath)
       {
          return true;
@@ -51,13 +57,23 @@ namespace Sawczyn.EFDesigner.EFModel
             ProjectItem modelItem = dte.Solution.FindProjectItem(modelPath);
             if (modelItem != null)
             {
-               if (xsdPath != null)
+               //if (xsdPath != null)
+               //{
+               //   ProjectItem xsdItem = dte.Solution.FindProjectItem(xsdPath);
+               //   if (xsdItem != null)
+               //   {
+               //      xsdItem.Remove();
+               //      modelItem.ProjectItems.AddFromFile(xsdPath);
+               //   }
+               //}
+
+               if (diagramPath != null)
                {
-                  ProjectItem xsdItem = dte.Solution.FindProjectItem(xsdPath);
-                  if (xsdItem != null)
+                  ProjectItem diagramItem = dte.Solution.FindProjectItem(diagramPath);
+                  if (diagramItem != null)
                   {
-                     xsdItem.Remove();
-                     modelItem.ProjectItems.AddFromFile(xsdPath);
+                     diagramItem.Remove();
+                     modelItem.ProjectItems.AddFromFile(diagramPath);
                   }
                }
 
@@ -73,7 +89,8 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         xsdPath = null;
+         //xsdPath = null;
+         diagramPath = null;
          modelPath = null;
          ttPath = null;
          dte = null;
