@@ -14,17 +14,16 @@ using System.Linq;
 
 namespace Testing
 {
-   public partial class UParentOptional : HiddenEntity
+   public partial class Child
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected UParentOptional(): base()
+      protected Child()
       {
-         PropertyInChild = "hello";
-         UChildCollection = new ObservableCollection<UChild>();
+         Children = new ObservableCollection<Child>();
 
          Init();
       }
@@ -32,13 +31,17 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentOptional(UChild _uchildrequired)
+      /// <param name="_parent"></param>
+      /// <param name="_master0"></param>
+      public Child(Child _parent, Master _master0)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         if (_parent == null) throw new ArgumentNullException(nameof(_parent));
+         Parent = _parent;
 
-         UChildCollection = new ObservableCollection<UChild>();
+         if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
+         _master0.Children.Add(this);
+
+         Children = new ObservableCollection<Child>();
          Init();
 
       }
@@ -46,24 +49,24 @@ namespace Testing
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentOptional Create(UChild _uchildrequired)
+      /// <param name="_parent"></param>
+      /// <param name="_master0"></param>
+      public static Child Create(Child _parent, Master _master0)
       {
-         return new UParentOptional(_uchildrequired);
+         return new Child(_parent, _master0);
       }
 
       // Persistent properties
 
       /// <summary>
-      /// Default value = "hello"
+      /// Identity, Required, Indexed
       /// </summary>
-      public string PropertyInChild { get; set; }
+      public int Id { get; set; }
 
       // Persistent navigation properties
 
-      public virtual UChild UChildOptional { get; set; } 
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildRequired { get; set; }  // Required
+      public virtual ICollection<Child> Children { get; set; } 
+      public virtual Child Parent { get; set; }  // Required
    }
 }
 

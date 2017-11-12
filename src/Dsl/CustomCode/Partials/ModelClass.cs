@@ -175,6 +175,15 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+
+      // ReSharper disable once UnusedMember.Local
+      private void AttributesCannotBeNamedSameAsEnclosingClass(ValidationContext context)
+      {
+         if (HasIdentifierNamed(Name))
+            context.LogError("Properties can't be named the same as the enclosing class", "MCESameName", this);
+      }
+
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void PersistentClassesMustHaveIdentity(ValidationContext context)
       {

@@ -9,6 +9,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Testing
 {
@@ -58,9 +60,9 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public BChild BChildOptional { get; set; } 
-      public BChild BChildRequired { get; set; }  // Required
-      public ICollection<BChild> BChildCollection { get; set; } 
+      public virtual BChild BChildOptional { get; set; } 
+      public virtual BChild BChildRequired { get; set; }  // Required
+      public virtual ICollection<BChild> BChildCollection { get; set; } 
    }
 }
 

@@ -14,15 +14,16 @@ using System.Linq;
 
 namespace Testing
 {
-   public partial class BaseClass
+   public partial class Master
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public BaseClass()
+      public Master()
       {
+         Children = new ObservableCollection<Child>();
 
          Init();
       }
@@ -34,6 +35,9 @@ namespace Testing
       /// </summary>
       public int Id { get; set; }
 
+      // Persistent navigation properties
+
+      public virtual ICollection<Child> Children { get; set; } 
    }
 }
 

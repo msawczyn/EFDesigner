@@ -11,44 +11,72 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity.Infrastructure.Annotations;
 
 namespace Testing
 {
-   public partial class AllFeatureModel : Microsoft.EntityFrameworkCore.DbContext
+   public partial class AllFeatureModel : System.Data.Entity.DbContext
    {
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.BaseClass> BaseClasses { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.BChild> BChilds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.BParentCollection> BParentCollections { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.BParentOptional> BParentOptionals { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.BParentRequired> BParentRequireds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.HiddenEntity> HiddenEntities { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.ParserTest> ParserTests { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.UChild> UChilds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
+      public System.Data.Entity.DbSet<Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
+      public System.Data.Entity.DbSet<Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
+      public System.Data.Entity.DbSet<Testing.BaseClass> BaseClasses { get; set; }
+      public System.Data.Entity.DbSet<Testing.BChild> BChilds { get; set; }
+      public System.Data.Entity.DbSet<Testing.BParentCollection> BParentCollections { get; set; }
+      public System.Data.Entity.DbSet<Testing.BParentOptional> BParentOptionals { get; set; }
+      public System.Data.Entity.DbSet<Testing.BParentRequired> BParentRequireds { get; set; }
+      public System.Data.Entity.DbSet<Testing.Child> Children { get; set; }
+      public System.Data.Entity.DbSet<Testing.HiddenEntity> HiddenEntities { get; set; }
+      public System.Data.Entity.DbSet<Testing.Master> Masters { get; set; }
+      public System.Data.Entity.DbSet<Testing.ParserTest> ParserTests { get; set; }
+      public System.Data.Entity.DbSet<Testing.UChild> UChilds { get; set; }
+      public System.Data.Entity.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
+      public System.Data.Entity.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
 
-      public AllFeatureModel() : base()
+      public AllFeatureModel() : base(@"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True")
       {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer(new AllFeatureModelDatabaseInitializer());
+         CustomInit();
       }
 
-      public AllFeatureModel(DbContextOptions<AllFeatureModel> options) : base(options)
+      public AllFeatureModel(string connectionString) : base(connectionString)
       {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer(new AllFeatureModelDatabaseInitializer());
+         CustomInit();
       }
 
-      partial void CustomInit(ref DbContextOptionsBuilder optionsBuilder);
-
-      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      public AllFeatureModel(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
       {
-         CustomInit(ref optionsBuilder);
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer(new AllFeatureModelDatabaseInitializer());
+         CustomInit();
       }
 
-      partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
-      partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
+      public AllFeatureModel(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer(new AllFeatureModelDatabaseInitializer());
+         CustomInit();
+      }
 
-      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      public AllFeatureModel(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer(new AllFeatureModelDatabaseInitializer());
+         CustomInit();
+      }
+
+      partial void CustomInit();
+      partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+      partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+
+      protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
          OnModelCreatingImpl(modelBuilder);
@@ -56,10 +84,10 @@ namespace Testing
          modelBuilder.HasDefaultSchema("dbo");
 
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.BinaryAttr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.BooleanAttr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.ByteAttr).IsRequired();
@@ -75,36 +103,44 @@ namespace Testing
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
 
          modelBuilder.Entity<Testing.BaseClass>().ToTable("BaseClasses").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BaseClass>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.BaseClass>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Testing.BChild>().ToTable("BChilds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BChild>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentRequired).WithOne(x => x.BChildOptional);
-         modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentRequired_1).WithOne(x => x.BChildRequired).IsRequired().OnDelete(DeleteBehavior.Cascade);
-         modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentRequired_2).WithMany(x => x.BChildCollection);
-         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection).WithOne(x => x.BChildRequired).HasForeignKey("BChildRequired_Id").IsRequired().OnDelete(DeleteBehavior.Cascade);
-         modelBuilder.Entity<Testing.BChild>();
-         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOne(x => x.BChildOptional).HasForeignKey("BChildOptional_Id");
-         modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentOptional).WithOne(x => x.BChildRequired).HasForeignKey("BChildRequired1_Id").IsRequired().OnDelete(DeleteBehavior.Cascade);
-         modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentOptional_1).WithMany(x => x.BChildCollection);
-         modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentOptional_2).WithOne(x => x.BChildOptional);
+         modelBuilder.Entity<Testing.BChild>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Testing.BChild>().HasRequired(x => x.BParentRequired).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BParentRequired_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.BChild>().HasRequired(x => x.BParentRequired_1).WithRequiredPrincipal(x => x.BChildRequired).Map(x => x.MapKey("BParentRequired_1_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.BChild>().HasRequired(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentRequired_2_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection_1).WithMany(x => x.BChildCollection).Map(x => { x.ToTable("BParentCollection_1_x_BChildCollection"); x.MapLeftKey("BParentCollection_Id"); x.MapRightKey("BChild_Id"); });
+         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BChildOptional_Id"));
+         modelBuilder.Entity<Testing.BChild>().HasOptional(x => x.BParentOptional).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired1_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.BChild>().HasOptional(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentOptional_1_Id"));
+         modelBuilder.Entity<Testing.BChild>().HasOptional(x => x.BParentOptional_2).WithOptionalPrincipal(x => x.BChildOptional).Map(x => x.MapKey("BParentOptional_2_Id"));
 
          modelBuilder.Entity<Testing.BParentCollection>().ToTable("BParentCollections").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BParentCollection>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.BParentCollection>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Testing.BParentOptional>().ToTable("BParentOptionals").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BParentOptional>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.BParentOptional>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Testing.BParentRequired>().ToTable("BParentRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BParentRequired>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.BParentRequired>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+         modelBuilder.Entity<Testing.Child>().ToTable("Children").HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.Child>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id")).WillCascadeOnDelete();
 
          modelBuilder.Entity<Testing.DerivedClass>().HasKey(t => t.Id);
 
          modelBuilder.Entity<Testing.HiddenEntity>().ToTable("HiddenEntities").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.HiddenEntity>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+         modelBuilder.Entity<Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.Master>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Testing.Master>().HasMany(x => x.Children).WithRequired().Map(x => x.MapKey("Master_Id")).WillCascadeOnDelete();
 
          modelBuilder.Entity<Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name7).HasMaxLength(6);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name8).HasMaxLength(6);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name9).HasMaxLength(6);
@@ -115,24 +151,24 @@ namespace Testing
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name18).HasMaxLength(6);
 
          modelBuilder.Entity<Testing.UChild>().ToTable("UChilds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.UChild>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.UChild>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Testing.UParentCollection>().ToTable("UParentCollections").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.UParentCollection>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<Testing.UParentCollection>().HasOne(x => x.UChildRequired).WithMany().HasForeignKey("UChildRequired_Id");
-         modelBuilder.Entity<Testing.UParentCollection>();
-         modelBuilder.Entity<Testing.UParentCollection>().HasOne(x => x.UChildOptional).WithMany().HasForeignKey("UChildOptional_Id");
+         modelBuilder.Entity<Testing.UParentCollection>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Testing.UParentCollection>().HasRequired(x => x.UChildRequired).WithMany().Map(x => x.MapKey("UChildRequired_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
+         modelBuilder.Entity<Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
 
          modelBuilder.Entity<Testing.UParentOptional>().HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.UParentOptional>().HasOne(x => x.UChildOptional).WithOne();
-         modelBuilder.Entity<Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOne();
-         modelBuilder.Entity<Testing.UParentOptional>().HasOne(x => x.UChildRequired).WithOne().HasForeignKey("UChildRequired_Id");
+         modelBuilder.Entity<Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent().Map(x => x.MapKey("UParentOptional_Id"));
+         modelBuilder.Entity<Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey("UParentOptional1_Id"));
+         modelBuilder.Entity<Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional().Map(x => x.MapKey("UChildRequired_Id")).WillCascadeOnDelete();
 
          modelBuilder.Entity<Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.UParentRequired>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<Testing.UParentRequired>().HasOne(x => x.UChildRequired).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
-         modelBuilder.Entity<Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
-         modelBuilder.Entity<Testing.UParentRequired>().HasOne(x => x.UChildOptional).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+         modelBuilder.Entity<Testing.UParentRequired>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Testing.UParentRequired>().HasRequired(x => x.UChildRequired).WithRequiredDependent().Map(x => x.MapKey("UParentRequired_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithRequired().Map(x => x.MapKey("UParentRequired1_Id")).WillCascadeOnDelete();
+         modelBuilder.Entity<Testing.UParentRequired>().HasOptional(x => x.UChildOptional).WithRequired().Map(x => x.MapKey("UParentRequired2_Id")).WillCascadeOnDelete();
 
          OnModelCreatedImpl(modelBuilder);
       }

@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Testing</RootNamespace>
-    <AssemblyName>Testing</AssemblyName>
+    <AssemblyName>Testing_Framework</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\Debugging\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
@@ -68,8 +68,10 @@
     <Compile Include="Generated\Entities\BParentCollection.generated.cs" />
     <Compile Include="Generated\Entities\BParentOptional.generated.cs" />
     <Compile Include="Generated\Entities\BParentRequired.generated.cs" />
+    <Compile Include="Generated\Entities\Child.generated.cs" />
     <Compile Include="Generated\Entities\DerivedClass.generated.cs" />
     <Compile Include="Generated\Entities\HiddenEntity.generated.cs" />
+    <Compile Include="Generated\Entities\Master.generated.cs" />
     <Compile Include="Generated\Entities\ParserTest.generated.cs" />
     <Compile Include="Generated\Entities\UChild.generated.cs" />
     <Compile Include="Generated\Entities\UParentCollection.generated.cs" />

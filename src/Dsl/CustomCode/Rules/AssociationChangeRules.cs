@@ -209,8 +209,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
             return "Name must be a valid .NET identifier";
 
-         if (identifier == enclosingClass.Name)
-            return "Member names cannot be the same as their enclosing type.";
+         //if (identifier == enclosingClass.Name)
+         //   return "Member names cannot be the same as their enclosing type.";
 
          ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass
                                           ?? targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
