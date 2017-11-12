@@ -34,6 +34,7 @@
          this.btnOk = new System.Windows.Forms.Button();
          this.btnCancel = new System.Windows.Forms.Button();
          this.txtCode = new System.Windows.Forms.TextBox();
+         this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.SuspendLayout();
          // 
          // label1
@@ -67,7 +68,7 @@
          // btnOk
          // 
          this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-         this.btnOk.Location = new System.Drawing.Point(295, 219);
+         this.btnOk.Location = new System.Drawing.Point(235, 257);
          this.btnOk.Name = "btnOk";
          this.btnOk.Size = new System.Drawing.Size(75, 23);
          this.btnOk.TabIndex = 4;
@@ -79,7 +80,7 @@
          // 
          this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-         this.btnCancel.Location = new System.Drawing.Point(376, 219);
+         this.btnCancel.Location = new System.Drawing.Point(316, 257);
          this.btnCancel.MinimumSize = new System.Drawing.Size(75, 23);
          this.btnCancel.Name = "btnCancel";
          this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -90,6 +91,9 @@
          // txtCode
          // 
          this.txtCode.AcceptsReturn = true;
+         this.txtCode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.txtCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
          this.txtCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
          this.txtCode.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -97,9 +101,17 @@
          this.txtCode.Multiline = true;
          this.txtCode.Name = "txtCode";
          this.txtCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-         this.txtCode.Size = new System.Drawing.Size(439, 159);
+         this.txtCode.Size = new System.Drawing.Size(379, 197);
          this.txtCode.TabIndex = 8;
          this.txtCode.WordWrap = false;
+         // 
+         // statusStrip1
+         // 
+         this.statusStrip1.Location = new System.Drawing.Point(0, 286);
+         this.statusStrip1.Name = "statusStrip1";
+         this.statusStrip1.Size = new System.Drawing.Size(403, 22);
+         this.statusStrip1.TabIndex = 9;
+         this.statusStrip1.Text = "statusStrip1";
          // 
          // AddCodeForm
          // 
@@ -107,8 +119,9 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.CancelButton = this.btnCancel;
-         this.ClientSize = new System.Drawing.Size(463, 249);
+         this.ClientSize = new System.Drawing.Size(403, 308);
          this.ControlBox = false;
+         this.Controls.Add(this.statusStrip1);
          this.Controls.Add(this.txtCode);
          this.Controls.Add(this.btnCancel);
          this.Controls.Add(this.btnOk);
@@ -119,7 +132,7 @@
          this.MinimizeBox = false;
          this.MinimumSize = new System.Drawing.Size(340, 237);
          this.Name = "AddCodeForm";
-         this.Text = "Add Properties as Code";
+         this.Text = "Add properties as code";
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -133,5 +146,6 @@
       private System.Windows.Forms.Button btnOk;
       private System.Windows.Forms.Button btnCancel;
       private System.Windows.Forms.TextBox txtCode;
+      private System.Windows.Forms.StatusStrip statusStrip1;
    }
 }

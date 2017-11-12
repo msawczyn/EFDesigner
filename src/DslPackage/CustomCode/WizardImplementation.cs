@@ -40,7 +40,6 @@ namespace Sawczyn.EFDesigner.EFModel
             ttPath = path;
       }
 
-      
       public bool ShouldAddProjectItem(string filePath)
       {
          return true;
