@@ -9,20 +9,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
-   public abstract partial class HiddenEntity
+   public partial class Master
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to being abstract.
+      /// Default constructor
       /// </summary>
-      protected HiddenEntity()
+      public Master()
       {
+         Children = new HashSet<Child>();
+
          Init();
       }
 
@@ -33,6 +33,9 @@ namespace Testing
       /// </summary>
       public int Id { get; set; }
 
+      // Persistent navigation properties
+
+      public ICollection<Child> Children { get; set; } 
    }
 }
 

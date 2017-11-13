@@ -181,18 +181,23 @@ List<string> GetRequiredParameterNames(ModelClass modelClass)
 
 void WriteDefaultConstructorBody(ModelClass modelClass)
 {
+   int lineCount = 0;
    foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public && 
                                                                               !string.IsNullOrEmpty(x.InitialValue) && 
                                                                               x.InitialValue != "null"))
    {
       string quote = modelAttribute.Type == "String" ? "\"" : modelAttribute.Type == "Char" ? "'" : "";
       Output($"{modelAttribute.Name} = {quote}{modelAttribute.InitialValue}{quote};");
+      ++lineCount;
    }
 
    foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
+   {
       Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.Name}>();");
+      ++lineCount;
+   }
 
-   NL();
+   if (lineCount > 0) NL();
    Output("Init();");
 }
 
@@ -205,7 +210,8 @@ void WriteConstructor(ModelClass modelClass)
    // Default constructor
    /***********************************************************************/
 
-   string visibility = GetRequiredParameters(modelClass, false).Any() ? "protected" : "public";
+   bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+   string visibility = hasRequiredParameters || modelClass.IsAbstract ? "protected" : "public";
 
    if (visibility == "public")
    {
@@ -213,13 +219,19 @@ void WriteConstructor(ModelClass modelClass)
       Output("/// Default constructor");
       Output("/// </summary>");
    }
-   else
+   else if (modelClass.IsAbstract)
+   {
+      Output("/// <summary>");
+      Output("/// Default constructor. Protected due to being abstract.");
+      Output("/// </summary>");
+   }
+   else if (hasRequiredParameters)
    {
       Output("/// <summary>");
       Output("/// Default constructor. Protected due to required properties, but present because EF needs it.");
       Output("/// </summary>");
    }
-                           
+           
    if (modelClass.Superclass != null)
       Output($"{visibility} {modelClass.Name}(): base()");
    else
@@ -235,13 +247,15 @@ void WriteConstructor(ModelClass modelClass)
    // Constructor with required parameters (if necessary)
    /***********************************************************************/
    
-   if (visibility == "protected")
+   if (hasRequiredParameters)
    {
+      visibility = modelClass.IsAbstract ? "protected" : "public";
+
       Output("/// <summary>");
       Output("/// Public constructor with required data");
       Output("/// </summary>");
       WriteConstructorComments(modelClass);
-      Output($"public {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass))})");
+      Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass))})");
       Output("{");
 
       foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public))
@@ -285,20 +299,21 @@ void WriteConstructor(ModelClass modelClass)
          Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.Name}>();");
 
       Output("Init();");
-      NL();
       Output("}");
       NL();
 
-
-      Output("/// <summary>");
-      Output("/// Static create function (for use in LINQ queries, etc.)");
-      Output("/// </summary>");
-      WriteConstructorComments(modelClass);
-      Output($"public static {modelClass.Name} Create({string.Join(", ", GetRequiredParameters(modelClass))})");
-      Output("{");
-      Output($"return new {modelClass.Name}({string.Join(", ", GetRequiredParameterNames(modelClass))});");
-      Output("}");
-      NL();
+      if (!modelClass.IsAbstract)
+      {
+         Output("/// <summary>");
+         Output("/// Static create function (for use in LINQ queries, etc.)");
+         Output("/// </summary>");
+         WriteConstructorComments(modelClass);
+         Output($"public static {modelClass.Name} Create({string.Join(", ", GetRequiredParameters(modelClass))})");
+         Output("{");
+         Output($"return new {modelClass.Name}({string.Join(", ", GetRequiredParameterNames(modelClass))});");
+         Output("}");
+         NL();
+      }
    }
 }
 
@@ -306,6 +321,7 @@ void WriteConstructorComments(ModelClass modelClass)
 {
    foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public))
       Output($@"/// <param name=""_{requiredAttribute.Name.ToLower().Trim('_')}"">{requiredAttribute.Summary}</param>");
+   
    // TODO: Add comment if available
    foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties())
       Output($@"/// <param name=""_{requiredNavigationProperty.PropertyName.ToLower().Trim('_')}""></param>");

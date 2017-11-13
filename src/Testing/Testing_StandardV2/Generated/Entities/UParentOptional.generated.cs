@@ -38,7 +38,6 @@ namespace Testing
 
          UChildCollection = new HashSet<UChild>();
          Init();
-
       }
 
       /// <summary>

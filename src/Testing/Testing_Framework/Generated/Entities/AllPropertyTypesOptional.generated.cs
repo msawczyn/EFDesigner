@@ -23,7 +23,6 @@ namespace Testing
       /// </summary>
       public AllPropertyTypesOptional()
       {
-
          Init();
       }
 

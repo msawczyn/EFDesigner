@@ -51,7 +51,6 @@ namespace Testing
          BParentCollection_1 = new ObservableCollection<BParentCollection>();
          BParentCollection_2 = new ObservableCollection<BParentCollection>();
          Init();
-
       }
 
       /// <summary>

@@ -21,7 +21,6 @@ namespace Testing
       /// </summary>
       public ParserTest()
       {
-
          Init();
       }
 

@@ -37,7 +37,6 @@ namespace Testing
 
          BChildCollection = new HashSet<BChild>();
          Init();
-
       }
 
       /// <summary>

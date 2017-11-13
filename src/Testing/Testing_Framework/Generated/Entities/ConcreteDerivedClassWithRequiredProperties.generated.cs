@@ -14,54 +14,45 @@ using System.Linq;
 
 namespace Testing
 {
-   public partial class UParentCollection
+   public partial class ConcreteDerivedClassWithRequiredProperties : AbstractBaseClass
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected UParentCollection()
+      protected ConcreteDerivedClassWithRequiredProperties(): base()
       {
-         UChildCollection = new ObservableCollection<UChild>();
-
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentCollection(UChild _uchildrequired)
+      /// <param name="_property1"></param>
+      public ConcreteDerivedClassWithRequiredProperties(string _property1)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
-
-         UChildCollection = new ObservableCollection<UChild>();
+         if (string.IsNullOrEmpty(_property1)) throw new ArgumentNullException(nameof(_property1));
+         Property1 = _property1;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentCollection Create(UChild _uchildrequired)
+      /// <param name="_property1"></param>
+      public static ConcreteDerivedClassWithRequiredProperties Create(string _property1)
       {
-         return new UParentCollection(_uchildrequired);
+         return new ConcreteDerivedClassWithRequiredProperties(_property1);
       }
 
       // Persistent properties
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Required
       /// </summary>
-      public int Id { get; set; }
+      public string Property1 { get; set; }
 
-      // Persistent navigation properties
-
-      public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildOptional { get; set; } 
    }
 }
 

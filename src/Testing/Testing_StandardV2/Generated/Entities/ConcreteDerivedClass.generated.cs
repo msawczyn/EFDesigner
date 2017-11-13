@@ -9,29 +9,26 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
-   public abstract partial class HiddenEntity
+   public partial class ConcreteDerivedClass : AbstractBaseClass
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to being abstract.
+      /// Default constructor
       /// </summary>
-      protected HiddenEntity()
+      public ConcreteDerivedClass(): base()
       {
          Init();
       }
 
       // Persistent properties
 
-      /// <summary>
-      /// Identity, Required, Indexed
-      /// </summary>
-      public int Id { get; set; }
+      public string Property1 { get; set; }
+
+      public string PropertyInChild { get; set; }
 
    }
 }

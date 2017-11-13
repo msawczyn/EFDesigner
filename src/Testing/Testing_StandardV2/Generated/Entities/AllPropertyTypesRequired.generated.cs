@@ -21,7 +21,6 @@ namespace Testing
       /// </summary>
       protected AllPropertyTypesRequired()
       {
-
          Init();
       }
 
@@ -60,7 +59,6 @@ namespace Testing
          StringAttr = _stringattr;
          TimeAttr = _timeattr;
          Init();
-
       }
 
       /// <summary>

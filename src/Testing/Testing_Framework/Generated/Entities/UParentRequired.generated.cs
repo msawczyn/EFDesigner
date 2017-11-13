@@ -39,7 +39,6 @@ namespace Testing
 
          UChildCollection = new ObservableCollection<UChild>();
          Init();
-
       }
 
       /// <summary>

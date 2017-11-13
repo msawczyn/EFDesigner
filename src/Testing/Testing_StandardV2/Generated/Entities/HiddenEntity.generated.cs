@@ -17,11 +17,10 @@ namespace Testing
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to being abstract.
       /// </summary>
-      public HiddenEntity()
+      protected HiddenEntity()
       {
-
          Init();
       }
 

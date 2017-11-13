@@ -23,7 +23,6 @@ namespace Testing
       /// </summary>
       protected UChild()
       {
-
          Init();
       }
 
@@ -45,7 +44,6 @@ namespace Testing
          _uparentrequired2.UChildOptional = this;
 
          Init();
-
       }
 
       /// <summary>

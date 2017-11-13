@@ -23,7 +23,6 @@ namespace Testing
       /// </summary>
       protected AllPropertyTypesRequired()
       {
-
          Init();
       }
 
@@ -59,7 +58,6 @@ namespace Testing
          SingleAttr = _singleattr;
          TimeAttr = _timeattr;
          Init();
-
       }
 
       /// <summary>

@@ -172,7 +172,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 
    if (classesWithTables != null)
    {
-      foreach (ModelClass modelClass in classesWithTables)
+      foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>().OrderBy(x => x.Name))
       {
          string dbSetName;
 

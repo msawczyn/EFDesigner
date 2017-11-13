@@ -9,21 +9,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Testing
 {
-   public partial class UParentCollection
+   public partial class Child
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected UParentCollection()
+      protected Child()
       {
-         UChildCollection = new ObservableCollection<UChild>();
+         Children = new HashSet<Child>();
 
          Init();
       }
@@ -31,23 +29,28 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentCollection(UChild _uchildrequired)
+      /// <param name="_parent"></param>
+      /// <param name="_master0"></param>
+      public Child(Child _parent, Master _master0)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         if (_parent == null) throw new ArgumentNullException(nameof(_parent));
+         Parent = _parent;
 
-         UChildCollection = new ObservableCollection<UChild>();
+         if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
+         _master0.Children.Add(this);
+
+         Children = new HashSet<Child>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentCollection Create(UChild _uchildrequired)
+      /// <param name="_parent"></param>
+      /// <param name="_master0"></param>
+      public static Child Create(Child _parent, Master _master0)
       {
-         return new UParentCollection(_uchildrequired);
+         return new Child(_parent, _master0);
       }
 
       // Persistent properties
@@ -59,9 +62,8 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildOptional { get; set; } 
+      public ICollection<Child> Children { get; set; } 
+      public Child Parent { get; set; }  // Required
    }
 }
 

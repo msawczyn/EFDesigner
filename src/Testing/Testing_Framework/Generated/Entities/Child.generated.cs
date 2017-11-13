@@ -43,7 +43,6 @@ namespace Testing
 
          Children = new ObservableCollection<Child>();
          Init();
-
       }
 
       /// <summary>

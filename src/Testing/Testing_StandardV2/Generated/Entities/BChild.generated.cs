@@ -49,7 +49,6 @@ namespace Testing
          BParentCollection_1 = new HashSet<BParentCollection>();
          BParentCollection_2 = new HashSet<BParentCollection>();
          Init();
-
       }
 
       /// <summary>

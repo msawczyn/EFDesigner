@@ -12,25 +12,37 @@ using System.Collections.Generic;
 
 namespace Testing
 {
-   public partial class BaseClass
+   public partial class BaseClass : BaseClassWithRequiredProperties
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public BaseClass()
+      protected BaseClass(): base()
       {
-
          Init();
       }
 
-      // Persistent properties
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_property0"></param>
+      public BaseClass(string _property0)
+      {
+         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
+         Property0 = _property0;
+         Init();
+      }
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      public int Id { get; set; }
+      /// <param name="_property0"></param>
+      public static BaseClass Create(string _property0)
+      {
+         return new BaseClass(_property0);
+      }
 
    }
 }

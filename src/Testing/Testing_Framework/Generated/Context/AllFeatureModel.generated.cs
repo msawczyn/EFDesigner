@@ -17,19 +17,25 @@ namespace Testing
 {
    public partial class AllFeatureModel : System.Data.Entity.DbContext
    {
+      public System.Data.Entity.DbSet<Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
       public System.Data.Entity.DbSet<Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
       public System.Data.Entity.DbSet<Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
       public System.Data.Entity.DbSet<Testing.BaseClass> BaseClasses { get; set; }
+      public System.Data.Entity.DbSet<Testing.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
       public System.Data.Entity.DbSet<Testing.BChild> BChilds { get; set; }
       public System.Data.Entity.DbSet<Testing.BParentCollection> BParentCollections { get; set; }
       public System.Data.Entity.DbSet<Testing.BParentOptional> BParentOptionals { get; set; }
       public System.Data.Entity.DbSet<Testing.BParentRequired> BParentRequireds { get; set; }
       public System.Data.Entity.DbSet<Testing.Child> Children { get; set; }
+      public System.Data.Entity.DbSet<Testing.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
+      public System.Data.Entity.DbSet<Testing.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
+      public System.Data.Entity.DbSet<Testing.DerivedClass> DerivedClasses { get; set; }
       public System.Data.Entity.DbSet<Testing.HiddenEntity> HiddenEntities { get; set; }
       public System.Data.Entity.DbSet<Testing.Master> Masters { get; set; }
       public System.Data.Entity.DbSet<Testing.ParserTest> ParserTests { get; set; }
       public System.Data.Entity.DbSet<Testing.UChild> UChilds { get; set; }
       public System.Data.Entity.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
+      public System.Data.Entity.DbSet<Testing.UParentOptional> UParentOptionals { get; set; }
       public System.Data.Entity.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
 
       public AllFeatureModel() : base(@"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True")
@@ -83,6 +89,8 @@ namespace Testing
 
          modelBuilder.HasDefaultSchema("dbo");
 
+         modelBuilder.Entity<Testing.AbstractBaseClass>().HasKey(t => t.Id);
+
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
@@ -102,8 +110,11 @@ namespace Testing
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
 
-         modelBuilder.Entity<Testing.BaseClass>().ToTable("BaseClasses").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BaseClass>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Testing.BaseClass>().HasKey(t => t.Id);
+
+         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().Property(t => t.Property0).IsRequired();
 
          modelBuilder.Entity<Testing.BChild>().ToTable("BChilds").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.BChild>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -129,6 +140,11 @@ namespace Testing
          modelBuilder.Entity<Testing.Child>().ToTable("Children").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.Child>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id")).WillCascadeOnDelete();
+
+         modelBuilder.Entity<Testing.ConcreteDerivedClass>().HasKey(t => t.Id);
+
+         modelBuilder.Entity<Testing.ConcreteDerivedClassWithRequiredProperties>().HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired();
 
          modelBuilder.Entity<Testing.DerivedClass>().HasKey(t => t.Id);
 

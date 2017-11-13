@@ -17,17 +17,25 @@ namespace Testing
 {
    public partial class AllFeatureModel : Microsoft.EntityFrameworkCore.DbContext
    {
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.BaseClass> BaseClasses { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.BChild> BChilds { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.BParentCollection> BParentCollections { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.BParentOptional> BParentOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.BParentRequired> BParentRequireds { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.Child> Children { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.DerivedClass> DerivedClasses { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.HiddenEntity> HiddenEntities { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.Master> Masters { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.ParserTest> ParserTests { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UChild> UChilds { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentOptional> UParentOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
 
       public AllFeatureModel() : base()
@@ -55,6 +63,8 @@ namespace Testing
 
          modelBuilder.HasDefaultSchema("dbo");
 
+         modelBuilder.Entity<Testing.AbstractBaseClass>().HasKey(t => t.Id);
+
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(10);
@@ -76,8 +86,11 @@ namespace Testing
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).HasMaxLength(10).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
 
-         modelBuilder.Entity<Testing.BaseClass>().ToTable("BaseClasses").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BaseClass>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.BaseClass>().HasKey(t => t.Id);
+
+         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().Property(t => t.Property0).IsRequired();
 
          modelBuilder.Entity<Testing.BChild>().ToTable("BChilds").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.BChild>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
@@ -100,10 +113,23 @@ namespace Testing
          modelBuilder.Entity<Testing.BParentRequired>().ToTable("BParentRequireds").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.BParentRequired>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
 
+         modelBuilder.Entity<Testing.Child>().ToTable("Children").HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.Child>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.Child>().HasOne(x => x.Parent).WithMany(x => x.Children);
+
+         modelBuilder.Entity<Testing.ConcreteDerivedClass>().HasKey(t => t.Id);
+
+         modelBuilder.Entity<Testing.ConcreteDerivedClassWithRequiredProperties>().HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired();
+
          modelBuilder.Entity<Testing.DerivedClass>().HasKey(t => t.Id);
 
          modelBuilder.Entity<Testing.HiddenEntity>().ToTable("HiddenEntities").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.HiddenEntity>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+
+         modelBuilder.Entity<Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.Master>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.Master>().HasMany(x => x.Children).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
 
          modelBuilder.Entity<Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
