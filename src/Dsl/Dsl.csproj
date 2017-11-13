@@ -92,6 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomCode\Extensions\ColorExtensions.cs" />
+    <Compile Include="CustomCode\Extensions\DiagramViewExtensions.cs" />
+    <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Partials\AssociationTypeDescriptor.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />
     <Compile Include="CustomCode\Partials\ModelEnumTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Partials\ModelEnumValue.cs" />
     <Compile Include="CustomCode\Partials\ModelRoot.cs" />
     <Compile Include="CustomCode\Partials\UnidirectionalConnector.cs" />
     <Compile Include="CustomCode\Rules\AssociationAddRules.cs" />

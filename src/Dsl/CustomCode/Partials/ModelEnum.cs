@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Modeling.Validation;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelEnum
+   public partial class ModelEnum : IModelElementWithCompartments
    {
       public static string[] ValidValueTypes = {/*"SByte", */"Int16", "Int32", "Int64"};
 

@@ -26,3 +26,6 @@ T4:  Implement soft delete where marked in model
 Extension: Add bool Enhanced Cascade Delete
 T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
 
+Possible lead on multiple diagrams?
+https://stackoverflow.com/questions/105522/compartment-items-not-displayed-in-dsl-diagram
+

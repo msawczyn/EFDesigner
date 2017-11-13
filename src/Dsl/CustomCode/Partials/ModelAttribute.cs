@@ -4,12 +4,26 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Modeling.Validation;
+using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [ValidationState(ValidationState.Enabled)]
-   public partial class ModelAttribute
+   /// <summary>
+   /// Tag interface indicating diagram items for this element are compartments in a parent element
+   /// </summary>
+   public interface IModelElementCompartmented
    {
+      IModelElementWithCompartments ParentModelElement { get; }
+      string CompartmentName { get; }
+   }
+
+   [ValidationState(ValidationState.Enabled)]
+   public partial class ModelAttribute : IModelElementCompartmented
+   {
+      public IModelElementWithCompartments ParentModelElement => ModelClass;
+
+      public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
+
       public static readonly string[] ValidTypes =
       {
          "Binary",
