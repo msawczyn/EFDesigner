@@ -180,14 +180,14 @@ namespace Sawczyn.EFDesigner.EFModel
 //
 namespace Sawczyn.EFDesigner.EFModel
 {
-	/// <summary>
-	/// Double-derived class to allow easier code customization.
-	/// </summary>
-	[VSShell::ProvideMenuResource("1000.ctmenu", version: 8)]
-	[VSShell::ProvideToolboxItems(1)]
-	[global::Microsoft.VisualStudio.TextTemplating.VSHost.ProvideDirectiveProcessor(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDirectiveProcessor), global::Sawczyn.EFDesigner.EFModel.EFModelDirectiveProcessor.EFModelDirectiveProcessorName, "A directive processor that provides access to EFModel files")]
-	[global::System.Runtime.InteropServices.Guid(Constants.EFModelPackageId)]
-	internal sealed partial class EFModelPackage : EFModelPackageBase
-	{
-	}
+   /// <summary>
+   /// Double-derived class to allow easier code customization.
+   /// </summary>
+   [VSShell::ProvideMenuResource("1000.ctmenu", version: 10)]
+   [VSShell::ProvideToolboxItems(1)]
+   [global::Microsoft.VisualStudio.TextTemplating.VSHost.ProvideDirectiveProcessor(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDirectiveProcessor), global::Sawczyn.EFDesigner.EFModel.EFModelDirectiveProcessor.EFModelDirectiveProcessorName, "A directive processor that provides access to EFModel files")]
+   [global::System.Runtime.InteropServices.Guid(Constants.EFModelPackageId)]
+   internal sealed partial class EFModelPackage : EFModelPackageBase
+   {
+   }
 }

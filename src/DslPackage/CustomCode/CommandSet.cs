@@ -22,16 +22,22 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int grpidEFDiagram = 0x01001;
 
       private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
-      private const int cmdidLayoutDiagram = 1;
-      private const int cmdidHideShape = 2;
-      private const int cmdidShowShape = 3;
-      private const int cmdidGenerateCode = 4;
-      private const int cmdidAddCodeProperties = 5;
-      private const int cmdidSaveAsImage = 6;
+
+      private const int cmdidFind              = 1;
+      private const int cmdidLayoutDiagram     = 2;
+      private const int cmdidHideShape         = 3;
+      private const int cmdidShowShape         = 4;
+      private const int cmdidGenerateCode      = 5;
+      private const int cmdidAddCodeProperties = 6;
+      private const int cmdidSaveAsImage       = 7;
 
       protected override IList<MenuCommand> GetMenuCommands()
       {
          IList<MenuCommand> commands = base.GetMenuCommands();
+
+         DynamicStatusMenuCommand findCommand =
+            new DynamicStatusMenuCommand(OnStatusFind, OnMenuFind, new CommandID(guidEFDiagramMenuCmdSet, cmdidFind));
+         commands.Add(findCommand);
 
          DynamicStatusMenuCommand addAttributesCommand =
             new DynamicStatusMenuCommand(OnStatusAddProperties, OnMenuAddProperties, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeProperties));
@@ -61,7 +67,29 @@ namespace Sawczyn.EFDesigner.EFModel
          return commands;
       }
 
+      #region Find
 
+      private void OnStatusFind(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = true;
+            command.Visible = false;
+            command.Enabled = false;
+         }
+      }
+
+      private void OnMenuFind(object sender, EventArgs e)
+      {
+         // TODO: Implement OnMenuFind
+         
+         // find matching class name, property name, association endpoint name, enum name, or enum value name
+         // output to tool window
+         // bind data to each line of output so can highlight proper shape when entry is clicked (or double clicked)
+      }
+      
+      #endregion Find
       #region Add Properties
 
       private void OnStatusAddProperties(object sender, EventArgs e)
@@ -75,6 +103,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnMenuAddProperties(object sender, EventArgs e)
       {
+         FindForm findForm = new FindForm();
+         if (findForm.ShowDialog() == DialogResult.OK)
+         {
+            
+         }
          NodeShape shapeElement = CurrentSelection.OfType<ClassShape>().FirstOrDefault();
          
          if (shapeElement?.ModelElement is ModelClass element)
@@ -105,7 +138,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion OnMenuAddProperties
+      #endregion Add Properties
       #region Generate Code
 
       private void OnStatusGenerateCode(object sender, EventArgs e)

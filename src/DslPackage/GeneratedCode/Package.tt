@@ -8,29 +8,29 @@
 <#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #>
 <#
 
-	//DSL assembly name - used for toolbox item registration. 
-	//This value is initially set to the default AssemblyName of the Dsl.csproj 
-	//If you update the DSL Assembly name, please update the following string value to the new name.
-	//Failure to do so may result in your Toolbox items not appearing correctly.
-	string dslAssembly = "Sawczyn.EFDesigner.EFModel.Dsl.dll";
+   //DSL assembly name - used for toolbox item registration. 
+   //This value is initially set to the default AssemblyName of the Dsl.csproj 
+   //If you update the DSL Assembly name, please update the following string value to the new name.
+   //Failure to do so may result in your Toolbox items not appearing correctly.
+   string dslAssembly = "Sawczyn.EFDesigner.EFModel.Dsl.dll";
 #>
 <#@ include file="DslPackage\Package.tt" #>
 <#
-	string directiveName = this.Dsl.Name;
+   string directiveName = this.Dsl.Name;
 #>
 //
 // Package attributes which may need to change are placed on the partial class below, rather than in the main include file.
 //
 namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 {
-	/// <summary>
-	/// Double-derived class to allow easier code customization.
-	/// </summary>
-	[VSShell::ProvideMenuResource("1000.ctmenu", version: 8)]
-	[VSShell::ProvideToolboxItems(1)]
-	[global::Microsoft.VisualStudio.TextTemplating.VSHost.ProvideDirectiveProcessor(typeof(global::<#= this.Dsl.Namespace #>.<#= directiveName #>DirectiveProcessor), global::<#= this.Dsl.Namespace #>.<#= directiveName #>DirectiveProcessor.<#= directiveName #>DirectiveProcessorName, "A directive processor that provides access to <#= directiveName #> files")]
-	[global::System.Runtime.InteropServices.Guid(Constants.<#= dslName #>PackageId)]
-	internal sealed partial class <#= dslName #>Package : <#= dslName #>PackageBase
-	{
-	}
+   /// <summary>
+   /// Double-derived class to allow easier code customization.
+   /// </summary>
+   [VSShell::ProvideMenuResource("1000.ctmenu", version: 10)]
+   [VSShell::ProvideToolboxItems(1)]
+   [global::Microsoft.VisualStudio.TextTemplating.VSHost.ProvideDirectiveProcessor(typeof(global::<#= this.Dsl.Namespace #>.<#= directiveName #>DirectiveProcessor), global::<#= this.Dsl.Namespace #>.<#= directiveName #>DirectiveProcessor.<#= directiveName #>DirectiveProcessorName, "A directive processor that provides access to <#= directiveName #> files")]
+   [global::System.Runtime.InteropServices.Guid(Constants.<#= dslName #>PackageId)]
+   internal sealed partial class <#= dslName #>Package : <#= dslName #>PackageBase
+   {
+   }
 }
