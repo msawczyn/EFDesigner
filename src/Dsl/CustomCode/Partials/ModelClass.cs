@@ -38,16 +38,19 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      public IEnumerable<string> IdentityPropertyNames
+      public IEnumerable<string> IdentityPropertyNames => Attributes.Where(x => x.IsIdentity).Select(x => x.Name).ToList();
+
+      public IEnumerable<string> AllIdentityPropertyNames
       {
          get
          {
             List<string> result = Attributes.Where(x => x.IsIdentity).Select(x => x.Name).ToList();
             if (Superclass != null)
-               result.AddRange(Superclass.IdentityPropertyNames);
+               result.AddRange(Superclass.AllIdentityPropertyNames);
             return result;
          }
       }
+
 
       public ConcurrencyOverride EffectiveConcurrency
       {
@@ -166,7 +169,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return FindAttributeNamed(identifier) != null;
       }
 
-      public bool HasIdentifierNamed(string identifier)
+      public bool HasPropertyNamed(string identifier)
       {
          return HasAssociationNamed(identifier) || HasAttributeNamed(identifier);
       }
@@ -184,7 +187,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void AttributesCannotBeNamedSameAsEnclosingClass(ValidationContext context)
       {
-         if (HasIdentifierNamed(Name))
+         if (HasPropertyNamed(Name))
             context.LogError("Properties can't be named the same as the enclosing class", "MCESameName", this);
       }
 
@@ -192,7 +195,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void PersistentClassesMustHaveIdentity(ValidationContext context)
       {
-         if (!IdentityPropertyNames.Any())
+         if (!AllIdentityPropertyNames.Any())
             context.LogError("Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
 

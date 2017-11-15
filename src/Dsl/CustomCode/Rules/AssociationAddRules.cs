@@ -28,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
             string identifierName = rootName;
             int index = 0;
 
-            while (element.Source.HasIdentifierNamed(identifierName))
+            while (element.Source.HasPropertyNamed(identifierName))
                identifierName = $"{rootName}_{++index}";
 
             element.TargetPropertyName = identifierName;
@@ -46,7 +46,7 @@ namespace Sawczyn.EFDesigner.EFModel
                string identifierName = rootName;
                int index = 0;
 
-               while (element.Target.HasIdentifierNamed(identifierName))
+               while (element.Target.HasPropertyNamed(identifierName))
                   identifierName = $"{rootName}_{++index}";
 
                bidirectionalAssociation.SourcePropertyName = identifierName;

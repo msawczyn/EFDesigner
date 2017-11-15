@@ -257,7 +257,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       List<string> identityProperties = modelClass.IdentityPropertyNames.ToList();
       if (identityProperties.Count == 1)
          segments.Add($"HasKey(t => t.{identityProperties[0]})");
-      else
+      else if (identityProperties.Count > 1)
          segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityProperties)} }})");
          
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
@@ -270,10 +270,13 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
          segments.Add($"Ignore(t => t.{transient.Name})");
 
-      if (modelRoot.ChopMethodChains)
-         OutputChopped(segments);
-      else
-         Output(string.Join(".", segments) + ";");
+      if (segments.Count > 1)
+      {
+         if (modelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
+      }
 
       // attribute level
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
