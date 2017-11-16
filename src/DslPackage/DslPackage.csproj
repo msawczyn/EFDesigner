@@ -132,6 +132,10 @@
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomCode\WizardImplementation.cs" />
+    <Content Include="Logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Microsoft.Data.ConnectionUI.Dialog.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

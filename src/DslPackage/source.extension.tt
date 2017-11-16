@@ -26,7 +26,8 @@
     <Identity Id="<#= this.Dsl.PackageGuid #>" Version="<#= this.Dsl.MajorVersion #>.<#= this.Dsl.MinorVersion #>.<#= this.Dsl.Build #>.<#= this.Dsl.Revision #>" Language="<#= language #>" Publisher="<#= string.IsNullOrEmpty(this.Dsl.CompanyName) ? "Anon" : this.Dsl.CompanyName #>" />
     <DisplayName><#= this.Dsl.DisplayName #></DisplayName>
     <Description><#= this.Dsl.Description #></Description>
-  </Metadata>
+    <Icon>Logo.ico</Icon>
+ </Metadata>
   <Installation InstalledByMsi="false">
     <InstallationTarget Version="[15.0]" Id="Microsoft.VisualStudio.Community" />
   </Installation>

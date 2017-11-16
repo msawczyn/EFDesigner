@@ -4,7 +4,8 @@
     <Identity Id="56bbe1ba-aaee-4883-848f-e3c8656f8db2" Version="1.0.3.4" Language="en-US" Publisher="Michael Sawczyn" />
     <DisplayName>Entity Framework Visual Editor</DisplayName>
     <Description>Entity Framework visual editor for EF6, EFCore and beyond.</Description>
-  </Metadata>
+    <Icon>Logo.ico</Icon>
+ </Metadata>
   <Installation InstalledByMsi="false">
     <InstallationTarget Version="[15.0]" Id="Microsoft.VisualStudio.Community" />
   </Installation>
