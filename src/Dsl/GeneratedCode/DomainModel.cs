@@ -148,6 +148,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelClass), "DbSetName", ModelClass.DbSetNameDomainPropertyId, typeof(ModelClass.DbSetNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "Name", ModelClass.NameDomainPropertyId, typeof(ModelClass.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "ImplementNotify", ModelClass.ImplementNotifyDomainPropertyId, typeof(ModelClass.ImplementNotifyPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelClass), "CustomInterfaces", ModelClass.CustomInterfacesDomainPropertyId, typeof(ModelClass.CustomInterfacesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),

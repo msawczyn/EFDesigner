@@ -23,13 +23,19 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
 
-      private const int cmdidFind              = 1;
-      private const int cmdidLayoutDiagram     = 2;
-      private const int cmdidHideShape         = 3;
-      private const int cmdidShowShape         = 4;
-      private const int cmdidGenerateCode      = 5;
-      private const int cmdidAddCodeProperties = 6;
-      private const int cmdidSaveAsImage       = 7;
+      private const int cmdidFind              = 0x0001;
+      private const int cmdidLayoutDiagram     = 0x0002;
+      private const int cmdidHideShape         = 0x0003;
+      private const int cmdidShowShape         = 0x0004;
+      private const int cmdidGenerateCode      = 0x0005;
+      private const int cmdidAddCodeProperties = 0x0006;
+      private const int cmdidSaveAsImage       = 0x0007;
+      
+      private const int cmdidSelectClasses     = 0x0101;
+      private const int cmdidSelectEnums       = 0x0102;
+      private const int cmdidSelectAssocs      = 0x0103;
+      private const int cmdidSelectUnidir      = 0x0104;
+      private const int cmdidSelectBidir       = 0x0105;
 
       protected override IList<MenuCommand> GetMenuCommands()
       {
@@ -62,6 +68,26 @@ namespace Sawczyn.EFDesigner.EFModel
          DynamicStatusMenuCommand saveAsImageCommand =
                new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
          commands.Add(saveAsImageCommand);
+
+         DynamicStatusMenuCommand selectClassesCommand =
+            new DynamicStatusMenuCommand(OnStatusSelectClasses, OnMenuSelectClasses, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectClasses));
+         commands.Add(selectClassesCommand);
+
+         DynamicStatusMenuCommand selectEnumsCommand =
+            new DynamicStatusMenuCommand(OnStatusSelectEnums, OnMenuSelectEnums, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectEnums));
+         commands.Add(selectEnumsCommand);
+
+         DynamicStatusMenuCommand selectAssocsCommand =
+            new DynamicStatusMenuCommand(OnStatusSelectAssocs, OnMenuSelectAssocs, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectAssocs));
+         commands.Add(selectAssocsCommand);
+
+         DynamicStatusMenuCommand selectUnidirCommand =
+            new DynamicStatusMenuCommand(OnStatusSelectUnidir, OnMenuSelectUnidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectUnidir));
+         commands.Add(selectUnidirCommand);
+
+         DynamicStatusMenuCommand selectBidirCommand =
+            new DynamicStatusMenuCommand(OnStatusSelectBidir, OnMenuSelectBidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectBidir));
+         commands.Add(selectBidirCommand);
 
          // Add more commands here.  
          return commands;
@@ -317,5 +343,120 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
+      #region Select classes
+
+      private void OnStatusSelectClasses(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+
+            LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+            command.Enabled = childShapes.OfType<ClassShape>().Any();
+         }
+      }
+
+      private void OnMenuSelectClasses(object sender, EventArgs e)
+      {
+         LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+         foreach (ShapeElement shape in childShapes.OfType<ClassShape>().Where(x => x.CanSelect))
+         {
+            shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
+         }
+      }
+
+      #endregion Select classes
+      #region Select enums
+
+      private void OnStatusSelectEnums(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+
+            LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+            command.Enabled = childShapes.OfType<EnumShape>().Any();
+         }
+      }
+
+      private void OnMenuSelectEnums(object sender, EventArgs e)
+      {
+         LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+         foreach (ShapeElement shape in childShapes.OfType<EnumShape>().Where(x => x.CanSelect))
+         {
+            shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
+         }
+      }
+
+      #endregion Select enums
+      #region Select associations
+
+      private void OnStatusSelectAssocs(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+
+            LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+            command.Enabled = childShapes.OfType<AssociationConnector>().Any();
+         }
+      }
+
+      private void OnMenuSelectAssocs(object sender, EventArgs e)
+      {
+         LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+         foreach (ShapeElement shape in childShapes.OfType<AssociationConnector>().Where(x => x.CanSelect))
+         {
+            shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
+         }
+      }
+
+      #endregion Select associations
+      #region Select unidirectional associations
+
+      private void OnStatusSelectUnidir(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+
+            LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+            command.Enabled = childShapes.OfType<UnidirectionalConnector>().Any();
+         }
+      }
+
+      private void OnMenuSelectUnidir(object sender, EventArgs e)
+      {
+         LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+         foreach (ShapeElement shape in childShapes.OfType<UnidirectionalConnector>().Where(x => x.CanSelect))
+         {
+            shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
+         }
+      }
+
+      #endregion Find
+      #region Select bidirectional associations
+
+      private void OnStatusSelectBidir(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+
+            LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+            command.Enabled = childShapes.OfType<BidirectionalConnector>().Any();
+         }
+      }
+
+      private void OnMenuSelectBidir(object sender, EventArgs e)
+      {
+         LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+         foreach (ShapeElement shape in childShapes.OfType<BidirectionalConnector>().Where(x => x.CanSelect))
+         {
+            shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
+         }
+      }
+
+      #endregion Find
    }
 }

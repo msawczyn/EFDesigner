@@ -221,7 +221,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="156da044-640c-466a-898d-73114c0f54e8" Description="Overridden concurrency handling strategy." Name="Concurrency" DisplayName="Concurrency" DefaultValue="Default" Category="Database">
+        <DomainProperty Id="156da044-640c-466a-898d-73114c0f54e8" Description="Overridden concurrency handling strategy." Name="Concurrency" DisplayName="Concurrency" DefaultValue="Default" Category="Code Generation">
           <Type>
             <DomainEnumerationMoniker Name="ConcurrencyOverride" />
           </Type>
@@ -246,7 +246,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="1f3ff088-f688-4573-b2c5-a8b2b64ec10c" Description="" Name="Name" DisplayName="Name" DefaultValue="" IsElementName="true">
+        <DomainProperty Id="1f3ff088-f688-4573-b2c5-a8b2b64ec10c" Description="" Name="Name" DisplayName="Name" DefaultValue="" Category="Code Generation" IsElementName="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -257,6 +257,11 @@
         <DomainProperty Id="268b5655-43ae-4871-b7e7-2ea7e003d485" Description="Should this class implement INotifyPropertyChanged?" Name="ImplementNotify" DisplayName="Implement INotifyPropertyChanged" DefaultValue="false" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="55789969-4fcd-4e41-bf8a-69cf0dd70265" Description="Optional comma-separated list of interfaces that will be added to the class definition" Name="CustomInterfaces" DisplayName="Custom Interfaces" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1259,6 +1264,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="implementNotify">
             <DomainPropertyMoniker Name="ModelClass/ImplementNotify" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="customInterfaces">
+            <DomainPropertyMoniker Name="ModelClass/CustomInterfaces" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -13,14 +13,33 @@
    <Extern href="virtkeys.h"/>
    <Extern href="DSLToolsCmdID.h"/>
    <Include href="GeneratedCode\GeneratedVsct.vsct"/>
+
    <Commands package="guidPkg">
+      <Menus>
+
+         <Menu guid="guidEFDiagramMenuCmdSet" id="menuidSelect" priority="0x100" type="Menu">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" />
+            <CommandFlag>AlwaysCreate</CommandFlag>
+            <Strings>
+               <CommandName>Select</CommandName>
+               <ButtonText>Select...</ButtonText>
+               <MenuText>Select...</MenuText>
+            </Strings>
+         </Menu>
+
+      </Menus>
+
       <Groups>
          <Group guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram" priority="0x0100">
             <!-- These symbols are defined in GeneratedVSCT.vsct -->
             <Parent guid="guidCmdSet" id="menuidContext" />
          </Group>
+
+         <Group guid="guidEFDiagramMenuCmdSet" id="grpidSelect" priority="0x0000">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="menuidSelect"/>
+         </Group>
       </Groups>
-      
+
       <Buttons>
 
          <Button guid="guidEFDiagramMenuCmdSet" id="cmdidFind" priority="0x0100" type="Button">
@@ -86,8 +105,54 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectClasses" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Select all classes...</ButtonText>
+               <CommandName>SelectClasses</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectEnums" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Select all enums...</ButtonText>
+               <CommandName>SelectEnums</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectAssocs" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Select all associations...</ButtonText>
+               <CommandName>SelectAssociations</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectUnidir" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Select all unidirectional associations...</ButtonText>
+               <CommandName>SelectUnidirectional</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSelectBidir" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Select all bidirectional associations...</ButtonText>
+               <CommandName>SelectBidirectional</CommandName>
+            </Strings>
+         </Button>
+
       </Buttons>
    </Commands>
+
    <KeyBindings>
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidFind"              editor="guidEditor" key1="F" mod1="CONTROL" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram"     editor="guidEditor" key1="L" mod1="CONTROL" />
@@ -97,6 +162,7 @@
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" editor="guidEditor" key1="C" mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       editor="guidEditor" key1="I" mod1="CONTROL" />
    </KeyBindings>
+
    <VisibilityConstraints>
       <!-- Ensures the command is only loaded for this DSL -->
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidFind"              context="guidEditor"/>
@@ -107,6 +173,7 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       context="guidEditor"/>
    </VisibilityConstraints>
+
    <Symbols>
       <GuidSymbol name="guidEFDiagramMenuCmdSet" value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
          <IDSymbol name="grpidEFDiagram" value="0x01001"/>
@@ -118,6 +185,14 @@
          <IDSymbol name="cmdidGenerateCode"      value="0x00005"/>
          <IDSymbol name="cmdidAddCodeProperties" value="0x00006"/>
          <IDSymbol name="cmdidSaveAsImage"       value="0x00007"/>
+
+         <IDSymbol name="menuidSelect"           value="0x1100"/>
+         <IDSymbol name="grpidSelect"            value="0x1150"/>
+         <IDSymbol name="cmdidSelectClasses"     value="0x0101"/>
+         <IDSymbol name="cmdidSelectEnums"       value="0x0102"/>
+         <IDSymbol name="cmdidSelectAssocs"      value="0x0103"/>
+         <IDSymbol name="cmdidSelectUnidir"      value="0x0104"/>
+         <IDSymbol name="cmdidSelectBidir"       value="0x0105"/>
       </GuidSymbol>
    </Symbols>
 </CommandTable>

@@ -179,6 +179,66 @@ List<string> GetRequiredParameterNames(ModelClass modelClass)
    return requiredParameterNames;
 }
 
+void WriteEnum(ModelEnum modelEnum)
+{
+      Output("using System;");
+      NL();
+
+      BeginNamespace(modelEnum.Namespace);
+
+      Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
+      Output("{");
+
+      ModelEnumValue[] values = modelEnum.Values.ToArray();
+      for (int index = 0; index < values.Length; ++index)
+      {
+         if (string.IsNullOrEmpty(values[index].Value))
+            Output($"{values[index].Name}{(index < values.Length - 1 ? "," : "")}");
+         else
+            Output($"{values[index].Name} = {values[index].Value}{(index < values.Length - 1 ? "," : "")}");
+      }
+      Output("}");
+
+      EndNamespace(modelEnum.Namespace);
+}
+
+void WriteClass(ModelClass modelClass)
+{
+   Output("using System;");
+   Output("using System.Collections.Generic;");
+   Output("using System.Collections.ObjectModel;");
+   Output("using System.ComponentModel;");
+   Output("using System.Linq;");
+   List<string> additionalUsings = GetAdditionalUsingStatementsEF6(modelRoot);
+   if (additionalUsings.Any())
+      Output(string.Join("\n", additionalUsings));
+   NL();
+
+   BeginNamespace(modelClass.Namespace);
+
+   string isAbstract = modelClass.IsAbstract ? "abstract " : "";
+
+   List<string> bases = new List<string>();
+   if (modelClass.Superclass != null) 
+      bases.Add(modelClass.Superclass.Name);
+   if (!string.IsNullOrEmpty(modelClass.CustomInterfaces)
+      bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
+   string baseClass = bases.Any() ? $" : {string.Join(", ", bases.Select(x => x.Trim()))}" : string.Empty;
+   Output($"public {isAbstract}partial class {modelClass.Name}{baseClass}");
+   Output("{");
+
+   WriteConstructor(modelClass);
+   WritePersistentProperties(modelClass);
+   WriteCalculatedProperties(modelClass);
+   WritePersistentNavigationProperties(modelClass, true);
+   WriteCalculatedNavigationProperties(modelClass);
+
+   Output("}");
+
+   EndNamespace(modelClass.Namespace);
+   NL();
+}
+
 void WriteDefaultConstructorBody(ModelClass modelClass)
 {
    int lineCount = 0;
@@ -193,7 +253,37 @@ void WriteDefaultConstructorBody(ModelClass modelClass)
 
    foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
    {
-      Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.Name}>();");
+      string collectionType= "System.Collections.Generic.HashSet";
+
+      switch (navigationProperty.AssociationObject.CollectionClass)
+      {
+         case "HashSet":
+            collectionType = "System.Collections.Generic.HashSet";
+            break;
+         case "LinkedList":
+            collectionType = "System.Collections.Generic.LinkedList";
+            break;
+         case "List":
+            collectionType = "System.Collections.Generic.List";
+            break;
+         case "SortedSet":
+            collectionType = "System.Collections.Generic.SortedSet";
+            break;
+         case "Collection":
+            collectionType = "System.Collections.ObjectModel.Collection";
+            break;
+         case "ObservableCollection":
+            collectionType = "System.Collections.ObjectModel.ObservableCollection";
+            break;
+         case "BindingList":
+            collectionType = "System.ComponentModel.BindingList";
+            break;
+         default:
+            collectionType = navigationProperty.AssociationObject.CollectionClass;
+            break;
+      }
+
+      Output($"{navigationProperty.PropertyName} = new {collectionType}<{navigationProperty.ClassType.Name}>();");
       ++lineCount;
    }
 

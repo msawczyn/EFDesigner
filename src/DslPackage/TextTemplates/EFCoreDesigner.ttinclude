@@ -14,30 +14,7 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
    foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>())
    {
       manager.StartNewFile(Path.Combine(modelRoot.EntityOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
-      Output("using System;");
-      Output("using System.Collections.Generic;");
-      List<string> additionalUsings = GetAdditionalUsingStatementsEFCore(modelRoot);
-      if (additionalUsings.Any())
-         Output(string.Join("\n", additionalUsings));
-      NL();
-
-      BeginNamespace(modelClass.Namespace);
-
-      string baseClass = modelClass.Superclass != null ? $" : {modelClass.Superclass.Name}" : string.Empty;
-      string isAbstract = modelClass.IsAbstract ? "abstract " : "";
-      Output($"public {isAbstract}partial class {modelClass.Name}{baseClass}");
-      Output("{");
-
-      WriteConstructor(modelClass);
-      WritePersistentProperties(modelClass);
-      WriteCalculatedProperties(modelClass);
-      WritePersistentNavigationProperties(modelClass, false);
-      WriteCalculatedNavigationProperties(modelClass);
-
-      Output("}");
-
-      EndNamespace(modelClass.Namespace);
-      NL();
+      WriteClass(modelClass);
    }
 
    // Enums
@@ -45,26 +22,7 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
    foreach (ModelEnum modelEnum in modelRoot.Enums)
    {
       manager.StartNewFile(Path.Combine(modelRoot.EnumOutputDirectory, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
-
-      Output("using System;");
-      NL();
-
-      BeginNamespace(modelEnum.Namespace);
-
-      Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
-      Output("{");
-
-      ModelEnumValue[] values = modelEnum.Values.ToArray();
-      for (int index = 0; index < values.Length; ++index)
-      {
-         if (string.IsNullOrEmpty(values[index].Value))
-            Output($"{values[index].Name}{(index < values.Length - 1 ? "," : "")}");
-         else
-            Output($"{values[index].Name} = {values[index].Value}{(index < values.Length - 1 ? "," : "")}");
-      }
-      Output("}");
-
-      EndNamespace(modelEnum.Namespace);
+      WriteEnum(modelEnum);
    }
 
    // not supported as of EF Core 2.0

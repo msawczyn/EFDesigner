@@ -412,6 +412,12 @@
             <xsd:documentation>Should this class implement INotifyPropertyChanged?</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: CustomInterfaces -->
+        <xsd:attribute name="customInterfaces" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Optional comma-separated list of interfaces that will be added to the class definition</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

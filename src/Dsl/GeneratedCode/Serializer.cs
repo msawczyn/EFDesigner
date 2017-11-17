@@ -2416,6 +2416,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// CustomInterfaces
+			if (!serializationContext.Result.Failed)
+			{
+				string attribCustomInterfaces = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "customInterfaces");
+				if (attribCustomInterfaces != null)
+				{
+					global::System.String valueOfCustomInterfaces;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribCustomInterfaces, out valueOfCustomInterfaces))
+					{
+						instanceOfModelClass.CustomInterfaces = valueOfCustomInterfaces;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "customInterfaces", typeof(global::System.String), attribCustomInterfaces);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3227,6 +3244,17 @@ namespace Sawczyn.EFDesigner.EFModel
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "implementNotify", serializedPropValue);
 					}
+				}
+			}
+			// CustomInterfaces
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelClass.CustomInterfaces;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customInterfaces", propValue);
+	
 				}
 			}
 		}

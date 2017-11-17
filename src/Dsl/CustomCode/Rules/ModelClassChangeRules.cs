@@ -88,38 +88,54 @@ namespace Sawczyn.EFDesigner.EFModel
             case "TableName":
                if (string.IsNullOrEmpty(element.TableName))
                   element.TableName = MakeDefaultName(element.Name);
+
+               if (store.ElementDirectory
+                        .AllElements
+                        .OfType<ModelClass>()
+                        .Except(new[] { element })
+                        .Any(x => x.TableName == element.TableName))
+                  errorMessage = $"Table name '{element.TableName}' already in use";
                break;
 
             case "DbSetName":
                if (string.IsNullOrEmpty(element.DbSetName))
                   element.DbSetName = MakeDefaultName(element.Name);
+
+               if (current.Name.ToLowerInvariant() != "paste" &&
+                   (string.IsNullOrWhiteSpace(element.DbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.DbSetName)))
+                  errorMessage = "DbSet name must be a valid .NET identifier";
+
+               else if (store.ElementDirectory
+                        .AllElements
+                        .OfType<ModelClass>()
+                        .Except(new[] { element })
+                        .Any(x => x.DbSetName == element.DbSetName))
+                  errorMessage = $"DbSet name '{element.DbSetName}' already in use";
+
                break;
 
             case "Name":
-               string newName = element.Name;
-               string oldName = (string)e.OldValue;
-               if (string.Equals(current.Name, "paste", System.StringComparison.InvariantCultureIgnoreCase))
-                  return;
-
-
                if (current.Name.ToLowerInvariant() != "paste" && 
-                   (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
+                   (string.IsNullOrWhiteSpace(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name)))
                   errorMessage = "Name must be a valid .NET identifier";
+               
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelClass>()
                              .Except(new[] { element })
-                             .Any(x => x.Name == newName))
-                  errorMessage = "Class name already in use";
+                             .Any(x => x.Name == element.Name))
+                  errorMessage = $"Class name '{element.Name}' already in use";
+               
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelEnum>()
-                             .Any(x => x.Name == newName))
-                  errorMessage = "Class name already in use";
-               else if (!string.IsNullOrEmpty(oldName))
+                             .Any(x => x.Name == element.Name))
+                  errorMessage = $"Class name '{element.Name}' already in use";
+               
+               else if (!string.IsNullOrEmpty((string)e.OldValue))
                {
-                  string oldDefaultName = MakeDefaultName(oldName);
-                  string newDefaultName = MakeDefaultName(newName);
+                  string oldDefaultName = MakeDefaultName((string)e.OldValue);
+                  string newDefaultName = MakeDefaultName(element.Name);
 
                   if (element.DbSetName == oldDefaultName)
                      element.DbSetName = newDefaultName;

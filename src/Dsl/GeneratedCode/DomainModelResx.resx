@@ -482,7 +482,7 @@
     <comment>DisplayName for DomainProperty &apos;Concurrency&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Concurrency.Category" xml:space="preserve">
-    <value>Database</value>
+    <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;Concurrency&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDatabaseSchemaTracking.Description" xml:space="preserve">
@@ -533,6 +533,10 @@
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Name.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ImplementNotify.Description" xml:space="preserve">
     <value>Should this class implement INotifyPropertyChanged?</value>
     <comment>Description for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelClass&apos;</comment>
@@ -544,6 +548,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ImplementNotify.Category" xml:space="preserve">
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/CustomInterfaces.Description" xml:space="preserve">
+    <value>Optional comma-separated list of interfaces that will be added to the class definition</value>
+    <comment>Description for DomainProperty &apos;CustomInterfaces&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/CustomInterfaces.DisplayName" xml:space="preserve">
+    <value>Custom Interfaces</value>
+    <comment>DisplayName for DomainProperty &apos;CustomInterfaces&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/CustomInterfaces.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;CustomInterfaces&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>

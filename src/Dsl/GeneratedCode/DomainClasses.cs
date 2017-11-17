@@ -3184,6 +3184,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Gets or sets the value of Name domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/Name.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/Name.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::ElementName(typeof(ModelClassNameProvider))]
@@ -3339,6 +3340,95 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.implementNotifyPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region CustomInterfaces domain property code
+		
+		/// <summary>
+		/// CustomInterfaces domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CustomInterfacesDomainPropertyId = new global::System.Guid(0x55789969, 0x4fcd, 0x4e41, 0xbf, 0x8a, 0x69, 0xcf, 0x0d, 0xd7, 0x02, 0x65);
+		
+		/// <summary>
+		/// Storage for CustomInterfaces
+		/// </summary>
+		private global::System.String customInterfacesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CustomInterfaces domain property.
+		/// Optional comma-separated list of interfaces that will be added to the class
+		/// definition
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/CustomInterfaces.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/CustomInterfaces.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/CustomInterfaces.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("55789969-4fcd-4e41-bf8a-69cf0dd70265")]
+		public global::System.String CustomInterfaces
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return customInterfacesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CustomInterfacesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.CustomInterfaces domain property.
+		/// </summary>
+		internal sealed partial class CustomInterfacesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.String>
+		{
+			private CustomInterfacesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.CustomInterfaces domain property value handler.
+			/// </summary>
+			public static readonly CustomInterfacesPropertyHandler Instance = new CustomInterfacesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.CustomInterfaces domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CustomInterfacesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.customInterfacesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.customInterfacesPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

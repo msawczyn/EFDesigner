@@ -28,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // "context.Instance"  returns the element(s) that are currently selected i.e. whose values are being shown in the property grid.   
          // Note that the user could have selected multiple objects, in which case context.Instance will be an array.  
          Store store = GetStore(context.Instance);
-         List<string> values = new List<string>(new[] { "HashSet", "List", "ObservableCollection" });
+         List<string> values = new List<string>(new[] { "HashSet", "LinkedList", "List", "SortedSet", "Collection", "ObservableCollection", "BindingList" });
          values.AddRange(store.ElementDirectory.FindElements<Association>().Select(x => x.CollectionClass));
 
          return new StandardValuesCollection(values.OrderBy(x => x).Distinct().ToList());
