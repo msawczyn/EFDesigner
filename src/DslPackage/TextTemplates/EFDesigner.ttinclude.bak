@@ -221,7 +221,7 @@ void WriteClass(ModelClass modelClass)
    List<string> bases = new List<string>();
    if (modelClass.Superclass != null) 
       bases.Add(modelClass.Superclass.Name);
-   if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
+   if (!string.IsNullOrEmpty(modelClass.CustomInterfaces)
       bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
    string baseClass = bases.Any() ? $" : {string.Join(", ", bases.Select(x => x.Trim()))}" : string.Empty;
    Output($"public {isAbstract}partial class {modelClass.Name}{baseClass}");

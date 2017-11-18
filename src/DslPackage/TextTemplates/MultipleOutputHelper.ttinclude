@@ -234,7 +234,6 @@ class Manager
 
       internal void ProjectSync(IEnumerable<string> keepFileNames)
       {
-         /*
          Dictionary<ProjectItem, List<string>> current = GetCurrentState();
          Dictionary<ProjectItem, List<string>> target = GetTargetState(keepFileNames);
 
@@ -262,7 +261,6 @@ class Manager
             if (!keepUnderTemplate.Contains(templateProjectItem.ProjectItems.Item(index).Name))
                templateProjectItem.ProjectItems.Item(index--).Delete();
          }
-         */
       }
 
       private Dictionary<ProjectItem, List<string>> GetTargetState(IEnumerable<string> fileNames)
@@ -286,7 +284,7 @@ class Manager
          Dictionary<ProjectItem, List<string>> result = new Dictionary<ProjectItem, List<string>>();
          Project currentProject = templateProjectItem.ContainingProject;
          string projectDirectory = Path.GetDirectoryName(currentProject.FullName);
-         string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, string.Format("*.{0}.cs", FileNameMarker));
+         string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, $"*.{FileNameMarker}.cs", SearchOption.AllDirectories);
 
          foreach (string fileName in existingGeneratedFiles)
          {

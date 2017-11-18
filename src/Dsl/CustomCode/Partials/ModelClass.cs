@@ -178,7 +178,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void ClassShouldHaveAttributes(ValidationContext context)
       {
-         if (!Attributes.Any())
+         if (!Attributes.Any() && !LocalNavigationProperties().Any())
             context.LogWarning("Class has no properties", "MCWNoProperties", this);
       }
 
