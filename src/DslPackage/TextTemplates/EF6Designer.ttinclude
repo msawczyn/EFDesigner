@@ -67,9 +67,6 @@ void WriteDatabaseInitializerEF6(ModelRoot modelRoot)
 
 void WriteMigrationConfigurationEF6(ModelRoot modelRoot)
 {
-   //if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
-   //   return;
-
    Output("using System.Data.Entity.Migrations;");
    NL();
 
@@ -155,7 +152,9 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                                    ? $"Name={modelRoot.ConnectionStringName}"
                                    : modelRoot.ConnectionString;
 
-      Output($"public {modelRoot.EntityContainerName}() : base(@\"{connectionString}\")");
+      Output($"public static string ConnectionString {{ get; set; }} = \"{connectionString}\";");
+
+      Output($"public {modelRoot.EntityContainerName}() : base(ConnectionString);
       Output("{");
       Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
       Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
