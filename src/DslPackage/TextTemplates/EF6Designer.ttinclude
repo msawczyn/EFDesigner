@@ -154,7 +154,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 
       Output($"public static string ConnectionString {{ get; set; }} = \"{connectionString}\";");
 
-      Output($"public {modelRoot.EntityContainerName}() : base(ConnectionString);
+      Output($"public {modelRoot.EntityContainerName}() : base(ConnectionString)");
       Output("{");
       Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
       Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
