@@ -1,6 +1,6 @@
 # Entity Framework Designer
 
-## Entity Framework visual design surface and code-first code generation for EF6, Core and beyond.
+## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 
 This Visual Studio 2017 extension adds a new file type (.efmodel) that allows for visual design of persistent classes. Inheritance, unidirectional and bidirectional associations are supported. Enumerations are also included in the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design.
 
