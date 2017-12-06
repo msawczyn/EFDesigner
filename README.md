@@ -2,6 +2,8 @@
 
 ## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 
+**Install with NuGet from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
+
 This Visual Studio 2017 extension adds a new file type (.efmodel) that allows for fast, easy and, most
 importantly, **visual** design of persistent classes. Inheritance, unidirectional and bidirectional 
 associations are all supported. Enumerations are also included in the visual model, as is the 
