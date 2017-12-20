@@ -429,6 +429,14 @@
     <value>Misc</value>
     <comment>Category for DomainProperty &apos;ShowCascadeDeletes&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.Description" xml:space="preserve">
+    <value>Database manifest token. Optimization if runtime database type is known and unchanging.</value>
+    <comment>Description for DomainProperty &apos;DatabaseType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.DisplayName" xml:space="preserve">
+    <value>Database Type</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1625,6 +1633,14 @@
     <value>Will use Code First Migrations to update the database to the latest version.</value>
     <comment>Description for EnumerationLiteral &apos;MigrateDatabaseToLatestVersion&apos; on DomainEnumeration &apos;DatabaseInitializerKind&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/None.DisplayName" xml:space="preserve">
+    <value>None</value>
+    <comment>Display name for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DatabaseInitializerKind&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/None.Description" xml:space="preserve">
+    <value>Null configuration. Will not check database for correctness, speeding up initialization and queries.</value>
+    <comment>Description for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DatabaseInitializerKind&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.HTML5Type/None.DisplayName" xml:space="preserve">
     <value>None</value>
     <comment>Display name for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;HTML5Type&apos;</comment>
@@ -1920,6 +1936,30 @@
   <data name="Sawczyn.EFDesigner.EFModel.ForeignKeyOwner/Target.Description" xml:space="preserve">
     <value>Foreign key is contained in the Target class</value>
     <comment>Description for EnumerationLiteral &apos;Target&apos; on DomainEnumeration &apos;ForeignKeyOwner&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/SqlServer.DisplayName" xml:space="preserve">
+    <value>SqlServer</value>
+    <comment>Display name for EnumerationLiteral &apos;SqlServer&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/SqlServer.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer</value>
+    <comment>Description for EnumerationLiteral &apos;SqlServer&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/SqlServer2012.DisplayName" xml:space="preserve">
+    <value>SqlServer2012</value>
+    <comment>Display name for EnumerationLiteral &apos;SqlServer2012&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/SqlServer2012.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer2012</value>
+    <comment>Description for EnumerationLiteral &apos;SqlServer2012&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/None.DisplayName" xml:space="preserve">
+    <value>None</value>
+    <comment>Display name for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/None.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.None</value>
+    <comment>Description for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

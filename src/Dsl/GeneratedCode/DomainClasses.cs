@@ -2214,6 +2214,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region DatabaseType domain property code
+		
+		/// <summary>
+		/// DatabaseType domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DatabaseTypeDomainPropertyId = new global::System.Guid(0x35be1c55, 0x6c42, 0x45bf, 0xaf, 0x62, 0x16, 0xd0, 0x0d, 0xbf, 0x80, 0xc4);
+		
+		/// <summary>
+		/// Storage for DatabaseType
+		/// </summary>
+		private DatabaseKind databaseTypePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of DatabaseType domain property.
+		/// Database manifest token. Optimization if runtime database type is known and
+		/// unchanging.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("35be1c55-6c42-45bf-af62-16d00dbf80c4")]
+		public DatabaseKind DatabaseType
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return databaseTypePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DatabaseTypePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DatabaseType domain property.
+		/// </summary>
+		internal sealed partial class DatabaseTypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, DatabaseKind>
+		{
+			private DatabaseTypePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DatabaseType domain property value handler.
+			/// </summary>
+			public static readonly DatabaseTypePropertyHandler Instance = new DatabaseTypePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DatabaseType domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DatabaseTypeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed DatabaseKind GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.databaseTypePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, DatabaseKind newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				DatabaseKind oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.databaseTypePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

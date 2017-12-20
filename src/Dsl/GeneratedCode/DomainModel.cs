@@ -138,6 +138,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "TransformOnSave", ModelRoot.TransformOnSaveDomainPropertyId, typeof(ModelRoot.TransformOnSavePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DefaultIdentityType", ModelRoot.DefaultIdentityTypeDomainPropertyId, typeof(ModelRoot.DefaultIdentityTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "ShowCascadeDeletes", ModelRoot.ShowCascadeDeletesDomainPropertyId, typeof(ModelRoot.ShowCascadeDeletesPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DatabaseType", ModelRoot.DatabaseTypeDomainPropertyId, typeof(ModelRoot.DatabaseTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -636,13 +637,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifier/Protected.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Protected,
+		Protected = 2,
 		/// <summary>
 		/// Internal
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.TypeAccessModifier/Internal.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Internal,
+		Internal = 3,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -709,7 +710,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DBWorkflow/TablePerTypeStrategy.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		TablePerTypeStrategy,
+		TablePerTypeStrategy = 0,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -724,12 +725,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Public
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ContainerAccess/Public.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Public,
+		Public = 1,
 		/// <summary>
 		/// Internal
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ContainerAccess/Internal.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Internal,
+		Internal = 0,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -746,13 +747,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DeleteAction/Cascade.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Cascade,
+		Cascade = 0,
 		/// <summary>
 		/// None
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DeleteAction/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		None,
+		None = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -769,13 +770,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CollectionType/List.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		List,
+		List = 1,
 		/// <summary>
 		/// HashSet
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CollectionType/HashSet.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		HashSet,
+		HashSet = 0,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -792,19 +793,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int16.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Int16,
+		Int16 = 0,
 		/// <summary>
 		/// Int32
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int32.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Int32,
+		Int32 = 1,
 		/// <summary>
 		/// Int64
 		/// No description available
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int64.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Int64,
+		Int64 = 2,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -822,27 +823,34 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// exist.
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/CreateDatabaseIfNotExists.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		CreateDatabaseIfNotExists,
+		CreateDatabaseIfNotExists = 0,
 		/// <summary>
 		/// DropCreateDatabaseAlways
 		/// Will always recreate and optionally re-seed the database the first time that a
 		/// context is used in the app domain.
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/DropCreateDatabaseAlways.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		DropCreateDatabaseAlways,
+		DropCreateDatabaseAlways = 1,
 		/// <summary>
 		/// DropCreateDatabaseIfModelChanges
 		/// Will delete, recreate, and optionally re-seed the database only if the model has
 		/// changed since the database was created.
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/DropCreateDatabaseIfModelChanges.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		DropCreateDatabaseIfModelChanges,
+		DropCreateDatabaseIfModelChanges = 2,
 		/// <summary>
 		/// MigrateDatabaseToLatestVersion
 		/// Will use Code First Migrations to update the database to the latest version.
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/MigrateDatabaseToLatestVersion.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		MigrateDatabaseToLatestVersion,
+		MigrateDatabaseToLatestVersion = 3,
+		/// <summary>
+		/// None
+		/// Null configuration. Will not check database for correctness, speeding up
+		/// initialization and queries.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		None = 4,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -954,13 +962,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Don't generate code to handle concurrency
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Concurrency/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		None,
+		None = 0,
 		/// <summary>
 		/// Optimistic
 		/// Generate timestamp columns to handle optimistic concurrency
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Concurrency/Optimistic.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Optimistic,
+		Optimistic = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -977,19 +985,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Don't generate code to handle concurrency
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ConcurrencyOverride/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		None,
+		None = 1,
 		/// <summary>
 		/// Optimistic
 		/// Generate timestamp columns to handle optimistic concurrency
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ConcurrencyOverride/Optimistic.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Optimistic,
+		Optimistic = 2,
 		/// <summary>
 		/// Default
 		/// Use default for model
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ConcurrencyOverride/Default.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Default,
+		Default = 0,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -1006,13 +1014,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Entity Framework 6
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EF6.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		EF6,
+		EF6 = 0,
 		/// <summary>
 		/// EFCore
 		/// Entity Framework Core
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EFCore.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		EFCore,
+		EFCore = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -1029,19 +1037,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// The associated property is not an identity
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.IdentityType/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		None,
+		None = 2,
 		/// <summary>
 		/// AutoGenerated
 		/// The value will be automatically generated in the database
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.IdentityType/AutoGenerated.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		AutoGenerated,
+		AutoGenerated = 0,
 		/// <summary>
 		/// Manual
 		/// The value will be entered by the program
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.IdentityType/Manual.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Manual,
+		Manual = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -1058,19 +1066,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Property is public
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.SetterAccessModifier/Public.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Public,
+		Public = 2,
 		/// <summary>
 		/// Protected
 		/// Property is protected
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.SetterAccessModifier/Protected.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Protected,
+		Protected = 1,
 		/// <summary>
 		/// Internal
 		/// Property is internal
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.SetterAccessModifier/Internal.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Internal,
+		Internal = 0,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -1087,19 +1095,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// A table will be used for every class
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CodeStrategy/TablePerType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		TablePerType,
+		TablePerType = 2,
 		/// <summary>
 		/// TablePerConcreteType
 		/// Only concrete (not abstract) classes will have tables
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CodeStrategy/TablePerConcreteType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		TablePerConcreteType,
+		TablePerConcreteType = 0,
 		/// <summary>
 		/// TablePerHierarchy
 		/// A table will be used for every inheritance chain
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CodeStrategy/TablePerHierarchy.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		TablePerHierarchy,
+		TablePerHierarchy = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -1151,19 +1159,49 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// No foreign key should be generated
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ForeignKeyOwner/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		None,
+		None = 0,
 		/// <summary>
 		/// Source
 		/// Foreign key is contained in the Source class
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ForeignKeyOwner/Source.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Source,
+		Source = 1,
 		/// <summary>
 		/// Target
 		/// Foreign key is contained in the Target class
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ForeignKeyOwner/Target.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Target,
+		Target = 2,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: DatabaseKind
+	/// Database manifest token. Optimization if runtime database type is known and
+	/// unchanging.
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum DatabaseKind
+	{
+		/// <summary>
+		/// SqlServer
+		/// Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseKind/SqlServer.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		SqlServer = 1,
+		/// <summary>
+		/// SqlServer2012
+		/// Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer2012
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseKind/SqlServer2012.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		SqlServer2012 = 2,
+		/// <summary>
+		/// None
+		/// Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.None
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseKind/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		None = 0,
 	}
 }
 

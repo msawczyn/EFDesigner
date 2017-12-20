@@ -1040,6 +1040,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// DatabaseType
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDatabaseType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "databaseType");
+				if (attribDatabaseType != null)
+				{
+					DatabaseKind valueOfDatabaseType;
+					if (DslModeling::SerializationUtilities.TryGetValue<DatabaseKind>(serializationContext, attribDatabaseType, out valueOfDatabaseType))
+					{
+						instanceOfModelRoot.DatabaseType = valueOfDatabaseType;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "databaseType", typeof(DatabaseKind), attribDatabaseType);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1940,6 +1957,16 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (!serializationContext.Result.Failed)
 				{
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showCascadeDeletes", serializedPropValue);
+				}
+			}
+			// DatabaseType
+			if (!serializationContext.Result.Failed)
+			{
+				DatabaseKind propValue = instanceOfModelRoot.DatabaseType;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<DatabaseKind>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "databaseType", serializedPropValue);
 				}
 			}
 		}
