@@ -46,7 +46,17 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogWarning($"Enum {Name} has some, but not all, values initialized. Please ensure this is what was intended.", "MWPartialEnumValueInitialization", this);
       }
 
-
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
+      private void SummaryDescriptionIsEmpty(ValidationContext context)
+      {
+         ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
+         if (modelRoot.WarnOnMissingDocumentation)
+         {
+            if (string.IsNullOrWhiteSpace(Summary))
+               context.LogWarning($"Enum {Name} should be documented", "AWMissingSummary", this);
+         }
+      }
       #region Namespace tracking property
 
       private string namespaceStorage;

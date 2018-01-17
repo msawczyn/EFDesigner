@@ -37,6 +37,18 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
+      private void SummaryDescriptionIsEmpty(ValidationContext context)
+      {
+         ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
+         if (modelRoot.WarnOnMissingDocumentation)
+         {
+            if (string.IsNullOrWhiteSpace(TargetSummary))
+               context.LogWarning($"Association end {Source.Name}.{TargetPropertyName} should be documented", "AWMissingSummary", this);
+         }
+      }
+
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
       private void TPCEndpointsOnlyOnLeafNodes(ValidationContext context)
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();

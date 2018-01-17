@@ -1,14 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.Modeling.Validation;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   partial class ModelEnumValue : IModelElementCompartmented
+   public partial class BidirectionalAssociation
    {
-      public IModelElementWithCompartments ParentModelElement => Enum;
-      public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
-
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)
@@ -16,8 +16,8 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
          if (modelRoot.WarnOnMissingDocumentation)
          {
-            if (string.IsNullOrWhiteSpace(Summary))
-               context.LogWarning($"Enum value {Enum.Name}.{Name} should be documented", "AWMissingSummary", this);
+            if (string.IsNullOrWhiteSpace(SourceSummary))
+               context.LogWarning($"Association end {Target.Name}.{SourcePropertyName} should be documented", "AWMissingSummary", this);
          }
       }
    }

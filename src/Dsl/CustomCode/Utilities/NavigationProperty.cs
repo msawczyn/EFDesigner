@@ -10,5 +10,7 @@
       public bool IsCollection => /*Cardinality == Multiplicity.OneMany || */Cardinality == Multiplicity.ZeroMany;
       public bool Required => Cardinality == Multiplicity.One /*|| Cardinality == Multiplicity.OneMany*/;
       public bool ConstructorParameterOnly { get; set; }
+      public string Summary { get; set; }
+      public string Description { get; set; }
    }
 }

@@ -249,6 +249,18 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogWarning("String length not specified", "MWStringNoLength", this);
       }
 
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
+      private void SummaryDescriptionIsEmpty(ValidationContext context)
+      {
+         ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
+         if (modelRoot.WarnOnMissingDocumentation)
+         {
+            if (string.IsNullOrWhiteSpace(Summary))
+               context.LogWarning($"Attribute {ModelClass.Name}.{Name} should be documented", "AWMissingSummary", this);
+         }
+      }
+
       #region Parse string
 
       // Note: gave some thought to making this be an LALR parser, but that's WAY overkill for what needs done here. Regex is good enough.

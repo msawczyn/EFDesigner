@@ -129,11 +129,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnMenuAddProperties(object sender, EventArgs e)
       {
-         FindForm findForm = new FindForm();
-         if (findForm.ShowDialog() == DialogResult.OK)
-         {
-            
-         }
          NodeShape shapeElement = CurrentSelection.OfType<ClassShape>().FirstOrDefault();
          
          if (shapeElement?.ModelElement is ModelClass element)

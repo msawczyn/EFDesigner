@@ -104,7 +104,9 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                 Cardinality = x.TargetMultiplicity,
                                                                                 ClassType = x.Target,
                                                                                 AssociationObject = x,
-                                                                                PropertyName = x.TargetPropertyName
+                                                                                PropertyName = x.TargetPropertyName,
+                                                                                Summary = x.TargetSummary,
+                                                                                Description = x.TargetDescription
                                                                              })
                                                                 .ToList();
 
@@ -116,7 +118,9 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                 Cardinality = x.SourceMultiplicity,
                                                                                 ClassType = x.Source,
                                                                                 AssociationObject = x,
-                                                                                PropertyName = x.SourcePropertyName
+                                                                                PropertyName = x.SourcePropertyName,
+                                                                                Summary = x.SourceSummary,
+                                                                                Description = x.SourceDescription
                                                                              })
                                                                 .ToList();
          targetProperties.AddRange(Association.GetLinksToSources(this)
@@ -227,6 +231,17 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"{Name} should have {shouldHave} concurrency properties but has {tokenCount}", "MCEConcurrencyCount", this);
       }
 
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
+      private void SummaryDescriptionIsEmpty(ValidationContext context)
+      {
+         ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
+         if (modelRoot.WarnOnMissingDocumentation)
+         {
+            if (string.IsNullOrWhiteSpace(Summary))
+               context.LogWarning($"Class {Name} should be documented", "AWMissingSummary", this);
+         }
+      }
       #region DatabaseSchema tracking property
 
       private string databaseSchemaStorage;

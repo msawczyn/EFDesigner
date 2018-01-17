@@ -7,6 +7,10 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
+// EFDesigner v1.0.3.5
+// Copyright (c) 2017 Michael Sawczyn
+// https://github.com/msawczyn/EFDesigner
+
 void NL()
 {
    WriteLine("");
@@ -186,6 +190,19 @@ void WriteEnum(ModelEnum modelEnum)
 
       BeginNamespace(modelEnum.Namespace);
 
+      if (!string.IsNullOrEmpty(modelEnum.Summary))
+      {
+         Output("/// <summary>");
+         Output("/// {0}", modelEnum.Summary);
+         Output("/// </summary>");
+      }
+      if (!string.IsNullOrEmpty(modelEnum.Description))
+      {
+         Output("/// <remarks>");
+         Output("/// {0}", modelEnum.Description);
+         Output("/// </remarks>");
+      }
+         
       Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
       Output("{");
 
@@ -224,6 +241,20 @@ void WriteClass(ModelClass modelClass)
    if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
       bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
    string baseClass = bases.Any() ? $" : {string.Join(", ", bases.Select(x => x.Trim()))}" : string.Empty;
+
+   if (!string.IsNullOrEmpty(modelClass.Summary))
+   {
+      Output("/// <summary>");
+      Output("/// {0}", modelClass.Summary);
+      Output("/// </summary>");
+   }
+   if (!string.IsNullOrEmpty(modelClass.Description))
+   {
+      Output("/// <remarks>");
+      Output("/// {0}", modelClass.Description);
+      Output("/// </remarks>");
+   }
+
    Output($"public {isAbstract}partial class {modelClass.Name}{baseClass}");
    Output("{");
 
@@ -463,6 +494,12 @@ void WritePersistentProperties(ModelClass modelClass)
             Output("/// {0}", modelAttribute.Summary);
          Output("/// </summary>");
       }
+      if (!string.IsNullOrEmpty(modelAttribute.Description))
+      {
+         Output("/// <remarks>");
+         Output("/// {0}", modelAttribute.Description);
+         Output("/// </remarks>");
+      }
 
       string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
 
@@ -553,6 +590,20 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
       string comment = comments.Count > 0 ? $" // {string.Join(", ", comments)}" : "";
       string _virtual = requireVirtual ? "virtual " : "";
 
+      if (!string.IsNullOrEmpty(navigationProperty.Summary) || !string.IsNullOrEmpty(comment))
+      {
+         Output("/// <summary>");
+         if (!string.IsNullOrEmpty(comment)) Output("/// {0}", comment);
+         if (!string.IsNullOrEmpty(navigationProperty.Summary)) Output("/// {0}", navigationProperty.Summary);
+         Output("/// </summary>");
+      }
+      if (!string.IsNullOrEmpty(navigationProperty.Description))
+      {
+         Output("/// <remarks>");
+         Output("/// {0}", navigationProperty.Description);
+         Output("/// </remarks>");
+      }
+
       Output($"public {_virtual}{type} {navigationProperty.PropertyName} {{ get; set; }} {comment}");
    }
 }
@@ -574,6 +625,18 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
       Output($"partial void Get{navigationProperty.PropertyName}(ref {type} value);");
       Output($"partial void Set{navigationProperty.PropertyName}({type} value);");
 
+      if (!string.IsNullOrEmpty(navigationProperty.Summary))
+      {
+         Output("/// <summary>");
+         Output("/// {0}", navigationProperty.Summary);
+         Output("/// </summary>");
+      }
+      if (!string.IsNullOrEmpty(navigationProperty.Description))
+      {
+         Output("/// <remarks>");
+         Output("/// {0}", navigationProperty.Description);
+         Output("/// </remarks>");
+      }
       Output($"public {type} {navigationProperty.PropertyName}");
       Output("{");
       Output($"get {{ {type} value = null; Get{navigationProperty.PropertyName}(ref value); return value; }}");

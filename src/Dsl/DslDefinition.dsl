@@ -170,6 +170,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="bf64bba7-2a7e-4c60-8c7b-b1a18f5b30e6" Description="On save, generate a warning if summary documentation is missing" Name="WarnOnMissingDocumentation" DisplayName="Warn On Missing Documentation" DefaultValue="true" Category="Misc">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1214,6 +1219,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="showCascadeDeletes">
             <DomainPropertyMoniker Name="ModelRoot/ShowCascadeDeletes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="warnOnMissingDocumentation">
+            <DomainPropertyMoniker Name="ModelRoot/WarnOnMissingDocumentation" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

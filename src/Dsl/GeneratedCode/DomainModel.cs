@@ -138,6 +138,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "TransformOnSave", ModelRoot.TransformOnSaveDomainPropertyId, typeof(ModelRoot.TransformOnSavePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DefaultIdentityType", ModelRoot.DefaultIdentityTypeDomainPropertyId, typeof(ModelRoot.DefaultIdentityTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "ShowCascadeDeletes", ModelRoot.ShowCascadeDeletesDomainPropertyId, typeof(ModelRoot.ShowCascadeDeletesPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),

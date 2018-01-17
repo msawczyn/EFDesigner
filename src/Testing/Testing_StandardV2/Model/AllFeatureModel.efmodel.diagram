@@ -158,7 +158,7 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="81d5ac46-1720-411d-a71e-94df6dd0f632" edgePoints="[(3 : 7.92584554036458); (5.125 : 7.92584554036458); (5.125 : 7.35169108072917)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Red" dashStyle="Dash">
+    <bidirectionalConnector Id="81d5ac46-1720-411d-a71e-94df6dd0f632" edgePoints="[(3 : 7.92584554036458); (5.125 : 7.92584554036458); (5.125 : 7.35169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Red" dashStyle="Dash">
       <bidirectionalAssociationMoniker Id="47d48c4e-b550-4b15-b005-8eead2a2714d" />
       <relativeChildShapes />
       <nodes>
@@ -166,7 +166,7 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="ff7f60be-ecdb-4566-963b-f91f84245198" edgePoints="[(3 : 7.68167027018229); (4.7187475 : 7.68167027018229); (4.7187475 : 7.35169108072917)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="ff7f60be-ecdb-4566-963b-f91f84245198" edgePoints="[(3 : 7.68167027018229); (4.7187475 : 7.68167027018229); (4.7187475 : 7.35169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="c2a8b39c-e510-4281-92ab-c38053149c89" />
       <relativeChildShapes />
       <nodes>
@@ -174,7 +174,7 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="71c6003b-454c-4739-ba7f-43703879c4b6" edgePoints="[(3 : 8.17002081054688); (5.5312525 : 8.17002081054688); (5.5312525 : 7.35169108072917)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="71c6003b-454c-4739-ba7f-43703879c4b6" edgePoints="[(3 : 8.17002081054688); (5.5312525 : 8.17002081054688); (5.5312525 : 7.35169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="9a8e24ab-f156-496b-8682-dcaf71d2a6e5" />
       <relativeChildShapes />
       <nodes>
@@ -182,7 +182,7 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="8895ce10-644b-4fe3-9c1e-be2fce6329b9" edgePoints="[(8 : 7.15144755045573); (5.875 : 7.15144755045573)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Red" dashStyle="Dash">
+    <bidirectionalConnector Id="8895ce10-644b-4fe3-9c1e-be2fce6329b9" edgePoints="[(8 : 7.15144755045573); (5.875 : 7.15144755045573)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Red" dashStyle="Dash">
       <bidirectionalAssociationMoniker Id="323b2484-6909-4f77-b46a-660990155ae8" />
       <relativeChildShapes />
       <nodes>
@@ -230,7 +230,7 @@
         <elementListCompartment Id="a6136f51-ca9e-4047-b48f-32cd194c9a9e" absoluteBounds="12.515, 12.56, 1.4700000000000002, 0.63399251302083326" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="a6c0c589-15f0-40f7-bc15-dc38b447c408" edgePoints="[(13.25 : 11.2843896484375); (13.25 : 12.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="a6c0c589-15f0-40f7-bc15-dc38b447c408" edgePoints="[(13.25 : 11.2843896484375); (13.25 : 12.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="24802b77-af33-4c9f-9ec2-b9ccd35e499e" />
       <nodes>
         <classShapeMoniker Id="91ebab80-108f-4198-b2bb-a43ff000ad35" />
@@ -274,28 +274,28 @@
         <elementListCompartment Id="9ae57c15-4301-4f9b-a090-348047b0ee7f" absoluteBounds="13.265, 8.685, 2.2199999999999998, 0.63399251302083326" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="351b5dab-d09c-4b8a-a5ab-947cea91dee6" edgePoints="[(15.375 : 10.7843896484375); (15.375 : 12.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="351b5dab-d09c-4b8a-a5ab-947cea91dee6" edgePoints="[(15.375 : 10.7843896484375); (15.375 : 12.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="588650b7-8217-4c54-8731-8ca06240141b" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="d113c04f-14ad-44b9-9bb4-553107db92df" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="3d67a8b0-a4c9-4617-906c-e37eeb41db94" edgePoints="[(16.5625 : 10.7843896484375); (16.5625 : 12.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="3d67a8b0-a4c9-4617-906c-e37eeb41db94" edgePoints="[(16.5625 : 10.7843896484375); (16.5625 : 12.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="cfb33397-23fd-4afc-a6f2-faa028fde26d" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="279ef3e6-87a3-4739-b2a1-79058c189d98" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="aaab0e3a-95d7-4353-8e91-19c416d10748" edgePoints="[(15.25 : 9.41899251302083); (15.25 : 10.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="aaab0e3a-95d7-4353-8e91-19c416d10748" edgePoints="[(15.25 : 9.41899251302083); (15.25 : 10.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="374feb38-f296-4e75-9120-dd1731b9f2af" />
       <nodes>
         <classShapeMoniker Id="53f69902-6ca7-4ea2-a9b8-1701714f5d43" />
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="3dbe5027-5510-47e1-9035-beb62ea2dc96" edgePoints="[(13.625 : 9.41899251302083); (13.625 : 10.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="3dbe5027-5510-47e1-9035-beb62ea2dc96" edgePoints="[(13.625 : 9.41899251302083); (13.625 : 10.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="72e8b07a-13a1-43ab-93ec-62d287bee3cf" />
       <nodes>
         <classShapeMoniker Id="53f69902-6ca7-4ea2-a9b8-1701714f5d43" />
@@ -314,7 +314,7 @@
         <elementListCompartment Id="684c6978-ab1f-4401-b964-7753cbd5d61b" absoluteBounds="11.015, 8.31, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <bidirectionalConnector Id="a9eb7ae5-837f-48f2-affa-3354aa874c1b" edgePoints="[(11.521450394381 : 8.85169108072917); (11.521450394381 : 9.10169108072917); (11.9894329201723 : 9.10169108072917); (11.9894329201723 : 8.85169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="113, 111, 110" dashStyle="Solid">
+    <bidirectionalConnector Id="a9eb7ae5-837f-48f2-affa-3354aa874c1b" edgePoints="[(11.521450394381 : 8.85169108072917); (11.521450394381 : 9.10169108072917); (11.9894329201723 : 9.10169108072917); (11.9894329201723 : 8.85169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Red" dashStyle="Dash">
       <bidirectionalAssociationMoniker Id="69bc438f-a496-41b7-aa4e-804a94bc3dbe" />
       <relativeChildShapes />
       <nodes>
@@ -322,7 +322,7 @@
         <classShapeMoniker Id="337ff4c5-67e7-4e97-aabf-2e83b1dc9be4" />
       </nodes>
     </bidirectionalConnector>
-    <unidirectionalConnector Id="70c9bbe7-3339-4a1e-811d-27499d79f9b3" edgePoints="[(11.75 : 7.10169108072917); (11.75 : 8)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
+    <unidirectionalConnector Id="70c9bbe7-3339-4a1e-811d-27499d79f9b3" edgePoints="[(11.75 : 7.10169108072917); (11.75 : 8)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Red" dashStyle="Dash">
       <unidirectionalAssociationMoniker Id="62020074-0c60-421a-936a-3c3da80b9ca1" />
       <relativeChildShapes />
       <nodes>

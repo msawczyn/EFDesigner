@@ -2214,6 +2214,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region WarnOnMissingDocumentation domain property code
+		
+		/// <summary>
+		/// WarnOnMissingDocumentation domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid WarnOnMissingDocumentationDomainPropertyId = new global::System.Guid(0xbf64bba7, 0x2a7e, 0x4c60, 0x8c, 0x7b, 0xb1, 0xa1, 0x8f, 0x5b, 0x30, 0xe6);
+		
+		/// <summary>
+		/// Storage for WarnOnMissingDocumentation
+		/// </summary>
+		private global::System.Boolean warnOnMissingDocumentationPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of WarnOnMissingDocumentation domain property.
+		/// On save, generate a warning if summary documentation is missing
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("bf64bba7-2a7e-4c60-8c7b-b1a18f5b30e6")]
+		public global::System.Boolean WarnOnMissingDocumentation
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return warnOnMissingDocumentationPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				WarnOnMissingDocumentationPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.WarnOnMissingDocumentation domain property.
+		/// </summary>
+		internal sealed partial class WarnOnMissingDocumentationPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private WarnOnMissingDocumentationPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.WarnOnMissingDocumentation domain property value handler.
+			/// </summary>
+			public static readonly WarnOnMissingDocumentationPropertyHandler Instance = new WarnOnMissingDocumentationPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.WarnOnMissingDocumentation domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return WarnOnMissingDocumentationDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.warnOnMissingDocumentationPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.warnOnMissingDocumentationPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
