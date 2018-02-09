@@ -17,7 +17,9 @@ T4:  Use HTML5Type in code generation
 DSL: Add column name option for property, default to property name
 T4:  Generate HasColumnName(name) for property if overrides
 
-T4: DatabaseInitializer and MigrationConfiguration should be internal?
+T4:  DatabaseInitializer and MigrationConfiguration should be internal?
+
+DSL: Add EFModel file to "Data" category in "Add New Item" dialog
 
 ===============================================================
 Extension: Add DeleteType enum to ModelClass (soft, hard)
