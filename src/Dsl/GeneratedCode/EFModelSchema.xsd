@@ -255,10 +255,10 @@
             <xsd:documentation>If true, will display cascade deleted associations as dashed red lines</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: WarnOnMissingDocumentation -->
-        <xsd:attribute name="warnOnMissingDocumentation" type="xsd:boolean" >
+        <!-- Property: DatabaseType -->
+        <xsd:attribute name="databaseType" type="DatabaseKind" >
           <xsd:annotation>
-            <xsd:documentation>On save, generate a warning if summary documentation is missing</xsd:documentation>
+            <xsd:documentation>Database manifest token. Optimization if runtime database type is known and unchanging.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1443,6 +1443,11 @@
           <xsd:documentation>Will use Code First Migrations to update the database to the latest version.</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+      <xsd:enumeration value="None">
+        <xsd:annotation>
+          <xsd:documentation>Null configuration. Will not check database for correctness, speeding up initialization and queries.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   
@@ -1696,6 +1701,18 @@
           <xsd:documentation>Foreign key is contained in the Target class</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum DatabaseKind -->
+  <xsd:simpleType name="DatabaseKind">
+    <xsd:annotation>
+      <xsd:documentation>Database manifest token. Optimization if runtime database type is known and unchanging.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="SqlServer"/>
+      <xsd:enumeration value="SqlServer2012"/>
+      <xsd:enumeration value="None"/>
     </xsd:restriction>
   </xsd:simpleType>
   

@@ -1040,20 +1040,20 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// WarnOnMissingDocumentation
+			// DatabaseType
 			if (!serializationContext.Result.Failed)
 			{
-				string attribWarnOnMissingDocumentation = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "warnOnMissingDocumentation");
-				if (attribWarnOnMissingDocumentation != null)
+				string attribDatabaseType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "databaseType");
+				if (attribDatabaseType != null)
 				{
-					global::System.Boolean valueOfWarnOnMissingDocumentation;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribWarnOnMissingDocumentation, out valueOfWarnOnMissingDocumentation))
+					DatabaseKind valueOfDatabaseType;
+					if (DslModeling::SerializationUtilities.TryGetValue<DatabaseKind>(serializationContext, attribDatabaseType, out valueOfDatabaseType))
 					{
-						instanceOfModelRoot.WarnOnMissingDocumentation = valueOfWarnOnMissingDocumentation;
+						instanceOfModelRoot.DatabaseType = valueOfDatabaseType;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "warnOnMissingDocumentation", typeof(global::System.Boolean), attribWarnOnMissingDocumentation);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "databaseType", typeof(DatabaseKind), attribDatabaseType);
 					}
 				}
 			}
@@ -1959,17 +1959,14 @@ namespace Sawczyn.EFDesigner.EFModel
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showCascadeDeletes", serializedPropValue);
 				}
 			}
-			// WarnOnMissingDocumentation
+			// DatabaseType
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Boolean propValue = instanceOfModelRoot.WarnOnMissingDocumentation;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				DatabaseKind propValue = instanceOfModelRoot.DatabaseType;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<DatabaseKind>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
-					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "warnOnMissingDocumentation", serializedPropValue);
-					}
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "databaseType", serializedPropValue);
 				}
 			}
 		}

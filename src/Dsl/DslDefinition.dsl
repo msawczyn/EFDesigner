@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" Build="3" Revision="6" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" Build="3" Revision="5" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
@@ -170,9 +170,9 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="bf64bba7-2a7e-4c60-8c7b-b1a18f5b30e6" Description="On save, generate a warning if summary documentation is missing" Name="WarnOnMissingDocumentation" DisplayName="Warn On Missing Documentation" DefaultValue="true" Category="Misc">
+        <DomainProperty Id="35be1c55-6c42-45bf-af62-16d00dbf80c4" Description="Database manifest token. Optimization if runtime database type is known and unchanging." Name="DatabaseType" DisplayName="Database Type">
           <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
+            <DomainEnumerationMoniker Name="DatabaseKind" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -797,8 +797,8 @@
       <Literals>
         <EnumerationLiteral Description="" Name="Public" Value="0" />
         <EnumerationLiteral Description="" Name="Private" Value="1" />
-        <EnumerationLiteral Description="No description available" Name="Protected" Value="" />
-        <EnumerationLiteral Description="No description available" Name="Internal" Value="" />
+        <EnumerationLiteral Description="No description available" Name="Protected" Value="2" />
+        <EnumerationLiteral Description="No description available" Name="Internal" Value="3" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="InheritanceModifier" Namespace="Sawczyn.EFDesigner.EFModel" Description="">
@@ -817,43 +817,44 @@
     </DomainEnumeration>
     <DomainEnumeration Name="DBWorkflow" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
       <Literals>
-        <EnumerationLiteral Description="No description available" Name="TablePerTypeStrategy" Value="" />
+        <EnumerationLiteral Description="No description available" Name="TablePerTypeStrategy" Value="0" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="ContainerAccess" Namespace="Sawczyn.EFDesigner.EFModel" Description="">
       <Literals>
-        <EnumerationLiteral Description="" Name="Public" Value="" />
-        <EnumerationLiteral Description="" Name="Internal" Value="" />
+        <EnumerationLiteral Description="" Name="Public" Value="1" />
+        <EnumerationLiteral Description="" Name="Internal" Value="0" />
       </Literals>
     </DomainEnumeration>
     <ExternalType Name="Color" Namespace="System.Drawing" />
     <DomainEnumeration Name="DeleteAction" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
       <Literals>
-        <EnumerationLiteral Description="No description available" Name="Cascade" Value="" />
-        <EnumerationLiteral Description="No description available" Name="None" Value="" />
+        <EnumerationLiteral Description="No description available" Name="Cascade" Value="0" />
+        <EnumerationLiteral Description="No description available" Name="None" Value="1" />
       </Literals>
     </DomainEnumeration>
     <ExternalType Name="DashStyle" Namespace="System.Drawing.Drawing2D" />
     <ExternalType Name="LinearGradientMode" Namespace="System.Drawing.Drawing2D" />
     <DomainEnumeration Name="CollectionType" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
       <Literals>
-        <EnumerationLiteral Description="No description available" Name="List" Value="" />
-        <EnumerationLiteral Description="No description available" Name="HashSet" Value="" />
+        <EnumerationLiteral Description="No description available" Name="List" Value="1" />
+        <EnumerationLiteral Description="No description available" Name="HashSet" Value="0" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="EnumValueType" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
       <Literals>
-        <EnumerationLiteral Description="No description available" Name="Int16" Value="" />
-        <EnumerationLiteral Description="No description available" Name="Int32" Value="" />
-        <EnumerationLiteral Description="No description available" Name="Int64" Value="" />
+        <EnumerationLiteral Description="No description available" Name="Int16" Value="0" />
+        <EnumerationLiteral Description="No description available" Name="Int32" Value="1" />
+        <EnumerationLiteral Description="No description available" Name="Int64" Value="2" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="DatabaseInitializerKind" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind">
       <Literals>
-        <EnumerationLiteral Description="Will recreate and optionally re-seed the database only if the database does not exist." Name="CreateDatabaseIfNotExists" Value="" />
-        <EnumerationLiteral Description="Will always recreate and optionally re-seed the database the first time that a context is used in the app domain." Name="DropCreateDatabaseAlways" Value="" />
-        <EnumerationLiteral Description="Will delete, recreate, and optionally re-seed the database only if the model has changed since the database was created." Name="DropCreateDatabaseIfModelChanges" Value="" />
-        <EnumerationLiteral Description="Will use Code First Migrations to update the database to the latest version." Name="MigrateDatabaseToLatestVersion" Value="" />
+        <EnumerationLiteral Description="Will recreate and optionally re-seed the database only if the database does not exist." Name="CreateDatabaseIfNotExists" Value="0" />
+        <EnumerationLiteral Description="Will always recreate and optionally re-seed the database the first time that a context is used in the app domain." Name="DropCreateDatabaseAlways" Value="1" />
+        <EnumerationLiteral Description="Will delete, recreate, and optionally re-seed the database only if the model has changed since the database was created." Name="DropCreateDatabaseIfModelChanges" Value="2" />
+        <EnumerationLiteral Description="Will use Code First Migrations to update the database to the latest version." Name="MigrateDatabaseToLatestVersion" Value="3" />
+        <EnumerationLiteral Description="Null configuration. Will not check database for correctness, speeding up initialization and queries." Name="None" Value="4" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="HTML5Type" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.HTML5Type">
@@ -876,35 +877,35 @@
     </DomainEnumeration>
     <DomainEnumeration Name="Concurrency" Namespace="Sawczyn.EFDesigner.EFModel" Description="Types of concurrency handling">
       <Literals>
-        <EnumerationLiteral Description="Don't generate code to handle concurrency" Name="None" Value="" />
-        <EnumerationLiteral Description="Generate timestamp columns to handle optimistic concurrency" Name="Optimistic" Value="" />
+        <EnumerationLiteral Description="Don't generate code to handle concurrency" Name="None" Value="0" />
+        <EnumerationLiteral Description="Generate timestamp columns to handle optimistic concurrency" Name="Optimistic" Value="1" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="ConcurrencyOverride" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.ConcurrencyOverride">
       <Literals>
-        <EnumerationLiteral Description="Don't generate code to handle concurrency" Name="None" Value="" />
-        <EnumerationLiteral Description="Generate timestamp columns to handle optimistic concurrency" Name="Optimistic" Value="" />
-        <EnumerationLiteral Description="Use default for model" Name="Default" Value="" />
+        <EnumerationLiteral Description="Don't generate code to handle concurrency" Name="None" Value="1" />
+        <EnumerationLiteral Description="Generate timestamp columns to handle optimistic concurrency" Name="Optimistic" Value="2" />
+        <EnumerationLiteral Description="Use default for model" Name="Default" Value="0" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="EFVersion" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.EFVersion">
       <Literals>
-        <EnumerationLiteral Description="Entity Framework 6" Name="EF6" Value="" />
-        <EnumerationLiteral Description="Entity Framework Core" Name="EFCore" Value="" />
+        <EnumerationLiteral Description="Entity Framework 6" Name="EF6" Value="0" />
+        <EnumerationLiteral Description="Entity Framework Core" Name="EFCore" Value="1" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="IdentityType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Describes identity generation">
       <Literals>
-        <EnumerationLiteral Description="The associated property is not an identity" Name="None" Value="" />
-        <EnumerationLiteral Description="The value will be automatically generated in the database" Name="AutoGenerated" Value="" />
-        <EnumerationLiteral Description="The value will be entered by the program" Name="Manual" Value="" />
+        <EnumerationLiteral Description="The associated property is not an identity" Name="None" Value="2" />
+        <EnumerationLiteral Description="The value will be automatically generated in the database" Name="AutoGenerated" Value="0" />
+        <EnumerationLiteral Description="The value will be entered by the program" Name="Manual" Value="1" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="SetterAccessModifier" Namespace="Sawczyn.EFDesigner.EFModel" Description="Determines attribute setter visibility">
       <Literals>
-        <EnumerationLiteral Description="Property is public" Name="Public" Value="" />
-        <EnumerationLiteral Description="Property is protected" Name="Protected" Value="" />
-        <EnumerationLiteral Description="Property is internal" Name="Internal" Value="" />
+        <EnumerationLiteral Description="Property is public" Name="Public" Value="2" />
+        <EnumerationLiteral Description="Property is protected" Name="Protected" Value="1" />
+        <EnumerationLiteral Description="Property is internal" Name="Internal" Value="0" />
       </Literals>
     </DomainEnumeration>
     <ExternalType Name="ModelClassNameProvider" Namespace="Sawczyn.EFDesigner.EFModel" />
@@ -912,9 +913,9 @@
     <ExternalType Name="ModelEnumNameProvider" Namespace="Sawczyn.EFDesigner.EFModel" />
     <DomainEnumeration Name="CodeStrategy" Namespace="Sawczyn.EFDesigner.EFModel" Description="Which database strategy to use in code generation">
       <Literals>
-        <EnumerationLiteral Description="A table will be used for every class" Name="TablePerType" Value="" />
-        <EnumerationLiteral Description="Only concrete (not abstract) classes will have tables" Name="TablePerConcreteType" Value="" />
-        <EnumerationLiteral Description="A table will be used for every inheritance chain" Name="TablePerHierarchy" Value="" />
+        <EnumerationLiteral Description="A table will be used for every class" Name="TablePerType" Value="2" />
+        <EnumerationLiteral Description="Only concrete (not abstract) classes will have tables" Name="TablePerConcreteType" Value="0" />
+        <EnumerationLiteral Description="A table will be used for every inheritance chain" Name="TablePerHierarchy" Value="1" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="EndpointRole" Namespace="Sawczyn.EFDesigner.EFModel" Description="Role a class plays on an association">
@@ -927,9 +928,16 @@
     </DomainEnumeration>
     <DomainEnumeration Name="ForeignKeyOwner" Namespace="Sawczyn.EFDesigner.EFModel" Description="The class that contains the foreign key in a relationship">
       <Literals>
-        <EnumerationLiteral Description="No foreign key should be generated" Name="None" Value="" />
-        <EnumerationLiteral Description="Foreign key is contained in the Source class" Name="Source" Value="" />
-        <EnumerationLiteral Description="Foreign key is contained in the Target class" Name="Target" Value="" />
+        <EnumerationLiteral Description="No foreign key should be generated" Name="None" Value="0" />
+        <EnumerationLiteral Description="Foreign key is contained in the Source class" Name="Source" Value="1" />
+        <EnumerationLiteral Description="Foreign key is contained in the Target class" Name="Target" Value="2" />
+      </Literals>
+    </DomainEnumeration>
+    <DomainEnumeration Name="DatabaseKind" Namespace="Sawczyn.EFDesigner.EFModel" Description="Database manifest token. Optimization if runtime database type is known and unchanging.">
+      <Literals>
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer" Name="SqlServer" Value="1" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer2012" Name="SqlServer2012" Value="2" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.None" Name="None" Value="0" />
       </Literals>
     </DomainEnumeration>
   </Types>
@@ -1220,8 +1228,8 @@
           <XmlPropertyData XmlName="showCascadeDeletes">
             <DomainPropertyMoniker Name="ModelRoot/ShowCascadeDeletes" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="warnOnMissingDocumentation">
-            <DomainPropertyMoniker Name="ModelRoot/WarnOnMissingDocumentation" />
+          <XmlPropertyData XmlName="databaseType">
+            <DomainPropertyMoniker Name="ModelRoot/DatabaseType" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

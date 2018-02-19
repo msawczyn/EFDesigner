@@ -8,6 +8,11 @@
 #><#@ import namespace="System.Text"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
+
+// EFDesigner v1.0.3.5
+// Copyright (c) 2017 Michael Sawczyn
+// https://github.com/msawczyn/EFDesigner
+//
 // based on code from
 // https://raw.github.com/damieng/DamienGKit
 // http://damieng.com/blog/2009/11/06/multiple-outputs-from-t4-made-easy-revisited
