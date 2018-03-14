@@ -38,7 +38,8 @@ namespace Testing
       public System.Data.Entity.DbSet<Testing.UParentOptional> UParentOptionals { get; set; }
       public System.Data.Entity.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
 
-      public AllFeatureModel() : base(@"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True")
+      public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
+      public AllFeatureModel() : base(ConnectionString)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
@@ -89,7 +90,6 @@ namespace Testing
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<Testing.AbstractBaseClass>().HasKey(t => t.Id);
 
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -109,8 +109,8 @@ namespace Testing
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int64Attr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
+         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.String).IsRequired();
 
-         modelBuilder.Entity<Testing.BaseClass>().HasKey(t => t.Id);
 
          modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -141,12 +141,9 @@ namespace Testing
          modelBuilder.Entity<Testing.Child>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id")).WillCascadeOnDelete();
 
-         modelBuilder.Entity<Testing.ConcreteDerivedClass>().HasKey(t => t.Id);
 
-         modelBuilder.Entity<Testing.ConcreteDerivedClassWithRequiredProperties>().HasKey(t => t.Id);
          modelBuilder.Entity<Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired();
 
-         modelBuilder.Entity<Testing.DerivedClass>().HasKey(t => t.Id);
 
          modelBuilder.Entity<Testing.HiddenEntity>().ToTable("HiddenEntities").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -175,7 +172,6 @@ namespace Testing
          modelBuilder.Entity<Testing.UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
          modelBuilder.Entity<Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
 
-         modelBuilder.Entity<Testing.UParentOptional>().HasKey(t => t.Id);
          modelBuilder.Entity<Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent().Map(x => x.MapKey("UParentOptional_Id"));
          modelBuilder.Entity<Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey("UParentOptional1_Id"));
          modelBuilder.Entity<Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional().Map(x => x.MapKey("UChildRequired_Id")).WillCascadeOnDelete();

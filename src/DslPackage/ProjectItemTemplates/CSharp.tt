@@ -9,7 +9,8 @@
 		<Description Package="{<#= this.Dsl.PackageGuid #>}" ID="102"/>
 		<Icon Package="{<#= this.Dsl.PackageGuid #>}" ID="201" />
 		<ProjectType>CSharp</ProjectType>
-		<SortOrder>360</SortOrder>
+      <ProjectSubType>Data</ProjectSubType>
+      <NumberOfParentCategoriesToRollUp>2</NumberOfParentCategoriesToRollUp>
 		<DefaultName><#=  this.Dsl.Name #>.<#=this.Dsl.Editor.FileExtension#></DefaultName>
 	</TemplateData>
 	<TemplateContent>

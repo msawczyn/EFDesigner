@@ -43,7 +43,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(TargetSummary))
-               context.LogWarning($"Association end {Source.Name}.{TargetPropertyName} should be documented", "AWMissingSummary", this);
+               context.LogWarning($"{Source.Name}.{TargetPropertyName}: Association end should be documented", "AWMissingSummary", this);
          }
       }
 
@@ -53,7 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
          if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType && (Target.Subclasses.Any() || Source.Subclasses.Any()))
-            context.LogError("Association endpoints can only be to most-derived classes in TPC inheritance strategy", "AEWrongEndpoints", this);
+            context.LogError($"{Source.Name} <=> {Target.Name}: Association endpoints can only be to most-derived classes in TPC inheritance strategy", "AEWrongEndpoints", this);
       }
 
       [ValidationMethod(ValidationCategories.Save | ValidationCategories.Menu)]
@@ -61,7 +61,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void MustDetermineEndpointRoles(ValidationContext context)
       {
          if (SourceRole == EndpointRole.NotSet || TargetRole == EndpointRole.NotSet)
-            context.LogError("Principal/dependent designations must be manually set for 1..1 and 0-1..0-1 associations.", "AEEndpointRoles", this);
+            context.LogError($"{Source.Name} <=> {Target.Name}: Principal/dependent designations must be manually set for 1..1 and 0-1..0-1 associations.", "AEEndpointRoles", this);
       }
 
       #region CollectionClass tracking property

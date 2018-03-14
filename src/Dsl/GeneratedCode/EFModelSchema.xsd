@@ -261,6 +261,12 @@
             <xsd:documentation>Database manifest token. Optimization if runtime database type is known and unchanging.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: WarnOnMissingDocumentation -->
+        <xsd:attribute name="warnOnMissingDocumentation" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will generate warnings when summary documentation is missing</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

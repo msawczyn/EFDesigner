@@ -6,7 +6,8 @@
 		<Description Package="{56bbe1ba-aaee-4883-848f-e3c8656f8db2}" ID="102"/>
 		<Icon Package="{56bbe1ba-aaee-4883-848f-e3c8656f8db2}" ID="201" />
 		<ProjectType>CSharp</ProjectType>
-		<SortOrder>360</SortOrder>
+      <ProjectSubType>Data</ProjectSubType>
+      <NumberOfParentCategoriesToRollUp>2</NumberOfParentCategoriesToRollUp>
 		<DefaultName>EFModel.efmodel</DefaultName>
 	</TemplateData>
 	<TemplateContent>

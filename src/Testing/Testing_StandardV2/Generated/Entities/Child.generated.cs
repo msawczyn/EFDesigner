@@ -9,6 +9,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 
 namespace Testing
 {
@@ -21,7 +24,7 @@ namespace Testing
       /// </summary>
       protected Child()
       {
-         Children = new HashSet<Child>();
+         Children = new System.Collections.Generic.HashSet<Child>();
 
          Init();
       }
@@ -62,8 +65,11 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public ICollection<Child> Children { get; set; } 
-      public Child Parent { get; set; }  // Required
+      public virtual ICollection<Child> Children { get; set; } 
+      /// <summary>
+      ///  // Required
+      /// </summary>
+      public virtual Child Parent { get; set; }  // Required
    }
 }
 

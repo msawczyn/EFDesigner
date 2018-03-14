@@ -42,11 +42,11 @@ namespace Sawczyn.EFDesigner.EFModel
             element.Attributes.Add(concurrencyToken);
          }
 
-         element.DbSetName = ModelRoot.PluralizationService.IsSingular(element.Name)
+         element.DbSetName = ModelRoot.PluralizationService?.IsSingular(element.Name) == true
             ? ModelRoot.PluralizationService.Pluralize(element.Name)
             : element.Name;
 
-         element.TableName = ModelRoot.PluralizationService.IsSingular(element.Name)
+         element.TableName = ModelRoot.PluralizationService?.IsSingular(element.Name) == true
             ? ModelRoot.PluralizationService.Pluralize(element.Name)
             : element.Name;
       }

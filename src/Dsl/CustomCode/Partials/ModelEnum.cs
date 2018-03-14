@@ -35,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void EnumMustHaveValues(ValidationContext context)
       {
          if (!Values.Any())
-            context.LogError("Enum has no values", "MEENoValues", this);
+            context.LogError($"{Name}: Enum has no values", "MEENoValues", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -43,7 +43,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void EnumValueInitializationsShouldBeAllOrNothing(ValidationContext context)
       {
          if (Values.Any(x => !string.IsNullOrEmpty(x.Value)) && Values.Any(x => string.IsNullOrEmpty(x.Value)))
-            context.LogWarning($"Enum {Name} has some, but not all, values initialized. Please ensure this is what was intended.", "MWPartialEnumValueInitialization", this);
+            context.LogWarning($"{Name}: Enum has some, but not all, values initialized. Please ensure this is what was intended.", "MWPartialEnumValueInitialization", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -54,7 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(Summary))
-               context.LogWarning($"Enum {Name} should be documented", "AWMissingSummary", this);
+               context.LogWarning($"{Name}: Enum should be documented", "AWMissingSummary", this);
          }
       }
       #region Namespace tracking property

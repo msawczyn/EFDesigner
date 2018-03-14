@@ -14,7 +14,7 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private string MakeDefaultName(string root)
       {
-         return ModelRoot.PluralizationService.IsSingular(root)
+         return ModelRoot.PluralizationService?.IsSingular(root) == true
             ? ModelRoot.PluralizationService.Pluralize(root)
             : root;
       }

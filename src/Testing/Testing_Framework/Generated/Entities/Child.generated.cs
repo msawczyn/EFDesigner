@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Testing
@@ -23,7 +24,7 @@ namespace Testing
       /// </summary>
       protected Child()
       {
-         Children = new ObservableCollection<Child>();
+         Children = new System.Collections.ObjectModel.ObservableCollection<Child>();
 
          Init();
       }
@@ -65,6 +66,9 @@ namespace Testing
       // Persistent navigation properties
 
       public virtual ICollection<Child> Children { get; set; } 
+      /// <summary>
+      ///  // Required
+      /// </summary>
       public virtual Child Parent { get; set; }  // Required
    }
 }

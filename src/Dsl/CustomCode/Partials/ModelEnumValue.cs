@@ -17,7 +17,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(Summary))
-               context.LogWarning($"Enum value {Enum.Name}.{Name} should be documented", "AWMissingSummary", this);
+               context.LogWarning($"{Enum.Name}.{Name}: Enum value should be documented", "AWMissingSummary", this);
          }
       }
    }

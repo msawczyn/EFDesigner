@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Testing
@@ -42,7 +43,8 @@ namespace Testing
       /// <param name="_int64attr"></param>
       /// <param name="_singleattr"></param>
       /// <param name="_timeattr"></param>
-      public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr)
+      /// <param name="_string"></param>
+      public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr, string _string)
       {
          BinaryAttr = _binaryattr;
          BooleanAttr = _booleanattr;
@@ -57,6 +59,8 @@ namespace Testing
          Int64Attr = _int64attr;
          SingleAttr = _singleattr;
          TimeAttr = _timeattr;
+         if (string.IsNullOrEmpty(_string)) throw new ArgumentNullException(nameof(_string));
+         String = _string;
          Init();
       }
 
@@ -76,9 +80,10 @@ namespace Testing
       /// <param name="_int64attr"></param>
       /// <param name="_singleattr"></param>
       /// <param name="_timeattr"></param>
-      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr)
+      /// <param name="_string"></param>
+      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr, string _string)
       {
-         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _timeattr);
+         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _timeattr, _string);
       }
 
       // Persistent properties
@@ -152,6 +157,11 @@ namespace Testing
       /// Required
       /// </summary>
       public TimeSpan TimeAttr { get; set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public string String { get; set; }
 
    }
 }

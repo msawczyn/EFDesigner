@@ -31,7 +31,7 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 
    manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
    WriteDatabaseInitializerEF6(modelRoot);
-   
+
    manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
    WriteMigrationConfigurationEF6(modelRoot);
 
@@ -54,6 +54,9 @@ List<string> GetAdditionalUsingStatementsEF6(ModelRoot modelRoot)
 
 void WriteDatabaseInitializerEF6(ModelRoot modelRoot)
 {
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None) // create empty file
+      return;
+
    Output("using System.Data.Entity;");
    NL();
 
@@ -156,13 +159,16 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                                    ? $"Name={modelRoot.ConnectionStringName}"
                                    : modelRoot.ConnectionString;
 
-      Output($"public static string ConnectionString {{ get; set; }} = \"{connectionString}\";");
+      Output($"public static string ConnectionString {{ get; set; }} = @\"{connectionString}\";");
 
       Output($"public {modelRoot.EntityContainerName}() : base(ConnectionString)");
       Output("{");
       Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
       Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-      Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+         Output($"System.Data.Entity.Database.SetInitializer(null);");
+      else
+         Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
       Output("CustomInit();");
       Output("}");
       NL();
@@ -177,7 +183,10 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
    Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
    Output("CustomInit();");
    Output("}");
    NL();
@@ -186,7 +195,10 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
    Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
    Output("CustomInit();");
    Output("}");
    NL();
@@ -195,7 +207,10 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
    Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
    Output("CustomInit();");
    Output("}");
    NL();
@@ -204,7 +219,10 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
    Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer(new {modelRoot.EntityContainerName}DatabaseInitializer());");
    Output("CustomInit();");
    Output("}");
    NL();

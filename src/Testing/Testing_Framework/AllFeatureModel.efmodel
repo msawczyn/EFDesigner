@@ -1,22 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.4" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.6" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired">
       <attributes>
-        <modelAttribute Id="a1a30d08-2b27-4ca1-8b36-8d3feb0fa277" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
-        <modelAttribute Id="a22dd54a-2aeb-42c8-a153-64bb297a10db" type="Binary" required="true" indexed="false" indexedUnique="false" stringType="None" name="BinaryAttr" />
-        <modelAttribute Id="8649bf38-4c73-42fe-b8a6-a4c07d5052bf" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="BooleanAttr" />
-        <modelAttribute Id="0ad421f3-7d2e-4e1e-9f44-85caf072648c" type="Byte" required="true" indexed="false" indexedUnique="false" stringType="None" name="ByteAttr" />
-        <modelAttribute Id="4d98d9b2-03fd-4868-9a32-108e86a2122f" type="DateTime" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeAttr" />
-        <modelAttribute Id="be8f89c5-e477-465b-a8c1-3b07138b8189" type="DateTimeOffset" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeOffsetAttr" />
-        <modelAttribute Id="cf153270-0676-4b1c-8ebd-fff04ca7c682" type="Decimal" required="true" indexed="false" indexedUnique="false" stringType="None" name="DecimalAttr" />
-        <modelAttribute Id="634e43e8-ae86-4b41-a0b2-80cd499725af" type="Double" required="true" indexed="false" indexedUnique="false" stringType="None" name="DoubleAttr" />
-        <modelAttribute Id="2b0cde55-db99-4ebd-9e50-bc53e12f5449" type="Guid" required="true" indexed="false" indexedUnique="false" stringType="None" name="GuidAttr" />
-        <modelAttribute Id="56a45107-c25a-4502-b3c0-831ab40e8486" type="Int16" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int16Attr" />
-        <modelAttribute Id="38a4e90b-5c95-4cfc-8150-e522b436ce3f" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
-        <modelAttribute Id="8cfa97e2-daf4-4b88-b0b6-7020c993e25c" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
-        <modelAttribute Id="22d98f3e-c8d0-417a-a5d9-9400b835d19c" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
-        <modelAttribute Id="c8d2dcd3-9580-4fb7-a6cf-14e8b6f70b2f" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
+        <modelAttribute Id="71bf803a-ee16-42f1-87ee-84fa5faf615c" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
+        <modelAttribute Id="e3bf4f69-b753-4a76-b53d-f298bc165bea" type="Binary" required="true" indexed="false" indexedUnique="false" stringType="None" name="BinaryAttr" />
+        <modelAttribute Id="0424d40f-8127-4016-a95a-c0025229f9a1" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="BooleanAttr" />
+        <modelAttribute Id="2f5d8555-7097-458e-87ce-9a2825d6addb" type="Byte" required="true" indexed="false" indexedUnique="false" stringType="None" name="ByteAttr" />
+        <modelAttribute Id="0143d2d0-9a23-4a7f-a7b8-6527c87cf627" type="DateTime" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeAttr" />
+        <modelAttribute Id="fca7c29b-887a-4d58-beff-e8bc59b46f62" type="DateTimeOffset" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeOffsetAttr" />
+        <modelAttribute Id="41264c15-6454-494c-a0d2-e64c8a723719" type="Decimal" required="true" indexed="false" indexedUnique="false" stringType="None" name="DecimalAttr" />
+        <modelAttribute Id="d3af53bc-02b4-48ac-8179-a966029f7989" type="Double" required="true" indexed="false" indexedUnique="false" stringType="None" name="DoubleAttr" />
+        <modelAttribute Id="639966e7-7205-4459-a909-54ed588e6756" type="Guid" required="true" indexed="false" indexedUnique="false" stringType="None" name="GuidAttr" />
+        <modelAttribute Id="fbe8ab6c-15c4-4eb8-8ae6-17460f08cbd3" type="Int16" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int16Attr" />
+        <modelAttribute Id="849d96ff-2526-4c08-b621-21d6d75f0475" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
+        <modelAttribute Id="2852c236-8a17-4a04-aef0-f21d0d466b32" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
+        <modelAttribute Id="e518ce8a-6efa-4b4f-b98b-a9658dff51ec" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
+        <modelAttribute Id="8ec056aa-cb7e-4eae-aec1-cada6e706c31" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
+        <modelAttribute Id="018c3cca-798b-488f-9163-837296c14160" required="true" indexed="false" indexedUnique="false" stringType="None" name="String" />
       </attributes>
     </modelClass>
     <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional">
@@ -35,6 +36,7 @@
         <modelAttribute Id="69e90348-275c-4769-a5cc-5f7635cee851" type="Int64" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
         <modelAttribute Id="be8c78ad-4c6e-482a-810b-a009b1f93b2b" type="Single" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
         <modelAttribute Id="de874bd9-3730-4073-a41b-ae58c9ab0dc9" type="Time" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
+        <modelAttribute Id="2d7d0957-7fe9-4024-a72a-2e104d2c36b9" indexed="false" indexedUnique="false" stringType="None" name="String" />
       </attributes>
     </modelClass>
     <modelClass Id="2809ee8f-696f-493a-98f0-6a7b490bd005" tableName="UParentRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="UParentRequireds" name="UParentRequired">

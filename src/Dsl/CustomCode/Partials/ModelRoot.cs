@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Design.PluralizationServices;
+﻿using System;
+using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling.Validation;
@@ -8,7 +9,19 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelRoot
    {
-      public static readonly PluralizationService PluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
+      public static readonly PluralizationService PluralizationService;
+
+      static ModelRoot()
+      {
+         try
+         {
+            PluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
+         }
+         catch (NotImplementedException)
+         {
+            PluralizationService = null;
+         }
+      }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
@@ -18,10 +31,10 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          if (string.IsNullOrEmpty(ConnectionString) && string.IsNullOrEmpty(ConnectionStringName))
-            context.LogWarning("Default connection string missing", "MRWConnectionString", this);
+            context.LogWarning("Model: Default connection string missing", "MRWConnectionString", this);
 
          if (string.IsNullOrEmpty(EntityContainerName))
-            context.LogError("Entity container needs a name", "MREContainerNameEmpty", this);
+            context.LogError("Model: Entity container needs a name", "MREContainerNameEmpty", this);
       }
 
       #region DatabaseSchema tracking property

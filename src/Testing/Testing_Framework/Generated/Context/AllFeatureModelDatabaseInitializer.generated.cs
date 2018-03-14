@@ -7,11 +7,3 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity;
-
-namespace Testing
-{
-   public partial class AllFeatureModelDatabaseInitializer : MigrateDatabaseToLatestVersion<AllFeatureModel, AllFeatureModelDbMigrationConfiguration>
-   {
-   }
-}

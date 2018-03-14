@@ -21,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (string.IsNullOrEmpty(element.TargetPropertyName))
          {
             string rootName = element.TargetMultiplicity == Multiplicity.ZeroMany &&
-                              pluralizationService.IsSingular(element.Target.Name)
+                              pluralizationService?.IsSingular(element.Target.Name) == true
                                  ? pluralizationService.Pluralize(element.Target.Name)
                                  : element.Target.Name;
 
@@ -39,7 +39,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (string.IsNullOrEmpty(bidirectionalAssociation.SourcePropertyName))
             {
                string rootName = element.SourceMultiplicity == Multiplicity.ZeroMany &&
-                                 pluralizationService.IsSingular(element.Source.Name)
+                                 pluralizationService?.IsSingular(element.Source.Name) == true
                                     ? pluralizationService.Pluralize(element.Source.Name)
                                     : element.Source.Name;
 

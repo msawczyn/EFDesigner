@@ -2302,6 +2302,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region WarnOnMissingDocumentation domain property code
+		
+		/// <summary>
+		/// WarnOnMissingDocumentation domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid WarnOnMissingDocumentationDomainPropertyId = new global::System.Guid(0x247aa399, 0x3d89, 0x4b48, 0xba, 0xeb, 0x99, 0x2e, 0x8c, 0xb3, 0xd4, 0x7a);
+		
+		/// <summary>
+		/// Storage for WarnOnMissingDocumentation
+		/// </summary>
+		private global::System.Boolean warnOnMissingDocumentationPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of WarnOnMissingDocumentation domain property.
+		/// If true, will generate warnings when summary documentation is missing
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("247aa399-3d89-4b48-baeb-992e8cb3d47a")]
+		public global::System.Boolean WarnOnMissingDocumentation
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return warnOnMissingDocumentationPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				WarnOnMissingDocumentationPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.WarnOnMissingDocumentation domain property.
+		/// </summary>
+		internal sealed partial class WarnOnMissingDocumentationPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private WarnOnMissingDocumentationPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.WarnOnMissingDocumentation domain property value handler.
+			/// </summary>
+			public static readonly WarnOnMissingDocumentationPropertyHandler Instance = new WarnOnMissingDocumentationPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.WarnOnMissingDocumentation domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return WarnOnMissingDocumentationDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.warnOnMissingDocumentationPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.warnOnMissingDocumentationPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

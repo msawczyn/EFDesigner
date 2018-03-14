@@ -17,7 +17,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(SourceSummary))
-               context.LogWarning($"Association end {Target.Name}.{SourcePropertyName} should be documented", "AWMissingSummary", this);
+               context.LogWarning($"{Target.Name}.{SourcePropertyName}: Association end should be documented", "AWMissingSummary", this);
          }
       }
    }

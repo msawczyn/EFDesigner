@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" Build="3" Revision="5" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" Build="3" Revision="6" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
@@ -173,6 +173,11 @@
         <DomainProperty Id="35be1c55-6c42-45bf-af62-16d00dbf80c4" Description="Database manifest token. Optimization if runtime database type is known and unchanging." Name="DatabaseType" DisplayName="Database Type">
           <Type>
             <DomainEnumerationMoniker Name="DatabaseKind" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="247aa399-3d89-4b48-baeb-992e8cb3d47a" Description="If true, will generate warnings when summary documentation is missing" Name="WarnOnMissingDocumentation" DisplayName="Warn On Missing Documentation" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1230,6 +1235,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="databaseType">
             <DomainPropertyMoniker Name="ModelRoot/DatabaseType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="warnOnMissingDocumentation">
+            <DomainPropertyMoniker Name="ModelRoot/WarnOnMissingDocumentation" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

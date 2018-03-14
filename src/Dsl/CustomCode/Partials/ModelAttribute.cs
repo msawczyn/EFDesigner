@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using EnvDTE;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
@@ -246,7 +247,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void StringsShouldHaveLength(ValidationContext context)
       {
          if (Type == "String" && MaxLength == 0)
-            context.LogWarning("String length not specified", "MWStringNoLength", this);
+            context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -257,7 +258,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(Summary))
-               context.LogWarning($"Attribute {ModelClass.Name}.{Name} should be documented", "AWMissingSummary", this);
+               context.LogWarning($"{ModelClass.Name}.{Name}: Property should be documented", "AWMissingSummary", this);
          }
       }
 
@@ -265,45 +266,114 @@ namespace Sawczyn.EFDesigner.EFModel
 
       // Note: gave some thought to making this be an LALR parser, but that's WAY overkill for what needs done here. Regex is good enough.
 
-      private const string NAME        = "(?<name>[A-Za-z_][A-za-z0-9_]*[!]?)";
-      private const string TYPE        = "(?<type>[A-Za-z_][A-za-z0-9_]*[?]?)";
-      private const string LENGTH      = @"(?<length>\d+)";
+      private const string NAME = "(?<name>[A-Za-z_][A-za-z0-9_]*[!]?)";
+      private const string TYPE = "(?<type>[A-Za-z_][A-za-z0-9_]*[?]?)";
+      private const string LENGTH = @"(?<length>\d+)";
       private const string STRING_TYPE = "(?<type>[Ss]tring)";
-      private const string VISIBILITY  = @"(?<visibility>public\s+|protected\s+)";
-      private const string INITIAL     = @"(=\s*(?<initialValue>.+))";
-      private const string WS          = @"\s*";
-      private const string BODY        = @"(\{.+)";
+      private const string VISIBILITY = @"(?<visibility>public\s+|protected\s+)";
+      private const string INITIAL = @"(=\s*(?<initialValue>.+))";
+      private const string WS = @"\s*";
+      private const string BODY = @"(\{.+)";
 
-      private static readonly Regex Pattern = new Regex($@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{STRING_TYPE}\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\[{LENGTH}\]{WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\({LENGTH}\){WS}{INITIAL}?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{TYPE}\s+{NAME}{WS}({INITIAL}?;?|{BODY})?$|" +
-                                                        $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{WS}{INITIAL}?$", RegexOptions.Compiled);
+      // Valid patterns, in order, are as follows:
+      //    ('public' here is used to denote either 'public' or 'protected')
+      //    ('int' represents any type)
+      //    ('50' represents any integer)
+      //    ('12' represents any initializer value appropriate for the type)
+      //    ("hello" represents any string)
+      //    (In all cases, a type name can be followed by a ? symbol to denote optional)
+      //    (In all cases, a property name can be followed by a ! symbol to denote it is the identifier property
+      //       - no support for multi-property identities ... yet)
+      //
+      private static readonly string[] patterns =
+      {
+            //    foo
+            //    foo = 12
+            //    public foo = 12
+            $@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?",
+
+            //    string[50] foo
+            //    string[50] foo = "hello"
+            //    public string[50] foo
+            //    public string[50] foo = "hello"
+            $@"^{WS}{VISIBILITY}?{STRING_TYPE}\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?",
+
+            //    string(50) foo
+            //    string(50) foo = "hello"
+            //    public string(50) foo
+            //    public string(50) foo = "hello"
+            $@"^{WS}{VISIBILITY}?{STRING_TYPE}\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?",
+
+            //    foo : string[50]
+            //    foo : string[50] = "hello"
+            //    public foo : string[50]
+            //    public foo : string[50] = "hello"
+            $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\[{LENGTH}\]{WS}{INITIAL}?",
+
+            //    foo : string(50)
+            //    foo : string(50) = "hello"
+            //    public foo : string(50)
+            //    public foo : string(50) = "hello"
+            $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\({LENGTH}\){WS}{INITIAL}?",
+
+            //    int foo
+            //    int foo = 12
+            //    int foo = 12;
+            //    int foo { anything...
+            //    public int foo
+            //    public int foo = 12
+            //    public int foo = 12;
+            //    public int foo { anything...
+            $@"^{WS}{VISIBILITY}?{TYPE}\s+{NAME}{WS}(({INITIAL}?;?)|{BODY})?$",
+
+            //    foo : int
+            //    foo : int = 12
+            //    public foo : int
+            //    public foo : int = 12
+            $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{WS}{INITIAL}?"
+      };
+
+      // odd. Tested individually, we get the right matches. Glob them together, though, and we don't. Sequencing issue?
+      //private static readonly Regex Pattern = new Regex(string.Join("|", patterns), RegexOptions.Compiled);
+      private static readonly Regex[] Patterns = patterns.Select(p => new Regex(p, RegexOptions.Compiled)).ToArray();
 
       /// <summary>Returns a string that represents the current object.</summary>
+      /// <remarks>Output is, in order:
+      /// <ul>
+      /// <li>Visibility</li>
+      /// <li>Type (with optional '?' if not a required field</li>
+      /// <li>Max length in brackets, if a string field and length is specified</li>
+      /// <li>Name (with optional '!' if an identity field</li>
+      /// <li>an equal sign (=) followed by an initializer, if an initializer is specified</li>
+      /// </ul>
+      /// </remarks>
       /// <returns>A string that represents the current object.</returns>
       public override string ToString()
       {
          List<string> parts = new List<string>
                               {
                                  SetterVisibility.ToString().ToLower(),
-                                 $"{Type}{(Required ? "" : "?")}",
-                                 $"{Name}{(IsIdentity ? "!" : "")}"
+                                 $"{Type}{(Required ? string.Empty : "?")}"
                               };
 
          if (Type?.ToLower() == "string" && MaxLength > 0)
             parts.Add($"[{MaxLength}]");
-         
+
+         parts.Add($"{Name}{(IsIdentity ? "!" : string.Empty)}");
+
          if (!string.IsNullOrEmpty(InitialValue))
          {
             string initialValue = InitialValue;
-            if (Type?.ToLower() == "string") initialValue = $@"""{InitialValue}""";
+
+            // make sure string initial values are in quotes, but don't duplicate quotes if already present
+            if (Type?.ToLower() == "string")
+               initialValue = $@"""{InitialValue.Trim('"')}""";
+
             parts.Add($"= {initialValue}");
          }
 
-         return string.Join(" ", parts);
+         // get rid of the space between type name and length, if any
+         return string.Join(" ", parts).Replace(" [", "[");
       }
 
       public class ParseResult
@@ -319,44 +389,49 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static ParseResult Parse(ModelRoot modelRoot, string input)
       {
-         Match match = Pattern.Match(input);
-         if (match.Success)
+         foreach (Regex regex in Patterns)
          {
-            ParseResult result = new ParseResult();
-
-            if (match.Groups["visibility"].Success)
-               result.SetterVisibility = match.Groups["visibility"].Value.Trim() == "protected" ? SetterAccessModifier.Protected : SetterAccessModifier.Public;
-
-            if (match.Groups["name"].Success)
+            Match match = regex.Match(input);
+            if (match.Success)
             {
-               result.Name = match.Groups["name"].Value.Trim();
-               if (result.Name.EndsWith("!")) result.IsIdentity = true;
-               result.Name = result.Name.Trim('!');
-            }
+               ParseResult result = new ParseResult();
 
-            if (match.Groups["type"].Success)
-            {
-               result.Type = match.Groups["type"].Value.Trim();
-               result.Required = !result.Type.EndsWith("?");
-               result.Type = result.Type.Trim('?');
-               if (!ValidTypes.Contains(result.Type))
+               if (match.Groups["visibility"].Success)
+                  result.SetterVisibility = match.Groups["visibility"].Value.Trim() == "protected" ? SetterAccessModifier.Protected : SetterAccessModifier.Public;
+
+               if (match.Groups["name"].Success)
                {
-                  result.Type = FromCLRType(result.Type);
-                  if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
+                  result.Name = match.Groups["name"].Value.Trim();
+                  if (result.Name.EndsWith("!")) result.IsIdentity = true;
+                  result.Name = result.Name.Trim('!');
+               }
+               else continue;
+
+               if (match.Groups["type"].Success)
+               {
+                  result.Type = match.Groups["type"].Value.Trim();
+                  result.Required = !result.Type.EndsWith("?");
+                  result.Type = result.Type.Trim('?');
+                  if (!ValidTypes.Contains(result.Type))
                   {
-                     result.Type = null;
-                     result.Required = null;
+                     result.Type = FromCLRType(result.Type);
+                     if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
+                     {
+                        result.Type = null;
+                        result.Required = null;
+                     }
                   }
                }
+               else continue;
+
+               if (result.Type == "String" && match.Groups["length"].Success && !string.IsNullOrWhiteSpace(match.Groups["length"].Value.Trim()))
+                  result.MaxLength = int.Parse(match.Groups["length"].Value.Trim());
+
+               if (match.Groups["initialValue"].Success)
+                  result.InitialValue = match.Groups["initialValue"].Value.Trim();
+
+               return result;
             }
-
-            if (result.Type == "String" && match.Groups["length"].Success && !string.IsNullOrWhiteSpace(match.Groups["length"].Value.Trim()))
-               result.MaxLength = int.Parse(match.Groups["length"].Value.Trim());
-
-            if (match.Groups["initialValue"].Success)
-               result.InitialValue = match.Groups["initialValue"].Value.Trim();
-
-            return result;
          }
 
          return null; // couldn't parse

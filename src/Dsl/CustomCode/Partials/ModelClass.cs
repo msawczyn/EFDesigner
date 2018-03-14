@@ -10,7 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
    /// Tag interface indicating that the diagram items for this element has compartments
    /// </summary>
    public interface IModelElementWithCompartments { }
-   
+
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments
    {
@@ -100,39 +100,39 @@ namespace Sawczyn.EFDesigner.EFModel
          List<NavigationProperty> sourceProperties = Association.GetLinksToTargets(this)
                                                                 .Except(ignore)
                                                                 .Select(x => new NavigationProperty
-                                                                             {
-                                                                                Cardinality = x.TargetMultiplicity,
-                                                                                ClassType = x.Target,
-                                                                                AssociationObject = x,
-                                                                                PropertyName = x.TargetPropertyName,
-                                                                                Summary = x.TargetSummary,
-                                                                                Description = x.TargetDescription
-                                                                             })
+                                                                {
+                                                                   Cardinality = x.TargetMultiplicity,
+                                                                   ClassType = x.Target,
+                                                                   AssociationObject = x,
+                                                                   PropertyName = x.TargetPropertyName,
+                                                                   Summary = x.TargetSummary,
+                                                                   Description = x.TargetDescription
+                                                                })
                                                                 .ToList();
 
          List<NavigationProperty> targetProperties = Association.GetLinksToSources(this)
                                                                 .Except(ignore)
                                                                 .OfType<BidirectionalAssociation>()
                                                                 .Select(x => new NavigationProperty
-                                                                             {
-                                                                                Cardinality = x.SourceMultiplicity,
-                                                                                ClassType = x.Source,
-                                                                                AssociationObject = x,
-                                                                                PropertyName = x.SourcePropertyName,
-                                                                                Summary = x.SourceSummary,
-                                                                                Description = x.SourceDescription
-                                                                             })
+                                                                {
+                                                                   Cardinality = x.SourceMultiplicity,
+                                                                   ClassType = x.Source,
+                                                                   AssociationObject = x,
+                                                                   PropertyName = x.SourcePropertyName,
+                                                                   Summary = x.SourceSummary,
+                                                                   Description = x.SourceDescription
+                                                                })
                                                                 .ToList();
          targetProperties.AddRange(Association.GetLinksToSources(this)
                                               .Except(ignore)
                                               .OfType<UnidirectionalAssociation>()
                                               .Select(x => new NavigationProperty
-                                                           {
-                                                              Cardinality = x.SourceMultiplicity,
-                                                              ClassType = x.Source,
-                                                              AssociationObject = x,
-                                                              PropertyName = null
-                                                           }));
+                                              {
+                                                 Cardinality = x.SourceMultiplicity,
+                                                 ClassType = x.Source,
+                                                 AssociationObject = x,
+                                                 PropertyName = null
+                                              }));
          int index = 0;
          foreach (NavigationProperty navigationProperty in targetProperties.Where(x => x.PropertyName == null))
          {
@@ -183,7 +183,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void ClassShouldHaveAttributes(ValidationContext context)
       {
          if (!Attributes.Any() && !LocalNavigationProperties().Any())
-            context.LogWarning("Class has no properties", "MCWNoProperties", this);
+            context.LogWarning($"{Name}: Class has no properties", "MCWNoProperties", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -192,7 +192,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void AttributesCannotBeNamedSameAsEnclosingClass(ValidationContext context)
       {
          if (HasPropertyNamed(Name))
-            context.LogError("Properties can't be named the same as the enclosing class", "MCESameName", this);
+            context.LogError($"{Name}: Properties can't be named the same as the enclosing class", "MCESameName", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -200,23 +200,26 @@ namespace Sawczyn.EFDesigner.EFModel
       private void PersistentClassesMustHaveIdentity(ValidationContext context)
       {
          if (!AllIdentityPropertyNames.Any())
-            context.LogError("Class has no identity property in inheritance chain", "MCENoIdentity", this);
+            context.LogError($"{Name}: Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void DerivedClassesShouldNotHaveIdentity(ValidationContext context)
       {
-         ModelClass modelClass = this;
-         while (modelClass.Superclass != null)
+         if (Attributes.Any(x => x.IsIdentity))
          {
-            if (modelClass.Attributes.Any(x => x.IsIdentity))
+            ModelClass modelClass = Superclass;
+            while (modelClass != null)
             {
-               context.LogWarning("Identity attribute in derived a class becomes a composite key", "MCWDerivedIdentity", this);
-               return;
-            }
+               if (modelClass.Attributes.Any(x => x.IsIdentity))
+               {
+                  context.LogWarning($"{modelClass.Name}: Identity attribute in derived class {Name} becomes a composite key", "MCWDerivedIdentity", this);
+                  return;
+               }
 
-            modelClass = modelClass.Superclass;
+               modelClass = modelClass.Superclass;
+            }
          }
       }
 
@@ -228,7 +231,7 @@ namespace Sawczyn.EFDesigner.EFModel
          int shouldHave = EffectiveConcurrency == ConcurrencyOverride.Optimistic ? 1 : 0;
 
          if (tokenCount != shouldHave)
-            context.LogError($"{Name} should have {shouldHave} concurrency properties but has {tokenCount}", "MCEConcurrencyCount", this);
+            context.LogError($"{Name}: Should have {shouldHave} concurrency properties but has {tokenCount}", "MCEConcurrencyCount", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -309,7 +312,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                calculatedValue = element.ModelRoot.DatabaseSchema;
             }
-            catch (NullReferenceException) {}
+            catch (NullReferenceException) { }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
@@ -405,7 +408,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                calculatedValue = element.ModelRoot.Namespace;
             }
-            catch (NullReferenceException) {}
+            catch (NullReferenceException) { }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))

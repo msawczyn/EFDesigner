@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Testing
@@ -23,7 +24,7 @@ namespace Testing
       /// </summary>
       protected BParentRequired()
       {
-         BChildCollection = new ObservableCollection<BChild>();
+         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<BChild>();
 
          Init();
       }
@@ -60,6 +61,9 @@ namespace Testing
       // Persistent navigation properties
 
       public virtual BChild BChildOptional { get; set; } 
+      /// <summary>
+      ///  // Required
+      /// </summary>
       public virtual BChild BChildRequired { get; set; }  // Required
       public virtual ICollection<BChild> BChildCollection { get; set; } 
    }

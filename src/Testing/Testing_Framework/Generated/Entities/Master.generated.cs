@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Testing
@@ -23,7 +24,7 @@ namespace Testing
       /// </summary>
       public Master()
       {
-         Children = new ObservableCollection<Child>();
+         Children = new System.Collections.ObjectModel.ObservableCollection<Child>();
 
          Init();
       }

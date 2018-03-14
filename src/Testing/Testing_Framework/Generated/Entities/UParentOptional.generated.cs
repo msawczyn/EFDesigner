@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Testing
@@ -24,7 +25,7 @@ namespace Testing
       protected UParentOptional(): base()
       {
          PropertyInChild = "hello";
-         UChildCollection = new ObservableCollection<UChild>();
+         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<UChild>();
 
          Init();
       }
@@ -62,6 +63,9 @@ namespace Testing
 
       public virtual UChild UChildOptional { get; set; } 
       public virtual ICollection<UChild> UChildCollection { get; set; } 
+      /// <summary>
+      ///  // Required
+      /// </summary>
       public virtual UChild UChildRequired { get; set; }  // Required
    }
 }

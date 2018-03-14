@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Testing
@@ -58,6 +59,8 @@ namespace Testing
       public Single? SingleAttr { get; set; }
 
       public TimeSpan? TimeAttr { get; set; }
+
+      public string String { get; set; }
 
    }
 }
