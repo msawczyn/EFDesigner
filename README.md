@@ -11,8 +11,8 @@ ability to add text blocks to explain potentially arcane parts of your design.
 
 While giving you complete control over how the code is generated you'll be able to, out of the box,
 create sophisticated, consistent and **correct** Entity Framework code that can be regenerated when 
-your model changes. And, since the code is written using partial classes, any additions you make
-to your generated code is retained across subsequent generations.
+your model changes. And, since the code is written using partial classes, any changes you make
+to your generated code are retained across subsequent generations.
 
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home.
 The goal was to duplicate at least those features and, in addition, 
