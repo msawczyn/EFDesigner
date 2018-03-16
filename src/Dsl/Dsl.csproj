@@ -123,6 +123,7 @@
     <Compile Include="CustomCode\Rules\ModelEnumValueChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelRootChangeRules.cs" />
     <Compile Include="CustomCode\Rules\RuleRegistrations.cs" />
+    <Compile Include="CustomCode\Utilities\AttributeParser.cs" />
     <Compile Include="CustomCode\Utilities\BaseClassTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\CollectionTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Partials\ModelClassTypeDescriptor.cs" />

@@ -367,7 +367,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             // make sure string initial values are in quotes, but don't duplicate quotes if already present
             if (Type?.ToLower() == "string")
-               initialValue = $@"""{InitialValue.Trim('"')}""";
+               initialValue = $"\"{InitialValue.Trim('"')}\"";
 
             parts.Add($"= {initialValue}");
          }
@@ -376,65 +376,21 @@ namespace Sawczyn.EFDesigner.EFModel
          return string.Join(" ", parts).Replace(" [", "[");
       }
 
-      public class ParseResult
-      {
-         public SetterAccessModifier? SetterVisibility { get; set; }
-         public string Name { get; set; }
-         public string Type { get; set; }
-         public bool? Required { get; set; }
-         public int? MaxLength { get; set; }
-         public string InitialValue { get; set; }
-         public bool IsIdentity { get; set; }
-      }
-
       public static ParseResult Parse(ModelRoot modelRoot, string input)
       {
-         foreach (Regex regex in Patterns)
+         ParseResult result = AttributeParser.Parse(input);
+
+         if (result != null && !ValidTypes.Contains(result.Type))
          {
-            Match match = regex.Match(input);
-            if (match.Success)
+            result.Type = FromCLRType(result.Type);
+            if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
             {
-               ParseResult result = new ParseResult();
-
-               if (match.Groups["visibility"].Success)
-                  result.SetterVisibility = match.Groups["visibility"].Value.Trim() == "protected" ? SetterAccessModifier.Protected : SetterAccessModifier.Public;
-
-               if (match.Groups["name"].Success)
-               {
-                  result.Name = match.Groups["name"].Value.Trim();
-                  if (result.Name.EndsWith("!")) result.IsIdentity = true;
-                  result.Name = result.Name.Trim('!');
-               }
-               else continue;
-
-               if (match.Groups["type"].Success)
-               {
-                  result.Type = match.Groups["type"].Value.Trim();
-                  result.Required = !result.Type.EndsWith("?");
-                  result.Type = result.Type.Trim('?');
-                  if (!ValidTypes.Contains(result.Type))
-                  {
-                     result.Type = FromCLRType(result.Type);
-                     if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
-                     {
-                        result.Type = null;
-                        result.Required = null;
-                     }
-                  }
-               }
-               else continue;
-
-               if (result.Type == "String" && match.Groups["length"].Success && !string.IsNullOrWhiteSpace(match.Groups["length"].Value.Trim()))
-                  result.MaxLength = int.Parse(match.Groups["length"].Value.Trim());
-
-               if (match.Groups["initialValue"].Success)
-                  result.InitialValue = match.Groups["initialValue"].Value.Trim();
-
-               return result;
+               result.Type = null;
+               result.Required = null;
             }
          }
 
-         return null; // couldn't parse
+         return result; 
       }
 
       #endregion Parse string
