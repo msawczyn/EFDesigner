@@ -1,0 +1,83 @@
+"Start Symbol" = <Input>
+
+! ----------------------------------------------------------------- Sets
+
+{ID Head}        = {Letter} + [_]
+{ID Tail}        = {AlphaNumeric} + [_]
+{String Ch}      = {Printable} - ["]
+{Char Ch}        = {Printable} - ['']
+{Hex Digit}      = {Digit} + [abcdef] + [ABCDEF]
+
+! ----------------------------------------------------------------- Terminals
+
+Identifier     =  {ID Head} {ID Tail}*
+
+Optional       =  '?'
+Identity       =  '!'
+
+DecLiteral     = {Digit}+ ( [UuLl] | [Uu][Ll] | [Ll][Uu] )?
+HexLiteral     = '0'[xX]{Hex Digit}+ ( [UuLl] | [Uu][Ll] | [Ll][Uu] )?
+RealLiteral    = {Digit}*'.'{Digit}+
+StringLiteral  = '"'( {String Ch} | '\'{Printable} )* '"'
+CharLiteral    = '' ( {Char Ch} | '\'{Printable} )''
+
+
+
+! ----------------------------------------------------------------- Rules
+
+<Initializer>
+       ::= '=' <Initial Value>
+
+<Name Spec>
+       ::= <Name> <Is Identity>
+        |  <Name>
+
+<Name>
+       ::= Identifier
+
+<Is Identity>
+       ::= Identity
+
+<Is Optional>
+       ::= Optional
+
+<Max Length>
+       ::= '[' DecLiteral ']'
+        |  '(' DecLiteral ')'
+
+<Type Spec>
+       ::= <Type> <Is Optional> <Max Length>
+        |  <Type> <Max Length>
+        |  <Type> <Is Optional>
+        |  <Type>
+
+<Type>
+       ::= Identifier
+
+<Visibility>
+       ::= 'public'
+        |  'protected'
+        |  'internal'
+
+<Initial Value>
+       ::= DecLiteral
+        |  HexLiteral
+        |  RealLiteral
+        |  StringLiteral
+        |  CharLiteral
+
+<Input>
+       ::= <Visibility> <Type Spec> <Name Spec> <Initializer>
+        |  <Visibility> <Type Spec> <Name Spec>
+        |  <Type Spec> <Name Spec> <Initializer>
+        |  <Type Spec> <Name Spec>
+        |  <Name Spec> <Initializer>
+        |  <Name Spec>
+        |  <Visibility> <Name Spec> ':' <Type Spec> <Initializer>
+        |  <Visibility> <Name Spec> ':' <Type Spec>
+        |  <Visibility> <Name Spec> <Initializer>
+        |  <Visibility> <Name Spec>
+        |  <Name Spec> ':' <Type Spec> <Initializer>
+        |  <Name Spec> ':' <Type Spec>
+
+

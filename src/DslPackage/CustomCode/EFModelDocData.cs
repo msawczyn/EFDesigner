@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
 using VSLangProj;
@@ -17,6 +16,8 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       protected override void OnDocumentLoaded()
       {
+         // TODO: rework this so that, if there's nothing to do, no edits are made. efmodel shows as edited every time it's opened, and this is why
+
          base.OnDocumentLoaded();
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -83,17 +84,20 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = RootElement as ModelRoot;
          if (modelRoot?.TransformOnSave != true) return;
 
-         GenerateCode();
+         DocumentSavedEventArgs documentSavedEventArgs = (DocumentSavedEventArgs)e;
+         GenerateCode(documentSavedEventArgs.NewFileName);
       }
 
-      internal static void GenerateCode()
+      internal static void GenerateCode(string filepath = null)
       {
          DTE2 dte2 = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SDTE)) as DTE2;
 
-         string filename = Path.ChangeExtension(dte2.ActiveDocument.FullName, "tt");
+         string filename = Path.ChangeExtension(filepath ?? dte2.ActiveDocument.FullName, "tt");
          VSProjectItem item = dte2.Solution.FindProjectItem(filename)?.Object as VSProjectItem;
 
-         if (item != null)
+         if (item == null)
+            Messages.AddError($"Tried to generate code but couldn't find {filename} in the solution.");
+         else
          {
             try
             {
@@ -101,16 +105,8 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (COMException)
             {
-               string message = $"Encountered an error generating code from {filename}. Please run custom tool manually.";
-               Messages.AddError(message);
-               MessageBox.Show(message);
+               Messages.AddError($"Encountered an error generating code from {filename}. Please transform T4 template manually.");
             }
-         }
-         else
-         {
-            string message = $"Tried to generate code but couldn\'t find {filename} in the solution.";
-            Messages.AddError(message);
-            MessageBox.Show(message);
          }
       }
 

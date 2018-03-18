@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using GOLD;
+using UnitTests.Properties;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace Sawczyn.EFDesigner.EFModel
+namespace UnitTests
 {
- internal static class AttributeParser
+   internal static class AttributeParser
    {
       private static Parser _parser;
 
@@ -187,6 +188,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
    public class ParseResult
    {
+      public ParseResult()
+      {
+         SetterVisibility = SetterAccessModifier.Public;
+         Type = "String";
+         Required = true;
+         MaxLength = 0;
+         InitialValue = null;
+         IsIdentity = false;
+      }
+
       public SetterAccessModifier? SetterVisibility { get; set; }
       public string Name { get; set; }
       public string Type { get; set; }
@@ -196,4 +207,10 @@ namespace Sawczyn.EFDesigner.EFModel
       public bool IsIdentity { get; set; }
    }
 
+   public enum SetterAccessModifier
+   {
+      Public = 2,
+      Protected = 1,
+      Internal = 0
+   }
 }

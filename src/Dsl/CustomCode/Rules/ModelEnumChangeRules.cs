@@ -35,19 +35,20 @@ namespace Sawczyn.EFDesigner.EFModel
                              .AllElements
                              .OfType<ModelClass>()
                              .Any(x => x.Name == newName))
-                  errorMessage = "Enum name already in use";
+                  errorMessage = "Enum name already in use by a class";
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelEnum>()
                              .Except(new[] {element})
                              .Any(x => x.Name == newName))
-                  errorMessage = "Enum name already in use";
+                  errorMessage = "Enum name already in use by another enum";
 
                break;
 
             case "Namespace":
+               string newNamespace = (string)e.NewValue;
                if (current.Name.ToLowerInvariant() != "paste")
-                  errorMessage = CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier);
+                  errorMessage = CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
                break;
          }
 

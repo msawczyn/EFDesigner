@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
-using EnvDTE;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
@@ -24,12 +22,13 @@ namespace Sawczyn.EFDesigner.EFModel
       public IModelElementWithCompartments ParentModelElement => ModelClass;
 
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
-
+      
       public static readonly string[] ValidTypes =
       {
          "Binary",
          "Boolean",
          "Byte",
+         "byte",
          "DateTime",
          "DateTimeOffset",
          "Decimal",
@@ -60,15 +59,23 @@ namespace Sawczyn.EFDesigner.EFModel
          "Time"
       };
 
-      public string CLRType => ToCLRType(Type);
-
+      /// <summary>
+      /// Tests if the InitialValue property is valid for the type indicated
+      /// </summary>
+      /// <param name="typeName">Name of type to test. If typeName is null, Type property will be used. If initialValue is null, InitialValue property will be used</param>
+      /// <param name="initialValue">Initial value to test</param>
+      /// <returns>true if InitialValue is a valid value for the type, or if initialValue is null or empty</returns>
 #pragma warning disable 168
-      public bool HasValidDefault()
+      public bool IsValidInitialValue(string typeName = null, string initialValue = null)
       {
-         if (string.IsNullOrEmpty(InitialValue))
+         typeName = typeName ?? Type;
+         initialValue = initialValue ?? InitialValue;
+
+         if (string.IsNullOrEmpty(initialValue))
             return true;
 
-         switch (Type)
+         // ReSharper disable UnusedVariable
+         switch (typeName)
          {
             case "Binary":
             case "Geography":
@@ -87,45 +94,52 @@ namespace Sawczyn.EFDesigner.EFModel
             case "GeometryMultiPolygon":
             case "GeometryPoint":
             case "GeometryPolygon":
-               return string.IsNullOrEmpty(InitialValue);
+               return false; //string.IsNullOrEmpty(initialValue);
             case "Boolean":
-               return bool.TryParse(InitialValue, out bool _bool);
+               return bool.TryParse(initialValue, out bool _bool);
             case "Byte":
-               return byte.TryParse(InitialValue, out byte _byte);
+               return byte.TryParse(initialValue, out byte _byte);
             case "DateTime":
-               if (InitialValue?.Trim() == "DateTime.Now") return true;
-               return DateTime.TryParse(InitialValue, out DateTime _dateTime);
+               switch (initialValue?.Trim())
+               {
+                  case "DateTime.Now":
+                  case "DateTime.MinValue":
+                  case "DateTime.MaxValue":
+                     return true;
+                  default:
+                     return DateTime.TryParse(initialValue, out DateTime _dateTime);
+               }
             case "DateTimeOffset":
-               return DateTimeOffset.TryParse(InitialValue, out DateTimeOffset _dateTimeOffset);
+               return DateTimeOffset.TryParse(initialValue, out DateTimeOffset _dateTimeOffset);
             case "Decimal":
-               return decimal.TryParse(InitialValue, out decimal _decimal);
+               return decimal.TryParse(initialValue, out decimal _decimal);
             case "Double":
-               return double.TryParse(InitialValue, out double _double);
+               return double.TryParse(initialValue, out double _double);
             case "Guid":
-               return Guid.TryParse(InitialValue, out Guid _guid);
+               return Guid.TryParse(initialValue, out Guid _guid);
             case "Int16":
-               return short.TryParse(InitialValue, out short _int16);
+               return short.TryParse(initialValue, out short _int16);
             case "Int32":
-               return int.TryParse(InitialValue, out int _int32);
+               return int.TryParse(initialValue, out int _int32);
             case "Int64":
-               return long.TryParse(InitialValue, out long _int64);
+               return long.TryParse(initialValue, out long _int64);
             //case "SByte":
-            //   return sbyte.TryParse(InitialValue, out sbyte _sbyte);
+            //   return sbyte.TryParse(initialValue, out sbyte _sbyte);
             case "Single":
-               return float.TryParse(InitialValue, out float _single);
+               return float.TryParse(initialValue, out float _single);
             case "String":
                return true;
             case "Time":
-               return DateTime.TryParseExact(
-                                             InitialValue,
+               return DateTime.TryParseExact(initialValue,
                                              new[] { "HH:mm:ss", "H:mm:ss", "HH:mm", "H:mm", "HH:mm:ss tt", "H:mm:ss tt", "HH:mm tt", "H:mm tt" },
                                              CultureInfo.InvariantCulture,
                                              DateTimeStyles.None,
                                              out DateTime _time);
+            // ReSharper restore UnusedVariable
             default:
-               if (InitialValue.Contains("."))
+               if (initialValue.Contains("."))
                {
-                  string[] parts = InitialValue.Split('.');
+                  string[] parts = initialValue.Split('.');
                   ModelEnum enumType = ModelClass.ModelRoot.Enums.FirstOrDefault(x => x.Name == parts[0]);
                   return enumType != null && parts.Length == 2 && enumType.Values.Any(x => x.Name == parts[1]);
                }
@@ -141,8 +155,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity
       /// </summary>
       /// <param name="typeName"></param>
-      /// <returns></returns>
-      public static string ToCLRType(string typeName)
+      /// <returns>Name of primitive type given </returns>
+      // ReSharper disable once UnusedMember.Global
+      public static string ToPrimitiveType(string typeName)
       {
          switch (typeName)
          {
@@ -152,12 +167,8 @@ namespace Sawczyn.EFDesigner.EFModel
                return "bool";
             case "Byte":
                return "byte";
-            case "DateTime":
-               return "DateTime";
             case "Time":
                return "TimeSpan";
-            case "DateTimeOffset":
-               return "DateTimeOffset";
             case "Decimal":
                return "decimal";
             case "Double":
@@ -180,10 +191,6 @@ namespace Sawczyn.EFDesigner.EFModel
             case "GeometryMultiPolygon":
             case "GeometryCollection":
                return "DbGeometry";
-            case "Guid":
-               return "Guid";
-            case "Single":
-               return "Single";
             //case "SByte":
             //   return "sbyte";
             case "Int16":
@@ -199,7 +206,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return typeName;
       }
 
-      public static string FromCLRType(string typeName)
+      public static string ToCLRType(string typeName)
       {
          switch (typeName)
          {
@@ -209,12 +216,8 @@ namespace Sawczyn.EFDesigner.EFModel
                return "Boolean";
             case "byte":
                return "Byte";
-            case "DateTime":
-               return "DateTime";
             case "TimeSpan":
                return "Time";
-            case "DateTimeOffset":
-               return "DateTimeOffset";
             case "decimal":
                return "Decimal";
             case "double":
@@ -223,10 +226,6 @@ namespace Sawczyn.EFDesigner.EFModel
                return "Geography";
             case "DbGeometry":
                return "Geometry";
-            case "Guid":
-               return "Guid";
-            case "Single":
-               return "Single";
             //case "sbyte":
             //   return "SByte";
             case "short":
@@ -262,80 +261,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #region Parse string
-
-      // Note: gave some thought to making this be an LALR parser, but that's WAY overkill for what needs done here. Regex is good enough.
-
-      private const string NAME = "(?<name>[A-Za-z_][A-za-z0-9_]*[!]?)";
-      private const string TYPE = "(?<type>[A-Za-z_][A-za-z0-9_]*[?]?)";
-      private const string LENGTH = @"(?<length>\d+)";
-      private const string STRING_TYPE = "(?<type>[Ss]tring)";
-      private const string VISIBILITY = @"(?<visibility>public\s+|protected\s+)";
-      private const string INITIAL = @"(=\s*(?<initialValue>.+))";
-      private const string WS = @"\s*";
-      private const string BODY = @"(\{.+)";
-
-      // Valid patterns, in order, are as follows:
-      //    ('public' here is used to denote either 'public' or 'protected')
-      //    ('int' represents any type)
-      //    ('50' represents any integer)
-      //    ('12' represents any initializer value appropriate for the type)
-      //    ("hello" represents any string)
-      //    (In all cases, a type name can be followed by a ? symbol to denote optional)
-      //    (In all cases, a property name can be followed by a ! symbol to denote it is the identifier property
-      //       - no support for multi-property identities ... yet)
-      //
-      private static readonly string[] patterns =
-      {
-            //    foo
-            //    foo = 12
-            //    public foo = 12
-            $@"^{WS}{VISIBILITY}?{NAME}{WS}{INITIAL}?",
-
-            //    string[50] foo
-            //    string[50] foo = "hello"
-            //    public string[50] foo
-            //    public string[50] foo = "hello"
-            $@"^{WS}{VISIBILITY}?{STRING_TYPE}\[{LENGTH}\]\s+{NAME}{WS}{INITIAL}?",
-
-            //    string(50) foo
-            //    string(50) foo = "hello"
-            //    public string(50) foo
-            //    public string(50) foo = "hello"
-            $@"^{WS}{VISIBILITY}?{STRING_TYPE}\({LENGTH}\)\s+{NAME}{WS}{INITIAL}?",
-
-            //    foo : string[50]
-            //    foo : string[50] = "hello"
-            //    public foo : string[50]
-            //    public foo : string[50] = "hello"
-            $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\[{LENGTH}\]{WS}{INITIAL}?",
-
-            //    foo : string(50)
-            //    foo : string(50) = "hello"
-            //    public foo : string(50)
-            //    public foo : string(50) = "hello"
-            $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{STRING_TYPE}\({LENGTH}\){WS}{INITIAL}?",
-
-            //    int foo
-            //    int foo = 12
-            //    int foo = 12;
-            //    int foo { anything...
-            //    public int foo
-            //    public int foo = 12
-            //    public int foo = 12;
-            //    public int foo { anything...
-            $@"^{WS}{VISIBILITY}?{TYPE}\s+{NAME}{WS}(({INITIAL}?;?)|{BODY})?$",
-
-            //    foo : int
-            //    foo : int = 12
-            //    public foo : int
-            //    public foo : int = 12
-            $@"^{WS}{VISIBILITY}?{NAME}{WS}:{WS}{TYPE}{WS}{INITIAL}?"
-      };
-
-      // odd. Tested individually, we get the right matches. Glob them together, though, and we don't. Sequencing issue?
-      //private static readonly Regex Pattern = new Regex(string.Join("|", patterns), RegexOptions.Compiled);
-      private static readonly Regex[] Patterns = patterns.Select(p => new Regex(p, RegexOptions.Compiled)).ToArray();
+      #region To/From String
 
       /// <summary>Returns a string that represents the current object.</summary>
       /// <remarks>Output is, in order:
@@ -378,11 +304,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static ParseResult Parse(ModelRoot modelRoot, string input)
       {
-         ParseResult result = AttributeParser.Parse(input);
+         string _input = input.Split('{')[0].Trim(';');
+         ParseResult result = AttributeParser.Parse(_input);
+         result.Type = ToCLRType(result.Type);
 
-         if (result != null && !ValidTypes.Contains(result.Type))
+         if (result?.Type != null && !ValidTypes.Contains(result.Type))
          {
-            result.Type = FromCLRType(result.Type);
+            result.Type = ToCLRType(result.Type);
             if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
             {
                result.Type = null;

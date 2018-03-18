@@ -51,30 +51,38 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "EntityFrameworkVersion":
-               if (element.EntityFrameworkVersion == EFVersion.EFCore)
+               if ((EFVersion)e.NewValue == EFVersion.EFCore)
                   errorMessage = ImposeEFCoreRestrictions(element, store);
                break;
 
             case "DatabaseSchema":
-               if (string.IsNullOrEmpty(element.DatabaseSchema))
+               if (string.IsNullOrEmpty((string)e.NewValue))
                   element.DatabaseSchema = "dbo";
                break;
 
             case "FileNameMarker":
-               if (!Regex.Match($"a.{element.FileNameMarker}.cs",
+               string newFileNameMarker = (string)e.NewValue;
+               if (!Regex.Match($"a.{newFileNameMarker}.cs",
                                 @"^(?!^(PRN|AUX|CLOCK\$|NUL|CON|COM\d|LPT\d|\..*)(\..+)?$)[^\x00-\x1f\\?*:\"";|/]+$").Success)
                   errorMessage = "Invalid value to make part of file name";
                break;
 
             case "InheritanceStrategy":
                //TODO: EFCore limitation as of 2.0. Review for each new release.
-               if (element.EntityFrameworkVersion == EFVersion.EFCore)
+               if (element.EntityFrameworkVersion == EFVersion.EFCore && (CodeStrategy)e.NewValue != CodeStrategy.TablePerHierarchy)
                   element.InheritanceStrategy = CodeStrategy.TablePerHierarchy; 
                break;
 
             case "ShowCascadeDeletes":
-               foreach (Association association in store.ElementDirectory.FindElements<Association>())
-                  AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
+               // need these change rules to fire even though nothing in Association has changed
+               // so we need to set this early -- requires guarding against recursion.
+               bool newShowCascadeDeletes = (bool)e.NewValue;
+               if (element.ShowCascadeDeletes != newShowCascadeDeletes)
+               {
+                  element.ShowCascadeDeletes = newShowCascadeDeletes;
+                  foreach (Association association in store.ElementDirectory.FindElements<Association>())
+                     AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
+               }
                break;
          }
 

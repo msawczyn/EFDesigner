@@ -57,6 +57,9 @@
     <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="GOLD Engine">
+      <HintPath>..\Libraries\GOLD Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.ConnectionUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f4ca07f51760da93, processorArchitecture=MSIL">
       <HintPath>..\packages\DataConnectionDialog.1.2\lib\Microsoft.Data.ConnectionUI.dll</HintPath>
@@ -150,6 +153,7 @@
     <None Include="..\Key.snk">
       <Link>Key.snk</Link>
     </None>
+    <None Include="CustomCode\ModelAttribute Parser\AttributeGrammar.egt" />
     <None Include="GeneratedCode\SerializationHelper.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SerializationHelper.cs</LastGenOutput>
@@ -334,6 +338,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ToolboxHelper.cs</LastGenOutput>
     </None>
+    <None Include="CustomCode\ModelAttribute Parser\AttributeGrammar.grm" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,8 @@ T4:  Generate HasColumnName(name) for property if overrides
 
 DSL: Add EFModel file to "Data" category in "Add New Item" dialog
 
+DSL: Rework EFModelDocData.OnDocumentLoaded to prevent file from appearing dirty when no changes are made
+
 ===============================================================
 Extension: Add DeleteType enum to ModelClass (soft, hard)
 T4:  Implement soft delete where marked in model

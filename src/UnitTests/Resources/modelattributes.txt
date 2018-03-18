@@ -1,0 +1,72 @@
+foo
+foo!
+public foo
+public foo!
+foo : string
+foo : string = "hello"
+foo : string?
+foo : string? = "hello"
+foo : string?[50]
+foo : string?[50] = "hello"
+foo : string[50]
+foo : string[50] = "hello"
+foo! : string
+foo! : string = "hello"
+foo! : string?
+foo! : string? = "hello"
+foo! : string?[50]
+foo! : string?[50] = "hello"
+foo! : string[50]
+foo! : string[50] = "hello"
+public foo : string
+public foo : string = "hello"
+public foo : string?
+public foo : string? = "hello"
+public foo : string?[50]
+public foo : string?[50] = "hello"
+public foo : string[50]
+public foo : string[50] = "hello"
+public foo! : string
+public foo! : string = "hello"
+public foo! : string?
+public foo! : string? = "hello"
+public foo! : string?[50]
+public foo! : string?[50] = "hello"
+public foo! : string[50]
+public foo! : string[50] = "hello"
+foo = "hello"
+foo! = "hello"
+public foo = "hello"
+public foo! = "hello"
+public string foo = "hello"
+public string foo! = "hello"
+public string foo!
+public string foo
+public string? foo = "hello"
+public string? foo! = "hello"
+public string? foo!
+public string? foo
+public string?[50] foo = "hello"
+public string?[50] foo! = "hello"
+public string?[50] foo!
+public string?[50] foo
+public string[50] foo = "hello"
+public string[50] foo! = "hello"
+public string[50] foo!
+public string[50] foo
+string foo = "hello"
+string foo! = "hello"
+string foo!
+string foo
+string? foo = "hello"
+string? foo! = "hello"
+string? foo!
+string? foo
+string?[50] foo = "hello"
+string?[50] foo! = "hello"
+string?[50] foo!
+string?[50] foo
+string[50] foo = "hello"
+string[50] foo! = "hello"
+string[50] foo!
+string[50] foo

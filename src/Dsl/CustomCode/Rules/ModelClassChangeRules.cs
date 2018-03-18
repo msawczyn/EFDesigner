@@ -86,56 +86,62 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TableName":
-               if (string.IsNullOrEmpty(element.TableName))
+               string newTableName = (string)e.NewValue;
+
+               if (string.IsNullOrEmpty(newTableName))
                   element.TableName = MakeDefaultName(element.Name);
 
                if (store.ElementDirectory
                         .AllElements
                         .OfType<ModelClass>()
                         .Except(new[] { element })
-                        .Any(x => x.TableName == element.TableName))
-                  errorMessage = $"Table name '{element.TableName}' already in use";
+                        .Any(x => x.TableName == newTableName))
+                  errorMessage = $"Table name '{newTableName}' already in use";
                break;
 
             case "DbSetName":
-               if (string.IsNullOrEmpty(element.DbSetName))
+               string newDbSetName = (string)e.NewValue;
+
+               if (string.IsNullOrEmpty(newDbSetName))
                   element.DbSetName = MakeDefaultName(element.Name);
 
                if (current.Name.ToLowerInvariant() != "paste" &&
-                   (string.IsNullOrWhiteSpace(element.DbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.DbSetName)))
+                   (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
                   errorMessage = "DbSet name must be a valid .NET identifier";
 
                else if (store.ElementDirectory
                         .AllElements
                         .OfType<ModelClass>()
                         .Except(new[] { element })
-                        .Any(x => x.DbSetName == element.DbSetName))
-                  errorMessage = $"DbSet name '{element.DbSetName}' already in use";
+                        .Any(x => x.DbSetName == newDbSetName))
+                  errorMessage = $"DbSet name '{newDbSetName}' already in use";
 
                break;
 
             case "Name":
+               string newName = (string)e.NewValue;
+
                if (current.Name.ToLowerInvariant() != "paste" && 
-                   (string.IsNullOrWhiteSpace(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name)))
+                   (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
                   errorMessage = "Name must be a valid .NET identifier";
                
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelClass>()
                              .Except(new[] { element })
-                             .Any(x => x.Name == element.Name))
-                  errorMessage = $"Class name '{element.Name}' already in use";
+                             .Any(x => x.Name == newName))
+                  errorMessage = $"Class name '{newName}' already in use by another class";
                
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelEnum>()
-                             .Any(x => x.Name == element.Name))
-                  errorMessage = $"Class name '{element.Name}' already in use";
+                             .Any(x => x.Name == newName))
+                  errorMessage = $"Class name '{newName}' already in use by an enum";
                
                else if (!string.IsNullOrEmpty((string)e.OldValue))
                {
                   string oldDefaultName = MakeDefaultName((string)e.OldValue);
-                  string newDefaultName = MakeDefaultName(element.Name);
+                  string newDefaultName = MakeDefaultName(newName);
 
                   if (element.DbSetName == oldDefaultName)
                      element.DbSetName = newDefaultName;
@@ -145,8 +151,9 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "Namespace":
+               string newNamespace = (string)e.NewValue;
                if (current.Name.ToLowerInvariant() != "paste")
-                  errorMessage = CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier);
+                  errorMessage = CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
                break;
          }
 

@@ -47,35 +47,39 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "Type":
+               string newType = (string)e.NewValue;
                if (element.IsIdentity)
-                  if (!ValidIdentityAttributeTypes.Contains(element.Type))
+               {
+                  if (!ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
                   {
-                     errorMessage = $"Properties of type {element.Type} can't be used as identity properties.";
+                     errorMessage = $"Properties of type {newType} can't be used as identity properties.";
                   }
                   else
                   {
                      element.Required = true;
                      element.Persistent = true;
                   }
+               }
 
-               if (element.Type != "String")
+               if (newType != "String")
                {
                   element.MaxLength = 0;
                   element.StringType = HTML5Type.None;
                }
                else
                {
-                  if (!element.HasValidDefault())
+                  if (!element.IsValidInitialValue(newType))
                      element.InitialValue = null;
                }
 
                break;
 
             case "MaxLength":
+               int newMaxLength = (int)e.NewValue;
                if (element.Type != "String")
                   element.MaxLength = 0;
 
-               if (element.MaxLength < 0)
+               if (newMaxLength < 0)
                   errorMessage = "MaxLength must be zero or a positive number";
 
                break;
@@ -98,13 +102,15 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.ReadOnly = false;
                break;
 
-            case "Virtual":
-               if (element.Persistent)
-                  element.Virtual = false;
-               break;
+            //case "Virtual":
+            //   if (element.Persistent)
+            //      element.Virtual = false;
+            //   break;
 
             case "IsIdentity":
-               if (element.IsIdentity)
+               bool newIsIdentity = (bool)e.NewValue;
+
+               if (newIsIdentity)
                   if (!ValidIdentityAttributeTypes.Contains(element.Type))
                   {
                      errorMessage = $"Properties of type {element.Type} can't be used as identity properties.";
@@ -126,7 +132,8 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "IsConcurrencyToken":
-               if (element.IsConcurrencyToken)
+               bool newIsConcurrencyToken = (bool)e.NewValue;
+               if (newIsConcurrencyToken)
                {
                   element.IsIdentity = false;
                   element.Persistent = true;
@@ -136,14 +143,16 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "Required":
-               if (!element.Required)
+               bool newRequired = (bool)e.NewValue;
+               if (!newRequired)
                   if (element.IsIdentity || element.IsConcurrencyToken)
                      element.Required = true;
 
                break;
 
             case "Persistent":
-               if (!element.Persistent)
+               bool newPersistent = (bool)e.NewValue;
+               if (!newPersistent)
                {
                   element.IsIdentity = false;
                   element.Indexed = false;
@@ -156,16 +165,16 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "Name":
-               string s = (string)e.NewValue;
+               string newName = (string)e.NewValue;
 
-               if (string.IsNullOrEmpty(s))
+               if (string.IsNullOrEmpty(newName))
                   errorMessage = "Name must be a valid .NET identifier";
                else
                {
-                  ModelAttribute.ParseResult fragment = ModelAttribute.Parse(element.ModelClass.ModelRoot, s);
+                  ParseResult fragment = ModelAttribute.Parse(element.ModelClass.ModelRoot, newName);
 
                   if (fragment == null)
-                     errorMessage = $"Could not parse entry '{s}'";
+                     errorMessage = $"Could not parse entry '{newName}'";
                   else
                   {
                      if (string.IsNullOrEmpty(fragment.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(fragment.Name))
@@ -189,8 +198,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                break;
 
             case "InitialValue":
-               if (!element.HasValidDefault())
-                  errorMessage = $"{element.InitialValue} isn't a valid value for {element.Type}";
+               string newInitialValue = (string)e.NewValue;
+               if (!element.IsValidInitialValue(null, newInitialValue))
+                  errorMessage = $"{newInitialValue} isn't a valid value for {element.Type}";
 
                break;
          }
