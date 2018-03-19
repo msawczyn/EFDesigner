@@ -31,5 +31,47 @@ target both EF6 and EFCore, and generate both a code-first DbContext class and
 POCO entity classes. The EF6 template's DbContext code is written to allow consumption in both
 ASP.Net Core as well as any other project type, so you'll have flexibility in your development.
 
-You can read more about how to use the designer in the [Wiki](https://github.com/msawczyn/EFDesigner/wiki).
+You can read more about how to use the designer in the [Wiki](https://github.com/msawczyn/EFDesigner/wiki)
+ - which is by no means finished yet, just so you know.
+
+ ### Change Log
+
+ 1.0.3.6
+   - Fixed parser errors when editing model attributes as text
+   - Fixed error when auto-generating on save and design surface is not the active window
+   - Fixed crash when used on non-English-language systems (where Microsoft Pluralization Service is unavailable)
+   - Added option to generate warnings if no documentation
+   - Standardized warning and error message structure
+   - Added ability to choose 'None' DatabaseInitializer type; generates SetInitializer(null)
+
+1.0.3.5
+   - Enhanced portability between EF6 an EFCore
+
+1.0.3.4
+   - Adds some T4 fixes to make generated code more usable in ASP.NET Core applications. 
+   - Fix to spurious error when copying/pasting enum elements.
+   - First release that's available on Visual Studio Marketplace.
+
+1.0.3.3
+   - Fix to spurious error when copying/pasting model elements
+   - **Do not use this release. Fix didn't extend to enum elements. This is fixed in 1.0.3.4.
+
+1.0.3.2
+   - Minor bug fix in parsing manually typed attributes. 
+   - Loosened model file version check to only check major version.
+
+1.0.3.0
+   - Enhanced syntax for adding/editing attributes via code
+   - Fix for generate-on-save for both Framework and .NET Core projects.
+
+1.0.2.0
+   - EFCore T4 template now available
+
+1.0.1.0
+   - Fix to EF6 T4 for issue where column names in many-to-many association join tables were flipped
+
+1.0.0
+   - Initial release
+
+
 

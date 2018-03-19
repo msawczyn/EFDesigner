@@ -1,5 +1,6 @@
 1.0.3.6
    - Fixed parser errors when editing model attributes as text
+   - Fixed error when auto-generating on save and design surface is not the active window
    - Fixed crash when used on non-English-language systems (where Microsoft Pluralization Service is unavailable)
    - Added option to generate warnings if no documentation
    - Standardized warning and error message structure
