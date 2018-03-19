@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -16,8 +18,6 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       protected override void OnDocumentLoaded()
       {
-         // TODO: rework this so that, if there's nothing to do, no edits are made. efmodel shows as edited every time it's opened, and this is why
-
          base.OnDocumentLoaded();
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -33,47 +33,45 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("StyleConnectors"))
+         ReadOnlyCollection<Association> associations = modelRoot.Store.ElementDirectory.FindElements<Association>();
+         if (associations.Any())
          {
-            // style association connectors if needed
-            foreach (Association element in modelRoot.Store.ElementDirectory.FindElements<Association>())
+            using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("StyleConnectors"))
             {
-               AssociationChangeRules.UpdateDisplayForPersistence(element);
-               AssociationChangeRules.UpdateDisplayForCascadeDelete(element);
+               // style association connectors if needed
+               foreach (Association element in associations)
+               {
+                  AssociationChangeRules.UpdateDisplayForPersistence(element);
+                  AssociationChangeRules.UpdateDisplayForCascadeDelete(element);
+
+                  // for older diagrams that didn't calculate this initially
+                  AssociationChangeRules.SetEndpointRoles(element);
+               }
+
+               tx.Commit();
             }
-            tx.Commit();
          }
 
-         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("HideConnectors"))
+         List<GeneralizationConnector> generalizationConnectors = modelRoot.Store
+                                                                           .ElementDirectory
+                                                                           .FindElements<GeneralizationConnector>()
+                                                                           .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible)
+                                                                           .ToList();
+         List<AssociationConnector> associationConnectors = modelRoot.Store
+                                                                     .ElementDirectory
+                                                                     .FindElements<AssociationConnector>()
+                                                                     .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible)
+                                                                     .ToList();
+
+         if (generalizationConnectors.Any() || associationConnectors.Any())
          {
-            // hide any connectors that may have been hidden due to hidden shapes
-            foreach (GeneralizationConnector connector in modelRoot.Store
-                                                                   .ElementDirectory
-                                                                   .FindElements<GeneralizationConnector>()
-                                                                   .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible))
+            using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("HideConnectors"))
             {
-               connector.Hide();
+               // hide any connectors that may have been hidden due to hidden shapes
+               foreach (GeneralizationConnector connector in generalizationConnectors) { connector.Hide(); }
+               foreach (AssociationConnector connector in associationConnectors) { connector.Hide(); }
+               tx.Commit();
             }
-
-
-            foreach (AssociationConnector connector in modelRoot.Store
-                                                                .ElementDirectory
-                                                                .FindElements<AssociationConnector>()
-                                                                .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible))
-            {
-               connector.Hide();
-            }
-
-            tx.Commit();
-         }
-
-         // for older diagrams that didn't calculate this initially
-         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("EnsureEndpointRoles"))
-         {
-            foreach (Association association in modelRoot.Store.ElementDirectory.FindElements<Association>())
-               AssociationChangeRules.SetEndpointRoles(association);
-
-            tx.Commit();
          }
       }
 
