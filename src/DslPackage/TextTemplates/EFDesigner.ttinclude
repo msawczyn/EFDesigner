@@ -141,11 +141,13 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults = n
    if (haveDefaults != true)
    {
       requiredParameters.AddRange(modelClass.AllRequiredAttributes
-         .Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public && string.IsNullOrEmpty(x.InitialValue))
-         .Select(x => $"{x.CLRType} _{x.Name.ToLower()}"));
+                                            .Where(x => !x.IsIdentity && 
+                                                        x.SetterVisibility == SetterAccessModifier.Public && 
+                                                        string.IsNullOrEmpty(x.InitialValue))
+                                            .Select(x => $"{x.PrimitiveType} _{x.Name.ToLower()}"));
 
       requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
-         .Select(x => $"{x.ClassType.Name} _{x.PropertyName.ToLower().Trim('_')}"));
+                                            .Select(x => $"{x.ClassType.Name} _{x.PropertyName.ToLower().Trim('_')}"));
    }
    
    if (haveDefaults != false)
@@ -155,9 +157,9 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults = n
                      !string.IsNullOrEmpty(x.InitialValue))
          .Select(x =>
          {
-            string quote = x.CLRType == "string" ? "\"" : x.CLRType == "char" ? "'" : "";
+            string quote = x.PrimitiveType == "string" ? "\"" : x.PrimitiveType == "char" ? "'" : "";
             string value = x.InitialValue.Trim('"', '\'');
-            return $"{x.CLRType} _{x.Name.ToLower()} = {quote}{value}{quote}";
+            return $"{x.PrimitiveType} _{x.Name.ToLower()} = {quote}{value}{quote}";
          }));
    }
 
@@ -471,7 +473,7 @@ void WritePersistentProperties(ModelClass modelClass)
          segments.Add($"Max length = {modelAttribute.MaxLength}");
       if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
       {
-         string quote = modelAttribute.CLRType == "string" ? "\"" : modelAttribute.CLRType == "char" ? "'" : "";
+         string quote = modelAttribute.PrimitiveType == "string" ? "\"" : modelAttribute.PrimitiveType == "char" ? "'" : "";
          segments.Add($"Default value = {quote}{modelAttribute.InitialValue}{quote}");
       }
 
@@ -479,9 +481,9 @@ void WritePersistentProperties(ModelClass modelClass)
 
       if (!modelAttribute.AutoProperty)
       {
-         Output($"private {modelAttribute.CLRType}{nullable} _{modelAttribute.Name};");
-         Output($"partial void Set{modelAttribute.Name}({modelAttribute.CLRType}{nullable} oldValue, ref {modelAttribute.CLRType}{nullable} newValue);");
-         Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.CLRType}{nullable} result);");
+         Output($"private {modelAttribute.PrimitiveType}{nullable} _{modelAttribute.Name};");
+         Output($"partial void Set{modelAttribute.Name}({modelAttribute.PrimitiveType}{nullable} oldValue, ref {modelAttribute.PrimitiveType}{nullable} newValue);");
+         Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.PrimitiveType}{nullable} result);");
          NL();
       }
 
@@ -505,14 +507,14 @@ void WritePersistentProperties(ModelClass modelClass)
 
       if (modelAttribute.AutoProperty)
       {
-         Output($"public {modelAttribute.CLRType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
+         Output($"public {modelAttribute.PrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
       }
       else
       {
-         Output($"public {modelAttribute.CLRType}{nullable} {modelAttribute.Name}");
+         Output($"public {modelAttribute.PrimitiveType}{nullable} {modelAttribute.Name}");
          Output("{");
-         Output($"get {{ {modelAttribute.CLRType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
-         Output($"{setterVisibility}set {{ {modelAttribute.CLRType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; }}");
+         Output($"get {{ {modelAttribute.PrimitiveType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
+         Output($"{setterVisibility}set {{ {modelAttribute.PrimitiveType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; }}");
          Output("}");
       }
 
@@ -542,8 +544,8 @@ void WriteCalculatedProperties(ModelClass modelClass)
    {
       string nullable = IsNullable(calculatedAttribute) ? "?" : "";
 
-      Output("partial void Get{0}(ref {1}{2} value);", calculatedAttribute.Name, calculatedAttribute.CLRType, nullable);
-      Output("partial void Set{0}({1}{2} value);", calculatedAttribute.Name, calculatedAttribute.CLRType, nullable);
+      Output("partial void Get{0}(ref {1}{2} value);", calculatedAttribute.Name, calculatedAttribute.PrimitiveType, nullable);
+      Output("partial void Set{0}({1}{2} value);", calculatedAttribute.Name, calculatedAttribute.PrimitiveType, nullable);
 
       Output("/// <summary>");
       Output("/// Calculated property");
@@ -558,12 +560,14 @@ void WriteCalculatedProperties(ModelClass modelClass)
          Output("/// </remarks>");
       }
 
-      string setterVisibility = calculatedAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : calculatedAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
+      string setterVisibility = calculatedAttribute.SetterVisibility == SetterAccessModifier.Protected 
+                                   ? "protected " 
+                                   : calculatedAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
       string isVirtual = calculatedAttribute.Virtual ? "virtual " : "";
 
-      Output($"public {isVirtual}{calculatedAttribute.CLRType}{nullable} {calculatedAttribute.Name}");
+      Output($"public {isVirtual}{calculatedAttribute.PrimitiveType}{nullable} {calculatedAttribute.Name}");
       Output("{");
-      Output($"get {{ {calculatedAttribute.CLRType}{nullable} value = default({calculatedAttribute.CLRType}{nullable}); Get{calculatedAttribute.Name}(ref value); return value; }}");
+      Output($"get {{ {calculatedAttribute.PrimitiveType}{nullable} value = default({calculatedAttribute.PrimitiveType}{nullable}); Get{calculatedAttribute.Name}(ref value); return value; }}");
       Output($"{setterVisibility}set {{ Set{calculatedAttribute.Name}(value); }}");
       Output("}");
       NL();
@@ -578,7 +582,8 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
    Output("// Persistent navigation properties");
    NL();
 
-   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
+   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
+                                                               .Where(x => x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
    {
       string type = navigationProperty.IsCollection
                         ? $"ICollection<{navigationProperty.ClassType.Name}>"
@@ -616,7 +621,8 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
    Output("// Calculated navigation properties");
    NL();
 
-   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => !x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
+   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
+                                                               .Where(x => !x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
    {
       string type = navigationProperty.IsCollection
                         ? $"ICollection<{navigationProperty.ClassType.Name}>"

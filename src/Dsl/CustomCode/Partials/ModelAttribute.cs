@@ -7,6 +7,7 @@ using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+
    /// <summary>
    /// Tag interface indicating diagram items for this element are compartments in a parent element
    /// </summary>
@@ -150,6 +151,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 #pragma warning restore 168
+
+      public string PrimitiveType => ToPrimitiveType(Type);
+      public string CLRType => ToCLRType(Type);
 
       /// <summary>
       /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity

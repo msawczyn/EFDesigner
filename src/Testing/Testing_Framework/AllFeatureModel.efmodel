@@ -3,21 +3,21 @@
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired">
       <attributes>
-        <modelAttribute Id="71bf803a-ee16-42f1-87ee-84fa5faf615c" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
-        <modelAttribute Id="e3bf4f69-b753-4a76-b53d-f298bc165bea" type="Binary" required="true" indexed="false" indexedUnique="false" stringType="None" name="BinaryAttr" />
-        <modelAttribute Id="0424d40f-8127-4016-a95a-c0025229f9a1" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="BooleanAttr" />
-        <modelAttribute Id="2f5d8555-7097-458e-87ce-9a2825d6addb" type="Byte" required="true" indexed="false" indexedUnique="false" stringType="None" name="ByteAttr" />
-        <modelAttribute Id="0143d2d0-9a23-4a7f-a7b8-6527c87cf627" type="DateTime" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeAttr" />
-        <modelAttribute Id="fca7c29b-887a-4d58-beff-e8bc59b46f62" type="DateTimeOffset" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeOffsetAttr" />
-        <modelAttribute Id="41264c15-6454-494c-a0d2-e64c8a723719" type="Decimal" required="true" indexed="false" indexedUnique="false" stringType="None" name="DecimalAttr" />
-        <modelAttribute Id="d3af53bc-02b4-48ac-8179-a966029f7989" type="Double" required="true" indexed="false" indexedUnique="false" stringType="None" name="DoubleAttr" />
-        <modelAttribute Id="639966e7-7205-4459-a909-54ed588e6756" type="Guid" required="true" indexed="false" indexedUnique="false" stringType="None" name="GuidAttr" />
-        <modelAttribute Id="fbe8ab6c-15c4-4eb8-8ae6-17460f08cbd3" type="Int16" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int16Attr" />
-        <modelAttribute Id="849d96ff-2526-4c08-b621-21d6d75f0475" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
-        <modelAttribute Id="2852c236-8a17-4a04-aef0-f21d0d466b32" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
-        <modelAttribute Id="e518ce8a-6efa-4b4f-b98b-a9658dff51ec" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
-        <modelAttribute Id="8ec056aa-cb7e-4eae-aec1-cada6e706c31" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
-        <modelAttribute Id="018c3cca-798b-488f-9163-837296c14160" required="true" indexed="false" indexedUnique="false" stringType="None" name="String" />
+        <modelAttribute Id="3c276f6e-2f2a-49b1-a1b9-42d7b248870c" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
+        <modelAttribute Id="ae0395ed-76e3-46de-b2c2-f7126fd2eb1b" type="Binary" required="true" indexed="false" indexedUnique="false" stringType="None" name="BinaryAttr" />
+        <modelAttribute Id="6f898b3c-f6f9-40a3-9ff1-cf5456c683ed" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="BooleanAttr" />
+        <modelAttribute Id="1b63c913-ce46-4530-9fc4-231e188c47f9" type="Byte" required="true" indexed="false" indexedUnique="false" stringType="None" name="ByteAttr" />
+        <modelAttribute Id="23257d73-a9f7-425f-8675-f4f4ab675110" type="DateTime" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeAttr" />
+        <modelAttribute Id="0bf4bf6a-5429-476a-ab4e-62acb9a8d05a" type="DateTimeOffset" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeOffsetAttr" />
+        <modelAttribute Id="997048f6-790b-4d2e-9a61-54823f791a05" type="Decimal" required="true" indexed="false" indexedUnique="false" stringType="None" name="DecimalAttr" />
+        <modelAttribute Id="6e2ddb60-3b67-4c32-ab6b-7456ec51e226" type="Double" required="true" indexed="false" indexedUnique="false" stringType="None" name="DoubleAttr" />
+        <modelAttribute Id="bd57340b-79fd-46b6-9f50-8b1e6736cfd8" type="Guid" required="true" indexed="false" indexedUnique="false" stringType="None" name="GuidAttr" />
+        <modelAttribute Id="e1f785e5-c233-4ca8-9234-22778b04a191" type="Int16" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int16Attr" />
+        <modelAttribute Id="7552a732-19ec-40d5-9e88-6f2ef6d427c5" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
+        <modelAttribute Id="e5a66dfb-a191-49da-a7d4-102f57bd5056" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
+        <modelAttribute Id="55f011cc-483e-48ac-ad4b-77a55115d91e" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
+        <modelAttribute Id="ae3c3afe-e59e-4937-8950-273c9f8ad20b" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
+        <modelAttribute Id="742387fb-ba5d-4918-82f3-9456604ffa5d" required="true" indexed="false" indexedUnique="false" stringType="None" name="String" />
       </attributes>
     </modelClass>
     <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional">

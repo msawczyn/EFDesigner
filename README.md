@@ -36,6 +36,9 @@ is by no means finished yet, just so you know.
 
  ### Change Log
 
+ 1.0.3.7
+   - Emergency bug fixes
+
  1.0.3.6
    - Fixed parser errors when editing model attributes as text
    - Fixed error when auto-generating on save and design surface is not the active window

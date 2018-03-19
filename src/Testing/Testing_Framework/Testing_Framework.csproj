@@ -59,7 +59,6 @@
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generated\Context\AllFeatureModel.generated.cs" />
-    <Compile Include="Generated\Context\AllFeatureModelDatabaseInitializer.generated.cs" />
     <Compile Include="Generated\Context\AllFeatureModelDbMigrationConfiguration.generated.cs" />
     <Compile Include="Generated\Entities\AbstractBaseClass.generated.cs" />
     <Compile Include="Generated\Entities\AllPropertyTypesOptional.generated.cs" />
