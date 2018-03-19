@@ -31,8 +31,8 @@ target both EF6 and EFCore, and generate both a code-first DbContext class and
 POCO entity classes. The EF6 template's DbContext code is written to allow consumption in both
 ASP.Net Core as well as any other project type, so you'll have flexibility in your development.
 
-You can read more about how to use the designer in the [Wiki](https://github.com/msawczyn/EFDesigner/wiki)
- - which is by no means finished yet, just so you know.
+You can read more about how to use the designer in the [Wiki](https://github.com/msawczyn/EFDesigner/wiki) - which 
+is by no means finished yet, just so you know.
 
  ### Change Log
 
