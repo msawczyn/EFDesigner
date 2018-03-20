@@ -99,8 +99,16 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 
          List<string> errors = new List<string>();
 
-         if (modelRoot.InheritanceStrategy != CodeStrategy.TablePerHierarchy)
-            errors.Add($"{modelRoot.InheritanceStrategy} inheritance strategy");
+         // there will be more later. Create the container now
+         CodeStrategy[] validInheritanceStrategies = {CodeStrategy.TablePerHierarchy};
+
+         if (!validInheritanceStrategies.Contains(modelRoot.InheritanceStrategy))
+         {
+            if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any())
+               errors.Add($"{modelRoot.InheritanceStrategy} inheritance strategy");
+            else // when there are more options, we'll just output the error message
+               modelRoot.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+         }
 
          List<Association> unsupportedAssociations = store.ElementDirectory
                                                           .AllElements

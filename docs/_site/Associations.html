@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Associations | EFDesigner</title>
+<meta name="generator" content="Jekyll v3.6.2" />
+<meta property="og:title" content="Associations" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond" />
+<meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond" />
+<link rel="canonical" href="http://localhost:4000/Associations.html" />
+<meta property="og:url" content="http://localhost:4000/Associations.html" />
+<meta property="og:site_name" content="EFDesigner" />
+<script type="application/ld+json">
+{"description":"Entity Framework visual design surface and code-first code generation for EF6, Core and beyond","@type":"WebPage","url":"http://localhost:4000/Associations.html","headline":"Associations","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=475b7c1b7fd1c27d5ce8f6479a0323f2bd1ce269">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">EFDesigner</h1>
+      <h2 class="project-tagline">Entity Framework visual design surface and code-first code generation for EF6, Core and beyond</h2>
+      
+        <a href="http://github.com/msawczyn/EFDesigner" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="associations">Associations</h1>
+
+<p>Associations are relationships beteween two entities, termed “navigation properties” in Entity Framework documentation.</p>
+
+<p>The designer supports creation of both unidirectional and bidirectional associations. In unidirectional associations, the source
+entity contains a property of the destination type, but not the other way around. In bidirectional associations,
+each class contains a property pointing to the other entity.</p>
+
+<p>As an example, consider the following:</p>
+
+<p><img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Unidirectional.jpg" /></p>
+
+<p>This tells us that Entity1 has a collection of Entity2 objects. The type of collection will typically be set as the default value
+set in the design surface, but can be overridden (see Association Properties, below).</p>
+
+<p>In short, this means that Entity1 would contain</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public virtual ICollection&lt;Entity2&gt; TheEntity2s { get; set; } 
+</code></pre></div></div>
+
+<p>but Entity2 doesn’t have a matching property.</p>
+
+<p>In contrast, a bidirectional association like</p>
+
+<p><img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Bidirectional.jpg" /></p>
+
+<p>would have, in the Entity2 class,</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public virtual Entity1 TheEntity1 { get; set; }  // Required
+</code></pre></div></div>
+
+<h2 id="cardinalities">Cardinalities</h2>
+
+<p>Associations have cardinalities (the number of elements in a set) at each end. Supported cardinalities are:</p>
+<ul>
+  <li>Zero or One (0..1)</li>
+  <li>One (1)</li>
+  <li>Zero or More (*)</li>
+</ul>
+
+<p>While cardinalities include One or More (1..*), Entity Framework currently doesn’t support that. That doesn’t mean
+that it can’t be done, just that it has to be done with custom code (and, in fact, is on the to-do list of things
+to support with custom code generation in the designer).</p>
+
+<p>Regardless of whether the association is unidirectional or bidirectional, it’s important to correctly specify the
+cardinality at each end. It has an effect on the kind of database structure Entity Framework creates, as well as 
+being critical to properly modelling the problem space.</p>
+
+<p>It can’t be emphasized enough - <strong>getting an association’s cardinality correct is <em>extremely</em> important</strong>. Lots of application code 
+will have to change if you wind up changing the cardinalities after the entities are in use.</p>
+
+<h2 id="unidirectional-associations">Unidirectional Associations</h2>
+
+<p>Unidirectional associations have the following properties:</p>
+
+<table>
+<tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><td colspan="2"><b>Code Generation</b></td></tr>
+<tr><td valign="top">Collection Class</td><td valign="top"><i>String</i>. The concrete class used to implement Zero or More cardinality ends. Defaults to class set at the designer level, but can be overridden here. Must implement ICollection&lt;T&gt;.</td></tr>
+<tr><td valign="top">Persistent</td><td valign="top"><i>Boolean</i>. If false, the association will not be persisted in the database, requiring custom code to implement.</td></tr>
+<tr><td colspan="2"><b>Documentation</b></td></tr>
+<tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
+<tr><td colspan="2"><b>End1</b></td></tr>
+<tr><td valign="top">End1 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
+<tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
+<tr><td valign="top">End1 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
+<tr><td colspan="2"><b>End2</b></td></tr>
+<tr><td valign="top">End1 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
+<tr><td valign="top">End2 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
+<tr><td valign="top">End2 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
+<tr><td valign="top">End2 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
+<tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
+<tr><td valign="top">End2 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
+
+</table>
+
+<h2 id="bidirectional-associations">Bidirectional Associations</h2>
+
+<p>Bidirectional associations have the following properties:</p>
+
+<table>
+<tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><td colspan="2"><b>Code Generation</b></td></tr>
+<tr><td valign="top">Collection Class</td><td valign="top"><i>String</i>. The concrete class used to implement Zero or More cardinality ends. Defaults to class set at the designer level, but can be overridden here. Must implement ICollection&lt;T&gt;.</td></tr>
+<tr><td valign="top">Persistent</td><td valign="top"><i>Boolean</i>. If false, the association will not be persisted in the database, requiring custom code to implement.</td></tr>
+<tr><td colspan="2"><b>Documentation</b></td></tr>
+<tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
+<tr><td colspan="2"><b>End1</b></td></tr>
+<tr><td valign="top">End1 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
+<tr><td valign="top">End1 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
+<tr><td valign="top">End1 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
+<tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
+<tr><td valign="top">End1 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
+<tr><td valign="top">End2 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
+<tr><td colspan="2"><b>End2</b></td></tr>
+<tr><td valign="top">End1 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
+<tr><td valign="top">End2 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
+<tr><td valign="top">End2 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
+<tr><td valign="top">End2 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
+<tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
+<tr><td valign="top">End2 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
+</table>
+
+<h3 id="next-step">Next Step</h3>
+<p><a href="Inheritance">Inheritance</a></p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">msawczyn</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

@@ -1,3 +1,7 @@
+1.0.3.9
+   - If no entities and model is using an unsupported inheritance strategy, 
+     changing from EF6 to EFCore doesn't give a message, just changes the strategy.
+
 1.0.3.8
    - Fixed project item placement
    - Added change checks to diagram so dirty flag doesn't set when nothing changes
