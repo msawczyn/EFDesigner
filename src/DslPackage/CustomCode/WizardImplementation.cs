@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.AccessControl;
+﻿using System.Collections.Generic;
 using EnvDTE;
 using Microsoft.VisualStudio.TemplateWizard;
 
@@ -10,8 +8,6 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private static string modelPath;
       private static string diagramPath;
-      //private static string xsdPath;
-      private static string ttPath;
       private static DTE dte;
 
       public void RunStarted(object automationObject,
@@ -30,15 +26,10 @@ namespace Sawczyn.EFDesigner.EFModel
          dte = dte ?? projectItem.DTE;
          string path = projectItem.FileNames[0];
 
-         //if (path.EndsWith("EFModel.xsd"))
-         //   xsdPath = path;
-         //else 
          if (path.EndsWith(".efmodel"))
             modelPath = path;
          else if (path.EndsWith(".diagram"))
             diagramPath = path;
-         else if (path.EndsWith(".tt"))
-            ttPath = path;
       }
 
       public bool ShouldAddProjectItem(string filePath)
@@ -52,50 +43,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public void RunFinished()
       {
+         // The VSIX can't nest files, so we'll do that here
+         // NOTE: Don't nest the .tt file -- it doesn't seem to like that, and bad things happen
          if (modelPath != null && dte != null)
          {
-            //Project activeProject = GetActiveProject(dte);
             ProjectItem modelItem = dte.Solution.FindProjectItem(modelPath);
-            if (modelItem != null)
+            if (modelItem != null && diagramPath != null)
             {
-               if (diagramPath != null)
+               ProjectItem diagramItem = dte.Solution.FindProjectItem(diagramPath);
+               if (diagramItem != null)
                {
-                  ProjectItem diagramItem = dte.Solution.FindProjectItem(diagramPath);
-                  if (diagramItem != null)
-                  {
-                     diagramItem.Remove();
-                     modelItem.ProjectItems.AddFromFile(diagramPath);
-                  }
+                  diagramItem.Remove();
+                  modelItem.ProjectItems.AddFromFile(diagramPath);
                }
-
-               //if (ttPath != null)
-               //{
-               //   ProjectItem ttItem = dte.Solution.FindProjectItem(ttPath);
-               //   if (ttItem != null)
-               //   {
-               //      ttItem.Remove();
-               //      activeProject.ProjectItems.AddFromFile(ttPath);
-               //   }
-               //}
             }
          }
 
-         //xsdPath = null;
          diagramPath = null;
          modelPath = null;
-         ttPath = null;
          dte = null;
-      }
-
-      internal static Project GetActiveProject(DTE dte)
-      {
-         Project activeProject = null;
-
-         Array activeSolutionProjects = dte.ActiveSolutionProjects as Array;
-         if (activeSolutionProjects != null && activeSolutionProjects.Length > 0)
-            activeProject = activeSolutionProjects.GetValue(0) as Project;
-
-         return activeProject;
       }
    }
 }
