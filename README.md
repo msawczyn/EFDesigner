@@ -4,6 +4,8 @@
 
 **Install with NuGet from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
 
+**Documentation: [https://msawczyn.github.io/EFDesigner/](https://msawczyn.github.io/EFDesigner/)**
+
 This Visual Studio 2017 extension adds a new file type (.efmodel) that allows for fast, easy and, most
 importantly, **visual** design of persistent classes. Inheritance, unidirectional and bidirectional 
 associations are all supported. Enumerations are also included in the visual model, as is the 
@@ -31,10 +33,14 @@ target both EF6 and EFCore, and generate both a code-first DbContext class and
 POCO entity classes. The EF6 template's DbContext code is written to allow consumption in both
 ASP.Net Core as well as any other project type, so you'll have flexibility in your development.
 
-You can read more about how to use the designer in the [Wiki](https://github.com/msawczyn/EFDesigner/wiki) - which 
+You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/) - which 
 is by no means finished yet, just so you know.
 
  ### Change Log
+
+ 1.0.3.8
+   - Fixed project item placement
+   - Added change checks to diagram so dirty flag doesn't set when nothing changes
 
  1.0.3.7
    - Emergency bug fixes
