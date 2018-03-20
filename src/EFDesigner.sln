@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{1DBA99
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{DC6F5475-44D8-4D99-B392-9EDAC605D589}"
 	ProjectSection(SolutionItems) = preProject
-		..\docs\assets\css\style.css = ..\docs\assets\css\style.css
+		..\docs\assets\css\style.scss = ..\docs\assets\css\style.scss
 	EndProjectSection
 EndProject
 Global

@@ -1,4 +1,4 @@
-# Entity Framework Designer
+# Entity Framework Visual Editor
 <h2>Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.</h2>
 
 This Visual Studio 2017 IDE extension adds a new file type (.efmodel) that allows for visual design of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design. T4 files are used to generate code-first DBContext and POCO class files for both EF6 and EFCore, and these can be modified to generate your own particular style.
@@ -31,3 +31,5 @@ This documentation is a work-in-progress, but I wanted to get the project out so
 - Opening the _[your file name].efmodel_ file will present you with a blank design surface, and your toolbox will display the items you can add to your model.
 - Read the rest of this site to get details on things you don't find obvious :-).
 
+### Next Step 
+[Getting Started](Getting-Started)

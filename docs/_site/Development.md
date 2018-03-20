@@ -1,2 +1,2 @@
-# Development
+# Contributing
 [Coming soon]

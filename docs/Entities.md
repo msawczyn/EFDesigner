@@ -12,7 +12,7 @@ You should see a new class appear on the design surface:
 
 <table><tr><td>
 <img align="right"  src="images/Class.jpg">
-</tde></tr></table>
+</td></tr></table>
 
 Selecting the entity allows you to edit its various properties:
 
