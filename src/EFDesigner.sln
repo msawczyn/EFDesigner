@@ -14,6 +14,48 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\TODO.txt = ..\TODO.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AD98A5BD-E289-4888-B6C3-62FAD3A3D531}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\_config.yml = ..\docs\_config.yml
+		..\docs\_Footer.md = ..\docs\_Footer.md
+		..\docs\_Sidebar.md = ..\docs\_Sidebar.md
+		..\docs\Associations.md = ..\docs\Associations.md
+		..\docs\Comments.md = ..\docs\Comments.md
+		..\docs\Customizing.md = ..\docs\Customizing.md
+		..\docs\Development.md = ..\docs\Development.md
+		..\docs\Entities.md = ..\docs\Entities.md
+		..\docs\Enumerations.md = ..\docs\Enumerations.md
+		..\docs\Getting-Started.md = ..\docs\Getting-Started.md
+		..\docs\index.md = ..\docs\index.md
+		..\docs\Inheritance.md = ..\docs\Inheritance.md
+		..\docs\Installation.md = ..\docs\Installation.md
+		..\docs\License.md = ..\docs\License.md
+		..\docs\Templates.md = ..\docs\Templates.md
+		..\docs\Using-the-designer.md = ..\docs\Using-the-designer.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{89098F6A-F0C2-4707-B627-389BE97AED29}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\images\AddNewItem.jpg = ..\docs\images\AddNewItem.jpg
+		..\docs\images\Bidirectional.jpg = ..\docs\images\Bidirectional.jpg
+		..\docs\images\Class.jpg = ..\docs\images\Class.jpg
+		..\docs\images\Designer.jpg = ..\docs\images\Designer.jpg
+		..\docs\images\DesignerMenu.jpg = ..\docs\images\DesignerMenu.jpg
+		..\docs\images\DesignerProperties.jpg = ..\docs\images\DesignerProperties.jpg
+		..\docs\images\Entity.jpg = ..\docs\images\Entity.jpg
+		..\docs\images\Solution.jpg = ..\docs\images\Solution.jpg
+		..\docs\images\Solution2.jpg = ..\docs\images\Solution2.jpg
+		..\docs\images\Toolbox.jpg = ..\docs\images\Toolbox.jpg
+		..\docs\images\Unidirectional.jpg = ..\docs\images\Unidirectional.jpg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{1DBA993C-1ED0-44B6-800F-5E7E3E999402}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{DC6F5475-44D8-4D99-B392-9EDAC605D589}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\assets\css\style.css = ..\docs\assets\css\style.css
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +73,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD98A5BD-E289-4888-B6C3-62FAD3A3D531} = {0AD324C9-3616-47A1-8A44-8A609C803C31}
+		{89098F6A-F0C2-4707-B627-389BE97AED29} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
+		{1DBA993C-1ED0-44B6-800F-5E7E3E999402} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
+		{DC6F5475-44D8-4D99-B392-9EDAC605D589} = {1DBA993C-1ED0-44B6-800F-5E7E3E999402}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B78C875-A1CE-411A-AD07-EEB27455C152}

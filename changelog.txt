@@ -1,3 +1,8 @@
+1.0.3.8
+   - Fixed project item placement
+   - Added change checks to diagram so dirty flag doesn't set when nothing changes
+   - Added docs to solution for easier editing
+
 1.0.3.7
    - Emergency bug fixes
 
