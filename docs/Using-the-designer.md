@@ -1,4 +1,4 @@
-# Using the Design Surface 
+# Using the Designer 
 <img align="right" src="images/Solution2.jpg" hspace="10" vspace="10">
 Let's add a design surface to our new project.
 
@@ -31,7 +31,7 @@ Open the .efmodel file and -- so exciting! -- you're presented with a blank scre
 | Comment Link               | Link an existing comment to an Entity or Enum. Not required since comments can be free-floating, but nice to have if the comment refers to something specific on the diagram. |
 | Enum                       | An enumeration |
 
-## Design Surface Properties
+## <span id="properties">Design Surface Properties</span>
 
 A peek at the Property page when you have the design surface selected (the background, rather than anything on it), shows the properties pertinent to the model itself and the DbContext class you'll generate. These are as follows:
 
@@ -67,7 +67,7 @@ A peek at the Property page when you have the design surface selected (the backg
 <tr><td valign="top">Warn On Missing Documentation</td><td valign="top"><i>Boolean</i>. If true, will generate warnings when summary documentation is missing for classes, properties and association ends.</td></tr>
 </table>
 
-## Context Menu
+## <span id="menu">Context Menu</span>
 
 Right-clicking on the design surface displays a Visual Studio context menu with some new choices pertinent to the designer.
 
@@ -82,7 +82,7 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 <tr><td valign="top">Hide Element</td><td valign="top">Hides the currently selected element on the diagram. Any lines to or from that element will be hidden as well. This does not remove the element from the model, only makes it invisible in the diagram. Useful for tidying up a diagram that would otherwise be unreadable due to, for example, a common base class that all other classes inherit from. If no element is selected, this option will be disabled.</td></tr>
 <tr><td valign="top">Show Hidden Elements</td><td valign="top">Unhides any elements that were previously hidden, along with their association or inheritance lines. If no elements are hidden, this option will be disabled.</td></tr>
 <tr><td valign="top">Generate Code</td><td valign="top">Generates code for the elements modeled in the designer. If no elements are in the designer, this option will be disabled.</td></tr>
-<tr><td valign="top">Add properties via Code</td><td valign="top">Displays a dialog that lets you add multiple properties using EFDesigner's custom property syntax. See "Adding multiple properties" for more details.</td></tr>
+<tr><td valign="top">Add properties via Code</td><td valign="top">Displays a dialog that lets you add multiple properties using the designer's custom property syntax. See "Adding multiple properties" for more details.</td></tr>
 <tr><td valign="top">Save as Image</td><td valign="top">Creates a jpg file of the designer and lets you save it as a file. If no elements are in the designer, this option will be disabled.</td></tr>
 <tr><td valign="top">Select</td><td valign="top">One of the features of the Visual Studio property editor is the ability to edit properties of multiple items if they share that property. This submenu gives you the ability to select model elements by type so that you can conveniently edit properties of those elements together (e.g., setting the color of multiple classes all at once). If the pertinent element type isn't present in the designer, that option will be disabled.<br/>
 <table>

@@ -1,12 +1,5 @@
 You should think of this extension as two parts: first the design surface and, separately, the T4 templates that generate the code. The template(s) can be modified without modifying, compiling and reinstalling the extension -- it's fashioned this way so that developers can easily make whatever changes suit their fancy to how the code is generated, since everybody's got their own personal quirks on how their code should look.
 
-- [Using the Design Surface](https://github.com/msawczyn/EFDesigner/wiki/Using-the-designer)
-- [Persistent Entities](https://github.com/msawczyn/EFDesigner/wiki/Entities)
-  - [Associations](https://github.com/msawczyn/EFDesigner/wiki/Associations)
-  - [Inheritance](https://github.com/msawczyn/EFDesigner/wiki/Inheritance)
-- [Enumerationss](https://github.com/msawczyn/EFDesigner/wiki/Enumerations)
-- [Adding Model Comments](https://github.com/msawczyn/EFDesigner/wiki/Comments)
-
 # Getting Started
 
 The design surface is where you'll create the visual model of your persistent entities. The properties

@@ -1,40 +1,101 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <meta charset="UTF-8">
+<head>
+   <meta charset="UTF-8">
 
-<!-- Begin Jekyll SEO tag v2.4.0 -->
-<title>Using the Design Surface | EFDesigner</title>
+   <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Using the Designer | Entity Framework Visual Designer</title>
 <meta name="generator" content="Jekyll v3.6.2" />
-<meta property="og:title" content="Using the Design Surface" />
+<meta property="og:title" content="Using the Designer" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond" />
-<meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond" />
+<meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
+<meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
 <link rel="canonical" href="http://localhost:4000/Using-the-designer.html" />
 <meta property="og:url" content="http://localhost:4000/Using-the-designer.html" />
-<meta property="og:site_name" content="EFDesigner" />
+<meta property="og:site_name" content="Entity Framework Visual Designer" />
 <script type="application/ld+json">
-{"description":"Entity Framework visual design surface and code-first code generation for EF6, Core and beyond","@type":"WebPage","url":"http://localhost:4000/Using-the-designer.html","headline":"Using the Design Surface","@context":"http://schema.org"}</script>
+{"description":"Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond","@type":"WebPage","url":"http://localhost:4000/Using-the-designer.html","headline":"Using the Designer","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#157878">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/css/style.css?v=a4e09ee6d89b06e63aabd3b0aa3ac07abe135f65">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">EFDesigner</h1>
-      <h2 class="project-tagline">Entity Framework visual design surface and code-first code generation for EF6, Core and beyond</h2>
-      
-        <a href="http://github.com/msawczyn/EFDesigner" class="btn">View on GitHub</a>
-      
-      
-    </section>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="theme-color" content="#157878">
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" href="/assets/css/style.css?v=686fc5ea37ca3fcbb2fcbaa66b86a17c3dcc2c47">
+   <style>
+      a, a:visited {
+         color: darkgreen;
+      }
 
-    <section class="main-content">
-      <h1 id="using-the-design-surface">Using the Design Surface</h1>
+         a:hover {
+            color: rgb(21, 153, 87);
+            text-decoration: none;
+         }
+
+      .sidebar {
+         float: right;
+         width: 256px;
+         min-height: 35em;
+         border: 1px solid darkgreen;
+         margin-left: 3em;
+         margin-top: 2em;
+         padding: 1em;
+         font-size: 14px;
+      }
+
+      .content-wrapper {
+         max-width: 80em;
+         margin: 0 auto;
+      }
+
+      .main-content {
+         margin: 0;
+      }
+
+      .sidebar a {
+         margin-top: 1em;
+         display: block;
+      }
+   </style>
+</head>
+<body>
+   <section class="page-header">
+      <h1 class="project-name">Entity Framework Visual Designer</h1>
+      <h2 class="project-tagline">Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond</h2>
+      
+      <a href="http://github.com/msawczyn/EFDesigner" class="btn">View on GitHub</a>
+      
+      
+      <a href="http://github.com/msawczyn/EFDesigner/zipball/gh-pages" class="btn">Download .zip</a>
+      <a href="http://github.com/msawczyn/EFDesigner/tarball/gh-pages" class="btn">Download .tar.gz</a>
+      
+   </section>
+
+   <div class="content-wrapper">
+      <div class="sidebar">
+         <a href="Using-the-designer.html">Using the Designer</a>
+         <ul>
+            <li><a href="Using-the-designer.html#properties">Design Surface Properties</a></li>
+            <li><a href="Using-the-designer.html#menu">Context Menu</a></li>
+         </ul>
+         <a href="Entities.html">Persistent Entities</a>
+         <ul>
+            <li><a href="Entities.html#adding">Adding an entity</a></li>
+            <li><a href="Entities.html#removing">Removing an entity</a></li>
+            <li><a href="Entities.html#menu">Context Menu</a></li>
+         </ul>
+         <a href="Associations.html">Associations</a>
+         <ul>
+            <li><a href="Associations.html#cardinalities">Cardinalities</a></li>
+            <li><a href="Associations.html#unidirectional">Unidirectional Associations</a></li>
+            <li><a href="Associations.html#bidirectional">Bidirectional Associations</a></li>
+         </ul>
+         <a href="Inheritance.html">Inheritance</a>
+         <a href="Enumerations.html">Enumerationss</a>
+         <a href="Comments.html">Adding Model Comments</a>
+
+      </div>
+      <section class="main-content">
+         <h1 id="using-the-designer">Using the Designer</h1>
 <p><img align="right" src="images/Solution2.jpg" hspace="10" vspace="10" />
 Let’s add a design surface to our new project.</p>
 
@@ -100,7 +161,7 @@ Let’s add a design surface to our new project.</p>
   </tbody>
 </table>
 
-<h2 id="design-surface-properties">Design Surface Properties</h2>
+<h2 id="design-surface-properties"><span id="properties">Design Surface Properties</span></h2>
 
 <p>A peek at the Property page when you have the design surface selected (the background, rather than anything on it), shows the properties pertinent to the model itself and the DbContext class you’ll generate. These are as follows:</p>
 
@@ -136,7 +197,7 @@ Let’s add a design surface to our new project.</p>
 <tr><td valign="top">Warn On Missing Documentation</td><td valign="top"><i>Boolean</i>. If true, will generate warnings when summary documentation is missing for classes, properties and association ends.</td></tr>
 </table>
 
-<h2 id="context-menu">Context Menu</h2>
+<h2 id="context-menu"><span id="menu">Context Menu</span></h2>
 
 <p>Right-clicking on the design surface displays a Visual Studio context menu with some new choices pertinent to the designer.</p>
 
@@ -151,7 +212,7 @@ Let’s add a design surface to our new project.</p>
 <tr><td valign="top">Hide Element</td><td valign="top">Hides the currently selected element on the diagram. Any lines to or from that element will be hidden as well. This does not remove the element from the model, only makes it invisible in the diagram. Useful for tidying up a diagram that would otherwise be unreadable due to, for example, a common base class that all other classes inherit from. If no element is selected, this option will be disabled.</td></tr>
 <tr><td valign="top">Show Hidden Elements</td><td valign="top">Unhides any elements that were previously hidden, along with their association or inheritance lines. If no elements are hidden, this option will be disabled.</td></tr>
 <tr><td valign="top">Generate Code</td><td valign="top">Generates code for the elements modeled in the designer. If no elements are in the designer, this option will be disabled.</td></tr>
-<tr><td valign="top">Add properties via Code</td><td valign="top">Displays a dialog that lets you add multiple properties using EFDesigner's custom property syntax. See "Adding multiple properties" for more details.</td></tr>
+<tr><td valign="top">Add properties via Code</td><td valign="top">Displays a dialog that lets you add multiple properties using the designer's custom property syntax. See "Adding multiple properties" for more details.</td></tr>
 <tr><td valign="top">Save as Image</td><td valign="top">Creates a jpg file of the designer and lets you save it as a file. If no elements are in the designer, this option will be disabled.</td></tr>
 <tr><td valign="top">Select</td><td valign="top">One of the features of the Visual Studio property editor is the ability to edit properties of multiple items if they share that property. This submenu gives you the ability to select model elements by type so that you can conveniently edit properties of those elements together (e.g., setting the color of multiple classes all at once). If the pertinent element type isn't present in the designer, that option will be disabled.<br />
 <table>
@@ -170,15 +231,15 @@ Let’s add a design surface to our new project.</p>
 <p><a href="Entities">Persistent entities</a></p>
 
 
-
+      </section>
       <footer class="site-footer">
-        
-          <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">msawczyn</a>.</span>
-        
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+         
+         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">msawczyn</a>.</span>
+         
+         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
       </footer>
-    </section>
+   </div>
 
-    
-  </body>
+   
+</body>
 </html>

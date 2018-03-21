@@ -481,7 +481,7 @@
         <!-- Property: Required -->
         <xsd:attribute name="required" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, cannot be null</xsd:documentation>
+            <xsd:documentation>If true, cannot be null (or the default value for the property type, if not nullable)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: Persistent -->
@@ -545,7 +545,11 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: Name -->
-        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The name of the property. Must be a valid C# symbol.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: SetterVisibility -->
         <xsd:attribute name="setterVisibility" type="SetterAccessModifier" >
           <xsd:annotation>

@@ -1,55 +1,116 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <meta charset="UTF-8">
+<head>
+   <meta charset="UTF-8">
 
-<!-- Begin Jekyll SEO tag v2.4.0 -->
-<title>Installation | EFDesigner</title>
+   <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Installation | Entity Framework Visual Designer</title>
 <meta name="generator" content="Jekyll v3.6.2" />
 <meta property="og:title" content="Installation" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond" />
-<meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond" />
+<meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
+<meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
 <link rel="canonical" href="http://localhost:4000/Installation.html" />
 <meta property="og:url" content="http://localhost:4000/Installation.html" />
-<meta property="og:site_name" content="EFDesigner" />
+<meta property="og:site_name" content="Entity Framework Visual Designer" />
 <script type="application/ld+json">
-{"description":"Entity Framework visual design surface and code-first code generation for EF6, Core and beyond","@type":"WebPage","url":"http://localhost:4000/Installation.html","headline":"Installation","@context":"http://schema.org"}</script>
+{"description":"Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond","@type":"WebPage","url":"http://localhost:4000/Installation.html","headline":"Installation","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, Core and beyond"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#157878">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/css/style.css?v=a4e09ee6d89b06e63aabd3b0aa3ac07abe135f65">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">EFDesigner</h1>
-      <h2 class="project-tagline">Entity Framework visual design surface and code-first code generation for EF6, Core and beyond</h2>
-      
-        <a href="http://github.com/msawczyn/EFDesigner" class="btn">View on GitHub</a>
-      
-      
-    </section>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="theme-color" content="#157878">
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" href="/assets/css/style.css?v=686fc5ea37ca3fcbb2fcbaa66b86a17c3dcc2c47">
+   <style>
+      a, a:visited {
+         color: darkgreen;
+      }
 
-    <section class="main-content">
-      <h1 id="installation">Installation</h1>
+         a:hover {
+            color: rgb(21, 153, 87);
+            text-decoration: none;
+         }
+
+      .sidebar {
+         float: right;
+         width: 256px;
+         min-height: 35em;
+         border: 1px solid darkgreen;
+         margin-left: 3em;
+         margin-top: 2em;
+         padding: 1em;
+         font-size: 14px;
+      }
+
+      .content-wrapper {
+         max-width: 80em;
+         margin: 0 auto;
+      }
+
+      .main-content {
+         margin: 0;
+      }
+
+      .sidebar a {
+         margin-top: 1em;
+         display: block;
+      }
+   </style>
+</head>
+<body>
+   <section class="page-header">
+      <h1 class="project-name">Entity Framework Visual Designer</h1>
+      <h2 class="project-tagline">Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond</h2>
+      
+      <a href="http://github.com/msawczyn/EFDesigner" class="btn">View on GitHub</a>
+      
+      
+      <a href="http://github.com/msawczyn/EFDesigner/zipball/gh-pages" class="btn">Download .zip</a>
+      <a href="http://github.com/msawczyn/EFDesigner/tarball/gh-pages" class="btn">Download .tar.gz</a>
+      
+   </section>
+
+   <div class="content-wrapper">
+      <div class="sidebar">
+         <a href="Using-the-designer.html">Using the Designer</a>
+         <ul>
+            <li><a href="Using-the-designer.html#properties">Design Surface Properties</a></li>
+            <li><a href="Using-the-designer.html#menu">Context Menu</a></li>
+         </ul>
+         <a href="Entities.html">Persistent Entities</a>
+         <ul>
+            <li><a href="Entities.html#adding">Adding an entity</a></li>
+            <li><a href="Entities.html#removing">Removing an entity</a></li>
+            <li><a href="Entities.html#menu">Context Menu</a></li>
+         </ul>
+         <a href="Associations.html">Associations</a>
+         <ul>
+            <li><a href="Associations.html#cardinalities">Cardinalities</a></li>
+            <li><a href="Associations.html#unidirectional">Unidirectional Associations</a></li>
+            <li><a href="Associations.html#bidirectional">Bidirectional Associations</a></li>
+         </ul>
+         <a href="Inheritance.html">Inheritance</a>
+         <a href="Enumerations.html">Enumerationss</a>
+         <a href="Comments.html">Adding Model Comments</a>
+
+      </div>
+      <section class="main-content">
+         <h1 id="installation">Installation</h1>
 
 <p>Not much to say here. Run the <code class="highlighter-rouge">Sawczyn.EFDesigner.EFModel.DslPackage.vsix</code> file to install the extension into Visual Studio. VS2017 is required, but any edition of VS2017 should work.</p>
 
 <h3 id="next-step">Next Step</h3>
 <p><a href="Getting-Started">Getting Started</a></p>
 
-
+      </section>
       <footer class="site-footer">
-        
-          <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">msawczyn</a>.</span>
-        
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+         
+         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">msawczyn</a>.</span>
+         
+         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
       </footer>
-    </section>
+   </div>
 
-    
-  </body>
+   
+</body>
 </html>

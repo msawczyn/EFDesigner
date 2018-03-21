@@ -31,7 +31,7 @@ would have, in the Entity2 class,
 public virtual Entity1 TheEntity1 { get; set; }  // Required
 ```
 
-## Cardinalities
+## <span id="cardinalities">Cardinalities</span>
 
 Associations have cardinalities (the number of elements in a set) at each end. Supported cardinalities are:
 - Zero or One (0..1)
@@ -49,7 +49,7 @@ being critical to properly modelling the problem space.
 It can't be emphasized enough - **getting an association's cardinality correct is *extremely* important**. Lots of application code 
 will have to change if you wind up changing the cardinalities after the entities are in use.
  
-## Unidirectional Associations
+## <span id="unidirectional">Unidirectional Associations</span>
 
 Unidirectional associations have the following properties:
 
@@ -75,7 +75,7 @@ Unidirectional associations have the following properties:
 </table>
 
 
-## Bidirectional Associations
+## <span id="bidirectional">Bidirectional Associations</span>
 
 Bidirectional associations have the following properties:
 

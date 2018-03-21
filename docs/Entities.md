@@ -2,7 +2,7 @@
 
 Modeling your persistent entities (classes) is the same experience as any other modeling tool -- you drag the class onto the design surface from the toolbox, name it, and start adding properties. You won't model operations (methods), though, since our focus is on creating code for Entity Framework. If you want to add operations, you'll do that in partial classes.
 
-## Adding an entity ##
+## <span id="adding">Adding an Entity</span>
 
 With the designer open, find the Entity tool in your toolbox. Click and hold down the left button, then drag it to the design surface.
 
@@ -13,6 +13,9 @@ You should see a new class appear on the design surface:
 <table><tr><td>
 <img align="right"  src="images/Class.jpg">
 </td></tr></table>
+
+The entity may be collapsed down to its name bar by clicking the chevron at the top right of its display. When
+collapsed, it may be expanded back to its original size by clicking the chevron again.
 
 Selecting the entity allows you to edit its various properties:
 
@@ -36,5 +39,39 @@ Selecting the entity allows you to edit its various properties:
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 </table>
 
+## <span id="removing">Removing an Entity</span>
+
+To remove an entity, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
+
+## <span id="menu">Context Menu</span>
+
+Right-clicking on an entity displays a Visual Studio context menu with some new choices pertinent to that entity.
+
+<img src="images/EntityMenu.jpg" width="400" />
+
+<table>
+<tr><td valign="top"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><td valign="top">Add</td><td>One submenu choice, <i>Property</i>, adds a property to the entity.</td></tr>
+<tr><td valign="top">Collapse</td><td>Available when the entity is fully expanded, this action hides the properties so that only the title is visible.</td></tr>
+<tr><td valign="top">Expand</td><td>Available when the entity is fully collapsed, this action shows the properties, revsersing the _Collapse_ action.</td></tr>
+<tr><td valign="top">Cut, Copy, Paste</td><td valign="top">You can cut or copy, then paste, classes and enums. The pasted elements will be adjusted so that they don't violate any rules (such as two elements not having the same name), but otherwise the properties will stay the same. If no classes or enums are selected in the designer, the cut and copy options will be disabled. If no classes or enums are in the clipboard, the paste option will be disabled.</td></tr>
+<tr><td valign="top">Validate</td><td valign="top">Checks the currently selected entity against the validation rules built into the designer. Errors or warnings are displayed in Visual Studio's Error List window. If no element is selected, this validates the design surface itself.</td></tr>
+<tr><td valign="top">Validate All</td><td valign="top">Checks all model elements against the afore mentioned validation rules. Errors or warnings are displayed in Visual Studio's Error List window.</td></tr>
+<tr><td valign="top">Hide Element</td><td valign="top">Hides the currently selected entity on the diagram. Any lines to or from that entity will be hidden as well. This does not remove the entity from the model, only makes it invisible in the diagram. Useful for tidying up a diagram that would otherwise be unreadable due to, for example, a common base class that all other classes inherit from. If no entity is selected, this option will be disabled.</td></tr>
+<tr><td valign="top">Show Hidden Elements</td><td valign="top">Unhides any elements that were previously hidden, along with their association or inheritance lines. If no elements are hidden, this option will be disabled.</td></tr>
+<tr><td valign="top">Add properties via Code</td><td valign="top">Displays a dialog that lets you add multiple properties using the designer's custom property syntax. See "Adding multiple properties" for more details.</td></tr>
+<tr><td valign="top">Select</td><td valign="top">One of the features of the Visual Studio property editor is the ability to edit properties of multiple items if they share that property. This submenu gives you the ability to select model elements by type so that you can conveniently edit properties of those elements together (e.g., setting the color of multiple classes all at once). If the pertinent element type isn't present in the designer, that option will be disabled.<br/>
+<table>
+<tr><td valign="top">Select all classes...</td><td valign="top">Select all class elements in the designer</td></tr>
+<tr><td valign="top">Select all enums...</td><td valign="top">Select all enum elements in the designer</td></tr>
+<tr><td valign="top">Select all associations...</td><td valign="top">Select all association lines (both unidirectional and bidirectional) in the designer</td></tr>
+<tr><td valign="top">Select all unidirectional associations...</td><td valign="top">Select all unidirectiional association lines in the designer</td></tr>
+<tr><td valign="top">Select all bidirectional associations...</td><td valign="top">Select all bidirectiional association lines in the designer</td></tr>
+<tr><td valign="top">Select all bidirectional associations...</td><td valign="top">Select all bidirectiional association lines in the designer</td></tr>
+</table>
+</td></tr>
+<tr><td valign="top">Properties</td><td valign="top">Switches focus to the Properties window.</td></tr>
+</table>
+
 ### Next Step 
-[Associations](Associations)
+[Properties](Properties)

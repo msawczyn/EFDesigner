@@ -622,7 +622,7 @@
     <comment>Category for DomainProperty &apos;IsIdentity&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/Required.Description" xml:space="preserve">
-    <value>If true, cannot be null</value>
+    <value>If true, cannot be null (or the default value for the property type, if not nullable)</value>
     <comment>Description for DomainProperty &apos;Required&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/Required.DisplayName" xml:space="preserve">
@@ -654,7 +654,7 @@
     <comment>DisplayName for DomainProperty &apos;MaxLength&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Category" xml:space="preserve">
-    <value>String properties</value>
+    <value>String Properties</value>
     <comment>Category for DomainProperty &apos;MaxLength&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/Indexed.Description" xml:space="preserve">
@@ -754,7 +754,7 @@
     <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/Name.Description" xml:space="preserve">
-    <value></value>
+    <value>The name of the property. Must be a valid C# symbol.</value>
     <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/Name.DisplayName" xml:space="preserve">

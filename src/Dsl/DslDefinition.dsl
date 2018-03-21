@@ -310,7 +310,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e3b492a9-5341-4694-afa5-cb566ae813a7" Description="If true, cannot be null" Name="Required" DisplayName="Required" DefaultValue="false" Category="Code Generation">
+        <DomainProperty Id="e3b492a9-5341-4694-afa5-cb566ae813a7" Description="If true, cannot be null (or the default value for the property type, if not nullable)" Name="Required" DisplayName="Required" DefaultValue="false" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -320,7 +320,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8c128f2b-8f9f-4c8e-acf1-dd5488736b79" Description="Maximum length of the string, 0 for no max length" Name="MaxLength" DisplayName="Max Length" DefaultValue="0" Category="String properties">
+        <DomainProperty Id="8c128f2b-8f9f-4c8e-acf1-dd5488736b79" Description="Maximum length of the string, 0 for no max length" Name="MaxLength" DisplayName="Max Length" DefaultValue="0" Category="String Properties">
           <Type>
             <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
@@ -365,7 +365,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="df236d99-ef7c-419c-833d-a972bf8ccc52" Description="" Name="Name" DisplayName="Name" DefaultValue="" Category="Code Generation" IsElementName="true">
+        <DomainProperty Id="df236d99-ef7c-419c-833d-a972bf8ccc52" Description="The name of the property. Must be a valid C# symbol." Name="Name" DisplayName="Name" DefaultValue="" Category="Code Generation" IsElementName="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
