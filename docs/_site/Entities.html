@@ -2,6 +2,15 @@
 <html lang="en-US">
 <head>
    <meta charset="UTF-8">
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116198145-1"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-116198145-1');
+   </script>
 
    <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Persistent Entities | Entity Framework Visual Designer</title>
@@ -20,14 +29,14 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="theme-color" content="#157878">
    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-   <link rel="stylesheet" href="/assets/css/style.css?v=686fc5ea37ca3fcbb2fcbaa66b86a17c3dcc2c47">
+   <link rel="stylesheet" href="/assets/css/style.css?v=dbbf05a06b7a877e38463facb92037bba1f667a9">
    <style>
       a, a:visited {
          color: darkgreen;
       }
 
          a:hover {
-            color: rgb(21, 153, 87);
+            color: #159957;
             text-decoration: none;
          }
 
@@ -42,6 +51,19 @@
          font-size: 14px;
       }
 
+         .sidebar a {
+            display: block;
+         }
+
+            .sidebar a + a {
+               margin-top: .5em;
+            }
+
+         .sidebar ul {
+            margin-top: 0;
+            margin-bottom: .5em;
+         }
+
       .content-wrapper {
          max-width: 80em;
          margin: 0 auto;
@@ -51,9 +73,19 @@
          margin: 0;
       }
 
-      .sidebar a {
-         margin-top: 1em;
-         display: block;
+         .main-content table {
+            font-size: .95rem;
+         }
+
+         .main-content h2 {
+            border-top: 2px double #159957;
+            margin-top: 3rem;
+         }
+
+      @media screen and (max-width: 42em) {
+         .sidebar {
+            display: none;
+         }
       }
    </style>
 </head>
@@ -74,24 +106,27 @@
       <div class="sidebar">
          <a href="Using-the-designer.html">Using the Designer</a>
          <ul>
-            <li><a href="Using-the-designer.html#properties">Design Surface Properties</a></li>
-            <li><a href="Using-the-designer.html#menu">Context Menu</a></li>
+            <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
+            <li><a href="Using-the-designer.html#context-menu">Context Menu</a></li>
          </ul>
          <a href="Entities.html">Persistent Entities</a>
          <ul>
-            <li><a href="Entities.html#adding">Adding an entity</a></li>
-            <li><a href="Entities.html#removing">Removing an entity</a></li>
-            <li><a href="Entities.html#menu">Context Menu</a></li>
+            <li><a href="Entities.html#adding-an-entity">Adding an entity</a></li>
+            <li><a href="Entities.html#removing-an-entity">Removing an entity</a></li>
+            <li><a href="Entities.html#context-menu">Context Menu</a></li>
          </ul>
          <a href="Associations.html">Associations</a>
          <ul>
             <li><a href="Associations.html#cardinalities">Cardinalities</a></li>
-            <li><a href="Associations.html#unidirectional">Unidirectional Associations</a></li>
-            <li><a href="Associations.html#bidirectional">Bidirectional Associations</a></li>
+            <li><a href="Associations.html#unidirectional-associations">Unidirectional Associations</a></li>
+            <li><a href="Associations.html#bidirectional-associations">Bidirectional Associations</a></li>
          </ul>
          <a href="Inheritance.html">Inheritance</a>
-         <a href="Enumerations.html">Enumerationss</a>
-         <a href="Comments.html">Adding Model Comments</a>
+         <a href="Enumerations.html">Enumerations</a>
+         <a href="Comments.html">Comments</a>
+         <a href="Templates.html">Generating Code</a>
+         <a href="Customizing.html">Customizing Code Generation</a>
+         <a href="Development.html">Contributing</a>
 
       </div>
       <section class="main-content">
@@ -99,7 +134,7 @@
 
 <p>Modeling your persistent entities (classes) is the same experience as any other modeling tool – you drag the class onto the design surface from the toolbox, name it, and start adding properties. You won’t model operations (methods), though, since our focus is on creating code for Entity Framework. If you want to add operations, you’ll do that in partial classes.</p>
 
-<h2 id="adding-an-entity"><span id="adding">Adding an Entity</span></h2>
+<h2 id="adding-an-entity">Adding an Entity</h2>
 
 <p>With the designer open, find the Entity tool in your toolbox. Click and hold down the left button, then drag it to the design surface.</p>
 
@@ -136,11 +171,11 @@ collapsed, it may be expanded back to its original size by clicking the chevron 
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 </table>
 
-<h2 id="removing-an-entity"><span id="removing">Removing an Entity</span></h2>
+<h2 id="removing-an-entity">Removing an Entity</h2>
 
 <p>To remove an entity, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.</p>
 
-<h2 id="context-menu"><span id="menu">Context Menu</span></h2>
+<h2 id="context-menu">Context Menu</h2>
 
 <p>Right-clicking on an entity displays a Visual Studio context menu with some new choices pertinent to that entity.</p>
 
@@ -176,7 +211,7 @@ collapsed, it may be expanded back to its original size by clicking the chevron 
       </section>
       <footer class="site-footer">
          
-         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">msawczyn</a>.</span>
+         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>
          
          <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
       </footer>

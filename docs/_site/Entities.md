@@ -2,7 +2,7 @@
 
 Modeling your persistent entities (classes) is the same experience as any other modeling tool -- you drag the class onto the design surface from the toolbox, name it, and start adding properties. You won't model operations (methods), though, since our focus is on creating code for Entity Framework. If you want to add operations, you'll do that in partial classes.
 
-## <span id="adding">Adding an Entity</span>
+## Adding an Entity
 
 With the designer open, find the Entity tool in your toolbox. Click and hold down the left button, then drag it to the design surface.
 
@@ -39,11 +39,11 @@ Selecting the entity allows you to edit its various properties:
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 </table>
 
-## <span id="removing">Removing an Entity</span>
+## Removing an Entity
 
 To remove an entity, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
 
-## <span id="menu">Context Menu</span>
+## Context Menu
 
 Right-clicking on an entity displays a Visual Studio context menu with some new choices pertinent to that entity.
 

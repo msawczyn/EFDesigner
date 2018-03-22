@@ -2,3 +2,4 @@ theme: jekyll-theme-cayman
 show_downloads: true
 title: Entity Framework Visual Designer
 description: Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond
+google_analytics: UA-116198145-1

@@ -4,7 +4,7 @@ Properties can be added to entities, and will become class properties backed wit
 upon code generation. They're generated with reasonable defaults, but can be easily modified to
 suit your use cases.
 
-## <span id="adding">Adding a Property</span>
+## Adding a Property
 
 <img align="right" src="images/PropertyProperties.jpg" hspace="10">
 
@@ -47,11 +47,11 @@ Selecting a property gives you access to **its** properties in the Property wind
 <tr><td valign="top">String Type</td><td valign="top">If not empty, will create a standard validation annotation for this attribute.</td></tr>
 </table>
 
-## <span id="removing">Removing a Property</span>
+## Removing a Property
 
 To remove a property, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
 
-## <span id="menu">Context Menu</span>
+## Context Menu
 
 Right-clicking on a property displays a Visual Studio context menu with some new choices pertinent to that property.
 

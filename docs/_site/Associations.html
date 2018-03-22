@@ -2,6 +2,15 @@
 <html lang="en-US">
 <head>
    <meta charset="UTF-8">
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116198145-1"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-116198145-1');
+   </script>
 
    <!-- Begin Jekyll SEO tag v2.4.0 -->
 <title>Associations | Entity Framework Visual Designer</title>
@@ -20,14 +29,14 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="theme-color" content="#157878">
    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-   <link rel="stylesheet" href="/assets/css/style.css?v=686fc5ea37ca3fcbb2fcbaa66b86a17c3dcc2c47">
+   <link rel="stylesheet" href="/assets/css/style.css?v=dbbf05a06b7a877e38463facb92037bba1f667a9">
    <style>
       a, a:visited {
          color: darkgreen;
       }
 
          a:hover {
-            color: rgb(21, 153, 87);
+            color: #159957;
             text-decoration: none;
          }
 
@@ -42,6 +51,19 @@
          font-size: 14px;
       }
 
+         .sidebar a {
+            display: block;
+         }
+
+            .sidebar a + a {
+               margin-top: .5em;
+            }
+
+         .sidebar ul {
+            margin-top: 0;
+            margin-bottom: .5em;
+         }
+
       .content-wrapper {
          max-width: 80em;
          margin: 0 auto;
@@ -51,9 +73,19 @@
          margin: 0;
       }
 
-      .sidebar a {
-         margin-top: 1em;
-         display: block;
+         .main-content table {
+            font-size: .95rem;
+         }
+
+         .main-content h2 {
+            border-top: 2px double #159957;
+            margin-top: 3rem;
+         }
+
+      @media screen and (max-width: 42em) {
+         .sidebar {
+            display: none;
+         }
       }
    </style>
 </head>
@@ -74,24 +106,27 @@
       <div class="sidebar">
          <a href="Using-the-designer.html">Using the Designer</a>
          <ul>
-            <li><a href="Using-the-designer.html#properties">Design Surface Properties</a></li>
-            <li><a href="Using-the-designer.html#menu">Context Menu</a></li>
+            <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
+            <li><a href="Using-the-designer.html#context-menu">Context Menu</a></li>
          </ul>
          <a href="Entities.html">Persistent Entities</a>
          <ul>
-            <li><a href="Entities.html#adding">Adding an entity</a></li>
-            <li><a href="Entities.html#removing">Removing an entity</a></li>
-            <li><a href="Entities.html#menu">Context Menu</a></li>
+            <li><a href="Entities.html#adding-an-entity">Adding an entity</a></li>
+            <li><a href="Entities.html#removing-an-entity">Removing an entity</a></li>
+            <li><a href="Entities.html#context-menu">Context Menu</a></li>
          </ul>
          <a href="Associations.html">Associations</a>
          <ul>
             <li><a href="Associations.html#cardinalities">Cardinalities</a></li>
-            <li><a href="Associations.html#unidirectional">Unidirectional Associations</a></li>
-            <li><a href="Associations.html#bidirectional">Bidirectional Associations</a></li>
+            <li><a href="Associations.html#unidirectional-associations">Unidirectional Associations</a></li>
+            <li><a href="Associations.html#bidirectional-associations">Bidirectional Associations</a></li>
          </ul>
          <a href="Inheritance.html">Inheritance</a>
-         <a href="Enumerations.html">Enumerationss</a>
-         <a href="Comments.html">Adding Model Comments</a>
+         <a href="Enumerations.html">Enumerations</a>
+         <a href="Comments.html">Comments</a>
+         <a href="Templates.html">Generating Code</a>
+         <a href="Customizing.html">Customizing Code Generation</a>
+         <a href="Development.html">Contributing</a>
 
       </div>
       <section class="main-content">
@@ -126,7 +161,7 @@ set in the design surface, but can be overridden (see Association Properties, be
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public virtual Entity1 TheEntity1 { get; set; }  // Required
 </code></pre></div></div>
 
-<h2 id="cardinalities"><span id="cardinalities">Cardinalities</span></h2>
+<h2 id="cardinalities">Cardinalities</h2>
 
 <p>Associations have cardinalities (the number of elements in a set) at each end. Supported cardinalities are:</p>
 <ul>
@@ -146,8 +181,7 @@ being critical to properly modelling the problem space.</p>
 <p>It can’t be emphasized enough - <strong>getting an association’s cardinality correct is <em>extremely</em> important</strong>. Lots of application code 
 will have to change if you wind up changing the cardinalities after the entities are in use.</p>
 
-<h2 id="unidirectional-associations"><span id="unidirectional">Unidirectional Associations</span></h2>
-
+<h2 id="unidirectional-associations">Unidirectional Associations</h2>
 <p>Unidirectional associations have the following properties:</p>
 
 <table>
@@ -171,7 +205,7 @@ will have to change if you wind up changing the cardinalities after the entities
 
 </table>
 
-<h2 id="bidirectional-associations"><span id="bidirectional">Bidirectional Associations</span></h2>
+<h2 id="bidirectional-associations">Bidirectional Associations</h2>
 
 <p>Bidirectional associations have the following properties:</p>
 
@@ -204,7 +238,7 @@ will have to change if you wind up changing the cardinalities after the entities
       </section>
       <footer class="site-footer">
          
-         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">msawczyn</a>.</span>
+         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>
          
          <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
       </footer>

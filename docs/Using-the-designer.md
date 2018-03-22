@@ -31,7 +31,7 @@ Open the .efmodel file and -- so exciting! -- you're presented with a blank scre
 | Comment Link               | Link an existing comment to an Entity or Enum. Not required since comments can be free-floating, but nice to have if the comment refers to something specific on the diagram. |
 | Enum                       | An enumeration |
 
-## <span id="properties">Design Surface Properties</span>
+## Design Surface Properties
 
 A peek at the Property page when you have the design surface selected (the background, rather than anything on it), shows the properties pertinent to the model itself and the DbContext class you'll generate. These are as follows:
 
@@ -67,7 +67,7 @@ A peek at the Property page when you have the design surface selected (the backg
 <tr><td valign="top">Warn On Missing Documentation</td><td valign="top"><i>Boolean</i>. If true, will generate warnings when summary documentation is missing for classes, properties and association ends.</td></tr>
 </table>
 
-## <span id="menu">Context Menu</span>
+## Context Menu
 
 Right-clicking on the design surface displays a Visual Studio context menu with some new choices pertinent to the designer.
 
