@@ -66,7 +66,7 @@ Right-clicking on a property displays a Visual Studio context menu with some new
 <br/>
 <table>
 <thead>
-<tr><td valign="top"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><td valign="top" style="width: 20%"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
 </thead>
 <tbody>
 <tr><td valign="top">Add new Property</td><td>Adds a property to the entity.</td></tr>
@@ -123,7 +123,132 @@ or
 
 &lt;Visibility&gt; &lt;Name&gt;&lt;!&gt;&lt;[Length]&gt; : &lt;Type&gt;&lt;?&gt; &lt;= Value&gt;
 
-[Unfinished]
+**Examples:**
+
+The following all declare a required string property named foo:
+
+```
+foo
+```
+
+```
+string foo
+```
+
+```
+public string foo
+```
+
+```
+foo: string
+```
+
+```
+public foo: string
+```
+
+To make it an optional value:
+
+```
+string? foo
+```
+
+```
+public string? foo
+```
+
+```
+foo: string?
+```
+
+```
+public foo: string?
+```
+
+Let's make it optional and restrict it to 50 characters:
+
+```
+string?[50] foo
+```
+
+```
+public string?[50] foo
+```
+
+```
+foo: string?[50]
+```
+
+```
+public foo: string?[50]
+```
+
+If we wanted to set it up in the entity's constructor with an initial value:
+
+```
+foo = "some value"
+```
+
+```
+string foo = "some value"
+```
+
+```
+public string foo = "some value"
+```
+
+```
+foo: string = "some value"
+```
+
+```
+public foo: string = "some value"
+```
+
+(note that making a property optional and giving it a initial value is possible, but has limited
+use cases)
+
+To add an identity property:
+
+```
+int foo!
+```
+
+```
+public int foo!
+```
+
+```
+foo!: int
+```
+
+```
+public foo: int
+```
+
+Let's make foo a Nullable&lt;Int64&gt; and have its setter inaccessible by outside code:
+
+```
+protected long? foo
+```
+
+```
+protected foo: long?
+```
+
+To edit the properties as text, select the entity and right-click to get its context menu.
+Choose _Add properties via Code_ and you'll see a small window pop up with the current
+properties:
+
+<img src="images/PropertyEditor.jpg">
+
+Add, edit or remove text as required - when you click *OK*, all the properties will be replaced
+by the parsed values of the text in that window. Any unrecongized values will be discarded.
+
+You'll note that one of the options is for the text to be valid C# property declarations, so if you
+have classes that you want to add to the model, you'll be able to copy their property declarations and
+paste them in here. Any lines with curly braces will be truncated at the first open brace. Trailing semicolons
+are discarded as well.
 
 ### Next Step 
 [Associations](Associations)
