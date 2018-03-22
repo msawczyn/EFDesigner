@@ -53,24 +53,27 @@ will have to change if you wind up changing the cardinalities after the entities
 Unidirectional associations have the following properties:
 
 <table>
+<thead>
 <tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
-<tr><td colspan="2"><b>Code Generation</b></td></tr>
+</thead>
+<tbody>
+<tr><td colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
 <tr><td valign="top">Collection Class</td><td valign="top"><i>String</i>. The concrete class used to implement Zero or More cardinality ends. Defaults to class set at the designer level, but can be overridden here. Must implement ICollection&lt;T&gt;.</td></tr>
 <tr><td valign="top">Persistent</td><td valign="top"><i>Boolean</i>. If false, the association will not be persisted in the database, requiring custom code to implement.</td></tr>
-<tr><td colspan="2"><b>Documentation</b></td></tr>
+<tr><td colspan="2" style="background-color: gainsboro"><b>Documentation</b></td></tr>
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
-<tr><td colspan="2"><b>End1</b></td></tr>
+<tr><td colspan="2" style="background-color: gainsboro"><b>End1</b></td></tr>
 <tr><td valign="top">End1 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
 <tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
 <tr><td valign="top">End1 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
-<tr><td colspan="2"><b>End2</b></td></tr>
+<tr><td colspan="2" style="background-color: gainsboro"><b>End2</b></td></tr>
 <tr><td valign="top">End1 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
 <tr><td valign="top">End2 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
 <tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
 <tr><td valign="top">End2 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
-
+</tbody>
 </table>
 
 
@@ -79,26 +82,30 @@ Unidirectional associations have the following properties:
 Bidirectional associations have the following properties:
 
 <table>
+<thead>
 <tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
-<tr><td colspan="2"><b>Code Generation</b></td></tr>
+</thead>
+<tbody>
+<tr><td colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
 <tr><td valign="top">Collection Class</td><td valign="top"><i>String</i>. The concrete class used to implement Zero or More cardinality ends. Defaults to class set at the designer level, but can be overridden here. Must implement ICollection&lt;T&gt;.</td></tr>
 <tr><td valign="top">Persistent</td><td valign="top"><i>Boolean</i>. If false, the association will not be persisted in the database, requiring custom code to implement.</td></tr>
-<tr><td colspan="2"><b>Documentation</b></td></tr>
+<tr><td colspan="2" style="background-color: gainsboro"><b>Documentation</b></td></tr>
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
-<tr><td colspan="2"><b>End1</b></td></tr>
+<tr><td colspan="2" style="background-color: gainsboro"><b>End1</b></td></tr>
 <tr><td valign="top">End1 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
 <tr><td valign="top">End1 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
 <tr><td valign="top">End1 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
 <tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
 <tr><td valign="top">End1 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
 <tr><td valign="top">End2 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
-<tr><td colspan="2"><b>End2</b></td></tr>
+<tr><td colspan="2" style="background-color: gainsboro"><b>End2</b></td></tr>
 <tr><td valign="top">End1 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
 <tr><td valign="top">End2 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
 <tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.</td></tr>
 <tr><td valign="top">End2 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
+</tbody>
 </table>
 
 ### Next Step 

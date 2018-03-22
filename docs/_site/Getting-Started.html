@@ -8,14 +8,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
-
       gtag('config', 'UA-116198145-1');
    </script>
 
    <!-- Begin Jekyll SEO tag v2.4.0 -->
-<title>Entity Framework Visual Designer | Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond</title>
+<title>Getting Started | Entity Framework Visual Designer</title>
 <meta name="generator" content="Jekyll v3.6.2" />
-<meta property="og:title" content="Entity Framework Visual Designer" />
+<meta property="og:title" content="Getting Started" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
 <meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
@@ -23,7 +22,7 @@
 <meta property="og:url" content="http://localhost:4000/Getting-Started.html" />
 <meta property="og:site_name" content="Entity Framework Visual Designer" />
 <script type="application/ld+json">
-{"description":"Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond","@type":"WebPage","url":"http://localhost:4000/Getting-Started.html","headline":"Entity Framework Visual Designer","@context":"http://schema.org"}</script>
+{"description":"Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond","@type":"WebPage","url":"http://localhost:4000/Getting-Started.html","headline":"Getting Started","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,12 +31,12 @@
    <link rel="stylesheet" href="/assets/css/style.css?v=dbbf05a06b7a877e38463facb92037bba1f667a9">
    <style>
       a, a:visited {
-         color: darkgreen;
+         color: firebrick;
       }
 
          a:hover {
-            color: #159957;
-            text-decoration: none;
+            color: firebrick;
+            /*text-decoration: none;*/
          }
 
       .sidebar {
@@ -51,8 +50,9 @@
          font-size: 14px;
       }
 
-         .sidebar a {
+         .sidebar a, .sidebar a:visited, .sidebar a:hover {
             display: block;
+            color: #159957;
          }
 
             .sidebar a + a {
@@ -69,6 +69,14 @@
          margin: 0 auto;
       }
 
+      .site-footer {
+         font-size: .7em;
+      }
+
+      .site-footer-owner {
+         font-weight: normal;
+      }
+
       .main-content {
          margin: 0;
       }
@@ -81,6 +89,10 @@
             border-top: 2px double #159957;
             margin-top: 3rem;
          }
+
+      table thead tr td:first-child {
+         width: 20%;
+      }
 
       @media screen and (max-width: 42em) {
          .sidebar {
@@ -104,6 +116,8 @@
 
    <div class="content-wrapper">
       <div class="sidebar">
+         <a href="index.html">Home</a>
+         <a href="Getting-Started.html">Getting Started</a>
          <a href="Using-the-designer.html">Using the Designer</a>
          <ul>
             <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
@@ -130,9 +144,7 @@
 
       </div>
       <section class="main-content">
-         <p>You should think of this extension as two parts: first the design surface and, separately, the T4 templates that generate the code. The template(s) can be modified without modifying, compiling and reinstalling the extension – it’s fashioned this way so that developers can easily make whatever changes suit their fancy to how the code is generated, since everybody’s got their own personal quirks on how their code should look.</p>
-
-<h1 id="getting-started">Getting Started</h1>
+         <h1 id="getting-started">Getting Started</h1>
 
 <p>The design surface is where you’ll create the visual model of your persistent entities. The properties
 you give them here will (or should, if you make changes to the T4 templates) drive the code generation. It represents (and is used to generate) the DbContext class in your project</p>
@@ -141,7 +153,7 @@ you give them here will (or should, if you make changes to the T4 templates) dri
 
 <h2 id="create-your-project">Create your project</h2>
 
-<p><img align="right" src="images/Solution.jpg" /></p>
+<p><img align="right" src="images/Solution.jpg" style="margin-left: 10px;" /></p>
 
 <p>Create a solution and a project. <strong>Please note</strong> that, as of this writing, ASP.NET Core and WebSite projects don’t allow project items of type “Data” to be added via “Add New Item”, so you won’t be able to add an .efmodel file to those project types.</p>
 
@@ -171,13 +183,13 @@ Enums
 
       </section>
       <footer class="site-footer">
+
          
-         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>
+         <!--<span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>-->
          
-         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+         <!--<span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>-->
       </footer>
    </div>
 
-   
 </body>
 </html>

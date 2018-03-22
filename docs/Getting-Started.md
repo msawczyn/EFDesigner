@@ -1,5 +1,3 @@
-You should think of this extension as two parts: first the design surface and, separately, the T4 templates that generate the code. The template(s) can be modified without modifying, compiling and reinstalling the extension -- it's fashioned this way so that developers can easily make whatever changes suit their fancy to how the code is generated, since everybody's got their own personal quirks on how their code should look.
-
 # Getting Started
 
 The design surface is where you'll create the visual model of your persistent entities. The properties
@@ -9,7 +7,7 @@ More than one design surface can be added to your project, just as more than one
 
 ## Create your project
 
-<img align="right" src="images/Solution.jpg">
+<img align="right" src="images/Solution.jpg" style="margin-left: 10px;">
 
 Create a solution and a project. **Please note** that, as of this writing, ASP.NET Core and WebSite projects don't allow project items of type "Data" to be added via "Add New Item", so you won't be able to add an .efmodel file to those project types. 
 

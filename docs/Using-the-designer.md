@@ -36,8 +36,11 @@ Open the .efmodel file and -- so exciting! -- you're presented with a blank scre
 A peek at the Property page when you have the design surface selected (the background, rather than anything on it), shows the properties pertinent to the model itself and the DbContext class you'll generate. These are as follows:
 
 <table>
+<thead>
 <tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
-<tr><td valign="top" colspan="2"><b>Code Generation</b></td></tr>
+</thead>
+<tbody>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
 <tr><td valign="top">Chop Method Chains</td><td valign="top"><i>Boolean</i>. If true, will chop (and align on dot) long method chains in the generated code</td></tr>
 <tr><td valign="top">DbContext Output Directory</td><td valign="top"><i>String</i>. The project directory for generated DbContext-related files</td></tr>
 <tr><td valign="top">Default Collection Class</td><td valign="top"><i>String</i>. The type of container generated for associations (if not overridden). Must implement ICollection&lt;T&gt;.</td></tr>
@@ -50,21 +53,22 @@ A peek at the Property page when you have the design surface selected (the backg
 <tr><td valign="top">Lazy Loading Enabled</td><td valign="top"><i>Boolean</i>. If true, entity container will allow lazy loading. See <a href="https://msdn.microsoft.com/en-us/library/system.data.entity.infrastructure.dbcontextconfiguration.lazyloadingenabled(v=vs.113).aspx">DbContextConfiguration.LazyLoadingEnabled Property</a></td></tr>
 <tr><td valign="top">Namespace</td><td valign="top"><i>String</i>. Default namespace for all generated classes. Can be overridden on a class-by-class basis.</td></tr>
 <tr><td valign="top">Proxy Generation Enabled</td><td valign="top"><i>Boolean</i>. If true, context will generate proxies for POCO entities. See <a href="https://msdn.microsoft.com/en-us/library/system.data.entity.infrastructure.dbcontextconfiguration.proxycreationenabled(v=vs.113).aspx">DbContextConfiguration.ProxyCreationEnabled Property</a>.</td></tr>
-<tr><td valign="top" colspan="2"><b>Database</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Database</b></td></tr>
 <tr><td valign="top">Automatic Migrations Enabled</td><td valign="top"><i>Boolean</i>. If true, code will allow automatic database migrations to be run when changes are detected. See <a href="https://msdn.microsoft.com/en-us/library/system.data.entity.migrations.dbmigrationsconfiguration.automaticmigrationsenabled(v=vs.113).aspx">DbMigrationsConfiguration.AutomaticMigrationsEnabled Property</a>.</td></tr>
 <tr><td valign="top">Concurrency Default</td><td valign="top"><i>String</i>. Default concurrency handling strategy. Values are 'Optimistic' and 'None'. See <a href="https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application">Handling Concurrency with the Entity Framework 6 in an ASP.NET MVC 5 Application</a>.</td></tr>
 <tr><td valign="top">Connection String</td><td valign="top"><i>String</i>. Connection string to use as the default connection string for the DbContext. Mutually exclusive with <b>Connection String Name</b></td></tr>
 <tr><td valign="top">Connection String Name</td><td valign="top"><i>String</i>. Name of connection string in host application config file to use as the default connection string for the DbContext. Mutually exclusive with <b>Connection String</b></td></tr>
 <tr><td valign="top">Database Initializer Type</td><td valign="top"><i>String</i>. Initialization strategy to synchronize the underlying database when the DbContext doesn't match the database. Values are 'CreateDatabaseIfNotExists', 'DropCreateDatabaseAlways', 'DropCreateDatabaseModelChanges', 'MigrateDatabaseToLatestVersion', and 'None'. For a primer on migration strategies, see Julie Lerman's excellent MSDN Magazine article <a href="https://msdn.microsoft.com/en-us/magazine/dn818489.aspx">Data Points : A Code First Migrations Mystery: Solved</a></td></tr>
 <tr><td valign="top">Database Schema</td><td valign="top"><i>String</i>. The schema name for your database tables</td></tr>
-<tr><td valign="top" colspan="2"><b>Entity Context</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Entity Context</b></td></tr>
 <tr><td valign="top">Entity Container Access</td><td valign="top"><i>String</i>. Code visibility for entity container. Values are 'Internal' and 'Public'.</td></tr>
 <tr><td valign="top">Entity Container Name</td><td valign="top"><i>String</i>. Name of generated DbContext-derived class</td></tr>
-<tr><td valign="top" colspan="2"><b>Misc</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Misc</b></td></tr>
 <tr><td valign="top">Database Type</td><td valign="top"><i>String</i>. Value of ProviderManifestToken attribute, for optimization of runtime database type is known and unchanging. Values are 'None', 'SqlServer' (2008) and 'SqlServer2012'. For more information see <a href="https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/provider-manifest-specification">DbProviderInfo.ProviderManifestToken Property</a>.</td></tr>
 <tr><td valign="top">Show Cascade Deletes</td><td valign="top"><i>Boolean</i>. If true, will display associations that cascade delete as dashed red lines, otherwise all associations will display as solid black lines.</td></tr>
 <tr><td valign="top">Transform On Save</td><td valign="top"><i>Boolean</i>. If true, will run Visual Studio's Transform All Templates command when the model is saved</td></tr>
 <tr><td valign="top">Warn On Missing Documentation</td><td valign="top"><i>Boolean</i>. If true, will generate warnings when summary documentation is missing for classes, properties and association ends.</td></tr>
+</tbody>
 </table>
 
 ## Context Menu
@@ -74,7 +78,10 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 <img src="images/DesignerMenu.jpg" hspace="10" vspace="10">
 
 <table>
+<thead>
 <tr><td valign="top"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
+</thead>
+<tbody>
 <tr><td valign="top">Cut, Copy, Paste</td><td valign="top">You can cut or copy, then paste, classes and enums. The pasted elements will be adjusted so that they don't violate any rules (such as two elements not having the same name), but otherwise the properties will stay the same. If no classes or enums are selected in the designer, the cut and copy options will be disabled. If no classes or enums are in the clipboard, the paste option will be disabled.</td></tr>
 <tr><td valign="top">Validate</td><td valign="top">Checks the currently selected element (class, enum, etc.) against the validation rules built into the designer. Errors or warnings are displayed in Visual Studio's Error List window. If no element is selected, this validates the design surface itself.</td></tr>
 <tr><td valign="top">Validate All</td><td valign="top">Checks all model elements against the afore mentioned validation rules. Errors or warnings are displayed in Visual Studio's Error List window.</td></tr>
@@ -95,6 +102,7 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 </table>
 </td></tr>
 <tr><td valign="top">Properties</td><td valign="top">Switches focus to the Properties window.</td></tr>
+</tbody>
 </table>
 
 ### Next Step 

@@ -22,7 +22,11 @@ other than the type's default value at runtime (i.e., a _required_ property). Se
 Selecting a property gives you access to **its** properties in the Property window. Those are:
 
 <table>
-<tr><td valign="top" colspan="2"><b>Code Generation</b></td></tr>
+<thead>
+<tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
+</thead>
+<tbody>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
 <tr><td valign="top">Auto Property</td><td valign="top">If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</td></tr>
 <tr><td valign="top">Initial Value</td><td valign="top">Value for attribute when first created</td></tr>
 <tr><td valign="top">Name</td><td valign="top">The name of the property. Must be a valid C# symbol.</td></tr>
@@ -32,19 +36,20 @@ Selecting a property gives you access to **its** properties in the Property wind
 <tr><td valign="top">Setter Visibility</td><td valign="top">Visibility for property setter; getter is public</td></tr>
 <tr><td valign="top">Type</td><td valign="top">Type of this attribute</td></tr>
 <tr><td valign="top">Virtual</td><td valign="top">If true, property will be generated with the 'virtual' keyword</td></tr>
-<tr><td valign="top" colspan="2"><b>Database</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Database</b></td></tr>
 <tr><td valign="top">Identity Type</td><td valign="top">If this property is an identity, how the value is generated</td></tr>
 <tr><td valign="top">Indexed</td><td valign="top">Should this attribute create an index in the database?</td></tr>
 <tr><td valign="top">Indexed Unique</td><td valign="top">If indexed, is the index a unique index?</td></tr>
 <tr><td valign="top">Is Concurrency Token</td><td valign="top">If true, this property serves as the concurrency value for the class</td></tr>
 <tr><td valign="top">Is Identity</td><td valign="top">Does this attribute represent the identity of the object?</td></tr>
 <tr><td valign="top">Table Override</td><td valign="top">Alternate table to store this attribute. If empty, the class's table is used.</td></tr>
-<tr><td valign="top" colspan="2"><b>Documentation</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Documentation</b></td></tr>
 <tr><td valign="top">Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section</td></tr>
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
-<tr><td valign="top" colspan="2"><b>String Properties</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>String Properties</b></td></tr>
 <tr><td valign="top">Max Length</td><td valign="top">Maximum length of the string, 0 for no max length</td></tr>
 <tr><td valign="top">String Type</td><td valign="top">If not empty, will create a standard validation annotation for this attribute.</td></tr>
+</tbody>
 </table>
 
 ## Removing a Property
@@ -60,7 +65,10 @@ Right-clicking on a property displays a Visual Studio context menu with some new
 </td></tr></table>
 <br/>
 <table>
+<thead>
 <tr><td valign="top"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
+</thead>
+<tbody>
 <tr><td valign="top">Add new Property</td><td>Adds a property to the entity.</td></tr>
 <tr><td valign="top">Edit</td><td>Activates in-diagram editing for the property name (and other attributes using the designer's custom property syntax)</td></tr>
 <tr><td valign="top">Cut, Copy, Paste</td><td valign="top">You can cut or copy, then paste, properties. Pasting can be to the same entity or to other entities. The pasted elements will be adjusted so that they don't violate any rules (such as two elements not having the same name), but otherwise the properties will stay the same. If no properties are selected in the designer, the cut and copy options will be disabled. If no properties are in the clipboard, the paste option will be disabled.</td></tr>
@@ -79,6 +87,7 @@ Right-clicking on a property displays a Visual Studio context menu with some new
 </table>
 </td></tr>
 <tr><td valign="top">Properties</td><td valign="top">Switches focus to the Properties window.</td></tr>
+</tbody>
 </table>
 
 ## Adding Properties via Code (custom property syntax)

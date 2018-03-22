@@ -8,7 +8,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
-
       gtag('config', 'UA-116198145-1');
    </script>
 
@@ -32,12 +31,12 @@
    <link rel="stylesheet" href="/assets/css/style.css?v=dbbf05a06b7a877e38463facb92037bba1f667a9">
    <style>
       a, a:visited {
-         color: darkgreen;
+         color: firebrick;
       }
 
          a:hover {
-            color: #159957;
-            text-decoration: none;
+            color: firebrick;
+            /*text-decoration: none;*/
          }
 
       .sidebar {
@@ -51,8 +50,9 @@
          font-size: 14px;
       }
 
-         .sidebar a {
+         .sidebar a, .sidebar a:visited, .sidebar a:hover {
             display: block;
+            color: #159957;
          }
 
             .sidebar a + a {
@@ -69,6 +69,14 @@
          margin: 0 auto;
       }
 
+      .site-footer {
+         font-size: .7em;
+      }
+
+      .site-footer-owner {
+         font-weight: normal;
+      }
+
       .main-content {
          margin: 0;
       }
@@ -81,6 +89,10 @@
             border-top: 2px double #159957;
             margin-top: 3rem;
          }
+
+      table thead tr td:first-child {
+         width: 20%;
+      }
 
       @media screen and (max-width: 42em) {
          .sidebar {
@@ -104,6 +116,8 @@
 
    <div class="content-wrapper">
       <div class="sidebar">
+         <a href="index.html">Home</a>
+         <a href="Getting-Started.html">Getting Started</a>
          <a href="Using-the-designer.html">Using the Designer</a>
          <ul>
             <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
@@ -201,8 +215,11 @@ Let’s add a design surface to our new project.</p>
 <p>A peek at the Property page when you have the design surface selected (the background, rather than anything on it), shows the properties pertinent to the model itself and the DbContext class you’ll generate. These are as follows:</p>
 
 <table>
+<thead>
 <tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
-<tr><td valign="top" colspan="2"><b>Code Generation</b></td></tr>
+</thead>
+<tbody>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
 <tr><td valign="top">Chop Method Chains</td><td valign="top"><i>Boolean</i>. If true, will chop (and align on dot) long method chains in the generated code</td></tr>
 <tr><td valign="top">DbContext Output Directory</td><td valign="top"><i>String</i>. The project directory for generated DbContext-related files</td></tr>
 <tr><td valign="top">Default Collection Class</td><td valign="top"><i>String</i>. The type of container generated for associations (if not overridden). Must implement ICollection&lt;T&gt;.</td></tr>
@@ -215,21 +232,22 @@ Let’s add a design surface to our new project.</p>
 <tr><td valign="top">Lazy Loading Enabled</td><td valign="top"><i>Boolean</i>. If true, entity container will allow lazy loading. See <a href="https://msdn.microsoft.com/en-us/library/system.data.entity.infrastructure.dbcontextconfiguration.lazyloadingenabled(v=vs.113).aspx">DbContextConfiguration.LazyLoadingEnabled Property</a></td></tr>
 <tr><td valign="top">Namespace</td><td valign="top"><i>String</i>. Default namespace for all generated classes. Can be overridden on a class-by-class basis.</td></tr>
 <tr><td valign="top">Proxy Generation Enabled</td><td valign="top"><i>Boolean</i>. If true, context will generate proxies for POCO entities. See <a href="https://msdn.microsoft.com/en-us/library/system.data.entity.infrastructure.dbcontextconfiguration.proxycreationenabled(v=vs.113).aspx">DbContextConfiguration.ProxyCreationEnabled Property</a>.</td></tr>
-<tr><td valign="top" colspan="2"><b>Database</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Database</b></td></tr>
 <tr><td valign="top">Automatic Migrations Enabled</td><td valign="top"><i>Boolean</i>. If true, code will allow automatic database migrations to be run when changes are detected. See <a href="https://msdn.microsoft.com/en-us/library/system.data.entity.migrations.dbmigrationsconfiguration.automaticmigrationsenabled(v=vs.113).aspx">DbMigrationsConfiguration.AutomaticMigrationsEnabled Property</a>.</td></tr>
 <tr><td valign="top">Concurrency Default</td><td valign="top"><i>String</i>. Default concurrency handling strategy. Values are 'Optimistic' and 'None'. See <a href="https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application">Handling Concurrency with the Entity Framework 6 in an ASP.NET MVC 5 Application</a>.</td></tr>
 <tr><td valign="top">Connection String</td><td valign="top"><i>String</i>. Connection string to use as the default connection string for the DbContext. Mutually exclusive with <b>Connection String Name</b></td></tr>
 <tr><td valign="top">Connection String Name</td><td valign="top"><i>String</i>. Name of connection string in host application config file to use as the default connection string for the DbContext. Mutually exclusive with <b>Connection String</b></td></tr>
 <tr><td valign="top">Database Initializer Type</td><td valign="top"><i>String</i>. Initialization strategy to synchronize the underlying database when the DbContext doesn't match the database. Values are 'CreateDatabaseIfNotExists', 'DropCreateDatabaseAlways', 'DropCreateDatabaseModelChanges', 'MigrateDatabaseToLatestVersion', and 'None'. For a primer on migration strategies, see Julie Lerman's excellent MSDN Magazine article <a href="https://msdn.microsoft.com/en-us/magazine/dn818489.aspx">Data Points : A Code First Migrations Mystery: Solved</a></td></tr>
 <tr><td valign="top">Database Schema</td><td valign="top"><i>String</i>. The schema name for your database tables</td></tr>
-<tr><td valign="top" colspan="2"><b>Entity Context</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Entity Context</b></td></tr>
 <tr><td valign="top">Entity Container Access</td><td valign="top"><i>String</i>. Code visibility for entity container. Values are 'Internal' and 'Public'.</td></tr>
 <tr><td valign="top">Entity Container Name</td><td valign="top"><i>String</i>. Name of generated DbContext-derived class</td></tr>
-<tr><td valign="top" colspan="2"><b>Misc</b></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Misc</b></td></tr>
 <tr><td valign="top">Database Type</td><td valign="top"><i>String</i>. Value of ProviderManifestToken attribute, for optimization of runtime database type is known and unchanging. Values are 'None', 'SqlServer' (2008) and 'SqlServer2012'. For more information see <a href="https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/provider-manifest-specification">DbProviderInfo.ProviderManifestToken Property</a>.</td></tr>
 <tr><td valign="top">Show Cascade Deletes</td><td valign="top"><i>Boolean</i>. If true, will display associations that cascade delete as dashed red lines, otherwise all associations will display as solid black lines.</td></tr>
 <tr><td valign="top">Transform On Save</td><td valign="top"><i>Boolean</i>. If true, will run Visual Studio's Transform All Templates command when the model is saved</td></tr>
 <tr><td valign="top">Warn On Missing Documentation</td><td valign="top"><i>Boolean</i>. If true, will generate warnings when summary documentation is missing for classes, properties and association ends.</td></tr>
+</tbody>
 </table>
 
 <h2 id="context-menu">Context Menu</h2>
@@ -239,7 +257,10 @@ Let’s add a design surface to our new project.</p>
 <p><img src="images/DesignerMenu.jpg" hspace="10" vspace="10" /></p>
 
 <table>
+<thead>
 <tr><td valign="top"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
+</thead>
+<tbody>
 <tr><td valign="top">Cut, Copy, Paste</td><td valign="top">You can cut or copy, then paste, classes and enums. The pasted elements will be adjusted so that they don't violate any rules (such as two elements not having the same name), but otherwise the properties will stay the same. If no classes or enums are selected in the designer, the cut and copy options will be disabled. If no classes or enums are in the clipboard, the paste option will be disabled.</td></tr>
 <tr><td valign="top">Validate</td><td valign="top">Checks the currently selected element (class, enum, etc.) against the validation rules built into the designer. Errors or warnings are displayed in Visual Studio's Error List window. If no element is selected, this validates the design surface itself.</td></tr>
 <tr><td valign="top">Validate All</td><td valign="top">Checks all model elements against the afore mentioned validation rules. Errors or warnings are displayed in Visual Studio's Error List window.</td></tr>
@@ -260,6 +281,7 @@ Let’s add a design surface to our new project.</p>
 </table>
 </td></tr>
 <tr><td valign="top">Properties</td><td valign="top">Switches focus to the Properties window.</td></tr>
+</tbody>
 </table>
 
 <h3 id="next-step">Next Step</h3>
@@ -268,13 +290,13 @@ Let’s add a design surface to our new project.</p>
 
       </section>
       <footer class="site-footer">
+
          
-         <span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>
+         <!--<span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>-->
          
-         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+         <!--<span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>-->
       </footer>
    </div>
 
-   
 </body>
 </html>
