@@ -6011,6 +6011,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// CLR type implementing this enum (usually Int32)
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnum/ValueType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelEnum/ValueType.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnum/ValueType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(EnumValueType.Int32)]
 		[DslModeling::DomainObjectId("123f14ef-96ff-4a05-9440-888c43c44e36")]
@@ -6276,8 +6277,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of Name domain property.
+		/// Name of the enumeration
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnum/Name.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelEnum/Name.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnum/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::ElementName(typeof(ModelEnumNameProvider))]
@@ -6344,6 +6347,95 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.namePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsFlags domain property code
+		
+		/// <summary>
+		/// IsFlags domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsFlagsDomainPropertyId = new global::System.Guid(0x2196162d, 0x2f05, 0x48dd, 0x9a, 0xe6, 0xd2, 0x93, 0x19, 0x0c, 0x9c, 0x77);
+		
+		/// <summary>
+		/// Storage for IsFlags
+		/// </summary>
+		private global::System.Boolean isFlagsPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsFlags domain property.
+		/// If true, values in this enumeration are flags and will have initial values set
+		/// appropriately.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnum/IsFlags.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelEnum/IsFlags.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnum/IsFlags.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("2196162d-2f05-48dd-9ae6-d293190c9c77")]
+		public global::System.Boolean IsFlags
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isFlagsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsFlagsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelEnum.IsFlags domain property.
+		/// </summary>
+		internal sealed partial class IsFlagsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnum, global::System.Boolean>
+		{
+			private IsFlagsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelEnum.IsFlags domain property value handler.
+			/// </summary>
+			public static readonly IsFlagsPropertyHandler Instance = new IsFlagsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelEnum.IsFlags domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsFlagsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelEnum element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isFlagsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelEnum element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isFlagsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

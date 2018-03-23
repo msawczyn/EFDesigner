@@ -861,6 +861,10 @@
     <value>Value Type</value>
     <comment>DisplayName for DomainProperty &apos;ValueType&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/ValueType.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;ValueType&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Namespace.Description" xml:space="preserve">
     <value>Overrides default namespace</value>
     <comment>Description for DomainProperty &apos;Namespace&apos; on DomainClass &apos;ModelEnum&apos;</comment>
@@ -882,12 +886,28 @@
     <comment>DisplayName for DomainProperty &apos;IsNamespaceTracking&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Name.Description" xml:space="preserve">
-    <value></value>
+    <value>Name of the enumeration</value>
     <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Name.DisplayName" xml:space="preserve">
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Name.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsFlags.Description" xml:space="preserve">
+    <value>If true, values in this enumeration are flags and will have initial values set appropriately.</value>
+    <comment>Description for DomainProperty &apos;IsFlags&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsFlags.DisplayName" xml:space="preserve">
+    <value>Values are Flags</value>
+    <comment>DisplayName for DomainProperty &apos;IsFlags&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsFlags.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IsFlags&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" xml:space="preserve">
     <value>No description available</value>

@@ -205,6 +205,11 @@ void WriteEnum(ModelEnum modelEnum)
          Output("/// </remarks>");
       }
          
+      if (modelEnum.IsFlags)
+      {
+         Output("[Flags]");
+      }
+
       Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
       Output("{");
 

@@ -55,9 +55,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{1DBA993C-1ED0-44B6-800F-5E7E3E999402}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{DC6F5475-44D8-4D99-B392-9EDAC605D589}"
-	ProjectSection(SolutionItems) = preProject
-		..\docs\assets\css\style.scss = ..\docs\assets\css\style.scss
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{90C96A87-4FF7-4AD1-9F61-0ECE46F7ADDA}"
 	ProjectSection(SolutionItems) = preProject

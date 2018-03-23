@@ -175,6 +175,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelEnum), "Namespace", ModelEnum.NamespaceDomainPropertyId, typeof(ModelEnum.NamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "IsNamespaceTracking", ModelEnum.IsNamespaceTrackingDomainPropertyId, typeof(ModelEnum.IsNamespaceTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "Name", ModelEnum.NameDomainPropertyId, typeof(ModelEnum.NamePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelEnum), "IsFlags", ModelEnum.IsFlagsDomainPropertyId, typeof(ModelEnum.IsFlagsPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnumValue), "Name", ModelEnumValue.NameDomainPropertyId, typeof(ModelEnumValue.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnumValue), "Value", ModelEnumValue.ValueDomainPropertyId, typeof(ModelEnumValue.ValuePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),

@@ -31,23 +31,9 @@ and reinstalling the extension -- it's designed this way so that developers can 
 whatever changes suit their fancy to how the code is generated, since everybody's got their own 
 personal quirks on how their code should look.
 
-One of my biggest annoyances with EF has been the completely disparate approaches in code-first, 
-model-first and database-first. There is no logical reason why these approaches couldn't center around a common, easily used core. [Simon Hughes](https://github.com/sjh37) has been doing a great job with his [EntityFramework-Reverse-POCO-Code-First-Generator](https://github.com/sjh37/EntityFramework-Reverse-POCO-Code-First-Generator) project, and this extension aims to continue that momentum with visual modeling, centering everything on what's been commonly called "code-first" EF. Because, frankly, the conceptual schema definition language (CSDL), store schema definition language (SSDL), and mapping specification language (MSL) are implementation details that a good tool should just plain abstract away.
-
 This documentation is a work-in-progress, so suggestions are welcome. The tool has been used in 
 production (i.e., generating code for real projects) for quite a while, but more eyes and different 
 approaches are always good.
-
-## Quick Start
-
-- Install the plugin by either downloading the VSIX file in the /dist directory or, better, using NuGet to pull it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner). The NuGet approach will help you keep it up to date when enhancements and bug fixes are made.
-- Create a project in Visual Studio. Any project type _except_ for ASP.NET Core -- that's got limited support for the kinds of items you can add to the project, and data items aren't yet available. If you haven't already done so, use NuGet to add Entity Framework or Entity Framework Core to the project (since the code you'll generate references it and, besides, it doesn't make much sense to create EF code without using EF, right?).
-- Right-click the project root and select _Add/New Item..._ from the dropdown menu.
-- Under _Visual C# Items_ in the tree to the left you'll see a _Data_ folder. Select that folder and then select _EFDesigner_ in the list on the right. 
-- Rename the file to your liking. The name of the file will become the default name of the generated DbContext, though you can change that later.
-- Click Add.
-- Opening the _[your file name].efmodel_ file will present you with a blank design surface, and your toolbox will display the items you can add to your model.
-- Read the rest of this site to get details on things you don't find obvious :-).
 
 ### Next Step 
 [Getting Started](Getting-Started)

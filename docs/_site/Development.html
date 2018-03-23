@@ -28,9 +28,10 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="theme-color" content="#157878">
    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-   <link rel="stylesheet" href="/assets/css/style.css?v=686fc5ea37ca3fcbb2fcbaa66b86a17c3dcc2c47">
+   <link rel="stylesheet" href="/assets/css/style.css?v=114fb892e1b9ae49c8db47c798cf87de20b6ca14">
    <style>
-      .main-content a, .main-content a:visited {
+      .main-content a, 
+      .main-content a:visited {
          color: firebrick;
       }
 
@@ -38,6 +39,10 @@
             color: firebrick;
             /*text-decoration: none;*/
          }
+
+      .main-content table th, .main-content table td {
+         border: 1px solid darkgray;
+      }
 
       .sidebar {
          float: right;
@@ -90,9 +95,9 @@
             margin-top: 3rem;
          }
 
-      .main-content table thead tr td:first-child {
-         width: 20%;
-      }
+         .main-content table thead tr td:first-child {
+            width: 20%;
+         }
 
       @media screen and (max-width: 42em) {
          .sidebar {
@@ -121,13 +126,20 @@
          <a href="Using-the-designer.html">Using the Designer</a>
          <ul>
             <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
-            <li><a href="Using-the-designer.html#context-menu">Context Menu</a></li>
+            <li><a href="Using-the-designer.html#context-menu">Context menu</a></li>
          </ul>
          <a href="Entities.html">Persistent Entities</a>
          <ul>
             <li><a href="Entities.html#adding-an-entity">Adding an entity</a></li>
             <li><a href="Entities.html#removing-an-entity">Removing an entity</a></li>
-            <li><a href="Entities.html#context-menu">Context Menu</a></li>
+            <li><a href="Entities.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Properties.html">Properties</a>
+         <ul>
+            <li><a href="Properties.html#adding-a-property">Adding a property</a></li>
+            <li><a href="Properties.html#removing-a-property">Removing a property</a></li>
+            <li><a href="Properties.html#context-menu">Context menu</a></li>
+            <li><a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a></li>
          </ul>
          <a href="Associations.html">Associations</a>
          <ul>
@@ -137,6 +149,11 @@
          </ul>
          <a href="Inheritance.html">Inheritance</a>
          <a href="Enumerations.html">Enumerations</a>
+         <ul>
+            <li><a href="Enumerations.html#adding-a-value">Adding a value</a></li>
+            <li><a href="Enumerations.html#removing-a-value">Removing a value</a></li>
+            <li><a href="Enumerations.html#context-menu">Context menu</a></li>
+         </ul>
          <a href="Comments.html">Comments</a>
          <a href="Templates.html">Generating Code</a>
          <a href="Customizing.html">Customizing Code Generation</a>
@@ -149,6 +166,8 @@
 
       </section>
       <footer class="site-footer">
+
+
 
          
          <!--<span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>-->

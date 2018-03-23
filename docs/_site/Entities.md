@@ -14,14 +14,17 @@ You should see a new class appear on the design surface:
 <img align="right"  src="images/Class.jpg">
 </td></tr></table>
 
-The entity may be collapsed down to its name bar by clicking the chevron at the top right of its display. When
+You can change the width of the entity on the designer to make things more readable. Height is automatic and can't
+be changed manually - it will be as tall as needed to show all the properties.
+But the entity may be collapsed down to its name bar by clicking the chevron at the top right of its display. When
 collapsed, it may be expanded back to its original size by clicking the chevron again.
+
 
 Selecting the entity allows you to edit its various properties:
 
 <table>
 <thead>
-<tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><th valign="top"><b>Property</b></th><th valign="top"><b>Description</b></th></tr>
 </thead>
 <tbody>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
@@ -57,7 +60,7 @@ Right-clicking on an entity displays a Visual Studio context menu with some new 
 
 <table>
 <thead>
-<tr><td valign="top"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><th valign="top"><b>Menu choice</b></th><th valign="top"><b>Description</b></th></tr>
 </thead>
 <tr><td valign="top">Add</td><td>One submenu choice, <i>Property</i>, adds a property to the entity.</td></tr>
 <tr><td valign="top">Collapse</td><td>Available when the entity is fully expanded, this action hides the properties so that only the title is visible.</td></tr>
@@ -67,7 +70,7 @@ Right-clicking on an entity displays a Visual Studio context menu with some new 
 <tr><td valign="top">Validate All</td><td valign="top">Checks all model elements against the afore mentioned validation rules. Errors or warnings are displayed in Visual Studio's Error List window.</td></tr>
 <tr><td valign="top">Hide Element</td><td valign="top">Hides the currently selected entity on the diagram. Any lines to or from that entity will be hidden as well. This does not remove the entity from the model, only makes it invisible in the diagram. Useful for tidying up a diagram that would otherwise be unreadable due to, for example, a common base class that all other classes inherit from. If no entity is selected, this option will be disabled.</td></tr>
 <tr><td valign="top">Show Hidden Elements</td><td valign="top">Unhides any elements that were previously hidden, along with their association or inheritance lines. If no elements are hidden, this option will be disabled.</td></tr>
-<tr><td valign="top">Add properties via Code</td><td valign="top">Displays a dialog that lets you add multiple properties using the designer's custom property syntax. See "Adding multiple properties" for more details.</td></tr>
+<tr><td valign="top">Add properties via Code</td><td valign="top">Displays a dialog that lets you add multiple properties using the designer's custom property syntax. See "<a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a>" for more details.</td></tr>
 <tr><td valign="top">Select</td><td valign="top">One of the features of the Visual Studio property editor is the ability to edit properties of multiple items if they share that property. This submenu gives you the ability to select model elements by type so that you can conveniently edit properties of those elements together (e.g., setting the color of multiple classes all at once). If the pertinent element type isn't present in the designer, that option will be disabled.<br/>
 <table>
 <tr><td valign="top">Select all classes...</td><td valign="top">Select all class elements in the designer</td></tr>

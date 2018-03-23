@@ -28,9 +28,10 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="theme-color" content="#157878">
    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-   <link rel="stylesheet" href="/assets/css/style.css?v=686fc5ea37ca3fcbb2fcbaa66b86a17c3dcc2c47">
+   <link rel="stylesheet" href="/assets/css/style.css?v=114fb892e1b9ae49c8db47c798cf87de20b6ca14">
    <style>
-      .main-content a, .main-content a:visited {
+      .main-content a, 
+      .main-content a:visited {
          color: firebrick;
       }
 
@@ -38,6 +39,10 @@
             color: firebrick;
             /*text-decoration: none;*/
          }
+
+      .main-content table th, .main-content table td {
+         border: 1px solid darkgray;
+      }
 
       .sidebar {
          float: right;
@@ -90,9 +95,9 @@
             margin-top: 3rem;
          }
 
-      .main-content table thead tr td:first-child {
-         width: 20%;
-      }
+         .main-content table thead tr td:first-child {
+            width: 20%;
+         }
 
       @media screen and (max-width: 42em) {
          .sidebar {
@@ -121,13 +126,20 @@
          <a href="Using-the-designer.html">Using the Designer</a>
          <ul>
             <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
-            <li><a href="Using-the-designer.html#context-menu">Context Menu</a></li>
+            <li><a href="Using-the-designer.html#context-menu">Context menu</a></li>
          </ul>
          <a href="Entities.html">Persistent Entities</a>
          <ul>
             <li><a href="Entities.html#adding-an-entity">Adding an entity</a></li>
             <li><a href="Entities.html#removing-an-entity">Removing an entity</a></li>
-            <li><a href="Entities.html#context-menu">Context Menu</a></li>
+            <li><a href="Entities.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Properties.html">Properties</a>
+         <ul>
+            <li><a href="Properties.html#adding-a-property">Adding a property</a></li>
+            <li><a href="Properties.html#removing-a-property">Removing a property</a></li>
+            <li><a href="Properties.html#context-menu">Context menu</a></li>
+            <li><a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a></li>
          </ul>
          <a href="Associations.html">Associations</a>
          <ul>
@@ -137,6 +149,11 @@
          </ul>
          <a href="Inheritance.html">Inheritance</a>
          <a href="Enumerations.html">Enumerations</a>
+         <ul>
+            <li><a href="Enumerations.html#adding-a-value">Adding a value</a></li>
+            <li><a href="Enumerations.html#removing-a-value">Removing a value</a></li>
+            <li><a href="Enumerations.html#context-menu">Context menu</a></li>
+         </ul>
          <a href="Comments.html">Comments</a>
          <a href="Templates.html">Generating Code</a>
          <a href="Customizing.html">Customizing Code Generation</a>
@@ -147,21 +164,29 @@
          <h1 id="getting-started">Getting Started</h1>
 
 <p>The design surface is where you’ll create the visual model of your persistent entities. The properties
-you give them here will (or should, if you make changes to the T4 templates) drive the code generation. It represents (and is used to generate) the DbContext class in your project</p>
+you give them here will (or should, if you make changes to the T4 templates) drive the code generation. 
+It represents (and is used to generate) the DbContext class in your project</p>
 
-<p>More than one design surface can be added to your project, just as more than one DbContext can be present.</p>
+<p>More than one design surface can be added to your project, just as more than one DbContext can be 
+present.</p>
 
 <h2 id="create-your-project">Create your project</h2>
 
 <p><img align="right" src="images/Solution.jpg" style="margin-left: 10px;" /></p>
 
-<p>Create a solution and a project. <strong>Please note</strong> that, as of this writing, ASP.NET Core and WebSite projects don’t allow project items of type “Data” to be added via “Add New Item”, so you won’t be able to add an .efmodel file to those project types.</p>
+<p>Create a solution and a project. <strong>Please note</strong> that, as of this writing, ASP.NET Core and WebSite 
+projects don’t allow project items of type “Data” to be added via “Add New Item”, so you won’t be 
+able to add an .efmodel file to those project types. Not a big deal, though … best practices are 
+to create a class library project to hold your entities so that the entities can be shared 
+across multiple host programs (web app, console app, etc.).</p>
 
-<p>Best practices are to create a class library project to hold your entities so that the entities can be shared across multiple host programs (web app, console app, etc.). Go ahead and delete the Class1.cs file that’s automatically added.</p>
+<p>Note that the T4 templates included in the installation only generate <em>C#</em> code, although any 
+language <em>could</em> be generated. We <a href="Development">welcome any submissions</a> of T4 templates for other languages.</p>
 
-<p>Note that the T4 templates included in the installation only generate <em>C#</em> code, although any language <em>could</em> be generated. We welcome any submissions of T4 templates for other languages.</p>
-
-<p>Since we’ll be generating code, now is a good time to create the folders where that code will eventually go. You’re free to create any structure you desire. You can even decide to generate code directly into the main tree of your project, but that’s rarely a good idea except for the simplest of projects . A good working structure would look like the following:</p>
+<p>Since we’ll be generating code, now is a good time to create the folders where that code will 
+eventually go. You’re free to create any structure you desire. You can even decide to generate 
+code directly into the main tree of your project, but that’s rarely a good idea except for the 
+simplest of projects . A good working structure would look like the following:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Context
 |-- Custom
@@ -176,13 +201,19 @@ Enums
 |-- Generated
 </code></pre></div></div>
 
-<p>This gives you separation for your DbContext class (and its satellites), your persistent entities, and enumerations you use in those entities (generated by the model). Further separating “Custom” and “Generated” code gives you quick access to files you can modify (“Custom”) and those you shouldn’t (“Generated”). The “Custom” files will hold the partial classes you use to extend the generated code.</p>
+<p>This gives you separation for your DbContext class (and its satellites), your persistent entities, 
+and enumerations you use in those entities (generated by the model). Further separating “Custom” 
+and “Generated” code gives you quick access to files you can modify (“Custom”) and those you 
+shouldn’t (“Generated”). The “Custom” files will hold the partial classes you use to extend the 
+generated code.</p>
 
 <h3 id="next-step">Next Step</h3>
 <p><a href="Using-the-designer">Using the Designer</a></p>
 
       </section>
       <footer class="site-footer">
+
+
 
          
          <!--<span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>-->

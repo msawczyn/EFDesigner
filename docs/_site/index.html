@@ -28,9 +28,10 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="theme-color" content="#157878">
    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-   <link rel="stylesheet" href="/assets/css/style.css?v=686fc5ea37ca3fcbb2fcbaa66b86a17c3dcc2c47">
+   <link rel="stylesheet" href="/assets/css/style.css?v=114fb892e1b9ae49c8db47c798cf87de20b6ca14">
    <style>
-      .main-content a, .main-content a:visited {
+      .main-content a, 
+      .main-content a:visited {
          color: firebrick;
       }
 
@@ -38,6 +39,10 @@
             color: firebrick;
             /*text-decoration: none;*/
          }
+
+      .main-content table th, .main-content table td {
+         border: 1px solid darkgray;
+      }
 
       .sidebar {
          float: right;
@@ -90,9 +95,9 @@
             margin-top: 3rem;
          }
 
-      .main-content table thead tr td:first-child {
-         width: 20%;
-      }
+         .main-content table thead tr td:first-child {
+            width: 20%;
+         }
 
       @media screen and (max-width: 42em) {
          .sidebar {
@@ -121,13 +126,20 @@
          <a href="Using-the-designer.html">Using the Designer</a>
          <ul>
             <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
-            <li><a href="Using-the-designer.html#context-menu">Context Menu</a></li>
+            <li><a href="Using-the-designer.html#context-menu">Context menu</a></li>
          </ul>
          <a href="Entities.html">Persistent Entities</a>
          <ul>
             <li><a href="Entities.html#adding-an-entity">Adding an entity</a></li>
             <li><a href="Entities.html#removing-an-entity">Removing an entity</a></li>
-            <li><a href="Entities.html#context-menu">Context Menu</a></li>
+            <li><a href="Entities.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Properties.html">Properties</a>
+         <ul>
+            <li><a href="Properties.html#adding-a-property">Adding a property</a></li>
+            <li><a href="Properties.html#removing-a-property">Removing a property</a></li>
+            <li><a href="Properties.html#context-menu">Context menu</a></li>
+            <li><a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a></li>
          </ul>
          <a href="Associations.html">Associations</a>
          <ul>
@@ -137,6 +149,11 @@
          </ul>
          <a href="Inheritance.html">Inheritance</a>
          <a href="Enumerations.html">Enumerations</a>
+         <ul>
+            <li><a href="Enumerations.html#adding-a-value">Adding a value</a></li>
+            <li><a href="Enumerations.html#removing-a-value">Removing a value</a></li>
+            <li><a href="Enumerations.html#context-menu">Context menu</a></li>
+         </ul>
          <a href="Comments.html">Comments</a>
          <a href="Templates.html">Generating Code</a>
          <a href="Customizing.html">Customizing Code Generation</a>
@@ -179,31 +196,17 @@ and reinstalling the extension – it’s designed this way so that developers c
 whatever changes suit their fancy to how the code is generated, since everybody’s got their own 
 personal quirks on how their code should look.</p>
 
-<p>One of my biggest annoyances with EF has been the completely disparate approaches in code-first, 
-model-first and database-first. There is no logical reason why these approaches couldn’t center around a common, easily used core. <a href="https://github.com/sjh37">Simon Hughes</a> has been doing a great job with his <a href="https://github.com/sjh37/EntityFramework-Reverse-POCO-Code-First-Generator">EntityFramework-Reverse-POCO-Code-First-Generator</a> project, and this extension aims to continue that momentum with visual modeling, centering everything on what’s been commonly called “code-first” EF. Because, frankly, the conceptual schema definition language (CSDL), store schema definition language (SSDL), and mapping specification language (MSL) are implementation details that a good tool should just plain abstract away.</p>
-
 <p>This documentation is a work-in-progress, so suggestions are welcome. The tool has been used in 
 production (i.e., generating code for real projects) for quite a while, but more eyes and different 
 approaches are always good.</p>
-
-<h2 id="quick-start">Quick Start</h2>
-
-<ul>
-  <li>Install the plugin by either downloading the VSIX file in the /dist directory or, better, using NuGet to pull it from the <a href="https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner">Visual Studio Marketplace</a>. The NuGet approach will help you keep it up to date when enhancements and bug fixes are made.</li>
-  <li>Create a project in Visual Studio. Any project type <em>except</em> for ASP.NET Core – that’s got limited support for the kinds of items you can add to the project, and data items aren’t yet available. If you haven’t already done so, use NuGet to add Entity Framework or Entity Framework Core to the project (since the code you’ll generate references it and, besides, it doesn’t make much sense to create EF code without using EF, right?).</li>
-  <li>Right-click the project root and select <em>Add/New Item…</em> from the dropdown menu.</li>
-  <li>Under <em>Visual C# Items</em> in the tree to the left you’ll see a <em>Data</em> folder. Select that folder and then select <em>EFDesigner</em> in the list on the right.</li>
-  <li>Rename the file to your liking. The name of the file will become the default name of the generated DbContext, though you can change that later.</li>
-  <li>Click Add.</li>
-  <li>Opening the <em>[your file name].efmodel</em> file will present you with a blank design surface, and your toolbox will display the items you can add to your model.</li>
-  <li>Read the rest of this site to get details on things you don’t find obvious :-).</li>
-</ul>
 
 <h3 id="next-step">Next Step</h3>
 <p><a href="Getting-Started">Getting Started</a></p>
 
       </section>
       <footer class="site-footer">
+
+
 
          
          <!--<span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>-->

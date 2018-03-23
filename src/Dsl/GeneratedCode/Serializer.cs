@@ -6523,6 +6523,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// IsFlags
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsFlags = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isFlags");
+				if (attribIsFlags != null)
+				{
+					global::System.Boolean valueOfIsFlags;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsFlags, out valueOfIsFlags))
+					{
+						instanceOfModelEnum.IsFlags = valueOfIsFlags;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isFlags", typeof(global::System.Boolean), attribIsFlags);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -7080,6 +7097,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "name", propValue);
+					}
+				}
+			}
+			// IsFlags
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelEnum.IsFlags;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isFlags", serializedPropValue);
 					}
 				}
 			}

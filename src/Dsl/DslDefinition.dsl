@@ -434,7 +434,7 @@
         <DomainTypeDescriptor CustomCoded="true" />
       </CustomTypeDescriptor>
       <Properties>
-        <DomainProperty Id="123f14ef-96ff-4a05-9440-888c43c44e36" Description="CLR type implementing this enum (usually Int32)" Name="ValueType" DisplayName="Value Type" DefaultValue="Int32">
+        <DomainProperty Id="123f14ef-96ff-4a05-9440-888c43c44e36" Description="CLR type implementing this enum (usually Int32)" Name="ValueType" DisplayName="Value Type" DefaultValue="Int32" Category="Code Generation">
           <Type>
             <DomainEnumerationMoniker Name="EnumValueType" />
           </Type>
@@ -449,13 +449,18 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="0d249431-c352-4468-8322-eb5910477fee" Description="" Name="Name" DisplayName="Name" DefaultValue="" IsElementName="true">
+        <DomainProperty Id="0d249431-c352-4468-8322-eb5910477fee" Description="Name of the enumeration" Name="Name" DisplayName="Name" DefaultValue="" Category="Code Generation" IsElementName="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
           <ElementNameProvider>
             <ExternalTypeMoniker Name="ModelEnumNameProvider" />
           </ElementNameProvider>
+        </DomainProperty>
+        <DomainProperty Id="2196162d-2f05-48dd-9ae6-d293190c9c77" Description="If true, values in this enumeration are flags and will have initial values set appropriately." Name="IsFlags" DisplayName="Values are Flags" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
         </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
@@ -1459,6 +1464,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="name">
             <DomainPropertyMoniker Name="ModelEnum/Name" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isFlags">
+            <DomainPropertyMoniker Name="ModelEnum/IsFlags" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

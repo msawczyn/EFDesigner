@@ -54,7 +54,7 @@ Unidirectional associations have the following properties:
 
 <table>
 <thead>
-<tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><th valign="top"><b>Property</b></th><th valign="top"><b>Description</b></th></tr>
 </thead>
 <tbody>
 <tr><td colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
@@ -83,7 +83,7 @@ Bidirectional associations have the following properties:
 
 <table>
 <thead>
-<tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><th valign="top"><b>Property</b></th><th valign="top"><b>Description</b></th></tr>
 </thead>
 <tbody>
 <tr><td colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>

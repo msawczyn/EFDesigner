@@ -23,7 +23,7 @@ Selecting a property gives you access to **its** properties in the Property wind
 
 <table>
 <thead>
-<tr><td valign="top"><b>Property</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><th valign="top"><b>Property</b></th><th valign="top"><b>Description</b></th></tr>
 </thead>
 <tbody>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
@@ -66,7 +66,7 @@ Right-clicking on a property displays a Visual Studio context menu with some new
 <br/>
 <table>
 <thead>
-<tr><td valign="top" style="width: 20%"><b>Menu choice</b></td><td valign="top"><b>Description</b></td></tr>
+<tr><th valign="top" style="width: 20%"><b>Menu choice</b></th><th valign="top"><b>Description</b></th></tr>
 </thead>
 <tbody>
 <tr><td valign="top">Add new Property</td><td>Adds a property to the entity.</td></tr>
@@ -105,27 +105,33 @@ The designer exposes a custom property syntax that allows you to specify a prope
 - Initial value
 - Whether it's the identity property for its entity
 
-All of these are optional except for *Name*. The defaults for the others are:
+All of these are optional except for *Name*. Some details:
 
 <table>
-<tr><td>Type</td><td>string</td></tr>
-<tr><td>Required</td><td>false</td></tr>
-<tr><td>Maximum Length</td><td>0</td></tr>
-<tr><td>Initial Value</td><td>no initial value</td></tr>
-<tr><td>Is Identity</td><td>false</td></tr>
+<tr><td><b>Element</b></td><td><b>Default</b></td><td><b>Notes</b></td></tr>
+<tr><td>Name</td><td></td><td>Required</td></tr>
+<tr><td>Type</td><td>"string"</td><td>Can be CLR type or built-in type (e.g., Int32 or int)</td></tr>
+<tr><td>Required</td><td>false</td><td>Indicated by the '?' symbol appended to the Type</td></tr>
+<tr><td>Maximum Length</td><td>0</td><td>Indicated by a decimal number in brackets</td></tr>
+<tr><td>Initial Value</td><td></td><td>Indicated by an equal sign ('=') followed by some value</td></tr>
+<tr><td>Is Identity</td><td>false</td><td>Indicated by the '!' symbol appended to the Name</td></tr>
 </table>
 
 The syntax is:
 
-&lt;Visibility&gt; &lt;Type&gt;&lt;?&gt; &lt;Name&gt;&lt;!&gt;&lt;[Length]&gt; &lt;= Value&gt;
+```
+<Visibility> <Type><?> <Name><!><[Length]> <= Value>
+```
 
 or
 
-&lt;Visibility&gt; &lt;Name&gt;&lt;!&gt;&lt;[Length]&gt; : &lt;Type&gt;&lt;?&gt; &lt;= Value&gt;
+```
+<Visibility> <Name><!><[Length]> : <Type><?> <= Value>
+```
 
 **Examples:**
 
-The following all declare a required string property named foo:
+The following all declare a required string property with no maximum length named foo:
 
 ```
 foo
@@ -223,10 +229,10 @@ foo!: int
 ```
 
 ```
-public foo: int
+public foo!: int
 ```
 
-Let's make foo a Nullable&lt;Int64&gt; and have its setter inaccessible by outside code:
+Let's make foo a `Nullable<Int64>` and have its setter inaccessible by outside code:
 
 ```
 protected long? foo

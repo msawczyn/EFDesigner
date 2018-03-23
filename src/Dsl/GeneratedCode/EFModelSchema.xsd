@@ -767,7 +767,17 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: Name -->
-        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of the enumeration</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsFlags -->
+        <xsd:attribute name="isFlags" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, values in this enumeration are flags and will have initial values set appropriately.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
