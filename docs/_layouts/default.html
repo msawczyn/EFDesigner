@@ -17,20 +17,6 @@
    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
    <style>
-      .main-content a, 
-      .main-content a:visited {
-         color: firebrick;
-      }
-
-         .main-content a:hover {
-            color: firebrick;
-            /*text-decoration: none;*/
-         }
-
-      .main-content table th, .main-content table td {
-         border: 1px solid darkgray;
-      }
-
       .sidebar {
          float: right;
          width: 256px;
@@ -73,17 +59,31 @@
          margin: 0;
       }
 
+         .main-content a,
+         .main-content a:visited {
+            color: firebrick;
+         }
+
+            .main-content a:hover {
+               color: firebrick;
+               /*text-decoration: none;*/
+            }
+
          .main-content table {
             font-size: .95rem;
          }
 
+            .main-content table th, .main-content table td {
+               border: 1px solid darkgray;
+            }
+
+            .main-content table tr th:first-child {
+               width: 20%;
+            }
+
          .main-content h2 {
             border-top: 2px double #159957;
             margin-top: 3rem;
-         }
-
-         .main-content table thead tr td:first-child {
-            width: 20%;
          }
 
       @media screen and (max-width: 42em) {
@@ -142,16 +142,30 @@
             <li><a href="Enumerations.html#context-menu">Context menu</a></li>
          </ul>
          <a href="Comments.html">Comments</a>
+         <ul>
+            <li><a href="Comments.html#comment-links">Comment Links</a></li>
+         </ul>
          <a href="Templates.html">Generating Code</a>
+         <ul>
+            <li><a href="Templates.html#whats-generated">What's Generated</a></li>
+         </ul>
          <a href="Customizing.html">Customizing Code Generation</a>
+         <ul>
+            <li><a href="Customizing.html#partial-classes">Partial Classes</a></li>
+            <li><a href="Customizing.html#replacing-the-t4-templates">Replacing the T4 Templates</a></li>
+         </ul>
          <a href="Development.html">Contributing</a>
-         <a href="License.html">License</a>
+         <a href="Licensing.html">License</a>
 
       </div>
       <section class="main-content">
          {{ content }}
       </section>
       <footer class="site-footer">
+
+
+
+
 
 
 

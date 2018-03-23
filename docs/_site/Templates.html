@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+   <meta charset="UTF-8">
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116198145-1"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-116198145-1');
+   </script>
+
+   <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Generating Code | Entity Framework Visual Designer</title>
+<meta name="generator" content="Jekyll v3.6.2" />
+<meta property="og:title" content="Generating Code" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
+<meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
+<link rel="canonical" href="http://localhost:4000/Templates.html" />
+<meta property="og:url" content="http://localhost:4000/Templates.html" />
+<meta property="og:site_name" content="Entity Framework Visual Designer" />
+<script type="application/ld+json">
+{"description":"Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond","@type":"WebPage","url":"http://localhost:4000/Templates.html","headline":"Generating Code","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="theme-color" content="#157878">
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" href="/assets/css/style.css?v=0d8ebc97586a633e0378b9c27f7cbbca5f0deb28">
+   <style>
+      .sidebar {
+         float: right;
+         width: 256px;
+         min-height: 35em;
+         border: 1px solid darkgreen;
+         margin-left: 3em;
+         margin-top: 2em;
+         padding: 1em;
+         font-size: 14px;
+      }
+
+         .sidebar a, .sidebar a:visited, .sidebar a:hover {
+            display: block;
+            color: #159957;
+         }
+
+            .sidebar a + a {
+               margin-top: .5em;
+            }
+
+         .sidebar ul {
+            margin-top: 0;
+            margin-bottom: .5em;
+         }
+
+      .content-wrapper {
+         max-width: 80em;
+         margin: 0 auto;
+      }
+
+      .site-footer {
+         font-size: .7em;
+      }
+
+      .site-footer-owner {
+         font-weight: normal;
+      }
+
+      .main-content {
+         margin: 0;
+      }
+
+         .main-content a,
+         .main-content a:visited {
+            color: firebrick;
+         }
+
+            .main-content a:hover {
+               color: firebrick;
+               /*text-decoration: none;*/
+            }
+
+         .main-content table {
+            font-size: .95rem;
+         }
+
+            .main-content table th, .main-content table td {
+               border: 1px solid darkgray;
+            }
+
+            .main-content table tr th:first-child {
+               width: 20%;
+            }
+
+         .main-content h2 {
+            border-top: 2px double #159957;
+            margin-top: 3rem;
+         }
+
+      @media screen and (max-width: 42em) {
+         .sidebar {
+            display: none;
+         }
+      }
+   </style>
+</head>
+<body>
+   <section class="page-header">
+      <h1 class="project-name">Entity Framework Visual Designer</h1>
+      <h2 class="project-tagline">Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond</h2>
+      
+      <a href="http://github.com/msawczyn/EFDesigner" class="btn">View on GitHub</a>
+      
+      
+      <a href="http://github.com/msawczyn/EFDesigner/zipball/gh-pages" class="btn">Download .zip</a>
+      <a href="http://github.com/msawczyn/EFDesigner/tarball/gh-pages" class="btn">Download .tar.gz</a>
+      
+   </section>
+
+   <div class="content-wrapper">
+      <div class="sidebar">
+         <a href="index.html">Home</a>
+         <a href="Getting-Started.html">Getting Started</a>
+         <a href="Using-the-designer.html">Using the Designer</a>
+         <ul>
+            <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
+            <li><a href="Using-the-designer.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Entities.html">Persistent Entities</a>
+         <ul>
+            <li><a href="Entities.html#adding-an-entity">Adding an entity</a></li>
+            <li><a href="Entities.html#removing-an-entity">Removing an entity</a></li>
+            <li><a href="Entities.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Properties.html">Properties</a>
+         <ul>
+            <li><a href="Properties.html#adding-a-property">Adding a property</a></li>
+            <li><a href="Properties.html#removing-a-property">Removing a property</a></li>
+            <li><a href="Properties.html#context-menu">Context menu</a></li>
+            <li><a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a></li>
+         </ul>
+         <a href="Associations.html">Associations</a>
+         <ul>
+            <li><a href="Associations.html#cardinalities">Cardinalities</a></li>
+            <li><a href="Associations.html#unidirectional-associations">Unidirectional Associations</a></li>
+            <li><a href="Associations.html#bidirectional-associations">Bidirectional Associations</a></li>
+         </ul>
+         <a href="Inheritance.html">Inheritance</a>
+         <a href="Enumerations.html">Enumerations</a>
+         <ul>
+            <li><a href="Enumerations.html#adding-a-value">Adding a value</a></li>
+            <li><a href="Enumerations.html#removing-a-value">Removing a value</a></li>
+            <li><a href="Enumerations.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Comments.html">Comments</a>
+         <ul>
+            <li><a href="Comments.html#comment-links">Comment Links</a></li>
+         </ul>
+         <a href="Templates.html">Generating Code</a>
+         <ul>
+            <li><a href="Templates.html#whats-generated">What's Generated</a></li>
+         </ul>
+         <a href="Customizing.html">Customizing Code Generation</a>
+         <ul>
+            <li><a href="Customizing.html#partial-classes">Partial Classes</a></li>
+            <li><a href="Customizing.html#replacing-the-t4-templates">Replacing the T4 Templates</a></li>
+         </ul>
+         <a href="Development.html">Contributing</a>
+         <a href="Licensing.html">License</a>
+
+      </div>
+      <section class="main-content">
+         <h1 id="generating-code">Generating Code</h1>
+
+<p>Likely the whole reason you’ve created the entities in the designer is that you
+eventually want to generate code for some application. Nothing could be easier.</p>
+
+<p>If you’ve set the designer to automatically generate code on save, just save the
+model. Your code will be created.</p>
+
+<p>Otherwise, you can right click anywhere and choose <em>Generate Code</em>, or use the 
+shortcut key (<code class="highlighter-rouge">Ctrl-G</code> by default).</p>
+
+<p>If previously generated files no longer exist, the T4 templates attempt to clean
+them up. They err on the conservative side, though… we wouldn’t want to start deleting
+code that you spent time creating, would we? So there may be a few strays left behind
+when you delete entities or enumerations and regenerate.</p>
+
+<p>Code is generated where you told it go (or, if you haven’t, in the same directory and
+solution folder where the model file lives).</p>
+
+<p>Since code is generated from the T4 files, you can also do the standard <em>Run Custom Tool</em> command
+on the .tt file and get the same result.</p>
+
+<h2 id="whats-generated">What’s Generated</h2>
+
+<p>While <a href="Customizing">you can easily change the code that’s generated</a>, you might want to know exactly what 
+you’ll get if you use the code that’s generated out-of-the-box. If so, read on!</p>
+
+<h3 id="dbcontext">DbContext</h3>
+
+<table>
+<thead>
+<tr><th>Properties &amp; Methods</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><code style="background-color: transparent; font-weight: bold;">[DbContext Name].generated.cs</code></td></tr>
+<tr><td valign="top">(various DbSets)</td><td valign="top">One per class in the model</td></tr>
+<tr><td valign="top">ConnectionString</td><td valign="top">Static string that will be used as the default connection string</td></tr>
+<tr><td valign="top">Constructors</td><td valign="top">Constructors are generated for each constructor signature of the DbContext class. They initialize various properties that were
+entered into the designer and, for those things the designer couldn't anticipate, executes a call to <code class="highlighter-rouge">CustomInit()</code>, a partial method you can choose to implement
+to do anything else you need to do in the constructor.</td></tr>
+<tr><td valign="top">OnModelCreatingImpl</td><td valign="top">Since OnModelCreating is generated, this is a partial method you can optionally implement to do some custom work just <i>before</i> the DbModelBuilder functions are called.</td></tr>
+<tr><td valign="top">OnModelCreatedImpl</td><td valign="top">Same as the above, but called just <i>after</i> the DbModelBuilder functions are executed.</td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><code style="background-color: transparent;">[DbContext Name]DatabaseInitializer.generated.cs</code></td></tr>
+<tr><td valign="top" colspan="2">Generated to derive from the initializer class set in the model. Won't be generated if <code>None</code> was chosen. No properties or methods overridden.</td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><code style="background-color: transparent;">[DbContext Name]DbMigrationConfiguration.generated.cs</code></td></tr>
+<tr><td valign="top">Constructor</td><td valign="top">Sets up values indicated in the designer and calls the partial method <code>Init()</code> that you can optionally implement to do custom work. Seed methods can be added to a partial of this class in another file.</td></tr>
+</tbody>
+</table>
+
+<h3 id="entities">Entities</h3>
+
+<table>
+<thead>
+<tr><th>Properties &amp; Methods</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><code style="background-color: transparent;">[Entity Name].generated.cs</code></td></tr>
+<tr><td valign="top">Default Constructor</td><td valign="top">Always generated (because Entity Framework needs it), but will be created as <code>protected</code> if there are any required properties or associations in the class. Calls the partial method <code>Init()</code> that you can optionally implement to do custom work.</td></tr>
+<tr><td valign="top">Other Constructor</td><td valign="top">Generated if there are any required properties. Parameters will include those properties, and code in the body will check to ensure they're not null or the default value for their type. Calls the partial method <code>Init()</code> that you can optionally implement to do custom work.</td></tr>
+<tr><td valign="top">Create</td><td valign="top">A static convenience method that creates and returns an entity. Useful for LINQ queries where constructor parameters are necessary, since there are requirements to only use parameterless constructors when querying a database.</td></tr>
+<tr><td valign="top">(listed properties)</td><td valign="top">Declarations of the properties and associations in the model.</td></tr>
+</tbody>
+</table>
+
+<h3 id="next-step">Next Step</h3>
+<p><a href="Customizing">Customizing Code Generation</a></p>
+
+      </section>
+      <footer class="site-footer">
+
+
+
+
+
+
+
+         
+         <!--<span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>-->
+         
+         <!--<span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>-->
+      </footer>
+   </div>
+
+</body>
+</html>

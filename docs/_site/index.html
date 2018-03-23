@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+   <meta charset="UTF-8">
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116198145-1"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-116198145-1');
+   </script>
+
+   <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Entity Framework Visual Designer | Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond</title>
+<meta name="generator" content="Jekyll v3.6.2" />
+<meta property="og:title" content="Entity Framework Visual Designer" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
+<meta property="og:description" content="Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Entity Framework Visual Designer" />
+<script type="application/ld+json">
+{"name":"Entity Framework Visual Designer","description":"Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond","@type":"WebSite","url":"http://localhost:4000/","headline":"Entity Framework Visual Designer","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="theme-color" content="#157878">
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" href="/assets/css/style.css?v=0d8ebc97586a633e0378b9c27f7cbbca5f0deb28">
+   <style>
+      .sidebar {
+         float: right;
+         width: 256px;
+         min-height: 35em;
+         border: 1px solid darkgreen;
+         margin-left: 3em;
+         margin-top: 2em;
+         padding: 1em;
+         font-size: 14px;
+      }
+
+         .sidebar a, .sidebar a:visited, .sidebar a:hover {
+            display: block;
+            color: #159957;
+         }
+
+            .sidebar a + a {
+               margin-top: .5em;
+            }
+
+         .sidebar ul {
+            margin-top: 0;
+            margin-bottom: .5em;
+         }
+
+      .content-wrapper {
+         max-width: 80em;
+         margin: 0 auto;
+      }
+
+      .site-footer {
+         font-size: .7em;
+      }
+
+      .site-footer-owner {
+         font-weight: normal;
+      }
+
+      .main-content {
+         margin: 0;
+      }
+
+         .main-content a,
+         .main-content a:visited {
+            color: firebrick;
+         }
+
+            .main-content a:hover {
+               color: firebrick;
+               /*text-decoration: none;*/
+            }
+
+         .main-content table {
+            font-size: .95rem;
+         }
+
+            .main-content table th, .main-content table td {
+               border: 1px solid darkgray;
+            }
+
+            .main-content table tr th:first-child {
+               width: 20%;
+            }
+
+         .main-content h2 {
+            border-top: 2px double #159957;
+            margin-top: 3rem;
+         }
+
+      @media screen and (max-width: 42em) {
+         .sidebar {
+            display: none;
+         }
+      }
+   </style>
+</head>
+<body>
+   <section class="page-header">
+      <h1 class="project-name">Entity Framework Visual Designer</h1>
+      <h2 class="project-tagline">Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond</h2>
+      
+      <a href="http://github.com/msawczyn/EFDesigner" class="btn">View on GitHub</a>
+      
+      
+      <a href="http://github.com/msawczyn/EFDesigner/zipball/gh-pages" class="btn">Download .zip</a>
+      <a href="http://github.com/msawczyn/EFDesigner/tarball/gh-pages" class="btn">Download .tar.gz</a>
+      
+   </section>
+
+   <div class="content-wrapper">
+      <div class="sidebar">
+         <a href="index.html">Home</a>
+         <a href="Getting-Started.html">Getting Started</a>
+         <a href="Using-the-designer.html">Using the Designer</a>
+         <ul>
+            <li><a href="Using-the-designer.html#design-surface-properties">Design Surface Properties</a></li>
+            <li><a href="Using-the-designer.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Entities.html">Persistent Entities</a>
+         <ul>
+            <li><a href="Entities.html#adding-an-entity">Adding an entity</a></li>
+            <li><a href="Entities.html#removing-an-entity">Removing an entity</a></li>
+            <li><a href="Entities.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Properties.html">Properties</a>
+         <ul>
+            <li><a href="Properties.html#adding-a-property">Adding a property</a></li>
+            <li><a href="Properties.html#removing-a-property">Removing a property</a></li>
+            <li><a href="Properties.html#context-menu">Context menu</a></li>
+            <li><a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a></li>
+         </ul>
+         <a href="Associations.html">Associations</a>
+         <ul>
+            <li><a href="Associations.html#cardinalities">Cardinalities</a></li>
+            <li><a href="Associations.html#unidirectional-associations">Unidirectional Associations</a></li>
+            <li><a href="Associations.html#bidirectional-associations">Bidirectional Associations</a></li>
+         </ul>
+         <a href="Inheritance.html">Inheritance</a>
+         <a href="Enumerations.html">Enumerations</a>
+         <ul>
+            <li><a href="Enumerations.html#adding-a-value">Adding a value</a></li>
+            <li><a href="Enumerations.html#removing-a-value">Removing a value</a></li>
+            <li><a href="Enumerations.html#context-menu">Context menu</a></li>
+         </ul>
+         <a href="Comments.html">Comments</a>
+         <ul>
+            <li><a href="Comments.html#comment-links">Comment Links</a></li>
+         </ul>
+         <a href="Templates.html">Generating Code</a>
+         <ul>
+            <li><a href="Templates.html#whats-generated">What's Generated</a></li>
+         </ul>
+         <a href="Customizing.html">Customizing Code Generation</a>
+         <ul>
+            <li><a href="Customizing.html#partial-classes">Partial Classes</a></li>
+            <li><a href="Customizing.html#replacing-the-t4-templates">Replacing the T4 Templates</a></li>
+         </ul>
+         <a href="Development.html">Contributing</a>
+         <a href="Licensing.html">License</a>
+
+      </div>
+      <section class="main-content">
+         <!--# Entity Framework Visual Designer
+
+### Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
+-->
+<p>This Visual Studio 2017 IDE extension adds a new file type (.efmodel) that allows for visual 
+design of persistent classes. Inheritance, unidirectional and bidirectional associations are all 
+supported. Enumerations are also included in the visual model, as is the ability to add text 
+blocks to explain potentially arcane parts of your design.</p>
+
+<p>T4 files are used to generate code-first DBContext and POCO class files for both EF6 and EFCore, 
+and these can be modified to generate your own particular style.</p>
+
+<table width="100%"><tr><td align="center" width="100%">
+<img src="images/Designer.jpg" width="95%" />
+</td></tr></table>
+
+<p>If you are used to the Entity Framework visual modeling that came with prior versions of 
+Visual Studio, you’ll be pretty much at home. The goal was to duplicate at least those features 
+and, in addition, all the things that should have been there. Things like</p>
+<ul>
+  <li>the ability to show and hide parts of the model</li>
+  <li>easy customization of generated output</li>
+  <li>class nodes that can be colored to visually group the model</li>
+  <li>different concerns that can be generated into different subdirectories (entities, enums, dbcontext)</li>
+  <li>entities by default being generated as partials so the default code can be easily modified</li>
+  <li>string length, index flags, required attributes and other properties being available in the designer</li>
+  <li>plus many other tiny bits that kept getting under my skin.</li>
+</ul>
+
+<p>You should think of this extension as two parts: first the design surface and, separately, the 
+T4 templates that generate the code. The template(s) can be changed without modifying, compiling 
+and reinstalling the extension – it’s designed this way so that developers can easily make 
+whatever changes suit their fancy to how the code is generated, since everybody’s got their own 
+personal quirks on how their code should look.</p>
+
+<p>This documentation is a work-in-progress, so suggestions are welcome. The tool has been used in 
+production (i.e., generating code for real projects) for quite a while, but more eyes and different 
+approaches are always good.</p>
+
+<h3 id="next-step">Next Step</h3>
+<p><a href="Getting-Started">Getting Started</a></p>
+
+      </section>
+      <footer class="site-footer">
+
+
+
+
+
+
+
+         
+         <!--<span class="site-footer-owner"><a href="http://github.com/msawczyn/EFDesigner">EFDesigner</a> is maintained by <a href="http://github.com/msawczyn">Michael Sawczyn</a>.</span>-->
+         
+         <!--<span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>-->
+      </footer>
+   </div>
+
+</body>
+</html>
