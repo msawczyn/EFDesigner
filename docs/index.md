@@ -31,9 +31,5 @@ and reinstalling the extension -- it's designed this way so that developers can 
 whatever changes suit their fancy to how the code is generated, since everybody's got their own 
 personal quirks on how their code should look.
 
-This documentation is a work-in-progress, so suggestions are welcome. The tool has been used in 
-production (i.e., generating code for real projects) for quite a while, but more eyes and different 
-approaches are always good.
-
 ### Next Step 
 [Getting Started](Getting-Started)
