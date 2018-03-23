@@ -65,14 +65,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                      errorMessage = $"Invalid value for {modelEnum.Name}. Must be {modelEnum.ValueType}.";
                   else
                   {
-                     bool hasDuplicates = modelEnum.Values
-                                                   .Where(x => !string.IsNullOrEmpty(x.Value))
-                                                   .Select(x => x.Value)
-                                                   .GroupBy(x => x)
-                                                   .ToDictionary(g => g.Key, g => g.Count())
-                                                   .Any(d => d.Value > 1);
+                     bool hasDuplicates = modelEnum.Values.Any(x => x != element && x.Value == newValue);
                      if (hasDuplicates)
-                        errorMessage = $"Value {newValue} is already set in {modelEnum.Name}. Can\'t have duplicate values.";
+                        errorMessage = $"Value {newValue} is already present in {modelEnum.Name}. Can't have duplicate values.";
                   }
 
                }

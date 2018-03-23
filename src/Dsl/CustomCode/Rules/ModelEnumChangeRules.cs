@@ -50,6 +50,25 @@ namespace Sawczyn.EFDesigner.EFModel
                if (current.Name.ToLowerInvariant() != "paste")
                   errorMessage = CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
                break;
+
+            case "IsFlags":
+               bool isFlags = (bool)e.NewValue;
+               if (isFlags)
+               {
+                  if (element.Values.Any(v => !string.IsNullOrEmpty(v.Value)))
+                  {
+                     // show confirmation
+                  }
+
+                  long bit = 1;
+                  foreach (ModelEnumValue modelEnumValue in element.Values)
+                  {
+                     modelEnumValue.Value = bit.ToString();
+                     bit *= 2;
+                  }
+               }
+
+               break;
          }
 
          if (errorMessage != null)
