@@ -35,7 +35,7 @@ Both the enum and the values have property window entries. Properties of the enu
 <tbody>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
 <tr><td valign="top">Namespace</td><td valign="top"><i>String</i>. The namespace for this enum.</td></tr>
-<!--<tr><td valign="top">Values are Flags</td><td valign="top"><i>Boolean</i>. If true, the [Flags] attribute will be output in the generated code and the values of the enum will be reset to binary increments in the order which they appear in the designer. If values already have initializers, you'll be asked to confirm the action before they're wiped out and reset.</td></tr>-->
+<tr><td valign="top">Values are Flags</td><td valign="top"><i>Boolean</i>. If true, the [Flags] attribute will be output in the generated code and the values of the enum will be reset to binary increments in the order which they appear in the designer. If values already have initializers, you'll be asked to confirm the action before they're wiped out and reset.</td></tr>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Display</b></td></tr>
 <tr><td valign="top">Fill Color</td><td valign="top"><i>Color</i>. The color for enum's banner on the design surface.</td></tr>
 <tr><td valign="top">Visible</td><td valign="top"><i>Boolean</i>. If true, the enum will be visible on the design surface. If false, will be hidden. Can also be toggled via the context menu when the enum is selected.</td></tr>
@@ -70,8 +70,8 @@ Properies of the enum values are:
 
 To remove a value, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
 
-<!--If enum values are being automatically generated due to the Flags attribute being set on the enum, these will be regenerated so that gaps don't exist.
--->
+If enum values are being automatically generated due to the Flags attribute being set on the enum, these will be regenerated so that gaps don't exist.
+
 ## Context Menu
 
 Right-clicking on a value displays a Visual Studio context menu with some new choices pertinent to that value.

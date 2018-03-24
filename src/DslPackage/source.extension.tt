@@ -3,16 +3,16 @@
 <#@ output extension=".vsixmanifest" #>
 <#
 /***************************************************************************
-	Rather than following the normal DSL practice of including most of the
-	template from a common include file, this template is deliberately inlined 
-	in the DslPackage project to make it easier to customise. 
-	
-	If you wish to edit the vsix manifest with its designer, then simply copy 
-	the current content of the generated manifest, delete this template from
-	the project, and add back the copied source.extension.vsixmanifest. Note
-	that if you do this you will lose automatic tracking of certain properties
-	of the DSL such as the name, description and version, and will have to 
-	edit these in your custom manifest as well should you wish to change them.
+   Rather than following the normal DSL practice of including most of the
+   template from a common include file, this template is deliberately inlined 
+   in the DslPackage project to make it easier to customise. 
+   
+   If you wish to edit the vsix manifest with its designer, then simply copy 
+   the current content of the generated manifest, delete this template from
+   the project, and add back the copied source.extension.vsixmanifest. Note
+   that if you do this you will lose automatic tracking of certain properties
+   of the DSL such as the name, description and version, and will have to 
+   edit these in your custom manifest as well should you wish to change them.
 ***************************************************************************/
 
   // The name of the Dsl Project - Must be updated if the project is renamed.
@@ -28,7 +28,7 @@
     <Description><#= this.Dsl.Description #></Description>
     <Icon>Logo.ico</Icon>
  </Metadata>
-  <Installation InstalledByMsi="false">
+  <Installation InstalledByMsi="false" AllUsers="true">
     <InstallationTarget Version="[15.0]" Id="Microsoft.VisualStudio.Community" />
   </Installation>
   <Dependencies>

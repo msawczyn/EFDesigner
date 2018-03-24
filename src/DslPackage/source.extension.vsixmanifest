@@ -6,7 +6,7 @@
     <Description>Entity Framework visual editor for EF6, EFCore and beyond.</Description>
     <Icon>Logo.ico</Icon>
  </Metadata>
-  <Installation InstalledByMsi="false">
+  <Installation InstalledByMsi="false" AllUsers="true">
     <InstallationTarget Version="[15.0]" Id="Microsoft.VisualStudio.Community" />
   </Installation>
   <Dependencies>

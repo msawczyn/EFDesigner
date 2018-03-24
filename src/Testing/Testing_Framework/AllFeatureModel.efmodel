@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.6" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.9" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired">
       <attributes>
@@ -260,6 +260,24 @@
           </modelEnumHasValues>
           <modelEnumHasValues Id="d2ec8a0a-1ada-4a6a-bc69-24d06df1c771">
             <modelEnumValue Id="1f47604f-8379-443e-99e1-9803d3a77b7c" name="C" />
+          </modelEnumHasValues>
+        </values>
+      </modelEnum>
+    </modelRootHasEnums>
+    <modelRootHasEnums Id="da7d0ca3-5abc-4d1a-8754-e435ed7d84b6">
+      <modelEnum Id="bd0cda7d-2914-445c-8721-61ef7496c1bf" namespace="Testing" name="FlagEnum" isFlags="true">
+        <values>
+          <modelEnumHasValues Id="c4eaf31f-ad7b-401b-8f00-61fc11952209">
+            <modelEnumValue Id="460f7931-0f14-4026-8e62-c472554f3478" name="Value1" value="1" />
+          </modelEnumHasValues>
+          <modelEnumHasValues Id="353090b6-b9e9-48a4-8225-a61a04373131">
+            <modelEnumValue Id="828ae2cf-a075-4962-b103-c1410e9a9732" name="Value2" value="2" />
+          </modelEnumHasValues>
+          <modelEnumHasValues Id="4ad276f6-1f34-472b-a147-957e76d86182">
+            <modelEnumValue Id="901eeb27-349f-49b2-b015-db3d904d3389" name="Value3" value="4" />
+          </modelEnumHasValues>
+          <modelEnumHasValues Id="3f38de94-8900-47e9-a1e6-27e5f23d934c">
+            <modelEnumValue Id="308913d4-c322-4145-98bd-420aeaf55f33" name="Value5" value="8" />
           </modelEnumHasValues>
         </values>
       </modelEnum>

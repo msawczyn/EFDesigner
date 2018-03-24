@@ -16,6 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(ModelClassAddRules),
          typeof(ModelClassChangeRules),
          typeof(ModelEnumChangeRules),
+         typeof(ModelEnumValueAddRules),
          typeof(ModelEnumValueChangeRules),
          typeof(ModelRootChangeRules)
       };

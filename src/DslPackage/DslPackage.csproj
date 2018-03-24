@@ -20,6 +20,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <ClearToolboxCacheInExpHive>true</ClearToolboxCacheInExpHive>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <Ngen>true</Ngen>
+    <NgenPriority>2</NgenPriority>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

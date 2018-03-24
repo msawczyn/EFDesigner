@@ -20,7 +20,7 @@ solution folder where the model file lives).
 Since code is generated from the T4 files, you can also do the standard *Run Custom Tool* command
 on the .tt file and get the same result.
 
-## What's Generated
+## Understanding the code
 
 While [you can easily change the code that's generated](Customizing), you might want to know exactly what 
 you'll get if you use the code that's generated out-of-the-box. If so, read on!

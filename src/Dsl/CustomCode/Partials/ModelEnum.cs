@@ -10,6 +10,15 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       public static string[] ValidValueTypes = {/*"SByte", */"Int16", "Int32", "Int64"};
 
+      public void SetFlagValues()
+      {
+         if (IsFlags)
+         {
+            for (int i = 0; i < Values.Count; i++)
+               Values[i].Value = Math.Pow(2, i).ToString();
+         }
+      }
+
       /// <summary>
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.

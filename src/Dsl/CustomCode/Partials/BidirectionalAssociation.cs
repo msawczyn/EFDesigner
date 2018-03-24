@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Modeling.Validation;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   [ValidationState(ValidationState.Enabled)]
    public partial class BidirectionalAssociation
    {
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]

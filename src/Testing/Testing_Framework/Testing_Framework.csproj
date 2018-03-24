@@ -81,6 +81,7 @@
     <Compile Include="Generated\Entities\UParentOptional.generated.cs" />
     <Compile Include="Generated\Entities\UParentRequired.generated.cs" />
     <Compile Include="Generated\Enums\Enum1.generated.cs" />
+    <Compile Include="Generated\Enums\FlagEnum.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

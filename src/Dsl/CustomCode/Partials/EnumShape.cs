@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
@@ -88,25 +89,28 @@ namespace Sawczyn.EFDesigner.EFModel
                DomainRoleInfo parentFromRole = relationshipFrom.DomainRoles[0];
 
                // Get the node in which the element is embedded, usually the element displayed in the shape:
-               ModelElement parentFrom = parentFromLink.LinkedElements[0];
+               ModelEnum parentFrom = parentFromLink.LinkedElements[0] as ModelEnum;
 
                // Same again for the target:
                DomainRelationshipInfo relationshipTo = parentToLink.GetDomainRelationship();
                DomainRoleInfo parentToRole = relationshipTo.DomainRoles[0];
-               ModelElement parentTo = parentToLink.LinkedElements[0];
+               ModelEnum parentTo = parentToLink.LinkedElements[0] as ModelEnum;
 
                // Mouse went down and up in same parent and same compartment:
-               if (parentTo == parentFrom && relationshipTo == relationshipFrom)
+               if (parentFrom != null && parentTo != null && parentTo == parentFrom && relationshipTo == relationshipFrom)
                {
                   // Find index of target position:
                   int newIndex = parentToRole.GetElementLinks(parentTo).IndexOf(parentToLink);
 
                   if (newIndex >= 0)
+                  {
                      using (Transaction t = parentFrom.Store.TransactionManager.BeginTransaction("Move list item"))
                      {
                         parentFromLink.MoveToIndex(parentFromRole, newIndex);
+                        parentTo.SetFlagValues();
                         t.Commit();
                      }
+                  }
                }
             }
          }

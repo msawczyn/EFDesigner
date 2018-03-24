@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AD98A5BD-E
 		..\docs\Properties.md = ..\docs\Properties.md
 		..\docs\Templates.md = ..\docs\Templates.md
 		..\docs\Using-the-designer.md = ..\docs\Using-the-designer.md
+		..\docs\Validations.md = ..\docs\Validations.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{89098F6A-F0C2-4707-B627-389BE97AED29}"

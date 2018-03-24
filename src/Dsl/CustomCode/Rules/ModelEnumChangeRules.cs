@@ -1,4 +1,5 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
@@ -53,20 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "IsFlags":
                bool isFlags = (bool)e.NewValue;
-               if (isFlags)
-               {
-                  if (element.Values.Any(v => !string.IsNullOrEmpty(v.Value)))
-                  {
-                     // show confirmation
-                  }
-
-                  long bit = 1;
-                  foreach (ModelEnumValue modelEnumValue in element.Values)
-                  {
-                     modelEnumValue.Value = bit.ToString();
-                     bit *= 2;
-                  }
-               }
+               element.SetFlagValues();
 
                break;
          }
