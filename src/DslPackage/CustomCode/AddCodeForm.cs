@@ -19,7 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          txtCode.Lines = element.Attributes.Select(x => $"{x};").ToArray();
       }
 
-      public IEnumerable<string> Lines => txtCode.Lines;
+      public IEnumerable<string> Lines => txtCode.Lines.Where(s => !string.IsNullOrEmpty(s.Trim())).ToList();
 
       private void btnOk_Click(object sender, EventArgs e)
       {

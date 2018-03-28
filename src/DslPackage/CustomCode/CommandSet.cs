@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Drawing;
@@ -139,20 +140,43 @@ namespace Sawczyn.EFDesigner.EFModel
                using (Transaction tx = element.Store.TransactionManager.BeginTransaction("AddProperties"))
                {
                   element.Attributes.Clear();
-                  IEnumerable<ModelAttribute> modelAttributes =
-                     codeForm.Lines
-                             .Select(s => ModelAttribute.Parse(element.ModelRoot, s))
-                             .Where(attr => attr != null)
-                             .Select(parseResult => new ModelAttribute(element.Store,
-                                                                       new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name),
-                                                                       new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"),
-                                                                       new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true),
-                                                                       new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0),
-                                                                       new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue),
-                                                                       new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity),
-                                                                       new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
-                                                                       ));
-                  element.Attributes.AddRange(modelAttributes);
+
+                  foreach (string codeFormLine in codeForm.Lines)
+                  {
+                     ParseResult parseResult = ModelAttribute.Parse(element.ModelRoot, codeFormLine);
+                     if (parseResult == null)
+                     {
+                        Messages.AddWarning($"Could not parse '{codeFormLine}'. The line will be discarded.");
+                        continue;
+                     }
+
+                     string message = null;
+
+                     if (string.IsNullOrEmpty(parseResult.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(parseResult.Name))
+                        message = $"Could not add '{parseResult.Name}' to {element.Name}: '{parseResult.Name}' is not a valid .NET identifier";
+                     else if (element.AllAttributes.Any(x => x.Name == parseResult.Name))
+                        message = $"Could not add {parseResult.Name} to {element.Name}: {parseResult.Name} already in use";
+                     else if (element.AllNavigationProperties().Any(p => p.PropertyName == parseResult.Name))
+                        message = $"Could not add {parseResult.Name} to {element.Name}: {parseResult.Name} already in use";
+
+                     if (message != null)
+                     {
+                        Messages.AddWarning(message);
+                        continue;
+                     }
+
+                     ModelAttribute modelAttribute = new ModelAttribute(element.Store,
+                                                                      new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name),
+                                                                      new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"),
+                                                                      new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true),
+                                                                      new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0),
+                                                                      new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue),
+                                                                      new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity),
+                                                                      new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
+                                                                     );
+                     element.Attributes.Add(modelAttribute);
+                  }
+
                   tx.Commit();
                }
             }
@@ -354,10 +378,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectClasses(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-         foreach (ShapeElement shape in childShapes.OfType<ClassShape>().Where(x => x.CanSelect))
-         {
+         foreach (ClassShape shape in childShapes.OfType<ClassShape>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
-         }
       }
 
       #endregion Select classes
@@ -377,10 +399,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectEnums(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-         foreach (ShapeElement shape in childShapes.OfType<EnumShape>().Where(x => x.CanSelect))
-         {
+         foreach (EnumShape shape in childShapes.OfType<EnumShape>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
-         }
       }
 
       #endregion Select enums
@@ -400,10 +420,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectAssocs(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-         foreach (ShapeElement shape in childShapes.OfType<AssociationConnector>().Where(x => x.CanSelect))
-         {
+         foreach (AssociationConnector shape in childShapes.OfType<AssociationConnector>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
-         }
       }
 
       #endregion Select associations
@@ -423,10 +441,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectUnidir(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-         foreach (ShapeElement shape in childShapes.OfType<UnidirectionalConnector>().Where(x => x.CanSelect))
-         {
+         foreach (UnidirectionalConnector shape in childShapes.OfType<UnidirectionalConnector>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
-         }
       }
 
       #endregion Find
@@ -446,10 +462,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectBidir(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-         foreach (ShapeElement shape in childShapes.OfType<BidirectionalConnector>().Where(x => x.CanSelect))
-         {
+         foreach (BidirectionalConnector shape in childShapes.OfType<BidirectionalConnector>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
-         }
       }
 
       #endregion Find

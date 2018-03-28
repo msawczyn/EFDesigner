@@ -246,7 +246,9 @@ To edit the properties as text, select the entity and right-click to get its con
 Choose _Add properties via Code_ and you'll see a small window pop up with the current
 properties:
 
+<table><tr><td>
 <img src="images/PropertyEditor.jpg">
+</td></tr></table>
 
 Add, edit or remove text as required - when you click *OK*, all the properties will be replaced
 by the parsed values of the text in that window. Any unrecongized values will be discarded.
@@ -255,6 +257,40 @@ You'll note that one of the options is for the text to be valid C# property decl
 have classes that you want to add to the model, you'll be able to copy their property declarations and
 paste them in here. Any lines with curly braces will be truncated at the first open brace. Trailing semicolons
 are discarded as well.
+
+Let's say you had an Address class in your code and wanted to add it to your persistent entity model.
+
+```C#
+
+   public class Address
+   {
+      public int Id               { get; set; }
+      public string AddressLine1  { get; set; }
+      public string AddressLine2  { get; set; }
+      public string City          { get; set; }
+      public string StateProvince { get; set; }
+      public string PostalCode    { get; set; }
+   }
+
+```
+
+You could add the class to the designer and open the *Add properties via Code* window. Copy and paste the properties from your class into this window and click OK.
+
+<table><tr><td>
+<img src="images/AddAddress-1.jpg">
+</td></tr></table>
+
+The Address class is updated with the new properties. 
+
+<table><tr><td>
+<img src="images/AddAddress-2.jpg">
+</td></tr></table>
+
+A few things you might notice:
+
+- We duplicated the `Id` property, since it was already in the entity and we didn't delete it before pasting. When the text was parsed and the properties created, that duplicate was discarded. A warning appeared in Visual Studio's error list letting us know that it was discarded and why.
+- The `{ get; set; }` blocks were discarded, as was the semicolon (`;`) from the one property initially presented.
+- We added properties using CLR types (`int`, `string`), but they were added the model as classes (`Int32`, `String`).
 
 ### Next Step 
 [Associations](Associations)

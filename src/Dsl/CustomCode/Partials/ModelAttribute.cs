@@ -308,7 +308,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static ParseResult Parse(ModelRoot modelRoot, string input)
       {
-         string _input = input.Split('{')[0].Trim(';');
+         string _input = input?.Split('{')[0].Trim(';');
+         if (_input == null) return null;
+
          ParseResult result = AttributeParser.Parse(_input);
          result.Type = ToCLRType(result.Type);
 
