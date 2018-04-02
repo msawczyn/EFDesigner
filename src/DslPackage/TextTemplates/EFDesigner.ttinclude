@@ -232,6 +232,8 @@ void WriteClass(ModelClass modelClass)
    Output("using System.Collections.Generic;");
    Output("using System.Collections.ObjectModel;");
    Output("using System.ComponentModel;");
+   Output("using System.ComponentModel.DataAnnotations;");
+   Output("using System.ComponentModel.DataAnnotations.Schema;");
    Output("using System.Linq;");
    List<string> additionalUsings = GetAdditionalUsingStatementsEF6(modelClass.ModelRoot);
    if (additionalUsings.Any())
@@ -474,6 +476,8 @@ void WritePersistentProperties(ModelClass modelClass)
          segments.Add("Required");
       if (modelAttribute.Indexed)
          segments.Add("Indexed");
+      if (modelAttribute.MinLength > 0)
+         segments.Add($"Min length = {modelAttribute.MinLength}");
       if (modelAttribute.MaxLength > 0)
          segments.Add($"Max length = {modelAttribute.MaxLength}");
       if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
@@ -486,7 +490,8 @@ void WritePersistentProperties(ModelClass modelClass)
 
       if (!modelAttribute.AutoProperty)
       {
-         Output($"private {modelAttribute.PrimitiveType}{nullable} _{modelAttribute.Name};");
+         GenerateClassAnnotations(modelAttribute, "_");
+         Output($"protected {modelAttribute.PrimitiveType}{nullable} _{modelAttribute.Name};");
          Output($"partial void Set{modelAttribute.Name}({modelAttribute.PrimitiveType}{nullable} oldValue, ref {modelAttribute.PrimitiveType}{nullable} newValue);");
          Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.PrimitiveType}{nullable} result);");
          NL();
@@ -512,6 +517,7 @@ void WritePersistentProperties(ModelClass modelClass)
 
       if (modelAttribute.AutoProperty)
       {
+         GenerateClassAnnotations(modelAttribute);
          Output($"public {modelAttribute.PrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
       }
       else
@@ -532,9 +538,19 @@ void WritePersistentProperties(ModelClass modelClass)
       Output("/// <summary>");
       Output("/// Concurrency token");
       Output("/// </summary>");
-      Output("public DateTime Timestamp { get; set; }");
+      Output("[Timestamp]");
+      Output("public Byte[] Timestamp { get; set; }");
       NL();
    }
+}
+
+void GenerateClassAnnotations(ModelAttribute modelAttribute, string namePrefix = null)
+{
+   if (modelAttribute.IsIdentity)               Output("[Key]");
+   if (modelAttribute.Required)                 Output("[Required]");
+   if (modelAttribute.MaxLength > 0)            Output($"[MaxLength({modelAttribute.MaxLength})]");
+   if (modelAttribute.MinLength > 0)            Output($"[MinLength({modelAttribute.MinLength})]");
+   if (modelAttribute.IsConcurrencyToken)       Output("[ConcurrencyCheck]");
 }
 
 void WriteCalculatedProperties(ModelClass modelClass)

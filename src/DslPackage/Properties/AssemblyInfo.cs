@@ -13,12 +13,12 @@ using System.Runtime.ConstrainedExecution;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle(@"")]
-[assembly: AssemblyDescription(@"")]
+[assembly: AssemblyTitle("Entity Framework Visual Designer")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany(@"Sawczyn")]
-[assembly: AssemblyProduct(@"EFDesigner")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCompany("Michael Sawczyn")]
+[assembly: AssemblyProduct("EFDesigner")]
+[assembly: AssemblyCopyright("Copyright © Michael Sawczyn 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: System.Resources.NeutralResourcesLanguage("en")]
@@ -34,7 +34,7 @@ using System.Runtime.ConstrainedExecution;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion(@"1.0.3.5")]
+[assembly: AssemblyVersion("1.0.3.10")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]

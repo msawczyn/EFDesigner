@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using GOLD;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
- internal static class AttributeParser
+   public static class AttributeParser
    {
       private static Parser _parser;
 
@@ -14,7 +13,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             if (_parser == null)
             {
-               _parser = new Parser {TrimReductions = false};
+               _parser = new Parser { TrimReductions = false };
 
                using (MemoryStream stream = new MemoryStream(Resources.AttributeGrammar))
                {
@@ -74,6 +73,14 @@ namespace Sawczyn.EFDesigner.EFModel
                            // <Max Length> ::= '[' DecLiteral ']'
                            // <Max Length> ::= '(' DecLiteral ')'
                            result.MaxLength = int.Parse(reduction.get_Data(1) as string);
+                           break;
+
+                        case ProductionIndex.Lengths_Lbracket_Decliteral_Minus_Decliteral_Rbracket:
+                        case ProductionIndex.Lengths_Lparen_Decliteral_Minus_Decliteral_Rparen:
+                           // <Lengths> ::= '[' DecLiteral '-' DecLiteral ']'
+                           // <Lengths> ::= '(' DecLiteral '-' DecLiteral ')'
+                           result.MinLength = int.Parse(reduction.get_Data(1) as string);
+                           result.MaxLength = int.Parse(reduction.get_Data(3) as string);
                            break;
 
                         case ProductionIndex.Type_Identifier:
@@ -166,20 +173,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private enum ProductionIndex
       {
-         Name_Identifier = 3, // <Name> ::= Identifier
-         Isidentity_Identity = 4, // <Is Identity> ::= Identity
-         Isoptional_Optional = 5, // <Is Optional> ::= Optional
-         Maxlength_Lbracket_Decliteral_Rbracket = 6, // <Max Length> ::= '[' DecLiteral ']'
-         Maxlength_Lparen_Decliteral_Rparen = 7, // <Max Length> ::= '(' DecLiteral ')'
-         Type_Identifier = 12, // <Type> ::= Identifier
-         Visibility_Public = 13, // <Visibility> ::= public
-         Visibility_Protected = 14, // <Visibility> ::= protected
-         Visibility_Internal = 15, // <Visibility> ::= internal
-         Initialvalue_Decliteral = 16, // <Initial Value> ::= DecLiteral
-         Initialvalue_Hexliteral = 17, // <Initial Value> ::= HexLiteral
-         Initialvalue_Realliteral = 18, // <Initial Value> ::= RealLiteral
-         Initialvalue_Stringliteral = 19, // <Initial Value> ::= StringLiteral
-         Initialvalue_Charliteral = 20, // <Initial Value> ::= CharLiteral
+         Name_Identifier = 3,                                        // <Name> ::= Identifier
+         Isidentity_Identity = 4,                                    // <Is Identity> ::= Identity
+         Isoptional_Optional = 5,                                    // <Is Optional> ::= Optional
+         Maxlength_Lbracket_Decliteral_Rbracket = 6,                 // <Max Length> ::= '[' DecLiteral ']'
+         Maxlength_Lparen_Decliteral_Rparen = 7,                     // <Max Length> ::= '(' DecLiteral ')'
+         Lengths_Lbracket_Decliteral_Minus_Decliteral_Rbracket = 8,  // <Lengths> ::= '[' DecLiteral '-' DecLiteral ']'
+         Lengths_Lparen_Decliteral_Minus_Decliteral_Rparen = 9,      // <Lengths> ::= '(' DecLiteral '-' DecLiteral ')'
+         Type_Identifier = 15,                                       // <Type> ::= Identifier
+         Visibility_Public = 16,                                     // <Visibility> ::= public
+         Visibility_Protected = 17,                                  // <Visibility> ::= protected
+         Visibility_Internal = 18,                                   // <Visibility> ::= internal
+         Initialvalue_Decliteral = 19,                               // <Initial Value> ::= DecLiteral
+         Initialvalue_Hexliteral = 20,                               // <Initial Value> ::= HexLiteral
+         Initialvalue_Realliteral = 21,                              // <Initial Value> ::= RealLiteral
+         Initialvalue_Stringliteral = 22,                            // <Initial Value> ::= StringLiteral
+         Initialvalue_Charliteral = 23                               // <Initial Value> ::= CharLiteral
       }
 
       #endregion
@@ -191,6 +200,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public string Name { get; set; }
       public string Type { get; set; }
       public bool? Required { get; set; }
+      public int? MinLength { get; set; }
       public int? MaxLength { get; set; }
       public string InitialValue { get; set; }
       public bool IsIdentity { get; set; }

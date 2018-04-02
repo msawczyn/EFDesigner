@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.9" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.10" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired">
       <attributes>
-        <modelAttribute Id="3c276f6e-2f2a-49b1-a1b9-42d7b248870c" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
-        <modelAttribute Id="ae0395ed-76e3-46de-b2c2-f7126fd2eb1b" type="Binary" required="true" indexed="false" indexedUnique="false" stringType="None" name="BinaryAttr" />
-        <modelAttribute Id="6f898b3c-f6f9-40a3-9ff1-cf5456c683ed" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="BooleanAttr" />
-        <modelAttribute Id="1b63c913-ce46-4530-9fc4-231e188c47f9" type="Byte" required="true" indexed="false" indexedUnique="false" stringType="None" name="ByteAttr" />
-        <modelAttribute Id="23257d73-a9f7-425f-8675-f4f4ab675110" type="DateTime" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeAttr" />
-        <modelAttribute Id="0bf4bf6a-5429-476a-ab4e-62acb9a8d05a" type="DateTimeOffset" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeOffsetAttr" />
-        <modelAttribute Id="997048f6-790b-4d2e-9a61-54823f791a05" type="Decimal" required="true" indexed="false" indexedUnique="false" stringType="None" name="DecimalAttr" />
-        <modelAttribute Id="6e2ddb60-3b67-4c32-ab6b-7456ec51e226" type="Double" required="true" indexed="false" indexedUnique="false" stringType="None" name="DoubleAttr" />
-        <modelAttribute Id="bd57340b-79fd-46b6-9f50-8b1e6736cfd8" type="Guid" required="true" indexed="false" indexedUnique="false" stringType="None" name="GuidAttr" />
-        <modelAttribute Id="e1f785e5-c233-4ca8-9234-22778b04a191" type="Int16" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int16Attr" />
-        <modelAttribute Id="7552a732-19ec-40d5-9e88-6f2ef6d427c5" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
-        <modelAttribute Id="e5a66dfb-a191-49da-a7d4-102f57bd5056" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
-        <modelAttribute Id="55f011cc-483e-48ac-ad4b-77a55115d91e" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
-        <modelAttribute Id="ae3c3afe-e59e-4937-8950-273c9f8ad20b" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
-        <modelAttribute Id="742387fb-ba5d-4918-82f3-9456604ffa5d" required="true" indexed="false" indexedUnique="false" stringType="None" name="String" />
+        <modelAttribute Id="029d2163-c074-41b3-bcad-2db88f9f731e" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
+        <modelAttribute Id="5c879112-8cfa-4855-abc5-e2d8f7cf880d" type="Binary" required="true" indexed="false" indexedUnique="false" stringType="None" name="BinaryAttr" />
+        <modelAttribute Id="837b8836-a22b-4da8-ad96-106a9f3b10e9" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="BooleanAttr" />
+        <modelAttribute Id="03bf6078-8bb9-4a0b-aef7-37e0723db5cc" type="Byte" required="true" indexed="false" indexedUnique="false" stringType="None" name="ByteAttr" />
+        <modelAttribute Id="8b44b88b-4e91-4881-b9c1-a165465348cd" type="DateTime" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeAttr" />
+        <modelAttribute Id="7002bd4b-6e60-47d2-8c02-5c8570f6ad2a" type="DateTimeOffset" required="true" indexed="false" indexedUnique="false" stringType="None" name="DateTimeOffsetAttr" />
+        <modelAttribute Id="2f5eb8fe-044e-4233-b822-2de3e7192b01" type="Decimal" required="true" indexed="false" indexedUnique="false" stringType="None" name="DecimalAttr" />
+        <modelAttribute Id="9a6e92b7-3cbf-4ab4-9f7a-c4a66184a755" type="Double" required="true" indexed="false" indexedUnique="false" stringType="None" name="DoubleAttr" />
+        <modelAttribute Id="c89fb35b-ee0b-4238-a541-2f283a5b7cd5" type="Guid" required="true" indexed="false" indexedUnique="false" stringType="None" name="GuidAttr" />
+        <modelAttribute Id="b9aebf75-e2ed-4c45-aaa3-8b93337f3dfc" type="Int16" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int16Attr" />
+        <modelAttribute Id="a76a2105-180c-4cca-915e-18977cf81488" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
+        <modelAttribute Id="4ef3c00e-3d77-4210-8e7c-785bedb0beb2" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
+        <modelAttribute Id="01b0f082-457c-4049-98be-fb7fbfb636fd" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
+        <modelAttribute Id="96ee40f0-afa7-4d75-a702-f41a8e43e8b9" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
+        <modelAttribute Id="904983b6-4c25-4634-ab35-4c1a7169bce5" required="true" indexed="false" indexedUnique="false" stringType="None" name="String" />
       </attributes>
     </modelClass>
     <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional">
@@ -147,26 +147,26 @@
     </modelClass>
     <modelClass Id="a4ead3c5-7a2f-4764-a467-3f31e39a99b7" tableName="ParserTests" databaseSchema="dbo" namespace="Testing" dbSetName="ParserTests" name="ParserTest">
       <attributes>
-        <modelAttribute Id="3eda16cd-ab58-4de4-979e-7e0bfd11ef4d" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
-        <modelAttribute Id="500f3b7a-ad94-4895-922f-6d943a789824" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="foo" />
-        <modelAttribute Id="e038aa43-24ca-4d66-ab5e-b557a80d2a81" indexed="false" indexedUnique="false" stringType="None" name="name1" />
-        <modelAttribute Id="558f873a-a2ef-4562-a1d2-e6cac6cb6b85" indexed="false" indexedUnique="false" stringType="None" name="name2" setterVisibility="Protected" />
-        <modelAttribute Id="fed4c2a2-a815-46b7-926a-807db43213c5" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name3" />
-        <modelAttribute Id="b2d944f0-b675-4b8d-b8e9-eca1634060aa" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name4" setterVisibility="Protected" />
-        <modelAttribute Id="5114602e-874f-4bb9-9c57-c81b67d353ac" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name5" />
-        <modelAttribute Id="33082798-a0d7-4c0e-a35e-b210ad319c07" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name6" setterVisibility="Protected" />
-        <modelAttribute Id="207faf6e-73af-4b7a-903c-b76373ee3fa1" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name7" />
-        <modelAttribute Id="fc43d8f6-5342-4c89-9dc8-efab84be4551" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name8" setterVisibility="Protected" />
-        <modelAttribute Id="8832a268-a4a8-42e4-8033-cc4fa5401687" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name9" />
-        <modelAttribute Id="6d473060-eb07-4b66-8a0e-2e086a50064e" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name" setterVisibility="Protected" />
-        <modelAttribute Id="53691df0-25eb-4230-9c22-736104aeedeb" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name11" />
-        <modelAttribute Id="1b6a7106-76e7-4c7a-847f-0f2520616b13" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name12" setterVisibility="Protected" />
-        <modelAttribute Id="74496fef-6f84-44be-8dac-2cb08b677280" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name13" />
-        <modelAttribute Id="7432036e-4b06-4422-8cfe-bbf1760ad688" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name14" setterVisibility="Protected" />
-        <modelAttribute Id="1069c943-5a75-44ec-b647-30309eb2bfbb" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name15" />
-        <modelAttribute Id="51693bbb-b5ce-4c4f-8fb3-25efc839e35a" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name16" setterVisibility="Protected" />
-        <modelAttribute Id="e9079cbc-eaf9-4dcc-b9fc-209c7b8cc4bb" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name17" />
-        <modelAttribute Id="ec7d023d-ab10-4094-a9f7-77085698305d" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name18" setterVisibility="Protected" />
+        <modelAttribute Id="f7a939e8-2f39-4e16-9bab-caffdfd21285" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" />
+        <modelAttribute Id="fb0fa30e-188b-4266-a498-becf66bfa0a5" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="foo" />
+        <modelAttribute Id="3820ff48-06db-44ed-9de6-2fda85843f66" indexed="false" indexedUnique="false" stringType="None" name="name1" />
+        <modelAttribute Id="1fef6995-85b1-4bda-80fa-12c4d266b39b" indexed="false" indexedUnique="false" stringType="None" name="name2" setterVisibility="Protected" />
+        <modelAttribute Id="03c824fa-3e9a-4964-a518-7132751ccfe3" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name3" />
+        <modelAttribute Id="c98427c2-a440-4075-8d29-ef9f7f656cfd" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name4" setterVisibility="Protected" />
+        <modelAttribute Id="cdfd8ad4-b141-45a8-8043-fbb5ba5bb3c7" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name5" />
+        <modelAttribute Id="e007217d-b3c6-4c25-95b1-e936922eae4e" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name6" setterVisibility="Protected" />
+        <modelAttribute Id="8d5d3474-b5ad-4a0f-968d-019723cca1a1" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name7" />
+        <modelAttribute Id="c20a57f7-d920-45df-9ae4-0e49a32ec907" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name8" setterVisibility="Protected" />
+        <modelAttribute Id="2044ebfc-5402-4d85-8c8c-04cf84e5ea7a" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name9" />
+        <modelAttribute Id="dc3bb229-74fe-4675-a99f-292e309a9518" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name" setterVisibility="Protected" />
+        <modelAttribute Id="9e3a1a2a-d2b1-4b9a-a121-39da5e7e1e32" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name11" />
+        <modelAttribute Id="80349bf9-a6c8-44d4-b7b0-99b594b44edc" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name12" setterVisibility="Protected" />
+        <modelAttribute Id="fc05db65-6db5-4c1d-b702-58339ba24561" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name13" />
+        <modelAttribute Id="7be1c03d-6045-4d60-8d80-5b268f364ca5" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="name14" setterVisibility="Protected" />
+        <modelAttribute Id="451325d6-8d14-4a10-8e74-5f73f37d9941" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name15" />
+        <modelAttribute Id="695826f3-4956-43e5-aad8-afe2f4d67369" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name16" setterVisibility="Protected" />
+        <modelAttribute Id="aa2cc1f1-6394-4de5-ba0c-f483faf84581" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name17" />
+        <modelAttribute Id="a8765f94-66fd-4774-bf61-89e597c60b07" maxLength="6" indexed="false" indexedUnique="false" stringType="None" name="name18" setterVisibility="Protected" />
       </attributes>
     </modelClass>
     <modelClass Id="232ae00b-98c4-41e9-98ec-a17a8a3841c1" tableName="BaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="BaseClasses" name="BaseClass">

@@ -44,10 +44,15 @@ CharLiteral    = '' ( {Char Ch} | '\'{Printable} )''
 <Max Length>
        ::= '[' DecLiteral ']'
         |  '(' DecLiteral ')'
+        
+<Lengths>
+       ::= '[' DecLiteral '-' DecLiteral ']'
+        |  '(' DecLiteral '-' DecLiteral ')'
+        |  <Max Length>
 
 <Type Spec>
-       ::= <Type> <Is Optional> <Max Length>
-        |  <Type> <Max Length>
+       ::= <Type> <Is Optional> <Lengths>
+        |  <Type> <Lengths>
         |  <Type> <Is Optional>
         |  <Type>
 

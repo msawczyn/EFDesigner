@@ -286,8 +286,15 @@ namespace Sawczyn.EFDesigner.EFModel
                                  $"{Type}{(Required ? string.Empty : "?")}"
                               };
 
-         if (Type?.ToLower() == "string" && MaxLength > 0)
-            parts.Add($"[{MaxLength}]");
+         if (Type?.ToLower() == "string")
+         {
+            // if a min length is present, output both the min and max
+            // otherwise, just the max, if present
+            if (MinLength > 0)
+               parts.Add($"[{MinLength}-{MaxLength}]");
+            else if (MaxLength > 0)
+               parts.Add($"[{MaxLength}]");
+         }
 
          parts.Add($"{Name}{(IsIdentity ? "!" : string.Empty)}");
 

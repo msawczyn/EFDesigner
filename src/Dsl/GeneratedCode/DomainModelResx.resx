@@ -813,6 +813,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;AutoProperty&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Description" xml:space="preserve">
+    <value>Minimum length of the string, 0 for no minimum length</value>
+    <comment>Description for DomainProperty &apos;MinLength&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.DisplayName" xml:space="preserve">
+    <value>Min Length</value>
+    <comment>DisplayName for DomainProperty &apos;MinLength&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Category" xml:space="preserve">
+    <value>String Properties</value>
+    <comment>Category for DomainProperty &apos;MinLength&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>

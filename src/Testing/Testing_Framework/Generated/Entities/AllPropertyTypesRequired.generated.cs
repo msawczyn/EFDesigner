@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Testing
@@ -91,76 +93,92 @@ namespace Testing
       /// <summary>
       /// Identity, Required
       /// </summary>
+      [Key]
+      [Required]
       public int Id { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public byte[] BinaryAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public bool BooleanAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public byte ByteAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public DateTime DateTimeAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public DateTimeOffset DateTimeOffsetAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public decimal DecimalAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public double DoubleAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public Guid GuidAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public short Int16Attr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public int Int32Attr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public long Int64Attr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public Single SingleAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public TimeSpan TimeAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public string String { get; set; }
 
    }

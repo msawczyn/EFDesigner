@@ -38,6 +38,15 @@ is by no means finished yet, just so you know.
 
  ### Change Log
 
+1.0.3.10
+   - Bug fixes for exceptions thrown when bad input to model attributes as text
+
+1.0.3.9
+   - If no entities and model is using an unsupported inheritance strategy, 
+     changing from EF6 to EFCore doesn't give a message, just changes the strategy.
+   - Added IsFlags attribute (and matching validations and behavior) to Enums
+   - NGENed extension assembly
+
  1.0.3.8
    - Fixed project item placement
    - Added change checks to diagram so dirty flag doesn't set when nothing changes

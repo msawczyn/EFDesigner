@@ -120,13 +120,13 @@ All of these are optional except for *Name*. Some details:
 The syntax is:
 
 ```
-<Visibility> <Type><?> <Name><!><[Length]> <= Value>
+<Visibility> <Type><?><[Length]> <Name><!> <= Value>
 ```
 
 or
 
 ```
-<Visibility> <Name><!><[Length]> : <Type><?> <= Value>
+<Visibility> <Name><!> : <Type><?><[Length]> <= Value>
 ```
 
 **Examples:**

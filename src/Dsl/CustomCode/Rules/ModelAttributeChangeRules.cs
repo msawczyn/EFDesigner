@@ -74,6 +74,16 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 
                break;
 
+            case "MinLength":
+               int newMinLength = (int)e.NewValue;
+               if (element.Type != "String")
+                  element.MinLength = 0;
+
+               if (newMinLength < 0)
+                  errorMessage = "MinLength must be zero or a positive number";
+
+               break;
+
             case "MaxLength":
                int newMaxLength = (int)e.NewValue;
                if (element.Type != "String")

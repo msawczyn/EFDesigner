@@ -1,5 +1,3 @@
-Git: FINISH DOCS!!!
-
 DSL: Investigate whether we can eliminate ModelType and/or ClassModelElement from the DSL. 
      They don't seem to be adding much if anything, but do participate in connections, so may be important
     
@@ -18,8 +16,6 @@ T4:  Use HTML5Type in code generation
 
 DSL: Add column name option for property, default to property name
 T4:  Generate HasColumnName(name) for property if overrides
-
-DSL: Add EFModel file to "Data" category in "Add New Item" dialog
 
 DSL: Rework EFModelDocData.OnDocumentLoaded to prevent file from appearing dirty when no changes are made
 

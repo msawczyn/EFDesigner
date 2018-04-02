@@ -5565,6 +5565,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region MinLength domain property code
+		
+		/// <summary>
+		/// MinLength domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid MinLengthDomainPropertyId = new global::System.Guid(0x7fe42ef4, 0x9691, 0x4db1, 0x82, 0x19, 0x59, 0x10, 0x7c, 0x14, 0x47, 0x8b);
+		
+		/// <summary>
+		/// Storage for MinLength
+		/// </summary>
+		private global::System.Int32 minLengthPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of MinLength domain property.
+		/// Minimum length of the string, 0 for no minimum length
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("7fe42ef4-9691-4db1-8219-59107c14478b")]
+		public global::System.Int32 MinLength
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return minLengthPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				MinLengthPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.MinLength domain property.
+		/// </summary>
+		internal sealed partial class MinLengthPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Int32>
+		{
+			private MinLengthPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.MinLength domain property value handler.
+			/// </summary>
+			public static readonly MinLengthPropertyHandler Instance = new MinLengthPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.MinLength domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return MinLengthDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Int32 GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.minLengthPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.Int32 newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Int32 oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.minLengthPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.

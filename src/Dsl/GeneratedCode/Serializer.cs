@@ -3947,6 +3947,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// MinLength
+			if (!serializationContext.Result.Failed)
+			{
+				string attribMinLength = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "minLength");
+				if (attribMinLength != null)
+				{
+					global::System.Int32 valueOfMinLength;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int32>(serializationContext, attribMinLength, out valueOfMinLength))
+					{
+						instanceOfModelAttribute.MinLength = valueOfMinLength;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "minLength", typeof(global::System.Int32), attribMinLength);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -4599,6 +4616,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "autoProperty", serializedPropValue);
+					}
+				}
+			}
+			// MinLength
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Int32 propValue = instanceOfModelAttribute.MinLength;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "minLength", serializedPropValue);
 					}
 				}
 			}

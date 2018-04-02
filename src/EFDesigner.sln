@@ -37,14 +37,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AD98A5BD-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{89098F6A-F0C2-4707-B627-389BE97AED29}"
 	ProjectSection(SolutionItems) = preProject
+		..\docs\images\AddAddress-1.jpg = ..\docs\images\AddAddress-1.jpg
+		..\docs\images\AddAddress-2.jpg = ..\docs\images\AddAddress-2.jpg
 		..\docs\images\AddNewItem.jpg = ..\docs\images\AddNewItem.jpg
 		..\docs\images\Bidirectional.jpg = ..\docs\images\Bidirectional.jpg
 		..\docs\images\Class.jpg = ..\docs\images\Class.jpg
+		..\docs\images\Comment.jpg = ..\docs\images\Comment.jpg
+		..\docs\images\CommentConnector.jpg = ..\docs\images\CommentConnector.jpg
 		..\docs\images\Designer.jpg = ..\docs\images\Designer.jpg
 		..\docs\images\DesignerMenu.jpg = ..\docs\images\DesignerMenu.jpg
 		..\docs\images\DesignerProperties.jpg = ..\docs\images\DesignerProperties.jpg
 		..\docs\images\Entity.jpg = ..\docs\images\Entity.jpg
 		..\docs\images\EntityMenu.jpg = ..\docs\images\EntityMenu.jpg
+		..\docs\images\EnumProperties.jpg = ..\docs\images\EnumProperties.jpg
+		..\docs\images\EnumTool.jpg = ..\docs\images\EnumTool.jpg
+		..\docs\images\EnumValueMenu.jpg = ..\docs\images\EnumValueMenu.jpg
+		..\docs\images\EnumValueProperties.jpg = ..\docs\images\EnumValueProperties.jpg
+		..\docs\images\Inheritance.jpg = ..\docs\images\Inheritance.jpg
+		..\docs\images\PropertyEditor.jpg = ..\docs\images\PropertyEditor.jpg
 		..\docs\images\PropertyMenu.jpg = ..\docs\images\PropertyMenu.jpg
 		..\docs\images\PropertyProperties.jpg = ..\docs\images\PropertyProperties.jpg
 		..\docs\images\Solution.jpg = ..\docs\images\Solution.jpg
@@ -53,14 +63,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{89098F
 		..\docs\images\Unidirectional.jpg = ..\docs\images\Unidirectional.jpg
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{1DBA993C-1ED0-44B6-800F-5E7E3E999402}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{DC6F5475-44D8-4D99-B392-9EDAC605D589}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{90C96A87-4FF7-4AD1-9F61-0ECE46F7ADDA}"
 	ProjectSection(SolutionItems) = preProject
 		..\docs\_layouts\default.html = ..\docs\_layouts\default.html
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C5D07387-CF8E-4736-ADDE-05275707351D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +84,10 @@ Global
 		{AA22BCBD-2B02-4AD1-B8DC-19DFEBFB4436}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA22BCBD-2B02-4AD1-B8DC-19DFEBFB4436}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA22BCBD-2B02-4AD1-B8DC-19DFEBFB4436}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D07387-CF8E-4736-ADDE-05275707351D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D07387-CF8E-4736-ADDE-05275707351D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D07387-CF8E-4736-ADDE-05275707351D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D07387-CF8E-4736-ADDE-05275707351D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,8 +95,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{AD98A5BD-E289-4888-B6C3-62FAD3A3D531} = {0AD324C9-3616-47A1-8A44-8A609C803C31}
 		{89098F6A-F0C2-4707-B627-389BE97AED29} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
-		{1DBA993C-1ED0-44B6-800F-5E7E3E999402} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
-		{DC6F5475-44D8-4D99-B392-9EDAC605D589} = {1DBA993C-1ED0-44B6-800F-5E7E3E999402}
 		{90C96A87-4FF7-4AD1-9F61-0ECE46F7ADDA} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

@@ -574,6 +574,12 @@
             <xsd:documentation>If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: MinLength -->
+        <xsd:attribute name="minLength" type="xsd:integer" >
+          <xsd:annotation>
+            <xsd:documentation>Minimum length of the string, 0 for no minimum length</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
