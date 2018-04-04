@@ -17,7 +17,7 @@
         <modelAttribute Id="4ef3c00e-3d77-4210-8e7c-785bedb0beb2" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
         <modelAttribute Id="01b0f082-457c-4049-98be-fb7fbfb636fd" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
         <modelAttribute Id="96ee40f0-afa7-4d75-a702-f41a8e43e8b9" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
-        <modelAttribute Id="904983b6-4c25-4634-ab35-4c1a7169bce5" required="true" indexed="false" indexedUnique="false" stringType="None" name="String" />
+        <modelAttribute Id="904983b6-4c25-4634-ab35-4c1a7169bce5" required="true" maxLength="100" indexed="false" indexedUnique="false" stringType="None" name="String" minLength="10" />
       </attributes>
     </modelClass>
     <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional">
@@ -36,7 +36,7 @@
         <modelAttribute Id="69e90348-275c-4769-a5cc-5f7635cee851" type="Int64" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
         <modelAttribute Id="be8c78ad-4c6e-482a-810b-a009b1f93b2b" type="Single" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
         <modelAttribute Id="de874bd9-3730-4073-a41b-ae58c9ab0dc9" type="Time" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
-        <modelAttribute Id="2d7d0957-7fe9-4024-a72a-2e104d2c36b9" indexed="false" indexedUnique="false" stringType="None" name="String" />
+        <modelAttribute Id="2d7d0957-7fe9-4024-a72a-2e104d2c36b9" maxLength="100" indexed="false" indexedUnique="false" stringType="None" name="String" minLength="10" />
       </attributes>
     </modelClass>
     <modelClass Id="2809ee8f-696f-493a-98f0-6a7b490bd005" tableName="UParentRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="UParentRequireds" name="UParentRequired">

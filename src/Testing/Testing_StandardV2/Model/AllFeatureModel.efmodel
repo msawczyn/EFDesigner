@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.6" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" showCascadeDeletes="true" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.10" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" showCascadeDeletes="true" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired">
       <attributes>
@@ -16,7 +16,7 @@
         <modelAttribute Id="c82656f6-d2a3-47c9-a04a-b62a8fe708af" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
         <modelAttribute Id="59185973-d75f-4426-b668-eaee1980d3d7" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
         <modelAttribute Id="052cc216-4223-4840-ad1b-20ebd6a06ae0" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
-        <modelAttribute Id="80db9765-8c76-4674-8364-61fdeedbf3f4" required="true" maxLength="10" indexed="false" indexedUnique="false" stringType="None" name="StringAttr" />
+        <modelAttribute Id="80db9765-8c76-4674-8364-61fdeedbf3f4" required="true" maxLength="10" indexed="false" indexedUnique="false" stringType="None" name="StringAttr" minLength="1" />
         <modelAttribute Id="b9e9dce6-34eb-4e01-86b2-3f2c27c72266" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
       </attributes>
     </modelClass>
@@ -35,7 +35,7 @@
         <modelAttribute Id="93cbb9ea-fa8f-4360-aefd-08703dc1c275" type="Int32" indexed="false" indexedUnique="false" stringType="None" name="Int32Attr" />
         <modelAttribute Id="d7367a7f-34b9-429a-9889-5daab67616bf" type="Int64" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" />
         <modelAttribute Id="4dee2293-63ea-423b-8b07-2cf8cd1aba0d" type="Single" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" />
-        <modelAttribute Id="a9721e8d-bcdc-4244-9c8b-23bba0b79e92" maxLength="10" indexed="false" indexedUnique="false" stringType="None" name="StringAttr" />
+        <modelAttribute Id="a9721e8d-bcdc-4244-9c8b-23bba0b79e92" maxLength="10" indexed="false" indexedUnique="false" stringType="None" name="StringAttr" minLength="1" />
         <modelAttribute Id="6b5e9624-c4dd-4f38-9fdd-a4dcaaab17ce" type="Time" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" />
       </attributes>
     </modelClass>
