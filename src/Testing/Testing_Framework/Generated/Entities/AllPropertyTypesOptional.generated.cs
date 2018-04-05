@@ -64,6 +64,11 @@ namespace Testing
 
       public TimeSpan? TimeAttr { get; set; }
 
+      /// <summary>
+      /// Min length = 10, Max length = 100
+      /// </summary>
+      [MaxLength(100)]
+      [MinLength(10)]
       public string String { get; set; }
 
    }

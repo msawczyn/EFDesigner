@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sawczyn.EFDesigner.EFModel;
 
-namespace UnitTests
+namespace Sawczyn.EFDesigner.EFModel.Tests
 {
-   [TestClass]
-   public class AttributeParserTests
+   partial class AttributeParserTest
    {
       private readonly string[] input =
-      {
+   {
          "foo : int",
          "foo : string",
          "foo : string?",
@@ -122,7 +123,7 @@ namespace UnitTests
       private readonly string BadVisibility = "pubic string foo";
 
       [TestMethod]
-      public void TestParserWithValidInput()
+      public void TestValidPermutations_Manual()
       {
          Console.WriteLine("Input,Visibility,Name,Type,Min,Max,Required,Identity,Value");
          foreach (string s in input)
