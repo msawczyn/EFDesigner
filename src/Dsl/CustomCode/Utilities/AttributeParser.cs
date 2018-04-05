@@ -81,6 +81,19 @@ namespace Sawczyn.EFDesigner.EFModel
                            // <Lengths> ::= '(' DecLiteral '-' DecLiteral ')'
                            result.MinLength = int.Parse(reduction.get_Data(1) as string);
                            result.MaxLength = int.Parse(reduction.get_Data(3) as string);
+
+                           if (result.MinLength < 0 || result.MaxLength < 0)
+                           {
+                              FailMessage = "Min and Max lengths can't be negative numbers";
+                              return null;
+                           }
+
+                           if (result.MaxLength != 0 && result.MinLength > result.MaxLength)
+                           {
+                              FailMessage = "Min length cannot be greater than max length";
+                              return null;
+                           }
+
                            break;
 
                         case ProductionIndex.Type_Identifier:
@@ -105,13 +118,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
                            // <Visibility> ::= internal
                            result.SetterVisibility = SetterAccessModifier.Internal;
-
                            break;
 
                         case ProductionIndex.Initialvalue_Decliteral:
-
                         case ProductionIndex.Initialvalue_Hexliteral:
-
                         case ProductionIndex.Initialvalue_Realliteral:
 
                            // <Initial Value> ::= DecLiteral | HexLiteral | RealLiteral

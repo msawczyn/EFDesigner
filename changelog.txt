@@ -2,7 +2,7 @@
    - Bug fixes for exceptions thrown when bad input to model attributes as text
    - Added MinLength string property
    - Modified attribute parser to accept MinLength
-   - Added AttributeParser unit test
+   - Added some unit tests
 
 1.0.3.9
    - If no entities and model is using an unsupported inheritance strategy, 

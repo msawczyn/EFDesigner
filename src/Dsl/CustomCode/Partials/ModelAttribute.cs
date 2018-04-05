@@ -319,16 +319,23 @@ namespace Sawczyn.EFDesigner.EFModel
          if (_input == null) return null;
 
          ParseResult result = AttributeParser.Parse(_input);
-         result.Type = ToCLRType(result.Type);
-
-         if (result?.Type != null && !ValidTypes.Contains(result.Type))
+         if (result != null)
          {
             result.Type = ToCLRType(result.Type);
-            if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
+
+            if (result.Type != null && !ValidTypes.Contains(result.Type))
             {
-               result.Type = null;
-               result.Required = null;
+               result.Type = ToCLRType(result.Type);
+               if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
+               {
+                  result.Type = null;
+                  result.Required = null;
+               }
             }
+         }
+         else
+         {
+            throw new ArgumentException(AttributeParser.FailMessage);
          }
 
          return result; 

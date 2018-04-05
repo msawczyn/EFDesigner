@@ -1,4 +1,5 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
@@ -99,7 +100,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                {
                   if (element.IdentityType == IdentityType.None)
                      errorMessage = "Identity properties must have an identity type defined";
-                  else 
+                  else
                      element.AutoProperty = true;
                }
                else if (!element.IsIdentity)
@@ -181,27 +182,35 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   errorMessage = "Name must be a valid .NET identifier";
                else
                {
-                  ParseResult fragment = ModelAttribute.Parse(element.ModelClass.ModelRoot, newName);
-
-                  if (fragment == null)
-                     errorMessage = $"Could not parse entry '{newName}'";
-                  else
+                  ParseResult fragment;
+                  try
                   {
-                     if (string.IsNullOrEmpty(fragment.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(fragment.Name))
-                        errorMessage = "Name must be a valid .NET identifier";
-                     else if (modelClass.AllAttributes.Except(new[] {element}).Any(x => x.Name == fragment.Name))
-                        errorMessage = "Property name already in use";
-                     else if (modelClass.AllNavigationProperties().Any(p => p.PropertyName == fragment.Name))
-                        errorMessage = "Property name already in use";
+                     fragment = ModelAttribute.Parse(element.ModelClass.ModelRoot, newName);
+
+                     if (fragment == null)
+                        errorMessage = $"Could not parse entry '{newName}'";
                      else
                      {
-                        element.Name = fragment.Name;
-                        if (fragment.Type != null) element.Type = fragment.Type;
-                        if (fragment.Required != null) element.Required = fragment.Required.Value;
-                        if (fragment.MaxLength != null) element.MaxLength = fragment.MaxLength.Value;
-                        if (fragment.InitialValue != null) element.InitialValue = fragment.InitialValue;
-                        if (fragment.IsIdentity) element.IsIdentity = true; // don't reset to false if not entered as part of name
+                        if (string.IsNullOrEmpty(fragment.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(fragment.Name))
+                           errorMessage = "Name must be a valid .NET identifier";
+                        else if (modelClass.AllAttributes.Except(new[] { element }).Any(x => x.Name == fragment.Name))
+                           errorMessage = "Property name already in use";
+                        else if (modelClass.AllNavigationProperties().Any(p => p.PropertyName == fragment.Name))
+                           errorMessage = "Property name already in use";
+                        else
+                        {
+                           element.Name = fragment.Name;
+                           if (fragment.Type != null) element.Type = fragment.Type;
+                           if (fragment.Required != null) element.Required = fragment.Required.Value;
+                           if (fragment.MaxLength != null) element.MaxLength = fragment.MaxLength.Value;
+                           if (fragment.InitialValue != null) element.InitialValue = fragment.InitialValue;
+                           if (fragment.IsIdentity) element.IsIdentity = true; // don't reset to false if not entered as part of name
+                        }
                      }
+                  }
+                  catch (Exception exception)
+                  {
+                     errorMessage = $"Could not parse entry '{newName}': {exception.Message}";
                   }
                }
 

@@ -143,38 +143,45 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   foreach (string codeFormLine in codeForm.Lines)
                   {
-                     ParseResult parseResult = ModelAttribute.Parse(element.ModelRoot, codeFormLine);
-                     if (parseResult == null)
+                     try
                      {
-                        Messages.AddWarning($"Could not parse '{codeFormLine}'. The line will be discarded.");
-                        continue;
+                        ParseResult parseResult = ModelAttribute.Parse(element.ModelRoot, codeFormLine);
+                        if (parseResult == null)
+                        {
+                           Messages.AddWarning($"Could not parse '{codeFormLine}'. The line will be discarded.");
+                           continue;
+                        }
+
+                        string message = null;
+
+                        if (string.IsNullOrEmpty(parseResult.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(parseResult.Name))
+                           message = $"Could not add '{parseResult.Name}' to {element.Name}: '{parseResult.Name}' is not a valid .NET identifier";
+                        else if (element.AllAttributes.Any(x => x.Name == parseResult.Name))
+                           message = $"Could not add {parseResult.Name} to {element.Name}: {parseResult.Name} already in use";
+                        else if (element.AllNavigationProperties().Any(p => p.PropertyName == parseResult.Name))
+                           message = $"Could not add {parseResult.Name} to {element.Name}: {parseResult.Name} already in use";
+
+                        if (message != null)
+                        {
+                           Messages.AddWarning(message);
+                           continue;
+                        }
+
+                        ModelAttribute modelAttribute = new ModelAttribute(element.Store,
+                                                                           new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name),
+                                                                           new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"),
+                                                                           new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true),
+                                                                           new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0),
+                                                                           new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue),
+                                                                           new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity),
+                                                                           new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
+                                                                          );
+                        element.Attributes.Add(modelAttribute);
                      }
-
-                     string message = null;
-
-                     if (string.IsNullOrEmpty(parseResult.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(parseResult.Name))
-                        message = $"Could not add '{parseResult.Name}' to {element.Name}: '{parseResult.Name}' is not a valid .NET identifier";
-                     else if (element.AllAttributes.Any(x => x.Name == parseResult.Name))
-                        message = $"Could not add {parseResult.Name} to {element.Name}: {parseResult.Name} already in use";
-                     else if (element.AllNavigationProperties().Any(p => p.PropertyName == parseResult.Name))
-                        message = $"Could not add {parseResult.Name} to {element.Name}: {parseResult.Name} already in use";
-
-                     if (message != null)
+                     catch (Exception exception)
                      {
-                        Messages.AddWarning(message);
-                        continue;
+                        Messages.AddWarning($"Could not parse '{codeFormLine}'. {exception.Message}. The line will be discarded.");
                      }
-
-                     ModelAttribute modelAttribute = new ModelAttribute(element.Store,
-                                                                      new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name),
-                                                                      new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"),
-                                                                      new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true),
-                                                                      new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0),
-                                                                      new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue),
-                                                                      new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity),
-                                                                      new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
-                                                                     );
-                     element.Attributes.Add(modelAttribute);
                   }
 
                   tx.Commit();
