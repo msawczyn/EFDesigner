@@ -48,6 +48,7 @@ Selecting a property gives you access to **its** properties in the Property wind
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>String Properties</b></td></tr>
 <tr><td valign="top">Max Length</td><td valign="top"><i>Integer</i>. Maximum length of the string, 0 for no max length</td></tr>
+<tr><td valign="top">Min Length</td><td valign="top"><i>Integer</i>. Minimum length of the string, 0 for no min length. If non-zero, must be less than or equal to Max Length.</td></tr>
 <tr><td valign="top">String Type</td><td valign="top"><i>String</i>. If not empty, will create a HTML5 attribute annotation for this attribute. Valid values are None, Color, Date, DateTime, Email, Month, Number, Range, Search, Telephone, Time, URI, Week, and Password.</td></tr>
 </tbody>
 </table>
@@ -101,6 +102,7 @@ The designer exposes a custom property syntax that allows you to specify a prope
 - Name
 - Type
 - Required status
+- Minimum length (if it's a string)
 - Maximum length (if it's a string)
 - Initial value
 - Whether it's the identity property for its entity
@@ -112,7 +114,8 @@ All of these are optional except for *Name*. Some details:
 <tr><td>Name</td><td></td><td>Required</td></tr>
 <tr><td>Type</td><td>"string"</td><td>Can be CLR type or built-in type (e.g., Int32 or int)</td></tr>
 <tr><td>Required</td><td>false</td><td>Indicated by the '?' symbol appended to the Type</td></tr>
-<tr><td>Maximum Length</td><td>0</td><td>Indicated by a decimal number in brackets</td></tr>
+<tr><td>Minimum Length</td><td>0</td><td>Indicated by a decimal number in brackets. If present, must be followed by hyphen <span style="display: inline-block;">('-')</span> and the maximum length. A zero (0) means no minimum length.</td></tr>
+<tr><td>Maximum Length</td><td>0</td><td>Indicated by a decimal number in brackets. A zero (0) means no maximum length.</td></tr>
 <tr><td>Initial Value</td><td></td><td>Indicated by an equal sign ('=') followed by some value</td></tr>
 <tr><td>Is Identity</td><td>false</td><td>Indicated by the '!' symbol appended to the Name</td></tr>
 </table>
@@ -120,18 +123,18 @@ All of these are optional except for *Name*. Some details:
 The syntax is:
 
 ```
-<Visibility> <Type><?><[Length]> <Name><!> <= Value>
+<Visibility> <Type><?><[MinLength-MaxLength]> <Name><!> <= Value>
 ```
 
 or
 
 ```
-<Visibility> <Name><!> : <Type><?><[Length]> <= Value>
+<Visibility> <Name><!> : <Type><?><[MinLength-MaxLength]> <= Value>
 ```
 
 **Examples:**
 
-The following all declare a required string property with no maximum length named foo:
+The following all declare a required string property with no length restrictions named foo:
 
 ```
 foo
@@ -189,6 +192,36 @@ foo: string?[50]
 public foo: string?[50]
 ```
 
+Or ensure that it's between 10 and 50 characters
+
+
+```
+string?[10-50] foo
+```
+
+```
+public string?[10-50] foo
+```
+
+```
+foo: string?[10-50]
+```
+
+```
+public foo: string?[10-50]
+```
+
+*(A bit more on this: MinLength isn't needed if you don't care about it, so [50] is perfectly
+valid as a MaxLength specification. You would use [10-0] to say the MinLength is 10 but there
+is no MaxLength, since having just one number in the brackets is interpreted as a MaxLength.
+[0-50] is pefectly valid, but unnecessary, since [50] would do. [50-10] is right out - you'll get
+an error trying to do that.*
+
+*You might be wondering: if I specify a minimum length, does that mean it's required? 
+The model won't automatically set the Required attribute if it sees a Min Length, since that
+would mean that it's needed at object construction time, and you may not intend that to be true.)*
+
+
 If we wanted to set it up in the entity's constructor with an initial value:
 
 ```
@@ -211,8 +244,8 @@ foo: string = "some value"
 public foo: string = "some value"
 ```
 
-(note that making a property optional and giving it a initial value is possible, but has limited
-use cases)
+*(note that, while making a property optional and giving it a initial value is possible, it has limited
+use cases)*
 
 To add an identity property:
 
@@ -251,11 +284,11 @@ properties:
 </td></tr></table>
 
 Add, edit or remove text as required - when you click *OK*, all the properties will be replaced
-by the parsed values of the text in that window. Any unrecongized values will be discarded.
+by the parsed values of the text in that window. Any unrecognized values will be discarded.
 
-You'll note that one of the options is for the text to be valid C# property declarations, so if you
+You'll note that one of the options is for the text to be a list of valid C# property declarations, so if you
 have classes that you want to add to the model, you'll be able to copy their property declarations and
-paste them in here. Any lines with curly braces will be truncated at the first open brace. Trailing semicolons
+paste them in here. Any lines with curly braces in them will be truncated at the first open brace. Trailing semicolons
 are discarded as well.
 
 Let's say you had an Address class in your code and wanted to add it to your persistent entity model.
@@ -280,17 +313,17 @@ You could add the class to the designer and open the *Add properties via Code* w
 <img src="images/AddAddress-1.jpg">
 </td></tr></table>
 
-The Address class is updated with the new properties. 
+When you click OK, the Address class is updated with the new properties. 
 
 <table><tr><td>
 <img src="images/AddAddress-2.jpg">
 </td></tr></table>
 
-A few things you might notice:
+A few things to notice:
 
 - We duplicated the `Id` property, since it was already in the entity and we didn't delete it before pasting. When the text was parsed and the properties created, that duplicate was discarded. A warning appeared in Visual Studio's error list letting us know that it was discarded and why.
 - The `{ get; set; }` blocks were discarded, as was the semicolon (`;`) from the one property initially presented.
-- We added properties using CLR types (`int`, `string`), but they were added the model as classes (`Int32`, `String`).
+- We added properties using CLR types (`int` and `string`), but they were added to the model as object types (`Int32` and `String`).
 
 ### Next Step 
 [Associations](Associations)

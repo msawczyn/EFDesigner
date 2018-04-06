@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\changelog.txt = ..\changelog.txt
 		..\README.md = ..\README.md
 		..\TODO.txt = ..\TODO.txt
+		..\VSMarketplace blurb.md = ..\VSMarketplace blurb.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AD98A5BD-E289-4888-B6C3-62FAD3A3D531}"
