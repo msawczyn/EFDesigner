@@ -38,9 +38,6 @@ is by no means finished yet, just so you know.
 
  ### Change Log
 
-1.0.3.10
-   - Bug fixes for exceptions thrown when bad input to model attributes as text
-
 1.0.3.9
    - If no entities and model is using an unsupported inheritance strategy, 
      changing from EF6 to EFCore doesn't give a message, just changes the strategy.
