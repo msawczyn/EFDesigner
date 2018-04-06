@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" Build="3" Revision="10" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" Build="4" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
@@ -287,6 +287,9 @@
       </ElementMergeDirectives>
     </DomainClass>
     <DomainClass Id="8be1f7ab-85c8-4f57-8621-38e1207d8f8d" Description="An attribute of a class." Name="ModelAttribute" DisplayName="Property" Namespace="Sawczyn.EFDesigner.EFModel">
+      <CustomTypeDescriptor>
+        <DomainTypeDescriptor CustomCoded="true" />
+      </CustomTypeDescriptor>
       <Properties>
         <DomainProperty Id="7ccdef4e-9305-485f-abdc-7ee9afed3b83" Description="Type of this attribute" Name="Type" DisplayName="Type" DefaultValue="String" Category="Code Generation">
           <Attributes>
@@ -340,7 +343,7 @@
             <DomainEnumerationMoniker Name="HTML5Type" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="5e502e9e-7120-42d1-bd3b-27dfc42f3618" Description="Alternate table to store this attribute. If empty, the class's table is used." Name="TableOverride" DisplayName="Table Override" Category="Database">
+        <DomainProperty Id="5e502e9e-7120-42d1-bd3b-27dfc42f3618" Description="Unused - Alternate table to store this attribute. If empty, the class's table is used." Name="TableOverride" DisplayName="Table Override" Category="Database" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -398,6 +401,16 @@
             <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e4394dde-038f-4fea-a328-3b6bed8571f8" Description="The name for the table column backing this property" Name="ColumnName" DisplayName="Column Name" Kind="CustomStorage" Category="Database" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="7e3b91ab-3859-4b80-9270-9adf7b46dbb3" Description="If true, ModelAttribute.ColumnName tracks ModelAttribute.Name" Name="IsColumnNameTracking" DisplayName="Is Column Name Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -449,7 +462,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="4f7323ec-9053-4127-a415-9e9857f6df68" Description="If true, ModelClass.Namespace tracks ModelRoot.Namespace" Name="IsNamespaceTracking" DisplayName="Is Namespace Tracking" DefaultValue="true" IsBrowsable="false">
+        <DomainProperty Id="4f7323ec-9053-4127-a415-9e9857f6df68" Description="If true, ModelEnum.Namespace tracks ModelRoot.Namespace" Name="IsNamespaceTracking" DisplayName="Is Namespace Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1366,6 +1379,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="minLength">
             <DomainPropertyMoniker Name="ModelAttribute/MinLength" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="columnName">
+            <DomainPropertyMoniker Name="ModelAttribute/ColumnName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isColumnNameTracking">
+            <DomainPropertyMoniker Name="ModelAttribute/IsColumnNameTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

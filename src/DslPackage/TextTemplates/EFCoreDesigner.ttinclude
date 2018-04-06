@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.0.3.5
+// EFDesigner v1.0.4.0
 // Copyright (c) 2017 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -249,6 +249,8 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
+         if (modelAttribute.ColumnName != modelAttribute.Name)
+            segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
          if (modelAttribute.IsConcurrencyToken)
             segments.Add("IsRowVersion()");
          if (modelAttribute.IsIdentity)

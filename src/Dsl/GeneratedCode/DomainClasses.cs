@@ -3847,6 +3847,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	/// An attribute of a class.
 	/// </summary>
 	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[global::System.ComponentModel.TypeDescriptionProvider(typeof(ModelAttributeTypeDescriptionProvider))]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
@@ -4691,11 +4692,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of TableOverride domain property.
-		/// Alternate table to store this attribute. If empty, the class's table is used.
+		/// Unused - Alternate table to store this attribute. If empty, the class's table is
+		/// used.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/TableOverride.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/TableOverride.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/TableOverride.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainObjectId("5e502e9e-7120-42d1-bd3b-27dfc42f3618")]
 		public global::System.String TableOverride
 		{
@@ -5653,6 +5656,186 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ColumnName domain property code
+		
+		/// <summary>
+		/// ColumnName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ColumnNameDomainPropertyId = new global::System.Guid(0xe4394dde, 0x038f, 0x4fea, 0xa3, 0x28, 0x3b, 0x6b, 0xed, 0x85, 0x71, 0xf8);
+		
+		/// <summary>
+		/// Gets or sets the value of ColumnName domain property.
+		/// The name for the table column backing this property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnName.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnName.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnName.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("e4394dde-038f-4fea-a328-3b6bed8571f8")]
+		public global::System.String ColumnName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ColumnNamePropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ColumnNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.ColumnName domain property.
+		/// </summary>
+		internal sealed partial class ColumnNamePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		{
+			private ColumnNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.ColumnName domain property value handler.
+			/// </summary>
+			public static readonly ColumnNamePropertyHandler Instance = new ColumnNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.ColumnName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ColumnNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for ColumnName because its Kind is
+				// set to CustomStorage. Please provide the GetColumnNameValue()
+				// method on the domain class.
+				return element.GetColumnNameValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for ColumnName because its Kind is
+					// set to CustomStorage. Please provide the SetColumnNameValue()
+					// method on the domain class.
+					element.SetColumnNameValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsColumnNameTracking domain property code
+		
+		/// <summary>
+		/// IsColumnNameTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsColumnNameTrackingDomainPropertyId = new global::System.Guid(0x7e3b91ab, 0x3859, 0x4b80, 0x92, 0x70, 0x9a, 0xdf, 0x7b, 0x46, 0xdb, 0xb3);
+		
+		/// <summary>
+		/// Storage for IsColumnNameTracking
+		/// </summary>
+		private global::System.Boolean isColumnNameTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsColumnNameTracking domain property.
+		/// If true, ModelAttribute.ColumnName tracks ModelAttribute.Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnNameTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnNameTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("7e3b91ab-3859-4b80-9270-9adf7b46dbb3")]
+		public global::System.Boolean IsColumnNameTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isColumnNameTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsColumnNameTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.IsColumnNameTracking domain property.
+		/// </summary>
+		internal sealed partial class IsColumnNameTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Boolean>
+		{
+			private IsColumnNameTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.IsColumnNameTracking domain property value handler.
+			/// </summary>
+			public static readonly IsColumnNameTrackingPropertyHandler Instance = new IsColumnNameTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.IsColumnNameTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsColumnNameTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isColumnNameTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isColumnNameTrackingPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.
@@ -6276,7 +6459,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of IsNamespaceTracking domain property.
-		/// If true, ModelClass.Namespace tracks ModelRoot.Namespace
+		/// If true, ModelEnum.Namespace tracks ModelRoot.Namespace
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnum/IsNamespaceTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnum/IsNamespaceTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]

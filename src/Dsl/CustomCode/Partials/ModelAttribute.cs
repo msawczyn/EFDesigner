@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
@@ -23,7 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public IModelElementWithCompartments ParentModelElement => ModelClass;
 
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
-      
+
       public static readonly string[] ValidTypes =
       {
          "Binary",
@@ -71,7 +72,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          typeName = typeName ?? Type;
          initialValue = initialValue ?? InitialValue;
-
+         
          if (string.IsNullOrEmpty(initialValue))
             return true;
 
@@ -245,6 +246,99 @@ namespace Sawczyn.EFDesigner.EFModel
          return typeName;
       }
 
+      /// <summary>Storage for the ColumnName property.</summary>  
+      private string columnNameStorage; 
+
+      public string GetColumnNameValue()
+      {
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         return !loading && IsColumnNameTracking ? Name : columnNameStorage;
+      }
+
+      public void SetColumnNameValue(string value)
+      {
+         columnNameStorage = value;
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         if (!Store.InUndoRedoOrRollback && !loading)
+            IsColumnNameTracking = false;
+      }
+
+      internal sealed partial class IsColumnNameTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsColumnNameTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelAttribute element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(ColumnNameDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsColumnNameTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelAttribute element)
+         {
+            string calculatedValue = null;
+
+            try
+            {
+               calculatedValue = element.Name;
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.ColumnName == calculatedValue)
+               element.isColumnNameTrackingPropertyStorage = true;
+         }
+
+         /// <summary>
+         ///    Method to set IsColumnNameTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelAttribute element)
+         {
+            // Force the IsColumnNameTracking property to false so that the value  
+            // of the ColumnName property is retrieved from storage.  
+            element.isColumnNameTrackingPropertyStorage = false;
+         }
+      }
+
+      /// <summary>
+      ///    Calls the pre-reset method on the associated property value handler for each
+      ///    tracking property of this model element.
+      /// </summary>
+      internal virtual void PreResetIsTrackingProperties()
+      {
+         IsColumnNameTrackingPropertyHandler.Instance.PreResetValue(this);
+         // same with other tracking properties as they get added
+      }
+
+      /// <summary>
+      ///    Calls the reset method on the associated property value handler for each
+      ///    tracking property of this model element.
+      /// </summary>
+      internal virtual void ResetIsTrackingProperties()
+      {
+         IsColumnNameTrackingPropertyHandler.Instance.ResetValue(this);
+         // same with other tracking properties as they get added
+      }
+
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void StringsShouldHaveLength(ValidationContext context)
@@ -338,7 +432,7 @@ namespace Sawczyn.EFDesigner.EFModel
             throw new ArgumentException(AttributeParser.FailMessage);
          }
 
-         return result; 
+         return result;
       }
 
       #endregion Parse string

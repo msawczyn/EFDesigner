@@ -4,7 +4,7 @@
 
 **Install with NuGet from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
 
-**Documentation: [https://msawczyn.github.io/EFDesigner/](https://msawczyn.github.io/EFDesigner/)**
+**Complete documentation in [Github Pages](https://msawczyn.github.io/EFDesigner/)**
 
 This Visual Studio 2017 extension adds a new file type (.efmodel) that allows for fast, easy and, most
 importantly, **visual** design of persistent classes. Inheritance, unidirectional and bidirectional 
@@ -30,13 +30,22 @@ and [many other nice-to-have bits](https://github.com/msawczyn/EFDesigner/wiki/U
 
 Code generation is completely customizable via T4 templates. The tool installs templates that 
 target both EF6 and EFCore, and generate both a code-first DbContext class and 
-POCO entity classes. The EF6 template's DbContext code is written to allow consumption in both
-ASP.Net Core as well as any other project type, so you'll have flexibility in your development.
+POCO entity classes. The EF6 template's DbContext code is written to allow consumption in 
+ASP.Net Core in addition to any other project type, so you'll have flexibility in your development.
 
-You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/) - which 
-is by no means finished yet, just so you know.
+You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/).
 
  ### Change Log
+
+1.0.4.0
+   - Bug fixes for exceptions thrown when bad input to model attributes as text
+   - Added MinLength string property (used in EF6 only as of this writing)
+   - Modified attribute parser to accept MinLength
+   - Added ColumnName property to model attribute
+   - Added MEF extension capability !
+   - Added some unit tests
+   - Added some documentation updates
+   - Changed version to 1.0.4.0 due to MEF capability
 
 1.0.3.9
    - If no entities and model is using an unsupported inheritance strategy, 

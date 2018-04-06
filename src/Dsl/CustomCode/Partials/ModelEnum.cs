@@ -123,7 +123,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         /// <summary>Performs the reset operation for the IsDatabaseSchemaTracking property for a model element.</summary>
+         /// <summary>Performs the reset operation for the IsNamespaceTracking property for a model element.</summary>
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelEnum element)
          {

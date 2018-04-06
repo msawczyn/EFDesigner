@@ -171,6 +171,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelAttribute), "ReadOnly", ModelAttribute.ReadOnlyDomainPropertyId, typeof(ModelAttribute.ReadOnlyPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "AutoProperty", ModelAttribute.AutoPropertyDomainPropertyId, typeof(ModelAttribute.AutoPropertyPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "MinLength", ModelAttribute.MinLengthDomainPropertyId, typeof(ModelAttribute.MinLengthPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelAttribute), "ColumnName", ModelAttribute.ColumnNameDomainPropertyId, typeof(ModelAttribute.ColumnNamePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelAttribute), "IsColumnNameTracking", ModelAttribute.IsColumnNameTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnNameTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "Namespace", ModelEnum.NamespaceDomainPropertyId, typeof(ModelEnum.NamespacePropertyHandler)),

@@ -13,6 +13,7 @@
    <Extern href="virtkeys.h"/>
    <Extern href="DSLToolsCmdID.h"/>
    <Include href="GeneratedCode\GeneratedVsct.vsct"/>
+   <Include href="MefExtension\CommandExtensionVSCT.vsct"/>
 
    <Commands package="guidPkg">
       <Menus>

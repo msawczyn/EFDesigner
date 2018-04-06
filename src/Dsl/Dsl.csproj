@@ -110,6 +110,7 @@
     <Compile Include="CustomCode\Partials\Generalization.cs" />
     <Compile Include="CustomCode\Partials\GeneralizationConnector.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
+    <Compile Include="CustomCode\Partials\ModelAttributeTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />
     <Compile Include="CustomCode\Partials\ModelEnumTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnumValue.cs" />
@@ -146,6 +147,21 @@
     <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />
     <Compile Include="CustomCode\Utilities\EFModelSerializationHelperBase.cs" />
     <Compile Include="CustomCode\Utilities\TypeConverterBase.cs" />
+    <Compile Include="MefExtension\GestureExtensionEnablement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestureExtensionEnablement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MefExtension\GestureExtensionController.cs">
+      <DependentUpon>GestureExtensionController.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MefExtension\DesignerExtensionMetaDataAttribute.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DesignerExtensionMetaDataAttribute.tt</DependentUpon>
+    </Compile>
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -306,6 +322,18 @@
       <SubType>
       </SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MefExtension\GestureExtensionController.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GestureExtensionController.cs</LastGenOutput>
+    </Content>
+    <Content Include="MefExtension\DesignerExtensionMetaDataAttribute.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DesignerExtensionMetaDataAttribute.cs</LastGenOutput>
+    </Content>
+    <Content Include="MefExtension\GestureExtensionEnablement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GestureExtensionEnablement.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\AbstractEntityGlyph.png" />
     <Content Include="Resources\Association.bmp" />

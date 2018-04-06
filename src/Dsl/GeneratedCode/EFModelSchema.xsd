@@ -517,7 +517,7 @@
         <!-- Property: TableOverride -->
         <xsd:attribute name="tableOverride" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>Alternate table to store this attribute. If empty, the class&apos;s table is used.</xsd:documentation>
+            <xsd:documentation>Unused - Alternate table to store this attribute. If empty, the class&apos;s table is used.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: IsConcurrencyToken -->
@@ -578,6 +578,18 @@
         <xsd:attribute name="minLength" type="xsd:integer" >
           <xsd:annotation>
             <xsd:documentation>Minimum length of the string, 0 for no minimum length</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ColumnName -->
+        <xsd:attribute name="columnName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The name for the table column backing this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsColumnNameTracking -->
+        <xsd:attribute name="isColumnNameTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -769,7 +781,7 @@
         <!-- Property: IsNamespaceTracking -->
         <xsd:attribute name="isNamespaceTracking" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, ModelClass.Namespace tracks ModelRoot.Namespace</xsd:documentation>
+            <xsd:documentation>If true, ModelEnum.Namespace tracks ModelRoot.Namespace</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: Name -->

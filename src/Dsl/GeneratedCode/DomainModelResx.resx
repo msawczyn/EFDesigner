@@ -694,7 +694,7 @@
     <comment>Category for DomainProperty &apos;StringType&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/TableOverride.Description" xml:space="preserve">
-    <value>Alternate table to store this attribute. If empty, the class&apos;s table is used.</value>
+    <value>Unused - Alternate table to store this attribute. If empty, the class&apos;s table is used.</value>
     <comment>Description for DomainProperty &apos;TableOverride&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/TableOverride.DisplayName" xml:space="preserve">
@@ -825,6 +825,26 @@
     <value>String Properties</value>
     <comment>Category for DomainProperty &apos;MinLength&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnName.Description" xml:space="preserve">
+    <value>The name for the table column backing this property</value>
+    <comment>Description for DomainProperty &apos;ColumnName&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnName.DisplayName" xml:space="preserve">
+    <value>Column Name</value>
+    <comment>DisplayName for DomainProperty &apos;ColumnName&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnName.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;ColumnName&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnNameTracking.Description" xml:space="preserve">
+    <value>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</value>
+    <comment>Description for DomainProperty &apos;IsColumnNameTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnNameTracking.DisplayName" xml:space="preserve">
+    <value>Is Column Name Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsColumnNameTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>
@@ -890,7 +910,7 @@
     <comment>Category for DomainProperty &apos;Namespace&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsNamespaceTracking.Description" xml:space="preserve">
-    <value>If true, ModelClass.Namespace tracks ModelRoot.Namespace</value>
+    <value>If true, ModelEnum.Namespace tracks ModelRoot.Namespace</value>
     <comment>Description for DomainProperty &apos;IsNamespaceTracking&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsNamespaceTracking.DisplayName" xml:space="preserve">

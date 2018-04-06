@@ -143,6 +143,26 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="MefExtension\PackageExtensionEnablement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PackageExtensionEnablement.cs</LastGenOutput>
+    </Content>
+    <Content Include="MefExtension\CommandExtensionRegistrar.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CommandExtensionRegistrar.cs</LastGenOutput>
+    </Content>
+    <Content Include="MefExtension\CommandExtensionVSCT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CommandExtensionVSCT.vsct</LastGenOutput>
+    </Content>
+    <Content Include="MefExtension\ValidationExtensionEnablement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ValidationExtensionEnablement.cs</LastGenOutput>
+    </Content>
+    <Content Include="MefExtension\ValidationExtensionRegistrar.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ValidationExtensionRegistrar.cs</LastGenOutput>
+    </Content>
     <Content Include="Microsoft.Data.ConnectionUI.Dialog.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -152,6 +172,11 @@
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="MefExtension\CommandExtensionVSCT.vsct">
+      <DependentUpon>CommandExtensionVSCT.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
     <None Include="ProjectItemTemplates\efmodel.tt" />
     <None Include="ProjectItemTemplates\EFModel.xsd">
       <SubType>Designer</SubType>
@@ -217,6 +242,26 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Package.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MefExtension\PackageExtensionEnablement.cs">
+      <DependentUpon>PackageExtensionEnablement.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MefExtension\CommandExtensionRegistrar.cs">
+      <DependentUpon>CommandExtensionRegistrar.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MefExtension\ValidationExtensionEnablement.cs">
+      <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MefExtension\ValidationExtensionRegistrar.cs">
+      <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="GeneratedCode\EditorFactory.tt">

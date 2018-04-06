@@ -1,0 +1,2 @@
+﻿<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #>  
+<#@ include file="Dsl\DesignerExtensionMetadataAttribute.tt" #>

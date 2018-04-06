@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.0.3.5
+// EFDesigner v1.0.4.0
 // Copyright (c) 2017 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -549,8 +549,13 @@ void GenerateClassAnnotations(ModelAttribute modelAttribute, string namePrefix =
    if (modelAttribute.IsIdentity)               Output("[Key]");
    if (modelAttribute.Required)                 Output("[Required]");
    if (modelAttribute.MaxLength > 0)            Output($"[MaxLength({modelAttribute.MaxLength})]");
-   if (modelAttribute.MinLength > 0)            Output($"[MinLength({modelAttribute.MinLength})]");
    if (modelAttribute.IsConcurrencyToken)       Output("[ConcurrencyCheck]");
+
+   if (modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion != EFVersion.EFCore)
+   {
+      if (modelAttribute.MinLength > 0)
+         Output($"[MinLength({modelAttribute.MinLength})]");
+   } 
 }
 
 void WriteCalculatedProperties(ModelClass modelClass)

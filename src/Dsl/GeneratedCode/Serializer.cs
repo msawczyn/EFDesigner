@@ -3964,6 +3964,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// ColumnName
+			if (!serializationContext.Result.Failed)
+			{
+				string attribColumnName = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "columnName");
+				if (attribColumnName != null)
+				{
+					global::System.String valueOfColumnName;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribColumnName, out valueOfColumnName))
+					{
+						instanceOfModelAttribute.ColumnName = valueOfColumnName;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "columnName", typeof(global::System.String), attribColumnName);
+					}
+				}
+			}
+			// IsColumnNameTracking
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsColumnNameTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isColumnNameTracking");
+				if (attribIsColumnNameTracking != null)
+				{
+					global::System.Boolean valueOfIsColumnNameTracking;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsColumnNameTracking, out valueOfIsColumnNameTracking))
+					{
+						instanceOfModelAttribute.IsColumnNameTracking = valueOfIsColumnNameTracking;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isColumnNameTracking", typeof(global::System.Boolean), attribIsColumnNameTracking);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -4629,6 +4663,29 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "minLength", serializedPropValue);
+					}
+				}
+			}
+			// ColumnName
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelAttribute.ColumnName;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null)
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "columnName", propValue);
+				}
+			}
+			// IsColumnNameTracking
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelAttribute.IsColumnNameTracking;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isColumnNameTracking", serializedPropValue);
 					}
 				}
 			}

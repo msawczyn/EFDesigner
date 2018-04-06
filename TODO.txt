@@ -14,9 +14,6 @@ DSL: Context menu items should apply to model explorer as well as diagram
 
 T4:  Use HTML5Type in code generation
 
-DSL: Add column name option for property, default to property name
-T4:  Generate HasColumnName(name) for property if overrides
-
 DSL: Rework EFModelDocData.OnDocumentLoaded to prevent file from appearing dirty when no changes are made
 
 ===============================================================

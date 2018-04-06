@@ -5,9 +5,11 @@ Contributions are always welcome! [Clone a copy of the project](https://github.c
 I'll attempt to work any pull requests within a few days, but can't promise anything in
 stone since life can, at times, get in the way &lt;g&gt;. 
 
-You'll need to have installed the [Visualization & Modeling SDK](https://blogs.msdn.microsoft.com/devops/2016/12/12/the-visual-studio-modeling-sdk-is-now-available-with-visual-studio-2017/), 
+You'll need to have installed the [Visual Studio SDK](http://go.microsoft.com/fwlink/?LinkID=185580) and the 
+[Visualization & Modeling SDK](https://blogs.msdn.microsoft.com/devops/2016/12/12/the-visual-studio-modeling-sdk-is-now-available-with-visual-studio-2017/), 
 formerly known as DSL Tools, which [can now be found in the Visual Studio installer](https://blogs.msdn.microsoft.com/devops/2016/12/12/the-visual-studio-modeling-sdk-is-now-available-with-visual-studio-2017/). 
-Just make sure that's been activated.
+Just make sure that's been activated. If you're new to the Modeling SDK, Microsoft has provided 
+[some good code samples](https://code.msdn.microsoft.com/site/search?query=%22Modeling%20SDK%22&f%5B0%5D.Value=%22Modeling%20SDK%22&f%5B0%5D.Type=SearchText&ac=5) for you to look at.
 
 In order to modify the attribute parser, you'll want to get the [Gold Parsing System](http://goldparser.org/), an excellent free
 product for creating LALR parsers in C#. Documentation on the parsing engine is provided at the Gold site.
@@ -23,7 +25,7 @@ First, find the DSL Tools text templates. In my installation, they're located at
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\Extensions\Microsoft\DSL SDK\DSL Designer\15.0\TextTemplates
 ```
 
-But the `Enterprise` part of that path is there because I'm running Visual Studio Enterprise ... YMMV.
+But the `Enterprise` part of that path is there because I'm running Visual Studio Enterprise ... ymmv.
 
 In the `Dsl` folder you'll find `SerializationHelper.tt`. Open it in your favorite text editor.
 
@@ -63,7 +65,14 @@ In the Dsl project, the `Custom Code` folder holds handwritten extensions, and t
 `Generated Code` folder the T4 outputs. `Custom Code` is further broken down into categories
 of code, so finding things shouldn't be too difficult.
 
-## Developing
+## Extending via MEF
+
+The DSL has been written so that it can be extended using Microsoft's [Managed Extensibility Framework](https://docs.microsoft.com/en-us/dotnet/framework/mef/index), 
+so if you don't want to dig into the code and modify it, you can  
+[write MEF extensions](https://docs.microsoft.com/en-us/visualstudio/modeling/extend-your-dsl-by-using-mef) 
+to add your functionality.
+
+## Things to note
 
 Care has been taken to ensure the Dsl project is purely computational with no dependencies on 
 any type of user interface. The DslPackage project is the bit that integrates into Visual Studio
