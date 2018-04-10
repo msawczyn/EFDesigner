@@ -14,44 +14,39 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Data.Entity.Spatial;
 
 namespace Testing
 {
-   public partial class UParentRequired
+   public partial class BaseClassWithRequiredProperties
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected UParentRequired()
+      protected BaseClassWithRequiredProperties()
       {
-         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<UChild>();
-
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentRequired(UChild _uchildrequired)
+      /// <param name="_property0"></param>
+      public BaseClassWithRequiredProperties(string _property0)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
-
-         UChildCollection = new ObservableCollection<UChild>();
+         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
+         Property0 = _property0;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentRequired Create(UChild _uchildrequired)
+      /// <param name="_property0"></param>
+      public static BaseClassWithRequiredProperties Create(string _property0)
       {
-         return new UParentRequired(_uchildrequired);
+         return new BaseClassWithRequiredProperties(_property0);
       }
 
       // Persistent properties
@@ -63,14 +58,12 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
-
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildOptional { get; set; } 
+      [Required]
+      public string Property0 { get; set; }
+
    }
 }
 

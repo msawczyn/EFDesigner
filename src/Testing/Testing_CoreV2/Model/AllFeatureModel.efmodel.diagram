@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.0.3.10" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 17.875, 17.625" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.0.4.0" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 17.875, 17.625" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -174,7 +174,7 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="71c6003b-454c-4739-ba7f-43703879c4b6" edgePoints="[(3 : 8.17002081054688); (5.5312525 : 8.17002081054688); (5.5312525 : 7.35169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="71c6003b-454c-4739-ba7f-43703879c4b6" edgePoints="[(3 : 8.17002081054687); (5.5312525 : 8.17002081054687); (5.5312525 : 7.35169108072917)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="9a8e24ab-f156-496b-8682-dcaf71d2a6e5" />
       <relativeChildShapes />
       <nodes>

@@ -14,18 +14,17 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Data.Entity.Spatial;
 
 namespace Testing
 {
-   public partial class BaseClassWithRequiredProperties
+   public abstract partial class AbstractBaseClass : BaseClassWithRequiredProperties
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// Default constructor. Protected due to being abstract.
       /// </summary>
-      protected BaseClassWithRequiredProperties()
+      protected AbstractBaseClass(): base()
       {
          Init();
       }
@@ -34,36 +33,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_property0"></param>
-      public BaseClassWithRequiredProperties(string _property0)
+      protected AbstractBaseClass(string _property0)
       {
          if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
          Property0 = _property0;
          Init();
       }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="_property0"></param>
-      public static BaseClassWithRequiredProperties Create(string _property0)
-      {
-         return new BaseClassWithRequiredProperties(_property0);
-      }
-
-      // Persistent properties
-
-      /// <summary>
-      /// Identity, Required, Indexed
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id { get; set; }
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      [Required]
-      public string Property0 { get; set; }
 
    }
 }

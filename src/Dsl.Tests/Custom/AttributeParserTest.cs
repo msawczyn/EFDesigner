@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Sawczyn.EFDesigner.EFModel.Tests
@@ -123,6 +119,7 @@ namespace Sawczyn.EFDesigner.EFModel.Tests
       private readonly string BadVisibility = "pubic string foo";
 
       [TestMethod]
+      [TestCategory("Attribute Parser")]
       public void TestValidPermutations_Manual()
       {
          Console.WriteLine("Input,Visibility,Name,Type,Min,Max,Required,Identity,Value");
@@ -139,6 +136,7 @@ namespace Sawczyn.EFDesigner.EFModel.Tests
       }
 
       [TestMethod]
+      [TestCategory("Attribute Parser")]
       public void MustHaveName()
       {
          ParseResult result = AttributeParser.Parse(MissingName);
@@ -146,6 +144,7 @@ namespace Sawczyn.EFDesigner.EFModel.Tests
       }
 
       [TestMethod]
+      [TestCategory("Attribute Parser")]
       public void MustBeValidIdentifier()
       {
          ParseResult result = AttributeParser.Parse(InvalidIdentifier);
@@ -153,6 +152,7 @@ namespace Sawczyn.EFDesigner.EFModel.Tests
       }
 
       [TestMethod]
+      [TestCategory("Attribute Parser")]
       public void MinMustBeLessThanMaxLength()
       {
          ParseResult result = AttributeParser.Parse(InvertedLengths);
@@ -160,6 +160,7 @@ namespace Sawczyn.EFDesigner.EFModel.Tests
       }
 
       [TestMethod]
+      [TestCategory("Attribute Parser")]
       public void LengthsCannotBeNegative()
       {
          ParseResult result = AttributeParser.Parse(NegativeLength);
@@ -167,6 +168,7 @@ namespace Sawczyn.EFDesigner.EFModel.Tests
       }
 
       [TestMethod]
+      [TestCategory("Attribute Parser")]
       public void VisibilityMustBeValid()
       {
          ParseResult result = AttributeParser.Parse(BadVisibility);

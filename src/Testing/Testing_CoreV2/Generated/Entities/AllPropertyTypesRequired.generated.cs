@@ -14,7 +14,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Data.Entity.Spatial;
 
 namespace Testing
 {
@@ -45,9 +44,9 @@ namespace Testing
       /// <param name="_int32attr"></param>
       /// <param name="_int64attr"></param>
       /// <param name="_singleattr"></param>
+      /// <param name="_stringattr"></param>
       /// <param name="_timeattr"></param>
-      /// <param name="_string"></param>
-      public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr, string _string)
+      public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
       {
          BinaryAttr = _binaryattr;
          BooleanAttr = _booleanattr;
@@ -61,9 +60,9 @@ namespace Testing
          Int32Attr = _int32attr;
          Int64Attr = _int64attr;
          SingleAttr = _singleattr;
+         if (string.IsNullOrEmpty(_stringattr)) throw new ArgumentNullException(nameof(_stringattr));
+         StringAttr = _stringattr;
          TimeAttr = _timeattr;
-         if (string.IsNullOrEmpty(_string)) throw new ArgumentNullException(nameof(_string));
-         String = _string;
          Init();
       }
 
@@ -82,17 +81,17 @@ namespace Testing
       /// <param name="_int32attr"></param>
       /// <param name="_int64attr"></param>
       /// <param name="_singleattr"></param>
+      /// <param name="_stringattr"></param>
       /// <param name="_timeattr"></param>
-      /// <param name="_string"></param>
-      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, TimeSpan _timeattr, string _string)
+      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
       {
-         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _timeattr, _string);
+         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _stringattr, _timeattr);
       }
 
       // Persistent properties
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
@@ -171,18 +170,17 @@ namespace Testing
       public Single SingleAttr { get; set; }
 
       /// <summary>
+      /// Required, Min length = 1, Max length = 10
+      /// </summary>
+      [Required]
+      [MaxLength(10)]
+      public string StringAttr { get; set; }
+
+      /// <summary>
       /// Required
       /// </summary>
       [Required]
       public TimeSpan TimeAttr { get; set; }
-
-      /// <summary>
-      /// Required, Min length = 10, Max length = 100
-      /// </summary>
-      [Required]
-      [MaxLength(100)]
-      [MinLength(10)]
-      public string String { get; set; }
 
    }
 }

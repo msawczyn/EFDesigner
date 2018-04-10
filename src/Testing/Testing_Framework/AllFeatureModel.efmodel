@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.3.10" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.4.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerHierarchy" defaultCollectionClass="ObservableCollection" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired">
       <attributes>
@@ -246,6 +246,26 @@
           <modelClassMoniker Id="232ae00b-98c4-41e9-98ec-a17a8a3841c1" />
         </generalization>
       </subclasses>
+    </modelClass>
+    <modelClass Id="a9a27897-19fc-4282-a0e1-d08611e20732" tableName="SpatialProperties" databaseSchema="dbo" namespace="Testing" dbSetName="SpatialProperties" name="SpatialProperties">
+      <attributes>
+        <modelAttribute Id="e53ff88b-7718-4da0-a0cd-ab8e5cda9013" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" columnName="Id" />
+        <modelAttribute Id="1b567f81-7d2c-4593-9798-fdb9cb0153eb" type="Geography" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeography" columnName="AttrGeography" />
+        <modelAttribute Id="941519b2-7f34-4a2c-bfda-105a8e636aaf" type="GeographyCollection" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeographyCollection" columnName="AttrGeographyCollection" />
+        <modelAttribute Id="e233b646-7302-4d78-b5de-1879e044cd0e" type="GeographyLineString" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeographyLineString" columnName="AttrGeographyLineString" />
+        <modelAttribute Id="d1813986-c9f0-4ada-a0e4-857133a65b6e" type="GeographyMultiLineString" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeographyMultiLineString" columnName="AttrGeographyMultiLineString" />
+        <modelAttribute Id="295b8b8a-5656-4d1b-bbd9-7d07e888e64d" type="GeographyMultiPoint" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeographyMultiPoint" columnName="AttrGeographyMultiPoint" />
+        <modelAttribute Id="ef4aad7f-a3f3-4c64-960e-f23b50709f63" type="GeographyMultiPolygon" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeographyMultiPolygon" columnName="AttrGeographyMultiPolygon" />
+        <modelAttribute Id="2fce480c-f95c-43da-9044-340adf3fbdee" type="GeographyPoint" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeographyPoint" columnName="AttrGeographyPoint" />
+        <modelAttribute Id="d66fe9a0-596f-4283-9144-4573af07aece" type="GeographyPolygon" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeographyPolygon" columnName="AttrGeographyPolygon" />
+        <modelAttribute Id="52200c10-2183-4d20-b6c5-c4cae4678e8b" type="Geometry" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeometry" columnName="AttrGeometry" />
+        <modelAttribute Id="3514bfed-0548-423a-8f5e-2c068a653313" type="GeometryCollection" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeometryCollection" columnName="AttrGeometryCollection" />
+        <modelAttribute Id="1995dbc7-892f-4cfd-9b04-08a5616142ee" type="GeometryLineString" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeometryLineString" columnName="AttrGeometryLineString" />
+        <modelAttribute Id="8fbbc966-5be3-47df-a48b-fd5f9db8d491" type="GeometryMultiLineString" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeometryMultiLineString" columnName="AttrGeometryMultiLineString" />
+        <modelAttribute Id="ce6fd71a-2de1-4fdc-966c-7bb2762a9525" type="GeometryMultiPoint" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeometryMultiPoint" columnName="AttrGeometryMultiPoint" />
+        <modelAttribute Id="17f4adec-6e1d-451f-8af3-5f77cc343a6a" type="GeometryMultiPolygon" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeometryMultiPolygon" columnName="AttrGeometryMultiPolygon" />
+        <modelAttribute Id="d2eb522c-78d7-4384-b7bf-453f7e6d2cdb" type="GeometryPoint" required="true" indexed="false" indexedUnique="false" stringType="None" name="AttrGeometryPoint" columnName="AttrGeometryPoint" />
+      </attributes>
     </modelClass>
   </types>
   <enums>

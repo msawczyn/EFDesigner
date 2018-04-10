@@ -14,7 +14,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Data.Entity.Spatial;
 
 namespace Testing
 {
@@ -27,9 +26,9 @@ namespace Testing
       /// </summary>
       protected BChild()
       {
-         BParentCollection = new System.Collections.ObjectModel.ObservableCollection<BParentCollection>();
-         BParentCollection_1 = new System.Collections.ObjectModel.ObservableCollection<BParentCollection>();
-         BParentCollection_2 = new System.Collections.ObjectModel.ObservableCollection<BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<BParentCollection>();
+         BParentCollection_1 = new System.Collections.Generic.HashSet<BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<BParentCollection>();
 
          Init();
       }
@@ -51,9 +50,9 @@ namespace Testing
          if (_bparentrequired_2 == null) throw new ArgumentNullException(nameof(_bparentrequired_2));
          BParentRequired_2 = _bparentrequired_2;
 
-         BParentCollection = new ObservableCollection<BParentCollection>();
-         BParentCollection_1 = new ObservableCollection<BParentCollection>();
-         BParentCollection_2 = new ObservableCollection<BParentCollection>();
+         BParentCollection = new HashSet<BParentCollection>();
+         BParentCollection_1 = new HashSet<BParentCollection>();
+         BParentCollection_2 = new HashSet<BParentCollection>();
          Init();
       }
 

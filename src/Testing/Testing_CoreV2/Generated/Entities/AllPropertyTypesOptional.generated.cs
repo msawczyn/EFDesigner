@@ -14,40 +14,19 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Data.Entity.Spatial;
 
 namespace Testing
 {
-   public partial class BaseClassWithRequiredProperties
+   public partial class AllPropertyTypesOptional
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// Default constructor
       /// </summary>
-      protected BaseClassWithRequiredProperties()
+      public AllPropertyTypesOptional()
       {
          Init();
-      }
-
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="_property0"></param>
-      public BaseClassWithRequiredProperties(string _property0)
-      {
-         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
-         Property0 = _property0;
-         Init();
-      }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="_property0"></param>
-      public static BaseClassWithRequiredProperties Create(string _property0)
-      {
-         return new BaseClassWithRequiredProperties(_property0);
       }
 
       // Persistent properties
@@ -59,11 +38,37 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
+      public byte[] BinaryAttr { get; set; }
+
+      public bool? BooleanAttr { get; set; }
+
+      public byte? ByteAttr { get; set; }
+
+      public DateTime? DateTimeAttr { get; set; }
+
+      public DateTimeOffset? DateTimeOffsetAttr { get; set; }
+
+      public decimal? DecimalAttr { get; set; }
+
+      public double? DoubleAttr { get; set; }
+
+      public Guid? GuidAttr { get; set; }
+
+      public short? Int16Attr { get; set; }
+
+      public int? Int32Attr { get; set; }
+
+      public long? Int64Attr { get; set; }
+
+      public Single? SingleAttr { get; set; }
+
       /// <summary>
-      /// Required
+      /// Min length = 1, Max length = 10
       /// </summary>
-      [Required]
-      public string Property0 { get; set; }
+      [MaxLength(10)]
+      public string StringAttr { get; set; }
+
+      public TimeSpan? TimeAttr { get; set; }
 
    }
 }

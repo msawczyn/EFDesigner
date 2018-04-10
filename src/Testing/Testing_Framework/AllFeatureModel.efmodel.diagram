@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.0.3.10" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 18.125, 17.75" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.0.4.0" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 18.125, 17.75" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -336,5 +336,11 @@
         <elementListCompartment Id="befc07f2-0a9b-4042-9d7e-4de562e7f415" absoluteBounds="12.64, 1.56, 1.4700000000000002, 1.0185953776041665" name="ValuesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </enumShape>
+    <classShape Id="8bd05b68-7542-4550-bd05-c1f25d087101" absoluteBounds="4.875, 13, 4.375, 3.736212565104168" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+      <modelClassMoniker Id="a9a27897-19fc-4282-a0e1-d08611e20732" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e829f84b-03fe-4b64-93fc-acc8067ec71e" absoluteBounds="4.89, 13.31, 4.3450000000000006, 3.3262125651041665" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </eFModelDiagram>
