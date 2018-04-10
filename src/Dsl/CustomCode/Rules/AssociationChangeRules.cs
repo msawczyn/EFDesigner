@@ -24,7 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         string errorMessage = null;
+         List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
 
          switch (e.DomainProperty.Name)
          {
@@ -33,61 +33,41 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TargetPropertyName":
-               errorMessage = ValidateAssociationIdentifier(element, element.Source, element.Target, (string)e.NewValue);
+               errorMessages.Add(ValidateAssociationIdentifier(element, element.Source, element.Target, (string)e.NewValue));
                break;
 
             case "SourcePropertyName":
-               errorMessage = ValidateAssociationIdentifier(element, element.Target, element.Source, (string)e.NewValue);
+               errorMessages.Add(ValidateAssociationIdentifier(element, element.Target, element.Source, (string)e.NewValue));
                break;
 
             case "SourceMultiplicity":
-               Multiplicity newSourceMultiplicity = (Multiplicity) e.NewValue;
+               Multiplicity newSourceMultiplicity = (Multiplicity)e.NewValue;
 
-               //TODO: EFCore limitation as of 2.0. Review for each new release.
-               if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore && 
-                   newSourceMultiplicity == Multiplicity.ZeroMany && 
-                   element.TargetMultiplicity == Multiplicity.ZeroMany)
+               if ((newSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
+                   (newSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
                {
-                  errorMessage = "Many-to-many relationships not yet supported for EntityFramework Core";
+                  element.SourceRole = EndpointRole.NotSet;
+                  element.TargetRole = EndpointRole.NotSet;
                }
                else
-               {
-                  if ((newSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) || 
-                      (newSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
-                  {
-                     element.SourceRole = EndpointRole.NotSet;
-                     element.TargetRole = EndpointRole.NotSet;
-                  }
-                  else
-                     SetEndpointRoles(element);
+                  SetEndpointRoles(element);
 
-                  UpdateDisplayForCascadeDelete(element, null, null, newSourceMultiplicity);
-               }
+               UpdateDisplayForCascadeDelete(element, null, null, newSourceMultiplicity);
                break;
 
             case "TargetMultiplicity":
                Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
 
-               //TODO: EFCore limitation as of 2.0. Review for each new release.
-               if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore && 
-                   newTargetMultiplicity == Multiplicity.ZeroMany && 
-                   element.SourceMultiplicity == Multiplicity.ZeroMany)
+               if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
+                   (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
                {
-                  errorMessage = "Many-to-many relationships not yet supported for EntityFramework Core";
+                  element.SourceRole = EndpointRole.NotSet;
+                  element.TargetRole = EndpointRole.NotSet;
                }
                else
-               {
-                  if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) || 
-                      (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
-                  {
-                     element.SourceRole = EndpointRole.NotSet;
-                     element.TargetRole = EndpointRole.NotSet;
-                  }
-                  else
-                     SetEndpointRoles(element);
+                  SetEndpointRoles(element);
 
-                  UpdateDisplayForCascadeDelete(element, null, null, null, newTargetMultiplicity);
-               }
+               UpdateDisplayForCascadeDelete(element, null, null, null, newTargetMultiplicity);
                break;
 
             case "SourceRole":
@@ -100,16 +80,16 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TargetRole":
-               EndpointRole newTargetRole = (EndpointRole) e.NewValue;
+               EndpointRole newTargetRole = (EndpointRole)e.NewValue;
                if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Dependent)
                   element.SourceRole = EndpointRole.Principal;
                else if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Principal)
                   element.SourceRole = EndpointRole.Dependent;
-               
+
                break;
 
             case "SourceDeleteAction":
-               DeleteAction sourceDeleteAction = (DeleteAction) e.NewValue;
+               DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
                UpdateDisplayForCascadeDelete(element, sourceDeleteAction);
 
                break;
@@ -120,10 +100,11 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
          }
 
-         if (errorMessage != null)
+         errorMessages = errorMessages.Where(m => m != null).ToList();
+         if (errorMessages.Any())
          {
             current.Rollback();
-            MessageBox.Show(errorMessage);
+            MessageBox.Show(string.Join("; ", errorMessages));
          }
       }
 
@@ -153,8 +134,8 @@ namespace Sawczyn.EFDesigner.EFModel
             connector.DashStyle = persistent ? DashStyle.Solid : DashStyle.Dash;
       }
 
-      internal static void UpdateDisplayForCascadeDelete(Association element, 
-                                                         DeleteAction? sourceDeleteAction = null, 
+      internal static void UpdateDisplayForCascadeDelete(Association element,
+                                                         DeleteAction? sourceDeleteAction = null,
                                                          DeleteAction? targetDeleteAction = null,
                                                          Multiplicity? sourceMultiplicity = null,
                                                          Multiplicity? targetMultiplicity = null)
@@ -179,14 +160,14 @@ namespace Sawczyn.EFDesigner.EFModel
                                     .Where(connector => (cascade && connector.Color != Color.Red) ||
                                                         (!cascade && connector.Color != Color.Black))
                                     .ToList();
-  
+
          List<AssociationConnector> changeStyle =
             PresentationViewsSubject.GetPresentation(element)
                                     .OfType<AssociationConnector>()
                                     .Where(connector => (cascade && connector.DashStyle != DashStyle.Dash) ||
                                                         (!cascade && connector.DashStyle != DashStyle.Solid))
                                     .ToList();
-       
+
          foreach (AssociationConnector connector in changeColor)
             connector.Color = cascade ? Color.Red : Color.Black;
 
@@ -254,7 +235,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private static string ValidateAssociationIdentifier(Association association, ModelClass targetedClass, ModelClass enclosingClass, string identifier)
       {
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
-            return "Name must be a valid .NET identifier";
+            return $"{identifier} isn't a valid .NET identifier";
 
          ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass
                                           ?? targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;

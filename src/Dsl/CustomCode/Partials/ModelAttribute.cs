@@ -25,6 +25,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
+      public static readonly string[] SpatialTypes =
+      {
+         "Geography",
+         "GeographyCollection",
+         "GeographyLineString",
+         "GeographyMultiLineString",
+         "GeographyMultiPoint",
+         "GeographyMultiPolygon",
+         "GeographyPoint",
+         "GeographyPolygon",
+         "Geometry",
+         "GeometryCollection",
+         "GeometryLineString",
+         "GeometryMultiLineString",
+         "GeometryMultiPoint",
+         "GeometryMultiPolygon",
+         "GeometryPoint",
+         "GeometryPolygon"
+      };
       public static readonly string[] ValidTypes =
       {
          "Binary",

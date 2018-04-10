@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
@@ -31,7 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
          if (current.IsSerializing)
             return;
 
-         string errorMessage = null;
+         List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
 
          switch (e.DomainProperty.Name)
          {
@@ -53,7 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                {
                   if (!ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
                   {
-                     errorMessage = $"Properties of type {newType} can't be used as identity properties.";
+                     errorMessages.Add($"Properties of type {newType} can't be used as identity properties.");
                   }
                   else
                   {
@@ -81,7 +82,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.MinLength = 0;
 
                if (newMinLength < 0)
-                  errorMessage = "MinLength must be zero or a positive number";
+                  errorMessages.Add("MinLength must be zero or a positive number");
 
                break;
 
@@ -91,7 +92,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.MaxLength = 0;
 
                if (newMaxLength < 0)
-                  errorMessage = "MaxLength must be zero or a positive number";
+                  errorMessages.Add("MaxLength must be zero or a positive number");
 
                break;
 
@@ -99,7 +100,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                if (element.IsIdentity)
                {
                   if (element.IdentityType == IdentityType.None)
-                     errorMessage = "Identity properties must have an identity type defined";
+                     errorMessages.Add("Identity properties must have an identity type defined");
                   else
                      element.AutoProperty = true;
                }
@@ -124,7 +125,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                if (newIsIdentity)
                   if (!ValidIdentityAttributeTypes.Contains(element.Type))
                   {
-                     errorMessage = $"Properties of type {element.Type} can't be used as identity properties.";
+                     errorMessages.Add($"Properties of type {element.Type} can't be used as identity properties.");
                   }
                   else
                   {
@@ -179,7 +180,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                string newName = (string)e.NewValue;
 
                if (string.IsNullOrEmpty(newName))
-                  errorMessage = "Name must be a valid .NET identifier";
+                  errorMessages.Add("Name must be a valid .NET identifier");
                else
                {
                   ParseResult fragment;
@@ -188,15 +189,15 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                      fragment = ModelAttribute.Parse(element.ModelClass.ModelRoot, newName);
 
                      if (fragment == null)
-                        errorMessage = $"Could not parse entry '{newName}'";
+                        errorMessages.Add($"Could not parse entry '{newName}'");
                      else
                      {
                         if (string.IsNullOrEmpty(fragment.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(fragment.Name))
-                           errorMessage = "Name must be a valid .NET identifier";
-                        else if (modelClass.AllAttributes.Except(new[] { element }).Any(x => x.Name == fragment.Name))
-                           errorMessage = "Property name already in use";
+                           errorMessages.Add("Name must be a valid .NET identifier");
+                        else if (modelClass.AllAttributes.Except(new[] {element}).Any(x => x.Name == fragment.Name))
+                           errorMessages.Add("Property name already in use");
                         else if (modelClass.AllNavigationProperties().Any(p => p.PropertyName == fragment.Name))
-                           errorMessage = "Property name already in use";
+                           errorMessages.Add("Property name already in use");
                         else
                         {
                            element.Name = fragment.Name;
@@ -210,7 +211,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   }
                   catch (Exception exception)
                   {
-                     errorMessage = $"Could not parse entry '{newName}': {exception.Message}";
+                     errorMessages.Add($"Could not parse entry '{newName}': {exception.Message}");
                   }
                }
 
@@ -219,15 +220,16 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             case "InitialValue":
                string newInitialValue = (string)e.NewValue;
                if (!element.IsValidInitialValue(null, newInitialValue))
-                  errorMessage = $"{newInitialValue} isn't a valid value for {element.Type}";
+                  errorMessages.Add($"{newInitialValue} isn't a valid value for {element.Type}");
 
                break;
          }
 
-         if (errorMessage != null)
+         errorMessages = errorMessages.Where(m => m != null).ToList();
+         if (errorMessages.Any())
          {
             current.Rollback();
-            MessageBox.Show(errorMessage);
+            MessageBox.Show(string.Join("; ", errorMessages));
          }
       }
    }

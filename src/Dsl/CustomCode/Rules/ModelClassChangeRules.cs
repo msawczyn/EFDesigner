@@ -1,4 +1,5 @@
 ﻿using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         string errorMessage = null;
+         List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
 
          switch (e.DomainProperty.Name)
          {
@@ -94,9 +95,9 @@ namespace Sawczyn.EFDesigner.EFModel
                if (store.ElementDirectory
                         .AllElements
                         .OfType<ModelClass>()
-                        .Except(new[] { element })
+                        .Except(new[] {element})
                         .Any(x => x.TableName == newTableName))
-                  errorMessage = $"Table name '{newTableName}' already in use";
+                  errorMessages.Add($"Table name '{newTableName}' already in use");
                break;
 
             case "DbSetName":
@@ -107,36 +108,36 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (current.Name.ToLowerInvariant() != "paste" &&
                    (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
-                  errorMessage = "DbSet name must be a valid .NET identifier";
+                  errorMessages.Add("DbSet name must be a valid .NET identifier");
 
                else if (store.ElementDirectory
-                        .AllElements
-                        .OfType<ModelClass>()
-                        .Except(new[] { element })
-                        .Any(x => x.DbSetName == newDbSetName))
-                  errorMessage = $"DbSet name '{newDbSetName}' already in use";
+                             .AllElements
+                             .OfType<ModelClass>()
+                             .Except(new[] {element})
+                             .Any(x => x.DbSetName == newDbSetName))
+                  errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
 
                break;
 
             case "Name":
                string newName = (string)e.NewValue;
 
-               if (current.Name.ToLowerInvariant() != "paste" && 
+               if (current.Name.ToLowerInvariant() != "paste" &&
                    (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
-                  errorMessage = "Name must be a valid .NET identifier";
+                  errorMessages.Add("Name must be a valid .NET identifier");
                
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelClass>()
-                             .Except(new[] { element })
+                             .Except(new[] {element})
                              .Any(x => x.Name == newName))
-                  errorMessage = $"Class name '{newName}' already in use by another class";
+                  errorMessages.Add($"Class name '{newName}' already in use by another class");
                
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelEnum>()
                              .Any(x => x.Name == newName))
-                  errorMessage = $"Class name '{newName}' already in use by an enum";
+                  errorMessages.Add($"Class name '{newName}' already in use by an enum");
                
                else if (!string.IsNullOrEmpty((string)e.OldValue))
                {
@@ -153,14 +154,15 @@ namespace Sawczyn.EFDesigner.EFModel
             case "Namespace":
                string newNamespace = (string)e.NewValue;
                if (current.Name.ToLowerInvariant() != "paste")
-                  errorMessage = CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
+                  errorMessages.Add(CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier));
                break;
          }
 
-         if (errorMessage != null)
+         errorMessages = errorMessages.Where(m => m != null).ToList();
+         if (errorMessages.Any())
          {
             current.Rollback();
-            MessageBox.Show(errorMessage);
+            MessageBox.Show(string.Join("; ", errorMessages));
          }
       }
    }
