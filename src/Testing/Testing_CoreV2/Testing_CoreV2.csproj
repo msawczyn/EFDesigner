@@ -10,10 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Model\AllFeatureModel.efmodel">
+    <None Update="AllFeatureModel.efmodel">
       <Generator></Generator>
     </None>
-    <None Update="Model\AllFeatureModel.tt">
+    <None Update="AllFeatureModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
     </None>
@@ -24,12 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Generated\Context\" />
     <Folder Include="Generated\Entities\" />
     <Folder Include="Generated\Enums\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Model\AllFeatureModel.cs">
+    <Compile Update="AllFeatureModel.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
