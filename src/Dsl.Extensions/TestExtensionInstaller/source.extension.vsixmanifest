@@ -10,6 +10,7 @@
     </Installation>
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+        <Dependency d:Source="Installed" Id="56bbe1ba-aaee-4883-848f-e3c8656f8db2" DisplayName="Entity Framework Visual Editor" Version="[1.0.4.0,2.0)" d:InstallSource="Download" Location="https://github.com/msawczyn/EFDesigner/raw/master/dist/Sawczyn.EFDesigner.EFModel.DslPackage.vsix" />
     </Dependencies>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="Dsl" Path="|Dsl|" />

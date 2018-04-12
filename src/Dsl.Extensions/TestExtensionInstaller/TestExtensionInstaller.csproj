@@ -52,10 +52,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.html" />
-    <Content Include="stylesheet.css" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Dsl\Dsl.csproj">
       <Project>{B77C0323-1B94-4CE4-A416-6316EBCBA81C}</Project>
       <Name>Dsl</Name>
