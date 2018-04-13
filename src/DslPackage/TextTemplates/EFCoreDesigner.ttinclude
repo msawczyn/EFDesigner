@@ -222,15 +222,26 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       else if (identityProperties.Count > 1)
          segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityProperties)} }})");
          
+      foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
+         segments.Add($"Ignore(t => t.{transient.Name})");
+
+      if (segments.Count > 1)
+      {
+         if (modelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
+      }
+
+      segments.Clear();
+      segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
          segments.Add($"HasIndex(t => t.{indexed.Name})");
          if (indexed.IndexedUnique)
             segments.Add("IsUnique()");
       }
-
-      foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
-         segments.Add($"Ignore(t => t.{transient.Name})");
 
       if (segments.Count > 1)
       {
