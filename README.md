@@ -26,7 +26,7 @@ add all the little things that *should* have been there. Things like:
 - entities by default generated as partial classes so the default code can be easily modified
 - string length, index flags, required attributes and other properties being available in the designer
 
-and [many other nice-to-have bits](https://github.com/msawczyn/EFDesigner/wiki/Using-the-designer).
+and many other nice-to-have bits.
 
 Code generation is completely customizable via T4 templates. The tool installs templates that 
 target both EF6 and EFCore, and generate both a code-first DbContext class and 
@@ -36,16 +36,6 @@ ASP.Net Core in addition to any other project type, so you'll have flexibility i
 You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/).
 
  ### Change Log
-
-1.0.4.0
-   - Bug fixes for exceptions thrown when bad input to model attributes as text
-   - Added MinLength string property (used in EF6 only as of this writing)
-   - Modified attribute parser to accept MinLength
-   - Added ColumnName property to model attribute
-   - Added MEF extension capability !
-   - Added some unit tests
-   - Added some documentation updates
-   - Changed version to 1.0.4.0 due to MEF capability
 
 1.0.3.9
    - If no entities and model is using an unsupported inheritance strategy, 

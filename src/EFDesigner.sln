@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AD98A5BD-E
 		..\docs\Development.md = ..\docs\Development.md
 		..\docs\Entities.md = ..\docs\Entities.md
 		..\docs\Enumerations.md = ..\docs\Enumerations.md
+		..\docs\Features.md = ..\docs\Features.md
 		..\docs\Gemfile = ..\docs\Gemfile
 		..\docs\Getting-Started.md = ..\docs\Getting-Started.md
 		..\docs\index.md = ..\docs\index.md

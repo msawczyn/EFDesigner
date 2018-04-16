@@ -1,0 +1,35 @@
+# Features
+
+- Drag and drop editing for:
+   - Persistent classes
+   - Class properties
+   - Enumerations
+   - Enumeration values
+   - Inheritance
+   - Unidirectional associations
+   - Bidirectional associations
+   - Comment blocks
+- Model validations pertinent to the targeted EF code (EF6 or EFCore)
+- Save diagram as jpg
+- Show/hide diagram elements for clarity
+- Customize colors of classes and enums on diagram
+- Expand/collapse classes and enums on diagram
+- Cut/copy/paste any diagram element
+- Code-first C# code generation for both EF6 and EFCore v2 via T4 templates
+  - Easy overrides for parts or all of the code generation
+  - Partial classes generated for easy customization
+  - Use the Visual Studio property editor to configure:
+    - EF version
+    - Output directories
+    - File naming conventions
+    - Inheritance strategy
+    - Lazy loading default
+    - Namespace
+    - Proxy generation
+    - Automatic migration 
+    - Concurrency management type
+    - Default connection string
+    - Database initialization strategy
+    - Database schema
+    - Default collection type
+    - Database optimization flags
