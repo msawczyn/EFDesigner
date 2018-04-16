@@ -67,8 +67,8 @@ of code, so finding things shouldn't be too difficult.
 
 ## Extending via MEF
 
-The DSL has been written so that it can be extended using Microsoft's [Managed Extensibility Framework](https://docs.microsoft.com/en-us/dotnet/framework/mef/index), 
-so if you don't want to dig into the code and modify it, you can  
+Beginning with v1.1, the designer can be extended using Microsoft's [Managed Extensibility Framework](https://docs.microsoft.com/en-us/dotnet/framework/mef/index), 
+so if you don't want to dig into the code and modify it directly, you can  
 [write MEF extensions](https://docs.microsoft.com/en-us/visualstudio/modeling/extend-your-dsl-by-using-mef) 
 to add your functionality.
 

@@ -112,6 +112,15 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 </tbody>
 </table>
 
+### Generating Code
+
+Once you have your model the way you want it (and we'll talk how to do that during the rest of this
+documentation), you can generate the code in one of three ways:
+   
+   - If you've set the `Transform On Save` property on the design surface to `true`, just save the file
+   - At any time, you can right click the design surface and choose `Generate Code` from the context menu
+   - As with any T4 file, you can always right click the `[Model Name].tt` file in your project and choose `Run Custom Tool` from the context menu
+
 ### Next Step 
 [Persistent entities](Entities)
 
