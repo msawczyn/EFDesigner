@@ -6,6 +6,10 @@
 
 **Complete documentation in [Github Pages](https://msawczyn.github.io/EFDesigner/)**
 
+<table><tbody><tr><td>
+<img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Designer.jpg">
+</td></tr></tbody></table>
+
 This Visual Studio 2017 extension adds a new file type (.efmodel) that allows for fast, easy and, most
 importantly, **visual** design of persistent classes. Inheritance, unidirectional and bidirectional 
 associations are all supported. Enumerations are also included in the visual model, as is the 
