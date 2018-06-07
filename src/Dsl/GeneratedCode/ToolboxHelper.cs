@@ -46,35 +46,35 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// See the MSDN documentation for the ToolboxItemFilterAttribute class for more information on toolbox
 		/// item filters.
 		/// </remarks>
-		public const string ToolboxFilterString = "EFModel.1.0";
+		public const string ToolboxFilterString = "EFModel.1.1";
 		/// <summary>
 		/// Toolbox item filter string used to identify ModelClass element tool.
 		/// </summary>
-		public const string ModelClassFilterString = "ModelClass.1.0";
+		public const string ModelClassFilterString = "ModelClass.1.1";
 		/// <summary>
 		/// Toolbox item filter string used to identify UnidirectionalAssociation connector tool.
 		/// </summary>
-		public const string UnidirectionalAssociationFilterString = "UnidirectionalAssociation.1.0";
+		public const string UnidirectionalAssociationFilterString = "UnidirectionalAssociation.1.1";
 		/// <summary>
 		/// Toolbox item filter string used to identify BidirectionalAssociation connector tool.
 		/// </summary>
-		public const string BidirectionalAssociationFilterString = "BidirectionalAssociation.1.0";
+		public const string BidirectionalAssociationFilterString = "BidirectionalAssociation.1.1";
 		/// <summary>
 		/// Toolbox item filter string used to identify Generalization connector tool.
 		/// </summary>
-		public const string GeneralizationFilterString = "Generalization.1.0";
+		public const string GeneralizationFilterString = "Generalization.1.1";
 		/// <summary>
 		/// Toolbox item filter string used to identify Comment element tool.
 		/// </summary>
-		public const string CommentFilterString = "Comment.1.0";
+		public const string CommentFilterString = "Comment.1.1";
 		/// <summary>
 		/// Toolbox item filter string used to identify CommentsReferenceTypes connector tool.
 		/// </summary>
-		public const string CommentsReferenceTypesFilterString = "CommentsReferenceTypes.1.0";
+		public const string CommentsReferenceTypesFilterString = "CommentsReferenceTypes.1.1";
 		/// <summary>
 		/// Toolbox item filter string used to identify Enumeration element tool.
 		/// </summary>
-		public const string EnumerationFilterString = "Enumeration.1.0";
+		public const string EnumerationFilterString = "Enumeration.1.1";
 
 	
 		private global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem> toolboxItemCache = new global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem>();

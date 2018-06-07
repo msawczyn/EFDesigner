@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.0.4.0
+// EFDesigner v1.1.0
 // Copyright (c) 2017 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -216,15 +216,21 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add($"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
       }
 
-      List<string> identityProperties = modelClass.IdentityPropertyNames.ToList();
-      if (identityProperties.Count == 1)
-         segments.Add($"HasKey(t => t.{identityProperties[0]})");
-      else if (identityProperties.Count > 1)
-         segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityProperties)} }})");
-         
       foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
          segments.Add($"Ignore(t => t.{transient.Name})");
 
+      // primary key code segments must be output last, since HasKey returns a different type
+      List<ModelAttribute> identityProperties = modelClass.IdentityProperties;
+      if (identityProperties.Count == 1)
+      {
+         ModelAttribute identityProperty = identityProperties[0];
+         segments.Add($"HasKey(t => t.{identityProperty.Name})");
+         if (identityProperty.ColumnName != identityProperty.Name)
+            segments.Add($"HasName(\"{identityProperty.ColumnName}\")");
+      }
+      else if (identityProperties.Count > 1)
+         segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityProperties)} }})");
+         
       if (segments.Count > 1)
       {
          if (modelRoot.ChopMethodChains)
