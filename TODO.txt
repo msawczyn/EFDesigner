@@ -16,6 +16,9 @@ T4:  Use HTML5Type in code generation
 
 DSL: Rework EFModelDocData.OnDocumentLoaded to prevent file from appearing dirty when no changes are made
 
+DSL: Property editor shows properties appropriate to EF type
+     https://www.codeproject.com/Articles/26992/Using-a-TypeDescriptionProvider-to-support-dynamic
+
 ===============================================================
 Extension: Add DeleteType enum to ModelClass (soft, hard)
 T4:  Implement soft delete where marked in model
