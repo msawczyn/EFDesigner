@@ -76,6 +76,7 @@
     <Compile Include="Generated\Entities\HiddenEntity.generated.cs" />
     <Compile Include="Generated\Entities\Master.generated.cs" />
     <Compile Include="Generated\Entities\ParserTest.generated.cs" />
+    <Compile Include="Generated\Entities\RenamedColumn.generated.cs" />
     <Compile Include="Generated\Entities\SpatialProperties.generated.cs" />
     <Compile Include="Generated\Entities\UChild.generated.cs" />
     <Compile Include="Generated\Entities\UParentCollection.generated.cs" />

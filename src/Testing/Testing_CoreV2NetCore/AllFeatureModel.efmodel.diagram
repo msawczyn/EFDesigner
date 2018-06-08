@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.0.4.0" Id="203cab2b-d74b-442f-8046-8576186cae53" absoluteBounds="0, 0, 13.375, 15.375" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.1.0.0" Id="203cab2b-d74b-442f-8046-8576186cae53" absoluteBounds="0, 0, 13.375, 15.375" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="d7e831f1-0efa-444f-90ba-b4df87d9827b" absoluteBounds="0.75, 6.75, 1.5, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -200,7 +200,7 @@
         <classShapeMoniker Id="0197c8c3-55f6-4801-a991-28c8c3af2f1b" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="881f2bb5-49c5-4339-86a7-a4b232b35dda" edgePoints="[(6.125 : 1.42002081054688); (3.7812525 : 1.42002081054688); (3.7812525 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="881f2bb5-49c5-4339-86a7-a4b232b35dda" edgePoints="[(6.125 : 1.42002081054687); (3.7812525 : 1.42002081054687); (3.7812525 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="49d12246-5628-42ce-a5c6-05c5489ace3b" />
       <relativeChildShapes />
       <nodes>
@@ -216,7 +216,7 @@
         <classShapeMoniker Id="0197c8c3-55f6-4801-a991-28c8c3af2f1b" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="f224ab16-d523-41cd-aaaa-f67d21bc936c" edgePoints="[(1.25 : 1.35169108072917); (1.25 : 2.30084554036458); (2.625 : 2.30084554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="f224ab16-d523-41cd-aaaa-f67d21bc936c" edgePoints="[(2 : 0.715835135091146); (2.76562125 : 0.715835135091146); (2.76562125 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="83f07e81-6533-4d9a-93c9-72a5624a7971" />
       <relativeChildShapes />
       <nodes>
@@ -224,7 +224,7 @@
         <classShapeMoniker Id="0197c8c3-55f6-4801-a991-28c8c3af2f1b" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="35bc0386-d98f-410b-b54e-10e397cc2c66" edgePoints="[(0.8437475 : 1.35169108072917); (0.8437475 : 2.54502081054687); (2.625 : 2.54502081054687)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="35bc0386-d98f-410b-b54e-10e397cc2c66" edgePoints="[(2 : 1.05375790527344); (3.17187375 : 1.05375790527344); (3.17187375 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="37dfd225-3e1b-49e3-a210-1ef55d007e81" />
       <relativeChildShapes />
       <nodes>
@@ -232,7 +232,7 @@
         <classShapeMoniker Id="0197c8c3-55f6-4801-a991-28c8c3af2f1b" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="5590abdb-aa61-419a-b264-a2541764c1b3" edgePoints="[(1.45312625 : 3.75); (1.45312625 : 2.66710844563802); (2.625 : 2.66710844563802)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="5590abdb-aa61-419a-b264-a2541764c1b3" edgePoints="[(1.25 : 3.75); (1.25 : 2.30084554036458); (2.625 : 2.30084554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="23a88767-d431-4429-a3c5-b50993bc64c6" />
       <relativeChildShapes />
       <nodes>
@@ -240,7 +240,7 @@
         <classShapeMoniker Id="0197c8c3-55f6-4801-a991-28c8c3af2f1b" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="5da7153e-56ec-4247-8d47-b4a9e1810b43" edgePoints="[(1.04687375 : 3.75); (1.04687375 : 2.42293317545573); (2.625 : 2.42293317545573)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="5da7153e-56ec-4247-8d47-b4a9e1810b43" edgePoints="[(1.6562525 : 3.75); (1.6562525 : 2.54502081054687); (2.625 : 2.54502081054687)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="f6159f15-3415-44f4-a3d1-8faa615e867a" />
       <relativeChildShapes />
       <nodes>
@@ -248,7 +248,7 @@
         <classShapeMoniker Id="0197c8c3-55f6-4801-a991-28c8c3af2f1b" />
       </nodes>
     </bidirectionalConnector>
-    <bidirectionalConnector Id="a1748498-cecc-4e4a-9e8f-73d95e73344a" edgePoints="[(1.82812625 : 3.75); (1.82812625 : 2.17875790527344); (2.625 : 2.17875790527344)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="a1748498-cecc-4e4a-9e8f-73d95e73344a" edgePoints="[(0.8437475 : 3.75); (0.8437475 : 2.05667027018229); (2.625 : 2.05667027018229)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="adf856e3-b6b8-4738-a653-0772a8088cc3" />
       <relativeChildShapes />
       <nodes>
@@ -314,5 +314,11 @@
         <classShapeMoniker Id="31cc8cb6-0f31-49d1-9f8f-947914c2113d" />
       </nodes>
     </unidirectionalConnector>
+    <classShape Id="6714fcde-76d7-4f1f-a3cd-2885973f3e94" absoluteBounds="6.5, 2.125, 1.5, 0.85169108072916666" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+      <modelClassMoniker Id="86ca4682-4dbc-4158-bd2d-3cae3377eab4" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ff4596c7-c2ef-49e5-89fe-59cf39f44a5e" absoluteBounds="6.515, 2.435, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </eFModelDiagram>

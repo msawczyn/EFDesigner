@@ -220,15 +220,15 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          segments.Add($"Ignore(t => t.{transient.Name})");
 
       // primary key code segments must be output last, since HasKey returns a different type
-      List<ModelAttribute> identityProperties = modelClass.IdentityProperties;
-      if (identityProperties.Count == 1)
+      IEnumerable<ModelAttribute> identityProperties = modelClass.IdentityProperties;
+      if (identityProperties.Count() == 1)
       {
-         ModelAttribute identityProperty = identityProperties[0];
+         ModelAttribute identityProperty = identityProperties.First();
          segments.Add($"HasKey(t => t.{identityProperty.Name})");
          if (identityProperty.ColumnName != identityProperty.Name)
             segments.Add($"HasName(\"{identityProperty.ColumnName}\")");
       }
-      else if (identityProperties.Count > 1)
+      else if (identityProperties.Count() > 1)
          segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityProperties)} }})");
          
       if (segments.Count > 1)

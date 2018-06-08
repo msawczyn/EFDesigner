@@ -33,6 +33,7 @@ namespace Testing_CoreV2NetCore
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.HiddenEntity> HiddenEntities { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.Master> Masters { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.ParserTest> ParserTests { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.RenamedColumn> RenamedColumns { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UChild> UChilds { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentCollection> UParentCollections { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentOptional> UParentOptionals { get; set; }
@@ -274,6 +275,16 @@ namespace Testing_CoreV2NetCore
          modelBuilder.Entity<Testing_CoreV2NetCore.ParserTest>()
                      .Property(t => t.name18)
                      .HasMaxLength(6);
+
+         modelBuilder.Entity<Testing_CoreV2NetCore.RenamedColumn>()
+                     .ToTable("RenamedColumns")
+                     .HasKey(t => t.Id)
+                     .HasName("Foo");
+         modelBuilder.Entity<Testing_CoreV2NetCore.RenamedColumn>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .HasColumnName("Foo")
+                     .ValueGeneratedOnAdd();
 
          modelBuilder.Entity<Testing_CoreV2NetCore.UChild>()
                      .ToTable("UChilds")

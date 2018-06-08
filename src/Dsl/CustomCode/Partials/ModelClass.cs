@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedMember.Local
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -38,18 +40,20 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      public IEnumerable<string> IdentityPropertyNames => Attributes.Where(x => x.IsIdentity).Select(x => x.Name).ToList();
+      public IEnumerable<ModelAttribute> IdentityProperties => Attributes.Where(x => x.IsIdentity).ToList();
+      public IEnumerable<string> IdentityPropertyNames => IdentityProperties.Select(x => x.Name).ToList();
 
-      public IEnumerable<string> AllIdentityPropertyNames
+      public IEnumerable<ModelAttribute> AllIdentityProperties
       {
          get
          {
-            List<string> result = Attributes.Where(x => x.IsIdentity).Select(x => x.Name).ToList();
+            List<ModelAttribute> result = new List<ModelAttribute>(IdentityProperties);
             if (Superclass != null)
-               result.AddRange(Superclass.AllIdentityPropertyNames);
+               result.AddRange(Superclass.AllIdentityProperties);
             return result;
          }
       }
+      public IEnumerable<string> AllIdentityPropertyNames => AllIdentityProperties.Select(x => x.Name).ToList();
 
 
       public ConcurrencyOverride EffectiveConcurrency
@@ -179,7 +183,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
       private void ClassShouldHaveAttributes(ValidationContext context)
       {
          if (!Attributes.Any() && !LocalNavigationProperties().Any())
@@ -188,7 +191,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
 
-      // ReSharper disable once UnusedMember.Local
       private void AttributesCannotBeNamedSameAsEnclosingClass(ValidationContext context)
       {
          if (HasPropertyNamed(Name))
@@ -196,15 +198,13 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
       private void PersistentClassesMustHaveIdentity(ValidationContext context)
       {
-         if (!AllIdentityPropertyNames.Any())
+         if (!AllIdentityProperties.Any())
             context.LogError($"{Name}: Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
       private void DerivedClassesShouldNotHaveIdentity(ValidationContext context)
       {
          if (Attributes.Any(x => x.IsIdentity))
@@ -224,7 +224,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
       private void EnsureProperNumberOfConcurrencyProperties(ValidationContext context)
       {
          int tokenCount = AllAttributes.Count(x => x.IsConcurrencyToken);
@@ -235,7 +234,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();

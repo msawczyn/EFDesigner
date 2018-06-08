@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Generated\Context\" />
     <Folder Include="Generated\Entities\" />
     <Folder Include="Generated\Enums\" />
   </ItemGroup>

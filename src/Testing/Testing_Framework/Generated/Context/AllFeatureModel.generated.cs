@@ -33,6 +33,7 @@ namespace Testing
       public System.Data.Entity.DbSet<Testing.HiddenEntity> HiddenEntities { get; set; }
       public System.Data.Entity.DbSet<Testing.Master> Masters { get; set; }
       public System.Data.Entity.DbSet<Testing.ParserTest> ParserTests { get; set; }
+      public System.Data.Entity.DbSet<Testing.RenamedColumn> RenamedColumns { get; set; }
       public System.Data.Entity.DbSet<Testing.SpatialProperties> SpatialProperties { get; set; }
       public System.Data.Entity.DbSet<Testing.UChild> UChilds { get; set; }
       public System.Data.Entity.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
@@ -165,6 +166,9 @@ namespace Testing
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name16).HasMaxLength(6);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name17).HasMaxLength(6);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name18).HasMaxLength(6);
+
+         modelBuilder.Entity<Testing.RenamedColumn>().ToTable("RenamedColumns").HasKey(t => t.Id);
+         modelBuilder.Entity<Testing.RenamedColumn>().Property(t => t.Id).IsRequired().HasColumnName("Foo").HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute())).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Testing.SpatialProperties>().ToTable("SpatialProperties").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.SpatialProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
