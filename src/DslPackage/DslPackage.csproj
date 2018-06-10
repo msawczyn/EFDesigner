@@ -280,21 +280,11 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TextTemplates\EF6Designer.ttinclude">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="TextTemplates\MultipleOutputHelper.ttinclude">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="TextTemplates\VSIntegration.ttinclude">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="TextTemplates\EFCoreDesigner.ttinclude">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="TextTemplates\EFDesigner.ttinclude">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
+    <None Include="TextTemplates\EF6Designer.ttinclude" />
+    <None Include="TextTemplates\MultipleOutputHelper.ttinclude" />
+    <None Include="TextTemplates\VSIntegration.ttinclude" />
+    <None Include="TextTemplates\EFCoreDesigner.ttinclude" />
+    <None Include="TextTemplates\EFDesigner.ttinclude" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dsl\Dsl.csproj">

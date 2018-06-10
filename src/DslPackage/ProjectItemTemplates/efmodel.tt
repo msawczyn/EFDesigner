@@ -37,6 +37,7 @@
          case EFVersion.EF6:
             GenerateEF6(manager, this.ModelRoot);
             break;
+         case EFVersion.EFCore20:
          case EFVersion.EFCore:
             GenerateEFCore(manager, this.ModelRoot);
             break;

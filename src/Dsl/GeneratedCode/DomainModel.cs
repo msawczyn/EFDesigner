@@ -173,6 +173,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelAttribute), "MinLength", ModelAttribute.MinLengthDomainPropertyId, typeof(ModelAttribute.MinLengthPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "ColumnName", ModelAttribute.ColumnNameDomainPropertyId, typeof(ModelAttribute.ColumnNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "IsColumnNameTracking", ModelAttribute.IsColumnNameTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnNameTrackingPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelAttribute), "ColumnType", ModelAttribute.ColumnTypeDomainPropertyId, typeof(ModelAttribute.ColumnTypePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelAttribute), "IsColumnTypeTracking", ModelAttribute.IsColumnTypeTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnTypeTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "Namespace", ModelEnum.NamespaceDomainPropertyId, typeof(ModelEnum.NamespacePropertyHandler)),
@@ -1021,11 +1023,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EF6.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		EF6 = 0,
 		/// <summary>
-		/// EFCore
-		/// Entity Framework Core
+		/// EFCore21
+		/// Entity Framework Core (latest version)
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EFCore.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		EFCore = 1,
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EFCore21.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		EFCore21 = 2,
+		/// <summary>
+		/// EFCore20
+		/// Entity Framework Core version 2.0
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EFCore20.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		EFCore20 = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel

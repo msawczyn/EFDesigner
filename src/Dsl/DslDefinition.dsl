@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
@@ -407,6 +407,16 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="7e3b91ab-3859-4b80-9270-9adf7b46dbb3" Description="If true, ModelAttribute.ColumnName tracks ModelAttribute.Name" Name="IsColumnNameTracking" DisplayName="Is Column Name Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="17cc5012-1352-4a08-9965-55dcecaa985f" Description="The data type for the table column backing this property" Name="ColumnType" DisplayName="Column Type" Kind="CustomStorage" Category="Database" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8f4f2c30-d7cd-4ee6-aa6b-1bc1dc8fd13c" Description="If true, ModelAttribute.ColumnType tracks ModelAttribute.Type" Name="IsColumnTypeTracking" DisplayName="Is Column Type Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -919,7 +929,8 @@
     <DomainEnumeration Name="EFVersion" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.EFVersion">
       <Literals>
         <EnumerationLiteral Description="Entity Framework 6" Name="EF6" Value="0" />
-        <EnumerationLiteral Description="Entity Framework Core" Name="EFCore" Value="1" />
+        <EnumerationLiteral Description="Entity Framework Core (latest version)" Name="EFCore21" Value="2" />
+        <EnumerationLiteral Description="Entity Framework Core version 2.0" Name="EFCore20" Value="1" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="IdentityType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Describes identity generation">
@@ -1385,6 +1396,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isColumnNameTracking">
             <DomainPropertyMoniker Name="ModelAttribute/IsColumnNameTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="columnType">
+            <DomainPropertyMoniker Name="ModelAttribute/ColumnType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isColumnTypeTracking">
+            <DomainPropertyMoniker Name="ModelAttribute/IsColumnTypeTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

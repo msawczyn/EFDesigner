@@ -5836,6 +5836,186 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ColumnType domain property code
+		
+		/// <summary>
+		/// ColumnType domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ColumnTypeDomainPropertyId = new global::System.Guid(0x17cc5012, 0x1352, 0x4a08, 0x99, 0x65, 0x55, 0xdc, 0xec, 0xaa, 0x98, 0x5f);
+		
+		/// <summary>
+		/// Gets or sets the value of ColumnType domain property.
+		/// The data type for the table column backing this property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnType.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("17cc5012-1352-4a08-9965-55dcecaa985f")]
+		public global::System.String ColumnType
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ColumnTypePropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ColumnTypePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.ColumnType domain property.
+		/// </summary>
+		internal sealed partial class ColumnTypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		{
+			private ColumnTypePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.ColumnType domain property value handler.
+			/// </summary>
+			public static readonly ColumnTypePropertyHandler Instance = new ColumnTypePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.ColumnType domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ColumnTypeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for ColumnType because its Kind is
+				// set to CustomStorage. Please provide the GetColumnTypeValue()
+				// method on the domain class.
+				return element.GetColumnTypeValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for ColumnType because its Kind is
+					// set to CustomStorage. Please provide the SetColumnTypeValue()
+					// method on the domain class.
+					element.SetColumnTypeValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsColumnTypeTracking domain property code
+		
+		/// <summary>
+		/// IsColumnTypeTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsColumnTypeTrackingDomainPropertyId = new global::System.Guid(0x8f4f2c30, 0xd7cd, 0x4ee6, 0xaa, 0x6b, 0x1b, 0xc1, 0xdc, 0x8f, 0xd1, 0x3c);
+		
+		/// <summary>
+		/// Storage for IsColumnTypeTracking
+		/// </summary>
+		private global::System.Boolean isColumnTypeTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsColumnTypeTracking domain property.
+		/// If true, ModelAttribute.ColumnType tracks ModelAttribute.Type
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnTypeTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnTypeTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("8f4f2c30-d7cd-4ee6-aa6b-1bc1dc8fd13c")]
+		public global::System.Boolean IsColumnTypeTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isColumnTypeTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsColumnTypeTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.IsColumnTypeTracking domain property.
+		/// </summary>
+		internal sealed partial class IsColumnTypeTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Boolean>
+		{
+			private IsColumnTypeTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.IsColumnTypeTracking domain property value handler.
+			/// </summary>
+			public static readonly IsColumnTypeTrackingPropertyHandler Instance = new IsColumnTypeTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.IsColumnTypeTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsColumnTypeTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isColumnTypeTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isColumnTypeTrackingPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.

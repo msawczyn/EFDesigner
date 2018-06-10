@@ -277,11 +277,32 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public void SetColumnNameValue(string value)
       {
-         columnNameStorage = value;
+         columnNameStorage = value == Name ? null : value;
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            IsColumnNameTracking = false;
+            // ReSharper disable once ArrangeRedundantParentheses
+            IsColumnNameTracking = (columnNameStorage == null);
+      }
+
+      /// <summary>Storage for the ColumnType property.</summary>  
+      private string columnTypeStorage; 
+
+      public string GetColumnTypeValue()
+      {
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         return !loading && IsColumnTypeTracking ? "default" : columnTypeStorage;
+      }
+
+      public void SetColumnTypeValue(string value)
+      {
+         columnTypeStorage = value.ToLowerInvariant() == "default" ? null : value;
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         if (!Store.InUndoRedoOrRollback && !loading)
+            // ReSharper disable once ArrangeRedundantParentheses
+            IsColumnTypeTracking = (columnTypeStorage == null);
       }
 
       internal sealed partial class IsColumnNameTrackingPropertyHandler
@@ -338,6 +359,46 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      internal sealed partial class IsColumnTypeTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsColumnTypeTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelAttribute element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(ColumnTypeDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsColumnTypeTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelAttribute element)
+         {
+            element.isColumnTypeTrackingPropertyStorage = (element.ColumnType == "default");
+         }
+
+         /// <summary>
+         ///    Method to set IsColumnTypeTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelAttribute element)
+         {
+            // Force the IsColumnTypeTracking property to false so that the value  
+            // of the ColumnType property is retrieved from storage.  
+            element.isColumnTypeTrackingPropertyStorage = false;
+         }
+      }
+
       /// <summary>
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.
@@ -345,6 +406,7 @@ namespace Sawczyn.EFDesigner.EFModel
       internal virtual void PreResetIsTrackingProperties()
       {
          IsColumnNameTrackingPropertyHandler.Instance.PreResetValue(this);
+         IsColumnTypeTrackingPropertyHandler.Instance.PreResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -355,6 +417,7 @@ namespace Sawczyn.EFDesigner.EFModel
       internal virtual void ResetIsTrackingProperties()
       {
          IsColumnNameTrackingPropertyHandler.Instance.ResetValue(this);
+         IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
 

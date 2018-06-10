@@ -99,6 +99,8 @@ List<string> GetAdditionalUsingStatementsEFCore(ModelRoot modelRoot)
 
 void WriteDbContextEFCore(ModelRoot modelRoot)
 {
+   List<string> segments = new List<string>();
+
    Output("using System;");
    Output("using System.Collections.Generic;");
    Output("using System.Linq;");
@@ -169,6 +171,29 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
    Output($"protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)");
    Output("{");
+
+   segments.Clear();
+
+   if (modelRoot.EntityFrameworkVersion > EFVersion.EFCore20)
+   {
+      if (modelRoot.LazyLoadingEnabled)
+      {
+         segments.Add("UseLazyLoadingProxies()");
+      }
+   }
+
+   if (segments.Any())
+   {
+      segments.Insert(0, "optionsBuilder");
+
+      if (modelRoot.ChopMethodChains)
+         OutputChopped(segments);
+      else
+         Output(string.Join(".", segments) + ";");
+      
+      NL();
+   }
+
    Output("CustomInit(ref optionsBuilder);");
    Output("}");
    NL();
@@ -187,8 +212,6 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    NL();
    
    Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
-
-   List<string> segments = new List<string>();
 
    Sawczyn.EFDesigner.EFModel.Multiplicity[] singles = { Sawczyn.EFDesigner.EFModel.Multiplicity.One, Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne };
    Sawczyn.EFDesigner.EFModel.Multiplicity[] multiples = { Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany };
@@ -268,6 +291,13 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add("IsRequired()");
          if (modelAttribute.ColumnName != modelAttribute.Name)
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+         if (modelAttribute.ColumnType.ToLowerInvariant() != "default")
+         {
+            if (modelAttribute.ColumnType.ToLowerInvariant() == "varchar" || modelAttribute.ColumnType.ToLowerInvariant() == "char")
+               segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}({modelAttribute.MaxLength})\")");
+            else
+               segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\")");
+         }
          if (modelAttribute.IsConcurrencyToken)
             segments.Add("IsRowVersion()");
          if (modelAttribute.IsIdentity)

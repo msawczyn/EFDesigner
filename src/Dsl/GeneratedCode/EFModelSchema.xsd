@@ -592,6 +592,18 @@
             <xsd:documentation>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: ColumnType -->
+        <xsd:attribute name="columnType" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The data type for the table column backing this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsColumnTypeTracking -->
+        <xsd:attribute name="isColumnTypeTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.ColumnType tracks ModelAttribute.Type</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1613,9 +1625,14 @@
           <xsd:documentation>Entity Framework 6</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
-      <xsd:enumeration value="EFCore">
+      <xsd:enumeration value="EFCore21">
         <xsd:annotation>
-          <xsd:documentation>Entity Framework Core</xsd:documentation>
+          <xsd:documentation>Entity Framework Core (latest version)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="EFCore20">
+        <xsd:annotation>
+          <xsd:documentation>Entity Framework Core version 2.0</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

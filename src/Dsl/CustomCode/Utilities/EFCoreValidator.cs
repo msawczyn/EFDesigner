@@ -30,9 +30,11 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = element.ModelClass.ModelRoot;
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+         if (modelRoot.EntityFrameworkVersion > EFVersion.EF6)
+         {
             if (ModelAttribute.SpatialTypes.Contains(element.Type))
                errorMessages.Add($"{element.Type} {element.ModelClass.Name}.{element.Name}: EFCore does not (yet) support spatial types");
+         }
 
          return errorMessages;
       }
@@ -42,10 +44,12 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = element.Source.ModelRoot;
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+         if (modelRoot.EntityFrameworkVersion > EFVersion.EF6)
+         {
             if (element.SourceMultiplicity == Multiplicity.ZeroMany &&
                 element.TargetMultiplicity == Multiplicity.ZeroMany)
-               errorMessages.Add($"Found an unsupported many-to-many association between {element.Source.Name} and {element.Target.Name}");
+               errorMessages.Add($"EFCore does not support many-to-many associations (found one between {element.Source.Name} and {element.Target.Name})");
+         }
 
          return errorMessages;
       }
@@ -56,9 +60,11 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = modelRoot.Store;
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+         if (modelRoot.EntityFrameworkVersion > EFVersion.EF6)
+         {
             if (element.InheritanceStrategy != CodeStrategy.TablePerHierarchy)
                errorMessages.Add("EFCore currently only supports Table-Per-Hierarchy inheritance strategy.");
+         }
 
          foreach (Association association in store.ElementDirectory.AllElements.OfType<Association>().ToList())
             errorMessages.AddRange(GetErrors(association));

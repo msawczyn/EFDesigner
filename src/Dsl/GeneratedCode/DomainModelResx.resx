@@ -845,6 +845,26 @@
     <value>Is Column Name Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsColumnNameTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnType.Description" xml:space="preserve">
+    <value>The data type for the table column backing this property</value>
+    <comment>Description for DomainProperty &apos;ColumnType&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnType.DisplayName" xml:space="preserve">
+    <value>Column Type</value>
+    <comment>DisplayName for DomainProperty &apos;ColumnType&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ColumnType.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;ColumnType&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnTypeTracking.Description" xml:space="preserve">
+    <value>If true, ModelAttribute.ColumnType tracks ModelAttribute.Type</value>
+    <comment>Description for DomainProperty &apos;IsColumnTypeTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsColumnTypeTracking.DisplayName" xml:space="preserve">
+    <value>Is Column Type Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsColumnTypeTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>
@@ -1861,13 +1881,21 @@
     <value>Entity Framework 6</value>
     <comment>Description for EnumerationLiteral &apos;EF6&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore.DisplayName" xml:space="preserve">
-    <value>EFCore</value>
-    <comment>Display name for EnumerationLiteral &apos;EFCore&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore21.DisplayName" xml:space="preserve">
+    <value>EFCore21</value>
+    <comment>Display name for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore.Description" xml:space="preserve">
-    <value>Entity Framework Core</value>
-    <comment>Description for EnumerationLiteral &apos;EFCore&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore21.Description" xml:space="preserve">
+    <value>Entity Framework Core (latest version)</value>
+    <comment>Description for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore20.DisplayName" xml:space="preserve">
+    <value>EFCore20</value>
+    <comment>Display name for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore20.Description" xml:space="preserve">
+    <value>Entity Framework Core version 2.0</value>
+    <comment>Description for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.IdentityType/None.DisplayName" xml:space="preserve">
     <value>None</value>
