@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -13,12 +14,18 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       private global::System.ComponentModel.PropertyDescriptorCollection GetCustomProperties(global::System.Attribute[] attributes)
       {
+         ModelRoot modelRoot = ModelElement as ModelRoot;
+
+         if (modelRoot!= null)
+         {
+            PropertyGridUtility.FixupBrowsability(modelRoot);
+            PropertyGridUtility.FixupReadability(modelRoot);
+         }
+
          // Get the default property descriptors from the base class
          global::System.ComponentModel.PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
-         // Get a reference to the model element that is being described.
-         ModelRoot source = this.ModelElement as ModelRoot;
-         if (source != null)
+         if (modelRoot != null)
          {
             //Add in extra custom properties here...
          }

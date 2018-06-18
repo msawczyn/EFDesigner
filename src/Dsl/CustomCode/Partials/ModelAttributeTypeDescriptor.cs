@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
+using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -15,13 +16,17 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)
       {
+         ModelAttribute modelAttribute = ModelElement as ModelAttribute;
+
+         if (modelAttribute != null)
+         {
+            PropertyGridUtility.FixupBrowsability(modelAttribute);
+            PropertyGridUtility.FixupReadability(modelAttribute);
+         }
+
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
-         // Get a reference to the model element that is being described.  
-         ModelAttribute modelAttribute = ModelElement as ModelAttribute;
-
-         //Add the descriptor for the tracking property.  
          if (modelAttribute != null)
          {
             storeDomainDataDirectory = modelAttribute.Store.DomainDataDirectory;

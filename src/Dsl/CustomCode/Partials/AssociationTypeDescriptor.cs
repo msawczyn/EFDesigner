@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
+using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -19,11 +20,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)
       {
+         Association association = ModelElement as Association;
+
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
-
-         // Get a reference to the model element that is being described.  
-         Association association = ModelElement as Association;
 
          //Add the descriptor for the tracking property.  
          if (association != null)

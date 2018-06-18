@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
+using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -15,11 +16,11 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)
       {
-         // Get the default property descriptors from the base class  
-         PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
-
          // Get a reference to the model element that is being described.  
          ModelEnum modelEnum = ModelElement as ModelEnum;
+
+         // Get the default property descriptors from the base class  
+         PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
          //Add the descriptor for the tracking property.  
          if (modelEnum != null)

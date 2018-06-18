@@ -1689,7 +1689,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for InheritanceStrategy
 		/// </summary>
-		private CodeStrategy inheritanceStrategyPropertyStorage = CodeStrategy.TablePerType;
+		private CodeStrategy inheritanceStrategyPropertyStorage = CodeStrategy.TablePerHierarchy;
 		
 		/// <summary>
 		/// Gets or sets the value of InheritanceStrategy domain property.
@@ -1698,7 +1698,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(CodeStrategy.TablePerType)]
+		[global::System.ComponentModel.DefaultValue(CodeStrategy.TablePerHierarchy)]
 		[DslModeling::DomainObjectId("3ea27de3-f83c-44d8-bba5-c1886f65b182")]
 		public CodeStrategy InheritanceStrategy
 		{

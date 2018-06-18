@@ -21,17 +21,11 @@ namespace Sawczyn.EFDesigner.EFModel
          // Get a reference to the model element that is being described.  
          ModelClass modelClass = ModelElement as ModelClass;
 
-         // Hide EFCore properties that aren't appropriate to the version chosen
-         bool showProperty = modelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EF6;
-
-         foreach (string hiddenProperty in EFCoreValidator.GetHiddenProperties(modelClass))
-            PropertyGridUtility.SetBrowsable<ModelClass>(hiddenProperty, showProperty);
-
-         // Set EFCore properties to readonly if appropriate to the version chosen
-         bool makeWritable = modelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EF6;
-
-         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(modelClass))
-            PropertyGridUtility.SetBrowsable<ModelClass>(readonlyProperty, makeWritable);
+         if (modelClass != null)
+         {
+            PropertyGridUtility.FixupBrowsability(modelClass);
+            PropertyGridUtility.FixupReadability(modelClass);
+         }
 
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);

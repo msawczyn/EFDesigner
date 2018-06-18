@@ -49,12 +49,6 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.EnumOutputDirectory = element.EntityOutputDirectory;
                break;
 
-            case "EntityFrameworkVersion":
-
-               //if ((EFVersion)e.NewValue == EFVersion.EFCore)
-               //   errorMessage = ImposeEFCoreRestrictions(element, store);
-               break;
-
             case "DatabaseSchema":
                if (string.IsNullOrEmpty((string)e.NewValue))
                   element.DatabaseSchema = "dbo";
