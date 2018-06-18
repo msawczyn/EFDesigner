@@ -11,6 +11,96 @@
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 
+#region Custom property definitions for ModelRoot
+namespace Sawczyn.EFDesigner.EFModel
+{
+	
+	/// <summary>
+	/// Factory class for ModelRoot type descriptors.
+	/// Double-derived class to allow easier code customization.
+	/// </summary>
+	internal sealed partial class ModelRootTypeDescriptionProvider : ModelRootTypeDescriptionProviderBase
+	{
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public ModelRootTypeDescriptionProvider()
+		{
+		}
+		
+	}
+	
+	/// <summary>
+	/// Base factory class for ModelRoot type descriptors.
+	/// </summary>
+	abstract internal class ModelRootTypeDescriptionProviderBase : DslDesign::ElementTypeDescriptionProvider
+	{
+		/// <summary>
+		/// Called by the System.ComponentModel framework when it requires a type descriptor instance.
+		/// </summary>
+		protected override DslDesign::ElementTypeDescriptor CreateTypeDescriptor(global::System.ComponentModel.ICustomTypeDescriptor parent, DslModeling::ModelElement element)
+		{
+			return new ModelRootTypeDescriptor(parent, element);
+		}
+	}
+	
+	/// <summary>
+	/// Custom type descriptor class for ModelRoot elements.
+	/// </summary>
+	public partial class ModelRootTypeDescriptor : DslDesign::ElementTypeDescriptor
+	{
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public ModelRootTypeDescriptor(global::System.ComponentModel.ICustomTypeDescriptor parent, 
+											DslModeling::ModelElement selectedElement)
+			: base(parent, selectedElement)
+		{
+		}
+	
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public ModelRootTypeDescriptor(global::System.ComponentModel.ICustomTypeDescriptor parent,
+												global::System.Type modelElementType)
+			: base(parent, modelElementType)
+		{
+		}
+	
+		public override global::System.ComponentModel.PropertyDescriptorCollection GetProperties(global::System.Attribute[] attributes)
+		{
+			// The following method needs to be added in a partial class
+			//   private override global::System.ComponentModel.PropertyDescriptorCollection GetCustomProperties(global::System.Attribute[] attributes)
+			// The skeleton of a suggested method is provided in the comment below.
+			return this.GetCustomProperties(attributes);
+	
+		}
+	
+		// EXAMPLE "GetCustomProperties" METHOD
+		///// <summary>
+		///// Returns a collection of property descriptors an instance of ModelRoot.
+		///// </summary>
+		//private global::System.ComponentModel.PropertyDescriptorCollection GetCustomProperties(global::System.Attribute[] attributes)
+		//{
+		//    // Get the default property descriptors from the base class
+		//    global::System.ComponentModel.PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
+	
+		//    // Get a reference to the model element that is being described.
+		//    ModelRoot source = this.ModelElement as ModelRoot;
+		//    if (source != null)
+		//    {
+		//        //Add in extra custom properties here...
+		//    }
+	
+		//    // Return the property descriptors for this element
+		//    return propertyDescriptors;
+		//}
+	
+	}
+	
+	
+}
+#endregion
 #region Custom property definitions for ModelClass
 namespace Sawczyn.EFDesigner.EFModel
 {

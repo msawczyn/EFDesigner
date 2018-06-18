@@ -204,7 +204,7 @@
         <!-- Property: EntityFrameworkVersion -->
         <xsd:attribute name="entityFrameworkVersion" type="EFVersion" >
           <xsd:annotation>
-            <xsd:documentation>Version of Entity Framework for generated code</xsd:documentation>
+            <xsd:documentation>Version of Entity Framework for validation and generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: ConnectionStringName -->
@@ -265,6 +265,12 @@
         <xsd:attribute name="warnOnMissingDocumentation" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, will generate warnings when summary documentation is missing</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: EntityFrameworkCoreVersion -->
+        <xsd:attribute name="entityFrameworkCoreVersion" type="EFCoreVersion" >
+          <xsd:annotation>
+            <xsd:documentation>Version of Entity Framework Code for validation and generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1625,14 +1631,9 @@
           <xsd:documentation>Entity Framework 6</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
-      <xsd:enumeration value="EFCore21">
+      <xsd:enumeration value="EFCore">
         <xsd:annotation>
-          <xsd:documentation>Entity Framework Core (latest version)</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="EFCore20">
-        <xsd:annotation>
-          <xsd:documentation>Entity Framework Core version 2.0</xsd:documentation>
+          <xsd:documentation>Entity Framework Core</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>
@@ -1768,6 +1769,17 @@
       <xsd:enumeration value="SqlServer"/>
       <xsd:enumeration value="SqlServer2012"/>
       <xsd:enumeration value="None"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum EFCoreVersion -->
+  <xsd:simpleType name="EFCoreVersion">
+    <xsd:annotation>
+      <xsd:documentation>Entity Framework Core version</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="EFCore20"/>
+      <xsd:enumeration value="EFCore21"/>
     </xsd:restriction>
   </xsd:simpleType>
   

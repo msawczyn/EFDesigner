@@ -140,6 +140,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "ShowCascadeDeletes", ModelRoot.ShowCascadeDeletesDomainPropertyId, typeof(ModelRoot.ShowCascadeDeletesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DatabaseType", ModelRoot.DatabaseTypeDomainPropertyId, typeof(ModelRoot.DatabaseTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkCoreVersion", ModelRoot.EntityFrameworkCoreVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkCoreVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -1023,17 +1024,11 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EF6.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		EF6 = 0,
 		/// <summary>
-		/// EFCore21
-		/// Entity Framework Core (latest version)
+		/// EFCore
+		/// Entity Framework Core
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EFCore21.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		EFCore21 = 2,
-		/// <summary>
-		/// EFCore20
-		/// Entity Framework Core version 2.0
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EFCore20.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		EFCore20 = 1,
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFVersion/EFCore.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		EFCore = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
@@ -1215,6 +1210,29 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseKind/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		None = 0,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: EFCoreVersion
+	/// Entity Framework Core version
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum EFCoreVersion
+	{
+		/// <summary>
+		/// EFCore20
+		/// Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore20
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore20.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		EFCore20 = 0,
+		/// <summary>
+		/// EFCore21
+		/// Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		EFCore21 = 1,
 	}
 }
 

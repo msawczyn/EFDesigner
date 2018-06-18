@@ -178,9 +178,6 @@
       <DesignTime>True</DesignTime>
     </None>
     <None Include="ProjectItemTemplates\efmodel.tt" />
-    <None Include="ProjectItemTemplates\EFModel.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>

@@ -1,0 +1,6 @@
+System.ComponentModel.Browsable
+
+   ModelRoot
+      InheritanceStrategy 
+      DatabaseInitializerType B
+      AutomaticMigrationsEnabled B

@@ -1074,6 +1074,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// EntityFrameworkCoreVersion
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEntityFrameworkCoreVersion = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entityFrameworkCoreVersion");
+				if (attribEntityFrameworkCoreVersion != null)
+				{
+					EFCoreVersion valueOfEntityFrameworkCoreVersion;
+					if (DslModeling::SerializationUtilities.TryGetValue<EFCoreVersion>(serializationContext, attribEntityFrameworkCoreVersion, out valueOfEntityFrameworkCoreVersion))
+					{
+						instanceOfModelRoot.EntityFrameworkCoreVersion = valueOfEntityFrameworkCoreVersion;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entityFrameworkCoreVersion", typeof(EFCoreVersion), attribEntityFrameworkCoreVersion);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1997,6 +2014,16 @@ namespace Sawczyn.EFDesigner.EFModel
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "warnOnMissingDocumentation", serializedPropValue);
 					}
+				}
+			}
+			// EntityFrameworkCoreVersion
+			if (!serializationContext.Result.Failed)
+			{
+				EFCoreVersion propValue = instanceOfModelRoot.EntityFrameworkCoreVersion;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<EFCoreVersion>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkCoreVersion", serializedPropValue);
 				}
 			}
 		}

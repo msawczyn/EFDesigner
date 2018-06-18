@@ -222,6 +222,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	/// DomainClass ModelRoot
 	/// </summary>
 	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[global::System.ComponentModel.TypeDescriptionProvider(typeof(ModelRootTypeDescriptionProvider))]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
@@ -1425,7 +1426,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of EntityFrameworkVersion domain property.
-		/// Version of Entity Framework for generated code
+		/// Version of Entity Framework for validation and generated code
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkVersion.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkVersion.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -2384,6 +2385,93 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.warnOnMissingDocumentationPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EntityFrameworkCoreVersion domain property code
+		
+		/// <summary>
+		/// EntityFrameworkCoreVersion domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EntityFrameworkCoreVersionDomainPropertyId = new global::System.Guid(0xfe1bf9df, 0xfc14, 0x44df, 0xba, 0xe8, 0x72, 0x74, 0x0e, 0x2d, 0xbc, 0x38);
+		
+		/// <summary>
+		/// Storage for EntityFrameworkCoreVersion
+		/// </summary>
+		private EFCoreVersion entityFrameworkCoreVersionPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of EntityFrameworkCoreVersion domain property.
+		/// Version of Entity Framework Code for validation and generated code
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("fe1bf9df-fc14-44df-bae8-72740e2dbc38")]
+		public EFCoreVersion EntityFrameworkCoreVersion
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return entityFrameworkCoreVersionPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EntityFrameworkCoreVersionPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EntityFrameworkCoreVersion domain property.
+		/// </summary>
+		internal sealed partial class EntityFrameworkCoreVersionPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, EFCoreVersion>
+		{
+			private EntityFrameworkCoreVersionPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EntityFrameworkCoreVersion domain property value handler.
+			/// </summary>
+			public static readonly EntityFrameworkCoreVersionPropertyHandler Instance = new EntityFrameworkCoreVersionPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EntityFrameworkCoreVersion domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EntityFrameworkCoreVersionDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed EFCoreVersion GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.entityFrameworkCoreVersionPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, EFCoreVersion newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				EFCoreVersion oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.entityFrameworkCoreVersionPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -3452,7 +3540,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/ImplementNotify.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/ImplementNotify.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/ImplementNotify.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainObjectId("268b5655-43ae-4871-b7e7-2ea7e003d485")]
 		public global::System.Boolean ImplementNotify
 		{

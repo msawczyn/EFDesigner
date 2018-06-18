@@ -11,6 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel
          TypeDescriptor.AddProvider(new ModelEnumTypeDescriptionProvider(), typeof(ModelEnum));
          TypeDescriptor.AddProvider(new AssociationTypeDescriptionProvider(), typeof(Association));
          TypeDescriptor.AddProvider(new ModelAttributeTypeDescriptionProvider(), typeof(ModelAttribute));
+         TypeDescriptor.AddProvider(new ModelRootTypeDescriptionProvider(), typeof(ModelRoot));
 
          Messages.Initialize(this);
 

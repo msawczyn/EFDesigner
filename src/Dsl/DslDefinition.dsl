@@ -16,6 +16,9 @@
       </Properties>
     </DomainClass>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
+      <CustomTypeDescriptor>
+        <DomainTypeDescriptor CustomCoded="true" />
+      </CustomTypeDescriptor>
       <Properties>
         <DomainProperty Id="9c8d4478-0eec-40bf-b805-ce3b6ba9ea1a" Description="If true, entity container will use lazy loading" Name="LazyLoadingEnabled" DisplayName="Lazy Loading Enabled" DefaultValue="true" Category="Code Generation">
           <Type>
@@ -111,7 +114,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EF6" Category="Code Generation">
+        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for validation and generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EF6" Category="Code Generation">
           <Type>
             <DomainEnumerationMoniker Name="EFVersion" />
           </Type>
@@ -178,6 +181,11 @@
         <DomainProperty Id="247aa399-3d89-4b48-baeb-992e8cb3d47a" Description="If true, will generate warnings when summary documentation is missing" Name="WarnOnMissingDocumentation" DisplayName="Warn On Missing Documentation" DefaultValue="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="fe1bf9df-fc14-44df-bae8-72740e2dbc38" Description="Version of Entity Framework Code for validation and generated code" Name="EntityFrameworkCoreVersion" DisplayName="Entity Framework Core Version">
+          <Type>
+            <DomainEnumerationMoniker Name="EFCoreVersion" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -264,7 +272,7 @@
             <ExternalTypeMoniker Name="ModelClassNameProvider" />
           </ElementNameProvider>
         </DomainProperty>
-        <DomainProperty Id="268b5655-43ae-4871-b7e7-2ea7e003d485" Description="Should this class implement INotifyPropertyChanged?" Name="ImplementNotify" DisplayName="Implement INotifyPropertyChanged" DefaultValue="false" Category="Code Generation" IsBrowsable="false">
+        <DomainProperty Id="268b5655-43ae-4871-b7e7-2ea7e003d485" Description="Should this class implement INotifyPropertyChanged?" Name="ImplementNotify" DisplayName="Implement INotifyPropertyChanged" DefaultValue="false" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -929,8 +937,7 @@
     <DomainEnumeration Name="EFVersion" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.EFVersion">
       <Literals>
         <EnumerationLiteral Description="Entity Framework 6" Name="EF6" Value="0" />
-        <EnumerationLiteral Description="Entity Framework Core (latest version)" Name="EFCore21" Value="2" />
-        <EnumerationLiteral Description="Entity Framework Core version 2.0" Name="EFCore20" Value="1" />
+        <EnumerationLiteral Description="Entity Framework Core" Name="EFCore" Value="1" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="IdentityType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Describes identity generation">
@@ -977,6 +984,12 @@
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer" Name="SqlServer" Value="1" />
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.SqlServer2012" Name="SqlServer2012" Value="2" />
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.None" Name="None" Value="0" />
+      </Literals>
+    </DomainEnumeration>
+    <DomainEnumeration Name="EFCoreVersion" Namespace="Sawczyn.EFDesigner.EFModel" Description="Entity Framework Core version">
+      <Literals>
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore20" Name="EFCore20" Value="0" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21" Name="EFCore21" Value="1" />
       </Literals>
     </DomainEnumeration>
   </Types>
@@ -1272,6 +1285,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="warnOnMissingDocumentation">
             <DomainPropertyMoniker Name="ModelRoot/WarnOnMissingDocumentation" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="entityFrameworkCoreVersion">
+            <DomainPropertyMoniker Name="ModelRoot/EntityFrameworkCoreVersion" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

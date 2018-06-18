@@ -115,6 +115,7 @@
     <Compile Include="CustomCode\Partials\ModelEnumTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnumValue.cs" />
     <Compile Include="CustomCode\Partials\ModelRoot.cs" />
+    <Compile Include="CustomCode\Partials\ModelRootTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\UnidirectionalConnector.cs" />
     <Compile Include="CustomCode\Rules\AssociationAddRules.cs" />
     <Compile Include="CustomCode\Rules\AssociationChangeRules.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="CustomCode\Utilities\NavigationProperty.cs" />
     <Compile Include="CustomCode\Utilities\AttributeTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\ProjectDirectoryTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\PropertyGridUtility.cs" />
     <Compile Include="CustomCode\Utilities\SourceMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TargetMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />

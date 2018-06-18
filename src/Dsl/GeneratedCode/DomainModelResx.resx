@@ -322,7 +322,7 @@
     <comment>Category for DomainProperty &apos;FileNameMarker&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkVersion.Description" xml:space="preserve">
-    <value>Version of Entity Framework for generated code</value>
+    <value>Version of Entity Framework for validation and generated code</value>
     <comment>Description for DomainProperty &apos;EntityFrameworkVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkVersion.DisplayName" xml:space="preserve">
@@ -444,6 +444,14 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.DisplayName" xml:space="preserve">
     <value>Warn On Missing Documentation</value>
     <comment>DisplayName for DomainProperty &apos;WarnOnMissingDocumentation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Description" xml:space="preserve">
+    <value>Version of Entity Framework Code for validation and generated code</value>
+    <comment>Description for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.DisplayName" xml:space="preserve">
+    <value>Entity Framework Core Version</value>
+    <comment>DisplayName for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
@@ -1881,21 +1889,13 @@
     <value>Entity Framework 6</value>
     <comment>Description for EnumerationLiteral &apos;EF6&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore21.DisplayName" xml:space="preserve">
-    <value>EFCore21</value>
-    <comment>Display name for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore.DisplayName" xml:space="preserve">
+    <value>EFCore</value>
+    <comment>Display name for EnumerationLiteral &apos;EFCore&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore21.Description" xml:space="preserve">
-    <value>Entity Framework Core (latest version)</value>
-    <comment>Description for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore20.DisplayName" xml:space="preserve">
-    <value>EFCore20</value>
-    <comment>Display name for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore20.Description" xml:space="preserve">
-    <value>Entity Framework Core version 2.0</value>
-    <comment>Description for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.EFVersion/EFCore.Description" xml:space="preserve">
+    <value>Entity Framework Core</value>
+    <comment>Description for EnumerationLiteral &apos;EFCore&apos; on DomainEnumeration &apos;EFVersion&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.IdentityType/None.DisplayName" xml:space="preserve">
     <value>None</value>
@@ -2048,6 +2048,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/None.Description" xml:space="preserve">
     <value>Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.None</value>
     <comment>Description for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore20.DisplayName" xml:space="preserve">
+    <value>EFCore20</value>
+    <comment>Display name for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore20.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore20</value>
+    <comment>Description for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.DisplayName" xml:space="preserve">
+    <value>EFCore21</value>
+    <comment>Display name for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21</value>
+    <comment>Description for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

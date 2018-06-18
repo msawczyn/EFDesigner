@@ -1,3 +1,8 @@
+1.2.0
+   - Added EFCore Version property
+   - Added optional generation of INotifyPropertyChanged interface and implementation for entities
+   - Property grid hides element properties if they're not appropriate for the EF version
+
 1.1.0
    - Bug fixes for exceptions thrown when bad input to model attributes as text
    - Added MinLength string property (used in EF6 only as of this writing)
