@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
+using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 {
@@ -35,13 +36,15 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.ConnectionString = null;
                break;
 
-            case "Namespace":
-               errorMessages.Add(CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier));
+            case "DatabaseSchema":
+               if (string.IsNullOrEmpty((string)e.NewValue))
+                  element.DatabaseSchema = "dbo";
                break;
 
-            case "EntityOutputDirectory":
-               if (string.IsNullOrEmpty(element.EnumOutputDirectory))
-                  element.EnumOutputDirectory = (string)e.NewValue;
+            case "EntityFrameworkVersion":
+            case "EntityFrameworkCoreVersion":
+               PropertyGridUtility.FixupBrowsability<ModelRoot>(element);
+               PropertyGridUtility.FixupReadability<ModelRoot>(element);
                break;
 
             case "EnumOutputDirectory":
@@ -49,9 +52,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.EnumOutputDirectory = element.EntityOutputDirectory;
                break;
 
-            case "DatabaseSchema":
-               if (string.IsNullOrEmpty((string)e.NewValue))
-                  element.DatabaseSchema = "dbo";
+            case "EntityOutputDirectory":
+               if (string.IsNullOrEmpty(element.EnumOutputDirectory))
+                  element.EnumOutputDirectory = (string)e.NewValue;
                break;
 
             case "FileNameMarker":
@@ -60,6 +63,17 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                                 @"^(?!^(PRN|AUX|CLOCK\$|NUL|CON|COM\d|LPT\d|\..*)(\..+)?$)[^\x00-\x1f\\?*:\"";|/]+$")
                          .Success)
                   errorMessages.Add("Invalid value to make part of file name");
+               break;
+
+            case "InheritanceStrategy":
+
+               if ((element.EntityFrameworkVersion == EFVersion.EFCore) && (element.EntityFrameworkCoreVersion <= EFCoreVersion.EFCore21))
+                  element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+
+               break;
+
+            case "Namespace":
+               errorMessages.Add(CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier));
                break;
 
             case "ShowCascadeDeletes":
@@ -73,13 +87,6 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   foreach (Association association in store.ElementDirectory.FindElements<Association>())
                      AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
                }
-
-               break;
-
-            case "InheritanceStrategy":
-
-               if ((element.EntityFrameworkVersion == EFVersion.EFCore) && (element.EntityFrameworkCoreVersion <= EFCoreVersion.EFCore21))
-                  element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
 
                break;
          }

@@ -11,16 +11,11 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       /// <summary>
       /// Returns a collection of property descriptors an instance of ModelRoot.
+      /// TODO: All functionality is removed, so circle back and remove this if no longer needed
       /// </summary>
       private global::System.ComponentModel.PropertyDescriptorCollection GetCustomProperties(global::System.Attribute[] attributes)
       {
          ModelRoot modelRoot = ModelElement as ModelRoot;
-
-         if (modelRoot != null)
-         {
-            PropertyGridUtility.FixupBrowsability(modelRoot);
-            PropertyGridUtility.FixupReadability(modelRoot);
-         }
 
          // Get the default property descriptors from the base class
          global::System.ComponentModel.PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);

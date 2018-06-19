@@ -18,12 +18,6 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelAttribute modelAttribute = ModelElement as ModelAttribute;
 
-         if (modelAttribute != null)
-         {
-            PropertyGridUtility.FixupBrowsability(modelAttribute);
-            PropertyGridUtility.FixupReadability(modelAttribute);
-         }
-
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 

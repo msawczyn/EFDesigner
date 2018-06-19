@@ -7,55 +7,24 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Utilities
    {
       private static readonly BindingFlags bindingFlags = BindingFlags.IgnoreCase | BindingFlags.NonPublic | BindingFlags.Instance;
 
-      public static void FixupBrowsability(ModelRoot element) 
+      public static void FixupBrowsability<T>(ModelRoot modelRoot) 
       {
          // Hide EFCore properties that aren't appropriate to the version chosen
-         foreach (string hiddenProperty in EFCoreValidator.GetBrowsableProperties(element, true))
-            SetBrowsable<ModelRoot>(hiddenProperty, false);
-         foreach (string visibleProperty in EFCoreValidator.GetBrowsableProperties(element, false))
-            SetBrowsable<ModelRoot>(visibleProperty, true);
-      }
-      public static void FixupBrowsability(ModelClass element) 
-      {
-         // Hide EFCore properties that aren't appropriate to the version chosen
-         foreach (string hiddenProperty in EFCoreValidator.GetBrowsableProperties(element, true))
-            SetBrowsable<ModelClass>(hiddenProperty, false);
-         foreach (string visibleProperty in EFCoreValidator.GetBrowsableProperties(element, false))
-            SetBrowsable<ModelClass>(visibleProperty, true);
-      }
-      public static void FixupBrowsability(ModelAttribute element) 
-      {
-         // Hide EFCore properties that aren't appropriate to the version chosen
-         foreach (string hiddenProperty in EFCoreValidator.GetBrowsableProperties(element, true))
-            SetBrowsable<ModelAttribute>(hiddenProperty, false);
-         foreach (string visibleProperty in EFCoreValidator.GetBrowsableProperties(element, false))
-            SetBrowsable<ModelAttribute>(visibleProperty, true);
+         foreach (string hiddenProperty in EFCoreValidator.GetBrowsableProperties<T>(modelRoot.EntityFrameworkVersion, modelRoot.EntityFrameworkCoreVersion, true))
+            SetBrowsable<T>(hiddenProperty, false);
+         foreach (string visibleProperty in EFCoreValidator.GetBrowsableProperties<T>(modelRoot.EntityFrameworkVersion, modelRoot.EntityFrameworkCoreVersion, false))
+            SetBrowsable<T>(visibleProperty, true);
       }
 
-      public static void FixupReadability(ModelRoot element)
+      public static void FixupReadability<T>(ModelRoot modelRoot)
       {
          // Set EFCore properties to readonly if appropriate to the version chosen
-         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, true))
+         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties<T>(modelRoot.EntityFrameworkVersion, modelRoot.EntityFrameworkCoreVersion, true))
             SetReadOnly<ModelRoot>(readonlyProperty, false);
-         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, false))
+         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties<T>(modelRoot.EntityFrameworkVersion, modelRoot.EntityFrameworkCoreVersion, false))
             SetReadOnly<ModelRoot>(readonlyProperty, true);
       }
-      public static void FixupReadability(ModelClass element)
-      {
-         // Set EFCore properties to readonly if appropriate to the version chosen
-         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, true))
-            SetReadOnly<ModelClass>(readonlyProperty, false);
-         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, false))
-            SetReadOnly<ModelClass>(readonlyProperty, true);
-      }
-      public static void FixupReadability(ModelAttribute element)
-      {
-         // Set EFCore properties to readonly if appropriate to the version chosen
-         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, true))
-            SetReadOnly<ModelAttribute>(readonlyProperty, false);
-         foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, false))
-            SetReadOnly<ModelAttribute>(readonlyProperty, true);
-      }
+
       /// <summary>
       ///    Set the Browsable property.
       ///    NOTE: Be sure to decorate the property with [Browsable(true)]
@@ -70,7 +39,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Utilities
             BrowsableAttribute browsableAttribute = (BrowsableAttribute)propertyDescriptor?.Attributes[typeof(BrowsableAttribute)];
             if (browsableAttribute != null)
             {
-               FieldInfo browsableField = browsableAttribute.GetType().GetField("Browsable", bindingFlags);
+               FieldInfo browsableField = browsableAttribute.GetType().GetField("browsable", bindingFlags);
                if (browsableField != null)
                   browsableField.SetValue(browsableAttribute, value);
             }
@@ -86,7 +55,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Utilities
           
             if (readonlyAttribute != null)
             {
-               FieldInfo readonlyField = readonlyAttribute.GetType().GetField("IsReadOnly", bindingFlags);
+               FieldInfo readonlyField = readonlyAttribute.GetType().GetField("isReadOnly", bindingFlags);
                if (readonlyField != null)
                   readonlyField.SetValue(readonlyAttribute, value);
             }

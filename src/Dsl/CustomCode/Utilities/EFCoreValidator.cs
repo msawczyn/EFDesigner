@@ -9,45 +9,26 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
    public static class EFCoreValidator
    {
-      #region ModelClass
-
       /// <summary>
-      /// Returns properties that should be available or hidden in the Visual Studio PropertyGrid for the supplied class,
+      /// Returns properties that should be available or hidden in the Visual Studio PropertyGrid for the supplied attribute,
       /// depending on whether EFCore is targeted or not.
       /// </summary>
-      /// <param name="modelClass">The model class in question</param>
+      /// <param name="version">The EF version in question</param>
+      /// <param name="coreVersion">The EF Core version in question, if any</param>
       /// <param name="shouldHide">If true, return properties that should be hidden. Otherwise, return properties that should be made visible (if they aren't already).</param>
       /// <returns>
-      /// <p>If EF Core is targeted, returns a collection of property names that should be hidden (depending on EF Core version).
-      /// If EF6 is targeted, returns all possible hidden properties so they may be unhidden.</p>
-      /// <p>Note that these properties must already have a BrowsableAttribute on them.</p>
+      /// <p>
+      /// If shouldHide is true, returns a collection of property names that should be hidden (depending on EF version).
+      /// If shouldHide is false, returns a collection of property names that should be shown (depending on EF version).</p>
+      /// <p>
+      /// Note that these properties must already have a BrowsableAttribute on them.</p>
       /// </returns>
-      public static IEnumerable<string> GetBrowsableProperties(ModelClass modelClass, bool shouldHide)
+      public static IEnumerable<string> GetBrowsableProperties<T>(EFVersion version, EFCoreVersion? coreVersion, bool shouldHide)
       {
-         ModelRoot modelRoot = modelClass.ModelRoot;
+         if (typeof(T) == typeof(ModelRoot))
+            return GetBrowsableModelRootProperties(version, coreVersion, shouldHide);
 
-         switch (modelRoot.EntityFrameworkVersion)
-         {
-            case EFVersion.EF6:
-               return shouldHide
-                         ? new string[0]
-                         : new string[0];
-
-            case EFVersion.EFCore:
-               switch (modelRoot.EntityFrameworkCoreVersion)
-               {
-                  case EFCoreVersion.EFCore20:
-                     return shouldHide
-                               ? new string[0]
-                               : new string[0];
-                  case EFCoreVersion.EFCore21:
-                     return shouldHide
-                               ? new string[0]
-                               : new string[0];
-               }
-               break;
-         }
-
+         // add additional classes that have interesting properties here
          return new string[0];
       }
 
@@ -55,42 +36,23 @@ namespace Sawczyn.EFDesigner.EFModel
       /// Returns properties that should be readonly or not in the Visual Studio PropertyGrid for the supplied class,
       /// depending on whether EFCore is targeted or not.
       /// </summary>
-      /// <param name="modelClass">The model class in question</param>
+      /// <param name="version">The EF version in question</param>
+      /// <param name="coreVersion">The EF Core version in question, if any</param>
       /// <param name="shouldMakeReadOnly">If true, return properties that should be made read-only. Otherwise, return properties that should be made writable (if they aren't already).</param>
       /// <returns>
       /// <p>If EF Core is targeted, returns a collection of property names that should be hidden (depending on EF Core version).
       /// If EF6 is targeted, returns all possible hidden properties so they may be unhidden.</p>
       /// <p>Note that these properties must already have a ReadOnlyAttribute on them.</p>
       /// </returns>
-      public static IEnumerable<string> GetReadOnlyProperties(ModelClass modelClass, bool shouldMakeReadOnly)
+      public static IEnumerable<string> GetReadOnlyProperties<T>(EFVersion version, EFCoreVersion? coreVersion, bool shouldMakeReadOnly)
       {
-         ModelRoot modelRoot = modelClass.ModelRoot;
+         if (typeof(T) == typeof(ModelRoot))
+            return GetReadOnlyModelRootProperties(version, coreVersion, shouldMakeReadOnly);
 
-         switch (modelRoot.EntityFrameworkVersion)
-         {
-            case EFVersion.EF6:
-               return shouldMakeReadOnly
-                         ? new string[0]
-                         : new string[0];
-
-            case EFVersion.EFCore:
-               switch (modelRoot.EntityFrameworkCoreVersion)
-               {
-                  case EFCoreVersion.EFCore20:
-                     return shouldMakeReadOnly
-                               ? new string[0]
-                               : new string[0];
-                  case EFCoreVersion.EFCore21:
-                     return shouldMakeReadOnly
-                               ? new string[0]
-                               : new string[0];
-               }
-
-               break;
-         }
-
+         // add additional classes that have interesting properties here
          return new string[0];
       }
+      #region ModelClass
 
       public static IEnumerable<string> GetErrors(ModelClass element)
       {
@@ -111,87 +73,6 @@ namespace Sawczyn.EFDesigner.EFModel
       #endregion ModelClass
 
       #region ModelAttribute
-
-      /// <summary>
-      /// Returns properties that should be available or hidden in the Visual Studio PropertyGrid for the supplied attribute,
-      /// depending on whether EFCore is targeted or not.
-      /// </summary>
-      /// <param name="modelAttribute">The model attribute in question</param>
-      /// <param name="shouldHide">If true, return properties that should be hidden. Otherwise, return properties that should be made visible (if they aren't already).</param>
-      /// <returns>
-      /// <p>If EF Core is targeted, returns a collection of property names that should be hidden (depending on EF Core version).
-      /// If EF6 is targeted, returns all possible hidden properties so they may be unhidden.</p>
-      /// <p>Note that these properties must already have a BrowsableAttribute on them.</p>
-      /// </returns>
-      public static IEnumerable<string> GetBrowsableProperties(ModelAttribute modelAttribute, bool shouldHide)
-      {
-         ModelRoot modelRoot = modelAttribute.ModelClass.ModelRoot;
-
-         switch (modelRoot.EntityFrameworkVersion)
-         {
-            case EFVersion.EF6:
-               return shouldHide
-                         ? new string[0]
-                         : new string[0];
-
-            case EFVersion.EFCore:
-               switch (modelRoot.EntityFrameworkCoreVersion)
-               {
-                  case EFCoreVersion.EFCore20:
-                     return shouldHide
-                               ? new string[0]
-                               : new string[0];
-                  case EFCoreVersion.EFCore21:
-                     return shouldHide
-                               ? new string[0]
-                               : new string[0];
-               }
-               break;
-         }
-
-         return new string[0];
-      }
-
-      /// <summary>
-      /// Returns properties that should be readonly or not in the Visual Studio PropertyGrid for the supplied attribute,
-      /// depending on whether EFCore is targeted or not.
-      /// </summary>
-      /// <param name="modelAttribute">The model attribute in question</param>
-      /// <param name="shouldMakeReadOnly">If true, return properties that should be made read-only. Otherwise, return properties that should be made writable (if they aren't already).</param>
-      /// <returns>
-      /// <p>If EF Core is targeted, returns a collection of property names that should be hidden (depending on EF Core version).
-      /// If EF6 is targeted, returns all possible hidden properties so they may be unhidden.</p>
-      /// <p>Note that these properties must already have a ReadOnlyAttribute on them.</p>
-      /// </returns>
-      public static IEnumerable<string> GetReadOnlyProperties(ModelAttribute modelAttribute, bool shouldMakeReadOnly)
-      {
-         ModelRoot modelRoot = modelAttribute.ModelClass.ModelRoot;
-
-         switch (modelRoot.EntityFrameworkVersion)
-         {
-            case EFVersion.EF6:
-               return shouldMakeReadOnly
-                         ? new string[0]
-                         : new string[0];
-
-            case EFVersion.EFCore:
-               switch (modelRoot.EntityFrameworkCoreVersion)
-               {
-                  case EFCoreVersion.EFCore20:
-                     return shouldMakeReadOnly
-                               ? new string[0]
-                               : new string[0];
-                  case EFCoreVersion.EFCore21:
-                     return shouldMakeReadOnly
-                               ? new string[0]
-                               : new string[0];
-               }
-
-               break;
-         }
-
-         return new string[0];
-      }
 
       public static IEnumerable<string> GetErrors(ModelAttribute element)
       {
@@ -231,82 +112,80 @@ namespace Sawczyn.EFDesigner.EFModel
       #region ModelRoot
 
       /// <summary>
-      /// Returns properties that should be available or hidden in the Visual Studio PropertyGrid for the supplied class,
+      /// Returns properties that should be available or hidden in the Visual Studio PropertyGrid for the supplied attribute,
       /// depending on whether EFCore is targeted or not.
       /// </summary>
-      /// <param name="modelRoot">The model root in question</param>
+      /// <param name="version">The EF version in question</param>
+      /// <param name="coreVersion">The EF Core version in question, if any</param>
       /// <param name="shouldHide">If true, return properties that should be hidden. Otherwise, return properties that should be made visible (if they aren't already).</param>
       /// <returns>
-      /// <p>If EF Core is targeted, returns a collection of property names that should be hidden (depending on EF Core version).
-      /// If EF6 is targeted, returns all possible hidden properties so they may be unhidden.</p>
-      /// <p>Note that these properties must already have a BrowsableAttribute on them.</p>
+      /// <p>
+      /// If shouldHide is true, returns a collection of property names that should be hidden (depending on EF version).
+      /// If shouldHide is false, returns a collection of property names that should be shown (depending on EF version).</p>
+      /// <p>
+      /// Note that these properties must already have a BrowsableAttribute on them.</p>
       /// </returns>
-      public static IEnumerable<string> GetBrowsableProperties(ModelRoot modelRoot, bool shouldHide)
+      public static IEnumerable<string> GetBrowsableModelRootProperties(EFVersion version, EFCoreVersion? coreVersion, bool shouldHide)
       {
-         switch (modelRoot.EntityFrameworkVersion)
+
+         switch (version)
          {
             case EFVersion.EF6:
                return shouldHide
                          ? new[]
-                           {
-                              "EFCoreVersion"
-                           }
+                           {"EFCoreVersion"}
                          : new[]
                            {
                               "DatabaseInitializerType",
                               "AutomaticMigrationsEnabled"
                            };
 
-            case EFVersion.EFCore:
-               switch (modelRoot.EntityFrameworkCoreVersion)
+            default:
+               if (coreVersion == null)
+                  return new string[0];
+
+               switch (coreVersion.Value)
                {
                   case EFCoreVersion.EFCore20:
                      return shouldHide
                                ? new[]
                                  {
-                                    "DatabaseInitializerType",
-                                    "AutomaticMigrationsEnabled"
+                                       "DatabaseInitializerType",
+                                       "AutomaticMigrationsEnabled"
                                  }
                                : new[]
-                                 {
-                                    "EFCoreVersion"
-                                 };
+                                 {"EFCoreVersion"};
 
-                  case EFCoreVersion.EFCore21:
+                  default:
                      return shouldHide
                                ? new[]
                                  {
-                                    "DatabaseInitializerType",
-                                    "AutomaticMigrationsEnabled"
+                                       "DatabaseInitializerType",
+                                       "AutomaticMigrationsEnabled"
                                  }
                                : new[]
-                                 {
-                                    "EFCoreVersion"
-                                 };
+                                 {"EFCoreVersion"};
                }
-
-               break;
          }
-
-         return new string[0];
       }
 
       /// <summary>
       /// Returns properties that should be readonly or not in the Visual Studio PropertyGrid for the supplied attribute,
       /// depending on whether EFCore is targeted or not.
       /// </summary>
-      /// <param name="modelRoot">The model root in question</param>
-      /// <param name="shouldMakeReadOnly">If true, return properties that should be made read-only. Otherwise, return properties that should be made writable (if they aren't already).</param>
+      /// <param name="version">The EF version in question</param>
+      /// <param name="coreVersion">The EF Core version in question, if any</param>
+      /// <param name="shouldMakeReadOnly">If true, return properties that should be readonly. Otherwise, return properties that should be made writable (if they aren't already).</param>
       /// <returns>
-      /// <p>If EF Core is targeted, returns a collection of property names that should be hidden (depending on EF Core version).
-      /// If EF6 is targeted, returns all possible hidden properties so they may be unhidden.</p>
-      /// <p>Note that these properties must already have a ReadOnlyAttribute on them.</p>
+      /// <p>
+      /// If shouldMakeReadOnly is true, returns a collection of property names that should be readonly (depending on EF version).
+      /// If shouldMakeReadOnly is false, returns a collection of property names that should be writable (depending on EF version).</p>
+      /// <p>
+      /// Note that these properties must already have a ReadOnlyAttribute on them.</p>
       /// </returns>
-      public static IEnumerable<string> GetReadOnlyProperties(ModelRoot modelRoot, bool shouldMakeReadOnly)
+      private static IEnumerable<string> GetReadOnlyModelRootProperties(EFVersion version, EFCoreVersion? coreVersion, bool shouldMakeReadOnly)
       {
-         string[] result = new string[0];
-
-         switch (modelRoot.EntityFrameworkVersion)
+         switch (version)
          {
             case EFVersion.EF6:
                return shouldMakeReadOnly
@@ -316,8 +195,8 @@ namespace Sawczyn.EFDesigner.EFModel
                               "InheritanceStrategy"
                            };
 
-            case EFVersion.EFCore:
-               switch (modelRoot.EntityFrameworkCoreVersion)
+            default:
+               switch (coreVersion)
                {
                   case EFCoreVersion.EFCore20:
                      return shouldMakeReadOnly
@@ -326,7 +205,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                     "InheritanceStrategy"
                                  }
                                : new string[0];
-                  case EFCoreVersion.EFCore21:
+
+                  default:
                      return shouldMakeReadOnly
                                ? new[]
                                  {
@@ -334,11 +214,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                  }
                                : new string[0];
                }
-
-               break;
          }
-
-         return new string[0];
       }
 
 

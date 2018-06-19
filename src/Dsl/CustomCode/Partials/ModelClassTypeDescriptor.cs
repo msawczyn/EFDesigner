@@ -21,12 +21,6 @@ namespace Sawczyn.EFDesigner.EFModel
          // Get a reference to the model element that is being described.  
          ModelClass modelClass = ModelElement as ModelClass;
 
-         if (modelClass != null)
-         {
-            PropertyGridUtility.FixupBrowsability(modelClass);
-            PropertyGridUtility.FixupReadability(modelClass);
-         }
-
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
