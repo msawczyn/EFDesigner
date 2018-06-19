@@ -628,6 +628,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Initialization strategy to synchronize the underlying database when an instance
 		/// of this context is used for the first time
 		/// </summary>
+		[System.ComponentModel.Browsable(true)]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseInitializerType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseInitializerType.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseInitializerType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -806,6 +807,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Gets or sets the value of AutomaticMigrationsEnabled domain property.
 		/// If true, automatic database migrations will be run when changes are detected.
 		/// </summary>
+		[System.ComponentModel.Browsable(true)]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/AutomaticMigrationsEnabled.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/AutomaticMigrationsEnabled.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/AutomaticMigrationsEnabled.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -1695,6 +1697,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Gets or sets the value of InheritanceStrategy domain property.
 		/// How tables will be created/used to handle inheritance
 		/// </summary>
+		[System.ComponentModel.ReadOnly(false)]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -2230,7 +2233,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Gets or sets the value of DatabaseType domain property.
 		/// Database manifest token. Optimization if runtime database type is known and
-		/// unchanging.
+		/// unchanging, and only valid for SqlServer.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -2396,20 +2399,23 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// EntityFrameworkCoreVersion domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid EntityFrameworkCoreVersionDomainPropertyId = new global::System.Guid(0xfe1bf9df, 0xfc14, 0x44df, 0xba, 0xe8, 0x72, 0x74, 0x0e, 0x2d, 0xbc, 0x38);
+		public static readonly global::System.Guid EntityFrameworkCoreVersionDomainPropertyId = new global::System.Guid(0x2a16f8e1, 0x9e68, 0x43ce, 0xb6, 0x25, 0x5e, 0x68, 0xe8, 0x49, 0x7a, 0xbb);
 		
 		/// <summary>
 		/// Storage for EntityFrameworkCoreVersion
 		/// </summary>
-		private EFCoreVersion entityFrameworkCoreVersionPropertyStorage;
+		private EFCoreVersion entityFrameworkCoreVersionPropertyStorage = EFCoreVersion.EFCore21;
 		
 		/// <summary>
 		/// Gets or sets the value of EntityFrameworkCoreVersion domain property.
 		/// Version of Entity Framework Code for validation and generated code
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainObjectId("fe1bf9df-fc14-44df-bae8-72740e2dbc38")]
+		[global::System.ComponentModel.DefaultValue(EFCoreVersion.EFCore21)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("2a16f8e1-9e68-43ce-b625-5e68e8497abb")]
 		public EFCoreVersion EntityFrameworkCoreVersion
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]

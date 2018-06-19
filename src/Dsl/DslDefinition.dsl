@@ -41,6 +41,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="5b68cf01-65fe-4270-b96f-a3e519b9bb98" Description="Initialization strategy to synchronize the underlying database when an instance of this context is used for the first time" Name="DatabaseInitializerType" DisplayName="Database Initializer Type" DefaultValue="MigrateDatabaseToLatestVersion" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Browsable">
+              <Parameters>
+                <AttributeParameter Value="true" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <DomainEnumerationMoniker Name="DatabaseInitializerKind" />
           </Type>
@@ -59,6 +66,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="c455eaf6-f38b-49de-b72e-477d73931dc1" Description="If true, automatic database migrations will be run when changes are detected." Name="AutomaticMigrationsEnabled" DisplayName="Automatic Migrations Enabled" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Browsable">
+              <Parameters>
+                <AttributeParameter Value="true" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -130,6 +144,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="3ea27de3-f83c-44d8-bba5-c1886f65b182" Description="How tables will be created/used to handle inheritance" Name="InheritanceStrategy" DisplayName="Inheritance Strategy" DefaultValue="TablePerHierarchy" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.ReadOnly">
+              <Parameters>
+                <AttributeParameter Value="false" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <DomainEnumerationMoniker Name="CodeStrategy" />
           </Type>
@@ -173,7 +194,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="35be1c55-6c42-45bf-af62-16d00dbf80c4" Description="Database manifest token. Optimization if runtime database type is known and unchanging." Name="DatabaseType" DisplayName="Database Type">
+        <DomainProperty Id="35be1c55-6c42-45bf-af62-16d00dbf80c4" Description="Database manifest token. Optimization if runtime database type is known and unchanging, and only valid for SqlServer." Name="DatabaseType" DisplayName="SqlServer Type">
           <Type>
             <DomainEnumerationMoniker Name="DatabaseKind" />
           </Type>
@@ -183,7 +204,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="fe1bf9df-fc14-44df-bae8-72740e2dbc38" Description="Version of Entity Framework Code for validation and generated code" Name="EntityFrameworkCoreVersion" DisplayName="Entity Framework Core Version">
+        <DomainProperty Id="2a16f8e1-9e68-43ce-b625-5e68e8497abb" Description="Version of Entity Framework Code for validation and generated code" Name="EntityFrameworkCoreVersion" DisplayName="Entity Framework Core Version" DefaultValue="EFCore21" Category="Code Generation" IsBrowsable="false">
           <Type>
             <DomainEnumerationMoniker Name="EFCoreVersion" />
           </Type>

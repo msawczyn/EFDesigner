@@ -36,25 +36,25 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Utilities
       {
          // Set EFCore properties to readonly if appropriate to the version chosen
          foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, true))
-            SetBrowsable<ModelRoot>(readonlyProperty, false);
+            SetReadOnly<ModelRoot>(readonlyProperty, false);
          foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, false))
-            SetBrowsable<ModelRoot>(readonlyProperty, true);
+            SetReadOnly<ModelRoot>(readonlyProperty, true);
       }
       public static void FixupReadability(ModelClass element)
       {
          // Set EFCore properties to readonly if appropriate to the version chosen
          foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, true))
-            SetBrowsable<ModelClass>(readonlyProperty, false);
+            SetReadOnly<ModelClass>(readonlyProperty, false);
          foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, false))
-            SetBrowsable<ModelClass>(readonlyProperty, true);
+            SetReadOnly<ModelClass>(readonlyProperty, true);
       }
       public static void FixupReadability(ModelAttribute element)
       {
          // Set EFCore properties to readonly if appropriate to the version chosen
          foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, true))
-            SetBrowsable<ModelAttribute>(readonlyProperty, false);
+            SetReadOnly<ModelAttribute>(readonlyProperty, false);
          foreach (string readonlyProperty in EFCoreValidator.GetReadOnlyProperties(element, false))
-            SetBrowsable<ModelAttribute>(readonlyProperty, true);
+            SetReadOnly<ModelAttribute>(readonlyProperty, true);
       }
       /// <summary>
       ///    Set the Browsable property.

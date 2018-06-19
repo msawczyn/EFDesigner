@@ -258,7 +258,7 @@
         <!-- Property: DatabaseType -->
         <xsd:attribute name="databaseType" type="DatabaseKind" >
           <xsd:annotation>
-            <xsd:documentation>Database manifest token. Optimization if runtime database type is known and unchanging.</xsd:documentation>
+            <xsd:documentation>Database manifest token. Optimization if runtime database type is known and unchanging, and only valid for SqlServer.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: WarnOnMissingDocumentation -->

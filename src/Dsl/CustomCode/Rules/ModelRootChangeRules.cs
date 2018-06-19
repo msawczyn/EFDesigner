@@ -75,6 +75,13 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                }
 
                break;
+
+            case "InheritanceStrategy":
+
+               if ((element.EntityFrameworkVersion == EFVersion.EFCore) && (element.EntityFrameworkCoreVersion <= EFCoreVersion.EFCore21))
+                  element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+
+               break;
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();

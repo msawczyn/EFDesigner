@@ -430,11 +430,11 @@
     <comment>Category for DomainProperty &apos;ShowCascadeDeletes&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.Description" xml:space="preserve">
-    <value>Database manifest token. Optimization if runtime database type is known and unchanging.</value>
+    <value>Database manifest token. Optimization if runtime database type is known and unchanging, and only valid for SqlServer.</value>
     <comment>Description for DomainProperty &apos;DatabaseType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.DisplayName" xml:space="preserve">
-    <value>Database Type</value>
+    <value>SqlServer Type</value>
     <comment>DisplayName for DomainProperty &apos;DatabaseType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.Description" xml:space="preserve">
@@ -452,6 +452,10 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.DisplayName" xml:space="preserve">
     <value>Entity Framework Core Version</value>
     <comment>DisplayName for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>

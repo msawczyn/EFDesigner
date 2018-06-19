@@ -2023,7 +2023,10 @@ namespace Sawczyn.EFDesigner.EFModel
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<EFCoreVersion>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkCoreVersion", serializedPropValue);
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "EFCore21") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkCoreVersion", serializedPropValue);
+					}
 				}
 			}
 		}

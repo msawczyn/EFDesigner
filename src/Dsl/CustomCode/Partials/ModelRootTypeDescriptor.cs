@@ -16,7 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelRoot modelRoot = ModelElement as ModelRoot;
 
-         if (modelRoot!= null)
+         if (modelRoot != null)
          {
             PropertyGridUtility.FixupBrowsability(modelRoot);
             PropertyGridUtility.FixupReadability(modelRoot);
