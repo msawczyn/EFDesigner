@@ -1,3 +1,4 @@
+DSL: Add EFCore2.1 support
 T4:  Add EFCore2.1 support
 
 DSL: Investigate whether we can eliminate ModelType and/or ClassModelElement from the DSL. 
@@ -17,9 +18,6 @@ DSL: Context menu items should apply to model explorer as well as diagram
 T4:  Use HTML5Type in code generation
 
 DSL: Rework EFModelDocData.OnDocumentLoaded to prevent file from appearing dirty when no changes are made
-
-DSL: Property editor shows properties appropriate to EF type
-     https://www.codeproject.com/Articles/26992/Using-a-TypeDescriptionProvider-to-support-dynamic
 
 ===============================================================
 Extension: Add DeleteType enum to ModelClass (soft, hard)
