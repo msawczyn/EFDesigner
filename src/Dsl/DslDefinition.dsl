@@ -42,9 +42,9 @@
         </DomainProperty>
         <DomainProperty Id="5b68cf01-65fe-4270-b96f-a3e519b9bb98" Description="Initialization strategy to synchronize the underlying database when an instance of this context is used for the first time" Name="DatabaseInitializerType" DisplayName="Database Initializer Type" DefaultValue="MigrateDatabaseToLatestVersion" Category="Database">
           <Attributes>
-            <ClrAttribute Name="System.ComponentModel.Browsable">
+            <ClrAttribute Name="HideWhen">
               <Parameters>
-                <AttributeParameter Value="true" />
+                <AttributeParameter Value="EFVersion.EFCore" />
               </Parameters>
             </ClrAttribute>
           </Attributes>
@@ -67,9 +67,9 @@
         </DomainProperty>
         <DomainProperty Id="c455eaf6-f38b-49de-b72e-477d73931dc1" Description="If true, automatic database migrations will be run when changes are detected." Name="AutomaticMigrationsEnabled" DisplayName="Automatic Migrations Enabled" Category="Database">
           <Attributes>
-            <ClrAttribute Name="System.ComponentModel.Browsable">
+            <ClrAttribute Name="HideWhen">
               <Parameters>
-                <AttributeParameter Value="true" />
+                <AttributeParameter Value="EFVersion.EFCore" />
               </Parameters>
             </ClrAttribute>
           </Attributes>
@@ -113,7 +113,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="02d27f11-3c30-4837-a56a-d63f0e629d95" Description="The schema to use for table creation" Name="DatabaseSchema" DisplayName="Database Schema" DefaultValue="dbo" Category="Database">
+        <DomainProperty Id="02d27f11-3c30-4837-a56a-d63f0e629d95" Description="The schema to use for table creation" Name="DatabaseSchema" DisplayName="Database Schema Name" DefaultValue="dbo" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -128,7 +128,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for validation and generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EF6" Category="Code Generation">
+        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for validation and generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EFCore" Category="Code Generation">
           <Type>
             <DomainEnumerationMoniker Name="EFVersion" />
           </Type>
@@ -168,6 +168,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="c4dd4e17-94aa-44e7-8cb8-35f7c1a6d374" Description="If true, context will generate proxies for POCO entities" Name="ProxyGenerationEnabled" DisplayName="Proxy Generation Enabled" DefaultValue="true" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EFCore" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -204,7 +211,14 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="2a16f8e1-9e68-43ce-b625-5e68e8497abb" Description="Version of Entity Framework Code for validation and generated code" Name="EntityFrameworkCoreVersion" DisplayName="Entity Framework Core Version" DefaultValue="EFCore21" Category="Code Generation" IsBrowsable="false">
+        <DomainProperty Id="2a16f8e1-9e68-43ce-b625-5e68e8497abb" Description="Version of Entity Framework Code for validation and generated code" Name="EntityFrameworkCoreVersion" DisplayName="Entity Framework Core Version" DefaultValue="EFCore21" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EF6" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <DomainEnumerationMoniker Name="EFCoreVersion" />
           </Type>
@@ -301,6 +315,30 @@
         <DomainProperty Id="55789969-4fcd-4e41-bf8a-69cf0dd70265" Description="Optional comma-separated list of interfaces that will be added to the class definition" Name="CustomInterfaces" DisplayName="Custom Interfaces" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8ceab962-60b0-440b-9a1b-9a6dd4e1094a" Description="Is this a completely dependent type that will only exist associated to another object?" Name="IsOwned" DisplayName="Is Owned" DefaultValue="false" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EF6" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="21a0cf45-971e-40dd-8940-afafa5985d7f" Description="Is this a completely dependent type that will only exist associated to another object?" Name="IsComplexType" DisplayName="Is Complex Type" DefaultValue="false" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EFCore" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -420,7 +458,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="bd0273dc-d3ea-44e2-8b01-f79d39ca0704" Description="If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="AutoProperty" DisplayName="Auto Property" DefaultValue="true" Category="Code Generation">
+        <DomainProperty Id="bd0273dc-d3ea-44e2-8b01-f79d39ca0704" Description="If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="AutoProperty" DisplayName="Auto Property" DefaultValue="true" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -440,7 +478,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="17cc5012-1352-4a08-9965-55dcecaa985f" Description="The data type for the table column backing this property" Name="ColumnType" DisplayName="Column Type" Kind="CustomStorage" Category="Database" IsBrowsable="false">
+        <DomainProperty Id="17cc5012-1352-4a08-9965-55dcecaa985f" Description="The data type for the table column backing this property" Name="ColumnType" DisplayName="Column Type" Kind="CustomStorage" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1013,6 +1051,31 @@
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21" Name="EFCore21" Value="1" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="ValueConverter" Namespace="Sawczyn.EFDesigner.EFModel" Description="Available value converters for EFCore (&gt;= 2.1)">
+      <Literals>
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToZeroOneConverter" Name="BoolToZeroOneConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToStringConverter" Name="BoolToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToTwoValuesConverter" Name="BoolToTwoValuesConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BytesToStringConverter" Name="BytesToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.CastingConverter" Name="CastingConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.CharToStringConverter" Name="CharToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToBinaryConverter" Name="DateTimeOffsetToBinaryConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToBytesConverter" Name="DateTimeOffsetToBytesConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToStringConverter" Name="DateTimeOffsetToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToBinaryConverter" Name="DateTimeToBinaryConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToStringConverter" Name="DateTimeToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToTicksConverter" Name="DateTimeToTicksConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.EnumToNumberConverter" Name="EnumToNumberConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.EnumToStringConverter" Name="EnumToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.GuidToBytesConverter" Name="GuidToBytesConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.GuidToStringConverter" Name="GuidToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.NumberToBytesConverter" Name="NumberToBytesConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.NumberToStringConverter" Name="NumberToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.StringToBytesConverter" Name="StringToBytesConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToStringConverter" Name="TimeSpanToStringConverter" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToTicksConverter" Name="TimeSpanToTicksConverter" Value="" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1362,6 +1425,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="customInterfaces">
             <DomainPropertyMoniker Name="ModelClass/CustomInterfaces" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isOwned">
+            <DomainPropertyMoniker Name="ModelClass/IsOwned" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isComplexType">
+            <DomainPropertyMoniker Name="ModelClass/IsComplexType" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -1890,7 +1890,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<EFVersion>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "EF6") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "EFCore") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkVersion", serializedPropValue);
 					}
@@ -2517,6 +2517,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					else
 					{	// Invalid property value, ignored.
 						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "customInterfaces", typeof(global::System.String), attribCustomInterfaces);
+					}
+				}
+			}
+			// IsOwned
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsOwned = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isOwned");
+				if (attribIsOwned != null)
+				{
+					global::System.Boolean valueOfIsOwned;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsOwned, out valueOfIsOwned))
+					{
+						instanceOfModelClass.IsOwned = valueOfIsOwned;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isOwned", typeof(global::System.Boolean), attribIsOwned);
+					}
+				}
+			}
+			// IsComplexType
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsComplexType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isComplexType");
+				if (attribIsComplexType != null)
+				{
+					global::System.Boolean valueOfIsComplexType;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsComplexType, out valueOfIsComplexType))
+					{
+						instanceOfModelClass.IsComplexType = valueOfIsComplexType;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isComplexType", typeof(global::System.Boolean), attribIsComplexType);
 					}
 				}
 			}
@@ -3342,6 +3376,32 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customInterfaces", propValue);
 	
+				}
+			}
+			// IsOwned
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelClass.IsOwned;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isOwned", serializedPropValue);
+					}
+				}
+			}
+			// IsComplexType
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelClass.IsComplexType;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isComplexType", serializedPropValue);
+					}
 				}
 			}
 		}

@@ -290,7 +290,7 @@
     <comment>Description for DomainProperty &apos;DatabaseSchema&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseSchema.DisplayName" xml:space="preserve">
-    <value>Database Schema</value>
+    <value>Database Schema Name</value>
     <comment>DisplayName for DomainProperty &apos;DatabaseSchema&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseSchema.Category" xml:space="preserve">
@@ -589,6 +589,30 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;CustomInterfaces&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOwned.Description" xml:space="preserve">
+    <value>Is this a completely dependent type that will only exist associated to another object?</value>
+    <comment>Description for DomainProperty &apos;IsOwned&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOwned.DisplayName" xml:space="preserve">
+    <value>Is Owned</value>
+    <comment>DisplayName for DomainProperty &apos;IsOwned&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOwned.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsOwned&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsComplexType.Description" xml:space="preserve">
+    <value>Is this a completely dependent type that will only exist associated to another object?</value>
+    <comment>Description for DomainProperty &apos;IsComplexType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsComplexType.DisplayName" xml:space="preserve">
+    <value>Is Complex Type</value>
+    <comment>DisplayName for DomainProperty &apos;IsComplexType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsComplexType.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsComplexType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>
@@ -814,7 +838,7 @@
     <comment>Category for DomainProperty &apos;ReadOnly&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/AutoProperty.Description" xml:space="preserve">
-    <value>If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
+    <value>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
     <comment>Description for DomainProperty &apos;AutoProperty&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/AutoProperty.DisplayName" xml:space="preserve">
@@ -2068,6 +2092,174 @@
   <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.Description" xml:space="preserve">
     <value>Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21</value>
     <comment>Description for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToZeroOneConverter.DisplayName" xml:space="preserve">
+    <value>BoolToZeroOneConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;BoolToZeroOneConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToZeroOneConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToZeroOneConverter</value>
+    <comment>Description for EnumerationLiteral &apos;BoolToZeroOneConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToStringConverter.DisplayName" xml:space="preserve">
+    <value>BoolToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;BoolToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;BoolToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToTwoValuesConverter.DisplayName" xml:space="preserve">
+    <value>BoolToTwoValuesConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;BoolToTwoValuesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToTwoValuesConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToTwoValuesConverter</value>
+    <comment>Description for EnumerationLiteral &apos;BoolToTwoValuesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BytesToStringConverter.DisplayName" xml:space="preserve">
+    <value>BytesToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;BytesToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BytesToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BytesToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;BytesToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/CastingConverter.DisplayName" xml:space="preserve">
+    <value>CastingConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;CastingConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/CastingConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.CastingConverter</value>
+    <comment>Description for EnumerationLiteral &apos;CastingConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/CharToStringConverter.DisplayName" xml:space="preserve">
+    <value>CharToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;CharToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/CharToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.CharToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;CharToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToBinaryConverter.DisplayName" xml:space="preserve">
+    <value>DateTimeOffsetToBinaryConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTimeOffsetToBinaryConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToBinaryConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToBinaryConverter</value>
+    <comment>Description for EnumerationLiteral &apos;DateTimeOffsetToBinaryConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToBytesConverter.DisplayName" xml:space="preserve">
+    <value>DateTimeOffsetToBytesConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTimeOffsetToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToBytesConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToBytesConverter</value>
+    <comment>Description for EnumerationLiteral &apos;DateTimeOffsetToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToStringConverter.DisplayName" xml:space="preserve">
+    <value>DateTimeOffsetToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTimeOffsetToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;DateTimeOffsetToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToBinaryConverter.DisplayName" xml:space="preserve">
+    <value>DateTimeToBinaryConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTimeToBinaryConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToBinaryConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToBinaryConverter</value>
+    <comment>Description for EnumerationLiteral &apos;DateTimeToBinaryConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToStringConverter.DisplayName" xml:space="preserve">
+    <value>DateTimeToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTimeToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;DateTimeToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToTicksConverter.DisplayName" xml:space="preserve">
+    <value>DateTimeToTicksConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTimeToTicksConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToTicksConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToTicksConverter</value>
+    <comment>Description for EnumerationLiteral &apos;DateTimeToTicksConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/EnumToNumberConverter.DisplayName" xml:space="preserve">
+    <value>EnumToNumberConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;EnumToNumberConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/EnumToNumberConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.EnumToNumberConverter</value>
+    <comment>Description for EnumerationLiteral &apos;EnumToNumberConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/EnumToStringConverter.DisplayName" xml:space="preserve">
+    <value>EnumToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;EnumToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/EnumToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.EnumToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;EnumToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/GuidToBytesConverter.DisplayName" xml:space="preserve">
+    <value>GuidToBytesConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;GuidToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/GuidToBytesConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.GuidToBytesConverter</value>
+    <comment>Description for EnumerationLiteral &apos;GuidToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/GuidToStringConverter.DisplayName" xml:space="preserve">
+    <value>GuidToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;GuidToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/GuidToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.GuidToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;GuidToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/NumberToBytesConverter.DisplayName" xml:space="preserve">
+    <value>NumberToBytesConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;NumberToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/NumberToBytesConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.NumberToBytesConverter</value>
+    <comment>Description for EnumerationLiteral &apos;NumberToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/NumberToStringConverter.DisplayName" xml:space="preserve">
+    <value>NumberToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;NumberToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/NumberToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.NumberToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;NumberToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/StringToBytesConverter.DisplayName" xml:space="preserve">
+    <value>StringToBytesConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;StringToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/StringToBytesConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.StringToBytesConverter</value>
+    <comment>Description for EnumerationLiteral &apos;StringToBytesConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToStringConverter.DisplayName" xml:space="preserve">
+    <value>TimeSpanToStringConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;TimeSpanToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToStringConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToStringConverter</value>
+    <comment>Description for EnumerationLiteral &apos;TimeSpanToStringConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToTicksConverter.DisplayName" xml:space="preserve">
+    <value>TimeSpanToTicksConverter</value>
+    <comment>Display name for EnumerationLiteral &apos;TimeSpanToTicksConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToTicksConverter.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToTicksConverter</value>
+    <comment>Description for EnumerationLiteral &apos;TimeSpanToTicksConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

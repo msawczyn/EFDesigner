@@ -152,6 +152,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelClass), "Name", ModelClass.NameDomainPropertyId, typeof(ModelClass.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "ImplementNotify", ModelClass.ImplementNotifyDomainPropertyId, typeof(ModelClass.ImplementNotifyPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "CustomInterfaces", ModelClass.CustomInterfacesDomainPropertyId, typeof(ModelClass.CustomInterfacesPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelClass), "IsOwned", ModelClass.IsOwnedDomainPropertyId, typeof(ModelClass.IsOwnedPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelClass), "IsComplexType", ModelClass.IsComplexTypeDomainPropertyId, typeof(ModelClass.IsComplexTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),
@@ -1233,6 +1235,153 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		EFCore21 = 1,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: ValueConverter
+	/// Available value converters for EFCore (>= 2.1)
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum ValueConverter
+	{
+		/// <summary>
+		/// BoolToZeroOneConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToZeroOneConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToZeroOneConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		BoolToZeroOneConverter,
+		/// <summary>
+		/// BoolToStringConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		BoolToStringConverter,
+		/// <summary>
+		/// BoolToTwoValuesConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToTwoValuesConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToTwoValuesConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		BoolToTwoValuesConverter,
+		/// <summary>
+		/// BytesToStringConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BytesToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/BytesToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		BytesToStringConverter,
+		/// <summary>
+		/// CastingConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.CastingConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/CastingConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		CastingConverter,
+		/// <summary>
+		/// CharToStringConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.CharToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/CharToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		CharToStringConverter,
+		/// <summary>
+		/// DateTimeOffsetToBinaryConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToBinaryConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToBinaryConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		DateTimeOffsetToBinaryConverter,
+		/// <summary>
+		/// DateTimeOffsetToBytesConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToBytesConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToBytesConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		DateTimeOffsetToBytesConverter,
+		/// <summary>
+		/// DateTimeOffsetToStringConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeOffsetToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeOffsetToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		DateTimeOffsetToStringConverter,
+		/// <summary>
+		/// DateTimeToBinaryConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToBinaryConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToBinaryConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		DateTimeToBinaryConverter,
+		/// <summary>
+		/// DateTimeToStringConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		DateTimeToStringConverter,
+		/// <summary>
+		/// DateTimeToTicksConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.DateTimeToTicksConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/DateTimeToTicksConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		DateTimeToTicksConverter,
+		/// <summary>
+		/// EnumToNumberConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.EnumToNumberConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/EnumToNumberConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		EnumToNumberConverter,
+		/// <summary>
+		/// EnumToStringConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.EnumToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/EnumToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		EnumToStringConverter,
+		/// <summary>
+		/// GuidToBytesConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.GuidToBytesConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/GuidToBytesConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		GuidToBytesConverter,
+		/// <summary>
+		/// GuidToStringConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.GuidToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/GuidToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		GuidToStringConverter,
+		/// <summary>
+		/// NumberToBytesConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.NumberToBytesConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/NumberToBytesConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		NumberToBytesConverter,
+		/// <summary>
+		/// NumberToStringConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.NumberToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/NumberToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		NumberToStringConverter,
+		/// <summary>
+		/// StringToBytesConverter
+		/// Description for Sawczyn.EFDesigner.EFModel.ValueConverter.StringToBytesConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/StringToBytesConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		StringToBytesConverter,
+		/// <summary>
+		/// TimeSpanToStringConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToStringConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToStringConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		TimeSpanToStringConverter,
+		/// <summary>
+		/// TimeSpanToTicksConverter
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToTicksConverter
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToTicksConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		TimeSpanToTicksConverter,
 	}
 }
 

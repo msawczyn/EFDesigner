@@ -4,8 +4,6 @@ using System.ComponentModel;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
 
-using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
-
 namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class ModelClassTypeDescriptor
@@ -18,17 +16,18 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)
       {
-         // Get a reference to the model element that is being described.  
-         ModelClass modelClass = ModelElement as ModelClass;
-
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
-         //Add the descriptor for the tracking property.  
-         if (modelClass != null)
+         // Get a reference to the model element that is being described.  
+
+         if (ModelElement is ModelClass modelClass)
          {
+            EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelClass.ModelRoot);
+
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
 
+            //Add the descriptors for the tracking properties 
             /********************************************************************************/
 
             DomainPropertyInfo databaseSchemaPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.DatabaseSchemaDomainPropertyId);

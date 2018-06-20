@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class ModelRootTypeDescriptor
    {
       /// <summary>
-      /// Returns a collection of property descriptors an instance of ModelRoot.
-      /// TODO: All functionality is removed, so circle back and remove this if no longer needed
+      /// Returns the property descriptors for the described ModelRoot domain class.
       /// </summary>
       private global::System.ComponentModel.PropertyDescriptorCollection GetCustomProperties(global::System.Attribute[] attributes)
       {
-         ModelRoot modelRoot = ModelElement as ModelRoot;
+         PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
-         // Get the default property descriptors from the base class
-         global::System.ComponentModel.PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
-
-         if (modelRoot != null)
+         if (ModelElement is ModelRoot modelRoot)
          {
+            EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelRoot);
+
             //Add in extra custom properties here...
          }
 
          // Return the property descriptors for this element
          return propertyDescriptors;
       }
+
    }
 }

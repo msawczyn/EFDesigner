@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 {
@@ -39,12 +38,6 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             case "DatabaseSchema":
                if (string.IsNullOrEmpty((string)e.NewValue))
                   element.DatabaseSchema = "dbo";
-               break;
-
-            case "EntityFrameworkVersion":
-            case "EntityFrameworkCoreVersion":
-               PropertyGridUtility.FixupBrowsability<ModelRoot>(element);
-               PropertyGridUtility.FixupReadability<ModelRoot>(element);
                break;
 
             case "EnumOutputDirectory":

@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel
 {

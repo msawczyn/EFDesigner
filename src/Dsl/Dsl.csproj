@@ -135,6 +135,7 @@
     <Compile Include="CustomCode\Partials\ModelClassTypeDescriptor.cs" />
     <Compile Include="CustomCode\Utilities\ConnectionStringEditor.cs" />
     <Compile Include="CustomCode\Utilities\EFCoreValidator.cs" />
+    <Compile Include="CustomCode\Utilities\HideWhenAttribute.cs" />
     <Compile Include="CustomCode\Utilities\IdentityAttributeTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\ModelAttributeNameProvider.cs" />
     <Compile Include="CustomCode\Utilities\ModelClassNameProvider.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="CustomCode\Utilities\NavigationProperty.cs" />
     <Compile Include="CustomCode\Utilities\AttributeTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\ProjectDirectoryTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\PropertyGridUtility.cs" />
     <Compile Include="CustomCode\Utilities\SourceMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TargetMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />

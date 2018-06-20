@@ -35,6 +35,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
+            case "IsOwned":
+               bool newIsOwned = (bool)e.NewValue;
+
+               if (newIsOwned && element.AllIdentityProperties.Any())
+                  errorMessages.Add($"Owned types can't have identity properties. Remove the property or its identity designation first.");
+
+               break;
+
+            case "IsComplexType":
+               bool newIsComplex = (bool)e.NewValue;
+
+               if (newIsComplex && element.AllIdentityProperties.Any())
+                  errorMessages.Add($"Complex types can't have identity properties. Remove the property or its identity designation first.");
+
+               break;
+
             case "IsAbstract":
                bool newIsAbstract = (bool)e.NewValue;
 

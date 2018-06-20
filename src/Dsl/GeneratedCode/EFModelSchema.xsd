@@ -436,6 +436,18 @@
             <xsd:documentation>Optional comma-separated list of interfaces that will be added to the class definition</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsOwned -->
+        <xsd:attribute name="isOwned" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Is this a completely dependent type that will only exist associated to another object?</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsComplexType -->
+        <xsd:attribute name="isComplexType" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Is this a completely dependent type that will only exist associated to another object?</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -577,7 +589,7 @@
         <!-- Property: AutoProperty -->
         <xsd:attribute name="autoProperty" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+            <xsd:documentation>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: MinLength -->
@@ -1780,6 +1792,36 @@
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="EFCore20"/>
       <xsd:enumeration value="EFCore21"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum ValueConverter -->
+  <xsd:simpleType name="ValueConverter">
+    <xsd:annotation>
+      <xsd:documentation>Available value converters for EFCore (&gt;= 2.1)</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="BoolToZeroOneConverter"/>
+      <xsd:enumeration value="BoolToStringConverter"/>
+      <xsd:enumeration value="BoolToTwoValuesConverter"/>
+      <xsd:enumeration value="BytesToStringConverter"/>
+      <xsd:enumeration value="CastingConverter"/>
+      <xsd:enumeration value="CharToStringConverter"/>
+      <xsd:enumeration value="DateTimeOffsetToBinaryConverter"/>
+      <xsd:enumeration value="DateTimeOffsetToBytesConverter"/>
+      <xsd:enumeration value="DateTimeOffsetToStringConverter"/>
+      <xsd:enumeration value="DateTimeToBinaryConverter"/>
+      <xsd:enumeration value="DateTimeToStringConverter"/>
+      <xsd:enumeration value="DateTimeToTicksConverter"/>
+      <xsd:enumeration value="EnumToNumberConverter"/>
+      <xsd:enumeration value="EnumToStringConverter"/>
+      <xsd:enumeration value="GuidToBytesConverter"/>
+      <xsd:enumeration value="GuidToStringConverter"/>
+      <xsd:enumeration value="NumberToBytesConverter"/>
+      <xsd:enumeration value="NumberToStringConverter"/>
+      <xsd:enumeration value="StringToBytesConverter"/>
+      <xsd:enumeration value="TimeSpanToStringConverter"/>
+      <xsd:enumeration value="TimeSpanToTicksConverter"/>
     </xsd:restriction>
   </xsd:simpleType>
   

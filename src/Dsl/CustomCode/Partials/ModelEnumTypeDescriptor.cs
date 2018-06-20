@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Utilities;
 
 namespace Sawczyn.EFDesigner.EFModel
 {

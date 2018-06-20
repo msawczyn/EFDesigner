@@ -18,6 +18,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
+         // TODO: Error if 1..N to an owned type (EFCore) or to a complex type (EF6)
+
          if (string.IsNullOrEmpty(element.TargetPropertyName))
          {
             string rootName = element.TargetMultiplicity == Multiplicity.ZeroMany &&
