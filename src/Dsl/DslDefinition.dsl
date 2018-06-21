@@ -41,6 +41,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="5b68cf01-65fe-4270-b96f-a3e519b9bb98" Description="Initialization strategy to synchronize the underlying database when an instance of this context is used for the first time" Name="DatabaseInitializerType" DisplayName="Database Initializer Type" DefaultValue="MigrateDatabaseToLatestVersion" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EFCore" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <DomainEnumerationMoniker Name="DatabaseInitializerKind" />
           </Type>
@@ -59,6 +66,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="c455eaf6-f38b-49de-b72e-477d73931dc1" Description="If true, automatic database migrations will be run when changes are detected." Name="AutomaticMigrationsEnabled" DisplayName="Automatic Migrations Enabled" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EFCore" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -154,6 +168,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="c4dd4e17-94aa-44e7-8cb8-35f7c1a6d374" Description="If true, context will generate proxies for POCO entities" Name="ProxyGenerationEnabled" DisplayName="Proxy Generation Enabled" DefaultValue="true" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EFCore" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -191,6 +212,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="2a16f8e1-9e68-43ce-b625-5e68e8497abb" Description="Version of Entity Framework Code for validation and generated code" Name="EntityFrameworkCoreVersion" DisplayName="Entity Framework Core Version" DefaultValue="EFCore21" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EF6" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <DomainEnumerationMoniker Name="EFCoreVersion" />
           </Type>
@@ -302,11 +330,25 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="8ceab962-60b0-440b-9a1b-9a6dd4e1094a" Description="Is this a completely dependent type that will only exist associated to another object?" Name="IsOwned" DisplayName="Is Owned" DefaultValue="false" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EF6" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="21a0cf45-971e-40dd-8940-afafa5985d7f" Description="Is this a completely dependent type that will only exist associated to another object?" Name="IsComplexType" DisplayName="Is Complex Type" DefaultValue="false" Category="Database">
+          <Attributes>
+            <ClrAttribute Name="HideWhen">
+              <Parameters>
+                <AttributeParameter Value="EFVersion.EFCore" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>

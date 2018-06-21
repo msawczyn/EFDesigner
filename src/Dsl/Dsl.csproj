@@ -135,6 +135,7 @@
     <Compile Include="CustomCode\Partials\ModelClassTypeDescriptor.cs" />
     <Compile Include="CustomCode\Utilities\ConnectionStringEditor.cs" />
     <Compile Include="CustomCode\Utilities\EFCoreValidator.cs" />
+    <Compile Include="CustomCode\Utilities\HideWhenAttribute.cs" />
     <Compile Include="CustomCode\Utilities\IdentityAttributeTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\ModelAttributeNameProvider.cs" />
     <Compile Include="CustomCode\Utilities\ModelClassNameProvider.cs" />

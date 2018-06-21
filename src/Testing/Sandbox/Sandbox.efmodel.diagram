@@ -14,7 +14,7 @@
         <elementListCompartment Id="ef68b55d-9983-4b5e-8cfa-d378421793f4" absoluteBounds="0.88999999999999968, 2.81, 1.4700000000000002, 0.8262939453125" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <bidirectionalConnector Id="c51a7602-ecbc-4ca9-a521-03b67c72b2ce" edgePoints="[(1.625 : 1.79399251302083); (1.625 : 2.5)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Red" dashStyle="Dash">
+    <bidirectionalConnector Id="c51a7602-ecbc-4ca9-a521-03b67c72b2ce" edgePoints="[(1.625 : 1.79399251302083); (1.625 : 2.5)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="dcc91b83-2346-4f1e-8ad0-dc310bd29536" />
       <relativeChildShapes />
       <nodes>

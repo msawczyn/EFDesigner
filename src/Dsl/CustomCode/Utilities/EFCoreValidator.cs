@@ -28,28 +28,6 @@ namespace Sawczyn.EFDesigner.EFModel
          //return errorMessages;
       }
 
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelClass element)
-      {
-         ModelRoot modelRoot = element.ModelRoot;
-         for (int index = 0; index < propertyDescriptors.Count; index++)
-         {
-            bool shouldRemove = false;
-            switch (propertyDescriptors[index].Name)
-            {
-               case "IsOwned":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
-                  break;
-
-               case "IsComplexType":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-            }
-
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
-         }
-      }
-
       #endregion ModelClass
 
       #region ModelAttribute
@@ -66,10 +44,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          return errorMessages;
-      }
-
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
-      {
       }
 
       #endregion ModelAttribute
@@ -89,10 +63,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          return errorMessages;
-      }
-
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
-      {
       }
 
       #endregion Association
@@ -125,44 +95,20 @@ namespace Sawczyn.EFDesigner.EFModel
          return errorMessages;
       }
 
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
-      {
-         ModelRoot modelRoot = element;
+      #endregion ModelRoot
 
+      internal static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot modelRoot)
+      {
          for (int index = 0; index < propertyDescriptors.Count; index++)
          {
-            bool shouldRemove = false;
-            switch (propertyDescriptors[index].Name)
-            {
-               case "DatabaseInitializerType":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
+            HideWhenAttribute hideWhenAttribute = propertyDescriptors[index]
+                                                 .Attributes.OfType<HideWhenAttribute>()
+                                                 .FirstOrDefault();
 
-               case "AutomaticMigrationsEnabled":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-               case "ProxyGenerationEnabled":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-               case "EntityFrameworkCoreVersion":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
-                  break;
-
-               case "DatabaseType":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-            }
-
-            if (shouldRemove)
+            if (hideWhenAttribute?.ShouldHide(modelRoot) == true)
                propertyDescriptors.Remove(propertyDescriptors[index--]);
          }
-
       }
-
-      #endregion ModelRoot
 
    }
 }
