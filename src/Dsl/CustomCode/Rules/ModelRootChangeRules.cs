@@ -45,9 +45,16 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.EnumOutputDirectory = element.EntityOutputDirectory;
                break;
 
+            case "StructOutputDirectory":
+               if (string.IsNullOrEmpty((string)e.NewValue) && !string.IsNullOrEmpty(element.EntityOutputDirectory))
+                  element.StructOutputDirectory = element.EntityOutputDirectory;
+               break;
+
             case "EntityOutputDirectory":
-               if (string.IsNullOrEmpty(element.EnumOutputDirectory))
+               if (string.IsNullOrEmpty(element.EnumOutputDirectory) || element.EnumOutputDirectory == (string)e.OldValue)
                   element.EnumOutputDirectory = (string)e.NewValue;
+               if (string.IsNullOrEmpty(element.StructOutputDirectory) || element.StructOutputDirectory == (string)e.OldValue)
+                  element.StructOutputDirectory = (string)e.NewValue;
                break;
 
             case "FileNameMarker":

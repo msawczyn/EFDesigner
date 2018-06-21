@@ -141,6 +141,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "DatabaseType", ModelRoot.DatabaseTypeDomainPropertyId, typeof(ModelRoot.DatabaseTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkCoreVersion", ModelRoot.EntityFrameworkCoreVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkCoreVersionPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "StructOutputDirectory", ModelRoot.StructOutputDirectoryDomainPropertyId, typeof(ModelRoot.StructOutputDirectoryPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),

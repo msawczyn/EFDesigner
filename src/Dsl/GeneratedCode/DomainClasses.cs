@@ -2485,6 +2485,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region StructOutputDirectory domain property code
+		
+		/// <summary>
+		/// StructOutputDirectory domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid StructOutputDirectoryDomainPropertyId = new global::System.Guid(0x35350509, 0x1856, 0x4ca7, 0x88, 0x4a, 0x1c, 0xee, 0x25, 0x52, 0xee, 0xf9);
+		
+		/// <summary>
+		/// Storage for StructOutputDirectory
+		/// </summary>
+		private global::System.String structOutputDirectoryPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of StructOutputDirectory domain property.
+		/// Project directory for generated structures (owned/complex types)
+		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(ProjectDirectoryTypeConverter))]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("35350509-1856-4ca7-884a-1cee2552eef9")]
+		public global::System.String StructOutputDirectory
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return structOutputDirectoryPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				StructOutputDirectoryPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.StructOutputDirectory domain property.
+		/// </summary>
+		internal sealed partial class StructOutputDirectoryPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private StructOutputDirectoryPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.StructOutputDirectory domain property value handler.
+			/// </summary>
+			public static readonly StructOutputDirectoryPropertyHandler Instance = new StructOutputDirectoryPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.StructOutputDirectory domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return StructOutputDirectoryDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.structOutputDirectoryPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.structOutputDirectoryPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

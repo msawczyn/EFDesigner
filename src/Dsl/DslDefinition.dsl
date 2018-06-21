@@ -223,6 +223,18 @@
             <DomainEnumerationMoniker Name="EFCoreVersion" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="35350509-1856-4ca7-884a-1cee2552eef9" Description="Project directory for generated structures (owned/complex types)" Name="StructOutputDirectory" DisplayName="Struct Output Directory" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(ProjectDirectoryTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1372,6 +1384,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="entityFrameworkCoreVersion">
             <DomainPropertyMoniker Name="ModelRoot/EntityFrameworkCoreVersion" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="structOutputDirectory">
+            <DomainPropertyMoniker Name="ModelRoot/StructOutputDirectory" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

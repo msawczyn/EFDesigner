@@ -1091,6 +1091,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// StructOutputDirectory
+			if (!serializationContext.Result.Failed)
+			{
+				string attribStructOutputDirectory = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "structOutputDirectory");
+				if (attribStructOutputDirectory != null)
+				{
+					global::System.String valueOfStructOutputDirectory;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribStructOutputDirectory, out valueOfStructOutputDirectory))
+					{
+						instanceOfModelRoot.StructOutputDirectory = valueOfStructOutputDirectory;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "structOutputDirectory", typeof(global::System.String), attribStructOutputDirectory);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -2027,6 +2044,17 @@ namespace Sawczyn.EFDesigner.EFModel
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkCoreVersion", serializedPropValue);
 					}
+				}
+			}
+			// StructOutputDirectory
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.StructOutputDirectory;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "structOutputDirectory", propValue);
+	
 				}
 			}
 		}

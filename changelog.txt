@@ -1,11 +1,11 @@
 1.2.0
-   - Added EF Core Version property
+   - Added EF Core Version property (2.0, 2.1)
    - Added optional generation of INotifyPropertyChanged interface and implementation for entities
    - Property grid hides element properties if they're not appropriate for the EF version
-   - When better to have the properties visible, property grid changes elements to readonly if there aren't any options for that property in EF Core
-     (e.g., Inheritance Strategy)
    - Inheritance strategy automatically changes to table-per-hierarchy if targeting EF Core
    - Context property "Database Type" changed to "SqlServer Type" to better reflect what it does
+   - Added complex/owned type (struct) generation
+   - Added option to generated structs in a separate directory
 
 1.1.0
    - Bug fixes for exceptions thrown when bad input to model attributes as text

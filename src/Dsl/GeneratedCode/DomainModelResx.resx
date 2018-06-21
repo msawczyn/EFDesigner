@@ -457,6 +457,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.Description" xml:space="preserve">
+    <value>Project directory for generated structures (owned/complex types)</value>
+    <comment>Description for DomainProperty &apos;StructOutputDirectory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.DisplayName" xml:space="preserve">
+    <value>Struct Output Directory</value>
+    <comment>DisplayName for DomainProperty &apos;StructOutputDirectory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;StructOutputDirectory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>

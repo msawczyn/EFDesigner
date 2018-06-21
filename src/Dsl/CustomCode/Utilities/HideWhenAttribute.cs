@@ -28,7 +28,15 @@ namespace Sawczyn.EFDesigner
 
       public bool ShouldHide(ModelRoot modelRoot)
       {
-         return (modelRoot.EntityFrameworkVersion == EFVersion) && ((EFCoreVersion == null) || (modelRoot.EntityFrameworkCoreVersion == EFCoreVersion));
+         bool result = (modelRoot.EntityFrameworkVersion == EFVersion) && 
+                ((EFCoreVersion == null) || (modelRoot.EntityFrameworkCoreVersion == EFCoreVersion));
+
+         if (!result)
+         {
+
+         }
+
+         return result;
       }
    }
 }

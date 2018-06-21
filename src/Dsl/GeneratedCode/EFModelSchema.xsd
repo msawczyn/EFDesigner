@@ -273,6 +273,12 @@
             <xsd:documentation>Version of Entity Framework Code for validation and generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: StructOutputDirectory -->
+        <xsd:attribute name="structOutputDirectory" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Project directory for generated structures (owned/complex types)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
