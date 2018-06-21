@@ -682,7 +682,7 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
    }
 }
 
-void WriteNotifyPropertyChanged(modelClass)
+void WriteNotifyPropertyChanged(ModelClass modelClass)
 {
    if (!modelClass.ImplementNotify)
       return;

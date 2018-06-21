@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.0.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="Sandbox" namespace="Sandbox" automaticMigrationsEnabled="false" entityOutputDirectory="Entities" contextOutputDirectory="Context" enumOutputDirectory="Enums" transformOnSave="false" showCascadeDeletes="true" databaseType="None" structOutputDirectory="Structs" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.0.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="SandboxContext" namespace="Sandbox" automaticMigrationsEnabled="false" entityOutputDirectory="Entities" contextOutputDirectory="Context" enumOutputDirectory="Enums" transformOnSave="false" showCascadeDeletes="true" databaseType="None" structOutputDirectory="Structs" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="880ca94a-6167-4e34-a705-238499895120" tableName="Blogs" databaseSchema="dbo" namespace="Sandbox" dbSetName="Blogs" name="Blog">
       <attributes>
