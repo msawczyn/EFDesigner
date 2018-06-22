@@ -16,6 +16,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          return new string[0];
 
+         // for later
+
          //ModelRoot modelRoot = element.ModelRoot;
          //Store store = modelRoot.Store;
          //List<string> errorMessages = new List<string>();
@@ -70,6 +72,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
       {
+         // for later
+
+         //ModelRoot modelRoot = element.ModelClass.ModelRoot;
+
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
+         //      default:
+         //         break;
+         //   }
+
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
       }
 
       #endregion ModelAttribute
@@ -93,6 +111,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
       {
+         // for later
+
+         //ModelRoot modelRoot = element.Source.ModelRoot;
+
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
+         //      default:
+         //         break;
+         //   }
+
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
       }
 
       #endregion Association
@@ -125,6 +159,12 @@ namespace Sawczyn.EFDesigner.EFModel
          return errorMessages;
       }
 
+      /// <summary>
+      /// Called by TypeDescriptors to determine what should be shown in a property editor. Removing a property hides
+      /// it from the property editor in Visual Studio, nothing more.
+      /// </summary>
+      /// <param name="propertyDescriptors"></param>
+      /// <param name="element"></param>
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
       {
          ModelRoot modelRoot = element;
@@ -154,6 +194,9 @@ namespace Sawczyn.EFDesigner.EFModel
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
                   break;
 
+               case "InheritanceStrategy":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
+                  break;
             }
 
             if (shouldRemove)
