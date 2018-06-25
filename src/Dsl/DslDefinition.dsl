@@ -213,6 +213,11 @@
             <DomainEnumerationMoniker Name="AutomaticAction" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="950f6c9e-3977-4968-aa8f-697ffb49ac4a" Description="Code visibility for DbSets" Name="DbSetAccess" DisplayName="DbSet Access" DefaultValue="Public" Category="Entity Context">
+          <Type>
+            <DomainEnumerationMoniker Name="ContainerAccess" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1361,6 +1366,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="installNugetPackages">
             <DomainPropertyMoniker Name="ModelRoot/InstallNugetPackages" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbSetAccess">
+            <DomainPropertyMoniker Name="ModelRoot/DbSetAccess" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

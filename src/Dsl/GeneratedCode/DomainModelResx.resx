@@ -481,6 +481,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;InstallNugetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DbSetAccess.Description" xml:space="preserve">
+    <value>Code visibility for DbSets</value>
+    <comment>Description for DomainProperty &apos;DbSetAccess&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DbSetAccess.DisplayName" xml:space="preserve">
+    <value>DbSet Access</value>
+    <comment>DisplayName for DomainProperty &apos;DbSetAccess&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DbSetAccess.Category" xml:space="preserve">
+    <value>Entity Context</value>
+    <comment>Category for DomainProperty &apos;DbSetAccess&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>

@@ -285,6 +285,12 @@
             <xsd:documentation>On save, should the editor install/remove Entity Framework Nuget packages to match your EF version choice?</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DbSetAccess -->
+        <xsd:attribute name="dbSetAccess" type="ContainerAccess" >
+          <xsd:annotation>
+            <xsd:documentation>Code visibility for DbSets</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

@@ -2661,6 +2661,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region DbSetAccess domain property code
+		
+		/// <summary>
+		/// DbSetAccess domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbSetAccessDomainPropertyId = new global::System.Guid(0x950f6c9e, 0x3977, 0x4968, 0xaa, 0x8f, 0x69, 0x7f, 0xfb, 0x49, 0xac, 0x4a);
+		
+		/// <summary>
+		/// Storage for DbSetAccess
+		/// </summary>
+		private ContainerAccess dbSetAccessPropertyStorage = ContainerAccess.Public;
+		
+		/// <summary>
+		/// Gets or sets the value of DbSetAccess domain property.
+		/// Code visibility for DbSets
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DbSetAccess.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DbSetAccess.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DbSetAccess.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(ContainerAccess.Public)]
+		[DslModeling::DomainObjectId("950f6c9e-3977-4968-aa8f-697ffb49ac4a")]
+		public ContainerAccess DbSetAccess
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbSetAccessPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbSetAccessPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbSetAccess domain property.
+		/// </summary>
+		internal sealed partial class DbSetAccessPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, ContainerAccess>
+		{
+			private DbSetAccessPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbSetAccess domain property value handler.
+			/// </summary>
+			public static readonly DbSetAccessPropertyHandler Instance = new DbSetAccessPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbSetAccess domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbSetAccessDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed ContainerAccess GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbSetAccessPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, ContainerAccess newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				ContainerAccess oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbSetAccessPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

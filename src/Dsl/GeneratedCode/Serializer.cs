@@ -1125,6 +1125,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// DbSetAccess
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDbSetAccess = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dbSetAccess");
+				if (attribDbSetAccess != null)
+				{
+					ContainerAccess valueOfDbSetAccess;
+					if (DslModeling::SerializationUtilities.TryGetValue<ContainerAccess>(serializationContext, attribDbSetAccess, out valueOfDbSetAccess))
+					{
+						instanceOfModelRoot.DbSetAccess = valueOfDbSetAccess;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dbSetAccess", typeof(ContainerAccess), attribDbSetAccess);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -2084,6 +2101,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "False") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "installNugetPackages", serializedPropValue);
+					}
+				}
+			}
+			// DbSetAccess
+			if (!serializationContext.Result.Failed)
+			{
+				ContainerAccess propValue = instanceOfModelRoot.DbSetAccess;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<ContainerAccess>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Public") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbSetAccess", serializedPropValue);
 					}
 				}
 			}

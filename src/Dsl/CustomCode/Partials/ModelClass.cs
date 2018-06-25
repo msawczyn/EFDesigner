@@ -16,6 +16,8 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments
    {
+      public bool IsStruct => IsComplexType || IsOwned;
+
       public IEnumerable<ModelAttribute> AllAttributes
       {
          get

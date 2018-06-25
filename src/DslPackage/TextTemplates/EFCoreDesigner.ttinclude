@@ -124,13 +124,13 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    switch (modelRoot.InheritanceStrategy)
    {
       case CodeStrategy.TablePerType:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsStruct).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerConcreteType:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsAbstract).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsStruct && !mc.IsAbstract).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerHierarchy:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(x => x.Superclass == null).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsStruct && x.Superclass == null).OrderBy(x => x.Name);
          break;
    }
 
@@ -147,7 +147,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
-         Output($"private Microsoft.EntityFrameworkCore.DbSet<{modelClass.Namespace}.{modelClass.Name}> {dbSetName} {{ get; set; }}");
+         Output($"{modelRoot.DbSetAccess.ToString().ToLower()} Microsoft.EntityFrameworkCore.DbSet<{modelClass.Namespace}.{modelClass.Name}> {dbSetName} {{ get; set; }}");
       }
 
       NL();
@@ -176,7 +176,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    Output("}");
    NL();
    
-   Output("partial void CustomInit(ref DbContextOptionsBuilder optionsBuilder);");
+   Output("partial void CustomInit(DbContextOptionsBuilder optionsBuilder);");
    NL();
 
    Output($"protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)");
@@ -204,7 +204,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       NL();
    }
 
-   Output("CustomInit(ref optionsBuilder);");
+   Output("CustomInit(optionsBuilder);");
    Output("}");
    NL();
    

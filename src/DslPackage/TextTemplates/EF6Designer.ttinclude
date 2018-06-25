@@ -120,13 +120,13 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    switch (modelRoot.InheritanceStrategy)
    {
       case CodeStrategy.TablePerType:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsStruct).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerConcreteType:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsAbstract).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsStruct && !mc.IsAbstract).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerHierarchy:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(x => x.Superclass == null).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsStruct && x.Superclass == null).OrderBy(x => x.Name);
          break;
    }
 

@@ -45,6 +45,9 @@
     <Reference Include="Microsoft.EntityFrameworkCore.Design, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.Design.2.1.1\lib\net461\Microsoft.EntityFrameworkCore.Design.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.InMemory, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.InMemory.2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.InMemory.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore.Proxies, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.Proxies.2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Proxies.dll</HintPath>
     </Reference>
@@ -130,21 +133,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\Context\SandboxContext.cs" />
-    <Compile Include="Generated\Context\SandboxContext.generated.cs" />
-    <Compile Include="Generated\Entities\Blog.generated.cs" />
-    <Compile Include="Generated\Entities\Post.generated.cs" />
-    <Compile Include="Migrations\20180624151138_Initial.cs" />
-    <Compile Include="Migrations\20180624151138_Initial.designer.cs">
-      <DependentUpon>20180624151138_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\SandboxContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sandbox.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Sandbox.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -152,20 +141,14 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Sandbox.efmodel" />
-    <None Include="Sandbox.efmodel.diagram">
-      <DependentUpon>Sandbox.efmodel</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sandbox.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Sandbox.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
+    <Folder Include="Custom\Context\" />
+    <Folder Include="Generated\Context\" />
+    <Folder Include="Generated\Entities\" />
     <Folder Include="Generated\Enums\" />
     <Folder Include="Generated\Structs\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

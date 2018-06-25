@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SandboxApp
+namespace Sandbox
 {
    class Program
    {
@@ -16,7 +16,10 @@ namespace SandboxApp
 
       internal void Run()
       {
-
+         using (SandboxContext db = new SandboxContext())
+         {
+            db.Blogs.Add
+         }
       }
    }
 }
