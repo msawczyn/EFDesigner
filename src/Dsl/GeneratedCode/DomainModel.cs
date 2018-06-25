@@ -142,6 +142,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkCoreVersion", ModelRoot.EntityFrameworkCoreVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkCoreVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "StructOutputDirectory", ModelRoot.StructOutputDirectoryDomainPropertyId, typeof(ModelRoot.StructOutputDirectoryPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "InstallNugetPackages", ModelRoot.InstallNugetPackagesDomainPropertyId, typeof(ModelRoot.InstallNugetPackagesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -1383,6 +1384,35 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToTicksConverter.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		TimeSpanToTicksConverter,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: AutomaticAction
+	/// Description for Sawczyn.EFDesigner.EFModel.AutomaticAction
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum AutomaticAction
+	{
+		/// <summary>
+		/// False
+		/// Never perform the action automatically
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AutomaticAction/False.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		False = 0,
+		/// <summary>
+		/// True
+		/// Always perform the action automatically
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AutomaticAction/True.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		True = 1,
+		/// <summary>
+		/// Ask
+		/// Ask each time if should perform the action automatically
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AutomaticAction/Ask.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Ask = 2,
 	}
 }
 

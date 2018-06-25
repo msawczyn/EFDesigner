@@ -174,6 +174,10 @@ namespace Sawczyn.EFDesigner.EFModel
             bool shouldRemove = false;
             switch (propertyDescriptors[index].Name)
             {
+               case "InstallNugetPackages":
+                  shouldRemove = !modelRoot.CanLoadNugetPackages;
+                  break;
+
                case "DatabaseInitializerType":
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
                   break;

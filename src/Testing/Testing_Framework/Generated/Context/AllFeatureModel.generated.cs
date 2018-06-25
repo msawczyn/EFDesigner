@@ -110,7 +110,7 @@ namespace Testing
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int16Attr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int32Attr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int64Attr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired();
+         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired().HasColumnName("");
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.String).HasMaxLength(100).IsRequired();
 

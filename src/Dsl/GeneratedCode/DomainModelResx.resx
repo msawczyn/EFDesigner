@@ -469,6 +469,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;StructOutputDirectory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Description" xml:space="preserve">
+    <value>On save, should the editor install/remove Entity Framework Nuget packages to match your EF version choice?</value>
+    <comment>Description for DomainProperty &apos;InstallNugetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.DisplayName" xml:space="preserve">
+    <value>Install Nuget Packages</value>
+    <comment>DisplayName for DomainProperty &apos;InstallNugetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;InstallNugetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -2272,6 +2284,30 @@
   <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/TimeSpanToTicksConverter.Description" xml:space="preserve">
     <value>Description for Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToTicksConverter</value>
     <comment>Description for EnumerationLiteral &apos;TimeSpanToTicksConverter&apos; on DomainEnumeration &apos;ValueConverter&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AutomaticAction/False.DisplayName" xml:space="preserve">
+    <value>False</value>
+    <comment>Display name for EnumerationLiteral &apos;False&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AutomaticAction/False.Description" xml:space="preserve">
+    <value>Never perform the action automatically</value>
+    <comment>Description for EnumerationLiteral &apos;False&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AutomaticAction/True.DisplayName" xml:space="preserve">
+    <value>True</value>
+    <comment>Display name for EnumerationLiteral &apos;True&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AutomaticAction/True.Description" xml:space="preserve">
+    <value>Always perform the action automatically</value>
+    <comment>Description for EnumerationLiteral &apos;True&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AutomaticAction/Ask.DisplayName" xml:space="preserve">
+    <value>Ask</value>
+    <comment>Display name for EnumerationLiteral &apos;Ask&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.AutomaticAction/Ask.Description" xml:space="preserve">
+    <value>Ask each time if should perform the action automatically</value>
+    <comment>Description for EnumerationLiteral &apos;Ask&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

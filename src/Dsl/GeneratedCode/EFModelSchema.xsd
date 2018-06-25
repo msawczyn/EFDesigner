@@ -279,6 +279,12 @@
             <xsd:documentation>Project directory for generated structures (owned/complex types)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: InstallNugetPackages -->
+        <xsd:attribute name="installNugetPackages" type="AutomaticAction" >
+          <xsd:annotation>
+            <xsd:documentation>On save, should the editor install/remove Entity Framework Nuget packages to match your EF version choice?</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1828,6 +1834,27 @@
       <xsd:enumeration value="StringToBytesConverter"/>
       <xsd:enumeration value="TimeSpanToStringConverter"/>
       <xsd:enumeration value="TimeSpanToTicksConverter"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum AutomaticAction -->
+  <xsd:simpleType name="AutomaticAction">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="False">
+        <xsd:annotation>
+          <xsd:documentation>Never perform the action automatically</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="True">
+        <xsd:annotation>
+          <xsd:documentation>Always perform the action automatically</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Ask">
+        <xsd:annotation>
+          <xsd:documentation>Ask each time if should perform the action automatically</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   

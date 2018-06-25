@@ -33,9 +33,12 @@ namespace Sandbox
       /// <summary>
       /// Public constructor with required data
       /// </summary>
+      /// <param name="_title"></param>
       /// <param name="_blog"></param>
-      public Post(Blog _blog)
+      public Post(string _title, Blog _blog)
       {
+         if (string.IsNullOrEmpty(_title)) throw new ArgumentNullException(nameof(_title));
+         Title = _title;
          if (_blog == null) throw new ArgumentNullException(nameof(_blog));
          Blog = _blog;
 
@@ -45,10 +48,11 @@ namespace Sandbox
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
+      /// <param name="_title"></param>
       /// <param name="_blog"></param>
-      public static Post Create(Blog _blog)
+      public static Post Create(string _title, Blog _blog)
       {
-         return new Post(_blog);
+         return new Post(_title, _blog);
       }
 
       // Persistent properties
@@ -61,8 +65,9 @@ namespace Sandbox
       public int Id { get; set; }
 
       /// <summary>
-      /// Max length = 200
+      /// Required, Max length = 200
       /// </summary>
+      [Required]
       [MaxLength(200)]
       public string Title { get; set; }
 

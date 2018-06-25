@@ -336,11 +336,13 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                   catch (ArgumentException)
                   {
-                     MessageBox.Show($"Can't create a {Path.GetExtension(dlg.FileName)} image", "Bad image type", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     string errorMessage = $"Can't create a {Path.GetExtension(dlg.FileName)} image";
+                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, Microsoft.VisualStudio.Shell.Interop.OLEMSGBUTTON.OLEMSGBUTTON_OK, Microsoft.VisualStudio.Shell.Interop.OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, Microsoft.VisualStudio.Shell.Interop.OLEMSGICON.OLEMSGICON_CRITICAL);
                   }
                   catch
                   {
-                     MessageBox.Show($"Error saving {dlg.FileName}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     string errorMessage = $"Error saving {dlg.FileName}";
+                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, Microsoft.VisualStudio.Shell.Interop.OLEMSGBUTTON.OLEMSGBUTTON_OK, Microsoft.VisualStudio.Shell.Interop.OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, Microsoft.VisualStudio.Shell.Interop.OLEMSGICON.OLEMSGICON_CRITICAL);
                   }
                }
             }

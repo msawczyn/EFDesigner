@@ -1422,7 +1422,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for EntityFrameworkVersion
 		/// </summary>
-		private EFVersion entityFrameworkVersionPropertyStorage = EFVersion.EFCore;
+		private EFVersion entityFrameworkVersionPropertyStorage = EFVersion.EF6;
 		
 		/// <summary>
 		/// Gets or sets the value of EntityFrameworkVersion domain property.
@@ -1431,7 +1431,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkVersion.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkVersion.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkVersion.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(EFVersion.EFCore)]
+		[global::System.ComponentModel.DefaultValue(EFVersion.EF6)]
 		[DslModeling::DomainObjectId("b4e314ff-3c4b-4e1e-8309-8d35dacdc19e")]
 		public EFVersion EntityFrameworkVersion
 		{
@@ -2564,6 +2564,97 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.structOutputDirectoryPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region InstallNugetPackages domain property code
+		
+		/// <summary>
+		/// InstallNugetPackages domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid InstallNugetPackagesDomainPropertyId = new global::System.Guid(0x77fab320, 0x8888, 0x42b8, 0x9a, 0x70, 0x23, 0xc5, 0xb7, 0xa9, 0x61, 0x0e);
+		
+		/// <summary>
+		/// Storage for InstallNugetPackages
+		/// </summary>
+		private AutomaticAction installNugetPackagesPropertyStorage = AutomaticAction.False;
+		
+		/// <summary>
+		/// Gets or sets the value of InstallNugetPackages domain property.
+		/// On save, should the editor install/remove Entity Framework Nuget packages to
+		/// match your EF version choice?
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(AutomaticAction.False)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("77fab320-8888-42b8-9a70-23c5b7a9610e")]
+		public AutomaticAction InstallNugetPackages
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return installNugetPackagesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				InstallNugetPackagesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.InstallNugetPackages domain property.
+		/// </summary>
+		internal sealed partial class InstallNugetPackagesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, AutomaticAction>
+		{
+			private InstallNugetPackagesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.InstallNugetPackages domain property value handler.
+			/// </summary>
+			public static readonly InstallNugetPackagesPropertyHandler Instance = new InstallNugetPackagesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.InstallNugetPackages domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return InstallNugetPackagesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed AutomaticAction GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.installNugetPackagesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, AutomaticAction newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				AutomaticAction oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.installNugetPackagesPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

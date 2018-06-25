@@ -20,6 +20,8 @@ namespace Sandbox
       public Microsoft.EntityFrameworkCore.DbSet<Sandbox.Blog> Blogs { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Sandbox.Post> Posts { get; set; }
 
+      private static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Sandbox;Integrated Security=True";
+
       public SandboxContext() : base()
       {
       }
@@ -67,7 +69,8 @@ namespace Sandbox
                      .ValueGeneratedOnAdd();
          modelBuilder.Entity<Sandbox.Post>()
                      .Property(t => t.Title)
-                     .HasMaxLength(200);
+                     .HasMaxLength(200)
+                     .IsRequired();
          modelBuilder.Entity<Sandbox.Post>()
                      .HasOne(x => x.Blog)
                      .WithMany(x => x.Posts);

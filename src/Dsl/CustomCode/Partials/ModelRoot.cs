@@ -23,6 +23,28 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public string EFVersionString
+      {
+         get
+         {
+            if (EntityFrameworkVersion == EFVersion.EF6)
+               return "6.2";
+
+            if (EntityFrameworkCoreVersion == EFCoreVersion.EFCore20)
+               return "Core 2.0";
+
+            if (EntityFrameworkCoreVersion == EFCoreVersion.EFCore21)
+               return "Core 2.1";
+
+            throw new Exception("Can't get EF version. This shouldn't ever happen.");
+         }
+      }
+
+      /// <summary>
+      /// Package might set this to false depending on whether or not it can find the resources needed to load Nuget packages
+      /// </summary>
+      internal bool CanLoadNugetPackages { get; set; } = true;
+
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void ConnectionStringMustExist(ValidationContext context)

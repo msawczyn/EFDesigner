@@ -1108,6 +1108,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// InstallNugetPackages
+			if (!serializationContext.Result.Failed)
+			{
+				string attribInstallNugetPackages = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "installNugetPackages");
+				if (attribInstallNugetPackages != null)
+				{
+					AutomaticAction valueOfInstallNugetPackages;
+					if (DslModeling::SerializationUtilities.TryGetValue<AutomaticAction>(serializationContext, attribInstallNugetPackages, out valueOfInstallNugetPackages))
+					{
+						instanceOfModelRoot.InstallNugetPackages = valueOfInstallNugetPackages;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "installNugetPackages", typeof(AutomaticAction), attribInstallNugetPackages);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1907,7 +1924,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<EFVersion>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "EFCore") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "EF6") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkVersion", serializedPropValue);
 					}
@@ -2055,6 +2072,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "structOutputDirectory", propValue);
 	
+				}
+			}
+			// InstallNugetPackages
+			if (!serializationContext.Result.Failed)
+			{
+				AutomaticAction propValue = instanceOfModelRoot.InstallNugetPackages;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<AutomaticAction>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "False") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "installNugetPackages", serializedPropValue);
+					}
 				}
 			}
 		}

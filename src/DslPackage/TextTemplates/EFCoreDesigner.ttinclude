@@ -147,7 +147,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
-         Output($"public Microsoft.EntityFrameworkCore.DbSet<{modelClass.Namespace}.{modelClass.Name}> {dbSetName} {{ get; set; }}");
+         Output($"private Microsoft.EntityFrameworkCore.DbSet<{modelClass.Namespace}.{modelClass.Name}> {dbSetName} {{ get; set; }}");
       }
 
       NL();
@@ -157,6 +157,16 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    // construction
    /***********************************************************************/
 
+   if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
+   {
+      string connectionString = string.IsNullOrEmpty(modelRoot.ConnectionString) 
+                                   ? $"Name={modelRoot.ConnectionStringName}"
+                                   : modelRoot.ConnectionString;
+
+      Output($"public static string ConnectionString {{ get; set; }} = @\"{connectionString}\";");
+      NL();
+   }
+   
    Output($"public {modelRoot.EntityContainerName}() : base()");
    Output("{");
    Output("}");

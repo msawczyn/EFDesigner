@@ -114,7 +114,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for validation and generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EFCore" Category="Code Generation">
+        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for validation and generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EF6" Category="Code Generation">
           <Type>
             <DomainEnumerationMoniker Name="EFVersion" />
           </Type>
@@ -205,6 +205,12 @@
           </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="77fab320-8888-42b8-9a70-23c5b7a9610e" Description="On save, should the editor install/remove Entity Framework Nuget packages to match your EF version choice?" Name="InstallNugetPackages" DisplayName="Install Nuget Packages" DefaultValue="False" Category="Code Generation" IsBrowsable="false">
+          <Notes>Not ready for prime time</Notes>
+          <Type>
+            <DomainEnumerationMoniker Name="AutomaticAction" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1046,6 +1052,13 @@
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.TimeSpanToTicksConverter" Name="TimeSpanToTicksConverter" Value="" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="AutomaticAction" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.AutomaticAction">
+      <Literals>
+        <EnumerationLiteral Description="Never perform the action automatically" Name="False" Value="0" />
+        <EnumerationLiteral Description="Always perform the action automatically" Name="True" Value="1" />
+        <EnumerationLiteral Description="Ask each time if should perform the action automatically" Name="Ask" Value="2" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1345,6 +1358,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="structOutputDirectory">
             <DomainPropertyMoniker Name="ModelRoot/StructOutputDirectory" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="installNugetPackages">
+            <DomainPropertyMoniker Name="ModelRoot/InstallNugetPackages" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
