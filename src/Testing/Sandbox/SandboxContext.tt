@@ -14,7 +14,7 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
 #><#@ import namespace="System.Globalization" 
 #><#@ import namespace="Sawczyn.EFDesigner.EFModel" 
-#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='EFModel1.efmodel'"  
+#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='SandboxContext.efmodel'"  
 #><#
    Manager manager = Manager.Create(Host, GenerationEnvironment);
    manager.FileNameMarker = ModelRoot.FileNameMarker;
@@ -37,7 +37,6 @@
          case EFVersion.EF6:
             GenerateEF6(manager, this.ModelRoot);
             break;
-         //case EFVersion.EFCore20:
          case EFVersion.EFCore:
             GenerateEFCore(manager, this.ModelRoot);
             break;

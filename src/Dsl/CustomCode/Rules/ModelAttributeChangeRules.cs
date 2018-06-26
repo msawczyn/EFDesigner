@@ -124,9 +124,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 
                if (newIsIdentity)
                {
-                  if (element.ModelClass.IsOwned)
+                  if (element.ModelClass.IsDependentType)
                   {
-                     errorMessages.Add($"Can't make {element.Name} an identity because {element.ModelClass.Name} is an owned type.");
+                     errorMessages.Add($"Can't make {element.Name} an identity because {element.ModelClass.Name} is a dependent type and can't have an identity property.");
                   }
                   else
                   {

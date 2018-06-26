@@ -32,24 +32,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelClass element)
       {
-         ModelRoot modelRoot = element.ModelRoot;
-         for (int index = 0; index < propertyDescriptors.Count; index++)
-         {
-            bool shouldRemove = false;
-            switch (propertyDescriptors[index].Name)
-            {
-               case "IsOwned":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
-                  break;
+         //ModelRoot modelRoot = element.ModelRoot;
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
+         //   }
 
-               case "IsComplexType":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-            }
-
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
-         }
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
       }
 
       #endregion ModelClass

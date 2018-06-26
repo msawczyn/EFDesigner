@@ -35,8 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
-            case "IsOwned":
-            case "IsComplexType":
+            case "IsDependentType":
                bool newIsStruct = (bool)e.NewValue;
 
                if (newIsStruct)

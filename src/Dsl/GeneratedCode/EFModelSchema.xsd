@@ -168,7 +168,7 @@
         <!-- Property: EntityOutputDirectory -->
         <xsd:attribute name="entityOutputDirectory" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>Project directory for entities</xsd:documentation>
+            <xsd:documentation>Output directory for entities</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: ContextOutputDirectory -->
@@ -454,16 +454,22 @@
             <xsd:documentation>Optional comma-separated list of interfaces that will be added to the class definition</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: IsOwned -->
-        <xsd:attribute name="isOwned" type="xsd:boolean" >
+        <!-- Property: IsDependentType -->
+        <xsd:attribute name="isDependentType" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>Is this a completely dependent type that will only exist associated to another object?</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: IsComplexType -->
-        <xsd:attribute name="isComplexType" type="xsd:boolean" >
+        <!-- Property: OutputDirectory -->
+        <xsd:attribute name="outputDirectory" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>Is this a completely dependent type that will only exist associated to another object?</xsd:documentation>
+            <xsd:documentation>Overrides default output directory</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsOutputDirectoryTracking -->
+        <xsd:attribute name="isOutputDirectoryTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelClass.OutputDirectory tracks ModelRoot.EntityOutputDirectory</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -842,6 +848,18 @@
         <xsd:attribute name="isFlags" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, values in this enumeration are flags and will have initial values set appropriately.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: OutputDirectory -->
+        <xsd:attribute name="outputDirectory" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Overrides default output directory</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsOutputDirectoryTracking -->
+        <xsd:attribute name="isOutputDirectoryTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelEnum.OutputDirectory tracks ModelRoot.EnumOutputDirectory</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

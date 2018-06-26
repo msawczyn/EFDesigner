@@ -57,6 +57,22 @@ namespace Sawczyn.EFDesigner.EFModel
             };
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass, namespacePropertyInfo, isNamespaceTrackingPropertyInfo, namespaceAttributes));
+
+            /********************************************************************************/
+
+            DomainPropertyInfo outputDirectoryPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.OutputDirectoryDomainPropertyId);
+            DomainPropertyInfo isOutputDirectoryTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.IsOutputDirectoryTrackingDomainPropertyId);
+
+            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
+            Attribute[] outputDirectoryAttributes =
+            {
+               new DisplayNameAttribute("Output Directory"),
+               new DescriptionAttribute("Overrides default output directory"),
+               new CategoryAttribute("Code Generation"),
+            };
+
+            TrackingPropertyDescriptor outputDirectoryTypeDescriptor = new TrackingPropertyDescriptor(modelClass, outputDirectoryPropertyInfo, isOutputDirectoryTrackingPropertyInfo, outputDirectoryAttributes);
+            propertyDescriptors.Add(outputDirectoryTypeDescriptor);
          }
 
          // Return the property descriptors for this element  

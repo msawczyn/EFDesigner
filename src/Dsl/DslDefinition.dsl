@@ -63,7 +63,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="368a7c8c-e0db-40ef-b678-dbc4580d9e54" Description="Project directory for entities" Name="EntityOutputDirectory" DisplayName="Entity Output Directory" Category="Code Generation">
+        <DomainProperty Id="368a7c8c-e0db-40ef-b678-dbc4580d9e54" Description="Output directory for entities" Name="EntityOutputDirectory" DisplayName="Entity Output Directory" Category="Code Generation">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -312,12 +312,17 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8ceab962-60b0-440b-9a1b-9a6dd4e1094a" Description="Is this a completely dependent type that will only exist associated to another object?" Name="IsOwned" DisplayName="Is Owned" DefaultValue="false" Category="Database">
+        <DomainProperty Id="21a0cf45-971e-40dd-8940-afafa5985d7f" Description="Is this a completely dependent type that will only exist associated to another object?" Name="IsDependentType" DisplayName="Is Dependent Type" DefaultValue="false" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="21a0cf45-971e-40dd-8940-afafa5985d7f" Description="Is this a completely dependent type that will only exist associated to another object?" Name="IsComplexType" DisplayName="Is Complex Type" DefaultValue="false" Category="Database">
+        <DomainProperty Id="7b385981-572c-4f6f-81aa-5de8608c3914" Description="Overrides default output directory" Name="OutputDirectory" DisplayName="Output Directory" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8045d89c-6c9a-4775-92bc-841a7f6fe7d3" Description="If true, ModelClass.OutputDirectory tracks ModelRoot.EntityOutputDirectory" Name="IsOutputDirectoryTracking" DisplayName="Is Output Directory Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -534,6 +539,16 @@
           </ElementNameProvider>
         </DomainProperty>
         <DomainProperty Id="2196162d-2f05-48dd-9ae6-d293190c9c77" Description="If true, values in this enumeration are flags and will have initial values set appropriately." Name="IsFlags" DisplayName="Values are Flags" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="6556f5a3-cba4-415f-bd8c-1af786b61421" Description="Overrides default output directory" Name="OutputDirectory" DisplayName="Output Directory" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="1a498d1a-15d7-48fe-b911-17b1028da5f7" Description="If true, ModelEnum.OutputDirectory tracks ModelRoot.EnumOutputDirectory" Name="IsOutputDirectoryTracking" DisplayName="Is Output Directory Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1423,11 +1438,14 @@
           <XmlPropertyData XmlName="customInterfaces">
             <DomainPropertyMoniker Name="ModelClass/CustomInterfaces" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="isOwned">
-            <DomainPropertyMoniker Name="ModelClass/IsOwned" />
+          <XmlPropertyData XmlName="isDependentType">
+            <DomainPropertyMoniker Name="ModelClass/IsDependentType" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="isComplexType">
-            <DomainPropertyMoniker Name="ModelClass/IsComplexType" />
+          <XmlPropertyData XmlName="outputDirectory">
+            <DomainPropertyMoniker Name="ModelClass/OutputDirectory" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isOutputDirectoryTracking">
+            <DomainPropertyMoniker Name="ModelClass/IsOutputDirectoryTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1614,6 +1632,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isFlags">
             <DomainPropertyMoniker Name="ModelEnum/IsFlags" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="outputDirectory">
+            <DomainPropertyMoniker Name="ModelEnum/OutputDirectory" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isOutputDirectoryTracking">
+            <DomainPropertyMoniker Name="ModelEnum/IsOutputDirectoryTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

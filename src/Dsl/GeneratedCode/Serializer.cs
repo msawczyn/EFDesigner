@@ -2608,37 +2608,54 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// IsOwned
+			// IsDependentType
 			if (!serializationContext.Result.Failed)
 			{
-				string attribIsOwned = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isOwned");
-				if (attribIsOwned != null)
+				string attribIsDependentType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isDependentType");
+				if (attribIsDependentType != null)
 				{
-					global::System.Boolean valueOfIsOwned;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsOwned, out valueOfIsOwned))
+					global::System.Boolean valueOfIsDependentType;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsDependentType, out valueOfIsDependentType))
 					{
-						instanceOfModelClass.IsOwned = valueOfIsOwned;
+						instanceOfModelClass.IsDependentType = valueOfIsDependentType;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isOwned", typeof(global::System.Boolean), attribIsOwned);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isDependentType", typeof(global::System.Boolean), attribIsDependentType);
 					}
 				}
 			}
-			// IsComplexType
+			// OutputDirectory
 			if (!serializationContext.Result.Failed)
 			{
-				string attribIsComplexType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isComplexType");
-				if (attribIsComplexType != null)
+				string attribOutputDirectory = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outputDirectory");
+				if (attribOutputDirectory != null)
 				{
-					global::System.Boolean valueOfIsComplexType;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsComplexType, out valueOfIsComplexType))
+					global::System.String valueOfOutputDirectory;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribOutputDirectory, out valueOfOutputDirectory))
 					{
-						instanceOfModelClass.IsComplexType = valueOfIsComplexType;
+						instanceOfModelClass.OutputDirectory = valueOfOutputDirectory;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isComplexType", typeof(global::System.Boolean), attribIsComplexType);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outputDirectory", typeof(global::System.String), attribOutputDirectory);
+					}
+				}
+			}
+			// IsOutputDirectoryTracking
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsOutputDirectoryTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isOutputDirectoryTracking");
+				if (attribIsOutputDirectoryTracking != null)
+				{
+					global::System.Boolean valueOfIsOutputDirectoryTracking;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsOutputDirectoryTracking, out valueOfIsOutputDirectoryTracking))
+					{
+						instanceOfModelClass.IsOutputDirectoryTracking = valueOfIsOutputDirectoryTracking;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isOutputDirectoryTracking", typeof(global::System.Boolean), attribIsOutputDirectoryTracking);
 					}
 				}
 			}
@@ -3466,29 +3483,39 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 				}
 			}
-			// IsOwned
+			// IsDependentType
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Boolean propValue = instanceOfModelClass.IsOwned;
+				global::System.Boolean propValue = instanceOfModelClass.IsDependentType;
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isOwned", serializedPropValue);
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isDependentType", serializedPropValue);
 					}
 				}
 			}
-			// IsComplexType
+			// OutputDirectory
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Boolean propValue = instanceOfModelClass.IsComplexType;
+				global::System.String propValue = instanceOfModelClass.OutputDirectory;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null)
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outputDirectory", propValue);
+				}
+			}
+			// IsOutputDirectoryTracking
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelClass.IsOutputDirectoryTracking;
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isComplexType", serializedPropValue);
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isOutputDirectoryTracking", serializedPropValue);
 					}
 				}
 			}
@@ -6862,6 +6889,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// OutputDirectory
+			if (!serializationContext.Result.Failed)
+			{
+				string attribOutputDirectory = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outputDirectory");
+				if (attribOutputDirectory != null)
+				{
+					global::System.String valueOfOutputDirectory;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribOutputDirectory, out valueOfOutputDirectory))
+					{
+						instanceOfModelEnum.OutputDirectory = valueOfOutputDirectory;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outputDirectory", typeof(global::System.String), attribOutputDirectory);
+					}
+				}
+			}
+			// IsOutputDirectoryTracking
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsOutputDirectoryTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isOutputDirectoryTracking");
+				if (attribIsOutputDirectoryTracking != null)
+				{
+					global::System.Boolean valueOfIsOutputDirectoryTracking;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsOutputDirectoryTracking, out valueOfIsOutputDirectoryTracking))
+					{
+						instanceOfModelEnum.IsOutputDirectoryTracking = valueOfIsOutputDirectoryTracking;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isOutputDirectoryTracking", typeof(global::System.Boolean), attribIsOutputDirectoryTracking);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -7432,6 +7493,29 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isFlags", serializedPropValue);
+					}
+				}
+			}
+			// OutputDirectory
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelEnum.OutputDirectory;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null)
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outputDirectory", propValue);
+				}
+			}
+			// IsOutputDirectoryTracking
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelEnum.IsOutputDirectoryTracking;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isOutputDirectoryTracking", serializedPropValue);
 					}
 				}
 			}

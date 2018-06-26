@@ -134,6 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SandboxContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SandboxContext.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -141,6 +146,10 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="SandboxContext.efmodel" />
+    <None Include="SandboxContext.efmodel.diagram">
+      <DependentUpon>SandboxContext.efmodel</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\Context\" />
@@ -149,6 +158,12 @@
     <Folder Include="Generated\Enums\" />
     <Folder Include="Generated\Structs\" />
     <Folder Include="Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SandboxContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SandboxContext.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

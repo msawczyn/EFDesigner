@@ -16,8 +16,6 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments
    {
-      public bool IsStruct => IsComplexType || IsOwned;
-
       public IEnumerable<ModelAttribute> AllAttributes
       {
          get
@@ -77,6 +75,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IsDatabaseSchemaTrackingPropertyHandler.Instance.PreResetValue(this);
          IsNamespaceTrackingPropertyHandler.Instance.PreResetValue(this);
+         IsOutputDirectoryTrackingPropertyHandler.Instance.PreResetValue(this);
+
          // same with other tracking properties as they get added
       }
 
@@ -88,6 +88,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IsDatabaseSchemaTrackingPropertyHandler.Instance.ResetValue(this);
          IsNamespaceTrackingPropertyHandler.Instance.ResetValue(this);
+         IsOutputDirectoryTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -184,6 +185,8 @@ namespace Sawczyn.EFDesigner.EFModel
          return HasAssociationNamed(identifier) || HasAttributeNamed(identifier);
       }
 
+      #region Validations
+
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void ClassShouldHaveAttributes(ValidationContext context)
       {
@@ -245,6 +248,9 @@ namespace Sawczyn.EFDesigner.EFModel
                context.LogWarning($"Class {Name} should be documented", "AWMissingSummary", this);
          }
       }
+
+      #endregion Validations
+
       #region DatabaseSchema tracking property
 
       private string databaseSchemaStorage;
@@ -398,7 +404,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         /// <summary>Performs the reset operation for the IsDatabaseSchemaTracking property for a model element.</summary>
+         /// <summary>Performs the reset operation for the IsNamespaceTracking property for a model element.</summary>
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelClass element)
          {
@@ -420,7 +426,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          /// <summary>
-         ///    Method to set IsDatabaseSchemaTracking to false so that this instance of this tracking property is not
+         ///    Method to set IsNamespaceTracking to false so that this instance of this tracking property is not
          ///    storage-based.
          /// </summary>
          /// <param name="element">
@@ -429,12 +435,107 @@ namespace Sawczyn.EFDesigner.EFModel
          /// </param>
          internal void PreResetValue(ModelClass element)
          {
-            // Force the IsDatabaseSchemaTracking property to false so that the value  
-            // of the DatabaseSchema property is retrieved from storage.  
+            // Force the IsNamespaceTracking property to false so that the value  
+            // of the Namespace property is retrieved from storage.  
             element.isNamespaceTrackingPropertyStorage = false;
          }
       }
 
       #endregion Namespace tracking property
+
+      #region OutputDirectory tracking property
+
+      private string outputDirectoryStorage;
+
+      private string GetOutputDirectoryValue()
+      {
+         Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
+         bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
+
+         if (!loading && IsOutputDirectoryTracking)
+            try
+            {
+               return IsDependentType ? ModelRoot.StructOutputDirectory : ModelRoot.EntityOutputDirectory;
+            }
+            catch (NullReferenceException)
+            {
+               return default(string);
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return default(string);
+            }
+
+         return outputDirectoryStorage;
+      }
+
+      private void SetOutputDirectoryValue(string value)
+      {
+         outputDirectoryStorage = value;
+
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         if (!Store.InUndoRedoOrRollback && !loading)
+            IsOutputDirectoryTracking = false;
+      }
+
+      internal sealed partial class IsOutputDirectoryTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsOutputDirectoryTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelClass element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(OutputDirectoryDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsOutputDirectoryTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelClass element)
+         {
+            object calculatedValue = null;
+
+            try
+            {
+               calculatedValue = element.IsDependentType ? element.ModelRoot.StructOutputDirectory : element.ModelRoot.Namespace;
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.OutputDirectory == (string)calculatedValue)
+               element.isOutputDirectoryTrackingPropertyStorage = true;
+         }
+
+         /// <summary>
+         ///    Method to set IsOutputDirectoryTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelClass element)
+         {
+            // Force the IsOutputDirectoryTracking property to false so that the value  
+            // of the OutputDirectory property is retrieved from storage.  
+            element.isOutputDirectoryTrackingPropertyStorage = false;
+         }
+      }
+
+      #endregion OutputDirectory tracking property
    }
 }

@@ -250,7 +250,7 @@
     <comment>Category for DomainProperty &apos;AutomaticMigrationsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityOutputDirectory.Description" xml:space="preserve">
-    <value>Project directory for entities</value>
+    <value>Output directory for entities</value>
     <comment>Description for DomainProperty &apos;EntityOutputDirectory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityOutputDirectory.DisplayName" xml:space="preserve">
@@ -625,29 +625,37 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;CustomInterfaces&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOwned.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDependentType.Description" xml:space="preserve">
     <value>Is this a completely dependent type that will only exist associated to another object?</value>
-    <comment>Description for DomainProperty &apos;IsOwned&apos; on DomainClass &apos;ModelClass&apos;</comment>
+    <comment>Description for DomainProperty &apos;IsDependentType&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOwned.DisplayName" xml:space="preserve">
-    <value>Is Owned</value>
-    <comment>DisplayName for DomainProperty &apos;IsOwned&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDependentType.DisplayName" xml:space="preserve">
+    <value>Is Dependent Type</value>
+    <comment>DisplayName for DomainProperty &apos;IsDependentType&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOwned.Category" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDependentType.Category" xml:space="preserve">
     <value>Database</value>
-    <comment>Category for DomainProperty &apos;IsOwned&apos; on DomainClass &apos;ModelClass&apos;</comment>
+    <comment>Category for DomainProperty &apos;IsDependentType&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsComplexType.Description" xml:space="preserve">
-    <value>Is this a completely dependent type that will only exist associated to another object?</value>
-    <comment>Description for DomainProperty &apos;IsComplexType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/OutputDirectory.Description" xml:space="preserve">
+    <value>Overrides default output directory</value>
+    <comment>Description for DomainProperty &apos;OutputDirectory&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsComplexType.DisplayName" xml:space="preserve">
-    <value>Is Complex Type</value>
-    <comment>DisplayName for DomainProperty &apos;IsComplexType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/OutputDirectory.DisplayName" xml:space="preserve">
+    <value>Output Directory</value>
+    <comment>DisplayName for DomainProperty &apos;OutputDirectory&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsComplexType.Category" xml:space="preserve">
-    <value>Database</value>
-    <comment>Category for DomainProperty &apos;IsComplexType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/OutputDirectory.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;OutputDirectory&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOutputDirectoryTracking.Description" xml:space="preserve">
+    <value>If true, ModelClass.OutputDirectory tracks ModelRoot.EntityOutputDirectory</value>
+    <comment>Description for DomainProperty &apos;IsOutputDirectoryTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOutputDirectoryTracking.DisplayName" xml:space="preserve">
+    <value>Is Output Directory Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsOutputDirectoryTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
@@ -1032,6 +1040,26 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsFlags.Category" xml:space="preserve">
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;IsFlags&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/OutputDirectory.Description" xml:space="preserve">
+    <value>Overrides default output directory</value>
+    <comment>Description for DomainProperty &apos;OutputDirectory&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/OutputDirectory.DisplayName" xml:space="preserve">
+    <value>Output Directory</value>
+    <comment>DisplayName for DomainProperty &apos;OutputDirectory&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/OutputDirectory.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;OutputDirectory&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsOutputDirectoryTracking.Description" xml:space="preserve">
+    <value>If true, ModelEnum.OutputDirectory tracks ModelRoot.EnumOutputDirectory</value>
+    <comment>Description for DomainProperty &apos;IsOutputDirectoryTracking&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsOutputDirectoryTracking.DisplayName" xml:space="preserve">
+    <value>Is Output Directory Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsOutputDirectoryTracking&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" xml:space="preserve">
     <value>No description available</value>
