@@ -173,7 +173,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (errorMessages.Any())
          {
             current.Rollback();
-            MessageBox.Show(string.Join("; ", errorMessages));
+            ErrorDisplay.Show(string.Join("; ", errorMessages));
          }
       }
    }

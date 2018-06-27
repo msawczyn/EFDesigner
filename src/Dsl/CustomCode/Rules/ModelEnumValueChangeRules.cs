@@ -87,7 +87,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
          if (errorMessage != null)
          {
             current.Rollback();
-            MessageBox.Show(errorMessage);
+            ErrorDisplay.Show(errorMessage);
          }
       }
    }

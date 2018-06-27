@@ -62,7 +62,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (errorMessage != null)
          {
             current.Rollback();
-            MessageBox.Show(errorMessage);
+            ErrorDisplay.Show(errorMessage);
          }
       }
    }

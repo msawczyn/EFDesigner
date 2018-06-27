@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (element.IsInCircularInheritance())
          {
             current.Rollback();
-            MessageBox.Show("That inheritance link would cause a circular reference.");
+            ErrorDisplay.Show("That inheritance link would cause a circular reference.");
             return;
          }
 
@@ -58,7 +58,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             current.Rollback();
             string nameClashList = string.Join(", ", nameClashes);
-            MessageBox.Show("That inheritance link would cause name clashes. Resolve the following before setting the inheritance: " + nameClashList);
+            ErrorDisplay.Show("That inheritance link would cause name clashes. Resolve the following before setting the inheritance: " + nameClashList);
          }
       }
    }

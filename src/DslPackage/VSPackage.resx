@@ -121,7 +121,7 @@
     <value>EFModel</value>
   </data>
   <data name="102" xml:space="preserve">
-    <value>Adds a EFDesigner file to the project.</value>
+    <value>Adds an Entity Framework Visual Designer file to the project.</value>
   </data>
   <data name="103" xml:space="preserve">
     <value>EFDesigner</value>

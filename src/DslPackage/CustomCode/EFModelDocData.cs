@@ -132,6 +132,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override void OnDocumentLoaded()
       {
          base.OnDocumentLoaded();
+         ErrorDisplay.RegisterDisplayHandler(ShowMessageBox);
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -188,6 +189,11 @@ namespace Sawczyn.EFDesigner.EFModel
                tx.Commit();
             }
          }
+      }
+
+      private void ShowMessageBox(string message)
+      {
+         PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
       }
 
       protected override void OnDocumentSaved(EventArgs e)

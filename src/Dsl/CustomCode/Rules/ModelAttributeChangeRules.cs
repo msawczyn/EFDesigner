@@ -238,7 +238,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
          if (errorMessages.Any())
          {
             current.Rollback();
-            MessageBox.Show(string.Join("; ", errorMessages));
+            ErrorDisplay.Show(string.Join("; ", errorMessages));
          }
       }
    }

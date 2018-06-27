@@ -126,7 +126,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerHierarchy:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsDependentType && x.Superclass == null).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name);
          break;
    }
 

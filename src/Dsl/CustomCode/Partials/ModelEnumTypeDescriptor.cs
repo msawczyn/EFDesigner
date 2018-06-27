@@ -51,11 +51,11 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                new DisplayNameAttribute("Output Directory"),
                new DescriptionAttribute("Overrides default output directory"),
-               new CategoryAttribute("Code Generation")
+               new CategoryAttribute("Code Generation"),
+               new TypeConverterAttribute(typeof(ProjectDirectoryTypeConverter))
             };
 
-            TrackingPropertyDescriptor outputDirectoryTypeDescriptor = new TrackingPropertyDescriptor(modelEnum, outputDirectoryPropertyInfo, isOutputDirectoryTrackingPropertyInfo, outputDirectoryAttributes);
-            propertyDescriptors.Add(outputDirectoryTypeDescriptor);
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelEnum, outputDirectoryPropertyInfo, isOutputDirectoryTrackingPropertyInfo, outputDirectoryAttributes));
          }
 
          // Return the property descriptors for this element  
