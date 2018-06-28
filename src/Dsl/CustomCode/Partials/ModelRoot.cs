@@ -2,7 +2,10 @@
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using Microsoft.VisualStudio.Modeling.Validation;
+
+using Sawczyn.EFDesigner.EFModel.Nuget;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -10,6 +13,11 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class ModelRoot
    {
       public static readonly PluralizationService PluralizationService;
+
+      public static string[] EFVersions { get; }
+      public static string[] EFCoreVersions { get; }
+      private static readonly HttpClient client = new HttpClient();
+      private static string nugetURL = "https://api-v2v3search-0.nuget.org/query?q={0}&prerelease=false";
 
       static ModelRoot()
       {
@@ -21,22 +29,39 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             PluralizationService = null;
          }
+
+         EFVersions = GetVersions("entityframework");
+         EFCoreVersions = GetVersions("microsoft.entityframeworkcore");
       }
 
-      public string EFVersionString
+      private static string[] GetVersions(string packageId)
+      {
+         string jsonString = client.GetAsync(string.Format(nugetURL, packageId)).Result.Content.ReadAsStringAsync().Result;
+         NugetPackages nugetPackages = NugetPackages.FromJson(jsonString);
+         string id = packageId.ToLower();
+
+         return nugetPackages.Data
+                             .Where(x => x.Title.ToLower() == id)
+                             .SelectMany(x => x.Versions)
+                             .OrderBy(v => v.VersionVersion)
+                             .Select(v => v.VersionVersion)
+                             .ToArray();
+      }
+
+      internal double EFPackageVersionNum
       {
          get
          {
-            if (EntityFrameworkVersion == EFVersion.EF6)
-               return "6.2";
+            string ver = EntityFrameworkPackageVersion;
 
-            if (EntityFrameworkCoreVersion == EFCoreVersion.EFCore20)
-               return "Core 2.0";
+            if (ver == "Latest")
+               ver = EntityFrameworkVersion == EFVersion.EF6
+                        ? EFVersions.Last()
+                        : EFCoreVersions.Last();
 
-            if (EntityFrameworkCoreVersion == EFCoreVersion.EFCore21)
-               return "Core 2.1";
-
-            throw new Exception("Can't get EF version. This shouldn't ever happen.");
+            return double.TryParse(ver, out double result)
+                      ? result
+                      : 0;
          }
       }
 

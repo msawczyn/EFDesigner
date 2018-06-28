@@ -2392,61 +2392,62 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region EntityFrameworkCoreVersion domain property code
+		#region EntityFrameworkPackageVersion domain property code
 		
 		/// <summary>
-		/// EntityFrameworkCoreVersion domain property Id.
+		/// EntityFrameworkPackageVersion domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid EntityFrameworkCoreVersionDomainPropertyId = new global::System.Guid(0x2a16f8e1, 0x9e68, 0x43ce, 0xb6, 0x25, 0x5e, 0x68, 0xe8, 0x49, 0x7a, 0xbb);
+		public static readonly global::System.Guid EntityFrameworkPackageVersionDomainPropertyId = new global::System.Guid(0x2a16f8e1, 0x9e68, 0x43ce, 0xb6, 0x25, 0x5e, 0x68, 0xe8, 0x49, 0x7a, 0xbb);
 		
 		/// <summary>
-		/// Storage for EntityFrameworkCoreVersion
+		/// Storage for EntityFrameworkPackageVersion
 		/// </summary>
-		private EFCoreVersion entityFrameworkCoreVersionPropertyStorage = EFCoreVersion.EFCore21;
+		private global::System.String entityFrameworkPackageVersionPropertyStorage = "Latest";
 		
 		/// <summary>
-		/// Gets or sets the value of EntityFrameworkCoreVersion domain property.
-		/// Version of Entity Framework Code for validation and generated code
+		/// Gets or sets the value of EntityFrameworkPackageVersion domain property.
+		/// Version of Entity Framework code for validation and generated code
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(EFCoreVersion.EFCore21)]
+		[System.ComponentModel.TypeConverter(typeof(EFPackageVersionTypeConverter))]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkPackageVersion.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkPackageVersion.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkPackageVersion.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("Latest")]
 		[DslModeling::DomainObjectId("2a16f8e1-9e68-43ce-b625-5e68e8497abb")]
-		public EFCoreVersion EntityFrameworkCoreVersion
+		public global::System.String EntityFrameworkPackageVersion
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return entityFrameworkCoreVersionPropertyStorage;
+				return entityFrameworkPackageVersionPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				EntityFrameworkCoreVersionPropertyHandler.Instance.SetValue(this, value);
+				EntityFrameworkPackageVersionPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelRoot.EntityFrameworkCoreVersion domain property.
+		/// Value handler for the ModelRoot.EntityFrameworkPackageVersion domain property.
 		/// </summary>
-		internal sealed partial class EntityFrameworkCoreVersionPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, EFCoreVersion>
+		internal sealed partial class EntityFrameworkPackageVersionPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
 		{
-			private EntityFrameworkCoreVersionPropertyHandler() { }
+			private EntityFrameworkPackageVersionPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelRoot.EntityFrameworkCoreVersion domain property value handler.
+			/// Gets the singleton instance of the ModelRoot.EntityFrameworkPackageVersion domain property value handler.
 			/// </summary>
-			public static readonly EntityFrameworkCoreVersionPropertyHandler Instance = new EntityFrameworkCoreVersionPropertyHandler();
+			public static readonly EntityFrameworkPackageVersionPropertyHandler Instance = new EntityFrameworkPackageVersionPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelRoot.EntityFrameworkCoreVersion domain property.
+			/// Gets the Id of the ModelRoot.EntityFrameworkPackageVersion domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return EntityFrameworkCoreVersionDomainPropertyId;
+					return EntityFrameworkPackageVersionDomainPropertyId;
 				}
 			}
 			
@@ -2455,10 +2456,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed EFCoreVersion GetValue(ModelRoot element)
+			public override sealed global::System.String GetValue(ModelRoot element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.entityFrameworkCoreVersionPropertyStorage;
+				return element.entityFrameworkPackageVersionPropertyStorage;
 			}
 		
 			/// <summary>
@@ -2466,15 +2467,15 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelRoot element, EFCoreVersion newValue)
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				EFCoreVersion oldValue = GetValue(element);
+				global::System.String oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.entityFrameworkCoreVersionPropertyStorage = newValue;
+					element.entityFrameworkPackageVersionPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

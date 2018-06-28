@@ -190,9 +190,16 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="2a16f8e1-9e68-43ce-b625-5e68e8497abb" Description="Version of Entity Framework Code for validation and generated code" Name="EntityFrameworkCoreVersion" DisplayName="Entity Framework Core Version" DefaultValue="EFCore21" Category="Code Generation">
+        <DomainProperty Id="2a16f8e1-9e68-43ce-b625-5e68e8497abb" Description="Version of Entity Framework code for validation and generated code" Name="EntityFrameworkPackageVersion" DisplayName="Entity Framework Package Version" DefaultValue="Latest" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(EFPackageVersionTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
-            <DomainEnumerationMoniker Name="EFCoreVersion" />
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="35350509-1856-4ca7-884a-1cee2552eef9" Description="Project directory for generated structures (owned/complex types)" Name="StructOutputDirectory" DisplayName="Struct Output Directory" Category="Code Generation">
@@ -1041,12 +1048,6 @@
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.None" Name="None" Value="0" />
       </Literals>
     </DomainEnumeration>
-    <DomainEnumeration Name="EFCoreVersion" Namespace="Sawczyn.EFDesigner.EFModel" Description="Entity Framework Core version">
-      <Literals>
-        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore20" Name="EFCore20" Value="0" />
-        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21" Name="EFCore21" Value="1" />
-      </Literals>
-    </DomainEnumeration>
     <DomainEnumeration Name="ValueConverter" Namespace="Sawczyn.EFDesigner.EFModel" Description="Available value converters for EFCore (&gt;= 2.1)">
       <Literals>
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.ValueConverter.BoolToZeroOneConverter" Name="BoolToZeroOneConverter" Value="" />
@@ -1373,8 +1374,8 @@
           <XmlPropertyData XmlName="warnOnMissingDocumentation">
             <DomainPropertyMoniker Name="ModelRoot/WarnOnMissingDocumentation" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="entityFrameworkCoreVersion">
-            <DomainPropertyMoniker Name="ModelRoot/EntityFrameworkCoreVersion" />
+          <XmlPropertyData XmlName="entityFrameworkPackageVersion">
+            <DomainPropertyMoniker Name="ModelRoot/EntityFrameworkPackageVersion" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="structOutputDirectory">
             <DomainPropertyMoniker Name="ModelRoot/StructOutputDirectory" />

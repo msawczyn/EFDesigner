@@ -140,7 +140,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "ShowCascadeDeletes", ModelRoot.ShowCascadeDeletesDomainPropertyId, typeof(ModelRoot.ShowCascadeDeletesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DatabaseType", ModelRoot.DatabaseTypeDomainPropertyId, typeof(ModelRoot.DatabaseTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkCoreVersion", ModelRoot.EntityFrameworkCoreVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkCoreVersionPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkPackageVersion", ModelRoot.EntityFrameworkPackageVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkPackageVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "StructOutputDirectory", ModelRoot.StructOutputDirectoryDomainPropertyId, typeof(ModelRoot.StructOutputDirectoryPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "InstallNugetPackages", ModelRoot.InstallNugetPackagesDomainPropertyId, typeof(ModelRoot.InstallNugetPackagesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbSetAccess", ModelRoot.DbSetAccessDomainPropertyId, typeof(ModelRoot.DbSetAccessPropertyHandler)),
@@ -1218,29 +1218,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseKind/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		None = 0,
-	}
-}
-namespace Sawczyn.EFDesigner.EFModel
-{
-	/// <summary>
-	/// DomainEnumeration: EFCoreVersion
-	/// Entity Framework Core version
-	/// </summary>
-	[global::System.CLSCompliant(true)]
-	public enum EFCoreVersion
-	{
-		/// <summary>
-		/// EFCore20
-		/// Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore20
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore20.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		EFCore20 = 0,
-		/// <summary>
-		/// EFCore21
-		/// Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		EFCore21 = 1,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel

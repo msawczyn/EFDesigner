@@ -445,17 +445,17 @@
     <value>Warn On Missing Documentation</value>
     <comment>DisplayName for DomainProperty &apos;WarnOnMissingDocumentation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Description" xml:space="preserve">
-    <value>Version of Entity Framework Code for validation and generated code</value>
-    <comment>Description for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkPackageVersion.Description" xml:space="preserve">
+    <value>Version of Entity Framework code for validation and generated code</value>
+    <comment>Description for DomainProperty &apos;EntityFrameworkPackageVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.DisplayName" xml:space="preserve">
-    <value>Entity Framework Core Version</value>
-    <comment>DisplayName for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkPackageVersion.DisplayName" xml:space="preserve">
+    <value>Entity Framework Package Version</value>
+    <comment>DisplayName for DomainProperty &apos;EntityFrameworkPackageVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkCoreVersion.Category" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkPackageVersion.Category" xml:space="preserve">
     <value>Code Generation</value>
-    <comment>Category for DomainProperty &apos;EntityFrameworkCoreVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+    <comment>Category for DomainProperty &apos;EntityFrameworkPackageVersion&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/StructOutputDirectory.Description" xml:space="preserve">
     <value>Project directory for generated structures (owned/complex types)</value>
@@ -2140,22 +2140,6 @@
   <data name="Sawczyn.EFDesigner.EFModel.DatabaseKind/None.Description" xml:space="preserve">
     <value>Description for Sawczyn.EFDesigner.EFModel.DatabaseKind.None</value>
     <comment>Description for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DatabaseKind&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore20.DisplayName" xml:space="preserve">
-    <value>EFCore20</value>
-    <comment>Display name for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore20.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore20</value>
-    <comment>Description for EnumerationLiteral &apos;EFCore20&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.DisplayName" xml:space="preserve">
-    <value>EFCore21</value>
-    <comment>Display name for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.EFCoreVersion/EFCore21.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.EFCoreVersion.EFCore21</value>
-    <comment>Description for EnumerationLiteral &apos;EFCore21&apos; on DomainEnumeration &apos;EFCoreVersion&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ValueConverter/BoolToZeroOneConverter.DisplayName" xml:space="preserve">
     <value>BoolToZeroOneConverter</value>

@@ -267,10 +267,10 @@
             <xsd:documentation>If true, will generate warnings when summary documentation is missing</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: EntityFrameworkCoreVersion -->
-        <xsd:attribute name="entityFrameworkCoreVersion" type="EFCoreVersion" >
+        <!-- Property: EntityFrameworkPackageVersion -->
+        <xsd:attribute name="entityFrameworkPackageVersion" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>Version of Entity Framework Code for validation and generated code</xsd:documentation>
+            <xsd:documentation>Version of Entity Framework code for validation and generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: StructOutputDirectory -->
@@ -1817,17 +1817,6 @@
       <xsd:enumeration value="SqlServer"/>
       <xsd:enumeration value="SqlServer2012"/>
       <xsd:enumeration value="None"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-  
-  <!-- Enum EFCoreVersion -->
-  <xsd:simpleType name="EFCoreVersion">
-    <xsd:annotation>
-      <xsd:documentation>Entity Framework Core version</xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="EFCore20"/>
-      <xsd:enumeration value="EFCore21"/>
     </xsd:restriction>
   </xsd:simpleType>
   

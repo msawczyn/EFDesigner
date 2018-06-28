@@ -1074,20 +1074,20 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// EntityFrameworkCoreVersion
+			// EntityFrameworkPackageVersion
 			if (!serializationContext.Result.Failed)
 			{
-				string attribEntityFrameworkCoreVersion = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entityFrameworkCoreVersion");
-				if (attribEntityFrameworkCoreVersion != null)
+				string attribEntityFrameworkPackageVersion = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entityFrameworkPackageVersion");
+				if (attribEntityFrameworkPackageVersion != null)
 				{
-					EFCoreVersion valueOfEntityFrameworkCoreVersion;
-					if (DslModeling::SerializationUtilities.TryGetValue<EFCoreVersion>(serializationContext, attribEntityFrameworkCoreVersion, out valueOfEntityFrameworkCoreVersion))
+					global::System.String valueOfEntityFrameworkPackageVersion;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEntityFrameworkPackageVersion, out valueOfEntityFrameworkPackageVersion))
 					{
-						instanceOfModelRoot.EntityFrameworkCoreVersion = valueOfEntityFrameworkCoreVersion;
+						instanceOfModelRoot.EntityFrameworkPackageVersion = valueOfEntityFrameworkPackageVersion;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entityFrameworkCoreVersion", typeof(EFCoreVersion), attribEntityFrameworkCoreVersion);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entityFrameworkPackageVersion", typeof(global::System.String), attribEntityFrameworkPackageVersion);
 					}
 				}
 			}
@@ -2067,16 +2067,15 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// EntityFrameworkCoreVersion
+			// EntityFrameworkPackageVersion
 			if (!serializationContext.Result.Failed)
 			{
-				EFCoreVersion propValue = instanceOfModelRoot.EntityFrameworkCoreVersion;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<EFCoreVersion>(serializationContext, propValue);
+				global::System.String propValue = instanceOfModelRoot.EntityFrameworkPackageVersion;
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "EFCore21") != 0)
+					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "Latest") != 0))
 					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkCoreVersion", serializedPropValue);
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityFrameworkPackageVersion", propValue);
 					}
 				}
 			}

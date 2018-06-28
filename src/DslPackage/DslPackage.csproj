@@ -176,6 +176,7 @@
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="app.config" />
     <None Include="MefExtension\CommandExtensionVSCT.vsct">
       <DependentUpon>CommandExtensionVSCT.tt</DependentUpon>
       <AutoGen>True</AutoGen>
