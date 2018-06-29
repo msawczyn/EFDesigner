@@ -168,7 +168,7 @@ namespace Sawczyn.EFDesigner.EFModel
             switch (propertyDescriptors[index].Name)
             {
                case "InstallNugetPackages":
-                  shouldRemove = !modelRoot.CanLoadNugetPackages;
+                  shouldRemove = !ModelRoot.CanLoadNugetPackages;
                   break;
 
                case "DatabaseInitializerType":

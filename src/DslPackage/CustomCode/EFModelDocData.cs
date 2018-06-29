@@ -139,7 +139,7 @@ namespace Sawczyn.EFDesigner.EFModel
 #if DO_NUGET
 
          if (NugetInstaller == null || NugetUninstaller == null || NugetInstallerServices == null)
-            modelRoot.CanLoadNugetPackages = false;
+            ModelRoot.CanLoadNugetPackages = false;
 #endif
 
          // set to the project's namespace if no namespace set
@@ -230,22 +230,16 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#if DO_NUGET
-      private static string GetRequestedEFPackageName(ModelRoot modelRoot)
-      {
-         return modelRoot.EntityFrameworkVersion == EFVersion.EF6
-                   ? "EntityFramework"
-                   : "Microsoft.EntityFrameworkCore";
-      }
 
-      private static string GetRequestedEFPackageVersion(ModelRoot modelRoot)
+      public static void LoadNuGet(ModelRoot modelRoot)
       {
-         return modelRoot.EntityFrameworkVersion == EFVersion.EF6
-                   ? null
-                   : modelRoot.EntityFrameworkCoreVersion == EFCoreVersion.EFCore20
-                      ? "2.0.3"
-                      : null;
+         if (modelRoot == null) return;
+
+         string packageName = modelRoot.EntityFrameworkVersion == EFVersion.EF6
+                                 ? "EntityFramework"
+                                 : "Microsoft.EntityFrameworkCore";
+
+         string packageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion;
       }
-#endif
    }
 }

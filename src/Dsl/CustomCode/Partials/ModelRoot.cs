@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
@@ -9,18 +10,44 @@ using Sawczyn.EFDesigner.EFModel.Nuget;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   public class NugetDisplay
+   {
+      public EFVersion EFVersion { get; }
+      public string ActualPackageVersion { get; }
+      public string DisplayVersion { get; }
+      public string MajorMinorVersion { get; }
+
+      public double MajorMinorVersionNum => double.TryParse(MajorMinorVersion, out double result)
+                                               ? result
+                                               : 0;
+
+      public NugetDisplay(EFVersion efVersion, string packageVersion, string display, string majorMinorVersion)
+      {
+         EFVersion = efVersion;
+         ActualPackageVersion = packageVersion;
+         DisplayVersion = display;
+         MajorMinorVersion = majorMinorVersion;
+      }
+   }
+
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelRoot
    {
       public static readonly PluralizationService PluralizationService;
 
-      public static string[] EFVersions { get; }
-      public static string[] EFCoreVersions { get; }
+      public static Dictionary<EFVersion, IEnumerable<string>> EFPackageVersions { get; }
+      internal static List<NugetDisplay> NuGetPackageDisplay { get; }
       private static readonly HttpClient client = new HttpClient();
       private static string nugetURL = "https://api-v2v3search-0.nuget.org/query?q={0}&prerelease=false";
 
       static ModelRoot()
       {
+         EFPackageVersions = new Dictionary<EFVersion, IEnumerable<string>>();
+         NuGetPackageDisplay = new List<NugetDisplay>();
+
+         GetVersions(EFVersion.EF6, "entityframework");
+         GetVersions(EFVersion.EFCore, "microsoft.entityframeworkcore");
+
          try
          {
             PluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
@@ -29,46 +56,57 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             PluralizationService = null;
          }
-
-         EFVersions = GetVersions("entityframework");
-         EFCoreVersions = GetVersions("microsoft.entityframeworkcore");
       }
 
-      private static string[] GetVersions(string packageId)
+      private static void GetVersions(EFVersion efVersion, string packageId)
       {
+         // get NuGet packages with that package id
          string jsonString = client.GetAsync(string.Format(nugetURL, packageId)).Result.Content.ReadAsStringAsync().Result;
          NugetPackages nugetPackages = NugetPackages.FromJson(jsonString);
          string id = packageId.ToLower();
 
-         return nugetPackages.Data
+         // get their versions
+         List<string> result = nugetPackages.Data
                              .Where(x => x.Title.ToLower() == id)
                              .SelectMany(x => x.Versions)
                              .OrderBy(v => v.VersionVersion)
                              .Select(v => v.VersionVersion)
-                             .ToArray();
-      }
+                             .ToList();
 
-      internal double EFPackageVersionNum
-      {
-         get
-         {
-            string ver = EntityFrameworkPackageVersion;
+         // find the major.minor versions
+         List<string> majorVersions = result.Select(v => v.Substring(0, v.LastIndexOf(".")))
+                                            .OrderBy(v => v)
+                                            .Distinct()
+                                            .ToList();
 
-            if (ver == "Latest")
-               ver = EntityFrameworkVersion == EFVersion.EF6
-                        ? EFVersions.Last()
-                        : EFCoreVersions.Last();
+         // do the trivial mapping of the full version to the full display name
+         foreach (string v in result)
+            NuGetPackageDisplay.Add(new NugetDisplay(efVersion, v, v, v.Substring(0, v.LastIndexOf("."))));
 
-            return double.TryParse(ver, out double result)
-                      ? result
-                      : 0;
-         }
+         // figure out which one is the latest in the major.minor set and add its mapping
+         foreach (string v in majorVersions)
+            NuGetPackageDisplay.Add(new NugetDisplay(efVersion, result.FindLast(x => x.StartsWith($"{v}.")), $"{v}.Latest", v));
+
+         // figure out which is the overall latest and map it
+         NuGetPackageDisplay.Add(new NugetDisplay(efVersion, result.FindLast(x => !x.EndsWith(".Latest")), "Latest", majorVersions.Last()));
+
+         // tuck it away
+         EFPackageVersions.Add(efVersion, result);
       }
 
       /// <summary>
       /// Package might set this to false depending on whether or not it can find the resources needed to load Nuget packages
       /// </summary>
-      internal bool CanLoadNugetPackages { get; set; } = true;
+      public static bool CanLoadNugetPackages { get; set; } = true;
+
+      public NugetDisplay NuGetPackageVersion
+      {
+         get
+         {
+            return NuGetPackageDisplay.FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion && 
+                                                                           x.DisplayVersion == EntityFrameworkPackageVersion);
+         }
+      }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local

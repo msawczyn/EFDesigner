@@ -2586,13 +2586,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Gets or sets the value of InstallNugetPackages domain property.
 		/// On save, should the editor install/remove Entity Framework Nuget packages to
-		/// match your EF version choice?
+		/// match the model's EF version settings?
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(AutomaticAction.False)]
-		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainObjectId("77fab320-8888-42b8-9a70-23c5b7a9610e")]
 		public AutomaticAction InstallNugetPackages
 		{

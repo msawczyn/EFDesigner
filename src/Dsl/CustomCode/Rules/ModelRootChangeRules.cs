@@ -67,7 +67,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 
             case "InheritanceStrategy":
 
-               if ((element.EntityFrameworkVersion == EFVersion.EFCore) && (element.EFPackageVersionNum < 2.1))
+               if ((element.EntityFrameworkVersion == EFVersion.EFCore) && (element.NuGetPackageVersion.MajorMinorVersionNum < 2.1))
                   element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
 
                break;

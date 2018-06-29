@@ -214,8 +214,8 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="77fab320-8888-42b8-9a70-23c5b7a9610e" Description="On save, should the editor install/remove Entity Framework Nuget packages to match your EF version choice?" Name="InstallNugetPackages" DisplayName="Install Nuget Packages" DefaultValue="False" Category="Code Generation" IsBrowsable="false">
-          <Notes>Not ready for prime time</Notes>
+        <DomainProperty Id="77fab320-8888-42b8-9a70-23c5b7a9610e" Description="On save, should the editor install/remove Entity Framework Nuget packages to match the model's EF version settings?" Name="InstallNugetPackages" DisplayName="Install Nuget Packages On Save" DefaultValue="False" Category="Code Generation">
+          <Notes>WIP</Notes>
           <Type>
             <DomainEnumerationMoniker Name="AutomaticAction" />
           </Type>

@@ -470,11 +470,11 @@
     <comment>Category for DomainProperty &apos;StructOutputDirectory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Description" xml:space="preserve">
-    <value>On save, should the editor install/remove Entity Framework Nuget packages to match your EF version choice?</value>
+    <value>On save, should the editor install/remove Entity Framework Nuget packages to match the model&apos;s EF version settings?</value>
     <comment>Description for DomainProperty &apos;InstallNugetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.DisplayName" xml:space="preserve">
-    <value>Install Nuget Packages</value>
+    <value>Install Nuget Packages On Save</value>
     <comment>DisplayName for DomainProperty &apos;InstallNugetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Category" xml:space="preserve">

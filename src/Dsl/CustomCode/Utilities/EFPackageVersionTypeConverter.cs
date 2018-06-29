@@ -32,9 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = context.Instance as ModelRoot;
          if (modelRoot == null) return null;
 
-         string[] values = modelRoot.EntityFrameworkVersion == EFVersion.EF6 
-                              ? ModelRoot.EFVersions 
-                              : ModelRoot.EFCoreVersions;
+         string[] values = ModelRoot.EFPackageVersions[modelRoot.EntityFrameworkVersion].ToArray();
          return new StandardValuesCollection(values);
       }
 

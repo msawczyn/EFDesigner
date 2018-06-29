@@ -24,19 +24,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
 
-      private const int cmdidFind              = 0x0001;
-      private const int cmdidLayoutDiagram     = 0x0002;
-      private const int cmdidHideShape         = 0x0003;
-      private const int cmdidShowShape         = 0x0004;
-      private const int cmdidGenerateCode      = 0x0005;
+      private const int cmdidFind = 0x0001;
+      private const int cmdidLayoutDiagram = 0x0002;
+      private const int cmdidHideShape = 0x0003;
+      private const int cmdidShowShape = 0x0004;
+      private const int cmdidGenerateCode = 0x0005;
       private const int cmdidAddCodeProperties = 0x0006;
-      private const int cmdidSaveAsImage       = 0x0007;
-      
-      private const int cmdidSelectClasses     = 0x0101;
-      private const int cmdidSelectEnums       = 0x0102;
-      private const int cmdidSelectAssocs      = 0x0103;
-      private const int cmdidSelectUnidir      = 0x0104;
-      private const int cmdidSelectBidir       = 0x0105;
+      private const int cmdidSaveAsImage = 0x0007;
+      private const int cmdidLoadNuGet = 0x0008;
+
+      private const int cmdidSelectClasses = 0x0101;
+      private const int cmdidSelectEnums = 0x0102;
+      private const int cmdidSelectAssocs = 0x0103;
+      private const int cmdidSelectUnidir = 0x0104;
+      private const int cmdidSelectBidir = 0x0105;
 
       protected override IList<MenuCommand> GetMenuCommands()
       {
@@ -69,6 +70,11 @@ namespace Sawczyn.EFDesigner.EFModel
          DynamicStatusMenuCommand saveAsImageCommand =
                new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
          commands.Add(saveAsImageCommand);
+
+         DynamicStatusMenuCommand loadNuGetCommand =
+            new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
+         commands.Add(loadNuGetCommand);
+
 
          DynamicStatusMenuCommand selectClassesCommand =
             new DynamicStatusMenuCommand(OnStatusSelectClasses, OnMenuSelectClasses, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectClasses));
@@ -110,12 +116,12 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuFind(object sender, EventArgs e)
       {
          // TODO: Implement OnMenuFind
-         
+
          // find matching class name, property name, association endpoint name, enum name, or enum value name
          // output to tool window
          // bind data to each line of output so can highlight proper shape when entry is clicked (or double clicked)
       }
-      
+
       #endregion Find
       #region Add Properties
 
@@ -131,7 +137,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuAddProperties(object sender, EventArgs e)
       {
          NodeShape shapeElement = CurrentSelection.OfType<ClassShape>().FirstOrDefault();
-         
+
          if (shapeElement?.ModelElement is ModelClass element)
          {
             AddCodeForm codeForm = new AddCodeForm(element);
@@ -318,7 +324,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Bitmap bitmap = currentDiagram.CreateBitmap(currentDiagram.NestedChildShapes,
                                                         Diagram.CreateBitmapPreference.FavorClarityOverSmallSize);
-            
+
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                dlg.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|TIFF files (*.tiff)|*.tiff|WMF files (*.wmf)|*.wmf";
@@ -371,6 +377,28 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
+      #region Load NuGet
+
+      private void OnStatusLoadNuGet(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            command.Visible = (modelRoot != null);
+            command.Enabled = IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
+         }
+      }
+
+      private void OnMenuLoadNuGet(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+
+         EFModelDocData.LoadNuGet(modelRoot);
+      }
+
+      #endregion Load NuGet
       #region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)
