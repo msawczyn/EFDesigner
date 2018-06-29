@@ -37,9 +37,9 @@ namespace Sawczyn.EFDesigner.EFModel
       private IVsPackageUninstaller _nugetUninstaller;
       private IVsPackageInstallerServices _nugetInstallerServices;
       
-      private IVsPackageInstallerServices NugetInstallerServices => _nugetInstallerServices ?? (_nugetInstallerServices = ((IComponentModel)GetService(typeof(SComponentModel)))?.GetService<IVsPackageInstallerServices>());
-      private IVsPackageInstaller NugetInstaller => _nugetInstaller ?? (_nugetInstaller = ((IComponentModel)GetService(typeof(SComponentModel))).GetService<IVsPackageInstaller>());
-      private IVsPackageUninstaller NugetUninstaller => _nugetUninstaller ?? (_nugetUninstaller = ((IComponentModel)GetService(typeof(SComponentModel))).GetService<IVsPackageUninstaller>());
+      private IVsPackageInstallerServices NuGetInstallerServices => _nugetInstallerServices ?? (_nugetInstallerServices = ((IComponentModel)GetService(typeof(SComponentModel)))?.GetService<IVsPackageInstallerServices>());
+      private IVsPackageInstaller NuGetInstaller => _nugetInstaller ?? (_nugetInstaller = ((IComponentModel)GetService(typeof(SComponentModel))).GetService<IVsPackageInstaller>());
+      private IVsPackageUninstaller NuGetUninstaller => _nugetUninstaller ?? (_nugetUninstaller = ((IComponentModel)GetService(typeof(SComponentModel))).GetService<IVsPackageUninstaller>());
       #endif
 
       private static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
@@ -55,16 +55,16 @@ namespace Sawczyn.EFDesigner.EFModel
          if (HasCorrectNugetPackages(modelRoot) != false)
             return;
 
-         if (NugetInstaller != null && NugetInstallerServices != null && GetInstalledEFNugetPackages(out string packageName, out string packageVersion))
+         if (NuGetInstaller != null && NuGetInstallerServices != null && GetInstalledEFNugetPackages(out string packageName, out string packageVersion))
          {
 
-            NugetUninstaller.UninstallPackage(ActiveProject, "Microsoft.EntityFrameworkCore", true);
+            NuGetUninstaller.UninstallPackage(ActiveProject, "Microsoft.EntityFrameworkCore", true);
             string requestedEFPackageName = GetRequestedEFPackageName(modelRoot);
             string requestedEFPackageVersion = GetRequestedEFPackageVersion(modelRoot);
             if (packageName != null && (packageName != requestedEFPackageName || !packageVersion.StartsWith(requestedEFPackageVersion)))
-               NugetUninstaller.UninstallPackage(ActiveProject, packageName, true);
+               NuGetUninstaller.UninstallPackage(ActiveProject, packageName, true);
 
-            NugetInstaller.InstallPackage("All", ActiveProject, requestedEFPackageName, requestedEFPackageVersion, false);
+            NuGetInstaller.InstallPackage("All", ActiveProject, requestedEFPackageName, requestedEFPackageVersion, false);
          }
       }
 #endif
@@ -96,19 +96,19 @@ namespace Sawczyn.EFDesigner.EFModel
          packageName = null;
          packageVersion = null;
 
-         if (NugetInstallerServices == null) 
+         if (NuGetInstallerServices == null) 
             return false;
 
-         if (NugetInstallerServices.IsPackageInstalled(ActiveProject, "EntityFramework"))
+         if (NuGetInstallerServices.IsPackageInstalled(ActiveProject, "EntityFramework"))
          {
             packageName = "EntityFramework";
-            packageVersion = NugetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == "EntityFramework").VersionString;
+            packageVersion = NuGetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == "EntityFramework").VersionString;
          }
 
-         if (NugetInstallerServices.IsPackageInstalled(ActiveProject, "Microsoft.EntityFrameworkCore"))
+         if (NuGetInstallerServices.IsPackageInstalled(ActiveProject, "Microsoft.EntityFrameworkCore"))
          {
             packageName = "Microsoft.EntityFrameworkCore";
-            packageVersion = NugetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == "Microsoft.EntityFrameworkCore").VersionString;
+            packageVersion = NuGetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == "Microsoft.EntityFrameworkCore").VersionString;
          }
 
          return true;
@@ -116,13 +116,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal bool? HasCorrectNugetPackages(ModelRoot modelRoot)
       {
-         if (NugetInstallerServices != null)
+         if (NuGetInstallerServices != null)
          {
             string efPackageName = GetRequestedEFPackageName(modelRoot);
             string requestedVersion = modelRoot.EFVersionString.Split(' ').Last();
 
-            return NugetInstallerServices.IsPackageInstalled(ActiveProject, efPackageName) && 
-                   (NugetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == efPackageName)?.VersionString?.StartsWith(requestedVersion) == true);
+            return NuGetInstallerServices.IsPackageInstalled(ActiveProject, efPackageName) && 
+                   (NuGetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == efPackageName)?.VersionString?.StartsWith(requestedVersion) == true);
          }
 
          return null;
@@ -138,7 +138,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
 #if DO_NUGET
 
-         if (NugetInstaller == null || NugetUninstaller == null || NugetInstallerServices == null)
+         if (NuGetInstaller == null || NuGetUninstaller == null || NuGetInstallerServices == null)
             ModelRoot.CanLoadNugetPackages = false;
 #endif
 

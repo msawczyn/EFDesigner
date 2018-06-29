@@ -2,7 +2,7 @@
 //
 //    using Sawczyn.EFDesigner.EFModel.Nuget;
 //
-//    var nugetPackages = NugetPackages.FromJson(jsonString);
+//    var nugetPackages = NuGetPackages.FromJson(jsonString);
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Sawczyn.EFDesigner.EFModel.Nuget
 {
-   public partial class NugetPackages
+   public partial class NuGetPackages
    {
       [JsonProperty("@context")]
       public Context Context { get; set; }
@@ -30,9 +30,9 @@ namespace Sawczyn.EFDesigner.EFModel.Nuget
       [JsonProperty("data")]
       public List<PackageData> Data { get; set; }
 
-      public static NugetPackages FromJson(string json)
+      public static NuGetPackages FromJson(string json)
       {
-         return JsonConvert.DeserializeObject<NugetPackages>(json, Converter.Settings);
+         return JsonConvert.DeserializeObject<NuGetPackages>(json, Converter.Settings);
       }
    }
 }

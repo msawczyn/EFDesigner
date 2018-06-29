@@ -151,7 +151,7 @@
     <Compile Include="CustomCode\Utilities\AttributeTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Context.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Converter.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\NugetPackages.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\NuGetPackages.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\PackageData.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Serialize.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\TypeEnum.cs" />

@@ -135,6 +135,7 @@
     <Compile Include="CustomCode\FindForm.Designer.cs">
       <DependentUpon>FindForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomCode\NuGetManager.cs" />
     <Compile Include="CustomCode\Package.cs" />
     <Compile Include="CustomCode\Messages.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
