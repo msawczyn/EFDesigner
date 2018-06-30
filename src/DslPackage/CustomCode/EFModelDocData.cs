@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 using EnvDTE;
-
 using EnvDTE80;
+
+//using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 
 #if DO_NUGET
 using System.Windows.Forms;
@@ -17,9 +23,12 @@ using NuGet.VisualStudio;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
+using NuGet.Configuration;
+using NuGet.Frameworks;
+using NuGet.Protocol;
+using NuGet.Protocol.Core.Types;
+using NuGet.VisualStudio;
 
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
 
@@ -45,29 +54,9 @@ namespace Sawczyn.EFDesigner.EFModel
       private static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
       private static DTE2 Dte2 => _dte2 ?? (_dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2);
 
-      private Project ActiveProject => Dte.ActiveSolutionProjects is Array activeSolutionProjects && (activeSolutionProjects.Length > 0)
+      private static Project ActiveProject => Dte.ActiveSolutionProjects is Array activeSolutionProjects && (activeSolutionProjects.Length > 0)
                                           ? activeSolutionProjects.GetValue(0) as Project
                                           : null;
-
-#if DO_NUGET
-      internal void AlignNugetPackages(ModelRoot modelRoot)
-      {
-         if (HasCorrectNugetPackages(modelRoot) != false)
-            return;
-
-         if (NuGetInstaller != null && NuGetInstallerServices != null && GetInstalledEFNugetPackages(out string packageName, out string packageVersion))
-         {
-
-            NuGetUninstaller.UninstallPackage(ActiveProject, "Microsoft.EntityFrameworkCore", true);
-            string requestedEFPackageName = GetRequestedEFPackageName(modelRoot);
-            string requestedEFPackageVersion = GetRequestedEFPackageVersion(modelRoot);
-            if (packageName != null && (packageName != requestedEFPackageName || !packageVersion.StartsWith(requestedEFPackageVersion)))
-               NuGetUninstaller.UninstallPackage(ActiveProject, packageName, true);
-
-            NuGetInstaller.InstallPackage("All", ActiveProject, requestedEFPackageName, requestedEFPackageVersion, false);
-         }
-      }
-#endif
 
       internal static void GenerateCode(string filepath = null)
       {
@@ -231,15 +220,67 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
 
-      public static void LoadNuGet(ModelRoot modelRoot)
+      public static async void LoadNuGet(ModelRoot modelRoot)
       {
          if (modelRoot == null) return;
 
-         string packageName = modelRoot.EntityFrameworkVersion == EFVersion.EF6
+
+         string targetPackageId = modelRoot.EntityFrameworkVersion == EFVersion.EF6
                                  ? "EntityFramework"
                                  : "Microsoft.EntityFrameworkCore";
 
-         string packageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion;
+         string targetPackageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion;
+
+         string targetTargetFramework = ActiveProject?.TargetFrameworkVersion();
+
+         IEnumerable<IPackageSearchMetadata> efPackages = await FindNugetPackage(targetPackageId);
+         
+         NuGetFramework nuGetFramework = targetTargetFramework == null
+                                              ? NuGetFramework.AnyFramework
+                                              : NuGetFramework.ParseFrameworkName(targetTargetFramework, new DefaultFrameworkNameProvider());
+
+         IPackageSearchMetadata efPackage = efPackages.FirstOrDefault(p => p.IsListed && p.Identity.Id == targetPackageId);
+         IEnumerable<VersionInfo> versions = await efPackage.GetVersionsAsync();
+
+         //var componentModel = (IComponentModel)GetService(typeof(SComponentModel));
+         //IVsPackageInstallerServices installerServices =
+         //   componentModel.GetService<IVsPackageInstallerServices>();
+
+         //var installedPackages = installerServices.GetInstalledPackages();
+      }
+
+      //private bool InstallNuGetPackage(Project project, string package)
+      //{
+      //   bool installedPkg = true;
+      //   var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+      //   try
+      //   {
+      //      var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+      //      IVsPackageInstallerServices installerServices = componentModel.GetService();
+      //      if (!installerServices.IsPackageInstalled(project, package))
+      //      {
+      //         dte.StatusBar.Text = @"Installing " + package + " NuGet package, this may take a minute...";
+      //         var installer = componentModel.GetService();
+      //         installer.InstallPackage(null, project, package, (System.Version)null, false);                      dte.StatusBar.Text = @"Finished installing the " + package + " NuGet package";                }
+      //   }
+      //   catch (Exception ex)
+      //   {
+      //      installedPkg = false;
+      //      dte.StatusBar.Text = @"Unable to install the  " + package + " NuGet package";
+      //   }
+      //   return installedPkg;
+      //}
+      
+      private static async Task<IEnumerable<IPackageSearchMetadata>> FindNugetPackage(string packageId)
+      {
+         List<Lazy<INuGetResourceProvider>> providers = new List<Lazy<INuGetResourceProvider>>();
+         providers.AddRange(Repository.Provider.GetCoreV3());  // Add v3 API support
+         PackageSource packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
+         SourceRepository sourceRepository = new SourceRepository(packageSource, providers);
+         PackageMetadataResource packageMetadataResource = await sourceRepository.GetResourceAsync<PackageMetadataResource>();
+         IEnumerable<IPackageSearchMetadata> searchMetadata = await packageMetadataResource.GetMetadataAsync("Wyam.Core", true, true, null, CancellationToken.None);
+
+         return searchMetadata;
       }
    }
 }

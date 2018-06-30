@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
+namespace Sawczyn.EFDesigner.EFModel
 {
-   class NuGetManager
+   public class NuGetManager
    {
    }
 }
