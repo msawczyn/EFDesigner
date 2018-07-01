@@ -1108,20 +1108,20 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// InstallNugetPackages
+			// InstallNuGetPackages
 			if (!serializationContext.Result.Failed)
 			{
-				string attribInstallNugetPackages = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "installNugetPackages");
-				if (attribInstallNugetPackages != null)
+				string attribInstallNuGetPackages = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "installNuGetPackages");
+				if (attribInstallNuGetPackages != null)
 				{
-					AutomaticAction valueOfInstallNugetPackages;
-					if (DslModeling::SerializationUtilities.TryGetValue<AutomaticAction>(serializationContext, attribInstallNugetPackages, out valueOfInstallNugetPackages))
+					AutomaticAction valueOfInstallNuGetPackages;
+					if (DslModeling::SerializationUtilities.TryGetValue<AutomaticAction>(serializationContext, attribInstallNuGetPackages, out valueOfInstallNuGetPackages))
 					{
-						instanceOfModelRoot.InstallNugetPackages = valueOfInstallNugetPackages;
+						instanceOfModelRoot.InstallNuGetPackages = valueOfInstallNuGetPackages;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "installNugetPackages", typeof(AutomaticAction), attribInstallNugetPackages);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "installNuGetPackages", typeof(AutomaticAction), attribInstallNuGetPackages);
 					}
 				}
 			}
@@ -2090,16 +2090,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 				}
 			}
-			// InstallNugetPackages
+			// InstallNuGetPackages
 			if (!serializationContext.Result.Failed)
 			{
-				AutomaticAction propValue = instanceOfModelRoot.InstallNugetPackages;
+				AutomaticAction propValue = instanceOfModelRoot.InstallNuGetPackages;
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<AutomaticAction>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "False") != 0)
 					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "installNugetPackages", serializedPropValue);
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "installNuGetPackages", serializedPropValue);
 					}
 				}
 			}

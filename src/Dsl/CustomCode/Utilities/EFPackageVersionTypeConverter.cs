@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    public class EFPackageVersionTypeConverter : TypeConverterBase
    {
-        /// <summary>
+      /// <summary>
       ///    Returns a collection of standard values for the data type this type converter is designed for when provided
       ///    with a format context.
       /// </summary>
@@ -29,10 +27,11 @@ namespace Sawczyn.EFDesigner.EFModel
          // Note that the user could have selected multiple objects, in which case context.Instance will be an array. 
          if (context.Instance.GetType().IsArray) return null;
 
-         ModelRoot modelRoot = context.Instance as ModelRoot;
+         Store store = GetStore(context.Instance);
+         ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
          if (modelRoot == null) return null;
 
-         string[] values = ModelRoot.EFPackageVersions[modelRoot.EntityFrameworkVersion].ToArray();
+         string[] values = NuGetHelper.EFPackageVersions[modelRoot.EntityFrameworkVersion].ToArray();
          return new StandardValuesCollection(values);
       }
 

@@ -26,11 +26,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          AddTask(message, TaskErrorCategory.Warning);
       }
 
-      public static void AddMessage(string message)
-      {
-         AddTask(message, TaskErrorCategory.Message);
-      }
-
       private static void AddTask(string message, TaskErrorCategory category)
       {
          _errorListProvider.Tasks.Add(new ErrorTask

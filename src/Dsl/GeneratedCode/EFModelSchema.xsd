@@ -279,8 +279,8 @@
             <xsd:documentation>Project directory for generated structures (owned/complex types)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: InstallNugetPackages -->
-        <xsd:attribute name="installNugetPackages" type="AutomaticAction" >
+        <!-- Property: InstallNuGetPackages -->
+        <xsd:attribute name="installNuGetPackages" type="AutomaticAction" >
           <xsd:annotation>
             <xsd:documentation>On save, should the editor install/remove Entity Framework Nuget packages to match the model&apos;s EF version settings?</xsd:documentation>
           </xsd:annotation>

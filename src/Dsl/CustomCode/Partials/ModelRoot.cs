@@ -1,54 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using Microsoft.VisualStudio.Modeling.Validation;
-
-using Sawczyn.EFDesigner.EFModel.Nuget;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public class NuGetDisplay
-   {
-      public EFVersion EFVersion { get; }
-      public string ActualPackageVersion { get; }
-      public string DisplayVersion { get; }
-      public string MajorMinorVersion { get; }
-
-      public double MajorMinorVersionNum => double.TryParse(MajorMinorVersion, out double result)
-                                               ? result
-                                               : 0;
-
-      public NuGetDisplay(EFVersion efVersion, string packageVersion, string display, string majorMinorVersion)
-      {
-         EFVersion = efVersion;
-         ActualPackageVersion = packageVersion;
-         DisplayVersion = display;
-         MajorMinorVersion = majorMinorVersion;
-      }
-   }
-
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelRoot
    {
-      private static readonly HttpClient restClient = new HttpClient();
-      private static string nugetURL = "https://api-v2v3search-0.nuget.org/query?q={0}&prerelease=false";
-
-      internal static List<NuGetDisplay> NuGetPackageDisplay { get; }
-
       public static readonly PluralizationService PluralizationService;
-      public static Dictionary<EFVersion, IEnumerable<string>> EFPackageVersions { get; }
 
       static ModelRoot()
       {
-         EFPackageVersions = new Dictionary<EFVersion, IEnumerable<string>>();
-         NuGetPackageDisplay = new List<NuGetDisplay>();
-
-         LoadNuGetVersions(EFVersion.EF6, "entityframework");
-         LoadNuGetVersions(EFVersion.EFCore, "microsoft.entityframeworkcore");
-
          try
          {
             PluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
@@ -61,47 +25,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Nuget
 
-      private static void LoadNuGetVersions(EFVersion efVersion, string packageId)
-      {
-         // get NuGet packages with that package id
-         string jsonString = restClient.GetAsync(string.Format(nugetURL, packageId)).Result.Content.ReadAsStringAsync().Result;
-         NuGetPackages nugetPackages = NuGetPackages.FromJson(jsonString);
-         string id = packageId.ToLower();
-
-         // get their versions
-         List<string> result = nugetPackages.Data
-                                            .Where(x => x.Title.ToLower() == id)
-                                            .SelectMany(x => x.Versions)
-                                            .OrderBy(v => v.VersionVersion)
-                                            .Select(v => v.VersionVersion)
-                                            .ToList();
-
-         // find the major.minor versions
-         List<string> majorVersions = result.Select(v => v.Substring(0, v.LastIndexOf(".")))
-                                            .OrderBy(v => v)
-                                            .Distinct()
-                                            .ToList();
-
-         // do the trivial mapping of the full version to the full display name
-         foreach (string v in result)
-            NuGetPackageDisplay.Add(new NuGetDisplay(efVersion, v, v, string.Join(".", v.Split('.').Take(2))));
-
-         // figure out which one is the latest in the major.minor set and add its mapping
-         foreach (string v in majorVersions)
-            NuGetPackageDisplay.Add(new NuGetDisplay(efVersion, result.FindLast(x => x.StartsWith($"{v}.")), $"{v}.Latest", v));
-
-         // figure out which is the overall latest and map it
-         NuGetPackageDisplay.Add(new NuGetDisplay(efVersion, result.FindLast(x => !x.EndsWith(".Latest")), "Latest", majorVersions.Last()));
-
-         // tuck it away
-         EFPackageVersions.Add(efVersion, result);
-      }
-
       public NuGetDisplay NuGetPackageVersion
       {
          get
          {
-            return NuGetPackageDisplay.FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion && 
+            return NuGetHelper.NuGetPackageDisplay.FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion && 
                                                                            x.DisplayVersion == EntityFrameworkPackageVersion);
          }
       }

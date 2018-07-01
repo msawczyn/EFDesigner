@@ -120,6 +120,8 @@
     <Compile Include="CustomCode\Partials\ModelEnumValue.cs" />
     <Compile Include="CustomCode\Partials\ModelRoot.cs" />
     <Compile Include="CustomCode\Partials\ModelRootTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetDisplay.cs" />
     <Compile Include="CustomCode\Partials\UnidirectionalConnector.cs" />
     <Compile Include="CustomCode\Rules\AssociationAddRules.cs" />
     <Compile Include="CustomCode\Rules\AssociationChangeRules.cs" />
@@ -149,20 +151,25 @@
     <Compile Include="CustomCode\Utilities\NavigationEndpointTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\NavigationProperty.cs" />
     <Compile Include="CustomCode\Utilities\AttributeTypeTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\Context.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\Converter.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\NuGetPackages.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\PackageData.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\Serialize.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\TypeEnum.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\TypeEnumConverter.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\Version.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\Context.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\Converter.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetPackages.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\PackageData.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\Serialize.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnum.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnumConverter.cs" />
+    <Compile Include="CustomCode\Utilities\Nuget\Models\Version.cs" />
     <Compile Include="CustomCode\Utilities\ProjectDirectoryTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\SourceMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TargetMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />
     <Compile Include="CustomCode\Utilities\EFModelSerializationHelperBase.cs" />
     <Compile Include="CustomCode\Utilities\TypeConverterBase.cs" />
+    <Compile Include="GeneratedCode\Serializer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Serializer.tt</DependentUpon>
+    </Compile>
     <Compile Include="MefExtension\GestureExtensionEnablement.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -266,11 +273,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DomainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GeneratedCode\Serializer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Serializer.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

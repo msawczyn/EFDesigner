@@ -2571,62 +2571,62 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region InstallNugetPackages domain property code
+		#region InstallNuGetPackages domain property code
 		
 		/// <summary>
-		/// InstallNugetPackages domain property Id.
+		/// InstallNuGetPackages domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid InstallNugetPackagesDomainPropertyId = new global::System.Guid(0x77fab320, 0x8888, 0x42b8, 0x9a, 0x70, 0x23, 0xc5, 0xb7, 0xa9, 0x61, 0x0e);
+		public static readonly global::System.Guid InstallNuGetPackagesDomainPropertyId = new global::System.Guid(0x77fab320, 0x8888, 0x42b8, 0x9a, 0x70, 0x23, 0xc5, 0xb7, 0xa9, 0x61, 0x0e);
 		
 		/// <summary>
-		/// Storage for InstallNugetPackages
+		/// Storage for InstallNuGetPackages
 		/// </summary>
-		private AutomaticAction installNugetPackagesPropertyStorage = AutomaticAction.False;
+		private AutomaticAction installNuGetPackagesPropertyStorage = AutomaticAction.False;
 		
 		/// <summary>
-		/// Gets or sets the value of InstallNugetPackages domain property.
+		/// Gets or sets the value of InstallNuGetPackages domain property.
 		/// On save, should the editor install/remove Entity Framework Nuget packages to
 		/// match the model's EF version settings?
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNugetPackages.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNuGetPackages.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNuGetPackages.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNuGetPackages.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(AutomaticAction.False)]
 		[DslModeling::DomainObjectId("77fab320-8888-42b8-9a70-23c5b7a9610e")]
-		public AutomaticAction InstallNugetPackages
+		public AutomaticAction InstallNuGetPackages
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return installNugetPackagesPropertyStorage;
+				return installNuGetPackagesPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				InstallNugetPackagesPropertyHandler.Instance.SetValue(this, value);
+				InstallNuGetPackagesPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelRoot.InstallNugetPackages domain property.
+		/// Value handler for the ModelRoot.InstallNuGetPackages domain property.
 		/// </summary>
-		internal sealed partial class InstallNugetPackagesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, AutomaticAction>
+		internal sealed partial class InstallNuGetPackagesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, AutomaticAction>
 		{
-			private InstallNugetPackagesPropertyHandler() { }
+			private InstallNuGetPackagesPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelRoot.InstallNugetPackages domain property value handler.
+			/// Gets the singleton instance of the ModelRoot.InstallNuGetPackages domain property value handler.
 			/// </summary>
-			public static readonly InstallNugetPackagesPropertyHandler Instance = new InstallNugetPackagesPropertyHandler();
+			public static readonly InstallNuGetPackagesPropertyHandler Instance = new InstallNuGetPackagesPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelRoot.InstallNugetPackages domain property.
+			/// Gets the Id of the ModelRoot.InstallNuGetPackages domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return InstallNugetPackagesDomainPropertyId;
+					return InstallNuGetPackagesDomainPropertyId;
 				}
 			}
 			
@@ -2638,7 +2638,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed AutomaticAction GetValue(ModelRoot element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.installNugetPackagesPropertyStorage;
+				return element.installNuGetPackagesPropertyStorage;
 			}
 		
 			/// <summary>
@@ -2654,7 +2654,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.installNugetPackagesPropertyStorage = newValue;
+					element.installNuGetPackagesPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

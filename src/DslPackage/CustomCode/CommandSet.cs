@@ -385,7 +385,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Store store = CurrentDocData.Store;
             ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
-            command.Visible = (modelRoot != null);
+            command.Visible = (modelRoot != null && CurrentDocData is EFModelDocData);
             command.Enabled = IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
          }
       }
@@ -395,7 +395,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = CurrentDocData.Store;
          ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
-         EFModelDocData.LoadNuGet(modelRoot);
+         ((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
       }
 
       #endregion Load NuGet

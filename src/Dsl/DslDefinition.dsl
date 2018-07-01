@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
@@ -214,8 +214,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="77fab320-8888-42b8-9a70-23c5b7a9610e" Description="On save, should the editor install/remove Entity Framework Nuget packages to match the model's EF version settings?" Name="InstallNugetPackages" DisplayName="Install Nuget Packages On Save" DefaultValue="False" Category="Code Generation">
-          <Notes>WIP</Notes>
+        <DomainProperty Id="77fab320-8888-42b8-9a70-23c5b7a9610e" Description="On save, should the editor install/remove Entity Framework Nuget packages to match the model's EF version settings?" Name="InstallNuGetPackages" DisplayName="Install Nuget Packages On Save" DefaultValue="False" Category="Misc">
           <Type>
             <DomainEnumerationMoniker Name="AutomaticAction" />
           </Type>
@@ -1380,8 +1379,8 @@
           <XmlPropertyData XmlName="structOutputDirectory">
             <DomainPropertyMoniker Name="ModelRoot/StructOutputDirectory" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="installNugetPackages">
-            <DomainPropertyMoniker Name="ModelRoot/InstallNugetPackages" />
+          <XmlPropertyData XmlName="installNuGetPackages">
+            <DomainPropertyMoniker Name="ModelRoot/InstallNuGetPackages" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="dbSetAccess">
             <DomainPropertyMoniker Name="ModelRoot/DbSetAccess" />

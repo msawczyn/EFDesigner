@@ -3,35 +3,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using EnvDTE;
 using EnvDTE80;
 
-//using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-
-#if DO_NUGET
-using System.Windows.Forms;
-using Microsoft.VisualStudio.ComponentModelHost;
-using NuGet.VisualStudio;
-#endif
-
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
 
-using NuGet.Configuration;
-using NuGet.Frameworks;
-using NuGet.Protocol;
-using NuGet.Protocol.Core.Types;
 using NuGet.VisualStudio;
 
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
-
 using VSLangProj;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -40,96 +26,65 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private static DTE _dte;
       private static DTE2 _dte2;
-
-      #if DO_NUGET
+      private IComponentModel _componentModel;
       private IVsPackageInstaller _nugetInstaller;
       private IVsPackageUninstaller _nugetUninstaller;
       private IVsPackageInstallerServices _nugetInstallerServices;
-      
-      private IVsPackageInstallerServices NuGetInstallerServices => _nugetInstallerServices ?? (_nugetInstallerServices = ((IComponentModel)GetService(typeof(SComponentModel)))?.GetService<IVsPackageInstallerServices>());
-      private IVsPackageInstaller NuGetInstaller => _nugetInstaller ?? (_nugetInstaller = ((IComponentModel)GetService(typeof(SComponentModel))).GetService<IVsPackageInstaller>());
-      private IVsPackageUninstaller NuGetUninstaller => _nugetUninstaller ?? (_nugetUninstaller = ((IComponentModel)GetService(typeof(SComponentModel))).GetService<IVsPackageUninstaller>());
-      #endif
 
       private static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
       private static DTE2 Dte2 => _dte2 ?? (_dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2);
+      private IComponentModel ComponentModel => _componentModel ?? (_componentModel = (IComponentModel)GetService(typeof(SComponentModel)));
+      private IVsPackageInstallerServices NuGetInstallerServices => _nugetInstallerServices ?? (_nugetInstallerServices = ComponentModel?.GetService<IVsPackageInstallerServices>());
+      private IVsPackageInstaller NuGetInstaller => _nugetInstaller ?? (_nugetInstaller = ComponentModel.GetService<IVsPackageInstaller>());
+      private IVsPackageUninstaller NuGetUninstaller => _nugetUninstaller ?? (_nugetUninstaller = ComponentModel.GetService<IVsPackageUninstaller>());
 
-      private static Project ActiveProject => Dte.ActiveSolutionProjects is Array activeSolutionProjects && (activeSolutionProjects.Length > 0)
-                                          ? activeSolutionProjects.GetValue(0) as Project
-                                          : null;
+      private static Project ActiveProject => Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
+                                                 ? activeSolutionProjects.GetValue(0) as Project
+                                                 : null;
 
       internal static void GenerateCode(string filepath = null)
       {
          string filename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
-         VSProjectItem item = Dte2.Solution.FindProjectItem(filename)?.Object as VSProjectItem;
 
-         if (item == null)
+         if (!(Dte2.Solution.FindProjectItem(filename)?.Object is VSProjectItem item))
             Messages.AddError($"Tried to generate code but couldn't find {filename} in the solution.");
          else
          {
             try
             {
+               Dte.StatusBar.Text = $"Generating code from {filename}";
                item.RunCustomTool();
+               Dte.StatusBar.Text = $"Finished generating code from {filename}";
             }
             catch (COMException)
             {
-               Messages.AddError($"Encountered an error generating code from {filename}. Please transform T4 template manually.");
+               string message = $"Encountered an error generating code from {filename}. Please transform T4 template manually.";
+               Dte.StatusBar.Text = message;
+               Messages.AddError(message);
             }
          }
       }
 
-#if DO_NUGET
-
-      internal bool GetInstalledEFNugetPackages(out string packageName, out string packageVersion)
+      internal string GetInstalledEFVersion(string packageName)
       {
-         packageName = null;
-         packageVersion = null;
-
-         if (NuGetInstallerServices == null) 
-            return false;
-
-         if (NuGetInstallerServices.IsPackageInstalled(ActiveProject, "EntityFramework"))
+         if (NuGetInstallerServices?.IsPackageInstalled(ActiveProject, packageName) == true)
          {
-            packageName = "EntityFramework";
-            packageVersion = NuGetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == "EntityFramework").VersionString;
-         }
-
-         if (NuGetInstallerServices.IsPackageInstalled(ActiveProject, "Microsoft.EntityFrameworkCore"))
-         {
-            packageName = "Microsoft.EntityFrameworkCore";
-            packageVersion = NuGetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == "Microsoft.EntityFrameworkCore").VersionString;
-         }
-
-         return true;
-      }
-
-      internal bool? HasCorrectNugetPackages(ModelRoot modelRoot)
-      {
-         if (NuGetInstallerServices != null)
-         {
-            string efPackageName = GetRequestedEFPackageName(modelRoot);
-            string requestedVersion = modelRoot.EFVersionString.Split(' ').Last();
-
-            return NuGetInstallerServices.IsPackageInstalled(ActiveProject, efPackageName) && 
-                   (NuGetInstallerServices.GetInstalledPackages().FirstOrDefault(p => p.Title == efPackageName)?.VersionString?.StartsWith(requestedVersion) == true);
+            IEnumerable<IVsPackageMetadata> packages = NuGetInstallerServices.GetInstalledPackages();
+            return packages.FirstOrDefault(p => p.Title == packageName)?.VersionString;
          }
 
          return null;
       }
-#endif
 
       protected override void OnDocumentLoaded()
       {
          base.OnDocumentLoaded();
-         ErrorDisplay.RegisterDisplayHandler(ShowMessageBox);
+         ErrorDisplay.RegisterDisplayHandler(ShowErrorBox);
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 
-#if DO_NUGET
-
          if (NuGetInstaller == null || NuGetUninstaller == null || NuGetInstallerServices == null)
             ModelRoot.CanLoadNugetPackages = false;
-#endif
 
          // set to the project's namespace if no namespace set
          if (string.IsNullOrEmpty(modelRoot.Namespace))
@@ -180,107 +135,122 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      // ReSharper disable once UnusedMember.Local
       private void ShowMessageBox(string message)
       {
+         PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_INFO);
+      }
+
+      // ReSharper disable once UnusedMember.Local
+      private void ShowErrorBox(string message)
+      {
          PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
+      }
+
+      // ReSharper disable once UnusedMember.Local
+      private DialogResult ShowQuestionBox(string question)
+      {
+         return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY);
       }
 
       protected override void OnDocumentSaved(EventArgs e)
       {
          base.OnDocumentSaved(e);
 
-         ModelRoot modelRoot = RootElement as ModelRoot;
-
-#if DO_NUGET
-         if (modelRoot.InstallNugetPackages != AutomaticAction.False)
+         if (RootElement is ModelRoot modelRoot)
          {
-            bool? hasCorrectNugetPackages = HasCorrectNugetPackages(modelRoot);
+            // if false, don't even check
+            if (modelRoot.InstallNuGetPackages != AutomaticAction.False)
+               EnsureCorrectNuGetPackages(modelRoot);
 
-            if (hasCorrectNugetPackages == null)
+            if (modelRoot.TransformOnSave)
+               GenerateCode(((DocumentSavedEventArgs)e).NewFileName);
+         }
+      }
+
+      private class EFVersionDetails
+      {
+         public string TargetPackageId { get; set; }
+         public string TargetPackageVersion { get; set; }
+         public string CurrentPackageId { get; set; }
+         public string CurrentPackageVersion { get; set; }
+      }
+
+      public void EnsureCorrectNuGetPackages(ModelRoot modelRoot)
+      {
+         EFVersionDetails versionInfo = GetEFVersionDetails(modelRoot);
+
+         if (ShouldLoadPackages(modelRoot, versionInfo))
+         {
+            // first unload what's there, if anything
+            if (versionInfo.CurrentPackageId != null)
             {
-               string message = "Can't tell if Nuget packages are correct. References weren't updated.";
+               // only remove dependencies if we're switching EF types
+               Dte.StatusBar.Text = $"Uninstalling {versionInfo.CurrentPackageId} v{versionInfo.CurrentPackageVersion}";
+
+               try
+               {
+                  NuGetUninstaller.UninstallPackage(ActiveProject, versionInfo.CurrentPackageId, versionInfo.TargetPackageId != versionInfo.CurrentPackageId);
+                  Dte.StatusBar.Text = $"Finished uninstalling {versionInfo.CurrentPackageId} v{versionInfo.CurrentPackageVersion}";
+               }
+               catch
+               {
+                  Dte.StatusBar.Text = $"Error uninstalling {versionInfo.CurrentPackageId} v{versionInfo.CurrentPackageVersion}";
+                  return;
+               }
+            }
+
+            Dte.StatusBar.Text = $"Installing {versionInfo.TargetPackageId} v{versionInfo.TargetPackageVersion}";
+
+            try
+            {
+               NuGetInstaller.InstallPackage(null, ActiveProject, versionInfo.TargetPackageId, versionInfo.TargetPackageVersion, false);
+               Dte.StatusBar.Text = $"Finished installing {versionInfo.TargetPackageId} v{versionInfo.TargetPackageVersion}";
+            }
+            catch (Exception ex)
+            {
+               string message = $"Error installing {versionInfo.TargetPackageId} v{versionInfo.TargetPackageVersion}";
                Messages.AddWarning(message);
-            }
-            else // we know if the packages are correct or not
-            {
-               bool shouldLoadPackages = (modelRoot.InstallNugetPackages == AutomaticAction.True) || 
-                                         (PackageUtility.ShowMessageBox(ServiceProvider, $"Referenced libraries don't support Entity Framework {modelRoot.EFVersionString}. Fix that now?", OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY) == DialogResult.Yes);
+               Dte.StatusBar.Text = message;
 
-               if (shouldLoadPackages)
-                  AlignNugetPackages(modelRoot);
+               Messages.AddWarning(ex.Message);
             }
          }
-#endif
-
-         if (modelRoot?.TransformOnSave == true)
+         else if (versionInfo.CurrentPackageId == versionInfo.TargetPackageId && versionInfo.CurrentPackageVersion == versionInfo.TargetPackageVersion)
          {
-            DocumentSavedEventArgs documentSavedEventArgs = (DocumentSavedEventArgs)e;
-            GenerateCode(documentSavedEventArgs.NewFileName);
+            Dte.StatusBar.Text = $"{versionInfo.TargetPackageId} v{versionInfo.TargetPackageVersion} already installed";
          }
       }
 
-
-      public static async void LoadNuGet(ModelRoot modelRoot)
+      private bool ShouldLoadPackages(ModelRoot modelRoot, EFVersionDetails versionInfo)
       {
-         if (modelRoot == null) return;
-
-
-         string targetPackageId = modelRoot.EntityFrameworkVersion == EFVersion.EF6
-                                 ? "EntityFramework"
-                                 : "Microsoft.EntityFrameworkCore";
-
-         string targetPackageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion;
-
-         string targetTargetFramework = ActiveProject?.TargetFrameworkVersion();
-
-         IEnumerable<IPackageSearchMetadata> efPackages = await FindNugetPackage(targetPackageId);
-         
-         NuGetFramework nuGetFramework = targetTargetFramework == null
-                                              ? NuGetFramework.AnyFramework
-                                              : NuGetFramework.ParseFrameworkName(targetTargetFramework, new DefaultFrameworkNameProvider());
-
-         IPackageSearchMetadata efPackage = efPackages.FirstOrDefault(p => p.IsListed && p.Identity.Id == targetPackageId);
-         IEnumerable<VersionInfo> versions = await efPackage.GetVersionsAsync();
-
-         //var componentModel = (IComponentModel)GetService(typeof(SComponentModel));
-         //IVsPackageInstallerServices installerServices =
-         //   componentModel.GetService<IVsPackageInstallerServices>();
-
-         //var installedPackages = installerServices.GetInstalledPackages();
+         return ModelRoot.CanLoadNugetPackages && 
+                (versionInfo.CurrentPackageId != versionInfo.TargetPackageId || versionInfo.CurrentPackageVersion != versionInfo.TargetPackageVersion) && 
+                (modelRoot.InstallNuGetPackages == AutomaticAction.True || 
+                 ShowQuestionBox($"Referenced libraries don't match Entity Framework {modelRoot.NuGetPackageVersion.ActualPackageVersion}. Fix that now?") == DialogResult.Yes);
       }
 
-      //private bool InstallNuGetPackage(Project project, string package)
-      //{
-      //   bool installedPkg = true;
-      //   var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-      //   try
-      //   {
-      //      var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-      //      IVsPackageInstallerServices installerServices = componentModel.GetService();
-      //      if (!installerServices.IsPackageInstalled(project, package))
-      //      {
-      //         dte.StatusBar.Text = @"Installing " + package + " NuGet package, this may take a minute...";
-      //         var installer = componentModel.GetService();
-      //         installer.InstallPackage(null, project, package, (System.Version)null, false);                      dte.StatusBar.Text = @"Finished installing the " + package + " NuGet package";                }
-      //   }
-      //   catch (Exception ex)
-      //   {
-      //      installedPkg = false;
-      //      dte.StatusBar.Text = @"Unable to install the  " + package + " NuGet package";
-      //   }
-      //   return installedPkg;
-      //}
-      
-      private static async Task<IEnumerable<IPackageSearchMetadata>> FindNugetPackage(string packageId)
+      private EFVersionDetails GetEFVersionDetails(ModelRoot modelRoot)
       {
-         List<Lazy<INuGetResourceProvider>> providers = new List<Lazy<INuGetResourceProvider>>();
-         providers.AddRange(Repository.Provider.GetCoreV3());  // Add v3 API support
-         PackageSource packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
-         SourceRepository sourceRepository = new SourceRepository(packageSource, providers);
-         PackageMetadataResource packageMetadataResource = await sourceRepository.GetResourceAsync<PackageMetadataResource>();
-         IEnumerable<IPackageSearchMetadata> searchMetadata = await packageMetadataResource.GetMetadataAsync("Wyam.Core", true, true, null, CancellationToken.None);
+         EFVersionDetails versionInfo = new EFVersionDetails
+                                        {
+                                           TargetPackageId = modelRoot.NuGetPackageVersion.PackageId
+                                         , TargetPackageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion
+                                         , CurrentPackageId = null
+                                         , CurrentPackageVersion = GetInstalledEFVersion(NuGetHelper.PACKAGEID_EF6)
+                                        };
 
-         return searchMetadata;
+         if (versionInfo.CurrentPackageVersion != null)
+            versionInfo.CurrentPackageId = NuGetHelper.PACKAGEID_EF6;
+         else
+         {
+            versionInfo.CurrentPackageVersion = GetInstalledEFVersion(NuGetHelper.PACKAGEID_EFCORE);
+
+            if (versionInfo.CurrentPackageVersion != null)
+               versionInfo.CurrentPackageId = NuGetHelper.PACKAGEID_EFCORE;
+         }
+
+         return versionInfo;
       }
    }
 }
