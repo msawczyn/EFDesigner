@@ -183,10 +183,6 @@ namespace Sawczyn.EFDesigner.EFModel
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
                   break;
 
-               case "EntityFrameworkCoreVersion":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
-                  break;
-
                case "DatabaseType":
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
                   break;

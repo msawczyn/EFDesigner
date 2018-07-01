@@ -184,7 +184,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
    segments.Clear();
 
-   if (modelRoot.EntityFrameworkVersion > EFVersion.EF6 && modelRoot.EntityFrameworkCoreVersion >= EFCoreVersion.EFCore21)
+   if (modelRoot.EntityFrameworkVersion > EFVersion.EF6 && modelRoot.GetEntityFrameworkPackageVersionNum() >= 2.1)
    {
       if (modelRoot.LazyLoadingEnabled)
       {
@@ -453,7 +453,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (association.SourceRole == EndpointRole.Dependent) 
             segments.Add(CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns));
 
-          if (required)
+         if (required)
             segments.Add("IsRequired()");
 
          if (cascadeDelete)

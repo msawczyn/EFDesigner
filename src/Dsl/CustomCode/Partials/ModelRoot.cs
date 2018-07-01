@@ -33,12 +33,13 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelRoot
    {
-      public static readonly PluralizationService PluralizationService;
-
-      public static Dictionary<EFVersion, IEnumerable<string>> EFPackageVersions { get; }
-      internal static List<NuGetDisplay> NuGetPackageDisplay { get; }
-      private static readonly HttpClient client = new HttpClient();
+      private static readonly HttpClient restClient = new HttpClient();
       private static string nugetURL = "https://api-v2v3search-0.nuget.org/query?q={0}&prerelease=false";
+
+      internal static List<NuGetDisplay> NuGetPackageDisplay { get; }
+
+      public static readonly PluralizationService PluralizationService;
+      public static Dictionary<EFVersion, IEnumerable<string>> EFPackageVersions { get; }
 
       static ModelRoot()
       {
@@ -58,20 +59,22 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      #region Nuget
+
       private static void LoadNuGetVersions(EFVersion efVersion, string packageId)
       {
          // get NuGet packages with that package id
-         string jsonString = client.GetAsync(string.Format(nugetURL, packageId)).Result.Content.ReadAsStringAsync().Result;
+         string jsonString = restClient.GetAsync(string.Format(nugetURL, packageId)).Result.Content.ReadAsStringAsync().Result;
          NuGetPackages nugetPackages = NuGetPackages.FromJson(jsonString);
          string id = packageId.ToLower();
 
          // get their versions
          List<string> result = nugetPackages.Data
-                             .Where(x => x.Title.ToLower() == id)
-                             .SelectMany(x => x.Versions)
-                             .OrderBy(v => v.VersionVersion)
-                             .Select(v => v.VersionVersion)
-                             .ToList();
+                                            .Where(x => x.Title.ToLower() == id)
+                                            .SelectMany(x => x.Versions)
+                                            .OrderBy(v => v.VersionVersion)
+                                            .Select(v => v.VersionVersion)
+                                            .ToList();
 
          // find the major.minor versions
          List<string> majorVersions = result.Select(v => v.Substring(0, v.LastIndexOf(".")))
@@ -81,7 +84,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // do the trivial mapping of the full version to the full display name
          foreach (string v in result)
-            NuGetPackageDisplay.Add(new NuGetDisplay(efVersion, v, v, v.Substring(0, v.LastIndexOf("."))));
+            NuGetPackageDisplay.Add(new NuGetDisplay(efVersion, v, v, string.Join(".", v.Split('.').Take(2))));
 
          // figure out which one is the latest in the major.minor set and add its mapping
          foreach (string v in majorVersions)
@@ -94,11 +97,6 @@ namespace Sawczyn.EFDesigner.EFModel
          EFPackageVersions.Add(efVersion, result);
       }
 
-      /// <summary>
-      /// Package might set this to false depending on whether or not it can find the resources needed to load Nuget packages
-      /// </summary>
-      public static bool CanLoadNugetPackages { get; set; } = true;
-
       public NuGetDisplay NuGetPackageVersion
       {
          get
@@ -107,6 +105,29 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                            x.DisplayVersion == EntityFrameworkPackageVersion);
          }
       }
+
+      /// <summary>
+      /// DslPackage might set this to false depending on whether or not it can find the resources needed to load Nuget packages
+      /// </summary>
+      public static bool CanLoadNugetPackages { get; set; } = true;
+
+      // ReSharper disable once UnusedMember.Global
+      public double GetEntityFrameworkPackageVersionNum()
+      {
+            string[] parts = EntityFrameworkPackageVersion.Split('.');
+
+            string resultString = parts.Length > 1
+                                     ? $"{parts[0]}.{parts[1]}"
+                                     : parts.FirstOrDefault();
+
+            return double.TryParse(resultString, out double result)
+                      ? result
+                      : 0;
+      }
+
+      #endregion Nuget
+
+      #region Validation methods
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
@@ -121,6 +142,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (string.IsNullOrEmpty(EntityContainerName))
             context.LogError("Model: Entity container needs a name", "MREContainerNameEmpty", this);
       }
+
+      #endregion Validation methods
 
       #region DatabaseSchema tracking property
 
