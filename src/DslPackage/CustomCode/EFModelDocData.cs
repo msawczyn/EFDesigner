@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Documents;
 using System.Windows.Forms;
 
 using EnvDTE;
@@ -154,7 +153,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             // if false, don't even check
             if (modelRoot.InstallNuGetPackages != AutomaticAction.False)
-               EnsureCorrectNuGetPackages(modelRoot);
+               EnsureCorrectNuGetPackages(modelRoot, false);
 
             if (modelRoot.TransformOnSave)
                GenerateCode(((DocumentSavedEventArgs)e).NewFileName);
@@ -169,11 +168,11 @@ namespace Sawczyn.EFDesigner.EFModel
          public string CurrentPackageVersion { get; set; }
       }
 
-      public void EnsureCorrectNuGetPackages(ModelRoot modelRoot)
+      public void EnsureCorrectNuGetPackages(ModelRoot modelRoot, bool auto = true)
       {
          EFVersionDetails versionInfo = GetEFVersionDetails(modelRoot);
 
-         if (ShouldLoadPackages(modelRoot, versionInfo))
+         if (auto || ShouldLoadPackages(modelRoot, versionInfo))
          {
             // first unload what's there, if anything
             if (versionInfo.CurrentPackageId != null)
@@ -221,22 +220,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private List<string> GetPackagesToUninstall(string targetPackageId, IEnumerable<IVsPackageMetadata> installedPackages = null)
-      {
-         List<string> result = new List<string>();
-         if (installedPackages == null)
-            installedPackages = NuGetInstallerServices.GetInstalledPackages();
-
-         IVsPackageMetadata target = installedPackages.FirstOrDefault(p => p.Id == targetPackageId);
-
-         if (target != null)
-         {
-            // TODO
-         }
-
-         return result;
-      }
-
       private bool ShouldLoadPackages(ModelRoot modelRoot, EFVersionDetails versionInfo)
       {
          Version currentPackageVersion = new Version(versionInfo.CurrentPackageVersion);
@@ -248,7 +231,7 @@ namespace Sawczyn.EFDesigner.EFModel
                  ShowQuestionBox($"Referenced libraries don't match Entity Framework {modelRoot.NuGetPackageVersion.ActualPackageVersion}. Fix that now?") == DialogResult.Yes);
       }
 
-      private EFVersionDetails GetEFVersionDetails(ModelRoot modelRoot)
+      private static EFVersionDetails GetEFVersionDetails(ModelRoot modelRoot)
       {
 
          EFVersionDetails versionInfo = new EFVersionDetails
