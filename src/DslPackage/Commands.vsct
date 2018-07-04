@@ -96,6 +96,15 @@
                <CommandName>GenerateCode</CommandName>
             </Strings>
          </Button>
+         
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Load NuGet Packages</ButtonText>
+               <CommandName>LoadNuGetPkgs</CommandName>
+            </Strings>
+         </Button>
 
          <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" priority="0x0100" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
@@ -160,6 +169,7 @@
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"         editor="guidEditor" key1="H" mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"         editor="guidEditor" key1="S" mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"      editor="guidEditor" key1="G" mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"         editor="guidEditor" key1="N" mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" editor="guidEditor" key1="C" mod1="CONTROL ALT" />
       <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       editor="guidEditor" key1="I" mod1="CONTROL" />
    </KeyBindings>
@@ -171,6 +181,7 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"         context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"         context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"      context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"         context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       context="guidEditor"/>
    </VisibilityConstraints>
@@ -179,16 +190,18 @@
       <GuidSymbol name="guidEFDiagramMenuCmdSet" value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
          <IDSymbol name="grpidEFDiagram" value="0x01001"/>
 
-         <IDSymbol name="cmdidFind"              value="0x00001"/>
-         <IDSymbol name="cmdidLayoutDiagram"     value="0x00002"/>
-         <IDSymbol name="cmdidHideShape"         value="0x00003"/>
-         <IDSymbol name="cmdidShowShape"         value="0x00004"/>
-         <IDSymbol name="cmdidGenerateCode"      value="0x00005"/>
-         <IDSymbol name="cmdidAddCodeProperties" value="0x00006"/>
-         <IDSymbol name="cmdidSaveAsImage"       value="0x00007"/>
+         <IDSymbol name="cmdidFind"              value="0x00011"/>
+         <IDSymbol name="cmdidLayoutDiagram"     value="0x00012"/>
+         <IDSymbol name="cmdidHideShape"         value="0x00013"/>
+         <IDSymbol name="cmdidShowShape"         value="0x00014"/>
+         <IDSymbol name="cmdidGenerateCode"      value="0x00015"/>
+         <IDSymbol name="cmdidAddCodeProperties" value="0x00016"/>
+         <IDSymbol name="cmdidSaveAsImage"       value="0x00017"/>
+         <IDSymbol name="cmdidLoadNuGet"         value="0x00018"/>
 
          <IDSymbol name="menuidSelect"           value="0x1100"/>
          <IDSymbol name="grpidSelect"            value="0x1150"/>
+    
          <IDSymbol name="cmdidSelectClasses"     value="0x0101"/>
          <IDSymbol name="cmdidSelectEnums"       value="0x0102"/>
          <IDSymbol name="cmdidSelectAssocs"      value="0x0103"/>

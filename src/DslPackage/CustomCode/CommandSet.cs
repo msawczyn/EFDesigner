@@ -24,20 +24,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
 
-      private const int cmdidFind = 0x0001;
-      private const int cmdidLayoutDiagram = 0x0002;
-      private const int cmdidHideShape = 0x0003;
-      private const int cmdidShowShape = 0x0004;
-      private const int cmdidGenerateCode = 0x0005;
-      private const int cmdidAddCodeProperties = 0x0006;
-      private const int cmdidSaveAsImage = 0x0007;
-      private const int cmdidLoadNuGet = 0x0008;
+      private const int cmdidFind              = 0x0011;
+      private const int cmdidLayoutDiagram     = 0x0012;
+      private const int cmdidHideShape         = 0x0013;
+      private const int cmdidShowShape         = 0x0014;
+      private const int cmdidGenerateCode      = 0x0015;
+      private const int cmdidAddCodeProperties = 0x0016;
+      private const int cmdidSaveAsImage       = 0x0017;
+      private const int cmdidLoadNuGet         = 0x0018;
 
-      private const int cmdidSelectClasses = 0x0101;
-      private const int cmdidSelectEnums = 0x0102;
-      private const int cmdidSelectAssocs = 0x0103;
-      private const int cmdidSelectUnidir = 0x0104;
-      private const int cmdidSelectBidir = 0x0105;
+      private const int cmdidSelectClasses     = 0x0101;
+      private const int cmdidSelectEnums       = 0x0102;
+      private const int cmdidSelectAssocs      = 0x0103;
+      private const int cmdidSelectUnidir      = 0x0104;
+      private const int cmdidSelectBidir       = 0x0105;
 
       protected override IList<MenuCommand> GetMenuCommands()
       {
@@ -75,7 +75,6 @@ namespace Sawczyn.EFDesigner.EFModel
             new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
          commands.Add(loadNuGetCommand);
 
-
          DynamicStatusMenuCommand selectClassesCommand =
             new DynamicStatusMenuCommand(OnStatusSelectClasses, OnMenuSelectClasses, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectClasses));
          commands.Add(selectClassesCommand);
@@ -108,6 +107,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             command.Visible = true;
             command.Enabled = true;
+
+            // until we can figure out how we want to do this
             command.Visible = false;
             command.Enabled = false;
          }

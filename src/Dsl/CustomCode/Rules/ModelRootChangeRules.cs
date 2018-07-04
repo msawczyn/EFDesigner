@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
@@ -38,6 +37,10 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             case "DatabaseSchema":
                if (string.IsNullOrEmpty((string)e.NewValue))
                   element.DatabaseSchema = "dbo";
+               break;
+
+            case "EntityFrameworkVersion":
+               element.EntityFrameworkPackageVersion = "Latest";
                break;
 
             case "EnumOutputDirectory":
