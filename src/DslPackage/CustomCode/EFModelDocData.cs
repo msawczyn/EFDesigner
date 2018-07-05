@@ -72,6 +72,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.OnDocumentLoaded();
          ErrorDisplay.RegisterDisplayHandler(ShowErrorBox);
+         WarningDisplay.RegisterDisplayHandler(ShowWarning);
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -136,6 +137,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void ShowErrorBox(string message)
       {
+         Messages.AddError(message);
          PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
       }
 
@@ -143,6 +145,11 @@ namespace Sawczyn.EFDesigner.EFModel
       private DialogResult ShowQuestionBox(string question)
       {
          return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY);
+      }
+
+      private void ShowWarning(string message)
+      {
+         Messages.AddWarning(message);
       }
 
       protected override void OnDocumentSaved(EventArgs e)

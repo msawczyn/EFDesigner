@@ -7,6 +7,9 @@
    - Added ability to tag a class as a dependent type (complex/owned type)
    - Added option to generated structs in a separate directory
    - Added output directory overrides to classes and enums
+   - On save, tool can optionally install EF NuGet packages for the EF type and version specified in the model.
+   - Added ability for adding/editing enum values via code
+   - Files may be dropped onto the model from Solution Explorer. Any valid classes and enums will be parsed and added to the model
 
 1.1.0
    - Bug fixes for exceptions thrown when bad input to model attributes as text

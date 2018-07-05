@@ -32,6 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidAddCodeProperties = 0x0016;
       private const int cmdidSaveAsImage       = 0x0017;
       private const int cmdidLoadNuGet         = 0x0018;
+      private const int cmdidAddCodeValues     = 0x0019;
 
       private const int cmdidSelectClasses     = 0x0101;
       private const int cmdidSelectEnums       = 0x0102;
@@ -50,6 +51,10 @@ namespace Sawczyn.EFDesigner.EFModel
          DynamicStatusMenuCommand addAttributesCommand =
             new DynamicStatusMenuCommand(OnStatusAddProperties, OnMenuAddProperties, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeProperties));
          commands.Add(addAttributesCommand);
+
+         DynamicStatusMenuCommand addValuesCommand =
+            new DynamicStatusMenuCommand(OnStatusAddValues, OnMenuAddValues, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeValues));
+         commands.Add(addValuesCommand);
 
          DynamicStatusMenuCommand layoutDiagramCommand =
             new DynamicStatusMenuCommand(OnStatusLayoutDiagram, OnMenuLayoutDiagram, new CommandID(guidEFDiagramMenuCmdSet, cmdidLayoutDiagram));
@@ -130,7 +135,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = true;
+            command.Visible = !CurrentSelection.OfType<EnumShape>().Any();
             command.Enabled = CurrentSelection.OfType<ClassShape>().Count() == 1;
          }
       }
@@ -184,6 +189,86 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                            new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
                                                                           );
                         element.Attributes.Add(modelAttribute);
+                     }
+                     catch (Exception exception)
+                     {
+                        Messages.AddWarning($"Could not parse '{codeFormLine}'. {exception.Message}. The line will be discarded.");
+                     }
+                  }
+
+                  tx.Commit();
+               }
+            }
+         }
+      }
+
+      #endregion Add Properties
+      #region Add Values
+
+      private void OnStatusAddValues(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = !CurrentSelection.OfType<ClassShape>().Any();
+            command.Enabled = CurrentSelection.OfType<EnumShape>().Count() == 1;
+         }
+      }
+
+      private void OnMenuAddValues(object sender, EventArgs e)
+      {
+         NodeShape shapeElement = CurrentSelection.OfType<EnumShape>().FirstOrDefault();
+
+         if (shapeElement?.ModelElement is ModelEnum element)
+         {
+            AddCodeForm codeForm = new AddCodeForm(element);
+            if (codeForm.ShowDialog() == DialogResult.OK)
+            {
+               using (Transaction tx = element.Store.TransactionManager.BeginTransaction("AddValues"))
+               {
+                  element.Values.Clear();
+
+                  foreach (string codeFormLine in codeForm.Lines)
+                  {
+                     try
+                     {
+                        string[] parts = codeFormLine.Replace(",", string.Empty)
+                                                     .Replace(";", string.Empty)
+                                                     .Split('=')
+                                                     .Select(x => x.Trim())
+                                                     .ToArray();
+                        string message = null;
+
+                        if (parts.Length > 0)
+                        {
+                           if (!CodeGenerator.IsValidLanguageIndependentIdentifier(parts[0]))
+                              message = $"Could not add '{parts[0]}' to {element.Name}: '{parts[0]}' is not a valid .NET identifier";
+                           else if (element.Values.Any(x => x.Name == parts[0]))
+                              message = $"Could not add {parts[0]} to {element.Name}: {parts[0]} already in use";
+                           else
+                           {
+                              switch (parts.Length)
+                              {
+                                 case 1:
+                                    element.Values.Add(new ModelEnumValue(element.Store, 
+                                                                          new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0])));
+
+                                    break;
+                                 case 2:
+                                    element.Values.Add(new ModelEnumValue(element.Store, 
+                                                                          new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0]), 
+                                                                          new PropertyAssignment(ModelEnumValue.ValueDomainPropertyId, parts[1])));
+
+                                    break;
+                                 default:
+                                    message = $"Could not add '{codeFormLine}' to {element.Name}: The string was not in the proper format.";
+
+                                    break;
+                              }
+                           }
+
+                           if (message != null)
+                              Messages.AddWarning(message);
+                        }
                      }
                      catch (Exception exception)
                      {

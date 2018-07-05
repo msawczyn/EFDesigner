@@ -19,6 +19,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          txtCode.Lines = element.Attributes.Select(x => $"{x};").ToArray();
       }
 
+      public AddCodeForm(ModelEnum element) : this()
+      {
+         lblClassName.Text = element.Name;
+         txtCode.Lines = element.Values.Select(x => x.ToString()).ToArray();
+         Text = "Add values as code";
+         label1.Text = "Enum name";
+         label2.Text = "Values";
+      }
+
       public IEnumerable<string> Lines => txtCode.Lines.Where(s => !string.IsNullOrEmpty(s.Trim())).ToList();
 
       private void btnOk_Click(object sender, EventArgs e)

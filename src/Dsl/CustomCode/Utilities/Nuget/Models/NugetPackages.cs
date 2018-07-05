@@ -1,10 +1,4 @@
-﻿// To parse this JSON data, add NuGet 'Newtonsoft.Json' then do:
-//
-//    using Sawczyn.EFDesigner.EFModel.Nuget;
-//
-//    var nugetPackages = NuGetPackages.FromJson(jsonString);
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using Newtonsoft.Json;

@@ -33,7 +33,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 *   Added MEF extension capability !
 *   Added some unit tests
 *   Added some documentation updates
-*   Changed version to 1.1.0 due to MEF capability
+*   New minor version number due to MEF capability
 
 1.0.3.9
 

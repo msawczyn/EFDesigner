@@ -110,8 +110,17 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Add properties via Code</ButtonText>
+               <ButtonText>Add Properties Via Code</ButtonText>
                <CommandName>AddPropertiesViaCode</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeValues" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Add Values Via Code</ButtonText>
+               <CommandName>AddValuesViaCode</CommandName>
             </Strings>
          </Button>
 
@@ -119,7 +128,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Select all classes...</ButtonText>
+               <ButtonText>Select All Classes...</ButtonText>
                <CommandName>SelectClasses</CommandName>
             </Strings>
          </Button>
@@ -128,7 +137,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Select all enums...</ButtonText>
+               <ButtonText>Select All Enums...</ButtonText>
                <CommandName>SelectEnums</CommandName>
             </Strings>
          </Button>
@@ -137,7 +146,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Select all associations...</ButtonText>
+               <ButtonText>Select All Associations...</ButtonText>
                <CommandName>SelectAssociations</CommandName>
             </Strings>
          </Button>
@@ -146,7 +155,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Select all unidirectional associations...</ButtonText>
+               <ButtonText>Select All Unidirectional Associations...</ButtonText>
                <CommandName>SelectUnidirectional</CommandName>
             </Strings>
          </Button>
@@ -155,7 +164,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidSelect"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Select all bidirectional associations...</ButtonText>
+               <ButtonText>Select All Bidirectional Associations...</ButtonText>
                <CommandName>SelectBidirectional</CommandName>
             </Strings>
          </Button>
@@ -198,6 +207,7 @@
          <IDSymbol name="cmdidAddCodeProperties" value="0x00016"/>
          <IDSymbol name="cmdidSaveAsImage"       value="0x00017"/>
          <IDSymbol name="cmdidLoadNuGet"         value="0x00018"/>
+         <IDSymbol name="cmdidAddCodeValues"     value="0x00019"/>
 
          <IDSymbol name="menuidSelect"           value="0x1100"/>
          <IDSymbol name="grpidSelect"            value="0x1150"/>
