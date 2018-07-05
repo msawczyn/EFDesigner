@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System.CodeDom.Compiler;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -87,12 +89,27 @@ namespace Sawczyn.EFDesigner.EFModel
                      newClass.Namespace = @namespace;
                }
 
-               foreach (PropertyDeclarationSyntax prop in cls.Members.OfType<PropertyDeclarationSyntax>())
-               {
-                  // TODO: pull off attributes and remember them. Process built-ins (Key, Required) and regurgitate customs later
-                  // TODO: ToString only after that preprocessing
-                  string source = prop.ToString();
+               if (cls.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword))
+                  newClass.IsAbstract = true;
 
+               BaseTypeSyntax baseType = cls.BaseList?.Types.FirstOrDefault();
+
+               if (baseType != null)
+               {
+                  string baseName = baseType.ToString();
+                  newClass.Superclass = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(c => c.Name == baseName);
+               }
+
+               // TODO: Continue here - separate base class from interfaces?
+
+               newClass.Attributes.Clear();
+               foreach (string source in cls.Members
+                                            .OfType<PropertyDeclarationSyntax>()
+                                            .Select(prop => prop.ToString())
+                                            .Select(source => Regex.Replace(source, @"\[[^]]+\]", "", RegexOptions.Multiline)
+                                                                   .Replace("\r", "")
+                                                                   .Replace("\n", "")))
+               {
                   try
                   {
                      ParseResult parseResult = ModelAttribute.Parse(modelRoot, source);
@@ -104,20 +121,20 @@ namespace Sawczyn.EFDesigner.EFModel
                         continue;
                      }
 
-                     //string message = null;
+                     string message = null;
 
-                     //if (string.IsNullOrEmpty(parseResult.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(parseResult.Name))
-                     //   message = $"Could not add '{parseResult.Name}' to {className}: '{parseResult.Name}' is not a valid .NET identifier";
-                     //else if (newClass.AllAttributes.Any(x => x.Name == parseResult.Name))
-                     //   message = $"Could not add {parseResult.Name} to {className}: {parseResult.Name} already in use";
-                     //else if (newClass.AllNavigationProperties().Any(p => p.PropertyName == parseResult.Name))
-                     //   message = $"Could not add {parseResult.Name} to {className}: {parseResult.Name} already in use";
+                     if (string.IsNullOrEmpty(parseResult.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(parseResult.Name))
+                        message = $"Could not add '{parseResult.Name}' to {className}: '{parseResult.Name}' is not a valid .NET identifier";
+                     else if (newClass.AllAttributes.Any(x => x.Name == parseResult.Name))
+                        message = $"Could not add {parseResult.Name} to {className}: {parseResult.Name} already in use";
+                     else if (newClass.AllNavigationProperties().Any(p => p.PropertyName == parseResult.Name))
+                        message = $"Could not add {parseResult.Name} to {className}: {parseResult.Name} already in use";
 
-                     //if (message != null)
-                     //{
-                     //   WarningDisplay.Show(message);
-                     //   continue;
-                     //}
+                     if (message != null)
+                     {
+                        WarningDisplay.Show(message);
+                        continue;
+                     }
 
                      ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, parseResult.Name), new PropertyAssignment(ModelAttribute.TypeDomainPropertyId, parseResult.Type ?? "String"), new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, parseResult.Required ?? true), new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0), new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue), new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity), new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public));
                      newClass.Attributes.Add(modelAttribute);
