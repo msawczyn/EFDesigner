@@ -16,10 +16,7 @@ namespace Sandbox
 
       internal void Run()
       {
-         using (SandboxContext db = new SandboxContext())
-         {
-            db.Blogs.Add
-         }
+        
       }
    }
 }

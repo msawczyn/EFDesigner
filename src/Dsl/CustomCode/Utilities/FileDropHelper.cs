@@ -41,7 +41,13 @@ namespace Sawczyn.EFDesigner.EFModel
                foreach (NamespaceDeclarationSyntax ns in root.Members.OfType<NamespaceDeclarationSyntax>())
                {
                   foreach (ClassDeclarationSyntax cls in ns.Members.OfType<ClassDeclarationSyntax>())
-                     ProcessClass(store, cls, ns);
+                  {
+                     if (cls.BaseList.Types.FirstOrDefault()?.ToString() == "DbContext")
+                        ProcessContext(store, cls, ns);
+                     else
+                        ProcessClass(store, cls, ns);
+                  }
+
                   foreach (EnumDeclarationSyntax en in ns.Members.OfType<EnumDeclarationSyntax>())
                      ProcessEnum(store, en, ns);
                }
@@ -51,6 +57,11 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             ErrorDisplay.Show("No class or enum found in " + filename);
          }
+      }
+
+      private static void ProcessContext(Store store, ClassDeclarationSyntax ctx, NamespaceDeclarationSyntax ns = null)
+      {
+
       }
 
       private static void ProcessEnum(Store store, EnumDeclarationSyntax en, NamespaceDeclarationSyntax ns = null)
@@ -131,6 +142,50 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             #endregion Base classes and interfaces
+
+            #region Comments
+
+            List<DocumentationCommentTriviaSyntax> xmlTrivia = cls.GetLeadingTrivia()
+                                                                  .Select(i => i.GetStructure())
+                                                                  .OfType<DocumentationCommentTriviaSyntax>()
+                                                                  .ToList();
+
+            foreach (DocumentationCommentTriviaSyntax xmlComment in xmlTrivia)
+            {
+               XmlElementSyntax summary = xmlComment.ChildNodes().OfType<XmlElementSyntax>().FirstOrDefault(x => x.StartTag.Name.ToString() == "summary");
+
+               if (summary != null)
+               {
+                  newClass.Summary = string.Empty;
+
+                  for (int index = 0; index < summary.Content.Count; index++)
+                  {
+                     XmlNodeSyntax xmlNodeSyntax = summary.Content[index];
+
+                     newClass.Summary += (index == 0
+                                             ? xmlNodeSyntax.ToString()
+                                             : $"\n<p>{xmlNodeSyntax.ToString()}</p>");
+                  }
+               }
+
+               XmlElementSyntax remarks = xmlComment.ChildNodes().OfType<XmlElementSyntax>().FirstOrDefault(x => x.StartTag.Name.ToString() == "remarks");
+
+               if (remarks != null)
+               {
+                  newClass.Description = string.Empty;
+
+                  for (int index = 0; index < remarks.Content.Count; index++)
+                  {
+                     XmlNodeSyntax xmlNodeSyntax = remarks.Content[index];
+
+                     newClass.Description += (index == 0
+                                                 ? xmlNodeSyntax.ToString()
+                                                 : $"\n<p>{xmlNodeSyntax.ToString()}</p>");
+                  }
+               }
+            }
+
+            #endregion Comments
 
             #region Properties
 

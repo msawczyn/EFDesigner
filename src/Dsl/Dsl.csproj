@@ -218,6 +218,7 @@
     <Compile Include="CustomCode\Partials\ModelEnumValue.cs" />
     <Compile Include="CustomCode\Partials\ModelRoot.cs" />
     <Compile Include="CustomCode\Partials\ModelRootTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Rules\ModelAttributeAddRules.cs" />
     <Compile Include="CustomCode\Utilities\FileDropHelper.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetDisplay.cs" />
@@ -235,21 +236,21 @@
     <Compile Include="CustomCode\Rules\ModelRootChangeRules.cs" />
     <Compile Include="CustomCode\Rules\RuleRegistrations.cs" />
     <Compile Include="CustomCode\Utilities\AttributeParser.cs" />
-    <Compile Include="CustomCode\Utilities\BaseClassTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\CollectionTypeTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\BaseClassTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\CollectionTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Partials\ModelClassTypeDescriptor.cs" />
     <Compile Include="CustomCode\Utilities\ConnectionStringEditor.cs" />
     <Compile Include="CustomCode\Utilities\EFCoreValidator.cs" />
-    <Compile Include="CustomCode\Utilities\EFPackageVersionTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\EFPackageVersionTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\ErrorDisplay.cs" />
-    <Compile Include="CustomCode\Utilities\IdentityAttributeTypeTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\ModelAttributeNameProvider.cs" />
-    <Compile Include="CustomCode\Utilities\ModelClassNameProvider.cs" />
-    <Compile Include="CustomCode\Utilities\ModelEnumNameProvider.cs" />
-    <Compile Include="CustomCode\Utilities\MultiplicityTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\NavigationEndpointTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\IdentityAttributeTypeTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\NameProviders\ModelAttributeNameProvider.cs" />
+    <Compile Include="CustomCode\Utilities\NameProviders\ModelClassNameProvider.cs" />
+    <Compile Include="CustomCode\Utilities\NameProviders\ModelEnumNameProvider.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\MultiplicityTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\NavigationEndpointTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\NavigationProperty.cs" />
-    <Compile Include="CustomCode\Utilities\AttributeTypeTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\AttributeTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\Context.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\Converter.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetPackages.cs" />
@@ -258,12 +259,12 @@
     <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnum.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnumConverter.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\Version.cs" />
-    <Compile Include="CustomCode\Utilities\ProjectDirectoryTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\SourceMultiplicityTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\TargetMultiplicityTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\ProjectDirectoryTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\SourceMultiplicityTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\TargetMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />
     <Compile Include="CustomCode\Utilities\EFModelSerializationHelperBase.cs" />
-    <Compile Include="CustomCode\Utilities\TypeConverterBase.cs" />
+    <Compile Include="CustomCode\Utilities\TypeConverters\TypeConverterBase.cs" />
     <Compile Include="CustomCode\Utilities\WarningDisplay.cs" />
     <Compile Include="GeneratedCode\Serializer.cs">
       <AutoGen>True</AutoGen>
@@ -285,6 +286,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DesignerExtensionMetaDataAttribute.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

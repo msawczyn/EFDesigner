@@ -39,6 +39,8 @@ namespace Testing_CoreV2NetCore
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentOptional> UParentOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentRequired> UParentRequireds { get; set; }
 
+      public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
+
       public AllFeatureModel() : base()
       {
       }
@@ -47,11 +49,11 @@ namespace Testing_CoreV2NetCore
       {
       }
 
-      partial void CustomInit(ref DbContextOptionsBuilder optionsBuilder);
+      partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
 
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
-         CustomInit(ref optionsBuilder);
+         CustomInit(optionsBuilder);
       }
 
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);

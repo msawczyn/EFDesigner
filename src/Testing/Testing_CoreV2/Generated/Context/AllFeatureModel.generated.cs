@@ -39,6 +39,8 @@ namespace Testing
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentOptional> UParentOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
 
+      public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
+
       public AllFeatureModel() : base()
       {
       }
@@ -47,11 +49,11 @@ namespace Testing
       {
       }
 
-      partial void CustomInit(ref DbContextOptionsBuilder optionsBuilder);
+      partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
 
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
-         CustomInit(ref optionsBuilder);
+         CustomInit(optionsBuilder);
       }
 
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);

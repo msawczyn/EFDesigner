@@ -526,10 +526,11 @@ void WritePersistentProperties(ModelClass modelClass)
       }
       else
       {
+         string notifyCode = (modelClass.ModelRoot.ImplementNotify) ? " OnPropertyChanged();" : "";
          Output($"public {modelAttribute.PrimitiveType}{nullable} {modelAttribute.Name}");
          Output("{");
          Output($"get {{ {modelAttribute.PrimitiveType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
-         Output($"{setterVisibility}set {{ {modelAttribute.PrimitiveType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; }}");
+         Output($"{setterVisibility}set {{ {modelAttribute.PrimitiveType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; {notifyCode} }}");
          Output("}");
       }
 

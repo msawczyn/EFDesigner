@@ -21,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.OnDragOver(e);
 
-         if (e.Effect == System.Windows.Forms.DragDropEffects.None && IsAcceptableDropItem(e)) // To be defined
+         if (e.Effect == System.Windows.Forms.DragDropEffects.None && IsAcceptableDropItem(e)) 
             e.Effect = System.Windows.Forms.DragDropEffects.Copy;
       }
 

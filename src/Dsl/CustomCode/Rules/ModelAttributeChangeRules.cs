@@ -36,6 +36,13 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 
          switch (e.DomainProperty.Name)
          {
+            case "Autoproperty":
+
+               if (element.AutoProperty && modelClass.ImplementNotify)
+                  WarningDisplay.Show($"{element.Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages");
+
+               break;
+
             case "Indexed":
                if (element.IsIdentity)
                   element.Indexed = true;
@@ -113,11 +120,6 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                if (!element.Persistent || element.SetterVisibility != SetterAccessModifier.Public)
                   element.ReadOnly = false;
                break;
-
-            //case "Virtual":
-            //   if (element.Persistent)
-            //      element.Virtual = false;
-            //   break;
 
             case "IsIdentity":
                bool newIsIdentity = (bool)e.NewValue;

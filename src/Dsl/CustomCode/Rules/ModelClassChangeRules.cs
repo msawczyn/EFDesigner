@@ -95,6 +95,12 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                }
 
+               if (element.ImplementNotify)
+               {
+                  foreach (ModelAttribute modelAttribute in element.Attributes.Where(x => x.AutoProperty))
+                     WarningDisplay.Show($"{modelAttribute.Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages");
+               }
+
                break;
 
             case "TableName":
