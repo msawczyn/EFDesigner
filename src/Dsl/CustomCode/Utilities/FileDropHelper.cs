@@ -1,4 +1,5 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+
    internal class FileDropHelper
    {
       public static void HandleDrop(Store store, string filename)
@@ -30,7 +32,12 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                // find namespace-less classes
                foreach (ClassDeclarationSyntax cls in root.Members.OfType<ClassDeclarationSyntax>())
-                  ProcessClass(store, cls);
+               {
+                  if (cls.BaseList != null && cls.BaseList.Types.FirstOrDefault()?.ToString() == "DbContext")
+                     ProcessContext(store, cls);
+                  else
+                     ProcessClass(store, cls);
+               }
 
                // same with enums
                foreach (EnumDeclarationSyntax en in root.Members.OfType<EnumDeclarationSyntax>())
@@ -42,7 +49,7 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   foreach (ClassDeclarationSyntax cls in ns.Members.OfType<ClassDeclarationSyntax>())
                   {
-                     if (cls.BaseList.Types.FirstOrDefault()?.ToString() == "DbContext")
+                     if (cls.BaseList != null && cls.BaseList.Types.FirstOrDefault()?.ToString() == "DbContext")
                         ProcessContext(store, cls, ns);
                      else
                         ProcessClass(store, cls, ns);
@@ -235,4 +242,84 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
    }
+
+   /*
+   internal class DropFileParser
+   {
+      private ModelClass _modelClass;
+      private ModelRoot _modelRoot;
+      private Store _store;
+
+      public DropFileParser(Store store, string filename)
+      {
+         if (string.IsNullOrEmpty(filename))
+            return;
+
+         _modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         _store = store;
+
+         string fileContents = File.ReadAllText(filename);
+
+         try
+         {
+            // parse the contents
+            SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContents);
+
+            if (tree.GetRoot() is CompilationUnitSyntax root)
+            {
+               ProcessNamespaces(root.Members);
+               ProcessClasses(root.Members, null);
+               ProcessEnums(root.Members, null);
+            }
+         }
+         catch (Exception e)
+         {
+            ErrorMessage = $"Error processing {filename}: {e.Message}";
+         }
+      }
+
+      public string ErrorMessage { get; set; }
+      public bool HasError => ErrorMessage != null;
+
+      private void ProcessClasses(SyntaxList<MemberDeclarationSyntax> nodes, NamespaceDeclarationSyntax @namespace)
+      {
+         foreach (ClassDeclarationSyntax classDeclaration in nodes.OfType<ClassDeclarationSyntax>())
+         {
+
+         }
+      }
+
+      private void ProcessProperties(SyntaxList<MemberDeclarationSyntax> nodes, ClassDeclarationSyntax @class)
+      {
+         foreach (PropertyDeclarationSyntax propertyDeclaration in nodes.OfType<PropertyDeclarationSyntax>())
+         {
+
+         }
+      }
+
+      private void ProcessNamespaces(SyntaxList<MemberDeclarationSyntax> nodes)
+      {
+         List<NamespaceDeclarationSyntax> namespaceDeclarations = nodes.OfType<NamespaceDeclarationSyntax>().ToList();
+
+         foreach (NamespaceDeclarationSyntax namespaceDeclaration in namespaceDeclarations)
+         {
+            ProcessClasses(namespaceDeclaration.Members, namespaceDeclaration);
+            ProcessEnums(namespaceDeclaration.Members, namespaceDeclaration);
+         }
+      }
+
+      private void ProcessEnums(SyntaxList<MemberDeclarationSyntax> nodes, NamespaceDeclarationSyntax @namespace)
+      {
+         foreach (EnumDeclarationSyntax enumDeclaration in nodes.OfType<EnumDeclarationSyntax>())
+         {
+         }
+      }
+
+      private void ProcessEnumValues(SyntaxList<MemberDeclarationSyntax> nodes, EnumDeclarationSyntax @enum)
+      {
+
+      }
+
+   }
+*/
 }

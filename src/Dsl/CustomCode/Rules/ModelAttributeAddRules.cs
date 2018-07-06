@@ -2,7 +2,7 @@
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(ModelClass), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.TopLevelCommit)]
    internal class ModelAttributeAddRules : AddRule
    {
       public override void ElementAdded(ElementAddedEventArgs e)
