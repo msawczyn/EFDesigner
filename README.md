@@ -42,7 +42,7 @@ You can read more about how to use the designer in the [Documentation site](http
  ### Change Log
 
 <div style="background-color: whitesmoke; padding-left: 4px; padding-right: 4px; border: 1px solid gold;">
-<p style="font-weight:bold">1.2.0.4</p>
+<p style="font-weight:bold">1.2.0.4 [In development]</p>
 <ul>
    <li>Added optional generation of INotifyPropertyChanged interface and implementation for entities</li>
    <li>Added ability to tag model as a specific EF version (especially useful for EF Core as new capabilities are being added often)</li>
