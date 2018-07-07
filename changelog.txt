@@ -1,4 +1,4 @@
-1.2.0
+1.2.0 [ Next version ]
    - Added optional generation of INotifyPropertyChanged interface and implementation for entities
    - Property grid hides element properties if they're not appropriate for the EF version
    - Added ability to tag model as a specific EF version (especially useful for EF Core as new capabilities are being added often)
