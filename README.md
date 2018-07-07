@@ -41,22 +41,17 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-<div style="background-color: whitesmoke; padding-left: 4px; padding-right: 4px; border: 1px solid gold;">
-<p style="font-weight:bold">1.2.0.4 [In development]</p>
-<ul>
-   <li>Added optional generation of INotifyPropertyChanged interface and implementation for entities</li>
-   <li>Added ability to tag model as a specific EF version (especially useful for EF Core as new capabilities are being added often)</li>
-   <li>Property grid hides element properties if they're not appropriate for the EF version</li>
-   <li>Inheritance strategy automatically changes to table-per-hierarchy if targeting EF Core</li>
-   <li>Context property "Database Type" changed to "SqlServer Type" to better reflect what it does</li>
-   <li>Added ability to tag a class as a dependent type (complex/owned type)</li>
-   <li>Added option to generated dependent types in a separate directory</li>
-   <li>Added output directory overrides to classes and enums</li>
-   <li>On save, tool can optionally install EF NuGet packages for the EF type and version specified in the model.</li>
-   <li>Added ability to add/edit enum values via code</li>
-</ul>
-</div>
-<br/>
+**1.2.0.4 [In development]**
+   - Added optional generation of INotifyPropertyChanged interface and implementation for entities
+   - Added ability to tag model as a specific EF version (especially useful for EF Core as new capabilities are being added often)
+   - Property grid hides element properties if they're not appropriate for the EF version
+   - Inheritance strategy automatically changes to table-per-hierarchy if targeting EF Core
+   - Context property "Database Type" changed to "SqlServer Type" to better reflect what it does
+   - Added ability to tag a class as a dependent type (complex/owned type)
+   - Added option to generated dependent types in a separate directory
+   - Added output directory overrides to classes and enums
+   - On save, tool can optionally install EF NuGet packages for the EF type and version specified in the model.
+   - Added ability to add/edit enum values via code
 
 **1.1.0**
    - Bug fixes for exceptions thrown when bad input to model attributes as text
