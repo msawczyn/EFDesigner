@@ -1,4 +1,5 @@
 ﻿using System.IO;
+
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
@@ -27,20 +28,34 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
       {
-         return diagramDragEventArgs.Data.GetData("Text", false) is string filename && File.Exists(filename);
+         // attempting drag/drop from explorer - multiple files: doesn't work
+         //string[] explorerFiles = diagramDragEventArgs.Data.GetData(DataFormats.FileDrop) as string[];
+         //string[] solutionFiles = diagramDragEventArgs.Data.GetData("Text") as string[];
+         //string[] filenames = explorerFiles ?? solutionFiles;
+         //return filenames != null && filenames.All(File.Exists);
+
+         // attempting drag/drop from explorer - single file: explorer doesn't work
+         //string explorerFile = diagramDragEventArgs.Data.GetData("FileNameW") as string;
+         //string solutionFile = diagramDragEventArgs.Data.GetData("Text") as string;
+         //string filename = explorerFile ?? solutionFile;
+         //return filename != null && File.Exists(filename);
+
+         string filename = diagramDragEventArgs.Data.GetData("Text") as string;
+         return filename != null && File.Exists(filename);
       }
 
       public override void OnDragDrop(DiagramDragEventArgs e)
       {
          if (IsAcceptableDropItem(e))
-            ProcessDragDropItem(e); // To be defined
+            ProcessDragDropItem(e); 
          else
             base.OnDragDrop(e);
       }
 
       private void ProcessDragDropItem(DiagramDragEventArgs diagramDragEventArgs)
       {
-         string filename = diagramDragEventArgs.Data.GetData("Text", false) as string;
+         string filename = diagramDragEventArgs.Data.GetData("Text") as string;
+
          FileDropHelper.HandleDrop(Store, filename);
       }
    }

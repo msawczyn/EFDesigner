@@ -27,33 +27,70 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static readonly string[] SpatialTypes =
       {
-         "Geography",
-         "GeographyCollection",
-         "GeographyLineString",
-         "GeographyMultiLineString",
-         "GeographyMultiPoint",
-         "GeographyMultiPolygon",
-         "GeographyPoint",
-         "GeographyPolygon",
-         "Geometry",
-         "GeometryCollection",
-         "GeometryLineString",
-         "GeometryMultiLineString",
-         "GeometryMultiPoint",
-         "GeometryMultiPolygon",
-         "GeometryPoint",
-         "GeometryPolygon"
+         "Geography"
+       , "GeographyCollection"
+       , "GeographyLineString"
+       , "GeographyMultiLineString"
+       , "GeographyMultiPoint"
+       , "GeographyMultiPolygon"
+       , "GeographyPoint"
+       , "GeographyPolygon"
+       , "Geometry"
+       , "GeometryCollection"
+       , "GeometryLineString"
+       , "GeometryMultiLineString"
+       , "GeometryMultiPoint"
+       , "GeometryMultiPolygon"
+       , "GeometryPoint"
+       , "GeometryPolygon"
       };
+
       public static readonly string[] ValidTypes =
       {
+         "Binary"
+       , "Boolean"
+       , "Byte"
+       , "byte"
+       , "DateTime"
+       , "DateTimeOffset"
+       , "Decimal"
+       , "Double"
+       , "Geography"
+       , "GeographyCollection"
+       , "GeographyLineString"
+       , "GeographyMultiLineString"
+       , "GeographyMultiPoint"
+       , "GeographyMultiPolygon"
+       , "GeographyPoint"
+       , "GeographyPolygon"
+       , "Geometry"
+       , "GeometryCollection"
+       , "GeometryLineString"
+       , "GeometryMultiLineString"
+       , "GeometryMultiPoint"
+       , "GeometryMultiPolygon"
+       , "GeometryPoint"
+       , "GeometryPolygon"
+       , "Guid"
+       , "Int16"
+       , "Int32"
+       , "Int64"
+       , "Single"
+       , "String"
+       , "Time"
+      };
+
+      public static readonly string[] ValidCLRTypes =
+      {
          "Binary",
-         "Boolean",
-         "Byte",
-         "byte",
-         "DateTime",
-         "DateTimeOffset",
-         "Decimal",
-         "Double",
+         "Boolean", "Boolean?", "Nullable<Boolean>",
+         "Byte", "Byte?", "Nullable<Byte>",
+         "DateTime", "DateTime?", "Nullable<DateTime>",
+         "DateTimeOffset", "DateTimeOffset?", "Nullable<DateTimeOffset>",
+         "DbGeography",
+         "DbGeometry",
+         "Decimal", "Decimal?", "Nullable<Decimal>",
+         "Double", "Double?", "Nullable<Double>",
          "Geography",
          "GeographyCollection",
          "GeographyLineString",
@@ -70,14 +107,23 @@ namespace Sawczyn.EFDesigner.EFModel
          "GeometryMultiPolygon",
          "GeometryPoint",
          "GeometryPolygon",
-         "Guid",
-         "Int16",
-         "Int32",
-         "Int64",
-         //"SByte",
-         "Single",
+         "Guid", "Guid?", "Nullable<Guid>",
+         "Int16", "Int16?", "Nullable<Int16>",
+         "Int32", "Int32?", "Nullable<Int32>",
+         "Int64", "Int64?", "Nullable<Int64>",
+         "Single", "Single?", "Nullable<Single>",
          "String",
-         "Time"
+         "Time",
+         "TimeSpan", "TimeSpan?", "Nullable<TimeSpan>",
+         "bool", "bool?", "Nullable<bool>",
+         "byte", "byte?", "Nullable<byte>",
+         "byte[]",
+         "decimal", "decimal?", "Nullable<decimal>",
+         "double", "double?", "Nullable<double>",
+         "int", "int?", "Nullable<int>",
+         "long", "long?", "Nullable<long>",
+         "short", "short?", "Nullable<short>",
+         "string"
       };
 
       /// <summary>
@@ -144,8 +190,6 @@ namespace Sawczyn.EFDesigner.EFModel
                return int.TryParse(initialValue, out int _int32);
             case "Int64":
                return long.TryParse(initialValue, out long _int64);
-            //case "SByte":
-            //   return sbyte.TryParse(initialValue, out sbyte _sbyte);
             case "Single":
                return float.TryParse(initialValue, out float _single);
             case "String":
@@ -171,6 +215,11 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 #pragma warning restore 168
+
+      public static bool IsValidCLRType(string type)
+      {
+         return ValidCLRTypes.Contains(type);
+      }
 
       public string PrimitiveType => ToPrimitiveType(Type);
       public string CLRType => ToCLRType(Type);
@@ -215,8 +264,6 @@ namespace Sawczyn.EFDesigner.EFModel
             case "GeometryMultiPolygon":
             case "GeometryCollection":
                return "DbGeometry";
-            //case "SByte":
-            //   return "sbyte";
             case "Int16":
                return "short";
             case "Int32":
@@ -250,8 +297,6 @@ namespace Sawczyn.EFDesigner.EFModel
                return "Geography";
             case "DbGeometry":
                return "Geometry";
-            //case "sbyte":
-            //   return "SByte";
             case "short":
                return "Int16";
             case "int":
