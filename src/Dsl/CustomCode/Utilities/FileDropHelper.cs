@@ -96,7 +96,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                // ReSharper disable once UseObjectOrCollectionInitializer
                ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyDecl.Identifier.ToString()));
-               modelAttribute.Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString());
+               modelAttribute.Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?');
                modelAttribute.Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyDecl.DescendantNodes().OfType<NullableTypeSyntax>().Any();
                modelAttribute.Indexed = propertyDecl.HasAttribute("IndexedAttribute");
                modelAttribute.IsIdentity = propertyDecl.HasAttribute("KeyAttribute");
