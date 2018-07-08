@@ -131,7 +131,7 @@ namespace Testing
       /// Required
       /// </summary>
       [Required]
-      public DateTime DateTimeAttr { get; set; }
+      public DateTime? DateTimeAttr { get; set; }
 
       /// <summary>
       /// Required
@@ -185,7 +185,7 @@ namespace Testing
       /// Required
       /// </summary>
       [Required]
-      public TimeSpan TimeAttr { get; set; }
+      public TimeSpan? TimeAttr { get; set; }
 
       /// <summary>
       /// Required, Min length = 10, Max length = 100

@@ -27,31 +27,66 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static readonly string[] SpatialTypes =
       {
-         "Geography",
-         "GeographyCollection",
-         "GeographyLineString",
-         "GeographyMultiLineString",
-         "GeographyMultiPoint",
-         "GeographyMultiPolygon",
-         "GeographyPoint",
-         "GeographyPolygon",
-         "Geometry",
-         "GeometryCollection",
-         "GeometryLineString",
-         "GeometryMultiLineString",
-         "GeometryMultiPoint",
-         "GeometryMultiPolygon",
-         "GeometryPoint",
-         "GeometryPolygon"
+         "Geography"
+       , "GeographyCollection"
+       , "GeographyLineString"
+       , "GeographyMultiLineString"
+       , "GeographyMultiPoint"
+       , "GeographyMultiPolygon"
+       , "GeographyPoint"
+       , "GeographyPolygon"
+       , "Geometry"
+       , "GeometryCollection"
+       , "GeometryLineString"
+       , "GeometryMultiLineString"
+       , "GeometryMultiPoint"
+       , "GeometryMultiPolygon"
+       , "GeometryPoint"
+       , "GeometryPolygon"
       };
+
       public static readonly string[] ValidTypes =
+      {
+         "Binary"
+       , "Boolean"
+       , "Byte"
+       , "byte"
+       , "DateTime"
+       , "DateTimeOffset"
+       , "Decimal"
+       , "Double"
+       , "Geography"
+       , "GeographyCollection"
+       , "GeographyLineString"
+       , "GeographyMultiLineString"
+       , "GeographyMultiPoint"
+       , "GeographyMultiPolygon"
+       , "GeographyPoint"
+       , "GeographyPolygon"
+       , "Geometry"
+       , "GeometryCollection"
+       , "GeometryLineString"
+       , "GeometryMultiLineString"
+       , "GeometryMultiPoint"
+       , "GeometryMultiPolygon"
+       , "GeometryPoint"
+       , "GeometryPolygon"
+       , "Guid"
+       , "Int16"
+       , "Int32"
+       , "Int64"
+       , "Single"
+       , "String"
+       , "Time"
+      };
+
+      public static readonly string[] ValidCLRTypes =
       {
          "Binary",
          "Boolean",
          "Byte",
-         "byte",
-         "DateTime",
-         "DateTimeOffset",
+         "DbGeography",
+         "DbGeometry",
          "Decimal",
          "Double",
          "Geography",
@@ -70,14 +105,21 @@ namespace Sawczyn.EFDesigner.EFModel
          "GeometryMultiPolygon",
          "GeometryPoint",
          "GeometryPolygon",
-         "Guid",
          "Int16",
          "Int32",
          "Int64",
-         //"SByte",
-         "Single",
          "String",
-         "Time"
+         "Time",
+         "TimeSpan",
+         "bool",
+         "byte",
+         "byte[]",
+         "decimal",
+         "double",
+         "int",
+         "long",
+         "short",
+         "string"
       };
 
       /// <summary>
@@ -144,8 +186,6 @@ namespace Sawczyn.EFDesigner.EFModel
                return int.TryParse(initialValue, out int _int32);
             case "Int64":
                return long.TryParse(initialValue, out long _int64);
-            //case "SByte":
-            //   return sbyte.TryParse(initialValue, out sbyte _sbyte);
             case "Single":
                return float.TryParse(initialValue, out float _single);
             case "String":
@@ -171,6 +211,11 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 #pragma warning restore 168
+
+      public static bool IsValidCLRType(string type)
+      {
+         return ValidCLRTypes.Contains(type);
+      }
 
       public string PrimitiveType => ToPrimitiveType(Type);
       public string CLRType => ToCLRType(Type);
@@ -215,8 +260,6 @@ namespace Sawczyn.EFDesigner.EFModel
             case "GeometryMultiPolygon":
             case "GeometryCollection":
                return "DbGeometry";
-            //case "SByte":
-            //   return "sbyte";
             case "Int16":
                return "short";
             case "Int32":
@@ -250,8 +293,6 @@ namespace Sawczyn.EFDesigner.EFModel
                return "Geography";
             case "DbGeometry":
                return "Geometry";
-            //case "sbyte":
-            //   return "SByte";
             case "short":
                return "Int16";
             case "int":

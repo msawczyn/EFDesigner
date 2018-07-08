@@ -199,6 +199,7 @@
     <Compile Include="CustomCode\Extensions\ColorExtensions.cs" />
     <Compile Include="CustomCode\Extensions\DiagramViewExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
+    <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Partials\AssociationTypeDescriptor.cs" />
