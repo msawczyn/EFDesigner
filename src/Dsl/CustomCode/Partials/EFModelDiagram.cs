@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
@@ -26,6 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
             e.Effect = System.Windows.Forms.DragDropEffects.Copy;
       }
 
+      // ReSharper disable once UnusedParameter.Local
       private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
       {
          // attempting drag/drop from explorer - multiple files: doesn't work
@@ -40,23 +43,34 @@ namespace Sawczyn.EFDesigner.EFModel
          //string filename = explorerFile ?? solutionFile;
          //return filename != null && File.Exists(filename);
 
-         string filename = diagramDragEventArgs.Data.GetData("Text") as string;
-         return filename != null && File.Exists(filename);
+         // for single file
+         //return diagramDragEventArgs.Data.GetData("Text") is string filename && File.Exists(filename);
+
+         // ok, let's try this. For files to be dropped, they have to be selected in the solution explorer
+         // just get anything selected there that's a project item with a file path and process it
+
+         List<string> selectedFilePaths = FileDropHelper.SelectedFilePaths.ToList();
+         return selectedFilePaths.Any() && selectedFilePaths.All(File.Exists);
       }
 
       public override void OnDragDrop(DiagramDragEventArgs e)
       {
          if (IsAcceptableDropItem(e))
-            ProcessDragDropItem(e); 
+         {
+            //ProcessDragDropItem(e); 
+
+            foreach (string filePath in FileDropHelper.SelectedFilePaths)
+               FileDropHelper.HandleDrop(Store, filePath);
+         }
          else
             base.OnDragDrop(e);
       }
 
-      private void ProcessDragDropItem(DiagramDragEventArgs diagramDragEventArgs)
-      {
-         string filename = diagramDragEventArgs.Data.GetData("Text") as string;
+      //private void ProcessDragDropItem(DiagramDragEventArgs diagramDragEventArgs)
+      //{
+      //   string filename = diagramDragEventArgs.Data.GetData("Text") as string;
 
-         FileDropHelper.HandleDrop(Store, filename);
-      }
+      //   FileDropHelper.HandleDrop(Store, filename);
+      //}
    }
 }

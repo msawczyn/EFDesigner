@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -14,6 +15,18 @@ namespace Sawczyn.EFDesigner.EFModel
 
    internal class FileDropHelper
    {
+      private static Func<IEnumerable<string>> FileSelectionHandler;
+
+      public static void RegisterFileSelectionHandler(Func<IEnumerable<string>> fileSelectionHandler)
+      {
+         // called from EFModelDocData.OnDocumentLoaded
+         FileSelectionHandler = fileSelectionHandler;
+      }
+      
+      public static IEnumerable<string> SelectedFilePaths => FileSelectionHandler == null
+                                                                ? new string[0] 
+                                                                : FileSelectionHandler().ToArray();
+
       public static void HandleDrop(Store store, string filename)
       {
          if (string.IsNullOrEmpty(filename))
@@ -74,28 +87,70 @@ namespace Sawczyn.EFDesigner.EFModel
       private static void ProcessProperties(Store store, ClassDeclarationSyntax classDecl)
       {
          string className = classDecl.Identifier.Text;
+         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          ModelClass modelClass = store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
          modelClass.Attributes.Clear();
 
          foreach (PropertyDeclarationSyntax propertyDecl in classDecl.DescendantNodes().OfType<PropertyDeclarationSyntax>())
          {
+            string propertyName = propertyDecl.Identifier.ToString();
             string propertyType = propertyDecl.Type.ToString();
+            ModelClass target = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(t => t.Name == propertyType);
 
-            if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any(c => c.Name == propertyType))
+            // is the property type a generic?
+            // assume it's a list
+            // TODO: this isn't a good idea. Fix later
+            if (propertyDecl.ChildNodes().OfType<GenericNameSyntax>().Any())
             {
-               if (!ProcessAssociation(store, classDecl, propertyDecl))
+               GenericNameSyntax genericDecl = propertyDecl.ChildNodes().OfType<GenericNameSyntax>().FirstOrDefault();
+               List<string> contentTypes = genericDecl.DescendantNodes().OfType<IdentifierNameSyntax>().Select(i => i.Identifier.ToString()).ToList();
+
+               // there can only be one generic argument
+               if (contentTypes.Count != 1)
+               {
+                  WarningDisplay.Show($"Found {className}.{propertyName}, but its type isn't anything expected. Ignoring...");
                   continue;
-            }
-            else if (!ModelAttribute.IsValidCLRType(propertyType))
-            {
-               WarningDisplay.Show($"Couldn't figure out what to do with '{className}.{propertyDecl.Identifier}'. If it's an association to another class, you'll have to add it manually.");
+               }
+
+               propertyType = contentTypes[0];
+               target = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(t => t.Name == propertyType);
+
+               if (target == null)
+               {
+                  target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
+                  modelRoot.Types.Add(target);
+               }
+
+               ProcessAssociation(modelClass, target, propertyDecl, true);
+
                continue;
             }
 
+            // is the property type an existing ModelClass?
+            if (target != null)
+            {
+               ProcessAssociation(modelClass, target, propertyDecl);
+
+               continue;
+            }
+
+            // is the property type something we don't know about?
+            if (!ModelAttribute.IsValidCLRType(propertyType))
+            {
+               // assume it's a class and create the class
+               target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
+               modelRoot.Types.Add(target);
+
+               ProcessAssociation(modelClass, target, propertyDecl);
+
+               continue;
+            }
+
+            // if we'ref here, it's just a property
             try
             {
                // ReSharper disable once UseObjectOrCollectionInitializer
-               ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyDecl.Identifier.ToString()));
+               ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName));
                modelAttribute.Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?');
                modelAttribute.Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyDecl.DescendantNodes().OfType<NullableTypeSyntax>().Any();
                modelAttribute.Indexed = propertyDecl.HasAttribute("IndexedAttribute");
@@ -149,13 +204,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
       }
 
-      // ReSharper disable once UnusedParameter.Local
-      private static bool ProcessAssociation(Store store, ClassDeclarationSyntax classDecl, PropertyDeclarationSyntax propertyDecl)
+      private static void ProcessAssociation(ModelClass source, ModelClass target, PropertyDeclarationSyntax propertyDecl, bool toMany = false)
       {
-         string message = $"Found association {propertyDecl.Identifier} in {classDecl.Identifier}. Parsing associations isn't supported yet, so you'll need to add it to the model manually.";
-         WarningDisplay.Show(message);
+         string propertyName = propertyDecl.Identifier.ToString();
 
-         return false;
+         // since we don't have enough information from the code, we'll create unidirectional associations
+         // cardinality 1 on the source end, 0..1 or 0..* on the target, depending on the parameter
+         XMLDocumentation xmlDocumentation = ProcessXMLDocumentation(propertyDecl);
+         
+         // ReSharper disable once UseObjectOrCollectionInitializer
+         UnidirectionalAssociation association = new UnidirectionalAssociation(source, target);
+         association.SourceMultiplicity = Multiplicity.One;
+
+         association.TargetMultiplicity = toMany
+                                             ? Multiplicity.ZeroMany
+                                             : Multiplicity.ZeroOne;
+
+         association.TargetPropertyName = propertyName;
+         association.TargetSummary = xmlDocumentation.Summary;
+         association.TargetDescription = xmlDocumentation.Description;
       }
 
       private static void ProcessEnum(Store store, EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
@@ -168,10 +235,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string namespaceName = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace;
 
-         if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any(c => c.Name == enumName && c.Namespace == namespaceName) || 
-             store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == enumName && c.Namespace == namespaceName))
+         if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any(c => c.Name == enumName) || 
+             store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == enumName))
          {
-            ErrorDisplay.Show($"'{(namespaceName == null ? "" : namespaceName + ".")}{enumName}' already exists in model.");
+            ErrorDisplay.Show($"'{enumName}' already exists in model.");
 
             return;
          }
@@ -242,16 +309,13 @@ namespace Sawczyn.EFDesigner.EFModel
          if (namespaceDecl == null && classDecl.Parent is NamespaceDeclarationSyntax classDeclParent)
             namespaceDecl = classDeclParent;
 
-         string namespaceName = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace;
-
-         if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any(c => c.Name == className && c.Namespace == namespaceName) || 
-             store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == className && c.Namespace == namespaceName))
+         if (store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == className))
          {
-            ErrorDisplay.Show($"'{(namespaceName == null ? "" : namespaceName + ".")}{className}' already exists in model.");
+            ErrorDisplay.Show($"'{className}' already exists in model as an Enum.");
 
             return;
          }
-         
+
          if (classDecl.TypeParameterList != null)
          {
             ErrorDisplay.Show($"Can't add generic class '{className}'.");
@@ -259,14 +323,22 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
          }
 
-         ModelClass modelClass = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
-                                 {
-                                    Namespace = namespaceDecl.Name?.ToString()
-                                  , IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
-                                 };
+         ModelClass modelClass = store.ElementDirectory
+                                      .AllElements
+                                      .OfType<ModelClass>()
+                                      .FirstOrDefault(c => c.Name == className);
 
+         if (modelClass == null)
+         {
+            modelClass = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
+                         {
+                            Namespace = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace
+                          , IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
+                         };
+            modelRoot.Types.Add(modelClass);
+         }         
+         
          // Base classes and interfaces
-
          if (classDecl.BaseList != null)
          {
             List<string> customInterfaces = new List<string>();
@@ -283,6 +355,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                // if we see the base class in the model, it's a superclass. Otherwise, it's a custom interface (maybe?)
+               // TODO: Come up with something better than that
                ModelClass superClass = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(c => c.Name == baseName);
 
                if (superClass != null)
@@ -299,8 +372,6 @@ namespace Sawczyn.EFDesigner.EFModel
          XMLDocumentation xmlDocumentation = ProcessXMLDocumentation(classDecl);
          modelClass.Summary = xmlDocumentation.Summary;
          modelClass.Description = xmlDocumentation.Description;
-
-         modelRoot.Types.Add(modelClass);
       }
 
       private class XMLDocumentation
@@ -349,6 +420,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return result;
       }
+
    }
 
 }

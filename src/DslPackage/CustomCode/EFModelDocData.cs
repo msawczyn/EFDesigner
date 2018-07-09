@@ -45,6 +45,24 @@ namespace Sawczyn.EFDesigner.EFModel
                                                  ? activeSolutionProjects.GetValue(0) as Project
                                                  : null;
 
+      public static IEnumerable<string> GetSelectedSourceFilePaths()
+      {
+         List<string> result = new List<string>();
+         UIHierarchy uiHierarchy = Dte2.ToolWindows.SolutionExplorer;
+         Array selectedItems = (Array)uiHierarchy.SelectedItems;
+
+         if (selectedItems != null)
+         {
+            foreach (UIHierarchyItem selectedItem in selectedItems)
+            {
+               if (selectedItem.Object is ProjectItem projectItem)
+                  result.Add(projectItem.Properties.Item("FullPath").Value.ToString());
+            }
+         }
+
+         return result;
+      }
+
       internal static void GenerateCode(string filepath = null)
       {
          string filename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
@@ -73,6 +91,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnDocumentLoaded();
          ErrorDisplay.RegisterDisplayHandler(ShowErrorBox);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
+         FileDropHelper.RegisterFileSelectionHandler(GetSelectedSourceFilePaths);
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 

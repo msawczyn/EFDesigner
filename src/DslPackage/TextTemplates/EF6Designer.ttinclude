@@ -271,11 +271,11 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             segments.Add($"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
       }
 
-      List<string> identityProperties = modelClass.IdentityPropertyNames.ToList();
-      if (identityProperties.Count == 1)
-         segments.Add($"HasKey(t => t.{identityProperties[0]})");
-      else if (identityProperties.Count > 1) 
-         segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityProperties)} }})");
+      List<string> identityAttributes = modelClass.IdentityAttributeNames.ToList();
+      if (identityAttributes.Count == 1)
+         segments.Add($"HasKey(t => t.{identityAttributes[0]})");
+      else if (identityAttributes.Count > 1) 
+         segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes)} }})");
 
       foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
          segments.Add($"Ignore(t => t.{transient.Name})");

@@ -16,6 +16,9 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments
    {
+      /// <summary>
+      /// All attributes in the class, including those inherited from base classes
+      /// </summary>
       public IEnumerable<ModelAttribute> AllAttributes
       {
          get
@@ -28,32 +31,11 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       public IEnumerable<ModelAttribute> RequiredAttributes => Attributes.Where(x => x.Required).ToList();
-
-      public IEnumerable<ModelAttribute> AllRequiredAttributes
-      {
-         get
-         {
-            List<ModelAttribute> result = RequiredAttributes.ToList();
-            if (Superclass != null)
-               result.AddRange(Superclass.RequiredAttributes);
-            return result;
-         }
-      }
-
-      public IEnumerable<ModelAttribute> IdentityProperties => Attributes.Where(x => x.IsIdentity).ToList();
-      public IEnumerable<string> IdentityPropertyNames => IdentityProperties.Select(x => x.Name).ToList();
-
-      public IEnumerable<ModelAttribute> AllIdentityProperties
-      {
-         get
-         {
-            List<ModelAttribute> result = new List<ModelAttribute>(IdentityProperties);
-            if (Superclass != null)
-               result.AddRange(Superclass.AllIdentityProperties);
-            return result;
-         }
-      }
-      public IEnumerable<string> AllIdentityPropertyNames => AllIdentityProperties.Select(x => x.Name).ToList();
+      public IEnumerable<ModelAttribute> AllRequiredAttributes => AllAttributes.Where(x => x.Required).ToList();
+      public IEnumerable<ModelAttribute> IdentityAttributes => Attributes.Where(x => x.IsIdentity).ToList();
+      public IEnumerable<ModelAttribute> AllIdentityAttributes => AllAttributes.Where(x => x.IsIdentity).ToList();
+      public IEnumerable<string> IdentityAttributeNames => IdentityAttributes.Select(x => x.Name).ToList();
+      public IEnumerable<string> AllIdentityAttributeNames => AllIdentityAttributes.Select(x => x.Name).ToList();
 
 
       public ConcurrencyOverride EffectiveConcurrency
@@ -205,7 +187,7 @@ namespace Sawczyn.EFDesigner.EFModel
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void PersistentClassesMustHaveIdentity(ValidationContext context)
       {
-         if (!AllIdentityProperties.Any())
+         if (!AllIdentityAttributes.Any())
             context.LogError($"{Name}: Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
 
