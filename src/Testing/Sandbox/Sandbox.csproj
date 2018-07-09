@@ -117,11 +117,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SandboxContext.cs">
+    <Compile Include="Sandbox.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SandboxContext.tt</DependentUpon>
+      <DependentUpon>Sandbox.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -130,9 +131,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="SandboxContext.efmodel" />
-    <None Include="SandboxContext.efmodel.diagram">
-      <DependentUpon>SandboxContext.efmodel</DependentUpon>
+    <None Include="Sandbox.efmodel" />
+    <None Include="Sandbox.efmodel.diagram">
+      <DependentUpon>Sandbox.efmodel</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +145,9 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SandboxContext.tt">
+    <Content Include="Sandbox.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SandboxContext.cs</LastGenOutput>
+      <LastGenOutput>Sandbox.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

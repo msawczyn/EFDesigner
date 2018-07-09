@@ -526,7 +526,7 @@ void WritePersistentProperties(ModelClass modelClass)
       }
       else
       {
-         string notifyCode = (modelClass.ModelRoot.ImplementNotify) ? " OnPropertyChanged();" : "";
+         string notifyCode = (modelClass.ImplementNotify) ? " OnPropertyChanged();" : "";
          Output($"public {modelAttribute.PrimitiveType}{nullable} {modelAttribute.Name}");
          Output("{");
          Output($"get {{ {modelAttribute.PrimitiveType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");

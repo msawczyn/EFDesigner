@@ -21,13 +21,16 @@ namespace Sawczyn.EFDesigner.EFModel
          RouteJumpType = VGPageLineJumpCode.NoJumps;
       }
 
-      public override void OnDragOver(DiagramDragEventArgs e)
+      public override void OnDragOver(DiagramDragEventArgs diagramDragEventArgs)
       {
-         base.OnDragOver(e);
+         base.OnDragOver(diagramDragEventArgs);
+         draggedFile = null;
 
-         if (e.Effect == System.Windows.Forms.DragDropEffects.None && IsAcceptableDropItem(e))
-            e.Effect = System.Windows.Forms.DragDropEffects.Copy;
+         if (diagramDragEventArgs.Effect == System.Windows.Forms.DragDropEffects.None && IsAcceptableDropItem(diagramDragEventArgs))
+            diagramDragEventArgs.Effect = System.Windows.Forms.DragDropEffects.Copy;
       }
+
+      private string draggedFile = null;
 
       // ReSharper disable once UnusedParameter.Local
       private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
@@ -55,28 +58,35 @@ namespace Sawczyn.EFDesigner.EFModel
             return false;
 
          List<string> selectedFilePaths = FileDropHelper.SelectedFilePaths.ToList();
-         return selectedFilePaths.Any() && selectedFilePaths.All(File.Exists);
+         if (selectedFilePaths.Any())
+            return selectedFilePaths.All(File.Exists);
+
+         // oddly enough, if you select just one file and drag it to the model, the model's selected
+         // we know at least one file was selected or we wouldn't be here, so just use that one filename
+         if (diagramDragEventArgs.Data.GetData("Text") is string filename && File.Exists(filename))
+         {
+            draggedFile = filename;
+            return true;
+         }
+
+         return false;
       }
 
-      public override void OnDragDrop(DiagramDragEventArgs e)
+      public override void OnDragDrop(DiagramDragEventArgs diagramDragEventArgs)
       {
-         if (IsAcceptableDropItem(e))
+         if (draggedFile != null)
          {
-            int elementCount = Store.ElementDirectory.AllElements.OfType<ModelType>().Count();
-            FileDropHelper.HandleMultiDrop(Store, FileDropHelper.SelectedFilePaths);
-            
-            // if we've increased the element count by at least 50%, autolayout
-            if (Store.ElementDirectory.AllElements.OfType<ModelType>().Count() > 1.5 * elementCount)
-            {
-               using (Transaction tx = Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
-               {
-                  AutoLayoutShapeElements(NestedChildShapes, VGRoutingStyle.VGRouteStraight, PlacementValueStyle.VGPlaceSN, true);
-                  tx.Commit();
-               }
-            }
+            List<string> selectedFilePaths = FileDropHelper.SelectedFilePaths
+                                                           .Where(p => p.EndsWith(".cs"))
+                                                           .ToList();
+
+            if (selectedFilePaths.Any())
+               FileDropHelper.HandleMultiDrop(Store, selectedFilePaths);
+            else
+               FileDropHelper.HandleDrop(Store, draggedFile);
          }
          else
-            base.OnDragDrop(e);
+            base.OnDragDrop(diagramDragEventArgs);
       }
 
       //private void ProcessDragDropItem(DiagramDragEventArgs diagramDragEventArgs)
