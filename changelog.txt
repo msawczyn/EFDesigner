@@ -9,6 +9,7 @@
    - Added output directory overrides to classes and enums
    - On save, tool can optionally install EF NuGet packages for the EF type and version specified in the model.
    - Added ability to add/edit enum values via code
+   - Added ability to update or add model classes and enums by dragging files from solution explorer 
 
 1.1.0
    - Bug fixes for exceptions thrown when bad input to model attributes as text

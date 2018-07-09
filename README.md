@@ -53,10 +53,10 @@ You can read more about how to use the designer in the [Documentation site](http
    - Added output directory overrides to classes and enums
    - On save, tool can optionally install EF NuGet packages for the EF type and version specified in the model.
    - Added ability to add/edit enum values via code
-
-</details>
+   - Added ability to update or add model classes and enums by dragging files from solution explorer 
 
 **1.1.0**
+
    - Bug fixes for exceptions thrown when bad input to model attributes as text
    - Added MinLength string property (used in EF6 only as of this writing)
    - Modified attribute parser to accept MinLength
@@ -123,7 +123,7 @@ You can read more about how to use the designer in the [Documentation site](http
 <summary><b>1.0.3.3</b></summary>
 
    - Fix to spurious error when copying/pasting model elements
-   - **Do not use this release. Fix didn't extend to enum elements. This is fixed in 1.0.3.4.
+   - **Do not use this release.** Fix didn't extend to enum elements. This is fixed in 1.0.3.4.
 
 </details>
 
@@ -152,7 +152,6 @@ You can read more about how to use the designer in the [Documentation site](http
 
 <details>
 <summary><b>1.0.1.0</b></summary>
-**1.0.1.0**
 
    - Fix to EF6 T4 for issue where column names in many-to-many association join tables were flipped
 

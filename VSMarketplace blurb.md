@@ -24,7 +24,21 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-1.1.0
+**1.2.0 [ Next version ]**
+
+*   Added optional generation of INotifyPropertyChanged interface and implementation for entities
+*   Property grid hides element properties if they're not appropriate for the EF version
+*   Added ability to tag model as a specific EF version (especially useful for EF Core as new capabilities are being added often)
+*   Inheritance strategy automatically changes to table-per-hierarchy if targeting EF Core
+*   Context property "Database Type" changed to "SqlServer Type" to better reflect what it does
+*   Added ability to tag a class as a dependent type (complex/owned type)
+*   Added option to generated structs in a separate directory
+*   Added output directory overrides to classes and enums
+*   On save, tool can optionally install EF NuGet packages for the EF type and version specified in the model.
+*   Added ability to add/edit enum values via code
+*   Added ability to update or add model classes and enums by dragging files from solution explorer 
+
+**1.1.0**
 
 *   Bug fixes for exceptions thrown when bad input to model attributes as text
 *   Added MinLength string property (used in EF6 only as of this writing)
@@ -35,22 +49,22 @@ For comprehensive documentation, please visit [the project's documentation site]
 *   Added some documentation updates
 *   New minor version number due to MEF capability
 
-1.0.3.9
+**1.0.3.9**
 
 *   If no entities and model is using an unsupported inheritance strategy, changing from EF6 to EFCore doesn't give a message, just changes the strategy.
 *   Added IsFlags attribute (and matching validations and behavior) to Enums
 *   NGENed extension assembly
 
-1.0.3.8
+**1.0.3.8**
 
 *   Fixed project item placement
 *   Added change checks to diagram so dirty flag doesn't set when nothing changes
 
-1.0.3.7
+**1.0.3.7**
 
 *   Emergency bug fixes
 
-1.0.3.6
+**1.0.3.6**
 
 *   Fixed parser errors when editing model attributes as text
 *   Fixed error when auto-generating on save and design surface is not the active window
@@ -59,11 +73,11 @@ For comprehensive documentation, please visit [the project's documentation site]
 *   Standardized warning and error message structure
 *   Added ability to choose 'None' DatabaseInitializer type; generates SetInitializer(null)
 
-1.0.3.5
+**1.0.3.5**
 
 *   Enhanced portability between EF6 an EFCore
 
-1.0.3.4
+**1.0.3.4**
 
 *   Adds some T4 fixes to make generated code more usable in [ASP.NET](http://ASP.NET/) Core applications.
 *   Fix to spurious error when copying/pasting enum elements.
