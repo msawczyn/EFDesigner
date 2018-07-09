@@ -241,11 +241,12 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
          bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
+         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
          if (!loading && IsDatabaseSchemaTracking)
             try
             {
-               return ModelRoot.DatabaseSchema;
+               return modelRoot?.DatabaseSchema;
             }
             catch (NullReferenceException)
             {
@@ -337,11 +338,14 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
          bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
-
+         
          if (!loading && IsNamespaceTracking)
+         {
+            ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+
             try
             {
-               return ModelRoot.Namespace;
+               return modelRoot?.Namespace;
             }
             catch (NullReferenceException)
             {
@@ -354,6 +358,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return default(string);
             }
+         }
 
          return namespaceStorage;
       }
@@ -433,11 +438,12 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
          bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
+         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
          if (!loading && IsOutputDirectoryTracking)
             try
             {
-               return IsDependentType ? ModelRoot.StructOutputDirectory : ModelRoot.EntityOutputDirectory;
+               return IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
             }
             catch (NullReferenceException)
             {

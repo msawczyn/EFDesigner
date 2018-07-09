@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 
+using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
@@ -24,7 +25,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.OnDragOver(e);
 
-         if (e.Effect == System.Windows.Forms.DragDropEffects.None && IsAcceptableDropItem(e)) 
+         if (e.Effect == System.Windows.Forms.DragDropEffects.None && IsAcceptableDropItem(e))
             e.Effect = System.Windows.Forms.DragDropEffects.Copy;
       }
 
@@ -43,11 +44,15 @@ namespace Sawczyn.EFDesigner.EFModel
          //string filename = explorerFile ?? solutionFile;
          //return filename != null && File.Exists(filename);
 
-         // for single file
+         // for single file - insufficient for the use case
          //return diagramDragEventArgs.Data.GetData("Text") is string filename && File.Exists(filename);
 
          // ok, let's try this. For files to be dropped, they have to be selected in the solution explorer
          // just get anything selected there that's a project item with a file path and process it
+
+         // make sure we're dragging a file
+         if (!diagramDragEventArgs.Data.GetDataPresent("Text"))
+            return false;
 
          List<string> selectedFilePaths = FileDropHelper.SelectedFilePaths.ToList();
          return selectedFilePaths.Any() && selectedFilePaths.All(File.Exists);
@@ -57,10 +62,18 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (IsAcceptableDropItem(e))
          {
-            //ProcessDragDropItem(e); 
-
-            foreach (string filePath in FileDropHelper.SelectedFilePaths)
-               FileDropHelper.HandleDrop(Store, filePath);
+            int elementCount = Store.ElementDirectory.AllElements.OfType<ModelType>().Count();
+            FileDropHelper.HandleMultiDrop(Store, FileDropHelper.SelectedFilePaths);
+            
+            // if we've increased the element count by at least 50%, autolayout
+            if (Store.ElementDirectory.AllElements.OfType<ModelType>().Count() > 1.5 * elementCount)
+            {
+               using (Transaction tx = Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
+               {
+                  AutoLayoutShapeElements(NestedChildShapes, VGRoutingStyle.VGRouteStraight, PlacementValueStyle.VGPlaceSN, true);
+                  tx.Commit();
+               }
+            }
          }
          else
             base.OnDragDrop(e);
