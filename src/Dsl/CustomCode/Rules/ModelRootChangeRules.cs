@@ -20,6 +20,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
          if (current.IsSerializing)
             return;
 
+         if (Equals(e.NewValue, e.OldValue))
+            return;
+
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
 
          switch (e.DomainProperty.Name)

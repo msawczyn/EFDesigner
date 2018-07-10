@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Rules;
@@ -29,6 +28,9 @@ namespace Sawczyn.EFDesigner.EFModel
          Transaction current = store.TransactionManager.CurrentTransaction;
 
          if (current.IsSerializing)
+            return;
+
+         if (Equals(e.NewValue, e.OldValue))
             return;
 
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();

@@ -79,7 +79,7 @@ namespace Sawczyn.EFDesigner.EFModel
          List<NavigationProperty> result = LocalNavigationProperties(ignore).ToList();
 
          if (Superclass != null)
-            result.AddRange(Superclass.AllNavigationProperties());
+            result.AddRange(Superclass.AllNavigationProperties(ignore));
 
          return result;
       }

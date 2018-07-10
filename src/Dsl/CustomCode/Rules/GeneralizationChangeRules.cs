@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -17,6 +16,9 @@ namespace Sawczyn.EFDesigner.EFModel
          Transaction current = store.TransactionManager.CurrentTransaction;
 
          if (current.IsSerializing)
+            return;
+
+         if (Equals(e.NewValue, e.OldValue))
             return;
 
          switch (e.DomainProperty.Name)

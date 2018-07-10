@@ -56,7 +56,11 @@ namespace Sawczyn.EFDesigner.EFModel
             foreach (UIHierarchyItem selectedItem in selectedItems)
             {
                if (selectedItem.Object is ProjectItem projectItem)
-                  result.Add(projectItem.Properties.Item("FullPath").Value.ToString());
+               {
+                  string filename = projectItem.Properties.Item("FullPath").Value.ToString();
+                  if (filename.ToLower().EndsWith(".cs"))
+                     result.Add(filename);
+               }
             }
          }
 

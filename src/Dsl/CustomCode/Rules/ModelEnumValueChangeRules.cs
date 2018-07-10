@@ -2,7 +2,6 @@
 using System.CodeDom.Compiler;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
@@ -21,6 +20,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
          Transaction current = store.TransactionManager.CurrentTransaction;
 
          if (current.IsSerializing)
+            return;
+
+         if (Equals(e.NewValue, e.OldValue))
             return;
 
          string errorMessage = null;
@@ -61,13 +63,13 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   switch (modelEnum.ValueType)
                   {
                      case EnumValueType.Int16:
-                        badValue = !Int16.TryParse(newValue, out Int16 result16);
+                        badValue = !Int16.TryParse(newValue, out Int16 _);
                         break;
                      case EnumValueType.Int32:
-                        badValue = !Int32.TryParse(newValue, out Int32 result32);
+                        badValue = !Int32.TryParse(newValue, out Int32 _);
                         break;
                      case EnumValueType.Int64:
-                        badValue = !Int64.TryParse(newValue, out Int64 result64);
+                        badValue = !Int64.TryParse(newValue, out Int64 _);
                         break;
                   }
 

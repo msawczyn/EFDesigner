@@ -227,19 +227,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // since we don't have enough information from the code, we'll create unidirectional associations
          // cardinality 1 on the source end, 0..1 or 0..* on the target, depending on the parameter
+
          XMLDocumentation xmlDocumentation = ProcessXMLDocumentation(propertyDecl);
 
-         // ReSharper disable once UseObjectOrCollectionInitializer
-         UnidirectionalAssociation association = new UnidirectionalAssociation(source, target);
-         association.SourceMultiplicity = Multiplicity.One;
-
-         association.TargetMultiplicity = toMany
-                                             ? Multiplicity.ZeroMany
-                                             : Multiplicity.ZeroOne;
-
-         association.TargetPropertyName = propertyName;
-         association.TargetSummary = xmlDocumentation.Summary;
-         association.TargetDescription = xmlDocumentation.Description;
+         UnidirectionalAssociation association = new UnidirectionalAssociation(source.Store
+                                                                             , new[]
+                                                                               {
+                                                                                  new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source)
+                                                                                , new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
+                                                                               }
+                                                                             , new[]
+                                                                               {
+                                                                                  new PropertyAssignment(UnidirectionalAssociation.SourceMultiplicityDomainPropertyId, Multiplicity.One)
+                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetMultiplicityDomainPropertyId, toMany
+                                                                                                                                                                          ? Multiplicity.ZeroMany
+                                                                                                                                                                          : Multiplicity.ZeroOne)
+                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetPropertyNameDomainPropertyId, propertyName)
+                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetSummaryDomainPropertyId, xmlDocumentation.Summary)
+                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
+                                                                               });
       }
 
       private static void ProcessEnum(Store store, EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)

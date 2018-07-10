@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
@@ -19,9 +18,11 @@ namespace Sawczyn.EFDesigner.EFModel
          Association element = (Association)e.ModelElement;
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
-         ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
 
          if (current.IsSerializing)
+            return;
+
+         if (Equals(e.NewValue, e.OldValue))
             return;
 
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
@@ -33,11 +34,11 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TargetPropertyName":
-               errorMessages.Add(ValidateAssociationIdentifier(element, element.Source, element.Target, (string)e.NewValue));
+               errorMessages.Add(ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue));
                break;
 
             case "SourcePropertyName":
-               errorMessages.Add(ValidateAssociationIdentifier(element, element.Target, element.Source, (string)e.NewValue));
+               errorMessages.Add(ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue));
                break;
 
             case "SourceMultiplicity":
@@ -232,7 +233,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static string ValidateAssociationIdentifier(Association association, ModelClass targetedClass, ModelClass enclosingClass, string identifier)
+      private static string ValidateAssociationIdentifier(Association association, ModelClass targetedClass, string identifier)
       {
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
             return $"{identifier} isn't a valid .NET identifier";

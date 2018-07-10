@@ -1,7 +1,5 @@
-﻿using System;
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
 using System.Linq;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Rules;
 
@@ -19,6 +17,9 @@ namespace Sawczyn.EFDesigner.EFModel
          Transaction current = store.TransactionManager.CurrentTransaction;
 
          if (current.IsSerializing)
+            return;
+
+         if (Equals(e.NewValue, e.OldValue))
             return;
 
          string errorMessage = null;
@@ -53,7 +54,6 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "IsFlags":
-               bool isFlags = (bool)e.NewValue;
                element.SetFlagValues();
 
                break;
