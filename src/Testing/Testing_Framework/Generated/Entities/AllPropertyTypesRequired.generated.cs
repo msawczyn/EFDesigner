@@ -21,9 +21,6 @@ namespace Testing
 {
    public partial class AllPropertyTypesRequired
    {
-      private bool _booleanAttr;
-      private byte _byteAttr;
-
       partial void Init();
 
       /// <summary>
@@ -112,26 +109,19 @@ namespace Testing
       /// Required
       /// </summary>
       [Required]
-      public bool BooleanAttr
-      {
-         get { return _booleanAttr; }
-         set
-         {
-            _booleanAttr = value;
-         }
-      }
+      public bool BooleanAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public byte ByteAttr { get => _byteAttr; set => _byteAttr = value; }
+      public byte ByteAttr { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DateTime? DateTimeAttr { get; set; }
+      public DateTime DateTimeAttr { get; set; }
 
       /// <summary>
       /// Required
@@ -185,7 +175,7 @@ namespace Testing
       /// Required
       /// </summary>
       [Required]
-      public TimeSpan? TimeAttr { get; set; }
+      public TimeSpan TimeAttr { get; set; }
 
       /// <summary>
       /// Required, Min length = 10, Max length = 100

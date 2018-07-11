@@ -24,11 +24,31 @@ namespace Testing
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public DerivedClass(): base()
+      protected DerivedClass(): base()
       {
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_property0"></param>
+      public DerivedClass(string _property0)
+      {
+         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
+         Property0 = _property0;
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_property0"></param>
+      public static DerivedClass Create(string _property0)
+      {
+         return new DerivedClass(_property0);
       }
 
       // Persistent properties

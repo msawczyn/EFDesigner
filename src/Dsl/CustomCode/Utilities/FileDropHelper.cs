@@ -159,6 +159,7 @@ namespace Sawczyn.EFDesigner.EFModel
                continue;
             }
 
+
             // is the property type an existing ModelClass?
             if (target != null)
             {
@@ -170,16 +171,20 @@ namespace Sawczyn.EFDesigner.EFModel
             // is the property type something we don't know about?
             if (!ModelAttribute.IsValidCLRType(propertyType))
             {
-               // assume it's a class and create the class
-               target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
-               modelRoot.Types.Add(target);
+               // might be an enum. If so, we'll handle it like a built-in type
+               ModelEnum enumTarget = modelRoot.Types.OfType<ModelEnum>().FirstOrDefault(t => t.Name == propertyType);
+               if (enumTarget == null)
+               {
+                  // assume it's a class and create the class
+                  target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
+                  modelRoot.Types.Add(target);
 
-               ProcessAssociation(modelClass, target, propertyDecl);
-
-               continue;
+                  ProcessAssociation(modelClass, target, propertyDecl);
+                  continue;
+               }
             }
 
-            // if we'ref here, it's just a property
+            // if we'ref here, it's just a property (or enum)
             try
             {
                // ReSharper disable once UseObjectOrCollectionInitializer
@@ -255,20 +260,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
          XMLDocumentation xmlDocumentation = ProcessXMLDocumentation(propertyDecl);
 
-         UnidirectionalAssociation association = new UnidirectionalAssociation(source.Store
-                                                                             , new[]
-                                                                               {
-                                                                                  new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source)
-                                                                                , new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
-                                                                               }
-                                                                             , new[]
-                                                                               {
-                                                                                  new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
-                                                                                , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, toMany ? Multiplicity.ZeroMany : Multiplicity.ZeroOne)
-                                                                                , new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, propertyName)
-                                                                                , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary)
-                                                                                , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
-                                                                               });
+         UnidirectionalAssociation unused = new UnidirectionalAssociation(source.Store
+                                                                       , new[]
+                                                                         {
+                                                                            new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source)
+                                                                          , new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
+                                                                         }
+                                                                       , new[]
+                                                                         {
+                                                                            new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
+                                                                          , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, toMany ? Multiplicity.ZeroMany : Multiplicity.ZeroOne)
+                                                                          , new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, propertyName)
+                                                                          , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary)
+                                                                          , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
+                                                                         });
       }
 
       private static void ProcessEnum([NotNull] Store store, [NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)

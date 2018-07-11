@@ -35,10 +35,13 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_property1"></param>
-      public ConcreteDerivedClassWithRequiredProperties(string _property1)
+      /// <param name="_property0"></param>
+      public ConcreteDerivedClassWithRequiredProperties(string _property1, string _property0)
       {
          if (string.IsNullOrEmpty(_property1)) throw new ArgumentNullException(nameof(_property1));
          Property1 = _property1;
+         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
+         Property0 = _property0;
          Init();
       }
 
@@ -46,9 +49,10 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_property1"></param>
-      public static ConcreteDerivedClassWithRequiredProperties Create(string _property1)
+      /// <param name="_property0"></param>
+      public static ConcreteDerivedClassWithRequiredProperties Create(string _property1, string _property0)
       {
-         return new ConcreteDerivedClassWithRequiredProperties(_property1);
+         return new ConcreteDerivedClassWithRequiredProperties(_property1, _property0);
       }
 
       // Persistent properties

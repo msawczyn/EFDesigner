@@ -207,6 +207,9 @@
     </Compile>
     <Compile Include="CustomCode\Package.cs" />
     <Compile Include="CustomCode\Messages.cs" />
+    <Compile Include="CustomCode\Partials\EFModelExplorer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

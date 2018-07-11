@@ -44,7 +44,7 @@ namespace Testing
 
       public bool? BooleanAttr { get; set; }
 
-      public virtual byte? ByteAttr { get; set; }
+      public byte? ByteAttr { get; set; }
 
       public DateTime? DateTimeAttr { get; set; }
 

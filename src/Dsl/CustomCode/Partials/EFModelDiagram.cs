@@ -62,7 +62,7 @@ namespace Sawczyn.EFDesigner.EFModel
             else
                base.OnDragDrop(diagramDragEventArgs);
 
-            if (missingFiles != null)
+            if (missingFiles != null && missingFiles.Any())
             {
                if (missingFiles.Length > 1)
                   missingFiles[missingFiles.Length - 1] = "and " + missingFiles[missingFiles.Length - 1];

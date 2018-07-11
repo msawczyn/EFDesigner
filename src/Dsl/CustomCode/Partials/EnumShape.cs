@@ -12,6 +12,22 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class EnumShape
    {
       /// <summary>
+      /// Exposes NodeShape Collapse() function to DSL's context menu
+      /// </summary>
+      public void CollapseShape()
+      {
+         Collapse();
+      }
+
+      /// <summary>
+      /// Exposes NodeShape Expand() function to DSL's context menu
+      /// </summary>
+      public void ExpandShape()
+      {
+         Expand();
+      }
+
+      /// <summary>
       ///    Model element that is being dragged.
       /// </summary>
       private static ModelEnumValue dragStartElement;

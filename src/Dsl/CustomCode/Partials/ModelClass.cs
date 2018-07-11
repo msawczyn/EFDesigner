@@ -496,7 +496,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             try
             {
-               calculatedValue = element.IsDependentType ? element.ModelRoot.StructOutputDirectory : element.ModelRoot.Namespace;
+               calculatedValue = element.IsDependentType ? element.ModelRoot.StructOutputDirectory : element.ModelRoot.EntityOutputDirectory;
             }
             catch (NullReferenceException) { }
             catch (Exception e)

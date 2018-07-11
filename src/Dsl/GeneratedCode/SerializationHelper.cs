@@ -506,7 +506,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					///// <param name="partition">Partition in which the new ModelRoot instance will be created.</param>
 					///// <param name="fileName">Name of the file from which the ModelRoot instance will be deserialized.</param>
 					///// <param name="modelRoot">The root of the file that was loaded.</param>
-					// private void OnPostLoadModel(DslModeling::SerializationResult serializationResult, DslModeling::Partition partition, string location, ModelRoot modelRoot )
+					// private void OnPostLoadModel(DslModeling::SerializationResult serializationResult, DslModeling::Partition partition, string fileName, ModelRoot modelRoot )
 	
 					this.OnPostLoadModel(serializationResult, partition, location, modelRoot);
 					if (serializationResult.Failed)
@@ -1168,7 +1168,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				// Only model has schema, diagram has no schema.
 				rootElementSettings.SchemaTargetNamespace = "http://schemas.microsoft.com/dsltools/EFModel";
 			}
-			rootElementSettings.Version = new global::System.Version("1.2.0.14");
+			rootElementSettings.Version = new global::System.Version("1.2.0.15");
 	
 			// Carry out the normal serialization.
 			rootSerializer.Write(serializationContext, rootElement, writer, rootElementSettings);
@@ -1190,7 +1190,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				throw new global::System.ArgumentNullException("reader");
 			#endregion
 	
-			global::System.Version expectedVersion = new global::System.Version("1.2.0.14");
+			global::System.Version expectedVersion = new global::System.Version("1.2.0.15");
 			string dslVersionStr = reader.GetAttribute("dslVersion");
 			if (dslVersionStr != null)
 			{
