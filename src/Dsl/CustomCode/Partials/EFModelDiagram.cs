@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
@@ -21,30 +22,64 @@ namespace Sawczyn.EFDesigner.EFModel
          RouteJumpType = VGPageLineJumpCode.NoJumps;
       }
 
+      public static bool IsDropping { get; private set; }
+
       public override void OnDragOver(DiagramDragEventArgs diagramDragEventArgs)
       {
          base.OnDragOver(diagramDragEventArgs);
 
-         // For files to be dropped, they have to be selected in the solution explorer
-         // just get anything selected there that's a .cs file and remember it
-         selectedFilePaths = FileDropHelper.SelectedFilePaths.ToList();
-         if (!selectedFilePaths.Any() || !selectedFilePaths.All(File.Exists))
-            selectedFilePaths = null;
-
-         if (diagramDragEventArgs.Effect == System.Windows.Forms.DragDropEffects.None && selectedFilePaths != null)
-            diagramDragEventArgs.Effect = System.Windows.Forms.DragDropEffects.Copy;
+         if (diagramDragEventArgs.Effect == DragDropEffects.None && IsAcceptableDropItem(diagramDragEventArgs))
+            diagramDragEventArgs.Effect = DragDropEffects.Copy;
       }
 
-      private List<string> selectedFilePaths = null;
+      private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
+      {
+         IsDropping = (diagramDragEventArgs.Data.GetData("Text") is string filename && File.Exists(filename)) || 
+                      (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames && filenames.All(File.Exists));
+
+         return IsDropping;
+      }
 
       public override void OnDragDrop(DiagramDragEventArgs diagramDragEventArgs)
       {
-         if (selectedFilePaths?.Any() == true)
-            FileDropHelper.HandleMultiDrop(Store, selectedFilePaths);
-         else
-            base.OnDragDrop(diagramDragEventArgs);
+         if (IsDropping)
+         {
+            string[] missingFiles = null;
 
-         selectedFilePaths = null;
+            if (diagramDragEventArgs.Data.GetData("Text") is string filename)
+            {
+               if (!File.Exists(filename)) 
+                  missingFiles = new[] {filename};
+               else                
+                  FileDropHelper.HandleDrop(Store, filename);
+            }
+            else if (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames)
+            {
+               string[] existingFiles = filenames.Where(File.Exists).ToArray();
+               FileDropHelper.HandleMultiDrop(Store, existingFiles);
+               missingFiles = filenames.Except(existingFiles).ToArray();
+            }
+            else
+               base.OnDragDrop(diagramDragEventArgs);
+
+            if (missingFiles != null)
+            {
+               if (missingFiles.Length > 1)
+                  missingFiles[missingFiles.Length - 1] = "and " + missingFiles[missingFiles.Length - 1];
+               ErrorDisplay.Show($"Can't find files {string.Join(", ", missingFiles)}");
+            }
+         }
+
+
+         IsDropping = false;
+      }
+
+      /// <summary>Called by the control's OnMouseUp().</summary>
+      /// <param name="e">A DiagramMouseEventArgs that contains event data.</param>
+      public override void OnMouseUp(DiagramMouseEventArgs e)
+      {
+         IsDropping = false;
+         base.OnMouseUp(e);
       }
    }
 }

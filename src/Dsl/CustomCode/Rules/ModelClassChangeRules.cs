@@ -42,6 +42,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (newIsStruct)
                {
+                  List<Association> associations = store.ElementDirectory
+                                                        .AllElements
+                                                        .OfType<Association>()
+                                                        .Where(a => (a.Source == element && a.SourceMultiplicity == Multiplicity.ZeroMany) ||
+                                                                    (a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
+                                                        .ToList();
+
+                  if (associations.Any())
+                  {
+                     List<string> classNameList = associations.Select(a => a.Target.Name).ToList();
+                     if (classNameList.Count > 1)
+                        classNameList[classNameList.Count - 1] = "and " + classNameList[classNameList.Count - 1];
+                     string classNames = string.Join(", ", classNameList);
+
+                     errorMessages.Add($"Can't have a 0..* association to a dependent type. Found 0..* link(s) with {classNames}");
+
+                     break;
+                  }
+
                   foreach (ModelAttribute modelAttribute in element.AllAttributes.Where(a => a.IsIdentity))
                      modelAttribute.IsIdentity = false;
                }

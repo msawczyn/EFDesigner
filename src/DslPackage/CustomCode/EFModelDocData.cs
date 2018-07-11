@@ -95,7 +95,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnDocumentLoaded();
          ErrorDisplay.RegisterDisplayHandler(ShowErrorBox);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
-         FileDropHelper.RegisterFileSelectionHandler(GetSelectedSourceFilePaths);
+         //FileDropHelper.RegisterFileSelectionHandler(GetSelectedSourceFilePaths);
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 

@@ -33,16 +33,21 @@ namespace Sawczyn.EFDesigner.EFModel
                UpdateDisplayForPersistence(element);
                break;
 
-            case "TargetPropertyName":
-               errorMessages.Add(ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue));
-               break;
+            case "SourceDeleteAction":
+               DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
+               UpdateDisplayForCascadeDelete(element, sourceDeleteAction);
 
-            case "SourcePropertyName":
-               errorMessages.Add(ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue));
                break;
 
             case "SourceMultiplicity":
                Multiplicity newSourceMultiplicity = (Multiplicity)e.NewValue;
+
+               if (element.Target.IsDependentType && !element.Source.IsDependentType && newSourceMultiplicity == Multiplicity.ZeroMany)
+               {
+                  errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+
+                  break;
+               }
 
                if ((newSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
                    (newSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
@@ -56,8 +61,37 @@ namespace Sawczyn.EFDesigner.EFModel
                UpdateDisplayForCascadeDelete(element, null, null, newSourceMultiplicity);
                break;
 
+            case "SourcePropertyName":
+               string sourcePropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
+               if (EFModelDiagram.IsDropping && sourcePropertyNameErrorMessage != null)
+                  element.Delete();
+               else
+                  errorMessages.Add(sourcePropertyNameErrorMessage);
+               break;
+
+            case "SourceRole":
+               EndpointRole newSourceRole = (EndpointRole)e.NewValue;
+               if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Dependent)
+                  element.TargetRole = EndpointRole.Principal;
+               else if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Principal)
+                  element.TargetRole = EndpointRole.Dependent;
+
+               break;
+
+            case "TargetDeleteAction":
+               DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
+               UpdateDisplayForCascadeDelete(element, null, targetDeleteAction);
+               break;
+
             case "TargetMultiplicity":
                Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
+
+               if (element.Source.IsDependentType && !element.Target.IsDependentType && newTargetMultiplicity == Multiplicity.ZeroMany)
+               {
+                  errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
+
+                  break;
+               }
 
                if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
                    (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
@@ -71,13 +105,17 @@ namespace Sawczyn.EFDesigner.EFModel
                UpdateDisplayForCascadeDelete(element, null, null, null, newTargetMultiplicity);
                break;
 
-            case "SourceRole":
-               EndpointRole newSourceRole = (EndpointRole)e.NewValue;
-               if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Dependent)
-                  element.TargetRole = EndpointRole.Principal;
-               else if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Principal)
-                  element.TargetRole = EndpointRole.Dependent;
+            case "TargetPropertyName":
+               // if we're creating an association via drag/drop, it's possible the existing property name
+               // is the same as the default property name. The default doesn't get created until the transaction is 
+               // committed, so the drop's action will cause a name clash. Remove the clashing property, but
+               // only if drag/drop.
 
+               string targetPropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
+               if (EFModelDiagram.IsDropping && targetPropertyNameErrorMessage != null)
+                  element.Delete();
+               else
+                  errorMessages.Add(targetPropertyNameErrorMessage);
                break;
 
             case "TargetRole":
@@ -87,17 +125,6 @@ namespace Sawczyn.EFDesigner.EFModel
                else if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Principal)
                   element.SourceRole = EndpointRole.Dependent;
 
-               break;
-
-            case "SourceDeleteAction":
-               DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
-               UpdateDisplayForCascadeDelete(element, sourceDeleteAction);
-
-               break;
-
-            case "TargetDeleteAction":
-               DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
-               UpdateDisplayForCascadeDelete(element, null, targetDeleteAction);
                break;
          }
 

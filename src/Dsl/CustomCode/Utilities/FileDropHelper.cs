@@ -8,27 +8,29 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Annotations;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
 
-   internal class FileDropHelper
+   public class FileDropHelper
    {
-      private static Func<IEnumerable<string>> FileSelectionHandler;
+      //private static Func<IEnumerable<string>> FileSelectionHandler;
 
-      public static void RegisterFileSelectionHandler(Func<IEnumerable<string>> fileSelectionHandler)
-      {
-         // called from EFModelDocData.OnDocumentLoaded
-         FileSelectionHandler = fileSelectionHandler;
-      }
+      //public static void RegisterFileSelectionHandler(Func<IEnumerable<string>> fileSelectionHandler)
+      //{
+      //   // called from EFModelDocData.OnDocumentLoaded
+      //   FileSelectionHandler = fileSelectionHandler;
+      //}
 
-      public static IEnumerable<string> SelectedFilePaths => FileSelectionHandler == null
-                                                                ? new string[0]
-                                                                : FileSelectionHandler().ToArray();
+      //public static IEnumerable<string> SelectedFilePaths => FileSelectionHandler == null
+      //                                                          ? new string[0]
+      //                                                          : FileSelectionHandler().ToArray();
 
       public static void HandleDrop(Store store, string filename)
       {
+         if (store == null || filename == null) return;
 
          using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
          {
@@ -39,19 +41,27 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void HandleMultiDrop(Store store, IEnumerable<string> filenames)
       {
-         using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped classes"))
+         if (store == null || filenames == null) return;
+
+         foreach (string filename in filenames)
          {
-            foreach (string filename in filenames)
+            using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped classes"))
             {
                if (!DoHandleDrop(store, filename))
                   return;
+               tx.Commit();
             }
-            tx.Commit();
          }
       }
 
-      private static bool DoHandleDrop(Store store, string filename)
+      private static bool DoHandleDrop([NotNull] Store store, [NotNull] string filename)
       {
+         if (store == null)
+            throw new ArgumentNullException(nameof(store));
+
+         if (filename == null)
+            throw new ArgumentNullException(nameof(filename));
+
          try
          {
             if (string.IsNullOrEmpty(filename))
@@ -101,8 +111,14 @@ namespace Sawczyn.EFDesigner.EFModel
          return true;
       }
 
-      private static void ProcessProperties(Store store, ClassDeclarationSyntax classDecl)
+      private static void ProcessProperties([NotNull] Store store, [NotNull] ClassDeclarationSyntax classDecl)
       {
+         if (store == null)
+            throw new ArgumentNullException(nameof(store));
+
+         if (classDecl == null)
+            throw new ArgumentNullException(nameof(classDecl));
+
          string className = classDecl.Identifier.Text;
          ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          ModelClass modelClass = store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
@@ -221,8 +237,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       }
 
-      private static void ProcessAssociation(ModelClass source, ModelClass target, PropertyDeclarationSyntax propertyDecl, bool toMany = false)
+      private static void ProcessAssociation([NotNull] ModelClass source, [NotNull] ModelClass target, [NotNull] PropertyDeclarationSyntax propertyDecl, bool toMany = false)
       {
+         if (source == null)
+            throw new ArgumentNullException(nameof(source));
+
+         if (target == null)
+            throw new ArgumentNullException(nameof(target));
+
+         if (propertyDecl == null)
+            throw new ArgumentNullException(nameof(propertyDecl));
+
          string propertyName = propertyDecl.Identifier.ToString();
 
          // since we don't have enough information from the code, we'll create unidirectional associations
@@ -238,18 +263,22 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                }
                                                                              , new[]
                                                                                {
-                                                                                  new PropertyAssignment(UnidirectionalAssociation.SourceMultiplicityDomainPropertyId, Multiplicity.One)
-                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetMultiplicityDomainPropertyId, toMany
-                                                                                                                                                                          ? Multiplicity.ZeroMany
-                                                                                                                                                                          : Multiplicity.ZeroOne)
-                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetPropertyNameDomainPropertyId, propertyName)
-                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetSummaryDomainPropertyId, xmlDocumentation.Summary)
-                                                                                , new PropertyAssignment(UnidirectionalAssociation.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
+                                                                                  new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
+                                                                                , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, toMany ? Multiplicity.ZeroMany : Multiplicity.ZeroOne)
+                                                                                , new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, propertyName)
+                                                                                , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary)
+                                                                                , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
                                                                                });
       }
 
-      private static void ProcessEnum(Store store, EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      private static void ProcessEnum([NotNull] Store store, [NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
       {
+         if (store == null)
+            throw new ArgumentNullException(nameof(store));
+
+         if (enumDecl == null)
+            throw new ArgumentNullException(nameof(enumDecl));
+
          ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          string enumName = enumDecl.Identifier.Text;
 
@@ -325,8 +354,14 @@ namespace Sawczyn.EFDesigner.EFModel
          modelRoot.Enums.Add(modelEnum);
       }
 
-      private static void ProcessClass(Store store, ClassDeclarationSyntax classDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      private static void ProcessClass([NotNull] Store store, [NotNull] ClassDeclarationSyntax classDecl, NamespaceDeclarationSyntax namespaceDecl = null)
       {
+         if (store == null)
+            throw new ArgumentNullException(nameof(store));
+
+         if (classDecl == null)
+            throw new ArgumentNullException(nameof(classDecl));
+
          ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          string className = classDecl.Identifier.Text;
 
@@ -405,8 +440,11 @@ namespace Sawczyn.EFDesigner.EFModel
          public string Description { get; set; }
       }
 
-      private static XMLDocumentation ProcessXMLDocumentation(SyntaxNode classDecl)
+      private static XMLDocumentation ProcessXMLDocumentation([NotNull] SyntaxNode classDecl)
       {
+         if (classDecl == null)
+            throw new ArgumentNullException(nameof(classDecl));
+
          string Extract(DocumentationCommentTriviaSyntax xmlComment, string tagName)
          {
             string extracted = null;

@@ -19,6 +19,13 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          // TODO: Error if 1..N to an owned type (EFCore) or to a complex type (EF6)
+         if (element.TargetMultiplicity == Multiplicity.ZeroMany && element.Target.IsDependentType)
+         {
+            current.Rollback();
+            ErrorDisplay.Show($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+
+            return;
+         }
 
          if (string.IsNullOrEmpty(element.TargetPropertyName))
          {
