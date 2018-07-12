@@ -104,11 +104,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
          DynamicStatusMenuCommand expandSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusExpandSelected, OnMenuExpandSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidExpandSelected));
-         commands.Add(selectBidirCommand);
+         commands.Add(expandSelectedCommand);
 
          DynamicStatusMenuCommand collapseSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusCollapseSelected, OnMenuCollapseSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidCollapseSelected));
-         commands.Add(selectBidirCommand);
+         commands.Add(collapseSelectedCommand);
 
          // Additional commands go here.  
          return commands;
@@ -379,7 +379,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = true;
+            command.Visible = false;
             command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
          }
       }
@@ -405,7 +405,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = true;
+            command.Visible = false;
             command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
          }
       }
