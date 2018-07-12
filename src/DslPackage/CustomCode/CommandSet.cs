@@ -24,21 +24,23 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
 
-      private const int cmdidFind              = 0x0011;
-      private const int cmdidLayoutDiagram     = 0x0012;
-      private const int cmdidHideShape         = 0x0013;
-      private const int cmdidShowShape         = 0x0014;
-      private const int cmdidGenerateCode      = 0x0015;
+      private const int cmdidFind = 0x0011;
+      private const int cmdidLayoutDiagram = 0x0012;
+      private const int cmdidHideShape = 0x0013;
+      private const int cmdidShowShape = 0x0014;
+      private const int cmdidGenerateCode = 0x0015;
       private const int cmdidAddCodeProperties = 0x0016;
-      private const int cmdidSaveAsImage       = 0x0017;
-      private const int cmdidLoadNuGet         = 0x0018;
-      private const int cmdidAddCodeValues     = 0x0019;
+      private const int cmdidSaveAsImage = 0x0017;
+      private const int cmdidLoadNuGet = 0x0018;
+      private const int cmdidAddCodeValues = 0x0019;
+      private const int cmdidExpandSelected = 0x001A;
+      private const int cmdidCollapseSelected = 0x001B;
 
-      private const int cmdidSelectClasses     = 0x0101;
-      private const int cmdidSelectEnums       = 0x0102;
-      private const int cmdidSelectAssocs      = 0x0103;
-      private const int cmdidSelectUnidir      = 0x0104;
-      private const int cmdidSelectBidir       = 0x0105;
+      private const int cmdidSelectClasses = 0x0101;
+      private const int cmdidSelectEnums = 0x0102;
+      private const int cmdidSelectAssocs = 0x0103;
+      private const int cmdidSelectUnidir = 0x0104;
+      private const int cmdidSelectBidir = 0x0105;
 
       protected override IList<MenuCommand> GetMenuCommands()
       {
@@ -100,7 +102,15 @@ namespace Sawczyn.EFDesigner.EFModel
             new DynamicStatusMenuCommand(OnStatusSelectBidir, OnMenuSelectBidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectBidir));
          commands.Add(selectBidirCommand);
 
-         // Add more commands here.  
+         DynamicStatusMenuCommand expandSelectedCommand =
+            new DynamicStatusMenuCommand(OnStatusExpandSelected, OnMenuExpandSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidExpandSelected));
+         commands.Add(selectBidirCommand);
+
+         DynamicStatusMenuCommand collapseSelectedCommand =
+            new DynamicStatusMenuCommand(OnStatusCollapseSelected, OnMenuCollapseSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidCollapseSelected));
+         commands.Add(selectBidirCommand);
+
+         // Additional commands go here.  
          return commands;
       }
 
@@ -249,13 +259,13 @@ namespace Sawczyn.EFDesigner.EFModel
                               switch (parts.Length)
                               {
                                  case 1:
-                                    element.Values.Add(new ModelEnumValue(element.Store, 
+                                    element.Values.Add(new ModelEnumValue(element.Store,
                                                                           new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0])));
 
                                     break;
                                  case 2:
-                                    element.Values.Add(new ModelEnumValue(element.Store, 
-                                                                          new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0]), 
+                                    element.Values.Add(new ModelEnumValue(element.Store,
+                                                                          new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0]),
                                                                           new PropertyAssignment(ModelEnumValue.ValueDomainPropertyId, parts[1])));
 
                                     break;
@@ -363,6 +373,60 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Hide Shape
+      #region Expand Selected Shapes
+
+      private void OnStatusExpandSelected(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
+         }
+      }
+
+      private void OnMenuExpandSelected(object sender, EventArgs e)
+      {
+         using (Transaction tx = CurrentSelection.OfType<NodeShape>().First().Store.TransactionManager.BeginTransaction("Expand Selected"))
+         {
+            foreach (ClassShape classShape in CurrentSelection.OfType<ClassShape>())
+               classShape.ExpandShape();
+
+            foreach (EnumShape enumShape in CurrentSelection.OfType<EnumShape>())
+               enumShape.ExpandShape();
+
+            tx.Commit();
+         }
+      }
+
+      #endregion Expand Selected Shapes
+      #region Collapse Selected Shapes
+
+      private void OnStatusCollapseSelected(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
+         }
+      }
+
+      private void OnMenuCollapseSelected(object sender, EventArgs e)
+      {
+         {
+            using (Transaction tx = CurrentSelection.OfType<NodeShape>().First().Store.TransactionManager.BeginTransaction("Collapse Selected"))
+            {
+               foreach (ClassShape classShape in CurrentSelection.OfType<ClassShape>())
+                  classShape.CollapseShape();
+
+               foreach (EnumShape enumShape in CurrentSelection.OfType<EnumShape>())
+                  enumShape.CollapseShape();
+
+               tx.Commit();
+            }
+         }
+      }
+
+      #endregion Collapse Selected Shapes
       #region Layout Diagram
 
       private void OnStatusLayoutDiagram(object sender, EventArgs e)

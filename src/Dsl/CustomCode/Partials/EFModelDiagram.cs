@@ -42,6 +42,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override void OnDragDrop(DiagramDragEventArgs diagramDragEventArgs)
       {
+         base.OnDragDrop(diagramDragEventArgs);
+
          if (IsDropping)
          {
             string[] missingFiles = null;
@@ -69,7 +71,6 @@ namespace Sawczyn.EFDesigner.EFModel
                ErrorDisplay.Show($"Can't find files {string.Join(", ", missingFiles)}");
             }
          }
-
 
          IsDropping = false;
       }

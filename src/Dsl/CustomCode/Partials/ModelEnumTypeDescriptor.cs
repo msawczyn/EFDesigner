@@ -43,8 +43,8 @@ namespace Sawczyn.EFDesigner.EFModel
           
             /********************************************************************************/
 
-            DomainPropertyInfo outputDirectoryPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.OutputDirectoryDomainPropertyId);
-            DomainPropertyInfo isOutputDirectoryTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.IsOutputDirectoryTrackingDomainPropertyId);
+            DomainPropertyInfo outputDirectoryPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelEnum.OutputDirectoryDomainPropertyId);
+            DomainPropertyInfo isOutputDirectoryTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelEnum.IsOutputDirectoryTrackingDomainPropertyId);
 
             // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
             Attribute[] outputDirectoryAttributes =
