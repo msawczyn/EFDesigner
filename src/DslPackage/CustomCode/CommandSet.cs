@@ -445,7 +445,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
             {
-               diagram.AutoLayoutShapeElements(diagram.NestedChildShapes,
+               diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
                   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
                   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
                   false);

@@ -1,15 +1,5 @@
 DSL: Add a Project Explorer icon for the EFModel type
 
-DSL: Add EFCore2.1 support
-T4:  Add EFCore2.1 support
-
-DSL: Investigate whether we can eliminate ModelType and/or ClassModelElement from the DSL. 
-     They don't seem to be adding much if anything, but do participate in connections, so may be important
-    
-DSL: Implement complex properties (structs)
-T4:  Implement complex properties (structs)
-
-DSL: Add TableName to attributes to enable entity splitting, tracking TableName from parent ModelClass
 T4:  Implement entity splitting
 
 T4:  How to code FluentAPI for Geography and Geometry types?
