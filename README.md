@@ -43,6 +43,7 @@ You can read more about how to use the designer in the [Documentation site](http
 
 ***1.2.0 [ In development ]***
 
+   - Roslyn-based code analysis now allows dragging C# files onto the design surface to add or update classes and enums
    - Added optional generation of INotifyPropertyChanged interface and implementation for entities
    - Property grid hides element properties if they're not appropriate for the EF version
    - Added ability to tag model as a specific EF version (especially useful for EF Core as new capabilities are being added often)
@@ -53,7 +54,7 @@ You can read more about how to use the designer in the [Documentation site](http
    - Added output directory overrides to classes and enums
    - On save, tool can optionally install EF NuGet packages for the EF type and version specified in the model.
    - Added ability to add/edit enum values via code
-   - Added ability to update or add model classes and enums by dragging files from solution explorer 
+   - Context menu action to expand and collapse selected classes and enums 
 
 **1.1.0**
 

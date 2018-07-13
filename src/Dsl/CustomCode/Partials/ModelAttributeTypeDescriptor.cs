@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
+
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
 
@@ -23,6 +25,15 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelAttribute != null)
          {
             storeDomainDataDirectory = modelAttribute.Store.DomainDataDirectory;
+
+            EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelAttribute);
+
+            // dono't display IdentityType unless the IsIdentity is true
+            if (!modelAttribute.IsIdentity)
+            {
+               PropertyDescriptor identityTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IdentityType");
+               propertyDescriptors.Remove(identityTypeDescriptor);
+            }
 
             /********************************************************************************/
 

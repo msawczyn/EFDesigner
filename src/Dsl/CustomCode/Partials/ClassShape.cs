@@ -13,7 +13,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void CollapseShape()
       {
-         Collapse();
+         SetIsExpandedValue(false);
       }
 
       /// <summary>
@@ -21,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void ExpandShape()
       {
-         Expand();
+         SetIsExpandedValue(true);
       }
 
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)

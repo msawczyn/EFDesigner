@@ -65,22 +65,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
       {
-         // for later
-
          //ModelRoot modelRoot = element.ModelClass.ModelRoot;
 
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
-         //   switch (propertyDescriptors[index].Name)
-         //   {
-         //      default:
-         //         break;
-         //   }
+         for (int index = 0; index < propertyDescriptors.Count; index++)
+         {
+            bool shouldRemove = false;
 
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
+            switch (propertyDescriptors[index].Name)
+            {
+               default:
+
+                  break;
+            }
+
+            if (shouldRemove)
+               propertyDescriptors.Remove(propertyDescriptors[index--]);
+         }
       }
 
       #endregion ModelAttribute
@@ -104,22 +104,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
       {
-         // for later
+         ModelRoot modelRoot = element.Source.ModelRoot;
 
-         //ModelRoot modelRoot = element.Source.ModelRoot;
+         for (int index = 0; index < propertyDescriptors.Count; index++)
+         {
+            bool shouldRemove = false;
+            switch (propertyDescriptors[index].Name)
+            {
+               default:
+                  break;
+            }
 
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
-         //   switch (propertyDescriptors[index].Name)
-         //   {
-         //      default:
-         //         break;
-         //   }
-
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
+            if (shouldRemove)
+               propertyDescriptors.Remove(propertyDescriptors[index--]);
+         }
       }
 
       #endregion Association
