@@ -57,6 +57,7 @@ You can read more about how to use the designer in the [Documentation site](http
       - Property grid hides element properties if they're not appropriate for the EF version
       - Inheritance strategy automatically changes to table-per-hierarchy if targeting EF Core
       - Context property `Database Type` changed to `SqlServer Type` to better reflect what it does
+      - Selecting an element in the Model Explorer highlights it on the diagram
 
 **1.1.0**
 
