@@ -18009,6 +18009,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// OutlineThickness
+			if (!serializationContext.Result.Failed)
+			{
+				string attribOutlineThickness = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outlineThickness");
+				if (attribOutlineThickness != null)
+				{
+					global::System.Single valueOfOutlineThickness;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Single>(serializationContext, attribOutlineThickness, out valueOfOutlineThickness))
+					{
+						instanceOfEnumShape.OutlineThickness = valueOfOutlineThickness;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outlineThickness", typeof(global::System.Single), attribOutlineThickness);
+					}
+				}
+			}
+			// OutlineDashStyle
+			if (!serializationContext.Result.Failed)
+			{
+				string attribOutlineDashStyle = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outlineDashStyle");
+				if (attribOutlineDashStyle != null)
+				{
+					global::System.Drawing.Drawing2D.DashStyle valueOfOutlineDashStyle;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Drawing2D.DashStyle>(serializationContext, attribOutlineDashStyle, out valueOfOutlineDashStyle))
+					{
+						instanceOfEnumShape.OutlineDashStyle = valueOfOutlineDashStyle;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outlineDashStyle", typeof(global::System.Drawing.Drawing2D.DashStyle), attribOutlineDashStyle);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -18475,6 +18509,26 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (!serializationContext.Result.Failed)
 				{
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "visible", serializedPropValue);
+				}
+			}
+			// OutlineThickness
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Single propValue = instanceOfEnumShape.OutlineThickness;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Single>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outlineThickness", serializedPropValue);
+				}
+			}
+			// OutlineDashStyle
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Drawing.Drawing2D.DashStyle propValue = instanceOfEnumShape.OutlineDashStyle;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Drawing2D.DashStyle>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outlineDashStyle", serializedPropValue);
 				}
 			}
 		}

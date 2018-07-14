@@ -175,6 +175,14 @@ namespace Sawczyn.EFDesigner.EFModel
          Messages.AddWarning(message);
       }
 
+      /// <summary>Called before the document is saved.</summary>
+      protected override void OnDocumentSaving(EventArgs e)
+      {
+         // make sure that, if a model element is highlighted, we set the colors back to where they should be before saving it
+         EFModelExplorerToolWindow.ClearHighlight();
+         base.OnDocumentSaving(e);
+      }
+
       protected override void OnDocumentSaved(EventArgs e)
       {
          base.OnDocumentSaved(e);

@@ -13,6 +13,7 @@
       - Property grid hides element properties if they're not appropriate for the EF version
       - Inheritance strategy automatically changes to table-per-hierarchy if targeting EF Core
       - Context property "Database Type" changed to "SqlServer Type" to better reflect what it does
+      - Selecting an element in the Model Explorer highlights it prominently on the diagram
 
 1.1.0
    - Bug fixes for exceptions thrown when bad input to model attributes as text

@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class ClassShape
+   public partial class ClassShape : IHighlightFromModelExplorer
    {
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu

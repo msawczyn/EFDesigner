@@ -223,6 +223,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(EnumShape), "TextColor", EnumShape.TextColorDomainPropertyId, typeof(EnumShape.TextColorPropertyHandler)),
 				new DomainMemberInfo(typeof(EnumShape), "OutlineColor", EnumShape.OutlineColorDomainPropertyId, typeof(EnumShape.OutlineColorPropertyHandler)),
 				new DomainMemberInfo(typeof(EnumShape), "Visible", EnumShape.VisibleDomainPropertyId, typeof(EnumShape.VisiblePropertyHandler)),
+				new DomainMemberInfo(typeof(EnumShape), "OutlineThickness", EnumShape.OutlineThicknessDomainPropertyId, typeof(EnumShape.OutlineThicknessPropertyHandler)),
+				new DomainMemberInfo(typeof(EnumShape), "OutlineDashStyle", EnumShape.OutlineDashStyleDomainPropertyId, typeof(EnumShape.OutlineDashStylePropertyHandler)),
 			};
 		}
 		/// <summary>

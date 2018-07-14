@@ -9,7 +9,7 @@ namespace Sawczyn.EFDesigner.EFModel
    ///    Override some methods of the compartment shape.
    ///    *** GenerateDoubleDerived must be set for this shape in DslDefinition.dsl. ****
    /// </summary>
-   public partial class EnumShape
+   public partial class EnumShape : IHighlightFromModelExplorer
    {
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.2.0.15" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 18.125, 17.75" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.2.0.16" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 18.125, 17.75" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -206,7 +206,7 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <enumShape Id="e6582c70-309b-4ff3-8e43-d93db4e607a3" absoluteBounds="1.5, 0.5, 1.5, 1.2362939453125001" fillColor="Gray" textColor="White" outlineColor="Black" visible="true">
+    <enumShape Id="e6582c70-309b-4ff3-8e43-d93db4e607a3" absoluteBounds="1.5, 0.5, 1.5, 1.2362939453125001" fillColor="Gray" textColor="White" outlineColor="Black" visible="true" outlineThickness="0.01" outlineDashStyle="Solid">
       <modelEnumMoniker Id="d999f148-5d0f-4b8d-a3fc-5abf12f0242b" />
       <nestedChildShapes>
         <elementListCompartment Id="dce2fca1-deda-41cf-95c9-9478ec8b606b" absoluteBounds="1.5150000000000001, 0.81, 1.4700000000000002, 0.8262939453125" name="ValuesCompartment" titleTextColor="Black" itemTextColor="Black" />
@@ -330,7 +330,7 @@
         <classShapeMoniker Id="91ebab80-108f-4198-b2bb-a43ff000ad35" />
       </nodes>
     </generalizationConnector>
-    <enumShape Id="02c880e5-adbe-4739-9518-4106e42ad256" absoluteBounds="12.625, 1.25, 1.5, 1.4285953776041667" fillColor="Gray" textColor="White" outlineColor="Black" visible="true">
+    <enumShape Id="02c880e5-adbe-4739-9518-4106e42ad256" absoluteBounds="12.625, 1.25, 1.5, 1.4285953776041667" fillColor="Gray" textColor="White" outlineColor="Black" visible="true" outlineThickness="0.01" outlineDashStyle="Solid">
       <modelEnumMoniker Id="bd0cda7d-2914-445c-8721-61ef7496c1bf" />
       <nestedChildShapes>
         <elementListCompartment Id="befc07f2-0a9b-4042-9d7e-4de562e7f415" absoluteBounds="12.64, 1.56, 1.4700000000000002, 1.0185953776041665" name="ValuesCompartment" titleTextColor="Black" itemTextColor="Black" />

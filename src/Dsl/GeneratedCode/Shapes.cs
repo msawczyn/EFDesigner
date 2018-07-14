@@ -1561,6 +1561,56 @@ namespace Sawczyn.EFDesigner.EFModel
 			this.Invalidate();
 		}
 		
+		/// <summary>
+		/// Custom storage for domain property OutlineDashStyle.
+		/// </summary>
+		private global::System.Drawing.Drawing2D.DashStyle GetOutlineDashStyleValue()
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings != null && settings.IsOverridden(DslDiagrams::PenSettingsFlags.DashStyle))
+			{
+				return settings.DashStyle;
+			}
+			return global::System.Drawing.Drawing2D.DashStyle.Solid;
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineDashStyle.
+		/// </summary>
+		private void SetOutlineDashStyleValue(global::System.Drawing.Drawing2D.DashStyle newValue)
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.DashStyle = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ShapeOutline, settings);
+			this.Invalidate();
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineThickness.
+		/// </summary>
+		private float GetOutlineThicknessValue()
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings != null && settings.IsOverridden(DslDiagrams::PenSettingsFlags.Width))
+			{
+				return settings.Width;
+			}
+			return 0.01f;
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineThickness.
+		/// </summary>
+		private void SetOutlineThicknessValue(float newValue)
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.Width = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ShapeOutline, settings);
+			this.Invalidate();
+		}
+		
 		#endregion
 		#region Decorators
 		/// <summary>
@@ -2141,6 +2191,185 @@ namespace Sawczyn.EFDesigner.EFModel
 					// set to CustomStorage. Please provide the SetVisibleValue()
 					// method on the domain class.
 					element.SetVisibleValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region OutlineThickness domain property code
+		
+		/// <summary>
+		/// OutlineThickness domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid OutlineThicknessDomainPropertyId = new global::System.Guid(0x22d0c259, 0xc2d2, 0x4bd5, 0xa6, 0xc8, 0x5e, 0xb7, 0x87, 0x01, 0xea, 0xd0);
+		
+		/// <summary>
+		/// Gets or sets the value of OutlineThickness domain property.
+		/// Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Thickness
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("22d0c259-c2d2-4bd5-a6c8-5eb78701ead0")]
+		public global::System.Single OutlineThickness
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return OutlineThicknessPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				OutlineThicknessPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EnumShape.OutlineThickness domain property.
+		/// </summary>
+		internal sealed partial class OutlineThicknessPropertyHandler : DslModeling::DomainPropertyValueHandler<EnumShapeBase, global::System.Single>
+		{
+			private OutlineThicknessPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EnumShape.OutlineThickness domain property value handler.
+			/// </summary>
+			public static readonly OutlineThicknessPropertyHandler Instance = new OutlineThicknessPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EnumShape.OutlineThickness domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return OutlineThicknessDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Single GetValue(EnumShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for OutlineThickness because its Kind is
+				// set to CustomStorage. Please provide the GetOutlineThicknessValue()
+				// method on the domain class.
+				return element.GetOutlineThicknessValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EnumShapeBase element, global::System.Single newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Single oldValue = GetValue(element);
+				// float type precision is guaranteed only to 7th digit.
+				if (global::System.Math.Abs(newValue - oldValue) > 1e-7)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for OutlineThickness because its Kind is
+					// set to CustomStorage. Please provide the SetOutlineThicknessValue()
+					// method on the domain class.
+					element.SetOutlineThicknessValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region OutlineDashStyle domain property code
+		
+		/// <summary>
+		/// OutlineDashStyle domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid OutlineDashStyleDomainPropertyId = new global::System.Guid(0x06df5a34, 0x08ff, 0x4a03, 0xbe, 0xa5, 0x44, 0x4f, 0x2b, 0xef, 0x94, 0x54);
+		
+		/// <summary>
+		/// Gets or sets the value of OutlineDashStyle domain property.
+		/// Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Dash Style
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("06df5a34-08ff-4a03-bea5-444f2bef9454")]
+		public global::System.Drawing.Drawing2D.DashStyle OutlineDashStyle
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return OutlineDashStylePropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				OutlineDashStylePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EnumShape.OutlineDashStyle domain property.
+		/// </summary>
+		internal sealed partial class OutlineDashStylePropertyHandler : DslModeling::DomainPropertyValueHandler<EnumShapeBase, global::System.Drawing.Drawing2D.DashStyle>
+		{
+			private OutlineDashStylePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EnumShape.OutlineDashStyle domain property value handler.
+			/// </summary>
+			public static readonly OutlineDashStylePropertyHandler Instance = new OutlineDashStylePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EnumShape.OutlineDashStyle domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return OutlineDashStyleDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Drawing2D.DashStyle GetValue(EnumShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for OutlineDashStyle because its Kind is
+				// set to CustomStorage. Please provide the GetOutlineDashStyleValue()
+				// method on the domain class.
+				return element.GetOutlineDashStyleValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EnumShapeBase element, global::System.Drawing.Drawing2D.DashStyle newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Drawing2D.DashStyle oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for OutlineDashStyle because its Kind is
+					// set to CustomStorage. Please provide the SetOutlineDashStyleValue()
+					// method on the domain class.
+					element.SetOutlineDashStyleValue(newValue);
 					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}

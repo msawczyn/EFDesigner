@@ -2485,6 +2485,22 @@
     <value>Display</value>
     <comment>Category for DomainProperty &apos;Visible&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Thickness</value>
+    <comment>Description for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;EnumShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.DisplayName" xml:space="preserve">
+    <value>Outline Thickness</value>
+    <comment>DisplayName for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;EnumShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Dash Style</value>
+    <comment>Description for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;EnumShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.DisplayName" xml:space="preserve">
+    <value>Outline Dash Style</value>
+    <comment>DisplayName for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;EnumShape&apos;</comment>
+  </data>
   <data name="EnumShapeValuesCompartmentTitle" xml:space="preserve">
     <value>Values</value>
     <comment>Compartment title</comment>

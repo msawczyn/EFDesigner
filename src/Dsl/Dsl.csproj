@@ -212,6 +212,8 @@
     <Compile Include="CustomCode\Partials\EnumShapeBase.cs" />
     <Compile Include="CustomCode\Partials\Generalization.cs" />
     <Compile Include="CustomCode\Partials\GeneralizationConnector.cs" />
+    <Compile Include="CustomCode\Partials\IHighlightFromModelExplorer.cs" />
+    <Compile Include="CustomCode\Partials\IModelElementWithCompartments.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
     <Compile Include="CustomCode\Partials\ModelAttributeTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />

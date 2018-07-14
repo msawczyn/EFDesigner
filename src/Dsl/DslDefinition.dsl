@@ -1133,7 +1133,7 @@
         <TextDecorator Name="Comment" DisplayName="Comment" DefaultText="BusinessRulesShapeNameDecorator" />
       </ShapeHasDecorators>
     </GeometryShape>
-    <CompartmentShape Id="de514c36-0966-422a-9511-997b89ac7a56" Description="" Name="EnumShape" DisplayName="Enum Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Enum Shape" TextColor="White" ExposesTextColor="true" FillColor="Gray" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" Geometry="Rectangle">
+    <CompartmentShape Id="de514c36-0966-422a-9511-997b89ac7a56" Description="" Name="EnumShape" DisplayName="Enum Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Enum Shape" TextColor="White" ExposesTextColor="true" FillColor="Gray" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
       <Properties>
         <DomainProperty Id="b4b78660-37fd-48ee-90c1-4a338c5db791" Description="No description available" Name="FillColor" DisplayName="Fill Color" DefaultValue="" Kind="CustomStorage" Category="Display">
           <Type>
@@ -1153,6 +1153,16 @@
         <DomainProperty Id="53db1f2a-6349-411e-b28a-08a6f8ed36aa" Description="Description for Sawczyn.EFDesigner.EFModel.EnumShape.Visible" Name="Visible" DisplayName="Visible" Kind="CustomStorage" Category="Display">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="22d0c259-c2d2-4bd5-a6c8-5eb78701ead0" Description="Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Thickness" Name="OutlineThickness" DisplayName="Outline Thickness" Kind="CustomStorage">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Single" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="06df5a34-08ff-4a03-bea5-444f2bef9454" Description="Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Dash Style" Name="OutlineDashStyle" DisplayName="Outline Dash Style" Kind="CustomStorage">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing.Drawing2D/DashStyle" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1672,6 +1682,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="visible">
             <DomainPropertyMoniker Name="EnumShape/Visible" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="outlineThickness">
+            <DomainPropertyMoniker Name="EnumShape/OutlineThickness" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="outlineDashStyle">
+            <DomainPropertyMoniker Name="EnumShape/OutlineDashStyle" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

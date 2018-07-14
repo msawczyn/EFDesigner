@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
@@ -8,11 +10,6 @@ using Microsoft.VisualStudio.Modeling.Validation;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   /// <summary>
-   /// Tag interface indicating that the diagram items for this element has compartments
-   /// </summary>
-   public interface IModelElementWithCompartments { }
-
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments
    {
