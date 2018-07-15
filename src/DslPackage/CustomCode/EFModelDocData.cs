@@ -95,7 +95,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnDocumentLoaded();
          ErrorDisplay.RegisterDisplayHandler(ShowErrorBox);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
-         //FileDropHelper.RegisterFileSelectionHandler(GetSelectedSourceFilePaths);
+         QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -168,6 +168,11 @@ namespace Sawczyn.EFDesigner.EFModel
       private DialogResult ShowQuestionBox(string question)
       {
          return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY);
+      }
+
+      private bool ShowBooleanQuestionBox(string question)
+      {
+         return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY) == DialogResult.Yes;
       }
 
       private void ShowWarning(string message)

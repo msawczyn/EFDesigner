@@ -239,6 +239,7 @@
     <Compile Include="CustomCode\Rules\ModelRootChangeRules.cs" />
     <Compile Include="CustomCode\Rules\RuleRegistrations.cs" />
     <Compile Include="CustomCode\Utilities\AttributeParser.cs" />
+    <Compile Include="CustomCode\Utilities\QuestionDisplay.cs" />
     <Compile Include="CustomCode\Utilities\TypeConverters\BaseClassTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TypeConverters\CollectionTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Partials\ModelClassTypeDescriptor.cs" />

@@ -51,10 +51,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static IEnumerable<string> GetErrors(ModelAttribute element)
       {
-         ModelRoot modelRoot = element.ModelClass.ModelRoot;
+         ModelRoot modelRoot = element.ModelClass?.ModelRoot;
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+         if (modelRoot?.EntityFrameworkVersion == EFVersion.EFCore)
          {
             if (ModelAttribute.SpatialTypes.Contains(element.Type))
                errorMessages.Add($"{element.Type} {element.ModelClass.Name}.{element.Name}: EFCore does not (yet) support spatial types");
@@ -65,22 +65,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
       {
-         //ModelRoot modelRoot = element.ModelClass.ModelRoot;
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
 
-         for (int index = 0; index < propertyDescriptors.Count; index++)
-         {
-            bool shouldRemove = false;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
+         //      default:
 
-            switch (propertyDescriptors[index].Name)
-            {
-               default:
+         //         break;
+         //   }
 
-                  break;
-            }
-
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
-         }
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
       }
 
       #endregion ModelAttribute
@@ -92,7 +90,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = element.Source.ModelRoot;
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot.EntityFrameworkVersion > EFVersion.EF6)
+         if (modelRoot?.EntityFrameworkVersion > EFVersion.EF6)
          {
             if ((element.SourceMultiplicity == Multiplicity.ZeroMany) &&
                 (element.TargetMultiplicity == Multiplicity.ZeroMany))
@@ -104,20 +102,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
       {
-         ModelRoot modelRoot = element.Source.ModelRoot;
+         //ModelRoot modelRoot = element.Source.ModelRoot;
 
-         for (int index = 0; index < propertyDescriptors.Count; index++)
-         {
-            bool shouldRemove = false;
-            switch (propertyDescriptors[index].Name)
-            {
-               default:
-                  break;
-            }
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
+         //      default:
+         //         break;
+         //   }
 
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
-         }
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
       }
 
       #endregion Association

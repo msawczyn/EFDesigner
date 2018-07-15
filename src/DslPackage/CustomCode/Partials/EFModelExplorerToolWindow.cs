@@ -59,6 +59,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // restore cached settings
          highlightCache?.ResetShapeColors();
+         highlightCache = null;
 
          if (PrimarySelection is ModelElement modelElement && 
              PresentationViewsSubject.GetPresentation(modelElement).FirstOrDefault() is IHighlightFromModelExplorer selectedShape)
@@ -66,16 +67,6 @@ namespace Sawczyn.EFDesigner.EFModel
             highlightCache = new HighlightCache(modelElement, selectedShape);
             highlightCache.SetShapeColors();
          }
-      }
-
-      /// <summary>
-      /// Creates the model explorer to be hosted in the window.
-      /// </summary>
-      /// <returns>ModelExplorerTreeContainer</returns>
-      protected override ModelExplorerTreeContainer CreateTreeContainer()
-      {
-         ModelExplorerTreeContainer result = base.CreateTreeContainer();
-         return result;
       }
 
       public static void ClearHighlight()
