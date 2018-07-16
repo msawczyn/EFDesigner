@@ -10,7 +10,7 @@
    - Bidirectional associations
    - Comment blocks
 - Model validations pertinent to the targeted EF code (EF6 or EFCore)
-- Save diagram as jpg
+- Save diagram as image
 - Show/hide diagram elements for clarity
 - Customize colors of classes and enums on diagram
 - Expand/collapse classes and enums on diagram

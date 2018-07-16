@@ -18,5 +18,6 @@ the designer and you won't lose track of what that element is.
 <img src="images/CommentConnector.jpg">
 
 ### Next Step 
-[Generating Code](Templates)
+[Importing Code](Importing)
+
 

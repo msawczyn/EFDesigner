@@ -17,6 +17,7 @@ and these can be modified to generate your own particular style.
 If you are used to the Entity Framework visual modeling that came with prior versions of 
 Visual Studio, you'll be pretty much at home. The goal was to duplicate at least those features 
 and, in addition, all the things that should have been there. Things like
+- importing code to populate the model
 - the ability to show and hide parts of the model
 - easy customization of generated output
 - class nodes that can be colored to visually group the model
