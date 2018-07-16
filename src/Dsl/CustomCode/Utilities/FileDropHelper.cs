@@ -118,13 +118,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
             foreach (PropertyDeclarationSyntax propertyDecl in classDecl.DescendantNodes().OfType<PropertyDeclarationSyntax>())
             {
+               // if the property has a fat arrow expression as its direct descendent, it's a readonly calculated property
+               // TODO: we should handle this
+               // but for this release, ignore it
+               if (propertyDecl.ChildNodes().OfType<ArrowExpressionClauseSyntax>().Any())
+                  continue;
+
+               AccessorDeclarationSyntax getAccessor = (AccessorDeclarationSyntax)propertyDecl.DescendantNodes().FirstOrDefault(node => node.IsKind(SyntaxKind.GetAccessorDeclaration));
+               AccessorDeclarationSyntax setAccessor = (AccessorDeclarationSyntax)propertyDecl.DescendantNodes().FirstOrDefault(node => node.IsKind(SyntaxKind.SetAccessorDeclaration));
+
+               // if there's no getAccessor, why are we bothering?
+               if (getAccessor == null) continue;
+
                string propertyName = propertyDecl.Identifier.ToString();
                string propertyType = propertyDecl.Type.ToString();
                ModelClass target = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(t => t.Name == propertyType);
 
                // is the property type a generic?
                // assume it's a list
-               // TODO: this isn't a good idea. Fix later
+               // TODO: this really isn't a good assumption. Fix later
                if (propertyDecl.ChildNodes().OfType<GenericNameSyntax>().Any())
                {
                   GenericNameSyntax genericDecl = propertyDecl.ChildNodes().OfType<GenericNameSyntax>().FirstOrDefault();
@@ -161,13 +173,16 @@ namespace Sawczyn.EFDesigner.EFModel
                   continue;
                }
 
+               bool propertyShowsNullable = propertyDecl.DescendantNodes().OfType<NullableTypeSyntax>().Any();
+
                // is the property type something we don't know about?
                if (!ModelAttribute.IsValidCLRType(propertyType))
                {
-                  // might be an enum. If so, we'll handle it like a built-in type
+                  // might be an enum. If so, we'll handle it like a CLR type
+                  // if it's nullable, it's definitely an enum, but if we don't know about it, it could be an enum or a class
                   ModelEnum enumTarget = modelRoot.Types.OfType<ModelEnum>().FirstOrDefault(t => t.Name == propertyType);
 
-                  if (enumTarget == null)
+                  if (enumTarget == null && !propertyShowsNullable)
                   {
                      // assume it's a class and create the class
                      target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
@@ -179,13 +194,13 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                }
 
-               // if we'ref here, it's just a property (or enum)
+               // if we'ref here, it's just a property (CLR or enum)
                try
                {
                   // ReSharper disable once UseObjectOrCollectionInitializer
                   ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName));
                   modelAttribute.Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?');
-                  modelAttribute.Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyDecl.DescendantNodes().OfType<NullableTypeSyntax>().Any();
+                  modelAttribute.Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyShowsNullable;
                   modelAttribute.Indexed = propertyDecl.HasAttribute("IndexedAttribute");
                   modelAttribute.IsIdentity = propertyDecl.HasAttribute("KeyAttribute");
                   modelAttribute.Virtual = propertyDecl.DescendantTokens().Any(t => t.IsKind(SyntaxKind.VirtualKeyword));
@@ -209,8 +224,12 @@ namespace Sawczyn.EFDesigner.EFModel
                                                       : 0;
                   }
 
-                  AccessorDeclarationSyntax getAccessor = (AccessorDeclarationSyntax)propertyDecl.DescendantNodes().FirstOrDefault(node => node.IsKind(SyntaxKind.GetAccessorDeclaration));
-                  AccessorDeclarationSyntax setAccessor = (AccessorDeclarationSyntax)propertyDecl.DescendantNodes().FirstOrDefault(node => node.IsKind(SyntaxKind.SetAccessorDeclaration));
+                  // if no setAccessor, it's a calculated readonly property
+                  if (setAccessor == null)
+                  {
+                     modelAttribute.Persistent = false;
+                     modelAttribute.ReadOnly = true;
+                  }
 
                   modelAttribute.AutoProperty = !getAccessor.DescendantNodes().Any(node => node.IsKind(SyntaxKind.Block)) && !setAccessor.DescendantNodes().Any(node => node.IsKind(SyntaxKind.Block));
 
@@ -485,10 +504,13 @@ namespace Sawczyn.EFDesigner.EFModel
             if (superClass != null)
                modelClass.Superclass = superClass;
 
-            customInterfaces.AddRange(modelClass.CustomInterfaces
-                                                .Split(',')
-                                                .Where(i => !string.IsNullOrEmpty(i))
-                                                .Select(i => i.Trim()));
+            if (modelClass.CustomInterfaces != null)
+            {
+               customInterfaces.AddRange(modelClass.CustomInterfaces
+                                                   .Split(',')
+                                                   .Where(i => !string.IsNullOrEmpty(i))
+                                                   .Select(i => i.Trim()));
+            }
 
             if (customInterfaces.Contains("INotifyPropertyChanged"))
             {

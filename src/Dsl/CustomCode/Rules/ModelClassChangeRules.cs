@@ -146,7 +146,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (current.Name.ToLowerInvariant() != "paste" &&
                    (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
-                  errorMessages.Add("DbSet name must be a valid .NET identifier");
+                  errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
 
                else if (store.ElementDirectory
                              .AllElements
@@ -162,7 +162,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (current.Name.ToLowerInvariant() != "paste" &&
                    (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
-                  errorMessages.Add("Name must be a valid .NET identifier");
+                  errorMessages.Add($"Class name '{newName}' isn't a valid .NET identifier.");
                
                else if (store.ElementDirectory
                              .AllElements
