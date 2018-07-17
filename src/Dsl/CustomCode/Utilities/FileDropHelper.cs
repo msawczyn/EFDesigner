@@ -13,7 +13,7 @@ using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public class FileDropHelper
+   public static class FileDropHelper
    {
       public static void HandleDrop(Store store, string filename)
       {
@@ -517,6 +517,9 @@ namespace Sawczyn.EFDesigner.EFModel
                modelClass.ImplementNotify = true;
                customInterfaces.Remove("INotifyPropertyChanged");
             }
+
+            if (modelClass.Superclass != null && customInterfaces.Contains(modelClass.Superclass.Name))
+               customInterfaces.Remove(modelClass.Superclass.Name);
 
             modelClass.CustomInterfaces = customInterfaces.Any()
                                              ? string.Join(",", customInterfaces.Distinct())
