@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2
+// EFDesigner v1.2.0
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -442,13 +442,34 @@ void WriteConstructor(ModelClass modelClass)
          Output("/// Static create function (for use in LINQ queries, etc.)");
          Output("/// </summary>");
          WriteConstructorComments(modelClass);
-         Output($"public static {modelClass.Name} Create({string.Join(", ", GetRequiredParameters(modelClass))})");
+         
+         string newToken = "";
+         List<string> requiredParameters = GetRequiredParameters(modelClass);
+         if (!AllSuperclassesAreNullOrAbstract(modelClass))
+         {
+            List<string> superclassRequiredParameters = GetRequiredParameters(modelClass.Superclass);
+            if (!requiredParameters.Except(superclassRequiredParameters).Any())
+               newToken = "new " ;
+         }
+         
+         Output($"public static {newToken}{modelClass.Name} Create({string.Join(", ", GetRequiredParameters(modelClass))})");
          Output("{");
          Output($"return new {modelClass.Name}({string.Join(", ", GetRequiredParameterNames(modelClass))});");
          Output("}");
          NL();
       }
    }
+}
+
+bool AllSuperclassesAreNullOrAbstract(ModelClass modelClass)
+{
+   ModelClass superClass = modelClass.Superclass;
+   while (superClass != null)
+   {
+      if (!superClass.IsAbstract) return false;
+      superClass = superClass.Superclass;
+   }
+   return true;
 }
 
 void WriteConstructorComments(ModelClass modelClass)

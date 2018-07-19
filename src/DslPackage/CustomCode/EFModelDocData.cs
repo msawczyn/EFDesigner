@@ -154,6 +154,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void ShowMessageBox(string message)
       {
+         Messages.AddMessage(message);
          PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_INFO);
       }
 
@@ -172,7 +173,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private bool ShowBooleanQuestionBox(string question)
       {
-         return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY) == DialogResult.Yes;
+         return ShowQuestionBox(question) == DialogResult.Yes;
       }
 
       private void ShowWarning(string message)
@@ -211,11 +212,11 @@ namespace Sawczyn.EFDesigner.EFModel
          public string CurrentPackageVersion { get; set; }
       }
 
-      public void EnsureCorrectNuGetPackages(ModelRoot modelRoot, bool auto = true)
+      public void EnsureCorrectNuGetPackages(ModelRoot modelRoot, bool force = true)
       {
          EFVersionDetails versionInfo = GetEFVersionDetails(modelRoot);
 
-         if (auto || ShouldLoadPackages(modelRoot, versionInfo))
+         if (force || ShouldLoadPackages(modelRoot, versionInfo))
          {
             // first unload what's there, if anything
             if (versionInfo.CurrentPackageId != null)
@@ -225,8 +226,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                try
                {
-                  //List<string> uninstallSequence = GetPackagesToUninstall(versionInfo.CurrentPackageId);
-                  NuGetUninstaller.UninstallPackage(ActiveProject, versionInfo.CurrentPackageId, true /*versionInfo.TargetPackageId != versionInfo.CurrentPackageId*/);
+                  NuGetUninstaller.UninstallPackage(ActiveProject, versionInfo.CurrentPackageId, true);
                   Dte.StatusBar.Text = $"Finished uninstalling {versionInfo.CurrentPackageId} v{versionInfo.CurrentPackageVersion}";
                }
                catch (Exception ex)

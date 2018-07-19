@@ -9,27 +9,31 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    internal partial class EFModelExplorerToolWindow
    {
-      internal class HighlightCache
+      private class HighlightCache
       {
-         internal IHighlightFromModelExplorer CachedShape { get; private set; }
-         internal Store CachedShapeStore => (CachedShape as ModelElement)?.Store;
-         internal bool? Visible => CachedShape?.Visible;
+         private IHighlightFromModelExplorer CachedShape { get; }
+         private Store CachedShapeStore => (CachedShape as ModelElement)?.Store;
+         private bool? Visible => CachedShape?.Visible;
 
-         internal Color CachedColor { get; }
-         internal DashStyle CachedDashStyle { get; }
-         internal float CachedThickness { get; }
+         private Color CachedColor { get; }
+         private DashStyle CachedDashStyle { get; }
+         private float CachedThickness { get; }
 
          public HighlightCache(IHighlightFromModelExplorer shape)
          {
             CachedShape = shape;
-            CachedColor = shape.OutlineColor;
-            CachedDashStyle = shape.OutlineDashStyle;
-            CachedThickness = shape.OutlineThickness;
+
+            if (shape != null)
+            {
+               CachedColor = shape.OutlineColor;
+               CachedDashStyle = shape.OutlineDashStyle;
+               CachedThickness = shape.OutlineThickness;
+            }
          }
 
          internal void SetShapeColors()
          {
-            if (Visible == true)
+            if (Visible == true && CachedShapeStore?.TransactionManager != null && CachedShape != null)
             {
                using (Transaction tx = CachedShapeStore.TransactionManager.BeginTransaction("Set model explorer highlight"))
                {
@@ -43,14 +47,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
          internal void ResetShapeColors()
          {
-            if (Visible == true)
+            if (Visible == true && CachedShapeStore?.TransactionManager != null && CachedShape != null)
             {
                using (Transaction tx = CachedShapeStore.TransactionManager.BeginTransaction("Reset model explorer highlight"))
                {
                   CachedShape.OutlineColor = CachedColor;
                   CachedShape.OutlineDashStyle = CachedDashStyle;
                   CachedShape.OutlineThickness = CachedThickness;
-                  CachedShape = null;
                   tx.Commit();
                }
             }
@@ -67,7 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel
          highlightCache?.ResetShapeColors();
          highlightCache = null;
 
-         if (PrimarySelection is ModelElement modelElement && 
+         if (PrimarySelection is ModelElement modelElement &&
              PresentationViewsSubject.GetPresentation(modelElement).FirstOrDefault() is IHighlightFromModelExplorer selectedShape)
          {
             highlightCache = new HighlightCache(selectedShape);

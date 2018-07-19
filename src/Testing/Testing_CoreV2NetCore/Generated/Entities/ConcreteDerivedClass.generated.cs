@@ -23,11 +23,31 @@ namespace Testing_CoreV2NetCore
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public ConcreteDerivedClass(): base()
+      protected ConcreteDerivedClass(): base()
       {
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_property0"></param>
+      public ConcreteDerivedClass(string _property0)
+      {
+         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
+         Property0 = _property0;
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_property0"></param>
+      public static new ConcreteDerivedClass Create(string _property0)
+      {
+         return new ConcreteDerivedClass(_property0);
       }
 
       // Persistent properties
