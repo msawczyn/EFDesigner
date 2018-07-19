@@ -27,8 +27,6 @@ namespace Testing
       /// </summary>
       protected BParentCollection()
       {
-         BChildCollection = new System.Collections.Generic.HashSet<BChild>();
-
          Init();
       }
 
@@ -41,7 +39,6 @@ namespace Testing
          if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
          BChildRequired = _bchildrequired;
 
-         BChildCollection = new HashSet<BChild>();
          Init();
       }
 
@@ -69,7 +66,6 @@ namespace Testing
       ///  // Required
       /// </summary>
       public virtual BChild BChildRequired { get; set; }  // Required
-      public virtual ICollection<BChild> BChildCollection { get; set; } 
       public virtual BChild BChildOptional { get; set; } 
    }
 }

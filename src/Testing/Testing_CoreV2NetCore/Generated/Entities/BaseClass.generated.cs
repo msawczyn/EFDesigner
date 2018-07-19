@@ -45,7 +45,7 @@ namespace Testing_CoreV2NetCore
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_property0"></param>
-      public static BaseClass Create(string _property0)
+      public static new BaseClass Create(string _property0)
       {
          return new BaseClass(_property0);
       }

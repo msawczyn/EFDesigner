@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.0.4" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" showCascadeDeletes="true" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.0.16" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" transformOnSave="false" showCascadeDeletes="true" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired" isOutputDirectoryTracking="false">
       <attributes>
@@ -76,9 +76,6 @@
         <unidirectionalAssociation Id="1876b64f-0b1a-44c2-a415-5eec03aae433" sourceMultiplicity="ZeroMany" targetMultiplicity="One" targetPropertyName="UChildRequired" collectionClass="HashSet" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None">
           <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
         </unidirectionalAssociation>
-        <unidirectionalAssociation Id="6df9ec96-aaf4-4df6-be00-6d5378a0acc8" sourceMultiplicity="ZeroMany" targetPropertyName="UChildCollection" collectionClass="HashSet" sourceRole="NotApplicable" targetRole="NotApplicable" foreignKeyLocation="None">
-          <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
-        </unidirectionalAssociation>
         <unidirectionalAssociation Id="09c924dc-a66e-46f4-a4fa-35699772ac7b" sourceMultiplicity="ZeroMany" targetMultiplicity="ZeroOne" targetPropertyName="UChildOptional" collectionClass="HashSet" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None">
           <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
         </unidirectionalAssociation>
@@ -114,9 +111,6 @@
       </attributes>
       <bidirectionalTargets>
         <bidirectionalAssociation Id="47d48c4e-b550-4b15-b005-8eead2a2714d" sourceMultiplicity="ZeroMany" targetMultiplicity="One" targetPropertyName="BChildRequired" collectionClass="HashSet" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None" sourcePropertyName="BParentCollection">
-          <modelClassMoniker Id="05c388a2-e071-4862-ba4c-1e25bf10b920" />
-        </bidirectionalAssociation>
-        <bidirectionalAssociation Id="c2a8b39c-e510-4281-92ab-c38053149c89" sourceMultiplicity="ZeroMany" targetPropertyName="BChildCollection" collectionClass="HashSet" sourceRole="NotApplicable" targetRole="NotApplicable" foreignKeyLocation="None" sourcePropertyName="BParentCollection_1">
           <modelClassMoniker Id="05c388a2-e071-4862-ba4c-1e25bf10b920" />
         </bidirectionalAssociation>
         <bidirectionalAssociation Id="9a8e24ab-f156-496b-8682-dcaf71d2a6e5" sourceMultiplicity="ZeroMany" targetMultiplicity="ZeroOne" targetPropertyName="BChildOptional" collectionClass="HashSet" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None" sourcePropertyName="BParentCollection_2">

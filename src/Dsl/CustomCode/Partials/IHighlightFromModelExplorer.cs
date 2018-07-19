@@ -7,5 +7,6 @@ namespace Sawczyn.EFDesigner.EFModel {
       Color OutlineColor { get; set; }
       DashStyle OutlineDashStyle { get; set; }
       float OutlineThickness { get; set; }
+      bool Visible { get; set; }
    }
 }

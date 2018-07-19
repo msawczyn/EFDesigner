@@ -46,7 +46,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_property0"></param>
-      public static ConcreteDerivedClass Create(string _property0)
+      public static new ConcreteDerivedClass Create(string _property0)
       {
          return new ConcreteDerivedClass(_property0);
       }

@@ -28,7 +28,6 @@ namespace Testing
       protected BChild()
       {
          BParentCollection = new System.Collections.Generic.HashSet<BParentCollection>();
-         BParentCollection_1 = new System.Collections.Generic.HashSet<BParentCollection>();
          BParentCollection_2 = new System.Collections.Generic.HashSet<BParentCollection>();
 
          Init();
@@ -52,7 +51,6 @@ namespace Testing
          BParentRequired_2 = _bparentrequired_2;
 
          BParentCollection = new HashSet<BParentCollection>();
-         BParentCollection_1 = new HashSet<BParentCollection>();
          BParentCollection_2 = new HashSet<BParentCollection>();
          Init();
       }
@@ -92,7 +90,6 @@ namespace Testing
       /// </summary>
       public virtual BParentRequired BParentRequired_2 { get; set; }  // Required
       public virtual ICollection<BParentCollection> BParentCollection { get; set; } 
-      public virtual ICollection<BParentCollection> BParentCollection_1 { get; set; } 
       public virtual ICollection<BParentCollection> BParentCollection_2 { get; set; } 
       public virtual BParentOptional BParentOptional { get; set; } 
       public virtual BParentOptional BParentOptional_1 { get; set; } 

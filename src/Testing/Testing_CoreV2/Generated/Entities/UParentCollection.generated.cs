@@ -27,8 +27,6 @@ namespace Testing
       /// </summary>
       protected UParentCollection()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<UChild>();
-
          Init();
       }
 
@@ -41,7 +39,6 @@ namespace Testing
          if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
          UChildRequired = _uchildrequired;
 
-         UChildCollection = new HashSet<UChild>();
          Init();
       }
 
@@ -69,7 +66,6 @@ namespace Testing
       ///  // Required
       /// </summary>
       public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
       public virtual UChild UChildOptional { get; set; } 
    }
 }
