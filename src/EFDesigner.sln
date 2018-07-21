@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AD98A5BD-E
 		..\docs\Features.md = ..\docs\Features.md
 		..\docs\Gemfile = ..\docs\Gemfile
 		..\docs\Getting-Started.md = ..\docs\Getting-Started.md
-		Importing.md = Importing.md
+		..\docs\Importing.md = ..\docs\Importing.md
 		..\docs\index.md = ..\docs\index.md
 		..\docs\Inheritance.md = ..\docs\Inheritance.md
 		..\docs\Installation.md = ..\docs\Installation.md
@@ -53,6 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{89098F
 		..\docs\images\DesignerProperties.jpg = ..\docs\images\DesignerProperties.jpg
 		..\docs\images\Entity.jpg = ..\docs\images\Entity.jpg
 		..\docs\images\EntityMenu.jpg = ..\docs\images\EntityMenu.jpg
+		..\docs\images\EnumMenu.jpg = ..\docs\images\EnumMenu.jpg
 		..\docs\images\EnumProperties.jpg = ..\docs\images\EnumProperties.jpg
 		..\docs\images\EnumTool.jpg = ..\docs\images\EnumTool.jpg
 		..\docs\images\EnumValueMenu.jpg = ..\docs\images\EnumValueMenu.jpg
@@ -65,6 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{89098F
 		..\docs\images\Solution2.jpg = ..\docs\images\Solution2.jpg
 		..\docs\images\Toolbox.jpg = ..\docs\images\Toolbox.jpg
 		..\docs\images\Unidirectional.jpg = ..\docs\images\Unidirectional.jpg
+		..\docs\images\ValueEditor.jpg = ..\docs\images\ValueEditor.jpg
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{90C96A87-4FF7-4AD1-9F61-0ECE46F7ADDA}"

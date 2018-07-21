@@ -41,7 +41,7 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.0 [ RC ]***
+***1.2.0***
 
    - **New Features**
       - Roslyn-based code analysis now allows dragging C# files onto the design surface to add or update classes and enums
@@ -59,7 +59,8 @@ You can read more about how to use the designer in the [Documentation site](http
       - Context property `Database Type` changed to `SqlServer Type` to better reflect what it does
       - Selecting an element in the Model Explorer highlights it on the diagram
 
-**1.1.0**
+<details>
+<summary><b>1.1.0</b></summary>
 
    - Bug fixes for exceptions thrown when bad input to model attributes as text
    - Added MinLength string property (used in EF6 only as of this writing)
@@ -69,6 +70,8 @@ You can read more about how to use the designer in the [Documentation site](http
    - Added some unit tests
    - Added some documentation updates
    - Changed version to 1.1.0 due to MEF capability
+
+</details>
 
 <details>
 <summary><b>1.0.3.9</b></summary>

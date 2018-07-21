@@ -576,12 +576,12 @@
         <DomainClassMoniker Name="NamedElement" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="f67322ba-10ef-44d8-bd5f-b54955cb70ff" Description="" Name="Name" DisplayName="Name" DefaultValue="" IsElementName="true">
+        <DomainProperty Id="f67322ba-10ef-44d8-bd5f-b54955cb70ff" Description="" Name="Name" DisplayName="Name" DefaultValue="" Category="Code Generation" IsElementName="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="23fd110b-aff0-4abd-87f6-c38ab7ba3f19" Description="Optional value for this enum element. Must be in the range of the enum's ValueType" Name="Value" DisplayName="Value">
+        <DomainProperty Id="23fd110b-aff0-4abd-87f6-c38ab7ba3f19" Description="Optional value for this enum element. Must be in the range of the enum's ValueType" Name="Value" DisplayName="Value" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

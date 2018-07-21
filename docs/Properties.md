@@ -19,6 +19,12 @@ A new property will be added to the entity and you'll have the opportunity to ch
 of the designer also gives you the opportunity to change its type, whether or not it's an identity field, and whether or not its value is required to be
 other than the type's default value at runtime (i.e., a _required_ property). See more about this below.
 
+## Removing a Property
+
+To remove a property, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
+
+## Property Properties
+
 Selecting a property gives you access to **its** properties in the Property window. Those are:
 
 <table>
@@ -53,10 +59,6 @@ Selecting a property gives you access to **its** properties in the Property wind
 </tbody>
 </table>
 
-## Removing a Property
-
-To remove a property, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
-
 ## Context Menu
 
 Right-clicking on a property displays a Visual Studio context menu with some new choices pertinent to that property.
@@ -83,8 +85,7 @@ Right-clicking on a property displays a Visual Studio context menu with some new
 <tr><td valign="top">Select all enums...</td><td valign="top">Select all enum elements in the designer</td></tr>
 <tr><td valign="top">Select all associations...</td><td valign="top">Select all association lines (both unidirectional and bidirectional) in the designer</td></tr>
 <tr><td valign="top">Select all unidirectional associations...</td><td valign="top">Select all unidirectiional association lines in the designer</td></tr>
-<tr><td valign="top">Select all bidirectional associations...</td><td valign="top">Select all bidirectiional association lines in the designer</td></tr>
-<tr><td valign="top">Select all bidirectional associations...</td><td valign="top">Select all bidirectiional association lines in the designer</td></tr>
+<tr><td valign="top">Select all bidirectional associations...</td><td valign="top">Select all bidirectional association lines in the designer</td></tr>
 </table>
 </td></tr>
 <tr><td valign="top">Properties</td><td valign="top">Switches focus to the Properties window.</td></tr>

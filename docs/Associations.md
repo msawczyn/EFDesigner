@@ -10,26 +10,28 @@ As an example, consider the following:
 
 <img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Unidirectional.jpg">
 
-This tells us that Entity1 has a collection of Entity2 objects. The type of collection will typically be set as the default value
-set in the design surface, but can be overridden (see Association Properties, below).
+This tells us that `Entity1` has a collection of `Entity2` objects named `TheEntity2s`. The type of collection will typically be set as the default value
+set in the design surface, but can be overridden (see the Properties tables, below).
 
-In short, this means that Entity1 would contain
+In short, this means that `Entity1` would contain
 
 ```
 public virtual ICollection<Entity2> TheEntity2s { get; set; } 
 ```
    
-but Entity2 doesn't have a matching property.
+but `Entity2` doesn't have a matching property.
 
-In contrast, a bidirectional association like
+In contrast, a *bidirectional* association like
 
 <img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Bidirectional.jpg">
 
-would have, in the Entity2 class,
+would have, in the `Entity2` class,
 
 ```
 public virtual Entity1 TheEntity1 { get; set; }  // Required
 ```
+
+as well as the collection of `Entity2` objects in the `Entity1` class. (Phew! Extensive overuse of the word *Entity* !)
 
 ## Cardinalities
 
@@ -38,7 +40,7 @@ Associations have cardinalities (the number of elements in a set) at each end. S
 - One (1)
 - Zero or More (*)
 
-While cardinalities include One or More (1..*), Entity Framework currently doesn't support that. That doesn't mean
+While cardinalities could *technically* include `One or More (1..*)`, Entity Framework currently doesn't directly support that. That doesn't mean
 that it can't be done, just that it has to be done with custom code (and, in fact, is on the to-do list of things
 to support with custom code generation in the designer).
 
@@ -49,7 +51,7 @@ being critical to properly modelling the problem space.
 It can't be emphasized enough - **getting an association's cardinality correct is *extremely* important**. Lots of application code 
 will have to change if you wind up changing the cardinalities after the entities are in use.
  
-## Unidirectional Associations
+## Unidirectional Association Properties
 Unidirectional associations have the following properties:
 
 <table>
@@ -77,7 +79,7 @@ Unidirectional associations have the following properties:
 </table>
 
 
-## Bidirectional Associations
+## Bidirectional Association Properties
 
 Bidirectional associations have the following properties:
 
