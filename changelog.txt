@@ -1,3 +1,6 @@
+1.2.1
+   - Bug fix for inheritance strategy automatically changing to table-per-hierarchy if targeting EF Core
+
 1.2.0 
    - New Features
       - Roslyn-based code analysis now allows dragging C# files onto the design surface to add or update classes and enums

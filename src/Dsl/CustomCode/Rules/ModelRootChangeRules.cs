@@ -44,6 +44,10 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 
             case "EntityFrameworkVersion":
                element.EntityFrameworkPackageVersion = "Latest";
+
+               if (element.EntityFrameworkVersion == EFVersion.EFCore)
+                  element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+
                break;
 
             case "EnumOutputDirectory":

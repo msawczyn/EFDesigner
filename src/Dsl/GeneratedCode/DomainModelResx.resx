@@ -1077,6 +1077,10 @@
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Name.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.Description" xml:space="preserve">
     <value>Optional value for this enum element. Must be in the range of the enum&apos;s ValueType</value>
     <comment>Description for DomainProperty &apos;Value&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
@@ -1084,6 +1088,10 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.DisplayName" xml:space="preserve">
     <value>Value</value>
     <comment>DisplayName for DomainProperty &apos;Value&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;Value&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
