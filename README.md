@@ -2,7 +2,7 @@
 
 ## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 
-**[Install with NuGet](https://docs.microsoft.com/en-us/visualstudio/ide/finding-and-using-visual-studio-extensions) or from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
+**[Install with NuGet](https://docs.microsoft.com/en-us/visualstudio/ide/finding-and-using-visual-studio-extensions) from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
 
 **Complete documentation in [Github Pages](https://msawczyn.github.io/EFDesigner/)**
 
