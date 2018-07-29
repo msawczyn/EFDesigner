@@ -62,7 +62,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot.WarnOnMissingDocumentation)
+         if (modelRoot?.WarnOnMissingDocumentation == true)
          {
             if (string.IsNullOrWhiteSpace(Summary))
                context.LogWarning($"{Name}: Enum should be documented", "AWMissingSummary", this);
@@ -80,7 +80,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!loading && IsNamespaceTracking)
             try
             {
-               return ModelRoot.Namespace;
+               return ModelRoot?.Namespace;
             }
             catch (NullReferenceException)
             {
@@ -133,7 +133,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             try
             {
-               calculatedValue = element.ModelRoot.Namespace;
+               calculatedValue = element.ModelRoot?.Namespace;
             }
             catch (NullReferenceException) {}
             catch (Exception e)
@@ -176,7 +176,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!loading && IsOutputDirectoryTracking)
             try
             {
-               return ModelRoot.EnumOutputDirectory;
+               return ModelRoot?.EnumOutputDirectory;
             }
             catch (NullReferenceException)
             {
@@ -229,7 +229,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             try
             {
-               calculatedValue = element.ModelRoot.EnumOutputDirectory;
+               calculatedValue = element.ModelRoot?.EnumOutputDirectory;
             }
             catch (NullReferenceException) {}
             catch (Exception e)

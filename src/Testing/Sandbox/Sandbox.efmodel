@@ -1,2 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.0.16" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="Sandbox" namespace="Sandbox" automaticMigrationsEnabled="false" transformOnSave="false" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel" />
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.1.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="SandboxModel" namespace="Sandbox" automaticMigrationsEnabled="false" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Entities" entityFrameworkVersion="EFCore" transformOnSave="false" showCascadeDeletes="false" databaseType="None" structOutputDirectory="Generated\Entities" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <types>
+    <modelClass Id="1a71d90b-0921-44a5-b69d-5e4760b85c48" tableName="Entity1" databaseSchema="dbo" namespace="Sandbox" dbSetName="Entity1" name="Entity1" outputDirectory="Generated\Entities" />
+  </types>
+</modelRoot>

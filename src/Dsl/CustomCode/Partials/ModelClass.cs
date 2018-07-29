@@ -42,7 +42,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (Concurrency != ConcurrencyOverride.Default)
                return Concurrency;
 
-            return ModelRoot.ConcurrencyDefault == EFModel.Concurrency.None ? ConcurrencyOverride.None : ConcurrencyOverride.Optimistic;
+            return ModelRoot?.ConcurrencyDefault == EFModel.Concurrency.None ? ConcurrencyOverride.None : ConcurrencyOverride.Optimistic;
          }
       }
 
@@ -221,7 +221,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot.WarnOnMissingDocumentation)
+         if (modelRoot?.WarnOnMissingDocumentation == true)
          {
             if (string.IsNullOrWhiteSpace(Summary))
                context.LogWarning($"Class {Name} should be documented", "AWMissingSummary", this);
@@ -296,7 +296,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             try
             {
-               calculatedValue = element.ModelRoot.DatabaseSchema;
+               calculatedValue = element.ModelRoot?.DatabaseSchema;
             }
             catch (NullReferenceException) { }
             catch (Exception e)
@@ -396,7 +396,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             try
             {
-               calculatedValue = element.ModelRoot.Namespace;
+               calculatedValue = element.ModelRoot?.Namespace;
             }
             catch (NullReferenceException) { }
             catch (Exception e)
@@ -440,7 +440,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!loading && IsOutputDirectoryTracking)
             try
             {
-               return IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
+               return IsDependentType ? modelRoot?.StructOutputDirectory : modelRoot?.EntityOutputDirectory;
             }
             catch (NullReferenceException)
             {
@@ -493,7 +493,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             try
             {
-               calculatedValue = element.IsDependentType ? element.ModelRoot.StructOutputDirectory : element.ModelRoot.EntityOutputDirectory;
+               calculatedValue = element.IsDependentType ? element.ModelRoot?.StructOutputDirectory : element.ModelRoot?.EntityOutputDirectory;
             }
             catch (NullReferenceException) { }
             catch (Exception e)
