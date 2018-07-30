@@ -42,9 +42,12 @@ namespace Sawczyn.EFDesigner.EFModel
             case "SourceMultiplicity":
                Multiplicity newSourceMultiplicity = (Multiplicity)e.NewValue;
 
-               if (element.Target.IsDependentType && !element.Source.IsDependentType && newSourceMultiplicity == Multiplicity.ZeroMany)
+               // change unidirectional source cardinality
+               // if target is dependent
+               //    source cardinality is 0..1 or 1
+               if (element.Target.IsDependentType && newSourceMultiplicity == Multiplicity.ZeroMany)
                {
-                  errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+                  errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
 
                   break;
                }
@@ -70,11 +73,20 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "SourceRole":
-               EndpointRole newSourceRole = (EndpointRole)e.NewValue;
-               if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Dependent)
-                  element.TargetRole = EndpointRole.Principal;
-               else if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Principal)
+               // if target is dependent, roles are set and can't be changed
+               if (element.Target.IsDependentType)
+               {
+                  element.SourceRole = EndpointRole.Principal;
                   element.TargetRole = EndpointRole.Dependent;
+               }
+               else
+               {
+                  EndpointRole newSourceRole = (EndpointRole)e.NewValue;
+                  if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Dependent)
+                     element.TargetRole = EndpointRole.Principal;
+                  else if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Principal)
+                     element.TargetRole = EndpointRole.Dependent;
+               }
 
                break;
 
@@ -86,9 +98,12 @@ namespace Sawczyn.EFDesigner.EFModel
             case "TargetMultiplicity":
                Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
 
-               if (element.Source.IsDependentType && !element.Target.IsDependentType && newTargetMultiplicity == Multiplicity.ZeroMany)
+               // change unidirectional target cardinality
+               // if target is dependent
+               //    target cardinality must be 0..1 or 1
+               if (element.Target.IsDependentType && newTargetMultiplicity == Multiplicity.ZeroMany)
                {
-                  errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
+                  errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
 
                   break;
                }
@@ -119,11 +134,22 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TargetRole":
-               EndpointRole newTargetRole = (EndpointRole)e.NewValue;
-               if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Dependent)
+               // if target is dependent, roles are set and can't be changed
+               if (element.Target.IsDependentType)
+               {
                   element.SourceRole = EndpointRole.Principal;
-               else if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Principal)
-                  element.SourceRole = EndpointRole.Dependent;
+                  element.TargetRole = EndpointRole.Dependent;
+               }
+               else
+               {
+                  EndpointRole newTargetRole = (EndpointRole)e.NewValue;
+
+                  if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Dependent)
+                     element.SourceRole = EndpointRole.Principal;
+                  else if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Principal)
+                     element.SourceRole = EndpointRole.Dependent;
+
+               }
 
                break;
          }

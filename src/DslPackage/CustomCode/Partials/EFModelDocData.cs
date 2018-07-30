@@ -45,28 +45,6 @@ namespace Sawczyn.EFDesigner.EFModel
                                                  ? activeSolutionProjects.GetValue(0) as Project
                                                  : null;
 
-      public static IEnumerable<string> GetSelectedSourceFilePaths()
-      {
-         List<string> result = new List<string>();
-         UIHierarchy uiHierarchy = Dte2.ToolWindows.SolutionExplorer;
-         Array selectedItems = (Array)uiHierarchy.SelectedItems;
-
-         if (selectedItems != null)
-         {
-            foreach (UIHierarchyItem selectedItem in selectedItems)
-            {
-               if (selectedItem.Object is ProjectItem projectItem)
-               {
-                  string filename = projectItem.Properties.Item("FullPath").Value.ToString();
-                  if (filename.ToLower().EndsWith(".cs"))
-                     result.Add(filename);
-               }
-            }
-         }
-
-         return result;
-      }
-
       internal static void GenerateCode(string filepath = null)
       {
          string filename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
@@ -90,6 +68,18 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Called before the document is initially loaded with data.
+      /// </summary>
+      protected override void OnDocumentLoading(EventArgs e)
+      {
+         base.OnDocumentLoading(e);
+         ValidationController?.ClearMessages();
+      }
+
+      /// <summary>
+      /// Called on both document load and reload.
+      /// </summary>
       protected override void OnDocumentLoaded()
       {
          base.OnDocumentLoaded();
@@ -132,8 +122,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         List<GeneralizationConnector> generalizationConnectors = modelRoot.Store.ElementDirectory.FindElements<GeneralizationConnector>().Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
-         List<AssociationConnector> associationConnectors = modelRoot.Store.ElementDirectory.FindElements<AssociationConnector>().Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
+         List<GeneralizationConnector> generalizationConnectors = modelRoot.Store
+                                                                           .ElementDirectory
+                                                                           .FindElements<GeneralizationConnector>()
+                                                                           .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
+         List<AssociationConnector> associationConnectors = modelRoot.Store
+                                                                     .ElementDirectory
+                                                                     .FindElements<AssociationConnector>()
+                                                                     .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
 
          if (generalizationConnectors.Any() || associationConnectors.Any())
          {
@@ -149,6 +145,15 @@ namespace Sawczyn.EFDesigner.EFModel
                tx.Commit();
             }
          }
+
+         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("ColorShapeOutlines"))
+         {
+            foreach (ModelClass modelClass in modelRoot.Store.ElementDirectory.FindElements<ModelClass>())
+               PresentationHelper.ColorShapeOutline(modelClass);
+            tx.Commit();
+         }
+
+         SetDocDataDirty(0);
       }
 
       // ReSharper disable once UnusedMember.Local

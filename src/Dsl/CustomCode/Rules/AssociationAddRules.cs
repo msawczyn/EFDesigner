@@ -18,14 +18,20 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         // TODO: Error if 1..N to an owned type (EFCore) or to a complex type (EF6)
-         if (element.TargetMultiplicity == Multiplicity.ZeroMany && element.Target.IsDependentType)
+         // add unidirectional
+         //    source can't be dependent (connection builder handles this)
+         // if target is dependent,
+         //    source cardinality is 0..1
+         //    target cardinality is 0..1 
+         //    source is principal
+         if (element is UnidirectionalAssociation && element.Target.IsDependentType)
          {
-            current.Rollback();
-            ErrorDisplay.Show($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
-
-            return;
+            element.TargetMultiplicity = Multiplicity.ZeroOne;
+            element.SourceRole = EndpointRole.Principal;
+            element.TargetRole = EndpointRole.Dependent;
          }
+         // add bidirectional
+         //    neither can be dependent (connection builder handles this)
 
          if (string.IsNullOrEmpty(element.TargetPropertyName))
          {

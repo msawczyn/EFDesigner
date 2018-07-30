@@ -1,10 +1,7 @@
 ﻿using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Diagrams;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Rules;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -38,122 +35,121 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (e.DomainProperty.Name)
          {
             case "IsDependentType":
-               bool newIsStruct = (bool)e.NewValue;
+               bool newIsDependentType = (bool)e.NewValue;
 
-               if (newIsStruct)
+               if (newIsDependentType)
                {
-                  List<Association> associations = store.ElementDirectory
-                                                        .AllElements
-                                                        .OfType<Association>()
-                                                        .Where(a => (a.Source == element && a.SourceMultiplicity == Multiplicity.ZeroMany) ||
-                                                                    (a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
-                                                        .ToList();
-
-                  if (associations.Any())
+                  if (element.IsAbstract)
                   {
-                     List<string> classNameList = associations.Select(a => a.Target.Name).ToList();
-                     if (classNameList.Count > 1)
-                        classNameList[classNameList.Count - 1] = "and " + classNameList[classNameList.Count - 1];
-                     string classNames = string.Join(", ", classNameList);
+                     errorMessages.Add($"Can't make {element.Name} a dependent class since it's abstract");
+                     break;
+                  }
 
-                     errorMessages.Add($"Can't have a 0..* association to a dependent type. Found 0..* link(s) with {classNames}");
+                  // dependent type can't be source in an association
+                  if (store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>()
+                           .Any(a => a.Source == element))
+                  {
+                     errorMessages.Add($"Can't make {element.Name} a dependent class since it references other classes");
+
+                     break;
+                  }
+
+                  if (store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+                           .Any(a => a.Source == element || a.Target == element))
+                  {
+                     errorMessages.Add($"Can't make {element.Name} a dependent class since it's in a bidirectional association");
+
+                     break;
+                  }
+
+                  if (store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+                           .Any(a => a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
+                  {
+                     errorMessages.Add($"Can't make {element.Name} a dependent class since it's the target of a 0..* association");
 
                      break;
                   }
 
                   foreach (ModelAttribute modelAttribute in element.AllAttributes.Where(a => a.IsIdentity))
                      modelAttribute.IsIdentity = false;
+
+                  element.TableName = string.Empty;
                }
 
+               PresentationHelper.ColorShapeOutline(element);
                break;
 
             case "IsAbstract":
                bool newIsAbstract = (bool)e.NewValue;
 
-               foreach (ClassShape classShape in PresentationViewsSubject.GetPresentation(element).OfType<ClassShape>())
+               if (newIsAbstract && element.IsDependentType)
                {
-                  if (newIsAbstract)
-                  {
-                     classShape.OutlineColor = Color.OrangeRed;
-                     classShape.OutlineThickness = 0.02f;
-                     classShape.OutlineDashStyle = element.ImplementNotify ? DashStyle.Dot : DashStyle.Dash;
-                  }
-                  else if (element.ImplementNotify)
-                  {
-                     classShape.OutlineColor = Color.CornflowerBlue;
-                     classShape.OutlineThickness = 0.02f;
-                     classShape.OutlineDashStyle = DashStyle.Dot;
-                  }
-                  else
-                  {
-                     classShape.OutlineColor = Color.Black;
-                     classShape.OutlineThickness = 0.01f;
-                     classShape.OutlineDashStyle = DashStyle.Solid;
-                  }
+                  errorMessages.Add($"Can't make {element.Name} abstract since it's a dependent type");
+
+                  break;
                }
 
+               PresentationHelper.ColorShapeOutline(element);
                break;
 
             case "ImplementNotify":
                bool newImplementNotify = (bool)e.NewValue;
 
-               if (!element.IsAbstract) // IsAbstract takes precedence
-               {
-                  foreach (ClassShape classShape in PresentationViewsSubject.GetPresentation(element).OfType<ClassShape>())
-                  {
-                     if (newImplementNotify)
-                     {
-                        classShape.OutlineColor = Color.CornflowerBlue;
-                        classShape.OutlineThickness = 0.02f;
-                        classShape.OutlineDashStyle = DashStyle.Dot;
-                     }
-                     else
-                     {
-                        classShape.OutlineColor = Color.Black;
-                        classShape.OutlineThickness = 0.01f;
-                        classShape.OutlineDashStyle = DashStyle.Solid;
-                     }
-                  }
-               }
-
-               if (element.ImplementNotify)
+               if (newImplementNotify)
                {
                   foreach (ModelAttribute modelAttribute in element.Attributes.Where(x => x.AutoProperty))
                      WarningDisplay.Show($"{modelAttribute.Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages");
                }
 
+               PresentationHelper.ColorShapeOutline(element);
                break;
 
             case "TableName":
                string newTableName = (string)e.NewValue;
 
-               if (string.IsNullOrEmpty(newTableName))
-                  element.TableName = MakeDefaultName(element.Name);
+               if (element.IsDependentType)
+               {
+                  if (!string.IsNullOrEmpty(newTableName))
+                     element.TableName = string.Empty;
+               }
+               else
+               {
+                  if (string.IsNullOrEmpty(newTableName))
+                     element.TableName = MakeDefaultName(element.Name);
 
-               if (store.ElementDirectory
-                        .AllElements
-                        .OfType<ModelClass>()
-                        .Except(new[] {element})
-                        .Any(x => x.TableName == newTableName))
-                  errorMessages.Add($"Table name '{newTableName}' already in use");
+                  if (store.ElementDirectory.AllElements.OfType<ModelClass>()
+                           .Except(new[] {element})
+                           .Any(x => x.TableName == newTableName))
+                     errorMessages.Add($"Table name '{newTableName}' already in use");
+               }
+
                break;
 
             case "DbSetName":
                string newDbSetName = (string)e.NewValue;
 
-               if (string.IsNullOrEmpty(newDbSetName))
-                  element.DbSetName = MakeDefaultName(element.Name);
+               if (element.IsDependentType)
+               {
+                  if (!string.IsNullOrEmpty(newDbSetName)) 
+                     element.DbSetName = string.Empty;
+               }
+               else
+               {
+                  if (string.IsNullOrEmpty(newDbSetName))
+                     element.DbSetName = MakeDefaultName(element.Name);
 
-               if (current.Name.ToLowerInvariant() != "paste" &&
-                   (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
-                  errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
-
-               else if (store.ElementDirectory
-                             .AllElements
-                             .OfType<ModelClass>()
-                             .Except(new[] {element})
-                             .Any(x => x.DbSetName == newDbSetName))
-                  errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
+                  if (current.Name.ToLowerInvariant() != "paste" && 
+                      (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
+                  {
+                     errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
+                  }
+                  else if (store.ElementDirectory.AllElements.OfType<ModelClass>()
+                                .Except(new[] {element})
+                                .Any(x => x.DbSetName == newDbSetName))
+                  {
+                     errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
+                  }
+               }
 
                break;
 
@@ -203,5 +199,6 @@ namespace Sawczyn.EFDesigner.EFModel
             ErrorDisplay.Show(string.Join("; ", errorMessages));
          }
       }
+
    }
 }

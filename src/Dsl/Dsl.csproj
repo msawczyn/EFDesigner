@@ -204,6 +204,7 @@
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Partials\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />
+    <Compile Include="CustomCode\Association Builders\BidirectionalAssociationBuilder.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalConnector.cs" />
     <Compile Include="CustomCode\Partials\CommentConnector.cs" />
     <Compile Include="CustomCode\Partials\EFModelDiagram.cs" />
@@ -215,12 +216,13 @@
     <Compile Include="CustomCode\Partials\IHighlightFromModelExplorer.cs" />
     <Compile Include="CustomCode\Partials\IModelElementWithCompartments.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
-    <Compile Include="CustomCode\Partials\ModelAttributeTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Type Descriptors\ModelAttributeTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />
-    <Compile Include="CustomCode\Partials\ModelEnumTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Type Descriptors\ModelEnumTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnumValue.cs" />
     <Compile Include="CustomCode\Partials\ModelRoot.cs" />
-    <Compile Include="CustomCode\Partials\ModelRootTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Type Descriptors\ModelRootTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Association Builders\UnidirectionalAssociationBuilder.cs" />
     <Compile Include="CustomCode\Rules\ModelAttributeAddRules.cs" />
     <Compile Include="CustomCode\Utilities\FileDropHelper.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />
@@ -239,10 +241,11 @@
     <Compile Include="CustomCode\Rules\ModelRootChangeRules.cs" />
     <Compile Include="CustomCode\Rules\RuleRegistrations.cs" />
     <Compile Include="CustomCode\Utilities\AttributeParser.cs" />
+    <Compile Include="CustomCode\Utilities\PresentationHelper.cs" />
     <Compile Include="CustomCode\Utilities\QuestionDisplay.cs" />
     <Compile Include="CustomCode\Utilities\TypeConverters\BaseClassTypeConverter.cs" />
     <Compile Include="CustomCode\Utilities\TypeConverters\CollectionTypeTypeConverter.cs" />
-    <Compile Include="CustomCode\Partials\ModelClassTypeDescriptor.cs" />
+    <Compile Include="CustomCode\Type Descriptors\ModelClassTypeDescriptor.cs" />
     <Compile Include="CustomCode\Utilities\ConnectionStringEditor.cs" />
     <Compile Include="CustomCode\Utilities\EFCoreValidator.cs" />
     <Compile Include="CustomCode\Utilities\TypeConverters\EFPackageVersionTypeConverter.cs" />

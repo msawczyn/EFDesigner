@@ -184,7 +184,7 @@ namespace Sawczyn.EFDesigner.EFModel
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void PersistentClassesMustHaveIdentity(ValidationContext context)
       {
-         if (!AllIdentityAttributes.Any())
+         if (!IsDependentType && !AllIdentityAttributes.Any())
             context.LogError($"{Name}: Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
 
