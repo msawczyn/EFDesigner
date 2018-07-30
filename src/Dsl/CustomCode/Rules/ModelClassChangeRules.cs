@@ -73,7 +73,24 @@ namespace Sawczyn.EFDesigner.EFModel
                   foreach (ModelAttribute modelAttribute in element.AllAttributes.Where(a => a.IsIdentity))
                      modelAttribute.IsIdentity = false;
 
+                  foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(element).OfType<UnidirectionalAssociation>())
+                  {
+                     if (association.SourceMultiplicity == Multiplicity.ZeroMany)
+                        association.SourceMultiplicity = Multiplicity.ZeroOne;
+
+                     if (association.TargetMultiplicity == Multiplicity.ZeroMany)
+                        association.TargetMultiplicity = Multiplicity.ZeroOne;
+                    
+                     association.TargetRole = EndpointRole.Dependent;
+                  }
+
                   element.TableName = string.Empty;
+                  element.DbSetName = string.Empty;
+               }
+               else
+               {
+                  element.DbSetName = MakeDefaultName(element.Name);
+                  element.TableName = MakeDefaultName(element.Name);
                }
 
                PresentationHelper.ColorShapeOutline(element);
@@ -118,7 +135,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TableName = MakeDefaultName(element.Name);
 
                   if (store.ElementDirectory.AllElements.OfType<ModelClass>()
-                           .Except(new[] {element})
+                           .Except(new[] { element })
                            .Any(x => x.TableName == newTableName))
                      errorMessages.Add($"Table name '{newTableName}' already in use");
                }
@@ -130,7 +147,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (element.IsDependentType)
                {
-                  if (!string.IsNullOrEmpty(newDbSetName)) 
+                  if (!string.IsNullOrEmpty(newDbSetName))
                      element.DbSetName = string.Empty;
                }
                else
@@ -138,13 +155,13 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (string.IsNullOrEmpty(newDbSetName))
                      element.DbSetName = MakeDefaultName(element.Name);
 
-                  if (current.Name.ToLowerInvariant() != "paste" && 
+                  if (current.Name.ToLowerInvariant() != "paste" &&
                       (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
                   {
                      errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
                   }
                   else if (store.ElementDirectory.AllElements.OfType<ModelClass>()
-                                .Except(new[] {element})
+                                .Except(new[] { element })
                                 .Any(x => x.DbSetName == newDbSetName))
                   {
                      errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
@@ -159,20 +176,20 @@ namespace Sawczyn.EFDesigner.EFModel
                if (current.Name.ToLowerInvariant() != "paste" &&
                    (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
                   errorMessages.Add($"Class name '{newName}' isn't a valid .NET identifier.");
-               
+
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelClass>()
-                             .Except(new[] {element})
+                             .Except(new[] { element })
                              .Any(x => x.Name == newName))
                   errorMessages.Add($"Class name '{newName}' already in use by another class");
-               
+
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelEnum>()
                              .Any(x => x.Name == newName))
                   errorMessages.Add($"Class name '{newName}' already in use by an enum");
-               
+
                else if (!string.IsNullOrEmpty((string)e.OldValue))
                {
                   string oldDefaultName = MakeDefaultName((string)e.OldValue);

@@ -189,6 +189,8 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Called before the document is saved.</summary>
       protected override void OnDocumentSaving(EventArgs e)
       {
+         ValidationController?.ClearMessages();
+
          // make sure that, if a model element is highlighted, we set the colors back to where they should be before saving it
          EFModelExplorerToolWindow.ClearHighlight();
          base.OnDocumentSaving(e);
