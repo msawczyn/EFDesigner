@@ -186,11 +186,19 @@ namespace Sawczyn.EFDesigner.EFModel
          Messages.AddWarning(message);
       }
 
+      /// <summary>
+      /// Validate the model before the file is saved.
+      /// </summary>
+      protected override bool CanSave(bool allowUserInterface)
+      {
+         if (allowUserInterface)
+            ValidationController?.ClearMessages();
+         return base.CanSave(allowUserInterface);
+      }
+
       /// <summary>Called before the document is saved.</summary>
       protected override void OnDocumentSaving(EventArgs e)
       {
-         ValidationController?.ClearMessages();
-
          // make sure that, if a model element is highlighted, we set the colors back to where they should be before saving it
          EFModelExplorerToolWindow.ClearHighlight();
          base.OnDocumentSaving(e);

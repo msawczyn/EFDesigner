@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
@@ -50,7 +48,7 @@ namespace Sawczyn.EFDesigner.EFModel
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.
       /// </summary>
-      internal virtual void PreResetIsTrackingProperties()
+      public virtual void PreResetIsTrackingProperties()
       {
          IsDatabaseSchemaTrackingPropertyHandler.Instance.PreResetValue(this);
          IsNamespaceTrackingPropertyHandler.Instance.PreResetValue(this);

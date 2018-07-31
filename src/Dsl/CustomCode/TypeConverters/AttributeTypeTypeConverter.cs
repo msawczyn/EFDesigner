@@ -30,7 +30,7 @@ namespace Sawczyn.EFDesigner.EFModel
          List<string> values = new List<string>(ModelAttribute.ValidTypes);
 
          if (store != null)
-            values.AddRange(store.ElementDirectory.FindElements<ModelEnum>().Select(e => e.Name));
+            values.AddRange(store.ElementDirectory.FindElements<ModelEnum>().OrderBy(e => e.Name).Select(e => e.Name));
 
          return new StandardValuesCollection(values);
       }

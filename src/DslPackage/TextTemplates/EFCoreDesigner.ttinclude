@@ -17,7 +17,8 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
 
    foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>())
    {
-      manager.StartNewFile(Path.Combine(modelRoot.EntityOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
+      string dir = modelClass.IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
+      manager.StartNewFile(Path.Combine(dir, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
       WriteClass(modelClass);
    }
 
