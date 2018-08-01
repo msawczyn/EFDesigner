@@ -10,11 +10,10 @@ T4:  Use HTML5Type in code generation
 
 DSL: Rework EFModelDocData.OnDocumentLoaded to prevent file from appearing dirty when no changes are made
 
-===============================================================
-Extension: Add DeleteType enum to ModelClass (soft, hard)
+DSL: Add DeleteType enum to ModelClass (soft, hard)
 T4:  Implement soft delete where marked in model
 
-Extension: Add bool Enhanced Cascade Delete
+DSL: Add bool Enhanced Cascade Delete
 T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
 
 Possible lead on multiple diagrams?

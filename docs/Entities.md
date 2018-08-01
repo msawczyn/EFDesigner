@@ -37,16 +37,13 @@ Selecting the entity allows you to edit its various properties:
 <tr><td valign="top"> Concurrency                        </td><td valign="top"> <i>String</i>. Overrides the default concurrency handling strategy. Values are 'Optimistic' and 'None'. See <a href="https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application">Handling Concurrency with the Entity Framework 6 in an ASP.NET MVC 5 Application</a>.</td></tr>
 <tr><td valign="top"> Custom Interfaces                  </td><td valign="top"> <i>String</i>. Any custom interface(s) this entity should implement. If more than one, separate them with commas - anything here will be generated verbatim into the code in the class definition.</td></tr>
 <tr><td valign="top"> DbSet Name                         </td><td valign="top"> <i>String</i>. The name of the DbSet property in the DbContext for this class.</td></tr>
-<tr><td valign="top"> <span style="color:red; font-size: smaller;">[NEW in v1.2]</span></br>
-                      Implement INotifyPropertyChanged   </td><td valign="top"> <i>Boolean</i>. If true, will generate code for easy implementation of property change notifications.</td></tr>
+<tr><td valign="top"> Implement INotifyPropertyChanged   </td><td valign="top"> <i>Boolean</i>. If true, will generate code for easy implementation of property change notifications.</td></tr>
 <tr><td valign="top"> Name                               </td><td valign="top"> <i>String</i>. The name of this class.</td></tr>
 <tr><td valign="top"> Namespace                          </td><td valign="top"> <i>String</i>. The namespace for this class.</td></tr>
-<tr><td valign="top"> <span style="color:red; font-size: smaller;">[NEW in v1.2]</span></br>
-                      Output Directory                   </td><td valign="top"> <i>String</i>. The project directory for this class's generated file. Overrides the default Entity Output Directory.</td></tr>
+<tr><td valign="top"> Output Directory                   </td><td valign="top"> <i>String</i>. The project directory for this class's generated file. Overrides the default Entity Output Directory.</td></tr>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Database</b></td></tr>
 <tr><td valign="top"> Database Schema                    </td><td valign="top"> <i>String</i>. The database schema name for the table that will back this class.</td></tr>
-<tr><td valign="top"> <span style="color:red; font-size: smaller;">[NEW in v1.2]</span></br>
-                      Is Dependent Type                  </td><td valign="top"> <i>Boolean</i>. If true, this type will be generated as a <a href="https://msdn.microsoft.com/en-us/library/jj680147(v=vs.113).aspx#What%20is%20a%20Complex%20Type">"complex" (EF6)</a> or <a href="https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities">"owned" (EFCore)</a> type.</td></tr>
+<tr><td valign="top"> Is Dependent Type                  </td><td valign="top"> <i>Boolean</i>. If true, this type will be generated as a <a href="https://msdn.microsoft.com/en-us/library/jj680147(v=vs.113).aspx#What%20is%20a%20Complex%20Type">"complex" (EF6)</a> or <a href="https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities">"owned" (EFCore)</a> type.</td></tr>
 <tr><td valign="top"> Table Name                         </td><td valign="top"> <i>String</i>. The name of the table that will back this class.</td></tr>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Display</b></td></tr>
 <tr><td valign="top"> Fill Color                         </td><td valign="top"> <i>Color</i>. The color for entity's banner on the design surface.</td></tr>

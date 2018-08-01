@@ -43,6 +43,14 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
+***1.2.1***
+
+   - Bug fix for inheritance strategy automatically changing to table-per-hierarchy if targeting EF Core
+   - Updated a few warning and error messages to make them more meaningful
+   - Fixes for how dependent types work
+   - Remove stale error and warnings prior to save (still a few left hanging around that need looked at)
+   - Fixed a few null reference errors
+
 ***1.2.0***
 
    - **New Features**

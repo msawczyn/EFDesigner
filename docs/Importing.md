@@ -1,6 +1,5 @@
 # Importing Code
 
-<span style="color:red">**[NEW in v1.2]**</span>
 You can import existing C# code into your model from either classes in projects in your current solution
 or from external files. The designer supports drag-and-drop from both the Visual Studio Solution Explorer
 window and from Windows File Explorer.
