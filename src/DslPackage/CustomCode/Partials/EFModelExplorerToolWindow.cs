@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 
@@ -73,14 +74,29 @@ namespace Sawczyn.EFDesigner.EFModel
          if (PrimarySelection is ModelElement modelElement &&
              PresentationViewsSubject.GetPresentation(modelElement).FirstOrDefault() is IHighlightFromModelExplorer selectedShape)
          {
-            highlightCache = new HighlightCache(selectedShape);
-            highlightCache.SetShapeColors();
+
+            try
+            {
+               highlightCache = new HighlightCache(selectedShape);
+               highlightCache.SetShapeColors();
+            }
+            catch
+            {
+               highlightCache = null;
+            }
          }
       }
 
       public static void ClearHighlight()
       {
-         highlightCache?.ResetShapeColors();
+         try
+         {
+            highlightCache?.ResetShapeColors();
+         }
+         catch
+         {
+            // ignore
+         }
          highlightCache = null;
       }
    }
