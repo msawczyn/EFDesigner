@@ -1,3 +1,7 @@
+1.2.2
+   - Fix issue with association role end changing without the other side autoatically changing
+   - Fix issue with deleting a highlighted element throwing an error when trying to save the file
+
 1.2.1
    - Bug fix for inheritance strategy automatically changing to table-per-hierarchy if targeting EF Core
    - Updated a few warning and error messages to make them more meaningful
