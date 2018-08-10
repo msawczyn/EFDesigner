@@ -278,6 +278,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Serializer.tt</DependentUpon>
     </Compile>
+    <Compile Include="GeneratedCode\Serializer1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Serializer.tt</DependentUpon>
+    </Compile>
     <Compile Include="MefExtension\GestureExtensionEnablement.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
