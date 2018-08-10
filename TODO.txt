@@ -16,6 +16,8 @@ T4:  Implement soft delete where marked in model
 DSL: Add bool Enhanced Cascade Delete
 T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
 
+DSL: Should be able to rearrange property order with drag/drop
+
 Possible lead on multiple diagrams?
 https://stackoverflow.com/questions/105522/compartment-items-not-displayed-in-dsl-diagram
 

@@ -81,11 +81,13 @@ namespace Sawczyn.EFDesigner.EFModel
                }
                else
                {
-                  EndpointRole newSourceRole = (EndpointRole)e.NewValue;
-                  if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Dependent)
-                     element.TargetRole = EndpointRole.Principal;
-                  else if (element.TargetRole == EndpointRole.NotSet && newSourceRole == EndpointRole.Principal)
-                     element.TargetRole = EndpointRole.Dependent;
+                  if ((element.TargetMultiplicity == Multiplicity.One && element.SourceMultiplicity == Multiplicity.One) ||
+                      (element.TargetMultiplicity == Multiplicity.ZeroOne && element.SourceMultiplicity == Multiplicity.ZeroOne))
+                  {
+                     element.TargetRole = element.SourceRole == EndpointRole.Dependent 
+                        ? EndpointRole.Principal 
+                        : EndpointRole.Dependent;
+                  }
                }
 
                break;
