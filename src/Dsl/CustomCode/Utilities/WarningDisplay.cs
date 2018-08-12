@@ -6,16 +6,16 @@
    /// </summary>
    public static class WarningDisplay
    {
-      public delegate void WarningVisualizer(string message);
+      public delegate void WarningVisualizer(string message, bool asMessageBox);
       private static WarningVisualizer WarningVisualizerMethod;
 
-      public static void Show(string message)
+      public static void Show(string message, bool asMessageBox = false)
       {
          if (WarningVisualizerMethod != null)
          {
             try
             {
-               WarningVisualizerMethod(message);
+               WarningVisualizerMethod(message, asMessageBox);
             }
             catch
             {

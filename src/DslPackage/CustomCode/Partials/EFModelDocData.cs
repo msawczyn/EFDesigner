@@ -48,13 +48,16 @@ namespace Sawczyn.EFDesigner.EFModel
       internal static void GenerateCode(string filepath = null)
       {
          string filename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
+         ProjectItem projectItem = Dte2.Solution.FindProjectItem(filepath ?? Dte2.ActiveDocument.FullName);
 
-         if (!(Dte2.Solution.FindProjectItem(filename)?.Object is VSProjectItem item))
+         if (!(projectItem?.Object is VSProjectItem item))
             Messages.AddError($"Tried to generate code but couldn't find {filename} in the solution.");
          else
          {
+
             try
             {
+               projectItem.Save();
                Dte.StatusBar.Text = $"Generating code from {filename}";
                item.RunCustomTool();
                Dte.StatusBar.Text = $"Finished generating code from {filename}";
@@ -83,7 +86,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override void OnDocumentLoaded()
       {
          base.OnDocumentLoaded();
-         ErrorDisplay.RegisterDisplayHandler(ShowErrorBox);
+         ErrorDisplay.RegisterDisplayHandler(ShowError);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
          QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
 
@@ -157,20 +160,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       // ReSharper disable once UnusedMember.Local
-      private void ShowMessageBox(string message)
-      {
-         Messages.AddMessage(message);
-         PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_INFO);
-      }
-
-      // ReSharper disable once UnusedMember.Local
-      private void ShowErrorBox(string message)
-      {
-         Messages.AddError(message);
-         PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
-      }
-
-      // ReSharper disable once UnusedMember.Local
       private DialogResult ShowQuestionBox(string question)
       {
          return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY);
@@ -181,9 +170,26 @@ namespace Sawczyn.EFDesigner.EFModel
          return ShowQuestionBox(question) == DialogResult.Yes;
       }
 
-      private void ShowWarning(string message)
+      // ReSharper disable once UnusedMember.Local
+      private void ShowMessage(string message, bool asMessageBox)
+      {
+         Messages.AddMessage(message);
+         if (asMessageBox)
+            PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_INFO);
+      }
+
+      private void ShowWarning(string message, bool asMessageBox)
       {
          Messages.AddWarning(message);
+         if (asMessageBox)
+            PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_WARNING);
+      }
+
+      private void ShowError(string message, bool asMessageBox)
+      {
+         Messages.AddError(message);
+         if (asMessageBox)
+            PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
       }
 
       /// <summary>

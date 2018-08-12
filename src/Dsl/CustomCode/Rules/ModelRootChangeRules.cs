@@ -105,7 +105,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
          if (errorMessages.Any())
          {
             current.Rollback();
-            ErrorDisplay.Show(string.Join("; ", errorMessages));
+            ErrorDisplay.Show(string.Join("\n", errorMessages));
          }
       }
    }

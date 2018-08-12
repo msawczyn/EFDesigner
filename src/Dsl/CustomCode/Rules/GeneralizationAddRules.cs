@@ -57,8 +57,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (nameClashes.Any())
          {
             current.Rollback();
-            string nameClashList = string.Join(", ", nameClashes);
-            ErrorDisplay.Show("That inheritance link would cause name clashes. Resolve the following before setting the inheritance: " + nameClashList);
+            string nameClashList = string.Join("\n   ", nameClashes);
+            ErrorDisplay.Show("That inheritance link would cause name clashes. Resolve the following before setting the inheritance:\n   " + nameClashList);
          }
       }
    }

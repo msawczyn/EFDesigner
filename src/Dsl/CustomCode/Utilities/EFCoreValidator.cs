@@ -128,17 +128,6 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = modelRoot.Store;
          List<string> errorMessages = new List<string>();
 
-         //if (modelRoot.EntityFrameworkVersion > EFVersion.EF6)
-         //{
-         //   if (element.InheritanceStrategy != CodeStrategy.TablePerHierarchy)
-         //   {
-         //      string strategy = element.InheritanceStrategy == CodeStrategy.TablePerConcreteType
-         //                           ? "Table-Per-Concrete-Type"
-         //                           : "Table-Per-Type";
-         //      errorMessages.Add($"EFCore currently only supports Table-Per-Hierarchy inheritance strategy, but the model is set to use {strategy}. Change inheritance strategy to Table-Per-Hierarchy before targeting EFCore.");
-         //   }
-         //}
-
          foreach (Association association in store.ElementDirectory.AllElements.OfType<Association>().ToList())
             errorMessages.AddRange(GetErrors(association));
 

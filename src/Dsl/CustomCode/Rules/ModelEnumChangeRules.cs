@@ -14,9 +14,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ModelEnum element = (ModelEnum)e.ModelElement;
          Store store = element.Store;
-         Transaction current = store.TransactionManager.CurrentTransaction;
+         Transaction currentTransaction = store.TransactionManager.CurrentTransaction;
 
-         if (current.IsSerializing)
+         if (currentTransaction.IsSerializing)
             return;
 
          if (Equals(e.NewValue, e.OldValue))
@@ -27,30 +27,32 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (e.DomainProperty.Name)
          {
             case "Name":
-               string newName = (string)e.NewValue;
-               if (current.Name.ToLowerInvariant() == "paste")
+               if (currentTransaction.Name.ToLowerInvariant() == "paste")
                   return;
 
-               if (current.Name.ToLowerInvariant() != "paste" && (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
+               if (string.IsNullOrWhiteSpace(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
                   errorMessage = "Name must be a valid .NET identifier";
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelClass>()
-                             .Any(x => x.Name == newName))
+                             .Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by a class";
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelEnum>()
                              .Except(new[] {element})
-                             .Any(x => x.Name == newName))
+                             .Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by another enum";
 
                break;
 
             case "Namespace":
-               string newNamespace = (string)e.NewValue;
-               if (current.Name.ToLowerInvariant() != "paste")
-                  errorMessage = CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
+
+               if (string.IsNullOrWhiteSpace(element.Namespace))
+                  element.Namespace = element.ModelRoot.Namespace;
+
+               if (currentTransaction.Name.ToLowerInvariant() != "paste")
+                  errorMessage = CommonRules.ValidateNamespace(element.Namespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
                break;
 
             case "IsFlags":
@@ -61,7 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (errorMessage != null)
          {
-            current.Rollback();
+            currentTransaction.Rollback();
             ErrorDisplay.Show(errorMessage);
          }
       }

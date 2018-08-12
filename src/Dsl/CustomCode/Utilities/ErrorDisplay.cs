@@ -6,16 +6,16 @@
    /// </summary>
    public static class ErrorDisplay
    {
-      public delegate void ErrorVisualizer(string message);
+      public delegate void ErrorVisualizer(string message, bool asMessageBox);
       private static ErrorVisualizer ErrorVisualizerMethod;
 
-      public static void Show(string message)
+      public static void Show(string message, bool asMessageBox = true)
       {
          if (ErrorVisualizerMethod != null)
          {
             try
             {
-               ErrorVisualizerMethod(message);
+               ErrorVisualizerMethod(message, asMessageBox);
             }
             catch
             {
