@@ -47,24 +47,28 @@ namespace Sawczyn.EFDesigner.EFModel
 
       internal static void GenerateCode(string filepath = null)
       {
-         string filename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
-         ProjectItem projectItem = Dte2.Solution.FindProjectItem(filepath ?? Dte2.ActiveDocument.FullName);
+         ProjectItem modelProjectItem = Dte2.Solution.FindProjectItem(filepath ?? Dte2.ActiveDocument.FullName);
+         modelProjectItem?.Save();
 
-         if (!(projectItem?.Object is VSProjectItem item))
-            Messages.AddError($"Tried to generate code but couldn't find {filename} in the solution.");
+         string templateFilename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
+
+         ProjectItem templateProjectItem = Dte2.Solution.FindProjectItem(templateFilename);
+         VSProjectItem templateVsProjectItem = templateProjectItem?.Object as VSProjectItem;
+
+         if (templateVsProjectItem == null)
+            Messages.AddError($"Tried to generate code but couldn't find {templateFilename} in the solution.");
          else
          {
 
             try
             {
-               projectItem.Save();
-               Dte.StatusBar.Text = $"Generating code from {filename}";
-               item.RunCustomTool();
-               Dte.StatusBar.Text = $"Finished generating code from {filename}";
+               Dte.StatusBar.Text = $"Generating code from {templateFilename}";
+               templateVsProjectItem.RunCustomTool();
+               Dte.StatusBar.Text = $"Finished generating code from {templateFilename}";
             }
             catch (COMException)
             {
-               string message = $"Encountered an error generating code from {filename}. Please transform T4 template manually.";
+               string message = $"Encountered an error generating code from {templateFilename}. Please transform T4 template manually.";
                Dte.StatusBar.Text = message;
                Messages.AddError(message);
             }

@@ -18,17 +18,26 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity1
+   public partial class Entity3
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Entity1()
+      public Entity3()
       {
          Init();
       }
+
+      // Persistent properties
+
+      /// <summary>
+      /// Identity, Required, Indexed
+      /// </summary>
+      [Key]
+      [Required]
+      public int Id { get; set; }
 
    }
 }

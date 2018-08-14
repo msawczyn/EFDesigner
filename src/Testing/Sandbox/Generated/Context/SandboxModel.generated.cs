@@ -17,7 +17,7 @@ namespace Sandbox
 {
    public partial class SandboxModel : Microsoft.EntityFrameworkCore.DbContext
    {
-      public Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity1> Entity1 { get; set; }
+      public Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity3> Entity3 { get; set; }
 
       public SandboxModel() : base()
       {
@@ -44,8 +44,13 @@ namespace Sandbox
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<Sandbox.Entity1>()
-                     .ToTable("Entity1");
+         modelBuilder.Entity<Sandbox.Entity3>()
+                     .ToTable("Entity3")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<Sandbox.Entity3>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .ValueGeneratedOnAdd();
 
          OnModelCreatedImpl(modelBuilder);
       }
