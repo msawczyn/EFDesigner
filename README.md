@@ -43,7 +43,15 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.1***
+***1.2.2***
+
+   - Fix issue with association role end changing without the other side autoatically changing
+   - Fix issue with deleting a highlighted element throwing an error when trying to save the file
+   - Fixed code generation for dependent classes
+   - Designer now automatically saves before generating code
+
+
+**1.2.1**
 
    - Bug fix for inheritance strategy automatically changing to table-per-hierarchy if targeting EF Core
    - Updated a few warning and error messages to make them more meaningful
@@ -51,7 +59,7 @@ You can read more about how to use the designer in the [Documentation site](http
    - Remove stale error and warnings prior to save (still a few left hanging around that need looked at)
    - Fixed a few null reference errors
 
-***1.2.0***
+<summary><b>1.2.0</b></summary>
 
    - **New Features**
       - Roslyn-based code analysis now allows dragging C# files onto the design surface to add or update classes and enums
@@ -68,6 +76,8 @@ You can read more about how to use the designer in the [Documentation site](http
       - Inheritance strategy automatically changes to table-per-hierarchy if targeting EF Core
       - Context property `Database Type` changed to `SqlServer Type` to better reflect what it does
       - Selecting an element in the Model Explorer highlights it on the diagram
+
+</details>
 
 <details>
 <summary><b>1.1.0</b></summary>

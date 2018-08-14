@@ -1584,19 +1584,20 @@ namespace Sawczyn.EFDesigner.EFModel
 							simpleMonikerResolver.ProcessAddedElement(element);
 						}
 						catch (DslModeling::AmbiguousMonikerException amEx)
-						{	// Ambiguous moniker detected.
-							context.LogError(
-								string.Format(
-									global::System.Globalization.CultureInfo.CurrentCulture,
-									EFModelDomainModel.SingletonResourceManager.GetString("AmbiguousMoniker"),
-									amEx.Moniker,
-									DslModeling::SerializationUtilities.GetElementName(element),
-									DslModeling::SerializationUtilities.GetElementName(amEx.Element)
-								),
-								"AmbiguousMoniker", 
-								this,
-								amEx.Element
-							);
+						{	// Ambiguous moniker detected...maybe
+	                  if (DslModeling::SerializationUtilities.GetElementName(element) != DslModeling::SerializationUtilities.GetElementName(amEx.Element))
+	                     context.LogError(
+	                        string.Format(
+	                           global::System.Globalization.CultureInfo.CurrentCulture,
+	                           EFModelDomainModel.SingletonResourceManager.GetString("AmbiguousMoniker"),
+	                           amEx.Moniker,
+	                           DslModeling::SerializationUtilities.GetElementName(element),
+	                           DslModeling::SerializationUtilities.GetElementName(amEx.Element)
+	                        ),
+	                        "AmbiguousMoniker", 
+	                        this,
+	                        amEx.Element
+	                     );
 						}
 					}
 				}

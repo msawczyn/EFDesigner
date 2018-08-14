@@ -24,6 +24,13 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.2**
+
+   - Fix issue with association role end changing without the other side autoatically changing
+   - Fix issue with deleting a highlighted element throwing an error when trying to save the file
+   - Fixed code generation for dependent classes
+   - Designer now automatically saves before generating code
+
 **1.2.1**
 
    - Bug fix for inheritance strategy automatically changing to table-per-hierarchy if targeting EF Core
