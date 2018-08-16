@@ -1,3 +1,9 @@
+1.2.3
+   - When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
+     This was done because the color change flagged the model as modified, making the user either undo or save the changes to keep
+     source control happy.
+   - Selecting an element in the diagram also selects it in the model explorer
+
 1.2.2
    - Fix issue with association role end changing without the other side autoatically changing
    - Fix issue with deleting a highlighted element throwing an error when trying to save the file

@@ -197,8 +197,10 @@
       <DependentUpon>AddCodeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomCode\CommandSet.cs" />
+    <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocData.cs" />
     <Compile Include="CustomCode\Extensions\ProjectExtensions.cs" />
+    <Compile Include="CustomCode\Partials\EFModelDocView.cs" />
     <Compile Include="CustomCode\Partials\EFModelPackage.cs" />
     <Compile Include="CustomCode\Messages.cs" />
     <Compile Include="CustomCode\Partials\EFModelExplorerToolWindow.cs" />

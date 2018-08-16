@@ -485,7 +485,7 @@
     <Content Include="Resources\UnidirectionTool.bmp" />
     <None Include="GeneratedCode\Serializer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Serializer1.cs</LastGenOutput>
+      <LastGenOutput>Serializer.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\Shapes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

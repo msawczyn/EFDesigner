@@ -504,7 +504,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					///// </summary>
 					///// <param name="serializationResult">Stores serialization result from the load operation.</param>
 					///// <param name="partition">Partition in which the new ModelRoot instance will be created.</param>
-					///// <param name="fileName">Name of the file from which the ModelRoot instance will be deserialized.</param>
+					///// <param name="location">Name of the file from which the ModelRoot instance will be deserialized.</param>
 					///// <param name="modelRoot">The root of the file that was loaded.</param>
 					// private void OnPostLoadModel(DslModeling::SerializationResult serializationResult, DslModeling::Partition partition, string location, ModelRoot modelRoot )
 	
@@ -1168,7 +1168,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				// Only model has schema, diagram has no schema.
 				rootElementSettings.SchemaTargetNamespace = "http://schemas.microsoft.com/dsltools/EFModel";
 			}
-			rootElementSettings.Version = new global::System.Version("1.2.2.1");
+			rootElementSettings.Version = new global::System.Version("1.2.2.3");
 	
 			// Carry out the normal serialization.
 			rootSerializer.Write(serializationContext, rootElement, writer, rootElementSettings);
@@ -1190,7 +1190,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				throw new global::System.ArgumentNullException("reader");
 			#endregion
 	
-			global::System.Version expectedVersion = new global::System.Version("1.2.2.1");
+			global::System.Version expectedVersion = new global::System.Version("1.2.2.3");
 			string dslVersionStr = reader.GetAttribute("dslVersion");
 			if (dslVersionStr != null)
 			{
@@ -1584,20 +1584,19 @@ namespace Sawczyn.EFDesigner.EFModel
 							simpleMonikerResolver.ProcessAddedElement(element);
 						}
 						catch (DslModeling::AmbiguousMonikerException amEx)
-						{	// Ambiguous moniker detected...maybe
-	                  if (DslModeling::SerializationUtilities.GetElementName(element) != DslModeling::SerializationUtilities.GetElementName(amEx.Element))
-	                     context.LogError(
-	                        string.Format(
-	                           global::System.Globalization.CultureInfo.CurrentCulture,
-	                           EFModelDomainModel.SingletonResourceManager.GetString("AmbiguousMoniker"),
-	                           amEx.Moniker,
-	                           DslModeling::SerializationUtilities.GetElementName(element),
-	                           DslModeling::SerializationUtilities.GetElementName(amEx.Element)
-	                        ),
-	                        "AmbiguousMoniker", 
-	                        this,
-	                        amEx.Element
-	                     );
+						{	// Ambiguous moniker detected.
+							context.LogError(
+								string.Format(
+									global::System.Globalization.CultureInfo.CurrentCulture,
+									EFModelDomainModel.SingletonResourceManager.GetString("AmbiguousMoniker"),
+									amEx.Moniker,
+									DslModeling::SerializationUtilities.GetElementName(element),
+									DslModeling::SerializationUtilities.GetElementName(amEx.Element)
+								),
+								"AmbiguousMoniker", 
+								this,
+								amEx.Element
+							);
 						}
 					}
 				}
