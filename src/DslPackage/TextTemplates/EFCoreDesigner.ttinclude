@@ -263,7 +263,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add($"HasName(\"{identityAttribute.ColumnName}\")");
       }
       else if (identityAttributes.Count() > 1)
-         segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes)} }})");
+         segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
          
       if (segments.Count > 1)
       {
