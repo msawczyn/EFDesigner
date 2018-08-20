@@ -607,7 +607,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for SourceDeleteAction
 		/// </summary>
-		private DeleteAction sourceDeleteActionPropertyStorage = DeleteAction.None;
+		private DeleteAction sourceDeleteActionPropertyStorage = DeleteAction.Default;
 		
 		/// <summary>
 		/// Gets or sets the value of SourceDeleteAction domain property.
@@ -616,7 +616,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/SourceDeleteAction.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/SourceDeleteAction.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/SourceDeleteAction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(DeleteAction.None)]
+		[global::System.ComponentModel.DefaultValue(DeleteAction.Default)]
 		[DslModeling::DomainObjectId("f40a8fc6-0b1b-4c1b-a46c-75d3450cd6c8")]
 		public DeleteAction SourceDeleteAction
 		{
@@ -696,7 +696,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for TargetDeleteAction
 		/// </summary>
-		private DeleteAction targetDeleteActionPropertyStorage = DeleteAction.None;
+		private DeleteAction targetDeleteActionPropertyStorage = DeleteAction.Default;
 		
 		/// <summary>
 		/// Gets or sets the value of TargetDeleteAction domain property.
@@ -705,7 +705,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetDeleteAction.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetDeleteAction.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetDeleteAction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(DeleteAction.None)]
+		[global::System.ComponentModel.DefaultValue(DeleteAction.Default)]
 		[DslModeling::DomainObjectId("6e502a47-428b-455f-b155-edf310ce6c73")]
 		public DeleteAction TargetDeleteAction
 		{

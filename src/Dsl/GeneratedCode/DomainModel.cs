@@ -762,16 +762,22 @@ namespace Sawczyn.EFDesigner.EFModel
 	{
 		/// <summary>
 		/// Cascade
-		/// No description available
+		/// Force a cascade delete across this association
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DeleteAction/Cascade.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Cascade = 0,
 		/// <summary>
 		/// None
-		/// No description available
+		/// Ensure other end is not automatically deleted when one end is deleted.
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DeleteAction/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		None = 1,
+		/// <summary>
+		/// Default
+		/// Use the default Entity Framework behavior for the type of association
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DeleteAction/Default.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Default = 2,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel

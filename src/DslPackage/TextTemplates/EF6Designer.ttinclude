@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.2
+// EFDesigner v1.2.3
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -265,21 +265,19 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
          segments.Add("Map(x => x.MapInheritedProperties())");
 
-      if (!isDependent)
+      if (classesWithTables.Contains(modelClass))
       {
-         if (classesWithTables.Contains(modelClass))
-         {
-            if (modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema)
-               segments.Add($"ToTable(\"{modelClass.TableName}\")");
-            else
-               segments.Add($"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
-         }
+         if (modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema)
+            segments.Add($"ToTable(\"{modelClass.TableName}\")");
+         else
+            segments.Add($"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
 
-         List<string> identityAttributes = modelClass.IdentityAttributeNames.ToList();
-         if (identityAttributes.Count == 1)
-            segments.Add($"HasKey(t => t.{identityAttributes[0]})");
-         else if (identityAttributes.Count > 1) 
-            segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes)} }})");
+         // primary key code segments must be output last, since HasKey returns a different type
+         List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
+         if (identityAttributes.Count() == 1)
+            segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
+         else if (identityAttributes.Count() > 1)
+               segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
       }
       
       foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
@@ -293,6 +291,24 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             Output(string.Join(".", segments) + ";");
       }
       
+      segments.Clear();
+      segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+
+      foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
+      {
+         segments.Add($"HasIndex(t => t.{indexed.Name})");
+         if (indexed.IndexedUnique)
+            segments.Add("IsUnique()");
+      }
+
+      if (segments.Count > 1)
+      {
+         if (modelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
+      }
+
       // attribute level
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
       {
@@ -338,11 +354,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             if (visited.Contains(association)) continue;
             visited.Add(association);
 
-            // Certain associations cascade delete automatically. Also, the user may ask for it.
-            // We only generate a cascade delete call if the user asks for it. EF will handle the rest automatically, and it can
-            // cause issues if we make the call when it's not needed.
-            bool cascadeDelete = association.TargetDeleteAction != DeleteAction.None;
-
             segments.Clear();
             segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
 
@@ -353,7 +364,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                   segments.Add($"HasRequired(x => x.{association.TargetPropertyName})");
-                  cascadeDelete = true;
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                   segments.Add($"HasOptional(x => x.{association.TargetPropertyName})");
@@ -389,7 +399,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                      segments.Add("WithRequired()");
                   }
 
-                  cascadeDelete = true; 
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                   if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
@@ -413,8 +422,13 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
             if (foreignKeySegment != null) segments.Add(foreignKeySegment);
 
-            if (cascadeDelete)
-               segments.Add("WillCascadeOnDelete()");
+            // Certain associations cascade delete automatically. Also, the user may ask for it.
+            // We only generate a cascade delete call if the user asks for it. 
+            if (association.TargetDeleteAction != DeleteAction.Default)
+            {
+               string willCascadeOnDelete = (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+               segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
+            }
 
             if (modelRoot.ChopMethodChains)
                OutputChopped(segments);
@@ -427,9 +441,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             if (visited.Contains(association)) continue;
             visited.Add(association);
 
-            // TODO: fix cascade delete
-            bool cascadeDelete = association.SourceDeleteAction != DeleteAction.None;
-
             segments.Clear();
             segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
 
@@ -440,7 +451,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                   segments.Add($"HasRequired(x => x.{association.SourcePropertyName})");
-                  cascadeDelete = true;
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                   segments.Add($"HasOptional(x => x.{association.SourcePropertyName})");
@@ -468,32 +478,23 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                   if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                   {
                      if (association.SourceRole == EndpointRole.Dependent)
-                     {
                         segments.Add($"WithRequiredDependent(x => x.{association.TargetPropertyName})");
-                     }
                      else
-                     {
                         segments.Add($"WithRequiredPrincipal(x => x.{association.TargetPropertyName})");
-                     }
                   }
                   else
                   {
                      segments.Add($"WithRequired(x => x.{association.TargetPropertyName})");
                   }
                   
-                  cascadeDelete = true; 
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                   if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
                   {
                      if (association.SourceRole == EndpointRole.Dependent)
-                     {
                         segments.Add($"WithOptionalDependent(x => x.{association.TargetPropertyName})");
-                     }
                      else
-                     {
                         segments.Add($"WithOptionalPrincipal(x => x.{association.TargetPropertyName})");
-                     }
                   }
                   else 
                   {
@@ -510,8 +511,11 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
             if (foreignKeySegment != null) segments.Add(foreignKeySegment);
 
-            if (cascadeDelete)
-               segments.Add("WillCascadeOnDelete()");
+            if (association.SourceDeleteAction != DeleteAction.Default)
+            {
+               string willCascadeOnDelete = (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+               segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
+            }
 
             if (modelRoot.ChopMethodChains)
                OutputChopped(segments);

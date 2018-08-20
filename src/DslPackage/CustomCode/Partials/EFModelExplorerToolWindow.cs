@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnSelectionChanged(e);
 
          // select element on active diagram
-         if (PrimarySelection is ModelElement modelElement)
+         if (PrimarySelection != null && PrimarySelection is ModelElement modelElement)
             modelElement.LocateInDiagram(true);
       }
    }
