@@ -3,10 +3,12 @@
      This was done because the color change flagged the model as modified, making the user either undo or save the changes to keep
      source control happy.
    - Selecting an element in the diagram also selects it in the model explorer
-   - Fix for issue #14 - Table with two Primary keys not generated properly in context (https://github.com/msawczyn/EFDesigner/issues/14). Many thanks to @Falthazar!
    - Fix for issue #12 - Cascade delete (https://github.com/msawczyn/EFDesigner/issues/14). Added another enum value for delete behavior (now is Cascade, None and Default)
      and changed code generation to force no cascade delete if set to 'None' ('None' used to mean 'Use the default behavior', which is now, more explicitly, the 'Default'
      option).
+   - Fix for issue #13 - Unique index not generated in EF6 (https://github.com/msawczyn/EFDesigner/issues/13).
+   - Fix for issue #14 - Table with two Primary keys not generated properly in context (https://github.com/msawczyn/EFDesigner/issues/14). Many thanks to @Falthazar!
+   - Fix for issue #18 - Adds ValueGeneratedNever if identity type is Manual (https://github.com/msawczyn/EFDesigner/pull/18). Again, hats off to @Falthazar!
 
 1.2.2
    - Fix issue with association role end changing without the other side autoatically changing
