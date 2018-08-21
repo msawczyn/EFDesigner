@@ -325,6 +325,10 @@ A few things to notice:
 - We duplicated the `Id` property, since it was already in the entity and we didn't delete it before pasting. When the text was parsed and the properties created, that duplicate was discarded. A warning appeared in Visual Studio's error list letting us know that it was discarded and why.
 - The `{ get; set; }` blocks were discarded, as was the semicolon (`;`) from the one property initially presented.
 - We added properties using CLR types (`int` and `string`), but they were added to the model as object types (`Int32` and `String`).
+- The properties were added as required properties! C# syntax doesn't (unless you're using C# 8.0) have a way to indicate that an object is nullable or not. 
+  Since we didn't edit the code we pasted in, no `?` indicators were present to tell the parser that this isn't a required property. Note that, even
+  if we had C# 8.0 available, the designer's property syntax purposely doesn't fit with C# non-nullable object syntax. That's to make you review
+  what you've entered and think about doing the right thing for your model!
 
 ### Next Step 
 [Associations](Associations)

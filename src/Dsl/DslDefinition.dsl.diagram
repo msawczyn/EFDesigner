@@ -521,7 +521,7 @@
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipPortMoniker Id="af851f1a-3c84-4d16-809c-249e320be632" />
       </nodes>
     </microsoft.VisualStudio.Modeling.DslDesigner.RoleConnector>
-    <microsoft.VisualStudio.Modeling.DslDesigner.MapConnector edgePoints="[(5.51666667163371 : 2.96); (10.2166666716337 : 3.06986002604167)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="a145acda-53a8-49fe-963a-6040813e7f8b">
+    <microsoft.VisualStudio.Modeling.DslDesigner.MapConnector edgePoints="[(5.51666667163373 : 2.96); (10.2166666716337 : 3.06986002604167)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="a145acda-53a8-49fe-963a-6040813e7f8b">
       <nodes>
         <microsoft.VisualStudio.Modeling.DslDesigner.ClassShapeMoniker Id="f37dbf2b-ef0e-4d10-9217-3085f567e389" />
         <microsoft.VisualStudio.Modeling.DslDesigner.CompartmentShapeShapeMoniker Id="44c8a709-a6cd-4657-b23d-65866691e029" />

@@ -138,11 +138,9 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 When you have a design surface open Visual Studio will give you a new window under View / Other Windows / Entity Model Explorer.
 It's a tree view of the entities, enumerations and comment blocks in your model. 
 
-Opening any class will show you the attributes of that class, and selecting any node in the entity model explorer will
-both highlight that element on the design surface and show its properties in the Visual Studio's property window. Perfect for those
-two big models where you have to zoom them down to see the whole picture but then can't find anything because the text is too
-small to read.
-
+Selecting any class will show you the attributes of that class, as well as selecting that element on the design surface and 
+displaying its properties in Visual Studio's property window. Perfect for those two big models where you have to zoom out to see 
+the whole picture but then can't find anything because the text is too small to read.
 
 ### Generating Code
 
