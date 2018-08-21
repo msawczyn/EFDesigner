@@ -1470,12 +1470,17 @@
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="Cascade">
         <xsd:annotation>
-          <xsd:documentation>No description available</xsd:documentation>
+          <xsd:documentation>Force a cascade delete across this association</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="None">
         <xsd:annotation>
-          <xsd:documentation>No description available</xsd:documentation>
+          <xsd:documentation>Ensure other end is not automatically deleted when one end is deleted.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Default">
+        <xsd:annotation>
+          <xsd:documentation>Use the default Entity Framework behavior for the type of association</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

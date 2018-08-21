@@ -1738,7 +1738,7 @@
     <comment>Display name for EnumerationLiteral &apos;Cascade&apos; on DomainEnumeration &apos;DeleteAction&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.DeleteAction/Cascade.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Force a cascade delete across this association</value>
     <comment>Description for EnumerationLiteral &apos;Cascade&apos; on DomainEnumeration &apos;DeleteAction&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.DeleteAction/None.DisplayName" xml:space="preserve">
@@ -1746,8 +1746,16 @@
     <comment>Display name for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DeleteAction&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.DeleteAction/None.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Ensure other end is not automatically deleted when one end is deleted.</value>
     <comment>Description for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;DeleteAction&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DeleteAction/Default.DisplayName" xml:space="preserve">
+    <value>Default</value>
+    <comment>Display name for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;DeleteAction&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DeleteAction/Default.Description" xml:space="preserve">
+    <value>Use the default Entity Framework behavior for the type of association</value>
+    <comment>Description for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;DeleteAction&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.CollectionType/List.DisplayName" xml:space="preserve">
     <value>List</value>

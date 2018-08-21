@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="2" Revision="3" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="3" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
@@ -641,12 +641,12 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f40a8fc6-0b1b-4c1b-a46c-75d3450cd6c8" Description="The action to take when an entity on this end is deleted." Name="SourceDeleteAction" DisplayName="End1 On Delete" DefaultValue="None" Category="End 1">
+        <DomainProperty Id="f40a8fc6-0b1b-4c1b-a46c-75d3450cd6c8" Description="The action to take when an entity on this end is deleted." Name="SourceDeleteAction" DisplayName="End1 On Delete" DefaultValue="Default" Category="End 1">
           <Type>
             <DomainEnumerationMoniker Name="DeleteAction" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="6e502a47-428b-455f-b155-edf310ce6c73" Description="The action to take when an entity on this end is deleted." Name="TargetDeleteAction" DisplayName="End2 On Delete" DefaultValue="None" Category="End 2">
+        <DomainProperty Id="6e502a47-428b-455f-b155-edf310ce6c73" Description="The action to take when an entity on this end is deleted." Name="TargetDeleteAction" DisplayName="End2 On Delete" DefaultValue="Default" Category="End 2">
           <Type>
             <DomainEnumerationMoniker Name="DeleteAction" />
           </Type>
@@ -936,8 +936,9 @@
     <ExternalType Name="Color" Namespace="System.Drawing" />
     <DomainEnumeration Name="DeleteAction" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
       <Literals>
-        <EnumerationLiteral Description="No description available" Name="Cascade" Value="0" />
-        <EnumerationLiteral Description="No description available" Name="None" Value="1" />
+        <EnumerationLiteral Description="Force a cascade delete across this association" Name="Cascade" Value="0" />
+        <EnumerationLiteral Description="Ensure other end is not automatically deleted when one end is deleted." Name="None" Value="1" />
+        <EnumerationLiteral Description="Use the default Entity Framework behavior for the type of association" Name="Default" Value="2" />
       </Literals>
     </DomainEnumeration>
     <ExternalType Name="DashStyle" Namespace="System.Drawing.Drawing2D" />

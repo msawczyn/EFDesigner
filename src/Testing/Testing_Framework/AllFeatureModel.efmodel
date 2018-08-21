@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.2.1" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.2.3" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <types>
     <modelClass Id="9899b04a-e795-40c5-a435-46cdfde26980" tableName="AllPropertyTypesRequireds" databaseSchema="dbo" namespace="Testing" dbSetName="AllPropertyTypesRequireds" name="AllPropertyTypesRequired" isOutputDirectoryTracking="false">
       <attributes>
@@ -47,7 +47,7 @@
         <unidirectionalAssociation Id="f0b5d971-331e-42de-820a-5d91d38f3f1e" targetPropertyName="UChildCollection" collectionClass="ObservableCollection" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
           <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
         </unidirectionalAssociation>
-        <unidirectionalAssociation Id="acb63f31-5af9-40c0-a1ec-99f25a35d445" targetMultiplicity="ZeroOne" targetPropertyName="UChildOptional" collectionClass="ObservableCollection" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
+        <unidirectionalAssociation Id="acb63f31-5af9-40c0-a1ec-99f25a35d445" targetMultiplicity="ZeroOne" targetPropertyName="UChildOptional" sourceDeleteAction="Cascade" collectionClass="ObservableCollection" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
           <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
         </unidirectionalAssociation>
       </unidirectionalTargets>
