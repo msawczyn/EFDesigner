@@ -71,6 +71,13 @@ namespace Testing
 
       public TimeSpan? TimeAttr { get; set; }
 
+      /// <summary>
+      /// Identity, Required, Indexed
+      /// </summary>
+      [Key]
+      [Required]
+      public int Id1 { get; set; }
+
    }
 }
 

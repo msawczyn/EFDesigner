@@ -43,15 +43,27 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.2***
+***1.2.3***
+   - When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
+     This was done because the color change flagged the model as modified, making the user either undo or save the changes to keep
+     source control happy.
+   - Selecting an element in the diagram also selects it in the model explorer
+   - Fix for [issue #12 - Cascade delete](https://github.com/msawczyn/EFDesigner/issues/14). Added another enum value for delete behavior (now is Cascade, None and Default)
+     and changed code generation to force no cascade delete if set to 'None' ('None' used to mean 'Use the default behavior', which is now, more explicitly, the 'Default'
+     option).
+   - Fix for [issue #13 - Unique index not generated in EF6](https://github.com/msawczyn/EFDesigner/issues/13).
+   - Fix for [issue #14 - Table with two Primary keys not generated properly in context](https://github.com/msawczyn/EFDesigner/issues/14). Many thanks to @Falthazar!
+   - Fix for [issue #18 - Adds ValueGeneratedNever if identity type is Manual](https://github.com/msawczyn/EFDesigner/pull/18). Again, hats off to @Falthazar!
+
+**1.2.2**
 
    - Fix issue with association role end changing without the other side autoatically changing
    - Fix issue with deleting a highlighted element throwing an error when trying to save the file
    - Fixed code generation for dependent classes
    - Designer now automatically saves before generating code
 
-
-**1.2.1**
+<details>
+<summary><b>1.2.1</b></summary>
 
    - Bug fix for inheritance strategy automatically changing to table-per-hierarchy if targeting EF Core
    - Updated a few warning and error messages to make them more meaningful
@@ -59,6 +71,9 @@ You can read more about how to use the designer in the [Documentation site](http
    - Remove stale error and warnings prior to save (still a few left hanging around that need looked at)
    - Fixed a few null reference errors
 
+</details>
+
+<details>
 <summary><b>1.2.0</b></summary>
 
    - **New Features**

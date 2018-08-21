@@ -156,8 +156,7 @@ namespace Testing_CoreV2NetCore
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentRequired_1)
                      .WithOne(x => x.BChildRequired)
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentRequired_2)
                      .WithMany(x => x.BChildCollection);
@@ -165,8 +164,7 @@ namespace Testing_CoreV2NetCore
                      .HasMany(x => x.BParentCollection)
                      .WithOne(x => x.BChildRequired)
                      .HasForeignKey("BChildRequired_Id")
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasMany(x => x.BParentCollection_2)
                      .WithOne(x => x.BChildOptional)
@@ -175,8 +173,7 @@ namespace Testing_CoreV2NetCore
                      .HasOne(x => x.BParentOptional)
                      .WithOne(x => x.BChildRequired)
                      .HasForeignKey("BChildRequired1_Id")
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentOptional_1)
                      .WithMany(x => x.BChildCollection);
@@ -243,8 +240,7 @@ namespace Testing_CoreV2NetCore
          modelBuilder.Entity<Testing_CoreV2NetCore.Master>()
                      .HasMany(x => x.Children)
                      .WithOne()
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .IsRequired();
 
          modelBuilder.Entity<Testing_CoreV2NetCore.ParserTest>()
                      .ToTable("ParserTests")
@@ -280,8 +276,7 @@ namespace Testing_CoreV2NetCore
 
          modelBuilder.Entity<Testing_CoreV2NetCore.RenamedColumn>()
                      .ToTable("RenamedColumns")
-                     .HasKey(t => t.Id)
-                     .HasName("Foo");
+                     .HasKey(t => t.Id);
          modelBuilder.Entity<Testing_CoreV2NetCore.RenamedColumn>()
                      .Property(t => t.Id)
                      .IsRequired()
@@ -333,18 +328,15 @@ namespace Testing_CoreV2NetCore
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentRequired>()
                      .HasOne(x => x.UChildRequired)
                      .WithOne()
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentRequired>()
                      .HasMany(x => x.UChildCollection)
                      .WithOne()
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentRequired>()
                      .HasOne(x => x.UChildOptional)
                      .WithOne()
-                     .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }

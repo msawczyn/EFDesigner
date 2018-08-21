@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.2.0.16" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 17.875, 17.625" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.2.3.1" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 17.875, 17.625" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -221,7 +221,7 @@
         <classShapeMoniker Id="10aae75a-82e2-4296-9d9f-faa440770436" />
       </nodes>
     </generalizationConnector>
-    <classShape Id="9885f002-9f44-4b19-a3cd-2e7cd69a80a2" absoluteBounds="8.75, 1.25, 1.5, 0.85169108072916666" fillColor="0, 122, 204" textColor="White" outlineColor="OrangeRed" outlineDashStyle="Dash" visible="true" outlineThickness="0.02">
+    <classShape Id="9885f002-9f44-4b19-a3cd-2e7cd69a80a2" absoluteBounds="8.75, 1.25, 1.5, 0.85169108072916666" fillColor="0, 122, 204" textColor="White" outlineColor="OrangeRed" outlineDashStyle="Dot" visible="true" outlineThickness="0.03">
       <modelClassMoniker Id="ae9ba0ce-ea03-4f0b-9a36-8140304f6dc8" />
       <nestedChildShapes>
         <elementListCompartment Id="ece651f7-20de-4026-acb9-0378f78dccd4" absoluteBounds="8.765, 1.56, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
@@ -234,7 +234,7 @@
         <classShapeMoniker Id="f9a6c404-1fc6-4f49-84d6-1a5c751b11b4" />
       </nodes>
     </generalizationConnector>
-    <classShape Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" absoluteBounds="15, 10.125, 2, 0.65938964843750014" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+    <classShape Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" absoluteBounds="15, 10.125, 2, 0.65938964843750014" fillColor="0, 122, 204" textColor="White" outlineColor="OrangeRed" outlineDashStyle="Dot" visible="true" outlineThickness="0.03">
       <modelClassMoniker Id="69fc6925-9e16-43ab-853e-1c8add21f51f" />
       <nestedChildShapes>
         <elementListCompartment Id="ecbe68c4-467b-469c-9623-e1530fe38124" absoluteBounds="15.015, 10.435, 1.9700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
