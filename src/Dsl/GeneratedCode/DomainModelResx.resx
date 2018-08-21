@@ -2818,6 +2818,14 @@ A DomainClass can be serialized as a moniker only if
     <value>..\Resources\EnumTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
+  <data name="ModelAttributeExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\Attribute.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="ModelEnumValueExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\EnumValue.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
   <data name="ModelClassToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\EntityGlyph.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>

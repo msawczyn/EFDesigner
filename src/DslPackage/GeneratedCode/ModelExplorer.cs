@@ -60,6 +60,12 @@ namespace Sawczyn.EFDesigner.EFModel
 			this.AddExplorerNodeCustomSetting(global::Sawczyn.EFDesigner.EFModel.ModelEnum.DomainClassId, 
 							DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModelEnumExplorerImage")), 
 							false); 
+			this.AddExplorerNodeCustomSetting(global::Sawczyn.EFDesigner.EFModel.ModelAttribute.DomainClassId, 
+							DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModelAttributeExplorerImage")), 
+							false); 
+			this.AddExplorerNodeCustomSetting(global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.DomainClassId, 
+							DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModelEnumValueExplorerImage")), 
+							false); 
 		}
 	
 	

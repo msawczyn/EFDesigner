@@ -1706,6 +1706,16 @@
           <DomainClassMoniker Name="ModelEnum" />
         </Class>
       </ExplorerNodeSettings>
+      <ExplorerNodeSettings IconToDisplay="Resources\Attribute.bmp">
+        <Class>
+          <DomainClassMoniker Name="ModelAttribute" />
+        </Class>
+      </ExplorerNodeSettings>
+      <ExplorerNodeSettings IconToDisplay="Resources\EnumValue.bmp">
+        <Class>
+          <DomainClassMoniker Name="ModelEnumValue" />
+        </Class>
+      </ExplorerNodeSettings>
     </CustomNodeSettings>
     <HiddenNodes>
       <DomainPath>ModelRootHasComments!Comment</DomainPath>
