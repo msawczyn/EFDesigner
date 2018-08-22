@@ -266,23 +266,20 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             Output(string.Join(".", segments) + ";");
       }
 
-      segments.Clear();
-      segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
-
+	  // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
-         segments.Add($"HasIndex(t => t.{indexed.Name})");
-         if (indexed.IndexedUnique)
-            segments.Add("IsUnique()");
-      }
-
-      if (segments.Count > 1)
-      {
-         if (modelRoot.ChopMethodChains)
-            OutputChopped(segments);
-         else
-            Output(string.Join(".", segments) + ";");
-      }
+	     segments.Clear();
+         segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>().HasIndex(t => t.{indexed.Name})");
+         if (indexed.IndexedUnique) segments.Add("IsUnique()");
+		 if (segments.Count > 1)
+         {
+            if (modelRoot.ChopMethodChains)
+               OutputChopped(segments);
+            else
+               Output(string.Join(".", segments) + ";");
+         }
+	  }
 
       // attribute level
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))

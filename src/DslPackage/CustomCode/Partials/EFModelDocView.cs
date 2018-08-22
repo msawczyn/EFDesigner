@@ -21,18 +21,20 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.OnSelectionChanged(e);
 
-         List<ModelElement> selected_diagram = SelectedElements.OfType<ModelElement>().ToList();
-         List<ModelElement> selected_explorer = ModelExplorerWindow?.GetSelectedComponents()?.OfType<ModelElement>() != null
-                                                   ? ModelExplorerWindow.GetSelectedComponents().OfType<ModelElement>().ToList()
-                                                   : null;
+         // TODO: look into how we can reset the explorer's selected node when the selection changes on the diagram without causing a recursive call that messes up the view of the diagram.
 
-         if (selected_explorer != null)
-         {
-            if (selected_diagram.Count != 1)
-               ModelExplorerWindow.SetSelectedComponents(null);
-            else if (selected_diagram[0] != selected_explorer.FirstOrDefault())
-               ModelExplorerWindow.SetSelectedComponents(selected_diagram);
-         }
+         //List<ModelElement> selected_diagram = SelectedElements.OfType<ModelElement>().ToList();
+         //List<ModelElement> selected_explorer = ModelExplorerWindow?.GetSelectedComponents()?.OfType<ModelElement>() != null
+         //                                          ? ModelExplorerWindow.GetSelectedComponents().OfType<ModelElement>().ToList()
+         //                                          : null;
+
+         //if (selected_explorer != null)
+         //{
+         //   if (selected_diagram.Count != 1)
+         //      ModelExplorerWindow.SetSelectedComponents(null);
+         //   else if (selected_diagram[0] != selected_explorer.FirstOrDefault())
+         //      ModelExplorerWindow.SetSelectedComponents(selected_diagram);
+         //}
       }
 
       protected EFModelExplorerToolWindow ModelExplorerWindow => EFModelPackage.Instance?.GetToolWindow(typeof(EFModelExplorerToolWindow), true) as EFModelExplorerToolWindow;

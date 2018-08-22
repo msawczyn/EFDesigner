@@ -24,6 +24,11 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.3.3**
+	- Reverted the selection of the node in the model explorer when an element is selected in the diagram. 
+	  Was causing bad user experience.
+	- Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
+
 **1.2.3**
    - When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
      This was done because the color change flagged the model as modified, making the user either undo or save the changes to keep

@@ -2,13 +2,9 @@ DSL: Add a Project Explorer icon for the EFModel type
 
 T4:  Implement entity splitting
 
-T4:  How to code FluentAPI for Geography and Geometry types?
-
 DSL: Context menu items should apply to model explorer as well as diagram
 
 T4:  Use HTML5Type in code generation
-
-DSL: Rework EFModelDocData.OnDocumentLoaded to prevent file from appearing dirty when no changes are made
 
 DSL: Add DeleteType enum to ModelClass (soft, hard)
 T4:  Implement soft delete where marked in model
