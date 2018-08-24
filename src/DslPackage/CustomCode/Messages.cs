@@ -34,19 +34,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void AddError(string message)
       {
-         OutputWindowPane?.OutputString($"Error: {message}");
-         OutputWindowPane?.Activate();
+         AddMessage(message, "Error");
       }
 
       public static void AddWarning(string message)
       {
-         OutputWindowPane?.OutputString($"Warning: {message}");
-         OutputWindowPane?.Activate();
+         AddMessage(message, "Warning");
       }
 
-      public static void AddMessage(string message)
+      public static void AddMessage(string message, string prefix = null)
       {
-         OutputWindowPane?.OutputString(message);
+         OutputWindowPane?.OutputString($"{(string.IsNullOrWhiteSpace(prefix) ? "" : prefix + ": ")}{message}{(message.EndsWith("\n") ? "" : "\n")}");
          OutputWindowPane?.Activate();
       }
    }
