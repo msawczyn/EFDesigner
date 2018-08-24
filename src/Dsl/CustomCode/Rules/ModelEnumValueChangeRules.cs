@@ -39,9 +39,18 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                }
 
                if (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName))
-                  errorMessage = "Name must be a valid .NET identifier";
+                  errorMessage = $"{modelEnum.Name}.{newName}: Name must be a valid .NET identifier";
                else if (modelEnum.Values.Except(new[] { element }).Any(v => v.Name == newName))
-                  errorMessage = "Value name already in use";
+                  errorMessage = $"{modelEnum.Name}.{newName}: Name already in use";
+               else if (!string.IsNullOrWhiteSpace((string)e.OldValue))
+               {
+                  // find ModelAttributes where the default value is this ModelEnumValue and change it to the new name
+                  string oldInitialValue = $"{modelEnum.Name}.{e.OldValue}";
+                  string newInitialValue = $"{modelEnum.Name}.{e.NewValue}";
+
+                  foreach (ModelAttribute modelAttribute in store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.InitialValue == oldInitialValue))
+                     modelAttribute.InitialValue = newInitialValue;
+               }
 
                break;
 

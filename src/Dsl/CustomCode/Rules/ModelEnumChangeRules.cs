@@ -43,7 +43,12 @@ namespace Sawczyn.EFDesigner.EFModel
                              .Except(new[] {element})
                              .Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by another enum";
-
+               else
+               {
+                  // rename type names for ModelAttributes that reference this enum
+                  foreach (ModelAttribute modelAttribute in store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == (string)e.OldValue))
+                     modelAttribute.Type = element.Name;
+               }
                break;
 
             case "Namespace":
