@@ -114,8 +114,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (newImplementNotify)
                {
-                  foreach (ModelAttribute modelAttribute in element.Attributes.Where(x => x.AutoProperty))
-                     WarningDisplay.Show($"{modelAttribute.Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages");
+                  foreach (ModelAttribute attribute in element.Attributes.Where(x => x.AutoProperty))
+                     WarningDisplay.Show($"{element.Name}.{attribute.Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages");
                }
 
                PresentationHelper.ColorShapeOutline(element);

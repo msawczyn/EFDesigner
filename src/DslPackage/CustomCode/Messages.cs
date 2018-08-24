@@ -1,44 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 
-namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
+namespace Sawczyn.EFDesigner.EFModel
 {
    internal static class Messages
    {
-      private static ErrorListProvider _errorListProvider;
+      private static readonly string MessagePaneTitle = "Entity Framework Designer";
 
-      public static void Initialize(IServiceProvider serviceProvider)
+      private static IVsOutputWindow _outputWindow;
+      private static IVsOutputWindow OutputWindow => _outputWindow ?? (_outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow);
+
+      private static IVsOutputWindowPane _outputWindowPane;
+      private static IVsOutputWindowPane OutputWindowPane
       {
-         _errorListProvider = new ErrorListProvider(serviceProvider);
+         get
+         {
+            if (_outputWindowPane == null)
+            {
+               Guid paneGuid = new Guid(Constants.EFDesignerOutputPane);
+               OutputWindow?.GetPane(ref paneGuid, out _outputWindowPane);
+
+               if (_outputWindowPane == null)
+               {
+                  OutputWindow?.CreatePane(ref paneGuid, MessagePaneTitle, 1, 1);
+                  OutputWindow?.GetPane(ref paneGuid, out _outputWindowPane);
+               }
+            }
+
+            return _outputWindowPane;
+         }
       }
 
       public static void AddError(string message)
       {
-         AddTask(message, TaskErrorCategory.Error);
+         OutputWindowPane?.OutputString($"Error: {message}");
+         OutputWindowPane?.Activate();
       }
 
       public static void AddWarning(string message)
       {
-         AddTask(message, TaskErrorCategory.Warning);
+         OutputWindowPane?.OutputString($"Warning: {message}");
+         OutputWindowPane?.Activate();
       }
 
       public static void AddMessage(string message)
       {
-         AddTask(message, TaskErrorCategory.Message);
-      }
-
-      private static void AddTask(string message, TaskErrorCategory category)
-      {
-         _errorListProvider?.Tasks?.Add(new ErrorTask
-                                        {
-                                           Category = TaskCategory.User
-                                         , ErrorCategory = category
-                                         , Text = message
-                                        });
+         OutputWindowPane?.OutputString(message);
+         OutputWindowPane?.Activate();
       }
    }
 }

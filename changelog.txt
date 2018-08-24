@@ -1,3 +1,7 @@
+1.2.4.0
+   - Retargeted immediate error and warning messages to Visual Studio output window rather than error window so they could be cleared
+   - Added drag validation to Generalization (inheritance) tool
+
 1.2.3.3
 	- Reverted the selection of the node in the model explorer when an element is selected in the diagram. 
 	  Was causing bad user experience.

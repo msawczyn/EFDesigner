@@ -27,8 +27,8 @@ namespace Sawczyn.EFDesigner.EFModel
             case "Subclass":
                if (!element.IsInCircularInheritance())
                {
+                  ErrorDisplay.Show($"{element.Subclass.Name} -> {element.Superclass.Name}: That inheritance link would cause a circular reference.");
                   current.Rollback();
-                  ErrorDisplay.Show("That inheritance link would cause a circular reference.");
                   return;
                }
 
@@ -56,9 +56,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (nameClashes.Any())
                   {
-                     current.Rollback();
                      string nameClashList = string.Join("\n   ", nameClashes);
-                     ErrorDisplay.Show("That inheritance link would cause name clashes. Resolve the following before setting the inheritance:\n   " + nameClashList);
+                     ErrorDisplay.Show($"{element.Subclass.Name} -> {element.Superclass.Name}: That inheritance link would cause name clashes. Resolve the following before setting the inheritance:\n   " + nameClashList);
+                     current.Rollback();
                   }
                }
                break;

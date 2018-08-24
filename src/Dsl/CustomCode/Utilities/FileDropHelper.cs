@@ -69,7 +69,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (!classDecls.Any() && !enumDecls.Any())
                {
-                  WarningDisplay.Show("Couldn't find any classes or enums to add to the model");
+                  WarningDisplay.Show($"Couldn't find any classes or enums to add to the model in {filename}");
 
                   return false;
                }

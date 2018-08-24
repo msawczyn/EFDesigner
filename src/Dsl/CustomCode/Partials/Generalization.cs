@@ -7,15 +7,12 @@ namespace Sawczyn.EFDesigner.EFModel
       public bool IsInCircularInheritance()
       {
          List<ModelClass> classes = new List<ModelClass>();
-         ModelClass modelClass = Subclass;
-
-         while (modelClass != null)
+         for (ModelClass modelClass = Subclass; modelClass != null; modelClass = modelClass.Superclass)
          {
             if (classes.Contains(modelClass))
                return true;
 
             classes.Add(modelClass);
-            modelClass = modelClass.Superclass;
          }
 
          return false;

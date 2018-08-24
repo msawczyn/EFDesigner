@@ -20,8 +20,6 @@ namespace Sawczyn.EFDesigner.EFModel
          TypeDescriptor.AddProvider(new ModelAttributeTypeDescriptionProvider(), typeof(ModelAttribute));
          TypeDescriptor.AddProvider(new ModelRootTypeDescriptionProvider(), typeof(ModelRoot));
 
-         Messages.Initialize(this);
-
          base.Initialize();
       }
    }

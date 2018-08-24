@@ -5,19 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
 using EnvDTE;
 using EnvDTE80;
-
 using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
-
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using NuGet.VisualStudio;
-
-using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
 using VSLangProj;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -163,7 +158,6 @@ namespace Sawczyn.EFDesigner.EFModel
          SetDocDataDirty(0);
       }
 
-      // ReSharper disable once UnusedMember.Local
       private DialogResult ShowQuestionBox(string question)
       {
          return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY);
@@ -175,25 +169,20 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       // ReSharper disable once UnusedMember.Local
-      private void ShowMessage(string message, bool asMessageBox)
+      private void ShowMessage(string message)
       {
          Messages.AddMessage(message);
-         if (asMessageBox)
-            PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_INFO);
       }
 
-      private void ShowWarning(string message, bool asMessageBox)
+      private void ShowWarning(string message)
       {
          Messages.AddWarning(message);
-         if (asMessageBox)
-            PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_WARNING);
       }
 
-      private void ShowError(string message, bool asMessageBox)
+      private void ShowError(string message)
       {
          Messages.AddError(message);
-         if (asMessageBox)
-            PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
+         PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
       }
 
       /// <summary>
@@ -285,9 +274,9 @@ namespace Sawczyn.EFDesigner.EFModel
          Version currentPackageVersion = new Version(versionInfo.CurrentPackageVersion);
          Version targetPackageVersion = new Version(versionInfo.TargetPackageVersion);
 
-         return ModelRoot.CanLoadNugetPackages && 
-                (versionInfo.CurrentPackageId != versionInfo.TargetPackageId || currentPackageVersion != targetPackageVersion) && 
-                (modelRoot.InstallNuGetPackages == AutomaticAction.True || 
+         return ModelRoot.CanLoadNugetPackages &&
+                (versionInfo.CurrentPackageId != versionInfo.TargetPackageId || currentPackageVersion != targetPackageVersion) &&
+                (modelRoot.InstallNuGetPackages == AutomaticAction.True ||
                  ShowQuestionBox($"Referenced libraries don't match Entity Framework {modelRoot.NuGetPackageVersion.ActualPackageVersion}. Fix that now?") == DialogResult.Yes);
       }
 
@@ -295,12 +284,15 @@ namespace Sawczyn.EFDesigner.EFModel
       {
 
          EFVersionDetails versionInfo = new EFVersionDetails
-                                        {
-                                           TargetPackageId = modelRoot.NuGetPackageVersion.PackageId
-                                         , TargetPackageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion
-                                         , CurrentPackageId = null
-                                         , CurrentPackageVersion = null
-                                        };
+         {
+            TargetPackageId = modelRoot.NuGetPackageVersion.PackageId
+                                         ,
+            TargetPackageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion
+                                         ,
+            CurrentPackageId = null
+                                         ,
+            CurrentPackageVersion = null
+         };
 
          References references = ((VSProject)ActiveProject.Object).References;
 

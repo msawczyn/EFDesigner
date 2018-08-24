@@ -8,8 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override string GetToolTipText(DiagramItem item)
       {
-         Generalization generalization = item.Shape.ModelElement as Generalization;
-         return generalization != null
+         return item.Shape.ModelElement is Generalization generalization
                    ? $"{generalization.Subclass.Name} inherits from {generalization.Superclass.Name}"
                    : string.Empty;
       }

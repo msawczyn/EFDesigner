@@ -309,7 +309,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			if (candidate == null) return false;
 			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelClass)
 			{ 
-				return true;
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelClassAsSource(ModelClass candidate)
+				// {
+				// }
+				return CanAcceptModelClassAsSource((global::Sawczyn.EFDesigner.EFModel.ModelClass)candidate);
 			}
 			else
 				return false;
@@ -326,7 +330,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			if (candidate == null) return false;
 			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelClass)
 			{ 
-				return true;
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelClassAsTarget(ModelClass candidate)
+				// {
+				// }
+				return CanAcceptModelClassAsTarget((global::Sawczyn.EFDesigner.EFModel.ModelClass)candidate);
 			}
 			else
 				return false;
@@ -369,6 +377,11 @@ namespace Sawczyn.EFDesigner.EFModel
 					{
 						global::Sawczyn.EFDesigner.EFModel.ModelClass sourceModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateSource;
 						global::Sawczyn.EFDesigner.EFModel.ModelClass targetModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateTarget;
+						// Add a custom method to your code with the following signature:
+						// private static bool CanAcceptModelClassAndModelClassAsSourceAndTarget(ModelClass sourceModelClass, ModelClass targetModelClass)
+						// {
+						// }
+						if(!CanAcceptModelClassAndModelClassAsSourceAndTarget(sourceModelClass, targetModelClass)) return false;
 						if(targetModelClass == null || global::Sawczyn.EFDesigner.EFModel.Generalization.GetLinkToSuperclass(targetModelClass) != null) return false;
 						if(targetModelClass == null || sourceModelClass == null || global::Sawczyn.EFDesigner.EFModel.Generalization.GetLinks(sourceModelClass, targetModelClass).Count > 0) return false;
 						return true;
