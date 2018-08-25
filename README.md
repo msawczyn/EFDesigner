@@ -50,9 +50,8 @@ You can read more about how to use the designer in the [Documentation site](http
 
 **1.2.3.3**
 
-   - Reverted the selection of the node in the model explorer when an element is selected in the diagram. 
-	  Was causing bad user experience.
-	- Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
+   - Reverted the selection of the node in the model explorer when an element is selected in the diagram. Was causing bad user experience.
+   - Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
 
 <details>
 <summary><b>1.2.3</b></summary>
