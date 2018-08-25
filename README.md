@@ -43,13 +43,19 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.3.3***
+***1.2.4.0***
+   - Retargeted immediate error and warning messages to Visual Studio output window rather than error window so they could be cleared
+   - Added drag validation to Generalization (inheritance) tool
+   - Automatically propagate enum name and value name changes to classes that use them
 
-   - Reverted the selection of the node in the model explorer when an element is selected in the diagram. 
-	  Was causing bad user experience.
-	- Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
+**1.2.3.3**
 
-**1.2.3**
+   - Reverted the selection of the node in the model explorer when an element is selected in the diagram. Was causing bad user experience.
+   - Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
+
+<details>
+<summary><b>1.2.3</b></summary>
+
    - When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
      This was done because the color change flagged the model as modified, making the user either undo or save the changes to keep
      source control happy.
@@ -61,10 +67,12 @@ You can read more about how to use the designer in the [Documentation site](http
    - Fix for [issue #14 - Table with two Primary keys not generated properly in context](https://github.com/msawczyn/EFDesigner/issues/14). Many thanks to @Falthazar!
    - Fix for [issue #18 - Adds ValueGeneratedNever if identity type is Manual](https://github.com/msawczyn/EFDesigner/pull/18). Again, hats off to @Falthazar!
 
+</details>
+
 <details>
 <summary><b>1.2.2</b></summary>
 
-   - Fix issue with association role end changing without the other side autoatically changing
+- Fix issue with association role end changing without the other side autoatically changing
    - Fix issue with deleting a highlighted element throwing an error when trying to save the file
    - Fixed code generation for dependent classes
    - Designer now automatically saves before generating code
