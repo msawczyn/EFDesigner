@@ -24,10 +24,14 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.4.0**
+   - Retargeted immediate error and warning messages to Visual Studio output window rather than error window so they could be cleared
+   - Added drag validation to Generalization (inheritance) tool
+   - Automatically propagate enum name and value name changes to classes that use them
+
 **1.2.3.3**
-	- Reverted the selection of the node in the model explorer when an element is selected in the diagram. 
-	  Was causing bad user experience.
-	- Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
+   - Reverted the selection of the node in the model explorer when an element is selected in the diagram. Was causing bad user experience.
+   - Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
 
 **1.2.3**
    - When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
