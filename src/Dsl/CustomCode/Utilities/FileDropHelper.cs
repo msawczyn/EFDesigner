@@ -202,7 +202,6 @@ namespace Sawczyn.EFDesigner.EFModel
                   modelAttribute.Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?');
                   modelAttribute.Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyShowsNullable;
                   modelAttribute.Indexed = propertyDecl.HasAttribute("IndexedAttribute");
-                  modelAttribute.IsIdentity = propertyDecl.HasAttribute("KeyAttribute");
                   modelAttribute.Virtual = propertyDecl.DescendantTokens().Any(t => t.IsKind(SyntaxKind.VirtualKeyword));
 
                   if (modelAttribute.Type.ToLower() == "string")
@@ -242,7 +241,15 @@ namespace Sawczyn.EFDesigner.EFModel
                   XMLDocumentation xmlDocumentation = new XMLDocumentation(propertyDecl);
                   modelAttribute.Summary = xmlDocumentation.Summary;
                   modelAttribute.Description = xmlDocumentation.Description;
-                  
+
+                  // Tag a property as identity if 
+                  //    1) the code says so, or
+                  //    2) it's named 'Id' (case insensitive), there are no other identity properties, and it's a valid identity type
+                  modelAttribute.IsIdentity = propertyDecl.HasAttribute("KeyAttribute") ||
+                                              (propertyName.ToLower() == "id" &&
+                                               !modelClass.Attributes.Any(a => a.IsIdentity) &&
+                                               ModelAttribute.ValidIdentityAttributeTypes.Contains(modelAttribute.Type));
+
                   modelClass.Attributes.Add(modelAttribute);
                }
                catch

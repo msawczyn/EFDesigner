@@ -70,7 +70,7 @@
     </Reference>
     <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\EnvDTE80.8.0.3\lib\net10\EnvDTE80.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="GOLD Engine, Version=5.0.6650.43176, Culture=neutral, PublicKeyToken=65f6575a661235db, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

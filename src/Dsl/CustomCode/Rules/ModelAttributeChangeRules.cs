@@ -9,15 +9,6 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
    [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.TopLevelCommit)]
    public class ModelAttributeChangeRules : ChangeRule
    {
-      public static readonly string[] ValidIdentityAttributeTypes =
-      {
-         "Int16",
-         "Int32",
-         "Int64",
-         "Byte",
-         "Guid"
-      };
-
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
          base.ElementPropertyChanged(e);
@@ -61,7 +52,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                string newType = (string)e.NewValue;
                if (element.IsIdentity)
                {
-                  if (!ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
+                  if (!ModelAttribute.ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
                   {
                      errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {newType} can't be used as identity properties.");
                   }
@@ -134,7 +125,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   }
                   else
                   {
-                     if (!ValidIdentityAttributeTypes.Contains(element.Type))
+                     if (!ModelAttribute.ValidIdentityAttributeTypes.Contains(element.Type))
                      {
                         errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {element.Type} can't be used as identity properties.");
                      }

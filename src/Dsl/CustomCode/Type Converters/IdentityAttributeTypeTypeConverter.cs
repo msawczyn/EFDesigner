@@ -20,7 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </returns>
       public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
-         return new StandardValuesCollection(ModelAttributeChangeRules.ValidIdentityAttributeTypes);
+         return new StandardValuesCollection(ModelAttribute.ValidIdentityAttributeTypes);
       }
 
       /// <summary>
