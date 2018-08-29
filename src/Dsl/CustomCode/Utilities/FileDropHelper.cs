@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.Modeling;
-
 using Sawczyn.EFDesigner.EFModel.Annotations;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -79,17 +77,36 @@ namespace Sawczyn.EFDesigner.EFModel
                foreach (EnumDeclarationSyntax enumDecl in enumDecls)
                   ProcessEnum(store, enumDecl);
 
+               List<ModelClass> processedClasses = new List<ModelClass>();
                foreach (ClassDeclarationSyntax classDecl in classDecls)
-                  ProcessClass(store, classDecl);
+                  processedClasses.Add(ProcessClass(store, classDecl));
 
                // process last so all classes and enums are already in the model
                foreach (ClassDeclarationSyntax classDecl in classDecls)
                   ProcessProperties(store, classDecl);
+
+               // now that all the properties are in, go through the classes again and ensure identities are present based on convention
+               // ReSharper disable once LoopCanBePartlyConvertedToQuery
+               foreach (ModelClass modelClass in processedClasses.Where(c => !c.AllIdentityAttributes.Any()))
+               {
+                  // no identity attribute. Only look in current class for attributes that could be identity by convention
+                  List<ModelAttribute> identitiesByConvention = modelClass.Attributes.Where(a => a.Name == "Id" || a.Name == $"{modelClass.Name}Id").ToList();
+
+                  // if both 'Id' and '[ClassName]Id' are present, don't do anything since we don't know which to make the identity
+                  if (identitiesByConvention.Count == 1)
+                  {
+                     using (Transaction transaction = store.TransactionManager.BeginTransaction("Add identity"))
+                     {
+                        identitiesByConvention[0].IsIdentity = true;
+                        transaction.Commit();
+                     }
+                  }
+               }
             }
          }
          catch
          {
-            ErrorDisplay.Show("Error interpretting " + filename);
+            ErrorDisplay.Show("Error interpreting " + filename);
 
             return false;
          }
@@ -194,15 +211,18 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                }
 
-               // if we'ref here, it's just a property (CLR or enum)
+               // if we're here, it's just a property (CLR or enum)
                try
                {
                   // ReSharper disable once UseObjectOrCollectionInitializer
-                  ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName));
-                  modelAttribute.Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?');
-                  modelAttribute.Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyShowsNullable;
-                  modelAttribute.Indexed = propertyDecl.HasAttribute("IndexedAttribute");
-                  modelAttribute.Virtual = propertyDecl.DescendantTokens().Any(t => t.IsKind(SyntaxKind.VirtualKeyword));
+                  ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName))
+                  {
+                     Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?'),
+                     Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyShowsNullable,
+                     Indexed = propertyDecl.HasAttribute("IndexedAttribute"),
+                     IsIdentity = propertyDecl.HasAttribute("KeyAttribute"),
+                     Virtual = propertyDecl.DescendantTokens().Any(t => t.IsKind(SyntaxKind.VirtualKeyword))
+                  };
 
                   if (modelAttribute.Type.ToLower() == "string")
                   {
@@ -241,15 +261,6 @@ namespace Sawczyn.EFDesigner.EFModel
                   XMLDocumentation xmlDocumentation = new XMLDocumentation(propertyDecl);
                   modelAttribute.Summary = xmlDocumentation.Summary;
                   modelAttribute.Description = xmlDocumentation.Description;
-
-                  // Tag a property as identity if 
-                  //    1) the code says so, or
-                  //    2) it's named 'Id' (case insensitive), there are no other identity properties, and it's a valid identity type
-                  modelAttribute.IsIdentity = propertyDecl.HasAttribute("KeyAttribute") ||
-                                              (propertyName.ToLower() == "id" &&
-                                               !modelClass.Attributes.Any(a => a.IsIdentity) &&
-                                               ModelAttribute.ValidIdentityAttributeTypes.Contains(modelAttribute.Type));
-
                   modelClass.Attributes.Add(modelAttribute);
                }
                catch
@@ -329,8 +340,11 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static void ProcessEnum([NotNull] Store store, [NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      // ReSharper disable once UnusedMethodReturnValue.Local
+      private static ModelEnum ProcessEnum([NotNull] Store store, [NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
       {
+         ModelEnum result = null;
+
          if (store == null)
             throw new ArgumentNullException(nameof(store));
 
@@ -349,7 +363,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             ErrorDisplay.Show($"'{enumName}' already exists in model.");
 
-            return;
+            // ReSharper disable once ExpressionIsAlwaysNull
+            return result;
          }
 
          Transaction tx = store.TransactionManager.CurrentTransaction == null
@@ -358,11 +373,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
          try
          {
-            ModelEnum modelEnum = new ModelEnum(store, new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName))
-                                  {
-                                     Namespace = namespaceName
-                                   , IsFlags = enumDecl.HasAttribute("Flags")
-                                  };
+            result = new ModelEnum(store,
+                                   new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName))
+                                   {
+                                      Namespace = namespaceName,
+                                      IsFlags = enumDecl.HasAttribute("Flags")
+                                   };
 
             SimpleBaseTypeSyntax baseTypeSyntax = enumDecl.DescendantNodes().OfType<SimpleBaseTypeSyntax>().FirstOrDefault();
 
@@ -372,17 +388,17 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   case "Int16":
                   case "short":
-                     modelEnum.ValueType = EnumValueType.Int16;
+                     result.ValueType = EnumValueType.Int16;
 
                      break;
                   case "Int32":
                   case "int":
-                     modelEnum.ValueType = EnumValueType.Int32;
+                     result.ValueType = EnumValueType.Int32;
 
                      break;
                   case "Int64":
                   case "long":
-                     modelEnum.ValueType = EnumValueType.Int64;
+                     result.ValueType = EnumValueType.Int64;
 
                      break;
                   default:
@@ -406,14 +422,14 @@ namespace Sawczyn.EFDesigner.EFModel
                enumValue.Summary = xmlDocumentation.Summary;
                enumValue.Description = xmlDocumentation.Description;
 
-               modelEnum.Values.Add(enumValue);
+               result.Values.Add(enumValue);
             }
 
             xmlDocumentation = new XMLDocumentation(enumDecl);
-            modelEnum.Summary = xmlDocumentation.Summary;
-            modelEnum.Description = xmlDocumentation.Description;
+            result.Summary = xmlDocumentation.Summary;
+            result.Description = xmlDocumentation.Description;
 
-            modelRoot.Enums.Add(modelEnum);
+            modelRoot.Enums.Add(result);
          }
          catch
          {
@@ -425,10 +441,14 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             tx?.Commit();
          }
+
+         return result;
       }
 
-      private static void ProcessClass([NotNull] Store store, [NotNull] ClassDeclarationSyntax classDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      private static ModelClass ProcessClass([NotNull] Store store, [NotNull] ClassDeclarationSyntax classDecl, NamespaceDeclarationSyntax namespaceDecl = null)
       {
+         ModelClass result = null;
+
          if (store == null)
             throw new ArgumentNullException(nameof(store));
 
@@ -445,14 +465,16 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             ErrorDisplay.Show($"'{className}' already exists in model as an Enum.");
 
-            return;
+            // ReSharper disable once ExpressionIsAlwaysNull
+            return result;
          }
 
          if (classDecl.TypeParameterList != null)
          {
             ErrorDisplay.Show($"Can't add generic class '{className}'.");
 
-            return;
+            // ReSharper disable once ExpressionIsAlwaysNull
+            return result;
          }
 
          Transaction tx = store.TransactionManager.CurrentTransaction == null
@@ -463,7 +485,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             ModelClass superClass = null;
             List<string> customInterfaces = new List<string>();
-            ModelClass modelClass = store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
+            result = store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
 
             // Base classes and interfaces
             // Check these first. If we need to add new models, we want the base class already in the store
@@ -474,7 +496,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   string baseName = type.ToString();
 
                   // INotifyPropertyChanged is special. We know it's an interface, and it'll turn into a class property later
-                  if (baseName == "INotifyPropertyChanged" || superClass != null || modelClass?.Superclass != null)
+                  if (baseName == "INotifyPropertyChanged" || superClass != null || result?.Superclass != null)
                   {
                      customInterfaces.Add(baseName);
 
@@ -497,45 +519,46 @@ namespace Sawczyn.EFDesigner.EFModel
                }
             }
 
-            if (modelClass == null)
+            if (result == null)
             {
-               modelClass = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
-                            {
-                               Namespace = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace
-                             , IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
-                            };
+               result = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
+               {
+                  Namespace = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace
+                             ,
+                  IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
+               };
 
-               modelRoot.Types.Add(modelClass);
+               modelRoot.Types.Add(result);
             }
 
             if (superClass != null)
-               modelClass.Superclass = superClass;
+               result.Superclass = superClass;
 
-            if (modelClass.CustomInterfaces != null)
+            if (result.CustomInterfaces != null)
             {
-               customInterfaces.AddRange(modelClass.CustomInterfaces
-                                                   .Split(',')
-                                                   .Where(i => !string.IsNullOrEmpty(i))
-                                                   .Select(i => i.Trim()));
+               customInterfaces.AddRange(result.CustomInterfaces
+                                               .Split(',')
+                                               .Where(i => !string.IsNullOrEmpty(i))
+                                               .Select(i => i.Trim()));
             }
 
             if (customInterfaces.Contains("INotifyPropertyChanged"))
             {
-               modelClass.ImplementNotify = true;
+               result.ImplementNotify = true;
                customInterfaces.Remove("INotifyPropertyChanged");
             }
 
-            if (modelClass.Superclass != null && customInterfaces.Contains(modelClass.Superclass.Name))
-               customInterfaces.Remove(modelClass.Superclass.Name);
+            if (result.Superclass != null && customInterfaces.Contains(result.Superclass.Name))
+               customInterfaces.Remove(result.Superclass.Name);
 
-            modelClass.CustomInterfaces = customInterfaces.Any()
+            result.CustomInterfaces = customInterfaces.Any()
                                              ? string.Join(",", customInterfaces.Distinct())
                                              : null;
 
 
             XMLDocumentation xmlDocumentation = new XMLDocumentation(classDecl);
-            modelClass.Summary = xmlDocumentation.Summary;
-            modelClass.Description = xmlDocumentation.Description;
+            result.Summary = xmlDocumentation.Summary;
+            result.Description = xmlDocumentation.Description;
          }
          catch
          {
@@ -547,6 +570,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             tx?.Commit();
          }
+
+         return result;
       }
 
    }
