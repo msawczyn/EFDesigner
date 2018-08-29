@@ -1,3 +1,6 @@
+1.2.5.0
+   - Detect 'Id' property as identity on drag/drop import (https://github.com/msawczyn/EFDesigner/issues/19)
+
 1.2.4.0
    - Retargeted immediate error and warning messages to Visual Studio output window rather than error window so they could be cleared
    - Added drag validation to Generalization (inheritance) tool

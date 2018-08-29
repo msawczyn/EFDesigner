@@ -126,6 +126,15 @@ namespace Sawczyn.EFDesigner.EFModel
          "string"
       };
 
+      public static readonly string[] ValidIdentityAttributeTypes =
+      {
+         "Int16",
+         "Int32",
+         "Int64",
+         "Byte",
+         "Guid"
+      };
+
       /// <summary>
       /// Tests if the InitialValue property is valid for the type indicated
       /// </summary>
