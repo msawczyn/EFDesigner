@@ -43,15 +43,21 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.4.0***
+***1.2.5.0***
+   - Fix for [issue #19 - Recognize "Id" as primary key on import](https://github.com/msawczyn/EFDesigner/issues/19)
+
+**1.2.4.0**
    - Retargeted immediate error and warning messages to Visual Studio output window rather than error window so they could be cleared
    - Added drag validation to Generalization (inheritance) tool
    - Automatically propagate enum name and value name changes to classes that use them
 
-**1.2.3.3**
+<details>
+<summary><b>1.2.3.3</b></summary>
 
    - Reverted the selection of the node in the model explorer when an element is selected in the diagram. Was causing bad user experience.
    - Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
+
+</details>
 
 <details>
 <summary><b>1.2.3</b></summary>

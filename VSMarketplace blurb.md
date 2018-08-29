@@ -24,6 +24,9 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.5.0**
+   - Fix for [issue #19 - Recognize "Id" as primary key on import](https://github.com/msawczyn/EFDesigner/issues/19)
+
 **1.2.4.0**
    - Retargeted immediate error and warning messages to Visual Studio output window rather than error window so they could be cleared
    - Added drag validation to Generalization (inheritance) tool
