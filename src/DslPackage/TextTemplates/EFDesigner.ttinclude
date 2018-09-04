@@ -147,7 +147,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults = n
                                             .Select(x => $"{x.PrimitiveType} _{x.Name.ToLower()}"));
 
       requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
-                                            .Select(x => $"{x.ClassType.Name} _{x.PropertyName.ToLower().Trim('_')}"));
+                                            .Select(x => $"{x.ClassType.FullName} _{x.PropertyName.ToLower().Trim('_')}"));
    }
    
    if (haveDefaults != false)
@@ -247,7 +247,7 @@ void WriteClass(ModelClass modelClass)
 
    List<string> bases = new List<string>();
    if (modelClass.Superclass != null) 
-      bases.Add(modelClass.Superclass.Name);
+      bases.Add(modelClass.Superclass.FullName);
    if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
       bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
    if (modelClass.ImplementNotify)
@@ -327,7 +327,7 @@ void WriteDefaultConstructorBody(ModelClass modelClass)
             break;
       }
 
-      Output($"{navigationProperty.PropertyName} = new {collectionType}<{navigationProperty.ClassType.Name}>();");
+      Output($"{navigationProperty.PropertyName} = new {collectionType}<{navigationProperty.ClassType.FullName}>();");
       ++lineCount;
    }
 
@@ -430,7 +430,7 @@ void WriteConstructor(ModelClass modelClass)
       }
 
       foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
-         Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.Name}>();");
+         Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.FullName}>();");
 
       Output("Init();");
       Output("}");
@@ -516,9 +516,9 @@ void WritePersistentProperties(ModelClass modelClass)
       if (!modelAttribute.AutoProperty)
       {
          GenerateClassAnnotations(modelAttribute, "_");
-         Output($"protected {modelAttribute.PrimitiveType}{nullable} _{modelAttribute.Name};");
-         Output($"partial void Set{modelAttribute.Name}({modelAttribute.PrimitiveType}{nullable} oldValue, ref {modelAttribute.PrimitiveType}{nullable} newValue);");
-         Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.PrimitiveType}{nullable} result);");
+         Output($"protected {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
+         Output($"partial void Set{modelAttribute.Name}({modelAttribute.FQPrimitiveType}{nullable} oldValue, ref {modelAttribute.FQPrimitiveType}{nullable} newValue);");
+         Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.FQPrimitiveType}{nullable} result);");
          NL();
       }
 
@@ -543,15 +543,15 @@ void WritePersistentProperties(ModelClass modelClass)
       if (modelAttribute.AutoProperty)
       {
          GenerateClassAnnotations(modelAttribute);
-         Output($"public {modelAttribute.PrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
+         Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
       }
       else
       {
          string notifyCode = (modelClass.ImplementNotify) ? " OnPropertyChanged();" : "";
-         Output($"public {modelAttribute.PrimitiveType}{nullable} {modelAttribute.Name}");
+         Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name}");
          Output("{");
-         Output($"get {{ {modelAttribute.PrimitiveType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
-         Output($"{setterVisibility}set {{ {modelAttribute.PrimitiveType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; {notifyCode} }}");
+         Output($"get {{ {modelAttribute.FQPrimitiveType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
+         Output($"{setterVisibility}set {{ {modelAttribute.FQPrimitiveType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; {notifyCode} }}");
          Output("}");
       }
 
@@ -596,8 +596,8 @@ void WriteCalculatedProperties(ModelClass modelClass)
    {
       string nullable = IsNullable(calculatedAttribute) ? "?" : "";
 
-      Output("partial void Get{0}(ref {1}{2} value);", calculatedAttribute.Name, calculatedAttribute.PrimitiveType, nullable);
-      Output("partial void Set{0}({1}{2} value);", calculatedAttribute.Name, calculatedAttribute.PrimitiveType, nullable);
+      Output("partial void Get{0}(ref {1}{2} value);", calculatedAttribute.Name, calculatedAttribute.FQPrimitiveType, nullable);
+      Output("partial void Set{0}({1}{2} value);", calculatedAttribute.Name, calculatedAttribute.FQPrimitiveType, nullable);
 
       Output("/// <summary>");
       Output("/// Calculated property");
@@ -617,9 +617,9 @@ void WriteCalculatedProperties(ModelClass modelClass)
                                    : calculatedAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
       string isVirtual = calculatedAttribute.Virtual ? "virtual " : "";
 
-      Output($"public {isVirtual}{calculatedAttribute.PrimitiveType}{nullable} {calculatedAttribute.Name}");
+      Output($"public {isVirtual}{calculatedAttribute.FQPrimitiveType}{nullable} {calculatedAttribute.Name}");
       Output("{");
-      Output($"get {{ {calculatedAttribute.PrimitiveType}{nullable} value = default({calculatedAttribute.PrimitiveType}{nullable}); Get{calculatedAttribute.Name}(ref value); return value; }}");
+      Output($"get {{ {calculatedAttribute.FQPrimitiveType}{nullable} value = default({calculatedAttribute.FQPrimitiveType}{nullable}); Get{calculatedAttribute.Name}(ref value); return value; }}");
       Output($"{setterVisibility}set {{ Set{calculatedAttribute.Name}(value); }}");
       Output("}");
       NL();
@@ -638,8 +638,8 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
                                                                .Where(x => x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
    {
       string type = navigationProperty.IsCollection
-                        ? $"ICollection<{navigationProperty.ClassType.Name}>"
-                        : navigationProperty.ClassType.Name;
+                        ? $"ICollection<{navigationProperty.ClassType.FullName}>"
+                        : navigationProperty.ClassType.FullName;
 
       List<string> comments = new List<string>();
       if (navigationProperty.Required)
@@ -677,8 +677,8 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
                                                                .Where(x => !x.AssociationObject.Persistent && !x.ConstructorParameterOnly))
    {
       string type = navigationProperty.IsCollection
-                        ? $"ICollection<{navigationProperty.ClassType.Name}>"
-                        : navigationProperty.ClassType.Name;
+                        ? $"ICollection<{navigationProperty.ClassType.FullName}>"
+                        : navigationProperty.ClassType.FullName;
 
       Output($"partial void Get{navigationProperty.PropertyName}(ref {type} value);");
       Output($"partial void Set{navigationProperty.PropertyName}({type} value);");

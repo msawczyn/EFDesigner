@@ -4,3 +4,4 @@ msbuild efdesigner.sln /t:Rebuild /p:Configuration=Debug
 msbuild efdesigner.sln /t:Rebuild /p:Configuration=Release
 copy /Y "DslPackage\bin\Release\Sawczyn.EFDesigner.EFModel.DslPackage.vsix" ..\dist
 VSIXInstaller.exe /q "..\dist\Sawczyn.EFDesigner.EFModel.DslPackage.vsix"
+cd ..

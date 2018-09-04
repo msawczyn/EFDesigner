@@ -231,6 +231,19 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       public string PrimitiveType => ToPrimitiveType(Type);
+
+      public string FQPrimitiveType
+      {
+         get
+         {
+            string result = PrimitiveType;
+            ModelEnum modelEnum = ModelClass.ModelRoot.Enums.FirstOrDefault(x => x.Name == result);
+
+            return modelEnum != null
+                      ? modelEnum.FullName
+                      : result;
+         }
+      }
       public string CLRType => ToCLRType(Type);
 
       /// <summary>

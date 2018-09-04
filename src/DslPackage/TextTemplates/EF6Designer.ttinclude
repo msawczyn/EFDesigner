@@ -144,7 +144,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
-         Output($"public System.Data.Entity.DbSet<{modelClass.Namespace}.{modelClass.Name}> {dbSetName} {{ get; set; }}");
+         Output($"public System.Data.Entity.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
       }
 
       NL();
@@ -259,7 +259,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 
       // class level
       bool isDependent = modelClass.IsDependentType;
-      segments.Add($"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.Namespace}.{modelClass.Name}>()");
+      segments.Add($"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
 
       // note: this must come before the 'ToTable' call or there's a runtime error
       if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
@@ -295,7 +295,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
 	     segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>().HasIndex(t => t.{indexed.Name})");
+         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
 		 if (segments.Count > 1)
          {
@@ -326,7 +326,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 
          if (segments.Any())
          {
-            segments.Insert(0, $"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.Namespace}.{modelClass.Name}>()");
+            segments.Insert(0, $"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
             segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
             if (modelRoot.ChopMethodChains)
@@ -352,7 +352,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             visited.Add(association);
 
             segments.Clear();
-            segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 
             switch (association.TargetMultiplicity) // realized by property on source
             {
@@ -439,7 +439,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             visited.Add(association);
 
             segments.Clear();
-            segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 
             switch (association.SourceMultiplicity) // realized by property on target
             {

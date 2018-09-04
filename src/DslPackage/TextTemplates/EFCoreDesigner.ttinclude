@@ -148,7 +148,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
-         Output($"{modelRoot.DbSetAccess.ToString().ToLower()} Microsoft.EntityFrameworkCore.DbSet<{modelClass.Namespace}.{modelClass.Name}> {dbSetName} {{ get; set; }}");
+         Output($"{modelRoot.DbSetAccess.ToString().ToLower()} Microsoft.EntityFrameworkCore.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
       }
 
       NL();
@@ -237,7 +237,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
       // class level
       bool isDependent = modelClass.IsDependentType;
-      segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+      segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 
       // note: this must come before the 'ToTable' call or there's a runtime error
       if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
@@ -270,7 +270,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
 	     segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>().HasIndex(t => t.{indexed.Name})");
+         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
 		 if (segments.Count > 1)
          {
@@ -312,7 +312,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
          if (segments.Any())
          {
-            segments.Insert(0, $"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+            segments.Insert(0, $"modelBuilder.Entity<{modelClass.FullName}>()");
             segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
             if (modelRoot.ChopMethodChains)
@@ -336,7 +336,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          visited.Add(association);
 
          segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
          bool required = false;
 
          switch (association.TargetMultiplicity) // realized by property on source
@@ -403,7 +403,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          bool required = false;
 
          segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.Namespace}.{modelClass.Name}>()");
+         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 
          switch (association.SourceMultiplicity) // realized by property on target
          {

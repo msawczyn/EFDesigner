@@ -31,7 +31,7 @@ Open the .efmodel file and -- so exciting! -- you're presented with a blank scre
 <tr><td valign="top"> Entity                     </td><td valign="top"> A persistent class </td></tr>
 <tr><td valign="top"> Unidirectional Association </td><td valign="top"> A navigation property that only goes one way. The starting class will have a property of the type of the ending class (or a collection of them, depending on cardinality), but not the other way around. </td></tr>
 <tr><td valign="top"> Bidirectional Association  </td><td valign="top"> A navigation property that will create properties in classes on both ends. </td></tr>
-<tr><td valign="top"> Inheritance                </td><td valign="top"> Standard .NET inheritance (and its associated constraints). Start the line at the derived class and point to bhe base class </td></tr>
+<tr><td valign="top"> Inheritance                </td><td valign="top"> Standard .NET inheritance (and its associated constraints). Start the line at the derived class and point to the base class </td></tr>
 <tr><td valign="top"> Comment                    </td><td valign="top"> Add a comment box anywhere on the model </td></tr>
 <tr><td valign="top"> Comment Link               </td><td valign="top"> Link an existing comment to an Entity or Enum. Not required since comments can be free-floating, but nice to have if the comment refers to something specific on the diagram. </td></tr>
 <tr><td valign="top"> Enum                       </td><td valign="top"> An enumeration </td></tr>

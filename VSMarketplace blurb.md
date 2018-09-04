@@ -24,6 +24,11 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.5.1**
+   - Addressed [issue #20 - Abstract/inherited/TPC =code still there for abstract class](https://github.com/msawczyn/EFDesigner/issues/20). While the
+     discussion centered around abstract classes and TPC inheritance (which was behaving properly), it did uncover a problem with code generation when
+     namespaces changed from class to class. 
+
 **1.2.5.0**
    - Fix for [issue #19 - Recognize "Id" as primary key on import](https://github.com/msawczyn/EFDesigner/issues/19)
 

@@ -10,6 +10,8 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       public static string[] ValidValueTypes = {/*"SByte", */"Int16", "Int32", "Int64"};
 
+      public string FullName => string.IsNullOrWhiteSpace(Namespace) ? Name : $"{Namespace}.{Name}";
+
       public void SetFlagValues()
       {
          if (IsFlags)
