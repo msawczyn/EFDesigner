@@ -244,6 +244,7 @@
     <Compile Include="CustomCode\Partials\Generalization.cs" />
     <Compile Include="CustomCode\Connection Builders\GeneralizationBuilder.cs" />
     <Compile Include="CustomCode\Partials\GeneralizationConnector.cs" />
+    <Compile Include="CustomCode\Utilities\HSLColor.cs" />
     <Compile Include="CustomCode\Partials\IHighlightFromModelExplorer.cs" />
     <Compile Include="CustomCode\Partials\IModelElementWithCompartments.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
@@ -417,6 +418,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Warning.png" />
     <None Include="DslDefinition.dsl.diagram">
       <DependentUpon>DslDefinition.dsl</DependentUpon>
     </None>
@@ -498,6 +500,7 @@
     <Content Include="Resources\Association.bmp" />
     <Content Include="Resources\AssociationLinkTool.bmp" />
     <Content Include="Resources\AssociationTool.bmp" />
+    <Content Include="Resources\Attribute.bmp" />
     <Content Include="Resources\Calculated.png" />
     <Content Include="Resources\CalculatedInternal.png" />
     <Content Include="Resources\CalculatedProtected.png" />
@@ -505,6 +508,7 @@
     <Content Include="Resources\CommentTool.bmp" />
     <Content Include="Resources\EntityGlyph.bmp" />
     <Content Include="Resources\EnumTool.bmp" />
+    <Content Include="Resources\EnumValue.bmp" />
     <Content Include="Resources\File.ico" />
     <Content Include="Resources\GeneralizationTool.bmp" />
     <Content Include="Resources\Internal.png" />

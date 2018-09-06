@@ -37,12 +37,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetPropertyImage(ModelElement element)
       {
-         if (element is ModelAttribute)
-         {
-            ModelAttribute attribute = (ModelAttribute)element;
+         Bitmap result = Resources.Spacer;
 
+         if (element is ModelAttribute attribute)
+         {
             if (attribute.IsIdentity)
-               return Resources.Identity;
+               result = Resources.Identity;
 
             switch (attribute.Persistent)
             {
@@ -50,11 +50,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   switch (attribute.SetterVisibility)
                   {
                      case SetterAccessModifier.Public:
-                        return Resources.Public;
+                        result = Resources.Public;
+                        break;
                      case SetterAccessModifier.Protected:
-                        return Resources.Protected;
+                        result = Resources.Protected;
+                        break;
                      case SetterAccessModifier.Internal:
-                        return Resources.Internal;
+                        result = Resources.Internal;
+                        break;
                   }
 
                   break;
@@ -62,20 +65,22 @@ namespace Sawczyn.EFDesigner.EFModel
                   switch (attribute.SetterVisibility)
                   {
                      case SetterAccessModifier.Public:
-                        return Resources.Calculated;
+                        result = Resources.Calculated;
+                        break;
                      case SetterAccessModifier.Protected:
-                        return Resources.CalculatedProtected;
+                        result = Resources.CalculatedProtected;
+                        break;
                      case SetterAccessModifier.Internal:
-                        return Resources.CalculatedInternal;
+                        result = Resources.CalculatedInternal;
+                        break;
                   }
 
                   break;
             }
-
-            return Resources.Spacer;
          }
 
-         return null;
+         // TODO: if element isn't valid, change glyph background color to WARNING yellow
+         return result;
       }
    }
 }
