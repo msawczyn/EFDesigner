@@ -43,13 +43,22 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.5.0***
+***1.2.5.1***
+   - Addressed [issue #20 - Abstract/inherited/TPC =code still there for abstract class](https://github.com/msawczyn/EFDesigner/issues/20). While the
+     discussion centered around abstract classes and TPC inheritance (which was behaving properly), it did uncover a problem with code generation when
+     namespaces changed from class to class. 
+     
+**1.2.5.0**
    - Fix for [issue #19 - Recognize "Id" as primary key on import](https://github.com/msawczyn/EFDesigner/issues/19)
 
-**1.2.4.0**
+<details>
+<summary><b>1.2.4.0</b></summary>
+
    - Retargeted immediate error and warning messages to Visual Studio output window rather than error window so they could be cleared
    - Added drag validation to Generalization (inheritance) tool
    - Automatically propagate enum name and value name changes to classes that use them
+
+</details>
 
 <details>
 <summary><b>1.2.3.3</b></summary>
