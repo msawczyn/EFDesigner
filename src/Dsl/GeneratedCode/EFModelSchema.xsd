@@ -291,6 +291,18 @@
             <xsd:documentation>Code visibility for DbSets</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: Description -->
+        <xsd:attribute name="description" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Detailed code documentation</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Summary -->
+        <xsd:attribute name="summary" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Brief code documentation</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

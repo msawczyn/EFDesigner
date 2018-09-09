@@ -493,6 +493,30 @@
     <value>Entity Context</value>
     <comment>Category for DomainProperty &apos;DbSetAccess&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Description.Description" xml:space="preserve">
+    <value>Detailed code documentation</value>
+    <comment>Description for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Description.DisplayName" xml:space="preserve">
+    <value>Comment Detail</value>
+    <comment>DisplayName for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Description.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Summary.Description" xml:space="preserve">
+    <value>Brief code documentation</value>
+    <comment>Description for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Summary.DisplayName" xml:space="preserve">
+    <value>Comment Summary</value>
+    <comment>DisplayName for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Summary.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -656,6 +680,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsOutputDirectoryTracking.DisplayName" xml:space="preserve">
     <value>Is Output Directory Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsOutputDirectoryTracking&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GlyphType.Description" xml:space="preserve">
+    <value>Type of glyph to show on the design surface</value>
+    <comment>Description for DomainProperty &apos;GlyphType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GlyphType.DisplayName" xml:space="preserve">
+    <value>Glyph Type</value>
+    <comment>DisplayName for DomainProperty &apos;GlyphType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/HasWarning.Description" xml:space="preserve">
+    <value>If true, this element has a warning in the error list</value>
+    <comment>Description for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/HasWarning.DisplayName" xml:space="preserve">
+    <value>Has Warning</value>
+    <comment>DisplayName for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
@@ -1060,6 +1100,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsOutputDirectoryTracking.DisplayName" xml:space="preserve">
     <value>Is Output Directory Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsOutputDirectoryTracking&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/HasWarning.Description" xml:space="preserve">
+    <value>If true, this element has a warning in the error list</value>
+    <comment>Description for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/HasWarning.DisplayName" xml:space="preserve">
+    <value>Has Warning</value>
+    <comment>DisplayName for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/GlyphType.Description" xml:space="preserve">
+    <value>Type of glyph to show on the design surface</value>
+    <comment>Description for DomainProperty &apos;GlyphType&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/GlyphType.DisplayName" xml:space="preserve">
+    <value>Glyph Type</value>
+    <comment>DisplayName for DomainProperty &apos;GlyphType&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" xml:space="preserve">
     <value>No description available</value>
@@ -2806,8 +2862,16 @@ A DomainClass can be serialized as a moniker only if
     <value>..\Resources\AbstractEntityGlyph.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Icon decorator default image</comment>
   </data>
+  <data name="ClassShapeWarningGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\Warning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Icon decorator default image</comment>
+  </data>
   <data name="EnumShapeEnumGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\EnumTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Icon decorator default image</comment>
+  </data>
+  <data name="EnumShapeWarningGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\Warning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Icon decorator default image</comment>
   </data>
   <data name="ModelClassExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

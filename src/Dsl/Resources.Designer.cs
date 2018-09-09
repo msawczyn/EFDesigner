@@ -113,6 +113,16 @@ namespace Sawczyn.EFDesigner.EFModel {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EnumValue {
+            get {
+                object obj = ResourceManager.GetObject("EnumValue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Identity {
             get {
                 object obj = ResourceManager.GetObject("Identity", resourceCulture);
@@ -156,6 +166,16 @@ namespace Sawczyn.EFDesigner.EFModel {
         internal static System.Drawing.Bitmap Spacer {
             get {
                 object obj = ResourceManager.GetObject("Spacer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Warning {
+            get {
+                object obj = ResourceManager.GetObject("Warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

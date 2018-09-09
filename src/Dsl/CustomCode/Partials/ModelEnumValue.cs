@@ -1,16 +1,38 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   partial class ModelEnumValue : IModelElementCompartmented
+   partial class ModelEnumValue : IModelElementCompartmented, IDisplaysWarning
    {
-      private ModelEnum cachedParent = null;
+      private ModelEnum cachedParent;
 
       public IModelElementWithCompartments ParentModelElement => Enum;
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
+
+#region Warning display
+
+      // set as methods to avoid issues around serialization
+
+      private bool hasWarning;
+
+      public bool GetHasWarningValue() => hasWarning;
+
+      public void ResetWarning() => hasWarning = false;
+
+      public void RedrawItem()
+      {
+         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().ToList();
+         foreach (ShapeElement shapeElement in shapeElements)
+            shapeElement.Invalidate();
+      }
+#endregion
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
@@ -20,7 +42,10 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(Summary))
+            {
                context.LogWarning($"{Enum.Name}.{Name}: Enum value should be documented", "AWMissingSummary", this);
+               hasWarning = true;
+            }
          }
       }
 

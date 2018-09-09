@@ -3,23 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
 
-   /// <summary>
-   /// Tag interface indicating diagram items for this element are compartments in a parent element
-   /// </summary>
-   public interface IModelElementCompartmented
-   {
-      IModelElementWithCompartments ParentModelElement { get; }
-      string CompartmentName { get; }
-   }
-
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelAttribute : IModelElementCompartmented
+   public partial class ModelAttribute : IModelElementCompartmented, IDisplaysWarning
    {
       public IModelElementWithCompartments ParentModelElement => ModelClass;
 
@@ -135,6 +127,24 @@ namespace Sawczyn.EFDesigner.EFModel
          "Guid"
       };
 
+      #region Warning display
+
+      // set as methods to avoid issues around serialization
+
+      private bool hasWarning;
+
+      public bool GetHasWarningValue() => hasWarning;
+
+      public void ResetWarning() => hasWarning = false;
+
+      public void RedrawItem()
+      {
+         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().ToList();
+         foreach (ShapeElement shapeElement in shapeElements)
+            shapeElement.Invalidate();
+      }
+      #endregion
+
       /// <summary>
       /// Tests if the InitialValue property is valid for the type indicated
       /// </summary>
@@ -232,6 +242,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public string PrimitiveType => ToPrimitiveType(Type);
 
+      // ReSharper disable once UnusedMember.Global
       public string FQPrimitiveType
       {
          get
@@ -244,6 +255,7 @@ namespace Sawczyn.EFDesigner.EFModel
                       : result;
          }
       }
+      // ReSharper disable once UnusedMember.Global
       public string CLRType => ToCLRType(Type);
 
       /// <summary>
@@ -493,7 +505,10 @@ namespace Sawczyn.EFDesigner.EFModel
       private void StringsShouldHaveLength(ValidationContext context)
       {
          if (Type == "String" && MaxLength == 0)
+         {
             context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
+            hasWarning = true;
+         }
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -504,7 +519,10 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(Summary))
+            {
                context.LogWarning($"{ModelClass.Name}.{Name}: Property should be documented", "AWMissingSummary", this);
+               hasWarning = true;
+            }
          }
       }
 

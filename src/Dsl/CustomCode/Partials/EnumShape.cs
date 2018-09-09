@@ -1,7 +1,9 @@
 using System;
-using System.Linq;
+using System.Drawing;
+
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -9,23 +11,42 @@ namespace Sawczyn.EFDesigner.EFModel
    ///    Override some methods of the compartment shape.
    ///    *** GenerateDoubleDerived must be set for this shape in DslDefinition.dsl. ****
    /// </summary>
-   public partial class EnumShape : IHighlightFromModelExplorer
+   public partial class EnumShape : IHighlightFromModelExplorer, IMouseActionTarget
    {
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu
       /// </summary>
-      public void CollapseShape()
-      {
-         SetIsExpandedValue(false);
-      }
+      public void CollapseShape() => SetIsExpandedValue(false);
 
       /// <summary>
       /// Exposes NodeShape Expand() function to DSL's context menu
       /// </summary>
-      public void ExpandShape()
+      public void ExpandShape() => SetIsExpandedValue(true);
+
+      protected override CompartmentMapping[] GetCompartmentMappings(Type melType)
       {
-         SetIsExpandedValue(true);
+         CompartmentMapping[] mappings = base.GetCompartmentMappings(melType);
+
+         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>()
+                                                                   .Where(m => m.CompartmentId == "ValuesCompartment"))
+            mapping.ImageGetter = GetValueImage;
+
+         return mappings;
       }
+
+      private Image GetValueImage(ModelElement element)
+      {
+         if (element is ModelEnumValue enumValue)
+         {
+            return enumValue.GetHasWarningValue()
+                      ? Resources.Warning
+                      : Resources.EnumValue;
+         }
+
+         return null;
+      }
+
+      #region Drag/drop model attributes
 
       /// <summary>
       ///    Model element that is being dragged.
@@ -62,7 +83,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (dragStartElement != null && dragStartElement != e.HitDiagramItem.RepresentedElements.OfType<ModelEnumValue>().FirstOrDefault())
          {
-            e.DiagramClientView.ActiveMouseAction = new CompartmentDragMouseAction(dragStartElement, this, compartmentBounds);
+            e.DiagramClientView.ActiveMouseAction = new CompartmentDragMouseAction<EnumShape>(dragStartElement, this, compartmentBounds);
             dragStartElement = null;
          }
       }
@@ -72,10 +93,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="sender"></param>
       /// <param name="e"></param>
-      private void Compartment_MouseUp(object sender, DiagramMouseEventArgs e)
-      {
-         dragStartElement = null;
-      }
+      private void Compartment_MouseUp(object sender, DiagramMouseEventArgs e) => dragStartElement = null;
 
       /// <summary>
       ///    Called by the Action when the user releases the mouse.
@@ -87,7 +105,9 @@ namespace Sawczyn.EFDesigner.EFModel
       public void DoMouseUp(ModelElement dragFrom, DiagramMouseEventArgs e)
       {
          // Original or "from" item:
+#pragma warning disable IDE0019 // Use pattern matching
          ModelEnumValue dragFromElement = dragFrom as ModelEnumValue;
+#pragma warning restore IDE0019 // Use pattern matching
 
          // Current or "to" item:
          ModelEnumValue dragToElement = e.HitDiagramItem.RepresentedElements.OfType<ModelEnumValue>().FirstOrDefault();
@@ -105,15 +125,16 @@ namespace Sawczyn.EFDesigner.EFModel
                DomainRoleInfo parentFromRole = relationshipFrom.DomainRoles[0];
 
                // Get the node in which the element is embedded, usually the element displayed in the shape:
+#pragma warning disable IDE0019 // Use pattern matching
                ModelEnum parentFrom = parentFromLink.LinkedElements[0] as ModelEnum;
+#pragma warning restore IDE0019 // Use pattern matching
 
                // Same again for the target:
                DomainRelationshipInfo relationshipTo = parentToLink.GetDomainRelationship();
                DomainRoleInfo parentToRole = relationshipTo.DomainRoles[0];
-               ModelEnum parentTo = parentToLink.LinkedElements[0] as ModelEnum;
 
                // Mouse went down and up in same parent and same compartment:
-               if (parentFrom != null && parentTo != null && parentTo == parentFrom && relationshipTo == relationshipFrom)
+               if (parentFrom != null && parentToLink.LinkedElements[0] is ModelEnum parentTo && parentTo == parentFrom && relationshipTo == relationshipFrom)
                {
                   // Find index of target position:
                   int newIndex = parentToRole.GetElementLinks(parentTo).IndexOf(parentToLink);
@@ -156,13 +177,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="child"></param>
       /// <returns></returns>
-      private ElementLink GetEmbeddingLink(ModelEnumValue child)
-      {
-         return child.GetDomainClass()
+      private ElementLink GetEmbeddingLink(ModelEnumValue child) => child.GetDomainClass()
                      .AllEmbeddedByDomainRoles
                      .SelectMany(role => role.OppositeDomainRole.GetElementLinks(child))
                      .FirstOrDefault();
-      }
 
       /// <summary>
       ///    Forget the source item if mouse up occurs outside the compartment.
@@ -173,5 +191,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnMouseUp(e);
          dragStartElement = null;
       }
+
+      #endregion
    }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedMember.Local
@@ -9,7 +10,7 @@ using Microsoft.VisualStudio.Modeling.Validation;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelClass : IModelElementWithCompartments
+   public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning
    {
       /// <summary>
       /// All attributes in the class, including those inherited from base classes
@@ -32,6 +33,25 @@ namespace Sawczyn.EFDesigner.EFModel
       public IEnumerable<string> IdentityAttributeNames => IdentityAttributes.Select(x => x.Name).ToList();
       public IEnumerable<string> AllIdentityAttributeNames => AllIdentityAttributes.Select(x => x.Name).ToList();
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? Name : $"{Namespace}.{Name}";
+
+#region Warning display
+
+      // set as methods to avoid issues around serialization
+
+      private bool hasWarning;
+
+      public bool GetHasWarningValue() => hasWarning;
+
+      public void ResetWarning() => hasWarning = false;
+
+      public void RedrawItem()
+      {
+         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
+         foreach (ShapeElement shapeElement in shapeElements)
+            shapeElement.Invalidate();
+      }
+
+#endregion
 
       public ConcurrencyOverride EffectiveConcurrency
       {
@@ -168,7 +188,10 @@ namespace Sawczyn.EFDesigner.EFModel
       private void ClassShouldHaveAttributes(ValidationContext context)
       {
          if (!Attributes.Any() && !LocalNavigationProperties().Any())
+         {
             context.LogWarning($"{Name}: Class has no properties", "MCWNoProperties", this);
+            hasWarning = true;
+         }
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -197,6 +220,7 @@ namespace Sawczyn.EFDesigner.EFModel
                if (modelClass.Attributes.Any(x => x.IsIdentity))
                {
                   context.LogWarning($"{modelClass.Name}: Identity attribute in derived class {Name} becomes a composite key", "MCWDerivedIdentity", this);
+                  hasWarning = true;
                   return;
                }
 
@@ -222,7 +246,10 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot?.WarnOnMissingDocumentation == true)
          {
             if (string.IsNullOrWhiteSpace(Summary))
+            {
                context.LogWarning($"Class {Name} should be documented", "AWMissingSummary", this);
+               hasWarning = true;
+            }
          }
       }
 

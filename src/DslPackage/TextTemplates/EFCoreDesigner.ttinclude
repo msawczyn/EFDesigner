@@ -111,6 +111,23 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
    BeginNamespace(modelRoot.Namespace);
 
+   if (!string.IsNullOrEmpty(modelRoot.Summary))
+   {
+      Output("/// <summary>");
+      Output("/// {0}", modelRoot.Summary);
+      Output("/// </summary>");
+      if (!string.IsNullOrEmpty(modelRoot.Description))
+      {
+         Output("/// <remarks>");
+         Output("/// {0}", modelRoot.Description);
+         Output("/// </remarks>");
+      }
+   }
+   else
+   {
+      Output("/// <inheritdoc/>");
+   }
+
    Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : Microsoft.EntityFrameworkCore.DbContext");
    Output("{");
 

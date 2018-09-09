@@ -360,13 +360,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId);
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.IsAbstractDomainPropertyId);
-				propertyInfo.FilteringValues.Add("False");
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+				propertyInfo.FilteringValues.Add("EntityGlyph");
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "EntityGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.IsAbstractDomainPropertyId);
-				propertyInfo.FilteringValues.Add("True");
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+				propertyInfo.FilteringValues.Add("AbstractEntityGlyph");
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "AbstractEntityGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+				propertyInfo.FilteringValues.Add("WarningGlyph");
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "WarningGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 			}
 		}
 		
@@ -403,6 +407,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.NameDomainPropertyId);
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
+		
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GlyphTypeDomainPropertyId);
+				propertyInfo.FilteringValues.Add("EnumGlyph");
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "EnumGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GlyphTypeDomainPropertyId);
+				propertyInfo.FilteringValues.Add("WarningGlyph");
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "WarningGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 			}
 		}
 		

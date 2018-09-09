@@ -318,6 +318,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			field4.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeAbstractEntityGlyphDefaultImage"));
 			shapeFields.Add(field4);
 			
+			DslDiagrams::ImageField field5 = new DslDiagrams::ImageField("WarningGlyph");
+			field5.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeWarningGlyphDefaultImage"));
+			shapeFields.Add(field5);
+			
 		}
 		
 		/// <summary>
@@ -344,6 +348,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslDiagrams::ShapeField field4 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "AbstractEntityGlyph");
 			DslDiagrams::Decorator decorator4 = new DslDiagrams::ShapeDecorator(field4, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator4);
+				
+			DslDiagrams::ShapeField field5 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "WarningGlyph");
+			DslDiagrams::Decorator decorator5 = new DslDiagrams::ShapeDecorator(field5, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
+			decorators.Add(decorator5);
 				
 		}
 		
@@ -1637,6 +1645,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			field3.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("EnumShapeEnumGlyphDefaultImage"));
 			shapeFields.Add(field3);
 			
+			DslDiagrams::ImageField field4 = new DslDiagrams::ImageField("WarningGlyph");
+			field4.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("EnumShapeWarningGlyphDefaultImage"));
+			shapeFields.Add(field4);
+			
 		}
 		
 		/// <summary>
@@ -1659,6 +1671,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslDiagrams::ShapeField field3 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "EnumGlyph");
 			DslDiagrams::Decorator decorator3 = new DslDiagrams::ShapeDecorator(field3, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator3);
+				
+			DslDiagrams::ShapeField field4 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "WarningGlyph");
+			DslDiagrams::Decorator decorator4 = new DslDiagrams::ShapeDecorator(field4, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
+			decorators.Add(decorator4);
 				
 		}
 		

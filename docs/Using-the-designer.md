@@ -78,6 +78,8 @@ A peek at the Property page when you have the design surface selected (the backg
 <tr><td valign="top"> SqlServer Type                                                       </td><td valign="top"> <i>String</i>. Value of ProviderManifestToken attribute, for optimization of runtime database type is known and unchanging. Values are 'None', 'SqlServer' (2008) and 'SqlServer2012'. For more information see <a href="https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/provider-manifest-specification">DbProviderInfo.ProviderManifestToken Property</a>.</td></tr>
 <tr><td valign="top"> Transform On Save                                                    </td><td valign="top"> <i>Boolean</i>. If true, will run Visual Studio's Transform All Templates command when the model is saved</td></tr>
 <tr><td valign="top"> Warn On Missing Documentation                                        </td><td valign="top"> <i>Boolean</i>. If true, will generate warnings when summary documentation is missing for classes, properties and association ends.</td></tr>
+<tr><td valign="top"> Comment Detail                                                       </td><td valign="top"> <i>String</i>. XML comment &lt;Remarks&gt; section</td></tr>
+<tr><td valign="top"> Comment Summary                                                      </td><td valign="top"> <i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 </tbody>
 </table>
 

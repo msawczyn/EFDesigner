@@ -63,6 +63,7 @@ void WriteDatabaseInitializerEF6(ModelRoot modelRoot)
 
    BeginNamespace(modelRoot.Namespace);
 
+   Output("/// <inheritdoc/>");
    if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
       Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>");
    else
@@ -79,6 +80,7 @@ void WriteMigrationConfigurationEF6(ModelRoot modelRoot)
    NL();
 
    BeginNamespace(modelRoot.Namespace);
+   Output("/// <inheritdoc/>");
    Output("public sealed partial class {0}DbMigrationConfiguration : DbMigrationsConfiguration<{0}>", modelRoot.EntityContainerName);
 
    Output("{");
@@ -106,6 +108,23 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    NL();
 
    BeginNamespace(modelRoot.Namespace);
+
+   if (!string.IsNullOrEmpty(modelRoot.Summary))
+   {
+      Output("/// <summary>");
+      Output("/// {0}", modelRoot.Summary);
+      Output("/// </summary>");
+      if (!string.IsNullOrEmpty(modelRoot.Description))
+      {
+         Output("/// <remarks>");
+         Output("/// {0}", modelRoot.Description);
+         Output("/// </remarks>");
+      }
+   }
+   else
+   {
+      Output("/// <inheritdoc/>");
+   }
 
    Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : System.Data.Entity.DbContext");
    Output("{");

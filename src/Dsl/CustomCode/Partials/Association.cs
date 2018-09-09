@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class Association
+   public partial class Association : IDisplaysWarning
    {
       public string GetSourceMultiplicityDisplayValue()
       {
@@ -35,6 +37,28 @@ namespace Sawczyn.EFDesigner.EFModel
          return "?";
       }
 
+      #region Warning display
+
+      // set as methods to avoid issues around serialization
+
+#pragma warning disable CS3005 // Identifier differing only in case is not CLS-compliant
+      protected bool hasWarning = false;
+#pragma warning restore CS3005 // Identifier differing only in case is not CLS-compliant
+
+#pragma warning disable CS3005 // Identifier differing only in case is not CLS-compliant
+      public bool HasWarning() { return hasWarning; }
+#pragma warning restore CS3005 // Identifier differing only in case is not CLS-compliant
+
+      public void ResetWarning() { hasWarning = false; }
+
+      public void RedrawItem()
+      {
+         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
+         foreach (ShapeElement shapeElement in shapeElements)
+            shapeElement.Invalidate();
+      }
+#endregion
+
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)
@@ -43,7 +67,10 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot.WarnOnMissingDocumentation)
          {
             if (string.IsNullOrWhiteSpace(TargetSummary))
+            {
                context.LogWarning($"{Source.Name}.{TargetPropertyName}: Association end should be documented", "AWMissingSummary", this);
+               hasWarning = true;
+            }
          }
       }
 

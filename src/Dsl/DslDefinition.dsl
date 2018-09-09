@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="5" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="5" Revision="2" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
@@ -224,6 +224,16 @@
             <DomainEnumerationMoniker Name="ContainerAccess" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="a95a5645-b5d5-4b11-b177-d674cee91290" Description="Detailed code documentation" Name="Description" DisplayName="Comment Detail" DefaultValue="" Category="Documentation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a25a2ffe-9ae9-408b-a346-056805de6975" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -329,6 +339,16 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="8045d89c-6c9a-4775-92bc-841a7f6fe7d3" Description="If true, ModelClass.OutputDirectory tracks ModelRoot.EntityOutputDirectory" Name="IsOutputDirectoryTracking" DisplayName="Is Output Directory Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="90778922-6b74-40a8-a9ef-14871a788d5e" Description="Type of glyph to show on the design surface" Name="GlyphType" DisplayName="Glyph Type" Kind="Calculated" GetterAccessModifier="Assembly" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="0b8a75a8-0ea1-4e6c-9944-a4674eefa83d" Description="If true, this element has a warning in the error list" Name="HasWarning" DisplayName="Has Warning" Kind="Calculated" GetterAccessModifier="Assembly" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -557,6 +577,16 @@
         <DomainProperty Id="1a498d1a-15d7-48fe-b911-17b1028da5f7" Description="If true, ModelEnum.OutputDirectory tracks ModelRoot.EnumOutputDirectory" Name="IsOutputDirectoryTracking" DisplayName="Is Output Directory Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="1e1a46ae-d123-4e50-9185-488883033f9a" Description="If true, this element has a warning in the error list" Name="HasWarning" DisplayName="Has Warning" Kind="Calculated" GetterAccessModifier="Assembly" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b643f6b2-d807-4318-a291-424b74893f3c" Description="Type of glyph to show on the design surface" Name="GlyphType" DisplayName="Glyph Type" Kind="Calculated" GetterAccessModifier="Assembly" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1127,6 +1157,9 @@
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="AbstractEntityGlyph" DisplayName="Abstract Entity Glyph" DefaultIcon="Resources\AbstractEntityGlyph.png" />
       </ShapeHasDecorators>
+      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
+        <IconDecorator Name="WarningGlyph" DisplayName="Warning Glyph" DefaultIcon="Resources\Warning.png" />
+      </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
     </CompartmentShape>
     <GeometryShape Id="ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f" Description="" Name="CommentBoxShape" DisplayName="Comment Box Shape" Namespace="Sawczyn.EFDesigner.EFModel" FixedTooltipText="Comment Box Shape" FillColor="255, 255, 204" OutlineColor="204, 204, 102" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="ForwardDiagonal" Geometry="Rectangle">
@@ -1175,6 +1208,9 @@
       </ShapeHasDecorators>
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="EnumGlyph" DisplayName="Enum Glyph" DefaultIcon="Resources\EnumTool.bmp" />
+      </ShapeHasDecorators>
+      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
+        <IconDecorator Name="WarningGlyph" DisplayName="Warning Glyph" DefaultIcon="Resources\Warning.png" />
       </ShapeHasDecorators>
       <Compartment Name="ValuesCompartment" Title="Values" />
     </CompartmentShape>
@@ -1396,6 +1432,12 @@
           <XmlPropertyData XmlName="dbSetAccess">
             <DomainPropertyMoniker Name="ModelRoot/DbSetAccess" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="description">
+            <DomainPropertyMoniker Name="ModelRoot/Description" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="summary">
+            <DomainPropertyMoniker Name="ModelRoot/Summary" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -1457,6 +1499,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isOutputDirectoryTracking">
             <DomainPropertyMoniker Name="ModelClass/IsOutputDirectoryTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="glyphType" Representation="Ignore">
+            <DomainPropertyMoniker Name="ModelClass/GlyphType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="hasWarning" Representation="Ignore">
+            <DomainPropertyMoniker Name="ModelClass/HasWarning" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1650,6 +1698,12 @@
           <XmlPropertyData XmlName="isOutputDirectoryTracking">
             <DomainPropertyMoniker Name="ModelEnum/IsOutputDirectoryTracking" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="hasWarning" Representation="Ignore">
+            <DomainPropertyMoniker Name="ModelEnum/HasWarning" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="glyphType" Representation="Ignore">
+            <DomainPropertyMoniker Name="ModelEnum/GlyphType" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelRootHasEnums" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasEnumsMoniker" ElementName="modelRootHasEnums" MonikerTypeName="ModelRootHasEnumsMoniker">
@@ -1820,18 +1874,27 @@
         <DecoratorMap>
           <IconDecoratorMoniker Name="ClassShape/EntityGlyph" />
           <VisibilityPropertyPath>
-            <DomainPropertyMoniker Name="ModelClass/IsAbstract" />
+            <DomainPropertyMoniker Name="ModelClass/GlyphType" />
             <PropertyFilters>
-              <PropertyFilter FilteringValue="False" />
+              <PropertyFilter FilteringValue="EntityGlyph" />
             </PropertyFilters>
           </VisibilityPropertyPath>
         </DecoratorMap>
         <DecoratorMap>
           <IconDecoratorMoniker Name="ClassShape/AbstractEntityGlyph" />
           <VisibilityPropertyPath>
-            <DomainPropertyMoniker Name="ModelClass/IsAbstract" />
+            <DomainPropertyMoniker Name="ModelClass/GlyphType" />
             <PropertyFilters>
-              <PropertyFilter FilteringValue="True" />
+              <PropertyFilter FilteringValue="AbstractEntityGlyph" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="ClassShape/WarningGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelClass/GlyphType" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="WarningGlyph" />
             </PropertyFilters>
           </VisibilityPropertyPath>
         </DecoratorMap>
@@ -1875,6 +1938,24 @@
               <DomainPropertyMoniker Name="ModelEnum/Name" />
             </PropertyPath>
           </PropertyDisplayed>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="EnumShape/EnumGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelEnum/GlyphType" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="EnumGlyph" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="EnumShape/WarningGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelEnum/GlyphType" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="WarningGlyph" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
         </DecoratorMap>
         <CompartmentShapeMoniker Name="EnumShape" />
         <CompartmentMap DisplaysCustomString="true">

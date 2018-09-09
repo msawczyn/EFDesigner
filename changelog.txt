@@ -1,3 +1,9 @@
+1.2.5.2
+   - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
+   - Enabled drag and drop reordering of enum values and class properties
+   - Gave some color to the enum value glyph in the model explorer - it was so boring!
+   - Class properties and enum values with warnings now show a warning icon on the design surface
+
 1.2.5.1
    - Addressed issue #20 - Abstract/inherited/TPC =code still there for abstract class (https://github.com/msawczyn/EFDesigner/issues/20). While the
      discussion centered around abstract classes and TPC inheritance (which was behaving properly), it did uncover a problem with code generation when

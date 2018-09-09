@@ -1,16 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelEnum : IModelElementWithCompartments
+   public partial class ModelEnum : IModelElementWithCompartments, IDisplaysWarning
    {
       public static string[] ValidValueTypes = {/*"SByte", */"Int16", "Int32", "Int64"};
 
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? Name : $"{Namespace}.{Name}";
+
+#region Warning display
+
+      // set as methods to avoid issues around serialization
+
+      private bool hasWarning;
+
+      public bool GetHasWarningValue() => hasWarning;
+
+      public void ResetWarning() => hasWarning = false;
+
+      public void RedrawItem()
+      {
+         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
+         foreach (ShapeElement shapeElement in shapeElements)
+            shapeElement.Invalidate();
+      }
+
+#endregion
 
       public void SetFlagValues()
       {
@@ -56,7 +77,10 @@ namespace Sawczyn.EFDesigner.EFModel
       private void EnumValueInitializationsShouldBeAllOrNothing(ValidationContext context)
       {
          if (Values.Any(x => !string.IsNullOrEmpty(x.Value)) && Values.Any(x => string.IsNullOrEmpty(x.Value)))
+         {
             context.LogWarning($"{Name}: Enum has some, but not all, values initialized. Please ensure this is what was intended.", "MWPartialEnumValueInitialization", this);
+            hasWarning = true;
+         }
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -67,7 +91,10 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot?.WarnOnMissingDocumentation == true)
          {
             if (string.IsNullOrWhiteSpace(Summary))
+            {
                context.LogWarning($"{Name}: Enum should be documented", "AWMissingSummary", this);
+               hasWarning = true;
+            }
          }
       }
       #region Namespace tracking property

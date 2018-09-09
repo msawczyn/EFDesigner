@@ -216,7 +216,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\Entity1.cs" />
     <Compile Include="Generated\Context\SandboxModel.generated.cs" />
     <Compile Include="Generated\Entities\Entity3.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

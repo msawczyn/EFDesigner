@@ -10,6 +10,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
+using Microsoft.VisualStudio.Modeling.Validation;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using NuGet.VisualStudio;
@@ -48,7 +49,9 @@ namespace Sawczyn.EFDesigner.EFModel
          string templateFilename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
 
          ProjectItem templateProjectItem = Dte2.Solution.FindProjectItem(templateFilename);
+#pragma warning disable IDE0019 // Use pattern matching
          VSProjectItem templateVsProjectItem = templateProjectItem?.Object as VSProjectItem;
+#pragma warning restore IDE0019 // Use pattern matching
 
          if (templateVsProjectItem == null)
             Messages.AddError($"Tried to generate code but couldn't find {templateFilename} in the solution.");
@@ -155,12 +158,41 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
 
+         // validate classes that show warnings, so that we can change glyphs accordingly
+         List<DomainClassInfo> classesWithWarnings = Store.ElementDirectory
+                                                          .AllElements
+                                                          .OfType<IDisplaysWarning>()
+                                                          .OfType<ModelElement>()
+                                                          .Select(e => e.GetDomainClass())
+                                                          .Distinct()
+                                                          .ToList();
+         EventManagerDirectory events = Store.EventManagerDirectory;
+
+         foreach (DomainClassInfo classInfo in classesWithWarnings)
+            events.ElementPropertyChanged.Add(classInfo, new EventHandler<ElementPropertyChangedEventArgs>(ValidateModelElement));
+
          SetDocDataDirty(0);
+      }
+
+      private void ValidateModelElement(object sender, ElementPropertyChangedEventArgs e)
+      {
+         ModelElement modelElement = e.ModelElement;
+
+         if (modelElement is IDisplaysWarning displaysWarningObj)
+         {
+            displaysWarningObj.ResetWarning();
+            ValidationController.Validate(modelElement, ValidationCategories.Save);
+            displaysWarningObj.RedrawItem();
+         }
       }
 
       private DialogResult ShowQuestionBox(string question)
       {
-         return PackageUtility.ShowMessageBox(ServiceProvider, question, OLEMSGBUTTON.OLEMSGBUTTON_YESNO, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, OLEMSGICON.OLEMSGICON_QUERY);
+         return PackageUtility.ShowMessageBox(ServiceProvider, 
+                                              question, 
+                                              OLEMSGBUTTON.OLEMSGBUTTON_YESNO, 
+                                              OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, 
+                                              OLEMSGICON.OLEMSGICON_QUERY);
       }
 
       private bool ShowBooleanQuestionBox(string question)
@@ -179,10 +211,22 @@ namespace Sawczyn.EFDesigner.EFModel
          Messages.AddWarning(message);
       }
 
+      public override IEnumerable<ModelElement> GetAllElementsForValidation()
+      {
+         List<ModelElement> elements = base.GetAllElementsForValidation().ToList();
+         elements.OfType<IDisplaysWarning>().ToList().ForEach(e => e.ResetWarning());
+
+         return elements;
+      }
+
       private void ShowError(string message)
       {
          Messages.AddError(message);
-         PackageUtility.ShowMessageBox(ServiceProvider, message, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
+         PackageUtility.ShowMessageBox(ServiceProvider, 
+                                       message, 
+                                       OLEMSGBUTTON.OLEMSGBUTTON_OK, 
+                                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, 
+                                       OLEMSGICON.OLEMSGICON_CRITICAL);
       }
 
       /// <summary>
