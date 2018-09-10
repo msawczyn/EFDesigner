@@ -41,13 +41,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       // set as methods to avoid issues around serialization
 
-#pragma warning disable CS3005 // Identifier differing only in case is not CLS-compliant
-      protected bool hasWarning = false;
-#pragma warning restore CS3005 // Identifier differing only in case is not CLS-compliant
+      protected bool hasWarning;
 
-#pragma warning disable CS3005 // Identifier differing only in case is not CLS-compliant
-      public bool HasWarning() { return hasWarning; }
-#pragma warning restore CS3005 // Identifier differing only in case is not CLS-compliant
+      public bool GetHasWarningValue() { return hasWarning; }
 
       public void ResetWarning() { hasWarning = false; }
 

@@ -2321,6 +2321,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// If true, will generate warnings when summary documentation is missing
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainObjectId("247aa399-3d89-4b48-baeb-992e8cb3d47a")]
@@ -2921,6 +2922,96 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.summaryPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ShowWarningsInDesigner domain property code
+		
+		/// <summary>
+		/// ShowWarningsInDesigner domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShowWarningsInDesignerDomainPropertyId = new global::System.Guid(0xb79884bd, 0x572a, 0x444c, 0xb6, 0x4e, 0x24, 0xd6, 0x6c, 0x8e, 0xfc, 0x29);
+		
+		/// <summary>
+		/// Storage for ShowWarningsInDesigner
+		/// </summary>
+		private global::System.Boolean showWarningsInDesignerPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of ShowWarningsInDesigner domain property.
+		/// If true, will display warning glyphs with tooltips when model elements have
+		/// non-fatal issues detected
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowWarningsInDesigner.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowWarningsInDesigner.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowWarningsInDesigner.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("b79884bd-572a-444c-b64e-24d66c8efc29")]
+		public global::System.Boolean ShowWarningsInDesigner
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return showWarningsInDesignerPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ShowWarningsInDesignerPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.ShowWarningsInDesigner domain property.
+		/// </summary>
+		internal sealed partial class ShowWarningsInDesignerPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private ShowWarningsInDesignerPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.ShowWarningsInDesigner domain property value handler.
+			/// </summary>
+			public static readonly ShowWarningsInDesignerPropertyHandler Instance = new ShowWarningsInDesignerPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.ShowWarningsInDesigner domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShowWarningsInDesignerDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.showWarningsInDesignerPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.showWarningsInDesignerPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

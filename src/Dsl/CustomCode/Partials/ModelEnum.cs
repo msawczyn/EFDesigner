@@ -31,6 +31,12 @@ namespace Sawczyn.EFDesigner.EFModel
             shapeElement.Invalidate();
       }
 
+      protected string GetGlyphTypeValue()
+      {
+         return hasWarning
+                   ? "WarningGlyph"
+                   : "EnumGlyph";
+      }
 #endregion
 
       public void SetFlagValues()

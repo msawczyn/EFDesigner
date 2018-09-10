@@ -303,6 +303,12 @@
             <xsd:documentation>Brief code documentation</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: ShowWarningsInDesigner -->
+        <xsd:attribute name="showWarningsInDesigner" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will display warning glyphs with tooltips when model elements have non-fatal issues detected</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

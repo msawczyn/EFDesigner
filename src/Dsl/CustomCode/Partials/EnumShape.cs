@@ -27,6 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          CompartmentMapping[] mappings = base.GetCompartmentMappings(melType);
 
+         // Each item in the ValuesCompartment will call GetValueImage to determine its icon. Called any time the element's presentation element invalidates.
          foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>()
                                                                    .Where(m => m.CompartmentId == "ValuesCompartment"))
             mapping.ImageGetter = GetValueImage;

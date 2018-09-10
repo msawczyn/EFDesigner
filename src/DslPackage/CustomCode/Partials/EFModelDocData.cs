@@ -158,18 +158,24 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
 
-         // validate classes that show warnings, so that we can change glyphs accordingly
-         List<DomainClassInfo> classesWithWarnings = Store.ElementDirectory
-                                                          .AllElements
-                                                          .OfType<IDisplaysWarning>()
-                                                          .OfType<ModelElement>()
-                                                          .Select(e => e.GetDomainClass())
-                                                          .Distinct()
-                                                          .ToList();
-         EventManagerDirectory events = Store.EventManagerDirectory;
+         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("ValidateOnChanges"))
+         {
+            // validate classes that show warnings, so that we can change glyphs accordingly
+            List<DomainClassInfo> classesWithWarnings = Store.ElementDirectory
+                                                             .AllElements
+                                                             .OfType<IDisplaysWarning>()
+                                                             .OfType<ModelElement>()
+                                                             .Select(e => e.GetDomainClass())
+                                                             .Distinct()
+                                                             .ToList();
 
-         foreach (DomainClassInfo classInfo in classesWithWarnings)
-            events.ElementPropertyChanged.Add(classInfo, new EventHandler<ElementPropertyChangedEventArgs>(ValidateModelElement));
+            EventManagerDirectory events = Store.EventManagerDirectory;
+
+            foreach (DomainClassInfo classInfo in classesWithWarnings)
+               events.ElementPropertyChanged.Add(classInfo, new EventHandler<ElementPropertyChangedEventArgs>(ValidateModelElement));
+
+            tx.Commit();
+         }
 
          SetDocDataDirty(0);
       }
@@ -178,11 +184,11 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelElement modelElement = e.ModelElement;
 
-         if (modelElement is IDisplaysWarning displaysWarningObj)
+         if (modelElement is IDisplaysWarning displaysWarningElement)
          {
-            displaysWarningObj.ResetWarning();
+            displaysWarningElement.ResetWarning();
             ValidationController.Validate(modelElement, ValidationCategories.Save);
-            displaysWarningObj.RedrawItem();
+            displaysWarningElement.RedrawItem();
          }
       }
 

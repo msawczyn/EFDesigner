@@ -99,6 +99,14 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                }
 
                break;
+
+            case "ShowWarningsInDesigner":
+
+               break;
+
+            case "WarnOnMissingDocumentation":
+
+               break;
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();

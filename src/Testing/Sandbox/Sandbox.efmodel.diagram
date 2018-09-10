@@ -2,10 +2,10 @@
 <eFModelDiagram dslVersion="1.2.5.2" Id="8f32435a-d39e-49b2-8d4d-4297303a0553" absoluteBounds="0, 0, 11, 8.5" name="Sandbox">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
-    <classShape Id="81d3a77d-2f65-45b1-b571-a2518dc4ddd3" absoluteBounds="3.5, 1.125, 3.75, 1.0439925130208336" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+    <classShape Id="81d3a77d-2f65-45b1-b571-a2518dc4ddd3" absoluteBounds="3.5, 1.125, 3.75, 1.4285953776041667" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
       <modelClassMoniker Id="3e7bcbd7-7577-4b6e-b6d5-a335bee1b71f" />
       <nestedChildShapes>
-        <elementListCompartment Id="4dce027d-e669-4168-9c02-926e36f7c3db" absoluteBounds="3.515, 1.435, 3.7199999999999998, 0.63399251302083326" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4dce027d-e669-4168-9c02-926e36f7c3db" absoluteBounds="3.515, 1.435, 3.7199999999999998, 1.0185953776041665" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <enumShape Id="e3c95fcb-32ee-4617-b153-3fdfc7064c41" absoluteBounds="1.25, 2.875, 1.5, 1.2362939453125001" fillColor="Gray" textColor="White" outlineColor="Black" visible="true" outlineThickness="0.01" outlineDashStyle="Solid">

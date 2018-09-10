@@ -6,10 +6,6 @@ using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public interface IMouseActionTarget
-   {
-      void DoMouseUp(ModelElement dragFrom, DiagramMouseEventArgs e);
-   }
    public partial class ClassShape : IHighlightFromModelExplorer, IMouseActionTarget
    {
       /// <summary>
@@ -25,6 +21,8 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)
       {
          CompartmentMapping[] mappings = base.GetCompartmentMappings(melType);
+
+         // Each item in the AttributesCompartment will call GetPropertyImage to determine its icon. Called any time the element's presentation element invalidates.
 
          foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>()
                                                                    .Where(m => m.CompartmentId == "AttributesCompartment"))

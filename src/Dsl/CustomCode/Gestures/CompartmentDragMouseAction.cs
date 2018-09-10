@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.IO;
+using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
@@ -21,6 +22,24 @@ namespace Sawczyn.EFDesigner.EFModel
          sourceCompartmentBounds = bounds; // For cursor.
       }
 
+      // ReSharper disable once StaticMemberInGenericType
+      private static Cursor _moveCursor;
+
+      private static Cursor MoveCursor
+      {
+         get
+         {
+            if (_moveCursor == null)
+            {
+               using (MemoryStream stream = new MemoryStream(Resources.MoveCursor))
+               {
+                  _moveCursor = new Cursor(stream);
+               }
+            }
+
+            return _moveCursor;
+         }
+      }
       /// <summary>
       ///    Display an appropriate cursor while the drag is in progress:
       ///    Up-down arrow if we are inside the original compartment.
@@ -34,7 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          // If the cursor is inside the original compartment, show up-down cursor.
          return sourceCompartmentBounds.Contains(mousePosition)
-                   ? Cursors.SizeNS // Up-down arrow.
+                   ? MoveCursor 
                    : Cursors.No;
       }
 

@@ -51,6 +51,18 @@ namespace Sawczyn.EFDesigner.EFModel
             shapeElement.Invalidate();
       }
 
+      protected string GetGlyphTypeValue()
+      {
+         if (hasWarning)
+            return "WarningGlyph";
+
+         // ReSharper disable once ConvertIfStatementToReturnStatement
+         if (IsAbstract)
+            return "AbstractEntityGlyph";
+
+         return "EntityGlyph";
+      }
+
 #endregion
 
       public ConcurrencyOverride EffectiveConcurrency

@@ -247,6 +247,7 @@
     <Compile Include="CustomCode\ModelElement Interfaces\IHighlightFromModelExplorer.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementCompartmented.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementWithCompartments.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\IMouseActionTarget.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelAttributeTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />
@@ -419,6 +420,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\EnumValue.png" />
+    <None Include="Resources\Move.cur" />
     <Content Include="Resources\Warning.png" />
     <None Include="DslDefinition.dsl.diagram">
       <DependentUpon>DslDefinition.dsl</DependentUpon>

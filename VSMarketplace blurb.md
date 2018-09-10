@@ -24,6 +24,14 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.0**
+   - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
+   - Enabled drag and drop reordering of enum values and class properties
+   - Gave some color to the enum value glyph in the model explorer - it was so boring!
+   - Class properties and enum values with warnings now show a warning icon on the design surface
+   - Design surface has a property to turn on or off the display of the warning icons 
+   - Recategorized a few "Misc" properties on the design surface
+
 **1.2.5.1**
    - Addressed [issue #20 - Abstract/inherited/TPC =code still there for abstract class](https://github.com/msawczyn/EFDesigner/issues/20). While the
      discussion centered around abstract classes and TPC inheritance (which was behaving properly), it did uncover a problem with code generation when
@@ -41,7 +49,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Reverted the selection of the node in the model explorer when an element is selected in the diagram. Was causing bad user experience.
    - Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
 
-**1.2.3**
+**1.2.3.0**
    - When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
      This was done because the color change flagged the model as modified, making the user either undo or save the changes to keep
      source control happy.
@@ -53,14 +61,14 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fix for [issue #14 - Table with two Primary keys not generated properly in context](https://github.com/msawczyn/EFDesigner/issues/14). Many thanks to @Falthazar!
    - Fix for [issue #18 - Adds ValueGeneratedNever if identity type is Manual](https://github.com/msawczyn/EFDesigner/pull/18). Again, hats off to @Falthazar!
 
-**1.2.2**
+**1.2.2.0**
 
    - Fix issue with association role end changing without the other side autoatically changing
    - Fix issue with deleting a highlighted element throwing an error when trying to save the file
    - Fixed code generation for dependent classes
    - Designer now automatically saves before generating code
 
-**1.2.1**
+**1.2.1.0**
 
    - Bug fix for inheritance strategy automatically changing to table-per-hierarchy if targeting EF Core
    - Updated a few warning and error messages to make them more meaningful
@@ -68,7 +76,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Remove stale error and warnings prior to save (still a few left hanging around that need looked at)
    - Fixed a few null reference errors
 
-**1.2.0**
+**1.2.0.0**
 
    - **New Features**
       - Roslyn-based code analysis now allows dragging C# files onto the design surface to add or update classes and enums
@@ -86,7 +94,7 @@ For comprehensive documentation, please visit [the project's documentation site]
       - Context property `Database Type` changed to `SqlServer Type` to better reflect what it does
       - Selecting an element in the Model Explorer highlights it on the diagram
 
-**1.1.0**
+**1.1.0.0**
 
    - Bug fixes for exceptions thrown when bad input to model attributes as text
    - Added MinLength string property (used in EF6 only as of this writing)

@@ -1176,6 +1176,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// ShowWarningsInDesigner
+			if (!serializationContext.Result.Failed)
+			{
+				string attribShowWarningsInDesigner = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "showWarningsInDesigner");
+				if (attribShowWarningsInDesigner != null)
+				{
+					global::System.Boolean valueOfShowWarningsInDesigner;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribShowWarningsInDesigner, out valueOfShowWarningsInDesigner))
+					{
+						instanceOfModelRoot.ShowWarningsInDesigner = valueOfShowWarningsInDesigner;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "showWarningsInDesigner", typeof(global::System.Boolean), attribShowWarningsInDesigner);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -2171,6 +2188,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "summary", propValue);
 	
+				}
+			}
+			// ShowWarningsInDesigner
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.ShowWarningsInDesigner;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showWarningsInDesigner", serializedPropValue);
+					}
 				}
 			}
 		}

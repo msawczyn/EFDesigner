@@ -146,6 +146,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "DbSetAccess", ModelRoot.DbSetAccessDomainPropertyId, typeof(ModelRoot.DbSetAccessPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Description", ModelRoot.DescriptionDomainPropertyId, typeof(ModelRoot.DescriptionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Summary", ModelRoot.SummaryDomainPropertyId, typeof(ModelRoot.SummaryPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "ShowWarningsInDesigner", ModelRoot.ShowWarningsInDesignerDomainPropertyId, typeof(ModelRoot.ShowWarningsInDesignerPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),

@@ -402,7 +402,7 @@
     <comment>DisplayName for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.Category" xml:space="preserve">
-    <value>Misc</value>
+    <value>Designer</value>
     <comment>Category for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.Description" xml:space="preserve">
@@ -426,7 +426,7 @@
     <comment>DisplayName for DomainProperty &apos;ShowCascadeDeletes&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowCascadeDeletes.Category" xml:space="preserve">
-    <value>Misc</value>
+    <value>Designer</value>
     <comment>Category for DomainProperty &apos;ShowCascadeDeletes&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseType.Description" xml:space="preserve">
@@ -444,6 +444,10 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.DisplayName" xml:space="preserve">
     <value>Warn On Missing Documentation</value>
     <comment>DisplayName for DomainProperty &apos;WarnOnMissingDocumentation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/WarnOnMissingDocumentation.Category" xml:space="preserve">
+    <value>Designer</value>
+    <comment>Category for DomainProperty &apos;WarnOnMissingDocumentation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityFrameworkPackageVersion.Description" xml:space="preserve">
     <value>Version of Entity Framework code for validation and generated code</value>
@@ -516,6 +520,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Summary.Category" xml:space="preserve">
     <value>Documentation</value>
     <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowWarningsInDesigner.Description" xml:space="preserve">
+    <value>If true, will display warning glyphs with tooltips when model elements have non-fatal issues detected</value>
+    <comment>Description for DomainProperty &apos;ShowWarningsInDesigner&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowWarningsInDesigner.DisplayName" xml:space="preserve">
+    <value>Show Warnings In Designer</value>
+    <comment>DisplayName for DomainProperty &apos;ShowWarningsInDesigner&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowWarningsInDesigner.Category" xml:space="preserve">
+    <value>Designer</value>
+    <comment>Category for DomainProperty &apos;ShowWarningsInDesigner&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
