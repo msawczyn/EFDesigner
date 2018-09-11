@@ -187,7 +187,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelElement is IDisplaysWarning displaysWarningElement)
          {
             displaysWarningElement.ResetWarning();
-            ValidationController.Validate(modelElement, ValidationCategories.Save);
+
+            ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;
+            ValidationController.Validate(modelElement, allCategories);
             displaysWarningElement.RedrawItem();
          }
       }

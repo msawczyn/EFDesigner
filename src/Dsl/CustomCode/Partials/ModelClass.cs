@@ -53,7 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected string GetGlyphTypeValue()
       {
-         if (hasWarning)
+         if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
             return "WarningGlyph";
 
          // ReSharper disable once ConvertIfStatementToReturnStatement

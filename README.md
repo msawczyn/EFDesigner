@@ -43,7 +43,7 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.6.0***
+***1.2.6.1***
    - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
    - Enabled drag and drop reordering of enum values and class properties
    - Gave some color to the enum value glyph in the model explorer - it was so boring!

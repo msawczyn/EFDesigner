@@ -35,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (element is ModelAttribute attribute)
          {
-            if (attribute.GetHasWarningValue())
+            if (attribute.ModelClass.ModelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
                return Resources.Warning;
 
             if (attribute.IsIdentity)

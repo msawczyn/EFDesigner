@@ -39,7 +39,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (element is ModelEnumValue enumValue)
          {
-            return enumValue.GetHasWarningValue()
+            return enumValue.Enum.ModelRoot.ShowWarningsInDesigner && enumValue.GetHasWarningValue()
                       ? Resources.Warning
                       : Resources.EnumValue;
          }

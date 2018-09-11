@@ -43,9 +43,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected bool hasWarning;
 
-      public bool GetHasWarningValue() { return hasWarning; }
+      public bool GetHasWarningValue() => hasWarning;
 
-      public void ResetWarning() { hasWarning = false; }
+      public void ResetWarning() => hasWarning = false;
 
       public void RedrawItem()
       {

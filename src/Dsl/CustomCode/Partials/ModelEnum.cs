@@ -33,7 +33,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected string GetGlyphTypeValue()
       {
-         return hasWarning
+         return ModelRoot.ShowWarningsInDesigner && GetHasWarningValue()
                    ? "WarningGlyph"
                    : "EnumGlyph";
       }

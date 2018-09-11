@@ -705,14 +705,6 @@
     <value>Glyph Type</value>
     <comment>DisplayName for DomainProperty &apos;GlyphType&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/HasWarning.Description" xml:space="preserve">
-    <value>If true, this element has a warning in the error list</value>
-    <comment>Description for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/HasWarning.DisplayName" xml:space="preserve">
-    <value>Has Warning</value>
-    <comment>DisplayName for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>
@@ -1116,14 +1108,6 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/IsOutputDirectoryTracking.DisplayName" xml:space="preserve">
     <value>Is Output Directory Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsOutputDirectoryTracking&apos; on DomainClass &apos;ModelEnum&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/HasWarning.Description" xml:space="preserve">
-    <value>If true, this element has a warning in the error list</value>
-    <comment>Description for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelEnum&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/HasWarning.DisplayName" xml:space="preserve">
-    <value>Has Warning</value>
-    <comment>DisplayName for DomainProperty &apos;HasWarning&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/GlyphType.Description" xml:space="preserve">
     <value>Type of glyph to show on the design surface</value>
