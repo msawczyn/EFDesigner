@@ -24,7 +24,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**1.2.6.1**
+**1.2.6.2**
    - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
    - Enabled drag and drop reordering of enum values and class properties
    - Gave some color to the enum value glyph in the model explorer - it was so boring!
