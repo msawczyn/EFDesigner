@@ -154,6 +154,8 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
    if (classesWithTables != null)
    {
+      Output("#region DbSets");
+      
       foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>().OrderBy(x => x.Name))
       {
          string dbSetName;
@@ -165,9 +167,17 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
+         if (!string.IsNullOrEmpty(modelClass.Summary))
+         {
+            NL();
+            Output("/// <summary>");
+            Output("/// Repository for {0} - {1}", modelClass.FullName, modelClass.Summary);
+            Output("/// </summary>");
+         }
          Output($"{modelRoot.DbSetAccess.ToString().ToLower()} Microsoft.EntityFrameworkCore.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
       }
 
+      Output("#endregion DbSets");
       NL();
    }
 
@@ -181,14 +191,19 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                                    ? $"Name={modelRoot.ConnectionStringName}"
                                    : modelRoot.ConnectionString;
 
+      Output("/// <summary>");
+      Output("/// Default connection string");
+      Output("/// </summary>");
       Output($"public static string ConnectionString {{ get; set; }} = @\"{connectionString}\";");
       NL();
    }
    
+   Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}() : base()");
    Output("{");
    Output("}");
    NL();
+   Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}(DbContextOptions<{modelRoot.EntityContainerName}> options) : base(options)");
    Output("{");
    Output("}");
@@ -197,6 +212,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    Output("partial void CustomInit(DbContextOptionsBuilder optionsBuilder);");
    NL();
 
+   Output("/// <inheritdoc />");
    Output($"protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)");
    Output("{");
 
@@ -233,6 +249,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    /***********************************************************************/
    // OnModelCreating 
    /***********************************************************************/
+   Output("/// <inheritdoc />");
    Output("protected override void OnModelCreating(ModelBuilder modelBuilder)");
    Output("{");
    Output("base.OnModelCreating(modelBuilder);");
@@ -286,10 +303,10 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 	  // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
-	     segments.Clear();
+         segments.Clear();
          segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
-		 if (segments.Count > 1)
+         if (segments.Count > 1)
          {
             if (modelRoot.ChopMethodChains)
                OutputChopped(segments);

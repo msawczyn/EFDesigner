@@ -152,6 +152,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 
    if (classesWithTables != null)
    {
+      Output("#region DbSets");
+
       foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>().Where(x => !x.IsDependentType).OrderBy(x => x.Name))
       {
          string dbSetName;
@@ -163,9 +165,17 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
+         if (!string.IsNullOrEmpty(modelClass.Summary))
+         {
+            NL();
+            Output("/// <summary>");
+            Output("/// Repository for {0} - {1}", modelClass.FullName, modelClass.Summary);
+            Output("/// </summary>");
+         }
          Output($"public System.Data.Entity.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
       }
 
+      Output("#endregion DbSets");
       NL();
    }
 
@@ -179,8 +189,12 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                                    ? $"Name={modelRoot.ConnectionStringName}"
                                    : modelRoot.ConnectionString;
 
+      Output("/// <summary>");
+      Output("/// Default connection string");
+      Output("/// </summary>");
       Output($"public static string ConnectionString {{ get; set; }} = @\"{connectionString}\";");
 
+      Output("/// <inheritdoc />");
       Output($"public {modelRoot.EntityContainerName}() : base(ConnectionString)");
       Output("{");
       Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
@@ -199,6 +213,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       NL();
    }
 
+   Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}(string connectionString) : base(connectionString)");
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
@@ -211,6 +226,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("}");
    NL();
 
+   Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)");
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
@@ -223,6 +239,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("}");
    NL();
 
+   Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)");
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
@@ -235,7 +252,34 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("}");
    NL();
 
+   Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
+
+   Output("/// <inheritdoc />");
+   Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
+
+   Output("/// <inheritdoc />");
+   Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)");
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
    Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
@@ -255,6 +299,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    /***********************************************************************/
    // OnModelCreating 
    /***********************************************************************/
+   Output("/// <inheritdoc />");
    Output("protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)");
    Output("{");
    Output("base.OnModelCreating(modelBuilder);");
