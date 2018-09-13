@@ -17324,15 +17324,15 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// Serializer CommentBoxShapeSerializer for DomainClass CommentBoxShape.
+	/// Serializer CommentBoxShapeSerializerBase for DomainClass CommentBoxShape.
 	/// </summary>
-	public partial class CommentBoxShapeSerializer : DslDiagrams::NodeShapeSerializer
+	public abstract partial class CommentBoxShapeSerializerBase : DslDiagrams::NodeShapeSerializer
 	{
 		#region Constructor
 		/// <summary>
-		/// CommentBoxShapeSerializer Constructor
+		/// CommentBoxShapeSerializerBase Constructor
 		/// </summary>
-		public CommentBoxShapeSerializer ()
+		protected CommentBoxShapeSerializerBase ()
 			: base ()
 		{
 		}
@@ -17430,7 +17430,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					// model elements.
 					while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 					{
-						base.ReadElements(serializationContext, element, reader);
+						ReadElements(serializationContext, element, reader);
 						if (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 						{
 							// Encountered one unknown XML element, skip it and keep reading.
@@ -17445,6 +17445,29 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslModeling::SerializationUtilities.Skip(reader);
 		}
 		
+	
+		/// <summary>
+		/// This methods deserializes nested XML elements inside the passed-in element.
+		/// </summary>
+		/// <remarks>
+		/// The caller will guarantee that the current element does have nested XML elements, and the call will position the 
+		/// reader at the open tag of the first child XML element.
+		/// This method will read as many child XML elements as it can. It returns under three circumstances:
+		/// 1) When an unknown child XML element is encountered. In this case, this method will position the reader at the open 
+		///    tag of the unknown element. This implies that if the first child XML element is unknown, this method should return 
+		///    immediately and do nothing.
+		/// 2) When all child XML elemnets are read. In this case, the reader will be positioned at the end tag of the parent element.
+		/// 3) EOF.
+		/// </remarks>
+		/// <param name="serializationContext">Serialization context.</param>
+		/// <param name="element">In-memory CommentBoxShape instance that will get the deserialized data.</param>
+		/// <param name="reader">XmlReader to read serialized data from.</param>
+		protected override void ReadElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+		{
+			// Always call the base class so any extensions are deserialized
+			base.ReadElements(serializationContext, element, reader);
+	
+		}
 	
 		#region TryCreateInstance
 		/// <summary>
@@ -17490,7 +17513,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClasses.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class instance.
-						CommentBoxShapeSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as CommentBoxShapeSerializer;
+						CommentBoxShapeSerializerBase derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as CommentBoxShapeSerializerBase;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateInstance(serializationContext, reader, partition);
 					}
@@ -17636,7 +17659,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClassMonikers.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class moniker instance.
-						CommentBoxShapeSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as CommentBoxShapeSerializer;
+						CommentBoxShapeSerializerBase derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as CommentBoxShapeSerializerBase;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 					}
@@ -17825,11 +17848,25 @@ namespace Sawczyn.EFDesigner.EFModel
 			if (!serializationContext.Result.Failed)
 			{
 				// Write 1) properties serialized as nested XML elements and 2) child model elements into XML.
-				base.WriteElements(serializationContext, element, writer);
+				WriteElements(serializationContext, element, writer);
 			}
 	
 			writer.WriteEndElement();
 		}
+	
+		/// <summary>
+		/// This methods serializes 1) properties serialized as nested XML elements and 2) child model elements into XML. 
+		/// </summary>
+		/// <param name="serializationContext">Serialization context.</param>
+		/// <param name="element">CommentBoxShape instance to be serialized.</param>
+		/// <param name="writer">XmlWriter to write serialized data to.</param>        
+		protected override void WriteElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+		{
+			// Always call the base class so any extensions are serialized
+			base.WriteElements(serializationContext, element, writer);
+	
+		}
+		
 		#endregion
 	
 		#region Moniker Support
@@ -17879,6 +17916,22 @@ namespace Sawczyn.EFDesigner.EFModel
 			#endregion	
 			
 			return string.Empty;
+		}
+		#endregion
+	}
+	
+	/// <summary>
+	/// Serializer CommentBoxShapeSerializer for DomainClass CommentBoxShape.
+	/// </summary>
+	public partial class CommentBoxShapeSerializer : CommentBoxShapeSerializerBase
+	{
+		#region Constructor
+		/// <summary>
+		/// CommentBoxShapeSerializer Constructor
+		/// </summary>
+		public CommentBoxShapeSerializer ()
+			: base ()
+		{
 		}
 		#endregion
 	}

@@ -1106,14 +1106,14 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// DomainClass CommentBoxShape
+	/// Double-derived base class for DomainClass CommentBoxShape
 	/// </summary>
 	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f")]
-	public partial class CommentBoxShape : DslDiagrams::NodeShape
+	public abstract partial class CommentBoxShapeBase : DslDiagrams::NodeShape
 	{
 		#region DiagramElement boilerplate
 		private static DslDiagrams::StyleSet classStyleSet;
@@ -1320,6 +1320,25 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// CommentBoxShape domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xac82cb66, 0x4d3d, 0x46ac, 0xa7, 0xe2, 0xb7, 0xf0, 0xcd, 0x67, 0xa7, 0x3f);
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		protected CommentBoxShapeBase(DslModeling::Partition partition, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+	}
+	/// <summary>
+	/// DomainClass CommentBoxShape
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+			
+	public partial class CommentBoxShape : CommentBoxShapeBase
+	{
+		#region Constructors
 		/// <summary>
 		/// Constructor
 		/// </summary>

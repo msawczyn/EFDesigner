@@ -235,6 +235,7 @@
     <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />
     <Compile Include="CustomCode\Connection Builders\BidirectionalAssociationBuilder.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalConnector.cs" />
+    <Compile Include="CustomCode\Partials\CommentBoxShape.cs" />
     <Compile Include="CustomCode\Partials\CommentConnector.cs" />
     <Compile Include="CustomCode\Partials\EFModelDiagram.cs" />
     <Compile Include="CustomCode\Partials\EFModelSerializationHelper.cs" />
