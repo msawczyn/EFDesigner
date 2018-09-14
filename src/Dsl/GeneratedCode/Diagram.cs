@@ -316,14 +316,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects)
-			{
-				global::Sawczyn.EFDesigner.EFModel.CommentConnector newShape = new global::Sawczyn.EFDesigner.EFModel.CommentConnector(this.Partition);
-				return newShape;
-			}
 			if(element is global::Sawczyn.EFDesigner.EFModel.Generalization)
 			{
 				global::Sawczyn.EFDesigner.EFModel.GeneralizationConnector newShape = new global::Sawczyn.EFDesigner.EFModel.GeneralizationConnector(this.Partition);
+				return newShape;
+			}
+			if(element is global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements)
+			{
+				global::Sawczyn.EFDesigner.EFModel.CommentConnector newShape = new global::Sawczyn.EFDesigner.EFModel.CommentConnector(this.Partition);
 				return newShape;
 			}
 			return base.CreateChildShape(element);
@@ -548,7 +548,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		private global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociationConnectAction unidirectionalAssociationConnectAction;
 		private global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociationConnectAction bidirectionalAssociationConnectAction;
 		private global::Sawczyn.EFDesigner.EFModel.GeneralizationConnectAction generalizationConnectAction;
-		private global::Sawczyn.EFDesigner.EFModel.CommentsReferenceTypesConnectAction commentsReferenceTypesConnectAction;
+		private global::Sawczyn.EFDesigner.EFModel.CommentsReferenceDesignElementsConnectAction commentsReferenceDesignElementsConnectAction;
 		/// <summary>
 		/// Virtual method to provide a filter when to select the mouse action
 		/// </summary>
@@ -643,15 +643,15 @@ namespace Sawczyn.EFDesigner.EFModel
 					this.generalizationConnectAction.StickyMode = stickyMode;
 					action = this.generalizationConnectAction;
 				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.CommentsReferenceTypesFilterString))
+				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.CommentsReferenceDesignElementsFilterString))
 				{
-					if (this.commentsReferenceTypesConnectAction == null)
+					if (this.commentsReferenceDesignElementsConnectAction == null)
 					{
-						this.commentsReferenceTypesConnectAction = new global::Sawczyn.EFDesigner.EFModel.CommentsReferenceTypesConnectAction(this);
-						this.commentsReferenceTypesConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+						this.commentsReferenceDesignElementsConnectAction = new global::Sawczyn.EFDesigner.EFModel.CommentsReferenceDesignElementsConnectAction(this);
+						this.commentsReferenceDesignElementsConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
 					}
-					this.commentsReferenceTypesConnectAction.StickyMode = stickyMode;
-					action = this.commentsReferenceTypesConnectAction;
+					this.commentsReferenceDesignElementsConnectAction.StickyMode = stickyMode;
+					action = this.commentsReferenceDesignElementsConnectAction;
 				} 
 				else
 				{
@@ -740,10 +740,10 @@ namespace Sawczyn.EFDesigner.EFModel
 						this.generalizationConnectAction.Dispose();
 						this.generalizationConnectAction = null;
 					}
-					if(this.commentsReferenceTypesConnectAction != null)
+					if(this.commentsReferenceDesignElementsConnectAction != null)
 					{
-						this.commentsReferenceTypesConnectAction.Dispose();
-						this.commentsReferenceTypesConnectAction = null;
+						this.commentsReferenceDesignElementsConnectAction.Dispose();
+						this.commentsReferenceDesignElementsConnectAction = null;
 					}
 					this.UnsubscribeCompartmentItemsEvents();
 				}
@@ -804,8 +804,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
 		{
 			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
@@ -842,7 +842,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					DslDiagrams::Diagram.FixUpDiagram(parentElement, childElement);
 				}
 			}
-			public static global::Sawczyn.EFDesigner.EFModel.ModelRoot GetParentForModelClass( global::Sawczyn.EFDesigner.EFModel.ModelType root )
+			public static global::Sawczyn.EFDesigner.EFModel.ModelRoot GetParentForModelClass( global::Sawczyn.EFDesigner.EFModel.ModelClass root )
 			{
 				// Segments 0 and 1
 				global::Sawczyn.EFDesigner.EFModel.ModelRoot result = root.ModelRoot;
@@ -1298,8 +1298,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
 		{
 			/// <summary>

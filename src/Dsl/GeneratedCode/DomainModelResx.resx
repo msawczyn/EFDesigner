@@ -125,38 +125,6 @@
     <value>Entity Framework Visual Editor</value>
     <comment>DisplayName for DslLibrary &apos;EFModel&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;NamedElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement.DisplayName" xml:space="preserve">
-    <value>Named Element</value>
-    <comment>DisplayName for DomainClass &apos;NamedElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement/Description.Description" xml:space="preserve">
-    <value>Detailed code documentation</value>
-    <comment>Description for DomainProperty &apos;Description&apos; on DomainClass &apos;NamedElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement/Description.DisplayName" xml:space="preserve">
-    <value>Comment Detail</value>
-    <comment>DisplayName for DomainProperty &apos;Description&apos; on DomainClass &apos;NamedElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement/Description.Category" xml:space="preserve">
-    <value>Documentation</value>
-    <comment>Category for DomainProperty &apos;Description&apos; on DomainClass &apos;NamedElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement/Summary.Description" xml:space="preserve">
-    <value>Brief code documentation</value>
-    <comment>Description for DomainProperty &apos;Summary&apos; on DomainClass &apos;NamedElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement/Summary.DisplayName" xml:space="preserve">
-    <value>Comment Summary</value>
-    <comment>DisplayName for DomainProperty &apos;Summary&apos; on DomainClass &apos;NamedElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.NamedElement/Summary.Category" xml:space="preserve">
-    <value>Documentation</value>
-    <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;NamedElement&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelRoot&apos;</comment>
@@ -705,6 +673,30 @@
     <value>Glyph Type</value>
     <comment>DisplayName for DomainProperty &apos;GlyphType&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Description.Description" xml:space="preserve">
+    <value>Detailed code documentation</value>
+    <comment>Description for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Description.DisplayName" xml:space="preserve">
+    <value>Comment Detail</value>
+    <comment>DisplayName for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Description.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Summary.Description" xml:space="preserve">
+    <value>Brief code documentation</value>
+    <comment>Description for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Summary.DisplayName" xml:space="preserve">
+    <value>Comment Summary</value>
+    <comment>DisplayName for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/Summary.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>
@@ -1009,22 +1001,6 @@
     <value>Text</value>
     <comment>DisplayName for DomainProperty &apos;Text&apos; on DomainClass &apos;Comment&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelType.Description" xml:space="preserve">
-    <value>Left here so we can add complex types later</value>
-    <comment>Description for DomainClass &apos;ModelType&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelType.DisplayName" xml:space="preserve">
-    <value>Model Type</value>
-    <comment>DisplayName for DomainClass &apos;ModelType&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ClassModelElement.Description" xml:space="preserve">
-    <value>Element with a Description</value>
-    <comment>Description for DomainClass &apos;ClassModelElement&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ClassModelElement.DisplayName" xml:space="preserve">
-    <value>Class Model Element</value>
-    <comment>DisplayName for DomainClass &apos;ClassModelElement&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum.Description" xml:space="preserve">
     <value>No description available</value>
     <comment>Description for DomainClass &apos;ModelEnum&apos;</comment>
@@ -1117,6 +1093,30 @@
     <value>Glyph Type</value>
     <comment>DisplayName for DomainProperty &apos;GlyphType&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Description.Description" xml:space="preserve">
+    <value>Detailed code documentation</value>
+    <comment>Description for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Description.DisplayName" xml:space="preserve">
+    <value>Comment Detail</value>
+    <comment>DisplayName for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Description.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Summary.Description" xml:space="preserve">
+    <value>Brief code documentation</value>
+    <comment>Description for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Summary.DisplayName" xml:space="preserve">
+    <value>Comment Summary</value>
+    <comment>DisplayName for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/Summary.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" xml:space="preserve">
     <value>No description available</value>
     <comment>Description for DomainClass &apos;ModelEnumValue&apos;</comment>
@@ -1148,6 +1148,38 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Value.Category" xml:space="preserve">
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;Value&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Description.Description" xml:space="preserve">
+    <value>Detailed code documentation</value>
+    <comment>Description for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Description.DisplayName" xml:space="preserve">
+    <value>Comment Detail</value>
+    <comment>DisplayName for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Description.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Description&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Summary.Description" xml:space="preserve">
+    <value>Brief code documentation</value>
+    <comment>Description for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Summary.DisplayName" xml:space="preserve">
+    <value>Comment Summary</value>
+    <comment>DisplayName for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Summary.Category" xml:space="preserve">
+    <value>Documentation</value>
+    <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DesignElement.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.DesignElement</value>
+    <comment>Description for DomainClass &apos;DesignElement&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.DesignElement.DisplayName" xml:space="preserve">
+    <value>Design Element</value>
+    <comment>DisplayName for DomainClass &apos;DesignElement&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
@@ -1561,66 +1593,6 @@
     <value>Bidirectional Sources</value>
     <comment>PropertyDisplayName for DomainRole &apos;BidirectionalTarget&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.DisplayName" xml:space="preserve">
-    <value>Model Root Has Types</value>
-    <comment>DisplayName for DomainClass &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/ModelRoot.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/ModelRoot.DisplayName" xml:space="preserve">
-    <value>Model Root</value>
-    <comment>DisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/ModelRoot.PropertyDisplayName" xml:space="preserve">
-    <value>Types</value>
-    <comment>PropertyDisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/Type.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Type&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/Type.DisplayName" xml:space="preserve">
-    <value>Type</value>
-    <comment>DisplayName for DomainRole &apos;Type&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DisplayName" xml:space="preserve">
-    <value>Comment References Subjects</value>
-    <comment>DisplayName for DomainClass &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.DisplayName" xml:space="preserve">
-    <value>Comment</value>
-    <comment>DisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.PropertyDisplayName" xml:space="preserve">
-    <value>Subjects</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Subject.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Subject&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Subject.DisplayName" xml:space="preserve">
-    <value>Subject</value>
-    <comment>DisplayName for DomainRole &apos;Subject&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Subject.PropertyDisplayName" xml:space="preserve">
-    <value>Comments</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Subject&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasEnums.Description" xml:space="preserve">
     <value>No description available</value>
     <comment>Description for DomainClass &apos;ModelRootHasEnums&apos;</comment>
@@ -1684,6 +1656,70 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumHasValues/Value.PropertyDisplayName" xml:space="preserve">
     <value>Enum</value>
     <comment>PropertyDisplayName for DomainRole &apos;Value&apos; on DomainRelationship &apos;ModelEnumHasValues&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses</value>
+    <comment>Description for DomainClass &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.DisplayName" xml:space="preserve">
+    <value>Model Root Has Classes</value>
+    <comment>DisplayName for DomainClass &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelRoot.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelRoot</value>
+    <comment>Description for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelRoot.DisplayName" xml:space="preserve">
+    <value>Model Root</value>
+    <comment>DisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelRoot.PropertyDisplayName" xml:space="preserve">
+    <value>Classes</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelClass.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelClass</value>
+    <comment>Description for DomainRole &apos;ModelClass&apos; on DomainRelationship &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelClass.DisplayName" xml:space="preserve">
+    <value>Model Class</value>
+    <comment>DisplayName for DomainRole &apos;ModelClass&apos; on DomainRelationship &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelClass.PropertyDisplayName" xml:space="preserve">
+    <value>Model Root</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelClass&apos; on DomainRelationship &apos;ModelRootHasClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements</value>
+    <comment>Description for DomainClass &apos;CommentReferencesDesignElements&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DisplayName" xml:space="preserve">
+    <value>Comment References Design Elements</value>
+    <comment>DisplayName for DomainClass &apos;CommentReferencesDesignElements&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Comment</value>
+    <comment>Description for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.DisplayName" xml:space="preserve">
+    <value>Comment</value>
+    <comment>DisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.PropertyDisplayName" xml:space="preserve">
+    <value>Design Elements</value>
+    <comment>PropertyDisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElement</value>
+    <comment>Description for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.DisplayName" xml:space="preserve">
+    <value>Design Element</value>
+    <comment>DisplayName for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.PropertyDisplayName" xml:space="preserve">
+    <value>Comments</value>
+    <comment>PropertyDisplayName for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifier/Public.DisplayName" xml:space="preserve">
     <value>Public</value>
@@ -2713,11 +2749,11 @@
     <value>Create a comment on this diagram</value>
     <comment>Toolbox tooltip text</comment>
   </data>
-  <data name="CommentsReferenceTypesToolboxItem" xml:space="preserve">
+  <data name="CommentsReferenceDesignElementsToolboxItem" xml:space="preserve">
     <value>Comment Link</value>
     <comment>Toolbox item name</comment>
   </data>
-  <data name="CommentsReferenceTypesToolboxTooltip" xml:space="preserve">
+  <data name="CommentsReferenceDesignElementsToolboxTooltip" xml:space="preserve">
     <value>Link a comment to an element</value>
     <comment>Toolbox tooltip text</comment>
   </data>
@@ -2910,7 +2946,7 @@ A DomainClass can be serialized as a moniker only if
     <value>..\resources\commenttool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
-  <data name="CommentsReferenceTypesToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+  <data name="CommentsReferenceDesignElementsToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\resources\commentlinktool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>

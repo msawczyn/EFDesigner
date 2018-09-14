@@ -28,7 +28,6 @@ namespace Sawczyn.EFDesigner.EFModel
       private IVsPackageUninstaller _nugetUninstaller;
       private IVsPackageInstallerServices _nugetInstallerServices;
 
-
       private static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
       private static DTE2 Dte2 => _dte2 ?? (_dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2);
       private IComponentModel ComponentModel => _componentModel ?? (_componentModel = (IComponentModel)GetService(typeof(SComponentModel)));

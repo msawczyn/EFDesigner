@@ -149,7 +149,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                string propertyName = propertyDecl.Identifier.ToString();
                string propertyType = propertyDecl.Type.ToString();
-               ModelClass target = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(t => t.Name == propertyType);
+               ModelClass target = modelRoot.Classes.FirstOrDefault(t => t.Name == propertyType);
 
                // is the property type a generic?
                // assume it's a list
@@ -168,12 +168,12 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
 
                   propertyType = contentTypes[0];
-                  target = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(t => t.Name == propertyType);
+                  target = modelRoot.Classes.FirstOrDefault(t => t.Name == propertyType);
 
                   if (target == null)
                   {
                      target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
-                     modelRoot.Types.Add(target);
+                     modelRoot.Classes.Add(target);
                   }
 
                   ProcessAssociation(modelClass, target, propertyDecl, true);
@@ -197,13 +197,13 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   // might be an enum. If so, we'll handle it like a CLR type
                   // if it's nullable, it's definitely an enum, but if we don't know about it, it could be an enum or a class
-                  ModelEnum enumTarget = modelRoot.Types.OfType<ModelEnum>().FirstOrDefault(t => t.Name == propertyType);
+                  ModelEnum enumTarget = modelRoot.Enums.FirstOrDefault(t => t.Name == propertyType);
 
                   if (enumTarget == null && !propertyShowsNullable)
                   {
                      // assume it's a class and create the class
                      target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
-                     modelRoot.Types.Add(target);
+                     modelRoot.Classes.Add(target);
 
                      ProcessAssociation(modelClass, target, propertyDecl);
 
@@ -504,13 +504,13 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
 
                   // is it inheritance or an interface?
-                  superClass = modelRoot.Types.OfType<ModelClass>().FirstOrDefault(c => c.Name == baseName);
+                  superClass = modelRoot.Classes.FirstOrDefault(c => c.Name == baseName);
 
                   // if it's not in the model, we just don't know. Ask the user
                   if (superClass == null && QuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true)
                   {
                      superClass = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, baseName));
-                     modelRoot.Types.Add(superClass);
+                     modelRoot.Classes.Add(superClass);
                   }
                   else
                   {
@@ -528,7 +528,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
                };
 
-               modelRoot.Types.Add(result);
+               modelRoot.Classes.Add(result);
             }
 
             if (superClass != null)

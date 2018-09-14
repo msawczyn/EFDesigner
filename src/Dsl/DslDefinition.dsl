@@ -1,28 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="6" Revision="3" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
-    <DomainClass Id="d614f8fd-ad3a-4cbb-8eac-b67f22504430" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
-      <Properties>
-        <DomainProperty Id="05ea9a33-a0a8-4940-8a76-d870bb991325" Description="Detailed code documentation" Name="Description" DisplayName="Comment Detail" DefaultValue="" Category="Documentation">
-          <Attributes>
-            <ClrAttribute Name="System.ComponentModel.Editor">
-              <Parameters>
-                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
-                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
-              </Parameters>
-            </ClrAttribute>
-          </Attributes>
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="fc067eb4-04fe-476d-af50-5ac464e2baab" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-      </Properties>
-    </DomainClass>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
         <DomainTypeDescriptor CustomCoded="true" />
@@ -259,25 +237,25 @@
         </ElementMergeDirective>
         <ElementMergeDirective>
           <Index>
-            <DomainClassMoniker Name="ModelType" />
-          </Index>
-          <LinkCreationPaths>
-            <DomainPath>ModelRootHasTypes.Types</DomainPath>
-          </LinkCreationPaths>
-        </ElementMergeDirective>
-        <ElementMergeDirective>
-          <Index>
             <DomainClassMoniker Name="ModelEnum" />
           </Index>
           <LinkCreationPaths>
             <DomainPath>ModelRootHasEnums.Enums</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
+        <ElementMergeDirective>
+          <Index>
+            <DomainClassMoniker Name="ModelClass" />
+          </Index>
+          <LinkCreationPaths>
+            <DomainPath>ModelRootHasClasses.Classes</DomainPath>
+          </LinkCreationPaths>
+        </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
     <DomainClass Id="237aa10f-ae74-41be-bdcf-56d97de6e4c8" Description="" Name="ModelClass" DisplayName="Entity" Namespace="Sawczyn.EFDesigner.EFModel">
       <BaseClass>
-        <DomainClassMoniker Name="ModelType" />
+        <DomainClassMoniker Name="DesignElement" />
       </BaseClass>
       <CustomTypeDescriptor>
         <DomainTypeDescriptor CustomCoded="true" />
@@ -357,6 +335,24 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="90778922-6b74-40a8-a9ef-14871a788d5e" Description="Type of glyph to show on the design surface" Name="GlyphType" DisplayName="Glyph Type" Kind="Calculated" GetterAccessModifier="Assembly" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="4b0b6237-2bfc-4be6-a088-271fe34b89ec" Description="Detailed code documentation" Name="Description" DisplayName="Comment Detail" DefaultValue="" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="5ff45bb4-658f-412e-8cdc-2593d9ea3d37" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -527,31 +523,9 @@
         </DomainProperty>
       </Properties>
     </DomainClass>
-    <DomainClass Id="80a6102e-4072-44f4-b82d-240a0f1da3a2" Description="Left here so we can add complex types later" Name="ModelType" DisplayName="Model Type" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
-      <BaseClass>
-        <DomainClassMoniker Name="ClassModelElement" />
-      </BaseClass>
-      <ElementMergeDirectives>
-        <ElementMergeDirective>
-          <Index>
-            <DomainClassMoniker Name="Comment" />
-          </Index>
-          <LinkCreationPaths>
-            <DomainPath>CommentReferencesSubjects.Comments</DomainPath>
-            <DomainPath>ModelRootHasTypes.ModelRoot/!ModelRoot/ModelRootHasComments.Comments</DomainPath>
-          </LinkCreationPaths>
-        </ElementMergeDirective>
-      </ElementMergeDirectives>
-    </DomainClass>
-    <DomainClass Id="0cb6e901-2ac1-4934-b61c-9dcb4e0d358a" Description="Element with a Description" Name="ClassModelElement" DisplayName="Class Model Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel">
-      <Notes>Abstract base of all elements that have a Description property.</Notes>
-      <BaseClass>
-        <DomainClassMoniker Name="NamedElement" />
-      </BaseClass>
-    </DomainClass>
     <DomainClass Id="9c7f55aa-1cc9-4841-b671-0cab31164a24" Description="No description available" Name="ModelEnum" DisplayName="Enum" Namespace="Sawczyn.EFDesigner.EFModel">
       <BaseClass>
-        <DomainClassMoniker Name="NamedElement" />
+        <DomainClassMoniker Name="DesignElement" />
       </BaseClass>
       <CustomTypeDescriptor>
         <DomainTypeDescriptor CustomCoded="true" />
@@ -600,6 +574,24 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e0146bec-7ec5-4bba-ad7b-6c305a421c0c" Description="Detailed code documentation" Name="Description" DisplayName="Comment Detail" DefaultValue="" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="12ea7154-be17-4707-ac96-eb1f8f2029ce" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -613,9 +605,6 @@
       </ElementMergeDirectives>
     </DomainClass>
     <DomainClass Id="89938de9-60f8-472a-9507-f7c7de18a511" Description="No description available" Name="ModelEnumValue" DisplayName="Value" Namespace="Sawczyn.EFDesigner.EFModel">
-      <BaseClass>
-        <DomainClassMoniker Name="NamedElement" />
-      </BaseClass>
       <Properties>
         <DomainProperty Id="f67322ba-10ef-44d8-bd5f-b54955cb70ff" Description="" Name="Name" DisplayName="Name" DefaultValue="" Category="Code Generation" IsElementName="true">
           <Type>
@@ -627,8 +616,27 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="295765ec-8896-4a75-b4f6-a9b5f6c663cd" Description="Detailed code documentation" Name="Description" DisplayName="Comment Detail" DefaultValue="" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="4eec932a-9148-4d3c-9f29-35d8dbd13844" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
+    <DomainClass Id="460f3d41-02c2-41dd-8fd3-8286e400e6f1" Description="Description for Sawczyn.EFDesigner.EFModel.DesignElement" Name="DesignElement" DisplayName="Design Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" />
   </Classes>
   <Relationships>
     <DomainRelationship Id="ce77f831-a92d-4274-823a-3a8441a65f3a" Description="Associations between Classes." Name="Association" DisplayName="Association" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" AllowsDuplicates="true">
@@ -860,38 +868,6 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="fdfb922e-0f6e-4c3e-9292-038124674b17" Description="" Name="ModelRootHasTypes" DisplayName="Model Root Has Types" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
-      <Source>
-        <DomainRole Id="74f84fb7-10fe-4609-a1b3-02d225749770" Description="" Name="ModelRoot" DisplayName="Model Root" PropertyName="Types" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Types">
-          <RolePlayer>
-            <DomainClassMoniker Name="ModelRoot" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="0c989c89-6f71-4cbc-98da-f1f130d6e157" Description="" Name="Type" DisplayName="Type" PropertyName="ModelRoot" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="">
-          <RolePlayer>
-            <DomainClassMoniker Name="ModelType" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
-    <DomainRelationship Id="da518d23-afeb-4ef1-9c86-b66b3b0a4b64" Description="" Name="CommentReferencesSubjects" DisplayName="Comment References Subjects" Namespace="Sawczyn.EFDesigner.EFModel">
-      <Source>
-        <DomainRole Id="ce79e1f6-3075-4385-8282-c18276e1de48" Description="" Name="Comment" DisplayName="Comment" PropertyName="Subjects" PropertyDisplayName="Subjects">
-          <RolePlayer>
-            <DomainClassMoniker Name="Comment" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="3c3c02b2-5629-43a8-80c8-67d1980c75e6" Description="" Name="Subject" DisplayName="Subject" PropertyName="Comments" PropertyDisplayName="Comments">
-          <RolePlayer>
-            <DomainClassMoniker Name="ModelType" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
     <DomainRelationship Id="7937b5d4-2003-470b-9140-051f2dcd8dd0" Description="No description available" Name="ModelRootHasEnums" DisplayName="Model Root Has Enums" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
       <Source>
         <DomainRole Id="a613cf7f-477b-4842-b1c2-9586977463f8" Description="No description available" Name="ModelRoot" DisplayName="Model Root" PropertyName="Enums" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Enums">
@@ -920,6 +896,38 @@
         <DomainRole Id="a9be9f1b-6dc5-4dae-b345-a47b3db19d2b" Description="No description available" Name="Value" DisplayName="Value" PropertyName="Enum" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Enum">
           <RolePlayer>
             <DomainClassMoniker Name="ModelEnumValue" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="08ff1339-a992-4ffe-b350-6ba2eab5d7a4" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses" Name="ModelRootHasClasses" DisplayName="Model Root Has Classes" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
+      <Source>
+        <DomainRole Id="435f6b0f-d7e3-43c3-8b08-0f2a95ddd755" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelRoot" Name="ModelRoot" DisplayName="Model Root" PropertyName="Classes" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Classes">
+          <RolePlayer>
+            <DomainClassMoniker Name="ModelRoot" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="82403bdb-397b-48d8-989d-a74827dcb272" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelClass" Name="ModelClass" DisplayName="Model Class" PropertyName="ModelRoot" Multiplicity="One" PropagatesDelete="true" PropertyDisplayName="Model Root">
+          <RolePlayer>
+            <DomainClassMoniker Name="ModelClass" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="c1a798b4-85dc-4479-9c35-30f5b15d8aa1" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements" Name="CommentReferencesDesignElements" DisplayName="Comment References Design Elements" Namespace="Sawczyn.EFDesigner.EFModel">
+      <Source>
+        <DomainRole Id="8624f267-1304-43ef-acc4-f0b7d67b2856" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Comment" Name="Comment" DisplayName="Comment" PropertyName="DesignElements" PropertyDisplayName="Design Elements">
+          <RolePlayer>
+            <DomainClassMoniker Name="Comment" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="f2d70cc8-21b0-455b-9841-bee17b5ad5d9" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElement" Name="DesignElement" DisplayName="Design Element" PropertyName="Comments" PropertyDisplayName="Comments">
+          <RolePlayer>
+            <DomainClassMoniker Name="DesignElement" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -1268,17 +1276,6 @@
   </Connectors>
   <XmlSerializationBehavior Name="EFModelSerializationBehavior" Namespace="Sawczyn.EFDesigner.EFModel">
     <ClassData>
-      <XmlClassData TypeName="NamedElement" MonikerAttributeName="" SerializeId="true" MonikerElementName="namedElementMoniker" ElementName="namedElement" MonikerTypeName="NamedElementMoniker">
-        <DomainClassMoniker Name="NamedElement" />
-        <ElementData>
-          <XmlPropertyData XmlName="description">
-            <DomainPropertyMoniker Name="NamedElement/Description" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="summary">
-            <DomainPropertyMoniker Name="NamedElement/Summary" />
-          </XmlPropertyData>
-        </ElementData>
-      </XmlClassData>
       <XmlClassData TypeName="Association" MonikerAttributeName="" SerializeId="true" MonikerElementName="associationMoniker" ElementName="association" MonikerTypeName="AssociationMoniker">
         <DomainRelationshipMoniker Name="Association" />
         <ElementData>
@@ -1341,20 +1338,11 @@
       <XmlClassData TypeName="Generalization" MonikerAttributeName="" SerializeId="true" MonikerElementName="generalizationMoniker" ElementName="generalization" MonikerTypeName="GeneralizationMoniker">
         <DomainRelationshipMoniker Name="Generalization" />
       </XmlClassData>
-      <XmlClassData TypeName="ModelRootHasTypes" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasTypesMoniker" ElementName="modelRootHasTypes" MonikerTypeName="ModelRootHasTypesMoniker">
-        <DomainRelationshipMoniker Name="ModelRootHasTypes" />
-      </XmlClassData>
-      <XmlClassData TypeName="CommentReferencesSubjects" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesSubjectsMoniker" ElementName="commentReferencesSubjects" MonikerTypeName="CommentReferencesSubjectsMoniker">
-        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
-      </XmlClassData>
       <XmlClassData TypeName="ModelRoot" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootMoniker" ElementName="modelRoot" MonikerTypeName="ModelRootMoniker">
         <DomainClassMoniker Name="ModelRoot" />
         <ElementData>
           <XmlRelationshipData RoleElementName="comments">
             <DomainRelationshipMoniker Name="ModelRootHasComments" />
-          </XmlRelationshipData>
-          <XmlRelationshipData RoleElementName="types">
-            <DomainRelationshipMoniker Name="ModelRootHasTypes" />
           </XmlRelationshipData>
           <XmlPropertyData XmlName="lazyLoadingEnabled">
             <DomainPropertyMoniker Name="ModelRoot/LazyLoadingEnabled" />
@@ -1452,6 +1440,9 @@
           <XmlPropertyData XmlName="showWarningsInDesigner">
             <DomainPropertyMoniker Name="ModelRoot/ShowWarningsInDesigner" />
           </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="classes">
+            <DomainRelationshipMoniker Name="ModelRootHasClasses" />
+          </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -1516,6 +1507,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="glyphType" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelClass/GlyphType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="description">
+            <DomainPropertyMoniker Name="ModelClass/Description" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="summary">
+            <DomainPropertyMoniker Name="ModelClass/Summary" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1602,16 +1599,10 @@
           <XmlPropertyData XmlName="text">
             <DomainPropertyMoniker Name="Comment/Text" />
           </XmlPropertyData>
-          <XmlRelationshipData RoleElementName="subjects">
-            <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
+          <XmlRelationshipData UseFullForm="true" RoleElementName="designElements">
+            <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
           </XmlRelationshipData>
         </ElementData>
-      </XmlClassData>
-      <XmlClassData TypeName="ModelType" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelTypeMoniker" ElementName="modelType" MonikerTypeName="ModelTypeMoniker">
-        <DomainClassMoniker Name="ModelType" />
-      </XmlClassData>
-      <XmlClassData TypeName="ClassModelElement" MonikerAttributeName="" SerializeId="true" MonikerElementName="classModelElementMoniker" ElementName="classModelElement" MonikerTypeName="ClassModelElementMoniker">
-        <DomainClassMoniker Name="ClassModelElement" />
       </XmlClassData>
       <XmlClassData TypeName="UnidirectionalAssociation" MonikerAttributeName="" SerializeId="true" MonikerElementName="unidirectionalAssociationMoniker" ElementName="unidirectionalAssociation" MonikerTypeName="UnidirectionalAssociationMoniker">
         <DomainRelationshipMoniker Name="UnidirectionalAssociation" />
@@ -1712,6 +1703,12 @@
           <XmlPropertyData XmlName="glyphType" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelEnum/GlyphType" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="description">
+            <DomainPropertyMoniker Name="ModelEnum/Description" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="summary">
+            <DomainPropertyMoniker Name="ModelEnum/Summary" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelRootHasEnums" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasEnumsMoniker" ElementName="modelRootHasEnums" MonikerTypeName="ModelRootHasEnumsMoniker">
@@ -1725,6 +1722,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="value">
             <DomainPropertyMoniker Name="ModelEnumValue/Value" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="description">
+            <DomainPropertyMoniker Name="ModelEnumValue/Description" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="summary">
+            <DomainPropertyMoniker Name="ModelEnumValue/Summary" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1753,6 +1756,15 @@
             <DomainPropertyMoniker Name="EnumShape/OutlineDashStyle" />
           </XmlPropertyData>
         </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="ModelRootHasClasses" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasClassesMoniker" ElementName="modelRootHasClasses" MonikerTypeName="ModelRootHasClassesMoniker">
+        <DomainRelationshipMoniker Name="ModelRootHasClasses" />
+      </XmlClassData>
+      <XmlClassData TypeName="DesignElement" MonikerAttributeName="" SerializeId="true" MonikerElementName="designElementMoniker" ElementName="designElement" MonikerTypeName="DesignElementMoniker">
+        <DomainClassMoniker Name="DesignElement" />
+      </XmlClassData>
+      <XmlClassData TypeName="CommentReferencesDesignElements" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesDesignElementsMoniker" ElementName="commentReferencesDesignElements" MonikerTypeName="CommentReferencesDesignElementsMoniker">
+        <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
@@ -1841,9 +1853,9 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="CommentReferencesSubjectsBuilder">
+    <ConnectionBuilder Name="CommentReferencesDesignElementsBuilder">
       <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
+        <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
@@ -1854,7 +1866,7 @@
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="DesignElement" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -1869,7 +1881,7 @@
       <CompartmentShapeMap>
         <DomainClassMoniker Name="ModelClass" />
         <ParentElementPath>
-          <DomainPath>ModelRootHasTypes.ModelRoot/!ModelRoot</DomainPath>
+          <DomainPath>ModelRootHasClasses.ModelRoot/!ModelRoot</DomainPath>
         </ParentElementPath>
         <DecoratorMap>
           <TextDecoratorMoniker Name="ClassShape/Name" />
@@ -2046,12 +2058,12 @@
         </DecoratorMap>
       </ConnectorMap>
       <ConnectorMap>
-        <ConnectorMoniker Name="CommentConnector" />
-        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
-      </ConnectorMap>
-      <ConnectorMap>
         <ConnectorMoniker Name="GeneralizationConnector" />
         <DomainRelationshipMoniker Name="Generalization" />
+      </ConnectorMap>
+      <ConnectorMap>
+        <ConnectorMoniker Name="CommentConnector" />
+        <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
       </ConnectorMap>
     </ConnectorMaps>
   </Diagram>
@@ -2078,8 +2090,8 @@
       <ElementTool Name="Comment" ToolboxIcon="resources\commenttool.bmp" Caption="Comment" Tooltip="Create a comment on this diagram" HelpKeyword="CommentF1Keyword">
         <DomainClassMoniker Name="Comment" />
       </ElementTool>
-      <ConnectionTool Name="CommentsReferenceTypes" ToolboxIcon="resources\commentlinktool.bmp" Caption="Comment Link" Tooltip="Link a comment to an element" HelpKeyword="CommentsReferenceTypesF1Keyword">
-        <ConnectionBuilderMoniker Name="EFModel/CommentReferencesSubjectsBuilder" />
+      <ConnectionTool Name="CommentsReferenceDesignElements" ToolboxIcon="resources\commentlinktool.bmp" Caption="Comment Link" Tooltip="Link a comment to an element" HelpKeyword="CommentsReferenceDesignElementsF1Keyword">
+        <ConnectionBuilderMoniker Name="EFModel/CommentReferencesDesignElementsBuilder" />
       </ConnectionTool>
       <ElementTool Name="Enumeration" ToolboxIcon="Resources\EnumTool.bmp" Caption="Enum" Tooltip="Creates an enumeration" HelpKeyword="ModelEnumF1Keyword">
         <DomainClassMoniker Name="ModelEnum" />

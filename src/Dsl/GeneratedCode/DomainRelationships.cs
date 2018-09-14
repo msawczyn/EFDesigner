@@ -2991,459 +2991,6 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// DomainRelationship ModelRootHasTypes
-	/// </summary>
-	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship(IsEmbedding=true)]
-	[DslModeling::DomainObjectId("fdfb922e-0f6e-4c3e-9292-038124674b17")]
-	public partial class ModelRootHasTypes : DslModeling::ElementLink
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// ModelRootHasTypes domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xfdfb922e, 0x0f6e, 0x4c3e, 0x92, 0x92, 0x03, 0x81, 0x24, 0x67, 0x4b, 0x17);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a ModelRootHasTypes link in the same Partition as the given ModelRoot
-		/// </summary>
-		/// <param name="source">ModelRoot to use as the source of the relationship.</param>
-		/// <param name="target">ModelType to use as the target of the relationship.</param>
-		public ModelRootHasTypes(ModelRoot source, ModelType target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ModelRootHasTypes.ModelRootDomainRoleId, source), new DslModeling::RoleAssignment(ModelRootHasTypes.TypeDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public ModelRootHasTypes(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public ModelRootHasTypes(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public ModelRootHasTypes(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public ModelRootHasTypes(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region ModelRoot domain role code
-		
-		/// <summary>
-		/// ModelRoot domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid ModelRootDomainRoleId = new global::System.Guid(0x74f84fb7, 0x10fe, 0x4609, 0xa1, 0xb3, 0x02, 0xd2, 0x25, 0x74, 0x97, 0x70);
-		
-		/// <summary>
-		/// DomainRole ModelRoot
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/ModelRoot.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/ModelRoot.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Types", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/ModelRoot.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("74f84fb7-10fe-4609-a1b3-02d225749770")]
-		public virtual ModelRoot ModelRoot
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (ModelRoot)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelRootDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelRootDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access ModelRoot of a ModelType
-		/// <summary>
-		/// Gets ModelRoot.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static ModelRoot GetModelRoot(ModelType element)
-		{
-			return DslModeling::DomainRoleInfo.GetLinkedElement(element, TypeDomainRoleId) as ModelRoot;
-		}
-		
-		/// <summary>
-		/// Sets ModelRoot.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static void SetModelRoot(ModelType element, ModelRoot newModelRoot)
-		{
-			DslModeling::DomainRoleInfo.SetLinkedElement(element, TypeDomainRoleId, newModelRoot);
-		}
-		#endregion
-		#region Type domain role code
-		
-		/// <summary>
-		/// Type domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid TypeDomainRoleId = new global::System.Guid(0x0c989c89, 0x6f71, 0x4cbc, 0x98, 0xda, 0xf1, 0xf1, 0x30, 0xd6, 0xe1, 0x57);
-		
-		/// <summary>
-		/// DomainRole Type
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/Type.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasTypes/Type.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ModelRoot", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
-		[DslModeling::DomainObjectId("0c989c89-6f71-4cbc-98da-f1f130d6e157")]
-		public virtual ModelType Type
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (ModelType)DslModeling::DomainRoleInfo.GetRolePlayer(this, TypeDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, TypeDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access Types of a ModelRoot
-		/// <summary>
-		/// Gets a list of Types.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ModelType> GetTypes(ModelRoot element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelType>, ModelType>(element, ModelRootDomainRoleId);
-		}
-		#endregion
-		#region ModelRoot link accessor
-		/// <summary>
-		/// Get the list of ModelRootHasTypes links to a ModelRoot.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes> GetLinksToTypes ( global::Sawczyn.EFDesigner.EFModel.ModelRoot modelRootInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes>(modelRootInstance, global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.ModelRootDomainRoleId);
-		}
-		#endregion
-		#region Type link accessor
-		/// <summary>
-		/// Get the ModelRootHasTypes link to a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes GetLinkToModelRoot (global::Sawczyn.EFDesigner.EFModel.ModelType typeInstance)
-		{
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes>(typeInstance, global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.TypeDomainRoleId);
-			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of Type not obeyed.");
-			if ( links.Count == 0 )
-			{
-				return null;
-			}
-			else
-			{
-				return links[0];
-			}
-		}
-		#endregion
-		#region ModelRootHasTypes instance accessors
-		
-		/// <summary>
-		/// Get any ModelRootHasTypes links between a given ModelRoot and a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes> GetLinks( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelType target )
-		{
-			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes>();
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes>(source, global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.ModelRootDomainRoleId);
-			foreach ( global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes link in links )
-			{
-				if ( target.Equals(link.Type) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		/// <summary>
-		/// Get the one ModelRootHasTypes link between a given ModelRootand a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes GetLink( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelType target )
-		{
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes>(source, global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes.ModelRootDomainRoleId);
-			foreach ( global::Sawczyn.EFDesigner.EFModel.ModelRootHasTypes link in links )
-			{
-				if ( target.Equals(link.Type) )
-				{
-					return link;
-				}
-			}
-			return null;
-		}
-		
-		#endregion
-	}
-}
-namespace Sawczyn.EFDesigner.EFModel
-{
-	/// <summary>
-	/// DomainRelationship CommentReferencesSubjects
-	/// </summary>
-	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
-	[DslModeling::DomainObjectId("da518d23-afeb-4ef1-9c86-b66b3b0a4b64")]
-	public partial class CommentReferencesSubjects : DslModeling::ElementLink
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// CommentReferencesSubjects domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xda518d23, 0xafeb, 0x4ef1, 0x9c, 0x86, 0xb6, 0x6b, 0x3b, 0x0a, 0x4b, 0x64);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a CommentReferencesSubjects link in the same Partition as the given Comment
-		/// </summary>
-		/// <param name="source">Comment to use as the source of the relationship.</param>
-		/// <param name="target">ModelType to use as the target of the relationship.</param>
-		public CommentReferencesSubjects(Comment source, ModelType target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(CommentReferencesSubjects.CommentDomainRoleId, source), new DslModeling::RoleAssignment(CommentReferencesSubjects.SubjectDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public CommentReferencesSubjects(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public CommentReferencesSubjects(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public CommentReferencesSubjects(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public CommentReferencesSubjects(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region Comment domain role code
-		
-		/// <summary>
-		/// Comment domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid CommentDomainRoleId = new global::System.Guid(0xce79e1f6, 0x3075, 0x4385, 0x82, 0x82, 0xc1, 0x82, 0x76, 0xe1, 0xde, 0x48);
-		
-		/// <summary>
-		/// DomainRole Comment
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Subjects", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("ce79e1f6-3075-4385-8282-c18276e1de48")]
-		public virtual Comment Comment
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (Comment)DslModeling::DomainRoleInfo.GetRolePlayer(this, CommentDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, CommentDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access Comments of a ModelType
-		/// <summary>
-		/// Gets a list of Comments.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<Comment> GetComments(ModelType element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(element, SubjectDomainRoleId);
-		}
-		#endregion
-		#region Subject domain role code
-		
-		/// <summary>
-		/// Subject domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid SubjectDomainRoleId = new global::System.Guid(0x3c3c02b2, 0x5629, 0x43a8, 0x80, 0xc8, 0x67, 0xd1, 0x98, 0x0c, 0x75, 0xe6);
-		
-		/// <summary>
-		/// DomainRole Subject
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Subject.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Subject.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Comments", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Subject.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("3c3c02b2-5629-43a8-80c8-67d1980c75e6")]
-		public virtual ModelType Subject
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (ModelType)DslModeling::DomainRoleInfo.GetRolePlayer(this, SubjectDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, SubjectDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access Subjects of a Comment
-		/// <summary>
-		/// Gets a list of Subjects.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ModelType> GetSubjects(Comment element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelType>, ModelType>(element, CommentDomainRoleId);
-		}
-		#endregion
-		#region Comment link accessor
-		/// <summary>
-		/// Get the list of CommentReferencesSubjects links to a Comment.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> GetLinksToSubjects ( global::Sawczyn.EFDesigner.EFModel.Comment commentInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(commentInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.CommentDomainRoleId);
-		}
-		#endregion
-		#region Subject link accessor
-		/// <summary>
-		/// Get the list of CommentReferencesSubjects links to a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> GetLinksToComments ( global::Sawczyn.EFDesigner.EFModel.ModelType subjectInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(subjectInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.SubjectDomainRoleId);
-		}
-		#endregion
-		#region CommentReferencesSubjects instance accessors
-		
-		/// <summary>
-		/// Get any CommentReferencesSubjects links between a given Comment and a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> GetLinks( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.ModelType target )
-		{
-			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>();
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.CommentDomainRoleId);
-			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects link in links )
-			{
-				if ( target.Equals(link.Subject) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		/// <summary>
-		/// Get the one CommentReferencesSubjects link between a given Commentand a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects GetLink( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.ModelType target )
-		{
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.CommentDomainRoleId);
-			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects link in links )
-			{
-				if ( target.Equals(link.Subject) )
-				{
-					return link;
-				}
-			}
-			return null;
-		}
-		
-		#endregion
-	}
-}
-namespace Sawczyn.EFDesigner.EFModel
-{
-	/// <summary>
 	/// DomainRelationship ModelRootHasEnums
 	/// No description available
 	/// </summary>
@@ -3909,6 +3456,467 @@ namespace Sawczyn.EFDesigner.EFModel
 			foreach ( global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues link in links )
 			{
 				if ( target.Equals(link.Value) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainRelationship ModelRootHasClasses
+	/// Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses
+	/// </summary>
+	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
+	[DslModeling::DomainObjectId("08ff1339-a992-4ffe-b350-6ba2eab5d7a4")]
+	public partial class ModelRootHasClasses : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// ModelRootHasClasses domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x08ff1339, 0xa992, 0x4ffe, 0xb3, 0x50, 0x6b, 0xa2, 0xea, 0xb5, 0xd7, 0xa4);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a ModelRootHasClasses link in the same Partition as the given ModelRoot
+		/// </summary>
+		/// <param name="source">ModelRoot to use as the source of the relationship.</param>
+		/// <param name="target">ModelClass to use as the target of the relationship.</param>
+		public ModelRootHasClasses(ModelRoot source, ModelClass target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ModelRootHasClasses.ModelRootDomainRoleId, source), new DslModeling::RoleAssignment(ModelRootHasClasses.ModelClassDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ModelRootHasClasses(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ModelRootHasClasses(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ModelRootHasClasses(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ModelRootHasClasses(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region ModelRoot domain role code
+		
+		/// <summary>
+		/// ModelRoot domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid ModelRootDomainRoleId = new global::System.Guid(0x435f6b0f, 0xd7e3, 0x43c3, 0x8b, 0x08, 0x0f, 0x2a, 0x95, 0xdd, 0xd7, 0x55);
+		
+		/// <summary>
+		/// DomainRole ModelRoot
+		/// Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelRoot
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelRoot.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelRoot.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Classes", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelRoot.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("435f6b0f-d7e3-43c3-8b08-0f2a95ddd755")]
+		public virtual ModelRoot ModelRoot
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (ModelRoot)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelRootDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelRootDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access ModelRoot of a ModelClass
+		/// <summary>
+		/// Gets ModelRoot.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static ModelRoot GetModelRoot(ModelClass element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, ModelClassDomainRoleId) as ModelRoot;
+		}
+		
+		/// <summary>
+		/// Sets ModelRoot.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetModelRoot(ModelClass element, ModelRoot newModelRoot)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, ModelClassDomainRoleId, newModelRoot);
+		}
+		#endregion
+		#region ModelClass domain role code
+		
+		/// <summary>
+		/// ModelClass domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid ModelClassDomainRoleId = new global::System.Guid(0x82403bdb, 0x397b, 0x48d8, 0x98, 0x9d, 0xa7, 0x48, 0x27, 0xdc, 0xb2, 0x72);
+		
+		/// <summary>
+		/// DomainRole ModelClass
+		/// Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelClass
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelClass.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelClass.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ModelRoot", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.ModelRootHasClasses/ModelClass.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslModeling::DomainObjectId("82403bdb-397b-48d8-989d-a74827dcb272")]
+		public virtual ModelClass ModelClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (ModelClass)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelClassDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelClassDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Classes of a ModelRoot
+		/// <summary>
+		/// Gets a list of Classes.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<ModelClass> GetClasses(ModelRoot element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(element, ModelRootDomainRoleId);
+		}
+		#endregion
+		#region ModelRoot link accessor
+		/// <summary>
+		/// Get the list of ModelRootHasClasses links to a ModelRoot.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses> GetLinksToClasses ( global::Sawczyn.EFDesigner.EFModel.ModelRoot modelRootInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses>(modelRootInstance, global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelRootDomainRoleId);
+		}
+		#endregion
+		#region ModelClass link accessor
+		/// <summary>
+		/// Get the ModelRootHasClasses link to a ModelClass.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses GetLinkToModelRoot (global::Sawczyn.EFDesigner.EFModel.ModelClass modelClassInstance)
+		{
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses>(modelClassInstance, global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelClassDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of ModelClass not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region ModelRootHasClasses instance accessors
+		
+		/// <summary>
+		/// Get any ModelRootHasClasses links between a given ModelRoot and a ModelClass.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses> GetLinks( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelClass target )
+		{
+			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses>();
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses>(source, global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelRootDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses link in links )
+			{
+				if ( target.Equals(link.ModelClass) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one ModelRootHasClasses link between a given ModelRootand a ModelClass.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses GetLink( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelClass target )
+		{
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses>(source, global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelRootDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.ModelRootHasClasses link in links )
+			{
+				if ( target.Equals(link.ModelClass) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainRelationship CommentReferencesDesignElements
+	/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements
+	/// </summary>
+	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("c1a798b4-85dc-4479-9c35-30f5b15d8aa1")]
+	public partial class CommentReferencesDesignElements : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// CommentReferencesDesignElements domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xc1a798b4, 0x85dc, 0x4479, 0x9c, 0x35, 0x30, 0xf5, 0xb1, 0x5d, 0x8a, 0xa1);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a CommentReferencesDesignElements link in the same Partition as the given Comment
+		/// </summary>
+		/// <param name="source">Comment to use as the source of the relationship.</param>
+		/// <param name="target">DesignElement to use as the target of the relationship.</param>
+		public CommentReferencesDesignElements(Comment source, DesignElement target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(CommentReferencesDesignElements.CommentDomainRoleId, source), new DslModeling::RoleAssignment(CommentReferencesDesignElements.DesignElementDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public CommentReferencesDesignElements(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public CommentReferencesDesignElements(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public CommentReferencesDesignElements(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public CommentReferencesDesignElements(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region Comment domain role code
+		
+		/// <summary>
+		/// Comment domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid CommentDomainRoleId = new global::System.Guid(0x8624f267, 0x1304, 0x43ef, 0xac, 0xc4, 0xf0, 0xb7, 0xd6, 0x7b, 0x28, 0x56);
+		
+		/// <summary>
+		/// DomainRole Comment
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Comment
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "DesignElements", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("8624f267-1304-43ef-acc4-f0b7d67b2856")]
+		public virtual Comment Comment
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (Comment)DslModeling::DomainRoleInfo.GetRolePlayer(this, CommentDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, CommentDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Comments of a DesignElement
+		/// <summary>
+		/// Gets a list of Comments.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<Comment> GetComments(DesignElement element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(element, DesignElementDomainRoleId);
+		}
+		#endregion
+		#region DesignElement domain role code
+		
+		/// <summary>
+		/// DesignElement domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid DesignElementDomainRoleId = new global::System.Guid(0xf2d70cc8, 0x21b0, 0x455b, 0x98, 0x41, 0xbe, 0xe1, 0x7b, 0x5a, 0xd5, 0xd9);
+		
+		/// <summary>
+		/// DomainRole DesignElement
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElement
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Comments", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("f2d70cc8-21b0-455b-9841-bee17b5ad5d9")]
+		public virtual DesignElement DesignElement
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (DesignElement)DslModeling::DomainRoleInfo.GetRolePlayer(this, DesignElementDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, DesignElementDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access DesignElements of a Comment
+		/// <summary>
+		/// Gets a list of DesignElements.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<DesignElement> GetDesignElements(Comment element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<DesignElement>, DesignElement>(element, CommentDomainRoleId);
+		}
+		#endregion
+		#region Comment link accessor
+		/// <summary>
+		/// Get the list of CommentReferencesDesignElements links to a Comment.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> GetLinksToDesignElements ( global::Sawczyn.EFDesigner.EFModel.Comment commentInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(commentInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.CommentDomainRoleId);
+		}
+		#endregion
+		#region DesignElement link accessor
+		/// <summary>
+		/// Get the list of CommentReferencesDesignElements links to a DesignElement.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> GetLinksToComments ( global::Sawczyn.EFDesigner.EFModel.DesignElement designElementInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(designElementInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElementDomainRoleId);
+		}
+		#endregion
+		#region CommentReferencesDesignElements instance accessors
+		
+		/// <summary>
+		/// Get any CommentReferencesDesignElements links between a given Comment and a DesignElement.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> GetLinks( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.DesignElement target )
+		{
+			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>();
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements link in links )
+			{
+				if ( target.Equals(link.DesignElement) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one CommentReferencesDesignElements link between a given Commentand a DesignElement.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements GetLink( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.DesignElement target )
+		{
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements link in links )
+			{
+				if ( target.Equals(link.DesignElement) )
 				{
 					return link;
 				}

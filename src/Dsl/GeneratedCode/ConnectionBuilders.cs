@@ -439,7 +439,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	/// <summary>
 	/// ConnectionBuilder class to provide logic for constructing connections between elements.
 	/// </summary>
-	public static partial class CommentReferencesSubjectsBuilder
+	public static partial class CommentReferencesDesignElementsBuilder
 	{
 		#region Accept Connection Methods
 		/// <summary>
@@ -468,7 +468,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+			else if (candidate is global::Sawczyn.EFDesigner.EFModel.DesignElement)
 			{ 
 				return true;
 			}
@@ -509,11 +509,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				if (candidateSource is global::Sawczyn.EFDesigner.EFModel.Comment)
 				{
-					if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+					if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.DesignElement)
 					{
 						global::Sawczyn.EFDesigner.EFModel.Comment sourceComment = (global::Sawczyn.EFDesigner.EFModel.Comment)candidateSource;
-						global::Sawczyn.EFDesigner.EFModel.ModelClass targetModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateTarget;
-						if(targetModelClass == null || sourceComment == null || global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.GetLinks(sourceComment, targetModelClass).Count > 0) return false;
+						global::Sawczyn.EFDesigner.EFModel.DesignElement targetDesignElement = (global::Sawczyn.EFDesigner.EFModel.DesignElement)candidateTarget;
+						if(targetDesignElement == null || sourceComment == null || global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.GetLinks(sourceComment, targetDesignElement).Count > 0) return false;
 						return true;
 					}
 				}
@@ -547,11 +547,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				if (source is global::Sawczyn.EFDesigner.EFModel.Comment)
 				{
-					if (target is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+					if (target is global::Sawczyn.EFDesigner.EFModel.DesignElement)
 					{
 						global::Sawczyn.EFDesigner.EFModel.Comment sourceAccepted = (global::Sawczyn.EFDesigner.EFModel.Comment)source;
-						global::Sawczyn.EFDesigner.EFModel.ModelClass targetAccepted = (global::Sawczyn.EFDesigner.EFModel.ModelClass)target;
-						DslModeling::ElementLink result = new global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects(sourceAccepted, targetAccepted);
+						global::Sawczyn.EFDesigner.EFModel.DesignElement targetAccepted = (global::Sawczyn.EFDesigner.EFModel.DesignElement)target;
+						DslModeling::ElementLink result = new global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
 							DslModeling::DomainClassInfo.SetUniqueName(result);
@@ -1078,14 +1078,14 @@ namespace Sawczyn.EFDesigner.EFModel
  	/// <summary>
 	/// Handles interaction between the ConnectionBuilder and the corresponding ConnectionTool.
 	/// </summary>
-	internal partial class CommentsReferenceTypesConnectAction : DslDiagrams::ConnectAction
+	internal partial class CommentsReferenceDesignElementsConnectAction : DslDiagrams::ConnectAction
 	{
 		private DslDiagrams::ConnectionType[] connectionTypes;
 		
 		/// <summary>
-		/// Constructs a new CommentsReferenceTypesConnectAction for the given Diagram.
+		/// Constructs a new CommentsReferenceDesignElementsConnectAction for the given Diagram.
 		/// </summary>
-		public CommentsReferenceTypesConnectAction(DslDiagrams::Diagram diagram): base(diagram, true) 
+		public CommentsReferenceDesignElementsConnectAction(DslDiagrams::Diagram diagram): base(diagram, true) 
 		{
 		}
 		
@@ -1115,24 +1115,24 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		
 		/// <summary>
-		/// Returns the CommentsReferenceTypesConnectionType associated with this action.
+		/// Returns the CommentsReferenceDesignElementsConnectionType associated with this action.
 		/// </summary>
 		protected override DslDiagrams::ConnectionType[] GetConnectionTypes(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement)
 		{
 			if(this.connectionTypes == null)
 			{
-				this.connectionTypes = new DslDiagrams::ConnectionType[] { new CommentsReferenceTypesConnectionType() };
+				this.connectionTypes = new DslDiagrams::ConnectionType[] { new CommentsReferenceDesignElementsConnectionType() };
 			}
 			
 			return this.connectionTypes;
 		}
 		
-		private partial class CommentsReferenceTypesConnectionTypeBase : DslDiagrams::ConnectionType
+		private partial class CommentsReferenceDesignElementsConnectionTypeBase : DslDiagrams::ConnectionType
 		{
 			/// <summary>
-			/// Constructs a new the CommentsReferenceTypesConnectionType with the given ConnectionBuilder.
+			/// Constructs a new the CommentsReferenceDesignElementsConnectionType with the given ConnectionBuilder.
 			/// </summary>
-			protected CommentsReferenceTypesConnectionTypeBase() : base() {}
+			protected CommentsReferenceDesignElementsConnectionTypeBase() : base() {}
 			
 			private static DslDiagrams::ShapeElement RemovePassThroughShapes(DslDiagrams::ShapeElement shape)
 			{
@@ -1152,7 +1152,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// Called by the base ConnectAction class to determine if the given shapes can be connected.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesSubjectsBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesDesignElementsBuilder.
 			/// </remarks>
 			public override bool CanCreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, ref string connectionWarning)
 			{
@@ -1178,11 +1178,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				{				
 					if(targetShapeElement == null)
 					{
-						return CommentReferencesSubjectsBuilder.CanAcceptSource(sourceElement);
+						return CommentReferencesDesignElementsBuilder.CanAcceptSource(sourceElement);
 					}
 					else
 					{				
-						return CommentReferencesSubjectsBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
+						return CommentReferencesDesignElementsBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
 					}
 				}
 				else
@@ -1207,7 +1207,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// Called by the base ConnectAction class to create the underlying relationship.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesSubjectsBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesDesignElementsBuilder.
 			/// </remarks>
 			public override void CreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, DslDiagrams::PaintFeedbackArgs paintFeedbackArgs)
 			{
@@ -1221,16 +1221,16 @@ namespace Sawczyn.EFDesigner.EFModel
 				if(sourceElement == null) sourceElement = sourceShapeElement;
 				DslModeling::ModelElement targetElement = targetShapeElement.ModelElement;
 				if(targetElement == null) targetElement = targetShapeElement;
-				CommentReferencesSubjectsBuilder.Connect(sourceElement, targetElement);
+				CommentReferencesDesignElementsBuilder.Connect(sourceElement, targetElement);
 			}
 		}
 		
-		private partial class CommentsReferenceTypesConnectionType : CommentsReferenceTypesConnectionTypeBase
+		private partial class CommentsReferenceDesignElementsConnectionType : CommentsReferenceDesignElementsConnectionTypeBase
 		{
 			/// <summary>
-			/// Constructs a new the CommentsReferenceTypesConnectionType with the given ConnectionBuilder.
+			/// Constructs a new the CommentsReferenceDesignElementsConnectionType with the given ConnectionBuilder.
 			/// </summary>
-			public CommentsReferenceTypesConnectionType() : base() {}
+			public CommentsReferenceDesignElementsConnectionType() : base() {}
 		}
 	}
 

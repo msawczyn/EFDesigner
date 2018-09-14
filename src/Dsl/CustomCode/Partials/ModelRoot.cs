@@ -2,6 +2,8 @@
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
+
+using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -61,7 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void ConnectionStringMustExist(ValidationContext context)
       {
-         if (!Types.OfType<ModelRoot>().Any() && !Types.OfType<ModelEnum>().Any())
+         if (!Classes.Any() && !Enums.Any())
             return;
 
          if (string.IsNullOrEmpty(ConnectionString) && string.IsNullOrEmpty(ConnectionStringName))
@@ -77,7 +79,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual void OnDatabaseSchemaChanged(string oldValue, string newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Types, ModelClass.DatabaseSchemaDomainPropertyId, ModelClass.IsDatabaseSchemaTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
+                                                         Classes, 
+                                                         ModelClass.DatabaseSchemaDomainPropertyId, 
+                                                         ModelClass.IsDatabaseSchemaTrackingDomainPropertyId);
       }
 
       internal sealed partial class DatabaseSchemaPropertyHandler
@@ -97,8 +102,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual void OnNamespaceChanged(string oldValue, string newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Types, ModelClass.NamespaceDomainPropertyId, ModelClass.IsNamespaceTrackingDomainPropertyId);
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Types, ModelEnum.NamespaceDomainPropertyId, ModelEnum.IsNamespaceTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, Classes, ModelClass.NamespaceDomainPropertyId, ModelClass.IsNamespaceTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, Enums, ModelEnum.NamespaceDomainPropertyId, ModelEnum.IsNamespaceTrackingDomainPropertyId);
       }
 
       internal sealed partial class NamespacePropertyHandler
@@ -118,7 +123,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual void OnCollectionClassChanged(string oldValue, string newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Types, Association.CollectionClassDomainPropertyId, Association.IsCollectionClassTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
+                                                         Store.ElementDirectory.AllElements.OfType<Association>().ToList(), 
+                                                         Association.CollectionClassDomainPropertyId, 
+                                                         Association.IsCollectionClassTrackingDomainPropertyId);
       }
 
       internal sealed partial class DefaultCollectionClassPropertyHandler

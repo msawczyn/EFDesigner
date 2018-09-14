@@ -68,9 +68,9 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public const string CommentFilterString = "Comment.1.2";
 		/// <summary>
-		/// Toolbox item filter string used to identify CommentsReferenceTypes connector tool.
+		/// Toolbox item filter string used to identify CommentsReferenceDesignElements connector tool.
 		/// </summary>
-		public const string CommentsReferenceTypesFilterString = "CommentsReferenceTypes.1.2";
+		public const string CommentsReferenceDesignElementsFilterString = "CommentsReferenceDesignElements.1.2";
 		/// <summary>
 		/// Toolbox item filter string used to identify Enumeration element tool.
 		/// </summary>
@@ -259,22 +259,22 @@ namespace Sawczyn.EFDesigner.EFModel
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(CommentFilterString)
 						});
 					break;
-				case "Sawczyn.EFDesigner.EFModel.CommentsReferenceTypesToolboxItem":
+				case "Sawczyn.EFDesigner.EFModel.CommentsReferenceDesignElementsToolboxItem":
 
-					// Add CommentsReferenceTypes connector tool.
+					// Add CommentsReferenceDesignElements connector tool.
 					result = new DslDesign::ModelingToolboxItem(
-						"Sawczyn.EFDesigner.EFModel.CommentsReferenceTypesToolboxItem", // Unique identifier (non-localized) for the toolbox item.
+						"Sawczyn.EFDesigner.EFModel.CommentsReferenceDesignElementsToolboxItem", // Unique identifier (non-localized) for the toolbox item.
 						6, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("CommentsReferenceTypesToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentsReferenceTypesToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
+						resourceManager.GetString("CommentsReferenceDesignElementsToolboxItem", resourceCulture), // Localized display name for the item.
+						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentsReferenceDesignElementsToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
 						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
 						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"CommentsReferenceTypesF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("CommentsReferenceTypesToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
+						"CommentsReferenceDesignElementsF1Keyword", // F1 help keyword for the toolbox item.
+						resourceManager.GetString("CommentsReferenceDesignElementsToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						null, // Connector toolbox items do not have an underlying data object.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(CommentsReferenceTypesFilterString)
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(CommentsReferenceDesignElementsFilterString)
 						});
 					break;
 				case "Sawczyn.EFDesigner.EFModel.EnumerationToolboxItem":
