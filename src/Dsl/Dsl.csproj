@@ -259,6 +259,7 @@
     <Compile Include="CustomCode\Connection Builders\UnidirectionalAssociationBuilder.cs" />
     <Compile Include="CustomCode\Rules\ModelAttributeAddRules.cs" />
     <Compile Include="CustomCode\Utilities\FileDropHelper.cs" />
+    <Compile Include="CustomCode\Utilities\ModelMigration.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetDisplay.cs" />
     <Compile Include="CustomCode\Partials\UnidirectionalConnector.cs" />
