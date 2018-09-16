@@ -13,11 +13,21 @@
         <commentReferencesSubjects Id="cf981f4d-bd64-4a2c-8e7e-419d5ac2429a">
           <modelEnumMoniker Id="0ef8208e-53bc-4f7d-8c3e-46e29b7661ce" />
         </commentReferencesSubjects>
+        <commentReferencesSubjects Id="64ba87d7-3f91-4bf8-bc3f-1bb0cf721ab8">
+          <modelClassMoniker Id="7e7418b4-ddd7-43b0-93eb-bb623a9565e3" />
+        </commentReferencesSubjects>
+      </subjects>
+    </comment>
+    <comment Id="56ec6d7e-870b-41a4-aa8c-d864cecdd1cd" text="fff">
+      <subjects>
+        <commentReferencesClasses Id="60607a31-4717-4e21-be17-4cfc98c09246">
+          <modelClassMoniker Id="7e7418b4-ddd7-43b0-93eb-bb623a9565e3" />
+        </commentReferencesClasses>
       </subjects>
     </comment>
   </comments>
   <enums>
-    <modelRootHasEnums Id="0fc0f377-054b-4e7e-ab47-6ea694c2e6ce">
+    <modelRootHasEnums Id="4678f193-ccab-4650-8fe9-34c0ca78053c">
       <modelEnum Id="0ef8208e-53bc-4f7d-8c3e-46e29b7661ce" namespace="Sandbox" name="Enum1" outputDirectory="">
         <values>
           <modelEnumHasValues Id="925901af-dcb4-47ff-ba24-155b1e4d4985">

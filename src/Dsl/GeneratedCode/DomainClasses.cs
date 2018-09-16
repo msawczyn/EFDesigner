@@ -4763,6 +4763,12 @@ namespace Sawczyn.EFDesigner.EFModel
 				// Create link for path CommentReferencesClasses.Comments
 				global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.GetComments((global::Sawczyn.EFDesigner.EFModel.ModelClass)this).Add(sourceComment2);
 
+				// Create link for path ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+						// Segments 0 and 1
+						global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+						if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				commentHost1.Comments.Add(sourceComment2);
+
 				return;
 			}
 		
@@ -4811,6 +4817,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
 					link.Delete(global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.ModelClassDomainRoleId, global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.CommentDomainRoleId);
+				}
+
+				// Delete link for path ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+					// Segments 0 and 1
+					global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+					if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				
+				foreach (DslModeling::ElementLink link in global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.GetLinks((global::Sawczyn.EFDesigner.EFModel.ModelRoot)commentHost1, sourceComment2))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.ModelRootDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.CommentDomainRoleId);
 				}
 
 				return;
@@ -8275,6 +8292,12 @@ namespace Sawczyn.EFDesigner.EFModel
 				// Create link for path CommentReferencesEnums.Comments
 				global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.GetComments((global::Sawczyn.EFDesigner.EFModel.ModelEnum)this).Add(sourceComment2);
 
+				// Create link for path ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+						// Segments 0 and 1
+						global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+						if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				commentHost1.Comments.Add(sourceComment2);
+
 				return;
 			}
 		
@@ -8323,6 +8346,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
 					link.Delete(global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.ModelEnumDomainRoleId, global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.CommentDomainRoleId);
+				}
+
+				// Delete link for path ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+					// Segments 0 and 1
+					global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+					if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				
+				foreach (DslModeling::ElementLink link in global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.GetLinks((global::Sawczyn.EFDesigner.EFModel.ModelRoot)commentHost1, sourceComment2))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.ModelRootDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.CommentDomainRoleId);
 				}
 
 				return;

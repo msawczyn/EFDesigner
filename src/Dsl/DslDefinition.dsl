@@ -373,6 +373,7 @@
           </Index>
           <LinkCreationPaths>
             <DomainPath>CommentReferencesClasses.Comments</DomainPath>
+            <DomainPath>ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
       </ElementMergeDirectives>
@@ -621,6 +622,7 @@
           </Index>
           <LinkCreationPaths>
             <DomainPath>CommentReferencesEnums.Comments</DomainPath>
+            <DomainPath>ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
       </ElementMergeDirectives>
