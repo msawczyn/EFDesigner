@@ -83,7 +83,9 @@ namespace Sawczyn.EFDesigner.EFModel
 				typeof(ModelRootHasEnums),
 				typeof(ModelEnumHasValues),
 				typeof(ModelRootHasClasses),
-				typeof(CommentReferencesDesignElements),
+				typeof(CommentReferencesSubjects),
+				typeof(CommentReferencesClasses),
+				typeof(CommentReferencesEnums),
 				typeof(EFModelDiagram),
 				typeof(AssociationConnector),
 				typeof(UnidirectionalConnector),
@@ -185,6 +187,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelAttribute), "ColumnType", ModelAttribute.ColumnTypeDomainPropertyId, typeof(ModelAttribute.ColumnTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "IsColumnTypeTracking", ModelAttribute.IsColumnTypeTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnTypeTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
+				new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "Namespace", ModelEnum.NamespaceDomainPropertyId, typeof(ModelEnum.NamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "IsNamespaceTracking", ModelEnum.IsNamespaceTrackingDomainPropertyId, typeof(ModelEnum.IsNamespaceTrackingPropertyHandler)),
@@ -260,8 +263,12 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainRolePlayerInfo(typeof(ModelEnumHasValues), "Value", ModelEnumHasValues.ValueDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ModelRootHasClasses), "ModelRoot", ModelRootHasClasses.ModelRootDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ModelRootHasClasses), "ModelClass", ModelRootHasClasses.ModelClassDomainRoleId),
-				new DomainRolePlayerInfo(typeof(CommentReferencesDesignElements), "Comment", CommentReferencesDesignElements.CommentDomainRoleId),
-				new DomainRolePlayerInfo(typeof(CommentReferencesDesignElements), "DesignElement", CommentReferencesDesignElements.DesignElementDomainRoleId),
+				new DomainRolePlayerInfo(typeof(CommentReferencesSubjects), "Comment", CommentReferencesSubjects.CommentDomainRoleId),
+				new DomainRolePlayerInfo(typeof(CommentReferencesSubjects), "DesignElement", CommentReferencesSubjects.DesignElementDomainRoleId),
+				new DomainRolePlayerInfo(typeof(CommentReferencesClasses), "Comment", CommentReferencesClasses.CommentDomainRoleId),
+				new DomainRolePlayerInfo(typeof(CommentReferencesClasses), "ModelClass", CommentReferencesClasses.ModelClassDomainRoleId),
+				new DomainRolePlayerInfo(typeof(CommentReferencesEnums), "Comment", CommentReferencesEnums.CommentDomainRoleId),
+				new DomainRolePlayerInfo(typeof(CommentReferencesEnums), "ModelEnum", CommentReferencesEnums.ModelEnumDomainRoleId),
 			};
 		}
 		#endregion
@@ -347,7 +354,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(10);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(12);
 				createElementLinkMap.Add(typeof(UnidirectionalAssociation), 0);
 				createElementLinkMap.Add(typeof(ClassHasAttributes), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
@@ -356,7 +363,9 @@ namespace Sawczyn.EFDesigner.EFModel
 				createElementLinkMap.Add(typeof(ModelRootHasEnums), 5);
 				createElementLinkMap.Add(typeof(ModelEnumHasValues), 6);
 				createElementLinkMap.Add(typeof(ModelRootHasClasses), 7);
-				createElementLinkMap.Add(typeof(CommentReferencesDesignElements), 8);
+				createElementLinkMap.Add(typeof(CommentReferencesSubjects), 8);
+				createElementLinkMap.Add(typeof(CommentReferencesClasses), 9);
+				createElementLinkMap.Add(typeof(CommentReferencesEnums), 10);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -379,7 +388,9 @@ namespace Sawczyn.EFDesigner.EFModel
 				case 5: return new ModelRootHasEnums(partition, roleAssignments, propertyAssignments);
 				case 6: return new ModelEnumHasValues(partition, roleAssignments, propertyAssignments);
 				case 7: return new ModelRootHasClasses(partition, roleAssignments, propertyAssignments);
-				case 8: return new CommentReferencesDesignElements(partition, roleAssignments, propertyAssignments);
+				case 8: return new CommentReferencesSubjects(partition, roleAssignments, propertyAssignments);
+				case 9: return new CommentReferencesClasses(partition, roleAssignments, propertyAssignments);
+				case 10: return new CommentReferencesEnums(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}

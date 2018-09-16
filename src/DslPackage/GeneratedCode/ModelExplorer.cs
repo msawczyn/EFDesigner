@@ -37,19 +37,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		protected EFModelExplorerBase(global::System.IServiceProvider serviceProvider) : base(serviceProvider)
 		{
-			try
-			{	
-				// Adds hidden path to hide elements from the explorer
-				this.AddHiddenPath( new global::System.Guid[] { global::Sawczyn.EFDesigner.EFModel.Comment.DomainClassId }); 
 			
-			}
-			catch (global::System.InvalidOperationException)
-			{
-				// Each hidden path specified needs to have odd number of guid entries.  The entries will alternative between
-				// DomainRelationshipID and DomainClassID. The guids list should also start out with a DomainRelationshipID.
-				// This exception will be swallowed...
-				global::System.Diagnostics.Debug.Fail("Each hidden path specified needs to have odd number of guid entries.\r\nPlease update the HiddenNodes section under ExplorerBehavior in the DSL file\r\nso the Model Explorer can hide element properly.");
-			}
 			
 			// Adds custom tree node settings...
 			global::System.Resources.ResourceManager resourceManager = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager;
@@ -66,6 +54,12 @@ namespace Sawczyn.EFDesigner.EFModel
 			this.AddExplorerNodeCustomSetting(global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.DomainClassId, 
 							DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModelEnumValueExplorerImage")), 
 							false); 
+			this.AddExplorerNodeCustomSetting(global::Sawczyn.EFDesigner.EFModel.Comment.DomainClassId, 
+							DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentExplorerImage")), 
+							false); 
+			
+			// Add a call back to provide ModelElementTreeNode TreeNode name in the Model Explorer
+			this.GetModelElementDisplayNameEventHandler = new DslShell.GetModelElementDisplayNameEventHandler(GetModelElementDisplayName);
 		}
 	
 	
@@ -104,6 +98,43 @@ namespace Sawczyn.EFDesigner.EFModel
 		protected override global::System.Collections.IList FindRootElements(DslModeling::Store store)
 		{
 			return store.ElementDirectory.FindElements( this.RootElementDomainClassId);
+		}
+			
+		/// <summary>
+		/// Method to supply the name for ModelElementTreeNode object in the TreeView.
+		/// </summary>
+		/// <param name="modelElement">Element to be displayed in the tree node</param>
+		/// <returns>Name shown in the Model Explorer</returns>
+		private string GetModelElementDisplayName(DslModeling::ModelElement modelElement)
+		{
+			string treeNodeDisplayName = null;
+			DslModeling::DomainDataDirectory directory = modelElement.Store.DomainDataDirectory;
+			DslModeling::DomainPropertyInfo domainPropertyInfo = null;
+			DslModeling::ModelElement redirectedElement = null;
+			
+			switch ( modelElement.GetDomainClass().Id.ToString( "D", System.Globalization.CultureInfo.InvariantCulture) )
+			{
+				case "e2c13b26-0944-4b6c-89b5-bb95c500f515":	// Comment.DomainClassId
+				{
+					domainPropertyInfo = directory.FindDomainProperty( global::Sawczyn.EFDesigner.EFModel.Comment.ShortTextDomainPropertyId);
+					redirectedElement = modelElement;
+				}			
+				break;
+				
+		
+			}
+			
+			if (domainPropertyInfo != null && redirectedElement != null)
+			{
+				// Get the name based on the designated domian property
+				treeNodeDisplayName = domainPropertyInfo.GetValue(redirectedElement) as string;
+			}
+			else
+			{
+				// The passed in modelElement does not have a DomainPath specified. Try access the default name from the element.
+				DslModeling::DomainClassInfo.TryGetName(modelElement, out treeNodeDisplayName);
+			}
+			return treeNodeDisplayName;
 		}
 	}
 }

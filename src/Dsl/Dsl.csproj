@@ -228,6 +228,7 @@
     <Compile Include="CustomCode\Extensions\ColorExtensions.cs" />
     <Compile Include="CustomCode\Extensions\DiagramViewExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
+    <Compile Include="CustomCode\Extensions\StringExtensions.cs" />
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />
     <Compile Include="CustomCode\Connection Builders\BidirectionalAssociationBuilder.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalConnector.cs" />
+    <Compile Include="CustomCode\Partials\Comment.cs" />
     <Compile Include="CustomCode\Partials\CommentBoxShape.cs" />
     <Compile Include="CustomCode\Partials\CommentConnector.cs" />
     <Compile Include="CustomCode\Partials\EFModelDiagram.cs" />

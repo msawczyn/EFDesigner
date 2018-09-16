@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.2.3.1" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 17.875, 17.625" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.2.6.2" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 17.875, 17.625" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -320,5 +320,14 @@
         <elementListCompartment Id="ed348684-5c58-42e0-a71d-0295bb7df947" absoluteBounds="5.515, 1.185, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <commentBoxShape Id="e4a42bac-6916-4806-a11e-8aa5b1e49038" absoluteBounds="10.5, 5, 1.5, 0.5">
+      <commentMoniker Id="077828ac-a963-428c-ba6b-d5a401c301cf" />
+    </commentBoxShape>
+    <commentConnector Id="f3fed737-5ca3-4a15-a4d4-9bbe0df2cef2" edgePoints="[(10.6875 : 5); (10.6875 : 3.97669108072917)]" fixedFrom="Algorithm" fixedTo="Algorithm" TargetRelationshipDomainClassId="da518d23-afeb-4ef1-9c86-b66b3b0a4b64">
+      <nodes>
+        <commentBoxShapeMoniker Id="e4a42bac-6916-4806-a11e-8aa5b1e49038" />
+        <classShapeMoniker Id="f9a6c404-1fc6-4f49-84d6-1a5c751b11b4" />
+      </nodes>
+    </commentConnector>
   </nestedChildShapes>
 </eFModelDiagram>

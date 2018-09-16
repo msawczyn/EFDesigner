@@ -69,11 +69,11 @@ namespace Sawczyn.EFDesigner.EFModel
 					0xff00ff,
 					Index = 4)]
 	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
-					"@CommentsReferenceDesignElementsToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
-					"Sawczyn.EFDesigner.EFModel.CommentsReferenceDesignElementsToolboxItem", 
+					"@CommentLinkToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
+					"Sawczyn.EFDesigner.EFModel.CommentLinkToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
 					"CommentsReferenceDesignElementsF1Keyword", 
-					"@CommentsReferenceDesignElementsToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
+					"@CommentLinkToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 5)]
 	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
