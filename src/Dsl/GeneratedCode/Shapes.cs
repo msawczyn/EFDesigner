@@ -1260,6 +1260,16 @@ namespace Sawczyn.EFDesigner.EFModel
 				return global::System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
 			}
 		}
+		/// <summary>
+		/// Specifies the geometry used by this shape
+		/// </summary>
+		public override DslDiagrams::ShapeGeometry ShapeGeometry
+		{
+			get
+			{
+				return DslDiagrams::ShapeGeometries.RoundedRectangle;
+			}
+		}
 		#endregion
 		#region Decorators
 		/// <summary>
