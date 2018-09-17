@@ -250,6 +250,8 @@
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementWithCompartments.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IMouseActionTarget.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
+    <Compile Include="CustomCode\Rules\GeneralizationDeletingRule.cs" />
+    <Compile Include="CustomCode\Rules\ModelClassDeletingRule.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelAttributeTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelEnumTypeDescriptor.cs" />
