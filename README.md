@@ -43,7 +43,13 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.6.2***
+***1.2.6.5***
+   - Comment elements now wrap the text
+   - Multiline editor available in property window for element comment descriptions and Comment element text
+   - Xml format changed for .efmodel file - can't be loaded by any version < 1.2.6.3
+   - Support for automatic migration to new model xml formats
+
+**1.2.6.2**
    - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
    - Enabled drag and drop reordering of enum values and class properties
    - Gave some color to the enum value glyph in the model explorer - it was so boring!
@@ -51,9 +57,13 @@ You can read more about how to use the designer in the [Documentation site](http
    - Design surface has a property to turn on or off the display of the warning icons 
    - Recategorized a few "Misc" properties on the design surface
 
-**1.2.5.1**
+<details>
+<summary><b>1.2.5.1</b></summary>
+
    - Addressed [issue #20 - Abstract/inherited/TPC code still there for abstract class](https://github.com/msawczyn/EFDesigner/issues/20). While the discussion centered around abstract classes and TPC inheritance (which was behaving properly), it did uncover a problem with code generation when namespaces changed from class to class. 
      
+</details>
+
 <details>
 <summary><b>1.2.5.0</b></summary>
 

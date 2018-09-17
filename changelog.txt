@@ -1,7 +1,6 @@
-1.2.6.3
+1.2.6.5
    - Comment elements now wrap the text
    - Multiline editor available in property window for element comment descriptions and Comment element text
-   - Can add comments to enums
    - Xml format changed for .efmodel file - can't be loaded by any version < 1.2.6.3
    - Support for automatic migration to new model xml formats
 

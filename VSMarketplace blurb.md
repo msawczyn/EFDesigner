@@ -24,6 +24,12 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.5**
+   - Comment elements now wrap the text
+   - Multiline editor available in property window for element comment descriptions and Comment element text
+   - Xml format changed for .efmodel file - can't be loaded by any version < 1.2.6.3
+   - Support for automatic migration to new model xml formats
+
 **1.2.6.2**
    - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
    - Enabled drag and drop reordering of enum values and class properties
