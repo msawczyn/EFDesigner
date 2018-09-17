@@ -3708,33 +3708,33 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// DomainRelationship CommentReferencesDesignElements
-	/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements
+	/// DomainRelationship CommentReferencesSubjects
+	/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects
 	/// </summary>
-	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainRelationship()]
 	[DslModeling::DomainObjectId("c1a798b4-85dc-4479-9c35-30f5b15d8aa1")]
-	public partial class CommentReferencesDesignElements : DslModeling::ElementLink
+	public partial class CommentReferencesSubjects : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
 		
 		/// <summary>
-		/// CommentReferencesDesignElements domain class Id.
+		/// CommentReferencesSubjects domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xc1a798b4, 0x85dc, 0x4479, 0x9c, 0x35, 0x30, 0xf5, 0xb1, 0x5d, 0x8a, 0xa1);
 	
 				
 		/// <summary>
 		/// Constructor
-		/// Creates a CommentReferencesDesignElements link in the same Partition as the given Comment
+		/// Creates a CommentReferencesSubjects link in the same Partition as the given Comment
 		/// </summary>
 		/// <param name="source">Comment to use as the source of the relationship.</param>
 		/// <param name="target">DesignElement to use as the target of the relationship.</param>
-		public CommentReferencesDesignElements(Comment source, DesignElement target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(CommentReferencesDesignElements.CommentDomainRoleId, source), new DslModeling::RoleAssignment(CommentReferencesDesignElements.DesignElementDomainRoleId, target)}, null)
+		public CommentReferencesSubjects(Comment source, DesignElement target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(CommentReferencesSubjects.CommentDomainRoleId, source), new DslModeling::RoleAssignment(CommentReferencesSubjects.DesignElementDomainRoleId, target)}, null)
 		{
 		}
 		
@@ -3743,7 +3743,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public CommentReferencesDesignElements(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+		public CommentReferencesSubjects(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
 		{
 		}
@@ -3754,7 +3754,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public CommentReferencesDesignElements(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public CommentReferencesSubjects(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3764,7 +3764,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public CommentReferencesDesignElements(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+		public CommentReferencesSubjects(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(partition, roleAssignments, null)
 		{
 		}
@@ -3775,7 +3775,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public CommentReferencesDesignElements(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public CommentReferencesSubjects(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3789,12 +3789,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// DomainRole Comment
-		/// Description for
-		/// Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Comment
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Comment
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "DesignElements", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Subjects", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("8624f267-1304-43ef-acc4-f0b7d67b2856")]
 		public virtual Comment Comment
 		{
@@ -3832,11 +3832,11 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// DomainRole DesignElement
 		/// Description for
-		/// Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElement
+		/// Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElement
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Comments", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Comments", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("f2d70cc8-21b0-455b-9841-bee17b5ad5d9")]
 		public virtual DesignElement DesignElement
 		{
@@ -3853,51 +3853,51 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 				
 		#endregion
-		#region Static methods to access DesignElements of a Comment
+		#region Static methods to access Subjects of a Comment
 		/// <summary>
-		/// Gets a list of DesignElements.
+		/// Gets a list of Subjects.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<DesignElement> GetDesignElements(Comment element)
+		public static DslModeling::LinkedElementCollection<DesignElement> GetSubjects(Comment element)
 		{
 			return GetRoleCollection<DslModeling::LinkedElementCollection<DesignElement>, DesignElement>(element, CommentDomainRoleId);
 		}
 		#endregion
 		#region Comment link accessor
 		/// <summary>
-		/// Get the list of CommentReferencesDesignElements links to a Comment.
+		/// Get the list of CommentReferencesSubjects links to a Comment.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> GetLinksToDesignElements ( global::Sawczyn.EFDesigner.EFModel.Comment commentInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> GetLinksToSubjects ( global::Sawczyn.EFDesigner.EFModel.Comment commentInstance )
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(commentInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.CommentDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(commentInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.CommentDomainRoleId);
 		}
 		#endregion
 		#region DesignElement link accessor
 		/// <summary>
-		/// Get the list of CommentReferencesDesignElements links to a DesignElement.
+		/// Get the list of CommentReferencesSubjects links to a DesignElement.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> GetLinksToComments ( global::Sawczyn.EFDesigner.EFModel.DesignElement designElementInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> GetLinksToComments ( global::Sawczyn.EFDesigner.EFModel.DesignElement designElementInstance )
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(designElementInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElementDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(designElementInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElementDomainRoleId);
 		}
 		#endregion
-		#region CommentReferencesDesignElements instance accessors
+		#region CommentReferencesSubjects instance accessors
 		
 		/// <summary>
-		/// Get any CommentReferencesDesignElements links between a given Comment and a DesignElement.
+		/// Get any CommentReferencesSubjects links between a given Comment and a DesignElement.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> GetLinks( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.DesignElement target )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> GetLinks( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.DesignElement target )
 		{
-			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>();
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.CommentDomainRoleId);
-			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements link in links )
+			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>();
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects link in links )
 			{
 				if ( target.Equals(link.DesignElement) )
 				{
@@ -3907,16 +3907,502 @@ namespace Sawczyn.EFDesigner.EFModel
 			return outLinks.AsReadOnly();
 		}
 		/// <summary>
-		/// Get the one CommentReferencesDesignElements link between a given Commentand a DesignElement.
+		/// Get the one CommentReferencesSubjects link between a given Commentand a DesignElement.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements GetLink( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.DesignElement target )
+		public static global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects GetLink( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.DesignElement target )
 		{
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.CommentDomainRoleId);
-			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements link in links )
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects link in links )
 			{
 				if ( target.Equals(link.DesignElement) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainRelationship CommentReferencesClasses
+	/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses
+	/// </summary>
+	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("cedffe97-5a26-4774-89bf-ea0bda108db2")]
+	public partial class CommentReferencesClasses : CommentReferencesSubjects
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// CommentReferencesClasses domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xcedffe97, 0x5a26, 0x4774, 0x89, 0xbf, 0xea, 0x0b, 0xda, 0x10, 0x8d, 0xb2);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a CommentReferencesClasses link in the same Partition as the given Comment
+		/// </summary>
+		/// <param name="source">Comment to use as the source of the relationship.</param>
+		/// <param name="target">ModelClass to use as the target of the relationship.</param>
+		public CommentReferencesClasses(Comment source, ModelClass target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(CommentReferencesClasses.CommentDomainRoleId, source), new DslModeling::RoleAssignment(CommentReferencesClasses.ModelClassDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public CommentReferencesClasses(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public CommentReferencesClasses(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public CommentReferencesClasses(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public CommentReferencesClasses(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region Comment domain role code
+		
+		/// <summary>
+		/// Comment domain role Id.
+		/// </summary>
+		public static readonly new global::System.Guid CommentDomainRoleId = new global::System.Guid(0xebcf4701, 0xc44e, 0x4ec9, 0x8a, 0x34, 0x0f, 0x84, 0x28, 0xca, 0xc3, 0x52);
+		
+		/// <summary>
+		/// DomainRole Comment
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.Comment
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/Comment.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Classes", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/Comment.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("ebcf4701-c44e-4ec9-8a34-0f8428cac352")]
+		public override Comment Comment
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (Comment)DslModeling::DomainRoleInfo.GetRolePlayer(this, CommentDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, CommentDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Comments of a ModelClass
+		/// <summary>
+		/// Gets a list of Comments.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<Comment> GetComments(ModelClass element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(element, ModelClassDomainRoleId);
+		}
+		#endregion
+		#region ModelClass domain role code
+		
+		/// <summary>
+		/// ModelClass domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid ModelClassDomainRoleId = new global::System.Guid(0x2495fc6d, 0x7420, 0x46b0, 0x85, 0x65, 0x21, 0xe3, 0x81, 0x82, 0x8d, 0x40);
+		
+		/// <summary>
+		/// DomainRole ModelClass
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.ModelClass
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/ModelClass.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/ModelClass.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Comments", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/ModelClass.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("2495fc6d-7420-46b0-8565-21e381828d40")]
+		public virtual ModelClass ModelClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (ModelClass)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelClassDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelClassDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Classes of a Comment
+		/// <summary>
+		/// Gets a list of Classes.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<ModelClass> GetClasses(Comment element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(element, CommentDomainRoleId);
+		}
+		#endregion
+		#region DesignElement domain role override
+		
+		/// <summary>
+		/// Gets the element playing ModelClass domain role.
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElement
+		/// </summary>
+		public override DesignElement DesignElement
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return this.ModelClass;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				this.ModelClass = (ModelClass)value;
+			}
+		}
+		
+		#endregion
+		#region Comment link accessor
+		/// <summary>
+		/// Get the list of CommentReferencesClasses links to a Comment.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses> GetLinksToClasses ( global::Sawczyn.EFDesigner.EFModel.Comment commentInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses>(commentInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.CommentDomainRoleId);
+		}
+		#endregion
+		#region ModelClass link accessor
+		/// <summary>
+		/// Get the list of CommentReferencesClasses links to a ModelClass.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses> GetLinksToComments ( global::Sawczyn.EFDesigner.EFModel.ModelClass modelClassInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses>(modelClassInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.ModelClassDomainRoleId);
+		}
+		#endregion
+		#region CommentReferencesClasses instance accessors
+		
+		/// <summary>
+		/// Get any CommentReferencesClasses links between a given Comment and a ModelClass.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses> GetLinks( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.ModelClass target )
+		{
+			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses>();
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses link in links )
+			{
+				if ( target.Equals(link.ModelClass) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one CommentReferencesClasses link between a given Commentand a ModelClass.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses GetLink( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.ModelClass target )
+		{
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses link in links )
+			{
+				if ( target.Equals(link.ModelClass) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainRelationship CommentReferencesEnums
+	/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums
+	/// </summary>
+	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("c2ca35b4-7dc5-4a7d-9a6f-cfd1cc9aedac")]
+	public partial class CommentReferencesEnums : CommentReferencesSubjects
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// CommentReferencesEnums domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xc2ca35b4, 0x7dc5, 0x4a7d, 0x9a, 0x6f, 0xcf, 0xd1, 0xcc, 0x9a, 0xed, 0xac);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a CommentReferencesEnums link in the same Partition as the given Comment
+		/// </summary>
+		/// <param name="source">Comment to use as the source of the relationship.</param>
+		/// <param name="target">ModelEnum to use as the target of the relationship.</param>
+		public CommentReferencesEnums(Comment source, ModelEnum target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(CommentReferencesEnums.CommentDomainRoleId, source), new DslModeling::RoleAssignment(CommentReferencesEnums.ModelEnumDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public CommentReferencesEnums(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public CommentReferencesEnums(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public CommentReferencesEnums(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public CommentReferencesEnums(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region Comment domain role code
+		
+		/// <summary>
+		/// Comment domain role Id.
+		/// </summary>
+		public static readonly new global::System.Guid CommentDomainRoleId = new global::System.Guid(0xed267b9d, 0xcbe7, 0x4888, 0x9a, 0x95, 0xe7, 0x51, 0x91, 0x35, 0xc7, 0x6b);
+		
+		/// <summary>
+		/// DomainRole Comment
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.Comment
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/Comment.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Enums", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/Comment.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("ed267b9d-cbe7-4888-9a95-e7519135c76b")]
+		public override Comment Comment
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (Comment)DslModeling::DomainRoleInfo.GetRolePlayer(this, CommentDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, CommentDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Comments of a ModelEnum
+		/// <summary>
+		/// Gets a list of Comments.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<Comment> GetComments(ModelEnum element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(element, ModelEnumDomainRoleId);
+		}
+		#endregion
+		#region ModelEnum domain role code
+		
+		/// <summary>
+		/// ModelEnum domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid ModelEnumDomainRoleId = new global::System.Guid(0xd5ba04cb, 0xa560, 0x4293, 0xbd, 0xee, 0xb4, 0x5b, 0x62, 0x74, 0x28, 0x64);
+		
+		/// <summary>
+		/// DomainRole ModelEnum
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.ModelEnum
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/ModelEnum.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/ModelEnum.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Comments", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/ModelEnum.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("d5ba04cb-a560-4293-bdee-b45b62742864")]
+		public virtual ModelEnum ModelEnum
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (ModelEnum)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelEnumDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelEnumDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Enums of a Comment
+		/// <summary>
+		/// Gets a list of Enums.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<ModelEnum> GetEnums(Comment element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelEnum>, ModelEnum>(element, CommentDomainRoleId);
+		}
+		#endregion
+		#region DesignElement domain role override
+		
+		/// <summary>
+		/// Gets the element playing ModelEnum domain role.
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElement
+		/// </summary>
+		public override DesignElement DesignElement
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return this.ModelEnum;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				this.ModelEnum = (ModelEnum)value;
+			}
+		}
+		
+		#endregion
+		#region Comment link accessor
+		/// <summary>
+		/// Get the list of CommentReferencesEnums links to a Comment.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums> GetLinksToEnums ( global::Sawczyn.EFDesigner.EFModel.Comment commentInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums>(commentInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.CommentDomainRoleId);
+		}
+		#endregion
+		#region ModelEnum link accessor
+		/// <summary>
+		/// Get the list of CommentReferencesEnums links to a ModelEnum.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums> GetLinksToComments ( global::Sawczyn.EFDesigner.EFModel.ModelEnum modelEnumInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums>(modelEnumInstance, global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.ModelEnumDomainRoleId);
+		}
+		#endregion
+		#region CommentReferencesEnums instance accessors
+		
+		/// <summary>
+		/// Get any CommentReferencesEnums links between a given Comment and a ModelEnum.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums> GetLinks( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.ModelEnum target )
+		{
+			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums>();
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums link in links )
+			{
+				if ( target.Equals(link.ModelEnum) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one CommentReferencesEnums link between a given Commentand a ModelEnum.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums GetLink( global::Sawczyn.EFDesigner.EFModel.Comment source, global::Sawczyn.EFDesigner.EFModel.ModelEnum target )
+		{
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums>(source, global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.CommentDomainRoleId);
+			foreach ( global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums link in links )
+			{
+				if ( target.Equals(link.ModelEnum) )
 				{
 					return link;
 				}

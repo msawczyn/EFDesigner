@@ -4,6 +4,9 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor
+//     https://github.com/msawczyn/EFDesigner
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -15,20 +18,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sandbox
 {
-   public partial class SandboxModel : Microsoft.EntityFrameworkCore.DbContext
+   /// <inheritdoc/>
+   public partial class EFModel1 : Microsoft.EntityFrameworkCore.DbContext
    {
-      public Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity3> Entity3 { get; set; }
+      #region DbSets
+      public Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity1> Entity1 { get; set; }
+      #endregion DbSets
 
-      public SandboxModel() : base()
+      /// <inheritdoc />
+      public EFModel1() : base()
       {
       }
 
-      public SandboxModel(DbContextOptions<SandboxModel> options) : base(options)
+      /// <inheritdoc />
+      public EFModel1(DbContextOptions<EFModel1> options) : base(options)
       {
       }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
 
+      /// <inheritdoc />
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
          CustomInit(optionsBuilder);
@@ -37,6 +46,7 @@ namespace Sandbox
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
+      /// <inheritdoc />
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
@@ -44,10 +54,10 @@ namespace Sandbox
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<Sandbox.Entity3>()
-                     .ToTable("Entity3")
+         modelBuilder.Entity<Sandbox.Entity1>()
+                     .ToTable("Entity1")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox.Entity3>()
+         modelBuilder.Entity<Sandbox.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();

@@ -1001,6 +1001,14 @@
     <value>Text</value>
     <comment>DisplayName for DomainProperty &apos;Text&apos; on DomainClass &apos;Comment&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Comment/ShortText.Description" xml:space="preserve">
+    <value>Truncated Text property for Explorer display</value>
+    <comment>Description for DomainProperty &apos;ShortText&apos; on DomainClass &apos;Comment&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Comment/ShortText.DisplayName" xml:space="preserve">
+    <value>Short Text</value>
+    <comment>DisplayName for DomainProperty &apos;ShortText&apos; on DomainClass &apos;Comment&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum.Description" xml:space="preserve">
     <value>No description available</value>
     <comment>Description for DomainClass &apos;ModelEnum&apos;</comment>
@@ -1689,37 +1697,101 @@
     <value>Model Root</value>
     <comment>PropertyDisplayName for DomainRole &apos;ModelClass&apos; on DomainRelationship &apos;ModelRootHasClasses&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements</value>
-    <comment>Description for DomainClass &apos;CommentReferencesDesignElements&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects</value>
+    <comment>Description for DomainClass &apos;CommentReferencesSubjects&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DisplayName" xml:space="preserve">
-    <value>Comment References Design Elements</value>
-    <comment>DisplayName for DomainClass &apos;CommentReferencesDesignElements&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DisplayName" xml:space="preserve">
+    <value>Comment References Subjects</value>
+    <comment>DisplayName for DomainClass &apos;CommentReferencesSubjects&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Comment</value>
-    <comment>Description for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Comment</value>
+    <comment>Description for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.DisplayName" xml:space="preserve">
     <value>Comment</value>
-    <comment>DisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/Comment.PropertyDisplayName" xml:space="preserve">
-    <value>Design Elements</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.PropertyDisplayName" xml:space="preserve">
+    <value>Subjects</value>
+    <comment>PropertyDisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElement</value>
-    <comment>Description for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElement</value>
+    <comment>Description for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.DisplayName" xml:space="preserve">
     <value>Design Element</value>
-    <comment>DisplayName for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements/DesignElement.PropertyDisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.PropertyDisplayName" xml:space="preserve">
     <value>Comments</value>
-    <comment>PropertyDisplayName for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesDesignElements&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;DesignElement&apos; on DomainRelationship &apos;CommentReferencesSubjects&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses</value>
+    <comment>Description for DomainClass &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.DisplayName" xml:space="preserve">
+    <value>Comment References Classes</value>
+    <comment>DisplayName for DomainClass &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/Comment.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.Comment</value>
+    <comment>Description for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/Comment.DisplayName" xml:space="preserve">
+    <value>Comment</value>
+    <comment>DisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/Comment.PropertyDisplayName" xml:space="preserve">
+    <value>Classes</value>
+    <comment>PropertyDisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/ModelClass.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.ModelClass</value>
+    <comment>Description for DomainRole &apos;ModelClass&apos; on DomainRelationship &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/ModelClass.DisplayName" xml:space="preserve">
+    <value>Model Class</value>
+    <comment>DisplayName for DomainRole &apos;ModelClass&apos; on DomainRelationship &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesClasses/ModelClass.PropertyDisplayName" xml:space="preserve">
+    <value>Comments</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelClass&apos; on DomainRelationship &apos;CommentReferencesClasses&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums</value>
+    <comment>Description for DomainClass &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.DisplayName" xml:space="preserve">
+    <value>Comment References Enums</value>
+    <comment>DisplayName for DomainClass &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/Comment.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.Comment</value>
+    <comment>Description for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/Comment.DisplayName" xml:space="preserve">
+    <value>Comment</value>
+    <comment>DisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/Comment.PropertyDisplayName" xml:space="preserve">
+    <value>Enums</value>
+    <comment>PropertyDisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/ModelEnum.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.ModelEnum</value>
+    <comment>Description for DomainRole &apos;ModelEnum&apos; on DomainRelationship &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/ModelEnum.DisplayName" xml:space="preserve">
+    <value>Model Enum</value>
+    <comment>DisplayName for DomainRole &apos;ModelEnum&apos; on DomainRelationship &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/ModelEnum.PropertyDisplayName" xml:space="preserve">
+    <value>Comments</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelEnum&apos; on DomainRelationship &apos;CommentReferencesEnums&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifier/Public.DisplayName" xml:space="preserve">
     <value>Public</value>
@@ -2749,11 +2821,11 @@
     <value>Create a comment on this diagram</value>
     <comment>Toolbox tooltip text</comment>
   </data>
-  <data name="CommentsReferenceDesignElementsToolboxItem" xml:space="preserve">
+  <data name="CommentLinkToolboxItem" xml:space="preserve">
     <value>Comment Link</value>
     <comment>Toolbox item name</comment>
   </data>
-  <data name="CommentsReferenceDesignElementsToolboxTooltip" xml:space="preserve">
+  <data name="CommentLinkToolboxTooltip" xml:space="preserve">
     <value>Link a comment to an element</value>
     <comment>Toolbox tooltip text</comment>
   </data>
@@ -2926,6 +2998,10 @@ A DomainClass can be serialized as a moniker only if
     <value>..\Resources\EnumValue.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
+  <data name="CommentExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\CommentTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
   <data name="ModelClassToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\EntityGlyph.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
@@ -2946,7 +3022,7 @@ A DomainClass can be serialized as a moniker only if
     <value>..\resources\commenttool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
-  <data name="CommentsReferenceDesignElementsToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+  <data name="CommentLinkToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\resources\commentlinktool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>

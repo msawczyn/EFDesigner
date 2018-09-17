@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="6" Revision="3" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="6" Revision="5" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -367,6 +367,15 @@
             <DomainPath>ClassHasAttributes.Attributes</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
+        <ElementMergeDirective>
+          <Index>
+            <DomainClassMoniker Name="Comment" />
+          </Index>
+          <LinkCreationPaths>
+            <DomainPath>CommentReferencesClasses.Comments</DomainPath>
+            <DomainPath>ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments</DomainPath>
+          </LinkCreationPaths>
+        </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
     <DomainClass Id="8be1f7ab-85c8-4f57-8621-38e1207d8f8d" Description="An attribute of a class." Name="ModelAttribute" DisplayName="Property" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -521,6 +530,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="a17c8f41-4a5b-40a1-9f77-71346c428207" Description="Truncated Text property for Explorer display" Name="ShortText" DisplayName="Short Text" Kind="Calculated" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="9c7f55aa-1cc9-4841-b671-0cab31164a24" Description="No description available" Name="ModelEnum" DisplayName="Enum" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -600,6 +614,15 @@
           </Index>
           <LinkCreationPaths>
             <DomainPath>ModelEnumHasValues.Values</DomainPath>
+          </LinkCreationPaths>
+        </ElementMergeDirective>
+        <ElementMergeDirective>
+          <Index>
+            <DomainClassMoniker Name="Comment" />
+          </Index>
+          <LinkCreationPaths>
+            <DomainPath>CommentReferencesEnums.Comments</DomainPath>
+            <DomainPath>ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
       </ElementMergeDirectives>
@@ -916,18 +939,56 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="c1a798b4-85dc-4479-9c35-30f5b15d8aa1" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements" Name="CommentReferencesDesignElements" DisplayName="Comment References Design Elements" Namespace="Sawczyn.EFDesigner.EFModel">
+    <DomainRelationship Id="c1a798b4-85dc-4479-9c35-30f5b15d8aa1" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects" Name="CommentReferencesSubjects" DisplayName="Comment References Subjects" Namespace="Sawczyn.EFDesigner.EFModel">
       <Source>
-        <DomainRole Id="8624f267-1304-43ef-acc4-f0b7d67b2856" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Comment" Name="Comment" DisplayName="Comment" PropertyName="DesignElements" PropertyDisplayName="Design Elements">
+        <DomainRole Id="8624f267-1304-43ef-acc4-f0b7d67b2856" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Comment" Name="Comment" DisplayName="Comment" PropertyName="Subjects" IsPropertyGenerator="false" IsPropertyBrowsable="false" PropertyDisplayName="Subjects">
           <RolePlayer>
             <DomainClassMoniker Name="Comment" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="f2d70cc8-21b0-455b-9841-bee17b5ad5d9" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElement" Name="DesignElement" DisplayName="Design Element" PropertyName="Comments" PropertyDisplayName="Comments">
+        <DomainRole Id="f2d70cc8-21b0-455b-9841-bee17b5ad5d9" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElement" Name="DesignElement" DisplayName="Design Element" PropertyName="Comments" PropertyDisplayName="Comments">
           <RolePlayer>
             <DomainClassMoniker Name="DesignElement" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="cedffe97-5a26-4774-89bf-ea0bda108db2" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses" Name="CommentReferencesClasses" DisplayName="Comment References Classes" Namespace="Sawczyn.EFDesigner.EFModel">
+      <BaseRelationship>
+        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
+      </BaseRelationship>
+      <Source>
+        <DomainRole Id="ebcf4701-c44e-4ec9-8a34-0f8428cac352" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.Comment" Name="Comment" DisplayName="Comment" PropertyName="Classes" IsPropertyBrowsable="false" PropertyDisplayName="Classes">
+          <RolePlayer>
+            <DomainClassMoniker Name="Comment" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="2495fc6d-7420-46b0-8565-21e381828d40" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.ModelClass" Name="ModelClass" DisplayName="Model Class" PropertyName="Comments" IsPropertyGenerator="false" PropertyDisplayName="Comments">
+          <RolePlayer>
+            <DomainClassMoniker Name="ModelClass" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="c2ca35b4-7dc5-4a7d-9a6f-cfd1cc9aedac" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums" Name="CommentReferencesEnums" DisplayName="Comment References Enums" Namespace="Sawczyn.EFDesigner.EFModel">
+      <BaseRelationship>
+        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
+      </BaseRelationship>
+      <Source>
+        <DomainRole Id="ed267b9d-cbe7-4888-9a95-e7519135c76b" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.Comment" Name="Comment" DisplayName="Comment" PropertyName="Enums" IsPropertyBrowsable="false" PropertyDisplayName="Enums">
+          <RolePlayer>
+            <DomainClassMoniker Name="Comment" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="d5ba04cb-a560-4293-bdee-b45b62742864" Description="Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.ModelEnum" Name="ModelEnum" DisplayName="Model Enum" PropertyName="Comments" IsPropertyGenerator="false" PropertyDisplayName="Comments">
+          <RolePlayer>
+            <DomainClassMoniker Name="ModelEnum" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -1181,7 +1242,7 @@
       </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
     </CompartmentShape>
-    <GeometryShape Id="ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f" Description="" Name="CommentBoxShape" DisplayName="Comment Box Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Comment Box Shape" FillColor="255, 255, 204" OutlineColor="204, 204, 102" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="ForwardDiagonal" Geometry="Rectangle">
+    <GeometryShape Id="ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f" Description="" Name="CommentBoxShape" DisplayName="Comment Box Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Comment Box Shape" FillColor="255, 255, 204" OutlineColor="204, 204, 102" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="ForwardDiagonal" Geometry="RoundedRectangle">
       <ShapeHasDecorators Position="Center" HorizontalOffset="0" VerticalOffset="0">
         <TextDecorator Name="Comment" DisplayName="Comment" DefaultText="BusinessRulesShapeNameDecorator" />
       </ShapeHasDecorators>
@@ -1599,9 +1660,18 @@
           <XmlPropertyData XmlName="text">
             <DomainPropertyMoniker Name="Comment/Text" />
           </XmlPropertyData>
-          <XmlRelationshipData UseFullForm="true" RoleElementName="designElements">
-            <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
+          <XmlRelationshipData UseFullForm="true" RoleElementName="subjects">
+            <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
           </XmlRelationshipData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="classes">
+            <DomainRelationshipMoniker Name="CommentReferencesClasses" />
+          </XmlRelationshipData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="enums">
+            <DomainRelationshipMoniker Name="CommentReferencesEnums" />
+          </XmlRelationshipData>
+          <XmlPropertyData XmlName="shortText" Representation="Ignore">
+            <DomainPropertyMoniker Name="Comment/ShortText" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="UnidirectionalAssociation" MonikerAttributeName="" SerializeId="true" MonikerElementName="unidirectionalAssociationMoniker" ElementName="unidirectionalAssociation" MonikerTypeName="UnidirectionalAssociationMoniker">
@@ -1763,8 +1833,14 @@
       <XmlClassData TypeName="DesignElement" MonikerAttributeName="" SerializeId="true" MonikerElementName="designElementMoniker" ElementName="designElement" MonikerTypeName="DesignElementMoniker">
         <DomainClassMoniker Name="DesignElement" />
       </XmlClassData>
-      <XmlClassData TypeName="CommentReferencesDesignElements" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesDesignElementsMoniker" ElementName="commentReferencesDesignElements" MonikerTypeName="CommentReferencesDesignElementsMoniker">
-        <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
+      <XmlClassData TypeName="CommentReferencesSubjects" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesSubjectsMoniker" ElementName="commentReferencesSubjects" MonikerTypeName="CommentReferencesSubjectsMoniker">
+        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
+      </XmlClassData>
+      <XmlClassData TypeName="CommentReferencesClasses" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesClassesMoniker" ElementName="commentReferencesClasses" MonikerTypeName="CommentReferencesClassesMoniker">
+        <DomainRelationshipMoniker Name="CommentReferencesClasses" />
+      </XmlClassData>
+      <XmlClassData TypeName="CommentReferencesEnums" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesEnumsMoniker" ElementName="commentReferencesEnums" MonikerTypeName="CommentReferencesEnumsMoniker">
+        <DomainRelationshipMoniker Name="CommentReferencesEnums" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
@@ -1790,10 +1866,18 @@
           <DomainClassMoniker Name="ModelEnumValue" />
         </Class>
       </ExplorerNodeSettings>
+      <ExplorerNodeSettings IconToDisplay="Resources\CommentTool.bmp">
+        <Class>
+          <DomainClassMoniker Name="Comment" />
+        </Class>
+        <PropertyDisplayed>
+          <PropertyPath>
+            <DomainPropertyMoniker Name="Comment/ShortText" />
+            <DomainPath />
+          </PropertyPath>
+        </PropertyDisplayed>
+      </ExplorerNodeSettings>
     </CustomNodeSettings>
-    <HiddenNodes>
-      <DomainPath>ModelRootHasComments!Comment</DomainPath>
-    </HiddenNodes>
   </ExplorerBehavior>
   <ConnectionBuilders>
     <ConnectionBuilder Name="UnidirectionalAssociationBuilder">
@@ -1853,9 +1937,9 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="CommentReferencesDesignElementsBuilder">
+    <ConnectionBuilder Name="CommentReferencesClassesBuilder">
       <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
+        <DomainRelationshipMoniker Name="CommentReferencesClasses" />
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
@@ -1866,7 +1950,50 @@
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="DesignElement" />
+              <DomainClassMoniker Name="ModelClass" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="CommentReferencesEnumsBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="CommentReferencesEnums" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="Comment" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="ModelEnum" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="CommentReferencesSubjectsBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="Comment" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="ModelClass" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="ModelEnum" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -2063,7 +2190,7 @@
       </ConnectorMap>
       <ConnectorMap>
         <ConnectorMoniker Name="CommentConnector" />
-        <DomainRelationshipMoniker Name="CommentReferencesDesignElements" />
+        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
       </ConnectorMap>
     </ConnectorMaps>
   </Diagram>
@@ -2090,8 +2217,8 @@
       <ElementTool Name="Comment" ToolboxIcon="resources\commenttool.bmp" Caption="Comment" Tooltip="Create a comment on this diagram" HelpKeyword="CommentF1Keyword">
         <DomainClassMoniker Name="Comment" />
       </ElementTool>
-      <ConnectionTool Name="CommentsReferenceDesignElements" ToolboxIcon="resources\commentlinktool.bmp" Caption="Comment Link" Tooltip="Link a comment to an element" HelpKeyword="CommentsReferenceDesignElementsF1Keyword">
-        <ConnectionBuilderMoniker Name="EFModel/CommentReferencesDesignElementsBuilder" />
+      <ConnectionTool Name="CommentLink" ToolboxIcon="resources\commentlinktool.bmp" Caption="Comment Link" Tooltip="Link a comment to an element" HelpKeyword="CommentsReferenceDesignElementsF1Keyword">
+        <ConnectionBuilderMoniker Name="EFModel/CommentReferencesSubjectsBuilder" />
       </ConnectionTool>
       <ElementTool Name="Enumeration" ToolboxIcon="Resources\EnumTool.bmp" Caption="Enum" Tooltip="Creates an enumeration" HelpKeyword="ModelEnumF1Keyword">
         <DomainClassMoniker Name="ModelEnum" />

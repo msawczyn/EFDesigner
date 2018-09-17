@@ -15,7 +15,7 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 {
    // Entities
 
-   foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>())
+   foreach (ModelClass modelClass in modelRoot.Classes)
    {
       string dir = modelClass.IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
       manager.StartNewFile(Path.Combine(dir, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
@@ -46,7 +46,7 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 List<string> GetAdditionalUsingStatementsEF6(ModelRoot modelRoot)
 {
    List<string> result = new List<string>();
-   List<string> attributeTypes = modelRoot.Types.OfType<ModelClass>().SelectMany(c => c.Attributes).Select(a => a.Type).Distinct().ToList();
+   List<string> attributeTypes = modelRoot.Classes.SelectMany(c => c.Attributes).Select(a => a.Type).Distinct().ToList();
 
    if (attributeTypes.Any(t => t.IndexOf("Geometry", StringComparison.Ordinal) > -1 || t.IndexOf("Geography", StringComparison.Ordinal) > -1))
    {
@@ -140,13 +140,13 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    switch (modelRoot.InheritanceStrategy)
    {
       case CodeStrategy.TablePerType:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsDependentType).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerConcreteType:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerHierarchy:
-         classesWithTables = modelRoot.Types.OfType<ModelClass>().Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name);
          break;
    }
 
@@ -154,7 +154,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    {
       Output("#region DbSets");
 
-      foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>().Where(x => !x.IsDependentType).OrderBy(x => x.Name))
+      foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
       {
          string dbSetName;
 
@@ -315,7 +315,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    List<Association> visited = new List<Association>();
    List<string> foreignKeyColumns = new List<string>();
 
-   foreach (ModelClass modelClass in modelRoot.Types.OfType<ModelClass>().OrderBy(x => x.Name))
+   foreach (ModelClass modelClass in modelRoot.Classes.OrderBy(x => x.Name))
    {
       segments.Clear();
       foreignKeyColumns.Clear();

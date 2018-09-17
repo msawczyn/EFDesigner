@@ -4718,6 +4718,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					return true;
 				}
+				
+				if (rootElementDomainInfo.IsDerivedFrom(global::Sawczyn.EFDesigner.EFModel.Comment.DomainClassId)) 
+				{
+					return true;
+				}
 			}
 			return base.CanMerge(rootElement, elementGroupPrototype);
 		}
@@ -4748,6 +4753,21 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				// Create link for path ClassHasAttributes.Attributes
 				this.Attributes.Add(sourceModelAttribute1);
+
+				return;
+			}
+				
+			global::Sawczyn.EFDesigner.EFModel.Comment sourceComment2 = sourceElement as global::Sawczyn.EFDesigner.EFModel.Comment;
+			if (sourceComment2 != null)
+			{
+				// Create link for path CommentReferencesClasses.Comments
+				global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.GetComments((global::Sawczyn.EFDesigner.EFModel.ModelClass)this).Add(sourceComment2);
+
+				// Create link for path ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+						// Segments 0 and 1
+						global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+						if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				commentHost1.Comments.Add(sourceComment2);
 
 				return;
 			}
@@ -4783,6 +4803,31 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
 					link.Delete(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes.ModelClassDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes.AttributeDomainRoleId);
+				}
+
+				return;
+			}
+				
+			global::Sawczyn.EFDesigner.EFModel.Comment sourceComment2 = sourceElement as global::Sawczyn.EFDesigner.EFModel.Comment;
+			if (sourceComment2 != null)
+			{
+				// Delete link for path CommentReferencesClasses.Comments
+				
+				foreach (DslModeling::ElementLink link in global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.GetLinks(sourceComment2, (global::Sawczyn.EFDesigner.EFModel.ModelClass)this))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.ModelClassDomainRoleId, global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.CommentDomainRoleId);
+				}
+
+				// Delete link for path ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+					// Segments 0 and 1
+					global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+					if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasClasses.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				
+				foreach (DslModeling::ElementLink link in global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.GetLinks((global::Sawczyn.EFDesigner.EFModel.ModelRoot)commentHost1, sourceComment2))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.ModelRootDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.CommentDomainRoleId);
 				}
 
 				return;
@@ -7115,6 +7160,72 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ShortText domain property code
+		
+		/// <summary>
+		/// ShortText domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShortTextDomainPropertyId = new global::System.Guid(0xa17c8f41, 0x4a5b, 0x40a1, 0x9f, 0x77, 0x71, 0x34, 0x6c, 0x42, 0x82, 0x07);
+		
+		/// <summary>
+		/// Gets or sets the value of ShortText domain property.
+		/// Truncated Text property for Explorer display
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Comment/ShortText.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Comment/ShortText.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
+		[DslModeling::DomainObjectId("a17c8f41-4a5b-40a1-9f77-71346c428207")]
+		public global::System.String ShortText
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ShortTextPropertyHandler.Instance.GetValue(this);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Comment.ShortText domain property.
+		/// </summary>
+		internal sealed partial class ShortTextPropertyHandler : DslModeling::CalculatedPropertyValueHandler<Comment, global::System.String>
+		{
+			private ShortTextPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Comment.ShortText domain property value handler.
+			/// </summary>
+			public static readonly ShortTextPropertyHandler Instance = new ShortTextPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Comment.ShortText domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShortTextDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(Comment element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for ShortText because its Kind is
+				// set to Calculated. Please provide the GetShortTextValue()
+				// method on the domain class.
+				return element.GetShortTextValue();
+			}
+		
+		}
+		
+		#endregion
 		#region ModelRoot opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelRoot.
@@ -7133,19 +7244,33 @@ namespace Sawczyn.EFDesigner.EFModel
 			}
 		}
 		#endregion
-		#region DesignElements opposite domain role accessor
+		#region Classes opposite domain role accessor
 		
 		/// <summary>
-		/// Gets a list of DesignElements.
-		/// Description for
-		/// Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.Comment
+		/// Gets a list of Classes.
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.Comment
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<DesignElement> DesignElements
+		public virtual DslModeling::LinkedElementCollection<ModelClass> Classes
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<DesignElement>, DesignElement>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.CommentDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesClasses.CommentDomainRoleId);
+			}
+		}
+		#endregion
+		#region Enums opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of Enums.
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.Comment
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<ModelEnum> Enums
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelEnum>, ModelEnum>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.CommentDomainRoleId);
 			}
 		}
 		#endregion
@@ -8122,6 +8247,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					return true;
 				}
+				
+				if (rootElementDomainInfo.IsDerivedFrom(global::Sawczyn.EFDesigner.EFModel.Comment.DomainClassId)) 
+				{
+					return true;
+				}
 			}
 			return base.CanMerge(rootElement, elementGroupPrototype);
 		}
@@ -8152,6 +8282,21 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				// Create link for path ModelEnumHasValues.Values
 				this.Values.Add(sourceModelEnumValue1);
+
+				return;
+			}
+				
+			global::Sawczyn.EFDesigner.EFModel.Comment sourceComment2 = sourceElement as global::Sawczyn.EFDesigner.EFModel.Comment;
+			if (sourceComment2 != null)
+			{
+				// Create link for path CommentReferencesEnums.Comments
+				global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.GetComments((global::Sawczyn.EFDesigner.EFModel.ModelEnum)this).Add(sourceComment2);
+
+				// Create link for path ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+						// Segments 0 and 1
+						global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+						if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				commentHost1.Comments.Add(sourceComment2);
 
 				return;
 			}
@@ -8187,6 +8332,31 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
 					link.Delete(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues.EnumDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues.ValueDomainRoleId);
+				}
+
+				return;
+			}
+				
+			global::Sawczyn.EFDesigner.EFModel.Comment sourceComment2 = sourceElement as global::Sawczyn.EFDesigner.EFModel.Comment;
+			if (sourceComment2 != null)
+			{
+				// Delete link for path CommentReferencesEnums.Comments
+				
+				foreach (DslModeling::ElementLink link in global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.GetLinks(sourceComment2, (global::Sawczyn.EFDesigner.EFModel.ModelEnum)this))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.ModelEnumDomainRoleId, global::Sawczyn.EFDesigner.EFModel.CommentReferencesEnums.CommentDomainRoleId);
+				}
+
+				// Delete link for path ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments
+					// Segments 0 and 1
+					global::Sawczyn.EFDesigner.EFModel.ModelRoot commentHost1 = this.ModelRoot;
+					if ( commentHost1 == null ) throw new global::System.InvalidOperationException("Null encountered while traversing path 'ModelRootHasEnums.ModelRoot/!ModelRoot/ModelRootHasComments.Comments'.");
+				
+				foreach (DslModeling::ElementLink link in global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.GetLinks((global::Sawczyn.EFDesigner.EFModel.ModelRoot)commentHost1, sourceComment2))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.ModelRootDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.CommentDomainRoleId);
 				}
 
 				return;
@@ -8648,14 +8818,14 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Gets a list of Comments.
 		/// Description for
-		/// Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElement
+		/// Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElement
 		/// </summary>
 		public virtual DslModeling::LinkedElementCollection<Comment> Comments
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesDesignElements.DesignElementDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElementDomainRoleId);
 			}
 		}
 		#endregion

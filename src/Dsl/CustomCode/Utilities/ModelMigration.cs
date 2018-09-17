@@ -22,9 +22,6 @@ namespace Sawczyn.EFDesigner.EFModel
             // Looking for:
             // modelRoot
             //    types [change to classes]
-            //    enums
-            //       modelRootHasEnums [remove]
-            //          modelEnum [move to enums]
 
             stream.Seek(0, SeekOrigin.Begin);
             XDocument doc = XDocument.Load(stream);
@@ -37,22 +34,22 @@ namespace Sawczyn.EFDesigner.EFModel
                types.Name = "classes";
             }
 
-            XElement enums = elements.FirstOrDefault(e => e.Name.LocalName == "enums");
+            //XElement enums = elements.FirstOrDefault(e => e.Name.LocalName == "enums");
 
-            if (enums != null)
-            {
-               List<XElement> modelRootHasEnums = enums.Elements().Where(e => e.Name.LocalName == "modelRootHasEnums").ToList();
+            //if (enums != null)
+            //{
+            //   List<XElement> modelRootHasEnums = enums.Elements().Where(e => e.Name.LocalName == "modelRootHasEnums").ToList();
 
-               foreach (XElement wrapper in modelRootHasEnums)
-               {
-                  XElement modelEnum = wrapper.Elements().FirstOrDefault(e => e.Name.LocalName == "modelEnum");
-                  modelEnum.Remove();
-                  enums.Add(modelEnum);
-                  wrapper.Remove();
-               }
-            }
+            //   foreach (XElement wrapper in modelRootHasEnums)
+            //   {
+            //      XElement modelEnum = wrapper.Elements().FirstOrDefault(e => e.Name.LocalName == "modelEnum");
+            //      modelEnum.Remove();
+            //      enums.Add(modelEnum);
+            //      wrapper.Remove();
+            //   }
+            //}
 
-            if (types != null || enums != null)
+            if (types != null)
             {
                MemoryStream memoryStream = new MemoryStream();
                doc.Save(memoryStream);

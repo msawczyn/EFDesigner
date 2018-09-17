@@ -4,6 +4,9 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor
+//     https://github.com/msawczyn/EFDesigner
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -18,14 +21,14 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity3
+   public partial class Entity1
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Entity3()
+      public Entity1()
       {
          Init();
       }
