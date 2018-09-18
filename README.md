@@ -43,19 +43,25 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.6.5***
+***1.2.6.6***
+   - Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
+**1.2.6.5**
    - Comment elements now wrap the text
    - Multiline editor available in property window for element comment descriptions and Comment element text
    - Xml format changed for .efmodel file - can't be loaded by any version < 1.2.6.3
    - Support for automatic migration to new model xml formats
 
-**1.2.6.2**
+<details>
+<summary><b>1.2.6.2</b></summary>
+
    - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
    - Enabled drag and drop reordering of enum values and class properties
    - Gave some color to the enum value glyph in the model explorer - it was so boring!
    - Class properties and enum values with warnings now show a warning icon on the design surface
    - Design surface has a property to turn on or off the display of the warning icons 
    - Recategorized a few "Misc" properties on the design surface
+
+</details>
 
 <details>
 <summary><b>1.2.5.1</b></summary>

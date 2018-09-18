@@ -23,6 +23,9 @@ collapsed, it may be expanded back to its original size by clicking the chevron 
 
 To remove an entity, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
 
+If that entity is the superclass (base class) for other entities, you'll be asked if you want to push its
+attributes and associations down to those other entities prior to its removal.
+
 ## Entity Properties
 
 Selecting the entity allows you to edit its various properties:

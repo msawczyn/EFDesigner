@@ -24,6 +24,9 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.6**
+   - Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
+
 **1.2.6.5**
    - Comment elements now wrap the text
    - Multiline editor available in property window for element comment descriptions and Comment element text

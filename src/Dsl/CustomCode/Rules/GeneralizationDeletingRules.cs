@@ -19,6 +19,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
+         if (element.Superclass.IsDeleting)
+            return;
+
          ModelClass superclass = element.Superclass;
          ModelClass subclass = element.Subclass;
          List<Association> associations = store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source == superclass || a.Target == superclass).ToList();

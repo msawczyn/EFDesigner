@@ -12,13 +12,26 @@ namespace Sawczyn.EFDesigner.EFModel
 
          using (Transaction transaction = store.TransactionManager.BeginTransaction("PushDown"))
          {
-            List<Association> associations = store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source == superclass || a.Target == superclass).ToList();
+            List<ModelAttribute> newAttributes = superclass.AllAttributes
+                                                           .Select(modelAttribute => (ModelAttribute)modelAttribute.Copy(new[]
+                                                                                                                         {
+                                                                                                                            ClassHasAttributes.AttributeDomainRoleId
+                                                                                                                         }))
+                                                           .Distinct()
+                                                           .ToList();
 
-            foreach (ModelAttribute modelAttribute in superclass.AllAttributes.Select(x => (ModelAttribute)x.Copy()))
+            foreach (ModelAttribute newAttribute in newAttributes)
+               newAttribute.ModelClass = subclass;
+
+            List<Association> associations = new List<Association>(); 
+            ModelClass src = superclass;
+            while (src != null)
             {
-               modelAttribute.ModelClass = null;
-               subclass.Attributes.Add(modelAttribute);
+               associations.AddRange(store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source == src || a.Target == src));
+               src = src.Superclass;
             }
+
+            associations = associations.Distinct().ToList();
 
             foreach (UnidirectionalAssociation association in associations.OfType<UnidirectionalAssociation>())
             {
