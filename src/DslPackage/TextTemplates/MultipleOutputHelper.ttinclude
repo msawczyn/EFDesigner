@@ -9,7 +9,7 @@
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
 
-// EFDesigner v1.2.6.6
+// EFDesigner v1.2.6.7
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 //

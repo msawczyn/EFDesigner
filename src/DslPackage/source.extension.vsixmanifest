@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="56bbe1ba-aaee-4883-848f-e3c8656f8db2" Version="1.2.6.6" Language="en-US" Publisher="Michael Sawczyn" />
+    <Identity Id="56bbe1ba-aaee-4883-848f-e3c8656f8db2" Version="1.2.6.7" Language="en-US" Publisher="Michael Sawczyn" />
     <DisplayName>Entity Framework Visual Editor</DisplayName>
     <Description>Entity Framework visual editor for EF6, EFCore and beyond.</Description>
     <Icon>Logo.ico</Icon>

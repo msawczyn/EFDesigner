@@ -1,3 +1,6 @@
+1.2.6.7
+   - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24).
+
 1.2.6.6
    - Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
 

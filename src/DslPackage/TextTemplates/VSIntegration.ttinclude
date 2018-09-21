@@ -10,7 +10,7 @@
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
 
-  // EFDesigner v1.2.6.6
+  // EFDesigner v1.2.6.7
   // https://github.com/msawczyn/EFDesigner
 
   // this bit is thanks to Simon Hughes and his EntityFramework Reverse POCO Code First Generator
