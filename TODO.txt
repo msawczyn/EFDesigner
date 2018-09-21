@@ -13,7 +13,7 @@ DSL: Add bool Enhanced Cascade Delete
 T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
 
 
-
+Next release (v1.2.6.7+)
 
 -------------------------------------------------------------
 Cascade Delete fixes
@@ -23,4 +23,14 @@ Cascade Delete fixes
    - Property editor should only show cascade delete options on the principal entity
    - Update documentation to discuss cascade deletion propagating from principal to dependents ONLY
      reference https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete and http://www.entityframeworktutorial.net/code-first/cascade-delete-in-code-first.aspx
+
+-------------------------------------------------------------
+Concurrency Token fixes
+-------------------------------------------------------------
+   - Getter and Setter visibility not public for concurrency token property
+
+-------------------------------------------------------------
+Misc
+-------------------------------------------------------------
+   - Property editor multiline attribute doesn't seem to be working
 
