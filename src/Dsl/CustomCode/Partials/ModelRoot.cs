@@ -25,6 +25,10 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      // backward compatibility
+      public LinkedElementCollection<ModelClass> Types => Classes;
+
+
       #region Nuget
 
       public NuGetDisplay NuGetPackageVersion

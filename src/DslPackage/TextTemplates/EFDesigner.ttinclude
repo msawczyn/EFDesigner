@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.5.1
+// EFDesigner v1.2.6.6
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -503,7 +503,7 @@ void WritePersistentProperties(ModelClass modelClass)
 
    foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent))
    {
-      segments.Clear();
+	   segments.Clear();
 
       if (modelAttribute.IsIdentity)
          segments.Add("Identity");
@@ -523,12 +523,13 @@ void WritePersistentProperties(ModelClass modelClass)
 
       string nullable = IsNullable(modelAttribute) ? "?" : "";
 
-      if (!modelAttribute.AutoProperty)
+      if (!modelAttribute.AutoProperty && !modelAttribute.IsConcurrencyToken)
       {
          GenerateClassAnnotations(modelAttribute, "_");
          Output($"protected {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
          Output($"partial void Set{modelAttribute.Name}({modelAttribute.FQPrimitiveType}{nullable} oldValue, ref {modelAttribute.FQPrimitiveType}{nullable} newValue);");
          Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.FQPrimitiveType}{nullable} result);");
+
          NL();
       }
 
@@ -548,9 +549,11 @@ void WritePersistentProperties(ModelClass modelClass)
          Output("/// </remarks>");
       }
 
-      string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
+      string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : 
+                                modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : 
+                                "";
 
-      if (modelAttribute.AutoProperty)
+      if (modelAttribute.AutoProperty || modelAttribute.IsConcurrencyToken)
       {
          GenerateClassAnnotations(modelAttribute);
          Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
@@ -558,12 +561,17 @@ void WritePersistentProperties(ModelClass modelClass)
       else
       {
          string notifyCode = (modelClass.ImplementNotify) ? " OnPropertyChanged();" : "";
+
          Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name}");
          Output("{");
          Output($"get {{ {modelAttribute.FQPrimitiveType}{nullable} value = _{modelAttribute.Name}; Get{modelAttribute.Name}(ref value); return (_{modelAttribute.Name} = value); }}");
          Output($"{setterVisibility}set {{ {modelAttribute.FQPrimitiveType}{nullable} oldValue = _{modelAttribute.Name}; Set{modelAttribute.Name}(oldValue, ref value); _{modelAttribute.Name} = value; {notifyCode} }}");
+         //Output($"{setterVisibility}set {{if (_{modelAttribute.Name} != value) {{{modelAttribute.FQPrimitiveType}{nullable} old{modelAttribute.Name}=_{modelAttribute.Name}; {modelAttribute.Name}Changing(old{modelAttribute.Name}, value);  _{modelAttribute.Name} = value;OnPropertyChanged(nameof({modelAttribute.Name})); {modelAttribute.Name}Changed(old{modelAttribute.Name}, value);}}}}");
          Output("}");
-      }
+      
+	     Output($"partial void {modelAttribute.Name}Changing({modelAttribute.FQPrimitiveType}{nullable} old{modelAttribute.Name}, ref {modelAttribute.FQPrimitiveType}{nullable} new{modelAttribute.Name});");
+	     Output($"partial void {modelAttribute.Name}Changed({modelAttribute.FQPrimitiveType}{nullable} old{modelAttribute.Name}, {modelAttribute.FQPrimitiveType}{nullable} new{modelAttribute.Name});");
+	  }
 
       NL();
    }
