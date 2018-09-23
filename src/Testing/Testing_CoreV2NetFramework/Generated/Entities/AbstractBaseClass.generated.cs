@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public abstract partial class AbstractBaseClass : BaseClassWithRequiredProperties
+   public abstract partial class AbstractBaseClass : Testing.BaseClassWithRequiredProperties
    {
       partial void Init();
 

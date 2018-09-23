@@ -27,7 +27,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected Child()
       {
-         Children = new System.Collections.Generic.HashSet<Child>();
+         Children = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.Child>();
 
          Init();
       }
@@ -37,7 +37,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       /// <param name="_parent"></param>
       /// <param name="_master0"></param>
-      public Child(Child _parent, Master _master0)
+      public Child(Testing_CoreV2NetCore.Child _parent, Testing_CoreV2NetCore.Master _master0)
       {
          if (_parent == null) throw new ArgumentNullException(nameof(_parent));
          Parent = _parent;
@@ -45,7 +45,7 @@ namespace Testing_CoreV2NetCore
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         Children = new HashSet<Child>();
+         Children = new HashSet<Testing_CoreV2NetCore.Child>();
          Init();
       }
 
@@ -54,7 +54,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       /// <param name="_parent"></param>
       /// <param name="_master0"></param>
-      public static Child Create(Child _parent, Master _master0)
+      public static Child Create(Testing_CoreV2NetCore.Child _parent, Testing_CoreV2NetCore.Master _master0)
       {
          return new Child(_parent, _master0);
       }
@@ -70,11 +70,11 @@ namespace Testing_CoreV2NetCore
 
       // Persistent navigation properties
 
-      public virtual ICollection<Child> Children { get; set; } 
+      public virtual ICollection<Testing_CoreV2NetCore.Child> Children { get; set; } 
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual Child Parent { get; set; }  // Required
+      public virtual Testing_CoreV2NetCore.Child Parent { get; set; }  // Required
    }
 }
 

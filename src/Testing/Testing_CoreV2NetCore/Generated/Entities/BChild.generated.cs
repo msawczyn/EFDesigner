@@ -27,8 +27,8 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected BChild()
       {
-         BParentCollection = new System.Collections.Generic.HashSet<BParentCollection>();
-         BParentCollection_2 = new System.Collections.Generic.HashSet<BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
 
          Init();
       }
@@ -39,7 +39,7 @@ namespace Testing_CoreV2NetCore
       /// <param name="_bparentrequired"></param>
       /// <param name="_bparentrequired_1"></param>
       /// <param name="_bparentrequired_2"></param>
-      public BChild(BParentRequired _bparentrequired, BParentRequired _bparentrequired_1, BParentRequired _bparentrequired_2)
+      public BChild(Testing_CoreV2NetCore.BParentRequired _bparentrequired, Testing_CoreV2NetCore.BParentRequired _bparentrequired_1, Testing_CoreV2NetCore.BParentRequired _bparentrequired_2)
       {
          if (_bparentrequired == null) throw new ArgumentNullException(nameof(_bparentrequired));
          BParentRequired = _bparentrequired;
@@ -50,8 +50,8 @@ namespace Testing_CoreV2NetCore
          if (_bparentrequired_2 == null) throw new ArgumentNullException(nameof(_bparentrequired_2));
          BParentRequired_2 = _bparentrequired_2;
 
-         BParentCollection = new HashSet<BParentCollection>();
-         BParentCollection_2 = new HashSet<BParentCollection>();
+         BParentCollection = new HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         BParentCollection_2 = new HashSet<Testing_CoreV2NetCore.BParentCollection>();
          Init();
       }
 
@@ -61,7 +61,7 @@ namespace Testing_CoreV2NetCore
       /// <param name="_bparentrequired"></param>
       /// <param name="_bparentrequired_1"></param>
       /// <param name="_bparentrequired_2"></param>
-      public static BChild Create(BParentRequired _bparentrequired, BParentRequired _bparentrequired_1, BParentRequired _bparentrequired_2)
+      public static BChild Create(Testing_CoreV2NetCore.BParentRequired _bparentrequired, Testing_CoreV2NetCore.BParentRequired _bparentrequired_1, Testing_CoreV2NetCore.BParentRequired _bparentrequired_2)
       {
          return new BChild(_bparentrequired, _bparentrequired_1, _bparentrequired_2);
       }
@@ -80,20 +80,20 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BParentRequired BParentRequired { get; set; }  // Required
+      public virtual Testing_CoreV2NetCore.BParentRequired BParentRequired { get; set; }  // Required
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BParentRequired BParentRequired_1 { get; set; }  // Required
+      public virtual Testing_CoreV2NetCore.BParentRequired BParentRequired_1 { get; set; }  // Required
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BParentRequired BParentRequired_2 { get; set; }  // Required
-      public virtual ICollection<BParentCollection> BParentCollection { get; set; } 
-      public virtual ICollection<BParentCollection> BParentCollection_2 { get; set; } 
-      public virtual BParentOptional BParentOptional { get; set; } 
-      public virtual BParentOptional BParentOptional_1 { get; set; } 
-      public virtual BParentOptional BParentOptional_2 { get; set; } 
+      public virtual Testing_CoreV2NetCore.BParentRequired BParentRequired_2 { get; set; }  // Required
+      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection { get; set; } 
+      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection_2 { get; set; } 
+      public virtual Testing_CoreV2NetCore.BParentOptional BParentOptional { get; set; } 
+      public virtual Testing_CoreV2NetCore.BParentOptional BParentOptional_1 { get; set; } 
+      public virtual Testing_CoreV2NetCore.BParentOptional BParentOptional_2 { get; set; } 
    }
 }
 

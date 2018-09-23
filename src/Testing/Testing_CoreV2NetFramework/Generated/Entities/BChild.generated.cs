@@ -27,9 +27,9 @@ namespace Testing
       /// </summary>
       protected BChild()
       {
-         BParentCollection = new System.Collections.Generic.HashSet<BParentCollection>();
-         BParentCollection_1 = new System.Collections.Generic.HashSet<BParentCollection>();
-         BParentCollection_2 = new System.Collections.Generic.HashSet<BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
+         BParentCollection_1 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
 
          Init();
       }
@@ -40,7 +40,7 @@ namespace Testing
       /// <param name="_bparentrequired"></param>
       /// <param name="_bparentrequired_1"></param>
       /// <param name="_bparentrequired_2"></param>
-      public BChild(BParentRequired _bparentrequired, BParentRequired _bparentrequired_1, BParentRequired _bparentrequired_2)
+      public BChild(Testing.BParentRequired _bparentrequired, Testing.BParentRequired _bparentrequired_1, Testing.BParentRequired _bparentrequired_2)
       {
          if (_bparentrequired == null) throw new ArgumentNullException(nameof(_bparentrequired));
          BParentRequired = _bparentrequired;
@@ -51,9 +51,9 @@ namespace Testing
          if (_bparentrequired_2 == null) throw new ArgumentNullException(nameof(_bparentrequired_2));
          BParentRequired_2 = _bparentrequired_2;
 
-         BParentCollection = new HashSet<BParentCollection>();
-         BParentCollection_1 = new HashSet<BParentCollection>();
-         BParentCollection_2 = new HashSet<BParentCollection>();
+         BParentCollection = new HashSet<Testing.BParentCollection>();
+         BParentCollection_1 = new HashSet<Testing.BParentCollection>();
+         BParentCollection_2 = new HashSet<Testing.BParentCollection>();
          Init();
       }
 
@@ -63,7 +63,7 @@ namespace Testing
       /// <param name="_bparentrequired"></param>
       /// <param name="_bparentrequired_1"></param>
       /// <param name="_bparentrequired_2"></param>
-      public static BChild Create(BParentRequired _bparentrequired, BParentRequired _bparentrequired_1, BParentRequired _bparentrequired_2)
+      public static BChild Create(Testing.BParentRequired _bparentrequired, Testing.BParentRequired _bparentrequired_1, Testing.BParentRequired _bparentrequired_2)
       {
          return new BChild(_bparentrequired, _bparentrequired_1, _bparentrequired_2);
       }
@@ -82,21 +82,21 @@ namespace Testing
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BParentRequired BParentRequired { get; set; }  // Required
+      public virtual Testing.BParentRequired BParentRequired { get; set; }  // Required
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BParentRequired BParentRequired_1 { get; set; }  // Required
+      public virtual Testing.BParentRequired BParentRequired_1 { get; set; }  // Required
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BParentRequired BParentRequired_2 { get; set; }  // Required
-      public virtual ICollection<BParentCollection> BParentCollection { get; set; } 
-      public virtual ICollection<BParentCollection> BParentCollection_1 { get; set; } 
-      public virtual ICollection<BParentCollection> BParentCollection_2 { get; set; } 
-      public virtual BParentOptional BParentOptional { get; set; } 
-      public virtual BParentOptional BParentOptional_1 { get; set; } 
-      public virtual BParentOptional BParentOptional_2 { get; set; } 
+      public virtual Testing.BParentRequired BParentRequired_2 { get; set; }  // Required
+      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; set; } 
+      public virtual ICollection<Testing.BParentCollection> BParentCollection_1 { get; set; } 
+      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; set; } 
+      public virtual Testing.BParentOptional BParentOptional { get; set; } 
+      public virtual Testing.BParentOptional BParentOptional_1 { get; set; } 
+      public virtual Testing.BParentOptional BParentOptional_2 { get; set; } 
    }
 }
 

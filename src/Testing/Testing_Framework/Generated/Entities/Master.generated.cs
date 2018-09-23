@@ -28,7 +28,7 @@ namespace Testing
       /// </summary>
       public Master()
       {
-         Children = new System.Collections.ObjectModel.ObservableCollection<Child>();
+         Children = new System.Collections.ObjectModel.ObservableCollection<Testing.Child>();
 
          Init();
       }
@@ -44,7 +44,7 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual ICollection<Child> Children { get; set; } 
+      public virtual ICollection<Testing.Child> Children { get; set; } 
    }
 }
 

@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing_CoreV2NetCore
 {
-   public partial class ConcreteDerivedClass : AbstractBaseClass
+   public partial class ConcreteDerivedClass : Testing_CoreV2NetCore.AbstractBaseClass
    {
       partial void Init();
 

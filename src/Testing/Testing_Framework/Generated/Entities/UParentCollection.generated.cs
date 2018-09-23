@@ -28,7 +28,7 @@ namespace Testing
       /// </summary>
       protected UParentCollection()
       {
-         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<UChild>();
+         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.UChild>();
 
          Init();
       }
@@ -37,12 +37,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public UParentCollection(UChild _uchildrequired)
+      public UParentCollection(Testing.UChild _uchildrequired)
       {
          if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
          UChildRequired = _uchildrequired;
 
-         UChildCollection = new ObservableCollection<UChild>();
+         UChildCollection = new ObservableCollection<Testing.UChild>();
          Init();
       }
 
@@ -50,7 +50,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public static UParentCollection Create(UChild _uchildrequired)
+      public static UParentCollection Create(Testing.UChild _uchildrequired)
       {
          return new UParentCollection(_uchildrequired);
       }
@@ -69,9 +69,9 @@ namespace Testing
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildOptional { get; set; } 
+      public virtual Testing.UChild UChildRequired { get; set; }  // Required
+      public virtual ICollection<Testing.UChild> UChildCollection { get; set; } 
+      public virtual Testing.UChild UChildOptional { get; set; } 
    }
 }
 

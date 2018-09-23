@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing_CoreV2NetCore
 {
-   public abstract partial class AbstractBaseClass : BaseClassWithRequiredProperties
+   public abstract partial class AbstractBaseClass : Testing_CoreV2NetCore.BaseClassWithRequiredProperties
    {
       partial void Init();
 

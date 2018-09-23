@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       public Master()
       {
-         Children = new System.Collections.Generic.HashSet<Child>();
+         Children = new System.Collections.Generic.HashSet<Testing.Child>();
 
          Init();
       }
@@ -43,7 +43,7 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual ICollection<Child> Children { get; set; } 
+      public virtual ICollection<Testing.Child> Children { get; set; } 
    }
 }
 

@@ -27,7 +27,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       public Master()
       {
-         Children = new System.Collections.Generic.HashSet<Child>();
+         Children = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.Child>();
 
          Init();
       }
@@ -43,7 +43,7 @@ namespace Testing_CoreV2NetCore
 
       // Persistent navigation properties
 
-      public virtual ICollection<Child> Children { get; set; } 
+      public virtual ICollection<Testing_CoreV2NetCore.Child> Children { get; set; } 
    }
 }
 

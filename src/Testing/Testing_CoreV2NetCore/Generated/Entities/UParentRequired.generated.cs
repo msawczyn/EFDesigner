@@ -27,7 +27,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected UParentRequired()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.UChild>();
 
          Init();
       }
@@ -36,12 +36,12 @@ namespace Testing_CoreV2NetCore
       /// Public constructor with required data
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public UParentRequired(UChild _uchildrequired)
+      public UParentRequired(Testing_CoreV2NetCore.UChild _uchildrequired)
       {
          if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
          UChildRequired = _uchildrequired;
 
-         UChildCollection = new HashSet<UChild>();
+         UChildCollection = new HashSet<Testing_CoreV2NetCore.UChild>();
          Init();
       }
 
@@ -49,7 +49,7 @@ namespace Testing_CoreV2NetCore
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public static UParentRequired Create(UChild _uchildrequired)
+      public static UParentRequired Create(Testing_CoreV2NetCore.UChild _uchildrequired)
       {
          return new UParentRequired(_uchildrequired);
       }
@@ -68,9 +68,9 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildOptional { get; set; } 
+      public virtual Testing_CoreV2NetCore.UChild UChildRequired { get; set; }  // Required
+      public virtual ICollection<Testing_CoreV2NetCore.UChild> UChildCollection { get; set; } 
+      public virtual Testing_CoreV2NetCore.UChild UChildOptional { get; set; } 
    }
 }
 

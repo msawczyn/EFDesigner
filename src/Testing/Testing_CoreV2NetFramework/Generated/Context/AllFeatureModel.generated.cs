@@ -15,8 +15,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Testing
 {
+   /// <inheritdoc/>
    public partial class AllFeatureModel : Microsoft.EntityFrameworkCore.DbContext
    {
+      #region DbSets
       public Microsoft.EntityFrameworkCore.DbSet<Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
@@ -38,19 +40,26 @@ namespace Testing
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentOptional> UParentOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
+      #endregion DbSets
 
+      /// <summary>
+      /// Default connection string
+      /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
 
+      /// <inheritdoc />
       public AllFeatureModel() : base()
       {
       }
 
+      /// <inheritdoc />
       public AllFeatureModel(DbContextOptions<AllFeatureModel> options) : base(options)
       {
       }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
 
+      /// <inheritdoc />
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
          CustomInit(optionsBuilder);
@@ -59,6 +68,7 @@ namespace Testing
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
+      /// <inheritdoc />
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);

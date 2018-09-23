@@ -28,7 +28,7 @@ namespace Testing
       /// </summary>
       protected BParentOptional()
       {
-         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<BChild>();
+         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BChild>();
 
          Init();
       }
@@ -37,12 +37,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public BParentOptional(BChild _bchildrequired)
+      public BParentOptional(Testing.BChild _bchildrequired)
       {
          if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
          BChildRequired = _bchildrequired;
 
-         BChildCollection = new ObservableCollection<BChild>();
+         BChildCollection = new ObservableCollection<Testing.BChild>();
          Init();
       }
 
@@ -50,7 +50,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public static BParentOptional Create(BChild _bchildrequired)
+      public static BParentOptional Create(Testing.BChild _bchildrequired)
       {
          return new BParentOptional(_bchildrequired);
       }
@@ -69,9 +69,9 @@ namespace Testing
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BChild BChildRequired { get; set; }  // Required
-      public virtual ICollection<BChild> BChildCollection { get; set; } 
-      public virtual BChild BChildOptional { get; set; } 
+      public virtual Testing.BChild BChildRequired { get; set; }  // Required
+      public virtual ICollection<Testing.BChild> BChildCollection { get; set; } 
+      public virtual Testing.BChild BChildOptional { get; set; } 
    }
 }
 

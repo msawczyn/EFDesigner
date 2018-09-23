@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected BParentCollection()
       {
-         BChildCollection = new System.Collections.Generic.HashSet<BChild>();
+         BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
 
          Init();
       }
@@ -36,12 +36,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public BParentCollection(BChild _bchildrequired)
+      public BParentCollection(Testing.BChild _bchildrequired)
       {
          if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
          BChildRequired = _bchildrequired;
 
-         BChildCollection = new HashSet<BChild>();
+         BChildCollection = new HashSet<Testing.BChild>();
          Init();
       }
 
@@ -49,7 +49,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public static BParentCollection Create(BChild _bchildrequired)
+      public static BParentCollection Create(Testing.BChild _bchildrequired)
       {
          return new BParentCollection(_bchildrequired);
       }
@@ -68,9 +68,9 @@ namespace Testing
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BChild BChildRequired { get; set; }  // Required
-      public virtual ICollection<BChild> BChildCollection { get; set; } 
-      public virtual BChild BChildOptional { get; set; } 
+      public virtual Testing.BChild BChildRequired { get; set; }  // Required
+      public virtual ICollection<Testing.BChild> BChildCollection { get; set; } 
+      public virtual Testing.BChild BChildOptional { get; set; } 
    }
 }
 

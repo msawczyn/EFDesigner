@@ -34,7 +34,7 @@ namespace Testing_CoreV2NetCore
       /// Public constructor with required data
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public BParentCollection(BChild _bchildrequired)
+      public BParentCollection(Testing_CoreV2NetCore.BChild _bchildrequired)
       {
          if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
          BChildRequired = _bchildrequired;
@@ -46,7 +46,7 @@ namespace Testing_CoreV2NetCore
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public static BParentCollection Create(BChild _bchildrequired)
+      public static BParentCollection Create(Testing_CoreV2NetCore.BChild _bchildrequired)
       {
          return new BParentCollection(_bchildrequired);
       }
@@ -65,8 +65,8 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BChild BChildRequired { get; set; }  // Required
-      public virtual BChild BChildOptional { get; set; } 
+      public virtual Testing_CoreV2NetCore.BChild BChildRequired { get; set; }  // Required
+      public virtual Testing_CoreV2NetCore.BChild BChildOptional { get; set; } 
    }
 }
 

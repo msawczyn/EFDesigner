@@ -27,7 +27,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected BParentRequired()
       {
-         BChildCollection = new System.Collections.Generic.HashSet<BChild>();
+         BChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BChild>();
 
          Init();
       }
@@ -36,12 +36,12 @@ namespace Testing_CoreV2NetCore
       /// Public constructor with required data
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public BParentRequired(BChild _bchildrequired)
+      public BParentRequired(Testing_CoreV2NetCore.BChild _bchildrequired)
       {
          if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
          BChildRequired = _bchildrequired;
 
-         BChildCollection = new HashSet<BChild>();
+         BChildCollection = new HashSet<Testing_CoreV2NetCore.BChild>();
          Init();
       }
 
@@ -49,7 +49,7 @@ namespace Testing_CoreV2NetCore
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_bchildrequired"></param>
-      public static BParentRequired Create(BChild _bchildrequired)
+      public static BParentRequired Create(Testing_CoreV2NetCore.BChild _bchildrequired)
       {
          return new BParentRequired(_bchildrequired);
       }
@@ -65,12 +65,12 @@ namespace Testing_CoreV2NetCore
 
       // Persistent navigation properties
 
-      public virtual BChild BChildOptional { get; set; } 
+      public virtual Testing_CoreV2NetCore.BChild BChildOptional { get; set; } 
       /// <summary>
       ///  // Required
       /// </summary>
-      public virtual BChild BChildRequired { get; set; }  // Required
-      public virtual ICollection<BChild> BChildCollection { get; set; } 
+      public virtual Testing_CoreV2NetCore.BChild BChildRequired { get; set; }  // Required
+      public virtual ICollection<Testing_CoreV2NetCore.BChild> BChildCollection { get; set; } 
    }
 }
 
