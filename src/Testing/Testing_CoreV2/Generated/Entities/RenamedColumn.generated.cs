@@ -32,8 +32,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Key]
-      [Required]
       protected int _Id;
       partial void SetId(int oldValue, ref int newValue);
       partial void GetId(ref int result);
@@ -41,13 +39,29 @@ namespace Testing
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
+      [Key]
+      [Required]
       public int Id
       {
-         get { int value = _Id; GetId(ref value); return (_Id = value); }
-         set { int oldValue = _Id; SetId(oldValue, ref value); _Id = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public virtual event PropertyChangedEventHandler PropertyChanged;
 
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {

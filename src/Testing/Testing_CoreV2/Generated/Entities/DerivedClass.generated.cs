@@ -58,8 +58,22 @@ namespace Testing
 
       public string Property1
       {
-         get { string value = _Property1; GetProperty1(ref value); return (_Property1 = value); }
-         set { string oldValue = _Property1; SetProperty1(oldValue, ref value); _Property1 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _Property1;
+            GetProperty1(ref value);
+            return (_Property1 = value);
+         }
+         set
+         {
+            string oldValue = _Property1;
+            SetProperty1(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Property1 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected string _PropertyInChild;
@@ -68,13 +82,27 @@ namespace Testing
 
       public string PropertyInChild
       {
-         get { string value = _PropertyInChild; GetPropertyInChild(ref value); return (_PropertyInChild = value); }
-         set { string oldValue = _PropertyInChild; SetPropertyInChild(oldValue, ref value); _PropertyInChild = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _PropertyInChild;
+            GetPropertyInChild(ref value);
+            return (_PropertyInChild = value);
+         }
+         set
+         {
+            string oldValue = _PropertyInChild;
+            SetPropertyInChild(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _PropertyInChild = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public override event PropertyChangedEventHandler PropertyChanged;
 
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }

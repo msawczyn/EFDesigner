@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public partial class ConcreteDerivedClassWithRequiredProperties : AbstractBaseClass
+   public partial class ConcreteDerivedClassWithRequiredProperties : Testing.AbstractBaseClass
    {
       partial void Init();
 

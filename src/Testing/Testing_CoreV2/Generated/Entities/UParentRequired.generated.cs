@@ -56,8 +56,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Key]
-      [Required]
       protected int _Id;
       partial void SetId(int oldValue, ref int newValue);
       partial void GetId(ref int result);
@@ -65,21 +63,84 @@ namespace Testing
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
+      [Key]
+      [Required]
       public int Id
       {
-         get { int value = _Id; GetId(ref value); return (_Id = value); }
-         set { int oldValue = _Id; SetId(oldValue, ref value); _Id = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       // Persistent navigation properties
 
+      protected Testing.UChild _UChildRequired;
+      partial void SetUChildRequired(Testing.UChild oldValue, ref Testing.UChild newValue);
+      partial void GetUChildRequired(ref Testing.UChild result);
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual Testing.UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<Testing.UChild> UChildCollection { get; set; } 
-      public virtual Testing.UChild UChildOptional { get; set; } 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public Testing.UChild UChildRequired
+      {
+         get
+         {
+            Testing.UChild value = _UChildRequired;
+            GetUChildRequired(ref value);
+            return (_UChildRequired = value);
+         }
+         set
+         {
+            Testing.UChild oldValue = _UChildRequired;
+            SetUChildRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _UChildRequired = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
+
+      protected Testing.UChild _UChildOptional;
+      partial void SetUChildOptional(Testing.UChild oldValue, ref Testing.UChild newValue);
+      partial void GetUChildOptional(ref Testing.UChild result);
+
+      public Testing.UChild UChildOptional
+      {
+         get
+         {
+            Testing.UChild value = _UChildOptional;
+            GetUChildOptional(ref value);
+            return (_UChildOptional = value);
+         }
+         set
+         {
+            Testing.UChild oldValue = _UChildOptional;
+            SetUChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _UChildOptional = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual event PropertyChangedEventHandler PropertyChanged;
 
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {

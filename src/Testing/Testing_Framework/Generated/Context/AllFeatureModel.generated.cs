@@ -15,8 +15,10 @@ using System.Data.Entity.Infrastructure.Annotations;
 
 namespace Testing
 {
+   /// <inheritdoc/>
    public partial class AllFeatureModel : System.Data.Entity.DbContext
    {
+      #region DbSets
       public System.Data.Entity.DbSet<Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
       public System.Data.Entity.DbSet<Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
       public System.Data.Entity.DbSet<Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
@@ -39,8 +41,13 @@ namespace Testing
       public System.Data.Entity.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
       public System.Data.Entity.DbSet<Testing.UParentOptional> UParentOptionals { get; set; }
       public System.Data.Entity.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
+      #endregion DbSets
 
+      /// <summary>
+      /// Default connection string
+      /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
+      /// <inheritdoc />
       public AllFeatureModel() : base(ConnectionString)
       {
          Configuration.LazyLoadingEnabled = true;
@@ -49,6 +56,7 @@ namespace Testing
          CustomInit();
       }
 
+      /// <inheritdoc />
       public AllFeatureModel(string connectionString) : base(connectionString)
       {
          Configuration.LazyLoadingEnabled = true;
@@ -57,6 +65,7 @@ namespace Testing
          CustomInit();
       }
 
+      /// <inheritdoc />
       public AllFeatureModel(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
       {
          Configuration.LazyLoadingEnabled = true;
@@ -65,6 +74,7 @@ namespace Testing
          CustomInit();
       }
 
+      /// <inheritdoc />
       public AllFeatureModel(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
       {
          Configuration.LazyLoadingEnabled = true;
@@ -73,7 +83,26 @@ namespace Testing
          CustomInit();
       }
 
+      /// <inheritdoc />
       public AllFeatureModel(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
+         CustomInit();
+      }
+
+      /// <inheritdoc />
+      public AllFeatureModel(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
+         CustomInit();
+      }
+
+      /// <inheritdoc />
+      public AllFeatureModel(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
       {
          Configuration.LazyLoadingEnabled = true;
          Configuration.ProxyCreationEnabled = true;
@@ -85,6 +114,7 @@ namespace Testing
       partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
 
+      /// <inheritdoc />
       protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);

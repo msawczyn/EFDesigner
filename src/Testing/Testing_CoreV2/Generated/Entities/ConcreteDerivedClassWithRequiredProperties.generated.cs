@@ -56,7 +56,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Required]
       protected string _Property1;
       partial void SetProperty1(string oldValue, ref string newValue);
       partial void GetProperty1(ref string result);
@@ -64,15 +63,30 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public string Property1
       {
-         get { string value = _Property1; GetProperty1(ref value); return (_Property1 = value); }
-         set { string oldValue = _Property1; SetProperty1(oldValue, ref value); _Property1 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _Property1;
+            GetProperty1(ref value);
+            return (_Property1 = value);
+         }
+         set
+         {
+            string oldValue = _Property1;
+            SetProperty1(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Property1 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public override event PropertyChangedEventHandler PropertyChanged;
 
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }

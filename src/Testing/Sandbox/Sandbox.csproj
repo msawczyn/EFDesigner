@@ -265,6 +265,8 @@
     <Content Include="EFModel1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel1.cs</LastGenOutput>
+      <RunCustomToolOnBuild>True</RunCustomToolOnBuild>
+      <AlwaysRun>True</AlwaysRun>
     </Content>
     <Content Include="Sandbox.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

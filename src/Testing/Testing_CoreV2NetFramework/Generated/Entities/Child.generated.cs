@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected Child()
       {
-         Children = new System.Collections.Generic.HashSet<Child>();
+         Children = new System.Collections.Generic.HashSet<Testing.Child>();
 
          Init();
       }
@@ -37,7 +37,7 @@ namespace Testing
       /// </summary>
       /// <param name="_parent"></param>
       /// <param name="_master0"></param>
-      public Child(Child _parent, Master _master0)
+      public Child(Testing.Child _parent, Testing.Master _master0)
       {
          if (_parent == null) throw new ArgumentNullException(nameof(_parent));
          Parent = _parent;
@@ -45,7 +45,7 @@ namespace Testing
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         Children = new HashSet<Child>();
+         Children = new HashSet<Testing.Child>();
          Init();
       }
 
@@ -54,7 +54,7 @@ namespace Testing
       /// </summary>
       /// <param name="_parent"></param>
       /// <param name="_master0"></param>
-      public static Child Create(Child _parent, Master _master0)
+      public static Child Create(Testing.Child _parent, Testing.Master _master0)
       {
          return new Child(_parent, _master0);
       }
@@ -70,11 +70,13 @@ namespace Testing
 
       // Persistent navigation properties
 
-      public virtual ICollection<Child> Children { get; set; } 
+      public virtual ICollection<Testing.Child> Children { get; set; }
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual Child Parent { get; set; }  // Required
+      public virtual Testing.Child Parent { get; set; }
+
    }
 }
 

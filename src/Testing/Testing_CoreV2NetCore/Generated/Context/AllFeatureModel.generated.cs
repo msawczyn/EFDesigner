@@ -15,8 +15,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Testing_CoreV2NetCore
 {
+   /// <inheritdoc/>
    public partial class AllFeatureModel : Microsoft.EntityFrameworkCore.DbContext
    {
+      #region DbSets
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AbstractBaseClass> AbstractBaseClasses { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
@@ -38,19 +40,26 @@ namespace Testing_CoreV2NetCore
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentCollection> UParentCollections { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentOptional> UParentOptionals { get; set; }
       public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentRequired> UParentRequireds { get; set; }
+      #endregion DbSets
 
+      /// <summary>
+      /// Default connection string
+      /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
 
+      /// <inheritdoc />
       public AllFeatureModel() : base()
       {
       }
 
+      /// <inheritdoc />
       public AllFeatureModel(DbContextOptions<AllFeatureModel> options) : base(options)
       {
       }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
 
+      /// <inheritdoc />
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
          CustomInit(optionsBuilder);
@@ -59,6 +68,7 @@ namespace Testing_CoreV2NetCore
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
+      /// <inheritdoc />
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
@@ -81,8 +91,6 @@ namespace Testing_CoreV2NetCore
          modelBuilder.Entity<Testing_CoreV2NetCore.AllPropertyTypesRequired>()
                      .ToTable("AllPropertyTypesRequireds")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Testing_CoreV2NetCore.AllPropertyTypesRequired>()
-                     .HasIndex(t => t.ByteAttr);
          modelBuilder.Entity<Testing_CoreV2NetCore.AllPropertyTypesRequired>()
                      .Property(t => t.Id)
                      .IsRequired()

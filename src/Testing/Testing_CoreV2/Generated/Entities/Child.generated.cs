@@ -61,8 +61,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Key]
-      [Required]
       protected int _Id;
       partial void SetId(int oldValue, ref int newValue);
       partial void GetId(ref int result);
@@ -70,20 +68,60 @@ namespace Testing
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
+      [Key]
+      [Required]
       public int Id
       {
-         get { int value = _Id; GetId(ref value); return (_Id = value); }
-         set { int oldValue = _Id; SetId(oldValue, ref value); _Id = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       // Persistent navigation properties
 
-      public virtual ICollection<Testing.Child> Children { get; set; } 
+      public virtual ICollection<Testing.Child> Children { get; set; }
+
+      protected Testing.Child _Parent;
+      partial void SetParent(Testing.Child oldValue, ref Testing.Child newValue);
+      partial void GetParent(ref Testing.Child result);
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual Testing.Child Parent { get; set; }  // Required
-      public event PropertyChangedEventHandler PropertyChanged;
+      public Testing.Child Parent
+      {
+         get
+         {
+            Testing.Child value = _Parent;
+            GetParent(ref value);
+            return (_Parent = value);
+         }
+         set
+         {
+            Testing.Child oldValue = _Parent;
+            SetParent(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Parent = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual event PropertyChangedEventHandler PropertyChanged;
 
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {

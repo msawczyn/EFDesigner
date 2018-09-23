@@ -91,8 +91,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Key]
-      [Required]
       protected int _Id;
       partial void SetId(int oldValue, ref int newValue);
       partial void GetId(ref int result);
@@ -100,13 +98,28 @@ namespace Testing
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
+      [Key]
+      [Required]
       public int Id
       {
-         get { int value = _Id; GetId(ref value); return (_Id = value); }
-         set { int oldValue = _Id; SetId(oldValue, ref value); _Id = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected byte[] _BinaryAttr;
       partial void SetBinaryAttr(byte[] oldValue, ref byte[] newValue);
       partial void GetBinaryAttr(ref byte[] result);
@@ -114,13 +127,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public byte[] BinaryAttr
       {
-         get { byte[] value = _BinaryAttr; GetBinaryAttr(ref value); return (_BinaryAttr = value); }
-         set { byte[] oldValue = _BinaryAttr; SetBinaryAttr(oldValue, ref value); _BinaryAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            byte[] value = _BinaryAttr;
+            GetBinaryAttr(ref value);
+            return (_BinaryAttr = value);
+         }
+         set
+         {
+            byte[] oldValue = _BinaryAttr;
+            SetBinaryAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BinaryAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected bool _BooleanAttr;
       partial void SetBooleanAttr(bool oldValue, ref bool newValue);
       partial void GetBooleanAttr(ref bool result);
@@ -128,13 +155,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public bool BooleanAttr
       {
-         get { bool value = _BooleanAttr; GetBooleanAttr(ref value); return (_BooleanAttr = value); }
-         set { bool oldValue = _BooleanAttr; SetBooleanAttr(oldValue, ref value); _BooleanAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            bool value = _BooleanAttr;
+            GetBooleanAttr(ref value);
+            return (_BooleanAttr = value);
+         }
+         set
+         {
+            bool oldValue = _BooleanAttr;
+            SetBooleanAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BooleanAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected byte _ByteAttr;
       partial void SetByteAttr(byte oldValue, ref byte newValue);
       partial void GetByteAttr(ref byte result);
@@ -142,13 +183,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public byte ByteAttr
       {
-         get { byte value = _ByteAttr; GetByteAttr(ref value); return (_ByteAttr = value); }
-         set { byte oldValue = _ByteAttr; SetByteAttr(oldValue, ref value); _ByteAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            byte value = _ByteAttr;
+            GetByteAttr(ref value);
+            return (_ByteAttr = value);
+         }
+         set
+         {
+            byte oldValue = _ByteAttr;
+            SetByteAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _ByteAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected DateTime _DateTimeAttr;
       partial void SetDateTimeAttr(DateTime oldValue, ref DateTime newValue);
       partial void GetDateTimeAttr(ref DateTime result);
@@ -156,13 +211,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public DateTime DateTimeAttr
       {
-         get { DateTime value = _DateTimeAttr; GetDateTimeAttr(ref value); return (_DateTimeAttr = value); }
-         set { DateTime oldValue = _DateTimeAttr; SetDateTimeAttr(oldValue, ref value); _DateTimeAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            DateTime value = _DateTimeAttr;
+            GetDateTimeAttr(ref value);
+            return (_DateTimeAttr = value);
+         }
+         set
+         {
+            DateTime oldValue = _DateTimeAttr;
+            SetDateTimeAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _DateTimeAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected DateTimeOffset _DateTimeOffsetAttr;
       partial void SetDateTimeOffsetAttr(DateTimeOffset oldValue, ref DateTimeOffset newValue);
       partial void GetDateTimeOffsetAttr(ref DateTimeOffset result);
@@ -170,13 +239,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public DateTimeOffset DateTimeOffsetAttr
       {
-         get { DateTimeOffset value = _DateTimeOffsetAttr; GetDateTimeOffsetAttr(ref value); return (_DateTimeOffsetAttr = value); }
-         set { DateTimeOffset oldValue = _DateTimeOffsetAttr; SetDateTimeOffsetAttr(oldValue, ref value); _DateTimeOffsetAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            DateTimeOffset value = _DateTimeOffsetAttr;
+            GetDateTimeOffsetAttr(ref value);
+            return (_DateTimeOffsetAttr = value);
+         }
+         set
+         {
+            DateTimeOffset oldValue = _DateTimeOffsetAttr;
+            SetDateTimeOffsetAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _DateTimeOffsetAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected decimal _DecimalAttr;
       partial void SetDecimalAttr(decimal oldValue, ref decimal newValue);
       partial void GetDecimalAttr(ref decimal result);
@@ -184,13 +267,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public decimal DecimalAttr
       {
-         get { decimal value = _DecimalAttr; GetDecimalAttr(ref value); return (_DecimalAttr = value); }
-         set { decimal oldValue = _DecimalAttr; SetDecimalAttr(oldValue, ref value); _DecimalAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            decimal value = _DecimalAttr;
+            GetDecimalAttr(ref value);
+            return (_DecimalAttr = value);
+         }
+         set
+         {
+            decimal oldValue = _DecimalAttr;
+            SetDecimalAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _DecimalAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected double _DoubleAttr;
       partial void SetDoubleAttr(double oldValue, ref double newValue);
       partial void GetDoubleAttr(ref double result);
@@ -198,13 +295,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public double DoubleAttr
       {
-         get { double value = _DoubleAttr; GetDoubleAttr(ref value); return (_DoubleAttr = value); }
-         set { double oldValue = _DoubleAttr; SetDoubleAttr(oldValue, ref value); _DoubleAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            double value = _DoubleAttr;
+            GetDoubleAttr(ref value);
+            return (_DoubleAttr = value);
+         }
+         set
+         {
+            double oldValue = _DoubleAttr;
+            SetDoubleAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _DoubleAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected Guid _GuidAttr;
       partial void SetGuidAttr(Guid oldValue, ref Guid newValue);
       partial void GetGuidAttr(ref Guid result);
@@ -212,13 +323,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public Guid GuidAttr
       {
-         get { Guid value = _GuidAttr; GetGuidAttr(ref value); return (_GuidAttr = value); }
-         set { Guid oldValue = _GuidAttr; SetGuidAttr(oldValue, ref value); _GuidAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            Guid value = _GuidAttr;
+            GetGuidAttr(ref value);
+            return (_GuidAttr = value);
+         }
+         set
+         {
+            Guid oldValue = _GuidAttr;
+            SetGuidAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _GuidAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected short _Int16Attr;
       partial void SetInt16Attr(short oldValue, ref short newValue);
       partial void GetInt16Attr(ref short result);
@@ -226,13 +351,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public short Int16Attr
       {
-         get { short value = _Int16Attr; GetInt16Attr(ref value); return (_Int16Attr = value); }
-         set { short oldValue = _Int16Attr; SetInt16Attr(oldValue, ref value); _Int16Attr = value;  OnPropertyChanged(); }
+         get
+         {
+            short value = _Int16Attr;
+            GetInt16Attr(ref value);
+            return (_Int16Attr = value);
+         }
+         set
+         {
+            short oldValue = _Int16Attr;
+            SetInt16Attr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Int16Attr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected int _Int32Attr;
       partial void SetInt32Attr(int oldValue, ref int newValue);
       partial void GetInt32Attr(ref int result);
@@ -240,13 +379,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public int Int32Attr
       {
-         get { int value = _Int32Attr; GetInt32Attr(ref value); return (_Int32Attr = value); }
-         set { int oldValue = _Int32Attr; SetInt32Attr(oldValue, ref value); _Int32Attr = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Int32Attr;
+            GetInt32Attr(ref value);
+            return (_Int32Attr = value);
+         }
+         set
+         {
+            int oldValue = _Int32Attr;
+            SetInt32Attr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Int32Attr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected long _Int64Attr;
       partial void SetInt64Attr(long oldValue, ref long newValue);
       partial void GetInt64Attr(ref long result);
@@ -254,13 +407,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public long Int64Attr
       {
-         get { long value = _Int64Attr; GetInt64Attr(ref value); return (_Int64Attr = value); }
-         set { long oldValue = _Int64Attr; SetInt64Attr(oldValue, ref value); _Int64Attr = value;  OnPropertyChanged(); }
+         get
+         {
+            long value = _Int64Attr;
+            GetInt64Attr(ref value);
+            return (_Int64Attr = value);
+         }
+         set
+         {
+            long oldValue = _Int64Attr;
+            SetInt64Attr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Int64Attr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected Single _SingleAttr;
       partial void SetSingleAttr(Single oldValue, ref Single newValue);
       partial void GetSingleAttr(ref Single result);
@@ -268,14 +435,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public Single SingleAttr
       {
-         get { Single value = _SingleAttr; GetSingleAttr(ref value); return (_SingleAttr = value); }
-         set { Single oldValue = _SingleAttr; SetSingleAttr(oldValue, ref value); _SingleAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            Single value = _SingleAttr;
+            GetSingleAttr(ref value);
+            return (_SingleAttr = value);
+         }
+         set
+         {
+            Single oldValue = _SingleAttr;
+            SetSingleAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _SingleAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
-      [MaxLength(10)]
       protected string _StringAttr;
       partial void SetStringAttr(string oldValue, ref string newValue);
       partial void GetStringAttr(ref string result);
@@ -283,13 +463,28 @@ namespace Testing
       /// <summary>
       /// Required, Min length = 1, Max length = 10
       /// </summary>
+      [Required]
+      [MaxLength(10)]
       public string StringAttr
       {
-         get { string value = _StringAttr; GetStringAttr(ref value); return (_StringAttr = value); }
-         set { string oldValue = _StringAttr; SetStringAttr(oldValue, ref value); _StringAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _StringAttr;
+            GetStringAttr(ref value);
+            return (_StringAttr = value);
+         }
+         set
+         {
+            string oldValue = _StringAttr;
+            SetStringAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _StringAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [Required]
       protected TimeSpan _TimeAttr;
       partial void SetTimeAttr(TimeSpan oldValue, ref TimeSpan newValue);
       partial void GetTimeAttr(ref TimeSpan result);
@@ -297,13 +492,28 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
+      [Required]
       public TimeSpan TimeAttr
       {
-         get { TimeSpan value = _TimeAttr; GetTimeAttr(ref value); return (_TimeAttr = value); }
-         set { TimeSpan oldValue = _TimeAttr; SetTimeAttr(oldValue, ref value); _TimeAttr = value;  OnPropertyChanged(); }
+         get
+         {
+            TimeSpan value = _TimeAttr;
+            GetTimeAttr(ref value);
+            return (_TimeAttr = value);
+         }
+         set
+         {
+            TimeSpan oldValue = _TimeAttr;
+            SetTimeAttr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _TimeAttr = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public virtual event PropertyChangedEventHandler PropertyChanged;
 
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {

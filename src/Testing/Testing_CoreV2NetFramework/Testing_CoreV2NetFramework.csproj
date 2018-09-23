@@ -159,6 +159,8 @@
     <None Include="AllFeatureModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
+      <RunCustomToolOnBuild>True</RunCustomToolOnBuild>
+      <AlwaysRun>True</AlwaysRun>
     </None>
   </ItemGroup>
   <ItemGroup>

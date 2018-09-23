@@ -107,6 +107,8 @@
     <Content Include="AllFeatureModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
+      <RunCustomToolOnBuild>True</RunCustomToolOnBuild>
+      <AlwaysRun>True</AlwaysRun>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

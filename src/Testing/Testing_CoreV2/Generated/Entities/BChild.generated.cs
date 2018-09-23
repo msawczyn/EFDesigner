@@ -68,8 +68,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Key]
-      [Required]
       protected int _Id;
       partial void SetId(int oldValue, ref int newValue);
       partial void GetId(ref int result);
@@ -77,32 +75,188 @@ namespace Testing
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
+      [Key]
+      [Required]
       public int Id
       {
-         get { int value = _Id; GetId(ref value); return (_Id = value); }
-         set { int oldValue = _Id; SetId(oldValue, ref value); _Id = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       // Persistent navigation properties
 
+      protected Testing.BParentRequired _BParentRequired;
+      partial void SetBParentRequired(Testing.BParentRequired oldValue, ref Testing.BParentRequired newValue);
+      partial void GetBParentRequired(ref Testing.BParentRequired result);
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual Testing.BParentRequired BParentRequired { get; set; }  // Required
+      public Testing.BParentRequired BParentRequired
+      {
+         get
+         {
+            Testing.BParentRequired value = _BParentRequired;
+            GetBParentRequired(ref value);
+            return (_BParentRequired = value);
+         }
+         set
+         {
+            Testing.BParentRequired oldValue = _BParentRequired;
+            SetBParentRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BParentRequired = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      protected Testing.BParentRequired _BParentRequired_1;
+      partial void SetBParentRequired_1(Testing.BParentRequired oldValue, ref Testing.BParentRequired newValue);
+      partial void GetBParentRequired_1(ref Testing.BParentRequired result);
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual Testing.BParentRequired BParentRequired_1 { get; set; }  // Required
+      public Testing.BParentRequired BParentRequired_1
+      {
+         get
+         {
+            Testing.BParentRequired value = _BParentRequired_1;
+            GetBParentRequired_1(ref value);
+            return (_BParentRequired_1 = value);
+         }
+         set
+         {
+            Testing.BParentRequired oldValue = _BParentRequired_1;
+            SetBParentRequired_1(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BParentRequired_1 = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      protected Testing.BParentRequired _BParentRequired_2;
+      partial void SetBParentRequired_2(Testing.BParentRequired oldValue, ref Testing.BParentRequired newValue);
+      partial void GetBParentRequired_2(ref Testing.BParentRequired result);
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual Testing.BParentRequired BParentRequired_2 { get; set; }  // Required
-      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; set; } 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; set; } 
-      public virtual Testing.BParentOptional BParentOptional { get; set; } 
-      public virtual Testing.BParentOptional BParentOptional_1 { get; set; } 
-      public virtual Testing.BParentOptional BParentOptional_2 { get; set; } 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public Testing.BParentRequired BParentRequired_2
+      {
+         get
+         {
+            Testing.BParentRequired value = _BParentRequired_2;
+            GetBParentRequired_2(ref value);
+            return (_BParentRequired_2 = value);
+         }
+         set
+         {
+            Testing.BParentRequired oldValue = _BParentRequired_2;
+            SetBParentRequired_2(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BParentRequired_2 = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; set; }
+
+      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; set; }
+
+      protected Testing.BParentOptional _BParentOptional;
+      partial void SetBParentOptional(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
+      partial void GetBParentOptional(ref Testing.BParentOptional result);
+
+      public Testing.BParentOptional BParentOptional
+      {
+         get
+         {
+            Testing.BParentOptional value = _BParentOptional;
+            GetBParentOptional(ref value);
+            return (_BParentOptional = value);
+         }
+         set
+         {
+            Testing.BParentOptional oldValue = _BParentOptional;
+            SetBParentOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BParentOptional = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      protected Testing.BParentOptional _BParentOptional_1;
+      partial void SetBParentOptional_1(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
+      partial void GetBParentOptional_1(ref Testing.BParentOptional result);
+
+      public Testing.BParentOptional BParentOptional_1
+      {
+         get
+         {
+            Testing.BParentOptional value = _BParentOptional_1;
+            GetBParentOptional_1(ref value);
+            return (_BParentOptional_1 = value);
+         }
+         set
+         {
+            Testing.BParentOptional oldValue = _BParentOptional_1;
+            SetBParentOptional_1(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BParentOptional_1 = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      protected Testing.BParentOptional _BParentOptional_2;
+      partial void SetBParentOptional_2(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
+      partial void GetBParentOptional_2(ref Testing.BParentOptional result);
+
+      public Testing.BParentOptional BParentOptional_2
+      {
+         get
+         {
+            Testing.BParentOptional value = _BParentOptional_2;
+            GetBParentOptional_2(ref value);
+            return (_BParentOptional_2 = value);
+         }
+         set
+         {
+            Testing.BParentOptional oldValue = _BParentOptional_2;
+            SetBParentOptional_2(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BParentOptional_2 = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual event PropertyChangedEventHandler PropertyChanged;
 
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {

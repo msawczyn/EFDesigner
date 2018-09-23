@@ -19,7 +19,7 @@ using System.Data.Entity.Spatial;
 
 namespace Testing
 {
-   public partial class UParentOptional : HiddenEntity
+   public partial class UParentOptional : Testing.HiddenEntity, INotifyPropertyChanged
    {
       partial void Init();
 
@@ -29,7 +29,7 @@ namespace Testing
       protected UParentOptional(): base()
       {
          PropertyInChild = "hello";
-         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<UChild>();
+         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.UChild>();
 
          Init();
       }
@@ -38,12 +38,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public UParentOptional(UChild _uchildrequired)
+      public UParentOptional(Testing.UChild _uchildrequired)
       {
          if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
          UChildRequired = _uchildrequired;
 
-         UChildCollection = new ObservableCollection<UChild>();
+         UChildCollection = new ObservableCollection<Testing.UChild>();
          Init();
       }
 
@@ -51,26 +51,102 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public static UParentOptional Create(UChild _uchildrequired)
+      public static UParentOptional Create(Testing.UChild _uchildrequired)
       {
          return new UParentOptional(_uchildrequired);
       }
 
       // Persistent properties
 
+      protected string _PropertyInChild;
+      partial void SetPropertyInChild(string oldValue, ref string newValue);
+      partial void GetPropertyInChild(ref string result);
+
       /// <summary>
       /// Default value = "hello"
       /// </summary>
-      public string PropertyInChild { get; set; }
+      public string PropertyInChild
+      {
+         get
+         {
+            string value = _PropertyInChild;
+            GetPropertyInChild(ref value);
+            return (_PropertyInChild = value);
+         }
+         set
+         {
+            string oldValue = _PropertyInChild;
+            SetPropertyInChild(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _PropertyInChild = value;
+               OnPropertyChanged();
+            }
+         }
+      }
 
       // Persistent navigation properties
 
-      public virtual UChild UChildOptional { get; set; } 
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
+      protected Testing.UChild _UChildOptional;
+      partial void SetUChildOptional(Testing.UChild oldValue, ref Testing.UChild newValue);
+      partial void GetUChildOptional(ref Testing.UChild result);
+
+      public Testing.UChild UChildOptional
+      {
+         get
+         {
+            Testing.UChild value = _UChildOptional;
+            GetUChildOptional(ref value);
+            return (_UChildOptional = value);
+         }
+         set
+         {
+            Testing.UChild oldValue = _UChildOptional;
+            SetUChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _UChildOptional = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
+
+      protected Testing.UChild _UChildRequired;
+      partial void SetUChildRequired(Testing.UChild oldValue, ref Testing.UChild newValue);
+      partial void GetUChildRequired(ref Testing.UChild result);
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual UChild UChildRequired { get; set; }  // Required
+      public Testing.UChild UChildRequired
+      {
+         get
+         {
+            Testing.UChild value = _UChildRequired;
+            GetUChildRequired(ref value);
+            return (_UChildRequired = value);
+         }
+         set
+         {
+            Testing.UChild oldValue = _UChildRequired;
+            SetUChildRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _UChildRequired = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual event PropertyChangedEventHandler PropertyChanged;
+
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+
    }
 }
 

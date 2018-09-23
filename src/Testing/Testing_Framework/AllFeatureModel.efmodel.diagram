@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.2.6.3" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 18.125, 17.75" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.2.6.7" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 18.125, 17.75" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="1.25, 8.875, 3.875, 3.5439111328125" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -20,7 +20,7 @@
         <elementListCompartment Id="259d8e6c-be2b-4b0a-ac39-d9fbca1f638b" absoluteBounds="1.515, 2.435, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f9a6c404-1fc6-4f49-84d6-1a5c751b11b4" absoluteBounds="8.125, 3.125, 2.75, 0.85169108072916666" fillColor="Green" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+    <classShape Id="f9a6c404-1fc6-4f49-84d6-1a5c751b11b4" absoluteBounds="8.125, 3.125, 2.75, 0.85169108072916666" fillColor="Green" textColor="White" outlineColor="CornflowerBlue" outlineDashStyle="Dot" visible="true" outlineThickness="0.03">
       <modelClassMoniker Id="b4d4c136-e081-4fbd-83e2-0c563649e4fb" />
       <nestedChildShapes>
         <elementListCompartment Id="adac0290-0405-4633-b7a8-ecf54f4b9c5f" absoluteBounds="8.14, 3.435, 2.7199999999999998, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
@@ -243,7 +243,7 @@
         <elementListCompartment Id="ece651f7-20de-4026-acb9-0378f78dccd4" absoluteBounds="8.515, 1.81, 1.4700000000000002, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="4aa27c04-9e6a-495d-9b96-752d7db7c199" edgePoints="[(9.25 : 2.35169108072917); (9.25 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="4aa27c04-9e6a-495d-9b96-752d7db7c199" edgePoints="[(9.25 : 2.35169108072917); (9.25 : 3.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="44269a1e-892e-497f-bd78-4fc9fb139ead" />
       <nodes>
         <classShapeMoniker Id="9885f002-9f44-4b19-a3cd-2e7cd69a80a2" />

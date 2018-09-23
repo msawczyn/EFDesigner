@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected UParentCollection()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
 
          Init();
       }
@@ -36,12 +36,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public UParentCollection(UChild _uchildrequired)
+      public UParentCollection(Testing.UChild _uchildrequired)
       {
          if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
          UChildRequired = _uchildrequired;
 
-         UChildCollection = new HashSet<UChild>();
+         UChildCollection = new HashSet<Testing.UChild>();
          Init();
       }
 
@@ -49,7 +49,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_uchildrequired"></param>
-      public static UParentCollection Create(UChild _uchildrequired)
+      public static UParentCollection Create(Testing.UChild _uchildrequired)
       {
          return new UParentCollection(_uchildrequired);
       }
@@ -66,11 +66,14 @@ namespace Testing
       // Persistent navigation properties
 
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual UChild UChildRequired { get; set; }  // Required
-      public virtual ICollection<UChild> UChildCollection { get; set; } 
-      public virtual UChild UChildOptional { get; set; } 
+      public virtual Testing.UChild UChildRequired { get; set; }
+
+      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
+
+      public virtual Testing.UChild UChildOptional { get; set; }
+
    }
 }
 

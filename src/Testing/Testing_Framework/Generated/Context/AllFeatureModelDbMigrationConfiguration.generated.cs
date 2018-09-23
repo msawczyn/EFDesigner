@@ -11,6 +11,7 @@ using System.Data.Entity.Migrations;
 
 namespace Testing
 {
+   /// <inheritdoc/>
    public sealed partial class AllFeatureModelDbMigrationConfiguration : DbMigrationsConfiguration<AllFeatureModel>
    {
       partial void Init();

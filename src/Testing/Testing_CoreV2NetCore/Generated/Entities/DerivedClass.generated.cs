@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing_CoreV2NetCore
 {
-   public partial class DerivedClass : BaseClass
+   public partial class DerivedClass : Testing_CoreV2NetCore.BaseClass
    {
       partial void Init();
 

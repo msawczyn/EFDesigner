@@ -53,8 +53,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Key]
-      [Required]
       protected int _Id;
       partial void SetId(int oldValue, ref int newValue);
       partial void GetId(ref int result);
@@ -62,20 +60,82 @@ namespace Testing
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
+      [Key]
+      [Required]
       public int Id
       {
-         get { int value = _Id; GetId(ref value); return (_Id = value); }
-         set { int oldValue = _Id; SetId(oldValue, ref value); _Id = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       // Persistent navigation properties
 
+      protected Testing.BChild _BChildRequired;
+      partial void SetBChildRequired(Testing.BChild oldValue, ref Testing.BChild newValue);
+      partial void GetBChildRequired(ref Testing.BChild result);
+
       /// <summary>
-      ///  // Required
+      /// Required
       /// </summary>
-      public virtual Testing.BChild BChildRequired { get; set; }  // Required
-      public virtual Testing.BChild BChildOptional { get; set; } 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public Testing.BChild BChildRequired
+      {
+         get
+         {
+            Testing.BChild value = _BChildRequired;
+            GetBChildRequired(ref value);
+            return (_BChildRequired = value);
+         }
+         set
+         {
+            Testing.BChild oldValue = _BChildRequired;
+            SetBChildRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BChildRequired = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      protected Testing.BChild _BChildOptional;
+      partial void SetBChildOptional(Testing.BChild oldValue, ref Testing.BChild newValue);
+      partial void GetBChildOptional(ref Testing.BChild result);
+
+      public Testing.BChild BChildOptional
+      {
+         get
+         {
+            Testing.BChild value = _BChildOptional;
+            GetBChildOptional(ref value);
+            return (_BChildOptional = value);
+         }
+         set
+         {
+            Testing.BChild oldValue = _BChildOptional;
+            SetBChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _BChildOptional = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual event PropertyChangedEventHandler PropertyChanged;
 
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {

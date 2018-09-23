@@ -32,8 +32,6 @@ namespace Testing
 
       // Persistent properties
 
-      [Key]
-      [Required]
       protected int _Id;
       partial void SetId(int oldValue, ref int newValue);
       partial void GetId(ref int result);
@@ -41,10 +39,26 @@ namespace Testing
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
+      [Key]
+      [Required]
       public int Id
       {
-         get { int value = _Id; GetId(ref value); return (_Id = value); }
-         set { int oldValue = _Id; SetId(oldValue, ref value); _Id = value;  OnPropertyChanged(); }
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected string _name1;
@@ -53,8 +67,22 @@ namespace Testing
 
       public string name1
       {
-         get { string value = _name1; Getname1(ref value); return (_name1 = value); }
-         set { string oldValue = _name1; Setname1(oldValue, ref value); _name1 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name1;
+            Getname1(ref value);
+            return (_name1 = value);
+         }
+         set
+         {
+            string oldValue = _name1;
+            Setname1(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name1 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected string _name2;
@@ -63,8 +91,22 @@ namespace Testing
 
       public string name2
       {
-         get { string value = _name2; Getname2(ref value); return (_name2 = value); }
-         protected set { string oldValue = _name2; Setname2(oldValue, ref value); _name2 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name2;
+            Getname2(ref value);
+            return (_name2 = value);
+         }
+         protected set
+         {
+            string oldValue = _name2;
+            Setname2(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name2 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name3;
@@ -73,8 +115,22 @@ namespace Testing
 
       public int? name3
       {
-         get { int? value = _name3; Getname3(ref value); return (_name3 = value); }
-         set { int? oldValue = _name3; Setname3(oldValue, ref value); _name3 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name3;
+            Getname3(ref value);
+            return (_name3 = value);
+         }
+         set
+         {
+            int? oldValue = _name3;
+            Setname3(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name3 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name4;
@@ -83,8 +139,22 @@ namespace Testing
 
       public int? name4
       {
-         get { int? value = _name4; Getname4(ref value); return (_name4 = value); }
-         protected set { int? oldValue = _name4; Setname4(oldValue, ref value); _name4 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name4;
+            Getname4(ref value);
+            return (_name4 = value);
+         }
+         protected set
+         {
+            int? oldValue = _name4;
+            Setname4(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name4 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name5;
@@ -93,8 +163,22 @@ namespace Testing
 
       public int? name5
       {
-         get { int? value = _name5; Getname5(ref value); return (_name5 = value); }
-         set { int? oldValue = _name5; Setname5(oldValue, ref value); _name5 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name5;
+            Getname5(ref value);
+            return (_name5 = value);
+         }
+         set
+         {
+            int? oldValue = _name5;
+            Setname5(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name5 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name6;
@@ -103,11 +187,24 @@ namespace Testing
 
       public int? name6
       {
-         get { int? value = _name6; Getname6(ref value); return (_name6 = value); }
-         protected set { int? oldValue = _name6; Setname6(oldValue, ref value); _name6 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name6;
+            Getname6(ref value);
+            return (_name6 = value);
+         }
+         protected set
+         {
+            int? oldValue = _name6;
+            Setname6(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name6 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name7;
       partial void Setname7(string oldValue, ref string newValue);
       partial void Getname7(ref string result);
@@ -115,13 +212,27 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name7
       {
-         get { string value = _name7; Getname7(ref value); return (_name7 = value); }
-         set { string oldValue = _name7; Setname7(oldValue, ref value); _name7 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name7;
+            Getname7(ref value);
+            return (_name7 = value);
+         }
+         set
+         {
+            string oldValue = _name7;
+            Setname7(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name7 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name8;
       partial void Setname8(string oldValue, ref string newValue);
       partial void Getname8(ref string result);
@@ -129,13 +240,27 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name8
       {
-         get { string value = _name8; Getname8(ref value); return (_name8 = value); }
-         protected set { string oldValue = _name8; Setname8(oldValue, ref value); _name8 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name8;
+            Getname8(ref value);
+            return (_name8 = value);
+         }
+         protected set
+         {
+            string oldValue = _name8;
+            Setname8(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name8 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name9;
       partial void Setname9(string oldValue, ref string newValue);
       partial void Getname9(ref string result);
@@ -143,13 +268,27 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name9
       {
-         get { string value = _name9; Getname9(ref value); return (_name9 = value); }
-         set { string oldValue = _name9; Setname9(oldValue, ref value); _name9 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name9;
+            Getname9(ref value);
+            return (_name9 = value);
+         }
+         set
+         {
+            string oldValue = _name9;
+            Setname9(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name9 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name;
       partial void Setname(string oldValue, ref string newValue);
       partial void Getname(ref string result);
@@ -157,10 +296,25 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name
       {
-         get { string value = _name; Getname(ref value); return (_name = value); }
-         protected set { string oldValue = _name; Setname(oldValue, ref value); _name = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name;
+            Getname(ref value);
+            return (_name = value);
+         }
+         protected set
+         {
+            string oldValue = _name;
+            Setname(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name11;
@@ -169,8 +323,22 @@ namespace Testing
 
       public int? name11
       {
-         get { int? value = _name11; Getname11(ref value); return (_name11 = value); }
-         set { int? oldValue = _name11; Setname11(oldValue, ref value); _name11 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name11;
+            Getname11(ref value);
+            return (_name11 = value);
+         }
+         set
+         {
+            int? oldValue = _name11;
+            Setname11(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name11 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name12;
@@ -179,8 +347,22 @@ namespace Testing
 
       public int? name12
       {
-         get { int? value = _name12; Getname12(ref value); return (_name12 = value); }
-         protected set { int? oldValue = _name12; Setname12(oldValue, ref value); _name12 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name12;
+            Getname12(ref value);
+            return (_name12 = value);
+         }
+         protected set
+         {
+            int? oldValue = _name12;
+            Setname12(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name12 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name13;
@@ -189,8 +371,22 @@ namespace Testing
 
       public int? name13
       {
-         get { int? value = _name13; Getname13(ref value); return (_name13 = value); }
-         set { int? oldValue = _name13; Setname13(oldValue, ref value); _name13 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name13;
+            Getname13(ref value);
+            return (_name13 = value);
+         }
+         set
+         {
+            int? oldValue = _name13;
+            Setname13(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name13 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
       protected int? _name14;
@@ -199,11 +395,24 @@ namespace Testing
 
       public int? name14
       {
-         get { int? value = _name14; Getname14(ref value); return (_name14 = value); }
-         protected set { int? oldValue = _name14; Setname14(oldValue, ref value); _name14 = value;  OnPropertyChanged(); }
+         get
+         {
+            int? value = _name14;
+            Getname14(ref value);
+            return (_name14 = value);
+         }
+         protected set
+         {
+            int? oldValue = _name14;
+            Setname14(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name14 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name15;
       partial void Setname15(string oldValue, ref string newValue);
       partial void Getname15(ref string result);
@@ -211,13 +420,27 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name15
       {
-         get { string value = _name15; Getname15(ref value); return (_name15 = value); }
-         set { string oldValue = _name15; Setname15(oldValue, ref value); _name15 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name15;
+            Getname15(ref value);
+            return (_name15 = value);
+         }
+         set
+         {
+            string oldValue = _name15;
+            Setname15(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name15 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name16;
       partial void Setname16(string oldValue, ref string newValue);
       partial void Getname16(ref string result);
@@ -225,13 +448,27 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name16
       {
-         get { string value = _name16; Getname16(ref value); return (_name16 = value); }
-         protected set { string oldValue = _name16; Setname16(oldValue, ref value); _name16 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name16;
+            Getname16(ref value);
+            return (_name16 = value);
+         }
+         protected set
+         {
+            string oldValue = _name16;
+            Setname16(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name16 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name17;
       partial void Setname17(string oldValue, ref string newValue);
       partial void Getname17(ref string result);
@@ -239,13 +476,27 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name17
       {
-         get { string value = _name17; Getname17(ref value); return (_name17 = value); }
-         set { string oldValue = _name17; Setname17(oldValue, ref value); _name17 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name17;
+            Getname17(ref value);
+            return (_name17 = value);
+         }
+         set
+         {
+            string oldValue = _name17;
+            Setname17(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name17 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      [MaxLength(6)]
       protected string _name18;
       partial void Setname18(string oldValue, ref string newValue);
       partial void Getname18(ref string result);
@@ -253,13 +504,28 @@ namespace Testing
       /// <summary>
       /// Max length = 6
       /// </summary>
+      [MaxLength(6)]
       public string name18
       {
-         get { string value = _name18; Getname18(ref value); return (_name18 = value); }
-         protected set { string oldValue = _name18; Setname18(oldValue, ref value); _name18 = value;  OnPropertyChanged(); }
+         get
+         {
+            string value = _name18;
+            Getname18(ref value);
+            return (_name18 = value);
+         }
+         protected set
+         {
+            string oldValue = _name18;
+            Setname18(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _name18 = value;
+               OnPropertyChanged();
+            }
+         }
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public virtual event PropertyChangedEventHandler PropertyChanged;
 
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {

@@ -19,7 +19,7 @@ using System.Data.Entity.Spatial;
 
 namespace Testing
 {
-   public partial class ConcreteDerivedClass : AbstractBaseClass
+   public partial class ConcreteDerivedClass : Testing.AbstractBaseClass
    {
       partial void Init();
 

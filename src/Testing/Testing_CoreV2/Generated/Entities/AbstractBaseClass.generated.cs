@@ -41,9 +41,9 @@ namespace Testing
          Init();
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public override event PropertyChangedEventHandler PropertyChanged;
 
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
