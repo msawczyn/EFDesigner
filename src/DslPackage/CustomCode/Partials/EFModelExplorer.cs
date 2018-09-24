@@ -16,8 +16,14 @@ namespace Sawczyn.EFDesigner.EFModel
             case ModelClass modelClass:
                EFModelDocData.OpenFileFor(modelClass);
                break;
+            case ModelAttribute modelAttribute:
+               EFModelDocData.OpenFileFor(modelAttribute.ModelClass);
+               break;
             case ModelEnum modelEnum:
                EFModelDocData.OpenFileFor(modelEnum);
+               break;
+            case ModelEnumValue modelEnumValue:
+               EFModelDocData.OpenFileFor(modelEnumValue.Enum);
                break;
          }
       }

@@ -40,7 +40,12 @@ namespace Sawczyn.EFDesigner.EFModel
                                                  ? activeSolutionProjects.GetValue(0) as Project
                                                  : null;
 
-      internal static void GenerateCode(string filepath = null)
+      internal static void GenerateCode()
+      {
+         GenerateCode(null);
+      }
+
+      internal static void GenerateCode(string filepath)
       {
          ProjectItem modelProjectItem = Dte2.Solution.FindProjectItem(filepath ?? Dte2.ActiveDocument.FullName);
          modelProjectItem?.Save();
@@ -82,10 +87,10 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      /// Called in from DSL module when user double clicks on a class shape
+      /// Called when user double clicks on a class shape
       /// </summary>
       /// <param name="modelClass"></param>
-      internal static void OpenFileFor(ModelClass modelClass)
+      internal static bool OpenFileFor(ModelClass modelClass)
       {
          Project activeProject = ActiveProject;
 
@@ -93,15 +98,21 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
             string filename = Path.Combine(projectDirectory, modelClass.GetRelativeFileName());
-            Dte.ItemOperations.OpenFile(filename);
+            if (File.Exists(filename))
+            {
+               Dte.ItemOperations.OpenFile(filename);
+               return true;
+            }
          }
+
+         return false;
       }
 
       /// <summary>
-      /// Called in from DSL module when user double clicks on a enum shape
+      /// Called when user double clicks on a enum shape
       /// </summary>
       /// <param name="modelEnum"></param>
-      internal static void OpenFileFor(ModelEnum modelEnum)
+      internal static bool OpenFileFor(ModelEnum modelEnum)
       {
          Project activeProject = ActiveProject;
 
@@ -109,8 +120,14 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
             string filename = Path.Combine(projectDirectory, modelEnum.GetRelativeFileName());
-            Dte.ItemOperations.OpenFile(filename);
+            if (File.Exists(filename))
+            {
+               Dte.ItemOperations.OpenFile(filename);
+               return true;
+            }
          }
+
+         return false;
       }
 
       /// <summary>
@@ -124,7 +141,9 @@ namespace Sawczyn.EFDesigner.EFModel
          QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
 
          ClassShape.OpenCodeFile = OpenFileFor;
+         ClassShape.ExecCodeGeneration = GenerateCode;
          EnumShape.OpenCodeFile = OpenFileFor;
+         EnumShape.ExecCodeGeneration = GenerateCode;
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 

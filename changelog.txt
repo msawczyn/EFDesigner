@@ -3,7 +3,8 @@
    - Fixed background color on attribute glyph in model explorer
    - Fixed foreground color on enum value glyph on design surface
    - Hid comments in model explorer because they just cluttered up the tree.
-   - Double-clicking a class or enum on the designer or model explorer opens the generated code file, if present
+   - Double-clicking a class or enum on the designer opens the generated code file, if it exists. If it doesn't exist, you're asked if you'd like to generate the model then, if you do, it tries again.
+      - Known issue: EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
 
 1.2.6.7
    - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24)

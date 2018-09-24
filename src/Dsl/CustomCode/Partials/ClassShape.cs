@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using System;
-using System.Collections;
 using System.Drawing;
 using System.Linq;
 
@@ -225,7 +224,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
-      public static Action<ModelClass> OpenCodeFile { get; set; }
+      /// <summary>
+      /// Set when DocData is loaded. If non-null, calling this action will open the generated code file, if present
+      /// </summary>
+      public static Func<ModelClass, bool> OpenCodeFile { get; set; }
+     
+      /// <summary>
+      /// If non-null, calling this method will execute code generation for the model
+      /// </summary>
+      public static Action ExecCodeGeneration;
 
       /// <summary>Called by the control's OnDoubleClick()</summary>
       /// <param name="e">A DiagramPointEventArgs that contains event data.</param>
@@ -235,17 +242,21 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (OpenCodeFile != null)
          {
-            ICollection representedElements = e.HitDiagramItem.RepresentedElements;
-            ModelAttribute clickedAttribute = representedElements.OfType<ModelAttribute>().FirstOrDefault();
+            ModelClass modelClass = (ModelClass)ModelElement;
 
-            ModelClass selectedClass = clickedAttribute != null
-                                          ? clickedAttribute.ModelClass
-                                          : representedElements.OfType<ModelClass>().FirstOrDefault();
+            if (OpenCodeFile(modelClass))
+               return;
 
-            if (selectedClass != null)
-               OpenCodeFile(selectedClass);
+            if (ExecCodeGeneration != null && QuestionDisplay.Show($"Can't open generated file for {modelClass.Name}. It may not have been generated yet. Do you want to generate the code now?") == true)
+            {
+               ExecCodeGeneration();
+
+               if (OpenCodeFile(modelClass))
+                  return;
+            }
+
+            ErrorDisplay.Show($"Can't open generated file for {modelClass.Name}");
          }
       }
-
    }
 }

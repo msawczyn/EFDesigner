@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Drawing;
 
 using Microsoft.VisualStudio.Modeling;
@@ -196,7 +195,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
-      public static Action<ModelEnum> OpenCodeFile { get; set; }
+      /// <summary>
+      /// Set when DocData is loaded. If non-null, calling this action will open the generated code file, if present
+      /// </summary>
+      public static Func<ModelEnum, bool> OpenCodeFile { get; set; }
+
+      /// <summary>
+      /// If non-null, calling this method will execute code generation for the model
+      /// </summary>
+      public static Action ExecCodeGeneration;
 
       /// <summary>Called by the control's OnDoubleClick()</summary>
       /// <param name="e">A DiagramPointEventArgs that contains event data.</param>
@@ -206,15 +213,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (OpenCodeFile != null)
          {
-            ICollection representedElements = e.HitDiagramItem.RepresentedElements;
-            ModelEnumValue clickedEnumValue = representedElements.OfType<ModelEnumValue>().FirstOrDefault();
+            ModelEnum modelEnum = (ModelEnum)ModelElement;
 
-            ModelEnum selectedEnum = clickedEnumValue != null
-                                        ? clickedEnumValue.Enum
-                                        : representedElements.OfType<ModelEnum>().FirstOrDefault();
+            if (OpenCodeFile(modelEnum))
+               return;
 
-            if (selectedEnum != null)
-               OpenCodeFile(selectedEnum);
+            if (ExecCodeGeneration != null && QuestionDisplay.Show($"Can't open generated file for {modelEnum.Name}. It may not have been generated yet. Do you want to generate the code now?") == true)
+            {
+               ExecCodeGeneration();
+
+               if (OpenCodeFile(modelEnum))
+                  return;
+            }
+
+            ErrorDisplay.Show($"Can't open generated file for {modelEnum.Name}");
          }
       }
    }
