@@ -211,11 +211,27 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="a95a5645-b5d5-4b11-b177-d674cee91290" Description="Detailed code documentation" Name="Description" DisplayName="Comment Detail" DefaultValue="" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="a25a2ffe-9ae9-408b-a346-056805de6975" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -353,6 +369,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="5ff45bb4-658f-412e-8cdc-2593d9ea3d37" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -451,11 +475,27 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="d974a312-57fe-42b3-b377-22fe01562356" Description="Detailed code documentation" Name="Description" DisplayName="Comment Detail" DefaultValue="" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="1ebd74c3-5011-48e6-b5c1-67d78293067d" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -602,6 +642,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="12ea7154-be17-4707-ac96-eb1f8f2029ce" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -653,6 +701,14 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="4eec932a-9148-4d3c-9f29-35d8dbd13844" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -736,16 +792,40 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="8983d9c4-c5f3-4eaa-b8b2-14d18a858f21" Description="Detailed code documentation for this end of the association" Name="TargetDescription" DisplayName="End2 Comment Detail" DefaultValue="" Category="End 2">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="edec72cc-c40b-4c64-b2d4-e713f691ecd0" Description="Short code documentation for this end of the association" Name="TargetSummary" DisplayName="End2 Comment Summary" Category="End 2">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="53747127-cd19-43e0-b37b-1b669d506ed2" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation">
+        <DomainProperty Id="53747127-cd19-43e0-b37b-1b669d506ed2" Description="Brief code documentation" Name="Summary" DisplayName="Comment Summary" Category="Documentation" IsBrowsable="false">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -866,11 +946,27 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="378e5c5a-9eb0-4d42-ad4c-7feca0176995" Description="Detailed code documentation for this end of the association" Name="SourceDescription" DisplayName="End1 Comment Detail" DefaultValue="" Category="End 1">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="73bbc365-57ca-4f07-a834-9fe6605b76d0" Description="Short code documentation for this end of the association" Name="SourceSummary" DisplayName="End1 Comment Summary" Category="End 1">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.Design.MultilineStringEditor)" />
+                <AttributeParameter Value="typeof(System.Drawing.Design.UITypeEditor)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

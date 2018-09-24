@@ -90,5 +90,9 @@ Right-clicking on an entity displays a Visual Studio context menu with some new 
 <tr><td valign="top"> Properties                               </td><td valign="top">Switches focus to the Properties window.</td></tr>
 </table>
 
+### INotifyPropertyChanged
+
+More to come on this.
+
 ### Next Step 
 [Properties](Properties)

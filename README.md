@@ -43,14 +43,26 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.6.6***
+***1.2.6.7***
+   - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24)
+   - Simplified cascade delete settings in property editor for associations
+   - Fixed bad code generation in EFCore for cascade delete overrides (https://github.com/msawczyn/EFDesigner/issues/22)
+   - Missing files when generating code for .NET Core projects fixed
+   - Tightened up and swatted some bugs in INotifyPropertyChanged handling. Added documentation to doc site for this feature (following up on https://github.com/msawczyn/EFDesigner/issues/23)
+   - Ensured multiline editing was available in property window for those properties that made sense
+
+**1.2.6.6**
    - Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
    
-**1.2.6.5**
+<details>
+<summary><b>1.2.6.5</b></summary>
+
    - Comment elements now wrap the text
    - Multiline editor available in property window for element comment descriptions and Comment element text
    - Xml format changed for .efmodel file - can't be loaded by any version < 1.2.6.3
    - Support for automatic migration to new model xml formats
+
+</details>
 
 <details>
 <summary><b>1.2.6.2</b></summary>

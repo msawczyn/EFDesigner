@@ -156,6 +156,13 @@ documentation), you can generate the code in one of three ways:
    - At any time, you can right click the design surface and choose `Generate Code` from the context menu
    - As with any T4 file, you can always right click the `[Model Name].tt` file in your project and choose `Run Custom Tool` from the context menu
 
+Note: if you haven't set up target project directories for your files, they'll be dropped in the same directory
+that contains your .csproj file. Unfortunately, when that happens Visual Studio tries to be "helpful" and tucks them
+under the `.tt` file in the Solution Explorer tree, so you may not realize that they've been created. It's best practice
+to create a subdirectory for them and target the output there. Minimally setting the `Entity Output Directory`
+property on the design surface will default all the other output directories, and you'll get visual confirmation in the
+Solution Explorer tree when you generate your code files.
+
 ### Next Step 
 [Persistent entities](Entities)
 

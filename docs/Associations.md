@@ -110,5 +110,9 @@ Bidirectional associations have the following properties:
 </tbody>
 </table>
 
+### Cascade delete
+
+More to come on this.
+
 ### Next Step 
 [Inheritance](Inheritance)

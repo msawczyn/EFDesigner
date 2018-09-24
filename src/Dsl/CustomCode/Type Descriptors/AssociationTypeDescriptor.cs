@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
 
@@ -28,6 +26,19 @@ namespace Sawczyn.EFDesigner.EFModel
          if (association != null)
          {
             storeDomainDataDirectory = association.Store.DomainDataDirectory;
+
+            // only display delete behavior on the principal end
+            if (association.SourceRole != EndpointRole.Principal)
+            {
+               PropertyDescriptor sourceDeleteActionTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "SourceDeleteAction");
+               propertyDescriptors.Remove(sourceDeleteActionTypeDescriptor);
+            }
+
+            if (association.TargetRole != EndpointRole.Principal)
+            {
+               PropertyDescriptor targetDeleteActionTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "TargetDeleteAction");
+               propertyDescriptors.Remove(targetDeleteActionTypeDescriptor);
+            }
 
             /********************************************************************************/
 

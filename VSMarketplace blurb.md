@@ -24,6 +24,14 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.7**
+   - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24)
+   - Simplified cascade delete settings in property editor for associations
+   - Fixed bad code generation in EFCore for cascade delete overrides (https://github.com/msawczyn/EFDesigner/issues/22)
+   - Missing files when generating code for .NET Core projects fixed
+   - Tightened up and swatted some bugs in INotifyPropertyChanged handling. Added documentation to doc site for this feature (following up on https://github.com/msawczyn/EFDesigner/issues/23)
+   - Ensured multiline editing was available in property window for those properties that made sense
+
 **1.2.6.6**
    - Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
 

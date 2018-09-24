@@ -77,6 +77,14 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError("Model: Entity container needs a name", "MREContainerNameEmpty", this);
       }
 
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
+      private void SummaryDescriptionIsEmpty(ValidationContext context)
+      {
+         if (string.IsNullOrWhiteSpace(Summary) && WarnOnMissingDocumentation)
+            context.LogWarning($"Model: Summary documentation missing", "AWMissingSummary", this);
+      }
+
       #endregion Validation methods
 
       #region DatabaseSchema tracking property

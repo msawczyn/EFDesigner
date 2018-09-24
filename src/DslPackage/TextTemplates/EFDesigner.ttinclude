@@ -13,7 +13,7 @@
 
 void NL()
 {
-   WriteLine("");
+   WriteLine(string.Empty);
 }
 
 string[] NonNullableTypes 
@@ -160,7 +160,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults = n
                                                         !string.IsNullOrEmpty(x.InitialValue))
                                             .Select(x =>
                                             {
-                                               string quote = x.PrimitiveType == "string" ? "\"" : x.PrimitiveType == "char" ? "'" : "";
+                                               string quote = x.PrimitiveType == "string" ? "\"" : x.PrimitiveType == "char" ? "'" : string.Empty;
                                                string value = FullyQualified(modelClass.ModelRoot, x.InitialValue.Trim('"', '\''));
                                                return $"{x.FQPrimitiveType} _{x.Name.ToLower()} = {quote}{value}{quote}";
                                             }));
@@ -218,9 +218,9 @@ void WriteEnum(ModelEnum modelEnum)
       for (int index = 0; index < values.Length; ++index)
       {
          if (string.IsNullOrEmpty(values[index].Value))
-            Output($"{values[index].Name}{(index < values.Length - 1 ? "," : "")}");
+            Output($"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}");
          else
-            Output($"{values[index].Name} = {values[index].Value}{(index < values.Length - 1 ? "," : "")}");
+            Output($"{values[index].Name} = {values[index].Value}{(index < values.Length - 1 ? "," : string.Empty)}");
       }
       Output("}");
 
@@ -244,7 +244,7 @@ void WriteClass(ModelClass modelClass)
 
    BeginNamespace(modelClass.Namespace);
 
-   string isAbstract = modelClass.IsAbstract ? "abstract " : "";
+   string isAbstract = modelClass.IsAbstract ? "abstract " : string.Empty;
 
    List<string> bases = new List<string>();
    if (modelClass.Superclass != null) 
@@ -291,7 +291,7 @@ void WriteDefaultConstructorBody(ModelClass modelClass)
                                                                               !string.IsNullOrEmpty(x.InitialValue) && 
                                                                               x.InitialValue != "null"))
    {
-      string quote = modelAttribute.Type == "String" ? "\"" : modelAttribute.Type == "Char" ? "'" : "";
+      string quote = modelAttribute.Type == "String" ? "\"" : modelAttribute.Type == "Char" ? "'" : string.Empty;
       Output($"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
       ++lineCount;
    }
@@ -444,7 +444,7 @@ void WriteConstructor(ModelClass modelClass)
          Output("/// </summary>");
          WriteConstructorComments(modelClass);
          
-         string newToken = "";
+         string newToken = string.Empty;
          List<string> requiredParameters = GetRequiredParameters(modelClass);
          if (!AllSuperclassesAreNullOrAbstract(modelClass))
          {
@@ -518,11 +518,11 @@ void WritePersistentProperties(ModelClass modelClass)
          segments.Add($"Max length = {modelAttribute.MaxLength}");
       if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
       {
-         string quote = modelAttribute.PrimitiveType == "string" ? "\"" : modelAttribute.PrimitiveType == "char" ? "'" : "";
+         string quote = modelAttribute.PrimitiveType == "string" ? "\"" : modelAttribute.PrimitiveType == "char" ? "'" : string.Empty;
          segments.Add($"Default value = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote}");
       }
 
-      string nullable = IsNullable(modelAttribute) ? "?" : "";
+      string nullable = IsNullable(modelAttribute) ? "?" : string.Empty;
 
       if (!modelAttribute.IsConcurrencyToken && (modelClass.ImplementNotify || !modelAttribute.AutoProperty))
       {
@@ -552,7 +552,7 @@ void WritePersistentProperties(ModelClass modelClass)
 
       string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : 
                                 modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : 
-                                "";
+                                string.Empty;
 
       GeneratePropertyAnnotations(modelAttribute);
 
@@ -623,7 +623,7 @@ void WriteCalculatedProperties(ModelClass modelClass)
 
    foreach (ModelAttribute calculatedAttribute in modelClass.Attributes.Where(x => !x.Persistent))
    {
-      string nullable = IsNullable(calculatedAttribute) ? "?" : "";
+      string nullable = IsNullable(calculatedAttribute) ? "?" : string.Empty;
 
       Output("partial void Get{0}(ref {1}{2} value);", calculatedAttribute.Name, calculatedAttribute.FQPrimitiveType, nullable);
       Output("partial void Set{0}({1}{2} value);", calculatedAttribute.Name, calculatedAttribute.FQPrimitiveType, nullable);
@@ -643,8 +643,8 @@ void WriteCalculatedProperties(ModelClass modelClass)
 
       string setterVisibility = calculatedAttribute.SetterVisibility == SetterAccessModifier.Protected 
                                    ? "protected " 
-                                   : calculatedAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : "";
-      string isVirtual = calculatedAttribute.Virtual ? "virtual " : "";
+                                   : calculatedAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : string.Empty;
+      string isVirtual = calculatedAttribute.Virtual ? "virtual " : string.Empty;
 
       Output($"public {isVirtual}{calculatedAttribute.FQPrimitiveType}{nullable} {calculatedAttribute.Name}");
       Output("{");
@@ -683,7 +683,7 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
       if (navigationProperty.Required)
          comments.Add("Required");
       string comment = comments.Count > 0 ? string.Join(", ", comments) : string.Empty;
-      string _virtual = requireVirtual ? "virtual " : "";
+      string _virtual = requireVirtual ? "virtual " : string.Empty;
 
       if (!string.IsNullOrEmpty(navigationProperty.Summary) || !string.IsNullOrEmpty(comment))
       {
