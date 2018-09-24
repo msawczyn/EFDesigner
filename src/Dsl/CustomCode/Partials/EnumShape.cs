@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Drawing;
 
 using Microsoft.VisualStudio.Modeling;
@@ -194,5 +195,27 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
+
+      public static Action<ModelEnum> OpenCodeFile { get; set; }
+
+      /// <summary>Called by the control's OnDoubleClick()</summary>
+      /// <param name="e">A DiagramPointEventArgs that contains event data.</param>
+      public override void OnDoubleClick(DiagramPointEventArgs e)
+      {
+         base.OnDoubleClick(e);
+
+         if (OpenCodeFile != null)
+         {
+            ICollection representedElements = e.HitDiagramItem.RepresentedElements;
+            ModelEnumValue clickedEnumValue = representedElements.OfType<ModelEnumValue>().FirstOrDefault();
+
+            ModelEnum selectedEnum = clickedEnumValue != null
+                                        ? clickedEnumValue.Enum
+                                        : representedElements.OfType<ModelEnum>().FirstOrDefault();
+
+            if (selectedEnum != null)
+               OpenCodeFile(selectedEnum);
+         }
+      }
    }
 }

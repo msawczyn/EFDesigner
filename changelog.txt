@@ -1,3 +1,10 @@
+1.2.6.8
+   - Tweak to force association end roles to be correct when roles or multiplicities change
+   - Fixed background color on attribute glyph in model explorer
+   - Fixed foreground color on enum value glyph on design surface
+   - Hid comments in model explorer because they just cluttered up the tree.
+   - Double-clicking a class or enum on the designer or model explorer opens the generated code file, if present
+
 1.2.6.7
    - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24)
    - Simplified cascade delete settings in property editor for associations

@@ -1,4 +1,5 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -11,8 +12,23 @@ namespace Sawczyn.EFDesigner.EFModel
    [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
    public class AssociationChangeRules : ChangeRule
    {
+      /// <summary>
+      /// If true, validation is ignored (to prevent recursion)
+      /// </summary>
+      private bool ValidationDisabled
+      {
+         get => _validationCounter > 0;
+         set => _validationCounter = Math.Max(0, value
+                                                   ? _validationCounter + 1
+                                                   : _validationCounter - 1);
+      }
+
+      private int _validationCounter;
+
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
+         if (ValidationDisabled) return;
+         
          base.ElementPropertyChanged(e);
 
          Association element = (Association)e.ModelElement;
@@ -40,28 +56,36 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "SourceMultiplicity":
-               Multiplicity newSourceMultiplicity = (Multiplicity)e.NewValue;
+               Multiplicity sourceMultiplicity = (Multiplicity)e.NewValue;
 
                // change unidirectional source cardinality
                // if target is dependent
                //    source cardinality is 0..1 or 1
-               if (element.Target.IsDependentType && newSourceMultiplicity == Multiplicity.ZeroMany)
+               if (element.Target.IsDependentType && sourceMultiplicity == Multiplicity.ZeroMany)
                {
                   errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
 
                   break;
                }
 
-               if ((newSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
-                   (newSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
+               ValidationDisabled = true;
+               try
                {
-                  element.SourceRole = EndpointRole.NotSet;
-                  element.TargetRole = EndpointRole.NotSet;
+                  if ((sourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
+                      (sourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
+                  {
+                     element.SourceRole = EndpointRole.NotSet;
+                     element.TargetRole = EndpointRole.NotSet;
+                  }
+                  else
+                     SetEndpointRoles(element);
                }
-               else
-                  SetEndpointRoles(element);
+               finally
+               {
+                  ValidationDisabled = false;
+               }
 
-               UpdateDisplayForCascadeDelete(element, null, null, newSourceMultiplicity);
+               UpdateDisplayForCascadeDelete(element, null, null, sourceMultiplicity);
                break;
 
             case "SourcePropertyName":
@@ -73,21 +97,29 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "SourceRole":
-               // if target is dependent, roles are set and can't be changed
-               if (element.Target.IsDependentType)
+               ValidationDisabled = true;
+               try
                {
-                  element.SourceRole = EndpointRole.Principal;
-                  element.TargetRole = EndpointRole.Dependent;
-               }
-               else
-               {
-                  if ((element.TargetMultiplicity == Multiplicity.One && element.SourceMultiplicity == Multiplicity.One) ||
-                      (element.TargetMultiplicity == Multiplicity.ZeroOne && element.SourceMultiplicity == Multiplicity.ZeroOne))
+                  // if source is struct, roles are set and can't be changed
+                  if (element.Source.IsDependentType)
                   {
-                     element.TargetRole = element.SourceRole == EndpointRole.Dependent 
-                        ? EndpointRole.Principal 
-                        : EndpointRole.Dependent;
+                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Principal;
                   }
+                  else
+                  {
+                     EndpointRole sourceRole = (EndpointRole)e.NewValue;
+
+                     if (sourceRole == EndpointRole.Dependent)
+                        element.TargetRole = EndpointRole.Principal;
+                     else if (sourceRole == EndpointRole.Principal)
+                        element.TargetRole = EndpointRole.Dependent;
+                     SetEndpointRoles(element);
+                  }
+               }
+               finally
+               {
+                  ValidationDisabled = false;
                }
 
                break;
@@ -110,14 +142,22 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
-               if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
-                   (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
+               ValidationDisabled = true;
+               try
                {
-                  element.SourceRole = EndpointRole.NotSet;
-                  element.TargetRole = EndpointRole.NotSet;
+                  if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
+                      (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
+                  {
+                     element.SourceRole = EndpointRole.NotSet;
+                     element.TargetRole = EndpointRole.NotSet;
+                  }
+                  else
+                     SetEndpointRoles(element);
                }
-               else
-                  SetEndpointRoles(element);
+               finally
+               {
+                  ValidationDisabled = false;
+               }
 
                UpdateDisplayForCascadeDelete(element, null, null, null, newTargetMultiplicity);
                break;
@@ -136,21 +176,29 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TargetRole":
-               // if target is dependent, roles are set and can't be changed
-               if (element.Target.IsDependentType)
+               ValidationDisabled = true;
+               try
                {
-                  element.SourceRole = EndpointRole.Principal;
-                  element.TargetRole = EndpointRole.Dependent;
-               }
-               else
-               {
-                  EndpointRole newTargetRole = (EndpointRole)e.NewValue;
-
-                  if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Dependent)
+                  // if target is struct, roles are set and can't be changed
+                  if (element.Target.IsDependentType)
+                  {
                      element.SourceRole = EndpointRole.Principal;
-                  else if (element.SourceRole == EndpointRole.NotSet && newTargetRole == EndpointRole.Principal)
-                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Dependent;
+                  }
+                  else
+                  {
+                     EndpointRole targetRole = (EndpointRole)e.NewValue;
 
+                     if (targetRole == EndpointRole.Dependent)
+                        element.SourceRole = EndpointRole.Principal;
+                     else if (targetRole == EndpointRole.Principal)
+                        element.SourceRole = EndpointRole.Dependent;
+                     SetEndpointRoles(element);
+                  }
+               }
+               finally
+               {
+                  ValidationDisabled = false;
                }
 
                break;

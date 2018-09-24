@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using System;
+using System.Collections;
 using System.Drawing;
 using System.Linq;
 
@@ -223,5 +224,28 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
+
+      public static Action<ModelClass> OpenCodeFile { get; set; }
+
+      /// <summary>Called by the control's OnDoubleClick()</summary>
+      /// <param name="e">A DiagramPointEventArgs that contains event data.</param>
+      public override void OnDoubleClick(DiagramPointEventArgs e)
+      {
+         base.OnDoubleClick(e);
+
+         if (OpenCodeFile != null)
+         {
+            ICollection representedElements = e.HitDiagramItem.RepresentedElements;
+            ModelAttribute clickedAttribute = representedElements.OfType<ModelAttribute>().FirstOrDefault();
+
+            ModelClass selectedClass = clickedAttribute != null
+                                          ? clickedAttribute.ModelClass
+                                          : representedElements.OfType<ModelClass>().FirstOrDefault();
+
+            if (selectedClass != null)
+               OpenCodeFile(selectedClass);
+         }
+      }
+
    }
 }

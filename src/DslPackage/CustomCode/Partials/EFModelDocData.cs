@@ -28,15 +28,15 @@ namespace Sawczyn.EFDesigner.EFModel
       private IVsPackageUninstaller _nugetUninstaller;
       private IVsPackageInstallerServices _nugetInstallerServices;
 
-      private static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
-      private static DTE2 Dte2 => _dte2 ?? (_dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2);
-      private IComponentModel ComponentModel => _componentModel ?? (_componentModel = (IComponentModel)GetService(typeof(SComponentModel)));
-      private IVsOutputWindowPane OutputWindow => _outputWindow ?? (_outputWindow = (IVsOutputWindowPane)GetService(typeof(SVsGeneralOutputWindowPane)));
-      private IVsPackageInstallerServices NuGetInstallerServices => _nugetInstallerServices ?? (_nugetInstallerServices = ComponentModel?.GetService<IVsPackageInstallerServices>());
-      private IVsPackageInstaller NuGetInstaller => _nugetInstaller ?? (_nugetInstaller = ComponentModel.GetService<IVsPackageInstaller>());
-      private IVsPackageUninstaller NuGetUninstaller => _nugetUninstaller ?? (_nugetUninstaller = ComponentModel.GetService<IVsPackageUninstaller>());
+      internal static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
+      internal static DTE2 Dte2 => _dte2 ?? (_dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2);
+      internal IComponentModel ComponentModel => _componentModel ?? (_componentModel = (IComponentModel)GetService(typeof(SComponentModel)));
+      internal IVsOutputWindowPane OutputWindow => _outputWindow ?? (_outputWindow = (IVsOutputWindowPane)GetService(typeof(SVsGeneralOutputWindowPane)));
+      internal IVsPackageInstallerServices NuGetInstallerServices => _nugetInstallerServices ?? (_nugetInstallerServices = ComponentModel?.GetService<IVsPackageInstallerServices>());
+      internal IVsPackageInstaller NuGetInstaller => _nugetInstaller ?? (_nugetInstaller = ComponentModel.GetService<IVsPackageInstaller>());
+      internal IVsPackageUninstaller NuGetUninstaller => _nugetUninstaller ?? (_nugetUninstaller = ComponentModel.GetService<IVsPackageUninstaller>());
 
-      private static Project ActiveProject => Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
+      internal static Project ActiveProject => Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
                                                  ? activeSolutionProjects.GetValue(0) as Project
                                                  : null;
 
@@ -82,6 +82,38 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
+      /// Called in from DSL module when user double clicks on a class shape
+      /// </summary>
+      /// <param name="modelClass"></param>
+      internal static void OpenFileFor(ModelClass modelClass)
+      {
+         Project activeProject = ActiveProject;
+
+         if (activeProject != null)
+         {
+            string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
+            string filename = Path.Combine(projectDirectory, modelClass.GetRelativeFileName());
+            Dte.ItemOperations.OpenFile(filename);
+         }
+      }
+
+      /// <summary>
+      /// Called in from DSL module when user double clicks on a enum shape
+      /// </summary>
+      /// <param name="modelEnum"></param>
+      internal static void OpenFileFor(ModelEnum modelEnum)
+      {
+         Project activeProject = ActiveProject;
+
+         if (activeProject != null)
+         {
+            string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
+            string filename = Path.Combine(projectDirectory, modelEnum.GetRelativeFileName());
+            Dte.ItemOperations.OpenFile(filename);
+         }
+      }
+
+      /// <summary>
       /// Called on both document load and reload.
       /// </summary>
       protected override void OnDocumentLoaded()
@@ -90,6 +122,9 @@ namespace Sawczyn.EFDesigner.EFModel
          ErrorDisplay.RegisterDisplayHandler(ShowError);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
          QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
+
+         ClassShape.OpenCodeFile = OpenFileFor;
+         EnumShape.OpenCodeFile = OpenFileFor;
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 

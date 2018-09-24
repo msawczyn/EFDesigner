@@ -37,7 +37,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		protected EFModelExplorerBase(global::System.IServiceProvider serviceProvider) : base(serviceProvider)
 		{
+			try
+			{	
+				// Adds hidden path to hide elements from the explorer
+				this.AddHiddenPath( new global::System.Guid[] { global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.DomainClassId }); 
 			
+			}
+			catch (global::System.InvalidOperationException)
+			{
+				// Each hidden path specified needs to have odd number of guid entries.  The entries will alternative between
+				// DomainRelationshipID and DomainClassID. The guids list should also start out with a DomainRelationshipID.
+				// This exception will be swallowed...
+				global::System.Diagnostics.Debug.Fail("Each hidden path specified needs to have odd number of guid entries.\r\nPlease update the HiddenNodes section under ExplorerBehavior in the DSL file\r\nso the Model Explorer can hide element properly.");
+			}
 			
 			// Adds custom tree node settings...
 			global::System.Resources.ResourceManager resourceManager = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager;
