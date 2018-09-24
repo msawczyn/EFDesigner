@@ -66,14 +66,14 @@ Unidirectional associations have the following properties:
 <tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 <tr><td colspan="2" style="background-color: gainsboro"><b>End1</b></td></tr>
 <tr><td valign="top">End1 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
-<tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.<br/>Options are <i>None:</i> don't cascade delete, <i>Cascade:</i> always cascade delete, and <i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</td></tr>
+<tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. Only appears if End1's role is <i>Principal</i>. Describes how to handle dependent objects (the ones on the other end of the association) if the principal object (the one on on this end) is deleted.<br/>Options are<br/><ul><li><i>None:</i> don't cascade delete,</l1><li><i>Cascade:</i> always cascade delete, and </li><li><i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</li></ul>See the writeups for <a href="http://www.entityframeworktutorial.net/code-first/cascade-delete-in-code-first.aspx">EF6</a> and <a href="https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete">EFCore</a> for more information</td></tr>
 <tr><td valign="top">End1 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
 <tr><td colspan="2" style="background-color: gainsboro"><b>End2</b></td></tr>
 <tr><td valign="top">End1 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
 <tr><td valign="top">End2 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
-<tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.<br/>Options are <i>None:</i> don't cascade delete, <i>Cascade:</i> always cascade delete, and <i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</td></tr>
+<tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. Only appears if End2's role is <i>Principal</i>. Describes how to handle dependent objects (the ones on the other end of the association) if the principal object (the one on on this end) is deleted.<br/>Options are<br/><ul><li><i>None:</i> don't cascade delete,</l1><li><i>Cascade:</i> always cascade delete, and </li><li><i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</li></ul>See the writeups for <a href="http://www.entityframeworktutorial.net/code-first/cascade-delete-in-code-first.aspx">EF6</a> and <a href="https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete">EFCore</a> for more information</td></tr>
 <tr><td valign="top">End2 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
 </tbody>
 </table>
@@ -97,7 +97,7 @@ Bidirectional associations have the following properties:
 <tr><td valign="top">End1 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
 <tr><td valign="top">End1 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
 <tr><td valign="top">End1 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
-<tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.<br/>Options are <i>None:</i> don't cascade delete, <i>Cascade:</i> always cascade delete, and <i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</td></tr>
+<tr><td valign="top">End1 On Delete</td><td valign="top"><i>String</i>. Only appears if End1's role is <i>Principal</i>. Describes how to handle dependent objects (the ones on the other end of the association) if the principal object (the one on on this end) is deleted.<br/>Options are<br/><ul><li><i>None:</i> don't cascade delete,</l1><li><i>Cascade:</i> always cascade delete, and </li><li><i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</li></ul>See the writeups for <a href="http://www.entityframeworktutorial.net/code-first/cascade-delete-in-code-first.aspx">EF6</a> and <a href="https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete">EFCore</a> for more information</td></tr>
 <tr><td valign="top">End1 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
 <tr><td valign="top">End2 Navigation Property</td><td valign="top"><i>String</i>. Name of the property that will be generated in the class on the *other* side of the association.</td></tr>
 <tr><td colspan="2" style="background-color: gainsboro"><b>End2</b></td></tr>
@@ -105,14 +105,10 @@ Bidirectional associations have the following properties:
 <tr><td valign="top">End2 Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section for this end</td></tr>
 <tr><td valign="top">End2 Multiplicity</td><td valign="top"><i>String</i>. Cardinality of this end</td></tr>
-<tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. How to handle objects on this end if the object on the other end is deleted. Can be programmatically fixed (if the other end has a One cardinality, therefore is required) or manually set.<br/>Options are <i>None:</i> don't cascade delete, <i>Cascade:</i> always cascade delete, and <i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</td></tr>
+<tr><td valign="top">End2 On Delete</td><td valign="top"><i>String</i>. Only appears if End2's role is <i>Principal</i>. Describes how to handle dependent objects (the ones on the other end of the association) if the principal object (the one on on this end) is deleted.<br/>Options are<br/><ul><li><i>None:</i> don't cascade delete,</l1><li><i>Cascade:</i> always cascade delete, and </li><li><i>Default:</i> cascade delete per Entity Framework rules depending on cardinality.</li></ul>See the writeups for <a href="http://www.entityframeworktutorial.net/code-first/cascade-delete-in-code-first.aspx">EF6</a> and <a href="https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete">EFCore</a> for more information</td></tr>
 <tr><td valign="top">End2 Role</td><td valign="top"><i>String</i>. Whether this end is the Principal or Dependent end of the association. For more information, see <a href="https://msdn.microsoft.com/en-us/library/jj713564(v=vs.113).aspx">Entity Framework Relationships and Navigation Properties</a></td></tr>
 </tbody>
 </table>
-
-### Cascade delete
-
-More to come on this.
 
 ### Next Step 
 [Inheritance](Inheritance)
