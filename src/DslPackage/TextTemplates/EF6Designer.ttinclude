@@ -87,6 +87,7 @@ void WriteMigrationConfigurationEF6(ModelRoot modelRoot)
    Output("partial void Init();");
    NL();
 
+   Output("/// <inheritdoc/>");
    Output("public {0}DbMigrationConfiguration()", modelRoot.EntityContainerName);
    Output("{");
    Output("AutomaticMigrationsEnabled = {0};", modelRoot.AutomaticMigrationsEnabled.ToString().ToLower());

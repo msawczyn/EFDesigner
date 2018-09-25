@@ -217,6 +217,19 @@ void WriteEnum(ModelEnum modelEnum)
       ModelEnumValue[] values = modelEnum.Values.ToArray();
       for (int index = 0; index < values.Length; ++index)
       {
+         if (!string.IsNullOrEmpty(values[index].Summary))
+         {
+            Output("/// <summary>");
+            Output("/// {0}", values[index].Summary);
+            Output("/// </summary>");
+         }
+         if (!string.IsNullOrEmpty(values[index].Description))
+         {
+            Output("/// <remarks>");
+            Output("/// {0}", values[index].Description);
+            Output("/// </remarks>");
+         }
+
          if (string.IsNullOrEmpty(values[index].Value))
             Output($"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}");
          else
@@ -526,9 +539,17 @@ void WritePersistentProperties(ModelClass modelClass)
 
       if (!modelAttribute.IsConcurrencyToken && (modelClass.ImplementNotify || !modelAttribute.AutoProperty))
       {
-         //GeneratePropertyAnnotations(modelAttribute, "_");
+         Output($"/// <summary>");
+         Output($"/// Backing field for {modelAttribute.Name}");
+         Output($"/// </summary>");
          Output($"protected {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
+         Output($"/// <summary>");
+         Output($"/// When provided in a partial class, allows value of _{modelAttribute.Name} to be changed before setting.");
+         Output($"/// </summary>");
          Output($"partial void Set{modelAttribute.Name}({modelAttribute.FQPrimitiveType}{nullable} oldValue, ref {modelAttribute.FQPrimitiveType}{nullable} newValue);");
+         Output($"/// <summary>");
+         Output($"/// When provided in a partial class, allows value of _{modelAttribute.Name} to be changed before returning.");
+         Output($"/// </summary>");
          Output($"partial void Get{modelAttribute.Name}(ref {modelAttribute.FQPrimitiveType}{nullable} result);");
 
          NL();

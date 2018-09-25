@@ -1,5 +1,4 @@
-﻿using System;
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -12,23 +11,8 @@ namespace Sawczyn.EFDesigner.EFModel
    [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
    public class AssociationChangeRules : ChangeRule
    {
-      /// <summary>
-      /// If true, validation is ignored (to prevent recursion)
-      /// </summary>
-      private bool ValidationDisabled
-      {
-         get => _validationCounter > 0;
-         set => _validationCounter = Math.Max(0, value
-                                                   ? _validationCounter + 1
-                                                   : _validationCounter - 1);
-      }
-
-      private int _validationCounter;
-
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
-         if (ValidationDisabled) return;
-         
          base.ElementPropertyChanged(e);
 
          Association element = (Association)e.ModelElement;
@@ -68,22 +52,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
-               ValidationDisabled = true;
-               try
+               if ((sourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
+                   (sourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
                {
-                  if ((sourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
-                      (sourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
-                  {
-                     element.SourceRole = EndpointRole.NotSet;
-                     element.TargetRole = EndpointRole.NotSet;
-                  }
-                  else
-                     SetEndpointRoles(element);
+                  if (element.SourceRole != EndpointRole.NotSet) element.SourceRole = EndpointRole.NotSet;
+                  if (element.TargetRole != EndpointRole.NotSet) element.TargetRole = EndpointRole.NotSet;
                }
-               finally
-               {
-                  ValidationDisabled = false;
-               }
+               else
+                  SetEndpointRoles(element);
 
                UpdateDisplayForCascadeDelete(element, null, null, sourceMultiplicity);
                break;
@@ -97,29 +73,20 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "SourceRole":
-               ValidationDisabled = true;
-               try
+               if (element.Source.IsDependentType)
                {
-                  // if source is struct, roles are set and can't be changed
-                  if (element.Source.IsDependentType)
-                  {
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
-                  }
-                  else
-                  {
-                     EndpointRole sourceRole = (EndpointRole)e.NewValue;
-
-                     if (sourceRole == EndpointRole.Dependent)
-                        element.TargetRole = EndpointRole.Principal;
-                     else if (sourceRole == EndpointRole.Principal)
-                        element.TargetRole = EndpointRole.Dependent;
-                     SetEndpointRoles(element);
-                  }
+                  element.SourceRole = EndpointRole.Dependent;
+                  element.TargetRole = EndpointRole.Principal;
                }
-               finally
+               else
                {
-                  ValidationDisabled = false;
+                  EndpointRole sourceRole = (EndpointRole)e.NewValue;
+
+                  if (sourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
+                     element.TargetRole = EndpointRole.Principal;
+                  else if (sourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
+                     element.TargetRole = EndpointRole.Dependent;
+                  SetEndpointRoles(element);
                }
 
                break;
@@ -142,22 +109,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
-               ValidationDisabled = true;
-               try
+               if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
+                   (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
                {
-                  if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
-                      (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
-                  {
-                     element.SourceRole = EndpointRole.NotSet;
-                     element.TargetRole = EndpointRole.NotSet;
-                  }
-                  else
-                     SetEndpointRoles(element);
+                  if (element.SourceRole != EndpointRole.NotSet) element.SourceRole = EndpointRole.NotSet;
+                  if (element.TargetRole != EndpointRole.NotSet) element.TargetRole = EndpointRole.NotSet;
                }
-               finally
-               {
-                  ValidationDisabled = false;
-               }
+               else
+                  SetEndpointRoles(element);
 
                UpdateDisplayForCascadeDelete(element, null, null, null, newTargetMultiplicity);
                break;
@@ -176,29 +135,20 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "TargetRole":
-               ValidationDisabled = true;
-               try
+               if (element.Target.IsDependentType)
                {
-                  // if target is struct, roles are set and can't be changed
-                  if (element.Target.IsDependentType)
-                  {
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
-                  }
-                  else
-                  {
-                     EndpointRole targetRole = (EndpointRole)e.NewValue;
-
-                     if (targetRole == EndpointRole.Dependent)
-                        element.SourceRole = EndpointRole.Principal;
-                     else if (targetRole == EndpointRole.Principal)
-                        element.SourceRole = EndpointRole.Dependent;
-                     SetEndpointRoles(element);
-                  }
+                  element.SourceRole = EndpointRole.Principal;
+                  element.TargetRole = EndpointRole.Dependent;
                }
-               finally
+               else
                {
-                  ValidationDisabled = false;
+                  EndpointRole targetRole = (EndpointRole)e.NewValue;
+
+                  if (targetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
+                     element.SourceRole = EndpointRole.Principal;
+                  else if (targetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
+                     element.SourceRole = EndpointRole.Dependent;
+                  SetEndpointRoles(element);
                }
 
                break;
