@@ -405,7 +405,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					localCompartmentsOffset = baseCompartmentDescriptions.Length;
 				}
-				compartmentDescriptions = new DslDiagrams::ElementListCompartmentDescription[1+localCompartmentsOffset];
+				compartmentDescriptions = new DslDiagrams::ElementListCompartmentDescription[2+localCompartmentsOffset];
 				
 				if(baseCompartmentDescriptions!=null)
 				{
@@ -419,6 +419,15 @@ namespace Sawczyn.EFDesigner.EFModel
 						null, null,
 						false);
 					compartmentDescriptions[localCompartmentsOffset+0] = descriptor;
+				}
+				{
+					string title = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("ClassShapeAssociationsCompartmentTitle");
+					DslDiagrams::ElementListCompartmentDescription descriptor = new DslDiagrams::ElementListCompartmentDescription("AssociationsCompartment", title, 
+						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.LightGray), false, 
+						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.White), false,
+						null, null,
+						false);
+					compartmentDescriptions[localCompartmentsOffset+1] = descriptor;
 				}
 			}
 			
@@ -452,7 +461,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					{
 						localCompartmentMappingsOffset = baseMappings.Length;
 					}
-					DslDiagrams::CompartmentMapping[] mappings = new DslDiagrams::CompartmentMapping[1+localCompartmentMappingsOffset];
+					DslDiagrams::CompartmentMapping[] mappings = new DslDiagrams::CompartmentMapping[2+localCompartmentMappingsOffset];
 					
 					if(baseMappings!=null)
 					{
@@ -472,6 +481,21 @@ namespace Sawczyn.EFDesigner.EFModel
 																				GetElementsFromModelClassForAttributesCompartment,
 																				null,
 																				GetDisplayPropertyFromModelClassForAttributesCompartment,	// This method needs to be provided. Please see comment-block above.
+																				null);
+					////////
+					// CompartmentMap.DisplaysCustomString == true
+					// Please provide the following method to get the string to be
+					// displayed in the compartment list: 
+					//
+					// static string GetDisplayPropertyFromModelClassForAssociationsCompartment(DslModeling::ModelElement element)
+					////////
+					mappings[localCompartmentMappingsOffset+1] = new DslDiagrams::ElementListCompartmentMapping(
+																				"AssociationsCompartment", 
+																				global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId, 
+																				global::Sawczyn.EFDesigner.EFModel.Association.DomainClassId, 
+																				GetElementsFromModelClassForAssociationsCompartment,
+																				GetPropertyElementFromModelClassForAssociationsCompartment,	// This method needs to be provided. Please see comment-block above.
+																				GetDisplayPropertyFromModelClassForAssociationsCompartment,	// This method needs to be provided. Please see comment-block above.
 																				null);
 					compartmentMappings.Add(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), mappings);
 				}
@@ -507,6 +531,21 @@ namespace Sawczyn.EFDesigner.EFModel
 				global::Sawczyn.EFDesigner.EFModel.ModelClass root = (global::Sawczyn.EFDesigner.EFModel.ModelClass)rootElement;
 					// Segments 0 and 1
 					DslModeling::LinkedElementCollection<global::Sawczyn.EFDesigner.EFModel.ModelAttribute> result = root.Attributes;
+				return result;
+			}
+			internal static global::System.Collections.IList GetElementsFromModelClassForAssociationsCompartment(DslModeling::ModelElement rootElement)
+			{
+				global::Sawczyn.EFDesigner.EFModel.ModelClass root = (global::Sawczyn.EFDesigner.EFModel.ModelClass)rootElement;
+					// Segment 0
+					global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.Association> result = global::Sawczyn.EFDesigner.EFModel.Association.GetLinksToTargets(root);
+				return result;
+			}
+			internal static DslModeling::ModelElement GetPropertyElementFromModelClassForAssociationsCompartment(DslModeling::ModelElement element)
+			{
+				global::Sawczyn.EFDesigner.EFModel.Association root = (global::Sawczyn.EFDesigner.EFModel.Association)element;
+					// Segment 0
+					global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.Target;
+					if ( result == null ) return null;
 				return result;
 			}
 			#endregion

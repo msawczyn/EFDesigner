@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.Modeling;
+﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
    public partial class Association : IDisplaysWarning
    {
-      public string GetSourceMultiplicityDisplayValue()
-      {
-         return MultiplicityDisplayValue(SourceMultiplicity);
-      }
+      public string GetSourceMultiplicityDisplayValue() => MultiplicityDisplayValue(SourceMultiplicity);
 
-      public string GetTargetMultiplicityDisplayValue()
-      {
-         return MultiplicityDisplayValue(TargetMultiplicity);
-      }
+      public string GetTargetMultiplicityDisplayValue() => MultiplicityDisplayValue(TargetMultiplicity);
 
       private static string MultiplicityDisplayValue(Multiplicity multiplicity)
       {
@@ -53,7 +47,8 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (ShapeElement shapeElement in shapeElements)
             shapeElement.Invalidate();
       }
-#endregion
+
+      #endregion
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
@@ -66,6 +61,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                context.LogWarning($"{Source.Name}.{TargetPropertyName}: Association end should be documented", "AWMissingSummary", this);
                hasWarning = true;
+               RedrawItem();
             }
          }
       }
@@ -175,12 +171,10 @@ namespace Sawczyn.EFDesigner.EFModel
          ///    The element on which to reset the property
          ///    value.
          /// </param>
-         internal void PreResetValue(Association element)
-         {
+         internal void PreResetValue(Association element) =>
             // Force the IsCollectionClassTracking property to false so that the value  
             // of the CollectionClass property is retrieved from storage.  
             element.isCollectionClassTrackingPropertyStorage = false;
-         }
       }
 
       #endregion CollectionClass tracking property

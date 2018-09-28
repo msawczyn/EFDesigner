@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.Modeling;
+﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelEnum : IModelElementWithCompartments, IDisplaysWarning
    {
-      public static string[] ValidValueTypes = {/*"SByte", */"Int16", "Int32", "Int64"};
+      public static string[] ValidValueTypes = {/*"SByte", */"Int16", "Int32", "Int64" };
 
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? Name : $"{Namespace}.{Name}";
 
-#region Warning display
+      #region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -31,13 +31,11 @@ namespace Sawczyn.EFDesigner.EFModel
             shapeElement.Invalidate();
       }
 
-      protected string GetGlyphTypeValue()
-      {
-         return ModelRoot.ShowWarningsInDesigner && GetHasWarningValue()
+      protected string GetGlyphTypeValue() => ModelRoot.ShowWarningsInDesigner && GetHasWarningValue()
                    ? "WarningGlyph"
                    : "EnumGlyph";
-      }
-#endregion
+
+      #endregion
 
       public void SetFlagValues()
       {
@@ -86,6 +84,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             context.LogWarning($"{Name}: Enum has some, but not all, values initialized. Please ensure this is what was intended.", "MWPartialEnumValueInitialization", this);
             hasWarning = true;
+            RedrawItem();
          }
       }
 
@@ -100,6 +99,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                context.LogWarning($"{Name}: Enum should be documented", "AWMissingSummary", this);
                hasWarning = true;
+               RedrawItem();
             }
          }
       }
@@ -170,7 +170,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                calculatedValue = element.ModelRoot?.Namespace;
             }
-            catch (NullReferenceException) {}
+            catch (NullReferenceException) { }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
@@ -189,12 +189,10 @@ namespace Sawczyn.EFDesigner.EFModel
          ///    The element on which to reset the property
          ///    value.
          /// </param>
-         internal void PreResetValue(ModelEnum element)
-         {
+         internal void PreResetValue(ModelEnum element) =>
             // Force the IsNamespaceTracking property to false so that the value  
             // of the Namespace property is retrieved from storage.  
             element.isNamespaceTrackingPropertyStorage = false;
-         }
       }
 
       #endregion Namespace tracking property
@@ -266,13 +264,13 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                calculatedValue = element.ModelRoot?.EnumOutputDirectory;
             }
-            catch (NullReferenceException) {}
+            catch (NullReferenceException) { }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
             }
-            
+
             if (calculatedValue != null && element.OutputDirectory == (string)calculatedValue)
                element.isOutputDirectoryTrackingPropertyStorage = true;
          }
@@ -285,12 +283,10 @@ namespace Sawczyn.EFDesigner.EFModel
          ///    The element on which to reset the property
          ///    value.
          /// </param>
-         internal void PreResetValue(ModelEnum element)
-         {
+         internal void PreResetValue(ModelEnum element) =>
             // Force the IsOutputDirectoryTracking property to false so that the value  
             // of the OutputDirectory property is retrieved from storage.  
             element.isOutputDirectoryTrackingPropertyStorage = false;
-         }
       }
 
       #endregion OutputDirectory tracking property

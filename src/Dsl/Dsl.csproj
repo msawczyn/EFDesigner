@@ -229,6 +229,7 @@
     <Compile Include="CustomCode\Extensions\DiagramViewExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
+    <Compile Include="CustomCode\Extensions\MultiplicityExtensions.cs" />
     <Compile Include="CustomCode\Extensions\StringExtensions.cs" />
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
@@ -249,7 +250,7 @@
     <Compile Include="CustomCode\Partials\GeneralizationConnector.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IDisplaysWarning.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IHighlightFromModelExplorer.cs" />
-    <Compile Include="CustomCode\ModelElement Interfaces\IModelElementCompartmented.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\IModelElementInCompartment.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IModelElementWithCompartments.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IMouseActionTarget.cs" />
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
@@ -426,6 +427,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\cardinality-0-0.png" />
+    <Content Include="Resources\cardinality-0-1.png" />
+    <Content Include="Resources\cardinality-0-many.png" />
+    <Content Include="Resources\cardinality-1-0.png" />
+    <Content Include="Resources\cardinality-1-1.png" />
+    <Content Include="Resources\cardinality-1-many.png" />
+    <Content Include="Resources\cardinality-many-0.png" />
+    <Content Include="Resources\cardinality-many-1.png" />
+    <Content Include="Resources\cardinality-many-many.png" />
     <Content Include="Resources\EnumValue.png" />
     <None Include="Resources\Move.cur" />
     <Content Include="Resources\Warning.png" />
@@ -457,7 +467,6 @@
     </None>
     <None Include="GeneratedCode\DomainClasses.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DomainClasses.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\DomainModelResx.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

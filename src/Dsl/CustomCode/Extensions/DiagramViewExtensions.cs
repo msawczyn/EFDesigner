@@ -24,7 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Extensions {
 
          // If the model element does not have a shape, try to cast it IModelElementCompartmented
 
-         if (modelElement is IModelElementCompartmented compartmentedModelElement)
+         if (modelElement is IModelElementInCompartment compartmentedModelElement)
             if (compartmentedModelElement.ParentModelElement is ModelElement parentModelElement)
             {
                // Get the compartment that stores the model element

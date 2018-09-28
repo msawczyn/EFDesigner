@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelAttribute : IModelElementCompartmented, IDisplaysWarning
+   public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning
    {
       public IModelElementWithCompartments ParentModelElement => ModelClass;
 
@@ -143,6 +143,7 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (ShapeElement shapeElement in shapeElements)
             shapeElement.Invalidate();
       }
+
       #endregion
 
       /// <summary>
@@ -508,6 +509,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
             hasWarning = true;
+            RedrawItem();
          }
       }
 
@@ -522,6 +524,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                context.LogWarning($"{ModelClass.Name}.{Name}: Property should be documented", "AWMissingSummary", this);
                hasWarning = true;
+               RedrawItem();
             }
          }
       }

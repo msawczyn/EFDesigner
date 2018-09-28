@@ -1,22 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using Microsoft.VisualStudio.Modeling;
+﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   partial class ModelEnumValue : IModelElementCompartmented, IDisplaysWarning
+   public partial class ModelEnumValue : IModelElementInCompartment, IDisplaysWarning
    {
       private ModelEnum cachedParent;
 
       public IModelElementWithCompartments ParentModelElement => Enum;
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
-#region Warning display
+      #region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -32,7 +31,8 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (ShapeElement shapeElement in shapeElements)
             shapeElement.Invalidate();
       }
-#endregion
+
+      #endregion
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
@@ -45,6 +45,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                context.LogWarning($"{Enum.Name}.{Name}: Enum value should be documented", "AWMissingSummary", this);
                hasWarning = true;
+               RedrawItem();
             }
          }
       }
@@ -69,9 +70,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       /// <summary>Returns a string that represents the current object.</summary>
       /// <returns>A string that represents the current object.</returns>
-      public override string ToString()
-      {
-         return Name + (string.IsNullOrEmpty(Value) ? string.Empty : $" = {Value}");
-      }
+      public override string ToString() => Name + (string.IsNullOrEmpty(Value) ? string.Empty : $" = {Value}");
    }
 }

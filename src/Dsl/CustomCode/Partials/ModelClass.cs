@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.Modeling;
+﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedMember.Local
 
@@ -34,7 +34,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public IEnumerable<string> AllIdentityAttributeNames => AllIdentityAttributes.Select(x => x.Name).ToList();
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? Name : $"{Namespace}.{Name}";
 
-#region Warning display
+      #region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -63,7 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return "EntityGlyph";
       }
 
-#endregion
+      #endregion
 
       public ConcurrencyOverride EffectiveConcurrency
       {
@@ -159,40 +159,19 @@ namespace Sawczyn.EFDesigner.EFModel
          return sourceProperties.Concat(targetProperties);
       }
 
-      public IEnumerable<NavigationProperty> RequiredNavigationProperties(params Association[] ignore)
-      {
-         return LocalNavigationProperties(ignore).Where(x => x.Required).ToList();
-      }
+      public IEnumerable<NavigationProperty> RequiredNavigationProperties(params Association[] ignore) => LocalNavigationProperties(ignore).Where(x => x.Required).ToList();
 
-      public IEnumerable<NavigationProperty> AllRequiredNavigationProperties(params Association[] ignore)
-      {
-         return AllNavigationProperties(ignore).Where(x => x.Required).ToList();
-      }
+      public IEnumerable<NavigationProperty> AllRequiredNavigationProperties(params Association[] ignore) => AllNavigationProperties(ignore).Where(x => x.Required).ToList();
 
-      public NavigationProperty FindAssociationNamed(string identifier)
-      {
-         return AllNavigationProperties().FirstOrDefault(x => x.PropertyName == identifier);
-      }
+      public NavigationProperty FindAssociationNamed(string identifier) => AllNavigationProperties().FirstOrDefault(x => x.PropertyName == identifier);
 
-      public ModelAttribute FindAttributeNamed(string identifier)
-      {
-         return AllAttributes.FirstOrDefault(x => x.Name == identifier);
-      }
+      public ModelAttribute FindAttributeNamed(string identifier) => AllAttributes.FirstOrDefault(x => x.Name == identifier);
 
-      public bool HasAssociationNamed(string identifier)
-      {
-         return FindAssociationNamed(identifier) != null;
-      }
+      public bool HasAssociationNamed(string identifier) => FindAssociationNamed(identifier) != null;
 
-      public bool HasAttributeNamed(string identifier)
-      {
-         return FindAttributeNamed(identifier) != null;
-      }
+      public bool HasAttributeNamed(string identifier) => FindAttributeNamed(identifier) != null;
 
-      public bool HasPropertyNamed(string identifier)
-      {
-         return HasAssociationNamed(identifier) || HasAttributeNamed(identifier);
-      }
+      public bool HasPropertyNamed(string identifier) => HasAssociationNamed(identifier) || HasAttributeNamed(identifier);
 
       #region Validations
 
@@ -203,6 +182,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             context.LogWarning($"{Name}: Class has no properties", "MCWNoProperties", this);
             hasWarning = true;
+            RedrawItem();
          }
       }
 
@@ -233,6 +213,7 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   context.LogWarning($"{modelClass.Name}: Identity attribute in derived class {Name} becomes a composite key", "MCWDerivedIdentity", this);
                   hasWarning = true;
+                  RedrawItem();
                   return;
                }
 
@@ -261,6 +242,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                context.LogWarning($"Class {Name} should be documented", "AWMissingSummary", this);
                hasWarning = true;
+               RedrawItem();
             }
          }
       }
@@ -354,12 +336,10 @@ namespace Sawczyn.EFDesigner.EFModel
          ///    The element on which to reset the property
          ///    value.
          /// </param>
-         internal void PreResetValue(ModelClass element)
-         {
+         internal void PreResetValue(ModelClass element) =>
             // Force the IsDatabaseSchemaTracking property to false so that the value  
             // of the DatabaseSchema property is retrieved from storage.  
             element.isDatabaseSchemaTrackingPropertyStorage = false;
-         }
       }
 
       #endregion DatabaseSchema tracking property
@@ -372,7 +352,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
          bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
-         
+
          if (!loading && IsNamespaceTracking)
          {
             ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
@@ -454,12 +434,10 @@ namespace Sawczyn.EFDesigner.EFModel
          ///    The element on which to reset the property
          ///    value.
          /// </param>
-         internal void PreResetValue(ModelClass element)
-         {
+         internal void PreResetValue(ModelClass element) =>
             // Force the IsNamespaceTracking property to false so that the value  
             // of the Namespace property is retrieved from storage.  
             element.isNamespaceTrackingPropertyStorage = false;
-         }
       }
 
       #endregion Namespace tracking property
@@ -550,12 +528,10 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">
          ///    The element on which to reset the property value.
          /// </param>
-         internal void PreResetValue(ModelClass element)
-         {
+         internal void PreResetValue(ModelClass element) =>
             // Force the IsOutputDirectoryTracking property to false so that the value  
             // of the OutputDirectory property is retrieved from storage.  
             element.isOutputDirectoryTrackingPropertyStorage = false;
-         }
       }
 
       #endregion OutputDirectory tracking property

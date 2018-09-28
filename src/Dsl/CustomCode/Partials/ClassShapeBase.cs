@@ -5,6 +5,17 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    public abstract partial class ClassShapeBase
    {
+      static string GetDisplayPropertyFromModelClassForAssociationsCompartment(ModelElement element)
+      {
+         Association association = (Association)element;
+         ModelClass target = association.Target;
+         
+         if (!string.IsNullOrEmpty(association.TargetPropertyName))
+            return $"{association.TargetPropertyName} ({target.Name})";
+
+         return target.Name;
+      }
+
       private static string GetDisplayPropertyFromModelClassForAttributesCompartment(ModelElement element)
       {
          ModelAttribute attribute = (ModelAttribute)element;

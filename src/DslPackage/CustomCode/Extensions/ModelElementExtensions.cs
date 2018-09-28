@@ -104,7 +104,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // If the model element does not have a shape, try to cast it IModelElementCompartmented
 
-         if (modelElement is IModelElementCompartmented compartmentedModelElement)
+         if (modelElement is IModelElementInCompartment compartmentedModelElement)
          {
             // Get the parent
             IModelElementWithCompartments parentModelElement = compartmentedModelElement.ParentModelElement;

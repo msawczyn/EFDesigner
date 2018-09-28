@@ -952,6 +952,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Rule to update compartments when an item is added to the list
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemAddRule : DslModeling::AddRule
 		{
@@ -974,6 +975,11 @@ namespace Sawczyn.EFDesigner.EFModel
 					global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
 					UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
 				}
+				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
+				{
+					global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
+					UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+				}
 				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
 				{
 					global::System.Collections.IEnumerable elements = GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
@@ -995,6 +1001,19 @@ namespace Sawczyn.EFDesigner.EFModel
 				global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.ModelClass;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
+			}
+			internal static global::System.Collections.ICollection GetModelClassForClassShapeAssociationsCompartment(global::Sawczyn.EFDesigner.EFModel.Association root)
+			{
+				// Segment 0
+				global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.Source;
+				if ( result == null ) return new DslModeling::ModelElement[0];
+				return new DslModeling::ModelElement[] {result};
+			}
+			internal static global::System.Collections.ICollection GetModelClassForClassShapeAssociationsCompartmentFromPropertyElement(global::Sawczyn.EFDesigner.EFModel.ModelClass root)
+			{
+				// Segment 0
+					global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.Association> result = global::Sawczyn.EFDesigner.EFModel.Association.GetLinksToSources(root);
+				return result;
 			}
 			internal static global::System.Collections.ICollection GetModelEnumForEnumShapeValuesCompartmentFromLastLink(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues root)
 			{
@@ -1056,6 +1075,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Rule to update compartments when an items is removed from the list
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
 		{
@@ -1076,6 +1096,11 @@ namespace Sawczyn.EFDesigner.EFModel
 					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
 				}
+				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
+				{
+					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
+					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+				}
 				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
 				{
 					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
@@ -1088,6 +1113,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Rule to update compartments when the property on an item being displayed changes.
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelAttribute), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumValue), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
 		{
@@ -1108,6 +1134,17 @@ namespace Sawczyn.EFDesigner.EFModel
 					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
 				}
+				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelClass && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId)
+				{
+					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartmentFromPropertyElement((global::Sawczyn.EFDesigner.EFModel.ModelClass)e.ModelElement);
+					global::System.Collections.ArrayList list = new global::System.Collections.ArrayList(elements.Count);
+					foreach(DslModeling::ModelElement element in elements)
+					{
+						global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)element);
+						list.AddRange(rootElements);
+					}
+					CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+				}
 				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumValue && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.NameDomainPropertyId)
 				{
 					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.ModelElement);
@@ -1120,6 +1157,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Rule to update compartments when a roleplayer change happens
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
 		{
@@ -1162,6 +1200,28 @@ namespace Sawczyn.EFDesigner.EFModel
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
 					}
 				}
+				if(typeof(global::Sawczyn.EFDesigner.EFModel.Association).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				{
+					if(e.DomainRole.IsSource)
+					{
+						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.Association)e.OldRolePlayer);
+						//foreach(DslModeling::ModelElement element in oldElements)
+						//{
+						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+						//	foreach(DslDiagrams::PresentationElement pel in pels)
+						//	{
+						//		global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
+						//		if(compartmentShape != null)
+						//		{
+						//			compartmentShape.GetCompartmentMappings()[1].InitializeCompartmentShape(compartmentShape);
+						//		}
+						//	}
+						//}
+						
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ElementLink);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+					}
+				}
 				if(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
 				{
 					if(e.DomainRole.IsSource)
@@ -1196,6 +1256,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Rule to update compartments when the order of items in the list changes.
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
 		{
@@ -1217,6 +1278,14 @@ namespace Sawczyn.EFDesigner.EFModel
 					{
 						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.CounterpartRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+					}
+				}
+				if(typeof(global::Sawczyn.EFDesigner.EFModel.Association).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				{
+					if(!e.CounterpartDomainRole.IsSource)
+					{
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.CounterpartRolePlayer);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
 					}
 				}
 				if(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues).IsAssignableFrom(e.DomainRelationship.ImplementationClass))

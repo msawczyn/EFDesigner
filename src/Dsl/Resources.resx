@@ -133,6 +133,33 @@
   <data name="CalculatedProtected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\calculatedprotected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Cardinality_0_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-0-0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_0_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-0-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_0_many" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-0-many.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_1_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-1-0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_1_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-1-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_1_many" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-1-many.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_many_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-many-0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_many_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-many-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cardinality_many_many" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\cardinality-many-many.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="EnumValue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\enumvalue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

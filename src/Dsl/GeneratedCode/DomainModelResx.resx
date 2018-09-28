@@ -2593,6 +2593,10 @@
     <value>Properties</value>
     <comment>Compartment title</comment>
   </data>
+  <data name="ClassShapeAssociationsCompartmentTitle" xml:space="preserve">
+    <value>Associations</value>
+    <comment>Compartment title</comment>
+  </data>
   <data name="ClassShapeNameDefaultText" xml:space="preserve">
     <value>Name</value>
     <comment>Text decorator default text</comment>

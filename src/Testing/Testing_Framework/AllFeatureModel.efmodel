@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.6.8" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.6.9" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <enums>
     <modelRootHasEnums Id="d8055b1f-588c-4309-9a84-625b5e88f3f0">
       <modelEnum Id="d999f148-5d0f-4b8d-a3fc-5abf12f0242b" namespace="Testing" name="Enum1" isOutputDirectoryTracking="false">
@@ -97,12 +97,12 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="1b51a1b8-8776-4d38-a241-0a4e456367f1">
-      <modelClass Id="b4d4c136-e081-4fbd-83e2-0c563649e4fb" tableName="UParentOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="UParentOptionals" name="UParentOptional" implementNotify="true" isOutputDirectoryTracking="false">
+      <modelClass Id="b4d4c136-e081-4fbd-83e2-0c563649e4fb" tableName="UParentOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="UParentOptionals" name="UParentOptional" implementNotify="true" isOutputDirectoryTracking="false" summary="x">
         <unidirectionalTargets>
-          <unidirectionalAssociation Id="f3ca8a28-1de6-4ab2-b6a7-c9b23b4057e0" sourceMultiplicity="ZeroOne" targetMultiplicity="ZeroOne" targetPropertyName="UChildOptional" collectionClass="ObservableCollection" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
+          <unidirectionalAssociation Id="f3ca8a28-1de6-4ab2-b6a7-c9b23b4057e0" sourceMultiplicity="ZeroOne" targetMultiplicity="ZeroOne" targetPropertyName="UChildOptional" collectionClass="ObservableCollection" targetSummary="x" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
             <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
           </unidirectionalAssociation>
-          <unidirectionalAssociation Id="8b9e764b-578f-4259-9a4c-2ae29fc34e6e" sourceMultiplicity="ZeroOne" targetPropertyName="UChildCollection" collectionClass="ObservableCollection" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
+          <unidirectionalAssociation Id="8b9e764b-578f-4259-9a4c-2ae29fc34e6e" sourceMultiplicity="ZeroOne" targetPropertyName="UChildCollection" collectionClass="ObservableCollection" targetSummary="h" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
             <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
           </unidirectionalAssociation>
           <unidirectionalAssociation Id="33be5c3f-5e9f-4bc2-a78a-4c740b7f774d" sourceMultiplicity="ZeroOne" targetMultiplicity="One" targetPropertyName="UChildRequired" collectionClass="ObservableCollection" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None">

@@ -1,8 +1,9 @@
-1.2.6.8
+1.2.6.10
    - Tweak to force association end roles to be correct when roles or multiplicities change
    - Fixed background color on attribute glyph in model explorer
    - Fixed foreground color on enum value glyph on design surface
    - Hid comments in model explorer because they just cluttered up the tree.
+   - Associations now show up in their own compartment in a class on the design surface. Note that this changes the height of your classes and you may have to tweak the esthetics of your design surface.
    - Double-clicking a class or enum on the designer opens the generated code file, if it exists. If it doesn't exist, you're asked if you'd like to generate the model then, if you do, it tries again.
       - Known issue: EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
 

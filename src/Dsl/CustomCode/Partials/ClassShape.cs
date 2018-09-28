@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -8,6 +9,46 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class ClassShape : IHighlightFromModelExplorer, IMouseActionTarget
    {
+      private static readonly Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>> AttributeGlyphs =
+         new Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>>
+         {
+            {true, new Dictionary<SetterAccessModifier, Bitmap>
+                   {
+                      { SetterAccessModifier.Public, Resources.Public },
+                      { SetterAccessModifier.Protected, Resources.Protected},
+                      { SetterAccessModifier.Internal, Resources.Internal}
+                   }},
+            {false, new Dictionary<SetterAccessModifier, Bitmap>
+                    {
+                       { SetterAccessModifier.Public, Resources.Calculated },
+                       { SetterAccessModifier.Protected, Resources.CalculatedProtected},
+                       { SetterAccessModifier.Internal, Resources.CalculatedInternal}
+                    }}
+         };
+
+      private static readonly Dictionary<Multiplicity, Dictionary<Multiplicity, Bitmap>> AssociationGlyphs =
+         new Dictionary<Multiplicity, Dictionary<Multiplicity, Bitmap>>
+         {
+            {Multiplicity.ZeroOne, new Dictionary<Multiplicity, Bitmap>
+                                   {
+                                      {Multiplicity.ZeroOne, Resources.Cardinality_0_0},
+                                      {Multiplicity.One, Resources.Cardinality_0_1},
+                                      {Multiplicity.ZeroMany, Resources.Cardinality_0_many},
+                                   }},
+            {Multiplicity.One, new Dictionary<Multiplicity, Bitmap>
+                               {
+                                  {Multiplicity.ZeroOne, Resources.Cardinality_1_0},
+                                  {Multiplicity.One, Resources.Cardinality_1_1},
+                                  {Multiplicity.ZeroMany, Resources.Cardinality_1_many},
+                               }},
+            {Multiplicity.ZeroMany, new Dictionary<Multiplicity, Bitmap>
+                                    {
+                                       {Multiplicity.ZeroOne, Resources.Cardinality_many_0},
+                                       {Multiplicity.One, Resources.Cardinality_many_1},
+                                       {Multiplicity.ZeroMany, Resources.Cardinality_many_many},
+                                    }},
+         };
+
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu
       /// </summary>
@@ -22,16 +63,30 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          CompartmentMapping[] mappings = base.GetCompartmentMappings(melType);
 
-         // Each item in the AttributesCompartment will call GetPropertyImage to determine its icon. Called any time the element's presentation element invalidates.
-
-         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>()
-                                                                   .Where(m => m.CompartmentId == "AttributesCompartment"))
-            mapping.ImageGetter = GetPropertyImage;
+         // Each item in the each compartment will call the appropriate method to determine its icon.
+         // This happens any time the element's presentation element invalidates.
+         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "AttributesCompartment"))
+            mapping.ImageGetter = GetAttributePropertyImage;
+         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "AssociationsCompartment"))
+            mapping.ImageGetter = GetAssociationPropertyImage;
 
          return mappings;
       }
 
-      private Image GetPropertyImage(ModelElement element)
+      private Image GetAssociationPropertyImage(ModelElement element)
+      {
+         if (element is Association association)
+         {
+            if (association.Target.ModelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
+               return Resources.Warning;
+
+            return AssociationGlyphs[association.SourceMultiplicity][association.TargetMultiplicity];
+         }
+
+         return Resources.Spacer;
+      }
+
+      private Image GetAttributePropertyImage(ModelElement element)
       {
          if (element is ModelAttribute attribute)
          {
@@ -41,38 +96,10 @@ namespace Sawczyn.EFDesigner.EFModel
             if (attribute.IsIdentity)
                return Resources.Identity;
 
-            switch (attribute.Persistent)
-            {
-               case true:
-                  switch (attribute.SetterVisibility)
-                  {
-                     case SetterAccessModifier.Public:
-                        return Resources.Public;
-                     case SetterAccessModifier.Protected:
-                        return Resources.Protected;
-                     case SetterAccessModifier.Internal:
-                        return Resources.Internal;
-                  }
-
-                  break;
-               case false:
-                  switch (attribute.SetterVisibility)
-                  {
-                     case SetterAccessModifier.Public:
-                        return Resources.Calculated;
-                     case SetterAccessModifier.Protected:
-                        return Resources.CalculatedProtected;
-                     case SetterAccessModifier.Internal:
-                        return Resources.CalculatedInternal;
-                  }
-
-                  break;
-            }
-
-            return Resources.Spacer;
+            return AttributeGlyphs[attribute.Persistent][attribute.SetterVisibility];
          }
 
-         return null;
+         return Resources.Spacer;
       }
 
       #region Drag/drop model attributes
@@ -228,7 +255,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// Set when DocData is loaded. If non-null, calling this action will open the generated code file, if present
       /// </summary>
       public static Func<ModelClass, bool> OpenCodeFile { get; set; }
-     
+
       /// <summary>
       /// If non-null, calling this method will execute code generation for the model
       /// </summary>

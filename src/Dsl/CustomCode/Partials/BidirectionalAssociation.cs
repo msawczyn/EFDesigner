@@ -21,6 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                context.LogWarning($"{Target.Name}.{SourcePropertyName}: Association end should be documented", "AWMissingSummary", this);
                hasWarning = true;
+               RedrawItem();
             }
          }
       }
