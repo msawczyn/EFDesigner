@@ -224,7 +224,16 @@
     <Compile Include="EFModel1.generated.cs">
       <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EFModel1DatabaseInitializer.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFModel1DbMigrationConfiguration.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity1.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity2.generated.cs">
       <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="Enum1.generated.cs">
@@ -265,8 +274,6 @@
     <Content Include="EFModel1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel1.cs</LastGenOutput>
-      <RunCustomToolOnBuild>True</RunCustomToolOnBuild>
-      <AlwaysRun>True</AlwaysRun>
     </Content>
     <Content Include="Sandbox.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

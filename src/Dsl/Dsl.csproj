@@ -314,6 +314,11 @@
     <Compile Include="CustomCode\Partials\EFModelSerializationHelperBase.cs" />
     <Compile Include="CustomCode\Type Converters\TypeConverterBase.cs" />
     <Compile Include="CustomCode\Utilities\WarningDisplay.cs" />
+    <Compile Include="GeneratedCode\DomainClasses.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainClasses.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneratedCode\Serializer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -374,11 +379,6 @@
       <DependentUpon>DirectiveProcessor.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="GeneratedCode\DomainClasses.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DomainClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="GeneratedCode\DomainRelationships.cs">
       <AutoGen>True</AutoGen>
@@ -467,6 +467,7 @@
     </None>
     <None Include="GeneratedCode\DomainClasses.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DomainClasses.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\DomainModelResx.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

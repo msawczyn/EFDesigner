@@ -7249,6 +7249,21 @@ namespace Sawczyn.EFDesigner.EFModel
 			}
 		}
 		#endregion
+		#region Subjects opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of Subjects.
+		/// Description for Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.Comment
+		/// </summary>
+		public virtual DslModeling::ReadOnlyLinkedElementCollection<DesignElement> Subjects
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<DesignElement>, DesignElement>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.CommentDomainRoleId);
+			}
+		}
+		#endregion
 		#region Classes opposite domain role accessor
 		
 		/// <summary>
@@ -8827,12 +8842,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Description for
 		/// Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElement
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<Comment> Comments
+		public virtual DslModeling::ReadOnlyLinkedElementCollection<Comment> Comments
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElementDomainRoleId);
+				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<Comment>, Comment>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElementDomainRoleId);
 			}
 		}
 		#endregion

@@ -14,40 +14,80 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity.Infrastructure.Annotations;
 
 namespace Sandbox
 {
    /// <inheritdoc/>
-   public partial class EFModel1 : Microsoft.EntityFrameworkCore.DbContext
+   public partial class EFModel1 : System.Data.Entity.DbContext
    {
       #region DbSets
-      public Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity1> Entity1 { get; set; }
+      public System.Data.Entity.DbSet<Sandbox.Entity1> Entity1 { get; set; }
+      public System.Data.Entity.DbSet<Sandbox.Entity2> Entity2 { get; set; }
       #endregion DbSets
 
+      #warning Default constructor not generated for EFModel1 since no default connection string was specified in the model
+
       /// <inheritdoc />
-      public EFModel1() : base()
+      public EFModel1(string connectionString) : base(connectionString)
       {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<EFModel1>(new EFModel1DatabaseInitializer());
+         CustomInit();
       }
 
       /// <inheritdoc />
-      public EFModel1(DbContextOptions<EFModel1> options) : base(options)
+      public EFModel1(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
       {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<EFModel1>(new EFModel1DatabaseInitializer());
+         CustomInit();
       }
 
-      partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
-
       /// <inheritdoc />
-      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      public EFModel1(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
       {
-         CustomInit(optionsBuilder);
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<EFModel1>(new EFModel1DatabaseInitializer());
+         CustomInit();
       }
 
-      partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
-      partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
+      /// <inheritdoc />
+      public EFModel1(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<EFModel1>(new EFModel1DatabaseInitializer());
+         CustomInit();
+      }
 
       /// <inheritdoc />
-      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      public EFModel1(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<EFModel1>(new EFModel1DatabaseInitializer());
+         CustomInit();
+      }
+
+      /// <inheritdoc />
+      public EFModel1(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<EFModel1>(new EFModel1DatabaseInitializer());
+         CustomInit();
+      }
+
+      partial void CustomInit();
+      partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+      partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+
+      /// <inheritdoc />
+      protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
          OnModelCreatingImpl(modelBuilder);
@@ -60,7 +100,21 @@ namespace Sandbox
          modelBuilder.Entity<Sandbox.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .HasColumnName("Id")
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Sandbox.Entity1>()
+                     .Property(t => t.Foo)
+                     .HasColumnName("Foo");
+
+         modelBuilder.Entity<Sandbox.Entity2>()
+                     .ToTable("Entity2")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<Sandbox.Entity2>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          OnModelCreatedImpl(modelBuilder);
       }

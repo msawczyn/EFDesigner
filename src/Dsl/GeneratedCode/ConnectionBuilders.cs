@@ -699,7 +699,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	/// <summary>
 	/// ConnectionBuilder class to provide logic for constructing connections between elements.
 	/// </summary>
-	public static partial class CommentReferencesSubjectsBuilder
+	public static partial class Builder6
 	{
 		#region Accept Connection Methods
 		/// <summary>
@@ -711,10 +711,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Sawczyn.EFDesigner.EFModel.Comment)
-			{ 
-				return true;
-			}
 			else
 				return false;
 		}
@@ -728,14 +724,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelClass)
-			{ 
-				return true;
-			}
-			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
-			{ 
-				return true;
-			}
 			else
 				return false;
 		}
@@ -771,23 +759,6 @@ namespace Sawczyn.EFDesigner.EFModel
 			}
 			else // Check combinations
 			{
-				if (candidateSource is global::Sawczyn.EFDesigner.EFModel.Comment)
-				{
-					if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelClass)
-					{
-						global::Sawczyn.EFDesigner.EFModel.Comment sourceComment = (global::Sawczyn.EFDesigner.EFModel.Comment)candidateSource;
-						global::Sawczyn.EFDesigner.EFModel.ModelClass targetModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateTarget;
-						if(targetModelClass == null || sourceComment == null || global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.GetLinks(sourceComment, targetModelClass).Count > 0) return false;
-						return true;
-					}
-					else if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
-					{
-						global::Sawczyn.EFDesigner.EFModel.Comment sourceComment = (global::Sawczyn.EFDesigner.EFModel.Comment)candidateSource;
-						global::Sawczyn.EFDesigner.EFModel.ModelEnum targetModelEnum = (global::Sawczyn.EFDesigner.EFModel.ModelEnum)candidateTarget;
-						if(targetModelEnum == null || sourceComment == null || global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.GetLinks(sourceComment, targetModelEnum).Count > 0) return false;
-						return true;
-					}
-				}
 				
 			}
 			return false;
@@ -816,31 +787,6 @@ namespace Sawczyn.EFDesigner.EFModel
 			
 			if (CanAcceptSourceAndTarget(source, target))
 			{
-				if (source is global::Sawczyn.EFDesigner.EFModel.Comment)
-				{
-					if (target is global::Sawczyn.EFDesigner.EFModel.ModelClass)
-					{
-						global::Sawczyn.EFDesigner.EFModel.Comment sourceAccepted = (global::Sawczyn.EFDesigner.EFModel.Comment)source;
-						global::Sawczyn.EFDesigner.EFModel.ModelClass targetAccepted = (global::Sawczyn.EFDesigner.EFModel.ModelClass)target;
-						DslModeling::ElementLink result = new global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects(sourceAccepted, targetAccepted);
-						if (DslModeling::DomainClassInfo.HasNameProperty(result))
-						{
-							DslModeling::DomainClassInfo.SetUniqueName(result);
-						}
-						return result;
-					}
-					else if (target is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
-					{
-						global::Sawczyn.EFDesigner.EFModel.Comment sourceAccepted = (global::Sawczyn.EFDesigner.EFModel.Comment)source;
-						global::Sawczyn.EFDesigner.EFModel.ModelEnum targetAccepted = (global::Sawczyn.EFDesigner.EFModel.ModelEnum)target;
-						DslModeling::ElementLink result = new global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects(sourceAccepted, targetAccepted);
-						if (DslModeling::DomainClassInfo.HasNameProperty(result))
-						{
-							DslModeling::DomainClassInfo.SetUniqueName(result);
-						}
-						return result;
-					}
-				}
 				
 			}
 			global::System.Diagnostics.Debug.Fail("Having agreed that the connection can be accepted we should never fail to make one.");
@@ -1434,7 +1380,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// Called by the base ConnectAction class to determine if the given shapes can be connected.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesSubjectsBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder Builder6.
 			/// </remarks>
 			public override bool CanCreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, ref string connectionWarning)
 			{
@@ -1460,11 +1406,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				{				
 					if(targetShapeElement == null)
 					{
-						return CommentReferencesSubjectsBuilder.CanAcceptSource(sourceElement);
+						return Builder6.CanAcceptSource(sourceElement);
 					}
 					else
 					{				
-						return CommentReferencesSubjectsBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
+						return Builder6.CanAcceptSourceAndTarget(sourceElement, targetElement);
 					}
 				}
 				else
@@ -1489,7 +1435,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// Called by the base ConnectAction class to create the underlying relationship.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesSubjectsBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder Builder6.
 			/// </remarks>
 			public override void CreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, DslDiagrams::PaintFeedbackArgs paintFeedbackArgs)
 			{
@@ -1503,7 +1449,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				if(sourceElement == null) sourceElement = sourceShapeElement;
 				DslModeling::ModelElement targetElement = targetShapeElement.ModelElement;
 				if(targetElement == null) targetElement = targetShapeElement;
-				CommentReferencesSubjectsBuilder.Connect(sourceElement, targetElement);
+				Builder6.Connect(sourceElement, targetElement);
 			}
 		}
 		
