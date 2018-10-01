@@ -93,14 +93,11 @@ namespace Sawczyn.EFDesigner.EFModel
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot?.WarnOnMissingDocumentation == true)
+         if (modelRoot?.WarnOnMissingDocumentation == true && string.IsNullOrWhiteSpace(Summary))
          {
-            if (string.IsNullOrWhiteSpace(Summary))
-            {
-               context.LogWarning($"{Name}: Enum should be documented", "AWMissingSummary", this);
-               hasWarning = true;
-               RedrawItem();
-            }
+            context.LogWarning($"{Name}: Enum should be documented", "AWMissingSummary", this);
+            hasWarning = true;
+            RedrawItem();
          }
       }
       #region Namespace tracking property

@@ -13,6 +13,8 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       public static readonly PluralizationService PluralizationService;
 
+      public static Action ExecuteValidator { get; set; }
+
       static ModelRoot()
       {
          try

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
@@ -25,12 +26,38 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Extensions
          return PresentationViewsSubject.GetPresentation(element).OfType<ShapeElement>().FirstOrDefault();
       }
 
+      /// <summary>
+      /// Gets the named compartment in this element
+      /// </summary>
+      /// <param name="element"></param>
+      /// <param name="compartmentName"></param>
+      /// <returns></returns>
       public static ElementListCompartment GetCompartment(this ModelElement element, string compartmentName)
       {
          return element.GetFirstShapeElement()
                        .NestedChildShapes
                        .OfType<ElementListCompartment>()
                        .FirstOrDefault(s => s.Name == compartmentName);
+      }
+
+      /// <summary>
+      /// Causes all diagrams to redraw
+      /// </summary>
+      /// <param name="element"></param>
+      public static void InvalidateDiagrams(this ModelElement element)
+      {
+         List<EFModelDiagram> diagrams = element.Store
+                                                .DefaultPartitionForClass(EFModelDiagram.DomainClassId)
+                                                .ElementDirectory
+                                                .AllElements
+                                                .OfType<EFModelDiagram>()
+                                                .ToList();
+
+         foreach (EFModelDiagram diagram in diagrams)
+         {
+            diagram.Invalidate();
+         }
+
       }
 
       private static ModelElement GetCompartmentElementFirstParentElement(this ModelElement modelElement)

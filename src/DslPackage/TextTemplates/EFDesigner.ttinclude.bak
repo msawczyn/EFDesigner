@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.12
+// EFDesigner v1.2.6.11
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -540,7 +540,7 @@ void WritePersistentProperties(ModelClass modelClass)
       if (!modelAttribute.IsConcurrencyToken && !modelAttribute.IsIdentity && (modelClass.ImplementNotify || !modelAttribute.AutoProperty))
       {
          Output($"/// <summary>");
-         Output($"/// Backing field for {modelAttribute.Name} ;");
+         Output($"/// Backing field for {modelAttribute.Name}");
          Output($"/// </summary>");
          Output($"protected {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
          Output($"/// <summary>");

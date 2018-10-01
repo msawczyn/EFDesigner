@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 {
    [RuleOn(typeof(ModelRoot), FireTime = TimeToFire.TopLevelCommit)]
@@ -24,6 +26,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             return;
 
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
+         bool redraw = false;
 
          switch (e.DomainProperty.Name)
          {
@@ -98,14 +101,17 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                      AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
                }
 
+               redraw = true;
                break;
 
             case "ShowWarningsInDesigner":
-
+               redraw = true;
                break;
 
             case "WarnOnMissingDocumentation":
+               if (element.ShowWarningsInDesigner) redraw = true;
 
+               ModelRoot.ExecuteValidator?.Invoke();
                break;
          }
 
@@ -115,6 +121,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             current.Rollback();
             ErrorDisplay.Show(string.Join("\n", errorMessages));
          }
+
+         if (redraw)
+            element.InvalidateDiagrams();
       }
    }
 }

@@ -21,7 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity1
+   public partial class Entity1 : INotifyPropertyChanged
    {
       partial void Init();
 
@@ -41,6 +41,46 @@ namespace Sandbox
       [Key]
       [Required]
       public int Id { get; set; }
+
+      /// <summary>
+      /// Backing field for Foo ;
+      /// </summary>
+      protected string _Foo;
+      /// <summary>
+      /// When provided in a partial class, allows value of _Foo to be changed before setting.
+      /// </summary>
+      partial void SetFoo(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of _Foo to be changed before returning.
+      /// </summary>
+      partial void GetFoo(ref string result);
+
+      public string Foo
+      {
+         get
+         {
+            string value = _Foo;
+            GetFoo(ref value);
+            return (_Foo = value);
+         }
+         set
+         {
+            string oldValue = _Foo;
+            SetFoo(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Foo = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
+      public virtual event PropertyChangedEventHandler PropertyChanged;
+
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
 
    }
 }

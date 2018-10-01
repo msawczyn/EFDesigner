@@ -55,14 +55,12 @@ namespace Sawczyn.EFDesigner.EFModel
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot.WarnOnMissingDocumentation)
+         if (modelRoot.WarnOnMissingDocumentation && string.IsNullOrWhiteSpace(TargetSummary))
          {
-            if (string.IsNullOrWhiteSpace(TargetSummary))
-            {
-               context.LogWarning($"{Source.Name}.{TargetPropertyName}: Association end should be documented", "AWMissingSummary", this);
-               hasWarning = true;
-               RedrawItem();
-            }
+            context.LogWarning($"{Source.Name}.{TargetPropertyName}: Association end should be documented", "AWMissingSummary", this);
+            hasWarning = true;
+            RedrawItem();
+            Source.RedrawItem();
          }
       }
 

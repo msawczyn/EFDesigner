@@ -1,12 +1,9 @@
 ﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -80,7 +77,7 @@ namespace Sawczyn.EFDesigner.EFModel
       [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code")]
       public override ModelRoot LoadModel(SerializationResult serializationResult, Partition partition, string location, ISchemaResolver schemaResolver, ValidationController validationController, ISerializerLocator serializerLocator, System.IO.Stream stream)
       {
-#region Check Parameters
+         #region Check Parameters
 
          if (serializationResult == null)
             throw new ArgumentNullException(nameof(serializationResult));
@@ -91,14 +88,17 @@ namespace Sawczyn.EFDesigner.EFModel
          if (stream == null)
             throw new ArgumentNullException(nameof(stream));
 
-#endregion
+         #endregion
 
          // Prior to v1.2.6.3, the XML format was a bit different.
          // To maintain backward compatability, we're going to check the format and morph it if needed.
          // The verified (or changed) stream is them passed down for further processing in the base class
 
          Stream workingStream = stream;
-         workingStream = ModelMigration.To_1_2_6_3(workingStream);
+         workingStream = ModelMigration.To_1_2_6_11(workingStream);
+
+         if (workingStream == null)
+            throw new FileFormatException();
 
          workingStream.Seek(0, SeekOrigin.Begin);
          return base.LoadModel(serializationResult, partition, location, schemaResolver, validationController, serializerLocator, workingStream);

@@ -24,36 +24,36 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Extensions {
 
          // If the model element does not have a shape, try to cast it IModelElementCompartmented
 
-         if (modelElement is IModelElementInCompartment compartmentedModelElement)
-            if (compartmentedModelElement.ParentModelElement is ModelElement parentModelElement)
+         if (modelElement is IModelElementInCompartment compartmentedModelElement && 
+             compartmentedModelElement.ParentModelElement is ModelElement parentModelElement)
+         {
+            // Get the compartment that stores the model element
+
+            ElementListCompartment compartment = parentModelElement.GetCompartment(compartmentedModelElement.CompartmentName);
+            if (compartment == null)
+               throw new InvalidOperationException($"Can't find compartment {compartmentedModelElement.CompartmentName}");
+
+            // Expand the compartment
+            if (!compartment.IsExpanded)
             {
-               // Get the compartment that stores the model element
-
-               ElementListCompartment compartment = parentModelElement.GetCompartment(compartmentedModelElement.CompartmentName);
-               if (compartment == null)
-                  throw new InvalidOperationException($"Can't find compartment {compartmentedModelElement.CompartmentName}");
-
-               // Expand the compartment?
-               if (!compartment.IsExpanded)
+               using (Transaction trans = modelElement.Store.TransactionManager.BeginTransaction("IsExpanded"))
                {
-                  using (Transaction trans = modelElement.Store.TransactionManager.BeginTransaction("IsExpanded"))
-                  {
-                     compartment.IsExpanded = true;
-                     trans.Commit();
-                  }
-               }
-
-               // Find the model element in the compartment
-
-               int index = compartment.Items.IndexOf(modelElement);
-               if (index >= 0)
-               {
-                  // Create a diagram item and select it
-
-                  diagramView.Selection.Set(new DiagramItem(compartment, compartment.ListField, new ListItemSubField(index)));
-                  return true;
+                  compartment.IsExpanded = true;
+                  trans.Commit();
                }
             }
+
+            // Find the model element in the compartment
+
+            int index = compartment.Items.IndexOf(modelElement);
+            if (index >= 0)
+            {
+               // Create a diagram item and select it
+
+               diagramView.Selection.Set(new DiagramItem(compartment, compartment.ListField, new ListItemSubField(index)));
+               return true;
+            }
+         }
 
          return false;
       }

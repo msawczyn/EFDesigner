@@ -19,6 +19,9 @@ be changed manually - it will be as tall as needed to show all the properties.
 But the entity may be collapsed down to its name bar by clicking the chevron at the top right of its display. When
 collapsed, it may be expanded back to its original size by clicking the chevron again.
 
+You can collapse and expand the `Properties` and `Associations` compartments by clicking the small `+` (or `-`) icon to the
+left of their gray title bars.
+
 ## Removing an Entity
 
 To remove an entity, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
@@ -92,7 +95,61 @@ Right-clicking on an entity displays a Visual Studio context menu with some new 
 
 ### INotifyPropertyChanged
 
-More to come on this.
+You can optionally implement the standard `INotifyPropertyChanged` interface, especially useful for data binding in WinForms applications. By changing that property to `True` (by
+default it's false),. the standard T4 templates will generate code you can customize by implementing a partial method to change its internal behavior.
+
+Since `INotifyPropertyChanged` requires a bit of logic, the properties of that class won't be autoproperties. The properties' properties (?!) will be changed to reflect that. The shape
+on the diagram will also change to have a dashed blue border, to help you immediately see which classes will have the `INotifyPropertyChanged` interface generated.
+
+The generated code for a property will look like the following:
+
+``` csharp
+   /// <summary>
+   /// Backing field for Foo
+   /// </summary>
+   protected string _Foo;
+   /// <summary>
+   /// When provided in a partial class, allows value of _Foo to be changed before setting.
+   /// </summary>
+   partial void SetFoo(string oldValue, ref string newValue);
+   /// <summary>
+   /// When provided in a partial class, allows value of _Foo to be changed before returning.
+   /// </summary>
+   partial void GetFoo(ref string result);
+
+   public string Foo
+   {
+      get
+      {
+         string value = _Foo;
+         GetFoo(ref value);
+         return (_Foo = value);
+      }
+      set
+      {
+         string oldValue = _Foo;
+         SetFoo(oldValue, ref value);
+         if (oldValue != value)
+         {
+            _Foo = value;
+            OnPropertyChanged();
+         }
+      }
+   }
+
+   public virtual event PropertyChangedEventHandler PropertyChanged;
+
+   protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+   {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+   }
+```
+
+Just like in any generated property with a backing field, you'll have the chance to massage the return value 
+of the `get` and `set` methods by implementing the partial functions there. This is also where you'll have
+access to the old and new values (for the `set`) and can do whatever logging, etc. you need to do as you're notified
+of the property change. The generated `OnPropertyChanged` method will be used by the .NET framework when
+appropriate, like data binding in WinForms and other use cases.
 
 ### Next Step 
 [Properties](Properties)

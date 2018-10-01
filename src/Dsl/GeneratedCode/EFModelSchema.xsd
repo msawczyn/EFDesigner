@@ -652,16 +652,31 @@
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Relationship: CommentReferencesSubjects -->
-          <xsd:element name="subjects" minOccurs="0" maxOccurs="1">
+          <!-- Relationship: CommentReferencesClasses -->
+          <xsd:element name="classes" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
-              <xsd:documentation>Instances of CommentReferencesSubjects</xsd:documentation>
+              <xsd:documentation>Instances of CommentReferencesClasses</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element ref="commentReferencesSubjects" minOccurs="0" maxOccurs="unbounded">
+                <xsd:element ref="commentReferencesClasses" minOccurs="0" maxOccurs="unbounded">
                   <xsd:annotation>
-                    <xsd:documentation>[Instance of CommentReferencesSubjects needs to be serialized in full-form]</xsd:documentation>
+                    <xsd:documentation>[Instance of CommentReferencesClasses needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: CommentReferencesEnums -->
+          <xsd:element name="enums" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of CommentReferencesEnums</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="commentReferencesEnums" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of CommentReferencesEnums needs to be serialized in full-form]</xsd:documentation>
                   </xsd:annotation>
                 </xsd:element>
               </xsd:sequence>
@@ -1338,8 +1353,8 @@
   </xsd:complexType>
   
   <!-- CommentReferencesSubjects -->
-  <xsd:element name="commentReferencesSubjects" type="CommentReferencesSubjects" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="CommentReferencesSubjects">
+  <xsd:element name="commentReferencesSubjects" abstract="true" type="CommentReferencesSubjects" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="CommentReferencesSubjects" abstract="true" >
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
@@ -1361,7 +1376,7 @@
   </xsd:complexType>
   
   <!-- CommentReferencesSubjects Moniker -->
-  <xsd:element name="commentReferencesSubjectsMoniker" type="CommentReferencesSubjectsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:element name="commentReferencesSubjectsMoniker" abstract="true" type="CommentReferencesSubjectsMoniker" substitutionGroup="core:modelElementMoniker" />
   <xsd:complexType name="CommentReferencesSubjectsMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for CommentReferencesSubjects instance.</xsd:documentation>

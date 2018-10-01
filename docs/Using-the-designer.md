@@ -15,7 +15,7 @@ Three files will be added to your project: MyModel.efmodel, MyModel.efmodel.diag
 
 - The .efmodel file holds the details of your design
 - The .efmodel.diagram file holds the details of the visual representation of your design, defining what you see on the screen
-- The .tt file is a T4 template, the entry point into code generation. Other T4 templates were installed, but those are in a common location where your Visual Studio extensions reside
+- The .tt file is a [T4 template](https://docs.microsoft.com/en-us/visualstudio/modeling/code-generation-and-t4-text-templates?view=vs-2017), the entry point into code generation. Other T4 templates were installed, but those are in a common location where your Visual Studio extensions reside
 
 Should you decide to rename these files later, **it's important that the file names stay in sync**. In fact, if you do rename them, you'll need to make a manual edit to the .tt to let it know the name of the .efmodel file, since it needs to find that when you want to generate code. That's in line 17 of the .tt file, but we'll talk more about that later.
 
@@ -78,6 +78,7 @@ A peek at the Property page when you have the design surface selected (the backg
 <tr><td valign="top"> Comment Detail                                                       </td><td valign="top"> <i>String</i>. XML comment &lt;Remarks&gt; section</td></tr>
 <tr><td valign="top"> Comment Summary                                                      </td><td valign="top"> <i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Entity Context</b> </td></tr>
+<tr><td valign="top"> DbSet Access                                                         </td><td valign="top"> <i>String</i>. Code visibility for generated DbSet properties. Values are 'Internal' and 'Public'.</td></tr>
 <tr><td valign="top"> Entity Container Access                                              </td><td valign="top"> <i>String</i>. Code visibility for entity container. Values are 'Internal' and 'Public'.</td></tr>
 <tr><td valign="top"> Entity Container Name                                                </td><td valign="top"> <i>String</i>. Name of generated DbContext-derived class</td></tr>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Misc</b>           </td></tr>
@@ -114,7 +115,7 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 </thead>
 <tbody>
 <tr><td valign="top">Cut, Copy, Paste                         </td><td valign="top">You can cut or copy, then paste, classes and enums. The pasted elements will be adjusted so that they don't violate any rules (such as two elements not having the same name), but otherwise the properties will stay the same. If no classes or enums are selected in the designer, the cut and copy options will be disabled. If no classes or enums are in the clipboard, the paste option will be disabled.</td></tr>
-<tr><td valign="top">Validate                                 </td><td valign="top">Checks the currently selected element (class, enum, etc.) against the validation rules built into the designer. Errors or warnings are displayed in Visual Studio's Error List window. If no element is selected, this validates the design surface itself.</td></tr>
+<tr><td valign="top">Validate                                 </td><td valign="top">Checks the currently selected element (class, enum, etc.) against the validation rules built into the designer. Errors or warnings are displayed in Visual Studio's Error List window. If no element is selected, this validates all the elements, just like <i>Validate All</i>.</td></tr>
 <tr><td valign="top">Validate All                             </td><td valign="top">Checks all model elements against the afore mentioned validation rules. Errors or warnings are displayed in Visual Studio's Error List window.</td></tr>
 <tr><td valign="top">Layout Diagram                           </td><td valign="top">Arranges all model elements on the design surface. If no elements are in the designer, this option will be disabled. Note that this is the stock "Layout Diagram" behavior for Visual Studio's Modeling SDK, so you could almost certainly do a better job by hand.</td></tr>
 <tr><td valign="top">Hide Elements                            </td><td valign="top">Hides the currently selected classes and/or enums on the diagram. Any lines to or from that element will be hidden as well. This does not remove the element from the model, only makes it invisible in the diagram. Useful for tidying up a diagram that would otherwise be unreadable due to, for example, a common base class that all other classes inherit from. If no element is selected, this option will be disabled.</td></tr>
@@ -137,6 +138,15 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 <tr><td valign="top">Properties                               </td><td valign="top">Switches focus to the Properties window.</td></tr>
 </tbody>
 </table>
+
+### Selecting Design Elements
+
+You can select design elements from the visual designer, and their properties will appear in the standard Visual Studio property editor window.
+You're able to select classes, their attributes and associations, enumerations and their values, comments, and lines connecting any model element; each has
+its own properties to display. Clicking onto the background of the designer will de-select any elements on it and show the properties of the designer itself.
+
+Double-clicking an element, however, will take you to the code that you've generated for that element, if it exists. If it doesn't, you'll be asked if you want
+to generate the code, then you'll go there.
 
 ### The Entity Model Explorer Window
 

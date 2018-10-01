@@ -43,7 +43,16 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.6.7***
+***1.2.6.12***
+   - Tweak to force association end roles to be correct when roles or multiplicities change
+   - Fixed background color on attribute glyph in model explorer
+   - Fixed foreground color on enum value glyph on design surface
+   - Hid comments in model explorer because they just cluttered up the tree.
+   - Associations now show up in their own compartment in a class on the design surface. Note that this changes the height of your elements, so the first time opening a model you may have to tweak your esthetics a bit.
+   - Double-clicking a class or enum on the designer opens the generated code file, if it exists. If it doesn't exist, you're asked if you'd like to generate the model then, if you do, it tries again.
+      - *Known issue*: EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
+
+**1.2.6.7**
    - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24)
    - Simplified cascade delete settings in property editor for associations
    - Fixed bad code generation in EFCore for cascade delete overrides (https://github.com/msawczyn/EFDesigner/issues/22)
@@ -51,8 +60,12 @@ You can read more about how to use the designer in the [Documentation site](http
    - Tightened up and swatted some bugs in INotifyPropertyChanged handling. Added documentation to doc site for this feature (following up on https://github.com/msawczyn/EFDesigner/issues/23)
    - Ensured multiline editing was available in property window for those properties that made sense
 
-**1.2.6.6**
+<details>
+<summary><b>1.2.6.6</b></summary>
+
    - Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
+
+</details>
    
 <details>
 <summary><b>1.2.6.5</b></summary>

@@ -144,6 +144,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ClassShape.ExecCodeGeneration = GenerateCode;
          EnumShape.OpenCodeFile = OpenFileFor;
          EnumShape.ExecCodeGeneration = GenerateCode;
+         ModelRoot.ExecuteValidator = ValidateAll;
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -231,6 +232,14 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          SetDocDataDirty(0);
+      }
+
+      private void ValidateAll()
+      {
+         ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;
+         Store.ElementDirectory.AllElements.OfType<IDisplaysWarning>().ToList().ForEach(e => e.ResetWarning());
+         ValidationController?.ClearMessages();
+         ValidationController?.Validate(Store.ElementDirectory.AllElements, allCategories);
       }
 
       private void ValidateModelElement(object sender, ElementPropertyChangedEventArgs e)

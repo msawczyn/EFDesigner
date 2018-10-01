@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.12
+// EFDesigner v1.2.6.11
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -359,11 +359,10 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 	  // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
-	      segments.Clear();
-         string attributeName = (modelClass.ImplementNotify || !indexed.AutoProperty) ? $"_{indexed.Name}" : indexed.Name;
-         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{attributeName})");
+	     segments.Clear();
+         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
-         if (segments.Count > 1)
+		 if (segments.Count > 1)
          {
             if (modelRoot.ChopMethodChains)
                OutputChopped(segments);
@@ -381,7 +380,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
-         if (modelAttribute.ColumnName != modelAttribute.Name || modelClass.ImplementNotify || !modelAttribute.AutoProperty)
+         if (modelAttribute.ColumnName != modelAttribute.Name || modelClass.ImplementNotify)
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
          if (modelAttribute.Indexed)
             segments.Add("HasColumnAnnotation(\"Index\", new IndexAnnotation(new IndexAttribute()))");
@@ -393,10 +392,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          if (segments.Any())
          {
             segments.Insert(0, $"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
-            if ((modelClass.ImplementNotify || !indexed.AutoProperty) && !modelAttribute.IsIdentity && !modelAttribute.IsConcurrencyToken)
-               segments.Insert(1, $"Property(t => t._{modelAttribute.Name})");
-            else
-               segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
+            segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
             if (modelRoot.ChopMethodChains)
                OutputChopped(segments);

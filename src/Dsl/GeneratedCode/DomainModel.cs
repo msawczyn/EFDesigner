@@ -363,9 +363,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				createElementLinkMap.Add(typeof(ModelRootHasEnums), 5);
 				createElementLinkMap.Add(typeof(ModelEnumHasValues), 6);
 				createElementLinkMap.Add(typeof(ModelRootHasClasses), 7);
-				createElementLinkMap.Add(typeof(CommentReferencesSubjects), 8);
-				createElementLinkMap.Add(typeof(CommentReferencesClasses), 9);
-				createElementLinkMap.Add(typeof(CommentReferencesEnums), 10);
+				createElementLinkMap.Add(typeof(CommentReferencesClasses), 8);
+				createElementLinkMap.Add(typeof(CommentReferencesEnums), 9);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -388,9 +387,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				case 5: return new ModelRootHasEnums(partition, roleAssignments, propertyAssignments);
 				case 6: return new ModelEnumHasValues(partition, roleAssignments, propertyAssignments);
 				case 7: return new ModelRootHasClasses(partition, roleAssignments, propertyAssignments);
-				case 8: return new CommentReferencesSubjects(partition, roleAssignments, propertyAssignments);
-				case 9: return new CommentReferencesClasses(partition, roleAssignments, propertyAssignments);
-				case 10: return new CommentReferencesEnums(partition, roleAssignments, propertyAssignments);
+				case 8: return new CommentReferencesClasses(partition, roleAssignments, propertyAssignments);
+				case 9: return new CommentReferencesEnums(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}

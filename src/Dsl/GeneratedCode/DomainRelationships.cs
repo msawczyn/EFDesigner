@@ -3723,7 +3723,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainRelationship()]
 	[DslModeling::DomainObjectId("c1a798b4-85dc-4479-9c35-30f5b15d8aa1")]
-	public partial class CommentReferencesSubjects : DslModeling::ElementLink
+	public abstract partial class CommentReferencesSubjects : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
 		
@@ -3732,56 +3732,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xc1a798b4, 0x85dc, 0x4479, 0x9c, 0x35, 0x30, 0xf5, 0xb1, 0x5d, 0x8a, 0xa1);
 	
-				
 		/// <summary>
-		/// Constructor
-		/// Creates a CommentReferencesSubjects link in the same Partition as the given Comment
+		/// Constructor.
 		/// </summary>
-		/// <param name="source">Comment to use as the source of the relationship.</param>
-		/// <param name="target">DesignElement to use as the target of the relationship.</param>
-		public CommentReferencesSubjects(Comment source, DesignElement target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(CommentReferencesSubjects.CommentDomainRoleId, source), new DslModeling::RoleAssignment(CommentReferencesSubjects.DesignElementDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public CommentReferencesSubjects(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public CommentReferencesSubjects(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public CommentReferencesSubjects(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public CommentReferencesSubjects(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		/// <param name="partition">The Partition instance containing this ElementLink</param>
+		/// <param name="roleAssignments">A set of role assignments for roleplayer initialization</param>
+		/// <param name="propertyAssignments">A set of attribute assignments for attribute initialization</param>
+		protected CommentReferencesSubjects(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3802,18 +3759,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Subjects", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/Comment.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("8624f267-1304-43ef-acc4-f0b7d67b2856")]
-		public virtual Comment Comment
+		public abstract Comment Comment
 		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (Comment)DslModeling::DomainRoleInfo.GetRolePlayer(this, CommentDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, CommentDomainRoleId, value);
-			}
+			get;
+			set;
 		}
 				
 		#endregion
@@ -3823,9 +3772,9 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<Comment> GetComments(DesignElement element)
+		public static DslModeling::ReadOnlyLinkedElementCollection<Comment> GetComments(DesignElement element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<Comment>, Comment>(element, DesignElementDomainRoleId);
+			return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<Comment>, Comment>(element, DesignElementDomainRoleId);
 		}
 		#endregion
 		#region DesignElement domain role code
@@ -3844,18 +3793,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Comments", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects/DesignElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("f2d70cc8-21b0-455b-9841-bee17b5ad5d9")]
-		public virtual DesignElement DesignElement
+		public abstract DesignElement DesignElement
 		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (DesignElement)DslModeling::DomainRoleInfo.GetRolePlayer(this, DesignElementDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, DesignElementDomainRoleId, value);
-			}
+			get;
+			set;
 		}
 				
 		#endregion
@@ -3865,9 +3806,9 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<DesignElement> GetSubjects(Comment element)
+		public static DslModeling::ReadOnlyLinkedElementCollection<DesignElement> GetSubjects(Comment element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<DesignElement>, DesignElement>(element, CommentDomainRoleId);
+			return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<DesignElement>, DesignElement>(element, CommentDomainRoleId);
 		}
 		#endregion
 		#region Comment link accessor
