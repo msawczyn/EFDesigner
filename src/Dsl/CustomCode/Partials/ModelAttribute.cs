@@ -529,6 +529,14 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
+      private void AutoPropertyWillNotNotify(ValidationContext context)
+      {
+         if (ModelClass.ImplementNotify && AutoProperty)
+            context.LogWarning($"{ModelClass.Name}.{Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages", "AWAutoPropertyWillNotNotify", this);
+      }
+
       #region To/From String
 
       /// <summary>Returns a string that represents the current object.</summary>

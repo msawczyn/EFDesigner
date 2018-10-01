@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.7
+// EFDesigner v1.2.6.11
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -537,7 +537,7 @@ void WritePersistentProperties(ModelClass modelClass)
 
       string nullable = IsNullable(modelAttribute) ? "?" : string.Empty;
 
-      if (!modelAttribute.IsConcurrencyToken && (modelClass.ImplementNotify || !modelAttribute.AutoProperty))
+      if (!modelAttribute.IsConcurrencyToken && !modelAttribute.AutoProperty)
       {
          Output($"/// <summary>");
          Output($"/// Backing field for {modelAttribute.Name}");
@@ -577,7 +577,7 @@ void WritePersistentProperties(ModelClass modelClass)
 
       GeneratePropertyAnnotations(modelAttribute);
 
-      if (modelAttribute.IsConcurrencyToken || (!modelClass.ImplementNotify && modelAttribute.AutoProperty))
+      if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
       {
          Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
       }
