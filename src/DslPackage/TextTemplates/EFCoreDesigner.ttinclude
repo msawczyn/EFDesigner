@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.12
+// EFDesigner v1.2.6.11
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -324,8 +324,10 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
-         if (modelAttribute.ColumnName != modelAttribute.Name || modelClass.ImplementNotify)
+         if (modelAttribute.ColumnName != modelAttribute.Name)
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+         if (!modelAttribute.AutoProperty)
+            segments.Add($"HasField(\"_{modelAttribute.Name}\")");
          if (modelAttribute.ColumnType.ToLowerInvariant() != "default")
          {
             if (modelAttribute.ColumnType.ToLowerInvariant() == "varchar" || modelAttribute.ColumnType.ToLowerInvariant() == "char")
