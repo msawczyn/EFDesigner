@@ -43,7 +43,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public void RedrawItem()
       {
-         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
+         ModelElement[] modelElements = {this, Source, Target};
+
+         List<ShapeElement> shapeElements =
+            modelElements.SelectMany(modelElement => PresentationViewsSubject.GetPresentation(modelElement)
+                                                                             .OfType<ShapeElement>())
+                         .ToList();
+
          foreach (ShapeElement shapeElement in shapeElements)
             shapeElement.Invalidate();
       }

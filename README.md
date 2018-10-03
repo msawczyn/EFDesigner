@@ -43,14 +43,16 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.6.12***
+***1.2.6.11***
    - Tweak to force association end roles to be correct when roles or multiplicities change
+   - Attribute elements' "String Properties" don't appear unless the attribute is a string
+   - Attribute elements' "Indexed Unique" property doesn't appear unless the attribute has "Indexed" equal to "True"
    - Fixed background color on attribute glyph in model explorer
    - Fixed foreground color on enum value glyph on design surface
    - Hid comments in model explorer because they just cluttered up the tree.
    - Associations now show up in their own compartment in a class on the design surface. Note that this changes the height of your elements, so the first time opening a model you may have to tweak your esthetics a bit.
    - Double-clicking a class or enum on the designer opens the generated code file, if it exists. If it doesn't exist, you're asked if you'd like to generate the model then, if you do, it tries again.
-      - *Known issue*: EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
+      - Known issue: EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
 
 **1.2.6.7**
    - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24)

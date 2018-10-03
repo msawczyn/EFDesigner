@@ -17,13 +17,11 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)
       {
-         Association association = ModelElement as Association;
-
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
          //Add the descriptor for the tracking property.  
-         if (association != null)
+         if (ModelElement is Association association)
          {
             storeDomainDataDirectory = association.Store.DomainDataDirectory;
 

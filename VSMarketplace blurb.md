@@ -24,14 +24,16 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**1.2.6.12**
+**1.2.6.11**
    - Tweak to force association end roles to be correct when roles or multiplicities change
+   - Attribute elements' "String Properties" don't appear unless the attribute is a string
+   - Attribute elements' "Indexed Unique" property doesn't appear unless the attribute has "Indexed" equal to "True"
    - Fixed background color on attribute glyph in model explorer
    - Fixed foreground color on enum value glyph on design surface
    - Hid comments in model explorer because they just cluttered up the tree.
    - **[NEW]** Associations now show up in their own compartment in a class on the design surface. Note that this changes the height of your elements, so the first time opening a model you may have to tweak your esthetics a bit.
    - **[NEW]** Double-clicking a class or enum on the designer opens the generated code file, if it exists. If it doesn't exist, you're asked if you'd like to generate the model then, if you do, it tries again.
-      - *Known issue:* EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
+      - Known issue: EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
 
 **1.2.6.7**
    - An entity's concurrency token property is no longer a required parameter in its constructor (https://github.com/msawczyn/EFDesigner/issues/24)
@@ -42,7 +44,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Ensured multiline editing was available in property window for those properties that made sense
 
 **1.2.6.6**
-   - Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
+   - **[NEW]** Deleting a generalization or superclass gives the choice of pushing attributes and associations down to the former child class(es)
 
 **1.2.6.5**
    - Comment elements now wrap the text
@@ -52,10 +54,10 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **1.2.6.2**
    - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
-   - Enabled drag and drop reordering of enum values and class properties
+   - **[NEW]** Enabled drag and drop reordering of enum values and class properties
    - Gave some color to the enum value glyph in the model explorer - it was so boring!
-   - Class properties and enum values with warnings now show a warning icon on the design surface
-   - Design surface has a property to turn on or off the display of the warning icons 
+   - **[NEW]** Class properties and enum values with warnings now show a warning icon on the design surface
+   - **[NEW]** Design surface has a property to turn on or off the display of the warning icons 
    - Recategorized a few "Misc" properties on the design surface
 
 **1.2.5.1**
@@ -76,10 +78,10 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fix for bad code generation when a class has multiple properties that each have an darabase index specified.
 
 **1.2.3.0**
-   - When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
+   - **[NEW]** When element selected in model explorer, no longer highlights in orange but instead selects, centers and zooms the element.
      This was done because the color change flagged the model as modified, making the user either undo or save the changes to keep
      source control happy.
-   - Selecting an element in the diagram also selects it in the model explorer
+   - **[NEW]** Selecting an element in the diagram also selects it in the model explorer
    - Fix for [issue #12 - Cascade delete](https://github.com/msawczyn/EFDesigner/issues/14). Added another enum value for delete behavior (now is Cascade, None and Default)
      and changed code generation to force no cascade delete if set to 'None' ('None' used to mean 'Use the default behavior', which is now, more explicitly, the 'Default'
      option).
@@ -92,7 +94,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fix issue with association role end changing without the other side autoatically changing
    - Fix issue with deleting a highlighted element throwing an error when trying to save the file
    - Fixed code generation for dependent classes
-   - Designer now automatically saves before generating code
+   - **[NEW]** Designer now automatically saves before generating code
 
 **1.2.1.0**
 
@@ -123,10 +125,10 @@ For comprehensive documentation, please visit [the project's documentation site]
 **1.1.0.0**
 
    - Bug fixes for exceptions thrown when bad input to model attributes as text
-   - Added MinLength string property (used in EF6 only as of this writing)
+   - **[NEW]** Added MinLength string property (used in EF6 only as of this writing)
    - Modified attribute parser to accept MinLength
-   - Added ColumnName property to model attribute
-   - Added [MEF extension capability](https://docs.microsoft.com/en-us/visualstudio/modeling/extend-your-dsl-by-using-mef)
+   - **[NEW]** Added ColumnName property to model attribute
+   - **[NEW]** Added [MEF extension capability](https://docs.microsoft.com/en-us/visualstudio/modeling/extend-your-dsl-by-using-mef)
    - Added some unit tests
    - Added some documentation updates
    - Changed version to 1.1.0 due to MEF capability
@@ -135,7 +137,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
    - If no entities and model is using an unsupported inheritance strategy, 
      changing from EF6 to EFCore doesn't give a message, just changes the strategy.
-   - Added IsFlags attribute (and matching validations and behavior) to Enums
+   - **[NEW]** Added IsFlags attribute (and matching validations and behavior) to Enums
    - NGENed extension assembly
 
 **1.0.3.8**
@@ -152,7 +154,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fixed parser errors when editing model attributes as text
    - Fixed error when auto-generating on save and design surface is not the active window
    - Fixed crash when used on non-English-language systems (where Microsoft Pluralization Service is unavailable)
-   - Added option to generate warnings if no documentation
+   - **[NEW]** Added option to generate warnings if no documentation
    - Standardized warning and error message structure
    - Added ability to choose 'None' DatabaseInitializer type; generates SetInitializer(null)
 
@@ -164,4 +166,4 @@ For comprehensive documentation, please visit [the project's documentation site]
 
    - Adds some T4 fixes to make generated code more usable in ASP.NET Core applications. 
    - Fix to spurious error when copying/pasting enum elements.
-   - First release that's available on Visual Studio Marketplace.
+   - **[NEW]** First release that's available on Visual Studio Marketplace.
