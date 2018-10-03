@@ -145,7 +145,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = !CurrentSelection.OfType<EnumShape>().Any();
+            command.Visible = CurrentSelection.OfType<ClassShape>().Any() && !CurrentSelection.OfType<EnumShape>().Any();
             command.Enabled = CurrentSelection.OfType<ClassShape>().Count() == 1;
          }
       }
@@ -219,7 +219,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = !CurrentSelection.OfType<ClassShape>().Any();
+            command.Visible = CurrentSelection.OfType<EnumShape>().Any() && !CurrentSelection.OfType<ClassShape>().Any();
             command.Enabled = CurrentSelection.OfType<EnumShape>().Count() == 1;
          }
       }
@@ -299,7 +299,6 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            // not yet. Need to work this some more.
             command.Visible = true;
             command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
          }
@@ -351,8 +350,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = true;
-            command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
+            command.Visible = command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
          }
       }
 
@@ -433,8 +431,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = true;
-            command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
+            command.Visible = command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
          }
       }
 
@@ -535,7 +532,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Store store = CurrentDocData.Store;
             ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
-            command.Visible = (modelRoot != null && CurrentDocData is EFModelDocData);
+            command.Visible = (modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected());
             command.Enabled = IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
          }
       }

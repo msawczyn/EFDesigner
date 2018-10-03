@@ -21,8 +21,6 @@ namespace Sawczyn.EFDesigner.EFModel
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
-         // Get a reference to the model element that is being described.  
-
          if (ModelElement is ModelClass modelClass)
          {
             EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelClass);

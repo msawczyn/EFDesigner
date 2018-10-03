@@ -96,10 +96,15 @@ Right-clicking on an entity displays a Visual Studio context menu with some new 
 ### INotifyPropertyChanged
 
 You can optionally implement the standard `INotifyPropertyChanged` interface, especially useful for data binding in WinForms applications. By changing that property to `True` (by
-default it's false),. the standard T4 templates will generate code you can customize by implementing a partial method to change its internal behavior.
+default it's `False`),. the standard T4 templates will generate code you can customize by implementing a partial method.
 
-Since `INotifyPropertyChanged` requires a bit of logic, the properties of that class won't be autoproperties. The properties' properties (?!) will be changed to reflect that. The shape
-on the diagram will also change to have a dashed blue border, to help you immediately see which classes will have the `INotifyPropertyChanged` interface generated.
+The shape on the diagram will change to have a dashed blue border, helping you immediately see which classes will generate 
+change notification code. Since `INotifyPropertyChanged` requires a bit of logic, the properties of that class won't be 
+autoproperties. Each property will be set to `AutoProperty = False` when `Implement INotifyPropertyChanged` is set 
+to `True`; if you set `AutoProperty` to `True` while indicating that you want `INotifyPropertyChanged` code, you'll 
+get a warning on model validation indicating that said property won't participate in change notification since it's an 
+autoproperty. 
+
 
 The generated code for a property will look like the following:
 
@@ -145,11 +150,17 @@ The generated code for a property will look like the following:
    }
 ```
 
-Just like in any generated property with a backing field, you'll have the chance to massage the return value 
-of the `get` and `set` methods by implementing the partial functions there. This is also where you'll have
-access to the old and new values (for the `set`) and can do whatever logging, etc. you need to do as you're notified
-of the property change. The generated `OnPropertyChanged` method will be used by the .NET framework when
-appropriate, like data binding in WinForms and other use cases.
+Note that this interface doesn't give you sufficient detail to know *how* a property changed, only *which* 
+property changed; Microsoft never intended it to. Its initial purpose was to support data binding, so it's an
+important part of .NET, but you need more info to handle property change notifications outside of a data binding
+context. You have that in the code that's generated when you set `AutoProperty = False` in the model for an entity's
+property.
+
+Any generated property with a backing field gives you the chance to do work (log, massage the return value, etc.)
+in their `get` and `set` methods by implementing the corresponding `GetXXX` and `SetXXX` partial functions. In those 
+partials, you have access to the old and new values (for the `SetXXX` method) and can implement whatever logging, etc. 
+you need. Therefore, when tracking changes, the generated `OnPropertyChanged` method will be used when the .NET Framework 
+finds it appropriate but *your* work should go in the `SetXXX` partial method.
 
 ### Next Step 
 [Properties](Properties)

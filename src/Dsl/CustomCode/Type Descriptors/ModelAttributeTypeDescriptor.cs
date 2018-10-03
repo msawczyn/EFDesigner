@@ -17,22 +17,44 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)
       {
-         ModelAttribute modelAttribute = ModelElement as ModelAttribute;
-
          // Get the default property descriptors from the base class  
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 
-         if (modelAttribute != null)
+         if (ModelElement is ModelAttribute modelAttribute)
          {
             storeDomainDataDirectory = modelAttribute.Store.DomainDataDirectory;
 
             EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelAttribute);
 
-            // dono't display IdentityType unless the IsIdentity is true
+            // don't display IdentityType unless the IsIdentity is true
             if (!modelAttribute.IsIdentity)
             {
                PropertyDescriptor identityTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IdentityType");
                propertyDescriptors.Remove(identityTypeDescriptor);
+            }
+
+            /********************************************************************************/
+
+            // don't display String property modifiers unless the type is "String"
+            if (modelAttribute.Type != "String")
+            {
+               PropertyDescriptor minLengthTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "MinLength");
+               propertyDescriptors.Remove(minLengthTypeDescriptor);
+
+               PropertyDescriptor maxLengthTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "MaxLength");
+               propertyDescriptors.Remove(maxLengthTypeDescriptor);
+
+               PropertyDescriptor stringTypeTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "StringType");
+               propertyDescriptors.Remove(stringTypeTypeDescriptor);
+            }
+
+            /********************************************************************************/
+
+            // don't display IndexedUnique unless the Indexed is true
+            if (!modelAttribute.Indexed)
+            {
+               PropertyDescriptor indexedUniqueTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IndexedUnique");
+               propertyDescriptors.Remove(indexedUniqueTypeDescriptor);
             }
 
             /********************************************************************************/
