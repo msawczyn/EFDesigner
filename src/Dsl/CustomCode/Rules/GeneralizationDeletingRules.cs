@@ -29,7 +29,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!superclass.AllAttributes.Any() && !associations.Any())
             return;
 
-         if (QuestionDisplay.Show($"Push {superclass.Name} attributes and associations down to {subclass.Name}?") == true)
+         if (!subclass.IsDeleting && QuestionDisplay.Show($"Push {superclass.Name} attributes and associations down to {subclass.Name}?") == true)
             superclass.PushDown(subclass);
       }
    }

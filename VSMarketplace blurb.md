@@ -24,6 +24,9 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.12**
+   - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree
+
 **1.2.6.11**
    - Tweak to force association end roles to be correct when roles or multiplicities change
    - Attribute elements' "String Properties" don't appear unless the attribute is a string

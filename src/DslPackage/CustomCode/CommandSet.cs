@@ -445,7 +445,7 @@ namespace Sawczyn.EFDesigner.EFModel
                diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
                   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
                   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
-                  false);
+                  true);
                tx.Commit();
             }
          }
