@@ -278,6 +278,11 @@
             &lt;ArrayOfParameterStorage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;
          </Parameters>
     </None>
+    <Content Include="EFModel.xsd">
+      <SubType>Designer</SubType>
+      <InstallRoot>Schemas</InstallRoot>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>

@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/dsltools/EFModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="modelRoot">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="comments">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:element maxOccurs="unbounded" name="comment">
+                        <xs:complexType>
+                           <xs:attribute name="Id" type="xs:string" use="required" />
+                        </xs:complexType>
+                     </xs:element>
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+            <xs:element name="enums">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:element maxOccurs="unbounded" name="modelRootHasEnums">
+                        <xs:complexType>
+                           <xs:sequence>
+                              <xs:element name="modelEnum">
+                                 <xs:complexType>
+                                    <xs:sequence>
+                                       <xs:element name="values">
+                                          <xs:complexType>
+                                             <xs:sequence>
+                                                <xs:element maxOccurs="unbounded" name="modelEnumHasValues">
+                                                   <xs:complexType>
+                                                      <xs:sequence>
+                                                         <xs:element name="modelEnumValue">
+                                                            <xs:complexType>
+                                                               <xs:attribute name="Id" type="xs:string" use="required" />
+                                                               <xs:attribute name="name" type="xs:string" use="required" />
+                                                               <xs:attribute name="value" type="xs:unsignedByte" use="optional" />
+                                                            </xs:complexType>
+                                                         </xs:element>
+                                                      </xs:sequence>
+                                                      <xs:attribute name="Id" type="xs:string" use="required" />
+                                                   </xs:complexType>
+                                                </xs:element>
+                                             </xs:sequence>
+                                          </xs:complexType>
+                                       </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="Id" type="xs:string" use="required" />
+                                    <xs:attribute name="namespace" type="xs:string" use="required" />
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                    <xs:attribute name="isOutputDirectoryTracking" type="xs:boolean" use="required" />
+                                    <xs:attribute name="isFlags" type="xs:boolean" use="optional" />
+                                 </xs:complexType>
+                              </xs:element>
+                           </xs:sequence>
+                           <xs:attribute name="Id" type="xs:string" use="required" />
+                        </xs:complexType>
+                     </xs:element>
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+            <xs:element name="classes">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:element maxOccurs="unbounded" name="modelRootHasClasses">
+                        <xs:complexType>
+                           <xs:sequence>
+                              <xs:element name="modelClass">
+                                 <xs:complexType>
+                                    <xs:sequence>
+                                       <xs:choice maxOccurs="unbounded">
+                                          <xs:element name="subclasses">
+                                             <xs:complexType>
+                                                <xs:sequence>
+                                                   <xs:element maxOccurs="unbounded" name="generalization">
+                                                      <xs:complexType>
+                                                         <xs:sequence>
+                                                            <xs:element name="modelClassMoniker">
+                                                               <xs:complexType>
+                                                                  <xs:attribute name="Id" type="xs:string" use="required" />
+                                                               </xs:complexType>
+                                                            </xs:element>
+                                                         </xs:sequence>
+                                                         <xs:attribute name="Id" type="xs:string" use="required" />
+                                                      </xs:complexType>
+                                                   </xs:element>
+                                                </xs:sequence>
+                                             </xs:complexType>
+                                          </xs:element>
+                                          <xs:element name="unidirectionalTargets">
+                                             <xs:complexType>
+                                                <xs:sequence>
+                                                   <xs:element maxOccurs="unbounded" name="unidirectionalAssociation">
+                                                      <xs:complexType>
+                                                         <xs:sequence>
+                                                            <xs:element name="modelClassMoniker">
+                                                               <xs:complexType>
+                                                                  <xs:attribute name="Id" type="xs:string" use="required" />
+                                                               </xs:complexType>
+                                                            </xs:element>
+                                                         </xs:sequence>
+                                                         <xs:attribute name="Id" type="xs:string" use="required" />
+                                                         <xs:attribute name="targetMultiplicity" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetPropertyName" type="xs:string" use="required" />
+                                                         <xs:attribute name="collectionClass" type="xs:string" use="required" />
+                                                         <xs:attribute name="sourceRole" type="xs:string" use="required" />
+                                                         <xs:attribute name="targetRole" type="xs:string" use="required" />
+                                                         <xs:attribute name="foreignKeyLocation" type="xs:string" use="required" />
+                                                         <xs:attribute name="sourceDeleteAction" type="xs:string" use="optional" />
+                                                         <xs:attribute name="sourceMultiplicity" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetSummary" type="xs:string" use="optional" />
+                                                      </xs:complexType>
+                                                   </xs:element>
+                                                </xs:sequence>
+                                             </xs:complexType>
+                                          </xs:element>
+                                          <xs:element name="attributes">
+                                             <xs:complexType>
+                                                <xs:sequence>
+                                                   <xs:element maxOccurs="unbounded" name="modelAttribute">
+                                                      <xs:complexType>
+                                                         <xs:attribute name="Id" type="xs:string" use="required" />
+                                                         <xs:attribute name="type" type="xs:string" use="optional" />
+                                                         <xs:attribute name="isIdentity" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="required" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="indexed" type="xs:boolean" use="required" />
+                                                         <xs:attribute name="indexedUnique" type="xs:boolean" use="required" />
+                                                         <xs:attribute name="stringType" type="xs:string" use="required" />
+                                                         <xs:attribute name="name" type="xs:string" use="required" />
+                                                         <xs:attribute name="columnName" type="xs:string" use="optional" />
+                                                         <xs:attribute name="columnType" type="xs:string" use="required" />
+                                                         <xs:attribute name="isColumnNameTracking" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="maxLength" type="xs:unsignedByte" use="optional" />
+                                                         <xs:attribute name="minLength" type="xs:unsignedByte" use="optional" />
+                                                         <xs:attribute name="identityType" type="xs:string" use="optional" />
+                                                         <xs:attribute name="initialValue" type="xs:string" use="optional" />
+                                                         <xs:attribute name="autoProperty" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="setterVisibility" type="xs:string" use="optional" />
+                                                      </xs:complexType>
+                                                   </xs:element>
+                                                </xs:sequence>
+                                             </xs:complexType>
+                                          </xs:element>
+                                          <xs:element name="bidirectionalTargets">
+                                             <xs:complexType>
+                                                <xs:sequence>
+                                                   <xs:element maxOccurs="unbounded" name="bidirectionalAssociation">
+                                                      <xs:complexType>
+                                                         <xs:sequence>
+                                                            <xs:element name="modelClassMoniker">
+                                                               <xs:complexType>
+                                                                  <xs:attribute name="Id" type="xs:string" use="required" />
+                                                               </xs:complexType>
+                                                            </xs:element>
+                                                         </xs:sequence>
+                                                         <xs:attribute name="Id" type="xs:string" use="required" />
+                                                         <xs:attribute name="targetMultiplicity" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetPropertyName" type="xs:string" use="required" />
+                                                         <xs:attribute name="collectionClass" type="xs:string" use="required" />
+                                                         <xs:attribute name="sourceRole" type="xs:string" use="required" />
+                                                         <xs:attribute name="targetRole" type="xs:string" use="required" />
+                                                         <xs:attribute name="foreignKeyLocation" type="xs:string" use="required" />
+                                                         <xs:attribute name="sourcePropertyName" type="xs:string" use="required" />
+                                                         <xs:attribute name="sourceMultiplicity" type="xs:string" use="optional" />
+                                                      </xs:complexType>
+                                                   </xs:element>
+                                                </xs:sequence>
+                                             </xs:complexType>
+                                          </xs:element>
+                                       </xs:choice>
+                                    </xs:sequence>
+                                    <xs:attribute name="Id" type="xs:string" use="required" />
+                                    <xs:attribute name="tableName" type="xs:string" use="required" />
+                                    <xs:attribute name="databaseSchema" type="xs:string" use="required" />
+                                    <xs:attribute name="namespace" type="xs:string" use="required" />
+                                    <xs:attribute name="dbSetName" type="xs:string" use="required" />
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                    <xs:attribute name="isOutputDirectoryTracking" type="xs:boolean" use="required" />
+                                    <xs:attribute name="implementNotify" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="summary" type="xs:string" use="optional" />
+                                    <xs:attribute name="isAbstract" type="xs:boolean" use="optional" />
+                                 </xs:complexType>
+                              </xs:element>
+                           </xs:sequence>
+                           <xs:attribute name="Id" type="xs:string" use="required" />
+                        </xs:complexType>
+                     </xs:element>
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+         </xs:sequence>
+         <xs:attribute name="dslVersion" type="xs:string" use="required" />
+         <xs:attribute name="Id" type="xs:string" use="required" />
+         <xs:attribute name="entityContainerName" type="xs:string" use="required" />
+         <xs:attribute name="namespace" type="xs:string" use="required" />
+         <xs:attribute name="databaseInitializerType" type="xs:string" use="required" />
+         <xs:attribute name="connectionString" type="xs:string" use="required" />
+         <xs:attribute name="automaticMigrationsEnabled" type="xs:boolean" use="required" />
+         <xs:attribute name="entityOutputDirectory" type="xs:string" use="required" />
+         <xs:attribute name="contextOutputDirectory" type="xs:string" use="required" />
+         <xs:attribute name="enumOutputDirectory" type="xs:string" use="required" />
+         <xs:attribute name="entityFrameworkVersion" type="xs:string" use="required" />
+         <xs:attribute name="chopMethodChains" type="xs:boolean" use="required" />
+         <xs:attribute name="defaultCollectionClass" type="xs:string" use="required" />
+         <xs:attribute name="transformOnSave" type="xs:boolean" use="required" />
+         <xs:attribute name="showCascadeDeletes" type="xs:boolean" use="required" />
+         <xs:attribute name="databaseType" type="xs:string" use="required" />
+         <xs:attribute name="showWarningsInDesigner" type="xs:boolean" use="required" />
+      </xs:complexType>
+   </xs:element>
+</xs:schema>
