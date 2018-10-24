@@ -130,7 +130,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : System.Data.Entity.DbContext");
    Output("{");
 
-   PluralizationService pluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
+   PluralizationService pluralizationService = modelRoot.PluralizationService;
    
    /***********************************************************************/
    // generate DBSets
@@ -162,7 +162,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          if (!string.IsNullOrEmpty(modelClass.DbSetName))
             dbSetName = modelClass.DbSetName;
          else
-            dbSetName = pluralizationService.IsSingular(modelClass.Name)
+            dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 

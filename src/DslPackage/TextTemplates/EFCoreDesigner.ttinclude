@@ -131,7 +131,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : Microsoft.EntityFrameworkCore.DbContext");
    Output("{");
 
-   PluralizationService pluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
+   PluralizationService pluralizationService = modelRoot.PluralizationService;
    
    /***********************************************************************/
    // generate DBSets
@@ -162,8 +162,8 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
          if (!string.IsNullOrEmpty(modelClass.DbSetName))
             dbSetName = modelClass.DbSetName;
-         else
-            dbSetName = pluralizationService.IsSingular(modelClass.Name)
+         else 
+            dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
