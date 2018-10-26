@@ -131,7 +131,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : Microsoft.EntityFrameworkCore.DbContext");
    Output("{");
 
-   PluralizationService pluralizationService = modelRoot.PluralizationService;
+   PluralizationService pluralizationService = ModelRoot.PluralizationService;
    
    /***********************************************************************/
    // generate DBSets
