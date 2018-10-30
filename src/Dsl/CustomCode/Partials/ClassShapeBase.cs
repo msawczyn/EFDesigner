@@ -5,7 +5,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    public abstract partial class ClassShapeBase
    {
-      static string GetDisplayPropertyFromModelClassForAssociationsCompartment(ModelElement element)
+      private static string GetDisplayPropertyFromModelClassForAssociationsCompartment(ModelElement element)
       {
          Association association = (Association)element;
          ModelClass target = association.Target;
@@ -14,6 +14,17 @@ namespace Sawczyn.EFDesigner.EFModel
             return $"{association.TargetPropertyName} ({target.Name})";
 
          return target.Name;
+      }
+
+      private static string GetDisplayPropertyFromModelClassForSourcesCompartment(ModelElement element)
+      {
+         BidirectionalAssociation association = (BidirectionalAssociation)element;
+         ModelClass source = association.Source;
+
+         if (!string.IsNullOrEmpty(association.SourcePropertyName))
+            return $"{association.SourcePropertyName} ({source.Name})";
+
+         return source.Name;
       }
 
       private static string GetDisplayPropertyFromModelClassForAttributesCompartment(ModelElement element)

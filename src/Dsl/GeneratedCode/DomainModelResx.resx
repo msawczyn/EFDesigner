@@ -2594,7 +2594,11 @@
     <comment>Compartment title</comment>
   </data>
   <data name="ClassShapeAssociationsCompartmentTitle" xml:space="preserve">
-    <value>Associations</value>
+    <value>Association Targets</value>
+    <comment>Compartment title</comment>
+  </data>
+  <data name="ClassShapeSourcesCompartmentTitle" xml:space="preserve">
+    <value>Association Sources</value>
     <comment>Compartment title</comment>
   </data>
   <data name="ClassShapeNameDefaultText" xml:space="preserve">

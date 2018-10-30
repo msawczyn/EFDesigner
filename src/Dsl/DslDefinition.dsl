@@ -1337,7 +1337,8 @@
         <IconDecorator Name="WarningGlyph" DisplayName="Warning Glyph" DefaultIcon="Resources\Warning.png" />
       </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
-      <Compartment Name="AssociationsCompartment" Title="Associations" />
+      <Compartment Name="AssociationsCompartment" Title="Association Targets" />
+      <Compartment Name="SourcesCompartment" Title="Association Sources" />
     </CompartmentShape>
     <GeometryShape Id="ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f" Description="" Name="CommentBoxShape" DisplayName="Comment Box Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Comment Box Shape" FillColor="255, 255, 204" OutlineColor="204, 204, 102" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="ForwardDiagonal" Geometry="RoundedRectangle">
       <ShapeHasDecorators Position="Center" HorizontalOffset="0" VerticalOffset="0">
@@ -2143,6 +2144,18 @@
             <PropertyPath>
               <DomainPropertyMoniker Name="ModelClass/Name" />
               <DomainPath>Association!Target</DomainPath>
+            </PropertyPath>
+          </PropertyDisplayed>
+        </CompartmentMap>
+        <CompartmentMap DisplaysCustomString="true">
+          <CompartmentMoniker Name="ClassShape/SourcesCompartment" />
+          <ElementsDisplayed>
+            <DomainPath>BidirectionalAssociation.BidirectionalSources</DomainPath>
+          </ElementsDisplayed>
+          <PropertyDisplayed>
+            <PropertyPath>
+              <DomainPropertyMoniker Name="ModelClass/Name" />
+              <DomainPath>Association!Source</DomainPath>
             </PropertyPath>
           </PropertyDisplayed>
         </CompartmentMap>

@@ -26,7 +26,18 @@ namespace Sandbox
       public System.Data.Entity.DbSet<Sandbox.Entity2> Entity2 { get; set; }
       #endregion DbSets
 
-      #warning Default constructor not generated for EFModel1 since no default connection string was specified in the model
+      /// <summary>
+      /// Default connection string
+      /// </summary>
+      public static string ConnectionString { get; set; } = @"Data Source=localhost;Initial Catalog=ModelTest;Integrated Security=True";
+      /// <inheritdoc />
+      public EFModel1() : base(ConnectionString)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<EFModel1>(new EFModel1DatabaseInitializer());
+         CustomInit();
+      }
 
       /// <inheritdoc />
       public EFModel1(string connectionString) : base(connectionString)
@@ -100,12 +111,16 @@ namespace Sandbox
          modelBuilder.Entity<Sandbox.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .HasColumnName("Id")
                      .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<Sandbox.Entity1>()
-                     .Property(t => t.Foo)
-                     .HasColumnName("Foo");
+                     .HasMany(x => x.Entity2)
+                     .WithRequired()
+                     .Map(x => x.MapKey("Entity1_Id"));
+         modelBuilder.Entity<Sandbox.Entity1>()
+                     .HasRequired(x => x.Entity2_1)
+                     .WithMany(x => x.Entity1)
+                     .Map(x => x.MapKey("Entity2_1_Id"));
 
          modelBuilder.Entity<Sandbox.Entity2>()
                      .ToTable("Entity2")

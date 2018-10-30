@@ -12,26 +12,3 @@ T4:  Implement soft delete where marked in model
 DSL: Add bool Enhanced Cascade Delete
 T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
 
-
-Next release (v1.2.6.7+)
-
--------------------------------------------------------------
-Misc
--------------------------------------------------------------
-   - Property editor multiline attribute doesn't seem to be working
-      - (Comment text working)
-      - Enum summary (enum detail working)
-      - Class summary
-      - Class detail
-
--------------------------------------------------------------
-Docs
--------------------------------------------------------------
-   - When generating files, if you don't put in a directory name for the files they'll be created as children of the T4. Nothing can be done about that.
-   - Enhance discussion of INotifyPropertyChanged
-      - automatically creates backing field
-      - valid for properties and single objects, not collections (use ObservableCollection or BindingList)
-   - Enhance discussion of cascade delete
-   - Update documentation to discuss cascade deletion propagating from principal to dependents ONLY
-     reference https://docs.microsoft.com/en-us/ef/core/saving/cascade-delete and http://www.entityframeworktutorial.net/code-first/cascade-delete-in-code-first.aspx
-

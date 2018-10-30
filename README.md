@@ -45,6 +45,10 @@ You can read more about how to use the designer in the [Documentation site](http
 
 ***1.2.6.12***
    - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree
+   - Fix to workaround Visual Studio pulling in the wrong System.Net.Http reference. (See https://developercommunity.visualstudio.com/content/problem/296293/vs2017-1575-ignores-the-hintpath-and-take-the-syst.html)
+   - Add EFModel.xsd to Visual Studio schema cache in order to avoid editor warnings for missing schema
+   - Fixed template issue for non-English-language systems (where Microsoft Pluralization Service is unavailable)
+   - Added compartment for association sources so Bidirectional associations would show up
 
 **1.2.6.11**
    - Tweak to force association end roles to be correct when roles or multiplicities change

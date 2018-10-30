@@ -26,11 +26,35 @@ namespace Sandbox
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public Entity2()
+      protected Entity2()
       {
+         Entity1 = new System.Collections.Generic.HashSet<Sandbox.Entity1>();
+
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_entity10"></param>
+      public Entity2(Sandbox.Entity1 _entity10)
+      {
+         if (_entity10 == null) throw new ArgumentNullException(nameof(_entity10));
+         _entity10.Entity2.Add(this);
+
+         Entity1 = new HashSet<Sandbox.Entity1>();
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_entity10"></param>
+      public static Entity2 Create(Sandbox.Entity1 _entity10)
+      {
+         return new Entity2(_entity10);
       }
 
       // Persistent properties
@@ -41,6 +65,10 @@ namespace Sandbox
       [Key]
       [Required]
       public int Id { get; set; }
+
+      // Persistent navigation properties
+
+      public virtual ICollection<Sandbox.Entity1> Entity1 { get; set; }
 
    }
 }
