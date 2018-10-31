@@ -581,9 +581,9 @@ namespace Sawczyn.EFDesigner.EFModel
 			}
 			internal static DslModeling::ModelElement GetPropertyElementFromModelClassForSourcesCompartment(DslModeling::ModelElement element)
 			{
-				global::Sawczyn.EFDesigner.EFModel.Association root = (global::Sawczyn.EFDesigner.EFModel.Association)element;
+				global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation root = (global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)element;
 					// Segment 0
-					global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.Source;
+					global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.BidirectionalSource;
 					if ( result == null ) return null;
 				return result;
 			}

@@ -1031,7 +1031,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			internal static global::System.Collections.ICollection GetModelClassForClassShapeSourcesCompartmentFromPropertyElement(global::Sawczyn.EFDesigner.EFModel.ModelClass root)
 			{
 				// Segment 0
-					global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.Association> result = global::Sawczyn.EFDesigner.EFModel.Association.GetLinksToTargets(root);
+					global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation> result = global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.GetLinksToBidirectionalTargets(root);
 				return result;
 			}
 			internal static global::System.Collections.ICollection GetModelEnumForEnumShapeValuesCompartmentFromLastLink(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues root)

@@ -24,7 +24,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**1.2.6.12**
+**1.2.6.13**
    - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree
    - Fix to workaround Visual Studio pulling in the wrong System.Net.Http reference. (See https://developercommunity.visualstudio.com/content/problem/296293/vs2017-1575-ignores-the-hintpath-and-take-the-syst.html)
    - **[NEW]** Add EFModel.xsd to Visual Studio schema cache in order to avoid editor warnings for missing schema

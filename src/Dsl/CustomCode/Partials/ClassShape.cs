@@ -69,6 +69,8 @@ namespace Sawczyn.EFDesigner.EFModel
             mapping.ImageGetter = GetAttributePropertyImage;
          foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "AssociationsCompartment"))
             mapping.ImageGetter = GetAssociationPropertyImage;
+         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "SourcesCompartment"))
+            mapping.ImageGetter = GetSourcesPropertyImage;
 
          return mappings;
       }
@@ -81,6 +83,19 @@ namespace Sawczyn.EFDesigner.EFModel
                return Resources.Warning;
 
             return AssociationGlyphs[association.SourceMultiplicity][association.TargetMultiplicity];
+         }
+
+         return Resources.Spacer;
+      }
+
+      private Image GetSourcesPropertyImage(ModelElement element)
+      {
+         if (element is BidirectionalAssociation association)
+         {
+            if (association.Source.ModelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
+               return Resources.Warning;
+
+            return AssociationGlyphs[association.TargetMultiplicity][association.SourceMultiplicity];
          }
 
          return Resources.Spacer;

@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelClass target = association.Target;
          
          if (!string.IsNullOrEmpty(association.TargetPropertyName))
-            return $"{association.TargetPropertyName} ({target.Name})";
+            return $"{association.TargetPropertyName} : {target.Name}";
 
          return target.Name;
       }
@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelClass source = association.Source;
 
          if (!string.IsNullOrEmpty(association.SourcePropertyName))
-            return $"{association.SourcePropertyName} ({source.Name})";
+            return $"{association.SourcePropertyName} : {source.Name}";
 
          return source.Name;
       }
