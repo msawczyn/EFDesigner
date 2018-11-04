@@ -9,6 +9,7 @@
                      <xs:element maxOccurs="unbounded" name="comment">
                         <xs:complexType>
                            <xs:attribute name="Id" type="xs:string" use="required" />
+                           <xs:attribute name="text" type="xs:string" use="optional" />
                         </xs:complexType>
                      </xs:element>
                   </xs:sequence>
@@ -32,12 +33,13 @@
                                                          <xs:element name="modelEnumValue">
                                                             <xs:complexType>
                                                                <xs:attribute name="Id" type="xs:string" use="required" />
-                                                               <xs:attribute name="name" type="xs:string" use="required" />
-                                                               <xs:attribute name="value" type="xs:unsignedByte" use="optional" />
+                                                               <xs:attribute name="name" type="xs:string" use="optional" />
+                                                               <xs:attribute name="value" type="xs:integer" use="optional" />
+                                                               <xs:attribute name="summary" type="xs:string" use="optional" />
                                                             </xs:complexType>
                                                          </xs:element>
                                                       </xs:sequence>
-                                                      <xs:attribute name="Id" type="xs:string" use="required" />
+                                                      <xs:attribute name="Id" type="xs:string" use="optional" />
                                                    </xs:complexType>
                                                 </xs:element>
                                              </xs:sequence>
@@ -45,10 +47,15 @@
                                        </xs:element>
                                     </xs:sequence>
                                     <xs:attribute name="Id" type="xs:string" use="required" />
-                                    <xs:attribute name="namespace" type="xs:string" use="required" />
-                                    <xs:attribute name="name" type="xs:string" use="required" />
-                                    <xs:attribute name="isOutputDirectoryTracking" type="xs:boolean" use="required" />
+                                    <xs:attribute name="valueType" type="xs:string" use="optional" />
+                                    <xs:attribute name="namespace" type="xs:string" use="optional" />
+                                    <xs:attribute name="isNamespaceTracking" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="name" type="xs:string" use="optional" />
                                     <xs:attribute name="isFlags" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="outputDirectory" type="xs:string" use="optional" />
+                                    <xs:attribute name="isOutputDirectoryTracking" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="description" type="xs:string" use="optional" />
+                                    <xs:attribute name="summary" type="xs:string" use="optional" />
                                  </xs:complexType>
                               </xs:element>
                            </xs:sequence>
@@ -76,7 +83,7 @@
                                                          <xs:sequence>
                                                             <xs:element name="modelClassMoniker">
                                                                <xs:complexType>
-                                                                  <xs:attribute name="Id" type="xs:string" use="required" />
+                                                                  <xs:attribute name="Id" type="xs:string" use="optional" />
                                                                </xs:complexType>
                                                             </xs:element>
                                                          </xs:sequence>
@@ -100,14 +107,19 @@
                                                          </xs:sequence>
                                                          <xs:attribute name="Id" type="xs:string" use="required" />
                                                          <xs:attribute name="targetMultiplicity" type="xs:string" use="optional" />
-                                                         <xs:attribute name="targetPropertyName" type="xs:string" use="required" />
-                                                         <xs:attribute name="collectionClass" type="xs:string" use="required" />
-                                                         <xs:attribute name="sourceRole" type="xs:string" use="required" />
-                                                         <xs:attribute name="targetRole" type="xs:string" use="required" />
-                                                         <xs:attribute name="foreignKeyLocation" type="xs:string" use="required" />
-                                                         <xs:attribute name="sourceDeleteAction" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetPropertyName" type="xs:string" use="optional" />
+                                                         <xs:attribute name="collectionClass" type="xs:string" use="optional" />
+                                                         <xs:attribute name="sourceRole" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetRole" type="xs:string" use="optional" />
+                                                         <xs:attribute name="foreignKeyLocation" type="xs:string" use="optional" />
                                                          <xs:attribute name="sourceMultiplicity" type="xs:string" use="optional" />
+                                                         <xs:attribute name="persistent" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="targetDeleteAction" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetDescription" type="xs:string" use="optional" />
                                                          <xs:attribute name="targetSummary" type="xs:string" use="optional" />
+                                                         <xs:attribute name="isCollectionClassTracking" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="sourceDeleteAction" type="xs:string" use="optional" />
+                                                         <xs:attribute name="summary" type="xs:string" use="optional" />
                                                       </xs:complexType>
                                                    </xs:element>
                                                 </xs:sequence>
@@ -122,19 +134,23 @@
                                                          <xs:attribute name="type" type="xs:string" use="optional" />
                                                          <xs:attribute name="isIdentity" type="xs:boolean" use="optional" />
                                                          <xs:attribute name="required" type="xs:boolean" use="optional" />
-                                                         <xs:attribute name="indexed" type="xs:boolean" use="required" />
-                                                         <xs:attribute name="indexedUnique" type="xs:boolean" use="required" />
-                                                         <xs:attribute name="stringType" type="xs:string" use="required" />
-                                                         <xs:attribute name="name" type="xs:string" use="required" />
+                                                         <xs:attribute name="indexed" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="indexedUnique" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="stringType" type="xs:string" use="optional" />
+                                                         <xs:attribute name="name" type="xs:string" use="optional" />
                                                          <xs:attribute name="columnName" type="xs:string" use="optional" />
-                                                         <xs:attribute name="columnType" type="xs:string" use="required" />
+                                                         <xs:attribute name="columnType" type="xs:string" use="optional" />
                                                          <xs:attribute name="isColumnNameTracking" type="xs:boolean" use="optional" />
-                                                         <xs:attribute name="maxLength" type="xs:unsignedByte" use="optional" />
-                                                         <xs:attribute name="minLength" type="xs:unsignedByte" use="optional" />
+                                                         <xs:attribute name="maxLength" type="xs:integer" use="optional" />
+                                                         <xs:attribute name="minLength" type="xs:integer" use="optional" />
                                                          <xs:attribute name="identityType" type="xs:string" use="optional" />
-                                                         <xs:attribute name="initialValue" type="xs:string" use="optional" />
                                                          <xs:attribute name="autoProperty" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="readOnly" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="initialValue" type="xs:string" use="optional" />
                                                          <xs:attribute name="setterVisibility" type="xs:string" use="optional" />
+                                                         <xs:attribute name="description" type="xs:string" use="optional" />
+                                                         <xs:attribute name="summary" type="xs:string" use="optional" />
+                                                         <xs:attribute name="virtual" type="xs:boolean" use="optional" />
                                                       </xs:complexType>
                                                    </xs:element>
                                                 </xs:sequence>
@@ -154,13 +170,20 @@
                                                          </xs:sequence>
                                                          <xs:attribute name="Id" type="xs:string" use="required" />
                                                          <xs:attribute name="targetMultiplicity" type="xs:string" use="optional" />
-                                                         <xs:attribute name="targetPropertyName" type="xs:string" use="required" />
-                                                         <xs:attribute name="collectionClass" type="xs:string" use="required" />
-                                                         <xs:attribute name="sourceRole" type="xs:string" use="required" />
-                                                         <xs:attribute name="targetRole" type="xs:string" use="required" />
-                                                         <xs:attribute name="foreignKeyLocation" type="xs:string" use="required" />
-                                                         <xs:attribute name="sourcePropertyName" type="xs:string" use="required" />
+                                                         <xs:attribute name="targetPropertyName" type="xs:string" use="optional" />
+                                                         <xs:attribute name="collectionClass" type="xs:string" use="optional" />
+                                                         <xs:attribute name="sourceRole" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetRole" type="xs:string" use="optional" />
+                                                         <xs:attribute name="foreignKeyLocation" type="xs:string" use="optional" />
+                                                         <xs:attribute name="sourcePropertyName" type="xs:string" use="optional" />
                                                          <xs:attribute name="sourceMultiplicity" type="xs:string" use="optional" />
+                                                         <xs:attribute name="persistent" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="sourceDeleteAction" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetDescription" type="xs:string" use="optional" />
+                                                         <xs:attribute name="targetSummary" type="xs:string" use="optional" />
+                                                         <xs:attribute name="isCollectionClassTracking" type="xs:boolean" use="optional" />
+                                                         <xs:attribute name="sourceDescription" type="xs:string" use="optional" />
+                                                         <xs:attribute name="sourceSummary" type="xs:string" use="optional" />
                                                       </xs:complexType>
                                                    </xs:element>
                                                 </xs:sequence>
@@ -169,15 +192,21 @@
                                        </xs:choice>
                                     </xs:sequence>
                                     <xs:attribute name="Id" type="xs:string" use="required" />
-                                    <xs:attribute name="tableName" type="xs:string" use="required" />
-                                    <xs:attribute name="databaseSchema" type="xs:string" use="required" />
-                                    <xs:attribute name="namespace" type="xs:string" use="required" />
-                                    <xs:attribute name="dbSetName" type="xs:string" use="required" />
-                                    <xs:attribute name="name" type="xs:string" use="required" />
-                                    <xs:attribute name="isOutputDirectoryTracking" type="xs:boolean" use="required" />
-                                    <xs:attribute name="implementNotify" type="xs:boolean" use="optional" />
-                                    <xs:attribute name="summary" type="xs:string" use="optional" />
+                                    <xs:attribute name="tableName" type="xs:string" use="optional" />
+                                    <xs:attribute name="databaseSchema" type="xs:string" use="optional" />
+                                    <xs:attribute name="namespace" type="xs:string" use="optional" />
+                                    <xs:attribute name="dbSetName" type="xs:string" use="optional" />
+                                    <xs:attribute name="name" type="xs:string" use="optional" />
+                                    <xs:attribute name="isOutputDirectoryTracking" type="xs:boolean" use="optional" />
                                     <xs:attribute name="isAbstract" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="isDatabaseSchemaTracking" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="isNamespaceTracking" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="implementNotify" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="customInterfaces" type="xs:string" use="optional" />
+                                    <xs:attribute name="outputDirectory" type="xs:string" use="optional" />
+                                    <xs:attribute name="description" type="xs:string" use="optional" />
+                                    <xs:attribute name="isDependentType" type="xs:boolean" use="optional" />
+                                    <xs:attribute name="summary" type="xs:string" use="optional" />
                                  </xs:complexType>
                               </xs:element>
                            </xs:sequence>
@@ -190,21 +219,35 @@
          </xs:sequence>
          <xs:attribute name="dslVersion" type="xs:string" use="required" />
          <xs:attribute name="Id" type="xs:string" use="required" />
-         <xs:attribute name="entityContainerName" type="xs:string" use="required" />
-         <xs:attribute name="namespace" type="xs:string" use="required" />
-         <xs:attribute name="databaseInitializerType" type="xs:string" use="required" />
-         <xs:attribute name="connectionString" type="xs:string" use="required" />
-         <xs:attribute name="automaticMigrationsEnabled" type="xs:boolean" use="required" />
-         <xs:attribute name="entityOutputDirectory" type="xs:string" use="required" />
-         <xs:attribute name="contextOutputDirectory" type="xs:string" use="required" />
-         <xs:attribute name="enumOutputDirectory" type="xs:string" use="required" />
-         <xs:attribute name="entityFrameworkVersion" type="xs:string" use="required" />
-         <xs:attribute name="chopMethodChains" type="xs:boolean" use="required" />
-         <xs:attribute name="defaultCollectionClass" type="xs:string" use="required" />
-         <xs:attribute name="transformOnSave" type="xs:boolean" use="required" />
-         <xs:attribute name="showCascadeDeletes" type="xs:boolean" use="required" />
-         <xs:attribute name="databaseType" type="xs:string" use="required" />
-         <xs:attribute name="showWarningsInDesigner" type="xs:boolean" use="required" />
+         <xs:attribute name="lazyLoadingEnabled" type="xs:boolean" use="optional" />
+         <xs:attribute name="entityContainerAccess" type="xs:string" use="optional" />
+         <xs:attribute name="entityContainerName" type="xs:string" use="optional" />
+         <xs:attribute name="namespace" type="xs:string" use="optional" />
+         <xs:attribute name="databaseInitializerType" type="xs:string" use="optional" />
+         <xs:attribute name="connectionString" type="xs:string" use="optional" />
+         <xs:attribute name="connectionStringName" type="xs:string" use="optional" />
+         <xs:attribute name="automaticMigrationsEnabled" type="xs:boolean" use="optional" />
+         <xs:attribute name="entityOutputDirectory" type="xs:string" use="optional" />
+         <xs:attribute name="contextOutputDirectory" type="xs:string" use="optional" />
+         <xs:attribute name="enumOutputDirectory" type="xs:string" use="optional" />
+         <xs:attribute name="databaseSchema" type="xs:string" use="optional" />
+         <xs:attribute name="concurrencyDefault" type="xs:string" use="optional" />
+         <xs:attribute name="fileNameMarker" type="xs:string" use="optional" />
+         <xs:attribute name="chopMethodChains" type="xs:boolean" use="optional" />
+         <xs:attribute name="inheritanceStrategy" type="xs:string" use="optional" />
+         <xs:attribute name="defaultCollectionClass" type="xs:string" use="optional" />
+         <xs:attribute name="proxyGenerationEnabled" type="xs:boolean" use="optional" />
+         <xs:attribute name="transformOnSave" type="xs:boolean" use="optional" />
+         <xs:attribute name="showCascadeDeletes" type="xs:boolean" use="optional" />
+         <xs:attribute name="databaseType" type="xs:string" use="optional" />
+         <xs:attribute name="warnOnMissingDocumentation" type="xs:boolean" use="optional" />
+         <xs:attribute name="structOutputDirectory" type="xs:string" use="optional" />
+         <xs:attribute name="installNuGetPackages" type="xs:string" use="optional" />
+         <xs:attribute name="dbSetAccess" type="xs:string" use="optional" />
+         <xs:attribute name="description" type="xs:string" use="optional" />
+         <xs:attribute name="summary" type="xs:string" use="optional" />
+         <xs:attribute name="defaultIdentityType" type="xs:string" use="optional" />
+         <xs:attribute name="showWarningsInDesigner" type="xs:boolean" use="optional" />
       </xs:complexType>
    </xs:element>
 </xs:schema>

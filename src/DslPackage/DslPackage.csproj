@@ -226,6 +226,10 @@
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomCode\WizardImplementation.cs" />
+    <Content Include="changelog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -260,6 +264,10 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="app.config" />
+    <Content Include="LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="MefExtension\CommandExtensionVSCT.vsct">
       <DependentUpon>CommandExtensionVSCT.tt</DependentUpon>
       <AutoGen>True</AutoGen>
