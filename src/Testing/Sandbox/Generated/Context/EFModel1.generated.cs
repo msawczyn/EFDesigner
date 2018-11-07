@@ -114,6 +114,10 @@ namespace Sandbox
                      .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<Sandbox.Entity1>()
+                     .Property(t => t.Timestamp)
+                     .IsRequired()
+                     .IsRowVersion();
+         modelBuilder.Entity<Sandbox.Entity1>()
                      .HasMany(x => x.Entity2)
                      .WithRequired()
                      .Map(x => x.MapKey("Entity1_Id"));
@@ -130,6 +134,10 @@ namespace Sandbox
                      .IsRequired()
                      .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Sandbox.Entity2>()
+                     .Property(t => t.Timestamp)
+                     .IsRequired()
+                     .IsRowVersion();
 
          OnModelCreatedImpl(modelBuilder);
       }

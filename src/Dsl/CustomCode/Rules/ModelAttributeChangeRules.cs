@@ -154,6 +154,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   element.IsIdentity = false;
                   element.Persistent = true;
                   element.Required = true;
+                  element.Type = "Binary";
                }
 
                break;

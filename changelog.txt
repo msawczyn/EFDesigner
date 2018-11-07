@@ -1,3 +1,8 @@
+1.2.6.14
+   - Cleaned up schema to prevent useless XSD warnings when editing the model
+   - Fixed one last remaining code generation issue with concurrency properties
+   - Added model's base class to property editor
+
 1.2.6.13
    - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree
    - Fix to workaround Visual Studio pulling in the wrong System.Net.Http reference. (See https://developercommunity.visualstudio.com/content/problem/296293/vs2017-1575-ignores-the-hintpath-and-take-the-syst.html)

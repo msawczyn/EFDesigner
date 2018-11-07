@@ -130,6 +130,13 @@ namespace Sandbox
          }
       }
 
+      /// <summary>
+      /// Required
+      /// </summary>
+      [Required]
+      [ConcurrencyCheck]
+      public byte[] Timestamp { get; set; }
+
       // Persistent navigation properties
 
       public virtual ICollection<Sandbox.Entity2> Entity2 { get; set; }

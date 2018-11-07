@@ -162,6 +162,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelClass), "GlyphType", ModelClass.GlyphTypeDomainPropertyId, typeof(ModelClass.GlyphTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "Description", ModelClass.DescriptionDomainPropertyId, typeof(ModelClass.DescriptionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "Summary", ModelClass.SummaryDomainPropertyId, typeof(ModelClass.SummaryPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelClass), "BaseClass", ModelClass.BaseClassDomainPropertyId, typeof(ModelClass.BaseClassPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),

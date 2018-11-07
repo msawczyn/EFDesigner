@@ -22,10 +22,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
-         List<ModelClass> selectedClasses = GetSelectedElements(context.Instance).OfType<ModelClass>().Distinct().ToList();
+         string current = ((ModelClass)((ClassShape)context?.Instance)?.Subject)?.Name;
 
          Store store = GetStore(context.Instance);
-         List<string> validNames = store.ElementDirectory.FindElements<ModelClass>().Where(e => !selectedClasses.Contains(e)).OrderBy(c => c.Name).Select(c => c.Name).ToList();
+
+         List<string> validNames = store.ElementDirectory
+                                        .FindElements<ModelClass>()
+                                        .Where(e => e.Name != current)
+                                        .OrderBy(c => c.Name)
+                                        .Select(c => c.Name)
+                                        .ToList();
+         validNames.Insert(0, null);
 
          return new StandardValuesCollection(validNames);
       }

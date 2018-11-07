@@ -66,6 +66,13 @@ namespace Sandbox
       [Required]
       public int Id { get; set; }
 
+      /// <summary>
+      /// Required
+      /// </summary>
+      [Required]
+      [ConcurrencyCheck]
+      public byte[] Timestamp { get; set; }
+
       // Persistent navigation properties
 
       public virtual ICollection<Sandbox.Entity1> Entity1 { get; set; }

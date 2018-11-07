@@ -532,5 +532,16 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion OutputDirectory tracking property
+
+      private string GetBaseClassValue()
+      {
+         return Superclass?.Name;
+      }
+
+      private void SetBaseClassValue(string newValue)
+      {
+         ModelClass baseClass = Store.ElementDirectory.FindElements<ModelClass>().FirstOrDefault(x => x.Name == newValue);
+         Superclass = baseClass;
+      }
    }
 }

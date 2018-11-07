@@ -406,7 +406,7 @@ void WriteConstructor(ModelClass modelClass)
       Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass))})");
       Output("{");
 
-      foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public))
+      foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && !x.IsConcurrencyToken && x.SetterVisibility == SetterAccessModifier.Public))
       {
          if (requiredAttribute.Type == "String")
             Output($"if (string.IsNullOrEmpty(_{requiredAttribute.Name.ToLower().Trim('_')})) throw new ArgumentNullException(nameof(_{requiredAttribute.Name.ToLower().Trim('_')}));");
@@ -488,7 +488,7 @@ bool AllSuperclassesAreNullOrAbstract(ModelClass modelClass)
 
 void WriteConstructorComments(ModelClass modelClass)
 {
-   foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && x.SetterVisibility == SetterAccessModifier.Public))
+   foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && !x.IsConcurrencyToken && x.SetterVisibility == SetterAccessModifier.Public))
       Output($@"/// <param name=""_{requiredAttribute.Name.ToLower().Trim('_')}"">{requiredAttribute.Summary}</param>");
    
    // TODO: Add comment if available

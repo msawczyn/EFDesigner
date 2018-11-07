@@ -4548,6 +4548,97 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region BaseClass domain property code
+		
+		/// <summary>
+		/// BaseClass domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid BaseClassDomainPropertyId = new global::System.Guid(0xed7ce317, 0x4ceb, 0x479e, 0x98, 0xd0, 0xd7, 0xfd, 0x9e, 0xb8, 0x58, 0xf0);
+		
+		/// <summary>
+		/// Gets or sets the value of BaseClass domain property.
+		/// Exposes Superclass property in property editor
+		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(BaseClassTypeConverter))]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/BaseClass.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/BaseClass.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/BaseClass.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("ed7ce317-4ceb-479e-98d0-d7fd9eb858f0")]
+		public global::System.String BaseClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return BaseClassPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				BaseClassPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.BaseClass domain property.
+		/// </summary>
+		internal sealed partial class BaseClassPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.String>
+		{
+			private BaseClassPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.BaseClass domain property value handler.
+			/// </summary>
+			public static readonly BaseClassPropertyHandler Instance = new BaseClassPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.BaseClass domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return BaseClassDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for BaseClass because its Kind is
+				// set to CustomStorage. Please provide the GetBaseClassValue()
+				// method on the domain class.
+				return element.GetBaseClassValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for BaseClass because its Kind is
+					// set to CustomStorage. Please provide the SetBaseClassValue()
+					// method on the domain class.
+					element.SetBaseClassValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>

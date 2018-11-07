@@ -697,6 +697,18 @@
     <value>Documentation</value>
     <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/BaseClass.Description" xml:space="preserve">
+    <value>Exposes Superclass property in property editor</value>
+    <comment>Description for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/BaseClass.DisplayName" xml:space="preserve">
+    <value>Base Class</value>
+    <comment>DisplayName for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/BaseClass.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>

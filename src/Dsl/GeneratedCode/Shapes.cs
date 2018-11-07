@@ -426,7 +426,7 @@ namespace Sawczyn.EFDesigner.EFModel
 						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.LightGray), false, 
 						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.White), false,
 						null, null,
-						false);
+						true);
 					compartmentDescriptions[localCompartmentsOffset+1] = descriptor;
 				}
 				{
@@ -435,7 +435,7 @@ namespace Sawczyn.EFDesigner.EFModel
 						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.LightGray), false, 
 						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.White), false,
 						null, null,
-						false);
+						true);
 					compartmentDescriptions[localCompartmentsOffset+2] = descriptor;
 				}
 			}
