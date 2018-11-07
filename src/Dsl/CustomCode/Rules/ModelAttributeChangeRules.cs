@@ -74,6 +74,9 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                      element.InitialValue = null;
                }
 
+               if (element.IsConcurrencyToken)
+                  element.Type = "Binary";
+
                break;
 
             case "MinLength":
