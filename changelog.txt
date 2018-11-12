@@ -2,6 +2,7 @@
    - Cleaned up schema to prevent useless XSD warnings when editing the model
    - Fixed one last remaining code generation issue with concurrency properties
    - Added model's base class to property editor
+   - Change in the behavior for enumeration initial values if the enumeration is [Flags]. See documentation for details.
 
 1.2.6.13
    - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree

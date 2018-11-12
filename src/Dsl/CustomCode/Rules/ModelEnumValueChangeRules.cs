@@ -57,14 +57,14 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             case "Value":
                string newValue = (string)e.NewValue;
 
-               if (modelEnum.IsFlags)
-               {
-                  int index = modelEnum.Values.IndexOf(element);
-                  int properValue = (int)Math.Pow(2, index);
-                  if (newValue != properValue.ToString())
-                     current.Rollback();
-                  return;
-               }
+               //if (modelEnum.IsFlags)
+               //{
+               //   int index = modelEnum.Values.IndexOf(element);
+               //   int properValue = (int)Math.Pow(2, index);
+               //   if (newValue != properValue.ToString())
+               //      current.Rollback();
+               //   return;
+               //}
 
                if (newValue != null)
                {

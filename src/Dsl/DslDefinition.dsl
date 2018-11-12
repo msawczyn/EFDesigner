@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="6" Revision="14" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="6" Revision="15" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -49,7 +49,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="368a7c8c-e0db-40ef-b678-dbc4580d9e54" Description="Output directory for entities" Name="EntityOutputDirectory" DisplayName="Entity Output Directory" Category="Code Generation">
+        <DomainProperty Id="368a7c8c-e0db-40ef-b678-dbc4580d9e54" Description="Output directory for entities" Name="EntityOutputDirectory" DisplayName="Output Directory - Entities" Category="Code Generation">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -61,7 +61,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="9e0ffa12-8733-40d2-8819-73740de7fecf" Description="Project directory for DbContext-related files" Name="ContextOutputDirectory" DisplayName="DbContext Output Directory" Category="Code Generation">
+        <DomainProperty Id="9e0ffa12-8733-40d2-8819-73740de7fecf" Description="Project directory for DbContext-related files" Name="ContextOutputDirectory" DisplayName="Output Directory - DbContext" Category="Code Generation">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -73,7 +73,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="5de798f2-310f-40f7-8188-37690e6691b5" Description="Project directory for enums" Name="EnumOutputDirectory" DisplayName="Enum Output Directory" Category="Code Generation">
+        <DomainProperty Id="5de798f2-310f-40f7-8188-37690e6691b5" Description="Project directory for enums" Name="EnumOutputDirectory" DisplayName="Output Directory - Enums" Category="Code Generation">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -188,7 +188,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="35350509-1856-4ca7-884a-1cee2552eef9" Description="Project directory for generated structures (owned/complex types)" Name="StructOutputDirectory" DisplayName="Struct Output Directory" Category="Code Generation">
+        <DomainProperty Id="35350509-1856-4ca7-884a-1cee2552eef9" Description="Project directory for generated structures (owned/complex types)" Name="StructOutputDirectory" DisplayName="Output Directory - Structs" Category="Code Generation">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -1349,8 +1349,8 @@
         <IconDecorator Name="WarningGlyph" DisplayName="Warning Glyph" DefaultIcon="Resources\Warning.png" />
       </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
-      <Compartment Name="AssociationsCompartment" DefaultExpandCollapseState="Collapsed" Title="Association Targets" />
-      <Compartment Name="SourcesCompartment" DefaultExpandCollapseState="Collapsed" Title="Association Sources" />
+      <Compartment Name="AssociationsCompartment" Title="Association Targets" />
+      <Compartment Name="SourcesCompartment" Title="Association Sources" />
     </CompartmentShape>
     <GeometryShape Id="ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f" Description="" Name="CommentBoxShape" DisplayName="Comment Box Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Comment Box Shape" FillColor="255, 255, 204" OutlineColor="204, 204, 102" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="ForwardDiagonal" Geometry="RoundedRectangle">
       <ShapeHasDecorators Position="Center" HorizontalOffset="0" VerticalOffset="0">

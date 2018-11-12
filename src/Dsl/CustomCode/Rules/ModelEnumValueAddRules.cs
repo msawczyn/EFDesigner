@@ -23,7 +23,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         enumElement.SetFlagValues();
+         enumElement.SetFlagValue(element);
 
          if (!enumElement.IsFlags)
          {
