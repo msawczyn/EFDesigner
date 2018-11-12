@@ -45,7 +45,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (IsFlags)
             {
                 for (int i = 0; i < Values.Count; i++)
-                    Values[i].Value = Math.Pow(2, i).ToString();
+                    SetFlagValue(Values[i]);
             }
         }
 
@@ -64,8 +64,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                     ? modelEnumValues.Max(v => long.Parse(v.Value))
                                     : -1;
 
-                long nextValue = maxValue < 0
-                                     ? 0
+                long nextValue = maxValue <= 0
+                                     ? 1
                                      : (long)Math.Pow(2, (int)Math.Log(maxValue, 2) + 1);
 
                 value.Value = nextValue.ToString();

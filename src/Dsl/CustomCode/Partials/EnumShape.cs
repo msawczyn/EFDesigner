@@ -1,8 +1,7 @@
-using System;
-using System.Drawing;
-
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using System;
+using System.Drawing;
 using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel
