@@ -1,4 +1,4 @@
-﻿<#@ assembly name="System.Core"
+<#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
@@ -412,7 +412,9 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          // Source and Target are accidents of where the user started drawing the association.
 
          // navigation properties
-         foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass).OfType<UnidirectionalAssociation>().Where(x => !x.Target.IsDependentType))
+         foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
+                                                                      .OfType<UnidirectionalAssociation>()
+                                                                      .Where(x => !x.Target.IsDependentType))
          {
             if (visited.Contains(association)) continue;
             visited.Add(association);
@@ -444,8 +446,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                   {
                      segments.Add("Map(x => { " +
                         $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + 
-                        $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                        $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                        $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                        $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
                         "})");
                   }
                   break;
@@ -499,7 +501,9 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                Output(string.Join(".", segments) + ";");
          }
 
-         foreach (BidirectionalAssociation association in Association.GetLinksToSources(modelClass).OfType<BidirectionalAssociation>())
+         foreach (BidirectionalAssociation association in Association.GetLinksToSources(modelClass)
+                                                                     .OfType<BidirectionalAssociation>()
+                                                                     .Where(a => a.SourceDeleteAction == DeleteAction.Default))
          {
             if (visited.Contains(association)) continue;
             visited.Add(association);
@@ -532,8 +536,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                   {
                      segments.Add("Map(x => { " +
                         $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + 
-                        $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                        $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                        $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                        $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
                         "})");
                   }
                   break;
@@ -574,9 +578,9 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
             if (foreignKeySegment != null) segments.Add(foreignKeySegment);
 
-            if (association.SourceDeleteAction != DeleteAction.Default)
+            if (association.TargetDeleteAction != DeleteAction.Default)
             {
-               string willCascadeOnDelete = (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+               string willCascadeOnDelete = (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
                segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
             }
 
