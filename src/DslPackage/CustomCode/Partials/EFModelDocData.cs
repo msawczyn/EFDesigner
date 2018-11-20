@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
@@ -48,7 +49,9 @@ namespace Sawczyn.EFDesigner.EFModel
       internal static void GenerateCode(string filepath)
       {
          ProjectItem modelProjectItem = Dte2.Solution.FindProjectItem(filepath ?? Dte2.ActiveDocument.FullName);
-         modelProjectItem?.Save();
+
+         if (Guid.Parse(modelProjectItem.Kind) == VSConstants.GUID_ItemType_PhysicalFile)
+            modelProjectItem?.Save();
 
          string templateFilename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
 
