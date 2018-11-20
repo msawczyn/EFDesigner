@@ -163,7 +163,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (!string.IsNullOrEmpty(modelClass.DbSetName))
             dbSetName = modelClass.DbSetName;
          else 
-            dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
+            dbSetName = (pluralizationService?.IsSingular(modelClass.Name) == true)
                ? pluralizationService.Pluralize(modelClass.Name)
                : modelClass.Name;
 
@@ -289,7 +289,9 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (identityAttributes.Count() == 1)
             segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
          else if (identityAttributes.Count() > 1)
-            segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
+					            segments.Add($"HasKey(t => new {{ t.{string.Join(\", t.\", identityAttributes.Select(ia => ia.Name))} }})");
+
+            segments.Add($"HasKey(t => new {{ t.{string.Join(\", t.\", identityAttributes.Select(ia => ia.Name))} }})");
       }
 
       if (segments.Count > 1)
