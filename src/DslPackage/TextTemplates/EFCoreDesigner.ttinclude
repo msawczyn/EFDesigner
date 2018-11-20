@@ -418,30 +418,30 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (required)
             segments.Add("IsRequired()");
 
-         if (association.TargetDeleteAction != DeleteAction.Default)
-         {
-           string deleteAction = (association.TargetDeleteAction == DeleteAction.Cascade)
-                                    ? "DeleteBehavior.Cascade"
-                                    : "DeleteBehavior.Restrict";
-           segments.Add($"OnDelete({deleteAction})");
-         }
+         //if (association.TargetDeleteAction != DeleteAction.Default)
+         //{
+         //  string deleteAction = (association.TargetDeleteAction == DeleteAction.Cascade)
+         //                           ? "DeleteBehavior.Cascade"
+         //                           : "DeleteBehavior.Restrict";
+         //  segments.Add($"OnDelete({deleteAction})");
+         //}
 
-         // if ((association.TargetDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal) ||
-             // (association.SourceDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal))
-         // {
-            // DeleteAction deleteAction = (association.SourceRole == EndpointRole.Principal) 
-                                          // ? association.TargetDeleteAction 
-                                          // : association.SourceDeleteAction;
-            // switch (deleteAction)
-            // {
-               // case DeleteAction.None:
-                  // segments.Add("OnDelete(DeleteBehavior.Restrict)");
-                  // break;
-               // case DeleteAction.Cascade:
-                  // segments.Add("OnDelete(DeleteBehavior.Cascade)");
-                  // break;
-            // }
-         // }
+          if ((association.TargetDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal) ||
+              (association.SourceDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal))
+          {
+             DeleteAction deleteAction = (association.SourceRole == EndpointRole.Principal) 
+                                           ? association.TargetDeleteAction 
+                                           : association.SourceDeleteAction;
+             switch (deleteAction)
+             {
+                case DeleteAction.None:
+                   segments.Add("OnDelete(DeleteBehavior.Restrict)");
+                   break;
+                case DeleteAction.Cascade:
+                   segments.Add("OnDelete(DeleteBehavior.Cascade)");
+                   break;
+             }
+          }
 
          if (modelRoot.ChopMethodChains)
             OutputChopped(segments);
@@ -500,30 +500,30 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (required)
             segments.Add("IsRequired()");
 
-         if (association.TargetDeleteAction != DeleteAction.Default)
-         {
-           string deleteAction = (association.TargetDeleteAction == DeleteAction.Cascade)
-                                    ? "DeleteBehavior.Cascade"
-                                    : "DeleteBehavior.Restrict";
-           segments.Add($"OnDelete({deleteAction})");
-         }
+         //if (association.TargetDeleteAction != DeleteAction.Default)
+         //{
+         //  string deleteAction = (association.TargetDeleteAction == DeleteAction.Cascade)
+         //                           ? "DeleteBehavior.Cascade"
+         //                           : "DeleteBehavior.Restrict";
+         //  segments.Add($"OnDelete({deleteAction})");
+         //}
 
-         // if ((association.TargetDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal) ||
-             // (association.SourceDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal))
-         // {
-            // DeleteAction deleteAction = (association.SourceRole == EndpointRole.Principal) 
-                                          // ? association.TargetDeleteAction 
-                                          // : association.SourceDeleteAction;
-            // switch (deleteAction)
-            // {
-               // case DeleteAction.None:
-                  // segments.Add("OnDelete(DeleteBehavior.Restrict)");
-                  // break;
-               // case DeleteAction.Cascade:
-                  // segments.Add("OnDelete(DeleteBehavior.Cascade)");
-                  // break;
-            // }
-         // }
+          if ((association.TargetDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal) ||
+              (association.SourceDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal))
+          {
+             DeleteAction deleteAction = (association.SourceRole == EndpointRole.Principal) 
+                                           ? association.TargetDeleteAction 
+                                           : association.SourceDeleteAction;
+             switch (deleteAction)
+             {
+                case DeleteAction.None:
+                   segments.Add("OnDelete(DeleteBehavior.Restrict)");
+                   break;
+                case DeleteAction.Cascade:
+                   segments.Add("OnDelete(DeleteBehavior.Cascade)");
+                   break;
+             }
+          }
 
          if (modelRoot.ChopMethodChains)
             OutputChopped(segments);
