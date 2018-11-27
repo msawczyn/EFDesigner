@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.11
+// EFDesigner v1.2.6.18
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -511,9 +511,12 @@ void WritePersistentProperties(ModelClass modelClass)
    if (!modelClass.Attributes.Any(x => x.Persistent))
       return;
 
-   Output("// Persistent properties");
-   List<string> segments = new List<string>();
+   Output("/*************************************************************************");
+   Output(" * Persistent properties");
+   Output(" *************************************************************************/");
    NL();
+
+   List<string> segments = new List<string>();
 
    foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent))
    {
@@ -625,13 +628,20 @@ void GeneratePropertyAnnotations(ModelAttribute modelAttribute, string namePrefi
    if (modelAttribute.IsIdentity)               Output("[Key]");
    if (modelAttribute.Required)                 Output("[Required]");
    if (modelAttribute.IsConcurrencyToken)       Output("[ConcurrencyCheck]");
-   if (modelAttribute.MaxLength > 0)            Output($"[MaxLength({modelAttribute.MaxLength})]");
-
-   if (modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion != EFVersion.EFCore)
+   if (modelAttribute.FQPrimitiveType == "string") 
    {
-      if (modelAttribute.MinLength > 0)
-         Output($"[MinLength({modelAttribute.MinLength})]");
-   } 
+      if (modelAttribute.MaxLength > 0)
+      {
+         Output($"[MaxLength({modelAttribute.MaxLength})]");
+         Output($"[StringLength({modelAttribute.MaxLength})]");
+      }
+      if (modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion != EFVersion.EFCore)
+      {
+         if (modelAttribute.MinLength > 0)
+            Output($"[MinLength({modelAttribute.MinLength})]");
+      } 
+   }
+
 }
 
 void WriteCalculatedProperties(ModelClass modelClass)
@@ -681,7 +691,9 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
    if (!modelClass.LocalNavigationProperties().Any(x => x.AssociationObject.Persistent))
       return;
 
-   Output("// Persistent navigation properties");
+   Output("/*************************************************************************");
+   Output(" * Persistent navigation properties");
+   Output(" *************************************************************************/");
    NL();
 
    foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()

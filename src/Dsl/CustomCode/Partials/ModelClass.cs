@@ -222,15 +222,17 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      private void EnsureProperNumberOfConcurrencyProperties(ValidationContext context)
-      {
-         int tokenCount = AllAttributes.Count(x => x.IsConcurrencyToken);
-         int shouldHave = EffectiveConcurrency == ConcurrencyOverride.Optimistic ? 1 : 0;
+      // Removed since code generation will add a Timestamp property if needed
+      //
+      //[ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      //private void EnsureProperNumberOfConcurrencyProperties(ValidationContext context)
+      //{
+      //   int tokenCount = AllAttributes.Count(x => x.IsConcurrencyToken);
+      //   int shouldHave = EffectiveConcurrency == ConcurrencyOverride.Optimistic ? 1 : 0;
 
-         if (tokenCount != shouldHave)
-            context.LogError($"{Name}: Should have {shouldHave} concurrency properties but has {tokenCount}", "MCEConcurrencyCount", this);
-      }
+      //   if (tokenCount != shouldHave)
+      //      context.LogWarning($"{Name}: Should have {shouldHave} concurrency properties but has {tokenCount}.", "MCEConcurrencyCount", this);
+      //}
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
@@ -533,10 +535,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion OutputDirectory tracking property
 
-      private string GetBaseClassValue()
-      {
-         return Superclass?.Name;
-      }
+      private string GetBaseClassValue() => Superclass?.Name;
 
       private void SetBaseClassValue(string newValue)
       {

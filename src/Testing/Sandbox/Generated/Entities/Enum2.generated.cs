@@ -4,18 +4,20 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
-//
-//     Produced by Entity Framework Visual Editor
-//     https://github.com/msawczyn/EFDesigner
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity;
+using System;
 
 namespace Sandbox
 {
-   /// <inheritdoc/>
-   public partial class EFModel1DatabaseInitializer : MigrateDatabaseToLatestVersion<EFModel1, EFModel1DbMigrationConfiguration>
+   /// <summary>
+   /// x
+   /// </summary>
+   public enum Enum2 : Int32
    {
+      ModelEnumValue1,
+      ModelEnumValue2,
+      ModelEnumValue3
    }
 }

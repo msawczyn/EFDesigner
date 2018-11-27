@@ -24,6 +24,11 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.18**
+   - Fixed issue #35, *Concurrency mode: optimistic auto generated Timestamp property* (See https://github.com/msawczyn/EFDesigner/issues/35)
+   - Fixed issue #33, *Concurrency mode: optimistic* (See https://github.com/msawczyn/EFDesigner/issues/33)
+   - **[NEW]** Added the base class as a property in the property editor to allow for easily adding/removing inheritance relationships for multiple classes
+
 **1.2.6.13**
    - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree
    - Fix to workaround Visual Studio pulling in the wrong System.Net.Http reference. (See https://developercommunity.visualstudio.com/content/problem/296293/vs2017-1575-ignores-the-hintpath-and-take-the-syst.html)

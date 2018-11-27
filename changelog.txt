@@ -1,3 +1,8 @@
+1.2.6.18
+   - Fixed issue #35, Concurrency mode: optimistic auto generated Timestamp property (See https://github.com/msawczyn/EFDesigner/issues/35)
+   - Fixed issue #33, Concurrency mode: optimistic (See https://github.com/msawczyn/EFDesigner/issues/33)
+   - Added the base class as a property in the property editor to allow for easily adding/removing inheritance relationships for multiple classes
+
 1.2.6.14
    - Cleaned up schema to prevent useless XSD warnings when editing the model
    - Fixed one last remaining code generation issue with concurrency properties

@@ -43,6 +43,11 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
+***1.2.6.18***
+   - Fixed issue #35, *Concurrency mode: optimistic auto generated Timestamp property* (See https://github.com/msawczyn/EFDesigner/issues/35)
+   - Fixed issue #33, *Concurrency mode: optimistic* (See https://github.com/msawczyn/EFDesigner/issues/33)
+   - **[NEW]** Added the base class as a property in the property editor to allow for easily adding/removing inheritance relationships for multiple classes
+
 ***1.2.6.13***
    - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree
    - Fix to workaround Visual Studio pulling in the wrong System.Net.Http reference. (See https://developercommunity.visualstudio.com/content/problem/296293/vs2017-1575-ignores-the-hintpath-and-take-the-syst.html)
@@ -50,7 +55,9 @@ You can read more about how to use the designer in the [Documentation site](http
    - Fixed template issue for non-English-language systems (where Microsoft Pluralization Service is unavailable)
    - Added compartment for association sources so Bidirectional associations would show up
 
-**1.2.6.11**
+<details>
+<summary><b>1.2.6.11</b></summary>
+
    - Tweak to force association end roles to be correct when roles or multiplicities change
    - Attribute elements' "String Properties" don't appear unless the attribute is a string
    - Attribute elements' "Indexed Unique" property doesn't appear unless the attribute has "Indexed" equal to "True"
@@ -59,7 +66,9 @@ You can read more about how to use the designer in the [Documentation site](http
    - Hid comments in model explorer because they just cluttered up the tree.
    - **[NEW]** Associations now show up in their own compartment in a class on the design surface. Note that this changes the height of your elements, so the first time opening a model you may have to tweak your esthetics a bit.
    - **[NEW]** Double-clicking a class or enum on the designer opens the generated code file, if it exists. If it doesn't exist, you're asked if you'd like to generate the model then, if you do, it tries again.
-      - Known issue: EFCore/.NETCore and EFCore/.NETFramework projects won't ask to generate the code if they can't open the file; they just fail silently. All other EF/.NET combinations behave appropriately.
+      - Known issue: EFCore projects won't ask to generate the code if they can't open the file; they just fail silently. 
+
+</details>
 
 <details>
 <summary><b>1.2.6.7</b></summary>

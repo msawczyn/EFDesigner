@@ -4,9 +4,6 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
-//
-//     Produced by Entity Framework Visual Editor
-//     https://github.com/msawczyn/EFDesigner
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -14,8 +11,10 @@ using System;
 
 namespace Sandbox
 {
-   public enum Enum1 : Int32
+   public enum Enum1ab : Int32
    {
-      ModelEnumValue1
+      ModelEnumValue1a,
+      ModelEnumValue2,
+      ModelEnumValue3
    }
 }

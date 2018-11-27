@@ -24,13 +24,24 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Store store = GetStore(context.Instance);
 
-         ClassShape classShape = context.Instance as ClassShape;
-         ModelClass modelClass = classShape?.Subject as ModelClass;
-         string targetClassName = modelClass?.Name;
+         List<string> invalidOptions = new List<string>();
+
+         if (context.Instance is Array shapeArray)
+         {
+            invalidOptions.AddRange(shapeArray.OfType<ClassShape>()
+                                              .Where(s => s.Subject is ModelClass)
+                                              .Select(s => (s.Subject as ModelClass).Name));
+         }
+         else
+         {
+            string targetClassName = ((context.Instance as ClassShape)?.Subject as ModelClass)?.Name;
+            if (targetClassName != null)
+               invalidOptions.Add(targetClassName);
+         }
 
          List<string> validNames = store.ElementDirectory
                                         .FindElements<ModelClass>()
-                                        .Where(e => e.Name != targetClassName)
+                                        .Where(e => !invalidOptions.Contains(e.Name))
                                         .OrderBy(c => c.Name)
                                         .Select(c => c.Name)
                                         .ToList();
