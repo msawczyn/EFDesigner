@@ -18,6 +18,7 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
    foreach (ModelClass modelClass in modelRoot.Classes)
    {
       string dir = modelClass.IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
+      if (!string.IsNullOrEmpty(modelClass.OutputDirectory)) dir = modelClass.OutputDirectory;
       manager.StartNewFile(Path.Combine(dir, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
       WriteClass(modelClass);
    }
@@ -26,9 +27,12 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 
    foreach (ModelEnum modelEnum in modelRoot.Enums)
    {
-      manager.StartNewFile(Path.Combine(modelRoot.EnumOutputDirectory, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
+      string dir = !string.IsNullOrEmpty(modelEnum.OutputDirectory) ? modelEnum.OutputDirectory : modelRoot.EnumOutputDirectory;
+      manager.StartNewFile(Path.Combine(dir, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
       WriteEnum(modelEnum);
    }
+
+   // Context
 
    if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.None)
    {
