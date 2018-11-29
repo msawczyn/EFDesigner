@@ -59,19 +59,29 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </param>
       public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
-         AssociationConnector connector = context.Instance as AssociationConnector;
-         Association association = PresentationViewsSubject.GetSubject(connector) as Association;
-         if (association == null)
-            return new StandardValuesCollection(new string[0]);
+         StandardValuesCollection noResult = new StandardValuesCollection(new string[0]);
 
-         List<string> result = new List<string>
-                               {
-                                  $"* (Collection of {association.Target.Name})",
-                                  //$"1..* (Collection of one or more {association.Target.Name})",
-                                  $"0..1 (Zero or one of {association.Target.Name})",
-                                  $"1 (One {association.Target.Name})"
-                               };
-         return new StandardValuesCollection(result);
+         try
+         {
+            AssociationConnector connector = context.Instance as AssociationConnector;
+            Association association = PresentationViewsSubject.GetSubject(connector) as Association;
+            if (association == null)
+               return new StandardValuesCollection(new string[0]);
+
+            List<string> result = new List<string>
+                                  {
+                                     $"* (Collection of {association.Target.Name})",
+                                     //$"1..* (Collection of one or more {association.Target.Name})",
+                                     $"0..1 (Zero or one of {association.Target.Name})",
+                                     $"1 (One {association.Target.Name})"
+                                  };
+            return new StandardValuesCollection(result);
+         }
+         catch (Exception e)
+         {
+         }
+
+         return noResult;
       }
    }
 }
