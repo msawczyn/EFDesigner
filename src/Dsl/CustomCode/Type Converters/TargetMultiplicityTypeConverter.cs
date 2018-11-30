@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Modeling.Diagrams;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -21,24 +21,24 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
       public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
       {
-         AssociationConnector connector = context?.Instance as AssociationConnector;
+         Association association = context.Instance as Association;
 
-         if (connector != null)
+         if (association == null && context.Instance is AssociationConnector connector)
+            association = PresentationViewsSubject.GetSubject(connector) as Association;
+
+         if (destinationType == typeof(string) && association != null && value is Multiplicity multiplicity)
          {
-            Association association = PresentationViewsSubject.GetSubject(connector) as Association;
-
-            if (destinationType == typeof(string) && association != null && value is Multiplicity)
-               switch ((Multiplicity)value)
-               {
-                  case Multiplicity.One:
-                     return $"1 (One {association.Target.Name})";
-                  //case Multiplicity.OneMany:
-                  //   return $"1..* (Collection of one or more {association.Target.Name})";
-                  case Multiplicity.ZeroMany:
-                     return $"* (Collection of {association.Target.Name})";
-                  case Multiplicity.ZeroOne:
-                     return $"0..1 (Zero or one of {association.Target.Name})";
-               }
+            switch (multiplicity)
+            {
+               case Multiplicity.One:
+                  return $"1 (One {association.Target.Name})";
+               //case Multiplicity.OneMany:
+               //   return $"1..* (Collection of one or more {association.Target.Name})";
+               case Multiplicity.ZeroMany:
+                  return $"* (Collection of {association.Target.Name})";
+               case Multiplicity.ZeroOne:
+                  return $"0..1 (Zero or one of {association.Target.Name})";
+            }
          }
 
          return base.ConvertTo(context, culture, value, destinationType);
@@ -59,29 +59,22 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </param>
       public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
-         StandardValuesCollection noResult = new StandardValuesCollection(new string[0]);
+         Association association = context.Instance as Association;
 
-         try
-         {
-            AssociationConnector connector = context.Instance as AssociationConnector;
-            Association association = PresentationViewsSubject.GetSubject(connector) as Association;
-            if (association == null)
-               return new StandardValuesCollection(new string[0]);
+         if (association == null && context.Instance is AssociationConnector connector)
+            association = PresentationViewsSubject.GetSubject(connector) as Association;
 
-            List<string> result = new List<string>
-                                  {
-                                     $"* (Collection of {association.Target.Name})",
-                                     //$"1..* (Collection of one or more {association.Target.Name})",
-                                     $"0..1 (Zero or one of {association.Target.Name})",
-                                     $"1 (One {association.Target.Name})"
-                                  };
-            return new StandardValuesCollection(result);
-         }
-         catch (Exception e)
-         {
-         }
+         if (association == null)
+            return new StandardValuesCollection(new string[0]);
 
-         return noResult;
+         List<string> result = new List<string>
+                               {
+                                  $"* (Collection of {association.Target.Name})",
+                                  //$"1..* (Collection of one or more {association.Target.Name})",
+                                  $"0..1 (Zero or one of {association.Target.Name})",
+                                  $"1 (One {association.Target.Name})"
+                               };
+         return new StandardValuesCollection(result);
       }
    }
 }
