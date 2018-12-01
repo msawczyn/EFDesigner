@@ -2269,6 +2269,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				string attribCustomAttributes = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "customAttributes");
+				if (attribCustomAttributes != null)
+				{
+					global::System.String valueOfCustomAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribCustomAttributes, out valueOfCustomAttributes))
+					{
+						instanceOfModelClass.CustomAttributes = valueOfCustomAttributes;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "customAttributes", typeof(global::System.String), attribCustomAttributes);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3162,6 +3179,17 @@ namespace Sawczyn.EFDesigner.EFModel
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "baseClass", propValue);
 				}
 			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelClass.CustomAttributes;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
+	
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3880,6 +3908,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				string attribCustomAttributes = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "customAttributes");
+				if (attribCustomAttributes != null)
+				{
+					global::System.String valueOfCustomAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribCustomAttributes, out valueOfCustomAttributes))
+					{
+						instanceOfModelAttribute.CustomAttributes = valueOfCustomAttributes;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "customAttributes", typeof(global::System.String), attribCustomAttributes);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -4592,6 +4637,17 @@ namespace Sawczyn.EFDesigner.EFModel
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isColumnTypeTracking", serializedPropValue);
 					}
+				}
+			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelAttribute.CustomAttributes;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
+	
 				}
 			}
 		}
@@ -5826,6 +5882,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				string attribCustomAttributes = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "customAttributes");
+				if (attribCustomAttributes != null)
+				{
+					global::System.String valueOfCustomAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribCustomAttributes, out valueOfCustomAttributes))
+					{
+						instanceOfModelEnum.CustomAttributes = valueOfCustomAttributes;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "customAttributes", typeof(global::System.String), attribCustomAttributes);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -6445,6 +6518,17 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 				}
 			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelEnum.CustomAttributes;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
+	
+				}
+			}
 		}
 	
 		/// <summary>
@@ -6758,6 +6842,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					else
 					{	// Invalid property value, ignored.
 						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "summary", typeof(global::System.String), attribSummary);
+					}
+				}
+			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				string attribCustomAttributes = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "customAttributes");
+				if (attribCustomAttributes != null)
+				{
+					global::System.String valueOfCustomAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribCustomAttributes, out valueOfCustomAttributes))
+					{
+						instanceOfModelEnumValue.CustomAttributes = valueOfCustomAttributes;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "customAttributes", typeof(global::System.String), attribCustomAttributes);
 					}
 				}
 			}
@@ -7229,6 +7330,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "summary", propValue);
+	
+				}
+			}
+			// CustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelEnumValue.CustomAttributes;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
 	
 				}
 			}
@@ -8151,6 +8263,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// TargetCustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				string attribTargetCustomAttributes = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetCustomAttributes");
+				if (attribTargetCustomAttributes != null)
+				{
+					global::System.String valueOfTargetCustomAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTargetCustomAttributes, out valueOfTargetCustomAttributes))
+					{
+						instanceOfAssociation.TargetCustomAttributes = valueOfTargetCustomAttributes;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetCustomAttributes", typeof(global::System.String), attribTargetCustomAttributes);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
@@ -8638,6 +8767,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (!serializationContext.Result.Failed)
 				{
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "foreignKeyLocation", serializedPropValue);
+				}
+			}
+			// TargetCustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfAssociation.TargetCustomAttributes;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetCustomAttributes", propValue);
+	
 				}
 			}
 		}
@@ -12096,6 +12236,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// SourceCustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				string attribSourceCustomAttributes = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourceCustomAttributes");
+				if (attribSourceCustomAttributes != null)
+				{
+					global::System.String valueOfSourceCustomAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribSourceCustomAttributes, out valueOfSourceCustomAttributes))
+					{
+						instanceOfBidirectionalAssociation.SourceCustomAttributes = valueOfSourceCustomAttributes;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourceCustomAttributes", typeof(global::System.String), attribSourceCustomAttributes);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
@@ -12591,6 +12748,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceSummary", propValue);
+	
+				}
+			}
+			// SourceCustomAttributes
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfBidirectionalAssociation.SourceCustomAttributes;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceCustomAttributes", propValue);
 	
 				}
 			}

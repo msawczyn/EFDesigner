@@ -1493,6 +1493,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region TargetCustomAttributes domain property code
+		
+		/// <summary>
+		/// TargetCustomAttributes domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TargetCustomAttributesDomainPropertyId = new global::System.Guid(0xa667dd36, 0xac5c, 0x4c98, 0xb3, 0x68, 0xb8, 0x47, 0x78, 0xbd, 0xcd, 0x56);
+		
+		/// <summary>
+		/// Storage for TargetCustomAttributes
+		/// </summary>
+		private global::System.String targetCustomAttributesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of TargetCustomAttributes domain property.
+		/// Any custom attributes to be generated for the target property. Will be passed
+		/// through as entered.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetCustomAttributes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetCustomAttributes.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetCustomAttributes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("a667dd36-ac5c-4c98-b368-b84778bdcd56")]
+		public global::System.String TargetCustomAttributes
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return targetCustomAttributesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TargetCustomAttributesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.TargetCustomAttributes domain property.
+		/// </summary>
+		internal sealed partial class TargetCustomAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.String>
+		{
+			private TargetCustomAttributesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.TargetCustomAttributes domain property value handler.
+			/// </summary>
+			public static readonly TargetCustomAttributesPropertyHandler Instance = new TargetCustomAttributesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.TargetCustomAttributes domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TargetCustomAttributesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.targetCustomAttributesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.targetCustomAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a ModelClass.
@@ -2943,6 +3032,95 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.sourceSummaryPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region SourceCustomAttributes domain property code
+		
+		/// <summary>
+		/// SourceCustomAttributes domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SourceCustomAttributesDomainPropertyId = new global::System.Guid(0x124bb49e, 0xc952, 0x4a7f, 0x80, 0x1a, 0xa7, 0xaf, 0x0a, 0x98, 0x5f, 0xc4);
+		
+		/// <summary>
+		/// Storage for SourceCustomAttributes
+		/// </summary>
+		private global::System.String sourceCustomAttributesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of SourceCustomAttributes domain property.
+		/// Any custom attributes to be generated for the source property. Will be passed
+		/// through as entered.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceCustomAttributes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceCustomAttributes.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceCustomAttributes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("124bb49e-c952-4a7f-801a-a7af0a985fc4")]
+		public global::System.String SourceCustomAttributes
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return sourceCustomAttributesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				SourceCustomAttributesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.SourceCustomAttributes domain property.
+		/// </summary>
+		internal sealed partial class SourceCustomAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.String>
+		{
+			private SourceCustomAttributesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.SourceCustomAttributes domain property value handler.
+			/// </summary>
+			public static readonly SourceCustomAttributesPropertyHandler Instance = new SourceCustomAttributesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.SourceCustomAttributes domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SourceCustomAttributesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.sourceCustomAttributesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.sourceCustomAttributesPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

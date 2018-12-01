@@ -1,21 +1,14 @@
 ﻿using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.VisualStudio.Modeling;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Rules;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelClass), FireTime = TimeToFire.TopLevelCommit)]
    internal class ModelClassChangeRules : ChangeRule
    {
-      private string MakeDefaultName(string root)
-      {
-         return ModelRoot.PluralizationService?.IsSingular(root) == true
-            ? ModelRoot.PluralizationService.Pluralize(root)
-            : root;
-      }
-
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
          base.ElementPropertyChanged(e);
@@ -42,6 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (element.IsAbstract)
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it's abstract");
+
                      break;
                   }
 
@@ -80,7 +74,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      if (association.TargetMultiplicity == Multiplicity.ZeroMany)
                         association.TargetMultiplicity = Multiplicity.ZeroOne;
-                    
+
                      association.TargetRole = EndpointRole.Dependent;
                   }
 
@@ -94,6 +88,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                PresentationHelper.ColorShapeOutline(element);
+
                break;
 
             case "IsAbstract":
@@ -107,6 +102,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                PresentationHelper.ColorShapeOutline(element);
+
                break;
 
             case "ImplementNotify":
@@ -119,6 +115,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                PresentationHelper.ColorShapeOutline(element);
+
                break;
 
             case "TableName":
@@ -135,7 +132,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TableName = MakeDefaultName(element.Name);
 
                   if (store.ElementDirectory.AllElements.OfType<ModelClass>()
-                           .Except(new[] { element })
+                           .Except(new[] {element})
                            .Any(x => x.TableName == newTableName))
                      errorMessages.Add($"Table name '{newTableName}' already in use");
                }
@@ -161,7 +158,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
                   }
                   else if (store.ElementDirectory.AllElements.OfType<ModelClass>()
-                                .Except(new[] { element })
+                                .Except(new[] {element})
                                 .Any(x => x.DbSetName == newDbSetName))
                   {
                      errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
@@ -180,7 +177,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelClass>()
-                             .Except(new[] { element })
+                             .Except(new[] {element})
                              .Any(x => x.Name == newName))
                   errorMessages.Add($"Class name '{newName}' already in use by another class");
 
@@ -197,19 +194,24 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (element.DbSetName == oldDefaultName)
                      element.DbSetName = newDefaultName;
+
                   if (element.TableName == oldDefaultName)
                      element.TableName = newDefaultName;
                }
+
                break;
 
             case "Namespace":
                string newNamespace = (string)e.NewValue;
+
                if (current.Name.ToLowerInvariant() != "paste")
                   errorMessages.Add(CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier));
+
                break;
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();
+
          if (errorMessages.Any())
          {
             current.Rollback();
@@ -217,5 +219,11 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      private string MakeDefaultName(string root)
+      {
+         return ModelRoot.PluralizationService?.IsSingular(root) == true
+                   ? ModelRoot.PluralizationService.Pluralize(root)
+                   : root;
+      }
    }
 }

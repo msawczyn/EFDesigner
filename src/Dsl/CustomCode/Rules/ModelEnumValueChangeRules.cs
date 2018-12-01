@@ -1,10 +1,10 @@
-﻿using System;
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using Microsoft.VisualStudio.Modeling;
 
-namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
+namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelEnumValue), FireTime = TimeToFire.TopLevelCommit)]
    public class ModelEnumValueChangeRules : ChangeRule
@@ -32,6 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
             case "Name":
                string newName = (string)e.NewValue;
                Match match = Regex.Match(newName, @"(.+)\s*=\s*(\d+)");
+
                if (match != Match.Empty)
                {
                   newName = match.Groups[1].Value;
@@ -40,7 +41,7 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
 
                if (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName))
                   errorMessage = $"{modelEnum.Name}.{newName}: Name must be a valid .NET identifier";
-               else if (modelEnum.Values.Except(new[] { element }).Any(v => v.Name == newName))
+               else if (modelEnum.Values.Except(new[] {element}).Any(v => v.Name == newName))
                   errorMessage = $"{modelEnum.Name}.{newName}: Name already in use";
                else if (!string.IsNullOrWhiteSpace((string)e.OldValue))
                {
@@ -69,16 +70,20 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                if (newValue != null)
                {
                   bool badValue = false;
+
                   switch (modelEnum.ValueType)
                   {
                      case EnumValueType.Int16:
-                        badValue = !Int16.TryParse(newValue, out Int16 _);
+                        badValue = !short.TryParse(newValue, out short _);
+
                         break;
                      case EnumValueType.Int32:
-                        badValue = !Int32.TryParse(newValue, out Int32 _);
+                        badValue = !int.TryParse(newValue, out int _);
+
                         break;
                      case EnumValueType.Int64:
-                        badValue = !Int64.TryParse(newValue, out Int64 _);
+                        badValue = !long.TryParse(newValue, out long _);
+
                         break;
                   }
 
@@ -87,11 +92,12 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
                   else
                   {
                      bool hasDuplicates = modelEnum.Values.Any(x => x != element && x.Value == newValue);
+
                      if (hasDuplicates)
                         errorMessage = $"Value {newValue} is already present in {modelEnum.Name}. Can't have duplicate values.";
                   }
-
                }
+
                break;
          }
 

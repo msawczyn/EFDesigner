@@ -43,17 +43,26 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-***1.2.6.18***
+***1.2.6.19***
+   - Fixed code generation issue where class and enum directory overrides were being ignored (See https://github.com/msawczyn/EFDesigner/issues/36)
+   - Fixed a problem that caused a hard crash when certain model properties were changed under certain conditions (See https://github.com/msawczyn/EFDesigner/issues/38)
+   - **[NEW]** Added ability to specify custom attributes for class, attribute, enum, enum value and navigation proprties
+
+**1.2.6.18**
    - Fixed issue #35, *Concurrency mode: optimistic auto generated Timestamp property* (See https://github.com/msawczyn/EFDesigner/issues/35)
    - Fixed issue #33, *Concurrency mode: optimistic* (See https://github.com/msawczyn/EFDesigner/issues/33)
    - **[NEW]** Added the base class as a property in the property editor to allow for easily adding/removing inheritance relationships for multiple classes
 
-***1.2.6.13***
+<details>
+<summary><b>1.2.6.13</b></summary>
+
    - Bugfix to remove unnecessary permission requests to push attributes down when deleting leaf nodes in an inheritance tree
    - Fix to workaround Visual Studio pulling in the wrong System.Net.Http reference. (See https://developercommunity.visualstudio.com/content/problem/296293/vs2017-1575-ignores-the-hintpath-and-take-the-syst.html)
    - Add EFModel.xsd to Visual Studio schema cache in order to avoid editor warnings for missing schema
    - Fixed template issue for non-English-language systems (where Microsoft Pluralization Service is unavailable)
    - Added compartment for association sources so Bidirectional associations would show up
+
+</details>
 
 <details>
 <summary><b>1.2.6.11</b></summary>

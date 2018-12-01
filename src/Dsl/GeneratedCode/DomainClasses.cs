@@ -4639,6 +4639,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region CustomAttributes domain property code
+		
+		/// <summary>
+		/// CustomAttributes domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CustomAttributesDomainPropertyId = new global::System.Guid(0xcae77164, 0x7b85, 0x4c67, 0x8f, 0xa4, 0x88, 0xf9, 0x45, 0x35, 0x3e, 0x92);
+		
+		/// <summary>
+		/// Storage for CustomAttributes
+		/// </summary>
+		private global::System.String customAttributesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CustomAttributes domain property.
+		/// Any custom attributes to be generated for this element.  Will be passed through
+		/// as entered.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/CustomAttributes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/CustomAttributes.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/CustomAttributes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("cae77164-7b85-4c67-8fa4-88f945353e92")]
+		public global::System.String CustomAttributes
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return customAttributesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CustomAttributesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.CustomAttributes domain property.
+		/// </summary>
+		internal sealed partial class CustomAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.String>
+		{
+			private CustomAttributesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.CustomAttributes domain property value handler.
+			/// </summary>
+			public static readonly CustomAttributesPropertyHandler Instance = new CustomAttributesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.CustomAttributes domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CustomAttributesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.customAttributesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.customAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -7109,6 +7198,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region CustomAttributes domain property code
+		
+		/// <summary>
+		/// CustomAttributes domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CustomAttributesDomainPropertyId = new global::System.Guid(0xc54c284f, 0x10d6, 0x4a49, 0x8f, 0xc1, 0x0b, 0xcf, 0x4b, 0xab, 0x8c, 0x6f);
+		
+		/// <summary>
+		/// Storage for CustomAttributes
+		/// </summary>
+		private global::System.String customAttributesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CustomAttributes domain property.
+		/// Any custom attributes to be generated for this element.  Will be passed through
+		/// as entered.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/CustomAttributes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/CustomAttributes.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/CustomAttributes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c54c284f-10d6-4a49-8fc1-0bcf4bab8c6f")]
+		public global::System.String CustomAttributes
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return customAttributesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CustomAttributesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.CustomAttributes domain property.
+		/// </summary>
+		internal sealed partial class CustomAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		{
+			private CustomAttributesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.CustomAttributes domain property value handler.
+			/// </summary>
+			public static readonly CustomAttributesPropertyHandler Instance = new CustomAttributesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.CustomAttributes domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CustomAttributesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.customAttributesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.customAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.
@@ -8301,6 +8479,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region CustomAttributes domain property code
+		
+		/// <summary>
+		/// CustomAttributes domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CustomAttributesDomainPropertyId = new global::System.Guid(0xd4b2ab6e, 0x54f5, 0x4b70, 0x94, 0xb0, 0x40, 0x30, 0x25, 0xb0, 0x15, 0x41);
+		
+		/// <summary>
+		/// Storage for CustomAttributes
+		/// </summary>
+		private global::System.String customAttributesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CustomAttributes domain property.
+		/// Any custom attributes to be generated for this element. Will be passed through
+		/// as entered.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnum/CustomAttributes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelEnum/CustomAttributes.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnum/CustomAttributes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("d4b2ab6e-54f5-4b70-94b0-403025b01541")]
+		public global::System.String CustomAttributes
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return customAttributesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CustomAttributesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelEnum.CustomAttributes domain property.
+		/// </summary>
+		internal sealed partial class CustomAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnum, global::System.String>
+		{
+			private CustomAttributesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelEnum.CustomAttributes domain property value handler.
+			/// </summary>
+			public static readonly CustomAttributesPropertyHandler Instance = new CustomAttributesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelEnum.CustomAttributes domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CustomAttributesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelEnum element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.customAttributesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelEnum element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.customAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelRoot opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelRoot.
@@ -8870,6 +9137,95 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.summaryPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region CustomAttributes domain property code
+		
+		/// <summary>
+		/// CustomAttributes domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CustomAttributesDomainPropertyId = new global::System.Guid(0xf01f16bc, 0x6d9b, 0x4b19, 0xad, 0x24, 0x18, 0x2b, 0x32, 0x37, 0x99, 0x61);
+		
+		/// <summary>
+		/// Storage for CustomAttributes
+		/// </summary>
+		private global::System.String customAttributesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CustomAttributes domain property.
+		/// Any custom attributes to be generated for this element. Will be passed through
+		/// as entered.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/CustomAttributes.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/CustomAttributes.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/CustomAttributes.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("f01f16bc-6d9b-4b19-ad24-182b32379961")]
+		public global::System.String CustomAttributes
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return customAttributesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CustomAttributesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelEnumValue.CustomAttributes domain property.
+		/// </summary>
+		internal sealed partial class CustomAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnumValue, global::System.String>
+		{
+			private CustomAttributesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelEnumValue.CustomAttributes domain property value handler.
+			/// </summary>
+			public static readonly CustomAttributesPropertyHandler Instance = new CustomAttributesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelEnumValue.CustomAttributes domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CustomAttributesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelEnumValue element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.customAttributesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelEnumValue element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.customAttributesPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

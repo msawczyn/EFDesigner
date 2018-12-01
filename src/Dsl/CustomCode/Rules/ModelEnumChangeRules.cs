@@ -1,7 +1,7 @@
 ﻿using System.CodeDom.Compiler;
 using System.Linq;
+
 using Microsoft.VisualStudio.Modeling;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Rules;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -27,6 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (e.DomainProperty.Name)
          {
             case "Name":
+
                if (currentTransaction.Name.ToLowerInvariant() == "paste")
                   return;
 
@@ -49,6 +50,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   foreach (ModelAttribute modelAttribute in store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == (string)e.OldValue))
                      modelAttribute.Type = element.Name;
                }
+
                break;
 
             case "Namespace":
@@ -58,6 +60,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (currentTransaction.Name.ToLowerInvariant() != "paste")
                   errorMessage = CommonRules.ValidateNamespace(element.Namespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
+
                break;
 
             case "IsFlags":

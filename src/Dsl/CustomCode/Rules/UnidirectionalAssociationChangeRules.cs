@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
-   public class AssociationChangeRules : ChangeRule
+   [RuleOn(typeof(UnidirectionalAssociation), FireTime = TimeToFire.TopLevelCommit)]
+   public class UnidirectionalAssociationChangeRules : ChangeRule
    {
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
@@ -31,6 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             case "Persistent":
                UpdateDisplayForPersistence(element);
+
                break;
 
             case "SourceDeleteAction":
@@ -55,24 +57,31 @@ namespace Sawczyn.EFDesigner.EFModel
                if ((sourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
                    (sourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
                {
-                  if (element.SourceRole != EndpointRole.NotSet) element.SourceRole = EndpointRole.NotSet;
-                  if (element.TargetRole != EndpointRole.NotSet) element.TargetRole = EndpointRole.NotSet;
+                  if (element.SourceRole != EndpointRole.NotSet)
+                     element.SourceRole = EndpointRole.NotSet;
+
+                  if (element.TargetRole != EndpointRole.NotSet)
+                     element.TargetRole = EndpointRole.NotSet;
                }
                else
                   SetEndpointRoles(element);
 
                UpdateDisplayForCascadeDelete(element, null, null, sourceMultiplicity);
+
                break;
 
             case "SourcePropertyName":
                string sourcePropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
+
                if (EFModelDiagram.IsDropping && sourcePropertyNameErrorMessage != null)
                   element.Delete();
                else
                   errorMessages.Add(sourcePropertyNameErrorMessage);
+
                break;
 
             case "SourceRole":
+
                if (element.Source.IsDependentType)
                {
                   element.SourceRole = EndpointRole.Dependent;
@@ -86,14 +95,23 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TargetRole = EndpointRole.Principal;
                   else if (sourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
                      element.TargetRole = EndpointRole.Dependent;
+
                   SetEndpointRoles(element);
                }
+
+               break;
+
+            case "TargetCustomAttributes":
+
+               if (!string.IsNullOrWhiteSpace(element.TargetCustomAttributes))
+                  element.TargetCustomAttributes = $"[{element.TargetCustomAttributes.Trim('[', ']')}]";
 
                break;
 
             case "TargetDeleteAction":
                DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
                UpdateDisplayForCascadeDelete(element, null, targetDeleteAction);
+
                break;
 
             case "TargetMultiplicity":
@@ -112,29 +130,37 @@ namespace Sawczyn.EFDesigner.EFModel
                if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
                    (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
                {
-                  if (element.SourceRole != EndpointRole.NotSet) element.SourceRole = EndpointRole.NotSet;
-                  if (element.TargetRole != EndpointRole.NotSet) element.TargetRole = EndpointRole.NotSet;
+                  if (element.SourceRole != EndpointRole.NotSet)
+                     element.SourceRole = EndpointRole.NotSet;
+
+                  if (element.TargetRole != EndpointRole.NotSet)
+                     element.TargetRole = EndpointRole.NotSet;
                }
                else
                   SetEndpointRoles(element);
 
                UpdateDisplayForCascadeDelete(element, null, null, null, newTargetMultiplicity);
+
                break;
 
             case "TargetPropertyName":
+
                // if we're creating an association via drag/drop, it's possible the existing property name
                // is the same as the default property name. The default doesn't get created until the transaction is 
                // committed, so the drop's action will cause a name clash. Remove the clashing property, but
                // only if drag/drop.
 
                string targetPropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
+
                if (EFModelDiagram.IsDropping && targetPropertyNameErrorMessage != null)
                   element.Delete();
                else
                   errorMessages.Add(targetPropertyNameErrorMessage);
+
                break;
 
             case "TargetRole":
+
                if (element.Target.IsDependentType)
                {
                   element.SourceRole = EndpointRole.Principal;
@@ -148,6 +174,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.SourceRole = EndpointRole.Principal;
                   else if (targetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
                      element.SourceRole = EndpointRole.Dependent;
+
                   SetEndpointRoles(element);
                }
 
@@ -155,6 +182,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();
+
          if (errorMessages.Any())
          {
             current.Rollback();
@@ -162,30 +190,73 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      internal static void UpdateDisplayForPersistence(Association element)
+      internal static void SetEndpointRoles(Association element)
       {
-         // don't change unless necessary so as to not set the model's dirty flag without need
-         bool persistent = element.Persistent;
+         switch (element.TargetMultiplicity)
+         {
+            case Multiplicity.ZeroMany:
 
-         List<AssociationConnector> changeColors =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (persistent && connector.Color != Color.Black) ||
-                                                        (!persistent && connector.Color != Color.DarkGray))
-                                    .ToList();
+               switch (element.SourceMultiplicity)
+               {
+                  case Multiplicity.ZeroMany:
+                     element.SourceRole = EndpointRole.NotApplicable;
+                     element.TargetRole = EndpointRole.NotApplicable;
 
-         List<AssociationConnector> changeStyle =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (persistent && connector.DashStyle != DashStyle.Solid) ||
-                                                        (!persistent && connector.DashStyle != DashStyle.Dash))
-                                    .ToList();
+                     break;
+                  case Multiplicity.One:
+                     element.SourceRole = EndpointRole.Principal;
+                     element.TargetRole = EndpointRole.Dependent;
 
-         foreach (AssociationConnector connector in changeColors)
-            connector.Color = persistent ? Color.Black : Color.DarkGray;
+                     break;
+                  case Multiplicity.ZeroOne:
+                     element.SourceRole = EndpointRole.Principal;
+                     element.TargetRole = EndpointRole.Dependent;
 
-         foreach (AssociationConnector connector in changeStyle)
-            connector.DashStyle = persistent ? DashStyle.Solid : DashStyle.Dash;
+                     break;
+               }
+
+               break;
+            case Multiplicity.One:
+
+               switch (element.SourceMultiplicity)
+               {
+                  case Multiplicity.ZeroMany:
+                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Principal;
+
+                     break;
+                  case Multiplicity.One:
+
+                     break;
+                  case Multiplicity.ZeroOne:
+                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Principal;
+
+                     break;
+               }
+
+               break;
+            case Multiplicity.ZeroOne:
+
+               switch (element.SourceMultiplicity)
+               {
+                  case Multiplicity.ZeroMany:
+                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Principal;
+
+                     break;
+                  case Multiplicity.One:
+                     element.SourceRole = EndpointRole.Principal;
+                     element.TargetRole = EndpointRole.Dependent;
+
+                     break;
+                  case Multiplicity.ZeroOne:
+
+                     break;
+               }
+
+               break;
+         }
       }
 
       internal static void UpdateDisplayForCascadeDelete(Association element,
@@ -223,67 +294,44 @@ namespace Sawczyn.EFDesigner.EFModel
                                     .ToList();
 
          foreach (AssociationConnector connector in changeColor)
-            connector.Color = cascade ? Color.Red : Color.Black;
+            connector.Color = cascade
+                                 ? Color.Red
+                                 : Color.Black;
 
          foreach (AssociationConnector connector in changeStyle)
-            connector.DashStyle = cascade ? DashStyle.Dash : DashStyle.Solid;
+            connector.DashStyle = cascade
+                                     ? DashStyle.Dash
+                                     : DashStyle.Solid;
       }
 
-      internal static void SetEndpointRoles(Association element)
+      internal static void UpdateDisplayForPersistence(Association element)
       {
-         switch (element.TargetMultiplicity)
-         {
-            case Multiplicity.ZeroMany:
-               switch (element.SourceMultiplicity)
-               {
-                  case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.NotApplicable;
-                     element.TargetRole = EndpointRole.NotApplicable;
-                     break;
-                  case Multiplicity.One:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
-                     break;
-                  case Multiplicity.ZeroOne:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
-                     break;
-               }
+         // don't change unless necessary so as to not set the model's dirty flag without need
+         bool persistent = element.Persistent;
 
-               break;
-            case Multiplicity.One:
-               switch (element.SourceMultiplicity)
-               {
-                  case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
-                     break;
-                  case Multiplicity.One:
-                     break;
-                  case Multiplicity.ZeroOne:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
-                     break;
-               }
+         List<AssociationConnector> changeColors =
+            PresentationViewsSubject.GetPresentation(element)
+                                    .OfType<AssociationConnector>()
+                                    .Where(connector => (persistent && connector.Color != Color.Black) ||
+                                                        (!persistent && connector.Color != Color.DarkGray))
+                                    .ToList();
 
-               break;
-            case Multiplicity.ZeroOne:
-               switch (element.SourceMultiplicity)
-               {
-                  case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
-                     break;
-                  case Multiplicity.One:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
-                     break;
-                  case Multiplicity.ZeroOne:
-                     break;
-               }
+         List<AssociationConnector> changeStyle =
+            PresentationViewsSubject.GetPresentation(element)
+                                    .OfType<AssociationConnector>()
+                                    .Where(connector => (persistent && connector.DashStyle != DashStyle.Solid) ||
+                                                        (!persistent && connector.DashStyle != DashStyle.Dash))
+                                    .ToList();
 
-               break;
-         }
+         foreach (AssociationConnector connector in changeColors)
+            connector.Color = persistent
+                                 ? Color.Black
+                                 : Color.DarkGray;
+
+         foreach (AssociationConnector connector in changeStyle)
+            connector.DashStyle = persistent
+                                     ? DashStyle.Solid
+                                     : DashStyle.Dash;
       }
 
       private static string ValidateAssociationIdentifier(Association association, ModelClass targetedClass, string identifier)
@@ -291,10 +339,11 @@ namespace Sawczyn.EFDesigner.EFModel
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
             return $"{identifier} isn't a valid .NET identifier";
 
-         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass
-                                          ?? targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
+         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass ?? targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
 
-         return offendingModelClass != null ? $"Duplicate symbol {identifier} in {offendingModelClass.Name}" : null;
+         return offendingModelClass != null
+                   ? $"Duplicate symbol {identifier} in {offendingModelClass.Name}"
+                   : null;
       }
    }
 }

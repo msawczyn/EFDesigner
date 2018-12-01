@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Rules;
+using System.Reflection;
+
+using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -9,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private static readonly Type[] RuleClasses =
       {
          typeof(AssociationAddRules),
-         typeof(AssociationChangeRules),
+         typeof(BidirectionalAssociationChangeRules),
          typeof(GeneralizationAddRules),
          typeof(GeneralizationChangeRules),
          typeof(GeneralizationDeletingRules),
@@ -21,7 +23,8 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(ModelEnumChangeRules),
          typeof(ModelEnumValueAddRules),
          typeof(ModelEnumValueChangeRules),
-         typeof(ModelRootChangeRules)
+         typeof(ModelRootChangeRules),
+         typeof(UnidirectionalAssociationChangeRules)
       };
 
       protected override Type[] GetCustomDomainModelTypes()

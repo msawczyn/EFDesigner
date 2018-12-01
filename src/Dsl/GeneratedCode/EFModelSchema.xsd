@@ -457,6 +457,12 @@
             <xsd:documentation>Exposes Superclass property in property editor</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: CustomAttributes -->
+        <xsd:attribute name="customAttributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Any custom attributes to be generated for this element.  Will be passed through as entered.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -629,6 +635,12 @@
         <xsd:attribute name="isColumnTypeTracking" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, ModelAttribute.ColumnType tracks ModelAttribute.Type</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: CustomAttributes -->
+        <xsd:attribute name="customAttributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Any custom attributes to be generated for this element.  Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -807,6 +819,12 @@
             <xsd:documentation>Brief code documentation</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: CustomAttributes -->
+        <xsd:attribute name="customAttributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Any custom attributes to be generated for this element. Will be passed through as entered.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -855,6 +873,12 @@
         <xsd:attribute name="summary" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Brief code documentation</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: CustomAttributes -->
+        <xsd:attribute name="customAttributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Any custom attributes to be generated for this element. Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1014,6 +1038,12 @@
         <xsd:attribute name="foreignKeyLocation" type="ForeignKeyOwner" >
           <xsd:annotation>
             <xsd:documentation>Which class should hold the foreign key for this relationship</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: TargetCustomAttributes -->
+        <xsd:attribute name="targetCustomAttributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Any custom attributes to be generated for the target property. Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1214,6 +1244,12 @@
         <xsd:attribute name="sourceSummary" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Short code documentation for this end of the association</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SourceCustomAttributes -->
+        <xsd:attribute name="sourceCustomAttributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Any custom attributes to be generated for the source property. Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

@@ -709,6 +709,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/CustomAttributes.Description" xml:space="preserve">
+    <value>Any custom attributes to be generated for this element.  Will be passed through as entered.</value>
+    <comment>Description for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/CustomAttributes.DisplayName" xml:space="preserve">
+    <value>Custom Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/CustomAttributes.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>
@@ -997,6 +1009,18 @@
     <value>Is Column Type Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsColumnTypeTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/CustomAttributes.Description" xml:space="preserve">
+    <value>Any custom attributes to be generated for this element.  Will be passed through as entered.</value>
+    <comment>Description for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/CustomAttributes.DisplayName" xml:space="preserve">
+    <value>Custom Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/CustomAttributes.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>
@@ -1137,6 +1161,18 @@
     <value>Documentation</value>
     <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/CustomAttributes.Description" xml:space="preserve">
+    <value>Any custom attributes to be generated for this element. Will be passed through as entered.</value>
+    <comment>Description for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/CustomAttributes.DisplayName" xml:space="preserve">
+    <value>Custom Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/CustomAttributes.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" xml:space="preserve">
     <value>No description available</value>
     <comment>Description for DomainClass &apos;ModelEnumValue&apos;</comment>
@@ -1192,6 +1228,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/Summary.Category" xml:space="preserve">
     <value>Documentation</value>
     <comment>Category for DomainProperty &apos;Summary&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/CustomAttributes.Description" xml:space="preserve">
+    <value>Any custom attributes to be generated for this element. Will be passed through as entered.</value>
+    <comment>Description for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/CustomAttributes.DisplayName" xml:space="preserve">
+    <value>Custom Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue/CustomAttributes.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnumValue&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.DesignElement.Description" xml:space="preserve">
     <value>Description for Sawczyn.EFDesigner.EFModel.DesignElement</value>
@@ -1393,6 +1441,18 @@
     <value>Foreign Key Location</value>
     <comment>DisplayName for DomainProperty &apos;ForeignKeyLocation&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetCustomAttributes.Description" xml:space="preserve">
+    <value>Any custom attributes to be generated for the target property. Will be passed through as entered.</value>
+    <comment>Description for DomainProperty &apos;TargetCustomAttributes&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetCustomAttributes.DisplayName" xml:space="preserve">
+    <value>End2 Custom Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;TargetCustomAttributes&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetCustomAttributes.Category" xml:space="preserve">
+    <value>End 2</value>
+    <comment>Category for DomainProperty &apos;TargetCustomAttributes&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainRole &apos;Source&apos; on DomainRelationship &apos;Association&apos;</comment>
@@ -1588,6 +1648,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceSummary.Category" xml:space="preserve">
     <value>End 1</value>
     <comment>Category for DomainProperty &apos;SourceSummary&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceCustomAttributes.Description" xml:space="preserve">
+    <value>Any custom attributes to be generated for the source property. Will be passed through as entered.</value>
+    <comment>Description for DomainProperty &apos;SourceCustomAttributes&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceCustomAttributes.DisplayName" xml:space="preserve">
+    <value>End1 Custom Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;SourceCustomAttributes&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceCustomAttributes.Category" xml:space="preserve">
+    <value>End 1</value>
+    <comment>Category for DomainProperty &apos;SourceCustomAttributes&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/BidirectionalSource.Description" xml:space="preserve">
     <value></value>

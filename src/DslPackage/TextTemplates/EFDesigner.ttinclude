@@ -211,6 +211,9 @@ void WriteEnum(ModelEnum modelEnum)
          Output("[Flags]");
       }
 
+      if (!string.IsNullOrWhiteSpace(modelEnum.CustomAttributes))
+          Output($"[{modelEnum.CustomAttributes.Trim('[',']')}]");
+
       Output($"public enum {modelEnum.Name} : {modelEnum.ValueType}");
       Output("{");
 
@@ -229,6 +232,9 @@ void WriteEnum(ModelEnum modelEnum)
             Output("/// {0}", values[index].Description);
             Output("/// </remarks>");
          }
+
+         if (!string.IsNullOrWhiteSpace(values[index].CustomAttributes))
+             Output($"[{values[index].CustomAttributes.Trim('[',']')}]");
 
          if (string.IsNullOrEmpty(values[index].Value))
             Output($"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}");
@@ -280,6 +286,9 @@ void WriteClass(ModelClass modelClass)
       Output("/// {0}", modelClass.Description);
       Output("/// </remarks>");
    }
+
+   if (!string.IsNullOrWhiteSpace(modelClass.CustomAttributes))
+         Output($"[{modelClass.CustomAttributes.Trim('[',']')}]");
 
    Output($"public {isAbstract}partial class {modelClass.Name}{baseClass}");
    Output("{");
@@ -580,6 +589,9 @@ void WritePersistentProperties(ModelClass modelClass)
 
       GeneratePropertyAnnotations(modelAttribute);
 
+      if (!string.IsNullOrWhiteSpace(modelAttribute.CustomAttributes))
+            Output($"[{modelAttribute.CustomAttributes.Trim('[',']')}]");
+
       if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
       {
          Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
@@ -677,6 +689,9 @@ void WriteCalculatedProperties(ModelClass modelClass)
                                    : calculatedAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : string.Empty;
       string isVirtual = calculatedAttribute.Virtual ? "virtual " : string.Empty;
 
+      if (!string.IsNullOrWhiteSpace(calculatedAttribute.CustomAttributes))
+            Output($"[{calculatedAttribute.CustomAttributes.Trim('[',']')}]");
+
       Output($"public {isVirtual}{calculatedAttribute.FQPrimitiveType}{nullable} {calculatedAttribute.Name}");
       Output("{");
       Output($"get {{ {calculatedAttribute.FQPrimitiveType}{nullable} value = default({calculatedAttribute.FQPrimitiveType}{nullable}); Get{calculatedAttribute.Name}(ref value); return value; }}");
@@ -731,6 +746,9 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
          Output("/// {0}", navigationProperty.Description);
          Output("/// </remarks>");
       }
+
+      if (!string.IsNullOrWhiteSpace(navigationProperty.CustomAttributes))
+            Output($"[{navigationProperty.CustomAttributes.Trim('[',']')}]");
 
       if (!modelClass.ImplementNotify || navigationProperty.IsCollection)
       {
@@ -794,6 +812,11 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
          Output("/// {0}", navigationProperty.Description);
          Output("/// </remarks>");
       }
+
+
+      if (!string.IsNullOrWhiteSpace(navigationProperty.CustomAttributes))
+            Output($"[{navigationProperty.CustomAttributes.Trim('[',']')}]");
+
       Output($"public {type} {navigationProperty.PropertyName}");
       Output("{");
       Output($"get {{ {type} value = null; Get{navigationProperty.PropertyName}(ref value); return value; }}");

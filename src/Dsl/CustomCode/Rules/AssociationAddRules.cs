@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity.Design.PluralizationServices;
+
 using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -30,6 +31,7 @@ namespace Sawczyn.EFDesigner.EFModel
             element.SourceRole = EndpointRole.Principal;
             element.TargetRole = EndpointRole.Dependent;
          }
+
          // add bidirectional
          //    neither can be dependent (connection builder handles this)
 
@@ -68,8 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         AssociationChangeRules.SetEndpointRoles(element);
-
+         UnidirectionalAssociationChangeRules.SetEndpointRoles(element);
       }
    }
 }

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Rules;
 
 namespace Sawczyn.EFDesigner.EFModel
 {

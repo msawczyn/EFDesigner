@@ -1,8 +1,9 @@
-﻿using Microsoft.VisualStudio.Modeling;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sawczyn.EFDesigner.EFModel.CustomCode.Rules
+using Microsoft.VisualStudio.Modeling;
+
+namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelClass), FireTime = TimeToFire.TopLevelCommit)]
    internal class ModelClassDeletingRules : DeletingRule

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -25,10 +26,12 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             case "Superclass":
             case "Subclass":
+
                if (!element.IsInCircularInheritance())
                {
                   ErrorDisplay.Show($"{element.Subclass.Name} -> {element.Superclass.Name}: That inheritance link would cause a circular reference.");
                   current.Rollback();
+
                   return;
                }
 
@@ -61,6 +64,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      current.Rollback();
                   }
                }
+
                break;
          }
       }

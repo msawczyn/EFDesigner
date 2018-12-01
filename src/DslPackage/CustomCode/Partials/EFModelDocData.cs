@@ -173,11 +173,11 @@ namespace Sawczyn.EFDesigner.EFModel
                // style association connectors if needed
                foreach (Association element in associations)
                {
-                  AssociationChangeRules.UpdateDisplayForPersistence(element);
-                  AssociationChangeRules.UpdateDisplayForCascadeDelete(element);
+                  UnidirectionalAssociationChangeRules.UpdateDisplayForPersistence(element);
+                  UnidirectionalAssociationChangeRules.UpdateDisplayForCascadeDelete(element);
 
                   // for older diagrams that didn't calculate this initially
-                  AssociationChangeRules.SetEndpointRoles(element);
+                  UnidirectionalAssociationChangeRules.SetEndpointRoles(element);
                }
 
                tx.Commit();

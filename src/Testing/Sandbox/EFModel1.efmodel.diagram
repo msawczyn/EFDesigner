@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.2.6.14" Id="398dcdf7-7a03-4f9f-91bd-8b838df093d9" absoluteBounds="0, 0, 11, 8.5" name="EFModel1">
+<eFModelDiagram dslVersion="1.2.6.19" Id="398dcdf7-7a03-4f9f-91bd-8b838df093d9" absoluteBounds="0, 0, 11, 8.5" name="EFModel1">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="592c9aae-103e-4412-8eac-89f110673826" absoluteBounds="2.625, 0.625, 1.5, 2.1396761067708341" fillColor="0, 122, 204" textColor="White" outlineColor="CornflowerBlue" outlineDashStyle="Dot" visible="true" outlineThickness="0.03">
@@ -24,7 +24,7 @@
         <elementListCompartment Id="ad4d7bf2-16d3-40aa-b6d2-9f016738077f" absoluteBounds="6.39, 2.03068359375, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <unidirectionalConnector Id="4d9bf6fb-a16f-4709-89fb-f60ddbe61513" edgePoints="[(4.125 : 1.83353216489156); (6.375 : 1.83353216489156)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Black" dashStyle="Solid">
+    <unidirectionalConnector Id="4d9bf6fb-a16f-4709-89fb-f60ddbe61513" edgePoints="[(4.125 : 1.83353216489156); (6.375 : 1.83353216489156)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <unidirectionalAssociationMoniker Id="bac6cf19-0c40-4679-9d4b-c2123b0b548b" />
       <relativeChildShapes />
       <nodes>
@@ -32,7 +32,7 @@
         <classShapeMoniker Id="5468308b-9c2e-4a43-a037-3d662a5b2ffb" />
       </nodes>
     </unidirectionalConnector>
-    <bidirectionalConnector Id="a235ad1f-5d65-4df3-ad87-7bff5b430fb4" edgePoints="[(6.375 : 1.16676608244578); (4.125 : 1.16676608244578)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="Black" dashStyle="Solid">
+    <bidirectionalConnector Id="a235ad1f-5d65-4df3-ad87-7bff5b430fb4" edgePoints="[(6.375 : 1.16676608244578); (4.125 : 1.16676608244578)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="Black" dashStyle="Solid">
       <bidirectionalAssociationMoniker Id="b0d89b31-76eb-4cfc-82d2-bd38725168da" />
       <relativeChildShapes />
       <nodes>

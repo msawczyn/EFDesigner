@@ -393,6 +393,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="cae77164-7b85-4c67-8fa4-88f945353e92" Description="Any custom attributes to be generated for this element.  Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -565,6 +570,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c54c284f-10d6-4a49-8fc1-0bcf4bab8c6f" Description="Any custom attributes to be generated for this element.  Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -666,6 +676,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="d4b2ab6e-54f5-4b70-94b0-403025b01541" Description="Any custom attributes to be generated for this element. Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -721,6 +736,11 @@
               </Parameters>
             </ClrAttribute>
           </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f01f16bc-6d9b-4b19-ad24-182b32379961" Description="Any custom attributes to be generated for this element. Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -862,6 +882,11 @@
             <DomainEnumerationMoniker Name="ForeignKeyOwner" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="a667dd36-ac5c-4c98-b368-b84778bdcd56" Description="Any custom attributes to be generated for the target property. Will be passed through as entered." Name="TargetCustomAttributes" DisplayName="End2 Custom Attributes" Category="End 2">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -979,6 +1004,11 @@
               </Parameters>
             </ClrAttribute>
           </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="124bb49e-c952-4a7f-801a-a7af0a985fc4" Description="Any custom attributes to be generated for the source property. Will be passed through as entered." Name="SourceCustomAttributes" DisplayName="End1 Custom Attributes" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1498,6 +1528,9 @@
           <XmlPropertyData XmlName="foreignKeyLocation">
             <DomainPropertyMoniker Name="Association/ForeignKeyLocation" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="targetCustomAttributes">
+            <DomainPropertyMoniker Name="Association/TargetCustomAttributes" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -1688,6 +1721,9 @@
           <XmlPropertyData XmlName="baseClass">
             <DomainPropertyMoniker Name="ModelClass/BaseClass" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="customAttributes">
+            <DomainPropertyMoniker Name="ModelClass/CustomAttributes" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelAttribute" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelAttributeMoniker" ElementName="modelAttribute" MonikerTypeName="ModelAttributeMoniker">
@@ -1765,6 +1801,9 @@
           <XmlPropertyData XmlName="isColumnTypeTracking">
             <DomainPropertyMoniker Name="ModelAttribute/IsColumnTypeTracking" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="customAttributes">
+            <DomainPropertyMoniker Name="ModelAttribute/CustomAttributes" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="Comment" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentMoniker" ElementName="comment" MonikerTypeName="CommentMoniker">
@@ -1801,6 +1840,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="sourceSummary">
             <DomainPropertyMoniker Name="BidirectionalAssociation/SourceSummary" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="sourceCustomAttributes">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourceCustomAttributes" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1892,6 +1934,9 @@
           <XmlPropertyData XmlName="summary">
             <DomainPropertyMoniker Name="ModelEnum/Summary" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="customAttributes">
+            <DomainPropertyMoniker Name="ModelEnum/CustomAttributes" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelRootHasEnums" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasEnumsMoniker" ElementName="modelRootHasEnums" MonikerTypeName="ModelRootHasEnumsMoniker">
@@ -1911,6 +1956,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="summary">
             <DomainPropertyMoniker Name="ModelEnumValue/Summary" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="customAttributes">
+            <DomainPropertyMoniker Name="ModelEnumValue/CustomAttributes" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
