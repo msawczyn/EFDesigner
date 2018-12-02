@@ -643,6 +643,12 @@
             <xsd:documentation>Any custom attributes to be generated for this element.  Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DisplayText -->
+        <xsd:attribute name="displayText" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -881,6 +887,12 @@
             <xsd:documentation>Any custom attributes to be generated for this element. Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DisplayText -->
+        <xsd:attribute name="displayText" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1044,6 +1056,12 @@
         <xsd:attribute name="targetCustomAttributes" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Any custom attributes to be generated for the target property. Will be passed through as entered.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: TargetDisplayText -->
+        <xsd:attribute name="targetDisplayText" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1250,6 +1268,12 @@
         <xsd:attribute name="sourceCustomAttributes" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Any custom attributes to be generated for the source property. Will be passed through as entered.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SourceDisplayText -->
+        <xsd:attribute name="sourceDisplayText" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

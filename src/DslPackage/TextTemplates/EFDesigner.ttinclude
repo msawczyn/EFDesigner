@@ -236,6 +236,9 @@ void WriteEnum(ModelEnum modelEnum)
          if (!string.IsNullOrWhiteSpace(values[index].CustomAttributes))
              Output($"[{values[index].CustomAttributes.Trim('[',']')}]");
 
+         if (!string.IsNullOrWhiteSpace(values[index].DisplayText))
+            Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{values[index].DisplayText}\")]");
+
          if (string.IsNullOrEmpty(values[index].Value))
             Output($"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}");
          else
@@ -653,6 +656,8 @@ void GeneratePropertyAnnotations(ModelAttribute modelAttribute, string namePrefi
             Output($"[MinLength({modelAttribute.MinLength})]");
       } 
    }
+   if (!string.IsNullOrWhiteSpace(modelAttribute.DisplayText))
+      Output($"[Display(Name=\"{modelAttribute.DisplayText}\")]");
 
 }
 
@@ -691,6 +696,8 @@ void WriteCalculatedProperties(ModelClass modelClass)
 
       if (!string.IsNullOrWhiteSpace(calculatedAttribute.CustomAttributes))
             Output($"[{calculatedAttribute.CustomAttributes.Trim('[',']')}]");
+      if (!string.IsNullOrWhiteSpace(calculatedAttribute.DisplayText))
+         Output($"[Display(Name=\"{calculatedAttribute.DisplayText}\")]");
 
       Output($"public {isVirtual}{calculatedAttribute.FQPrimitiveType}{nullable} {calculatedAttribute.Name}");
       Output("{");
@@ -749,6 +756,8 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
 
       if (!string.IsNullOrWhiteSpace(navigationProperty.CustomAttributes))
             Output($"[{navigationProperty.CustomAttributes.Trim('[',']')}]");
+      if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
+         Output($"[Display(Name=\"{navigationProperty.DisplayText}\")]");
 
       if (!modelClass.ImplementNotify || navigationProperty.IsCollection)
       {
@@ -816,6 +825,8 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
 
       if (!string.IsNullOrWhiteSpace(navigationProperty.CustomAttributes))
             Output($"[{navigationProperty.CustomAttributes.Trim('[',']')}]");
+      if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
+         Output($"[Display(Name=\"{navigationProperty.DisplayText}\")]");
 
       Output($"public {type} {navigationProperty.PropertyName}");
       Output("{");

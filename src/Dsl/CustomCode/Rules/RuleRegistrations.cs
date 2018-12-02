@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private static readonly Type[] RuleClasses =
       {
          typeof(AssociationAddRules),
-         typeof(BidirectionalAssociationChangeRules),
+         typeof(AssociationChangeRules),
          typeof(GeneralizationAddRules),
          typeof(GeneralizationChangeRules),
          typeof(GeneralizationDeletingRules),
@@ -23,8 +23,7 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(ModelEnumChangeRules),
          typeof(ModelEnumValueAddRules),
          typeof(ModelEnumValueChangeRules),
-         typeof(ModelRootChangeRules),
-         typeof(UnidirectionalAssociationChangeRules)
+         typeof(ModelRootChangeRules)
       };
 
       protected override Type[] GetCustomDomainModelTypes()

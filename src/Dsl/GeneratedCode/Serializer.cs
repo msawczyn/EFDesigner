@@ -3925,6 +3925,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// DisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDisplayText = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "displayText");
+				if (attribDisplayText != null)
+				{
+					global::System.String valueOfDisplayText;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDisplayText, out valueOfDisplayText))
+					{
+						instanceOfModelAttribute.DisplayText = valueOfDisplayText;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "displayText", typeof(global::System.String), attribDisplayText);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -4647,6 +4664,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
+	
+				}
+			}
+			// DisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelAttribute.DisplayText;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayText", propValue);
 	
 				}
 			}
@@ -6862,6 +6890,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// DisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDisplayText = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "displayText");
+				if (attribDisplayText != null)
+				{
+					global::System.String valueOfDisplayText;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDisplayText, out valueOfDisplayText))
+					{
+						instanceOfModelEnumValue.DisplayText = valueOfDisplayText;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "displayText", typeof(global::System.String), attribDisplayText);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -7341,6 +7386,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
+	
+				}
+			}
+			// DisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelEnumValue.DisplayText;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayText", propValue);
 	
 				}
 			}
@@ -8280,6 +8336,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// TargetDisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				string attribTargetDisplayText = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetDisplayText");
+				if (attribTargetDisplayText != null)
+				{
+					global::System.String valueOfTargetDisplayText;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTargetDisplayText, out valueOfTargetDisplayText))
+					{
+						instanceOfAssociation.TargetDisplayText = valueOfTargetDisplayText;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetDisplayText", typeof(global::System.String), attribTargetDisplayText);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
@@ -8777,6 +8850,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetCustomAttributes", propValue);
+	
+				}
+			}
+			// TargetDisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfAssociation.TargetDisplayText;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetDisplayText", propValue);
 	
 				}
 			}
@@ -12253,6 +12337,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// SourceDisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				string attribSourceDisplayText = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourceDisplayText");
+				if (attribSourceDisplayText != null)
+				{
+					global::System.String valueOfSourceDisplayText;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribSourceDisplayText, out valueOfSourceDisplayText))
+					{
+						instanceOfBidirectionalAssociation.SourceDisplayText = valueOfSourceDisplayText;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourceDisplayText", typeof(global::System.String), attribSourceDisplayText);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
@@ -12759,6 +12860,17 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceCustomAttributes", propValue);
+	
+				}
+			}
+			// SourceDisplayText
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfBidirectionalAssociation.SourceDisplayText;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceDisplayText", propValue);
 	
 				}
 			}

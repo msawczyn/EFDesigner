@@ -79,7 +79,7 @@ namespace Sandbox
        * Persistent navigation properties
        *************************************************************************/
 
-      [Entity1Attr]
+      [Display(Name="Bar")]
       public virtual ICollection<Sandbox.Entity1> Entity1 { get; set; }
 
    }

@@ -113,6 +113,7 @@ namespace Sandbox
       /// </summary>
       partial void GetFoo(ref string result);
 
+      [Display(Name="XXX")]
       [FooAttr]
       public string Foo
       {
@@ -145,6 +146,7 @@ namespace Sandbox
        * Persistent navigation properties
        *************************************************************************/
 
+      [Display(Name="E2Display")]
       public virtual ICollection<Sandbox.Entity2> Entity2 { get; set; }
 
       protected Sandbox.Entity2 _Entity2_1;

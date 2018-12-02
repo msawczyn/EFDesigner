@@ -575,6 +575,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="7d65b45d-ff09-49c7-b1bc-ea80175686d8" Description="Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute" Name="DisplayText" DisplayName="Display Text" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -745,6 +750,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c776a259-4e87-42d3-ade8-a6170087c11b" Description="Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute" Name="DisplayText" DisplayName="Display Text" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="460f3d41-02c2-41dd-8fd3-8286e400e6f1" Description="Description for Sawczyn.EFDesigner.EFModel.DesignElement" Name="DesignElement" DisplayName="Design Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" />
@@ -887,6 +897,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="4f71c60f-e2d6-475c-b545-1aa18d85d5ab" Description="Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end's property" Name="TargetDisplayText" DisplayName="End2 Display Text" Category="End 2">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1009,6 +1024,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="124bb49e-c952-4a7f-801a-a7af0a985fc4" Description="Any custom attributes to be generated for the source property. Will be passed through as entered." Name="SourceCustomAttributes" DisplayName="End1 Custom Attributes" Category="End 1">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="5069324e-4190-403e-8791-416c692c872a" Description="Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end's property" Name="SourceDisplayText" DisplayName="End1 Display Text" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1531,6 +1551,9 @@
           <XmlPropertyData XmlName="targetCustomAttributes">
             <DomainPropertyMoniker Name="Association/TargetCustomAttributes" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="targetDisplayText">
+            <DomainPropertyMoniker Name="Association/TargetDisplayText" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -1804,6 +1827,9 @@
           <XmlPropertyData XmlName="customAttributes">
             <DomainPropertyMoniker Name="ModelAttribute/CustomAttributes" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="displayText">
+            <DomainPropertyMoniker Name="ModelAttribute/DisplayText" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="Comment" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentMoniker" ElementName="comment" MonikerTypeName="CommentMoniker">
@@ -1843,6 +1869,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="sourceCustomAttributes">
             <DomainPropertyMoniker Name="BidirectionalAssociation/SourceCustomAttributes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="sourceDisplayText">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourceDisplayText" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1959,6 +1988,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="customAttributes">
             <DomainPropertyMoniker Name="ModelEnumValue/CustomAttributes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="displayText">
+            <DomainPropertyMoniker Name="ModelEnumValue/DisplayText" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -32,34 +32,36 @@ Selecting a property gives you access to **its** properties in the Property wind
 <tr><th valign="top"><b>Property</b></th><th valign="top"><b>Description</b></th></tr>
 </thead>
 <tbody>
-<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
-<tr><td valign="top">Auto Property</td><td valign="top"><i>Boolean.</i> If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</td></tr>
-<tr><td valign="top">Initial Value</td><td valign="top"><i>String</i>. Value for attribute when first created. Will be validated to ensure entry is appropriate for the property's type</td></tr>
-<tr><td valign="top">Name</td><td valign="top">The name of the property. Must be a valid C# symbol.</td></tr>
-<tr><td valign="top">Persistent</td><td valign="top"><i>Boolean.</i> If true, Attribute will be stored in persistent storage</td></tr>
-<tr><td valign="top">Read Only</td><td valign="top"><i>Boolean.</i> If true, no setter will be generated. Only valid for transient public properties.</td></tr>
-<tr><td valign="top">Required</td><td valign="top"><i>Boolean.</i> If true, cannot be null (or the default value for the property type, if not nullable)</td></tr>
-<tr><td valign="top">Setter Visibility</td><td valign="top"><i>String</i>. Visibility for property setter; getter is public. Valid entries are public and protected.</td></tr>
-<tr><td valign="top">Type</td><td valign="top"><i>String</i>. Type of this attribute. Select from list of valid types.</td></tr>
-<tr><td valign="top">Virtual</td><td valign="top"><i>Boolean.</i> If true, property will be generated with the 'virtual' keyword</td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b>  </td></tr>
+<tr><td valign="top">Auto Property                                                           </td><td valign="top"><i>Boolean.</i> If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</td></tr>
+<tr><td valign="top">Custom Attributes                                                       </td><td valign="top"> <i>String</i>. Attributes generated in the code for this element - anything here will be generated verbatim into the code in the class definition.</td></tr>
+<tr><td valign="top">Display Text                                                            </td><td valign="top"> <i>String</i>. Will cause the generation of a [Display(Name="&lt;text&gt;")] attribute tag in the code.</td></tr>
+<tr><td valign="top">Initial Value                                                           </td><td valign="top"><i>String</i>. Value for attribute when first created. Will be validated to ensure entry is appropriate for the property's type</td></tr>
+<tr><td valign="top">Name                                                                    </td><td valign="top">The name of the property. Must be a valid C# symbol.</td></tr>
+<tr><td valign="top">Persistent                                                              </td><td valign="top"><i>Boolean.</i> If true, Attribute will be stored in persistent storage</td></tr>
+<tr><td valign="top">Read Only                                                               </td><td valign="top"><i>Boolean.</i> If true, no setter will be generated. Only valid for transient public properties.</td></tr>
+<tr><td valign="top">Required                                                                </td><td valign="top"><i>Boolean.</i> If true, cannot be null (or the default value for the property type, if not nullable)</td></tr>
+<tr><td valign="top">Setter Visibility                                                       </td><td valign="top"><i>String</i>. Visibility for property setter; getter is public. Valid entries are public and protected.</td></tr>
+<tr><td valign="top">Type                                                                    </td><td valign="top"><i>String</i>. Type of this attribute. Select from list of valid types.</td></tr>
+<tr><td valign="top">Virtual                                                                 </td><td valign="top"><i>Boolean.</i> If true, property will be generated with the 'virtual' keyword</td></tr>
 
-<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Database</b></td></tr>
-<tr><td valign="top">Column Name</td><td valign="top"><i>String</i>. The name of the backing column in the database</td></tr>
-<tr><td valign="top">Column Type</td><td valign="top"><i>String</i>. The data type for column in the database. Use <b>default</b> to let Entity Framework decide. Overrides here should be valid for the database being used. No error checking occurs to detect compatability between this value and the property's type</td></tr>
-<tr><td valign="top">Identity Type</td><td valign="top"><i>String</i>. If this property is an identity, how the value is generated? Choices are AutoGenerated (to let EF create it for you), Manual (doing it yourself) or None (this isn't an identity property)</td></tr>
-<tr><td valign="top">Indexed</td><td valign="top"><i>Boolean.</i> If true, this property will create an index in the database</td></tr>
-<tr><td valign="top">Indexed Unique</td><td valign="top"><i>Boolean.</i> If indexed and this is true, a unique index will be created in the database using this property</td></tr>
-<tr><td valign="top">Is Concurrency Token</td><td valign="top"><i>Boolean.</i> If true, this property serves as the concurrency value for the class</td></tr>
-<tr><td valign="top">Is Identity</td><td valign="top"><i>Boolean.</i> If true, this attribute represents the identity of the object. Will automatically set <i>Indexed</i> and <i>Indexed Unique</i> to <i>true</i></td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Database</b>         </td></tr>
+<tr><td valign="top">Column Name                                                             </td><td valign="top"><i>String</i>. The name of the backing column in the database</td></tr>
+<tr><td valign="top">Column Type                                                             </td><td valign="top"><i>String</i>. The data type for column in the database. Use <b>default</b> to let Entity Framework decide. Overrides here should be valid for the database being used. No error checking occurs to detect compatability between this value and the property's type</td></tr>
+<tr><td valign="top">Identity Type                                                           </td><td valign="top"><i>String</i>. If this property is an identity, how the value is generated? Choices are AutoGenerated (to let EF create it for you), Manual (doing it yourself) or None (this isn't an identity property)</td></tr>
+<tr><td valign="top">Indexed                                                                 </td><td valign="top"><i>Boolean.</i> If true, this property will create an index in the database</td></tr>
+<tr><td valign="top">Indexed Unique                                                          </td><td valign="top"><i>Boolean.</i> If indexed and this is true, a unique index will be created in the database using this property</td></tr>
+<tr><td valign="top">Is Concurrency Token                                                    </td><td valign="top"><i>Boolean.</i> If true, this property serves as the concurrency value for the class</td></tr>
+<tr><td valign="top">Is Identity                                                             </td><td valign="top"><i>Boolean.</i> If true, this attribute represents the identity of the object. Will automatically set <i>Indexed</i> and <i>Indexed Unique</i> to <i>true</i></td></tr>
 
-<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Documentation</b></td></tr>
-<tr><td valign="top">Comment Detail</td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section</td></tr>
-<tr><td valign="top">Comment Summary</td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
+<tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Documentation</b>    </td></tr>
+<tr><td valign="top">Comment Detail                                                          </td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section</td></tr>
+<tr><td valign="top">Comment Summary                                                         </td><td valign="top"><i>String</i>. XML comment &lt;Summary&gt; section</td></tr>
 
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>String Properties</b></td></tr>
-<tr><td valign="top">Max Length</td><td valign="top"><i>Integer</i>. Maximum length of the string, 0 for no max length</td></tr>
-<tr><td valign="top">Min Length</td><td valign="top"><i>Integer</i>. Minimum length of the string, 0 for no min length. If non-zero, must be less than or equal to Max Length.</td></tr>
-<tr><td valign="top">String Type</td><td valign="top"><i>String</i>. If not empty, will create a HTML5 attribute annotation for this attribute. Valid values are None, Color, Date, DateTime, Email, Month, Number, Range, Search, Telephone, Time, URI, Week, and Password.</td></tr>
+<tr><td valign="top">Max Length                                                              </td><td valign="top"><i>Integer</i>. Maximum length of the string, 0 for no max length</td></tr>
+<tr><td valign="top">Min Length                                                              </td><td valign="top"><i>Integer</i>. Minimum length of the string, 0 for no min length. If non-zero, must be less than or equal to Max Length.</td></tr>
+<tr><td valign="top">String Type                                                             </td><td valign="top"><i>String</i>. If not empty, will create a HTML5 attribute annotation for this attribute. Valid values are None, Color, Date, DateTime, Email, Month, Number, Range, Search, Telephone, Time, URI, Week, and Password.</td></tr>
 </tbody>
 </table>
 

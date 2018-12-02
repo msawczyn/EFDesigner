@@ -27,7 +27,8 @@ For comprehensive documentation, please visit [the project's documentation site]
 **1.2.6.19**
    - Fixed code generation issue where class and enum directory overrides were being ignored (See https://github.com/msawczyn/EFDesigner/issues/36)
    - Fixed a problem that caused a hard crash when certain model properties were changed under certain conditions (See https://github.com/msawczyn/EFDesigner/issues/38)
-   - **[NEW]** Added ability to specify custom attributes for class, attribute, enum, enum value and navigation proprties
+   - **[NEW]** Added Display Text property to generate [Display(Name="<text>")] for attributes, enum values and navigation properties 
+   - **[NEW]** Added ability to specify custom attributes for classes, attributes, enums, enum values and navigation properties
 
 **1.2.6.18**
    - Fixed issue #35, *Concurrency mode: optimistic auto generated Timestamp property* (See https://github.com/msawczyn/EFDesigner/issues/35)

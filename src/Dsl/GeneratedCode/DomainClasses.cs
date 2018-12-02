@@ -7287,6 +7287,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region DisplayText domain property code
+		
+		/// <summary>
+		/// DisplayText domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DisplayTextDomainPropertyId = new global::System.Guid(0x7d65b45d, 0xff09, 0x49c7, 0xb1, 0xbc, 0xea, 0x80, 0x17, 0x56, 0x86, 0xd8);
+		
+		/// <summary>
+		/// Storage for DisplayText
+		/// </summary>
+		private global::System.String displayTextPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DisplayText domain property.
+		/// Text for [Display(Name="<text>")] attribute
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/DisplayText.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/DisplayText.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/DisplayText.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("7d65b45d-ff09-49c7-b1bc-ea80175686d8")]
+		public global::System.String DisplayText
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return displayTextPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DisplayTextPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.DisplayText domain property.
+		/// </summary>
+		internal sealed partial class DisplayTextPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		{
+			private DisplayTextPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.DisplayText domain property value handler.
+			/// </summary>
+			public static readonly DisplayTextPropertyHandler Instance = new DisplayTextPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.DisplayText domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DisplayTextDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.displayTextPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.displayTextPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.
@@ -9226,6 +9314,94 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.customAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DisplayText domain property code
+		
+		/// <summary>
+		/// DisplayText domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DisplayTextDomainPropertyId = new global::System.Guid(0xc776a259, 0x4e87, 0x42d3, 0xad, 0xe8, 0xa6, 0x17, 0x00, 0x87, 0xc1, 0x1b);
+		
+		/// <summary>
+		/// Storage for DisplayText
+		/// </summary>
+		private global::System.String displayTextPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DisplayText domain property.
+		/// Text for [Display(Name="<text>")] attribute
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/DisplayText.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/DisplayText.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnumValue/DisplayText.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c776a259-4e87-42d3-ade8-a6170087c11b")]
+		public global::System.String DisplayText
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return displayTextPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DisplayTextPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelEnumValue.DisplayText domain property.
+		/// </summary>
+		internal sealed partial class DisplayTextPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnumValue, global::System.String>
+		{
+			private DisplayTextPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelEnumValue.DisplayText domain property value handler.
+			/// </summary>
+			public static readonly DisplayTextPropertyHandler Instance = new DisplayTextPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelEnumValue.DisplayText domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DisplayTextDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelEnumValue element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.displayTextPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelEnumValue element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.displayTextPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

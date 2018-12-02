@@ -3,15 +3,53 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(UnidirectionalAssociation), FireTime = TimeToFire.TopLevelCommit)]
-   public class UnidirectionalAssociationChangeRules : ChangeRule
+   [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
+   public class AssociationChangeRules : ChangeRule
    {
+      // matches [Display(Name="*")] and [System.ComponentModel.DataAnnotations.Display(Name="*")]
+      private static readonly Regex DisplayAttributeRegex = new Regex("^(.*)\\[(System\\.ComponentModel\\.DataAnnotations\\.)?Display\\(Name=\"([^\"]+)\"\\)\\](.*)$", RegexOptions.Compiled);
+
+      private static void CheckSourceForDisplayText(BidirectionalAssociation bidirectionalAssociation)
+      {
+         Match match = DisplayAttributeRegex.Match(bidirectionalAssociation.SourceCustomAttributes);
+
+         // is there a custom attribute for [Display]?
+         if (match != Match.Empty)
+         {
+            // if SourceDisplayText is empty, move the Name down to SourceDisplayText
+            if (string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceDisplayText))
+               bidirectionalAssociation.SourceDisplayText = match.Groups[3].Value;
+
+            // if custom attribute's Name matches SourceDisplayText, remove that attribute, leaving other custom attributes if present
+            if (match.Groups[3].Value == bidirectionalAssociation.SourceDisplayText)
+               bidirectionalAssociation.SourceCustomAttributes = match.Groups[1].Value + match.Groups[4].Value;
+         }
+      }
+
+      private static void CheckTargetForDisplayText(Association association)
+      {
+         Match match = DisplayAttributeRegex.Match(association.TargetCustomAttributes);
+
+         // is there a custom attribute for [Display]?
+         if (match != Match.Empty)
+         {
+            // if TargetDisplayText is empty, move the Name down to TargetDisplayText
+            if (string.IsNullOrWhiteSpace(association.TargetDisplayText))
+               association.TargetDisplayText = match.Groups[3].Value;
+
+            // if custom attribute's Name matches TargetDisplayText, remove that attribute, leaving other custom attributes if present
+            if (match.Groups[3].Value == association.TargetDisplayText)
+               association.TargetCustomAttributes = match.Groups[1].Value + match.Groups[4].Value;
+         }
+      }
+
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
          base.ElementPropertyChanged(e);
@@ -27,6 +65,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
+         BidirectionalAssociation bidirectionalAssociation = element as BidirectionalAssociation;
 
          switch (e.DomainProperty.Name)
          {
@@ -35,9 +74,26 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "SourceCustomAttributes":
+
+               if (bidirectionalAssociation != null && !string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceCustomAttributes))
+               {
+                  bidirectionalAssociation.SourceCustomAttributes = $"[{bidirectionalAssociation.SourceCustomAttributes.Trim('[', ']')}]";
+                  CheckSourceForDisplayText(bidirectionalAssociation);
+               }
+
+               break;
+
             case "SourceDeleteAction":
                DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
                UpdateDisplayForCascadeDelete(element, sourceDeleteAction);
+
+               break;
+
+            case "SourceDisplayText":
+
+               if (bidirectionalAssociation != null)
+                  CheckSourceForDisplayText(bidirectionalAssociation);
 
                break;
 
@@ -104,7 +160,16 @@ namespace Sawczyn.EFDesigner.EFModel
             case "TargetCustomAttributes":
 
                if (!string.IsNullOrWhiteSpace(element.TargetCustomAttributes))
+               {
                   element.TargetCustomAttributes = $"[{element.TargetCustomAttributes.Trim('[', ']')}]";
+                  CheckTargetForDisplayText(element);
+               }
+
+               break;
+
+            case "TargetDisplayText":
+
+               CheckTargetForDisplayText(element);
 
                break;
 

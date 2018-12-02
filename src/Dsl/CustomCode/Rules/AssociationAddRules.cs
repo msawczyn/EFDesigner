@@ -70,7 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         UnidirectionalAssociationChangeRules.SetEndpointRoles(element);
+         AssociationChangeRules.SetEndpointRoles(element);
       }
    }
 }

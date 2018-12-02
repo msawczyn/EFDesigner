@@ -1582,6 +1582,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region TargetDisplayText domain property code
+		
+		/// <summary>
+		/// TargetDisplayText domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TargetDisplayTextDomainPropertyId = new global::System.Guid(0x4f71c60f, 0xe2d6, 0x475c, 0xb5, 0x45, 0x1a, 0xa1, 0x8d, 0x85, 0xd5, 0xab);
+		
+		/// <summary>
+		/// Storage for TargetDisplayText
+		/// </summary>
+		private global::System.String targetDisplayTextPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of TargetDisplayText domain property.
+		/// Text for [Display(Name="<text>")] attribute on this end's property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetDisplayText.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetDisplayText.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetDisplayText.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("4f71c60f-e2d6-475c-b545-1aa18d85d5ab")]
+		public global::System.String TargetDisplayText
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return targetDisplayTextPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TargetDisplayTextPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.TargetDisplayText domain property.
+		/// </summary>
+		internal sealed partial class TargetDisplayTextPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.String>
+		{
+			private TargetDisplayTextPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.TargetDisplayText domain property value handler.
+			/// </summary>
+			public static readonly TargetDisplayTextPropertyHandler Instance = new TargetDisplayTextPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.TargetDisplayText domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TargetDisplayTextDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.targetDisplayTextPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.targetDisplayTextPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a ModelClass.
@@ -3121,6 +3209,94 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.sourceCustomAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region SourceDisplayText domain property code
+		
+		/// <summary>
+		/// SourceDisplayText domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SourceDisplayTextDomainPropertyId = new global::System.Guid(0x5069324e, 0x4190, 0x403e, 0x87, 0x91, 0x41, 0x6c, 0x69, 0x2c, 0x87, 0x2a);
+		
+		/// <summary>
+		/// Storage for SourceDisplayText
+		/// </summary>
+		private global::System.String sourceDisplayTextPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of SourceDisplayText domain property.
+		/// Text for [Display(Name="<text>")] attribute on this end's property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceDisplayText.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceDisplayText.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceDisplayText.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("5069324e-4190-403e-8791-416c692c872a")]
+		public global::System.String SourceDisplayText
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return sourceDisplayTextPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				SourceDisplayTextPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.SourceDisplayText domain property.
+		/// </summary>
+		internal sealed partial class SourceDisplayTextPropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.String>
+		{
+			private SourceDisplayTextPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.SourceDisplayText domain property value handler.
+			/// </summary>
+			public static readonly SourceDisplayTextPropertyHandler Instance = new SourceDisplayTextPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.SourceDisplayText domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SourceDisplayTextDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.sourceDisplayTextPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.sourceDisplayTextPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

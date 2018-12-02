@@ -235,7 +235,6 @@
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
-    <Compile Include="CustomCode\Rules\BidirectionalAssociationChangeRule.cs" />
     <Compile Include="CustomCode\Type Descriptors\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />
     <Compile Include="CustomCode\Connection Builders\BidirectionalAssociationBuilder.cs" />
@@ -272,7 +271,7 @@
     <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetDisplay.cs" />
     <Compile Include="CustomCode\Partials\UnidirectionalConnector.cs" />
     <Compile Include="CustomCode\Rules\AssociationAddRules.cs" />
-    <Compile Include="CustomCode\Rules\UnidirectionalAssociationChangeRules.cs" />
+    <Compile Include="CustomCode\Rules\AssociationChangeRules.cs" />
     <Compile Include="CustomCode\Rules\CommonRules.cs" />
     <Compile Include="CustomCode\Rules\ModelEnumValueAddRules.cs" />
     <Compile Include="CustomCode\Rules\GeneralizationAddRules.cs" />

@@ -123,7 +123,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                    PropertyName = x.TargetPropertyName,
                                                                    Summary = x.TargetSummary,
                                                                    Description = x.TargetDescription,
-                                                                   CustomAttributes = x.TargetCustomAttributes
+                                                                   CustomAttributes = x.TargetCustomAttributes,
+                                                                   DisplayText = x.TargetDisplayText
                                                                 })
                                                                 .ToList();
 
@@ -138,7 +139,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                    PropertyName = x.SourcePropertyName,
                                                                    Summary = x.SourceSummary,
                                                                    Description = x.SourceDescription,
-                                                                   CustomAttributes = x.SourceCustomAttributes
+                                                                   CustomAttributes = x.SourceCustomAttributes,
+                                                                   DisplayText = x.SourceDisplayText
                                                                 })
                                                                 .ToList();
          targetProperties.AddRange(Association.GetLinksToSources(this)
