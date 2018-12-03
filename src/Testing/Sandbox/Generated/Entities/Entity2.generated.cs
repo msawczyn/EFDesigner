@@ -82,6 +82,8 @@ namespace Sandbox
       [Display(Name="Bar")]
       public virtual ICollection<Sandbox.Entity1> Entity1 { get; set; }
 
+      public virtual Sandbox.Entity1 Entity1_1 { get; set; }
+
    }
 }
 

@@ -25,6 +25,17 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             storeDomainDataDirectory = association.Store.DomainDataDirectory;
 
+            // only display roles for 1..1 and 0-1..0-1 associations
+            if (((association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One) &&
+                 (association.SourceMultiplicity != Multiplicity.ZeroOne || association.TargetMultiplicity != Multiplicity.ZeroOne)))
+            {
+               PropertyDescriptor sourceRoleTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "SourceRole");
+               propertyDescriptors.Remove(sourceRoleTypeDescriptor);
+
+               PropertyDescriptor targetRoleTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "TargetRole");
+               propertyDescriptors.Remove(targetRoleTypeDescriptor);
+            }
+
             // only display delete behavior on the principal end
             if (association.SourceRole != EndpointRole.Principal)
             {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.6.19" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="EFModel1" namespace="Sandbox" connectionString="Data Source=localhost;Initial Catalog=ModelTest;Integrated Security=True" automaticMigrationsEnabled="false" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" concurrencyDefault="Optimistic" showCascadeDeletes="false" databaseType="None" structOutputDirectory="Generated\Structs" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.6.20" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="EFModel1" namespace="Sandbox" connectionString="Data Source=localhost;Initial Catalog=ModelTest;Integrated Security=True" automaticMigrationsEnabled="false" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" concurrencyDefault="Optimistic" showCascadeDeletes="false" databaseType="None" structOutputDirectory="Generated\Structs" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <enums>
     <modelRootHasEnums Id="77da64c9-b292-42df-9d82-7266cd5513d1">
       <modelEnum Id="6f9f2937-417e-4ca5-b5e5-dfcc20be621c" namespace="Sandbox" name="Enum1" outputDirectory="Generated\Enums">
@@ -24,6 +24,11 @@
           <modelAttribute Id="bdedcfaf-62ef-469a-9ddc-d94fb6e3f921" indexed="false" indexedUnique="false" stringType="None" name="Foo" autoProperty="false" columnName="Foo" columnType="default" customAttributes="FooAttr" displayText="XXX" />
           <modelAttribute Id="a8d8ab11-35fb-4a28-b668-268d6e2ede11" type="Binary" required="true" indexed="false" indexedUnique="false" stringType="None" isConcurrencyToken="true" name="Timestamp" autoProperty="false" columnName="Timestamp" columnType="default" />
         </attributes>
+        <bidirectionalTargets>
+          <bidirectionalAssociation Id="7e5ef433-33bd-4bf2-a789-e5fbb19d8e8c" sourceMultiplicity="ZeroOne" targetMultiplicity="ZeroOne" targetPropertyName="Entity2_2" collectionClass="HashSet" foreignKeyLocation="None" sourcePropertyName="Entity1_1">
+            <modelClassMoniker Id="27430689-d4af-4885-83a4-0d97117db731" />
+          </bidirectionalAssociation>
+        </bidirectionalTargets>
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="bca0d986-08ef-4635-b914-5bc1b0b7d736">

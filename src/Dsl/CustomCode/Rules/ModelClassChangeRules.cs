@@ -56,7 +56,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      break;
                   }
 
-                  if (store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+                  if (store.ElementDirectory.AllElements.OfType<Association>()
                            .Any(a => a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it's the target of a 0..* association");

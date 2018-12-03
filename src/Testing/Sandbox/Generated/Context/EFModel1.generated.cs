@@ -138,6 +138,9 @@ namespace Sandbox
                      .Property(t => t.Timestamp)
                      .IsRequired()
                      .IsRowVersion();
+         modelBuilder.Entity<Sandbox.Entity2>()
+                     .HasOptional(x => x.Entity1_1)
+                     .WithOptionalPrincipal(x => x.Entity2_2);
 
          OnModelCreatedImpl(modelBuilder);
       }

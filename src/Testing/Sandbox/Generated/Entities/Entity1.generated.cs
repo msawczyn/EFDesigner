@@ -149,6 +149,30 @@ namespace Sandbox
       [Display(Name="E2Display")]
       public virtual ICollection<Sandbox.Entity2> Entity2 { get; set; }
 
+      protected Sandbox.Entity2 _Entity2_2;
+      partial void SetEntity2_2(Sandbox.Entity2 oldValue, ref Sandbox.Entity2 newValue);
+      partial void GetEntity2_2(ref Sandbox.Entity2 result);
+
+      public Sandbox.Entity2 Entity2_2
+      {
+         get
+         {
+            Sandbox.Entity2 value = _Entity2_2;
+            GetEntity2_2(ref value);
+            return (_Entity2_2 = value);
+         }
+         set
+         {
+            Sandbox.Entity2 oldValue = _Entity2_2;
+            SetEntity2_2(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Entity2_2 = value;
+               OnPropertyChanged();
+            }
+         }
+      }
+
       protected Sandbox.Entity2 _Entity2_1;
       partial void SetEntity2_1(Sandbox.Entity2 oldValue, ref Sandbox.Entity2 newValue);
       partial void GetEntity2_1(ref Sandbox.Entity2 result);
