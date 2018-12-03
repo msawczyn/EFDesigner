@@ -27,7 +27,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 **1.2.6.20**
    - Fixed code generation issue where class and enum directory overrides were being ignored (See https://github.com/msawczyn/EFDesigner/issues/36)
    - Fixed a problem that caused a hard crash when certain model properties were changed under certain conditions (See https://github.com/msawczyn/EFDesigner/issues/38)
-   - Removed visibility of source and target roles for all but 1-1 and 0..1-0..1 associations; they can't be changed anyway
+   - Removed visibility of source and target roles for all but 1-1 and 0..1-0..1 associations; they can't be changed anyway (See https://github.com/msawczyn/EFDesigner/issues/40)
    - **[NEW]** Added Display Text property to generate [Display(Name="<text>")] for attributes, enum values and navigation properties 
    - **[NEW]** Added ability to specify custom attributes for classes, attributes, enums, enum values and navigation properties
 
