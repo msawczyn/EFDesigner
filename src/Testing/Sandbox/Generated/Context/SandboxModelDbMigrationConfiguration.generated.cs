@@ -4,18 +4,24 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
-//
-//     Produced by Entity Framework Visual Editor
-//     https://github.com/msawczyn/EFDesigner
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace Sandbox
 {
    /// <inheritdoc/>
-   public partial class EFModel1DatabaseInitializer : MigrateDatabaseToLatestVersion<EFModel1, EFModel1DbMigrationConfiguration>
+   public sealed partial class SandboxModelDbMigrationConfiguration : DbMigrationsConfiguration<SandboxModel>
    {
+      partial void Init();
+
+      /// <inheritdoc/>
+      public SandboxModelDbMigrationConfiguration()
+      {
+         AutomaticMigrationsEnabled = true;
+         AutomaticMigrationDataLossAllowed = false;
+         Init();
+      }
    }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.2.6.18" Id="8f32435a-d39e-49b2-8d4d-4297303a0553" absoluteBounds="0, 0, 11, 8.5" name="Sandbox">
+<eFModelDiagram dslVersion="1.2.7.0" Id="8f32435a-d39e-49b2-8d4d-4297303a0553" absoluteBounds="0, 0, 11, 8.5" name="Sandbox">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="81d3a77d-2f65-45b1-b571-a2518dc4ddd3" absoluteBounds="3.5, 0.875, 3.75, 1.9473746744791667" fillColor="0, 122, 204" textColor="White" outlineColor="CornflowerBlue" outlineDashStyle="Dot" visible="true" outlineThickness="0.03">
@@ -46,25 +46,25 @@
         <elementListCompartment Id="897fb169-1325-438d-81b8-d76ec9d5a4f1" absoluteBounds="4.8900000000000006, 6.203779296875, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="e9c44a32-abae-4e4c-bc16-f5e168d1d753" edgePoints="[(5.625 : 2.82237467447917); (5.625 : 5.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="d1112d21-6b9e-422f-8e48-800d0b276441" />
-      <nodes>
-        <classShapeMoniker Id="81d3a77d-2f65-45b1-b571-a2518dc4ddd3" />
-        <classShapeMoniker Id="81cfd961-7207-443f-bfa3-4ff17cf1a299" />
-      </nodes>
-    </generalizationConnector>
-    <generalizationConnector Id="c30043a7-6b20-488d-adfb-304e4c2b1617" edgePoints="[(4.5625 : 2.82237467447917); (4.5625 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="cca516a4-250d-4e5c-8671-d81fb678be14" />
+    <generalizationConnector Id="bb965ad5-b473-41db-bd98-cabdef45cb33" edgePoints="[(4.625 : 2.82237467447917); (4.625 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="7c03a7a5-bf76-42d6-a2b9-59ecc9aa0cbc" />
       <nodes>
         <classShapeMoniker Id="81d3a77d-2f65-45b1-b571-a2518dc4ddd3" />
         <classShapeMoniker Id="45c34e1b-d55f-487e-b86e-d812fe954448" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="00bd83c0-3c03-4fcd-a019-c9bbfa581d2b" edgePoints="[(6.656251 : 2.82237467447917); (6.656251 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="b350a2d7-281e-4d7f-aa83-c9eabe627734" />
+    <generalizationConnector Id="1963e1c4-577d-4808-9ccf-9c362150cba1" edgePoints="[(6.5625 : 2.82237467447917); (6.5625 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="20afa6d6-36b6-40bc-92c7-67f4e59478d2" />
       <nodes>
         <classShapeMoniker Id="81d3a77d-2f65-45b1-b571-a2518dc4ddd3" />
         <classShapeMoniker Id="a38779af-22a4-41ff-ae51-39e75910fbfc" />
+      </nodes>
+    </generalizationConnector>
+    <generalizationConnector Id="5ef60246-596a-4a47-978c-9fc005ea252b" edgePoints="[(5.625 : 2.82237467447917); (5.625 : 5.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="ef009d9f-f3b6-477f-9094-437405f10a09" />
+      <nodes>
+        <classShapeMoniker Id="81d3a77d-2f65-45b1-b571-a2518dc4ddd3" />
+        <classShapeMoniker Id="81cfd961-7207-443f-bfa3-4ff17cf1a299" />
       </nodes>
     </generalizationConnector>
   </nestedChildShapes>

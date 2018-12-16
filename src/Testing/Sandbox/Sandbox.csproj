@@ -215,12 +215,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Generated\Context\EFModel1.generated.cs" />
-    <Compile Include="Generated\Context\EFModel1DatabaseInitializer.generated.cs" />
-    <Compile Include="Generated\Context\EFModel1DbMigrationConfiguration.generated.cs" />
+    <Compile Include="Generated\Context\SandboxModel.generated.cs" />
+    <Compile Include="Generated\Context\SandboxModelDatabaseInitializer.generated.cs" />
+    <Compile Include="Generated\Context\SandboxModelDbMigrationConfiguration.generated.cs" />
     <Compile Include="Generated\Entities\Entity1.generated.cs" />
-    <Compile Include="Generated\Entities\Entity2.generated.cs" />
-    <Compile Include="Generated\Enums\Enum1.generated.cs" />
+    <Compile Include="Generated\Entities\Entity11.generated.cs" />
+    <Compile Include="Generated\Entities\Entity12.generated.cs" />
+    <Compile Include="Generated\Entities\Entity3.generated.cs" />
+    <Compile Include="Generated\Entities\Enum1ab.generated.cs" />
+    <Compile Include="Generated\Entities\Enum2.generated.cs" />
+    <Compile Include="Migrations\201812151443394_Initial.cs" />
+    <Compile Include="Migrations\201812151443394_Initial.Designer.cs">
+      <DependentUpon>201812151443394_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sandbox.cs">
       <AutoGen>True</AutoGen>
@@ -246,8 +253,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\Context\" />
+    <Folder Include="Generated\Enums\" />
     <Folder Include="Generated\Structs\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EFModel1.tt">
@@ -258,6 +265,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Sandbox.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812151443394_Initial.resx">
+      <DependentUpon>201812151443394_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

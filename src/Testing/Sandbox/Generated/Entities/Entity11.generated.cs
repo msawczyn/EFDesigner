@@ -18,14 +18,14 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity1 : Sandbox.Entity3
+   public partial class Entity11 : Sandbox.Entity3
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Entity1(): base()
+      public Entity11(): base()
       {
          Init();
       }

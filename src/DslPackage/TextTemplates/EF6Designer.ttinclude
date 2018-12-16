@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.18
+// EFDesigner v1.2.6.21
 // Copyright (c) 2017-2018 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -177,7 +177,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             Output("/// Repository for {0} - {1}", modelClass.FullName, modelClass.Summary);
             Output("/// </summary>");
          }
-         Output($"public System.Data.Entity.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
+         Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual System.Data.Entity.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
       }
 
       Output("#endregion DbSets");
@@ -387,6 +387,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             segments.Add("IsRequired()");
          if (modelAttribute.ColumnName != modelAttribute.Name)
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
+         if (modelAttribute.ColumnType != "default")
+            segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\");");
          if (modelAttribute.Indexed)
             segments.Add("HasColumnAnnotation(\"Index\", new IndexAnnotation(new IndexAttribute()))");
          if (modelAttribute.IsConcurrencyToken)

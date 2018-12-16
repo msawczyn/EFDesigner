@@ -8,28 +8,16 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity1 : Sandbox.Entity3
+   /// <summary>
+   /// x
+   /// </summary>
+   public enum Enum2 : Int32
    {
-      partial void Init();
-
-      /// <summary>
-      /// Default constructor
-      /// </summary>
-      public Entity1(): base()
-      {
-         Init();
-      }
-
+      ModelEnumValue1,
+      ModelEnumValue2,
+      ModelEnumValue3
    }
 }
-
