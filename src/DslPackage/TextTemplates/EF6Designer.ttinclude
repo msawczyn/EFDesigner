@@ -109,6 +109,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("using System.Collections.Generic;");
    Output("using System.Linq;");
    Output("using System.ComponentModel.DataAnnotations.Schema;");
+   Output("using System.Data.Entity;");
    Output("using System.Data.Entity.Infrastructure.Annotations;");
    NL();
 
@@ -184,6 +185,11 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       NL();
    }
 
+   Output("#region Constructors");
+   NL();
+   Output("partial void CustomInit();");
+   NL();
+   
    /***********************************************************************/
    // constructors
    /***********************************************************************/
@@ -295,15 +301,102 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("CustomInit();");
    Output("}");
    NL();
+   Output("#endregion Constructors");
+   NL();
 
-   Output("partial void CustomInit();");
-   Output("partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
-   Output("partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
+   /***********************************************************************/
+   // SaveChanges 
+   /***********************************************************************/
+   Output("#region SaveChanges");
+   NL();
+
+   Output("private void HandleOrphans()");
+   Output("{");
+   Output("ChangeTracker.DetectChanges();");
+   NL();
+
+   Dictionary<string, List<string>> orphanRemoval = new Dictionary<string, List<string>>();
+   foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
+   {
+      if (!orphanRemoval.ContainsKey(modelClass.DbSetName))
+         orphanRemoval.Add(modelClass.DbSetName, new List<string>());
+      foreach (NavigationProperty navigationProperty in modelClass.AllRequiredNavigationProperties())
+      {
+         Association association = navigationProperty.AssociationObject;
+         if (!string.IsNullOrEmpty(navigationProperty.PropertyName))
+         {
+            if (association is BidirectionalAssociation && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One ||
+                (association is UnidirectionalAssociation && (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One &&
+                                                              association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)))
+            {
+                orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted && x.{navigationProperty.PropertyName} == null));");
+            }
+            else if (association is UnidirectionalAssociation &&
+                     association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+            {
+               orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({association.Source.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).SelectMany(x => x.{association.TargetPropertyName})));");
+            }
+            else if (association is UnidirectionalAssociation &&
+                     (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne ||
+                      association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One))
+            {
+               orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({association.Source.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Select(x => x.{association.TargetPropertyName})));");
+            }
+            else if (association is BidirectionalAssociation bidirectional && (bidirectional.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne))
+            {
+               orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({bidirectional.Target.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Select(x => x.{bidirectional.SourcePropertyName})));");
+            }
+         }
+      }
+   }
+
+   foreach (string key in orphanRemoval.Keys.Where(k => orphanRemoval[k].Any()))
+   {
+       Output($"if ({key}.Local.Any())");
+       Output("{");
+       foreach (string action in orphanRemoval[key])
+       {
+         Output(action);
+       }
+       Output("}");
+   }
+
+   Output("}");
+   NL();
+
+   Output("partial void OnBeforeChangesSaved();");
+   NL();
+   Output("/// <inheritdoc />");
+   Output("public override int SaveChanges()");
+   Output("{");
+   Output("OnBeforeChangesSaved();");
+   Output("return base.SaveChanges();");
+   Output("}");
+   NL();
+   Output("/// <inheritdoc />");
+   Output("public override System.Threading.Tasks.Task<int> SaveChangesAsync()");
+   Output("{");
+   Output("OnBeforeChangesSaved();");
+   Output("return base.SaveChangesAsync();");
+   Output("}");
+   NL();
+   Output("/// <inheritdoc />");
+   Output("public override System.Threading.Tasks.Task<int> SaveChangesAsync(System.Threading.CancellationToken cancellationToken)");
+   Output("{");
+   Output("OnBeforeChangesSaved();");
+   Output("return base.SaveChangesAsync(cancellationToken);");
+   Output("}");
+   NL();
+   Output("#endregion SaveChanges");
    NL();
    
    /***********************************************************************/
    // OnModelCreating 
    /***********************************************************************/
+   Output("partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
+   Output("partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
+   NL();
+   
    Output("/// <inheritdoc />");
    Output("protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)");
    Output("{");
@@ -387,8 +480,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             segments.Add("IsRequired()");
          if (modelAttribute.ColumnName != modelAttribute.Name)
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
-         if (modelAttribute.ColumnType != "default")
-            segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\");");
+         if (modelAttribute.ColumnType != null && modelAttribute.ColumnType != "default")
+            segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\")");
          if (modelAttribute.Indexed)
             segments.Add("HasColumnAnnotation(\"Index\", new IndexAnnotation(new IndexAttribute()))");
          if (modelAttribute.IsConcurrencyToken)

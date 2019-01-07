@@ -321,39 +321,50 @@ void WriteDefaultConstructorBody(ModelClass modelClass)
       ++lineCount;
    }
 
-   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
+   foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
+                                                               .Where(x => x.AssociationObject.Persistent &&
+                                                                           (x.IsCollection || x.ClassType.IsDependentType) &&
+                                                                           !x.ConstructorParameterOnly))
    {
-      string collectionType= "System.Collections.Generic.HashSet";
-
-      switch (navigationProperty.AssociationObject.CollectionClass)
+      if (!navigationProperty.IsCollection)
       {
-         case "HashSet":
-            collectionType = "System.Collections.Generic.HashSet";
-            break;
-         case "LinkedList":
-            collectionType = "System.Collections.Generic.LinkedList";
-            break;
-         case "List":
-            collectionType = "System.Collections.Generic.List";
-            break;
-         case "SortedSet":
-            collectionType = "System.Collections.Generic.SortedSet";
-            break;
-         case "Collection":
-            collectionType = "System.Collections.ObjectModel.Collection";
-            break;
-         case "ObservableCollection":
-            collectionType = "System.Collections.ObjectModel.ObservableCollection";
-            break;
-         case "BindingList":
-            collectionType = "System.ComponentModel.BindingList";
-            break;
-         default:
-            collectionType = navigationProperty.AssociationObject.CollectionClass;
-            break;
+          Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}(this);");
       }
+      else
+      {
+         string collectionType= "System.Collections.Generic.HashSet";
 
-      Output($"{navigationProperty.PropertyName} = new {collectionType}<{navigationProperty.ClassType.FullName}>();");
+         switch (navigationProperty.AssociationObject.CollectionClass)
+         {
+            case "HashSet":
+               collectionType = "System.Collections.Generic.HashSet";
+               break;
+            case "LinkedList":
+               collectionType = "System.Collections.Generic.LinkedList";
+               break;
+            case "List":
+               collectionType = "System.Collections.Generic.List";
+               break;
+            case "SortedSet":
+               collectionType = "System.Collections.Generic.SortedSet";
+               break;
+            case "Collection":
+               collectionType = "System.Collections.ObjectModel.Collection";
+               break;
+            case "ObservableCollection":
+               collectionType = "System.Collections.ObjectModel.ObservableCollection";
+               break;
+            case "BindingList":
+               collectionType = "System.ComponentModel.BindingList";
+               break;
+            default:
+               collectionType = navigationProperty.AssociationObject.CollectionClass;
+               break;
+         }
+
+         Output($"{navigationProperty.PropertyName} = new {collectionType}<{navigationProperty.ClassType.FullName}>();");
+      }
+      
       ++lineCount;
    }
 
@@ -464,8 +475,16 @@ void WriteConstructor(ModelClass modelClass)
          NL();
       }
 
-      foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
-         Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.FullName}>();");
+      foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
+                                                                  .Where(x => x.AssociationObject.Persistent &&
+                                                                              (x.IsCollection || x.ClassType.IsDependentType) &&
+                                                                              !x.ConstructorParameterOnly))
+      {
+         if (!navigationProperty.IsCollection)
+            Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}(this);");
+         else
+            Output($"{navigationProperty.PropertyName} = new {navigationProperty.AssociationObject.CollectionClass}<{navigationProperty.ClassType.FullName}>();");
+      }
 
       Output("Init();");
       Output("}");
