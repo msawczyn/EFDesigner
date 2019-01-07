@@ -260,6 +260,9 @@
     <Content Include="Microsoft.Data.ConnectionUI.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="ProjectItemTemplates\CSharp.vstemplate">
+      <DependentUpon>CSharp.tt</DependentUpon>
+    </Content>
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -301,15 +304,15 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Constants.cs</LastGenOutput>
     </None>
+    <None Include="GeneratedCode\DocData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DocData.cs</LastGenOutput>
+    </None>
     <Compile Include="GeneratedCode\Constants.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Constants.tt</DependentUpon>
     </Compile>
-    <None Include="GeneratedCode\DocData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DocData.cs</LastGenOutput>
-    </None>
     <Compile Include="GeneratedCode\DocData.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -428,12 +431,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <VSItemTemplate Include="ProjectItemTemplates\CSharp.vstemplate">
-      <OutputName>EFModel</OutputName>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CSharp.tt</DependentUpon>
-    </VSItemTemplate>
     <Content Include="Resources\File.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -458,7 +455,6 @@
     </Content>
     <None Include="ProjectItemTemplates\CSharp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CSharp.vstemplate</LastGenOutput>
     </None>
     <None Include="ProjectItemTemplates\efmodel.efmodel" />
     <None Include="ProjectItemTemplates\efmodel.diagram" />
