@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="ed2e64f5-b23e-43ae-9e32-0311b0630eef" visible="True" isDefault="true" isSelected="true" title="Welcome to the [TODO: Add project name]">
+  <Topic id="ed2e64f5-b23e-43ae-9e32-0311b0630eef" visible="True" isDefault="true" isSelected="true" apiParentMode="InsertAfter" title="Entity Framework Visual Designer Template API" tocTitle="Contents">
     <HelpKeywords>
-      <HelpKeyword index="K" term="Welcome" />
+      <HelpKeyword index="K" term="Home" />
     </HelpKeywords>
-  </Topic>
-  <Topic id="e78d484f-5857-4a16-a044-20769e599761" visible="True" isExpanded="true" title="Version History">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="version, history" />
-    </HelpKeywords>
-    <Topic id="65f5da20-d002-41c4-ba81-7120cc180c51" visible="True" title="Version 1.0.0.0">
-      <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
-      </HelpKeywords>
-    </Topic>
   </Topic>
 </Topics>
