@@ -10,10 +10,12 @@
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
 
-  // EFDesigner v1.2.6.21
+  // EFDesigner v1.2.6.29
+  // Copyright (c) 2017-2019 Michael Sawczyn
   // https://github.com/msawczyn/EFDesigner
 
   // this bit is thanks to Simon Hughes and his EntityFramework Reverse POCO Code First Generator
+  // Copyright (C) Simon Hughes 2012
   // https://github.com/sjh37/EntityFramework-Reverse-POCO-Code-First-Generator
   //
   public IEnumerable<Project> GetAllProjects()

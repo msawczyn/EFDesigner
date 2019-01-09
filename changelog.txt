@@ -1,5 +1,6 @@
 1.2.6.22
    - Added code in EF6 templates to generate orphan cleanup
+   - Added API documentation to help those wishing to modify the T4 templates
 
 1.2.6.21
    - Generation of column type overrides now generates valid override code in OnModelCreating
