@@ -48,7 +48,7 @@ div#leftNav {
 }
 
 div#tocNav {
-   font-family: 'Segoe UI',Verdana,Arial;
+   /*font-family: 'Segoe UI',Verdana,Arial;*/
    overflow-x: hidden;
    line-height: normal;
    margin: -20px 0 0 -4px;
@@ -74,10 +74,13 @@ div#tocNav > div > a, div#tocNav > div > a:link, div#tocNav > div > a:visited {
    display: block;
    margin-left: 18px;
    overflow: hidden;
+   color: #159957;
 }
 
 div#tocNav > div.current > a, div#tocNav > div.current > a:link, div#tocNav > div.current > a:visited {
-   color: #000;
+   padding-top: 2px;
+   padding-left: 6px;
+   padding-bottom: 2px;
    font-weight: bold;
    text-decoration: none;
 }

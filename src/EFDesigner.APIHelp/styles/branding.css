@@ -1,29 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
 /* General styles */
 body {
-   font-family: 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
    font-size: 15px;
    padding: 0;
    margin: 0;
    margin-left: auto;
    margin-right: auto;
-   color: #000;
+   color: #606c71;
 }
 
 h1 {
-   font-family: 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+   /*font-family: 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;*/
    font-size: 2.5em;
    font-weight: normal;
    margin-top: 0;
-   color: #000;
+   color: #159957;
 }
 
 h2, h3 {
-   font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+   /*font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;*/
    font-weight: normal;
    margin: 0;
    padding-bottom: 5px;
    padding-top: 5px;
-   color: #000;
+   color: #159957;
 }
 
 h2 {
@@ -35,11 +37,11 @@ h3 {
 }
 
 h4, .subHeading {
-   font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+   /*font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;*/
    font-size: 1.077em;
    font-weight: normal;
    margin: 0;
-   color: #000;
+   color: #159957;
 }
 
 .subHeading {
@@ -47,7 +49,7 @@ h4, .subHeading {
 }
 
 h5, h6 {
-   font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+   /*font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;*/
    font-size: 1em;
    font-weight: normal;
    line-height: 130%;
@@ -57,12 +59,12 @@ h5, h6 {
 
 a, a:link {
    text-decoration: none;
-   color: #1364c4;
+   color: #159957;
 }
 
    a:visited, a:active {
       text-decoration: none;
-      color: #03697a;
+      color: #159957;
    }
 
    a:hover {
@@ -94,7 +96,7 @@ p {
    margin-top: 0;
    margin-bottom: 0;
    padding-bottom: 15px;
-   line-height: 18px;
+   line-height: 1.5;
 }
 
 q {
@@ -123,7 +125,7 @@ td, th {
 }
 
 th {
-   background-color: #ededed;
+   background-color: gainsboro;
    color: #636363;
    text-align: left;
    padding-top: 5px;
@@ -131,7 +133,7 @@ th {
 }
 
 td {
-   color: #2a2a2a;
+   color: #606c71;
    vertical-align: top;
 }
 
@@ -197,16 +199,29 @@ pre {
 }
 
 .pageHeader {
-   font-family: 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
-   background-color: #333333;
-   color: #d0d0d0;
+   color: #fff;
+   background-color: #159957;
+   background-image: linear-gradient(120deg, #155799, #159957);
+   /*font-family: 'Segoe UI', Tahoma, Helvetica, Sans-Serif;*/
+   font-weight: bold;
    padding: 5px 10px;
    vertical-align: middle;
    height: 25px;
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   overflow: hidden;
 }
 
 .pageBody {
    padding: 0;
+   position: absolute;
+   top: 35px;
+   bottom: 41px;
+   left: 0;
+   right: 0;
+   overflow: auto;
 }
 
 .topicContent {
@@ -219,6 +234,11 @@ pre {
    clear: both;
    border-top: solid 1px #bbb;
    padding: 10px;
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   height: 20px;
+   overflow: hidden;
 }
 
 /* ReSharper disable once DeclarationIsEmpty */
@@ -295,7 +315,7 @@ div.caption {
 }
 
 .collapsibleRegionTitle {
-   font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif !important;
+   /*font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif !important;*/
    font-style: normal !important;
    font-size: 1.769em;
    margin-top: 9px;
@@ -303,6 +323,7 @@ div.caption {
    padding-top: 20px;
    padding-bottom: 5px;
    cursor: pointer;
+   color: #159957;
 }
 
 .collapsibleSection {
@@ -327,7 +348,7 @@ div.caption {
    width: auto;
    height: 22px;
    color: #2a2a2a;
-   font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+   /*font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;*/
    font-size: 12px;
    font-style: normal !important;
    vertical-align: baseline;
@@ -340,7 +361,7 @@ div.caption {
    width: auto;
    height: 22px;
    color: #000000;
-   font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+   /*font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;*/
    font-size: 12px;
    font-style: normal !important;
    vertical-align: baseline;
@@ -362,7 +383,7 @@ div.caption {
    width: auto;
    height: 22px;
    color: #000000;
-   font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+   /*font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;*/
    font-size: 12px;
    font-style: normal !important;
    vertical-align: baseline;
@@ -385,7 +406,7 @@ div.caption {
    width: auto;
    height: 20px;
    color: #000000;
-   font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+   /*font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;*/
    font-size: 12px;
    font-weight: bold;
    font-style: normal !important;
@@ -476,7 +497,7 @@ div.caption {
       text-decoration: none;
       padding-left: 8px;
       padding-right: 8px;
-      font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+      /*font-family: "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;*/
       font-size: 10px;
       font-style: normal !important;
       text-decoration: none;

@@ -2,10 +2,10 @@
 <HelpTOC>
 
   <HelpTOCNode Title="Contents" Url="html/ed2e64f5-b23e-43ae-9e32-0311b0630eef.htm" />
-  <HelpTOCNode Id="de7300ad-9eb0-4204-ad19-75c87b235c5c" Title="Namespaces" Url="html/R_Project_EFDesigner_APIHelp.htm">
-    <HelpTOCNode Id="63d85578-73a1-47f5-9e65-962edc967069" Title="Sawczyn.EFDesigner.EFModel" Url="html/N_Sawczyn_EFDesigner_EFModel.htm">
-      <HelpTOCNode Id="e77ecfa2-0dd4-45c7-b916-8e8acfc67a98" Title="Association Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Association.htm">
-        <HelpTOCNode Id="e1a9c394-99ac-48d1-b5a6-66d55b5d1c88" Title="Association Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Association.htm">
+  <HelpTOCNode Id="39be17d4-4c6b-43c3-b013-20c6c76b9d11" Title="Namespaces" Url="html/R_Project_EFDesigner_APIHelp.htm">
+    <HelpTOCNode Id="9faad5fe-9840-4890-a124-1659dbd6fa3e" Title="Sawczyn.EFDesigner.EFModel" Url="html/N_Sawczyn_EFDesigner_EFModel.htm">
+      <HelpTOCNode Id="3afe0438-fb80-4b95-b37f-d144ab6283be" Title="Association Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Association.htm">
+        <HelpTOCNode Id="d1907b5d-2cf0-4485-9efe-c67bb57f7575" Title="Association Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Association.htm">
           <HelpTOCNode Title="CollectionClass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_CollectionClass.htm" />
           <HelpTOCNode Title="ForeignKeyLocation Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_ForeignKeyLocation.htm" />
           <HelpTOCNode Title="IsCollectionClassTracking Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_IsCollectionClassTracking.htm" />
@@ -27,7 +27,7 @@
           <HelpTOCNode Title="TargetRole Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetRole.htm" />
           <HelpTOCNode Title="TargetSummary Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetSummary.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="642d4d7e-36c7-494d-af15-78ff6aca7412" Title="Association Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Association.htm">
+        <HelpTOCNode Id="ae04a906-5815-4127-82b6-e46383bf6c06" Title="Association Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Association.htm">
           <HelpTOCNode Title="GetHasWarningValue Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetHasWarningValue.htm" />
           <HelpTOCNode Title="GetLinks Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinks.htm" />
           <HelpTOCNode Title="GetLinksToSources Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinksToSources.htm" />
@@ -39,7 +39,7 @@
           <HelpTOCNode Title="RedrawItem Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_RedrawItem.htm" />
           <HelpTOCNode Title="ResetWarning Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_ResetWarning.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="89ffef7a-d1b1-432b-a474-811fb5226180" Title="Association Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Association.htm">
+        <HelpTOCNode Id="4240bb0a-5c53-4d5b-a63e-19aa66babb9e" Title="Association Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Association.htm">
           <HelpTOCNode Title="CollectionClassDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_CollectionClassDomainPropertyId.htm" />
           <HelpTOCNode Title="DomainClassId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_DomainClassId.htm" />
           <HelpTOCNode Title="ForeignKeyLocationDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_ForeignKeyLocationDomainPropertyId.htm" />
@@ -64,15 +64,15 @@
         </HelpTOCNode>
       </HelpTOCNode>
       <HelpTOCNode Title="AutomaticAction Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_AutomaticAction.htm" />
-      <HelpTOCNode Id="7be7eba1-cdbb-4af8-83b6-524a238a3f95" Title="BidirectionalAssociation Class" Url="html/T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
-        <HelpTOCNode Id="6028ca42-4dd1-408f-92ab-efc31923244a" Title="BidirectionalAssociation Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation__ctor.htm">
+      <HelpTOCNode Id="7269e239-037c-4ff1-8a37-1bf463f36c08" Title="BidirectionalAssociation Class" Url="html/T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
+        <HelpTOCNode Id="595e0ce4-b63e-4a81-a669-0a000ce4d293" Title="BidirectionalAssociation Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation__ctor.htm">
           <HelpTOCNode Title="BidirectionalAssociation Constructor (Partition, RoleAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation__ctor.htm" />
           <HelpTOCNode Title="BidirectionalAssociation Constructor (Store, RoleAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation__ctor_2.htm" />
           <HelpTOCNode Title="BidirectionalAssociation Constructor (ModelClass, ModelClass)" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation__ctor_4.htm" />
           <HelpTOCNode Title="BidirectionalAssociation Constructor (Partition, RoleAssignment[], PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation__ctor_1.htm" />
           <HelpTOCNode Title="BidirectionalAssociation Constructor (Store, RoleAssignment[], PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation__ctor_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d4de1839-5a17-49bd-95f1-57b5bfe8bf20" Title="BidirectionalAssociation Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
+        <HelpTOCNode Id="2ec1e054-533b-4f12-8e5c-d53473acb51f" Title="BidirectionalAssociation Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
           <HelpTOCNode Title="BidirectionalSource Property " Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_BidirectionalSource.htm" />
           <HelpTOCNode Title="BidirectionalTarget Property " Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_BidirectionalTarget.htm" />
           <HelpTOCNode Title="Source Property " Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_Source.htm" />
@@ -83,14 +83,14 @@
           <HelpTOCNode Title="SourceSummary Property " Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceSummary.htm" />
           <HelpTOCNode Title="Target Property " Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_Target.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="6deabb4d-1d9e-4ea9-9d17-348746ed8f57" Title="BidirectionalAssociation Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
+        <HelpTOCNode Id="5159a939-2c2f-4402-aaf2-aaa00deb1eb8" Title="BidirectionalAssociation Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
           <HelpTOCNode Title="GetBidirectionalSources Method " Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetBidirectionalSources.htm" />
           <HelpTOCNode Title="GetBidirectionalTargets Method " Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetBidirectionalTargets.htm" />
           <HelpTOCNode Title="GetLinks Method " Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetLinks.htm" />
           <HelpTOCNode Title="GetLinksToBidirectionalSources Method " Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetLinksToBidirectionalSources.htm" />
           <HelpTOCNode Title="GetLinksToBidirectionalTargets Method " Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetLinksToBidirectionalTargets.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d9c0dcde-2d2d-472d-b981-5fc395fd8b58" Title="BidirectionalAssociation Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
+        <HelpTOCNode Id="9fd23e98-09ff-4020-bbcc-ba5cd0a0d5e7" Title="BidirectionalAssociation Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm">
           <HelpTOCNode Title="BidirectionalSourceDomainRoleId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_BidirectionalSourceDomainRoleId.htm" />
           <HelpTOCNode Title="BidirectionalTargetDomainRoleId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_BidirectionalTargetDomainRoleId.htm" />
           <HelpTOCNode Title="DomainClassId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_DomainClassId.htm" />
@@ -103,12 +103,12 @@
       </HelpTOCNode>
       <HelpTOCNode Title="CodeStrategy Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_CodeStrategy.htm" />
       <HelpTOCNode Title="CollectionType Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_CollectionType.htm" />
-      <HelpTOCNode Id="1fdb9736-3052-405f-a7c6-c9fe6b34a619" Title="Comment Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Comment.htm">
-        <HelpTOCNode Id="00a3e3b4-a201-450d-9095-fea6c1d31faf" Title="Comment Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_Comment__ctor.htm">
+      <HelpTOCNode Id="f7bc089f-eb10-4b0b-aa1b-dcc26fd74467" Title="Comment Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Comment.htm">
+        <HelpTOCNode Id="5ba3f96a-d391-40ee-9ef5-7c1c0978a43d" Title="Comment Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_Comment__ctor.htm">
           <HelpTOCNode Title="Comment Constructor (Partition, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_Comment__ctor.htm" />
           <HelpTOCNode Title="Comment Constructor (Store, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_Comment__ctor_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="17d29daa-8282-495f-9418-34338af913ba" Title="Comment Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Comment.htm">
+        <HelpTOCNode Id="f88995e3-0d20-4f42-a3ad-180e44c3206f" Title="Comment Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Comment.htm">
           <HelpTOCNode Title="Classes Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Classes.htm" />
           <HelpTOCNode Title="Enums Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Enums.htm" />
           <HelpTOCNode Title="ModelRoot Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ModelRoot.htm" />
@@ -117,7 +117,7 @@
           <HelpTOCNode Title="Text Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Text.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Comment Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
-        <HelpTOCNode Id="320d2416-b0d6-48f8-9a65-1e9c4060d16f" Title="Comment Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Comment.htm">
+        <HelpTOCNode Id="7fde3b7d-563a-4e94-8754-61ebad6ec619" Title="Comment Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Comment.htm">
           <HelpTOCNode Title="DomainClassId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Comment_DomainClassId.htm" />
           <HelpTOCNode Title="ShortTextDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Comment_ShortTextDomainPropertyId.htm" />
           <HelpTOCNode Title="TextDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Comment_TextDomainPropertyId.htm" />
@@ -134,19 +134,19 @@
       <HelpTOCNode Title="EndpointRole Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_EndpointRole.htm" />
       <HelpTOCNode Title="EnumValueType Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
       <HelpTOCNode Title="ForeignKeyOwner Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ForeignKeyOwner.htm" />
-      <HelpTOCNode Id="71b9aecb-ef0a-44c0-b7f1-6c4d81d6f8c5" Title="Generalization Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
-        <HelpTOCNode Id="3d80108f-6194-413e-a455-866025853bf4" Title="Generalization Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_Generalization__ctor.htm">
+      <HelpTOCNode Id="b6f10b20-6967-45c8-a13a-447252ec310e" Title="Generalization Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
+        <HelpTOCNode Id="03f27c3a-f3ad-418e-bf47-b9b4471d4780" Title="Generalization Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_Generalization__ctor.htm">
           <HelpTOCNode Title="Generalization Constructor (Partition, RoleAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization__ctor.htm" />
           <HelpTOCNode Title="Generalization Constructor (Store, RoleAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization__ctor_2.htm" />
           <HelpTOCNode Title="Generalization Constructor (ModelClass, ModelClass)" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization__ctor_4.htm" />
           <HelpTOCNode Title="Generalization Constructor (Partition, RoleAssignment[], PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization__ctor_1.htm" />
           <HelpTOCNode Title="Generalization Constructor (Store, RoleAssignment[], PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization__ctor_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="6d738b9e-6e12-4b4b-9cb2-922e72d07624" Title="Generalization Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
+        <HelpTOCNode Id="6b02ea29-1241-4afb-a874-31e4ad1c10fc" Title="Generalization Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
           <HelpTOCNode Title="Subclass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Subclass.htm" />
           <HelpTOCNode Title="Superclass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Superclass.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="fe6c2861-788c-4a4d-842e-40a1966fc130" Title="Generalization Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
+        <HelpTOCNode Id="5c8fa6da-57e8-4e24-9e7e-b45dfd265f41" Title="Generalization Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
           <HelpTOCNode Title="GetLink Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetLink.htm" />
           <HelpTOCNode Title="GetLinks Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetLinks.htm" />
           <HelpTOCNode Title="GetLinksToSubclasses Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetLinksToSubclasses.htm" />
@@ -156,7 +156,7 @@
           <HelpTOCNode Title="IsInCircularInheritance Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_IsInCircularInheritance.htm" />
           <HelpTOCNode Title="SetSuperclass Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_SetSuperclass.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="cb7232ac-94b8-499c-b895-9309c8c1f9b6" Title="Generalization Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
+        <HelpTOCNode Id="b8c6fbf4-d19f-4f08-8e4e-9e84ecac8507" Title="Generalization Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Generalization.htm">
           <HelpTOCNode Title="DomainClassId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Generalization_DomainClassId.htm" />
           <HelpTOCNode Title="SubclassDomainRoleId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Generalization_SubclassDomainRoleId.htm" />
           <HelpTOCNode Title="SuperclassDomainRoleId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Generalization_SuperclassDomainRoleId.htm" />
@@ -165,12 +165,12 @@
       <HelpTOCNode Title="HTML5Type Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
       <HelpTOCNode Title="IdentityType Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_IdentityType.htm" />
       <HelpTOCNode Title="InheritanceModifier Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_InheritanceModifier.htm" />
-      <HelpTOCNode Id="9131baee-8449-4e6d-a4bf-7371822eeae4" Title="ModelAttribute Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
-        <HelpTOCNode Id="c1a89e1a-67c2-4bc5-845b-b6d63ef8508e" Title="ModelAttribute Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelAttribute__ctor.htm">
+      <HelpTOCNode Id="58de54f4-3b33-4f36-bfb6-95aeea39ba9a" Title="ModelAttribute Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
+        <HelpTOCNode Id="5896c149-42cd-4606-a9f8-2f77c83a0150" Title="ModelAttribute Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelAttribute__ctor.htm">
           <HelpTOCNode Title="ModelAttribute Constructor (Partition, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute__ctor.htm" />
           <HelpTOCNode Title="ModelAttribute Constructor (Store, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute__ctor_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="422c1fe5-7c94-44cc-83c2-cc616413cb9d" Title="ModelAttribute Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
+        <HelpTOCNode Id="ca724016-48e7-4dae-9499-12b4da1b77e4" Title="ModelAttribute Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
           <HelpTOCNode Title="AutoProperty Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_AutoProperty.htm" />
           <HelpTOCNode Title="CLRType Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_CLRType.htm" />
           <HelpTOCNode Title="ColumnName Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnName.htm" />
@@ -204,7 +204,7 @@
           <HelpTOCNode Title="Type Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Type.htm" />
           <HelpTOCNode Title="Virtual Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Virtual.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="5e833160-c38c-4a5c-9bf3-ea2fb2c38ae2" Title="ModelAttribute Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
+        <HelpTOCNode Id="333ea177-c467-4849-b71f-48a7284447ec" Title="ModelAttribute Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
           <HelpTOCNode Title="GetColumnNameValue Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_GetColumnNameValue.htm" />
           <HelpTOCNode Title="GetColumnTypeValue Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_GetColumnTypeValue.htm" />
           <HelpTOCNode Title="GetHasWarningValue Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_GetHasWarningValue.htm" />
@@ -219,7 +219,7 @@
           <HelpTOCNode Title="ToPrimitiveType Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_ToPrimitiveType.htm" />
           <HelpTOCNode Title="ToString Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_ToString.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="c01d09b2-4248-46f7-8ef1-68de42d62149" Title="ModelAttribute Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
+        <HelpTOCNode Id="efb15bbe-32eb-4692-a701-ffdc156ba5d3" Title="ModelAttribute Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm">
           <HelpTOCNode Title="AutoPropertyDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelAttribute_AutoPropertyDomainPropertyId.htm" />
           <HelpTOCNode Title="ColumnNameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnNameDomainPropertyId.htm" />
           <HelpTOCNode Title="ColumnTypeDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnTypeDomainPropertyId.htm" />
@@ -253,12 +253,12 @@
           <HelpTOCNode Title="VirtualDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelAttribute_VirtualDomainPropertyId.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="7f23dec5-885f-4bc6-a8bc-7279b4b4b0f2" Title="ModelClass Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
-        <HelpTOCNode Id="a6f21322-0708-4a3b-9fbe-e198781cb201" Title="ModelClass Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelClass__ctor.htm">
+      <HelpTOCNode Id="3238d354-8c9e-4809-995e-3767a787a22d" Title="ModelClass Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
+        <HelpTOCNode Id="66ebeb7c-1c59-4717-9bf9-3c6fd9cb1fc5" Title="ModelClass Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelClass__ctor.htm">
           <HelpTOCNode Title="ModelClass Constructor (Partition, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass__ctor.htm" />
           <HelpTOCNode Title="ModelClass Constructor (Store, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass__ctor_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="78036a23-a3b3-4b6b-aa7e-fbd49c4175e6" Title="ModelClass Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
+        <HelpTOCNode Id="04bfeb56-7795-4486-a648-05960eb4d9f3" Title="ModelClass Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
           <HelpTOCNode Title="AllAttributes Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllAttributes.htm" />
           <HelpTOCNode Title="AllIdentityAttributeNames Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllIdentityAttributeNames.htm" />
           <HelpTOCNode Title="AllIdentityAttributes Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllIdentityAttributes.htm" />
@@ -297,7 +297,7 @@
           <HelpTOCNode Title="UnidirectionalSources Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_UnidirectionalSources.htm" />
           <HelpTOCNode Title="UnidirectionalTargets Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_UnidirectionalTargets.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="08f5e41d-196d-4273-b8f2-5006ddd8266e" Title="ModelClass Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
+        <HelpTOCNode Id="f53c39ca-eeaa-4f60-9753-601f0553d4d9" Title="ModelClass Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
           <HelpTOCNode Title="AllNavigationProperties Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_AllNavigationProperties.htm" />
           <HelpTOCNode Title="AllRequiredNavigationProperties Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_AllRequiredNavigationProperties.htm" />
           <HelpTOCNode Title="FindAssociationNamed Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FindAssociationNamed.htm" />
@@ -312,7 +312,7 @@
           <HelpTOCNode Title="RequiredNavigationProperties Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_RequiredNavigationProperties.htm" />
           <HelpTOCNode Title="ResetWarning Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_ResetWarning.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="1a0923d5-d3ce-461a-b368-6884d4c1a255" Title="ModelClass Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
+        <HelpTOCNode Id="dfda7d28-4efd-4af1-885b-a4e0c0979236" Title="ModelClass Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelClass.htm">
           <HelpTOCNode Title="BaseClassDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_BaseClassDomainPropertyId.htm" />
           <HelpTOCNode Title="ConcurrencyDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_ConcurrencyDomainPropertyId.htm" />
           <HelpTOCNode Title="CustomAttributesDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_CustomAttributesDomainPropertyId.htm" />
@@ -335,17 +335,17 @@
           <HelpTOCNode Title="TableNameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_TableNameDomainPropertyId.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="16a35b66-842f-4655-9420-4d05217d3580" Title="ModelClassExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelClassExtensions.htm">
-        <HelpTOCNode Id="f3bac963-b418-4ce1-8436-f2cd1d55ad0a" Title="ModelClassExtensions Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelClassExtensions.htm">
+      <HelpTOCNode Id="5031f4d7-d5d7-4eb2-80aa-44ddbb177f1e" Title="ModelClassExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelClassExtensions.htm">
+        <HelpTOCNode Id="5f51c3d2-e95d-4506-84d9-fad735bd9b0c" Title="ModelClassExtensions Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelClassExtensions.htm">
           <HelpTOCNode Title="PushDown Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClassExtensions_PushDown.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="087afd9c-bf5a-4c0a-8826-eeedea44e3f5" Title="ModelEnum Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
-        <HelpTOCNode Id="d51a06a1-3ec4-42bf-8c2c-fd9271a785b3" Title="ModelEnum Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelEnum__ctor.htm">
+      <HelpTOCNode Id="36580c43-0149-41e8-8ce6-b531be762a19" Title="ModelEnum Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
+        <HelpTOCNode Id="89b3ac06-2013-485b-9032-baae82938c9d" Title="ModelEnum Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelEnum__ctor.htm">
           <HelpTOCNode Title="ModelEnum Constructor (Partition, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnum__ctor.htm" />
           <HelpTOCNode Title="ModelEnum Constructor (Store, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnum__ctor_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="343322d5-807b-48f9-8071-cb25df601afd" Title="ModelEnum Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
+        <HelpTOCNode Id="c4fa0b5e-cbe6-4446-bcd2-b3ced0bea8a3" Title="ModelEnum Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
           <HelpTOCNode Title="CustomAttributes Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_CustomAttributes.htm" />
           <HelpTOCNode Title="Description Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Description.htm" />
           <HelpTOCNode Title="FullName Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_FullName.htm" />
@@ -360,14 +360,14 @@
           <HelpTOCNode Title="Values Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Values.htm" />
           <HelpTOCNode Title="ValueType Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_ValueType.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="c15c6719-c7bc-494f-acf0-3d09e994eeba" Title="ModelEnum Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
+        <HelpTOCNode Id="584698c8-c9b2-4dc5-a8e9-b7e0b4797efe" Title="ModelEnum Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
           <HelpTOCNode Title="GetHasWarningValue Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnum_GetHasWarningValue.htm" />
           <HelpTOCNode Title="RedrawItem Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnum_RedrawItem.htm" />
           <HelpTOCNode Title="ResetWarning Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnum_ResetWarning.htm" />
           <HelpTOCNode Title="SetFlagValue Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnum_SetFlagValue.htm" />
           <HelpTOCNode Title="SetFlagValues Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnum_SetFlagValues.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="ad001ccc-e675-4841-9769-0bb3c4fe4888" Title="ModelEnum Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
+        <HelpTOCNode Id="cce49e5b-a80b-4ed5-bea8-54c1b488429b" Title="ModelEnum Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm">
           <HelpTOCNode Title="CustomAttributesDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnum_CustomAttributesDomainPropertyId.htm" />
           <HelpTOCNode Title="DescriptionDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnum_DescriptionDomainPropertyId.htm" />
           <HelpTOCNode Title="DomainClassId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnum_DomainClassId.htm" />
@@ -383,12 +383,12 @@
           <HelpTOCNode Title="ValueTypeDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnum_ValueTypeDomainPropertyId.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="2f083f34-be03-4ca9-86ab-1c83584a7ffe" Title="ModelEnumValue Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
-        <HelpTOCNode Id="c576470f-c7a1-43d0-8736-e94758602898" Title="ModelEnumValue Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelEnumValue__ctor.htm">
+      <HelpTOCNode Id="e32794ae-cc94-4495-b87e-a16d750a677b" Title="ModelEnumValue Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
+        <HelpTOCNode Id="ea23bb06-5ec0-4d52-9905-d4c9dd2f4324" Title="ModelEnumValue Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelEnumValue__ctor.htm">
           <HelpTOCNode Title="ModelEnumValue Constructor (Partition, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnumValue__ctor.htm" />
           <HelpTOCNode Title="ModelEnumValue Constructor (Store, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnumValue__ctor_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="11c0b0b3-3b57-4e87-9ee4-8cd53f7d8b6e" Title="ModelEnumValue Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
+        <HelpTOCNode Id="16e441c6-d2cc-4bc2-8138-81c2180d1a5c" Title="ModelEnumValue Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
           <HelpTOCNode Title="CompartmentName Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_CompartmentName.htm" />
           <HelpTOCNode Title="CustomAttributes Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_CustomAttributes.htm" />
           <HelpTOCNode Title="Description Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_Description.htm" />
@@ -399,13 +399,13 @@
           <HelpTOCNode Title="Summary Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_Summary.htm" />
           <HelpTOCNode Title="Value Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_Value.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="c0b6e521-c1f1-4fa2-86cb-010ceda706c0" Title="ModelEnumValue Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
+        <HelpTOCNode Id="9e767ac0-e220-4ac1-82ff-127dd5768225" Title="ModelEnumValue Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
           <HelpTOCNode Title="GetHasWarningValue Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnumValue_GetHasWarningValue.htm" />
           <HelpTOCNode Title="RedrawItem Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnumValue_RedrawItem.htm" />
           <HelpTOCNode Title="ResetWarning Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnumValue_ResetWarning.htm" />
           <HelpTOCNode Title="ToString Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnumValue_ToString.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d79a8f46-ffce-4b36-b83f-9c00d98ab96e" Title="ModelEnumValue Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
+        <HelpTOCNode Id="d38800f9-8630-4b9e-b8fd-78ea1f563e39" Title="ModelEnumValue Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelEnumValue.htm">
           <HelpTOCNode Title="CustomAttributesDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnumValue_CustomAttributesDomainPropertyId.htm" />
           <HelpTOCNode Title="DescriptionDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnumValue_DescriptionDomainPropertyId.htm" />
           <HelpTOCNode Title="DisplayTextDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnumValue_DisplayTextDomainPropertyId.htm" />
@@ -415,12 +415,12 @@
           <HelpTOCNode Title="ValueDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnumValue_ValueDomainPropertyId.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="45394aea-f14a-4b8b-af7d-66303c21377b" Title="ModelRoot Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
-        <HelpTOCNode Id="727ba32c-58b2-44b7-9b4b-03f9b6bcc0c1" Title="ModelRoot Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelRoot__ctor.htm">
+      <HelpTOCNode Id="fc692259-f0dc-4aaf-b29e-7e493c47f6b6" Title="ModelRoot Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
+        <HelpTOCNode Id="e6aca07e-d06e-46c1-a1f2-58f8f707b2cb" Title="ModelRoot Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_ModelRoot__ctor.htm">
           <HelpTOCNode Title="ModelRoot Constructor (Partition, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot__ctor.htm" />
           <HelpTOCNode Title="ModelRoot Constructor (Store, PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot__ctor_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="3ece6dac-ddaf-45f9-a8e2-45f83516e970" Title="ModelRoot Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
+        <HelpTOCNode Id="b7f33e3b-a7fc-484c-97f0-1d07d7b8ebb7" Title="ModelRoot Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
           <HelpTOCNode Title="AutomaticMigrationsEnabled Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_AutomaticMigrationsEnabled.htm" />
           <HelpTOCNode Title="CanLoadNugetPackages Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_CanLoadNugetPackages.htm" />
           <HelpTOCNode Title="ChopMethodChains Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ChopMethodChains.htm" />
@@ -460,10 +460,10 @@
           <HelpTOCNode Title="Types Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Types.htm" />
           <HelpTOCNode Title="WarnOnMissingDocumentation Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_WarnOnMissingDocumentation.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="31d0c0a9-fc1c-4704-a81a-0af54fc2905c" Title="ModelRoot Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
+        <HelpTOCNode Id="f0973b0e-2600-4caf-beb4-599d6f8b8dfe" Title="ModelRoot Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
           <HelpTOCNode Title="GetEntityFrameworkPackageVersionNum Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetEntityFrameworkPackageVersionNum.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="10df06d5-9aa3-445a-ba35-564fdb984d17" Title="ModelRoot Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
+        <HelpTOCNode Id="71cdc383-0e09-49b0-83cb-4385c2ed74b1" Title="ModelRoot Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm">
           <HelpTOCNode Title="AutomaticMigrationsEnabledDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_AutomaticMigrationsEnabledDomainPropertyId.htm" />
           <HelpTOCNode Title="ChopMethodChainsDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_ChopMethodChainsDomainPropertyId.htm" />
           <HelpTOCNode Title="ConcurrencyDefaultDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_ConcurrencyDefaultDomainPropertyId.htm" />
@@ -500,14 +500,14 @@
         </HelpTOCNode>
       </HelpTOCNode>
       <HelpTOCNode Title="Multiplicity Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_Multiplicity.htm" />
-      <HelpTOCNode Id="dccd2a3a-2035-451a-8e13-c33a4fe8a6ef" Title="MultiplicityExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions.htm">
-        <HelpTOCNode Id="19697ca3-30e1-4053-878b-d010011f20f6" Title="MultiplicityExtensions Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions.htm">
+      <HelpTOCNode Id="539523fe-051a-4c17-b568-add19bc95907" Title="MultiplicityExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions.htm">
+        <HelpTOCNode Id="b8e6dbab-ed61-46b5-ae6c-4da804af21f8" Title="MultiplicityExtensions Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions.htm">
           <HelpTOCNode Title="Display Method " Url="html/M_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions_Display.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="dbd70e1a-ceed-4ac1-a3f6-64768358b0d7" Title="ParseResult Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ParseResult.htm">
+      <HelpTOCNode Id="0f518a32-c564-4f84-945e-df6d6d9b5f39" Title="ParseResult Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ParseResult.htm">
         <HelpTOCNode Title="ParseResult Constructor " Url="html/M_Sawczyn_EFDesigner_EFModel_ParseResult__ctor.htm" />
-        <HelpTOCNode Id="073c3afb-ce37-4ed6-9e88-d5529061be4a" Title="ParseResult Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ParseResult.htm">
+        <HelpTOCNode Id="85d9e470-5a4a-4c18-9064-e0ecc9409356" Title="ParseResult Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ParseResult.htm">
           <HelpTOCNode Title="InitialValue Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ParseResult_InitialValue.htm" />
           <HelpTOCNode Title="IsIdentity Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ParseResult_IsIdentity.htm" />
           <HelpTOCNode Title="MaxLength Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ParseResult_MaxLength.htm" />
@@ -521,28 +521,28 @@
       </HelpTOCNode>
       <HelpTOCNode Title="SetterAccessModifier Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_SetterAccessModifier.htm" />
       <HelpTOCNode Title="TypeAccessModifier Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_TypeAccessModifier.htm" />
-      <HelpTOCNode Id="0a99f41f-4d7f-4d7a-a4ad-8caf0fd912a1" Title="UnidirectionalAssociation Class" Url="html/T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
-        <HelpTOCNode Id="5b19daf6-4149-4eb6-8c6c-14bc9b9af0c4" Title="UnidirectionalAssociation Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation__ctor.htm">
+      <HelpTOCNode Id="0ef7a677-eafe-4a92-b4c1-f3f76cd2fe61" Title="UnidirectionalAssociation Class" Url="html/T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
+        <HelpTOCNode Id="b0a58a9e-6a71-46a9-9394-4cbd203f644a" Title="UnidirectionalAssociation Constructor " Url="html/Overload_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation__ctor.htm">
           <HelpTOCNode Title="UnidirectionalAssociation Constructor (Partition, RoleAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation__ctor.htm" />
           <HelpTOCNode Title="UnidirectionalAssociation Constructor (Store, RoleAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation__ctor_2.htm" />
           <HelpTOCNode Title="UnidirectionalAssociation Constructor (ModelClass, ModelClass)" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation__ctor_4.htm" />
           <HelpTOCNode Title="UnidirectionalAssociation Constructor (Partition, RoleAssignment[], PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation__ctor_1.htm" />
           <HelpTOCNode Title="UnidirectionalAssociation Constructor (Store, RoleAssignment[], PropertyAssignment[])" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation__ctor_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d20a308f-251d-433a-a3d0-72927d0ce5c5" Title="UnidirectionalAssociation Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
+        <HelpTOCNode Id="e476e3b2-c56f-4c4f-9784-9e937438c0f0" Title="UnidirectionalAssociation Properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
           <HelpTOCNode Title="Source Property " Url="html/P_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_Source.htm" />
           <HelpTOCNode Title="Target Property " Url="html/P_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_Target.htm" />
           <HelpTOCNode Title="UnidirectionalSource Property " Url="html/P_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_UnidirectionalSource.htm" />
           <HelpTOCNode Title="UnidirectionalTarget Property " Url="html/P_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_UnidirectionalTarget.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="7e83edd7-05a8-4f02-b908-bf4d01b05de2" Title="UnidirectionalAssociation Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
+        <HelpTOCNode Id="0cdb9726-9e62-4c11-9b94-efe33dfc0a13" Title="UnidirectionalAssociation Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
           <HelpTOCNode Title="GetLinks Method " Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetLinks.htm" />
           <HelpTOCNode Title="GetLinksToUnidirectionalSources Method " Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetLinksToUnidirectionalSources.htm" />
           <HelpTOCNode Title="GetLinksToUnidirectionalTargets Method " Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetLinksToUnidirectionalTargets.htm" />
           <HelpTOCNode Title="GetUnidirectionalSources Method " Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetUnidirectionalSources.htm" />
           <HelpTOCNode Title="GetUnidirectionalTargets Method " Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetUnidirectionalTargets.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="94a2ac31-14ea-4075-9f3e-1587476c08da" Title="UnidirectionalAssociation Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
+        <HelpTOCNode Id="13a94a9f-d779-43f3-8257-2f1e91ebdd3f" Title="UnidirectionalAssociation Fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm">
           <HelpTOCNode Title="DomainClassId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_DomainClassId.htm" />
           <HelpTOCNode Title="UnidirectionalSourceDomainRoleId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_UnidirectionalSourceDomainRoleId.htm" />
           <HelpTOCNode Title="UnidirectionalTargetDomainRoleId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_UnidirectionalTargetDomainRoleId.htm" />
@@ -550,9 +550,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ValueConverter Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="374c1075-7662-4902-900a-10b8618ba2cc" Title="Sawczyn.EFDesigner.EFModel.CustomCode.Extensions" Url="html/N_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions.htm">
-      <HelpTOCNode Id="fefeb1a3-fee6-4957-a324-82e2ea66bb99" Title="ModelElementExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions_ModelElementExtensions.htm">
-        <HelpTOCNode Id="a809eafb-8f01-4b5c-966b-bbf7159ff846" Title="ModelElementExtensions Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions_ModelElementExtensions.htm">
+    <HelpTOCNode Id="fbcc0dfe-a74a-4993-b51b-ab5f5bbc5d9e" Title="Sawczyn.EFDesigner.EFModel.CustomCode.Extensions" Url="html/N_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions.htm">
+      <HelpTOCNode Id="363296b3-a111-4395-bef9-b1af762b7474" Title="ModelElementExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions_ModelElementExtensions.htm">
+        <HelpTOCNode Id="1c8a1bfc-f36c-4779-aeaa-35c2a3fdb7ea" Title="ModelElementExtensions Methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions_ModelElementExtensions.htm">
           <HelpTOCNode Title="GetCompartment Method " Url="html/M_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions_ModelElementExtensions_GetCompartment.htm" />
           <HelpTOCNode Title="GetFirstShapeElement Method " Url="html/M_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions_ModelElementExtensions_GetFirstShapeElement.htm" />
           <HelpTOCNode Title="InvalidateDiagrams Method " Url="html/M_Sawczyn_EFDesigner_EFModel_CustomCode_Extensions_ModelElementExtensions_InvalidateDiagrams.htm" />
