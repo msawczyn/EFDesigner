@@ -2,17 +2,19 @@
 <topic id="ed2e64f5-b23e-43ae-9e32-0311b0630eef" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>This is a sample conceptual topic.  You can use this as a starting point for adding more conceptual
-content to your help project.</para>
+			<para>This document describes the subset of the API you can use to modify the T4 templates for code generation.</para>
+			<para>While the T4 templates supplied generate only C# code, the API help here shows both C# and VB.NET for those
+			who might, for some particular reason, need the VB.NET syntax. And, really, since it's generated via
+			<a href="https://github.com/EWSoftware/SHFB" target="_blank">Sandcastle</a>, it was only an extra checkbox click
+			to include that.</para>
 		</introduction>
 
 		<section>
 			<title>Getting Started</title>
 			<content>
-				<para>To get started, add a documentation source to the project (a Visual Studio solution, project, or
-assembly and XML comments file).  See the <legacyBold>Getting Started</legacyBold> topics in the Sandcastle Help
-File Builder's help file for more information.  The following default items are included in this project:</para>
-
+				<para>If you somehow got here by direct link, and need details on how to use the designer, 
+				please head over to <a href="/">the root of this documentation site</a> to get more information.</para>
+<!--
 				<list class="bullet">
 					<listItem>
 						<para><localUri>ContentLayout.content</localUri> - Use the content layout file to manage the
@@ -45,11 +47,10 @@ in order to be compiled into the help file.</para>
 				<para>See the <legacyBold>Conceptual Content</legacyBold> topics in the Sandcastle Help File Builder's
 help file for more information.  See the <legacyBold> Sandcastle MAML Guide</legacyBold> for details on Microsoft
 Assistance Markup Language (MAML) which is used to create these topics.</para>
+		-->
+
 			</content>
 		</section>
 
-		<relatedTopics>
-			<link xlink:href="e78d484f-5857-4a16-a044-20769e599761" />
-		</relatedTopics>
 	</developerConceptualDocument>
 </topic>

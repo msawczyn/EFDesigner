@@ -23,12 +23,12 @@
       <Argument Key="baseSourceCodeUrl" Value="https://github.com/msawczyn/EFDesigner/tree/master/src/" />
     </TransformComponentArguments>
     <HelpFileFormat>Website</HelpFileFormat>
-    <SyntaxFilters>C#</SyntaxFilters>
+    <SyntaxFilters>C#, Visual Basic, JavaScript</SyntaxFilters>
     <PresentationStyle>VS2013</PresentationStyle>
     <CleanIntermediates>True</CleanIntermediates>
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
-    <IndentHtml>False</IndentHtml>
+    <IndentHtml>True</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpTitle>Entity Framework Visual Designer Template API</HelpTitle>
     <HelpFileVersion>1.2.6.22</HelpFileVersion>
@@ -37,7 +37,7 @@
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <NamespaceGrouping>True</NamespaceGrouping>
     <Preliminary>True</Preliminary>
-    <CopyrightText>Copyright &amp;#169%3b Michael Sawczyn 2018</CopyrightText>
+    <CopyrightText>Copyright &amp;#169%3b Michael Sawczyn 2019</CopyrightText>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <HtmlSdkLinkType>Msdn</HtmlSdkLinkType>
     <BinaryTOC>False</BinaryTOC>
@@ -114,11 +114,56 @@
     <PlugInConfigurations>
     </PlugInConfigurations>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\Dsl\bin\Debug\Sawczyn.EFDesigner.EFModel.Dsl.dll" />
-      <DocumentationSource sourceFile="..\Dsl\bin\Debug\Sawczyn.EFDesigner.EFModel.Dsl.xml" />
+      <DocumentationSource sourceFile="..\Dsl\Dsl.csproj" />
     </DocumentationSources>
     <ProjectSummary>Summary goes here</ProjectSummary>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
+    <SourceCodeBasePath>..\Dsl\</SourceCodeBasePath>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel" isExposed="False" xmlns="">
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Association" filterName="Association" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.AutomaticAction" filterName="AutomaticAction" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation" filterName="BidirectionalAssociation" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.CodeStrategy" filterName="CodeStrategy" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.CollectionType" filterName="CollectionType" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Comment" filterName="Comment" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.Concurrency" filterName="Concurrency" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ConcurrencyOverride" filterName="ConcurrencyOverride" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ContainerAccess" filterName="ContainerAccess" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind" filterName="DatabaseInitializerKind" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseKind" filterName="DatabaseKind" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DBWorkflow" filterName="DBWorkflow" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DeleteAction" filterName="DeleteAction" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EFVersion" filterName="EFVersion" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EndpointRole" filterName="EndpointRole" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EnumValueType" filterName="EnumValueType" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ForeignKeyOwner" filterName="ForeignKeyOwner" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Generalization" filterName="Generalization" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.HTML5Type" filterName="HTML5Type" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.IdentityType" filterName="IdentityType" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.InheritanceModifier" filterName="InheritanceModifier" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute" filterName="ModelAttribute" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelClass" filterName="ModelClass" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelClassExtensions" filterName="ModelClassExtensions" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum" filterName="ModelEnum" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue" filterName="ModelEnumValue" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot" filterName="ModelRoot" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.Multiplicity" filterName="Multiplicity" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.MultiplicityExtensions" filterName="MultiplicityExtensions" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ParseResult" filterName="ParseResult" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.SetterAccessModifier" filterName="SetterAccessModifier" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.TypeAccessModifier" filterName="TypeAccessModifier" isExposed="True" />
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation" filterName="UnidirectionalAssociation" isExposed="True" />
+        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ValueConverter" filterName="ValueConverter" isExposed="True" />
+      </Filter>
+      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.Annotations" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.CustomCode.Extensions" isExposed="False" xmlns="">
+        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.CustomCode.Extensions.ModelElementExtensions" filterName="ModelElementExtensions" isExposed="True" />
+      </Filter>
+      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.ExtensionEnablement" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.Nuget" isExposed="False" xmlns="" />
+    </ApiFilter>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
@@ -143,6 +188,7 @@
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
     <Folder Include="media" />
+    <Folder Include="styles" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Welcome.aml" />
@@ -152,6 +198,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\Help.png" />
+    <Content Include="styles\branding-Help1.css" />
+    <Content Include="styles\branding-HelpViewer.css" />
+    <Content Include="styles\branding-Website.css" />
+    <Content Include="styles\branding.css" />
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
