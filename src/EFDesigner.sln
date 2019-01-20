@@ -77,13 +77,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{90
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "EFDesigner.APIHelp", "EFDesigner.APIHelp\EFDesigner.APIHelp.shfbproj", "{1B1C830B-3BEE-4945-A6A0-9340574393D8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{D34D5767-24EE-4B6F-8F9C-1F308B1B147F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{1F284056-CA4D-41A8-84FA-BA8273756409}"
-	ProjectSection(SolutionItems) = preProject
-		..\docs\assets\css\style.css = ..\docs\assets\css\style.css
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,8 +101,6 @@ Global
 		{AD98A5BD-E289-4888-B6C3-62FAD3A3D531} = {0AD324C9-3616-47A1-8A44-8A609C803C31}
 		{89098F6A-F0C2-4707-B627-389BE97AED29} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
 		{90C96A87-4FF7-4AD1-9F61-0ECE46F7ADDA} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
-		{D34D5767-24EE-4B6F-8F9C-1F308B1B147F} = {AD98A5BD-E289-4888-B6C3-62FAD3A3D531}
-		{1F284056-CA4D-41A8-84FA-BA8273756409} = {D34D5767-24EE-4B6F-8F9C-1F308B1B147F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B78C875-A1CE-411A-AD07-EEB27455C152}
