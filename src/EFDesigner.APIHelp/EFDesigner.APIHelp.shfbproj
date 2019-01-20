@@ -23,21 +23,21 @@
       <Argument Key="baseSourceCodeUrl" Value="https://github.com/msawczyn/EFDesigner/tree/master/src/" />
     </TransformComponentArguments>
     <HelpFileFormat>Website</HelpFileFormat>
-    <SyntaxFilters>C#, Visual Basic, JavaScript</SyntaxFilters>
+    <SyntaxFilters>C#, Visual Basic</SyntaxFilters>
     <PresentationStyle>VS2013</PresentationStyle>
     <CleanIntermediates>True</CleanIntermediates>
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <IndentHtml>True</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
-    <HelpTitle>Entity Framework Visual Designer Template API</HelpTitle>
+    <HelpTitle>Entity Framework Designer T4 API</HelpTitle>
     <HelpFileVersion>1.2.6.22</HelpFileVersion>
     <NamingMethod>MemberName</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
-    <RootNamespaceContainer>True</RootNamespaceContainer>
-    <NamespaceGrouping>True</NamespaceGrouping>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <NamespaceGrouping>False</NamespaceGrouping>
     <Preliminary>True</Preliminary>
-    <CopyrightText>Copyright &amp;#169%3b Michael Sawczyn 2019</CopyrightText>
+    <CopyrightText>Copyright &amp;#169%3b 2019 Michael Sawczyn</CopyrightText>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <HtmlSdkLinkType>Msdn</HtmlSdkLinkType>
     <BinaryTOC>False</BinaryTOC>
@@ -46,32 +46,18 @@
     <AppendMarkdownFileExtensionsToUrls>False</AppendMarkdownFileExtensionsToUrls>
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, ProtectedInternalAsProtected, NonBrowsable</VisibleItems>
     <ComponentConfigurations>
-      <ComponentConfig id="API Token Resolution" enabled="True" xmlns="">
+      <ComponentConfig id="API Token Resolution" enabled="True">
         <component id="API Token Resolution">{@TokenFiles}
 <replace elements="/*//token" item="string(.)" /></component>
       </ComponentConfig>
-      <ComponentConfig id="Comments Index Data (ESENT Cache)" enabled="True" xmlns="">
-        <component id="Comments Index Data (ESENT Cache)">
-          <index name="comments" value="/doc/members/member" key="@name" cache="30" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\CommentsIndexCache" projectCachePath="">
+<ComponentConfig id="Comments Index Data (ESENT Cache)" enabled="True"><component id="Comments Index Data (ESENT Cache)"><index name="comments" value="/doc/members/member" key="@name" cache="30" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\CommentsIndexCache" projectCachePath="">
 	{@FrameworkCommentList}
 	{@CommentFileList}
-</index>
-          <copy name="comments" source="*" target="/document/comments" />
-        </component>
-      </ComponentConfig>
-      <ComponentConfig id="Reflection Index Data (ESENT Cache)" enabled="True" xmlns="">
-        <component id="Reflection Index Data (ESENT Cache)">
-          <index name="reflection" value="/reflection/apis/api" key="@id" cache="15" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\ReflectionIndexCache" projectCachePath="">
-            <data base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" duplicateWarning="false" groupId="ReflectionIndexCache">
+</index><copy name="comments" source="*" target="/document/comments" /></component></ComponentConfig>
+<ComponentConfig id="Reflection Index Data (ESENT Cache)" enabled="True"><component id="Reflection Index Data (ESENT Cache)"><index name="reflection" value="/reflection/apis/api" key="@id" cache="15" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\ReflectionIndexCache" projectCachePath=""><data base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" duplicateWarning="false" groupId="ReflectionIndexCache">
 		{@ReferenceLinkNamespaceFiles}
-	</data>
-            <data files="reflection.xml" groupId="Project_Ref_{@UniqueID}" />
-          </index>
-          <copy name="reflection" source="*" target="/document/reference" />
-        </component>
-      </ComponentConfig>
-      <ComponentConfig id="Resolve Reference Links (ESENT Cache)" enabled="True" xmlns="">
-        <component id="Resolve Reference Links (ESENT Cache)">{@HRefFormat}
+	</data><data files="reflection.xml" groupId="Project_Ref_{@UniqueID}" /></index><copy name="reflection" source="*" target="/document/reference" /></component></ComponentConfig>
+<ComponentConfig id="Resolve Reference Links (ESENT Cache)" enabled="True"><component id="Resolve Reference Links (ESENT Cache)">{@HRefFormat}
 <locale value="{@Locale}" /><linkTarget value="{@SdkLinkTarget}" /><helpOutput format="HtmlHelp1"><msdnContentIdCache path="{@LocalDataFolder}Cache\MsdnContentId.cache" cachePath="{@LocalDataFolder}Cache\ESentMsdnContentIdCache" localCacheSize="2500" /><targets base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" type="{@HtmlSdkLinkType}" id="FrameworkTargets" cachePath="{@LocalDataFolder}Cache\ESentFrameworkTargetCache" localCacheSize="2500">
 		{@ReferenceLinkNamespaceFiles}
 	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput><helpOutput format="MSHelpViewer"><msdnContentIdCache path="{@LocalDataFolder}Cache\MsdnContentId.cache" cachePath="{@LocalDataFolder}Cache\ESentMsdnContentIdCache" localCacheSize="2500" /><targets base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" type="{@MSHelpViewerSdkLinkType}" id="FrameworkTargets" cachePath="{@LocalDataFolder}Cache\ESentFrameworkTargetCache" localCacheSize="2500">
@@ -82,35 +68,17 @@
 		{@ReferenceLinkNamespaceFiles}
 	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput><helpOutput format="Markdown"><msdnContentIdCache path="{@LocalDataFolder}Cache\MsdnContentId.cache" cachePath="{@LocalDataFolder}Cache\ESentMsdnContentIdCache" localCacheSize="2500" /><targets base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" type="{@WebsiteSdkLinkType}" id="FrameworkTargets" cachePath="{@LocalDataFolder}Cache\ESentFrameworkTargetCache" localCacheSize="2500">
 		{@ReferenceLinkNamespaceFiles}
-	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput></component>
-      </ComponentConfig>
-      <ComponentConfig id="Syntax Component" enabled="True" xmlns="">
-        <component id="Syntax Component">
-          <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
-          <generators>
+	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput></component></ComponentConfig>
+<ComponentConfig id="Syntax Component" enabled="True"><component id="Syntax Component"><syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" /><generators>
     {@SyntaxFilters}
-</generators>
-          <containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" />
-          <configurations>
-            <generator id="C#" />
-            <generator id="Visual Basic">
-              <includeLineContinuation value="false" />
-            </generator>
-            <generator id="Visual Basic Usage">
-              <includeLineContinuation value="false" />
-            </generator>
-            <generator id="Managed C++" />
-            <generator id="F#" />
-            <generator id="J#" />
-            <generator id="JScript" />
-            <generator id="JavaScript" />
-            <generator id="XAML Usage" />
-            <generator id="ASP.NET" />
-            <generator id="X#" />
-          </configurations>
-        </component>
-      </ComponentConfig>
-    </ComponentConfigurations>
+</generators><containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" /><configurations><generator id="C#" /><generator id="Visual Basic"><includeLineContinuation value="false" /></generator><generator id="Visual Basic Usage"><includeLineContinuation value="false" /></generator><generator id="Managed C++" /><generator id="F#" /><generator id="J#" /><generator id="JScript" /><generator id="JavaScript" /><generator id="XAML Usage" /><generator id="ASP.NET" /><generator id="X#" /></configurations></component></ComponentConfig>
+<ComponentConfig id="Code Block Component" enabled="True"><component id="Code Block Component">
+  <basePath value="{@HtmlEncProjectFolder}" />
+  <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
+  <allowMissingSource value="false" />
+  <removeRegionMarkers value="false" />
+  <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="3" numberLines="true" outlining="true" keepSeeTags="true" defaultTitle="true" />
+</component></ComponentConfig></ComponentConfigurations>
     <PlugInConfigurations>
     </PlugInConfigurations>
     <DocumentationSources>
@@ -118,52 +86,274 @@
     </DocumentationSources>
     <ProjectSummary>Summary goes here</ProjectSummary>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
-    <SourceCodeBasePath>..\Dsl\</SourceCodeBasePath>
+    <SourceCodeBasePath>..\</SourceCodeBasePath>
     <ApiFilter>
-      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner" isExposed="False" xmlns="" />
-      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel" isExposed="False" xmlns="">
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Association" filterName="Association" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.AutomaticAction" filterName="AutomaticAction" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation" filterName="BidirectionalAssociation" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.CodeStrategy" filterName="CodeStrategy" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.CollectionType" filterName="CollectionType" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Comment" filterName="Comment" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.Concurrency" filterName="Concurrency" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ConcurrencyOverride" filterName="ConcurrencyOverride" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ContainerAccess" filterName="ContainerAccess" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind" filterName="DatabaseInitializerKind" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseKind" filterName="DatabaseKind" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DBWorkflow" filterName="DBWorkflow" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DeleteAction" filterName="DeleteAction" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EFVersion" filterName="EFVersion" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EndpointRole" filterName="EndpointRole" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EnumValueType" filterName="EnumValueType" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ForeignKeyOwner" filterName="ForeignKeyOwner" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Generalization" filterName="Generalization" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.HTML5Type" filterName="HTML5Type" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.IdentityType" filterName="IdentityType" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.InheritanceModifier" filterName="InheritanceModifier" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute" filterName="ModelAttribute" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelClass" filterName="ModelClass" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelClassExtensions" filterName="ModelClassExtensions" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum" filterName="ModelEnum" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue" filterName="ModelEnumValue" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot" filterName="ModelRoot" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.Multiplicity" filterName="Multiplicity" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.MultiplicityExtensions" filterName="MultiplicityExtensions" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ParseResult" filterName="ParseResult" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.SetterAccessModifier" filterName="SetterAccessModifier" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.TypeAccessModifier" filterName="TypeAccessModifier" isExposed="True" />
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation" filterName="UnidirectionalAssociation" isExposed="True" />
-        <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ValueConverter" filterName="ValueConverter" isExposed="True" />
-      </Filter>
-      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.Annotations" isExposed="False" xmlns="" />
-      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.CustomCode.Extensions" isExposed="False" xmlns="">
-        <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.CustomCode.Extensions.ModelElementExtensions" filterName="ModelElementExtensions" isExposed="True" />
-      </Filter>
-      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.ExtensionEnablement" isExposed="False" xmlns="" />
-      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.Nuget" isExposed="False" xmlns="" />
-    </ApiFilter>
+      <Filter entryType="Namespace" fullName="Sawczyn.EFDesigner" isExposed="False" />
+<Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel" isExposed="False">
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Association" filterName="Association" isExposed="True">
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.Association.GetHasWarningValue" filterName="GetHasWarningValue" isExposed="False" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.Association.RedrawItem" filterName="RedrawItem" isExposed="False" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.Association.ResetWarning" filterName="ResetWarning" isExposed="False" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.Association.IsCollectionClassTracking" filterName="IsCollectionClassTracking" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.CollectionClassDomainPropertyId" filterName="CollectionClassDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.DomainClassId" filterName="DomainClassId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.ForeignKeyLocationDomainPropertyId" filterName="ForeignKeyLocationDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.IsCollectionClassTrackingDomainPropertyId" filterName="IsCollectionClassTrackingDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.PersistentDomainPropertyId" filterName="PersistentDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.SourceDeleteActionDomainPropertyId" filterName="SourceDeleteActionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.SourceDomainRoleId" filterName="SourceDomainRoleId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId" filterName="SourceMultiplicityDisplayDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDomainPropertyId" filterName="SourceMultiplicityDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.SourceRoleDomainPropertyId" filterName="SourceRoleDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.SummaryDomainPropertyId" filterName="SummaryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetCustomAttributesDomainPropertyId" filterName="TargetCustomAttributesDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetDeleteActionDomainPropertyId" filterName="TargetDeleteActionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetDescriptionDomainPropertyId" filterName="TargetDescriptionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetDisplayTextDomainPropertyId" filterName="TargetDisplayTextDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetDomainRoleId" filterName="TargetDomainRoleId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDisplayDomainPropertyId" filterName="TargetMultiplicityDisplayDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDomainPropertyId" filterName="TargetMultiplicityDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDomainPropertyId" filterName="TargetPropertyNameDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetRoleDomainPropertyId" filterName="TargetRoleDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Association.TargetSummaryDomainPropertyId" filterName="TargetSummaryDomainPropertyId" isExposed="False" />
+  </Filter>
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.AutomaticAction" filterName="AutomaticAction" isExposed="True" />
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation" filterName="BidirectionalAssociation" isExposed="True">
+    <Filter entryType="Constructor" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.BidirectionalSourceDomainRoleId" filterName="BidirectionalSourceDomainRoleId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.BidirectionalTargetDomainRoleId" filterName="BidirectionalTargetDomainRoleId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId" filterName="DomainClassId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourceCustomAttributesDomainPropertyId" filterName="SourceCustomAttributesDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourceDescriptionDomainPropertyId" filterName="SourceDescriptionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourceDisplayTextDomainPropertyId" filterName="SourceDisplayTextDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDomainPropertyId" filterName="SourcePropertyNameDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourceSummaryDomainPropertyId" filterName="SourceSummaryDomainPropertyId" isExposed="False" />
+  </Filter>
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.CodeStrategy" filterName="CodeStrategy" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.CollectionType" filterName="CollectionType" isExposed="True" />
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Comment" filterName="Comment" isExposed="True">
+    <Filter entryType="Constructor" fullName="Sawczyn.EFDesigner.EFModel.Comment.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Comment.DomainClassId" filterName="DomainClassId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Comment.ShortTextDomainPropertyId" filterName="ShortTextDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Comment.TextDomainPropertyId" filterName="TextDomainPropertyId" isExposed="False" />
+  </Filter>
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.Concurrency" filterName="Concurrency" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ConcurrencyOverride" filterName="ConcurrencyOverride" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ContainerAccess" filterName="ContainerAccess" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind" filterName="DatabaseInitializerKind" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseKind" filterName="DatabaseKind" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DBWorkflow" filterName="DBWorkflow" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DeleteAction" filterName="DeleteAction" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EFVersion" filterName="EFVersion" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EndpointRole" filterName="EndpointRole" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.EnumValueType" filterName="EnumValueType" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ForeignKeyOwner" filterName="ForeignKeyOwner" isExposed="True" />
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.Generalization" filterName="Generalization" isExposed="True">
+    <Filter entryType="Constructor" fullName="Sawczyn.EFDesigner.EFModel.Generalization.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Generalization.DomainClassId" filterName="DomainClassId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Generalization.SubclassDomainRoleId" filterName="SubclassDomainRoleId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.Generalization.SuperclassDomainRoleId" filterName="SuperclassDomainRoleId" isExposed="False" />
+  </Filter>
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.HTML5Type" filterName="HTML5Type" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.IdentityType" filterName="IdentityType" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.InheritanceModifier" filterName="InheritanceModifier" isExposed="True" />
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute" filterName="ModelAttribute" isExposed="False">
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IsValidCLRType" filterName="IsValidCLRType" isExposed="True" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IsValidInitialValue" filterName="IsValidInitialValue" isExposed="True" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ToCLRType" filterName="ToCLRType" isExposed="True" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ToPrimitiveType" filterName="ToPrimitiveType" isExposed="True" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ToString" filterName="ToString" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.AutoProperty" filterName="AutoProperty" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.CLRType" filterName="CLRType" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ColumnName" filterName="ColumnName" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ColumnType" filterName="ColumnType" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.CustomAttributes" filterName="CustomAttributes" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" filterName="Description" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.DisplayText" filterName="DisplayText" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.FQPrimitiveType" filterName="FQPrimitiveType" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IdentityType" filterName="IdentityType" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Indexed" filterName="Indexed" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IndexedUnique" filterName="IndexedUnique" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.InitialValue" filterName="InitialValue" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IsConcurrencyToken" filterName="IsConcurrencyToken" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IsIdentity" filterName="IsIdentity" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.MaxLength" filterName="MaxLength" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.MinLength" filterName="MinLength" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ModelClass" filterName="ModelClass" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Name" filterName="Name" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ParentModelElement" filterName="ParentModelElement" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Persistent" filterName="Persistent" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.PrimitiveType" filterName="PrimitiveType" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ReadOnly" filterName="ReadOnly" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Required" filterName="Required" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.SetterVisibility" filterName="SetterVisibility" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.StringType" filterName="StringType" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Summary" filterName="Summary" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.TableOverride" filterName="TableOverride" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Type" filterName="Type" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Virtual" filterName="Virtual" isExposed="True" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.SpatialTypes" filterName="SpatialTypes" isExposed="True" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ValidCLRTypes" filterName="ValidCLRTypes" isExposed="True" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ValidIdentityAttributeTypes" filterName="ValidIdentityAttributeTypes" isExposed="True" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ValidTypes" filterName="ValidTypes" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelClass" filterName="ModelClass" isExposed="True">
+    <Filter entryType="Constructor" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.GetHasWarningValue" filterName="GetHasWarningValue" isExposed="False" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.PreResetIsTrackingProperties" filterName="PreResetIsTrackingProperties" isExposed="False" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.RedrawItem" filterName="RedrawItem" isExposed="False" />
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.ResetWarning" filterName="ResetWarning" isExposed="False" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsDatabaseSchemaTracking" filterName="IsDatabaseSchemaTracking" isExposed="False" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsNamespaceTracking" filterName="IsNamespaceTracking" isExposed="False" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsOutputDirectoryTracking" filterName="IsOutputDirectoryTracking" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.BaseClassDomainPropertyId" filterName="BaseClassDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.ConcurrencyDomainPropertyId" filterName="ConcurrencyDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.CustomAttributesDomainPropertyId" filterName="CustomAttributesDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.CustomInterfacesDomainPropertyId" filterName="CustomInterfacesDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.DatabaseSchemaDomainPropertyId" filterName="DatabaseSchemaDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.DbSetNameDomainPropertyId" filterName="DbSetNameDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.DescriptionDomainPropertyId" filterName="DescriptionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.DomainClassId" filterName="DomainClassId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId" filterName="GlyphTypeDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.ImplementNotifyDomainPropertyId" filterName="ImplementNotifyDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsAbstractDomainPropertyId" filterName="IsAbstractDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsDatabaseSchemaTrackingDomainPropertyId" filterName="IsDatabaseSchemaTrackingDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsDependentTypeDomainPropertyId" filterName="IsDependentTypeDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsNamespaceTrackingDomainPropertyId" filterName="IsNamespaceTrackingDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.IsOutputDirectoryTrackingDomainPropertyId" filterName="IsOutputDirectoryTrackingDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId" filterName="NameDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.NamespaceDomainPropertyId" filterName="NamespaceDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.OutputDirectoryDomainPropertyId" filterName="OutputDirectoryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.SummaryDomainPropertyId" filterName="SummaryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelClass.TableNameDomainPropertyId" filterName="TableNameDomainPropertyId" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum" filterName="ModelEnum" isExposed="False">
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.CustomAttributes" filterName="CustomAttributes" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.Description" filterName="Description" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.FullName" filterName="FullName" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.IsFlags" filterName="IsFlags" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.ModelRoot" filterName="ModelRoot" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.Name" filterName="Name" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.Namespace" filterName="Namespace" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.OutputDirectory" filterName="OutputDirectory" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.Summary" filterName="Summary" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.Values" filterName="Values" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.ValueType" filterName="ValueType" isExposed="True" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelEnum.ValidValueTypes" filterName="ValidValueTypes" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue" filterName="ModelEnumValue" isExposed="False">
+    <Filter entryType="Method" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.ToString" filterName="ToString" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.CustomAttributes" filterName="CustomAttributes" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" filterName="Description" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.DisplayText" filterName="DisplayText" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Enum" filterName="Enum" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Name" filterName="Name" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.ParentModelElement" filterName="ParentModelElement" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Summary" filterName="Summary" isExposed="True" />
+    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Value" filterName="Value" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot" filterName="ModelRoot" isExposed="True">
+    <Filter entryType="Constructor" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.AutomaticMigrationsEnabledDomainPropertyId" filterName="AutomaticMigrationsEnabledDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ChopMethodChainsDomainPropertyId" filterName="ChopMethodChainsDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ConcurrencyDefaultDomainPropertyId" filterName="ConcurrencyDefaultDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ConnectionStringDomainPropertyId" filterName="ConnectionStringDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ConnectionStringNameDomainPropertyId" filterName="ConnectionStringNameDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ContextOutputDirectoryDomainPropertyId" filterName="ContextOutputDirectoryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DatabaseInitializerTypeDomainPropertyId" filterName="DatabaseInitializerTypeDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DatabaseSchemaDomainPropertyId" filterName="DatabaseSchemaDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DatabaseTypeDomainPropertyId" filterName="DatabaseTypeDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DbSetAccessDomainPropertyId" filterName="DbSetAccessDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DefaultCollectionClassDomainPropertyId" filterName="DefaultCollectionClassDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DefaultIdentityTypeDomainPropertyId" filterName="DefaultIdentityTypeDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DescriptionDomainPropertyId" filterName="DescriptionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.DomainClassId" filterName="DomainClassId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.EntityContainerAccessDomainPropertyId" filterName="EntityContainerAccessDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.EntityContainerNameDomainPropertyId" filterName="EntityContainerNameDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.EntityFrameworkPackageVersionDomainPropertyId" filterName="EntityFrameworkPackageVersionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.EntityFrameworkVersionDomainPropertyId" filterName="EntityFrameworkVersionDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.EntityOutputDirectoryDomainPropertyId" filterName="EntityOutputDirectoryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.EnumOutputDirectoryDomainPropertyId" filterName="EnumOutputDirectoryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.FileNameMarkerDomainPropertyId" filterName="FileNameMarkerDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.InheritanceStrategyDomainPropertyId" filterName="InheritanceStrategyDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.InstallNuGetPackagesDomainPropertyId" filterName="InstallNuGetPackagesDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.LazyLoadingEnabledDomainPropertyId" filterName="LazyLoadingEnabledDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.NamespaceDomainPropertyId" filterName="NamespaceDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ProxyGenerationEnabledDomainPropertyId" filterName="ProxyGenerationEnabledDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ShowCascadeDeletesDomainPropertyId" filterName="ShowCascadeDeletesDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.ShowWarningsInDesignerDomainPropertyId" filterName="ShowWarningsInDesignerDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.StructOutputDirectoryDomainPropertyId" filterName="StructOutputDirectoryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.SummaryDomainPropertyId" filterName="SummaryDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.TransformOnSaveDomainPropertyId" filterName="TransformOnSaveDomainPropertyId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.ModelRoot.WarnOnMissingDocumentationDomainPropertyId" filterName="WarnOnMissingDocumentationDomainPropertyId" isExposed="False" />
+  </Filter>
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.Multiplicity" filterName="Multiplicity" isExposed="True" />
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.MultiplicityExtensions" filterName="MultiplicityExtensions" isExposed="True" />
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.NavigationProperty" filterName="NavigationProperty" isExposed="True">
+    <Filter entryType="Constructor" fullName="Sawczyn.EFDesigner.EFModel.NavigationProperty.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.SetterAccessModifier" filterName="SetterAccessModifier" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.TypeAccessModifier" filterName="TypeAccessModifier" isExposed="True" />
+  <Filter entryType="Class" fullName="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation" filterName="UnidirectionalAssociation" isExposed="True">
+    <Filter entryType="Constructor" fullName="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId" filterName="DomainClassId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.UnidirectionalSourceDomainRoleId" filterName="UnidirectionalSourceDomainRoleId" isExposed="False" />
+    <Filter entryType="Field" fullName="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.UnidirectionalTargetDomainRoleId" filterName="UnidirectionalTargetDomainRoleId" isExposed="False" />
+  </Filter>
+  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ValueConverter" filterName="ValueConverter" isExposed="True" />
+</Filter>
+<Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.Annotations" isExposed="False" />
+<Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.CustomCode.Extensions" isExposed="False" />
+<Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.ExtensionEnablement" isExposed="False" />
+<Filter entryType="Namespace" fullName="Sawczyn.EFDesigner.EFModel.Nuget" isExposed="False" />
+<Filter entryType="Namespace" fullName="Microsoft.VisualStudio.Modeling" isExposed="True">
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.CopyClosureFilter" filterName="CopyClosureFilter" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.DomainClassXmlSerializer" filterName="DomainClassXmlSerializer" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.DomainModel" filterName="DomainModel" isExposed="True">
+    <Filter entryType="Method" fullName="Microsoft.VisualStudio.Modeling.DomainModel.GetClosureVisitor" filterName="GetClosureVisitor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.DomainRelationshipXmlSerializer" filterName="DomainRelationshipXmlSerializer" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.DomainXmlSerializationBehavior" filterName="DomainXmlSerializationBehavior" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.ElementLink" filterName="ElementLink" isExposed="False">
+    <Filter entryType="Method" fullName="Microsoft.VisualStudio.Modeling.ElementLink.GetDomainRelationship" filterName="GetDomainRelationship" isExposed="True" />
+    <Filter entryType="Property" fullName="Microsoft.VisualStudio.Modeling.ElementLink.LinkedElements" filterName="LinkedElements" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.ElementNameProvider" filterName="ElementNameProvider" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.ModelElement" filterName="ModelElement" isExposed="False">
+    <Filter entryType="Property" fullName="Microsoft.VisualStudio.Modeling.ModelElement.Partition" filterName="Partition" isExposed="True" />
+    <Filter entryType="Property" fullName="Microsoft.VisualStudio.Modeling.ModelElement.Store" filterName="Store" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Rule" filterName="Rule" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.SimpleMonikerResolver" filterName="SimpleMonikerResolver" isExposed="False" />
+</Filter>
+<Filter entryType="Namespace" fullName="Microsoft.VisualStudio.Modeling.Design" isExposed="True">
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Design.ElementTypeDescriptor" filterName="ElementTypeDescriptor" isExposed="False" />
+</Filter>
+<Filter entryType="Namespace" fullName="Microsoft.VisualStudio.Modeling.Diagrams" isExposed="True">
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.BinaryLinkShapeBase" filterName="BinaryLinkShapeBase" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.CompartmentShape" filterName="CompartmentShape" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.Diagram" filterName="Diagram" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.LinkShape" filterName="LinkShape" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.MouseAction" filterName="MouseAction" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.NodeShape" filterName="NodeShape" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.PresentationElement" filterName="PresentationElement" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.Modeling.Diagrams.ShapeElement" filterName="ShapeElement" isExposed="False" />
+</Filter>
+<Filter entryType="Namespace" fullName="Microsoft.VisualStudio.TextTemplating" isExposed="True">
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.TextTemplating.DirectiveProcessor" filterName="DirectiveProcessor" isExposed="False" />
+  <Filter entryType="Class" fullName="Microsoft.VisualStudio.TextTemplating.RequiresProvidesDirectiveProcessor" filterName="RequiresProvidesDirectiveProcessor" isExposed="False" />
+</Filter>
+<Filter entryType="Namespace" fullName="System.ComponentModel" isExposed="True">
+  <Filter entryType="Class" fullName="System.ComponentModel.CustomTypeDescriptor" filterName="CustomTypeDescriptor" isExposed="False" />
+  <Filter entryType="Class" fullName="System.ComponentModel.TypeConverter" filterName="TypeConverter" isExposed="False" />
+</Filter>
+<Filter entryType="Namespace" fullName="System.ComponentModel.Composition" isExposed="True">
+  <Filter entryType="Class" fullName="System.ComponentModel.Composition.ExportAttribute" filterName="ExportAttribute" isExposed="False" />
+</Filter></ApiFilter>
+    <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
+    <MaximumGroupParts>2</MaximumGroupParts>
+    <CopyrightHref>https://github.com/msawczyn/EFDesigner/blob/master/LICENSE</CopyrightHref>
+    <MissingTags>Summary, Parameter, Returns, Namespace, TypeParameter</MissingTags>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

@@ -18,14 +18,14 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity1
+   public partial class Entity2
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Entity1()
+      protected Entity2()
       {
          Init();
       }
@@ -33,11 +33,11 @@ namespace Sandbox
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="entity2"></param>
-      public Entity1(Sandbox.Entity2 entity2)
+      /// <param name="_entity10"></param>
+      public Entity2(Sandbox.Entity1 _entity10)
       {
-         if (entity2 == null) throw new ArgumentNullException(nameof(entity2));
-         Entity2 = entity2;
+         if (_entity10 == null) throw new ArgumentNullException(nameof(_entity10));
+         _entity10.Entity2 = this;
 
          Init();
       }
@@ -45,10 +45,10 @@ namespace Sandbox
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="entity2"></param>
-      public static Entity1 Create(Sandbox.Entity2 entity2)
+      /// <param name="_entity10"></param>
+      public static Entity2 Create(Sandbox.Entity1 _entity10)
       {
-         return new Entity1(entity2);
+         return new Entity2(_entity10);
       }
 
       /*************************************************************************
@@ -65,11 +65,6 @@ namespace Sandbox
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual Sandbox.Entity2 Entity2 { get; set; }
 
    }
 }

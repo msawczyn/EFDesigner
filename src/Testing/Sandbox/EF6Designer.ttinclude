@@ -712,11 +712,11 @@ string CreateForeignKeyColumnSegmentEF6(Association association, List<string> fo
    // foreign key definitions always go in the table representing the Dependent end of the association
    // if there is no dependent end (i.e., many-to-many), there are no foreign keys
    string nameBase = string.Empty;
+
    if (association.SourceRole == EndpointRole.Dependent)
       nameBase = association.TargetPropertyName;
    else if (association.TargetRole == EndpointRole.Dependent)
       nameBase = association is BidirectionalAssociation b ? b.SourcePropertyName :  $"{association.Source.Name}.{association.TargetPropertyName}";
-      //nameBase = (association as BidirectionalAssociation)?.SourcePropertyName ?? association.Source.Name;
    else
       return null;
 

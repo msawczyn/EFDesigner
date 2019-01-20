@@ -11,119 +11,74 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Infrastructure.Annotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sandbox
 {
    /// <summary>
    /// xxx
    /// </summary>
-   public partial class SandboxModel : System.Data.Entity.DbContext
+   public partial class SandboxModel : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<Sandbox.Entity1> Entity1 { get; set; }
-      public virtual System.Data.Entity.DbSet<Sandbox.Entity11> Entity11 { get; set; }
-      public virtual System.Data.Entity.DbSet<Sandbox.Entity12> Entity12 { get; set; }
-      public virtual System.Data.Entity.DbSet<Sandbox.Entity3> Entity3 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity1> Entity1 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity2> Entity2 { get; set; }
       #endregion DbSets
 
       /// <summary>
       /// Default connection string
       /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=.;Initial Catalog=Test;Integrated Security=True";
+
       /// <inheritdoc />
-      public SandboxModel() : base(ConnectionString)
+      public SandboxModel() : base()
       {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
-         CustomInit();
       }
 
       /// <inheritdoc />
-      public SandboxModel(string connectionString) : base(connectionString)
+      public SandboxModel(DbContextOptions<SandboxModel> options) : base(options)
       {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
-         CustomInit();
       }
 
+      partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
+
       /// <inheritdoc />
-      public SandboxModel(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
+      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
-         CustomInit();
+         CustomInit(optionsBuilder);
       }
 
-      /// <inheritdoc />
-      public SandboxModel(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
-         CustomInit();
-      }
+      partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
+      partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
       /// <inheritdoc />
-      public SandboxModel(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
-         CustomInit();
-      }
-
-      /// <inheritdoc />
-      public SandboxModel(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
-         CustomInit();
-      }
-
-      /// <inheritdoc />
-      public SandboxModel(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
-         CustomInit();
-      }
-
-      partial void CustomInit();
-      partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
-      partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
-
-      /// <inheritdoc />
-      protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
          OnModelCreatingImpl(modelBuilder);
 
          modelBuilder.HasDefaultSchema("dbo");
 
-
-
-
-         modelBuilder.Entity<Sandbox.Entity3>()
-                     .ToTable("Entity3")
+         modelBuilder.Entity<Sandbox.Entity1>()
+                     .ToTable("Entity1")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox.Entity3>()
+         modelBuilder.Entity<Sandbox.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Sandbox.Entity3>()
-                     .Property(t => t.Property2)
-                     .HasMaxLength(2)
-                     .HasColumnType("varchar");
-         modelBuilder.Entity<Sandbox.Entity3>()
-                     .Property(t => t.Property3)
-                     .HasMaxLength(9);
+                     .ValueGeneratedOnAdd();
+         modelBuilder.Entity<Sandbox.Entity1>()
+                     .HasOne(x => x.Entity2)
+                     .WithOne()
+                     .HasForeignKey("Sandbox.Entity2", "Entity1Entity2_Id")
+                     .IsRequired();
+
+         modelBuilder.Entity<Sandbox.Entity2>()
+                     .ToTable("Entity2")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<Sandbox.Entity2>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .ValueGeneratedOnAdd();
 
          OnModelCreatedImpl(modelBuilder);
       }
