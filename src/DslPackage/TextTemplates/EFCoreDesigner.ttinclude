@@ -416,8 +416,9 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             //   break;
          }
 
-         if (association.SourceRole == EndpointRole.Dependent) 
-            segments.Add(CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns));
+         string dependentClass = association.SourceRole == EndpointRole.Dependent ? association.Source.FullName : association.Target.FullName;
+         string columnPrefix = association.SourceRole == EndpointRole.Dependent ? "" : association.Target.FullName;
+         segments.Add($"HasForeignKey(\"{dependentClass}\", \"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
          if (required)
             segments.Add("IsRequired()");
@@ -494,7 +495,9 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          }
 
          if (association.SourceRole == EndpointRole.Dependent) 
-            segments.Add(CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns));
+            segments.Add($"HasForeignKey(\"{association.Source.FullName}\", \"{association.TargetPropertyName}_Id\")");
+         else
+            segments.Add($"HasForeignKey(\"{association.Target.FullName}\", \"{association.SourcePropertyName}_Id\")");
 
          if (required)
             segments.Add("IsRequired()");
@@ -532,39 +535,5 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
    EndNamespace(modelRoot.Namespace);
 }
-
-string CreateForeignKeyColumnSegmentEFCore(Association association, List<string> foreignKeyColumns)
-{
-   // foreign key definitions always go in the table representing the Dependent end of the association
-   // if there is no dependent end (i.e., many-to-many), there are no foreign keys
-   string nameBase = string.Empty;
-   string dependentClass = string.Empty;
-
-   if (association.SourceRole == EndpointRole.Dependent)
-   {
-      nameBase = association.TargetPropertyName;
-      dependentClass = association.Source.Name;
-   }
-   else if (association.TargetRole == EndpointRole.Dependent)
-   {
-      nameBase = (association as BidirectionalAssociation)?.SourcePropertyName ?? association.Source.Name;
-      dependentClass = association.Target.Name;
-   }
-   else
-      return null;
-
-   string columnName = $"{nameBase}_Id";
-   if (foreignKeyColumns.Contains(columnName))
-   {
-      int index = 0;
-      do
-      {
-         columnName = $"{nameBase}{++index}_Id";
-      } while (foreignKeyColumns.Contains(columnName));
-   }
-   foreignKeyColumns.Add(columnName);
-   return $@"HasForeignKey(""{columnName}"")";
-}
-
 
 #>

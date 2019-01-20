@@ -36,6 +36,12 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication, Version=2.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.2.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.dll</HintPath>
     </Reference>
@@ -227,13 +233,14 @@
       <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="Generated\Context\SandboxModel.generated.cs" />
+    <Compile Include="Generated\Context\SandboxModelDatabaseInitializer.generated.cs" />
+    <Compile Include="Generated\Context\SandboxModelDbMigrationConfiguration.generated.cs" />
     <Compile Include="Generated\Entities\Entity1.generated.cs" />
     <Compile Include="Generated\Entities\Entity2.generated.cs" />
-    <Compile Include="Migrations\20190120033351_Initial.cs" />
-    <Compile Include="Migrations\20190120033351_Initial.designer.cs">
-      <DependentUpon>20190120033351_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201901200959317_Initial.cs" />
+    <Compile Include="Migrations\201901200959317_Initial.Designer.cs">
+      <DependentUpon>201901200959317_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\SandboxModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sandbox.cs">
       <AutoGen>True</AutoGen>
@@ -273,6 +280,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Sandbox.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901200959317_Initial.resx">
+      <DependentUpon>201901200959317_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

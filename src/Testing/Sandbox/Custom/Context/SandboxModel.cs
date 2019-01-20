@@ -9,9 +9,9 @@ namespace Sandbox
 {
    partial class SandboxModel
    {
-      partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
-      {
-         optionsBuilder.UseSqlServer(ConnectionString);
-      }
+      //partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
+      //{
+      //   optionsBuilder.UseSqlServer(ConnectionString);
+      //}
    }
 }

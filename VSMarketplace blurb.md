@@ -25,8 +25,8 @@ For comprehensive documentation, please visit [the project's documentation site]
 **ChangeLog**
 
 **1.2.6.22**
-   - **[NEW]** Added code in EF6 templates to generate orphan cleanup
-   - **[NEW]** Added API documentation to help those wishing to modify the T4 templates
+   - **[NEW]** Added code in EF6 templates to generate orphan cleanup (experimental)
+   - Fix for 1..1 and 0-1..0-1 associations in EF Core generated code
 
 **1.2.6.21**
    - Generation of column type overrides now generates valid override code in OnModelCreating

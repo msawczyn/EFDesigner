@@ -33,11 +33,11 @@ namespace Sandbox
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_entity10"></param>
-      public Entity2(Sandbox.Entity1 _entity10)
+      /// <param name="entity1"></param>
+      public Entity2(Sandbox.Entity1 entity1)
       {
-         if (_entity10 == null) throw new ArgumentNullException(nameof(_entity10));
-         _entity10.Entity2 = this;
+         if (entity1 == null) throw new ArgumentNullException(nameof(entity1));
+         Entity1 = entity1;
 
          Init();
       }
@@ -45,10 +45,10 @@ namespace Sandbox
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_entity10"></param>
-      public static Entity2 Create(Sandbox.Entity1 _entity10)
+      /// <param name="entity1"></param>
+      public static Entity2 Create(Sandbox.Entity1 entity1)
       {
-         return new Entity2(_entity10);
+         return new Entity2(entity1);
       }
 
       /*************************************************************************
@@ -65,6 +65,11 @@ namespace Sandbox
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual Sandbox.Entity1 Entity1 { get; set; }
 
    }
 }

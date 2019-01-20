@@ -11,48 +11,150 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 
 namespace Sandbox
 {
    /// <summary>
    /// xxx
    /// </summary>
-   public partial class SandboxModel : Microsoft.EntityFrameworkCore.DbContext
+   public partial class SandboxModel : System.Data.Entity.DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity1> Entity1 { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox.Entity2> Entity2 { get; set; }
+      public virtual System.Data.Entity.DbSet<Sandbox.Entity1> Entity1 { get; set; }
+      public virtual System.Data.Entity.DbSet<Sandbox.Entity2> Entity2 { get; set; }
       #endregion DbSets
+
+      #region Constructors
+
+      partial void CustomInit();
 
       /// <summary>
       /// Default connection string
       /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=.;Initial Catalog=Test;Integrated Security=True";
-
       /// <inheritdoc />
-      public SandboxModel() : base()
+      public SandboxModel() : base(ConnectionString)
       {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
+         CustomInit();
       }
 
       /// <inheritdoc />
-      public SandboxModel(DbContextOptions<SandboxModel> options) : base(options)
+      public SandboxModel(string connectionString) : base(connectionString)
       {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
+         CustomInit();
       }
 
-      partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
-
       /// <inheritdoc />
-      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      public SandboxModel(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
       {
-         CustomInit(optionsBuilder);
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
+         CustomInit();
       }
 
-      partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
-      partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
+      /// <inheritdoc />
+      public SandboxModel(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
+         CustomInit();
+      }
 
       /// <inheritdoc />
-      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      public SandboxModel(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
+         CustomInit();
+      }
+
+      /// <inheritdoc />
+      public SandboxModel(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
+         CustomInit();
+      }
+
+      /// <inheritdoc />
+      public SandboxModel(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<SandboxModel>(new SandboxModelDatabaseInitializer());
+         CustomInit();
+      }
+
+      #endregion Constructors
+
+      #region SaveChanges
+
+      private void HandleOrphans()
+      {
+         ChangeTracker.DetectChanges();
+
+         if (Entity1.Local.Any())
+         {
+            Entity1.RemoveRange(Entity1.Local.Where(x => Entry(x).State != EntityState.Deleted && x.Entity2 == null));
+         }
+         if (Entity2.Local.Any())
+         {
+            Entity2.RemoveRange(Entity2.Local.Where(x => Entry(x).State != EntityState.Deleted && x.Entity1 == null));
+         }
+      }
+
+      partial void OnBeforeChangesSaved();
+      partial void OnAfterChangesSaved();
+
+      /// <inheritdoc />
+      public override int SaveChanges()
+      {
+         ChangeTracker.DetectChanges();
+         OnBeforeChangesSaved();
+         int result = base.SaveChanges();
+         OnAfterChangesSaved();
+         return result;
+      }
+
+      /// <inheritdoc />
+      public override async System.Threading.Tasks.Task<int> SaveChangesAsync()
+      {
+         ChangeTracker.DetectChanges();
+         OnBeforeChangesSaved();
+         int result = await base.SaveChangesAsync();
+         OnAfterChangesSaved();
+         return result;
+      }
+
+      /// <inheritdoc />
+      public override async System.Threading.Tasks.Task<int> SaveChangesAsync(System.Threading.CancellationToken cancellationToken)
+      {
+         ChangeTracker.DetectChanges();
+         OnBeforeChangesSaved();
+         int result = await base.SaveChangesAsync(cancellationToken);
+         OnAfterChangesSaved();
+         return result;
+      }
+
+      #endregion SaveChanges
+
+      partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+      partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+
+      /// <inheritdoc />
+      protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
          OnModelCreatingImpl(modelBuilder);
@@ -65,12 +167,8 @@ namespace Sandbox
          modelBuilder.Entity<Sandbox.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .ValueGeneratedOnAdd();
-         modelBuilder.Entity<Sandbox.Entity1>()
-                     .HasOne(x => x.Entity2)
-                     .WithOne()
-                     .HasForeignKey("Sandbox.Entity2", "Entity1Entity2_Id")
-                     .IsRequired();
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Sandbox.Entity2>()
                      .ToTable("Entity2")
@@ -78,7 +176,12 @@ namespace Sandbox
          modelBuilder.Entity<Sandbox.Entity2>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<Sandbox.Entity2>()
+                     .HasRequired(x => x.Entity1)
+                     .WithRequiredPrincipal(x => x.Entity2)
+                     .Map(x => x.MapKey("Entity1_Id"));
 
          OnModelCreatedImpl(modelBuilder);
       }
