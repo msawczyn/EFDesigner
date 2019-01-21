@@ -307,9 +307,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    /***********************************************************************/
    // SaveChanges 
    /***********************************************************************/
-   Output("#region SaveChanges");
-   NL();
-
    Output("private void HandleOrphans()");
    Output("{");
    Output("ChangeTracker.DetectChanges();");
@@ -364,42 +361,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("}");
    NL();
 
-   Output("partial void OnBeforeChangesSaved();");
-   Output("partial void OnAfterChangesSaved();");
-   NL();
-   Output("/// <inheritdoc />");
-   Output("public override int SaveChanges()");
-   Output("{");
-   Output("ChangeTracker.DetectChanges();");
-   Output("OnBeforeChangesSaved();");
-   Output("int result = base.SaveChanges();");
-   Output("OnAfterChangesSaved();");
-   Output("return result;");
-   Output("}");
-   NL();
-   Output("/// <inheritdoc />");
-   Output("public override async System.Threading.Tasks.Task<int> SaveChangesAsync()");
-   Output("{");
-   Output("ChangeTracker.DetectChanges();");
-   Output("OnBeforeChangesSaved();");
-   Output("int result = await base.SaveChangesAsync();");
-   Output("OnAfterChangesSaved();");
-   Output("return result;");
-   Output("}");
-   NL();
-   Output("/// <inheritdoc />");
-   Output("public override async System.Threading.Tasks.Task<int> SaveChangesAsync(System.Threading.CancellationToken cancellationToken)");
-   Output("{");
-   Output("ChangeTracker.DetectChanges();");
-   Output("OnBeforeChangesSaved();");
-   Output("int result = await base.SaveChangesAsync(cancellationToken);");
-   Output("OnAfterChangesSaved();");
-   Output("return result;");
-   Output("}");
-   NL();
-   Output("#endregion SaveChanges");
-   NL();
-   
    /***********************************************************************/
    // OnModelCreating 
    /***********************************************************************/
