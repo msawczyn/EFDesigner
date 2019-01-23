@@ -260,14 +260,6 @@
     <Content Include="Microsoft.Data.ConnectionUI.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ProjectItemTemplates\CSharp.vstemplate">
-      <DependentUpon>CSharp.tt</DependentUpon>
-    </Content>
-    <None Include="source.extension.vsixmanifest">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>source.extension.tt</DependentUpon>
-    </None>
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -299,19 +291,25 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>
     </None>
+    <None Include="source.extension.vsixmanifest">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="GeneratedCode\Constants.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Constants.cs</LastGenOutput>
-    </None>
-    <None Include="GeneratedCode\DocData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DocData.cs</LastGenOutput>
     </None>
     <Compile Include="GeneratedCode\Constants.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Constants.tt</DependentUpon>
     </Compile>
+    <None Include="GeneratedCode\DocData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DocData.cs</LastGenOutput>
+    </None>
     <Compile Include="GeneratedCode\DocData.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -351,25 +349,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Package.tt</DependentUpon>
     </Compile>
+    <Compile Include="MefExtension\PackageExtensionEnablement.cs">
+      <DependentUpon>PackageExtensionEnablement.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="MefExtension\CommandExtensionRegistrar.cs">
       <DependentUpon>CommandExtensionRegistrar.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="MefExtension\PackageExtensionEnablement.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PackageExtensionEnablement.tt</DependentUpon>
-    </Compile>
     <Compile Include="MefExtension\ValidationExtensionEnablement.cs">
+      <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
     </Compile>
     <Compile Include="MefExtension\ValidationExtensionRegistrar.cs">
+      <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="GeneratedCode\EditorFactory.tt">
@@ -430,6 +428,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <VSItemTemplate Include="ProjectItemTemplates\CSharp.vstemplate">
+      <OutputName>EFModel</OutputName>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharp.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </VSItemTemplate>
     <Content Include="Resources\File.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -454,7 +459,7 @@
     </Content>
     <None Include="ProjectItemTemplates\CSharp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CSharp1.vstemplate</LastGenOutput>
+      <LastGenOutput>CSharp.vstemplate</LastGenOutput>
     </None>
     <None Include="ProjectItemTemplates\efmodel.efmodel" />
     <None Include="ProjectItemTemplates\efmodel.diagram" />
