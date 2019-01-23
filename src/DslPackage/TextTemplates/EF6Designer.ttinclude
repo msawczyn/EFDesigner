@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.23
+// EFDesigner v1.2.6.24
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -459,6 +459,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             segments.Add("IsRowVersion()");
          if (modelAttribute.IsIdentity)
             segments.Add("HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)");
+         if (modelAttribute.IsDatabaseGenerated)
+            segments.Add($"HasColumnAnnotation(\"DatabaseGeneratedOption\", DatabaseGeneratedOption.{modelAttribute.DatabaseGeneratedOption})");
 
          if (segments.Any())
          {

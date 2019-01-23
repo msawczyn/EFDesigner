@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.23
+// EFDesigner v1.2.6.24
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -348,6 +348,22 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                segments.Add("ValueGeneratedOnAdd()");
             else if (modelAttribute.IdentityType == IdentityType.Manual)
                segments.Add("ValueGeneratedNever()");
+         }
+
+         if (modelAttribute.IsDatabaseGenerated)
+         {
+            switch (modelAttribute.DatabaseGeneratedOption)
+            {
+               case DatabaseGeneratedOption.None:
+                  segments.Add("ValueGeneratedNever()");
+                  break;
+               case DatabaseGeneratedOption.Identity:
+                  segments.Add("ValueGeneratedOnAdd()");
+                  break;
+               case DatabaseGeneratedOption.Computed:
+                  segments.Add("ValueGeneratedOnAddOrUpdate()");
+                  break;
+            }
          }
 
          if (segments.Any())

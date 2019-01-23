@@ -26,11 +26,34 @@ namespace Sawczyn.EFDesigner.EFModel
 
             EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelAttribute);
 
+            /********************************************************************************/
+            /********************************************************************************/
+
             // don't display IdentityType unless the IsIdentity is true
             if (!modelAttribute.IsIdentity)
             {
                PropertyDescriptor identityTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IdentityType");
-               propertyDescriptors.Remove(identityTypeDescriptor);
+               if (identityTypeDescriptor != null) propertyDescriptors.Remove(identityTypeDescriptor);
+            }
+            else
+            {
+               // don't display database generation options if IsIdentity is true
+               modelAttribute.IsDatabaseGenerated = false;
+
+               PropertyDescriptor isDatabaseGeneratedTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IsDatabaseGenerated");
+               if (isDatabaseGeneratedTypeDescriptor != null) propertyDescriptors.Remove(isDatabaseGeneratedTypeDescriptor);
+
+               PropertyDescriptor databaseGeneratedOptionTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "DatabaseGeneratedOption");
+               if (databaseGeneratedOptionTypeDescriptor != null) propertyDescriptors.Remove(databaseGeneratedOptionTypeDescriptor);
+            }
+
+            /********************************************************************************/
+
+            // don't display the Database Generated Option choice unles the property is database-generated (and not an identity ... see above)
+            if (!modelAttribute.IsDatabaseGenerated)
+            {
+               PropertyDescriptor databaseGeneratedOptionTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "DatabaseGeneratedOption");
+               if (databaseGeneratedOptionTypeDescriptor != null) propertyDescriptors.Remove(databaseGeneratedOptionTypeDescriptor);
             }
 
             /********************************************************************************/
@@ -39,13 +62,13 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelAttribute.Type != "String")
             {
                PropertyDescriptor minLengthTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "MinLength");
-               propertyDescriptors.Remove(minLengthTypeDescriptor);
+               if (minLengthTypeDescriptor != null) propertyDescriptors.Remove(minLengthTypeDescriptor);
 
                PropertyDescriptor maxLengthTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "MaxLength");
-               propertyDescriptors.Remove(maxLengthTypeDescriptor);
+               if (maxLengthTypeDescriptor != null) propertyDescriptors.Remove(maxLengthTypeDescriptor);
 
                PropertyDescriptor stringTypeTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "StringType");
-               propertyDescriptors.Remove(stringTypeTypeDescriptor);
+               if (stringTypeTypeDescriptor != null) propertyDescriptors.Remove(stringTypeTypeDescriptor);
             }
 
             /********************************************************************************/
@@ -54,9 +77,10 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!modelAttribute.Indexed)
             {
                PropertyDescriptor indexedUniqueTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IndexedUnique");
-               propertyDescriptors.Remove(indexedUniqueTypeDescriptor);
+               if (indexedUniqueTypeDescriptor != null) propertyDescriptors.Remove(indexedUniqueTypeDescriptor);
             }
 
+            /********************************************************************************/
             /********************************************************************************/
 
             DomainPropertyInfo columnNamePropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ColumnNameDomainPropertyId);

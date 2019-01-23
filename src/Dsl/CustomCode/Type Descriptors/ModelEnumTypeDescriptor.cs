@@ -24,6 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
             storeDomainDataDirectory = modelEnum.Store.DomainDataDirectory;
 
             /********************************************************************************/
+            /********************************************************************************/
 
             DomainPropertyInfo namespacePropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelEnum.NamespaceDomainPropertyId);
             DomainPropertyInfo isNamespaceTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelEnum.IsNamespaceTrackingDomainPropertyId);

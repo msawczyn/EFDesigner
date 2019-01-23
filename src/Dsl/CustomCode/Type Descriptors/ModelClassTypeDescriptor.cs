@@ -27,6 +27,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
 
+            /********************************************************************************/
+            /********************************************************************************/
+
             //Add the descriptors for the tracking properties 
             /********************************************************************************/
 

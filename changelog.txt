@@ -1,3 +1,6 @@
+1.2.6.24
+   - Added optional IsDatabaseGenerated and DatabaseGeneratedOption flags to generated code for automatic database value creation
+
 1.2.6.23
    - Fix for designer item not showing in Add Items dialog
 
