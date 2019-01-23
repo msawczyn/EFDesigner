@@ -43,13 +43,20 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
+**1.2.6.23**
+   - Fix for designer item not showing in Add Items dialog
+
 **1.2.6.22**
    - **[NEW]** Added code in EF6 templates to generate orphan cleanup (experimental)
    - Fix for 1..1 and 0-1..0-1 associations in EF Core generated code
+   - Entity constructor parameters normalized to help in JSON serialization/deserialization
 
-***1.2.6.21***
+<details>
+<summary><b>1.2.6.21</b></summary>
    - Generation of column type overrides now generates valid override code in OnModelCreating
    - DbSet properties in DbContext generate as virtual to facilitate mocking
+
+</details>
 
 <details>
 <summary><b>1.2.6.20</b></summary>
