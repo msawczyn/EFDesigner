@@ -156,7 +156,7 @@ form#SearchForm {
    float: right;
    background-color: #eee;
    width: 280px;
-   margin-top: 15px;
+   margin-top: 0;
 }
 
    form#SearchForm input {
