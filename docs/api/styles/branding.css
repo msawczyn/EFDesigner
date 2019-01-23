@@ -202,9 +202,9 @@ pre {
    color: #fff;
    background-color: #159957;
    background-image: linear-gradient(120deg, #155799, #159957);
-   /*font-family: 'Segoe UI', Tahoma, Helvetica, Sans-Serif;*/
-   font-weight: bold;
-   padding: 5px 10px;
+   /*font-family: 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
+   font-weight: bold;*/
+   padding: 20px 10px 0;
    vertical-align: middle;
    height: 25px;
    position: absolute;
@@ -217,7 +217,7 @@ pre {
 .pageBody {
    padding: 0;
    position: absolute;
-   top: 35px;
+   top: 110px;
    bottom: 41px;
    left: 0;
    right: 0;

@@ -147,11 +147,16 @@ div#tocNav > div.toclevel10 {
    padding-left: 170px;
 }
 
+table.titleTable {
+display: none;
+}
+
 /* Search form */
 form#SearchForm {
    float: right;
    background-color: #eee;
    width: 280px;
+   margin-top: 15px;
 }
 
    form#SearchForm input {
