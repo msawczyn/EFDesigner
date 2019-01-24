@@ -76,6 +76,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{90
 	EndProjectSection
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "EFDesigner.APIHelp", "EFDesigner.APIHelp\EFDesigner.APIHelp.shfbproj", "{1B1C830B-3BEE-4945-A6A0-9340574393D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B77C0323-1B94-4CE4-A416-6316EBCBA81C} = {B77C0323-1B94-4CE4-A416-6316EBCBA81C}
+		{AA22BCBD-2B02-4AD1-B8DC-19DFEBFB4436} = {AA22BCBD-2B02-4AD1-B8DC-19DFEBFB4436}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
