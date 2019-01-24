@@ -31,13 +31,28 @@ namespace ClassLibrary_Core
       public static string ConnectionString { get; set; } = @"Data Source=.;Initial Catalog=Test;Integrated Security=True";
 
       /// <inheritdoc />
-      public EFModel() : base()
+      public EFModel() : base(GetDbContextOptions())
       {
       }
 
       /// <inheritdoc />
-      public EFModel(DbContextOptions<EFModel> options) : base(options)
+      public EFModel(DbContextOptions<EFModel> options) : base(GetDbContextOptions(options))
       {
+      }
+
+      static partial void ModifyCustomContextOptions(DbContextOptions<EFModel> options);
+
+      protected static DbContextOptions<EFModel> GetDbContextOptions()
+      {
+         DbContextOptionsBuilder<EFModel> builder = new DbContextOptionsBuilder<EFModel>();
+         ModifyCustomContextOptions(builder.Options);
+         return builder.Options;
+      }
+
+      protected static DbContextOptions<EFModel> GetDbContextOptions(DbContextOptions<EFModel> options)
+      {
+         ModifyCustomContextOptions(options);
+         return options;
       }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
