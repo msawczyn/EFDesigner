@@ -24,9 +24,6 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**1.2.6.24**
-   - **[NEW]** Added optional `Is Database Generated` and `Database Generated Option` flags to generated code for automatic database value creation
-
 **1.2.6.23**
    - Fix for designer item not showing in Add Items dialog
 

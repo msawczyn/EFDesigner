@@ -190,8 +190,6 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelAttribute), "IsColumnTypeTracking", ModelAttribute.IsColumnTypeTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnTypeTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "CustomAttributes", ModelAttribute.CustomAttributesDomainPropertyId, typeof(ModelAttribute.CustomAttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "DisplayText", ModelAttribute.DisplayTextDomainPropertyId, typeof(ModelAttribute.DisplayTextPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelAttribute), "IsDatabaseGenerated", ModelAttribute.IsDatabaseGeneratedDomainPropertyId, typeof(ModelAttribute.IsDatabaseGeneratedPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelAttribute), "DatabaseGeneratedOption", ModelAttribute.DatabaseGeneratedOptionDomainPropertyId, typeof(ModelAttribute.DatabaseGeneratedOptionPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
@@ -1431,35 +1429,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AutomaticAction/Ask.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Ask = 2,
-	}
-}
-namespace Sawczyn.EFDesigner.EFModel
-{
-	/// <summary>
-	/// DomainEnumeration: DatabaseGeneratedOption
-	/// Description for Sawczyn.EFDesigner.EFModel.DatabaseGeneratedOption
-	/// </summary>
-	[global::System.CLSCompliant(true)]
-	public enum DatabaseGeneratedOption
-	{
-		/// <summary>
-		/// None
-		/// The database does not generate values
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseGeneratedOption/None.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		None = 0,
-		/// <summary>
-		/// Identity
-		/// The database generates a value when a row is inserted
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseGeneratedOption/Identity.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Identity = 1,
-		/// <summary>
-		/// Computed
-		/// The database generates a value when a row is inserted or updated
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DatabaseGeneratedOption/Computed.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Computed = 2,
 	}
 }
 

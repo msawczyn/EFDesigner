@@ -3942,40 +3942,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// IsDatabaseGenerated
-			if (!serializationContext.Result.Failed)
-			{
-				string attribIsDatabaseGenerated = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isDatabaseGenerated");
-				if (attribIsDatabaseGenerated != null)
-				{
-					global::System.Boolean valueOfIsDatabaseGenerated;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsDatabaseGenerated, out valueOfIsDatabaseGenerated))
-					{
-						instanceOfModelAttribute.IsDatabaseGenerated = valueOfIsDatabaseGenerated;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isDatabaseGenerated", typeof(global::System.Boolean), attribIsDatabaseGenerated);
-					}
-				}
-			}
-			// DatabaseGeneratedOption
-			if (!serializationContext.Result.Failed)
-			{
-				string attribDatabaseGeneratedOption = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "databaseGeneratedOption");
-				if (attribDatabaseGeneratedOption != null)
-				{
-					DatabaseGeneratedOption valueOfDatabaseGeneratedOption;
-					if (DslModeling::SerializationUtilities.TryGetValue<DatabaseGeneratedOption>(serializationContext, attribDatabaseGeneratedOption, out valueOfDatabaseGeneratedOption))
-					{
-						instanceOfModelAttribute.DatabaseGeneratedOption = valueOfDatabaseGeneratedOption;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "databaseGeneratedOption", typeof(DatabaseGeneratedOption), attribDatabaseGeneratedOption);
-					}
-				}
-			}
 		}
 	
 		/// <summary>
@@ -4710,26 +4676,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayText", propValue);
 	
-				}
-			}
-			// IsDatabaseGenerated
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.Boolean propValue = instanceOfModelAttribute.IsDatabaseGenerated;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isDatabaseGenerated", serializedPropValue);
-				}
-			}
-			// DatabaseGeneratedOption
-			if (!serializationContext.Result.Failed)
-			{
-				DatabaseGeneratedOption propValue = instanceOfModelAttribute.DatabaseGeneratedOption;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<DatabaseGeneratedOption>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "databaseGeneratedOption", serializedPropValue);
 				}
 			}
 		}

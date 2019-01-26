@@ -43,24 +43,16 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
-**1.2.6.24**
-   - **[NEW]** Added optional `Is Database Generated` and `Database Generated Option` flags to generated code for automatic database value creation
-
 **1.2.6.23**
    - Fix for designer item not showing in Add Items dialog
 
-<details>
-<summary><b>1.2.6.22</b></summary>
-
+**1.2.6.22**
    - **[NEW]** Added code in EF6 templates to generate orphan cleanup (experimental)
    - Fix for 1..1 and 0-1..0-1 associations in EF Core generated code
    - Entity constructor parameters normalized to help in JSON serialization/deserialization
 
-</details>
-
 <details>
 <summary><b>1.2.6.21</b></summary>
-
    - Generation of column type overrides now generates valid override code in OnModelCreating
    - DbSet properties in DbContext generate as virtual to facilitate mocking
 
@@ -68,11 +60,10 @@ You can read more about how to use the designer in the [Documentation site](http
 
 <details>
 <summary><b>1.2.6.20</b></summary>
-
    - Fixed code generation issue where class and enum directory overrides were being ignored (See https://github.com/msawczyn/EFDesigner/issues/36)
    - Fixed a problem that caused a hard crash when certain model properties were changed under certain conditions (See https://github.com/msawczyn/EFDesigner/issues/38)
    - Removed visibility of source and target roles for all but 1-1 and 0..1-0..1 associations; they can't be changed anyway (See https://github.com/msawczyn/EFDesigner/issues/40)
-   - **[NEW]** Added `Display Text` property to generate `[Display(Name="<text>")]` for attributes, enum values and navigation properties 
+   - **[NEW]** Added Display Text property to generate [Display(Name="<text>")] for attributes, enum values and navigation properties 
    - **[NEW]** Added ability to specify custom attributes for classes, attributes, enums, enum values and navigation properties
 
 </details>
@@ -136,7 +127,7 @@ You can read more about how to use the designer in the [Documentation site](http
 
    - Comment elements now wrap the text
    - Multiline editor available in property window for element comment descriptions and Comment element text
-   - Xml format changed for `.efmodel` file - can't be loaded by any version < 1.2.6.3
+   - Xml format changed for .efmodel file - can't be loaded by any version < 1.2.6.3
    - Support for automatic migration to new model xml formats
 
 </details>
@@ -144,7 +135,7 @@ You can read more about how to use the designer in the [Documentation site](http
 <details>
 <summary><b>1.2.6.2</b></summary>
 
-   - Added XML docs to `DbContext`, `DatabaseInitializer` and `DbMigrationsConfiguration`
+   - Added XML docs to DbContext, DatabaseInitializer and DbMigrationsConfiguration
    - **[NEW]** Enabled drag and drop reordering of enum values and class properties
    - Gave some color to the enum value glyph in the model explorer - it was so boring!
    - **[NEW]** Class properties and enum values with warnings now show a warning icon on the design surface

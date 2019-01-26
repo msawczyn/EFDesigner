@@ -20,14 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (ModelElement is ModelRoot modelRoot)
          {
             EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelRoot);
-
-            /********************************************************************************/
-            /********************************************************************************/
-
-            //Add in extra custom property editor manipulation here...
-
-            /********************************************************************************/
-            /********************************************************************************/
+            //Add in extra custom properties here...
          }
 
          // Return the property descriptors for this element
