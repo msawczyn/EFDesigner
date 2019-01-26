@@ -32,11 +32,11 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       WriteEnum(modelEnum);
    }
 
-   // not supported as of EF Core 2.2
+   // not supported as of EF Core 2.0
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
    // WriteDatabaseInitializerEFCore(modelRoot);
    
-   // not supported as of EF Core 2.2
+   // not supported as of EF Core 2.0
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
    // WriteMigrationConfigurationEFCore(modelRoot);
 
@@ -201,34 +201,16 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    }
    
    Output("/// <inheritdoc />");
-   Output($"public {modelRoot.EntityContainerName}() : base(GetDbContextOptions())");
+   Output($"public {modelRoot.EntityContainerName}() : base()");
    Output("{");
    Output("}");
    NL();
    Output("/// <inheritdoc />");
-   Output($"public {modelRoot.EntityContainerName}(DbContextOptions<{modelRoot.EntityContainerName}> options) : base(GetDbContextOptions(options))");
+   Output($"public {modelRoot.EntityContainerName}(DbContextOptions<{modelRoot.EntityContainerName}> options) : base(options)");
    Output("{");
    Output("}");
    NL();
    
-   Output($"static partial void ModifyCustomContextOptions(DbContextOptions<{modelRoot.EntityContainerName}> options);");
-   NL();
-
-   Output($"protected static DbContextOptions<{modelRoot.EntityContainerName}> GetDbContextOptions()");
-   Output("{");
-   Output($"DbContextOptionsBuilder<{modelRoot.EntityContainerName}> builder = new DbContextOptionsBuilder<{modelRoot.EntityContainerName}>();");
-   Output("ModifyCustomContextOptions(builder.Options);");
-   Output("return builder.Options;");
-   Output("}");
-   NL();
-
-   Output($"protected static DbContextOptions<{modelRoot.EntityContainerName}> GetDbContextOptions(DbContextOptions<{modelRoot.EntityContainerName}> options)");
-   Output("{");
-   Output("ModifyCustomContextOptions(options);");
-   Output("return options;");
-   Output("}");
-   NL();
-
    Output("partial void CustomInit(DbContextOptionsBuilder optionsBuilder);");
    NL();
 

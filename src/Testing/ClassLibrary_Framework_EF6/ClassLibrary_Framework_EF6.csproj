@@ -58,10 +58,7 @@
     <Compile Include="Generated\Context\EFModelDatabaseInitializer.generated.cs" />
     <Compile Include="Generated\Context\EFModelDbMigrationConfiguration.generated.cs" />
     <Compile Include="Generated\Entities\Entity1.generated.cs" />
-    <Compile Include="Migrations\201901241213057_Initial.cs" />
-    <Compile Include="Migrations\201901241213057_Initial.Designer.cs">
-      <DependentUpon>201901241213057_Initial.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,11 +85,6 @@
     <Folder Include="Custom\Structs\" />
     <Folder Include="Generated\Enums\" />
     <Folder Include="Generated\Structs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901241213057_Initial.resx">
-      <DependentUpon>201901241213057_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

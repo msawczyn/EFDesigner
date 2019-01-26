@@ -58,28 +58,14 @@
         <component id="API Token Resolution">{@TokenFiles}
 <replace elements="/*//token" item="string(.)" /></component>
       </ComponentConfig>
-      <ComponentConfig id="Comments Index Data (ESENT Cache)" enabled="True">
-        <component id="Comments Index Data (ESENT Cache)">
-          <index name="comments" value="/doc/members/member" key="@name" cache="30" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\CommentsIndexCache" projectCachePath="">
+<ComponentConfig id="Comments Index Data (ESENT Cache)" enabled="True"><component id="Comments Index Data (ESENT Cache)"><index name="comments" value="/doc/members/member" key="@name" cache="30" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\CommentsIndexCache" projectCachePath="">
 	{@FrameworkCommentList}
 	{@CommentFileList}
-</index>
-          <copy name="comments" source="*" target="/document/comments" />
-        </component>
-      </ComponentConfig>
-      <ComponentConfig id="Reflection Index Data (ESENT Cache)" enabled="True">
-        <component id="Reflection Index Data (ESENT Cache)">
-          <index name="reflection" value="/reflection/apis/api" key="@id" cache="15" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\ReflectionIndexCache" projectCachePath="">
-            <data base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" duplicateWarning="false" groupId="ReflectionIndexCache">
+</index><copy name="comments" source="*" target="/document/comments" /></component></ComponentConfig>
+<ComponentConfig id="Reflection Index Data (ESENT Cache)" enabled="True"><component id="Reflection Index Data (ESENT Cache)"><index name="reflection" value="/reflection/apis/api" key="@id" cache="15" localCacheSize="2500" frameworkCachePath="{@LocalDataFolder}Cache\ReflectionIndexCache" projectCachePath=""><data base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" duplicateWarning="false" groupId="ReflectionIndexCache">
 		{@ReferenceLinkNamespaceFiles}
-	</data>
-            <data files="reflection.xml" groupId="Project_Ref_{@UniqueID}" />
-          </index>
-          <copy name="reflection" source="*" target="/document/reference" />
-        </component>
-      </ComponentConfig>
-      <ComponentConfig id="Resolve Reference Links (ESENT Cache)" enabled="True">
-        <component id="Resolve Reference Links (ESENT Cache)">{@HRefFormat}
+	</data><data files="reflection.xml" groupId="Project_Ref_{@UniqueID}" /></index><copy name="reflection" source="*" target="/document/reference" /></component></ComponentConfig>
+<ComponentConfig id="Resolve Reference Links (ESENT Cache)" enabled="True"><component id="Resolve Reference Links (ESENT Cache)">{@HRefFormat}
 <locale value="{@Locale}" /><linkTarget value="{@SdkLinkTarget}" /><helpOutput format="HtmlHelp1"><msdnContentIdCache path="{@LocalDataFolder}Cache\MsdnContentId.cache" cachePath="{@LocalDataFolder}Cache\ESentMsdnContentIdCache" localCacheSize="2500" /><targets base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" type="{@HtmlSdkLinkType}" id="FrameworkTargets" cachePath="{@LocalDataFolder}Cache\ESentFrameworkTargetCache" localCacheSize="2500">
 		{@ReferenceLinkNamespaceFiles}
 	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput><helpOutput format="MSHelpViewer"><msdnContentIdCache path="{@LocalDataFolder}Cache\MsdnContentId.cache" cachePath="{@LocalDataFolder}Cache\ESentMsdnContentIdCache" localCacheSize="2500" /><targets base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" type="{@MSHelpViewerSdkLinkType}" id="FrameworkTargets" cachePath="{@LocalDataFolder}Cache\ESentFrameworkTargetCache" localCacheSize="2500">
@@ -90,44 +76,11 @@
 		{@ReferenceLinkNamespaceFiles}
 	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput><helpOutput format="Markdown"><msdnContentIdCache path="{@LocalDataFolder}Cache\MsdnContentId.cache" cachePath="{@LocalDataFolder}Cache\ESentMsdnContentIdCache" localCacheSize="2500" /><targets base="{@FrameworkReflectionDataFolder}" recurse="true" files="*.xml" type="{@WebsiteSdkLinkType}" id="FrameworkTargets" cachePath="{@LocalDataFolder}Cache\ESentFrameworkTargetCache" localCacheSize="2500">
 		{@ReferenceLinkNamespaceFiles}
-	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput></component>
-      </ComponentConfig>
-      <ComponentConfig id="Syntax Component" enabled="True">
-        <component id="Syntax Component">
-          <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
-          <generators>
+	</targets><targets files="reflection.xml" type="Local" id="ProjectTargets" cachePath="" localCacheSize="2500" noReload="true" /></helpOutput></component></ComponentConfig>
+<ComponentConfig id="Syntax Component" enabled="True"><component id="Syntax Component"><syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" /><generators>
     {@SyntaxFilters}
-</generators>
-          <containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" />
-          <configurations>
-            <generator id="C#" />
-            <generator id="Visual Basic">
-              <includeLineContinuation value="false" />
-            </generator>
-            <generator id="Visual Basic Usage">
-              <includeLineContinuation value="false" />
-            </generator>
-            <generator id="Managed C++" />
-            <generator id="F#" />
-            <generator id="J#" />
-            <generator id="JScript" />
-            <generator id="JavaScript" />
-            <generator id="XAML Usage" />
-            <generator id="ASP.NET" />
-            <generator id="X#" />
-          </configurations>
-        </component>
-      </ComponentConfig>
-      <ComponentConfig id="Code Block Component" enabled="True">
-        <component id="Code Block Component">
-          <basePath value="{@HtmlEncProjectFolder}" />
-          <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
-          <allowMissingSource value="false" />
-          <removeRegionMarkers value="false" />
-          <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="3" numberLines="true" outlining="true" keepSeeTags="true" defaultTitle="true" />
-        </component>
-      </ComponentConfig>
-    </ComponentConfigurations>
+</generators><containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" /><configurations><generator id="C#" /><generator id="Visual Basic"><includeLineContinuation value="false" /></generator><generator id="Visual Basic Usage"><includeLineContinuation value="false" /></generator><generator id="Managed C++" /><generator id="F#" /><generator id="J#" /><generator id="JScript" /><generator id="JavaScript" /><generator id="XAML Usage" /><generator id="ASP.NET" /><generator id="X#" /></configurations></component></ComponentConfig>
+<ComponentConfig id="Code Block Component" enabled="True"><component id="Code Block Component"><basePath value="{@HtmlEncProjectFolder}" /><outputPaths>{@HelpFormatOutputPaths}</outputPaths><allowMissingSource value="false" /><removeRegionMarkers value="false" /><colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="3" numberLines="true" outlining="true" keepSeeTags="true" defaultTitle="true" /></component></ComponentConfig></ComponentConfigurations>
     <PlugInConfigurations>
     </PlugInConfigurations>
     <DocumentationSources>
@@ -189,7 +142,6 @@
   <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.Concurrency" filterName="Concurrency" isExposed="True" />
   <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ConcurrencyOverride" filterName="ConcurrencyOverride" isExposed="True" />
   <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.ContainerAccess" filterName="ContainerAccess" isExposed="True" />
-  <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseGeneratedOption" filterName="DatabaseGeneratedOption" isExposed="True" />
   <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind" filterName="DatabaseInitializerKind" isExposed="True" />
   <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DatabaseKind" filterName="DatabaseKind" isExposed="True" />
   <Filter entryType="Enumeration" fullName="Sawczyn.EFDesigner.EFModel.DBWorkflow" filterName="DBWorkflow" isExposed="True" />
@@ -221,7 +173,6 @@
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ColumnName" filterName="ColumnName" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.ColumnType" filterName="ColumnType" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.CustomAttributes" filterName="CustomAttributes" isExposed="True" />
-    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.DatabaseGeneratedOption" filterName="DatabaseGeneratedOption" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" filterName="Description" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.DisplayText" filterName="DisplayText" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.FQPrimitiveType" filterName="FQPrimitiveType" isExposed="True" />
@@ -230,7 +181,6 @@
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IndexedUnique" filterName="IndexedUnique" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.InitialValue" filterName="InitialValue" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IsConcurrencyToken" filterName="IsConcurrencyToken" isExposed="True" />
-    <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IsDatabaseGenerated" filterName="IsDatabaseGenerated" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.IsIdentity" filterName="IsIdentity" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.MaxLength" filterName="MaxLength" isExposed="True" />
     <Filter entryType="Property" fullName="Sawczyn.EFDesigner.EFModel.ModelAttribute.MinLength" filterName="MinLength" isExposed="True" />

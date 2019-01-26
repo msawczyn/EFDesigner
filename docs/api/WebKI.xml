@@ -107,7 +107,6 @@
     <HelpKINode Title="DesignElement.Comments Property " Url="html/P_Sawczyn_EFDesigner_EFModel_DesignElement_Comments.htm" />
     <HelpKINode Title="ModelRoot.Comments Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Comments.htm" />
   </HelpKINode>
-  <HelpKINode Title="Computed enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseGeneratedOption.htm" />
   <HelpKINode Title="Concurrency enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_Concurrency.htm" />
   <HelpKINode Title="Concurrency property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Concurrency.htm" />
   <HelpKINode Title="ConcurrencyDefault property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ConcurrencyDefault.htm" />
@@ -126,8 +125,6 @@
     <HelpKINode Title="NavigationProperty.CustomAttributes Property " Url="html/P_Sawczyn_EFDesigner_EFModel_NavigationProperty_CustomAttributes.htm" />
   </HelpKINode>
   <HelpKINode Title="CustomInterfaces property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_CustomInterfaces.htm" />
-  <HelpKINode Title="DatabaseGeneratedOption enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseGeneratedOption.htm" />
-  <HelpKINode Title="DatabaseGeneratedOption property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_DatabaseGeneratedOption.htm" />
   <HelpKINode Title="DatabaseInitializerKind enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseInitializerKind.htm" />
   <HelpKINode Title="DatabaseInitializerType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DatabaseInitializerType.htm" />
   <HelpKINode Title="DatabaseKind enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseKind.htm" />
@@ -261,7 +258,6 @@
   <HelpKINode Title="HasPropertyNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasPropertyNamed.htm" />
   <HelpKINode Title="Home" Url="html/ed2e64f5-b23e-43ae-9e32-0311b0630eef.htm" />
   <HelpKINode Title="HTML5Type enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
-  <HelpKINode Title="Identity enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseGeneratedOption.htm" />
   <HelpKINode Title="IdentityAttributeNames property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IdentityAttributeNames.htm" />
   <HelpKINode Title="IdentityAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IdentityAttributes.htm" />
   <HelpKINode Title="IdentityType enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_IdentityType.htm" />
@@ -284,7 +280,6 @@
   <HelpKINode Title="IsAbstract property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsAbstract.htm" />
   <HelpKINode Title="IsCollection property" Url="html/P_Sawczyn_EFDesigner_EFModel_NavigationProperty_IsCollection.htm" />
   <HelpKINode Title="IsConcurrencyToken property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsConcurrencyToken.htm" />
-  <HelpKINode Title="IsDatabaseGenerated property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsDatabaseGenerated.htm" />
   <HelpKINode Title="IsDependentType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsDependentType.htm" />
   <HelpKINode Title="IsFlags property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_IsFlags.htm" />
   <HelpKINode Title="IsIdentity property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsIdentity.htm" />
@@ -311,7 +306,6 @@
   <HelpKINode Title="ModelAttribute.ColumnName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnName.htm" />
   <HelpKINode Title="ModelAttribute.ColumnType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnType.htm" />
   <HelpKINode Title="ModelAttribute.CustomAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_CustomAttributes.htm" />
-  <HelpKINode Title="ModelAttribute.DatabaseGeneratedOption property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_DatabaseGeneratedOption.htm" />
   <HelpKINode Title="ModelAttribute.Description property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Description.htm" />
   <HelpKINode Title="ModelAttribute.DisplayText property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_DisplayText.htm" />
   <HelpKINode Title="ModelAttribute.FQPrimitiveType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_FQPrimitiveType.htm" />
@@ -320,7 +314,6 @@
   <HelpKINode Title="ModelAttribute.IndexedUnique property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IndexedUnique.htm" />
   <HelpKINode Title="ModelAttribute.InitialValue property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_InitialValue.htm" />
   <HelpKINode Title="ModelAttribute.IsConcurrencyToken property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsConcurrencyToken.htm" />
-  <HelpKINode Title="ModelAttribute.IsDatabaseGenerated property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsDatabaseGenerated.htm" />
   <HelpKINode Title="ModelAttribute.IsIdentity property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsIdentity.htm" />
   <HelpKINode Title="ModelAttribute.IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsValidCLRType.htm" />
   <HelpKINode Title="ModelAttribute.IsValidInitialValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsValidInitialValue.htm" />
@@ -515,7 +508,6 @@
   <HelpKINode Title="None enumeration member">
     <HelpKINode Title="Concurrency Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_Concurrency.htm" />
     <HelpKINode Title="ConcurrencyOverride Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ConcurrencyOverride.htm" />
-    <HelpKINode Title="DatabaseGeneratedOption Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseGeneratedOption.htm" />
     <HelpKINode Title="DatabaseInitializerKind Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseInitializerKind.htm" />
     <HelpKINode Title="DatabaseKind Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseKind.htm" />
     <HelpKINode Title="DeleteAction Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DeleteAction.htm" />
@@ -606,7 +598,6 @@
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Concurrency enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_Concurrency.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ConcurrencyOverride enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ConcurrencyOverride.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ContainerAccess enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ContainerAccess.htm" />
-  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.DatabaseGeneratedOption enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseGeneratedOption.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseInitializerKind.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.DatabaseKind enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseKind.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.DBWorkflow enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DBWorkflow.htm" />
