@@ -512,11 +512,22 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                   segments.Add("WithMany()");
                   if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   {
-                     segments.Add("Map(x => { " +
-                        $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + 
-                        $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                        $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                        "})");
+                     if (modelClass == association.Source)
+                     {
+                        segments.Add("Map(x => { " +
+                           $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + 
+                           $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           "})");
+                     }
+                     else
+                     {
+                        segments.Add("Map(x => { " +
+                           $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + 
+                           $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           "})");
+                     }
                   }
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
@@ -600,11 +611,22 @@ void WriteDbContextEF6(ModelRoot modelRoot)
                   segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
                   if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   {
-                     segments.Add("Map(x => { " +
-                        $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + 
-                        $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                        $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
-                        "})");
+                     if (modelClass == association.Source)
+                     {
+                        segments.Add("Map(x => { " +
+                           $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + 
+                           $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           "})");
+                     }
+                     else
+                     {
+                        segments.Add("Map(x => { " +
+                           $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + 
+                           $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " +
+                           "})");
+                     }
                   }
                   break;
                case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
