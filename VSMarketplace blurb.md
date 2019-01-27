@@ -24,6 +24,9 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.24**
+   - Fix for join table schema generation in certain scenarios
+
 **1.2.6.23**
    - Fix for designer item not showing in Add Items dialog
 

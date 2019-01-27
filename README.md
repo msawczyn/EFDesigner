@@ -43,16 +43,24 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
+**1.2.6.24**
+   - Fix for join table schema generation in certain scenarios
+
 **1.2.6.23**
    - Fix for designer item not showing in Add Items dialog
 
-**1.2.6.22**
+<details>
+<summary><b>1.2.6.22</b></summary>
+
    - **[NEW]** Added code in EF6 templates to generate orphan cleanup (experimental)
    - Fix for 1..1 and 0-1..0-1 associations in EF Core generated code
    - Entity constructor parameters normalized to help in JSON serialization/deserialization
 
+</details>
+
 <details>
 <summary><b>1.2.6.21</b></summary>
+
    - Generation of column type overrides now generates valid override code in OnModelCreating
    - DbSet properties in DbContext generate as virtual to facilitate mocking
 
@@ -60,6 +68,7 @@ You can read more about how to use the designer in the [Documentation site](http
 
 <details>
 <summary><b>1.2.6.20</b></summary>
+
    - Fixed code generation issue where class and enum directory overrides were being ignored (See https://github.com/msawczyn/EFDesigner/issues/36)
    - Fixed a problem that caused a hard crash when certain model properties were changed under certain conditions (See https://github.com/msawczyn/EFDesigner/issues/38)
    - Removed visibility of source and target roles for all but 1-1 and 0..1-0..1 associations; they can't be changed anyway (See https://github.com/msawczyn/EFDesigner/issues/40)
