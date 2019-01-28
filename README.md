@@ -45,6 +45,7 @@ You can read more about how to use the designer in the [Documentation site](http
 
 **1.2.6.24**
    - Fix for join table schema generation in certain scenarios
+   - Fix for regression error producing code gen errors in EFCore navigation properties
 
 **1.2.6.23**
    - Fix for designer item not showing in Add Items dialog
