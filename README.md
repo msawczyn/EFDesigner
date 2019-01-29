@@ -43,12 +43,19 @@ You can read more about how to use the designer in the [Documentation site](http
 
  ### Change Log
 
+**1.2.6.25**
+   - Fix for duplicate associations when `Implement Notify` is true
+
 **1.2.6.24**
    - Fix for join table schema generation in certain scenarios
    - Fix for regression error producing code gen errors in EFCore navigation properties
 
-**1.2.6.23**
+<details>
+<summary><b>1.2.6.23</b></summary>
+
    - Fix for designer item not showing in Add Items dialog
+
+</details>
 
 <details>
 <summary><b>1.2.6.22</b></summary>

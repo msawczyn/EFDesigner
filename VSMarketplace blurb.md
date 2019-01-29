@@ -24,6 +24,9 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**1.2.6.25**
+   - Fix for duplicate associations when `Implement Notify` is true
+
 **1.2.6.24**
    - Fix for join table schema generation in certain scenarios
    - Fix for regression error producing code gen errors in EFCore navigation properties

@@ -22,7 +22,7 @@ using System.Runtime.ConstrainedExecution;
 [assembly: AssemblyCulture("")]
 [assembly: System.Resources.NeutralResourcesLanguage("en")]
 
-[assembly: AssemblyVersion("1.2.6.22")]
+[assembly: AssemblyVersion("1.2.6.25")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]
