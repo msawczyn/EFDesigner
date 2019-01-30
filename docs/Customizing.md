@@ -59,13 +59,13 @@ When you find it, you'll see five .ttinclude files there:
 </tbody>
 </table>
 
-Decide what you want to replace and copy the file into your project directory. Modify at will ...
-the templating engine will find your local copy before it looks anywhere else. That will customize
-the code generation for that project. If you want to globally change how code is generated, edit the
-`.ttinclude` files directly in the install directory. Be aware, though, that updates will overwrite
-those files, and you'll have to go through the excercise of editing them whenever you install a
-newer version of the designer. (If you feel strongly that you have a really good improvement, 
-you can always submit it as a pull request!)
+Decide what you want to replace and copy the file into the folder containg your .efmodel and .tt
+files. Modify at will; the templating engine will find your local copy before it looks anywhere else.
+That will customize the code generation for that project. If you want to globally change how code
+is generated, edit the `.ttinclude` files directly in the install directory. Be aware, though, that
+updates will overwrite those files, and you'll have to go through the excercise of editing them whenever
+you install a newer version of the designer. (If you feel strongly that you have a really good
+improvement,  you can always submit it as a pull request!)
 
 For code generation from the T4, the flow of events starts at the `[Model Name].tt` file in your
 project. Its template directives tell it to include the five templates listed above and then,
