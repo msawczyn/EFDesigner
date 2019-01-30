@@ -59,7 +59,7 @@ When you find it, you'll see five .ttinclude files there:
 </tbody>
 </table>
 
-Decide what you want to replace and copy the file into the folder containg your .efmodel and .tt
+Decide what you want to replace and copy the file into the folder containing your .efmodel and .tt
 files. Modify at will; the templating engine will find your local copy before it looks anywhere else.
 That will customize the code generation for that project. If you want to globally change how code
 is generated, edit the `.ttinclude` files directly in the install directory. Be aware, though, that
