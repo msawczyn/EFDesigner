@@ -116,12 +116,12 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    if (!string.IsNullOrEmpty(modelRoot.Summary))
    {
       Output("/// <summary>");
-      Output("/// {0}", modelRoot.Summary);
+      WriteCommentBody(modelRoot.Summary);
       Output("/// </summary>");
       if (!string.IsNullOrEmpty(modelRoot.Description))
       {
          Output("/// <remarks>");
-         Output("/// {0}", modelRoot.Description);
+         WriteCommentBody(modelRoot.Description);
          Output("/// </remarks>");
       }
    }
@@ -173,7 +173,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          {
             NL();
             Output("/// <summary>");
-            Output("/// Repository for {0} - {1}", modelClass.FullName, modelClass.Summary);
+            WriteCommentBody($"Repository for {modelClass.FullName} - {modelClass.Summary}");
             Output("/// </summary>");
          }
          Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual Microsoft.EntityFrameworkCore.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");

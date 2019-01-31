@@ -66,7 +66,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="EFDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>

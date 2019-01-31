@@ -134,6 +134,30 @@ void EndNamespace(string ns)
       Output("}");
 }
 
+void WriteCommentBody(string comment)
+{
+   int chunkSize = 80;
+   string[] parts = comment.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+   foreach (string value in parts)
+   {
+      string text = value;
+      while (text.Length > 0)
+      {
+         string outputText = text;
+         if (outputText.Length > chunkSize)
+         {
+            outputText = (text.IndexOf(' ', chunkSize) > 0 ? text.Substring(0, text.IndexOf(' ', chunkSize)) : text).Trim();
+            text = text.Substring(outputText.Length).Trim();
+         }
+         else
+         {
+            text = string.Empty;
+         }
+         Output($"/// {outputText.Replace("<","{").Replace(">","}")}");
+      }
+   }
+}
+
 List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults = null)
 {
    List<string> requiredParameters = new List<string>();
@@ -196,13 +220,13 @@ void WriteEnum(ModelEnum modelEnum)
       if (!string.IsNullOrEmpty(modelEnum.Summary))
       {
          Output("/// <summary>");
-         Output("/// {0}", modelEnum.Summary);
+         WriteCommentBody(modelEnum.Summary);
          Output("/// </summary>");
       }
       if (!string.IsNullOrEmpty(modelEnum.Description))
       {
          Output("/// <remarks>");
-         Output("/// {0}", modelEnum.Description);
+         WriteCommentBody(modelEnum.Description);
          Output("/// </remarks>");
       }
          
@@ -223,13 +247,13 @@ void WriteEnum(ModelEnum modelEnum)
          if (!string.IsNullOrEmpty(values[index].Summary))
          {
             Output("/// <summary>");
-            Output("/// {0}", values[index].Summary);
+            WriteCommentBody(values[index].Summary);
             Output("/// </summary>");
          }
          if (!string.IsNullOrEmpty(values[index].Description))
          {
             Output("/// <remarks>");
-            Output("/// {0}", values[index].Description);
+            WriteCommentBody(values[index].Description);
             Output("/// </remarks>");
          }
 
@@ -280,13 +304,13 @@ void WriteClass(ModelClass modelClass)
    if (!string.IsNullOrEmpty(modelClass.Summary))
    {
       Output("/// <summary>");
-      Output("/// {0}", modelClass.Summary);
+      WriteCommentBody(modelClass.Summary);
       Output("/// </summary>");
    }
    if (!string.IsNullOrEmpty(modelClass.Description))
    {
       Output("/// <remarks>");
-      Output("/// {0}", modelClass.Description);
+      WriteCommentBody(modelClass.Description);
       Output("/// </remarks>");
    }
 
@@ -618,15 +642,15 @@ void WritePersistentProperties(ModelClass modelClass)
       {
          Output("/// <summary>");
          if (segments.Any())
-            Output($"/// {string.Join(", ", segments)}");
+            WriteCommentBody($"{string.Join(", ", segments)}");
          if (!string.IsNullOrEmpty(modelAttribute.Summary))
-            Output("/// {0}", modelAttribute.Summary);
+            WriteCommentBody(modelAttribute.Summary);
          Output("/// </summary>");
       }
       if (!string.IsNullOrEmpty(modelAttribute.Description))
       {
          Output("/// <remarks>");
-         Output("/// {0}", modelAttribute.Description);
+         WriteCommentBody(modelAttribute.Description);
          Output("/// </remarks>");
       }
 
@@ -717,19 +741,19 @@ void WriteCalculatedProperties(ModelClass modelClass)
    {
       string nullable = IsNullable(calculatedAttribute) ? "?" : string.Empty;
 
-      Output("partial void Get{0}(ref {1}{2} value);", calculatedAttribute.Name, calculatedAttribute.FQPrimitiveType, nullable);
-      Output("partial void Set{0}({1}{2} value);", calculatedAttribute.Name, calculatedAttribute.FQPrimitiveType, nullable);
+      Output($"partial void Get{calculatedAttribute.Name}(ref {calculatedAttribute.FQPrimitiveType}{nullable} value);");
+      Output($"partial void Set{calculatedAttribute.Name}({calculatedAttribute.FQPrimitiveType}{nullable} value);");
 
       Output("/// <summary>");
       Output("/// Calculated property");
       if (!string.IsNullOrEmpty(calculatedAttribute.Summary))
-         Output("/// {0}", calculatedAttribute.Summary);
+         WriteCommentBody(calculatedAttribute.Summary);
       Output("/// </summary>");
 
       if (!string.IsNullOrEmpty(calculatedAttribute.Description))
       {
          Output("/// <remarks>");
-         Output("/// {0}", calculatedAttribute.Description);
+         WriteCommentBody(calculatedAttribute.Description);
          Output("/// </remarks>");
       }
 
@@ -794,14 +818,18 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
       if (!string.IsNullOrEmpty(navigationProperty.Summary) || !string.IsNullOrEmpty(comment))
       {
          Output("/// <summary>");
-         if (!string.IsNullOrEmpty(comment)) Output("/// {0}", comment);
-         if (!string.IsNullOrEmpty(navigationProperty.Summary)) Output("/// {0}", navigationProperty.Summary);
+         if (!string.IsNullOrEmpty(comment) && !string.IsNullOrEmpty(navigationProperty.Summary)) 
+            comment = comment + "<br/>";
+         if (!string.IsNullOrEmpty(comment)) 
+            WriteCommentBody(comment);
+         if (!string.IsNullOrEmpty(navigationProperty.Summary)) 
+            WriteCommentBody(navigationProperty.Summary);
          Output("/// </summary>");
       }
       if (!string.IsNullOrEmpty(navigationProperty.Description))
       {
          Output("/// <remarks>");
-         Output("/// {0}", navigationProperty.Description);
+         WriteCommentBody(navigationProperty.Description);
          Output("/// </remarks>");
       }
 
@@ -863,13 +891,13 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
       if (!string.IsNullOrEmpty(navigationProperty.Summary))
       {
          Output("/// <summary>");
-         Output("/// {0}", navigationProperty.Summary);
+         WriteCommentBody(navigationProperty.Summary);
          Output("/// </summary>");
       }
       if (!string.IsNullOrEmpty(navigationProperty.Description))
       {
          Output("/// <remarks>");
-         Output("/// {0}", navigationProperty.Description);
+         WriteCommentBody(navigationProperty.Description);
          Output("/// </remarks>");
       }
 

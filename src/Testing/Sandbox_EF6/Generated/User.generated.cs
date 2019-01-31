@@ -70,9 +70,32 @@ namespace Sandbox_EF6
        *************************************************************************/
 
       /// <summary>
-      /// Required
+      /// Required{br/}
       /// Role
       /// </summary>
+      /// <remarks>
+      /// {p}While giving you complete control over how the code is generated you'll be able
+      /// to, out of the box, create sophisticated,
+      /// consistent and {strong}correct{/strong} Entity Framework code that can be regenerated
+      /// when your model changes. And, since the code is written using
+      /// partial classes, any additions you make to your generated code is retained across
+      /// subsequent generations.{/p}
+      /// {p}If you are used to the EF visual modeling that comes with Visual Studio, you'll
+      /// be pretty much at home. The goal was to duplicate
+      /// at least those features and, in addition, add all the little things that {em}should{/em}
+      /// have been there. Things like:{/p}
+      /// {ul}
+      /// {li}the ability to show and hide parts of the model{/li}
+      /// {li}easy customization of generated output by editing or even replacing the T4 templates{/li}
+      /// {li}entities by default generated as partial classes so the generated code can be
+      /// easily extended{/li}
+      /// {li}class and enumeration nodes that can be colored to visually group the model{/li}
+      /// {li}different concerns being generated into different subdirectories (entities, enums,
+      /// dbcontext){/li}
+      /// {li}string length, index flags, required attributes and other properties being available
+      /// in the designer{/li}
+      /// {/ul}
+      /// </remarks>
       public virtual Sandbox_EF6.Role Role { get; set; }
 
    }

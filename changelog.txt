@@ -1,3 +1,6 @@
+1.2.6.26
+   - Better formatting for XML comment docs
+
 1.2.6.25
    - Fix for duplicate associations when "Implement Notify" is true
 

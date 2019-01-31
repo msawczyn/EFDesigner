@@ -85,16 +85,16 @@ void WriteMigrationConfigurationEF6(ModelRoot modelRoot)
 
    BeginNamespace(modelRoot.Namespace);
    Output("/// <inheritdoc/>");
-   Output("public sealed partial class {0}DbMigrationConfiguration : DbMigrationsConfiguration<{0}>", modelRoot.EntityContainerName);
+   Output($"public sealed partial class {modelRoot.EntityContainerName}DbMigrationConfiguration : DbMigrationsConfiguration<{modelRoot.EntityContainerName}>");
 
    Output("{");
    Output("partial void Init();");
    NL();
 
    Output("/// <inheritdoc/>");
-   Output("public {0}DbMigrationConfiguration()", modelRoot.EntityContainerName);
+   Output($"public {modelRoot.EntityContainerName}DbMigrationConfiguration()");
    Output("{");
-   Output("AutomaticMigrationsEnabled = {0};", modelRoot.AutomaticMigrationsEnabled.ToString().ToLower());
+   Output($"AutomaticMigrationsEnabled = {modelRoot.AutomaticMigrationsEnabled.ToString().ToLower()};");
    Output("AutomaticMigrationDataLossAllowed = false;");
    Output("Init();");
    Output("}");
@@ -118,12 +118,12 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    if (!string.IsNullOrEmpty(modelRoot.Summary))
    {
       Output("/// <summary>");
-      Output("/// {0}", modelRoot.Summary);
+      WriteCommentBody(modelRoot.Summary);
       Output("/// </summary>");
       if (!string.IsNullOrEmpty(modelRoot.Description))
       {
          Output("/// <remarks>");
-         Output("/// {0}", modelRoot.Description);
+         WriteCommentBody(modelRoot.Description);
          Output("/// </remarks>");
       }
    }
@@ -175,7 +175,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          {
             NL();
             Output("/// <summary>");
-            Output("/// Repository for {0} - {1}", modelClass.FullName, modelClass.Summary);
+            WriteCommentBody($"Repository for {modelClass.FullName} - {modelClass.Summary}");
             Output("/// </summary>");
          }
          Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual System.Data.Entity.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
