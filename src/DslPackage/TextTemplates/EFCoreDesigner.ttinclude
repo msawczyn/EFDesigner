@@ -328,8 +328,6 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add("IsRequired()");
          if (modelAttribute.ColumnName != modelAttribute.Name)
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
-         if (modelAttribute.ColumnType != "default")
-            segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\");");
          if (!modelAttribute.AutoProperty)
             segments.Add($"HasField(\"_{modelAttribute.Name}\")");
          if (modelAttribute.ColumnType.ToLowerInvariant() != "default")
