@@ -1,5 +1,6 @@
 1.2.6.26
    - Better formatting for XML comment docs
+   - Fix: Setting different value than default produces duplicated HasColumnType call in EF Core (See https://github.com/msawczyn/EFDesigner/issues/58). Thanks to tdabek (https://github.com/tdabek) for the PR!
 
 1.2.6.25
    - Fix for duplicate associations when "Implement Notify" is true
