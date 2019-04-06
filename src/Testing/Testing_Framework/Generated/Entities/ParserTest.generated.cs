@@ -34,23 +34,25 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_foo"></param>
-      public ParserTest(long _foo)
+      /// <param name="foo"></param>
+      public ParserTest(long foo)
       {
-         foo = _foo;
+         foo = foo;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_foo"></param>
-      public static ParserTest Create(long _foo)
+      /// <param name="foo"></param>
+      public static ParserTest Create(long foo)
       {
-         return new ParserTest(_foo);
+         return new ParserTest(foo);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required
@@ -81,24 +83,28 @@ namespace Testing
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name7 { get; set; }
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name8 { get; protected set; }
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name9 { get; set; }
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name { get; protected set; }
 
       public int? name11 { get; set; }
@@ -113,24 +119,28 @@ namespace Testing
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name15 { get; set; }
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name16 { get; protected set; }
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name17 { get; set; }
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name18 { get; protected set; }
 
    }

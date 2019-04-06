@@ -52,7 +52,7 @@ Selecting a property gives you access to **its** properties in the Property wind
 <tr><td valign="top">Indexed                                                                 </td><td valign="top"><i>Boolean.</i> If true, this property will create an index in the database</td></tr>
 <tr><td valign="top">Indexed Unique                                                          </td><td valign="top"><i>Boolean.</i> If indexed and this is true, a unique index will be created in the database using this property</td></tr>
 <tr><td valign="top">Is Concurrency Token                                                    </td><td valign="top"><i>Boolean.</i> If true, this property serves as the concurrency value for the class</td></tr>
-<tr><td valign="top">Is Identity                                                             </td><td valign="top"><i>Boolean.</i> If true, this attribute represents the identity of the object. Will automatically set <i>Indexed</i> and <i>Indexed Unique</i> to <i>true</i></td></tr>
+<tr><td valign="top">Is Identity                                                             </td><td valign="top"><i>Boolean.</i> If true, this attribute represents the identity of the object. Will automatically set <i>Indexed</i> and <i>Indexed Unique</i> to <i>true</i>. Note that if you want a multi-property identity (or, in database terms, a multi-column primary key), you can set this value to true for more than one property in the entity.</td></tr>
 
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Documentation</b>    </td></tr>
 <tr><td valign="top">Comment Detail                                                          </td><td valign="top"><i>String</i>. XML comment &lt;Remarks&gt; section</td></tr>

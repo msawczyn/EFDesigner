@@ -33,7 +33,9 @@ namespace Testing
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -42,7 +44,9 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       public virtual ICollection<Testing.Child> Children { get; set; }
 

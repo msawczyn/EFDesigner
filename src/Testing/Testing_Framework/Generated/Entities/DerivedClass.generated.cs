@@ -34,24 +34,26 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_property0"></param>
-      public DerivedClass(string _property0)
+      /// <param name="property0"></param>
+      public DerivedClass(string property0)
       {
-         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
-         Property0 = _property0;
+         if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
+         Property0 = property0;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_property0"></param>
-      public static new DerivedClass Create(string _property0)
+      /// <param name="property0"></param>
+      public static new DerivedClass Create(string property0)
       {
-         return new DerivedClass(_property0);
+         return new DerivedClass(property0);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       public string Property1 { get; set; }
 

@@ -31,7 +31,9 @@ namespace Testing
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required
@@ -70,6 +72,7 @@ namespace Testing
       /// Min length = 10, Max length = 100
       /// </summary>
       [MaxLength(100)]
+      [StringLength(100)]
       [MinLength(10)]
       public string String { get; set; }
 

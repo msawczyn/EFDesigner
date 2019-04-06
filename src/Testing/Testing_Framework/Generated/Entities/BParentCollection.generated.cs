@@ -36,26 +36,28 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public BParentCollection(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public BParentCollection(Testing.BChild bchildrequired)
       {
-         if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
-         BChildRequired = _bchildrequired;
+         if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
+         BChildRequired = bchildrequired;
 
-         BChildCollection = new ObservableCollection<Testing.BChild>();
+         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public static BParentCollection Create(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public static BParentCollection Create(Testing.BChild bchildrequired)
       {
-         return new BParentCollection(_bchildrequired);
+         return new BParentCollection(bchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -64,7 +66,9 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       /// <summary>
       /// Required

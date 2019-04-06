@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.6.11" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.6.26" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <comments>
     <comment Id="6c97fea5-bf5f-48eb-b6b8-64295fef6da0" />
     <comment Id="d4c635c2-a3f0-4db6-bed4-4213f9985ab9" />
@@ -102,7 +102,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="1b51a1b8-8776-4d38-a241-0a4e456367f1">
-      <modelClass Id="b4d4c136-e081-4fbd-83e2-0c563649e4fb" tableName="UParentOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="UParentOptionals" name="UParentOptional" implementNotify="true" isOutputDirectoryTracking="false" summary="x">
+      <modelClass Id="b4d4c136-e081-4fbd-83e2-0c563649e4fb" tableName="UParentOptionals" databaseSchema="dbo" namespace="Testing" dbSetName="UParentOptionals" name="UParentOptional" implementNotify="true" isOutputDirectoryTracking="false" summary="x" baseClass="HiddenEntity">
         <unidirectionalTargets>
           <unidirectionalAssociation Id="f3ca8a28-1de6-4ab2-b6a7-c9b23b4057e0" sourceMultiplicity="ZeroOne" targetMultiplicity="ZeroOne" targetPropertyName="UChildOptional" collectionClass="ObservableCollection" targetSummary="x" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
             <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
@@ -232,7 +232,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="5067357f-b231-4ced-8f84-938d5f9878df">
-      <modelClass Id="232ae00b-98c4-41e9-98ec-a17a8a3841c1" tableName="BaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="BaseClasses" name="BaseClass" isOutputDirectoryTracking="false">
+      <modelClass Id="232ae00b-98c4-41e9-98ec-a17a8a3841c1" tableName="BaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="BaseClasses" name="BaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
           <generalization Id="24802b77-af33-4c9f-9ec2-b9ccd35e499e">
             <modelClassMoniker Id="b45560b9-6af2-4b98-a9da-3f406fc214c5" />
@@ -241,7 +241,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="a37ebbb3-0bd7-4b72-9e8f-d8d0469cedd3">
-      <modelClass Id="b45560b9-6af2-4b98-a9da-3f406fc214c5" tableName="DerivedClasses" databaseSchema="dbo" namespace="Testing" dbSetName="DerivedClasses" name="DerivedClass" isOutputDirectoryTracking="false">
+      <modelClass Id="b45560b9-6af2-4b98-a9da-3f406fc214c5" tableName="DerivedClasses" databaseSchema="dbo" namespace="Testing" dbSetName="DerivedClasses" name="DerivedClass" isOutputDirectoryTracking="false" baseClass="BaseClass">
         <attributes>
           <modelAttribute Id="e10920b8-6926-4732-a6e5-5b9d77194b43" indexed="false" indexedUnique="false" stringType="None" name="Property1" columnName="Property1" columnType="default" />
           <modelAttribute Id="c5d60c7e-d5d9-4f9a-8122-f5301375cf3d" indexed="false" indexedUnique="false" stringType="None" name="PropertyInChild" columnName="PropertyInChild" columnType="default" />
@@ -285,7 +285,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="d084e412-93f6-4fcf-b97c-beec82e7c82c">
-      <modelClass Id="83e244a5-fd89-4379-b524-8902a92def37" isAbstract="true" tableName="AbstractBaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="AbstractBaseClasses" name="AbstractBaseClass" isOutputDirectoryTracking="false">
+      <modelClass Id="83e244a5-fd89-4379-b524-8902a92def37" isAbstract="true" tableName="AbstractBaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="AbstractBaseClasses" name="AbstractBaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
           <generalization Id="233b9311-3732-4eb5-b694-51e747d15fc0">
             <modelClassMoniker Id="2c300127-bc73-422a-b958-fee3c1c7685b" />
@@ -297,7 +297,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="f45df3af-6c5d-44ca-ace8-7402c80861c4">
-      <modelClass Id="2c300127-bc73-422a-b958-fee3c1c7685b" tableName="ConcreteDerivedClasses" databaseSchema="dbo" namespace="Testing" dbSetName="ConcreteDerivedClasses" name="ConcreteDerivedClass" isOutputDirectoryTracking="false">
+      <modelClass Id="2c300127-bc73-422a-b958-fee3c1c7685b" tableName="ConcreteDerivedClasses" databaseSchema="dbo" namespace="Testing" dbSetName="ConcreteDerivedClasses" name="ConcreteDerivedClass" isOutputDirectoryTracking="false" baseClass="AbstractBaseClass">
         <attributes>
           <modelAttribute Id="932705e9-d848-4be6-aee0-272d7c214773" indexed="false" indexedUnique="false" stringType="None" name="Property1" columnName="Property1" columnType="default" />
           <modelAttribute Id="2976a29b-4fda-45e6-9822-e5c36c8a9b0f" indexed="false" indexedUnique="false" stringType="None" name="PropertyInChild" columnName="PropertyInChild" columnType="default" />
@@ -305,7 +305,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="14f528ad-1f63-44ea-855e-18eb7d0db3cd">
-      <modelClass Id="6c5ece01-9c29-4581-9d1b-6079c2251af9" tableName="ConcreteDerivedClassWithRequiredProperties" databaseSchema="dbo" namespace="Testing" dbSetName="ConcreteDerivedClassWithRequiredProperties" name="ConcreteDerivedClassWithRequiredProperties" isOutputDirectoryTracking="false">
+      <modelClass Id="6c5ece01-9c29-4581-9d1b-6079c2251af9" tableName="ConcreteDerivedClassWithRequiredProperties" databaseSchema="dbo" namespace="Testing" dbSetName="ConcreteDerivedClassWithRequiredProperties" name="ConcreteDerivedClassWithRequiredProperties" isOutputDirectoryTracking="false" baseClass="AbstractBaseClass">
         <attributes>
           <modelAttribute Id="564e8a70-a7fb-4798-81a7-78b86e1b738d" required="true" indexed="false" indexedUnique="false" stringType="None" name="Property1" columnName="Property1" columnType="default" />
         </attributes>

@@ -19,6 +19,9 @@ using System.Data.Entity.Spatial;
 
 namespace Testing
 {
+   /// <summary>
+   /// x
+   /// </summary>
    public partial class UParentOptional : Testing.HiddenEntity, INotifyPropertyChanged
    {
       partial void Init();
@@ -37,29 +40,41 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentOptional(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public UParentOptional(Testing.UChild uchildrequired)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         PropertyInChild = "hello";
+         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
+         UChildRequired = uchildrequired;
 
-         UChildCollection = new ObservableCollection<Testing.UChild>();
+         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.UChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentOptional Create(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public static UParentOptional Create(Testing.UChild uchildrequired)
       {
-         return new UParentOptional(_uchildrequired);
+         return new UParentOptional(uchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for PropertyInChild
+      /// </summary>
       protected string _PropertyInChild;
+      /// <summary>
+      /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
+      /// </summary>
       partial void SetPropertyInChild(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of PropertyInChild to be changed before returning.
+      /// </summary>
       partial void GetPropertyInChild(ref string result);
 
       /// <summary>
@@ -85,12 +100,17 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       protected Testing.UChild _UChildOptional;
       partial void SetUChildOptional(Testing.UChild oldValue, ref Testing.UChild newValue);
       partial void GetUChildOptional(ref Testing.UChild result);
 
+      /// <summary>
+      /// x
+      /// </summary>
       public Testing.UChild UChildOptional
       {
          get
@@ -111,6 +131,9 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// h
+      /// </summary>
       public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
 
       protected Testing.UChild _UChildRequired;

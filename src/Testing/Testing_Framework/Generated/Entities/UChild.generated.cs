@@ -62,7 +62,9 @@ namespace Testing
          return new UChild(_uparentrequired0, _uparentrequired1, _uparentrequired2);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -71,7 +73,9 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
    }
 }
