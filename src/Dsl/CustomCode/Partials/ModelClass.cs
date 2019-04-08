@@ -32,7 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public IEnumerable<ModelAttribute> AllIdentityAttributes => AllAttributes.Where(x => x.IsIdentity).ToList();
       public IEnumerable<string> IdentityAttributeNames => IdentityAttributes.Select(x => x.Name).ToList();
       public IEnumerable<string> AllIdentityAttributeNames => AllIdentityAttributes.Select(x => x.Name).ToList();
-      public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{Name}" : $"global::{Namespace}.{Name}";
+      public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"{Name}" : $"{Namespace}.{Name}";
 
       #region Warning display
 

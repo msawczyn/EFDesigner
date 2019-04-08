@@ -68,10 +68,12 @@
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\EnvDTE.8.0.2\lib\net10\EnvDTE.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\EnvDTE80.8.0.3\lib\net10\EnvDTE80.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
     </Reference>
     <Reference Include="GOLD Engine, Version=5.0.6650.43176, Culture=neutral, PublicKeyToken=65f6575a661235db, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -410,15 +412,18 @@
     </Content>
     <Content Include="TextTemplates\MultipleOutputHelper.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="TextTemplates\VSIntegration.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="TextTemplates\EFCoreDesigner.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="TextTemplates\EFDesigner.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

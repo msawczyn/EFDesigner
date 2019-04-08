@@ -836,9 +836,13 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
       if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
          Output($"[Display(Name=\"{navigationProperty.DisplayText}\")]");
 
-      if ((!modelClass.ImplementNotify && navigationProperty.IsAutoProperty) || navigationProperty.IsCollection)
+      if (navigationProperty.IsCollection)
       {
          Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; private set; }}");
+      }
+      else if (!modelClass.ImplementNotify && navigationProperty.IsAutoProperty)
+      {
+         Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; set; }}");
       }
       else
       {
