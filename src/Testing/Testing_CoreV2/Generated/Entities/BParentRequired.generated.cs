@@ -35,29 +35,40 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public BParentRequired(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public BParentRequired(Testing.BChild bchildrequired)
       {
-         if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
-         BChildRequired = _bchildrequired;
+         if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
+         BChildRequired = bchildrequired;
 
-         BChildCollection = new HashSet<Testing.BChild>();
+         BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public static BParentRequired Create(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public static BParentRequired Create(Testing.BChild bchildrequired)
       {
-         return new BParentRequired(_bchildrequired);
+         return new BParentRequired(bchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -85,7 +96,9 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       protected Testing.BChild _BChildOptional;
       partial void SetBChildOptional(Testing.BChild oldValue, ref Testing.BChild newValue);

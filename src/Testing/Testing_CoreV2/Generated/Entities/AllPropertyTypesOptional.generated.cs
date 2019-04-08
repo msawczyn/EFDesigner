@@ -30,10 +30,21 @@ namespace Testing
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -61,8 +72,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for BinaryAttr
+      /// </summary>
       protected byte[] _BinaryAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of BinaryAttr to be changed before setting.
+      /// </summary>
       partial void SetBinaryAttr(byte[] oldValue, ref byte[] newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of BinaryAttr to be changed before returning.
+      /// </summary>
       partial void GetBinaryAttr(ref byte[] result);
 
       public byte[] BinaryAttr
@@ -85,8 +105,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for BooleanAttr
+      /// </summary>
       protected bool? _BooleanAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of BooleanAttr to be changed before setting.
+      /// </summary>
       partial void SetBooleanAttr(bool? oldValue, ref bool? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of BooleanAttr to be changed before returning.
+      /// </summary>
       partial void GetBooleanAttr(ref bool? result);
 
       public bool? BooleanAttr
@@ -109,8 +138,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for ByteAttr
+      /// </summary>
       protected byte? _ByteAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of ByteAttr to be changed before setting.
+      /// </summary>
       partial void SetByteAttr(byte? oldValue, ref byte? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of ByteAttr to be changed before returning.
+      /// </summary>
       partial void GetByteAttr(ref byte? result);
 
       public byte? ByteAttr
@@ -133,8 +171,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for DateTimeAttr
+      /// </summary>
       protected DateTime? _DateTimeAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of DateTimeAttr to be changed before setting.
+      /// </summary>
       partial void SetDateTimeAttr(DateTime? oldValue, ref DateTime? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of DateTimeAttr to be changed before returning.
+      /// </summary>
       partial void GetDateTimeAttr(ref DateTime? result);
 
       public DateTime? DateTimeAttr
@@ -157,8 +204,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for DateTimeOffsetAttr
+      /// </summary>
       protected DateTimeOffset? _DateTimeOffsetAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of DateTimeOffsetAttr to be changed before setting.
+      /// </summary>
       partial void SetDateTimeOffsetAttr(DateTimeOffset? oldValue, ref DateTimeOffset? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of DateTimeOffsetAttr to be changed before returning.
+      /// </summary>
       partial void GetDateTimeOffsetAttr(ref DateTimeOffset? result);
 
       public DateTimeOffset? DateTimeOffsetAttr
@@ -181,8 +237,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for DecimalAttr
+      /// </summary>
       protected decimal? _DecimalAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of DecimalAttr to be changed before setting.
+      /// </summary>
       partial void SetDecimalAttr(decimal? oldValue, ref decimal? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of DecimalAttr to be changed before returning.
+      /// </summary>
       partial void GetDecimalAttr(ref decimal? result);
 
       public decimal? DecimalAttr
@@ -205,8 +270,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for DoubleAttr
+      /// </summary>
       protected double? _DoubleAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of DoubleAttr to be changed before setting.
+      /// </summary>
       partial void SetDoubleAttr(double? oldValue, ref double? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of DoubleAttr to be changed before returning.
+      /// </summary>
       partial void GetDoubleAttr(ref double? result);
 
       public double? DoubleAttr
@@ -229,8 +303,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for GuidAttr
+      /// </summary>
       protected Guid? _GuidAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of GuidAttr to be changed before setting.
+      /// </summary>
       partial void SetGuidAttr(Guid? oldValue, ref Guid? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of GuidAttr to be changed before returning.
+      /// </summary>
       partial void GetGuidAttr(ref Guid? result);
 
       public Guid? GuidAttr
@@ -253,8 +336,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for Int16Attr
+      /// </summary>
       protected short? _Int16Attr;
+      /// <summary>
+      /// When provided in a partial class, allows value of Int16Attr to be changed before setting.
+      /// </summary>
       partial void SetInt16Attr(short? oldValue, ref short? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Int16Attr to be changed before returning.
+      /// </summary>
       partial void GetInt16Attr(ref short? result);
 
       public short? Int16Attr
@@ -277,8 +369,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for Int32Attr
+      /// </summary>
       protected int? _Int32Attr;
+      /// <summary>
+      /// When provided in a partial class, allows value of Int32Attr to be changed before setting.
+      /// </summary>
       partial void SetInt32Attr(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Int32Attr to be changed before returning.
+      /// </summary>
       partial void GetInt32Attr(ref int? result);
 
       public int? Int32Attr
@@ -301,8 +402,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for Int64Attr
+      /// </summary>
       protected long? _Int64Attr;
+      /// <summary>
+      /// When provided in a partial class, allows value of Int64Attr to be changed before setting.
+      /// </summary>
       partial void SetInt64Attr(long? oldValue, ref long? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Int64Attr to be changed before returning.
+      /// </summary>
       partial void GetInt64Attr(ref long? result);
 
       public long? Int64Attr
@@ -325,8 +435,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for SingleAttr
+      /// </summary>
       protected Single? _SingleAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of SingleAttr to be changed before setting.
+      /// </summary>
       partial void SetSingleAttr(Single? oldValue, ref Single? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of SingleAttr to be changed before returning.
+      /// </summary>
       partial void GetSingleAttr(ref Single? result);
 
       public Single? SingleAttr
@@ -349,14 +468,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for StringAttr
+      /// </summary>
       protected string _StringAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of StringAttr to be changed before setting.
+      /// </summary>
       partial void SetStringAttr(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of StringAttr to be changed before returning.
+      /// </summary>
       partial void GetStringAttr(ref string result);
 
       /// <summary>
       /// Min length = 1, Max length = 10
       /// </summary>
       [MaxLength(10)]
+      [StringLength(10)]
       public string StringAttr
       {
          get
@@ -377,8 +506,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for TimeAttr
+      /// </summary>
       protected TimeSpan? _TimeAttr;
+      /// <summary>
+      /// When provided in a partial class, allows value of TimeAttr to be changed before setting.
+      /// </summary>
       partial void SetTimeAttr(TimeSpan? oldValue, ref TimeSpan? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of TimeAttr to be changed before returning.
+      /// </summary>
       partial void GetTimeAttr(ref TimeSpan? result);
 
       public TimeSpan? TimeAttr

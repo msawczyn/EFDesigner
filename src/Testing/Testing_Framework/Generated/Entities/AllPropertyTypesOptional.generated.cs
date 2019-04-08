@@ -74,7 +74,7 @@ namespace Testing
       [MaxLength(100)]
       [StringLength(100)]
       [MinLength(10)]
-      public string String { get; set; }
+      public string StringAttr { get; set; }
 
    }
 }

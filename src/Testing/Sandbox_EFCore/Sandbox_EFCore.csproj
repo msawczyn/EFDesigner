@@ -72,7 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EFDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>

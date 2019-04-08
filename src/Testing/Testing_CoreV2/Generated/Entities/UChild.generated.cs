@@ -61,10 +61,21 @@ namespace Testing
          return new UChild(_uparentrequired0, _uparentrequired1, _uparentrequired2);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -92,7 +103,9 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       public virtual event PropertyChangedEventHandler PropertyChanged;
 

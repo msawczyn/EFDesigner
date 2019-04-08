@@ -30,10 +30,21 @@ namespace Testing
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>

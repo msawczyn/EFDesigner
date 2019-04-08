@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.6.26" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.2.7.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <comments>
     <comment Id="6c97fea5-bf5f-48eb-b6b8-64295fef6da0" />
     <comment Id="d4c635c2-a3f0-4db6-bed4-4213f9985ab9" />
@@ -58,7 +58,7 @@
           <modelAttribute Id="4ef3c00e-3d77-4210-8e7c-785bedb0beb2" type="Int64" required="true" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" columnName="Int64Attr" columnType="default" />
           <modelAttribute Id="01b0f082-457c-4049-98be-fb7fbfb636fd" type="Single" required="true" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" isColumnNameTracking="false" columnType="default" />
           <modelAttribute Id="96ee40f0-afa7-4d75-a702-f41a8e43e8b9" type="Time" required="true" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" columnName="TimeAttr" columnType="default" />
-          <modelAttribute Id="904983b6-4c25-4634-ab35-4c1a7169bce5" required="true" maxLength="100" indexed="false" indexedUnique="false" stringType="None" name="String" minLength="10" columnName="String" columnType="default" />
+          <modelAttribute Id="904983b6-4c25-4634-ab35-4c1a7169bce5" required="true" maxLength="100" indexed="false" indexedUnique="false" stringType="None" name="StringAttr" minLength="10" columnName="StringAttr" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
@@ -79,7 +79,7 @@
           <modelAttribute Id="69e90348-275c-4769-a5cc-5f7635cee851" type="Int64" indexed="false" indexedUnique="false" stringType="None" name="Int64Attr" columnName="Int64Attr" columnType="default" />
           <modelAttribute Id="be8c78ad-4c6e-482a-810b-a009b1f93b2b" type="Single" indexed="false" indexedUnique="false" stringType="None" name="SingleAttr" columnName="SingleAttr" columnType="default" />
           <modelAttribute Id="de874bd9-3730-4073-a41b-ae58c9ab0dc9" type="Time" indexed="false" indexedUnique="false" stringType="None" name="TimeAttr" columnName="TimeAttr" columnType="default" />
-          <modelAttribute Id="2d7d0957-7fe9-4024-a72a-2e104d2c36b9" maxLength="100" indexed="false" indexedUnique="false" stringType="None" name="String" minLength="10" columnName="String" columnType="default" />
+          <modelAttribute Id="2d7d0957-7fe9-4024-a72a-2e104d2c36b9" maxLength="100" indexed="false" indexedUnique="false" stringType="None" name="StringAttr" minLength="10" columnName="StringAttr" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
@@ -234,7 +234,7 @@
     <modelRootHasClasses Id="5067357f-b231-4ced-8f84-938d5f9878df">
       <modelClass Id="232ae00b-98c4-41e9-98ec-a17a8a3841c1" tableName="BaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="BaseClasses" name="BaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
-          <generalization Id="24802b77-af33-4c9f-9ec2-b9ccd35e499e">
+          <generalization Id="d269e750-adef-40e6-bab1-f153a7161b21">
             <modelClassMoniker Id="b45560b9-6af2-4b98-a9da-3f406fc214c5" />
           </generalization>
         </subclasses>
@@ -287,10 +287,10 @@
     <modelRootHasClasses Id="d084e412-93f6-4fcf-b97c-beec82e7c82c">
       <modelClass Id="83e244a5-fd89-4379-b524-8902a92def37" isAbstract="true" tableName="AbstractBaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="AbstractBaseClasses" name="AbstractBaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
-          <generalization Id="233b9311-3732-4eb5-b694-51e747d15fc0">
+          <generalization Id="0d90db18-8606-486e-b92d-f892a688d373">
             <modelClassMoniker Id="2c300127-bc73-422a-b958-fee3c1c7685b" />
           </generalization>
-          <generalization Id="92d9add2-480d-4610-90f9-8551472835ac">
+          <generalization Id="7a8997e9-a784-4d62-9a37-025161d27a05">
             <modelClassMoniker Id="6c5ece01-9c29-4581-9d1b-6079c2251af9" />
           </generalization>
         </subclasses>

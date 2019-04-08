@@ -30,7 +30,9 @@ namespace Testing
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -67,6 +69,7 @@ namespace Testing
       /// Min length = 1, Max length = 10
       /// </summary>
       [MaxLength(10)]
+      [StringLength(10)]
       public string StringAttr { get; set; }
 
       public TimeSpan? TimeAttr { get; set; }

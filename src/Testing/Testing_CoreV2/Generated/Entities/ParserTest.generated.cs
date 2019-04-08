@@ -30,10 +30,21 @@ namespace Testing
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -61,8 +72,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name1
+      /// </summary>
       protected string _name1;
+      /// <summary>
+      /// When provided in a partial class, allows value of name1 to be changed before setting.
+      /// </summary>
       partial void Setname1(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name1 to be changed before returning.
+      /// </summary>
       partial void Getname1(ref string result);
 
       public string name1
@@ -85,8 +105,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name2
+      /// </summary>
       protected string _name2;
+      /// <summary>
+      /// When provided in a partial class, allows value of name2 to be changed before setting.
+      /// </summary>
       partial void Setname2(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name2 to be changed before returning.
+      /// </summary>
       partial void Getname2(ref string result);
 
       public string name2
@@ -109,8 +138,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name3
+      /// </summary>
       protected int? _name3;
+      /// <summary>
+      /// When provided in a partial class, allows value of name3 to be changed before setting.
+      /// </summary>
       partial void Setname3(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name3 to be changed before returning.
+      /// </summary>
       partial void Getname3(ref int? result);
 
       public int? name3
@@ -133,8 +171,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name4
+      /// </summary>
       protected int? _name4;
+      /// <summary>
+      /// When provided in a partial class, allows value of name4 to be changed before setting.
+      /// </summary>
       partial void Setname4(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name4 to be changed before returning.
+      /// </summary>
       partial void Getname4(ref int? result);
 
       public int? name4
@@ -157,8 +204,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name5
+      /// </summary>
       protected int? _name5;
+      /// <summary>
+      /// When provided in a partial class, allows value of name5 to be changed before setting.
+      /// </summary>
       partial void Setname5(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name5 to be changed before returning.
+      /// </summary>
       partial void Getname5(ref int? result);
 
       public int? name5
@@ -181,8 +237,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name6
+      /// </summary>
       protected int? _name6;
+      /// <summary>
+      /// When provided in a partial class, allows value of name6 to be changed before setting.
+      /// </summary>
       partial void Setname6(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name6 to be changed before returning.
+      /// </summary>
       partial void Getname6(ref int? result);
 
       public int? name6
@@ -205,14 +270,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name7
+      /// </summary>
       protected string _name7;
+      /// <summary>
+      /// When provided in a partial class, allows value of name7 to be changed before setting.
+      /// </summary>
       partial void Setname7(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name7 to be changed before returning.
+      /// </summary>
       partial void Getname7(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name7
       {
          get
@@ -233,14 +308,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name8
+      /// </summary>
       protected string _name8;
+      /// <summary>
+      /// When provided in a partial class, allows value of name8 to be changed before setting.
+      /// </summary>
       partial void Setname8(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name8 to be changed before returning.
+      /// </summary>
       partial void Getname8(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name8
       {
          get
@@ -261,14 +346,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name9
+      /// </summary>
       protected string _name9;
+      /// <summary>
+      /// When provided in a partial class, allows value of name9 to be changed before setting.
+      /// </summary>
       partial void Setname9(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name9 to be changed before returning.
+      /// </summary>
       partial void Getname9(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name9
       {
          get
@@ -289,14 +384,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name
+      /// </summary>
       protected string _name;
+      /// <summary>
+      /// When provided in a partial class, allows value of name to be changed before setting.
+      /// </summary>
       partial void Setname(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name to be changed before returning.
+      /// </summary>
       partial void Getname(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name
       {
          get
@@ -317,8 +422,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name11
+      /// </summary>
       protected int? _name11;
+      /// <summary>
+      /// When provided in a partial class, allows value of name11 to be changed before setting.
+      /// </summary>
       partial void Setname11(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name11 to be changed before returning.
+      /// </summary>
       partial void Getname11(ref int? result);
 
       public int? name11
@@ -341,8 +455,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name12
+      /// </summary>
       protected int? _name12;
+      /// <summary>
+      /// When provided in a partial class, allows value of name12 to be changed before setting.
+      /// </summary>
       partial void Setname12(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name12 to be changed before returning.
+      /// </summary>
       partial void Getname12(ref int? result);
 
       public int? name12
@@ -365,8 +488,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name13
+      /// </summary>
       protected int? _name13;
+      /// <summary>
+      /// When provided in a partial class, allows value of name13 to be changed before setting.
+      /// </summary>
       partial void Setname13(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name13 to be changed before returning.
+      /// </summary>
       partial void Getname13(ref int? result);
 
       public int? name13
@@ -389,8 +521,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name14
+      /// </summary>
       protected int? _name14;
+      /// <summary>
+      /// When provided in a partial class, allows value of name14 to be changed before setting.
+      /// </summary>
       partial void Setname14(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name14 to be changed before returning.
+      /// </summary>
       partial void Getname14(ref int? result);
 
       public int? name14
@@ -413,14 +554,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name15
+      /// </summary>
       protected string _name15;
+      /// <summary>
+      /// When provided in a partial class, allows value of name15 to be changed before setting.
+      /// </summary>
       partial void Setname15(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name15 to be changed before returning.
+      /// </summary>
       partial void Getname15(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name15
       {
          get
@@ -441,14 +592,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name16
+      /// </summary>
       protected string _name16;
+      /// <summary>
+      /// When provided in a partial class, allows value of name16 to be changed before setting.
+      /// </summary>
       partial void Setname16(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name16 to be changed before returning.
+      /// </summary>
       partial void Getname16(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name16
       {
          get
@@ -469,14 +630,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name17
+      /// </summary>
       protected string _name17;
+      /// <summary>
+      /// When provided in a partial class, allows value of name17 to be changed before setting.
+      /// </summary>
       partial void Setname17(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name17 to be changed before returning.
+      /// </summary>
       partial void Getname17(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name17
       {
          get
@@ -497,14 +668,24 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for name18
+      /// </summary>
       protected string _name18;
+      /// <summary>
+      /// When provided in a partial class, allows value of name18 to be changed before setting.
+      /// </summary>
       partial void Setname18(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of name18 to be changed before returning.
+      /// </summary>
       partial void Getname18(ref string result);
 
       /// <summary>
       /// Max length = 6
       /// </summary>
       [MaxLength(6)]
+      [StringLength(6)]
       public string name18
       {
          get

@@ -47,8 +47,8 @@ namespace Testing
       /// <param name="int64attr"></param>
       /// <param name="singleattr"></param>
       /// <param name="timeattr"></param>
-      /// <param name="string"></param>
-      public AllPropertyTypesRequired(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, TimeSpan timeattr, string string)
+      /// <param name="stringattr"></param>
+      public AllPropertyTypesRequired(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, TimeSpan timeattr, string stringattr)
       {
          BinaryAttr = binaryattr;
          BooleanAttr = booleanattr;
@@ -63,8 +63,8 @@ namespace Testing
          Int64Attr = int64attr;
          SingleAttr = singleattr;
          TimeAttr = timeattr;
-         if (string.IsNullOrEmpty(string)) throw new ArgumentNullException(nameof(string));
-         String = string;
+         if (string.IsNullOrEmpty(stringattr)) throw new ArgumentNullException(nameof(stringattr));
+         StringAttr = stringattr;
          Init();
       }
 
@@ -84,10 +84,10 @@ namespace Testing
       /// <param name="int64attr"></param>
       /// <param name="singleattr"></param>
       /// <param name="timeattr"></param>
-      /// <param name="string"></param>
-      public static AllPropertyTypesRequired Create(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, TimeSpan timeattr, string string)
+      /// <param name="stringattr"></param>
+      public static AllPropertyTypesRequired Create(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, TimeSpan timeattr, string stringattr)
       {
-         return new AllPropertyTypesRequired(binaryattr, booleanattr, byteattr, datetimeattr, datetimeoffsetattr, decimalattr, doubleattr, guidattr, int16attr, int32attr, int64attr, singleattr, timeattr, string);
+         return new AllPropertyTypesRequired(binaryattr, booleanattr, byteattr, datetimeattr, datetimeoffsetattr, decimalattr, doubleattr, guidattr, int16attr, int32attr, int64attr, singleattr, timeattr, stringattr);
       }
 
       /*************************************************************************
@@ -186,7 +186,7 @@ namespace Testing
       [MaxLength(100)]
       [StringLength(100)]
       [MinLength(10)]
-      public string String { get; set; }
+      public string StringAttr { get; set; }
 
    }
 }

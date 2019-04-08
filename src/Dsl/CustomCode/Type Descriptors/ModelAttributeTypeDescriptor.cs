@@ -33,6 +33,13 @@ namespace Sawczyn.EFDesigner.EFModel
                propertyDescriptors.Remove(identityTypeDescriptor);
             }
 
+            // ImplementNotify implicitly defines autoproperty as false, so we don't display it
+            if (modelAttribute.ModelClass.ImplementNotify)
+            {
+               PropertyDescriptor autoPropertyTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "AutoProperty");
+               propertyDescriptors.Remove(autoPropertyTypeDescriptor);
+            }
+
             /********************************************************************************/
 
             // don't display String property modifiers unless the type is "String"

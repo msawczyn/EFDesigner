@@ -36,37 +36,39 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bparentrequired"></param>
-      /// <param name="_bparentrequired_1"></param>
-      /// <param name="_bparentrequired_2"></param>
-      public BChild(Testing_CoreV2NetCore.BParentRequired _bparentrequired, Testing_CoreV2NetCore.BParentRequired _bparentrequired_1, Testing_CoreV2NetCore.BParentRequired _bparentrequired_2)
+      /// <param name="bparentrequired"></param>
+      /// <param name="bparentrequired_1"></param>
+      /// <param name="bparentrequired_2"></param>
+      public BChild(Testing_CoreV2NetCore.BParentRequired bparentrequired, Testing_CoreV2NetCore.BParentRequired bparentrequired_1, Testing_CoreV2NetCore.BParentRequired bparentrequired_2)
       {
-         if (_bparentrequired == null) throw new ArgumentNullException(nameof(_bparentrequired));
-         BParentRequired = _bparentrequired;
+         if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
+         BParentRequired = bparentrequired;
 
-         if (_bparentrequired_1 == null) throw new ArgumentNullException(nameof(_bparentrequired_1));
-         BParentRequired_1 = _bparentrequired_1;
+         if (bparentrequired_1 == null) throw new ArgumentNullException(nameof(bparentrequired_1));
+         BParentRequired_1 = bparentrequired_1;
 
-         if (_bparentrequired_2 == null) throw new ArgumentNullException(nameof(_bparentrequired_2));
-         BParentRequired_2 = _bparentrequired_2;
+         if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
+         BParentRequired_2 = bparentrequired_2;
 
-         BParentCollection = new HashSet<Testing_CoreV2NetCore.BParentCollection>();
-         BParentCollection_2 = new HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bparentrequired"></param>
-      /// <param name="_bparentrequired_1"></param>
-      /// <param name="_bparentrequired_2"></param>
-      public static BChild Create(Testing_CoreV2NetCore.BParentRequired _bparentrequired, Testing_CoreV2NetCore.BParentRequired _bparentrequired_1, Testing_CoreV2NetCore.BParentRequired _bparentrequired_2)
+      /// <param name="bparentrequired"></param>
+      /// <param name="bparentrequired_1"></param>
+      /// <param name="bparentrequired_2"></param>
+      public static BChild Create(Testing_CoreV2NetCore.BParentRequired bparentrequired, Testing_CoreV2NetCore.BParentRequired bparentrequired_1, Testing_CoreV2NetCore.BParentRequired bparentrequired_2)
       {
-         return new BChild(_bparentrequired, _bparentrequired_1, _bparentrequired_2);
+         return new BChild(bparentrequired, bparentrequired_1, bparentrequired_2);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -75,7 +77,9 @@ namespace Testing_CoreV2NetCore
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       /// <summary>
       /// Required

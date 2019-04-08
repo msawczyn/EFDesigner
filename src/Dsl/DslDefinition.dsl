@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="6" Revision="26" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="2" Build="7" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -902,6 +902,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c3f59c5e-2afa-4a56-92af-00396e973805" Description="If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="TargetAutoProperty" DisplayName="Target Auto Property" DefaultValue="true" Category="End 2">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1031,6 +1036,11 @@
         <DomainProperty Id="5069324e-4190-403e-8791-416c692c872a" Description="Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end's property" Name="SourceDisplayText" DisplayName="End1 Display Text" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="9b6ff495-8b09-434d-9bcc-411afd7e94d5" Description="If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="SourceAutoProperty" DisplayName="Source Auto Property" DefaultValue="true" Category="End 1">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1554,6 +1564,9 @@
           <XmlPropertyData XmlName="targetDisplayText">
             <DomainPropertyMoniker Name="Association/TargetDisplayText" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="targetAutoProperty">
+            <DomainPropertyMoniker Name="Association/TargetAutoProperty" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -1872,6 +1885,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="sourceDisplayText">
             <DomainPropertyMoniker Name="BidirectionalAssociation/SourceDisplayText" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="sourceAutoProperty">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourceAutoProperty" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

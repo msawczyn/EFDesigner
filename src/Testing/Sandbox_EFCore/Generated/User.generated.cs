@@ -70,7 +70,7 @@ namespace Sandbox_EFCore
        *************************************************************************/
 
       /// <summary>
-      /// Required
+      /// Required{br/}
       /// Role
       /// </summary>
       public virtual Sandbox_EFCore.Role Role { get; set; }

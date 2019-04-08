@@ -1064,6 +1064,12 @@
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: TargetAutoProperty -->
+        <xsd:attribute name="targetAutoProperty" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1274,6 +1280,12 @@
         <xsd:attribute name="sourceDisplayText" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SourceAutoProperty -->
+        <xsd:attribute name="sourceAutoProperty" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

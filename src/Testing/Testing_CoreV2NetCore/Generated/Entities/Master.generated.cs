@@ -32,7 +32,9 @@ namespace Testing_CoreV2NetCore
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -41,7 +43,9 @@ namespace Testing_CoreV2NetCore
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       public virtual ICollection<Testing_CoreV2NetCore.Child> Children { get; set; }
 

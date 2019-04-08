@@ -35,26 +35,28 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentCollection(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public UParentCollection(Testing.UChild uchildrequired)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
+         UChildRequired = uchildrequired;
 
-         UChildCollection = new HashSet<Testing.UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentCollection Create(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public static UParentCollection Create(Testing.UChild uchildrequired)
       {
-         return new UParentCollection(_uchildrequired);
+         return new UParentCollection(uchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -63,7 +65,9 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       /// <summary>
       /// Required

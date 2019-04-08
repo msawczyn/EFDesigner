@@ -33,31 +33,42 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_property1"></param>
-      /// <param name="_property0"></param>
-      public ConcreteDerivedClassWithRequiredProperties(string _property1, string _property0)
+      /// <param name="property1"></param>
+      /// <param name="property0"></param>
+      public ConcreteDerivedClassWithRequiredProperties(string property1, string property0)
       {
-         if (string.IsNullOrEmpty(_property1)) throw new ArgumentNullException(nameof(_property1));
-         Property1 = _property1;
-         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
-         Property0 = _property0;
+         if (string.IsNullOrEmpty(property1)) throw new ArgumentNullException(nameof(property1));
+         Property1 = property1;
+         if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
+         Property0 = property0;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_property1"></param>
-      /// <param name="_property0"></param>
-      public static ConcreteDerivedClassWithRequiredProperties Create(string _property1, string _property0)
+      /// <param name="property1"></param>
+      /// <param name="property0"></param>
+      public static ConcreteDerivedClassWithRequiredProperties Create(string property1, string property0)
       {
-         return new ConcreteDerivedClassWithRequiredProperties(_property1, _property0);
+         return new ConcreteDerivedClassWithRequiredProperties(property1, property0);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Property1
+      /// </summary>
       protected string _Property1;
+      /// <summary>
+      /// When provided in a partial class, allows value of Property1 to be changed before setting.
+      /// </summary>
       partial void SetProperty1(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Property1 to be changed before returning.
+      /// </summary>
       partial void GetProperty1(ref string result);
 
       /// <summary>

@@ -383,8 +383,6 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                // TODO: Implement many-to-many
                if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-               else
-                  continue;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
@@ -400,11 +398,9 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          switch (association.SourceMultiplicity) // realized by property on target, but no property on target
          {
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-               // TODO: Implement many-to-many
                if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   segments.Add("WithMany()");
-               else
-                  continue;
+               // TODO: Implement many-to-many when available
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                segments.Add("WithOne()");
@@ -465,8 +461,6 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                // TODO: Implement many-to-many
                if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
-               else
-                  continue;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                segments.Add($"HasOne(x => x.{association.SourcePropertyName})");
@@ -485,8 +479,6 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                // TODO: Implement many-to-many
                if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
-               else
-                  continue;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                segments.Add($"WithOne(x => x.{association.TargetPropertyName})");

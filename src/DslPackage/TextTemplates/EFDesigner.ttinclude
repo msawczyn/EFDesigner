@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.26
+// EFDesigner v1.2.7.0
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -778,9 +778,7 @@ void WriteCalculatedProperties(ModelClass modelClass)
 
 //string CamelCase(string str)
 //{
-//   if (str.Length == 0) 
-//      return str;
-//   return str.Substring(0,1).ToLower() + str.Substring(1);
+//   return string.IsNullOrEmpty(str) ? "" : str.Substring(0,1).ToLower() + (str.Length > 1 ? str.Substring(1) : "");
 //}
 
 void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirtual)
@@ -838,13 +836,13 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
       if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
          Output($"[Display(Name=\"{navigationProperty.DisplayText}\")]");
 
-      if (!modelClass.ImplementNotify || navigationProperty.IsCollection)
+      if ((!modelClass.ImplementNotify && navigationProperty.IsAutoProperty) || navigationProperty.IsCollection)
       {
-         Output($"public {_virtual}{type} {navigationProperty.PropertyName} {{ get; set; }}");
+         Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; private set; }}");
       }
       else
       {
-         Output($"public {type} {navigationProperty.PropertyName}");
+         Output($"public virtual {type} {navigationProperty.PropertyName}");
          Output("{");
          Output("get");
          Output("{");

@@ -19,27 +19,27 @@ namespace Testing_CoreV2NetCore
    public partial class AllFeatureModel : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AbstractBaseClass> AbstractBaseClasses { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BaseClass> BaseClasses { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BChild> BChilds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BParentCollection> BParentCollections { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BParentOptional> BParentOptionals { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BParentRequired> BParentRequireds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.Child> Children { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.DerivedClass> DerivedClasses { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.HiddenEntity> HiddenEntities { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.Master> Masters { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.ParserTest> ParserTests { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.RenamedColumn> RenamedColumns { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UChild> UChilds { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentCollection> UParentCollections { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentOptional> UParentOptionals { get; set; }
-      public Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentRequired> UParentRequireds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AbstractBaseClass> AbstractBaseClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BaseClass> BaseClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BChild> BChilds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BParentCollection> BParentCollections { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BParentOptional> BParentOptionals { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.BParentRequired> BParentRequireds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.Child> Children { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.DerivedClass> DerivedClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.HiddenEntity> HiddenEntities { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.Master> Masters { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.ParserTest> ParserTests { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.RenamedColumn> RenamedColumns { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UChild> UChilds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentCollection> UParentCollections { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentOptional> UParentOptionals { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetCore.UParentRequired> UParentRequireds { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -160,14 +160,17 @@ namespace Testing_CoreV2NetCore
                      .ValueGeneratedOnAdd();
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentRequired)
-                     .WithOne(x => x.BChildOptional);
+                     .WithOne(x => x.BChildOptional)
+                     .HasForeignKey("BParentRequired_Id");
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentRequired_1)
                      .WithOne(x => x.BChildRequired)
+                     .HasForeignKey("BParentRequired_1_Id")
                      .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentRequired_2)
-                     .WithMany(x => x.BChildCollection);
+                     .WithMany(x => x.BChildCollection)
+                     .HasForeignKey("BParentRequired_2_Id");
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasMany(x => x.BParentCollection)
                      .WithOne(x => x.BChildRequired)
@@ -184,10 +187,12 @@ namespace Testing_CoreV2NetCore
                      .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentOptional_1)
-                     .WithMany(x => x.BChildCollection);
+                     .WithMany(x => x.BChildCollection)
+                     .HasForeignKey("BParentOptional_1_Id");
          modelBuilder.Entity<Testing_CoreV2NetCore.BChild>()
                      .HasOne(x => x.BParentOptional_2)
-                     .WithOne(x => x.BChildOptional);
+                     .WithOne(x => x.BChildOptional)
+                     .HasForeignKey("BParentOptional_2_Id");
 
          modelBuilder.Entity<Testing_CoreV2NetCore.BParentCollection>()
                      .ToTable("BParentCollections")
@@ -222,7 +227,8 @@ namespace Testing_CoreV2NetCore
                      .ValueGeneratedOnAdd();
          modelBuilder.Entity<Testing_CoreV2NetCore.Child>()
                      .HasOne(x => x.Parent)
-                     .WithMany(x => x.Children);
+                     .WithMany(x => x.Children)
+                     .HasForeignKey("Parent_Id");
 
 
          modelBuilder.Entity<Testing_CoreV2NetCore.ConcreteDerivedClassWithRequiredProperties>()
@@ -248,6 +254,7 @@ namespace Testing_CoreV2NetCore
          modelBuilder.Entity<Testing_CoreV2NetCore.Master>()
                      .HasMany(x => x.Children)
                      .WithOne()
+                     .HasForeignKey("Testing_CoreV2NetCore.ChildChildren_Id")
                      .IsRequired();
 
          modelBuilder.Entity<Testing_CoreV2NetCore.ParserTest>()
@@ -317,10 +324,12 @@ namespace Testing_CoreV2NetCore
 
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentOptional>()
                      .HasOne(x => x.UChildOptional)
-                     .WithOne();
+                     .WithOne()
+                     .HasForeignKey("Testing_CoreV2NetCore.UChildUChildOptional_Id");
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentOptional>()
                      .HasMany(x => x.UChildCollection)
-                     .WithOne();
+                     .WithOne()
+                     .HasForeignKey("Testing_CoreV2NetCore.UChildUChildCollection_Id");
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentOptional>()
                      .HasOne(x => x.UChildRequired)
                      .WithOne()
@@ -336,14 +345,17 @@ namespace Testing_CoreV2NetCore
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentRequired>()
                      .HasOne(x => x.UChildRequired)
                      .WithOne()
+                     .HasForeignKey("Testing_CoreV2NetCore.UChildUChildRequired_Id")
                      .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentRequired>()
                      .HasMany(x => x.UChildCollection)
                      .WithOne()
+                     .HasForeignKey("Testing_CoreV2NetCore.UChildUChildCollection_Id")
                      .IsRequired();
          modelBuilder.Entity<Testing_CoreV2NetCore.UParentRequired>()
                      .HasOne(x => x.UChildOptional)
                      .WithOne()
+                     .HasForeignKey("Testing_CoreV2NetCore.UChildUChildOptional_Id")
                      .IsRequired();
 
          OnModelCreatedImpl(modelBuilder);

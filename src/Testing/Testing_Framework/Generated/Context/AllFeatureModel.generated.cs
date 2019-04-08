@@ -121,8 +121,6 @@ namespace Testing
 
       #endregion Constructors
 
-      #region SaveChanges
-
       partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
 
@@ -137,7 +135,7 @@ namespace Testing
 
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.String).HasMaxLength(100);
+         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(100);
 
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -154,7 +152,7 @@ namespace Testing
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int64Attr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired();
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.String).HasMaxLength(100).IsRequired();
+         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).HasMaxLength(100).IsRequired();
 
 
          modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);

@@ -36,33 +36,38 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentOptional(Testing_CoreV2NetCore.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public UParentOptional(Testing_CoreV2NetCore.UChild uchildrequired)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         PropertyInChild = "hello";
+         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
+         UChildRequired = uchildrequired;
 
-         UChildCollection = new HashSet<Testing_CoreV2NetCore.UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.UChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentOptional Create(Testing_CoreV2NetCore.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public static UParentOptional Create(Testing_CoreV2NetCore.UChild uchildrequired)
       {
-         return new UParentOptional(_uchildrequired);
+         return new UParentOptional(uchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Default value = "hello"
       /// </summary>
       public string PropertyInChild { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       public virtual Testing_CoreV2NetCore.UChild UChildOptional { get; set; }
 

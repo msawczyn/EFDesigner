@@ -100,16 +100,6 @@ namespace Sandbox_EF6
 
       #endregion Constructors
 
-      private void HandleOrphans()
-      {
-         ChangeTracker.DetectChanges();
-
-         if (Users.Local.Any())
-         {
-            Users.RemoveRange(Users.Local.Where(x => Entry(x).State != EntityState.Deleted && x.Role == null));
-         }
-      }
-
       partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
 
@@ -127,7 +117,6 @@ namespace Sandbox_EF6
          modelBuilder.Entity<Sandbox_EF6.Role>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<Sandbox_EF6.User>()
@@ -136,7 +125,6 @@ namespace Sandbox_EF6
          modelBuilder.Entity<Sandbox_EF6.User>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()))
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<Sandbox_EF6.User>()
                      .HasRequired(x => x.Role)

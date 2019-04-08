@@ -36,40 +36,51 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bparentrequired"></param>
-      /// <param name="_bparentrequired_1"></param>
-      /// <param name="_bparentrequired_2"></param>
-      public BChild(Testing.BParentRequired _bparentrequired, Testing.BParentRequired _bparentrequired_1, Testing.BParentRequired _bparentrequired_2)
+      /// <param name="bparentrequired"></param>
+      /// <param name="bparentrequired_1"></param>
+      /// <param name="bparentrequired_2"></param>
+      public BChild(Testing.BParentRequired bparentrequired, Testing.BParentRequired bparentrequired_1, Testing.BParentRequired bparentrequired_2)
       {
-         if (_bparentrequired == null) throw new ArgumentNullException(nameof(_bparentrequired));
-         BParentRequired = _bparentrequired;
+         if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
+         BParentRequired = bparentrequired;
 
-         if (_bparentrequired_1 == null) throw new ArgumentNullException(nameof(_bparentrequired_1));
-         BParentRequired_1 = _bparentrequired_1;
+         if (bparentrequired_1 == null) throw new ArgumentNullException(nameof(bparentrequired_1));
+         BParentRequired_1 = bparentrequired_1;
 
-         if (_bparentrequired_2 == null) throw new ArgumentNullException(nameof(_bparentrequired_2));
-         BParentRequired_2 = _bparentrequired_2;
+         if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
+         BParentRequired_2 = bparentrequired_2;
 
-         BParentCollection = new HashSet<Testing.BParentCollection>();
-         BParentCollection_2 = new HashSet<Testing.BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bparentrequired"></param>
-      /// <param name="_bparentrequired_1"></param>
-      /// <param name="_bparentrequired_2"></param>
-      public static BChild Create(Testing.BParentRequired _bparentrequired, Testing.BParentRequired _bparentrequired_1, Testing.BParentRequired _bparentrequired_2)
+      /// <param name="bparentrequired"></param>
+      /// <param name="bparentrequired_1"></param>
+      /// <param name="bparentrequired_2"></param>
+      public static BChild Create(Testing.BParentRequired bparentrequired, Testing.BParentRequired bparentrequired_1, Testing.BParentRequired bparentrequired_2)
       {
-         return new BChild(_bparentrequired, _bparentrequired_1, _bparentrequired_2);
+         return new BChild(bparentrequired, bparentrequired_1, bparentrequired_2);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -97,7 +108,9 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       protected Testing.BParentRequired _BParentRequired;
       partial void SetBParentRequired(Testing.BParentRequired oldValue, ref Testing.BParentRequired newValue);

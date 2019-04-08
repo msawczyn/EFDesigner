@@ -33,11 +33,11 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_property0"></param>
-      protected AbstractBaseClass(string _property0)
+      /// <param name="property0"></param>
+      protected AbstractBaseClass(string property0)
       {
-         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
-         Property0 = _property0;
+         if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
+         Property0 = property0;
          Init();
       }
 

@@ -33,21 +33,21 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_property0"></param>
-      public BaseClass(string _property0)
+      /// <param name="property0"></param>
+      public BaseClass(string property0)
       {
-         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
-         Property0 = _property0;
+         if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
+         Property0 = property0;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_property0"></param>
-      public static new BaseClass Create(string _property0)
+      /// <param name="property0"></param>
+      public static new BaseClass Create(string property0)
       {
-         return new BaseClass(_property0);
+         return new BaseClass(property0);
       }
 
    }
