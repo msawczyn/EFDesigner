@@ -158,7 +158,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    {
       Output("#region DbSets");
       
-      foreach (ModelClass modelClass in modelRoot.Classes.OrderBy(x => x.Name))
+      foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
       {
          string dbSetName;
 
@@ -184,7 +184,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    }
 
    /***********************************************************************/
-   // construction
+   // constructors
    /***********************************************************************/
 
    if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
@@ -273,7 +273,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
       // class level
       bool isDependent = modelClass.IsDependentType;
-      segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
+      segments.Add($"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
 
       // note: this must come before the 'ToTable' call or there's a runtime error
       if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
@@ -306,7 +306,8 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
          segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
+         string attributeName = !indexed.AutoProperty ? $"_{indexed.Name}" : indexed.Name;
+         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{attributeName})");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
          if (segments.Count > 1)
          {
@@ -326,11 +327,11 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
-         if (modelAttribute.ColumnName != modelAttribute.Name)
+         if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
          if (!modelAttribute.AutoProperty)
             segments.Add($"HasField(\"_{modelAttribute.Name}\")");
-         if (modelAttribute.ColumnType.ToLowerInvariant() != "default")
+         if (!string.IsNullOrEmpty(modelAttribute.ColumnType) && modelAttribute.ColumnType.ToLowerInvariant() != "default")
          {
             if (modelAttribute.ColumnType.ToLowerInvariant() == "varchar" || modelAttribute.ColumnType.ToLowerInvariant() == "char")
                segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}({modelAttribute.MaxLength})\")");
@@ -350,7 +351,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
          if (segments.Any())
          {
-            segments.Insert(0, $"modelBuilder.Entity<{modelClass.FullName}>()");
+            segments.Insert(0, $"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
             segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
             if (modelRoot.ChopMethodChains)
@@ -368,7 +369,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       // Source and Target are accidents of where the user started drawing the association.
 
       // navigation properties
-      foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass).OfType<UnidirectionalAssociation>())
+         foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass).OfType<UnidirectionalAssociation>().Where(x => !x.Target.IsDependentType))
       {
          if (visited.Contains(association)) continue;
          visited.Add(association);
