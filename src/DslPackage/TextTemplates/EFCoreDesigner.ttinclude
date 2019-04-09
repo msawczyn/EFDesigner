@@ -272,8 +272,10 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       NL();
 
       // class level
+      // TODO
       bool isDependent = modelClass.IsDependentType;
-      segments.Add($"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
+      if (isDependent) continue;
+      segments.Add($"modelBuilder.{(modelClass.IsDependentType ? "Owned" : "Entity")}<{modelClass.FullName}>()");
 
       // note: this must come before the 'ToTable' call or there's a runtime error
       if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
@@ -351,7 +353,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
          if (segments.Any())
          {
-            segments.Insert(0, $"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
+            segments.Insert(0, $"modelBuilder.{(isDependent ? "Owned" : "Entity")}<{modelClass.FullName}>()");
             segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
             if (modelRoot.ChopMethodChains)
@@ -419,8 +421,8 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             //   break;
          }
 
-         string dependentClass = association.SourceRole == EndpointRole.Dependent ? association.Source.FullName : association.Target.FullName;
-         string columnPrefix = association.SourceRole == EndpointRole.Dependent ? "" : association.Target.FullName;
+         //string dependentClass = association.SourceRole == EndpointRole.Dependent ? association.Source.FullName : association.Target.FullName;
+         string columnPrefix = association.SourceRole == EndpointRole.Dependent ? "" : (association.Target.Name + "_");
          segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
          if (required)
