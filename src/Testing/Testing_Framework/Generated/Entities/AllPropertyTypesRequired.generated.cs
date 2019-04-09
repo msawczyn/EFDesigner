@@ -50,21 +50,21 @@ namespace Testing
       /// <param name="stringattr"></param>
       public AllPropertyTypesRequired(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, TimeSpan timeattr, string stringattr)
       {
-         BinaryAttr = binaryattr;
-         BooleanAttr = booleanattr;
-         ByteAttr = byteattr;
-         DateTimeAttr = datetimeattr;
-         DateTimeOffsetAttr = datetimeoffsetattr;
-         DecimalAttr = decimalattr;
-         DoubleAttr = doubleattr;
-         GuidAttr = guidattr;
-         Int16Attr = int16attr;
-         Int32Attr = int32attr;
-         Int64Attr = int64attr;
-         SingleAttr = singleattr;
-         TimeAttr = timeattr;
+         this.BinaryAttr = binaryattr;
+         this.BooleanAttr = booleanattr;
+         this.ByteAttr = byteattr;
+         this.DateTimeAttr = datetimeattr;
+         this.DateTimeOffsetAttr = datetimeoffsetattr;
+         this.DecimalAttr = decimalattr;
+         this.DoubleAttr = doubleattr;
+         this.GuidAttr = guidattr;
+         this.Int16Attr = int16attr;
+         this.Int32Attr = int32attr;
+         this.Int64Attr = int64attr;
+         this.SingleAttr = singleattr;
+         this.TimeAttr = timeattr;
          if (string.IsNullOrEmpty(stringattr)) throw new ArgumentNullException(nameof(stringattr));
-         StringAttr = stringattr;
+         this.StringAttr = stringattr;
          Init();
       }
 

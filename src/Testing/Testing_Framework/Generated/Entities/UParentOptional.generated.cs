@@ -43,11 +43,11 @@ namespace Testing
       /// <param name="uchildrequired"></param>
       public UParentOptional(Testing.UChild uchildrequired)
       {
-         PropertyInChild = "hello";
+         this.PropertyInChild = "hello";
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
-         UChildRequired = uchildrequired;
+         this.UChildRequired = uchildrequired;
 
-         UChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.UChild>();
+         this.UChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.UChild>();
          Init();
       }
 

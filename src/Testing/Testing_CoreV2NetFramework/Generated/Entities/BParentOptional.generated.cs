@@ -39,9 +39,9 @@ namespace Testing
       public BParentOptional(Testing.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
-         BChildRequired = bchildrequired;
+         this.BChildRequired = bchildrequired;
 
-         BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
+         this.BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
          Init();
       }
 

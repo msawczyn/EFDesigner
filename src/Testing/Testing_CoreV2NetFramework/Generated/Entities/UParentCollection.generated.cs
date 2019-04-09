@@ -39,9 +39,9 @@ namespace Testing
       public UParentCollection(Testing.UChild uchildrequired)
       {
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
-         UChildRequired = uchildrequired;
+         this.UChildRequired = uchildrequired;
 
-         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
+         this.UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
          Init();
       }
 

@@ -37,7 +37,7 @@ namespace Testing
       /// <param name="foo"></param>
       public ParserTest(long foo)
       {
-         foo = foo;
+         this.foo = foo;
          Init();
       }
 

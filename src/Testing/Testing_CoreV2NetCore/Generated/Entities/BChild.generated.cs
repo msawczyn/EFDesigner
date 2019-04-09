@@ -42,16 +42,16 @@ namespace Testing_CoreV2NetCore
       public BChild(Testing_CoreV2NetCore.BParentRequired bparentrequired, Testing_CoreV2NetCore.BParentRequired bparentrequired_1, Testing_CoreV2NetCore.BParentRequired bparentrequired_2)
       {
          if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
-         BParentRequired = bparentrequired;
+         this.BParentRequired = bparentrequired;
 
          if (bparentrequired_1 == null) throw new ArgumentNullException(nameof(bparentrequired_1));
-         BParentRequired_1 = bparentrequired_1;
+         this.BParentRequired_1 = bparentrequired_1;
 
          if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
-         BParentRequired_2 = bparentrequired_2;
+         this.BParentRequired_2 = bparentrequired_2;
 
-         BParentCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
-         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         this.BParentCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         this.BParentCollection_2 = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
          Init();
       }
 

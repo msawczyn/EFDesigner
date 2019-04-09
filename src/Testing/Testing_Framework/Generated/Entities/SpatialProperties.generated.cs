@@ -52,35 +52,35 @@ namespace Testing
       public SpatialProperties(DbGeography attrgeography, DbGeography attrgeographycollection, DbGeography attrgeographylinestring, DbGeography attrgeographymultilinestring, DbGeography attrgeographymultipoint, DbGeography attrgeographymultipolygon, DbGeography attrgeographypoint, DbGeography attrgeographypolygon, DbGeometry attrgeometry, DbGeometry attrgeometrycollection, DbGeometry attrgeometrylinestring, DbGeometry attrgeometrymultilinestring, DbGeometry attrgeometrymultipoint, DbGeometry attrgeometrymultipolygon, DbGeometry attrgeometrypoint)
       {
          if (attrgeography == null) throw new ArgumentNullException(nameof(attrgeography));
-         AttrGeography = attrgeography;
+         this.AttrGeography = attrgeography;
          if (attrgeographycollection == null) throw new ArgumentNullException(nameof(attrgeographycollection));
-         AttrGeographyCollection = attrgeographycollection;
+         this.AttrGeographyCollection = attrgeographycollection;
          if (attrgeographylinestring == null) throw new ArgumentNullException(nameof(attrgeographylinestring));
-         AttrGeographyLineString = attrgeographylinestring;
+         this.AttrGeographyLineString = attrgeographylinestring;
          if (attrgeographymultilinestring == null) throw new ArgumentNullException(nameof(attrgeographymultilinestring));
-         AttrGeographyMultiLineString = attrgeographymultilinestring;
+         this.AttrGeographyMultiLineString = attrgeographymultilinestring;
          if (attrgeographymultipoint == null) throw new ArgumentNullException(nameof(attrgeographymultipoint));
-         AttrGeographyMultiPoint = attrgeographymultipoint;
+         this.AttrGeographyMultiPoint = attrgeographymultipoint;
          if (attrgeographymultipolygon == null) throw new ArgumentNullException(nameof(attrgeographymultipolygon));
-         AttrGeographyMultiPolygon = attrgeographymultipolygon;
+         this.AttrGeographyMultiPolygon = attrgeographymultipolygon;
          if (attrgeographypoint == null) throw new ArgumentNullException(nameof(attrgeographypoint));
-         AttrGeographyPoint = attrgeographypoint;
+         this.AttrGeographyPoint = attrgeographypoint;
          if (attrgeographypolygon == null) throw new ArgumentNullException(nameof(attrgeographypolygon));
-         AttrGeographyPolygon = attrgeographypolygon;
+         this.AttrGeographyPolygon = attrgeographypolygon;
          if (attrgeometry == null) throw new ArgumentNullException(nameof(attrgeometry));
-         AttrGeometry = attrgeometry;
+         this.AttrGeometry = attrgeometry;
          if (attrgeometrycollection == null) throw new ArgumentNullException(nameof(attrgeometrycollection));
-         AttrGeometryCollection = attrgeometrycollection;
+         this.AttrGeometryCollection = attrgeometrycollection;
          if (attrgeometrylinestring == null) throw new ArgumentNullException(nameof(attrgeometrylinestring));
-         AttrGeometryLineString = attrgeometrylinestring;
+         this.AttrGeometryLineString = attrgeometrylinestring;
          if (attrgeometrymultilinestring == null) throw new ArgumentNullException(nameof(attrgeometrymultilinestring));
-         AttrGeometryMultiLineString = attrgeometrymultilinestring;
+         this.AttrGeometryMultiLineString = attrgeometrymultilinestring;
          if (attrgeometrymultipoint == null) throw new ArgumentNullException(nameof(attrgeometrymultipoint));
-         AttrGeometryMultiPoint = attrgeometrymultipoint;
+         this.AttrGeometryMultiPoint = attrgeometrymultipoint;
          if (attrgeometrymultipolygon == null) throw new ArgumentNullException(nameof(attrgeometrymultipolygon));
-         AttrGeometryMultiPolygon = attrgeometrymultipolygon;
+         this.AttrGeometryMultiPolygon = attrgeometrymultipolygon;
          if (attrgeometrypoint == null) throw new ArgumentNullException(nameof(attrgeometrypoint));
-         AttrGeometryPoint = attrgeometrypoint;
+         this.AttrGeometryPoint = attrgeometrypoint;
          Init();
       }
 

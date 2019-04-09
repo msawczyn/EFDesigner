@@ -38,7 +38,7 @@ namespace Testing
       protected AbstractBaseClass(string property0)
       {
          if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
-         Property0 = property0;
+         this.Property0 = property0;
          Init();
       }
 

@@ -37,7 +37,7 @@ namespace Testing_CoreV2NetCore
       public BParentCollection(Testing_CoreV2NetCore.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
-         BChildRequired = bchildrequired;
+         this.BChildRequired = bchildrequired;
 
          Init();
       }

@@ -39,9 +39,9 @@ namespace Testing
       public ConcreteDerivedClassWithRequiredProperties(string property1, string property0)
       {
          if (string.IsNullOrEmpty(property1)) throw new ArgumentNullException(nameof(property1));
-         Property1 = property1;
+         this.Property1 = property1;
          if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
-         Property0 = property0;
+         this.Property0 = property0;
          Init();
       }
 

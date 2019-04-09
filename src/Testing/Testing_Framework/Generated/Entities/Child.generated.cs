@@ -41,12 +41,12 @@ namespace Testing
       public Child(Testing.Child parent, Testing.Master _master0)
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
-         Parent = parent;
+         this.Parent = parent;
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         Children = new System.Collections.ObjectModel.ObservableCollection<Testing.Child>();
+         this.Children = new System.Collections.ObjectModel.ObservableCollection<Testing.Child>();
          Init();
       }
 

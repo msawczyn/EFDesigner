@@ -412,18 +412,15 @@
     </Content>
     <Content Include="TextTemplates\MultipleOutputHelper.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="TextTemplates\VSIntegration.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="TextTemplates\EFCoreDesigner.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="TextTemplates\EFDesigner.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

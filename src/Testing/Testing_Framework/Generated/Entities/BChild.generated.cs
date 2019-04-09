@@ -44,17 +44,17 @@ namespace Testing
       public BChild(Testing.BParentRequired bparentrequired, Testing.BParentRequired bparentrequired_1, Testing.BParentRequired bparentrequired_2)
       {
          if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
-         BParentRequired = bparentrequired;
+         this.BParentRequired = bparentrequired;
 
          if (bparentrequired_1 == null) throw new ArgumentNullException(nameof(bparentrequired_1));
-         BParentRequired_1 = bparentrequired_1;
+         this.BParentRequired_1 = bparentrequired_1;
 
          if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
-         BParentRequired_2 = bparentrequired_2;
+         this.BParentRequired_2 = bparentrequired_2;
 
-         BParentCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BParentCollection>();
-         BParentCollection_1 = new System.Collections.ObjectModel.ObservableCollection<Testing.BParentCollection>();
-         BParentCollection_2 = new System.Collections.ObjectModel.ObservableCollection<Testing.BParentCollection>();
+         this.BParentCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BParentCollection>();
+         this.BParentCollection_1 = new System.Collections.ObjectModel.ObservableCollection<Testing.BParentCollection>();
+         this.BParentCollection_2 = new System.Collections.ObjectModel.ObservableCollection<Testing.BParentCollection>();
          Init();
       }
 

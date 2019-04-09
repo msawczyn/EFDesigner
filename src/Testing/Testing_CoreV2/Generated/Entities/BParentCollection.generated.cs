@@ -37,7 +37,7 @@ namespace Testing
       public BParentCollection(Testing.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
-         BChildRequired = bchildrequired;
+         this.BChildRequired = bchildrequired;
 
          Init();
       }

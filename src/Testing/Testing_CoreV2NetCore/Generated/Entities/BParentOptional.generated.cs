@@ -39,9 +39,9 @@ namespace Testing_CoreV2NetCore
       public BParentOptional(Testing_CoreV2NetCore.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
-         BChildRequired = bchildrequired;
+         this.BChildRequired = bchildrequired;
 
-         BChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BChild>();
+         this.BChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BChild>();
          Init();
       }
 

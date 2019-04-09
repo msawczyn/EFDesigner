@@ -37,7 +37,7 @@ namespace Testing_CoreV2NetCore
       public UParentCollection(Testing_CoreV2NetCore.UChild uchildrequired)
       {
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
-         UChildRequired = uchildrequired;
+         this.UChildRequired = uchildrequired;
 
          Init();
       }

@@ -40,9 +40,9 @@ namespace Testing
       public BParentOptional(Testing.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
-         BChildRequired = bchildrequired;
+         this.BChildRequired = bchildrequired;
 
-         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BChild>();
+         this.BChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BChild>();
          Init();
       }
 

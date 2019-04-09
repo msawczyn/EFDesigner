@@ -471,7 +471,7 @@ void WriteConstructor(ModelClass modelClass)
             Output($"if (string.IsNullOrEmpty({requiredAttribute.Name.ToLower()})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
          else if (requiredAttribute.Type.StartsWith("Geo"))
             Output($"if ({requiredAttribute.Name.ToLower()} == null) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
-         Output($"{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
+         Output($"this.{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
       }
 
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public &&
@@ -480,7 +480,7 @@ void WriteConstructor(ModelClass modelClass)
                                                                                  x.InitialValue != "null"))
       {
          string quote = modelAttribute.Type == "String" ? "\"" : modelAttribute.Type == "Char" ? "'" : string.Empty;
-         Output($"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
+         Output($"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
       }
 
       foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties())
@@ -506,7 +506,7 @@ void WriteConstructor(ModelClass modelClass)
             }
          }
          else
-            Output($"{requiredNavigationProperty.PropertyName} = {parameterName};");
+            Output($"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
 
          NL();
       }
@@ -517,12 +517,12 @@ void WriteConstructor(ModelClass modelClass)
                                                                               !x.ConstructorParameterOnly))
       {
          if (!navigationProperty.IsCollection)
-            Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}(this);");
+            Output($"this.{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}(this);");
          else
          {
             string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass,
                                                        navigationProperty.ClassType.FullName);
-            Output($"{navigationProperty.PropertyName} = new {collectionType}();");
+            Output($"this.{navigationProperty.PropertyName} = new {collectionType}();");
          }
       }
 

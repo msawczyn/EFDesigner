@@ -302,10 +302,13 @@ class Manager
             {
                try 
                {
-                  ProjectItem parentItem = (ProjectItem)fileItem.Collection.Parent;
-                  if (!result.ContainsKey(parentItem))
-                     result.Add(parentItem, new List<string>());
-                  result[parentItem].Add(fileName);
+                  ProjectItem parentItem = fileItem.Collection.Parent as ProjectItem;
+                  if (parentItem != null)
+                  {
+                     if (!result.ContainsKey(parentItem))
+                        result.Add(parentItem, new List<string>());
+                     result[parentItem].Add(fileName);
+                  }
                }
                catch (InvalidCastException)
                {

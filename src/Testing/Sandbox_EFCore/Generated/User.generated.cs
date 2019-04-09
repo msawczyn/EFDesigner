@@ -40,7 +40,7 @@ namespace Sandbox_EFCore
       public User(Sandbox_EFCore.Role role)
       {
          if (role == null) throw new ArgumentNullException(nameof(role));
-         Role = role;
+         this.Role = role;
 
          Init();
       }

@@ -37,7 +37,7 @@ namespace Testing
       public UParentCollection(Testing.UChild uchildrequired)
       {
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
-         UChildRequired = uchildrequired;
+         this.UChildRequired = uchildrequired;
 
          Init();
       }

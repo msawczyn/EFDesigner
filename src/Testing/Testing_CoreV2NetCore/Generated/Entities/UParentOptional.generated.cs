@@ -39,11 +39,11 @@ namespace Testing_CoreV2NetCore
       /// <param name="uchildrequired"></param>
       public UParentOptional(Testing_CoreV2NetCore.UChild uchildrequired)
       {
-         PropertyInChild = "hello";
+         this.PropertyInChild = "hello";
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
-         UChildRequired = uchildrequired;
+         this.UChildRequired = uchildrequired;
 
-         UChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.UChild>();
+         this.UChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.UChild>();
          Init();
       }
 

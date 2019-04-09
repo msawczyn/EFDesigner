@@ -40,12 +40,12 @@ namespace Testing_CoreV2NetCore
       public Child(Testing_CoreV2NetCore.Child parent, Testing_CoreV2NetCore.Master _master0)
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
-         Parent = parent;
+         this.Parent = parent;
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         Children = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.Child>();
+         this.Children = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.Child>();
          Init();
       }
 
