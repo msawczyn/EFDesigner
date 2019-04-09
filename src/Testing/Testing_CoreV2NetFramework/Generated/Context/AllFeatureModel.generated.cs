@@ -110,7 +110,6 @@ namespace Testing
          modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentRequired_1).WithOne(x => x.BChildRequired).HasForeignKey("BParentRequired_1_Id").IsRequired();
          modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).HasForeignKey("BParentRequired_2_Id");
          modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection).WithOne(x => x.BChildRequired).HasForeignKey("BChildRequired_Id").IsRequired();
-         modelBuilder.Entity<Testing.BChild>();
          modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOne(x => x.BChildOptional).HasForeignKey("BChildOptional_Id");
          modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentOptional).WithOne(x => x.BChildRequired).HasForeignKey("BChildRequired1_Id").IsRequired();
          modelBuilder.Entity<Testing.BChild>().HasOne(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).HasForeignKey("BParentOptional_1_Id");
@@ -160,7 +159,6 @@ namespace Testing
          modelBuilder.Entity<Testing.UParentCollection>().ToTable("UParentCollections").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.UParentCollection>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<Testing.UParentCollection>().HasOne(x => x.UChildRequired).WithMany().HasForeignKey("UChildRequired_Id");
-         modelBuilder.Entity<Testing.UParentCollection>().HasForeignKey("Testing.UChildUChildCollection_Id");
          modelBuilder.Entity<Testing.UParentCollection>().HasOne(x => x.UChildOptional).WithMany().HasForeignKey("UChildOptional_Id");
 
          modelBuilder.Entity<Testing.UParentOptional>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey("Testing.UChildUChildOptional_Id");

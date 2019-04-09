@@ -48,7 +48,7 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; set; }
+      public virtual ICollection<Testing.Child> Children { get; private set; }
 
    }
 }

@@ -75,7 +75,7 @@ namespace Testing
       /// </summary>
       public virtual Testing.UChild UChildRequired { get; set; }
 
-      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
+      public virtual ICollection<Testing.UChild> UChildCollection { get; private set; }
 
       public virtual Testing.UChild UChildOptional { get; set; }
 

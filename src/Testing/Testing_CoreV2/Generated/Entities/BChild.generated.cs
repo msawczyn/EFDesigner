@@ -119,7 +119,7 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BParentRequired BParentRequired
+      public virtual Testing.BParentRequired BParentRequired
       {
          get
          {
@@ -146,7 +146,7 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BParentRequired BParentRequired_1
+      public virtual Testing.BParentRequired BParentRequired_1
       {
          get
          {
@@ -173,7 +173,7 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BParentRequired BParentRequired_2
+      public virtual Testing.BParentRequired BParentRequired_2
       {
          get
          {
@@ -193,15 +193,15 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; set; }
+      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; set; }
+      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
       protected Testing.BParentOptional _BParentOptional;
       partial void SetBParentOptional(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
       partial void GetBParentOptional(ref Testing.BParentOptional result);
 
-      public Testing.BParentOptional BParentOptional
+      public virtual Testing.BParentOptional BParentOptional
       {
          get
          {
@@ -225,7 +225,7 @@ namespace Testing
       partial void SetBParentOptional_1(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
       partial void GetBParentOptional_1(ref Testing.BParentOptional result);
 
-      public Testing.BParentOptional BParentOptional_1
+      public virtual Testing.BParentOptional BParentOptional_1
       {
          get
          {
@@ -249,7 +249,7 @@ namespace Testing
       partial void SetBParentOptional_2(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
       partial void GetBParentOptional_2(ref Testing.BParentOptional result);
 
-      public Testing.BParentOptional BParentOptional_2
+      public virtual Testing.BParentOptional BParentOptional_2
       {
          get
          {

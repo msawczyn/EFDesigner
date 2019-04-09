@@ -71,7 +71,7 @@ namespace Testing_CoreV2NetCore
 
       public virtual Testing_CoreV2NetCore.UChild UChildOptional { get; set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.UChild> UChildCollection { get; set; }
+      public virtual ICollection<Testing_CoreV2NetCore.UChild> UChildCollection { get; private set; }
 
       /// <summary>
       /// Required

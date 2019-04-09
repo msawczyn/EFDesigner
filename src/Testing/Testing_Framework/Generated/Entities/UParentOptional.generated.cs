@@ -111,7 +111,7 @@ namespace Testing
       /// <summary>
       /// x
       /// </summary>
-      public Testing.UChild UChildOptional
+      public virtual Testing.UChild UChildOptional
       {
          get
          {
@@ -134,7 +134,7 @@ namespace Testing
       /// <summary>
       /// h
       /// </summary>
-      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
+      public virtual ICollection<Testing.UChild> UChildCollection { get; private set; }
 
       protected Testing.UChild _UChildRequired;
       partial void SetUChildRequired(Testing.UChild oldValue, ref Testing.UChild newValue);
@@ -143,7 +143,7 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.UChild UChildRequired
+      public virtual Testing.UChild UChildRequired
       {
          get
          {

@@ -96,9 +96,9 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       public virtual Testing_CoreV2NetCore.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection { get; set; }
+      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection_2 { get; set; }
+      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection_2 { get; private set; }
 
       public virtual Testing_CoreV2NetCore.BParentOptional BParentOptional { get; set; }
 

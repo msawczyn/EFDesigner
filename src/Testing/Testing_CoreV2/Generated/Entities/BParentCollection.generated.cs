@@ -104,7 +104,7 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BChild BChildRequired
+      public virtual Testing.BChild BChildRequired
       {
          get
          {
@@ -128,7 +128,7 @@ namespace Testing
       partial void SetBChildOptional(Testing.BChild oldValue, ref Testing.BChild newValue);
       partial void GetBChildOptional(ref Testing.BChild result);
 
-      public Testing.BChild BChildOptional
+      public virtual Testing.BChild BChildOptional
       {
          get
          {

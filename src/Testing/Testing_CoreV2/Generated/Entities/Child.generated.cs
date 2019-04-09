@@ -105,7 +105,7 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; set; }
+      public virtual ICollection<Testing.Child> Children { get; private set; }
 
       protected Testing.Child _Parent;
       partial void SetParent(Testing.Child oldValue, ref Testing.Child newValue);
@@ -114,7 +114,7 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.Child Parent
+      public virtual Testing.Child Parent
       {
          get
          {

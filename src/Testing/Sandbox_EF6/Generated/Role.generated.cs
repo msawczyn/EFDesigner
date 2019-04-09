@@ -53,7 +53,7 @@ namespace Sandbox_EF6
       /// <summary>
       /// Users
       /// </summary>
-      public virtual ICollection<Sandbox_EF6.User> Users { get; set; }
+      public virtual ICollection<Sandbox_EF6.User> Users { get; private set; }
 
    }
 }

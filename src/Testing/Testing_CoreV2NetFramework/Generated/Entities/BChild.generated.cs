@@ -98,11 +98,11 @@ namespace Testing
       /// </summary>
       public virtual Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; set; }
+      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection_1 { get; set; }
+      public virtual ICollection<Testing.BParentCollection> BParentCollection_1 { get; private set; }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; set; }
+      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
       public virtual Testing.BParentOptional BParentOptional { get; set; }
 
