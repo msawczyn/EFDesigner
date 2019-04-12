@@ -357,22 +357,22 @@
         <elementListCompartment Id="e96ddbb1-bc56-4e7c-861a-bc3c50b1e60b" absoluteBounds="4.7650000000000006, 14.771080729166666, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="88be7051-75a5-49e4-ba31-26553beaa765" edgePoints="[(10.875 : 10.3031689453125); (10.875 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="8d4fcee2-1dca-475c-bebd-dd9b461cc1a0" />
+    <generalizationConnector Id="03947927-5f77-41e7-beef-c6ec0f5e6577" edgePoints="[(10.875 : 10.3031689453125); (10.875 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="8f4f4ebd-ebb4-4fd4-8dec-9f7489083e71" />
       <nodes>
         <classShapeMoniker Id="91ebab80-108f-4198-b2bb-a43ff000ad35" />
         <classShapeMoniker Id="10aae75a-82e2-4296-9d9f-faa440770436" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="57562ca5-3a6c-4811-9dc3-d5005039feaf" edgePoints="[(13.5625 : 10.3031689453125); (13.5625 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="c530f040-f7b7-40b6-b90b-742fdae6b513" />
+    <generalizationConnector Id="04369cca-5b80-480d-a65b-7cea16ed56b2" edgePoints="[(13.5625 : 10.3031689453125); (13.5625 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="078809fe-4fa6-4176-a1ec-52102ad0a9a9" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="d113c04f-14ad-44b9-9bb4-553107db92df" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="9b5d2c8f-aa26-4aaa-9030-d94af2dc45b8" edgePoints="[(14.9375 : 10.3031689453125); (14.9375 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="8eca3280-aee2-48c7-9d23-f3ffbd6ced4d" />
+    <generalizationConnector Id="cdd69368-309b-4e16-bca4-7524b63dadda" edgePoints="[(14.9375 : 10.3031689453125); (14.9375 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="c69837ba-ed62-4074-8037-936e5b802982" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="279ef3e6-87a3-4739-b2a1-79058c189d98" />

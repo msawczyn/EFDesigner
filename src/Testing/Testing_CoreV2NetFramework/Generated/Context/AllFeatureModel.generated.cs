@@ -78,7 +78,7 @@ namespace Testing
 
 
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => new { t.Id, t.Id1 });
-         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().ValueGeneratedNever();
+         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(10);
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id1).IsRequired().ValueGeneratedNever();
 
@@ -137,7 +137,7 @@ namespace Testing
 
          modelBuilder.Entity<Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.Master>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<Testing.Master>().HasMany(x => x.Children).WithOne().HasForeignKey("Testing.ChildChildren_Id").IsRequired();
+         modelBuilder.Entity<Testing.Master>().HasMany(x => x.Children).WithOne().HasForeignKey("Child_Children_Id").IsRequired();
 
          modelBuilder.Entity<Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
@@ -161,15 +161,15 @@ namespace Testing
          modelBuilder.Entity<Testing.UParentCollection>().HasOne(x => x.UChildRequired).WithMany().HasForeignKey("UChildRequired_Id");
          modelBuilder.Entity<Testing.UParentCollection>().HasOne(x => x.UChildOptional).WithMany().HasForeignKey("UChildOptional_Id");
 
-         modelBuilder.Entity<Testing.UParentOptional>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey("Testing.UChildUChildOptional_Id");
-         modelBuilder.Entity<Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("Testing.UChildUChildCollection_Id");
+         modelBuilder.Entity<Testing.UParentOptional>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey("UChild_UChildOptional_Id");
+         modelBuilder.Entity<Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("UChild_UChildCollection_Id");
          modelBuilder.Entity<Testing.UParentOptional>().HasOne(x => x.UChildRequired).WithOne().HasForeignKey("UChildRequired_Id");
 
          modelBuilder.Entity<Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.UParentRequired>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<Testing.UParentRequired>().HasOne(x => x.UChildRequired).WithOne().HasForeignKey("Testing.UChildUChildRequired_Id").IsRequired();
-         modelBuilder.Entity<Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("Testing.UChildUChildCollection_Id").IsRequired();
-         modelBuilder.Entity<Testing.UParentRequired>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey("Testing.UChildUChildOptional_Id").IsRequired();
+         modelBuilder.Entity<Testing.UParentRequired>().HasOne(x => x.UChildRequired).WithOne().HasForeignKey("UChild_UChildRequired_Id").IsRequired();
+         modelBuilder.Entity<Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("UChild_UChildCollection_Id").IsRequired();
+         modelBuilder.Entity<Testing.UParentRequired>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey("UChild_UChildOptional_Id").IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }
