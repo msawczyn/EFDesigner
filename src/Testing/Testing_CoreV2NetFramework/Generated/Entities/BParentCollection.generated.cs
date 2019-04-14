@@ -27,8 +27,6 @@ namespace Testing
       /// </summary>
       protected BParentCollection()
       {
-         BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
-
          Init();
       }
 
@@ -41,7 +39,6 @@ namespace Testing
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
          this.BChildRequired = bchildrequired;
 
-         this.BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
          Init();
       }
 
@@ -63,7 +60,7 @@ namespace Testing
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
@@ -73,8 +70,6 @@ namespace Testing
       /// Required
       /// </summary>
       public virtual Testing.BChild BChildRequired { get; set; }
-
-      public virtual ICollection<Testing.BChild> BChildCollection { get; private set; }
 
       public virtual Testing.BChild BChildOptional { get; set; }
 

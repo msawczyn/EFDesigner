@@ -359,8 +359,11 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       }
 
       bool hasDefinedConcurrencyToken = modelClass.AllAttributes.Any(x => x.IsConcurrencyToken);
-      if (!hasDefinedConcurrencyToken && modelClass.EffectiveConcurrency == ConcurrencyOverride.Optimistic)
+      if (!hasDefinedConcurrencyToken && 
+          (modelClass.Concurrency == ConcurrencyOverride.Optimistic || modelClass.ModelRoot.ConcurrencyDefault == Concurrency.Optimistic))
+      {
          Output($@"modelBuilder.Entity<{modelClass.FullName}>().Property<byte[]>(""Timestamp"").IsConcurrencyToken();");
+      }
 
       // Navigation endpoints are distingished as Source and Target. They are also distinguished as Principal
       // and Dependent. How do these map?
@@ -452,7 +455,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
       foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass).OfType<UnidirectionalAssociation>().Where(x => x.Target.IsDependentType))
       {
-         Output($"// Dependent: Source = {association.Source.Name}, Target = {association.Target.Name}");
+         Output($"// Dependent: Source = {association.Source.Name}, Target = {association.Target.Name}")
       }
 
       foreach (BidirectionalAssociation association in Association.GetLinksToSources(modelClass).OfType<BidirectionalAssociation>())
@@ -559,18 +562,11 @@ string CreateForeignKeyColumnSegmentEFCore(Association association, List<string>
    // foreign key definitions always go in the table representing the Dependent end of the association
    // if there is no dependent end (i.e., many-to-many), there are no foreign keys
    string nameBase = string.Empty;
-   string dependentType = null;
 
    if (association.SourceRole == EndpointRole.Dependent)
-   {
-      nameBase = association.TargetPropertyName; 
-	   dependentType = association.Source.FullName; 
-   }
+      nameBase = association.TargetPropertyName;
    else if (association.TargetRole == EndpointRole.Dependent)
-   {
       nameBase = association is BidirectionalAssociation b ? b.SourcePropertyName :  $"{association.Source.Name}.{association.TargetPropertyName}";
-	   dependentType = association.Target.FullName;
-   }
    else
       return null;
 

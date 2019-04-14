@@ -696,104 +696,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		#endregion
  	}
-	/// <summary>
-	/// ConnectionBuilder class to provide logic for constructing connections between elements.
-	/// </summary>
-	public static partial class Builder6
-	{
-		#region Accept Connection Methods
-		/// <summary>
-		/// Test whether a given model element is acceptable to this ConnectionBuilder as the source of a connection.
-		/// </summary>
-		/// <param name="candidate">The model element to test.</param>
-		/// <returns>Whether the element can be used as the source of a connection.</returns>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
-		{
-			if (candidate == null) return false;
-			else
-				return false;
-		}
-
-		/// <summary>
-		/// Test whether a given model element is acceptable to this ConnectionBuilder as the target of a connection.
-		/// </summary>
-		/// <param name="candidate">The model element to test.</param>
-		/// <returns>Whether the element can be used as the target of a connection.</returns>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
-		{
-			if (candidate == null) return false;
-			else
-				return false;
-		}
-		
-		/// <summary>
-		/// Test whether a given pair of model elements are acceptable to this ConnectionBuilder as the source and target of a connection
-		/// </summary>
-		/// <param name="candidateSource">The model element to test as a source</param>
-		/// <param name="candidateTarget">The model element to test as a target</param>
-		/// <returns>Whether the elements can be used as the source and target of a connection</returns>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
-		public static bool CanAcceptSourceAndTarget(DslModeling::ModelElement candidateSource, DslModeling::ModelElement candidateTarget)
-		{
-			// Accepts null, null; source, null; source, target but NOT null, target
-			if (candidateSource == null)
-			{
-				if (candidateTarget != null)
-				{
-					throw new global::System.ArgumentNullException("candidateSource");
-				}
-				else // Both null
-				{
-					return false;
-				}
-			}
-			bool acceptSource = CanAcceptSource(candidateSource);
-			// If the source wasn't accepted then there's no point checking targets.
-			// If there is no target then the source controls the accept.
-			if (!acceptSource || candidateTarget == null)
-			{
-				return acceptSource;
-			}
-			else // Check combinations
-			{
-				
-			}
-			return false;
-		}
-		#endregion
-
-		#region Connection Methods
-		/// <summary>
-		/// Make a connection between the given pair of source and target elements
-		/// </summary>
-		/// <param name="source">The model element to use as the source of the connection</param>
-		/// <param name="target">The model element to use as the target of the connection</param>
-		/// <returns>A link representing the created connection</returns>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
-		public static DslModeling::ElementLink Connect(DslModeling::ModelElement source, DslModeling::ModelElement target)
-		{
-			if (source == null)
-			{
-				throw new global::System.ArgumentNullException("source");
-			}
-			if (target == null)
-			{
-				throw new global::System.ArgumentNullException("target");
-			}
-			
-			if (CanAcceptSourceAndTarget(source, target))
-			{
-				
-			}
-			global::System.Diagnostics.Debug.Fail("Having agreed that the connection can be accepted we should never fail to make one.");
-			throw new global::System.InvalidOperationException();
-		}
-		#endregion
- 	}
 
  	/// <summary>
 	/// Handles creation of an element through its ElementTool.
@@ -1380,7 +1282,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// Called by the base ConnectAction class to determine if the given shapes can be connected.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder Builder6.
+			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesClassesBuilder.
 			/// </remarks>
 			public override bool CanCreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, ref string connectionWarning)
 			{
@@ -1406,11 +1308,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				{				
 					if(targetShapeElement == null)
 					{
-						return Builder6.CanAcceptSource(sourceElement);
+						return CommentReferencesClassesBuilder.CanAcceptSource(sourceElement);
 					}
 					else
 					{				
-						return Builder6.CanAcceptSourceAndTarget(sourceElement, targetElement);
+						return CommentReferencesClassesBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
 					}
 				}
 				else
@@ -1435,7 +1337,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// Called by the base ConnectAction class to create the underlying relationship.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder Builder6.
+			/// This implementation delegates calls to the ConnectionBuilder CommentReferencesClassesBuilder.
 			/// </remarks>
 			public override void CreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, DslDiagrams::PaintFeedbackArgs paintFeedbackArgs)
 			{
@@ -1449,7 +1351,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				if(sourceElement == null) sourceElement = sourceShapeElement;
 				DslModeling::ModelElement targetElement = targetShapeElement.ModelElement;
 				if(targetElement == null) targetElement = targetShapeElement;
-				Builder6.Connect(sourceElement, targetElement);
+				CommentReferencesClassesBuilder.Connect(sourceElement, targetElement);
 			}
 		}
 		

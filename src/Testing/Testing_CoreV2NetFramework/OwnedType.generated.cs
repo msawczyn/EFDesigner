@@ -18,36 +18,48 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public partial class Master
+   public partial class OwnedType
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Master()
+      public OwnedType()
       {
-         Children = new System.Collections.Generic.HashSet<Testing.Child>();
+         Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_allpropertytypesoptional0"></param>
+      public OwnedType(Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
+      {
+         if (_allpropertytypesoptional0 == null) throw new ArgumentNullException(nameof(_allpropertytypesoptional0));
+         _allpropertytypesoptional0.OwnedType = this;
 
          Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_allpropertytypesoptional0"></param>
+      public static OwnedType Create(Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
+      {
+         return new OwnedType(_allpropertytypesoptional0);
       }
 
       /*************************************************************************
        * Persistent properties
        *************************************************************************/
 
-      /// <summary>
-      /// Identity, Required, Indexed
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id { get; private set; }
+      public Single? SingleAttr { get; set; }
 
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
-
-      public virtual ICollection<Testing.Child> Children { get; private set; }
 
    }
 }

@@ -59,7 +59,7 @@ namespace Testing
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /// <summary>
       /// Required

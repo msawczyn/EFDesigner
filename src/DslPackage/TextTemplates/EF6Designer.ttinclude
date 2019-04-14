@@ -654,7 +654,8 @@ void WritePersistentProperties(ModelClass modelClass)
          Output("/// </remarks>");
       }
 
-      string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : 
+      string setterVisibility = modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelAttribute.IsIdentity ? "private " :
+                                modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : 
                                 modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : 
                                 string.Empty;
 

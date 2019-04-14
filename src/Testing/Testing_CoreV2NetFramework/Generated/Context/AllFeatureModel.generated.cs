@@ -79,8 +79,11 @@ namespace Testing
 
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => new { t.Id, t.Id1 });
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Int16Attr).HasField("_Int16Attr");
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(10);
          modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id1).IsRequired().ValueGeneratedNever();
+         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property<byte[]>("Timestamp").IsConcurrencyToken();
+         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().OwnsOne(x => x.OwnedType);
 
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
@@ -138,6 +141,7 @@ namespace Testing
          modelBuilder.Entity<Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.Master>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<Testing.Master>().HasMany(x => x.Children).WithOne().HasForeignKey("Child_Children_Id").IsRequired();
+
 
          modelBuilder.Entity<Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
          modelBuilder.Entity<Testing.ParserTest>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();

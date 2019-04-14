@@ -28,7 +28,6 @@ namespace Testing
       protected BChild()
       {
          BParentCollection = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
-         BParentCollection_1 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
          BParentCollection_2 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
 
          Init();
@@ -52,7 +51,6 @@ namespace Testing
          this.BParentRequired_2 = bparentrequired_2;
 
          this.BParentCollection = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
-         this.BParentCollection_1 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
          this.BParentCollection_2 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
          Init();
       }
@@ -77,7 +75,7 @@ namespace Testing
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
@@ -99,8 +97,6 @@ namespace Testing
       public virtual Testing.BParentRequired BParentRequired_2 { get; set; }
 
       public virtual ICollection<Testing.BParentCollection> BParentCollection { get; private set; }
-
-      public virtual ICollection<Testing.BParentCollection> BParentCollection_1 { get; private set; }
 
       public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; private set; }
 

@@ -12,7 +12,6 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementAdded(e);
 
          ModelClass element = (ModelClass)e.ModelElement;
-         element.Concurrency = ConcurrencyOverride.Default;
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
 

@@ -2187,7 +2187,6 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="Builder6" />
   </ConnectionBuilders>
   <Diagram Id="4bd5b7e6-86b6-43d2-962d-b6e87ac4690a" Description="" Name="EFModelDiagram" DisplayName="Class Diagram" Namespace="Sawczyn.EFDesigner.EFModel">
     <Class>
@@ -2431,7 +2430,7 @@
         <DomainClassMoniker Name="Comment" />
       </ElementTool>
       <ConnectionTool Name="CommentLink" ToolboxIcon="resources\commentlinktool.bmp" Caption="Comment Link" Tooltip="Link a comment to an element" HelpKeyword="CommentsReferenceDesignElementsF1Keyword">
-        <ConnectionBuilderMoniker Name="EFModel/Builder6" />
+        <ConnectionBuilderMoniker Name="EFModel/CommentReferencesClassesBuilder" />
       </ConnectionTool>
       <ElementTool Name="Enumeration" ToolboxIcon="Resources\EnumTool.bmp" Caption="Enum" Tooltip="Creates an enumeration" HelpKeyword="ModelEnumF1Keyword">
         <DomainClassMoniker Name="ModelEnum" />

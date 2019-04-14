@@ -145,6 +145,9 @@
     <Compile Include="Generated\Entities\UParentOptional.generated.cs" />
     <Compile Include="Generated\Entities\UParentRequired.generated.cs" />
     <Compile Include="Generated\Enums\Enum1.generated.cs" />
+    <Compile Include="OwnedType.generated.cs">
+      <DependentUpon>AllFeatureModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +156,8 @@
       <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
     </None>
     <None Include="app.config" />
+    <None Include="EFCoreDesigner.ttinclude" />
+    <None Include="EFDesigner.ttinclude" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
