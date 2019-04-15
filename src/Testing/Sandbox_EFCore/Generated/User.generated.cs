@@ -44,6 +44,8 @@ namespace Sandbox_EFCore
       [Required]
       public long Id { get; set; }
 
+      public string Property1 { get; set; }
+
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/

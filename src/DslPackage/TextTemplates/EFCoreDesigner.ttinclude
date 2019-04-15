@@ -452,7 +452,15 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
 
       foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass).OfType<UnidirectionalAssociation>().Where(x => x.Target.IsDependentType))
       {
-         Output($"// Dependent: Source = {association.Source.Name}, Target = {association.Target.Name}");
+         if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne ||
+             association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+         {
+            Output($"modelBuilder.Entity<{modelClass.FullName}>().OwnsOne(x => x.{association.TargetPropertyName});");
+         }
+         else
+         {
+            Output($"// 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
+         }
       }
 
       foreach (BidirectionalAssociation association in Association.GetLinksToSources(modelClass).OfType<BidirectionalAssociation>())

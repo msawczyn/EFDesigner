@@ -76,6 +76,9 @@ namespace Sandbox_EFCore
                      .IsRequired()
                      .ValueGeneratedOnAdd();
          modelBuilder.Entity<Sandbox_EFCore.User>()
+                     .Property(t => t.Property1)
+                     .HasColumnType("FooBar");
+         modelBuilder.Entity<Sandbox_EFCore.User>()
                      .HasOne(x => x.Roles)
                      .WithOne()
                      .HasForeignKey("Role_Roles_Id")
