@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+
+using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -19,7 +23,17 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </returns>
       public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
-         return new StandardValuesCollection(ModelAttribute.ValidIdentityAttributeTypes);
+         Store store = GetStore(context.Instance);
+
+         List<string> values = new List<string>();
+
+         if (store != null)
+         {
+            ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().First();
+            values = new List<string>(modelRoot.ValidIdentityAttributeTypes);
+         }
+
+         return new StandardValuesCollection(values);
       }
 
       /// <summary>

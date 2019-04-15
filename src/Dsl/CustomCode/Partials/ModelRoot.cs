@@ -30,6 +30,152 @@ namespace Sawczyn.EFDesigner.EFModel
       // backward compatibility
       public LinkedElementCollection<ModelClass> Types => Classes;
 
+      #region Valid types based on EF version
+
+      public string[] SpatialTypes
+      {
+         get
+         {
+            if (EntityFrameworkVersion == EFVersion.EF6 || GetEntityFrameworkPackageVersionNum() > 2.1)
+               return new[]
+                      {
+                         "Geography",
+                         "GeographyCollection",
+                         "GeographyLineString",
+                         "GeographyMultiLineString",
+                         "GeographyMultiPoint",
+                         "GeographyMultiPolygon",
+                         "GeographyPoint",
+                         "GeographyPolygon",
+                         "Geometry",
+                         "GeometryCollection",
+                         "GeometryLineString",
+                         "GeometryMultiLineString",
+                         "GeometryMultiPoint",
+                         "GeometryMultiPolygon",
+                         "GeometryPoint",
+                         "GeometryPolygon"
+                      };
+
+            return new string[0];
+         }
+      }
+
+      public string[] ValidTypes
+      {
+         get
+         {
+            return new[]
+                   {
+                      "Binary",
+                      "Boolean",
+                      "Byte",
+                      "byte",
+                      "DateTime",
+                      "DateTimeOffset",
+                      "Decimal",
+                      "Double",
+                      "Geography",
+                      "GeographyCollection",
+                      "GeographyLineString",
+                      "GeographyMultiLineString",
+                      "GeographyMultiPoint",
+                      "GeographyMultiPolygon",
+                      "GeographyPoint",
+                      "GeographyPolygon",
+                      "Geometry",
+                      "GeometryCollection",
+                      "GeometryLineString",
+                      "GeometryMultiLineString",
+                      "GeometryMultiPoint",
+                      "GeometryMultiPolygon",
+                      "GeometryPoint",
+                      "GeometryPolygon",
+                      "Guid",
+                      "Int16",
+                      "Int32",
+                      "Int64",
+                      "Single",
+                      "String",
+                      "Time"
+                   };
+         }
+      }
+
+      public string[] ValidCLRTypes
+      {
+         get
+         {
+            return new[]
+                   {
+                      "Binary",
+                      "Boolean", "Boolean?", "Nullable<Boolean>",
+                      "Byte", "Byte?", "Nullable<Byte>",
+                      "DateTime", "DateTime?", "Nullable<DateTime>",
+                      "DateTimeOffset", "DateTimeOffset?", "Nullable<DateTimeOffset>",
+                      "DbGeography",
+                      "DbGeometry",
+                      "Decimal", "Decimal?", "Nullable<Decimal>",
+                      "Double", "Double?", "Nullable<Double>",
+                      "Geography",
+                      "GeographyCollection",
+                      "GeographyLineString",
+                      "GeographyMultiLineString",
+                      "GeographyMultiPoint",
+                      "GeographyMultiPolygon",
+                      "GeographyPoint",
+                      "GeographyPolygon",
+                      "Geometry",
+                      "GeometryCollection",
+                      "GeometryLineString",
+                      "GeometryMultiLineString",
+                      "GeometryMultiPoint",
+                      "GeometryMultiPolygon",
+                      "GeometryPoint",
+                      "GeometryPolygon",
+                      "Guid", "Guid?", "Nullable<Guid>",
+                      "Int16", "Int16?", "Nullable<Int16>",
+                      "Int32", "Int32?", "Nullable<Int32>",
+                      "Int64", "Int64?", "Nullable<Int64>",
+                      "Single", "Single?", "Nullable<Single>",
+                      "String",
+                      "Time",
+                      "TimeSpan", "TimeSpan?", "Nullable<TimeSpan>",
+                      "bool", "bool?", "Nullable<bool>",
+                      "byte", "byte?", "Nullable<byte>",
+                      "byte[]",
+                      "decimal", "decimal?", "Nullable<decimal>",
+                      "double", "double?", "Nullable<double>",
+                      "int", "int?", "Nullable<int>",
+                      "long", "long?", "Nullable<long>",
+                      "short", "short?", "Nullable<short>",
+                      "string"
+                   };
+         }
+      }
+
+      public string[] ValidIdentityAttributeTypes
+      {
+         get
+         {
+            return new[]
+                   {
+                      "Int16",
+                      "Int32",
+                      "Int64",
+                      "Byte",
+                      "String",
+                      "Guid"
+                   };
+         }
+      }
+
+      public bool IsValidCLRType(string type)
+      {
+         return ValidCLRTypes.Contains(type);
+      }
+
+      #endregion
 
       #region Nuget
 
@@ -37,7 +183,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return NuGetHelper.NuGetPackageDisplay.FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion && 
+            return NuGetHelper.NuGetPackageDisplay.FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion &&
                                                                            x.DisplayVersion == EntityFrameworkPackageVersion);
          }
       }
@@ -50,15 +196,15 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Global
       public double GetEntityFrameworkPackageVersionNum()
       {
-            string[] parts = EntityFrameworkPackageVersion.Split('.');
+         string[] parts = EntityFrameworkPackageVersion.Split('.');
 
-            string resultString = parts.Length > 1
-                                     ? $"{parts[0]}.{parts[1]}"
-                                     : parts.FirstOrDefault();
+         string resultString = parts.Length > 1
+                                  ? $"{parts[0]}.{parts[1]}"
+                                  : parts.FirstOrDefault();
 
-            return double.TryParse(resultString, out double result)
-                      ? result
-                      : 0;
+         return double.TryParse(resultString, out double result)
+                   ? result
+                   : 0;
       }
 
       #endregion Nuget
@@ -93,9 +239,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual void OnDatabaseSchemaChanged(string oldValue, string newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Classes, 
-                                                         ModelClass.DatabaseSchemaDomainPropertyId, 
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Classes,
+                                                         ModelClass.DatabaseSchemaDomainPropertyId,
                                                          ModelClass.IsDatabaseSchemaTrackingDomainPropertyId);
       }
 
@@ -137,9 +283,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual void OnCollectionClassChanged(string oldValue, string newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Store.ElementDirectory.AllElements.OfType<Association>().ToList(), 
-                                                         Association.CollectionClassDomainPropertyId, 
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Store.ElementDirectory.AllElements.OfType<Association>().ToList(),
+                                                         Association.CollectionClassDomainPropertyId,
                                                          Association.IsCollectionClassTrackingDomainPropertyId);
       }
 

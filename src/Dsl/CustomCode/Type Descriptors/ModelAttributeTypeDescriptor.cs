@@ -26,6 +26,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
             EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelAttribute);
 
+            // No sense asking for initial values if we won't use them
+            if (!modelAttribute.SupportsInitialValue)
+            {
+               PropertyDescriptor initialValueTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "InitialValue");
+               propertyDescriptors.Remove(initialValueTypeDescriptor);
+            }
+
             // don't display IdentityType unless the IsIdentity is true
             if (!modelAttribute.IsIdentity)
             {

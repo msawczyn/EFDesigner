@@ -124,6 +124,7 @@ namespace Sawczyn.EFDesigner.EFModel
          "Int32",
          "Int64",
          "Byte",
+         "String",
          "Guid"
       };
 
@@ -146,6 +147,35 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+      public bool SupportsInitialValue
+      {
+         get
+         {
+            switch (Type)
+            {
+               case "Binary":
+               case "Geography":
+               case "GeographyCollection":
+               case "GeographyLineString":
+               case "GeographyMultiLineString":
+               case "GeographyMultiPoint":
+               case "GeographyMultiPolygon":
+               case "GeographyPoint":
+               case "GeographyPolygon":
+               case "Geometry":
+               case "GeometryCollection":
+               case "GeometryLineString":
+               case "GeometryMultiLineString":
+               case "GeometryMultiPoint":
+               case "GeometryMultiPolygon":
+               case "GeometryPoint":
+               case "GeometryPolygon":
+                  return false;
+            }
+
+            return true;
+         }
+      }
       /// <summary>
       /// Tests if the InitialValue property is valid for the type indicated
       /// </summary>
@@ -235,11 +265,6 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 #pragma warning restore 168
-
-      public static bool IsValidCLRType(string type)
-      {
-         return ValidCLRTypes.Contains(type);
-      }
 
       public string PrimitiveType => ToPrimitiveType(Type);
 
@@ -592,10 +617,10 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             result.Type = ToCLRType(result.Type);
 
-            if (result.Type != null && !ValidTypes.Contains(result.Type))
+            if (result.Type != null && !modelRoot.ValidTypes.Contains(result.Type))
             {
                result.Type = ToCLRType(result.Type);
-               if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
+               if (!modelRoot.ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
                {
                   result.Type = null;
                   result.Required = null;

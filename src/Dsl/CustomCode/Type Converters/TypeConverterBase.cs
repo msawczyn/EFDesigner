@@ -14,9 +14,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // We assume that "instance" will either be a single model element, or   
          // an array of model elements (if multiple items are selected).  
 
-         object[] objects = gridSelection as object[];
-
-         ModelElement currentElement = objects != null && objects.Length > 0
+         ModelElement currentElement = gridSelection is object[] objects && objects.Length > 0
                                           ? objects[0] as ModelElement
                                           : gridSelection as ModelElement;
 

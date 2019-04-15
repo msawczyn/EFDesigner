@@ -193,7 +193,7 @@ namespace Sawczyn.EFDesigner.EFModel
                bool propertyShowsNullable = propertyDecl.DescendantNodes().OfType<NullableTypeSyntax>().Any();
 
                // is the property type something we don't know about?
-               if (!ModelAttribute.IsValidCLRType(propertyType))
+               if (!modelRoot.IsValidCLRType(propertyType))
                {
                   // might be an enum. If so, we'll handle it like a CLR type
                   // if it's nullable, it's definitely an enum, but if we don't know about it, it could be an enum or a class

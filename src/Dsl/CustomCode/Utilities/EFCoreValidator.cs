@@ -54,11 +54,8 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = element.ModelClass?.ModelRoot;
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot?.EntityFrameworkVersion == EFVersion.EFCore)
-         {
-            if (ModelAttribute.SpatialTypes.Contains(element.Type))
-               errorMessages.Add($"{element.Type} {element.ModelClass.Name}.{element.Name}: EFCore does not (yet) support spatial types");
-         }
+         if (!modelRoot.ValidTypes.Contains(element.Type))
+            errorMessages.Add($"{element.Type} {element.ModelClass.Name}.{element.Name}: Unsupported type");
 
          return errorMessages;
       }
@@ -179,6 +176,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
                case "InheritanceStrategy":
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
+                  break;
+
+               case "LazyLoadingEnabled":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1;
                   break;
             }
 

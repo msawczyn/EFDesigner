@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   /// <inheritdoc />
    public class AttributeTypeTypeConverter : TypeConverterBase
    {
       /// <summary>
@@ -27,10 +28,14 @@ namespace Sawczyn.EFDesigner.EFModel
          // Note that the user could have selected multiple objects, in which case context.Instance will be an array.  
          Store store = GetStore(context.Instance);
 
-         List<string> values = new List<string>(ModelAttribute.ValidTypes);
+         List<string> values = new List<string>();
 
          if (store != null)
+         {
+            ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().First();
+            values = new List<string>(modelRoot.ValidTypes);
             values.AddRange(store.ElementDirectory.FindElements<ModelEnum>().OrderBy(e => e.Name).Select(e => e.Name));
+         }
 
          return new StandardValuesCollection(values);
       }

@@ -10,13 +10,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
       public AddCodeForm()
       {
          InitializeComponent();
-         txtCode.AutoCompleteCustomSource.AddRange(ModelAttribute.ValidTypes);
       }
 
       public AddCodeForm(ModelClass element) : this()
       {
          lblClassName.Text = element.Name;
          txtCode.Lines = element.Attributes.Select(x => $"{x};").ToArray();
+         txtCode.AutoCompleteCustomSource.AddRange(element.ModelRoot.ValidTypes);
       }
 
       public AddCodeForm(ModelEnum element) : this()
@@ -26,6 +26,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
          Text = "Add values as code";
          label1.Text = "Enum name";
          label2.Text = "Values";
+         txtCode.AutoCompleteCustomSource.AddRange(element.ModelRoot.ValidTypes);
       }
 
       public IEnumerable<string> Lines => txtCode.Lines.Where(s => !string.IsNullOrEmpty(s.Trim())).ToList();
