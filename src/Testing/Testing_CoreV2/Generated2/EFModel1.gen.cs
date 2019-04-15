@@ -16,28 +16,27 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Sandbox_EFCore
+namespace Testing_CoreV2NetStd.Model
 {
    /// <inheritdoc/>
-   public partial class EFModel : Microsoft.EntityFrameworkCore.DbContext
+   public partial class EFModel1 : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox_EFCore.Role> Roles { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox_EFCore.User> Users { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetStd.Model.Entity1> Entity1 { get; set; }
       #endregion DbSets
 
       /// <summary>
       /// Default connection string
       /// </summary>
-      public static string ConnectionString { get; set; } = @"Data Source=.;Initial Catalog=Sandbox;Integrated Security=True";
+      public static string ConnectionString { get; set; } = @"Data Source=.;Initial Catalog=ModelTest;Integrated Security=True";
 
       /// <inheritdoc />
-      public EFModel() : base()
+      public EFModel1() : base()
       {
       }
 
       /// <inheritdoc />
-      public EFModel(DbContextOptions<EFModel> options) : base(options)
+      public EFModel1(DbContextOptions<EFModel1> options) : base(options)
       {
       }
 
@@ -60,26 +59,13 @@ namespace Sandbox_EFCore
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<Sandbox_EFCore.Role>()
-                     .ToTable("Roles")
+         modelBuilder.Entity<Testing_CoreV2NetStd.Model.Entity1>()
+                     .ToTable("Entity1")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox_EFCore.Role>()
+         modelBuilder.Entity<Testing_CoreV2NetStd.Model.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();
-
-         modelBuilder.Entity<Sandbox_EFCore.User>()
-                     .ToTable("Users")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox_EFCore.User>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
-         modelBuilder.Entity<Sandbox_EFCore.User>()
-                     .HasOne(x => x.Roles)
-                     .WithOne()
-                     .HasForeignKey("Role_Roles_Id")
-                     .IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }

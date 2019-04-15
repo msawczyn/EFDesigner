@@ -19,16 +19,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EFCore
+namespace Testing_CoreV2NetStd.Model
 {
-   public partial class User
+   public partial class Entity1
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public User()
+      public Entity1()
       {
          Init();
       }
@@ -42,13 +42,7 @@ namespace Sandbox_EFCore
       /// </summary>
       [Key]
       [Required]
-      public long Id { get; set; }
-
-      /*************************************************************************
-       * Persistent navigation properties
-       *************************************************************************/
-
-      public virtual Sandbox_EFCore.Role Roles { get; set; }
+      public int Id { get; set; }
 
    }
 }
