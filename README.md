@@ -50,7 +50,7 @@ opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK a
 ### Change Log
 
 **1.2.7**
-   - Works with Visual Studio 2019 - mostly (see Known issues on the documentation site)
+   - Works with Visual Studio 2019 - mostly (see Known Issues, above)
    - Better formatting for XML comment docs
    - Added autoproperty toggle for association ends, allowing for implementation of partial methods to examine and/or override association getting and setting
    - Removed experimental method added in 1.2.6.22 for generation of orphan association cleanup. The experiment failed :-(
