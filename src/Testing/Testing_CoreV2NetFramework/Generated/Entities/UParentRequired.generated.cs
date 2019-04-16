@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected UParentRequired()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
 
          Init();
       }
@@ -35,44 +35,48 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentRequired(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public UParentRequired(global::Testing.UChild uchildrequired)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
+         this.UChildRequired = uchildrequired;
 
-         UChildCollection = new HashSet<Testing.UChild>();
+         this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentRequired Create(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public static UParentRequired Create(global::Testing.UChild uchildrequired)
       {
-         return new UParentRequired(_uchildrequired);
+         return new UParentRequired(uchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.UChild UChildRequired { get; set; }
+      public virtual global::Testing.UChild UChildRequired { get; set; }
 
-      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
-      public virtual Testing.UChild UChildOptional { get; set; }
+      public virtual global::Testing.UChild UChildOptional { get; set; }
 
    }
 }

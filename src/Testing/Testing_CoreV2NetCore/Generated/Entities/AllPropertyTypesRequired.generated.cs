@@ -33,70 +33,72 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_binaryattr"></param>
-      /// <param name="_booleanattr"></param>
-      /// <param name="_byteattr"></param>
-      /// <param name="_datetimeattr"></param>
-      /// <param name="_datetimeoffsetattr"></param>
-      /// <param name="_decimalattr"></param>
-      /// <param name="_doubleattr"></param>
-      /// <param name="_guidattr"></param>
-      /// <param name="_int16attr"></param>
-      /// <param name="_int32attr"></param>
-      /// <param name="_int64attr"></param>
-      /// <param name="_singleattr"></param>
-      /// <param name="_stringattr"></param>
-      /// <param name="_timeattr"></param>
-      public AllPropertyTypesRequired(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
+      /// <param name="binaryattr"></param>
+      /// <param name="booleanattr"></param>
+      /// <param name="byteattr"></param>
+      /// <param name="datetimeattr"></param>
+      /// <param name="datetimeoffsetattr"></param>
+      /// <param name="decimalattr"></param>
+      /// <param name="doubleattr"></param>
+      /// <param name="guidattr"></param>
+      /// <param name="int16attr"></param>
+      /// <param name="int32attr"></param>
+      /// <param name="int64attr"></param>
+      /// <param name="singleattr"></param>
+      /// <param name="stringattr"></param>
+      /// <param name="timeattr"></param>
+      public AllPropertyTypesRequired(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, string stringattr, TimeSpan timeattr)
       {
-         BinaryAttr = _binaryattr;
-         BooleanAttr = _booleanattr;
-         ByteAttr = _byteattr;
-         DateTimeAttr = _datetimeattr;
-         DateTimeOffsetAttr = _datetimeoffsetattr;
-         DecimalAttr = _decimalattr;
-         DoubleAttr = _doubleattr;
-         GuidAttr = _guidattr;
-         Int16Attr = _int16attr;
-         Int32Attr = _int32attr;
-         Int64Attr = _int64attr;
-         SingleAttr = _singleattr;
-         if (string.IsNullOrEmpty(_stringattr)) throw new ArgumentNullException(nameof(_stringattr));
-         StringAttr = _stringattr;
-         TimeAttr = _timeattr;
+         this.BinaryAttr = binaryattr;
+         this.BooleanAttr = booleanattr;
+         this.ByteAttr = byteattr;
+         this.DateTimeAttr = datetimeattr;
+         this.DateTimeOffsetAttr = datetimeoffsetattr;
+         this.DecimalAttr = decimalattr;
+         this.DoubleAttr = doubleattr;
+         this.GuidAttr = guidattr;
+         this.Int16Attr = int16attr;
+         this.Int32Attr = int32attr;
+         this.Int64Attr = int64attr;
+         this.SingleAttr = singleattr;
+         if (string.IsNullOrEmpty(stringattr)) throw new ArgumentNullException(nameof(stringattr));
+         this.StringAttr = stringattr;
+         this.TimeAttr = timeattr;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_binaryattr"></param>
-      /// <param name="_booleanattr"></param>
-      /// <param name="_byteattr"></param>
-      /// <param name="_datetimeattr"></param>
-      /// <param name="_datetimeoffsetattr"></param>
-      /// <param name="_decimalattr"></param>
-      /// <param name="_doubleattr"></param>
-      /// <param name="_guidattr"></param>
-      /// <param name="_int16attr"></param>
-      /// <param name="_int32attr"></param>
-      /// <param name="_int64attr"></param>
-      /// <param name="_singleattr"></param>
-      /// <param name="_stringattr"></param>
-      /// <param name="_timeattr"></param>
-      public static AllPropertyTypesRequired Create(byte[] _binaryattr, bool _booleanattr, byte _byteattr, DateTime _datetimeattr, DateTimeOffset _datetimeoffsetattr, decimal _decimalattr, double _doubleattr, Guid _guidattr, short _int16attr, int _int32attr, long _int64attr, Single _singleattr, string _stringattr, TimeSpan _timeattr)
+      /// <param name="binaryattr"></param>
+      /// <param name="booleanattr"></param>
+      /// <param name="byteattr"></param>
+      /// <param name="datetimeattr"></param>
+      /// <param name="datetimeoffsetattr"></param>
+      /// <param name="decimalattr"></param>
+      /// <param name="doubleattr"></param>
+      /// <param name="guidattr"></param>
+      /// <param name="int16attr"></param>
+      /// <param name="int32attr"></param>
+      /// <param name="int64attr"></param>
+      /// <param name="singleattr"></param>
+      /// <param name="stringattr"></param>
+      /// <param name="timeattr"></param>
+      public static AllPropertyTypesRequired Create(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, string stringattr, TimeSpan timeattr)
       {
-         return new AllPropertyTypesRequired(_binaryattr, _booleanattr, _byteattr, _datetimeattr, _datetimeoffsetattr, _decimalattr, _doubleattr, _guidattr, _int16attr, _int32attr, _int64attr, _singleattr, _stringattr, _timeattr);
+         return new AllPropertyTypesRequired(binaryattr, booleanattr, byteattr, datetimeattr, datetimeoffsetattr, decimalattr, doubleattr, guidattr, int16attr, int32attr, int64attr, singleattr, stringattr, timeattr);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /// <summary>
       /// Required
@@ -175,6 +177,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       [Required]
       [MaxLength(10)]
+      [StringLength(10)]
       public string StringAttr { get; set; }
 
       /// <summary>

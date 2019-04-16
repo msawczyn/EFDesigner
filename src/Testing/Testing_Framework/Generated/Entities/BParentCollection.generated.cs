@@ -28,7 +28,7 @@ namespace Testing
       /// </summary>
       protected BParentCollection()
       {
-         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BChild>();
+         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
 
          Init();
       }
@@ -36,26 +36,28 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public BParentCollection(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public BParentCollection(global::Testing.BChild bchildrequired)
       {
-         if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
-         BChildRequired = _bchildrequired;
+         if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
+         this.BChildRequired = bchildrequired;
 
-         BChildCollection = new ObservableCollection<Testing.BChild>();
+         this.BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public static BParentCollection Create(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public static BParentCollection Create(global::Testing.BChild bchildrequired)
       {
-         return new BParentCollection(_bchildrequired);
+         return new BParentCollection(bchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -64,16 +66,18 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.BChild BChildRequired { get; set; }
+      public virtual global::Testing.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<Testing.BChild> BChildCollection { get; set; }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
 
-      public virtual Testing.BChild BChildOptional { get; set; }
+      public virtual global::Testing.BChild BChildOptional { get; set; }
 
    }
 }

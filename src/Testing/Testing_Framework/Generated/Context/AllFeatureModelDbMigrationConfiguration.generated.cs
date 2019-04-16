@@ -16,6 +16,7 @@ namespace Testing
    {
       partial void Init();
 
+      /// <inheritdoc/>
       public AllFeatureModelDbMigrationConfiguration()
       {
          AutomaticMigrationsEnabled = true;

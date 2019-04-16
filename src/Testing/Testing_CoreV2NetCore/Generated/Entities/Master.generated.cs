@@ -27,23 +27,27 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       public Master()
       {
-         Children = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.Child>();
+         Children = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.Child>();
 
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      public virtual ICollection<Testing_CoreV2NetCore.Child> Children { get; set; }
+      public virtual ICollection<global::Testing_CoreV2NetCore.Child> Children { get; private set; }
 
    }
 }

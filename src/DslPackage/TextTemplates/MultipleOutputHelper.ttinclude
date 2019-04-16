@@ -9,7 +9,7 @@
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
 
-// EFDesigner v1.2.6.26
+// EFDesigner v1.2.7.0
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 //
@@ -158,7 +158,7 @@ class Manager
          if (hostServiceProvider == null)
             throw new ArgumentNullException("Could not obtain IServiceProvider");
 
-         dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+         dte = (EnvDTE.DTE)hostServiceProvider.GetCOMService(typeof(EnvDTE.DTE));
          if (dte == null)
             throw new ArgumentNullException("Could not obtain DTE from host");
 
@@ -300,10 +300,19 @@ class Manager
             ProjectItem fileItem = dte.Solution.FindProjectItem(fileName);
             if (fileItem != null)
             {
-               ProjectItem parentItem = (ProjectItem)fileItem.Collection.Parent;
-               if (!result.ContainsKey(parentItem))
-                  result.Add(parentItem, new List<string>());
-               result[parentItem].Add(fileName);
+               try 
+               {
+                  ProjectItem parentItem = fileItem.Collection.Parent as ProjectItem;
+                  if (parentItem != null)
+                  {
+                     if (!result.ContainsKey(parentItem))
+                        result.Add(parentItem, new List<string>());
+                     result[parentItem].Add(fileName);
+                  }
+               }
+               catch (InvalidCastException)
+               {
+               }
             }
          }
 

@@ -33,31 +33,33 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_property0"></param>
-      public BaseClassWithRequiredProperties(string _property0)
+      /// <param name="property0"></param>
+      public BaseClassWithRequiredProperties(string property0)
       {
-         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
-         Property0 = _property0;
+         if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
+         this.Property0 = property0;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_property0"></param>
-      public static BaseClassWithRequiredProperties Create(string _property0)
+      /// <param name="property0"></param>
+      public static BaseClassWithRequiredProperties Create(string property0)
       {
-         return new BaseClassWithRequiredProperties(_property0);
+         return new BaseClassWithRequiredProperties(property0);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /// <summary>
       /// Required

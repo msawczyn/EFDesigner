@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected Child()
       {
-         Children = new System.Collections.Generic.HashSet<Testing.Child>();
+         Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
 
          Init();
       }
@@ -35,34 +35,45 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_parent"></param>
+      /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public Child(Testing.Child _parent, Testing.Master _master0)
+      public Child(global::Testing.Child parent, global::Testing.Master _master0)
       {
-         if (_parent == null) throw new ArgumentNullException(nameof(_parent));
-         Parent = _parent;
+         if (parent == null) throw new ArgumentNullException(nameof(parent));
+         this.Parent = parent;
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         Children = new HashSet<Testing.Child>();
+         this.Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_parent"></param>
+      /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public static Child Create(Testing.Child _parent, Testing.Master _master0)
+      public static Child Create(global::Testing.Child parent, global::Testing.Master _master0)
       {
-         return new Child(_parent, _master0);
+         return new Child(parent, _master0);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -78,7 +89,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         private set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -90,28 +101,30 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
-      protected Testing.Child _Parent;
-      partial void SetParent(Testing.Child oldValue, ref Testing.Child newValue);
-      partial void GetParent(ref Testing.Child result);
+      protected global::Testing.Child _Parent;
+      partial void SetParent(global::Testing.Child oldValue, ref global::Testing.Child newValue);
+      partial void GetParent(ref global::Testing.Child result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.Child Parent
+      public virtual global::Testing.Child Parent
       {
          get
          {
-            Testing.Child value = _Parent;
+            global::Testing.Child value = _Parent;
             GetParent(ref value);
             return (_Parent = value);
          }
          set
          {
-            Testing.Child oldValue = _Parent;
+            global::Testing.Child oldValue = _Parent;
             SetParent(oldValue, ref value);
             if (oldValue != value)
             {

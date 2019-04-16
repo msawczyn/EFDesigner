@@ -11,50 +11,11 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Sandbox_EFCore
 {
-   public partial class Role
+   public enum Role : Int32
    {
-      partial void Init();
-
-      /// <summary>
-      /// Default constructor
-      /// </summary>
-      public Role()
-      {
-         Users = new System.Collections.Generic.HashSet<Sandbox_EFCore.User>();
-
-         Init();
-      }
-
-      /*************************************************************************
-       * Persistent properties
-       *************************************************************************/
-
-      /// <summary>
-      /// Identity, Required, Indexed
-      /// </summary>
-      [Key]
-      [Required]
-      public long Id { get; set; }
-
-      /*************************************************************************
-       * Persistent navigation properties
-       *************************************************************************/
-
-      /// <summary>
-      /// Users
-      /// </summary>
-      public virtual ICollection<Sandbox_EFCore.User> Users { get; set; }
-
+      ModelEnumValue1
    }
 }
-

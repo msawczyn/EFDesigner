@@ -27,17 +27,21 @@ namespace Testing
       /// </summary>
       public AllPropertyTypesOptional()
       {
+         OwnedType = new global::Testing.OwnedType();
+
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       public byte[] BinaryAttr { get; set; }
 
@@ -55,7 +59,37 @@ namespace Testing
 
       public Guid? GuidAttr { get; set; }
 
-      public short? Int16Attr { get; set; }
+      /// <summary>
+      /// Backing field for Int16Attr
+      /// </summary>
+      protected short? _Int16Attr;
+      /// <summary>
+      /// When provided in a partial class, allows value of Int16Attr to be changed before setting.
+      /// </summary>
+      partial void SetInt16Attr(short? oldValue, ref short? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Int16Attr to be changed before returning.
+      /// </summary>
+      partial void GetInt16Attr(ref short? result);
+
+      public short? Int16Attr
+      {
+         get
+         {
+            short? value = _Int16Attr;
+            GetInt16Attr(ref value);
+            return (_Int16Attr = value);
+         }
+         set
+         {
+            short? oldValue = _Int16Attr;
+            SetInt16Attr(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Int16Attr = value;
+            }
+         }
+      }
 
       public int? Int32Attr { get; set; }
 
@@ -67,6 +101,7 @@ namespace Testing
       /// Min length = 1, Max length = 10
       /// </summary>
       [MaxLength(10)]
+      [StringLength(10)]
       public string StringAttr { get; set; }
 
       public TimeSpan? TimeAttr { get; set; }
@@ -76,7 +111,19 @@ namespace Testing
       /// </summary>
       [Key]
       [Required]
-      public int Id1 { get; set; }
+      public int Id1 { get; private set; }
+
+      /// <summary>
+      /// Concurrency token
+      /// </summary>
+      [Timestamp]
+      public Byte[] Timestamp { get; set; }
+
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
+
+      public virtual global::Testing.OwnedType OwnedType { get; set; }
 
    }
 }

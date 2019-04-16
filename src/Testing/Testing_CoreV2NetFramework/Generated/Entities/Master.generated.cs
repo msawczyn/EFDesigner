@@ -27,23 +27,27 @@ namespace Testing
       /// </summary>
       public Master()
       {
-         Children = new System.Collections.Generic.HashSet<Testing.Child>();
+         Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
 
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
    }
 }

@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected Child()
       {
-         Children = new System.Collections.Generic.HashSet<Testing.Child>();
+         Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
 
          Init();
       }
@@ -35,47 +35,51 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_parent"></param>
+      /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public Child(Testing.Child _parent, Testing.Master _master0)
+      public Child(global::Testing.Child parent, global::Testing.Master _master0)
       {
-         if (_parent == null) throw new ArgumentNullException(nameof(_parent));
-         Parent = _parent;
+         if (parent == null) throw new ArgumentNullException(nameof(parent));
+         this.Parent = parent;
 
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         Children = new HashSet<Testing.Child>();
+         this.Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_parent"></param>
+      /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public static Child Create(Testing.Child _parent, Testing.Master _master0)
+      public static Child Create(global::Testing.Child parent, global::Testing.Master _master0)
       {
-         return new Child(_parent, _master0);
+         return new Child(parent, _master0);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.Child Parent { get; set; }
+      public virtual global::Testing.Child Parent { get; set; }
 
    }
 }

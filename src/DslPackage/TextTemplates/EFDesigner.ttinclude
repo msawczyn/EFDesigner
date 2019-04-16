@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.2.6.26
+// EFDesigner v1.2.7.0
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -390,9 +390,9 @@ void WriteDefaultConstructorBody(ModelClass modelClass)
                                                                            (x.IsCollection || x.ClassType.IsDependentType) &&
                                                                            !x.ConstructorParameterOnly))
    {
-      if (!navigationProperty.IsCollection)
+      if (navigationProperty.ClassType.IsDependentType)
       {
-          Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}(this);");
+          Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
       }
       else
       {
@@ -418,7 +418,7 @@ void WriteConstructor(ModelClass modelClass)
    /***********************************************************************/
 
    bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
-   string visibility = hasRequiredParameters || modelClass.IsAbstract ? "protected" : "public";
+   string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType ? "protected" : "public";
 
    if (visibility == "public")
    {
@@ -471,7 +471,7 @@ void WriteConstructor(ModelClass modelClass)
             Output($"if (string.IsNullOrEmpty({requiredAttribute.Name.ToLower()})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
          else if (requiredAttribute.Type.StartsWith("Geo"))
             Output($"if ({requiredAttribute.Name.ToLower()} == null) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
-         Output($"{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
+         Output($"this.{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
       }
 
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public &&
@@ -480,7 +480,7 @@ void WriteConstructor(ModelClass modelClass)
                                                                                  x.InitialValue != "null"))
       {
          string quote = modelAttribute.Type == "String" ? "\"" : modelAttribute.Type == "Char" ? "'" : string.Empty;
-         Output($"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
+         Output($"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
       }
 
       foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties())
@@ -506,7 +506,7 @@ void WriteConstructor(ModelClass modelClass)
             }
          }
          else
-            Output($"{requiredNavigationProperty.PropertyName} = {parameterName};");
+            Output($"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
 
          NL();
       }
@@ -517,12 +517,12 @@ void WriteConstructor(ModelClass modelClass)
                                                                               !x.ConstructorParameterOnly))
       {
          if (!navigationProperty.IsCollection)
-            Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}(this);");
+            Output($"this.{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
          else
          {
             string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass,
                                                        navigationProperty.ClassType.FullName);
-            Output($"{navigationProperty.PropertyName} = new {collectionType}();");
+            Output($"this.{navigationProperty.PropertyName} = new {collectionType}();");
          }
       }
 
@@ -654,7 +654,8 @@ void WritePersistentProperties(ModelClass modelClass)
          Output("/// </remarks>");
       }
 
-      string setterVisibility = modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : 
+      string setterVisibility = modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelAttribute.IsIdentity ? "private " :
+                                modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : 
                                 modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : 
                                 string.Empty;
 
@@ -778,9 +779,7 @@ void WriteCalculatedProperties(ModelClass modelClass)
 
 //string CamelCase(string str)
 //{
-//   if (str.Length == 0) 
-//      return str;
-//   return str.Substring(0,1).ToLower() + str.Substring(1);
+//   return string.IsNullOrEmpty(str) ? "" : str.Substring(0,1).ToLower() + (str.Length > 1 ? str.Substring(1) : "");
 //}
 
 void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirtual)
@@ -800,7 +799,7 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
                         ? $"ICollection<{navigationProperty.ClassType.FullName}>"
                         : navigationProperty.ClassType.FullName;
 
-      if (modelClass.ImplementNotify && !navigationProperty.IsCollection)
+      if (!navigationProperty.IsCollection && (modelClass.ImplementNotify || !navigationProperty.IsAutoProperty))
       {
          Output($"protected {type} _{navigationProperty.PropertyName};");
          Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");
@@ -838,13 +837,17 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
       if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
          Output($"[Display(Name=\"{navigationProperty.DisplayText}\")]");
 
-      if (!modelClass.ImplementNotify || navigationProperty.IsCollection)
+      if (navigationProperty.IsCollection)
       {
-         Output($"public {_virtual}{type} {navigationProperty.PropertyName} {{ get; set; }}");
+         Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; private set; }}");
+      }
+      else if (!modelClass.ImplementNotify && navigationProperty.IsAutoProperty)
+      {
+         Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; set; }}");
       }
       else
       {
-         Output($"public {type} {navigationProperty.PropertyName}");
+         Output($"public virtual {type} {navigationProperty.PropertyName}");
          Output("{");
          Output("get");
          Output("{");

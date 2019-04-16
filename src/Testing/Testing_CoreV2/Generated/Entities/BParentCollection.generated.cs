@@ -33,11 +33,11 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public BParentCollection(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public BParentCollection(global::Testing.BChild bchildrequired)
       {
-         if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
-         BChildRequired = _bchildrequired;
+         if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
+         this.BChildRequired = bchildrequired;
 
          Init();
       }
@@ -45,16 +45,27 @@ namespace Testing
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public static BParentCollection Create(Testing.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public static BParentCollection Create(global::Testing.BChild bchildrequired)
       {
-         return new BParentCollection(_bchildrequired);
+         return new BParentCollection(bchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -70,7 +81,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         private set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -82,26 +93,28 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      protected Testing.BChild _BChildRequired;
-      partial void SetBChildRequired(Testing.BChild oldValue, ref Testing.BChild newValue);
-      partial void GetBChildRequired(ref Testing.BChild result);
+      protected global::Testing.BChild _BChildRequired;
+      partial void SetBChildRequired(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+      partial void GetBChildRequired(ref global::Testing.BChild result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BChild BChildRequired
+      public virtual global::Testing.BChild BChildRequired
       {
          get
          {
-            Testing.BChild value = _BChildRequired;
+            global::Testing.BChild value = _BChildRequired;
             GetBChildRequired(ref value);
             return (_BChildRequired = value);
          }
          set
          {
-            Testing.BChild oldValue = _BChildRequired;
+            global::Testing.BChild oldValue = _BChildRequired;
             SetBChildRequired(oldValue, ref value);
             if (oldValue != value)
             {
@@ -111,21 +124,21 @@ namespace Testing
          }
       }
 
-      protected Testing.BChild _BChildOptional;
-      partial void SetBChildOptional(Testing.BChild oldValue, ref Testing.BChild newValue);
-      partial void GetBChildOptional(ref Testing.BChild result);
+      protected global::Testing.BChild _BChildOptional;
+      partial void SetBChildOptional(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+      partial void GetBChildOptional(ref global::Testing.BChild result);
 
-      public Testing.BChild BChildOptional
+      public virtual global::Testing.BChild BChildOptional
       {
          get
          {
-            Testing.BChild value = _BChildOptional;
+            global::Testing.BChild value = _BChildOptional;
             GetBChildOptional(ref value);
             return (_BChildOptional = value);
          }
          set
          {
-            Testing.BChild oldValue = _BChildOptional;
+            global::Testing.BChild oldValue = _BChildOptional;
             SetBChildOptional(oldValue, ref value);
             if (oldValue != value)
             {

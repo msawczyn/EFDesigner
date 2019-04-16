@@ -1489,6 +1489,18 @@
     <value>End 2</value>
     <comment>Category for DomainProperty &apos;TargetDisplayText&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetAutoProperty.Description" xml:space="preserve">
+    <value>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
+    <comment>Description for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetAutoProperty.DisplayName" xml:space="preserve">
+    <value>Target Auto Property</value>
+    <comment>DisplayName for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetAutoProperty.Category" xml:space="preserve">
+    <value>End 2</value>
+    <comment>Category for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainRole &apos;Source&apos; on DomainRelationship &apos;Association&apos;</comment>
@@ -1708,6 +1720,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceDisplayText.Category" xml:space="preserve">
     <value>End 1</value>
     <comment>Category for DomainProperty &apos;SourceDisplayText&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoProperty.Description" xml:space="preserve">
+    <value>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
+    <comment>Description for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoProperty.DisplayName" xml:space="preserve">
+    <value>Source Auto Property</value>
+    <comment>DisplayName for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoProperty.Category" xml:space="preserve">
+    <value>End 1</value>
+    <comment>Category for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/BidirectionalSource.Description" xml:space="preserve">
     <value></value>

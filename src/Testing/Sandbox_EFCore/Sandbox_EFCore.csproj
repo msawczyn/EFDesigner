@@ -49,10 +49,11 @@
     </Compile>
     <Compile Include="Generated\EFModel.generated.cs" />
     <Compile Include="Generated\Role.generated.cs" />
+    <Compile Include="Generated\Sandbox_EFCore.generated.cs" />
     <Compile Include="Generated\User.generated.cs" />
-    <Compile Include="Migrations\20190128125653_Initial.cs" />
-    <Compile Include="Migrations\20190128125653_Initial.designer.cs">
-      <DependentUpon>20190128125653_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\20190416022846_Initial.cs" />
+    <Compile Include="Migrations\20190416022846_Initial.designer.cs">
+      <DependentUpon>20190416022846_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\EFModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EFDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>

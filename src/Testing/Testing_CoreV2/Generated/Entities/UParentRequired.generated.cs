@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected UParentRequired()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
 
          Init();
       }
@@ -35,29 +35,40 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentRequired(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public UParentRequired(global::Testing.UChild uchildrequired)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
+         this.UChildRequired = uchildrequired;
 
-         UChildCollection = new HashSet<Testing.UChild>();
+         this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentRequired Create(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public static UParentRequired Create(global::Testing.UChild uchildrequired)
       {
-         return new UParentRequired(_uchildrequired);
+         return new UParentRequired(uchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -73,7 +84,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         private set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -85,26 +96,28 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      protected Testing.UChild _UChildRequired;
-      partial void SetUChildRequired(Testing.UChild oldValue, ref Testing.UChild newValue);
-      partial void GetUChildRequired(ref Testing.UChild result);
+      protected global::Testing.UChild _UChildRequired;
+      partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildRequired(ref global::Testing.UChild result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.UChild UChildRequired
+      public virtual global::Testing.UChild UChildRequired
       {
          get
          {
-            Testing.UChild value = _UChildRequired;
+            global::Testing.UChild value = _UChildRequired;
             GetUChildRequired(ref value);
             return (_UChildRequired = value);
          }
          set
          {
-            Testing.UChild oldValue = _UChildRequired;
+            global::Testing.UChild oldValue = _UChildRequired;
             SetUChildRequired(oldValue, ref value);
             if (oldValue != value)
             {
@@ -114,23 +127,23 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
-      protected Testing.UChild _UChildOptional;
-      partial void SetUChildOptional(Testing.UChild oldValue, ref Testing.UChild newValue);
-      partial void GetUChildOptional(ref Testing.UChild result);
+      protected global::Testing.UChild _UChildOptional;
+      partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildOptional(ref global::Testing.UChild result);
 
-      public Testing.UChild UChildOptional
+      public virtual global::Testing.UChild UChildOptional
       {
          get
          {
-            Testing.UChild value = _UChildOptional;
+            global::Testing.UChild value = _UChildOptional;
             GetUChildOptional(ref value);
             return (_UChildOptional = value);
          }
          set
          {
-            Testing.UChild oldValue = _UChildOptional;
+            global::Testing.UChild oldValue = _UChildOptional;
             SetUChildOptional(oldValue, ref value);
             if (oldValue != value)
             {

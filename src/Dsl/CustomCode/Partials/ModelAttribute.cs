@@ -17,116 +17,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
-      public static readonly string[] SpatialTypes =
-      {
-         "Geography"
-       , "GeographyCollection"
-       , "GeographyLineString"
-       , "GeographyMultiLineString"
-       , "GeographyMultiPoint"
-       , "GeographyMultiPolygon"
-       , "GeographyPoint"
-       , "GeographyPolygon"
-       , "Geometry"
-       , "GeometryCollection"
-       , "GeometryLineString"
-       , "GeometryMultiLineString"
-       , "GeometryMultiPoint"
-       , "GeometryMultiPolygon"
-       , "GeometryPoint"
-       , "GeometryPolygon"
-      };
-
-      public static readonly string[] ValidTypes =
-      {
-         "Binary"
-       , "Boolean"
-       , "Byte"
-       , "byte"
-       , "DateTime"
-       , "DateTimeOffset"
-       , "Decimal"
-       , "Double"
-       , "Geography"
-       , "GeographyCollection"
-       , "GeographyLineString"
-       , "GeographyMultiLineString"
-       , "GeographyMultiPoint"
-       , "GeographyMultiPolygon"
-       , "GeographyPoint"
-       , "GeographyPolygon"
-       , "Geometry"
-       , "GeometryCollection"
-       , "GeometryLineString"
-       , "GeometryMultiLineString"
-       , "GeometryMultiPoint"
-       , "GeometryMultiPolygon"
-       , "GeometryPoint"
-       , "GeometryPolygon"
-       , "Guid"
-       , "Int16"
-       , "Int32"
-       , "Int64"
-       , "Single"
-       , "String"
-       , "Time"
-      };
-
-      public static readonly string[] ValidCLRTypes =
-      {
-         "Binary",
-         "Boolean", "Boolean?", "Nullable<Boolean>",
-         "Byte", "Byte?", "Nullable<Byte>",
-         "DateTime", "DateTime?", "Nullable<DateTime>",
-         "DateTimeOffset", "DateTimeOffset?", "Nullable<DateTimeOffset>",
-         "DbGeography",
-         "DbGeometry",
-         "Decimal", "Decimal?", "Nullable<Decimal>",
-         "Double", "Double?", "Nullable<Double>",
-         "Geography",
-         "GeographyCollection",
-         "GeographyLineString",
-         "GeographyMultiLineString",
-         "GeographyMultiPoint",
-         "GeographyMultiPolygon",
-         "GeographyPoint",
-         "GeographyPolygon",
-         "Geometry",
-         "GeometryCollection",
-         "GeometryLineString",
-         "GeometryMultiLineString",
-         "GeometryMultiPoint",
-         "GeometryMultiPolygon",
-         "GeometryPoint",
-         "GeometryPolygon",
-         "Guid", "Guid?", "Nullable<Guid>",
-         "Int16", "Int16?", "Nullable<Int16>",
-         "Int32", "Int32?", "Nullable<Int32>",
-         "Int64", "Int64?", "Nullable<Int64>",
-         "Single", "Single?", "Nullable<Single>",
-         "String",
-         "Time",
-         "TimeSpan", "TimeSpan?", "Nullable<TimeSpan>",
-         "bool", "bool?", "Nullable<bool>",
-         "byte", "byte?", "Nullable<byte>",
-         "byte[]",
-         "decimal", "decimal?", "Nullable<decimal>",
-         "double", "double?", "Nullable<double>",
-         "int", "int?", "Nullable<int>",
-         "long", "long?", "Nullable<long>",
-         "short", "short?", "Nullable<short>",
-         "string"
-      };
-
-      public static readonly string[] ValidIdentityAttributeTypes =
-      {
-         "Int16",
-         "Int32",
-         "Int64",
-         "Byte",
-         "Guid"
-      };
-
       #region Warning display
 
       // set as methods to avoid issues around serialization
@@ -146,6 +36,35 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+      public bool SupportsInitialValue
+      {
+         get
+         {
+            switch (Type)
+            {
+               case "Binary":
+               case "Geography":
+               case "GeographyCollection":
+               case "GeographyLineString":
+               case "GeographyMultiLineString":
+               case "GeographyMultiPoint":
+               case "GeographyMultiPolygon":
+               case "GeographyPoint":
+               case "GeographyPolygon":
+               case "Geometry":
+               case "GeometryCollection":
+               case "GeometryLineString":
+               case "GeometryMultiLineString":
+               case "GeometryMultiPoint":
+               case "GeometryMultiPolygon":
+               case "GeometryPoint":
+               case "GeometryPolygon":
+                  return false;
+            }
+
+            return true;
+         }
+      }
       /// <summary>
       /// Tests if the InitialValue property is valid for the type indicated
       /// </summary>
@@ -235,11 +154,6 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 #pragma warning restore 168
-
-      public static bool IsValidCLRType(string type)
-      {
-         return ValidCLRTypes.Contains(type);
-      }
 
       public string PrimitiveType => ToPrimitiveType(Type);
 
@@ -592,10 +506,10 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             result.Type = ToCLRType(result.Type);
 
-            if (result.Type != null && !ValidTypes.Contains(result.Type))
+            if (result.Type != null && !modelRoot.ValidTypes.Contains(result.Type))
             {
                result.Type = ToCLRType(result.Type);
-               if (!ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
+               if (!modelRoot.ValidTypes.Contains(result.Type) && !modelRoot.Enums.Select(e => e.Name).Contains(result.Type))
                {
                   result.Type = null;
                   result.Required = null;

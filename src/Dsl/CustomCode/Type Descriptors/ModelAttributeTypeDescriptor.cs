@@ -26,11 +26,25 @@ namespace Sawczyn.EFDesigner.EFModel
 
             EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelAttribute);
 
+            // No sense asking for initial values if we won't use them
+            if (!modelAttribute.SupportsInitialValue)
+            {
+               PropertyDescriptor initialValueTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "InitialValue");
+               propertyDescriptors.Remove(initialValueTypeDescriptor);
+            }
+
             // don't display IdentityType unless the IsIdentity is true
             if (!modelAttribute.IsIdentity)
             {
                PropertyDescriptor identityTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IdentityType");
                propertyDescriptors.Remove(identityTypeDescriptor);
+            }
+
+            // ImplementNotify implicitly defines autoproperty as false, so we don't display it
+            if (modelAttribute.ModelClass.ImplementNotify)
+            {
+               PropertyDescriptor autoPropertyTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "AutoProperty");
+               propertyDescriptors.Remove(autoPropertyTypeDescriptor);
             }
 
             /********************************************************************************/

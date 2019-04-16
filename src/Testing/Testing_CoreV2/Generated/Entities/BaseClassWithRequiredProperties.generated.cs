@@ -33,27 +33,38 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_property0"></param>
-      public BaseClassWithRequiredProperties(string _property0)
+      /// <param name="property0"></param>
+      public BaseClassWithRequiredProperties(string property0)
       {
-         if (string.IsNullOrEmpty(_property0)) throw new ArgumentNullException(nameof(_property0));
-         Property0 = _property0;
+         if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
+         this.Property0 = property0;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_property0"></param>
-      public static BaseClassWithRequiredProperties Create(string _property0)
+      /// <param name="property0"></param>
+      public static BaseClassWithRequiredProperties Create(string property0)
       {
-         return new BaseClassWithRequiredProperties(_property0);
+         return new BaseClassWithRequiredProperties(property0);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -69,7 +80,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         private set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -81,8 +92,17 @@ namespace Testing
          }
       }
 
+      /// <summary>
+      /// Backing field for Property0
+      /// </summary>
       protected string _Property0;
+      /// <summary>
+      /// When provided in a partial class, allows value of Property0 to be changed before setting.
+      /// </summary>
       partial void SetProperty0(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Property0 to be changed before returning.
+      /// </summary>
       partial void GetProperty0(ref string result);
 
       /// <summary>

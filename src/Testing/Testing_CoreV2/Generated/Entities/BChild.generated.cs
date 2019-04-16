@@ -27,8 +27,8 @@ namespace Testing
       /// </summary>
       protected BChild()
       {
-         BParentCollection = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
-         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
 
          Init();
       }
@@ -36,40 +36,51 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bparentrequired"></param>
-      /// <param name="_bparentrequired_1"></param>
-      /// <param name="_bparentrequired_2"></param>
-      public BChild(Testing.BParentRequired _bparentrequired, Testing.BParentRequired _bparentrequired_1, Testing.BParentRequired _bparentrequired_2)
+      /// <param name="bparentrequired"></param>
+      /// <param name="bparentrequired_1"></param>
+      /// <param name="bparentrequired_2"></param>
+      public BChild(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_1, global::Testing.BParentRequired bparentrequired_2)
       {
-         if (_bparentrequired == null) throw new ArgumentNullException(nameof(_bparentrequired));
-         BParentRequired = _bparentrequired;
+         if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
+         this.BParentRequired = bparentrequired;
 
-         if (_bparentrequired_1 == null) throw new ArgumentNullException(nameof(_bparentrequired_1));
-         BParentRequired_1 = _bparentrequired_1;
+         if (bparentrequired_1 == null) throw new ArgumentNullException(nameof(bparentrequired_1));
+         this.BParentRequired_1 = bparentrequired_1;
 
-         if (_bparentrequired_2 == null) throw new ArgumentNullException(nameof(_bparentrequired_2));
-         BParentRequired_2 = _bparentrequired_2;
+         if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
+         this.BParentRequired_2 = bparentrequired_2;
 
-         BParentCollection = new HashSet<Testing.BParentCollection>();
-         BParentCollection_2 = new HashSet<Testing.BParentCollection>();
+         this.BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
+         this.BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bparentrequired"></param>
-      /// <param name="_bparentrequired_1"></param>
-      /// <param name="_bparentrequired_2"></param>
-      public static BChild Create(Testing.BParentRequired _bparentrequired, Testing.BParentRequired _bparentrequired_1, Testing.BParentRequired _bparentrequired_2)
+      /// <param name="bparentrequired"></param>
+      /// <param name="bparentrequired_1"></param>
+      /// <param name="bparentrequired_2"></param>
+      public static BChild Create(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_1, global::Testing.BParentRequired bparentrequired_2)
       {
-         return new BChild(_bparentrequired, _bparentrequired_1, _bparentrequired_2);
+         return new BChild(bparentrequired, bparentrequired_1, bparentrequired_2);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
       protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
       partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
       partial void GetId(ref int result);
 
       /// <summary>
@@ -85,7 +96,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         private set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -97,26 +108,28 @@ namespace Testing
          }
       }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      protected Testing.BParentRequired _BParentRequired;
-      partial void SetBParentRequired(Testing.BParentRequired oldValue, ref Testing.BParentRequired newValue);
-      partial void GetBParentRequired(ref Testing.BParentRequired result);
+      protected global::Testing.BParentRequired _BParentRequired;
+      partial void SetBParentRequired(global::Testing.BParentRequired oldValue, ref global::Testing.BParentRequired newValue);
+      partial void GetBParentRequired(ref global::Testing.BParentRequired result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BParentRequired BParentRequired
+      public virtual global::Testing.BParentRequired BParentRequired
       {
          get
          {
-            Testing.BParentRequired value = _BParentRequired;
+            global::Testing.BParentRequired value = _BParentRequired;
             GetBParentRequired(ref value);
             return (_BParentRequired = value);
          }
          set
          {
-            Testing.BParentRequired oldValue = _BParentRequired;
+            global::Testing.BParentRequired oldValue = _BParentRequired;
             SetBParentRequired(oldValue, ref value);
             if (oldValue != value)
             {
@@ -126,24 +139,24 @@ namespace Testing
          }
       }
 
-      protected Testing.BParentRequired _BParentRequired_1;
-      partial void SetBParentRequired_1(Testing.BParentRequired oldValue, ref Testing.BParentRequired newValue);
-      partial void GetBParentRequired_1(ref Testing.BParentRequired result);
+      protected global::Testing.BParentRequired _BParentRequired_1;
+      partial void SetBParentRequired_1(global::Testing.BParentRequired oldValue, ref global::Testing.BParentRequired newValue);
+      partial void GetBParentRequired_1(ref global::Testing.BParentRequired result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BParentRequired BParentRequired_1
+      public virtual global::Testing.BParentRequired BParentRequired_1
       {
          get
          {
-            Testing.BParentRequired value = _BParentRequired_1;
+            global::Testing.BParentRequired value = _BParentRequired_1;
             GetBParentRequired_1(ref value);
             return (_BParentRequired_1 = value);
          }
          set
          {
-            Testing.BParentRequired oldValue = _BParentRequired_1;
+            global::Testing.BParentRequired oldValue = _BParentRequired_1;
             SetBParentRequired_1(oldValue, ref value);
             if (oldValue != value)
             {
@@ -153,24 +166,24 @@ namespace Testing
          }
       }
 
-      protected Testing.BParentRequired _BParentRequired_2;
-      partial void SetBParentRequired_2(Testing.BParentRequired oldValue, ref Testing.BParentRequired newValue);
-      partial void GetBParentRequired_2(ref Testing.BParentRequired result);
+      protected global::Testing.BParentRequired _BParentRequired_2;
+      partial void SetBParentRequired_2(global::Testing.BParentRequired oldValue, ref global::Testing.BParentRequired newValue);
+      partial void GetBParentRequired_2(ref global::Testing.BParentRequired result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public Testing.BParentRequired BParentRequired_2
+      public virtual global::Testing.BParentRequired BParentRequired_2
       {
          get
          {
-            Testing.BParentRequired value = _BParentRequired_2;
+            global::Testing.BParentRequired value = _BParentRequired_2;
             GetBParentRequired_2(ref value);
             return (_BParentRequired_2 = value);
          }
          set
          {
-            Testing.BParentRequired oldValue = _BParentRequired_2;
+            global::Testing.BParentRequired oldValue = _BParentRequired_2;
             SetBParentRequired_2(oldValue, ref value);
             if (oldValue != value)
             {
@@ -180,25 +193,25 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
-      protected Testing.BParentOptional _BParentOptional;
-      partial void SetBParentOptional(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
-      partial void GetBParentOptional(ref Testing.BParentOptional result);
+      protected global::Testing.BParentOptional _BParentOptional;
+      partial void SetBParentOptional(global::Testing.BParentOptional oldValue, ref global::Testing.BParentOptional newValue);
+      partial void GetBParentOptional(ref global::Testing.BParentOptional result);
 
-      public Testing.BParentOptional BParentOptional
+      public virtual global::Testing.BParentOptional BParentOptional
       {
          get
          {
-            Testing.BParentOptional value = _BParentOptional;
+            global::Testing.BParentOptional value = _BParentOptional;
             GetBParentOptional(ref value);
             return (_BParentOptional = value);
          }
          set
          {
-            Testing.BParentOptional oldValue = _BParentOptional;
+            global::Testing.BParentOptional oldValue = _BParentOptional;
             SetBParentOptional(oldValue, ref value);
             if (oldValue != value)
             {
@@ -208,21 +221,21 @@ namespace Testing
          }
       }
 
-      protected Testing.BParentOptional _BParentOptional_1;
-      partial void SetBParentOptional_1(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
-      partial void GetBParentOptional_1(ref Testing.BParentOptional result);
+      protected global::Testing.BParentOptional _BParentOptional_1;
+      partial void SetBParentOptional_1(global::Testing.BParentOptional oldValue, ref global::Testing.BParentOptional newValue);
+      partial void GetBParentOptional_1(ref global::Testing.BParentOptional result);
 
-      public Testing.BParentOptional BParentOptional_1
+      public virtual global::Testing.BParentOptional BParentOptional_1
       {
          get
          {
-            Testing.BParentOptional value = _BParentOptional_1;
+            global::Testing.BParentOptional value = _BParentOptional_1;
             GetBParentOptional_1(ref value);
             return (_BParentOptional_1 = value);
          }
          set
          {
-            Testing.BParentOptional oldValue = _BParentOptional_1;
+            global::Testing.BParentOptional oldValue = _BParentOptional_1;
             SetBParentOptional_1(oldValue, ref value);
             if (oldValue != value)
             {
@@ -232,21 +245,21 @@ namespace Testing
          }
       }
 
-      protected Testing.BParentOptional _BParentOptional_2;
-      partial void SetBParentOptional_2(Testing.BParentOptional oldValue, ref Testing.BParentOptional newValue);
-      partial void GetBParentOptional_2(ref Testing.BParentOptional result);
+      protected global::Testing.BParentOptional _BParentOptional_2;
+      partial void SetBParentOptional_2(global::Testing.BParentOptional oldValue, ref global::Testing.BParentOptional newValue);
+      partial void GetBParentOptional_2(ref global::Testing.BParentOptional result);
 
-      public Testing.BParentOptional BParentOptional_2
+      public virtual global::Testing.BParentOptional BParentOptional_2
       {
          get
          {
-            Testing.BParentOptional value = _BParentOptional_2;
+            global::Testing.BParentOptional value = _BParentOptional_2;
             GetBParentOptional_2(ref value);
             return (_BParentOptional_2 = value);
          }
          set
          {
-            Testing.BParentOptional oldValue = _BParentOptional_2;
+            global::Testing.BParentOptional oldValue = _BParentOptional_2;
             SetBParentOptional_2(oldValue, ref value);
             if (oldValue != value)
             {

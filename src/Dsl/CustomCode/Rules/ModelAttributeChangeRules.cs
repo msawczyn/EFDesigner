@@ -16,6 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ModelAttribute element = (ModelAttribute)e.ModelElement;
          ModelClass modelClass = element.ModelClass;
+         ModelRoot modelRoot = modelClass.ModelRoot;
 
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
@@ -30,7 +31,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
-            case "Autoproperty":
+            case "AutoProperty":
 
                if (element.AutoProperty && modelClass.ImplementNotify)
                   WarningDisplay.Show($"{modelClass.Name}.{element.Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages");
@@ -55,7 +56,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (element.IsIdentity)
                {
-                  if (!ModelAttribute.ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
+                  if (!modelRoot.ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
                   {
                      errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {newType} can't be used as identity properties.");
                   }
@@ -79,6 +80,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (element.IsConcurrencyToken)
                   element.Type = "Binary";
+
+               if (!element.SupportsInitialValue)
+                  element.InitialValue = null;
 
                break;
 
@@ -136,7 +140,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                   else
                   {
-                     if (!ModelAttribute.ValidIdentityAttributeTypes.Contains(element.Type))
+                     if (!modelRoot.ValidIdentityAttributeTypes.Contains(element.Type))
                      {
                         errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {element.Type} can't be used as identity properties.");
                      }

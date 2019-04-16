@@ -30,14 +30,16 @@ namespace Testing_CoreV2NetCore
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       public byte[] BinaryAttr { get; set; }
 
@@ -67,6 +69,7 @@ namespace Testing_CoreV2NetCore
       /// Min length = 1, Max length = 10
       /// </summary>
       [MaxLength(10)]
+      [StringLength(10)]
       public string StringAttr { get; set; }
 
       public TimeSpan? TimeAttr { get; set; }

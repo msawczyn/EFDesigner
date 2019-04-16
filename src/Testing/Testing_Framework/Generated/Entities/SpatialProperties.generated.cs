@@ -34,80 +34,82 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_attrgeography"></param>
-      /// <param name="_attrgeographycollection"></param>
-      /// <param name="_attrgeographylinestring"></param>
-      /// <param name="_attrgeographymultilinestring"></param>
-      /// <param name="_attrgeographymultipoint"></param>
-      /// <param name="_attrgeographymultipolygon"></param>
-      /// <param name="_attrgeographypoint"></param>
-      /// <param name="_attrgeographypolygon"></param>
-      /// <param name="_attrgeometry"></param>
-      /// <param name="_attrgeometrycollection"></param>
-      /// <param name="_attrgeometrylinestring"></param>
-      /// <param name="_attrgeometrymultilinestring"></param>
-      /// <param name="_attrgeometrymultipoint"></param>
-      /// <param name="_attrgeometrymultipolygon"></param>
-      /// <param name="_attrgeometrypoint"></param>
-      public SpatialProperties(DbGeography _attrgeography, DbGeography _attrgeographycollection, DbGeography _attrgeographylinestring, DbGeography _attrgeographymultilinestring, DbGeography _attrgeographymultipoint, DbGeography _attrgeographymultipolygon, DbGeography _attrgeographypoint, DbGeography _attrgeographypolygon, DbGeometry _attrgeometry, DbGeometry _attrgeometrycollection, DbGeometry _attrgeometrylinestring, DbGeometry _attrgeometrymultilinestring, DbGeometry _attrgeometrymultipoint, DbGeometry _attrgeometrymultipolygon, DbGeometry _attrgeometrypoint)
+      /// <param name="attrgeography"></param>
+      /// <param name="attrgeographycollection"></param>
+      /// <param name="attrgeographylinestring"></param>
+      /// <param name="attrgeographymultilinestring"></param>
+      /// <param name="attrgeographymultipoint"></param>
+      /// <param name="attrgeographymultipolygon"></param>
+      /// <param name="attrgeographypoint"></param>
+      /// <param name="attrgeographypolygon"></param>
+      /// <param name="attrgeometry"></param>
+      /// <param name="attrgeometrycollection"></param>
+      /// <param name="attrgeometrylinestring"></param>
+      /// <param name="attrgeometrymultilinestring"></param>
+      /// <param name="attrgeometrymultipoint"></param>
+      /// <param name="attrgeometrymultipolygon"></param>
+      /// <param name="attrgeometrypoint"></param>
+      public SpatialProperties(DbGeography attrgeography, DbGeography attrgeographycollection, DbGeography attrgeographylinestring, DbGeography attrgeographymultilinestring, DbGeography attrgeographymultipoint, DbGeography attrgeographymultipolygon, DbGeography attrgeographypoint, DbGeography attrgeographypolygon, DbGeometry attrgeometry, DbGeometry attrgeometrycollection, DbGeometry attrgeometrylinestring, DbGeometry attrgeometrymultilinestring, DbGeometry attrgeometrymultipoint, DbGeometry attrgeometrymultipolygon, DbGeometry attrgeometrypoint)
       {
-         if (_attrgeography == null) throw new ArgumentNullException(nameof(_attrgeography));
-         AttrGeography = _attrgeography;
-         if (_attrgeographycollection == null) throw new ArgumentNullException(nameof(_attrgeographycollection));
-         AttrGeographyCollection = _attrgeographycollection;
-         if (_attrgeographylinestring == null) throw new ArgumentNullException(nameof(_attrgeographylinestring));
-         AttrGeographyLineString = _attrgeographylinestring;
-         if (_attrgeographymultilinestring == null) throw new ArgumentNullException(nameof(_attrgeographymultilinestring));
-         AttrGeographyMultiLineString = _attrgeographymultilinestring;
-         if (_attrgeographymultipoint == null) throw new ArgumentNullException(nameof(_attrgeographymultipoint));
-         AttrGeographyMultiPoint = _attrgeographymultipoint;
-         if (_attrgeographymultipolygon == null) throw new ArgumentNullException(nameof(_attrgeographymultipolygon));
-         AttrGeographyMultiPolygon = _attrgeographymultipolygon;
-         if (_attrgeographypoint == null) throw new ArgumentNullException(nameof(_attrgeographypoint));
-         AttrGeographyPoint = _attrgeographypoint;
-         if (_attrgeographypolygon == null) throw new ArgumentNullException(nameof(_attrgeographypolygon));
-         AttrGeographyPolygon = _attrgeographypolygon;
-         if (_attrgeometry == null) throw new ArgumentNullException(nameof(_attrgeometry));
-         AttrGeometry = _attrgeometry;
-         if (_attrgeometrycollection == null) throw new ArgumentNullException(nameof(_attrgeometrycollection));
-         AttrGeometryCollection = _attrgeometrycollection;
-         if (_attrgeometrylinestring == null) throw new ArgumentNullException(nameof(_attrgeometrylinestring));
-         AttrGeometryLineString = _attrgeometrylinestring;
-         if (_attrgeometrymultilinestring == null) throw new ArgumentNullException(nameof(_attrgeometrymultilinestring));
-         AttrGeometryMultiLineString = _attrgeometrymultilinestring;
-         if (_attrgeometrymultipoint == null) throw new ArgumentNullException(nameof(_attrgeometrymultipoint));
-         AttrGeometryMultiPoint = _attrgeometrymultipoint;
-         if (_attrgeometrymultipolygon == null) throw new ArgumentNullException(nameof(_attrgeometrymultipolygon));
-         AttrGeometryMultiPolygon = _attrgeometrymultipolygon;
-         if (_attrgeometrypoint == null) throw new ArgumentNullException(nameof(_attrgeometrypoint));
-         AttrGeometryPoint = _attrgeometrypoint;
+         if (attrgeography == null) throw new ArgumentNullException(nameof(attrgeography));
+         this.AttrGeography = attrgeography;
+         if (attrgeographycollection == null) throw new ArgumentNullException(nameof(attrgeographycollection));
+         this.AttrGeographyCollection = attrgeographycollection;
+         if (attrgeographylinestring == null) throw new ArgumentNullException(nameof(attrgeographylinestring));
+         this.AttrGeographyLineString = attrgeographylinestring;
+         if (attrgeographymultilinestring == null) throw new ArgumentNullException(nameof(attrgeographymultilinestring));
+         this.AttrGeographyMultiLineString = attrgeographymultilinestring;
+         if (attrgeographymultipoint == null) throw new ArgumentNullException(nameof(attrgeographymultipoint));
+         this.AttrGeographyMultiPoint = attrgeographymultipoint;
+         if (attrgeographymultipolygon == null) throw new ArgumentNullException(nameof(attrgeographymultipolygon));
+         this.AttrGeographyMultiPolygon = attrgeographymultipolygon;
+         if (attrgeographypoint == null) throw new ArgumentNullException(nameof(attrgeographypoint));
+         this.AttrGeographyPoint = attrgeographypoint;
+         if (attrgeographypolygon == null) throw new ArgumentNullException(nameof(attrgeographypolygon));
+         this.AttrGeographyPolygon = attrgeographypolygon;
+         if (attrgeometry == null) throw new ArgumentNullException(nameof(attrgeometry));
+         this.AttrGeometry = attrgeometry;
+         if (attrgeometrycollection == null) throw new ArgumentNullException(nameof(attrgeometrycollection));
+         this.AttrGeometryCollection = attrgeometrycollection;
+         if (attrgeometrylinestring == null) throw new ArgumentNullException(nameof(attrgeometrylinestring));
+         this.AttrGeometryLineString = attrgeometrylinestring;
+         if (attrgeometrymultilinestring == null) throw new ArgumentNullException(nameof(attrgeometrymultilinestring));
+         this.AttrGeometryMultiLineString = attrgeometrymultilinestring;
+         if (attrgeometrymultipoint == null) throw new ArgumentNullException(nameof(attrgeometrymultipoint));
+         this.AttrGeometryMultiPoint = attrgeometrymultipoint;
+         if (attrgeometrymultipolygon == null) throw new ArgumentNullException(nameof(attrgeometrymultipolygon));
+         this.AttrGeometryMultiPolygon = attrgeometrymultipolygon;
+         if (attrgeometrypoint == null) throw new ArgumentNullException(nameof(attrgeometrypoint));
+         this.AttrGeometryPoint = attrgeometrypoint;
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_attrgeography"></param>
-      /// <param name="_attrgeographycollection"></param>
-      /// <param name="_attrgeographylinestring"></param>
-      /// <param name="_attrgeographymultilinestring"></param>
-      /// <param name="_attrgeographymultipoint"></param>
-      /// <param name="_attrgeographymultipolygon"></param>
-      /// <param name="_attrgeographypoint"></param>
-      /// <param name="_attrgeographypolygon"></param>
-      /// <param name="_attrgeometry"></param>
-      /// <param name="_attrgeometrycollection"></param>
-      /// <param name="_attrgeometrylinestring"></param>
-      /// <param name="_attrgeometrymultilinestring"></param>
-      /// <param name="_attrgeometrymultipoint"></param>
-      /// <param name="_attrgeometrymultipolygon"></param>
-      /// <param name="_attrgeometrypoint"></param>
-      public static SpatialProperties Create(DbGeography _attrgeography, DbGeography _attrgeographycollection, DbGeography _attrgeographylinestring, DbGeography _attrgeographymultilinestring, DbGeography _attrgeographymultipoint, DbGeography _attrgeographymultipolygon, DbGeography _attrgeographypoint, DbGeography _attrgeographypolygon, DbGeometry _attrgeometry, DbGeometry _attrgeometrycollection, DbGeometry _attrgeometrylinestring, DbGeometry _attrgeometrymultilinestring, DbGeometry _attrgeometrymultipoint, DbGeometry _attrgeometrymultipolygon, DbGeometry _attrgeometrypoint)
+      /// <param name="attrgeography"></param>
+      /// <param name="attrgeographycollection"></param>
+      /// <param name="attrgeographylinestring"></param>
+      /// <param name="attrgeographymultilinestring"></param>
+      /// <param name="attrgeographymultipoint"></param>
+      /// <param name="attrgeographymultipolygon"></param>
+      /// <param name="attrgeographypoint"></param>
+      /// <param name="attrgeographypolygon"></param>
+      /// <param name="attrgeometry"></param>
+      /// <param name="attrgeometrycollection"></param>
+      /// <param name="attrgeometrylinestring"></param>
+      /// <param name="attrgeometrymultilinestring"></param>
+      /// <param name="attrgeometrymultipoint"></param>
+      /// <param name="attrgeometrymultipolygon"></param>
+      /// <param name="attrgeometrypoint"></param>
+      public static SpatialProperties Create(DbGeography attrgeography, DbGeography attrgeographycollection, DbGeography attrgeographylinestring, DbGeography attrgeographymultilinestring, DbGeography attrgeographymultipoint, DbGeography attrgeographymultipolygon, DbGeography attrgeographypoint, DbGeography attrgeographypolygon, DbGeometry attrgeometry, DbGeometry attrgeometrycollection, DbGeometry attrgeometrylinestring, DbGeometry attrgeometrymultilinestring, DbGeometry attrgeometrymultipoint, DbGeometry attrgeometrymultipolygon, DbGeometry attrgeometrypoint)
       {
-         return new SpatialProperties(_attrgeography, _attrgeographycollection, _attrgeographylinestring, _attrgeographymultilinestring, _attrgeographymultipoint, _attrgeographymultipolygon, _attrgeographypoint, _attrgeographypolygon, _attrgeometry, _attrgeometrycollection, _attrgeometrylinestring, _attrgeometrymultilinestring, _attrgeometrymultipoint, _attrgeometrymultipolygon, _attrgeometrypoint);
+         return new SpatialProperties(attrgeography, attrgeographycollection, attrgeographylinestring, attrgeographymultilinestring, attrgeographymultipoint, attrgeographymultipolygon, attrgeographypoint, attrgeographypolygon, attrgeometry, attrgeometrycollection, attrgeometrylinestring, attrgeometrymultilinestring, attrgeometrymultipoint, attrgeometrymultipolygon, attrgeometrypoint);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required

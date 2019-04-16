@@ -12,7 +12,7 @@ Model and generate code for Entity Framework v6, Entity Framework Core 2.0 and 2
 <img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Designer.jpg">
 </td></tr></tbody></table>
 
-This Visual Studio 2017 extension adds a new file type (.efmodel) that allows for fast, easy and, most
+This Visual Studio 2017/2019 extension adds a new file type (.efmodel) that allows for fast, easy and, most
 importantly, **visual** design of persistent classes. Inheritance, unidirectional and bidirectional 
 associations are all supported. Enumerations are also included in the visual model, as is the 
 ability to add text blocks to explain potentially arcane parts of your design.
@@ -41,14 +41,39 @@ ASP.Net Core in addition to any other project type, so you'll have flexibility i
 
 You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/).
 
- ### Change Log
+**Known Issues**
+
+In Visual Studio 2019, projects using the new project format (typically .NET Core and .NET Standard projects) will throw an exception when
+opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK and is currently under investigation. Visual Studio
+2017 does not exhibit this issue.
+
+### Change Log
+
+**1.2.7**
+   - Works with Visual Studio 2019 - mostly (see Known issues on the documentation site)
+   - Better formatting for XML comment docs
+   - Added autoproperty toggle for association ends, allowing for implementation of partial methods to examine and/or override association getting and setting
+   - Removed experimental method added in 1.2.6.22 for generation of orphan association cleanup. The experiment failed :-(
+   - Documentation enhancements
+   - Change in generated code to eliminate name clashes in certain circumstances (See https://github.com/msawczyn/EFDesigner/issues/48)
+   - Fix: Removed duplicate indices being created for key fields
+   - Fix: Setting different value than default produces duplicated HasColumnType call in EF Core (See https://github.com/msawczyn/EFDesigner/issues/58). Thanks to tdabek (https://github.com/tdabek) for the PR!
+   - Fix: "Defining ColumnType causes error in generated DBContext" (See https://github.com/msawczyn/EFDesigner/issues/64)
+   - Fix: "EFCore indexed column not generated and support for multi column indexing" (See https://github.com/msawczyn/EFDesigner/issues/62)
+   - Fix: "One-to-one seems to generate incorrect code" (See https://github.com/msawczyn/EFDesigner/issues/60)
+   - Fix: "Error generating column type" (See https://github.com/msawczyn/EFDesigner/issues/58)
 
 **1.2.6.25**
    - Fix for duplicate associations when `Implement Notify` is true
 
+<details>
+<summary><b>1.2.6.25</b></summary>
+
 **1.2.6.24**
-   - Fix for join table schema generation in certain scenarios
+   - Fix for join table schema generation in certain scenarios (EF6)
    - Fix for regression error producing code gen errors in EFCore navigation properties
+
+</details>
 
 <details>
 <summary><b>1.2.6.23</b></summary>

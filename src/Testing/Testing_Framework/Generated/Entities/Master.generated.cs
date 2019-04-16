@@ -28,12 +28,14 @@ namespace Testing
       /// </summary>
       public Master()
       {
-         Children = new System.Collections.ObjectModel.ObservableCollection<Testing.Child>();
+         Children = new System.Collections.ObjectModel.ObservableCollection<global::Testing.Child>();
 
          Init();
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
@@ -42,9 +44,11 @@ namespace Testing
       [Required]
       public int Id { get; set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
    }
 }

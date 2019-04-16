@@ -27,52 +27,51 @@ namespace Testing
       /// </summary>
       protected UParentCollection()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
-
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public UParentCollection(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public UParentCollection(global::Testing.UChild uchildrequired)
       {
-         if (_uchildrequired == null) throw new ArgumentNullException(nameof(_uchildrequired));
-         UChildRequired = _uchildrequired;
+         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
+         this.UChildRequired = uchildrequired;
 
-         UChildCollection = new HashSet<Testing.UChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uchildrequired"></param>
-      public static UParentCollection Create(Testing.UChild _uchildrequired)
+      /// <param name="uchildrequired"></param>
+      public static UParentCollection Create(global::Testing.UChild uchildrequired)
       {
-         return new UParentCollection(_uchildrequired);
+         return new UParentCollection(uchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.UChild UChildRequired { get; set; }
+      public virtual global::Testing.UChild UChildRequired { get; set; }
 
-      public virtual ICollection<Testing.UChild> UChildCollection { get; set; }
-
-      public virtual Testing.UChild UChildOptional { get; set; }
+      public virtual global::Testing.UChild UChildOptional { get; set; }
 
    }
 }

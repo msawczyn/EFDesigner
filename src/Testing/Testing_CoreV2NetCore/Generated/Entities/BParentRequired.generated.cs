@@ -27,7 +27,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected BParentRequired()
       {
-         BChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BChild>();
+         BChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BChild>();
 
          Init();
       }
@@ -35,44 +35,48 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public BParentRequired(Testing_CoreV2NetCore.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public BParentRequired(global::Testing_CoreV2NetCore.BChild bchildrequired)
       {
-         if (_bchildrequired == null) throw new ArgumentNullException(nameof(_bchildrequired));
-         BChildRequired = _bchildrequired;
+         if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
+         this.BChildRequired = bchildrequired;
 
-         BChildCollection = new HashSet<Testing_CoreV2NetCore.BChild>();
+         this.BChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_bchildrequired"></param>
-      public static BParentRequired Create(Testing_CoreV2NetCore.BChild _bchildrequired)
+      /// <param name="bchildrequired"></param>
+      public static BParentRequired Create(global::Testing_CoreV2NetCore.BChild bchildrequired)
       {
-         return new BParentRequired(_bchildrequired);
+         return new BParentRequired(bchildrequired);
       }
 
-      // Persistent properties
+      /*************************************************************************
+       * Persistent properties
+       *************************************************************************/
 
       /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
-      // Persistent navigation properties
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
 
-      public virtual Testing_CoreV2NetCore.BChild BChildOptional { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BChild BChildOptional { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.BChild BChildRequired { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.BChild> BChildCollection { get; set; }
+      public virtual ICollection<global::Testing_CoreV2NetCore.BChild> BChildCollection { get; private set; }
 
    }
 }
