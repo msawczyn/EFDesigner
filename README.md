@@ -41,7 +41,13 @@ ASP.Net Core in addition to any other project type, so you'll have flexibility i
 
 You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/).
 
- ### Change Log
+**Known Issues**
+
+In Visual Studio 2019, projects using the new project format (typically .NET Core and .NET Standard projects) will throw an exception when
+opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK and is currently under investigation. Visual Studio
+2017 does not exhibit this issue.
+
+### Change Log
 
 **1.2.7**
    - Works with Visual Studio 2019 - mostly (see Known issues on the documentation site)

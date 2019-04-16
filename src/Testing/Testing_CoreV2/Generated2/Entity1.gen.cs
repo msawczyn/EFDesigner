@@ -44,6 +44,8 @@ namespace Testing_CoreV2NetStd.Model
       [Required]
       public int Id { get; private set; }
 
+      public string Property1 { get; set; }
+
    }
 }
 
