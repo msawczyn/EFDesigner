@@ -50,14 +50,14 @@ opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK a
 ### Change Log
 
 **1.2.7**
-   - Works with Visual Studio 2019 - mostly (see Known issues on the documentation site)
+   - Works with Visual Studio 2019 - mostly (see Known Issues, above)
    - Better formatting for XML comment docs
    - Added autoproperty toggle for association ends, allowing for implementation of partial methods to examine and/or override association getting and setting
-   - Removed experimental method added in 1.2.6.22 for generation of orphan association cleanup. The experiment failed :-(
+   - Removed experimental method added in 1.2.6.22 for generation of orphan association cleanup in EF6. The experiment failed :-(
    - Documentation enhancements
    - Change in generated code to eliminate name clashes in certain circumstances (See https://github.com/msawczyn/EFDesigner/issues/48)
    - Fix: Removed duplicate indices being created for key fields
-   - Fix: Setting different value than default produces duplicated HasColumnType call in EF Core (See https://github.com/msawczyn/EFDesigner/issues/58). Thanks to tdabek (https://github.com/tdabek) for the PR!
+   - Fix: "Setting different value than default produces duplicated HasColumnType call in EF Core" (See https://github.com/msawczyn/EFDesigner/issues/58). Thanks to tdabek (https://github.com/tdabek) for the PR!
    - Fix: "Defining ColumnType causes error in generated DBContext" (See https://github.com/msawczyn/EFDesigner/issues/64)
    - Fix: "EFCore indexed column not generated and support for multi column indexing" (See https://github.com/msawczyn/EFDesigner/issues/62)
    - Fix: "One-to-one seems to generate incorrect code" (See https://github.com/msawczyn/EFDesigner/issues/60)
@@ -67,9 +67,8 @@ opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK a
    - Fix for duplicate associations when `Implement Notify` is true
 
 <details>
-<summary><b>1.2.6.25</b></summary>
+<summary><b>1.2.6.24</b></summary>
 
-**1.2.6.24**
    - Fix for join table schema generation in certain scenarios (EF6)
    - Fix for regression error producing code gen errors in EFCore navigation properties
 
