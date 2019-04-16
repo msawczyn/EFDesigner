@@ -210,7 +210,7 @@
     <modelRootHasClasses Id="e9bebc13-0bd1-4974-a1e0-d11147c5f27b">
       <modelClass Id="232ae00b-98c4-41e9-98ec-a17a8a3841c1" tableName="BaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="BaseClasses" name="BaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
-          <generalization Id="0e25ebd6-3b5a-44c0-84b6-e75db6b64c1e">
+          <generalization Id="974aeaa5-7a55-481c-9056-6b0b56a9d1da">
             <modelClassMoniker Id="b45560b9-6af2-4b98-a9da-3f406fc214c5" />
           </generalization>
         </subclasses>
@@ -239,10 +239,10 @@
     <modelRootHasClasses Id="6fc790aa-0dcf-4c0d-b1ec-5b76259abe54">
       <modelClass Id="69fc6925-9e16-43ab-853e-1c8add21f51f" isAbstract="true" tableName="AbstractBaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="AbstractBaseClasses" name="AbstractBaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
-          <generalization Id="1d3b7082-dc25-4123-aeb7-0f3d920abbdc">
+          <generalization Id="606e9860-964c-435c-9987-9038ce06c02f">
             <modelClassMoniker Id="e61386e4-7f33-496a-be4d-67794bb4ab7f" />
           </generalization>
-          <generalization Id="de1f8b06-433b-486a-a3d2-2de9c3bb2eea">
+          <generalization Id="fd54f3be-1386-44cc-ad12-04e9d307cbbd">
             <modelClassMoniker Id="181a7a13-a6b6-4c84-b26d-e828d1f264d8" />
           </generalization>
         </subclasses>

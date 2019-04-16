@@ -357,22 +357,22 @@
         <classShapeMoniker Id="648e2c28-d9c4-40a5-8aee-59afddb6d840" />
       </nodes>
     </unidirectionalConnector>
-    <generalizationConnector Id="86a5a05e-e59e-4c94-b2ee-8327cc58bd8e" edgePoints="[(10.875 : 10.3031689453125); (10.875 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="0e25ebd6-3b5a-44c0-84b6-e75db6b64c1e" />
+    <generalizationConnector Id="c06b56a6-d4d8-41e4-9f62-731482493e68" edgePoints="[(10.875 : 10.3031689453125); (10.875 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="974aeaa5-7a55-481c-9056-6b0b56a9d1da" />
       <nodes>
         <classShapeMoniker Id="91ebab80-108f-4198-b2bb-a43ff000ad35" />
         <classShapeMoniker Id="10aae75a-82e2-4296-9d9f-faa440770436" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="dacf61e4-edc3-4cda-857b-39b638315d32" edgePoints="[(13.5625 : 10.3031689453125); (13.5625 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="1d3b7082-dc25-4123-aeb7-0f3d920abbdc" />
+    <generalizationConnector Id="d84ee960-8b16-4899-b142-969f3f891f46" edgePoints="[(13.5625 : 10.3031689453125); (13.5625 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="606e9860-964c-435c-9987-9038ce06c02f" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="d113c04f-14ad-44b9-9bb4-553107db92df" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="99b80733-894f-48f8-8865-e70db7739df7" edgePoints="[(14.9375 : 10.3031689453125); (14.9375 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="de1f8b06-433b-486a-a3d2-2de9c3bb2eea" />
+    <generalizationConnector Id="d462f15f-21bb-4aba-bcba-7b06afc2dcc2" edgePoints="[(14.9375 : 10.3031689453125); (14.9375 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="fd54f3be-1386-44cc-ad12-04e9d307cbbd" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="279ef3e6-87a3-4739-b2a1-79058c189d98" />

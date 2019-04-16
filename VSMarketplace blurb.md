@@ -22,16 +22,26 @@ and many other nice-to-have bits.
 
 For comprehensive documentation, please visit [the project's documentation site](https://msawczyn.github.io/EFDesigner/).
 
+**Known Issues**
+
+Visual Studio 2019 project using the new project format (typically .NET Core and .NET Standard projects) will throw an exception when
+opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK and is currently under investigation.
+
 **ChangeLog**
 
 **1.2.7.0**
-   - Works with Visual Studio 2019!
+   - Works with Visual Studio 2019 - mostly (see Known Issues)
    - Better formatting for XML comment docs
-   - Fix: Removed duplicate indices being created for key fields
-   - Fix: Setting different value than default produces duplicated HasColumnType call in EF Core (See https://github.com/msawczyn/EFDesigner/issues/58). Thanks to tdabek (https://github.com/tdabek) for the PR!
    - **[NEW]** Added autoproperty toggle for association ends, allowing for implementation of partial methods to examine and/or override association getting and setting
    - Removed experimental method added in 1.2.6.22 for generation of orphan association cleanup. The experiment failed :-(
    - Documentation enhancements
+   - Change in generated code to eliminate name clashes in certain circumstances (See https://github.com/msawczyn/EFDesigner/issues/48)
+   - Fix for duplicate indices being created for key fields
+   - Fixed setting different value than default produces duplicated HasColumnType call in EF Core (See https://github.com/msawczyn/EFDesigner/issues/58). Thanks to tdabek (https://github.com/tdabek) for the PR!
+   - Fix for "Defining ColumnType causes error in generated DBContext" (See https://github.com/msawczyn/EFDesigner/issues/64)
+   - Fix for "EFCore indexed column not generated and support for multi column indexing" (See https://github.com/msawczyn/EFDesigner/issues/62)
+   - Fix for "One-to-one seems to generate incorrect code" (See https://github.com/msawczyn/EFDesigner/issues/60)
+   - Fix for "Error generating column type" (See https://github.com/msawczyn/EFDesigner/issues/58)
 
 **1.2.6.25**
    - Fix for duplicate associations when `Implement Notify` is true
