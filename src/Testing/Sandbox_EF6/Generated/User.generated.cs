@@ -37,7 +37,7 @@ namespace Sandbox_EF6
       /// Public constructor with required data
       /// </summary>
       /// <param name="role"></param>
-      public User(Sandbox_EF6.Role role)
+      public User(global::Sandbox_EF6.Role role)
       {
          if (role == null) throw new ArgumentNullException(nameof(role));
          this.Role = role;
@@ -49,7 +49,7 @@ namespace Sandbox_EF6
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="role"></param>
-      public static User Create(Sandbox_EF6.Role role)
+      public static User Create(global::Sandbox_EF6.Role role)
       {
          return new User(role);
       }
@@ -96,7 +96,7 @@ namespace Sandbox_EF6
       /// in the designer{/li}
       /// {/ul}
       /// </remarks>
-      public virtual Sandbox_EF6.Role Role { get; set; }
+      public virtual global::Sandbox_EF6.Role Role { get; set; }
 
    }
 }

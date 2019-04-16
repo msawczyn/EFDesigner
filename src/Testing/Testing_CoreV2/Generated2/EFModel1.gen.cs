@@ -22,7 +22,7 @@ namespace Testing_CoreV2NetStd.Model
    public partial class EFModel1 : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Testing_CoreV2NetStd.Model.Entity1> Entity1 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing_CoreV2NetStd.Model.Entity1> Entity1 { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -59,10 +59,10 @@ namespace Testing_CoreV2NetStd.Model
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<Testing_CoreV2NetStd.Model.Entity1>()
+         modelBuilder.Entity<global::Testing_CoreV2NetStd.Model.Entity1>()
                      .ToTable("Entity1")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Testing_CoreV2NetStd.Model.Entity1>()
+         modelBuilder.Entity<global::Testing_CoreV2NetStd.Model.Entity1>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();

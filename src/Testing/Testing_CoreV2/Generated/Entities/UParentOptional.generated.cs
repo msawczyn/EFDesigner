@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public partial class UParentOptional : Testing.HiddenEntity, INotifyPropertyChanged
+   public partial class UParentOptional : global::Testing.HiddenEntity, INotifyPropertyChanged
    {
       partial void Init();
 
@@ -28,7 +28,7 @@ namespace Testing
       protected UParentOptional(): base()
       {
          PropertyInChild = "hello";
-         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
 
          Init();
       }
@@ -37,13 +37,13 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public UParentOptional(Testing.UChild uchildrequired)
+      public UParentOptional(global::Testing.UChild uchildrequired)
       {
          this.PropertyInChild = "hello";
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
          this.UChildRequired = uchildrequired;
 
-         this.UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
+         this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
          Init();
       }
 
@@ -51,7 +51,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public static UParentOptional Create(Testing.UChild uchildrequired)
+      public static UParentOptional Create(global::Testing.UChild uchildrequired)
       {
          return new UParentOptional(uchildrequired);
       }
@@ -100,21 +100,21 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      protected Testing.UChild _UChildOptional;
-      partial void SetUChildOptional(Testing.UChild oldValue, ref Testing.UChild newValue);
-      partial void GetUChildOptional(ref Testing.UChild result);
+      protected global::Testing.UChild _UChildOptional;
+      partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildOptional(ref global::Testing.UChild result);
 
-      public virtual Testing.UChild UChildOptional
+      public virtual global::Testing.UChild UChildOptional
       {
          get
          {
-            Testing.UChild value = _UChildOptional;
+            global::Testing.UChild value = _UChildOptional;
             GetUChildOptional(ref value);
             return (_UChildOptional = value);
          }
          set
          {
-            Testing.UChild oldValue = _UChildOptional;
+            global::Testing.UChild oldValue = _UChildOptional;
             SetUChildOptional(oldValue, ref value);
             if (oldValue != value)
             {
@@ -124,26 +124,26 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<Testing.UChild> UChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
-      protected Testing.UChild _UChildRequired;
-      partial void SetUChildRequired(Testing.UChild oldValue, ref Testing.UChild newValue);
-      partial void GetUChildRequired(ref Testing.UChild result);
+      protected global::Testing.UChild _UChildRequired;
+      partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildRequired(ref global::Testing.UChild result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.UChild UChildRequired
+      public virtual global::Testing.UChild UChildRequired
       {
          get
          {
-            Testing.UChild value = _UChildRequired;
+            global::Testing.UChild value = _UChildRequired;
             GetUChildRequired(ref value);
             return (_UChildRequired = value);
          }
          set
          {
-            Testing.UChild oldValue = _UChildRequired;
+            global::Testing.UChild oldValue = _UChildRequired;
             SetUChildRequired(oldValue, ref value);
             if (oldValue != value)
             {

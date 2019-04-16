@@ -42,7 +42,7 @@ namespace Testing_CoreV2NetStd.Model
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
    }
 }

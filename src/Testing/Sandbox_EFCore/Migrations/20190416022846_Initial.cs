@@ -11,16 +11,17 @@ namespace Sandbox_EFCore.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "Sandbox_EFCore",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RoleName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.PrimaryKey("PK_Sandbox_EFCore", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,25 +31,33 @@ namespace Sandbox_EFCore.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Role_Id = table.Column<long>(nullable: true)
+                    Property1 = table.Column<string>(nullable: true),
+                    Sandbox_EFCore_Role_Id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_Role_Id",
-                        column: x => x.Role_Id,
+                        name: "FK_Users_Sandbox_EFCore_Sandbox_EFCore_Role_Id",
+                        column: x => x.Sandbox_EFCore_Role_Id,
                         principalSchema: "dbo",
-                        principalTable: "Roles",
+                        principalTable: "Sandbox_EFCore",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Role_Id",
+                name: "IX_Users_Property1",
                 schema: "dbo",
                 table: "Users",
-                column: "Role_Id");
+                column: "Property1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Sandbox_EFCore_Role_Id",
+                schema: "dbo",
+                table: "Users",
+                column: "Sandbox_EFCore_Role_Id",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -58,7 +67,7 @@ namespace Sandbox_EFCore.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Roles",
+                name: "Sandbox_EFCore",
                 schema: "dbo");
         }
     }

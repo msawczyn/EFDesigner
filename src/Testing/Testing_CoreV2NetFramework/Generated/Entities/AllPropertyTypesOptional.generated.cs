@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       public AllPropertyTypesOptional()
       {
-         OwnedType = new Testing.OwnedType();
+         OwnedType = new global::Testing.OwnedType();
 
          Init();
       }
@@ -123,7 +123,7 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual Testing.OwnedType OwnedType { get; set; }
+      public virtual global::Testing.OwnedType OwnedType { get; set; }
 
    }
 }

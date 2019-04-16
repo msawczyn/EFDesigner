@@ -27,8 +27,8 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected BChild()
       {
-         BParentCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
-         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BParentCollection>();
 
          Init();
       }
@@ -39,7 +39,7 @@ namespace Testing_CoreV2NetCore
       /// <param name="bparentrequired"></param>
       /// <param name="bparentrequired_1"></param>
       /// <param name="bparentrequired_2"></param>
-      public BChild(Testing_CoreV2NetCore.BParentRequired bparentrequired, Testing_CoreV2NetCore.BParentRequired bparentrequired_1, Testing_CoreV2NetCore.BParentRequired bparentrequired_2)
+      public BChild(global::Testing_CoreV2NetCore.BParentRequired bparentrequired, global::Testing_CoreV2NetCore.BParentRequired bparentrequired_1, global::Testing_CoreV2NetCore.BParentRequired bparentrequired_2)
       {
          if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
          this.BParentRequired = bparentrequired;
@@ -50,8 +50,8 @@ namespace Testing_CoreV2NetCore
          if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
          this.BParentRequired_2 = bparentrequired_2;
 
-         this.BParentCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
-         this.BParentCollection_2 = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BParentCollection>();
+         this.BParentCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BParentCollection>();
+         this.BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BParentCollection>();
          Init();
       }
 
@@ -61,7 +61,7 @@ namespace Testing_CoreV2NetCore
       /// <param name="bparentrequired"></param>
       /// <param name="bparentrequired_1"></param>
       /// <param name="bparentrequired_2"></param>
-      public static BChild Create(Testing_CoreV2NetCore.BParentRequired bparentrequired, Testing_CoreV2NetCore.BParentRequired bparentrequired_1, Testing_CoreV2NetCore.BParentRequired bparentrequired_2)
+      public static BChild Create(global::Testing_CoreV2NetCore.BParentRequired bparentrequired, global::Testing_CoreV2NetCore.BParentRequired bparentrequired_1, global::Testing_CoreV2NetCore.BParentRequired bparentrequired_2)
       {
          return new BChild(bparentrequired, bparentrequired_1, bparentrequired_2);
       }
@@ -75,7 +75,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
@@ -84,27 +84,27 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.BParentRequired BParentRequired { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BParentRequired BParentRequired { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.BParentRequired BParentRequired_1 { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BParentRequired BParentRequired_1 { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.BParentRequired BParentRequired_2 { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection { get; private set; }
+      public virtual ICollection<global::Testing_CoreV2NetCore.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.BParentCollection> BParentCollection_2 { get; private set; }
+      public virtual ICollection<global::Testing_CoreV2NetCore.BParentCollection> BParentCollection_2 { get; private set; }
 
-      public virtual Testing_CoreV2NetCore.BParentOptional BParentOptional { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BParentOptional BParentOptional { get; set; }
 
-      public virtual Testing_CoreV2NetCore.BParentOptional BParentOptional_1 { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BParentOptional BParentOptional_1 { get; set; }
 
-      public virtual Testing_CoreV2NetCore.BParentOptional BParentOptional_2 { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BParentOptional BParentOptional_2 { get; set; }
 
    }
 }

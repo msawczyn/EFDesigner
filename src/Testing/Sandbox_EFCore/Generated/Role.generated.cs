@@ -11,64 +11,11 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Sandbox_EFCore
 {
-   public partial class Role
+   public enum Role : Int32
    {
-      partial void Init();
-
-      /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
-      /// </summary>
-      protected Role()
-      {
-         Init();
-      }
-
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="_user0"></param>
-      public Role(Sandbox_EFCore.User _user0)
-      {
-         if (_user0 == null) throw new ArgumentNullException(nameof(_user0));
-         _user0.Roles = this;
-
-         Init();
-      }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="_user0"></param>
-      public static Role Create(Sandbox_EFCore.User _user0)
-      {
-         return new Role(_user0);
-      }
-
-      /*************************************************************************
-       * Persistent properties
-       *************************************************************************/
-
-      /// <summary>
-      /// Identity, Required, Indexed
-      /// </summary>
-      [Key]
-      [Required]
-      public long Id { get; set; }
-
-      /*************************************************************************
-       * Persistent navigation properties
-       *************************************************************************/
-
+      ModelEnumValue1
    }
 }
-

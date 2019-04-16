@@ -27,7 +27,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected Child()
       {
-         Children = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.Child>();
+         Children = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.Child>();
 
          Init();
       }
@@ -37,7 +37,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public Child(Testing_CoreV2NetCore.Child parent, Testing_CoreV2NetCore.Master _master0)
+      public Child(global::Testing_CoreV2NetCore.Child parent, global::Testing_CoreV2NetCore.Master _master0)
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
          this.Parent = parent;
@@ -45,7 +45,7 @@ namespace Testing_CoreV2NetCore
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         this.Children = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.Child>();
+         this.Children = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.Child>();
          Init();
       }
 
@@ -54,7 +54,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public static Child Create(Testing_CoreV2NetCore.Child parent, Testing_CoreV2NetCore.Master _master0)
+      public static Child Create(global::Testing_CoreV2NetCore.Child parent, global::Testing_CoreV2NetCore.Master _master0)
       {
          return new Child(parent, _master0);
       }
@@ -68,18 +68,18 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual ICollection<Testing_CoreV2NetCore.Child> Children { get; private set; }
+      public virtual ICollection<global::Testing_CoreV2NetCore.Child> Children { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.Child Parent { get; set; }
+      public virtual global::Testing_CoreV2NetCore.Child Parent { get; set; }
 
    }
 }

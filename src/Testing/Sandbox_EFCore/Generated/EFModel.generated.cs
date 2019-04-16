@@ -22,8 +22,8 @@ namespace Sandbox_EFCore
    public partial class EFModel : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox_EFCore.Role> Roles { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Sandbox_EFCore.User> Users { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Sandbox_EFCore> Sandbox_EFCore { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.User> Users { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -60,28 +60,26 @@ namespace Sandbox_EFCore
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<Sandbox_EFCore.Role>()
-                     .ToTable("Roles")
+         modelBuilder.Entity<global::Sandbox_EFCore.Sandbox_EFCore>()
+                     .ToTable("Sandbox_EFCore")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox_EFCore.Role>()
+         modelBuilder.Entity<global::Sandbox_EFCore.Sandbox_EFCore>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();
 
-         modelBuilder.Entity<Sandbox_EFCore.User>()
+         modelBuilder.Entity<global::Sandbox_EFCore.User>()
                      .ToTable("Users")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox_EFCore.User>()
+         modelBuilder.Entity<global::Sandbox_EFCore.User>().HasIndex(t => t.Property1);
+         modelBuilder.Entity<global::Sandbox_EFCore.User>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .ValueGeneratedOnAdd();
-         modelBuilder.Entity<Sandbox_EFCore.User>()
-                     .Property(t => t.Property1)
-                     .HasColumnType("FooBar");
-         modelBuilder.Entity<Sandbox_EFCore.User>()
-                     .HasOne(x => x.Roles)
+         modelBuilder.Entity<global::Sandbox_EFCore.User>()
+                     .HasOne(x => x.Role)
                      .WithOne()
-                     .HasForeignKey("Role_Roles_Id")
+                     .HasForeignKey<global::Sandbox_EFCore.User>("Sandbox_EFCore_Role_Id")
                      .IsRequired();
 
          OnModelCreatedImpl(modelBuilder);

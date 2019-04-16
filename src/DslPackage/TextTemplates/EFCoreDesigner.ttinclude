@@ -32,11 +32,11 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       WriteEnum(modelEnum);
    }
 
-   // not supported as of EF Core 2.0
+   // not supported as of EF Core 2.2
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
    // WriteDatabaseInitializerEFCore(modelRoot);
    
-   // not supported as of EF Core 2.0
+   // not supported as of EF Core 2.2
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
    // WriteMigrationConfigurationEFCore(modelRoot);
 
@@ -305,14 +305,13 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          segments.Clear();
          string attributeName = !indexed.AutoProperty ? $"_{indexed.Name}" : indexed.Name;
          segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{attributeName})");
+
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
-         if (segments.Count > 1)
-         {
-            if (modelRoot.ChopMethodChains)
-               OutputChopped(segments);
-            else
-               Output(string.Join(".", segments) + ";");
-         }
+
+         if (modelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
 	  }
 
       // attribute level
@@ -399,30 +398,39 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             //   break;
          }
 
+         string columnPrefix = association.SourceRole == EndpointRole.Dependent ? "" : (association.Target.Name + "_");
+
          switch (association.SourceMultiplicity) // realized by shadow property on target
          {
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
                // TODO: Implement many-to-many
                if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+               {
                   segments.Add("WithMany()");
+                  segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+               }
                else
                   continue;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                segments.Add("WithOne()");
+               if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                  segments.Add($"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+               else
+                  segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                required = true;
                break;
             case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                segments.Add("WithOne()");
+               if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                  segments.Add($"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+               else
+                  segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                break;
             //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
             //   segments.Add("HasMany()");
             //   break;
          }
-
-         //string dependentClass = association.SourceRole == EndpointRole.Dependent ? association.Source.FullName : association.Target.FullName;
-         string columnPrefix = association.SourceRole == EndpointRole.Dependent ? "" : (association.Target.Name + "_");
-         segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
          if (required)
             segments.Add("IsRequired()");
@@ -459,7 +467,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          }
          else
          {
-            Output($"// 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
+            Output($"// Dependent 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
          }
       }
 
@@ -515,13 +523,11 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             //   break;
          }
 
-         string foreignKeySegment = CreateForeignKeyColumnSegmentEFCore(association, foreignKeyColumns);
+         string foreignKeySegment = CreateForeignKeyColumnSegmentEFCore(association, 
+                                                                        foreignKeyColumns, 
+                                                                        association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany 
+                                                                     && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany);
          if (foreignKeySegment != null) segments.Add(foreignKeySegment);
-
-         //if (association.SourceRole == EndpointRole.Dependent) 
-         //   segments.Add($"HasForeignKey(\"{association.TargetPropertyName}_Id\")");
-         //else
-         //   segments.Add($"HasForeignKey(\"{association.SourcePropertyName}_Id\")");
 
          if (required)
             segments.Add("IsRequired()");
@@ -562,22 +568,25 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
    EndNamespace(modelRoot.Namespace);
 }
 
-string CreateForeignKeyColumnSegmentEFCore(Association association, List<string> foreignKeyColumns)
+string CreateForeignKeyColumnSegmentEFCore(Association association, List<string> foreignKeyColumns, bool useGeneric)
 {
    // foreign key definitions always go in the table representing the Dependent end of the association
    // if there is no dependent end (i.e., many-to-many), there are no foreign keys
    string nameBase = string.Empty;
    string dependentType = null;
+   string principalType = null;
 
    if (association.SourceRole == EndpointRole.Dependent)
    {
       nameBase = association.TargetPropertyName; 
 	   dependentType = association.Source.FullName; 
+      principalType = association.Target.FullName;
    }
    else if (association.TargetRole == EndpointRole.Dependent)
    {
       nameBase = association is BidirectionalAssociation b ? b.SourcePropertyName :  $"{association.Source.Name}.{association.TargetPropertyName}";
 	   dependentType = association.Target.FullName;
+      principalType = association.Source.FullName;
    }
    else
       return null;
@@ -592,6 +601,9 @@ string CreateForeignKeyColumnSegmentEFCore(Association association, List<string>
       } while (foreignKeyColumns.Contains(columnName));
    }
    foreignKeyColumns.Add(columnName);
-   return $"HasForeignKey(\"{columnName}\")";
+   
+   return useGeneric 
+      ? $"HasForeignKey<{principalType}>(\"{columnName}\")" 
+      : $"HasForeignKey(\"{columnName}\")";
 }
 #>

@@ -34,7 +34,7 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="_allpropertytypesoptional0"></param>
-      public OwnedType(Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
+      public OwnedType(global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
       {
          if (_allpropertytypesoptional0 == null) throw new ArgumentNullException(nameof(_allpropertytypesoptional0));
          _allpropertytypesoptional0.OwnedType = this;
@@ -46,7 +46,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="_allpropertytypesoptional0"></param>
-      public static OwnedType Create(Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
+      public static OwnedType Create(global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
       {
          return new OwnedType(_allpropertytypesoptional0);
       }

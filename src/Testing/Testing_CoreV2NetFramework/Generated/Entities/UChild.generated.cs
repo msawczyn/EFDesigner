@@ -36,7 +36,7 @@ namespace Testing
       /// <param name="_uparentrequired0"></param>
       /// <param name="_uparentrequired1"></param>
       /// <param name="_uparentrequired2"></param>
-      public UChild(Testing.UParentRequired _uparentrequired0, Testing.UParentRequired _uparentrequired1, Testing.UParentRequired _uparentrequired2)
+      public UChild(global::Testing.UParentRequired _uparentrequired0, global::Testing.UParentRequired _uparentrequired1, global::Testing.UParentRequired _uparentrequired2)
       {
          if (_uparentrequired0 == null) throw new ArgumentNullException(nameof(_uparentrequired0));
          _uparentrequired0.UChildRequired = this;
@@ -56,7 +56,7 @@ namespace Testing
       /// <param name="_uparentrequired0"></param>
       /// <param name="_uparentrequired1"></param>
       /// <param name="_uparentrequired2"></param>
-      public static UChild Create(Testing.UParentRequired _uparentrequired0, Testing.UParentRequired _uparentrequired1, Testing.UParentRequired _uparentrequired2)
+      public static UChild Create(global::Testing.UParentRequired _uparentrequired0, global::Testing.UParentRequired _uparentrequired1, global::Testing.UParentRequired _uparentrequired2)
       {
          return new UChild(_uparentrequired0, _uparentrequired1, _uparentrequired2);
       }

@@ -39,7 +39,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       public byte[] BinaryAttr { get; set; }
 

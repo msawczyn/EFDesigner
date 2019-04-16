@@ -27,7 +27,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       protected BParentRequired()
       {
-         BChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BChild>();
+         BChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BChild>();
 
          Init();
       }
@@ -36,12 +36,12 @@ namespace Testing_CoreV2NetCore
       /// Public constructor with required data
       /// </summary>
       /// <param name="bchildrequired"></param>
-      public BParentRequired(Testing_CoreV2NetCore.BChild bchildrequired)
+      public BParentRequired(global::Testing_CoreV2NetCore.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
          this.BChildRequired = bchildrequired;
 
-         this.BChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.BChild>();
+         this.BChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.BChild>();
          Init();
       }
 
@@ -49,7 +49,7 @@ namespace Testing_CoreV2NetCore
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="bchildrequired"></param>
-      public static BParentRequired Create(Testing_CoreV2NetCore.BChild bchildrequired)
+      public static BParentRequired Create(global::Testing_CoreV2NetCore.BChild bchildrequired)
       {
          return new BParentRequired(bchildrequired);
       }
@@ -63,20 +63,20 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual Testing_CoreV2NetCore.BChild BChildOptional { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BChild BChildOptional { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.BChild BChildRequired { get; set; }
+      public virtual global::Testing_CoreV2NetCore.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.BChild> BChildCollection { get; private set; }
+      public virtual ICollection<global::Testing_CoreV2NetCore.BChild> BChildCollection { get; private set; }
 
    }
 }

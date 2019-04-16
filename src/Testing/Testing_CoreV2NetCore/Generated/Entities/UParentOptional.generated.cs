@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing_CoreV2NetCore
 {
-   public partial class UParentOptional : Testing_CoreV2NetCore.HiddenEntity
+   public partial class UParentOptional : global::Testing_CoreV2NetCore.HiddenEntity
    {
       partial void Init();
 
@@ -28,7 +28,7 @@ namespace Testing_CoreV2NetCore
       protected UParentOptional(): base()
       {
          PropertyInChild = "hello";
-         UChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.UChild>();
 
          Init();
       }
@@ -37,13 +37,13 @@ namespace Testing_CoreV2NetCore
       /// Public constructor with required data
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public UParentOptional(Testing_CoreV2NetCore.UChild uchildrequired)
+      public UParentOptional(global::Testing_CoreV2NetCore.UChild uchildrequired)
       {
          this.PropertyInChild = "hello";
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
          this.UChildRequired = uchildrequired;
 
-         this.UChildCollection = new System.Collections.Generic.HashSet<Testing_CoreV2NetCore.UChild>();
+         this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.UChild>();
          Init();
       }
 
@@ -51,7 +51,7 @@ namespace Testing_CoreV2NetCore
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public static UParentOptional Create(Testing_CoreV2NetCore.UChild uchildrequired)
+      public static UParentOptional Create(global::Testing_CoreV2NetCore.UChild uchildrequired)
       {
          return new UParentOptional(uchildrequired);
       }
@@ -69,14 +69,14 @@ namespace Testing_CoreV2NetCore
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual Testing_CoreV2NetCore.UChild UChildOptional { get; set; }
+      public virtual global::Testing_CoreV2NetCore.UChild UChildOptional { get; set; }
 
-      public virtual ICollection<Testing_CoreV2NetCore.UChild> UChildCollection { get; private set; }
+      public virtual ICollection<global::Testing_CoreV2NetCore.UChild> UChildCollection { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.UChild UChildRequired { get; set; }
+      public virtual global::Testing_CoreV2NetCore.UChild UChildRequired { get; set; }
 
    }
 }

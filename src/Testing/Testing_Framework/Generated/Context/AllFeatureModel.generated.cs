@@ -20,32 +20,32 @@ namespace Testing
    public partial class AllFeatureModel : System.Data.Entity.DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.BaseClass> BaseClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.BChild> BChilds { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.BParentCollection> BParentCollections { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.BParentOptional> BParentOptionals { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.BParentRequired> BParentRequireds { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.Child> Children { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.DerivedClass> DerivedClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.HiddenEntity> HiddenEntities { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.Master> Masters { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.ParserTest> ParserTests { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.RenamedColumn> RenamedColumns { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.SpatialProperties> SpatialProperties { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.UChild> UChilds { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.UParentCollection> UParentCollections { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.BaseClass> BaseClasses { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.BChild> BChilds { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.BParentCollection> BParentCollections { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.BParentOptional> BParentOptionals { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.BParentRequired> BParentRequireds { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.Child> Children { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.DerivedClass> DerivedClasses { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.HiddenEntity> HiddenEntities { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.Master> Masters { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.ParserTest> ParserTests { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.RenamedColumn> RenamedColumns { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.SpatialProperties> SpatialProperties { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.UChild> UChilds { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.UParentCollection> UParentCollections { get; set; }
 
       /// <summary>
-      /// Repository for Testing.UParentOptional - x
+      /// Repository for global::Testing.UParentOptional - x
       /// </summary>
-      public virtual System.Data.Entity.DbSet<Testing.UParentOptional> UParentOptionals { get; set; }
-      public virtual System.Data.Entity.DbSet<Testing.UParentRequired> UParentRequireds { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.UParentOptional> UParentOptionals { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Testing.UParentRequired> UParentRequireds { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -133,104 +133,104 @@ namespace Testing
          modelBuilder.HasDefaultSchema("dbo");
 
 
-         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(100);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(100);
 
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.BinaryAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.BooleanAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.ByteAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeOffsetAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.DecimalAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.DoubleAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.GuidAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int16Attr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int32Attr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.Int64Attr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
-         modelBuilder.Entity<Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).HasMaxLength(100).IsRequired();
-
-
-         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.BaseClassWithRequiredProperties>().Property(t => t.Property0).IsRequired();
-
-         modelBuilder.Entity<Testing.BChild>().ToTable("BChilds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.BChild>().HasRequired(x => x.BParentRequired).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BParentRequired_Id"));
-         modelBuilder.Entity<Testing.BChild>().HasRequired(x => x.BParentRequired_1).WithRequiredPrincipal(x => x.BChildRequired).Map(x => x.MapKey("BParentRequired_1_Id"));
-         modelBuilder.Entity<Testing.BChild>().HasRequired(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentRequired_2_Id"));
-         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired_Id"));
-         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection_1).WithMany(x => x.BChildCollection).Map(x => { x.ToTable("BParentCollection_1_x_BChildCollection"); x.MapRightKey("BParentCollection_Id"); x.MapLeftKey("BChild_Id"); });
-         modelBuilder.Entity<Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BChildOptional_Id"));
-         modelBuilder.Entity<Testing.BChild>().HasOptional(x => x.BParentOptional).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired1_Id"));
-         modelBuilder.Entity<Testing.BChild>().HasOptional(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentOptional_1_Id"));
-         modelBuilder.Entity<Testing.BChild>().HasOptional(x => x.BParentOptional_2).WithOptionalPrincipal(x => x.BChildOptional).Map(x => x.MapKey("BParentOptional_2_Id"));
-
-         modelBuilder.Entity<Testing.BParentCollection>().ToTable("BParentCollections").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BParentCollection>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-         modelBuilder.Entity<Testing.BParentOptional>().ToTable("BParentOptionals").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BParentOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-         modelBuilder.Entity<Testing.BParentRequired>().ToTable("BParentRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.BParentRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-         modelBuilder.Entity<Testing.Child>().ToTable("Children").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.Child>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id"));
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BinaryAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BooleanAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.ByteAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeOffsetAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DecimalAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DoubleAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.GuidAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int16Attr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int32Attr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int64Attr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).HasMaxLength(100).IsRequired();
 
 
-         modelBuilder.Entity<Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired();
+         modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().Property(t => t.Property0).IsRequired();
+
+         modelBuilder.Entity<global::Testing.BChild>().ToTable("BChilds").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.BChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BParentRequired_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired_1).WithRequiredPrincipal(x => x.BChildRequired).Map(x => x.MapKey("BParentRequired_1_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentRequired_2_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_1).WithMany(x => x.BChildCollection).Map(x => { x.ToTable("BParentCollection_1_x_BChildCollection"); x.MapRightKey("BParentCollection_Id"); x.MapLeftKey("BChild_Id"); });
+         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BChildOptional_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired1_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentOptional_1_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional_2).WithOptionalPrincipal(x => x.BChildOptional).Map(x => x.MapKey("BParentOptional_2_Id"));
+
+         modelBuilder.Entity<global::Testing.BParentCollection>().ToTable("BParentCollections").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.BParentCollection>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+         modelBuilder.Entity<global::Testing.BParentOptional>().ToTable("BParentOptionals").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.BParentOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+         modelBuilder.Entity<global::Testing.BParentRequired>().ToTable("BParentRequireds").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.BParentRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+         modelBuilder.Entity<global::Testing.Child>().ToTable("Children").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.Child>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id"));
 
 
-         modelBuilder.Entity<Testing.HiddenEntity>().ToTable("HiddenEntities").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired();
 
-         modelBuilder.Entity<Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.Master>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.Master>().HasMany(x => x.Children).WithRequired().Map(x => x.MapKey("Master.Children_Id"));
 
-         modelBuilder.Entity<Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.foo).IsRequired();
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name7).HasMaxLength(6);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name8).HasMaxLength(6);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name9).HasMaxLength(6);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name).HasMaxLength(6);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name15).HasMaxLength(6);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name16).HasMaxLength(6);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name17).HasMaxLength(6);
-         modelBuilder.Entity<Testing.ParserTest>().Property(t => t.name18).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.HiddenEntity>().ToTable("HiddenEntities").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-         modelBuilder.Entity<Testing.RenamedColumn>().ToTable("RenamedColumns").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.RenamedColumn>().Property(t => t.Id).IsRequired().HasColumnName("Foo").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.Master>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.Master>().HasMany(x => x.Children).WithRequired().Map(x => x.MapKey("Master.Children_Id"));
 
-         modelBuilder.Entity<Testing.SpatialProperties>().ToTable("SpatialProperties").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.SpatialProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.foo).IsRequired();
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name7).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name8).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name9).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name15).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name16).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name17).HasMaxLength(6);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name18).HasMaxLength(6);
 
-         modelBuilder.Entity<Testing.UChild>().ToTable("UChilds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.UChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.RenamedColumn>().ToTable("RenamedColumns").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.RenamedColumn>().Property(t => t.Id).IsRequired().HasColumnName("Foo").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-         modelBuilder.Entity<Testing.UParentCollection>().ToTable("UParentCollections").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.UParentCollection>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.UParentCollection>().HasRequired(x => x.UChildRequired).WithMany().Map(x => x.MapKey("UChildRequired_Id"));
-         modelBuilder.Entity<Testing.UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
-         modelBuilder.Entity<Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
+         modelBuilder.Entity<global::Testing.SpatialProperties>().ToTable("SpatialProperties").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-         modelBuilder.Entity<Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent().Map(x => x.MapKey("UParentOptional.UChildOptional_Id"));
-         modelBuilder.Entity<Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey("UParentOptional.UChildCollection_Id"));
-         modelBuilder.Entity<Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional().Map(x => x.MapKey("UChildRequired_Id"));
+         modelBuilder.Entity<global::Testing.UChild>().ToTable("UChilds").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.UChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-         modelBuilder.Entity<Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<Testing.UParentRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Testing.UParentRequired>().HasRequired(x => x.UChildRequired).WithRequiredDependent().Map(x => x.MapKey("UParentRequired.UChildRequired_Id"));
-         modelBuilder.Entity<Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithRequired().Map(x => x.MapKey("UParentRequired.UChildCollection_Id"));
-         modelBuilder.Entity<Testing.UParentRequired>().HasOptional(x => x.UChildOptional).WithRequired().Map(x => x.MapKey("UParentRequired.UChildOptional_Id"));
+         modelBuilder.Entity<global::Testing.UParentCollection>().ToTable("UParentCollections").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.UParentCollection>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasRequired(x => x.UChildRequired).WithMany().Map(x => x.MapKey("UChildRequired_Id"));
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
+
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent().Map(x => x.MapKey("UParentOptional.UChildOptional_Id"));
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey("UParentOptional.UChildCollection_Id"));
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional().Map(x => x.MapKey("UChildRequired_Id"));
+
+         modelBuilder.Entity<global::Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.UParentRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasRequired(x => x.UChildRequired).WithRequiredDependent().Map(x => x.MapKey("UParentRequired.UChildRequired_Id"));
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithRequired().Map(x => x.MapKey("UParentRequired.UChildCollection_Id"));
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasOptional(x => x.UChildOptional).WithRequired().Map(x => x.MapKey("UParentRequired.UChildOptional_Id"));
 
          OnModelCreatedImpl(modelBuilder);
       }

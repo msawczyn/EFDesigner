@@ -5,6 +5,7 @@ using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
+#pragma warning disable 1591
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -27,37 +28,44 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      // backward compatibility
-      public LinkedElementCollection<ModelClass> Types => Classes;
+      public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
 
-      #region Valid types based on EF version
+      // backward compatibility
+      public LinkedElementCollection<ModelClass> Types
+      {
+         get
+         {
+            return Classes;
+         }
+      }
+
+#region Valid types based on EF version
 
       public string[] SpatialTypes
       {
          get
          {
-            if (EntityFrameworkVersion == EFVersion.EF6 || GetEntityFrameworkPackageVersionNum() > 2.1)
-               return new[]
-                      {
-                         "Geography",
-                         "GeographyCollection",
-                         "GeographyLineString",
-                         "GeographyMultiLineString",
-                         "GeographyMultiPoint",
-                         "GeographyMultiPolygon",
-                         "GeographyPoint",
-                         "GeographyPolygon",
-                         "Geometry",
-                         "GeometryCollection",
-                         "GeometryLineString",
-                         "GeometryMultiLineString",
-                         "GeometryMultiPoint",
-                         "GeometryMultiPolygon",
-                         "GeometryPoint",
-                         "GeometryPolygon"
-                      };
-
-            return new string[0];
+            return EntityFrameworkVersion == EFVersion.EF6 || GetEntityFrameworkPackageVersionNum() > 2.1
+                      ? new[]
+                        {
+                           "Geography",
+                           "GeographyCollection",
+                           "GeographyLineString",
+                           "GeographyMultiLineString",
+                           "GeographyMultiPoint",
+                           "GeographyMultiPolygon",
+                           "GeographyPoint",
+                           "GeographyPolygon",
+                           "Geometry",
+                           "GeometryCollection",
+                           "GeometryLineString",
+                           "GeometryMultiLineString",
+                           "GeometryMultiPoint",
+                           "GeometryMultiPolygon",
+                           "GeometryPoint",
+                           "GeometryPolygon"
+                        }
+                      : new string[0];
          }
       }
 
@@ -65,40 +73,25 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return new[]
-                   {
-                      "Binary",
-                      "Boolean",
-                      "Byte",
-                      "byte",
-                      "DateTime",
-                      "DateTimeOffset",
-                      "Decimal",
-                      "Double",
-                      "Geography",
-                      "GeographyCollection",
-                      "GeographyLineString",
-                      "GeographyMultiLineString",
-                      "GeographyMultiPoint",
-                      "GeographyMultiPolygon",
-                      "GeographyPoint",
-                      "GeographyPolygon",
-                      "Geometry",
-                      "GeometryCollection",
-                      "GeometryLineString",
-                      "GeometryMultiLineString",
-                      "GeometryMultiPoint",
-                      "GeometryMultiPolygon",
-                      "GeometryPoint",
-                      "GeometryPolygon",
-                      "Guid",
-                      "Int16",
-                      "Int32",
-                      "Int64",
-                      "Single",
-                      "String",
-                      "Time"
-                   };
+            string[] validTypes = {
+                                     "Binary",
+                                     "Boolean",
+                                     "Byte",
+                                     "byte",
+                                     "DateTime",
+                                     "DateTimeOffset",
+                                     "Decimal",
+                                     "Double",
+                                     "Guid",
+                                     "Int16",
+                                     "Int32",
+                                     "Int64",
+                                     "Single",
+                                     "String",
+                                     "Time"
+                                  };
+
+            return validTypes.Union(SpatialTypes).ToArray();
          }
       }
 
@@ -106,51 +99,36 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return new[]
-                   {
-                      "Binary",
-                      "Boolean", "Boolean?", "Nullable<Boolean>",
-                      "Byte", "Byte?", "Nullable<Byte>",
-                      "DateTime", "DateTime?", "Nullable<DateTime>",
-                      "DateTimeOffset", "DateTimeOffset?", "Nullable<DateTimeOffset>",
-                      "DbGeography",
-                      "DbGeometry",
-                      "Decimal", "Decimal?", "Nullable<Decimal>",
-                      "Double", "Double?", "Nullable<Double>",
-                      "Geography",
-                      "GeographyCollection",
-                      "GeographyLineString",
-                      "GeographyMultiLineString",
-                      "GeographyMultiPoint",
-                      "GeographyMultiPolygon",
-                      "GeographyPoint",
-                      "GeographyPolygon",
-                      "Geometry",
-                      "GeometryCollection",
-                      "GeometryLineString",
-                      "GeometryMultiLineString",
-                      "GeometryMultiPoint",
-                      "GeometryMultiPolygon",
-                      "GeometryPoint",
-                      "GeometryPolygon",
-                      "Guid", "Guid?", "Nullable<Guid>",
-                      "Int16", "Int16?", "Nullable<Int16>",
-                      "Int32", "Int32?", "Nullable<Int32>",
-                      "Int64", "Int64?", "Nullable<Int64>",
-                      "Single", "Single?", "Nullable<Single>",
-                      "String",
-                      "Time",
-                      "TimeSpan", "TimeSpan?", "Nullable<TimeSpan>",
-                      "bool", "bool?", "Nullable<bool>",
-                      "byte", "byte?", "Nullable<byte>",
-                      "byte[]",
-                      "decimal", "decimal?", "Nullable<decimal>",
-                      "double", "double?", "Nullable<double>",
-                      "int", "int?", "Nullable<int>",
-                      "long", "long?", "Nullable<long>",
-                      "short", "short?", "Nullable<short>",
-                      "string"
-                   };
+            string[] validClrTypes = {
+                                        "Binary",
+                                        "Boolean", "Boolean?", "Nullable<Boolean>",
+                                        "Byte", "Byte?", "Nullable<Byte>",
+                                        "DateTime", "DateTime?", "Nullable<DateTime>",
+                                        "DateTimeOffset", "DateTimeOffset?", "Nullable<DateTimeOffset>",
+                                        "DbGeography",
+                                        "DbGeometry",
+                                        "Decimal", "Decimal?", "Nullable<Decimal>",
+                                        "Double", "Double?", "Nullable<Double>",
+                                        "Guid", "Guid?", "Nullable<Guid>",
+                                        "Int16", "Int16?", "Nullable<Int16>",
+                                        "Int32", "Int32?", "Nullable<Int32>",
+                                        "Int64", "Int64?", "Nullable<Int64>",
+                                        "Single", "Single?", "Nullable<Single>",
+                                        "String",
+                                        "Time",
+                                        "TimeSpan", "TimeSpan?", "Nullable<TimeSpan>",
+                                        "bool", "bool?", "Nullable<bool>",
+                                        "byte", "byte?", "Nullable<byte>",
+                                        "byte[]",
+                                        "decimal", "decimal?", "Nullable<decimal>",
+                                        "double", "double?", "Nullable<double>",
+                                        "int", "int?", "Nullable<int>",
+                                        "long", "long?", "Nullable<long>",
+                                        "short", "short?", "Nullable<short>",
+                                        "string"
+                                     };
+
+            return validClrTypes.Union(SpatialTypes).ToArray();
          }
       }
 
@@ -230,7 +208,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (string.IsNullOrWhiteSpace(Summary) && WarnOnMissingDocumentation)
-            context.LogWarning($"Model: Summary documentation missing", "AWMissingSummary", this);
+            context.LogWarning("Model: Summary documentation missing", "AWMissingSummary", this);
       }
 
       #endregion Validation methods

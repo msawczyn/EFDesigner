@@ -4,6 +4,9 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor
+//     https://github.com/msawczyn/EFDesigner
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -16,42 +19,39 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Testing_CoreV2NetCore
+namespace Sandbox_EFCore
 {
-   public partial class UParentRequired
+   public partial class Sandbox_EFCore
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected UParentRequired()
+      protected Sandbox_EFCore()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.UChild>();
-
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="uchildrequired"></param>
-      public UParentRequired(global::Testing_CoreV2NetCore.UChild uchildrequired)
+      /// <param name="_user0"></param>
+      public Sandbox_EFCore(global::Sandbox_EFCore.User _user0)
       {
-         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
-         this.UChildRequired = uchildrequired;
+         if (_user0 == null) throw new ArgumentNullException(nameof(_user0));
+         _user0.Role = this;
 
-         this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing_CoreV2NetCore.UChild>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="uchildrequired"></param>
-      public static UParentRequired Create(global::Testing_CoreV2NetCore.UChild uchildrequired)
+      /// <param name="_user0"></param>
+      public static Sandbox_EFCore Create(global::Sandbox_EFCore.User _user0)
       {
-         return new UParentRequired(uchildrequired);
+         return new Sandbox_EFCore(_user0);
       }
 
       /*************************************************************************
@@ -63,20 +63,13 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; private set; }
+      public long Id { get; private set; }
+
+      public string RoleName { get; set; }
 
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Testing_CoreV2NetCore.UChild UChildRequired { get; set; }
-
-      public virtual ICollection<global::Testing_CoreV2NetCore.UChild> UChildCollection { get; private set; }
-
-      public virtual global::Testing_CoreV2NetCore.UChild UChildOptional { get; set; }
 
    }
 }

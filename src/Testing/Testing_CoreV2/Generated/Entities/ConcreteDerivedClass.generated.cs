@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public partial class ConcreteDerivedClass : Testing.AbstractBaseClass, INotifyPropertyChanged
+   public partial class ConcreteDerivedClass : global::Testing.AbstractBaseClass, INotifyPropertyChanged
    {
       partial void Init();
 

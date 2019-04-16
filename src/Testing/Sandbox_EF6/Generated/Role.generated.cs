@@ -30,7 +30,7 @@ namespace Sandbox_EF6
       /// </summary>
       public Role()
       {
-         Users = new System.Collections.Generic.HashSet<Sandbox_EF6.User>();
+         Users = new System.Collections.Generic.HashSet<global::Sandbox_EF6.User>();
 
          Init();
       }
@@ -53,7 +53,7 @@ namespace Sandbox_EF6
       /// <summary>
       /// Users
       /// </summary>
-      public virtual ICollection<Sandbox_EF6.User> Users { get; private set; }
+      public virtual ICollection<global::Sandbox_EF6.User> Users { get; private set; }
 
    }
 }

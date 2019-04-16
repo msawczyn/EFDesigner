@@ -23,8 +23,8 @@ namespace Sandbox_EF6
    public partial class EFModel : System.Data.Entity.DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<Sandbox_EF6.Role> Roles { get; set; }
-      public virtual System.Data.Entity.DbSet<Sandbox_EF6.User> Users { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.Role> Roles { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.User> Users { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -111,22 +111,22 @@ namespace Sandbox_EF6
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<Sandbox_EF6.Role>()
+         modelBuilder.Entity<global::Sandbox_EF6.Role>()
                      .ToTable("Roles")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox_EF6.Role>()
+         modelBuilder.Entity<global::Sandbox_EF6.Role>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-         modelBuilder.Entity<Sandbox_EF6.User>()
+         modelBuilder.Entity<global::Sandbox_EF6.User>()
                      .ToTable("Users")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<Sandbox_EF6.User>()
+         modelBuilder.Entity<global::Sandbox_EF6.User>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<Sandbox_EF6.User>()
+         modelBuilder.Entity<global::Sandbox_EF6.User>()
                      .HasRequired(x => x.Role)
                      .WithMany(x => x.Users)
                      .Map(x => x.MapKey("Role_Id"));

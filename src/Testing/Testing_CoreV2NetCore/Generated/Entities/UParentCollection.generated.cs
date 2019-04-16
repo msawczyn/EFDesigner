@@ -34,7 +34,7 @@ namespace Testing_CoreV2NetCore
       /// Public constructor with required data
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public UParentCollection(Testing_CoreV2NetCore.UChild uchildrequired)
+      public UParentCollection(global::Testing_CoreV2NetCore.UChild uchildrequired)
       {
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
          this.UChildRequired = uchildrequired;
@@ -46,7 +46,7 @@ namespace Testing_CoreV2NetCore
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public static UParentCollection Create(Testing_CoreV2NetCore.UChild uchildrequired)
+      public static UParentCollection Create(global::Testing_CoreV2NetCore.UChild uchildrequired)
       {
          return new UParentCollection(uchildrequired);
       }
@@ -60,7 +60,7 @@ namespace Testing_CoreV2NetCore
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
@@ -69,9 +69,9 @@ namespace Testing_CoreV2NetCore
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing_CoreV2NetCore.UChild UChildRequired { get; set; }
+      public virtual global::Testing_CoreV2NetCore.UChild UChildRequired { get; set; }
 
-      public virtual Testing_CoreV2NetCore.UChild UChildOptional { get; set; }
+      public virtual global::Testing_CoreV2NetCore.UChild UChildOptional { get; set; }
 
    }
 }

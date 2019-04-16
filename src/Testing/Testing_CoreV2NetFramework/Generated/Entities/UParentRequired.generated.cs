@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected UParentRequired()
       {
-         UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
+         UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
 
          Init();
       }
@@ -36,12 +36,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public UParentRequired(Testing.UChild uchildrequired)
+      public UParentRequired(global::Testing.UChild uchildrequired)
       {
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
          this.UChildRequired = uchildrequired;
 
-         this.UChildCollection = new System.Collections.Generic.HashSet<Testing.UChild>();
+         this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
          Init();
       }
 
@@ -49,7 +49,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public static UParentRequired Create(Testing.UChild uchildrequired)
+      public static UParentRequired Create(global::Testing.UChild uchildrequired)
       {
          return new UParentRequired(uchildrequired);
       }
@@ -72,11 +72,11 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.UChild UChildRequired { get; set; }
+      public virtual global::Testing.UChild UChildRequired { get; set; }
 
-      public virtual ICollection<Testing.UChild> UChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
-      public virtual Testing.UChild UChildOptional { get; set; }
+      public virtual global::Testing.UChild UChildOptional { get; set; }
 
    }
 }

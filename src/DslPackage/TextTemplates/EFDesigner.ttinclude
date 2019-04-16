@@ -799,7 +799,7 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
                         ? $"ICollection<{navigationProperty.ClassType.FullName}>"
                         : navigationProperty.ClassType.FullName;
 
-      if (modelClass.ImplementNotify && !navigationProperty.IsCollection)
+      if (!navigationProperty.IsCollection && (modelClass.ImplementNotify || !navigationProperty.IsAutoProperty))
       {
          Output($"protected {type} _{navigationProperty.PropertyName};");
          Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");

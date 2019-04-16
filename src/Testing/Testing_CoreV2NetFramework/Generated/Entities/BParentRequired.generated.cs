@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       protected BParentRequired()
       {
-         BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
+         BChildCollection = new System.Collections.Generic.HashSet<global::Testing.BChild>();
 
          Init();
       }
@@ -36,12 +36,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="bchildrequired"></param>
-      public BParentRequired(Testing.BChild bchildrequired)
+      public BParentRequired(global::Testing.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
          this.BChildRequired = bchildrequired;
 
-         this.BChildCollection = new System.Collections.Generic.HashSet<Testing.BChild>();
+         this.BChildCollection = new System.Collections.Generic.HashSet<global::Testing.BChild>();
          Init();
       }
 
@@ -49,7 +49,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="bchildrequired"></param>
-      public static BParentRequired Create(Testing.BChild bchildrequired)
+      public static BParentRequired Create(global::Testing.BChild bchildrequired)
       {
          return new BParentRequired(bchildrequired);
       }
@@ -69,14 +69,14 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual Testing.BChild BChildOptional { get; set; }
+      public virtual global::Testing.BChild BChildOptional { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.BChild BChildRequired { get; set; }
+      public virtual global::Testing.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<Testing.BChild> BChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
 
    }
 }

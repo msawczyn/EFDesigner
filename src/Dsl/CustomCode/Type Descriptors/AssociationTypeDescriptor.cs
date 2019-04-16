@@ -26,13 +26,14 @@ namespace Sawczyn.EFDesigner.EFModel
             storeDomainDataDirectory = association.Store.DomainDataDirectory;
 
             // ImplementNotify implicitly defines autoproperty as false, so we don't display it
-            if (association.Target.ImplementNotify && association is BidirectionalAssociation)
+            // Similarly, collections are autoproperty == true, so no need to display it then either
+            if ((association.Target.ImplementNotify || association.SourceMultiplicity == Multiplicity.ZeroMany) && association is BidirectionalAssociation)
             {
                PropertyDescriptor sourceAutoPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "SourceAutoProperty");
                propertyDescriptors.Remove(sourceAutoPropertyDescriptor);
             }
 
-            if (association.Source.ImplementNotify)
+            if (association.Source.ImplementNotify || association.TargetMultiplicity == Multiplicity.ZeroMany)
             {
                PropertyDescriptor targetAutoPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "TargetAutoProperty");
                propertyDescriptors.Remove(targetAutoPropertyDescriptor);

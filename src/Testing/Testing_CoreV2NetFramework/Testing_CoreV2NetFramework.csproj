@@ -156,8 +156,6 @@
       <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
     </None>
     <None Include="app.config" />
-    <None Include="EFCoreDesigner.ttinclude" />
-    <None Include="EFDesigner.ttinclude" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ namespace Testing
       /// </summary>
       protected BParentCollection()
       {
-         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BChild>();
+         BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
 
          Init();
       }
@@ -37,12 +37,12 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="bchildrequired"></param>
-      public BParentCollection(Testing.BChild bchildrequired)
+      public BParentCollection(global::Testing.BChild bchildrequired)
       {
          if (bchildrequired == null) throw new ArgumentNullException(nameof(bchildrequired));
          this.BChildRequired = bchildrequired;
 
-         this.BChildCollection = new System.Collections.ObjectModel.ObservableCollection<Testing.BChild>();
+         this.BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
          Init();
       }
 
@@ -50,7 +50,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="bchildrequired"></param>
-      public static BParentCollection Create(Testing.BChild bchildrequired)
+      public static BParentCollection Create(global::Testing.BChild bchildrequired)
       {
          return new BParentCollection(bchildrequired);
       }
@@ -73,11 +73,11 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.BChild BChildRequired { get; set; }
+      public virtual global::Testing.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<Testing.BChild> BChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
 
-      public virtual Testing.BChild BChildOptional { get; set; }
+      public virtual global::Testing.BChild BChildOptional { get; set; }
 
    }
 }

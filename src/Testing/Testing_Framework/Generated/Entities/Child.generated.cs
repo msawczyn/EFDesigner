@@ -28,7 +28,7 @@ namespace Testing
       /// </summary>
       protected Child()
       {
-         Children = new System.Collections.ObjectModel.ObservableCollection<Testing.Child>();
+         Children = new System.Collections.ObjectModel.ObservableCollection<global::Testing.Child>();
 
          Init();
       }
@@ -38,7 +38,7 @@ namespace Testing
       /// </summary>
       /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public Child(Testing.Child parent, Testing.Master _master0)
+      public Child(global::Testing.Child parent, global::Testing.Master _master0)
       {
          if (parent == null) throw new ArgumentNullException(nameof(parent));
          this.Parent = parent;
@@ -46,7 +46,7 @@ namespace Testing
          if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
          _master0.Children.Add(this);
 
-         this.Children = new System.Collections.ObjectModel.ObservableCollection<Testing.Child>();
+         this.Children = new System.Collections.ObjectModel.ObservableCollection<global::Testing.Child>();
          Init();
       }
 
@@ -55,7 +55,7 @@ namespace Testing
       /// </summary>
       /// <param name="parent"></param>
       /// <param name="_master0"></param>
-      public static Child Create(Testing.Child parent, Testing.Master _master0)
+      public static Child Create(global::Testing.Child parent, global::Testing.Master _master0)
       {
          return new Child(parent, _master0);
       }
@@ -75,12 +75,12 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; private set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.Child Parent { get; set; }
+      public virtual global::Testing.Child Parent { get; set; }
 
    }
 }

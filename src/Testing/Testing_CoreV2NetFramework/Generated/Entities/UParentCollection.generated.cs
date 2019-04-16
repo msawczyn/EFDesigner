@@ -34,7 +34,7 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public UParentCollection(Testing.UChild uchildrequired)
+      public UParentCollection(global::Testing.UChild uchildrequired)
       {
          if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
          this.UChildRequired = uchildrequired;
@@ -46,7 +46,7 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="uchildrequired"></param>
-      public static UParentCollection Create(Testing.UChild uchildrequired)
+      public static UParentCollection Create(global::Testing.UChild uchildrequired)
       {
          return new UParentCollection(uchildrequired);
       }
@@ -69,9 +69,9 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.UChild UChildRequired { get; set; }
+      public virtual global::Testing.UChild UChildRequired { get; set; }
 
-      public virtual Testing.UChild UChildOptional { get; set; }
+      public virtual global::Testing.UChild UChildOptional { get; set; }
 
    }
 }

@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public abstract partial class AbstractBaseClass : Testing.BaseClassWithRequiredProperties, INotifyPropertyChanged
+   public abstract partial class AbstractBaseClass : global::Testing.BaseClassWithRequiredProperties, INotifyPropertyChanged
    {
       partial void Init();
 

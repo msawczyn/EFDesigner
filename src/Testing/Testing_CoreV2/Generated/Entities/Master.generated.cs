@@ -27,7 +27,7 @@ namespace Testing
       /// </summary>
       public Master()
       {
-         Children = new System.Collections.Generic.HashSet<Testing.Child>();
+         Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
 
          Init();
       }
@@ -62,7 +62,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         private set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -78,7 +78,7 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual ICollection<Testing.Child> Children { get; private set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
       public virtual event PropertyChangedEventHandler PropertyChanged;
 

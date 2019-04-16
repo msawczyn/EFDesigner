@@ -80,7 +80,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         private set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);

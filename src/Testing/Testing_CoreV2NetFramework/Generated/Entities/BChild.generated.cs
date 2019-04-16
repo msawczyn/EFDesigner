@@ -27,8 +27,8 @@ namespace Testing
       /// </summary>
       protected BChild()
       {
-         BParentCollection = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
-         BParentCollection_2 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
+         BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
+         BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
 
          Init();
       }
@@ -39,7 +39,7 @@ namespace Testing
       /// <param name="bparentrequired"></param>
       /// <param name="bparentrequired_1"></param>
       /// <param name="bparentrequired_2"></param>
-      public BChild(Testing.BParentRequired bparentrequired, Testing.BParentRequired bparentrequired_1, Testing.BParentRequired bparentrequired_2)
+      public BChild(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_1, global::Testing.BParentRequired bparentrequired_2)
       {
          if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
          this.BParentRequired = bparentrequired;
@@ -50,8 +50,8 @@ namespace Testing
          if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
          this.BParentRequired_2 = bparentrequired_2;
 
-         this.BParentCollection = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
-         this.BParentCollection_2 = new System.Collections.Generic.HashSet<Testing.BParentCollection>();
+         this.BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
+         this.BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
          Init();
       }
 
@@ -61,7 +61,7 @@ namespace Testing
       /// <param name="bparentrequired"></param>
       /// <param name="bparentrequired_1"></param>
       /// <param name="bparentrequired_2"></param>
-      public static BChild Create(Testing.BParentRequired bparentrequired, Testing.BParentRequired bparentrequired_1, Testing.BParentRequired bparentrequired_2)
+      public static BChild Create(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_1, global::Testing.BParentRequired bparentrequired_2)
       {
          return new BChild(bparentrequired, bparentrequired_1, bparentrequired_2);
       }
@@ -84,27 +84,27 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.BParentRequired BParentRequired { get; set; }
+      public virtual global::Testing.BParentRequired BParentRequired { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.BParentRequired BParentRequired_1 { get; set; }
+      public virtual global::Testing.BParentRequired BParentRequired_1 { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual Testing.BParentRequired BParentRequired_2 { get; set; }
+      public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection { get; private set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<Testing.BParentCollection> BParentCollection_2 { get; private set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
-      public virtual Testing.BParentOptional BParentOptional { get; set; }
+      public virtual global::Testing.BParentOptional BParentOptional { get; set; }
 
-      public virtual Testing.BParentOptional BParentOptional_1 { get; set; }
+      public virtual global::Testing.BParentOptional BParentOptional_1 { get; set; }
 
-      public virtual Testing.BParentOptional BParentOptional_2 { get; set; }
+      public virtual global::Testing.BParentOptional BParentOptional_2 { get; set; }
 
    }
 }
