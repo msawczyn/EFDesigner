@@ -13,20 +13,45 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning
    {
-      public IModelElementWithCompartments ParentModelElement => ModelClass;
 
-      public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
+      /// <summary>Gets the parent model element (ModelClass).</summary>
+      /// <value>The parent model element.</value>
+      public IModelElementWithCompartments ParentModelElement
+      {
+         get
+         {
+            return ModelClass;
+         }
+      }
 
-      #region Warning display
+
+      /// <summary>Gets the name of the compartment holding this model element</summary>
+      /// <value>The name of the compartment holding this model element.</value>
+      public string CompartmentName
+      {
+         get
+         {
+            return this.GetFirstShapeElement().AccessibleName;
+         }
+      }
+
+#region Warning display
 
       // set as methods to avoid issues around serialization
 
       private bool hasWarning;
 
+
+      /// <summary>Indicates if there are any model warnings in this element.</summary>
+      /// <returns>True if model warnings exist, false otherwise.</returns>
       public bool GetHasWarningValue() => hasWarning;
 
+
+      /// <summary>Resets the warning indicator</summary>
       public void ResetWarning() => hasWarning = false;
 
+
+      /// <summary>Redraws the presentation element on any diagram rendering this model element</summary>
       public void RedrawItem()
       {
          List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().ToList();
@@ -36,6 +61,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+
+      /// <summary>Gets a value indicating whether this attribute supports initial values.</summary>
+      /// <value>True if supports initial values, false if not.</value>
       public bool SupportsInitialValue
       {
          get
@@ -155,9 +183,24 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 #pragma warning restore 168
 
-      public string PrimitiveType => ToPrimitiveType(Type);
+
+      /// <summary>
+      /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity. Converts the attribute's CLR type to a C# primitive type.
+      /// </summary>
+      /// <value>Name of primitive type</value>
+      public string PrimitiveType
+      {
+         get
+         {
+            return ToPrimitiveType(Type);
+         }
+      }
+
 
       // ReSharper disable once UnusedMember.Global
+      /// <summary>Converts the attribute's CLR type to a C# primitive type.</summary>
+      ///
+      /// <value>Name of primitive type, or the fully qualified name if the attribute is an enumeration</value>
       public string FQPrimitiveType
       {
          get
@@ -170,13 +213,24 @@ namespace Sawczyn.EFDesigner.EFModel
                       : result;
          }
       }
+
+
       // ReSharper disable once UnusedMember.Global
-      public string CLRType => ToCLRType(Type);
+      /// <summary>Converts a C# primitive type to a CLR type.</summary>
+      ///
+      /// <value>The type of the colour.</value>
+      public string CLRType
+      {
+         get
+         {
+            return ToCLRType(Type);
+         }
+      }
 
       /// <summary>
-      /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity
+      /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity. Converts a CLR type to a C# primitive type.
       /// </summary>
-      /// <param name="typeName"></param>
+      /// <param name="typeName">CLR type</param>
       /// <returns>Name of primitive type given </returns>
       // ReSharper disable once UnusedMember.Global
       public static string ToPrimitiveType(string typeName)
@@ -226,6 +280,10 @@ namespace Sawczyn.EFDesigner.EFModel
          return typeName;
       }
 
+
+      /// <summary>Converts a C# primitive type to a CLR type.</summary>
+      /// <param name="typeName">C# type</param>
+      /// <returns>Matching CLR type.</returns>
       public static string ToCLRType(string typeName)
       {
          switch (typeName)
@@ -262,6 +320,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Storage for the ColumnName property.</summary>  
       private string columnNameStorage; 
 
+
+      /// <summary>Gets the storage for the ColumnName property.</summary>
+      /// <returns>The ColumnName value.</returns>
       public string GetColumnNameValue()
       {
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
@@ -269,6 +330,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return !loading && IsColumnNameTracking ? Name : columnNameStorage;
       }
 
+
+      /// <summary>Sets the storage for the ColumnName property.</summary>
+      /// <param name="value">The ColumnName value.</param>
       public void SetColumnNameValue(string value)
       {
          columnNameStorage = value == Name ? null : value;
@@ -282,6 +346,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Storage for the ColumnType property.</summary>  
       private string columnTypeStorage; 
 
+
+      /// <summary>Gets the storage for the ColumnType property.</summary>
+      /// <returns>The ColumnType value.</returns>
       public string GetColumnTypeValue()
       {
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
@@ -289,6 +356,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return !loading && IsColumnTypeTracking ? "default" : columnTypeStorage;
       }
 
+
+      /// <summary>Sets the storage for the ColumnType property.</summary>
+      /// <param name="value">The ColumnType value.</param>
       public void SetColumnTypeValue(string value)
       {
          columnTypeStorage = value.ToLowerInvariant() == "default" ? null : value;
@@ -397,6 +467,7 @@ namespace Sawczyn.EFDesigner.EFModel
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.
       /// </summary>
+      // ReSharper disable once UnusedMember.Global
       internal virtual void PreResetIsTrackingProperties()
       {
          IsColumnNameTrackingPropertyHandler.Instance.PreResetValue(this);
@@ -408,6 +479,7 @@ namespace Sawczyn.EFDesigner.EFModel
       ///    Calls the reset method on the associated property value handler for each
       ///    tracking property of this model element.
       /// </summary>
+      // ReSharper disable once UnusedMember.Global
       internal virtual void ResetIsTrackingProperties()
       {
          IsColumnNameTrackingPropertyHandler.Instance.ResetValue(this);
@@ -496,6 +568,13 @@ namespace Sawczyn.EFDesigner.EFModel
          return string.Join(" ", parts).Replace(" [", "[");
       }
 
+      /// <summary>
+      /// Parses the input string to check for type validity.
+      /// </summary>
+      /// <param name="modelRoot">Context in which to parse the input</param>
+      /// <param name="input">String to parse</param>
+      /// <returns>ParseResult object if successful</returns>
+      /// <exception cref="ArgumentException">Thrown if unable to parse inut string to a valid type for the model</exception>
       public static ParseResult Parse(ModelRoot modelRoot, string input)
       {
          string _input = input?.Split('{')[0].Trim(';');

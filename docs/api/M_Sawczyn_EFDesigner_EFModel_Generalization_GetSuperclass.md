@@ -1,0 +1,36 @@
+# Generalization.GetSuperclass Method 
+ 
+
+Gets Superclass.
+
+**Namespace:**&nbsp;<a href="N_Sawczyn_EFDesigner_EFModel">Sawczyn.EFDesigner.EFModel</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.2.7.0
+
+## Syntax
+
+**C#**<br />
+``` C#
+public static <a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">ModelClass</a> GetSuperclass(
+	<a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">ModelClass</a> element
+)
+```
+
+**VB**<br />
+``` VB
+Public Shared Function GetSuperclass ( 
+	element As <a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">ModelClass</a>
+) As <a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">ModelClass</a>
+```
+
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainRelationships.cs#L2631" title="View the source code">View Source</a><br />
+
+#### Parameters
+&nbsp;<dl><dt>element</dt><dd>Type: <a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">Sawczyn.EFDesigner.EFModel.ModelClass</a><br />\[Missing <param name="element"/> documentation for "M:Sawczyn.EFDesigner.EFModel.Generalization.GetSuperclass(Sawczyn.EFDesigner.EFModel.ModelClass)"\]</dd></dl>
+
+#### Return Value
+Type: <a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">ModelClass</a><br />\[Missing <returns> documentation for "M:Sawczyn.EFDesigner.EFModel.Generalization.GetSuperclass(Sawczyn.EFDesigner.EFModel.ModelClass)"\]
+
+## See Also
+
+
+#### Reference
+<a href="T_Sawczyn_EFDesigner_EFModel_Generalization">Generalization Class</a><br /><a href="N_Sawczyn_EFDesigner_EFModel">Sawczyn.EFDesigner.EFModel Namespace</a><br />

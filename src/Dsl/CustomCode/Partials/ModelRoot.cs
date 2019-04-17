@@ -39,7 +39,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#region Valid types based on EF version
+      #region Valid types based on EF version
 
       public string[] SpatialTypes
       {
