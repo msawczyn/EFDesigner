@@ -44,7 +44,7 @@ namespace Testing_CoreV2NetStd.Model
       [Required]
       public int Id { get; private set; }
 
-      public string Property1 { get; set; }
+      public global::Testing_CoreV2NetStd.Model.Enum1? Property1 { get; set; }
 
    }
 }

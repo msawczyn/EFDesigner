@@ -51,11 +51,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static IEnumerable<string> GetErrors(ModelAttribute element)
       {
-         ModelRoot modelRoot = element.ModelClass?.ModelRoot;
+         // ReSharper disable once CollectionNeverUpdated.Local
          List<string> errorMessages = new List<string>();
 
-         if (!modelRoot.ValidTypes.Contains(element.Type))
-            errorMessages.Add($"{element.Type} {element.ModelClass.Name}.{element.Name}: Unsupported type");
+         // now handled at ModelRoot.ValidTypes
+         //ModelRoot modelRoot = element.ModelClass?.ModelRoot;
+         //if (!modelRoot.ValidTypes.Contains(element.Type))
+         //   errorMessages.Add($"{element.Type} {element.ModelClass.Name}.{element.Name}: Unsupported type");
 
          return errorMessages;
       }
