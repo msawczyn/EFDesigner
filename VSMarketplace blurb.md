@@ -2,7 +2,7 @@ This Visual Studio 2017/2019 extension adds a new file type (.efmodel) that allo
 of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in 
 the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design.
 
-<img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Designer.jpg">
+<img src="https://raw.githubusercontent.com/msawczyn/EFDesigner/master/docs/images/Designer.jpg">
 
 While giving you complete control over how the code is generated you'll be able to, out of the box, create sophisticated, 
 consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using 
@@ -30,7 +30,7 @@ opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK a
 
 **ChangeLog**
 
-**1.2.7.0**
+**1.2.7.1**
    - Works with Visual Studio 2019 - mostly (see Known Issues)
    - Better formatting for XML comment docs
    - **[NEW]** Added autoproperty toggle for association ends, allowing for implementation of partial methods to examine and/or override association getting and setting
