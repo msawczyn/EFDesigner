@@ -1637,17 +1637,42 @@
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="Int16">
         <xsd:annotation>
-          <xsd:documentation>No description available</xsd:documentation>
+          <xsd:documentation>short</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="Int32">
         <xsd:annotation>
-          <xsd:documentation>No description available</xsd:documentation>
+          <xsd:documentation>int</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="Int64">
         <xsd:annotation>
-          <xsd:documentation>No description available</xsd:documentation>
+          <xsd:documentation>long</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Byte">
+        <xsd:annotation>
+          <xsd:documentation>byte</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SByte">
+        <xsd:annotation>
+          <xsd:documentation>sbyte</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="UInt16">
+        <xsd:annotation>
+          <xsd:documentation>ushort</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="UInt32">
+        <xsd:annotation>
+          <xsd:documentation>uint</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="UInt64">
+        <xsd:annotation>
+          <xsd:documentation>ulong</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

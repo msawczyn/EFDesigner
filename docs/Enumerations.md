@@ -8,6 +8,12 @@ rather, they'll be available when creating properties in the select list of *Typ
 
 To add an enumeration, drag it from the toolbox and drop it on the design surface, renaming as you see fit.
 
+The default value type for an enumeration is `Int32`, although you can change it to any valid .NET enum value type.
+Note, though, that if the enum is the type for an identifier property in any class (and, before you say anything,
+I have seen this), you won't be able to change it to a type that's not valid for identifiers. You'll be given the
+option, but an error will be thrown and the change will be prevented (there was a point where we considered 
+conditionally disallowing invalid types in the value type select list, but it turned out to be more confusing than this way).
+
 ## Adding a value
 
 Adding values is done in the same way as adding properties to an entity. 
@@ -56,7 +62,7 @@ Both the enum and the values have property window entries. Properties of the enu
       <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
       <tr><td valign="top">Name                 </td><td valign="top"><i>String</i>. The name of this enum. </td></tr>
       <tr><td valign="top">Namespace            </td><td valign="top"><i>String</i>. The namespace for this enum.</td></tr>
-      <tr><td valign="top">Value Type           </td><td valign="top"><i>String</i>. The backing type for this enum in the code. Valid values are Int16, Int32 and Int64</td></tr>
+      <tr><td valign="top">Value Type           </td><td valign="top"><i>String</i>. The backing type for this enum in the code. Valid values are Byte, SByte, Int16, UInt16, Int32, UInt32, Int64 and UInt64</td></tr>
       <tr><td valign="top">Values are Flags     </td><td valign="top"><i>Boolean</i>. If true, the [Flags] attribute will be output in the generated code and the values of the enum will be added in binary increments. If values already have initializers, they won't be changed.</td></tr>
       <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Display</b></td></tr>
       <tr><td valign="top">Fill Color           </td><td valign="top"><i>Color</i>. The color for enum's banner on the design surface.</td></tr>

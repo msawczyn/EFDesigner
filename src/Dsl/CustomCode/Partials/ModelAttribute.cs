@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
@@ -35,7 +36,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#region Warning display
+      #region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -99,12 +100,13 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="typeName">Name of type to test. If typeName is null, Type property will be used. If initialValue is null, InitialValue property will be used</param>
       /// <param name="initialValue">Initial value to test</param>
       /// <returns>true if InitialValue is a valid value for the type, or if initialValue is null or empty</returns>
-#pragma warning disable 168
+      #pragma warning disable 168
+      [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
       public bool IsValidInitialValue(string typeName = null, string initialValue = null)
       {
          typeName = typeName ?? Type;
          initialValue = initialValue ?? InitialValue;
-         
+
          if (string.IsNullOrEmpty(initialValue))
             return true;
 
@@ -137,6 +139,7 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (initialValue?.Trim())
                {
                   case "DateTime.Now":
+                  case "DateTime.UtcNow":
                   case "DateTime.MinValue":
                   case "DateTime.MaxValue":
                      return true;
@@ -146,19 +149,27 @@ namespace Sawczyn.EFDesigner.EFModel
             case "DateTimeOffset":
                return DateTimeOffset.TryParse(initialValue, out DateTimeOffset _dateTimeOffset);
             case "Decimal":
-               return decimal.TryParse(initialValue, out decimal _decimal);
+               return Decimal.TryParse(initialValue, out Decimal _decimal);
             case "Double":
-               return double.TryParse(initialValue, out double _double);
+               return Double.TryParse(initialValue, out Double _double);
             case "Guid":
                return Guid.TryParse(initialValue, out Guid _guid);
             case "Int16":
-               return short.TryParse(initialValue, out short _int16);
+               return Int16.TryParse(initialValue, out Int16 _int16);
+            case "UInt16":
+               return UInt16.TryParse(initialValue, out UInt16 _uint16);
             case "Int32":
-               return int.TryParse(initialValue, out int _int32);
+               return Int32.TryParse(initialValue, out Int32 _int32);
+            case "UInt32":
+               return UInt32.TryParse(initialValue, out UInt32 _uint32);
             case "Int64":
-               return long.TryParse(initialValue, out long _int64);
+               return Int64.TryParse(initialValue, out Int64 _int64);
+            case "UInt64":
+               return UInt64.TryParse(initialValue, out UInt64 _uint64);
+            case "SByte":
+               return SByte.TryParse(initialValue, out SByte _sbyte);
             case "Single":
-               return float.TryParse(initialValue, out float _single);
+               return Single.TryParse(initialValue, out Single _single);
             case "String":
                return true;
             case "Time":
@@ -269,10 +280,18 @@ namespace Sawczyn.EFDesigner.EFModel
                return "DbGeometry";
             case "Int16":
                return "short";
+            case "UInt16":
+               return "ushort";
             case "Int32":
                return "int";
+            case "UInt32":
+               return "uint";
             case "Int64":
                return "long";
+            case "UInt64":
+               return "ulong";
+            case "SByte":
+               return "sbyte";
             case "String":
                return "string";
          }
@@ -306,10 +325,18 @@ namespace Sawczyn.EFDesigner.EFModel
                return "Geometry";
             case "short":
                return "Int16";
+            case "ushort":
+               return "UInt16";
             case "int":
                return "Int32";
+            case "uint":
+               return "UInt32";
             case "long":
                return "Int64";
+            case "ulong":
+               return "UInt64";
+            case "sbyte":
+               return "SByte";
             case "string":
                return "String";
          }
@@ -318,7 +345,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>Storage for the ColumnName property.</summary>  
-      private string columnNameStorage; 
+      private string columnNameStorage;
 
 
       /// <summary>Gets the storage for the ColumnName property.</summary>
@@ -344,7 +371,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>Storage for the ColumnType property.</summary>  
-      private string columnTypeStorage; 
+      private string columnTypeStorage;
 
 
       /// <summary>Gets the storage for the ColumnType property.</summary>

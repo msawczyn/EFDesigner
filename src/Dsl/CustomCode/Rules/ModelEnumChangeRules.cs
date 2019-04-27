@@ -1,4 +1,5 @@
 ﻿using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
@@ -65,6 +66,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "IsFlags":
                element.SetFlagValues();
+
+               break;
+
+            case "ValueType":
+               string newValueType = (string)e.NewValue;
+               List<ModelAttribute> modelAttributes = store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == element.Name && a.IsIdentity).ToList();
+
+               if (modelAttributes.Any())
+                  errorMessage = $"Can't change {element.Name} value type to {newValueType}. It's not a valid identity type, and {element.Name} is used as an identity type in {string.Join(", ", modelAttributes.Select(a => a.ModelClass.Name + "." + a.Name))}";
 
                break;
          }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
@@ -28,13 +29,24 @@ namespace Sawczyn.EFDesigner.EFModel
          // Note that the user could have selected multiple objects, in which case context.Instance will be an array.  
          Store store = GetStore(context.Instance);
 
+         // if this is an identity property, there's a limited range of possibilities
+         bool useIdentityTypes = (context.Instance as ModelAttribute)?.IsIdentity == true;
+
          List<string> values = new List<string>();
 
          if (store != null)
          {
             ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().First();
-            values = new List<string>(modelRoot.ValidTypes);
-            values.AddRange(store.ElementDirectory.FindElements<ModelEnum>().OrderBy(e => e.Name).Select(e => e.Name));
+
+            if (useIdentityTypes)
+            {
+               values = new List<string>(modelRoot.ValidIdentityAttributeTypes);
+            }
+            else
+            {
+               values = new List<string>(modelRoot.ValidTypes);
+               values.AddRange(store.ElementDirectory.FindElements<ModelEnum>().OrderBy(e => e.Name).Select(e => e.Name));
+            }
          }
 
          return new StandardValuesCollection(values);

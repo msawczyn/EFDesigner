@@ -42,7 +42,7 @@ namespace Sandbox_EFCore
       /// </summary>
       [Key]
       [Required]
-      public long Id { get; private set; }
+      public global::Sandbox_EFCore.Role Id { get; private set; }
 
       /// <summary>
       /// Indexed

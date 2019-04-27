@@ -42,7 +42,7 @@ Selecting a property gives you access to **its** properties in the Property wind
 <tr><td valign="top">Read Only                                                               </td><td valign="top"><i>Boolean.</i> If true, no setter will be generated. Only valid for transient public properties.</td></tr>
 <tr><td valign="top">Required                                                                </td><td valign="top"><i>Boolean.</i> If true, cannot be null (or the default value for the property type, if not nullable)</td></tr>
 <tr><td valign="top">Setter Visibility                                                       </td><td valign="top"><i>String</i>. Visibility for property setter; getter is public. Valid entries are public and protected.</td></tr>
-<tr><td valign="top">Type                                                                    </td><td valign="top"><i>String</i>. Type of this attribute. Select from list of valid types.</td></tr>
+<tr><td valign="top">Type                                                                    </td><td valign="top"><i>String</i>. Type of this attribute. Select from list of valid types. If you pick a type that can't be used as an identity, the <i>Is Identity</i> and <i>Identity Type</i> properties will be removed.</td></tr>
 <tr><td valign="top">Virtual                                                                 </td><td valign="top"><i>Boolean.</i> If true, property will be generated with the 'virtual' keyword</td></tr>
 
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Database</b>         </td></tr>

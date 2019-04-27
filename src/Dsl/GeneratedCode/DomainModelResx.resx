@@ -2098,7 +2098,7 @@
     <comment>Display name for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int16.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>short</value>
     <comment>Description for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int32.DisplayName" xml:space="preserve">
@@ -2106,7 +2106,7 @@
     <comment>Display name for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int32.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>int</value>
     <comment>Description for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int64.DisplayName" xml:space="preserve">
@@ -2114,8 +2114,48 @@
     <comment>Display name for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Int64.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>long</value>
     <comment>Description for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Byte.DisplayName" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Display name for EnumerationLiteral &apos;Byte&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/Byte.Description" xml:space="preserve">
+    <value>byte</value>
+    <comment>Description for EnumerationLiteral &apos;Byte&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/SByte.DisplayName" xml:space="preserve">
+    <value>SByte</value>
+    <comment>Display name for EnumerationLiteral &apos;SByte&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/SByte.Description" xml:space="preserve">
+    <value>sbyte</value>
+    <comment>Description for EnumerationLiteral &apos;SByte&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/UInt16.DisplayName" xml:space="preserve">
+    <value>UInt16</value>
+    <comment>Display name for EnumerationLiteral &apos;UInt16&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/UInt16.Description" xml:space="preserve">
+    <value>ushort</value>
+    <comment>Description for EnumerationLiteral &apos;UInt16&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/UInt32.DisplayName" xml:space="preserve">
+    <value>UInt32</value>
+    <comment>Display name for EnumerationLiteral &apos;UInt32&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/UInt32.Description" xml:space="preserve">
+    <value>uint</value>
+    <comment>Description for EnumerationLiteral &apos;UInt32&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/UInt64.DisplayName" xml:space="preserve">
+    <value>UInt64</value>
+    <comment>Display name for EnumerationLiteral &apos;UInt64&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumValueType/UInt64.Description" xml:space="preserve">
+    <value>ulong</value>
+    <comment>Description for EnumerationLiteral &apos;UInt64&apos; on DomainEnumeration &apos;EnumValueType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind/CreateDatabaseIfNotExists.DisplayName" xml:space="preserve">
     <value>CreateDatabaseIfNotExists</value>

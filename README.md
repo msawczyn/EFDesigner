@@ -47,9 +47,11 @@ In Visual Studio 2019, projects using the new project format (typically .NET Cor
 opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK and is currently under investigation. Visual Studio
 2017 does not exhibit this issue.
 
+If this is important to you, you can follow it at [developercommunity.visualstudio.com](https://developercommunity.visualstudio.com/content/problem/539313/microsoftvisualstudioprojectsystemvsimplementation.html).
+
 ### Change Log
 
-**1.2.7**
+**1.2.7.1**
    - Works with Visual Studio 2019 - mostly (see Known Issues, above)
    - Better formatting for XML comment docs
    - Added autoproperty toggle for association ends, allowing for implementation of partial methods to examine and/or override association getting and setting

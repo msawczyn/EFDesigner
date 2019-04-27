@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
@@ -136,7 +137,24 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return new[]
+            List<string> baseResult = ValidIdentityTypeAttributesBaseList;
+
+            baseResult.AddRange(Store.ElementDirectory
+                                     .AllElements
+                                     .OfType<ModelEnum>()
+                                     .Where(e => baseResult.Contains(e.ValueType.ToString()))
+                                     .Select(e => e.Name)
+                                     .OrderBy(n=>n));
+
+            return baseResult.ToArray();
+         }
+      }
+
+      internal static List<string> ValidIdentityTypeAttributesBaseList
+      {
+         get
+         {
+            return new List<string>
                    {
                       "Int16",
                       "Int32",

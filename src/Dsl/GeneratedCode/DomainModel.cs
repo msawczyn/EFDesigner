@@ -843,22 +843,52 @@ namespace Sawczyn.EFDesigner.EFModel
 	{
 		/// <summary>
 		/// Int16
-		/// No description available
+		/// short
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int16.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Int16 = 0,
 		/// <summary>
 		/// Int32
-		/// No description available
+		/// int
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int32.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Int32 = 1,
 		/// <summary>
 		/// Int64
-		/// No description available
+		/// long
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Int64.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Int64 = 2,
+		/// <summary>
+		/// Byte
+		/// byte
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/Byte.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Byte = 3,
+		/// <summary>
+		/// SByte
+		/// sbyte
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/SByte.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		SByte = 4,
+		/// <summary>
+		/// UInt16
+		/// ushort
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/UInt16.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		UInt16 = 5,
+		/// <summary>
+		/// UInt32
+		/// uint
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/UInt32.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		UInt32 = 6,
+		/// <summary>
+		/// UInt64
+		/// ulong
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumValueType/UInt64.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		UInt64 = 7,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel
