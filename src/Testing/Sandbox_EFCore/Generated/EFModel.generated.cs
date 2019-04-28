@@ -23,6 +23,8 @@ namespace Sandbox_EFCore
    {
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Sandbox_EFCore> Sandbox_EFCore { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Student> Students { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.StudentAddress> StudentAddresses { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.User> Users { get; set; }
       #endregion DbSets
 
@@ -60,27 +62,20 @@ namespace Sandbox_EFCore
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Sandbox_EFCore.Sandbox_EFCore>()
-                     .ToTable("Sandbox_EFCore")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EFCore.Sandbox_EFCore>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Sandbox_EFCore.Sandbox_EFCore>().ToTable("Sandbox_EFCore").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore.Sandbox_EFCore>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
 
-         modelBuilder.Entity<global::Sandbox_EFCore.User>()
-                     .ToTable("Users")
-                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore.Student>().ToTable("Students").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore.Student>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+
+         modelBuilder.Entity<global::Sandbox_EFCore.StudentAddress>().ToTable("StudentAddresses").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore.StudentAddress>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Sandbox_EFCore.StudentAddress>().HasOne(x => x.Student).WithOne(x => x.StudentAddress).HasForeignKey<global::Sandbox_EFCore.StudentAddress>("Student_Id").IsRequired();
+
+         modelBuilder.Entity<global::Sandbox_EFCore.User>().ToTable("Users").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore.User>().HasIndex(t => t.Property1);
-         modelBuilder.Entity<global::Sandbox_EFCore.User>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Sandbox_EFCore.User>()
-                     .HasOne(x => x.Role)
-                     .WithOne()
-                     .HasForeignKey<global::Sandbox_EFCore.User>("Sandbox_EFCore_Role_Id")
-                     .IsRequired();
+         modelBuilder.Entity<global::Sandbox_EFCore.User>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Sandbox_EFCore.User>().HasOne(x => x.Sandbox_EFCore).WithOne(x => x.Users).HasForeignKey<global::Sandbox_EFCore.User>("Sandbox_EFCore_Id").IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }

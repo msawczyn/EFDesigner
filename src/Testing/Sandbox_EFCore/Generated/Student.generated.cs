@@ -21,14 +21,14 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox_EFCore
 {
-   public partial class Sandbox_EFCore
+   public partial class Student
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Sandbox_EFCore()
+      protected Student()
       {
          Init();
       }
@@ -36,11 +36,11 @@ namespace Sandbox_EFCore
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="users"></param>
-      public Sandbox_EFCore(global::Sandbox_EFCore.User users)
+      /// <param name="studentaddress"></param>
+      public Student(global::Sandbox_EFCore.StudentAddress studentaddress)
       {
-         if (users == null) throw new ArgumentNullException(nameof(users));
-         this.Users = users;
+         if (studentaddress == null) throw new ArgumentNullException(nameof(studentaddress));
+         this.StudentAddress = studentaddress;
 
          Init();
       }
@@ -48,10 +48,10 @@ namespace Sandbox_EFCore
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="users"></param>
-      public static Sandbox_EFCore Create(global::Sandbox_EFCore.User users)
+      /// <param name="studentaddress"></param>
+      public static Student Create(global::Sandbox_EFCore.StudentAddress studentaddress)
       {
-         return new Sandbox_EFCore(users);
+         return new Student(studentaddress);
       }
 
       /*************************************************************************
@@ -63,9 +63,7 @@ namespace Sandbox_EFCore
       /// </summary>
       [Key]
       [Required]
-      public global::Sandbox_EFCore.Role Id { get; private set; }
-
-      public string RoleName { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
@@ -74,7 +72,7 @@ namespace Sandbox_EFCore
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Sandbox_EFCore.User Users { get; set; }
+      public virtual global::Sandbox_EFCore.StudentAddress StudentAddress { get; set; }
 
    }
 }

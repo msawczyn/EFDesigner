@@ -200,11 +200,11 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       NL();
    }
    
-   Output("/// <inheritdoc />");
-   Output($"public {modelRoot.EntityContainerName}() : base()");
-   Output("{");
-   Output("}");
-   NL();
+   //Output("/// <inheritdoc />");
+   //Output($"public {modelRoot.EntityContainerName}() : base()");
+   //Output("{");
+   //Output("}");
+   //NL();
    Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}(DbContextOptions<{modelRoot.EntityContainerName}> options) : base(options)");
    Output("{");
@@ -603,7 +603,7 @@ string CreateForeignKeyColumnSegmentEFCore(Association association, List<string>
    foreignKeyColumns.Add(columnName);
    
    return useGeneric 
-      ? $"HasForeignKey<{principalType}>(\"{columnName}\")" 
+      ? $"HasForeignKey<{dependentType}>(\"{columnName}\")" 
       : $"HasForeignKey(\"{columnName}\")";
 }
 #>

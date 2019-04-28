@@ -34,16 +34,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (string.IsNullOrWhiteSpace(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
                   errorMessage = "Name must be a valid .NET identifier";
-               else if (store.ElementDirectory
-                             .AllElements
-                             .OfType<ModelClass>()
-                             .Any(x => x.Name == element.Name))
+               else if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by a class";
-               else if (store.ElementDirectory
-                             .AllElements
-                             .OfType<ModelEnum>()
-                             .Except(new[] {element})
-                             .Any(x => x.Name == element.Name))
+               else if (store.ElementDirectory.AllElements.OfType<ModelEnum>().Except(new[] {element}).Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by another enum";
                else
                {
@@ -65,16 +58,25 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "IsFlags":
+
                element.SetFlagValues();
 
                break;
 
             case "ValueType":
-               string newValueType = (string)e.NewValue;
-               List<ModelAttribute> modelAttributes = store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == element.Name && a.IsIdentity).ToList();
+
+               EnumValueType newValueType = (EnumValueType)e.NewValue;
+               List<ModelAttribute> modelAttributes = store.ElementDirectory
+                                                           .AllElements
+                                                           .OfType<ModelAttribute>()
+                                                           .Where(a => a.Type == element.Name && a.IsIdentity)
+                                                           .ToList();
 
                if (modelAttributes.Any())
-                  errorMessage = $"Can't change {element.Name} value type to {newValueType}. It's not a valid identity type, and {element.Name} is used as an identity type in {string.Join(", ", modelAttributes.Select(a => a.ModelClass.Name + "." + a.Name))}";
+               {
+                  string classList = string.Join(", ", modelAttributes.Select(a => a.ModelClass.Name + "." + a.Name));
+                  errorMessage = $"Can't change {element.Name} value type to {newValueType}. It's not a valid identity type, and {element.Name} is used as an identity type in {classList}";
+               }
 
                break;
          }

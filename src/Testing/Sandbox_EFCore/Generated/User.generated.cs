@@ -26,11 +26,32 @@ namespace Sandbox_EFCore
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public User()
+      protected User()
       {
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="sandbox_efcore"></param>
+      public User(global::Sandbox_EFCore.Sandbox_EFCore sandbox_efcore)
+      {
+         if (sandbox_efcore == null) throw new ArgumentNullException(nameof(sandbox_efcore));
+         this.Sandbox_EFCore = sandbox_efcore;
+
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="sandbox_efcore"></param>
+      public static User Create(global::Sandbox_EFCore.Sandbox_EFCore sandbox_efcore)
+      {
+         return new User(sandbox_efcore);
       }
 
       /*************************************************************************
@@ -42,7 +63,7 @@ namespace Sandbox_EFCore
       /// </summary>
       [Key]
       [Required]
-      public global::Sandbox_EFCore.Role Id { get; private set; }
+      public int Id { get; private set; }
 
       /// <summary>
       /// Indexed
@@ -53,28 +74,10 @@ namespace Sandbox_EFCore
        * Persistent navigation properties
        *************************************************************************/
 
-      protected global::Sandbox_EFCore.Sandbox_EFCore _Role;
-      partial void SetRole(global::Sandbox_EFCore.Sandbox_EFCore oldValue, ref global::Sandbox_EFCore.Sandbox_EFCore newValue);
-      partial void GetRole(ref global::Sandbox_EFCore.Sandbox_EFCore result);
-
-      public virtual global::Sandbox_EFCore.Sandbox_EFCore Role
-      {
-         get
-         {
-            global::Sandbox_EFCore.Sandbox_EFCore value = _Role;
-            GetRole(ref value);
-            return (_Role = value);
-         }
-         set
-         {
-            global::Sandbox_EFCore.Sandbox_EFCore oldValue = _Role;
-            SetRole(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _Role = value;
-            }
-         }
-      }
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Sandbox_EFCore.Sandbox_EFCore Sandbox_EFCore { get; set; }
 
    }
 }
