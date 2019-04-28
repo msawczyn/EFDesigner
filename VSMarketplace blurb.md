@@ -32,6 +32,13 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 
 **ChangeLog**
 
+**1.2.7.2**
+   - **[NEW]** Added additional types of UInt16, UInt32, UInt64 and SByte to property type list
+   - **[NEW]** Added the ability to use a modeled enumeration, if it has a proper backing type, as an entity identifier
+   - **[NEW]** Added DateTime.UtcNow as a valid initial value for a DateTime property
+   - Fix for "One-to-one relation in EFCore" (See https://github.com/msawczyn/EFDesigner/issues/71)
+   - Remove default DbContext constructor in EFCore to allow support for AddDbContextPool calls in ConfigureServices (See https://github.com/msawczyn/EFDesigner/issues/72)
+
 **1.2.7.1**
    - Works with Visual Studio 2019 - mostly (see Known Issues)
    - Better formatting for XML comment docs
