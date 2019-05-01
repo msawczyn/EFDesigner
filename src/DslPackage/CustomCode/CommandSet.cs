@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
+// ReSharper disable InconsistentNaming
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -35,6 +36,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidAddCodeValues = 0x0019;
       private const int cmdidExpandSelected = 0x001A;
       private const int cmdidCollapseSelected = 0x001B;
+      private const int cmdidMergeAssociations = 0x001C;
+      private const int cmdidSplitAssociation = 0x001D;
 
       private const int cmdidSelectClasses = 0x0101;
       private const int cmdidSelectEnums = 0x0102;
@@ -110,6 +113,14 @@ namespace Sawczyn.EFDesigner.EFModel
             new DynamicStatusMenuCommand(OnStatusCollapseSelected, OnMenuCollapseSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidCollapseSelected));
          commands.Add(collapseSelectedCommand);
 
+         DynamicStatusMenuCommand mergeAssociationsCommand =
+            new DynamicStatusMenuCommand(OnStatusMergeAssociations, OnMenuMergeAssociations, new CommandID(guidEFDiagramMenuCmdSet, cmdidMergeAssociations));
+         commands.Add(mergeAssociationsCommand);
+
+         DynamicStatusMenuCommand splitAssociationCommand =
+            new DynamicStatusMenuCommand(OnStatusSplitAssociation, OnMenuSplitAssociation, new CommandID(guidEFDiagramMenuCmdSet, cmdidSplitAssociation));
+         commands.Add(splitAssociationCommand);
+         
          // Additional commands go here.  
          return commands;
       }
@@ -546,6 +557,60 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Load NuGet
+      #region Merge Unidirectional Associations
+
+      private void OnStatusMergeAssociations(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            command.Visible = true;
+
+            UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalAssociation>().ToArray();
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              selected.Length == 2 &&
+                              selected[0].Source.FullName == selected[1].Target.FullName &&
+                              selected[0].Target.FullName == selected[1].Source.FullName;
+         }
+      }
+
+      private void OnMenuMergeAssociations(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+
+         UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalAssociation>().ToArray();
+         ((EFModelDocData)CurrentDocData).Merge(selected);
+      }
+
+      #endregion
+      #region Split Bidirectional Association
+
+      private void OnStatusSplitAssociation(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            command.Visible = true;
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              CurrentSelection.OfType<BidirectionalAssociation>().Count() == 1;
+         }
+      }
+
+      private void OnMenuSplitAssociation(object sender, EventArgs e)
+      {
+         Store store = CurrentDocData.Store;
+         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         BidirectionalAssociation selected = CurrentSelection.OfType<BidirectionalAssociation>().Single();
+
+         ((EFModelDocData)CurrentDocData).Split(selected);
+      }
+
+      #endregion
       #region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)

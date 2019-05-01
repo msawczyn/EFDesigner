@@ -74,7 +74,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Hide Element</ButtonText>
+               <ButtonText>Hide Selected Elements</ButtonText>
                <CommandName>HideElement</CommandName>
             </Strings>
          </Button>
@@ -88,6 +88,24 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Merge Unidirectional Associations</ButtonText>
+               <CommandName>MergeAssociations</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Split Bidirectional Association</ButtonText>
+               <CommandName>SplitAssociation</CommandName>
+            </Strings>
+         </Button>
+         
          <Button guid="guidEFDiagramMenuCmdSet" id="cmdidCollapseSelected" priority="0x0100" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
