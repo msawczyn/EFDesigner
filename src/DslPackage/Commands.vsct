@@ -232,6 +232,8 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeValues"     context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidExpandSelected"    context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidCollapseSelected"  context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation"  context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
@@ -249,6 +251,8 @@
          <IDSymbol name="cmdidAddCodeValues"     value="0x00019"/>
          <IDSymbol name="cmdidExpandSelected"    value="0x0001A"/>
          <IDSymbol name="cmdidCollapseSelected"  value="0x0001B"/>
+         <IDSymbol name="cmdidMergeAssociations" value="0x0001C"/>
+         <IDSymbol name="cmdidSplitAssociation"  value="0x0001D"/>
 
          <IDSymbol name="menuidSelect"           value="0x1100"/>
          <IDSymbol name="grpidSelect"            value="0x1150"/>

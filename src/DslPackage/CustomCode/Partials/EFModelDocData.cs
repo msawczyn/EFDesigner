@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -51,7 +52,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ProjectItem modelProjectItem = Dte2.Solution.FindProjectItem(filepath ?? Dte2.ActiveDocument.FullName);
 
          if (Guid.Parse(modelProjectItem.Kind) == VSConstants.GUID_ItemType_PhysicalFile)
-            modelProjectItem?.Save();
+            modelProjectItem.Save();
 
          string templateFilename = Path.ChangeExtension(filepath ?? Dte2.ActiveDocument.FullName, "tt");
 
@@ -100,6 +101,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (activeProject != null)
          {
             string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
+            Debug.Assert(projectDirectory != null, nameof(projectDirectory) + " != null");
             string filename = Path.Combine(projectDirectory, modelClass.GetRelativeFileName());
             if (File.Exists(filename))
             {
@@ -122,6 +124,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (activeProject != null)
          {
             string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
+            Debug.Assert(projectDirectory != null, nameof(projectDirectory) + " != null");
             string filename = Path.Combine(projectDirectory, modelEnum.GetRelativeFileName());
             if (File.Exists(filename))
             {
@@ -402,12 +405,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          EFVersionDetails versionInfo = new EFVersionDetails
          {
-            TargetPackageId = modelRoot.NuGetPackageVersion.PackageId
-                                         ,
-            TargetPackageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion
-                                         ,
-            CurrentPackageId = null
-                                         ,
+            TargetPackageId = modelRoot.NuGetPackageVersion.PackageId,
+            TargetPackageVersion = modelRoot.NuGetPackageVersion.ActualPackageVersion,
+            CurrentPackageId = null,
             CurrentPackageVersion = null
          };
 
@@ -426,6 +426,16 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          return versionInfo;
+      }
+
+      public void Merge(UnidirectionalAssociation[] selected)
+      {
+         // TODO: Implement EFModelDocData.Merge
+      }
+
+      public void Split(BidirectionalAssociation selected)
+      {
+         // TODO: Implement EFModelDocData.Split
       }
    }
 }
