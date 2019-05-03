@@ -608,9 +608,9 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EFModel.AssemblyProcessor\EFModel.AssemblyProcessor.csproj">
-      <Project>{01310003-c9ec-46b2-aa0c-05b3a25f3f9c}</Project>
-      <Name>EFModel.AssemblyProcessor</Name>
+    <ProjectReference Include="..\EFModel.AssemblyProcessor.Interface\EFModel.AssemblyProcessor.Interface.csproj">
+      <Project>{95ae857a-e273-4ed7-8333-49ae5e48305c}</Project>
+      <Name>EFModel.AssemblyProcessor.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

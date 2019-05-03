@@ -117,10 +117,17 @@
   <ItemGroup>
     <Compile Include="AssemblyProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFModel.AssemblyProcessor.Interface\EFModel.AssemblyProcessor.Interface.csproj">
+      <Project>{95ae857a-e273-4ed7-8333-49ae5e48305c}</Project>
+      <Name>EFModel.AssemblyProcessor.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

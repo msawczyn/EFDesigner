@@ -80,6 +80,8 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "EFDesigner.APIHelp", "EFDes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFModel.AssemblyProcessor", "EFModel.AssemblyProcessor\EFModel.AssemblyProcessor.csproj", "{01310003-C9EC-46B2-AA0C-05B3A25F3F9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFModel.AssemblyProcessor.Interface", "EFModel.AssemblyProcessor.Interface\EFModel.AssemblyProcessor.Interface.csproj", "{95AE857A-E273-4ED7-8333-49AE5E48305C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{01310003-C9EC-46B2-AA0C-05B3A25F3F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01310003-C9EC-46B2-AA0C-05B3A25F3F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01310003-C9EC-46B2-AA0C-05B3A25F3F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95AE857A-E273-4ED7-8333-49AE5E48305C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95AE857A-E273-4ED7-8333-49AE5E48305C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95AE857A-E273-4ED7-8333-49AE5E48305C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95AE857A-E273-4ED7-8333-49AE5E48305C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

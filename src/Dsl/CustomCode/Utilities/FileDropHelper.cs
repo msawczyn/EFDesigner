@@ -130,22 +130,6 @@ namespace Sawczyn.EFDesigner.EFModel
          return null;
       }
 
-      class ApplicationProxy : MarshalByRefObject
-      {
-         public void DoSomething()
-         {
-            Assembly oldVersion = Assembly.Load(new AssemblyName()
-                                                {
-                                                   CodeBase = @"c:\yourfullpath\AssemblyFile.dll"
-                                                });
-
-            Type yourOldClass = oldVersion.GetType("namespace.class");
-            // this is an example: your need to correctly define parameters below
-            yourOldClass.InvokeMember("OldMethod", 
-                                      BindingFlags.Public, null, null, null);
-         }
-      }
-
       private static bool DoHandleDrop([NotNull] Store store, [NotNull] string filename)
       {
          if (store == null)
@@ -164,7 +148,7 @@ namespace Sawczyn.EFDesigner.EFModel
                // is this an assembly?
                AssemblyName assemblyName = AssemblyName.GetAssemblyName(filename);
 
-               // so exception was thrown, so it is. Find the types it holds that inherit from DbContext
+               // no exception was thrown, so it is. Find the types it holds that inherit from DbContext
                List<Type> dbContextTypes = GetDbContextTypes(assemblyName).ToList();
 
                // if we find any, we'll take the first one
@@ -172,12 +156,10 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   // create an appdomain so we can load the assembly to interrogate it, then unload it later
                   string pathToDll = Assembly.GetExecutingAssembly().CodeBase;
-                  AppDomainSetup domainSetup = new AppDomainSetup { PrivateBinPath = pathToDll };
-                  AppDomain workDomain = AppDomain.CreateDomain("workDomain", null, domainSetup);
-                
+                  AppDomain workDomain = AppDomain.CreateDomain("workDomain", null, new AppDomainSetup { PrivateBinPath = pathToDll });
                   workDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
 
-                  // load that assembly into our new appdomain
+                  // load our worker assembly into our new appdomain
                   Assembly.LoadFr
                   workDomain.CreateInstanceAndUnwrap()
 
