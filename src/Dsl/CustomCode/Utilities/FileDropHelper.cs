@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+
+using EFModel.AssemblyProcessor;
+
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -41,6 +45,107 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      private static IEnumerable<Type> GetDbContextTypes(AssemblyName assemblyName)
+      {
+         string assemblyPath = assemblyName.CodeBase;
+         if (assemblyPath.StartsWith(@"file:\"))
+            assemblyPath = assemblyPath.Substring(6);
+
+         AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+         IEnumerable<Type> contextTypes;
+
+         try
+         {
+            // find the first DbContext defined in the assembly. First try EF6
+            Assembly loadedAssembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath);
+            contextTypes = GetLoadableTypes(loadedAssembly).Where(t => DerivesFrom(t, "System.Data.Entity.DbContext")).ToList();
+
+            // if couldn't find one, try EFCore
+            if (!contextTypes.Any())
+               contextTypes = GetLoadableTypes(loadedAssembly).Where(t => DerivesFrom(t, "Microsoft.EntityFrameworkCore.DbContext")).ToList();
+         }
+         finally
+         {
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= ResolveAssembly;
+         }
+
+         return contextTypes;
+
+      }
+
+      private static bool DerivesFrom(Type t, string typeName)
+      {
+         Type type = t;
+         while (type.FullName != typeName && type.BaseType != null)
+            type = type.BaseType;
+         return type.FullName == typeName;
+      }
+
+      private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+      {
+         if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+         try
+         {
+            return assembly.GetTypes();
+         }
+         catch (ReflectionTypeLoadException e)
+         {
+            return e.Types.Where(t => t != null).ToList();
+         }
+      }
+
+      private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+      {
+         string assemblyDirectory = args.RequestingAssembly.CodeBase;
+
+         if (assemblyDirectory.StartsWith(@"file:\"))
+            assemblyDirectory = assemblyDirectory.Substring(6);
+
+         Assembly dep;
+
+         try
+         {
+            // Try to load the dependency from the same location as the original assembly.
+            dep = Assembly.ReflectionOnlyLoadFrom(Path.Combine(assemblyDirectory, args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll"));
+
+            if (dep != null)
+               return dep;
+         }
+         catch (FileNotFoundException)
+         {
+            try
+            {
+               // Try to load from the GAC.
+               dep = Assembly.ReflectionOnlyLoad(args.Name);
+
+               if (dep != null)
+                  return dep;
+            }
+            catch (FileLoadException)
+            {
+               return null;
+            }
+         }
+
+         return null;
+      }
+
+      class ApplicationProxy : MarshalByRefObject
+      {
+         public void DoSomething()
+         {
+            Assembly oldVersion = Assembly.Load(new AssemblyName()
+                                                {
+                                                   CodeBase = @"c:\yourfullpath\AssemblyFile.dll"
+                                                });
+
+            Type yourOldClass = oldVersion.GetType("namespace.class");
+            // this is an example: your need to correctly define parameters below
+            yourOldClass.InvokeMember("OldMethod", 
+                                      BindingFlags.Public, null, null, null);
+         }
+      }
+
       private static bool DoHandleDrop([NotNull] Store store, [NotNull] string filename)
       {
          if (store == null)
@@ -56,8 +161,29 @@ namespace Sawczyn.EFDesigner.EFModel
 
             try
             {
+               // is this an assembly?
                AssemblyName assemblyName = AssemblyName.GetAssemblyName(filename);
-               return ProcessAssembly(assemblyName);
+
+               // so exception was thrown, so it is. Find the types it holds that inherit from DbContext
+               List<Type> dbContextTypes = GetDbContextTypes(assemblyName).ToList();
+
+               // if we find any, we'll take the first one
+               if (dbContextTypes.Any())
+               {
+                  // create an appdomain so we can load the assembly to interrogate it, then unload it later
+                  string pathToDll = Assembly.GetExecutingAssembly().CodeBase;
+                  AppDomainSetup domainSetup = new AppDomainSetup { PrivateBinPath = pathToDll };
+                  AppDomain workDomain = AppDomain.CreateDomain("workDomain", null, domainSetup);
+                
+                  workDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+
+                  // load that assembly into our new appdomain
+                  Assembly.LoadFr
+                  workDomain.CreateInstanceAndUnwrap()
+
+                  AssemblyProcessor assemblyProcessor = new AssemblyProcessor(filename);
+                  return assemblyProcessor.Process(dbContextTypes.FirstOrDefault());
+               }
             }
             catch (Exception e)
             {
@@ -139,96 +265,6 @@ namespace Sawczyn.EFDesigner.EFModel
                }
             }
          }
-      }
-
-      private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
-      {
-         if (assembly == null) throw new ArgumentNullException(nameof(assembly));
-         try
-         {
-            return assembly.GetTypes();
-         }
-         catch (ReflectionTypeLoadException e)
-         {
-            return e.Types.Where(t => t != null).ToList();
-         }
-      }
-
-      private static bool ProcessAssembly(string filepath)
-      {
-         return ProcessAssembly(AssemblyName.GetAssemblyName(filepath));
-      }
-
-      private static bool ProcessAssembly(AssemblyName assemblyName)
-      {
-         string pathToAssembly = assemblyName.CodeBase;
-         if (pathToAssembly.StartsWith(@"file:\"))
-            pathToAssembly = pathToAssembly.Substring(6);
-         string assemblyDirectory = Path.GetDirectoryName(pathToAssembly);
-
-         AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-
-         // find the first DbContext defined in the assembly. First try EF6
-         Assembly loadedAssembly = Assembly.ReflectionOnlyLoadFrom(pathToAssembly);
-         IEnumerable<Type> contextTypes = GetLoadableTypes(loadedAssembly).Where(t => DerivesFrom(t, "System.Data.Entity.DbContext")).ToList();
-
-         // if couldn't find one, try EFCore
-         if (!contextTypes.Any())
-            contextTypes = GetLoadableTypes(loadedAssembly).Where(t => DerivesFrom(t, "Microsoft.EntityFrameworkCore.DbContext")).ToList();
-
-         Type contextType = contextTypes.Count() != 1 ? null : contextTypes.First();
-
-         AppDomainSetup domainSetup = new AppDomainSetup {PrivateBinPath = pathToAssembly};
-         AppDomain appDomain = AppDomain.CreateDomain("working", null, domainSetup);
-
-         return true;
-
-         #region Local methods
-
-         Assembly ResolveAssembly(object sender, ResolveEventArgs args)
-         {
-            Assembly dep = null;
-
-            try
-            {
-               // Try to load the dependency from the same location as the original assembly.
-               dep = Assembly.ReflectionOnlyLoadFrom(Path.Combine(assemblyDirectory,
-                  args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll"));
-
-               if (dep != null)
-                  return dep;
-            }
-            catch (FileNotFoundException)
-            {
-               dep = null;
-            }
-
-            try
-            {
-               // Try to load from the GAC.
-               dep = Assembly.ReflectionOnlyLoad(args.Name);
-
-               if (dep != null)
-                  return dep;
-            }
-            catch (FileLoadException)
-            {
-               dep = null;
-            }
-
-
-            return null;
-         }
-
-         bool DerivesFrom(Type t, string typeName)
-         {
-            Type type = t;
-            while (type.FullName != typeName && type.BaseType != null)
-               type = type.BaseType;
-            return type.FullName == typeName;
-         }
-
-         #endregion
       }
 
       private static void ProcessProperties([NotNull] Store store, [NotNull] ClassDeclarationSyntax classDecl)
@@ -713,68 +749,5 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return result;
       }
-   }
-
-   class ProxyDomain : MarshalByRefObject
-   {
-      public void GetAssembly(string AssemblyPath)
-      {
-         try
-         {
-            Assembly.LoadFrom(AssemblyPath);
-            //If you want to do anything further to that assembly, you need to do it here.
-         }
-         catch (Exception ex)
-         {
-            throw new InvalidOperationException(ex.Message, ex);
-         }
-      }
-   }
-
-   internal class XMLDocumentation
-   {
-      public XMLDocumentation(SyntaxNode classDecl)
-      {
-         if (classDecl == null)
-            throw new ArgumentNullException(nameof(classDecl));
-
-         List<DocumentationCommentTriviaSyntax> xmlTrivia = classDecl.GetLeadingTrivia().Select(i => i.GetStructure())
-            .OfType<DocumentationCommentTriviaSyntax>().ToList();
-
-         foreach (DocumentationCommentTriviaSyntax xmlComment in xmlTrivia)
-         {
-            Summary = Extract(xmlComment, "summary");
-            Description = Extract(xmlComment, "remarks");
-         }
-      }
-
-      public string Summary { get; }
-      public string Description { get; }
-
-      private string Extract(DocumentationCommentTriviaSyntax xmlComment, string tagName)
-      {
-         string extracted = null;
-         XmlElementSyntax summary = xmlComment.ChildNodes().OfType<XmlElementSyntax>()
-            .FirstOrDefault(x => x.StartTag.Name.ToString() == tagName);
-
-         if (summary != null)
-         {
-            extracted = string.Empty;
-
-            for (int index = 0; index < summary.Content.Count; index++)
-            {
-               XmlNodeSyntax xmlNodeSyntax = summary.Content[index];
-
-               extracted += (index == 0
-                  ? Clean(xmlNodeSyntax)
-                  : $"\n<p>{Clean(xmlNodeSyntax)}</p>");
-            }
-         }
-
-         return extracted;
-      }
-
-      private string Clean(XmlNodeSyntax xmlNodeSyntax) =>
-         xmlNodeSyntax.ToString().Replace("\r", "").Replace("\n", "").Replace("///", "").Trim();
    }
 }

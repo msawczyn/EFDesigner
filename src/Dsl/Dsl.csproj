@@ -347,6 +347,7 @@
     <Compile Include="CustomCode\Partials\EFModelSerializationHelperBase.cs" />
     <Compile Include="CustomCode\Type Converters\TypeConverterBase.cs" />
     <Compile Include="CustomCode\Utilities\WarningDisplay.cs" />
+    <Compile Include="CustomCode\Utilities\XMLDocumentation.cs" />
     <Compile Include="GeneratedCode\DomainClasses.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -605,6 +606,12 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFModel.AssemblyProcessor\EFModel.AssemblyProcessor.csproj">
+      <Project>{01310003-c9ec-46b2-aa0c-05b3a25f3f9c}</Project>
+      <Name>EFModel.AssemblyProcessor</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
   </PropertyGroup>

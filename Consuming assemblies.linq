@@ -1,10 +1,9 @@
 <Query Kind="Statements" />
 
-string pathToAssembly = @"C:\Code\IncludeFitness-Cloud\Include.Repository\bin\Debug\Include.Repository.dll";
+string pathToAssembly = @"C:\Code\ClientProjects\AWH\IncludeFitness-Cloud\Include.Repository\bin\Debug\Include.Repository.dll";
 AssemblyName assemblyName = AssemblyName.GetAssemblyName(pathToAssembly);
 
 string assemblyDirectory = Path.GetDirectoryName(pathToAssembly);
-//AppDomain domain = AppDomain.CreateDomain("working", null, new AppDomainSetup { ApplicationBase = assemblyDirectory });
 AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
 
 Assembly loadedAssembly = Assembly.ReflectionOnlyLoadFrom(pathToAssembly);
@@ -15,21 +14,7 @@ foreach (Type type in theTypes)
 	Console.WriteLine((type.BaseType?.FullName ?? "") + "\t\t" + type.FullName);
 }
 
-//System.Reflection.Assembly ResolveAssembly(object sender, ResolveEventArgs args)
-//{
-//	Console.WriteLine($"*** {args.Name}");
-//	AssemblyName name = new AssemblyName(args.Name);
-//	
-//	try
-//	{
-//		return System.Reflection.Assembly.ReflectionOnlyLoadFrom(args.Name);
-//	}
-//	catch
-//	{
-//		string dependentAssemblyPath = Path.Combine(assemblyDirectory, name.Name) + ".dll";
-//		return System.Reflection.Assembly.ReflectionOnlyLoadFrom(dependentAssemblyPath);
-//	}
-//}
+
 
 System.Reflection.Assembly ResolveAssembly(object sender, ResolveEventArgs args)
 {
