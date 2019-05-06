@@ -7,6 +7,11 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Microsoft.Msagl.Core.Geometry.Curves;
+using Microsoft.Msagl.Core.Layout;
+using Microsoft.Msagl.Core.Routing;
+using Microsoft.Msagl.Miscellaneous;
+using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Shell;
@@ -442,10 +447,63 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
             {
-               diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
-                  Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
-                  Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
-                  true);
+               GeometryGraph graph = new GeometryGraph();
+
+               // create boxes
+               List<NodeShape> nodeShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<NodeShape>().ToList();
+
+               foreach (NodeShape nodeShape in nodeShapes)
+               {
+                  ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width, nodeShape.Bounds.Height, new Microsoft.Msagl.Core.Geometry.Point(nodeShape.Bounds.Center.X, nodeShape.Bounds.Center.Y));
+                  Node diagramNode = new Node(graphRectangle, nodeShape);
+                  graph.Nodes.Add(diagramNode);
+               }
+
+               // create links (edges)
+               List<LinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<LinkShape>().ToList();
+
+               foreach (LinkShape linkShape in linkShapes)
+               {
+                  graph.Edges.Add(new Edge(
+                     graph.FindNodeByUserData(linkShape.Nodes[0]),
+                     graph.FindNodeByUserData(linkShape.Nodes[1]))
+                  {
+                     Weight = 1,
+                     UserData = linkShape
+                  });
+               }
+
+               // ranking layout with rectilinear line routing
+               RankingLayoutSettings layoutSettings = new RankingLayoutSettings
+               {
+                  NodeSeparation = .02,
+                  EdgeRoutingSettings = new EdgeRoutingSettings { EdgeRoutingMode = EdgeRoutingMode.Rectilinear }
+               };
+
+               // go!
+               LayoutHelpers.CalculateLayout(graph, layoutSettings, null);
+
+               // Move model to positive axis.
+               graph.UpdateBoundingBox();
+               graph.Translate(new Microsoft.Msagl.Core.Geometry.Point(-graph.Left, -graph.Bottom));
+
+               // Update node position.
+               foreach (Node node in graph.Nodes)
+               {
+                  NodeShape nodeShape = (NodeShape)node.UserData;
+                  nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
+               }
+
+               foreach (Edge edge in graph.Edges)
+               {
+                  LinkShape linkShape = (LinkShape)edge.UserData;
+                  linkShape.ManuallyRouted = false;
+               }
+
+               //diagram.AutoLayoutShapeElements(shapes,
+               //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
+               //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
+               //   true);
                tx.Commit();
             }
          }
