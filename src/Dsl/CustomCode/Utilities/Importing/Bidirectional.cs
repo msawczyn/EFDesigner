@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EFModel.AssemblyProcessor.Interface
 {
-   public class BidirectionalAssociation : UnidirectionalAssociation
+   public class Bidirectional : Unidirectional
    {
       public string SourcePropertyName { get; set; }
    }

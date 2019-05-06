@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EFModel.AssemblyProcessor.Interface")]
+[assembly: AssemblyTitle("EFDesigner.EF6Processing")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EFModel.AssemblyProcessor.Interface")]
+[assembly: AssemblyProduct("EFDesigner.EF6Processing")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("95ae857a-e273-4ed7-8333-49ae5e48305c")]
+[assembly: Guid("79eabb05-ff7a-4488-81cd-18a40ea1e12a")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -8,6 +8,8 @@ namespace EFModel.AssemblyProcessor.Interface
 {
    public class Property
    {
+      public string TypeName { get; set; }
+      public string Name { get; set; }
       public string InitialValue { get; set; }
       public bool IsIdentity { get; set; }
       public bool Required { get; set; }
