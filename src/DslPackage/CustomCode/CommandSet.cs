@@ -7,27 +7,33 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
+using Microsoft.Msagl.Layout.Layered;
 using Microsoft.Msagl.Miscellaneous;
 using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 using Microsoft.VisualStudio.Modeling.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
+
+using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
+using Point = Microsoft.Msagl.Core.Geometry.Point;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    /// <summary>
-   /// Double-derived class to allow easier code customization.
+   ///    Double-derived class to allow easier code customization.
    /// </summary>
    internal partial class EFModelCommandSet
    {
       // ReSharper disable once UnusedMember.Local
       private const int grpidEFDiagram = 0x01001;
-
-      private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
 
       private const int cmdidFind = 0x0011;
       private const int cmdidLayoutDiagram = 0x0012;
@@ -47,79 +53,97 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidSelectUnidir = 0x0104;
       private const int cmdidSelectBidir = 0x0105;
 
+      private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
+
       protected override IList<MenuCommand> GetMenuCommands()
       {
          IList<MenuCommand> commands = base.GetMenuCommands();
 
          DynamicStatusMenuCommand findCommand =
             new DynamicStatusMenuCommand(OnStatusFind, OnMenuFind, new CommandID(guidEFDiagramMenuCmdSet, cmdidFind));
+
          commands.Add(findCommand);
 
          DynamicStatusMenuCommand addAttributesCommand =
             new DynamicStatusMenuCommand(OnStatusAddProperties, OnMenuAddProperties, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeProperties));
+
          commands.Add(addAttributesCommand);
 
          DynamicStatusMenuCommand addValuesCommand =
             new DynamicStatusMenuCommand(OnStatusAddValues, OnMenuAddValues, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddCodeValues));
+
          commands.Add(addValuesCommand);
 
          DynamicStatusMenuCommand layoutDiagramCommand =
             new DynamicStatusMenuCommand(OnStatusLayoutDiagram, OnMenuLayoutDiagram, new CommandID(guidEFDiagramMenuCmdSet, cmdidLayoutDiagram));
+
          commands.Add(layoutDiagramCommand);
 
          DynamicStatusMenuCommand hideShapeCommand =
             new DynamicStatusMenuCommand(OnStatusHideShape, OnMenuHideShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidHideShape));
+
          commands.Add(hideShapeCommand);
 
          DynamicStatusMenuCommand showShapeCommand =
             new DynamicStatusMenuCommand(OnStatusShowShape, OnMenuShowShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidShowShape));
+
          commands.Add(showShapeCommand);
 
          DynamicStatusMenuCommand generateCodeCommand =
             new DynamicStatusMenuCommand(OnStatusGenerateCode, OnMenuGenerateCode, new CommandID(guidEFDiagramMenuCmdSet, cmdidGenerateCode));
+
          commands.Add(generateCodeCommand);
 
          DynamicStatusMenuCommand saveAsImageCommand =
-               new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
+            new DynamicStatusMenuCommand(OnStatusSaveAsImage, OnMenuSaveAsImage, new CommandID(guidEFDiagramMenuCmdSet, cmdidSaveAsImage));
+
          commands.Add(saveAsImageCommand);
 
          DynamicStatusMenuCommand loadNuGetCommand =
             new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
+
          commands.Add(loadNuGetCommand);
 
          DynamicStatusMenuCommand selectClassesCommand =
             new DynamicStatusMenuCommand(OnStatusSelectClasses, OnMenuSelectClasses, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectClasses));
+
          commands.Add(selectClassesCommand);
 
          DynamicStatusMenuCommand selectEnumsCommand =
             new DynamicStatusMenuCommand(OnStatusSelectEnums, OnMenuSelectEnums, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectEnums));
+
          commands.Add(selectEnumsCommand);
 
          DynamicStatusMenuCommand selectAssocsCommand =
             new DynamicStatusMenuCommand(OnStatusSelectAssocs, OnMenuSelectAssocs, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectAssocs));
+
          commands.Add(selectAssocsCommand);
 
          DynamicStatusMenuCommand selectUnidirCommand =
             new DynamicStatusMenuCommand(OnStatusSelectUnidir, OnMenuSelectUnidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectUnidir));
+
          commands.Add(selectUnidirCommand);
 
          DynamicStatusMenuCommand selectBidirCommand =
             new DynamicStatusMenuCommand(OnStatusSelectBidir, OnMenuSelectBidir, new CommandID(guidEFDiagramMenuCmdSet, cmdidSelectBidir));
+
          commands.Add(selectBidirCommand);
 
          DynamicStatusMenuCommand expandSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusExpandSelected, OnMenuExpandSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidExpandSelected));
+
          commands.Add(expandSelectedCommand);
 
          DynamicStatusMenuCommand collapseSelectedCommand =
             new DynamicStatusMenuCommand(OnStatusCollapseSelected, OnMenuCollapseSelected, new CommandID(guidEFDiagramMenuCmdSet, cmdidCollapseSelected));
+
          commands.Add(collapseSelectedCommand);
 
          // Additional commands go here.  
          return commands;
       }
 
-      #region Find
+#region Find
 
       private void OnStatusFind(object sender, EventArgs e)
       {
@@ -143,8 +167,9 @@ namespace Sawczyn.EFDesigner.EFModel
          // bind data to each line of output so can highlight proper shape when entry is clicked (or double clicked)
       }
 
-      #endregion Find
-      #region Add Properties
+#endregion Find
+
+#region Add Properties
 
       private void OnStatusAddProperties(object sender, EventArgs e)
       {
@@ -162,6 +187,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (shapeElement?.ModelElement is ModelClass element)
          {
             AddCodeForm codeForm = new AddCodeForm(element);
+
             if (codeForm.ShowDialog() == DialogResult.OK)
             {
                using (Transaction tx = element.Store.TransactionManager.BeginTransaction("AddProperties"))
@@ -173,9 +199,11 @@ namespace Sawczyn.EFDesigner.EFModel
                      try
                      {
                         ParseResult parseResult = ModelAttribute.Parse(element.ModelRoot, codeFormLine);
+
                         if (parseResult == null)
                         {
                            Messages.AddWarning($"Could not parse '{codeFormLine}'. The line will be discarded.");
+
                            continue;
                         }
 
@@ -191,6 +219,7 @@ namespace Sawczyn.EFDesigner.EFModel
                         if (message != null)
                         {
                            Messages.AddWarning(message);
+
                            continue;
                         }
 
@@ -201,8 +230,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                            new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, parseResult.MaxLength ?? 0),
                                                                            new PropertyAssignment(ModelAttribute.InitialValueDomainPropertyId, parseResult.InitialValue),
                                                                            new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, parseResult.IsIdentity),
-                                                                           new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public)
-                                                                          );
+                                                                           new PropertyAssignment(ModelAttribute.SetterVisibilityDomainPropertyId, parseResult.SetterVisibility ?? SetterAccessModifier.Public));
+
                         element.Attributes.Add(modelAttribute);
                      }
                      catch (Exception exception)
@@ -217,8 +246,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Add Properties
-      #region Add Values
+#endregion Add Properties
+
+#region Add Values
 
       private void OnStatusAddValues(object sender, EventArgs e)
       {
@@ -236,6 +266,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (shapeElement?.ModelElement is ModelEnum element)
          {
             AddCodeForm codeForm = new AddCodeForm(element);
+
             if (codeForm.ShowDialog() == DialogResult.OK)
             {
                using (Transaction tx = element.Store.TransactionManager.BeginTransaction("AddValues"))
@@ -251,6 +282,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                      .Split('=')
                                                      .Select(x => x.Trim())
                                                      .ToArray();
+
                         string message = null;
 
                         if (parts.Length > 0)
@@ -264,11 +296,13 @@ namespace Sawczyn.EFDesigner.EFModel
                               switch (parts.Length)
                               {
                                  case 1:
+
                                     element.Values.Add(new ModelEnumValue(element.Store,
                                                                           new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0])));
 
                                     break;
                                  case 2:
+
                                     element.Values.Add(new ModelEnumValue(element.Store,
                                                                           new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, parts[0]),
                                                                           new PropertyAssignment(ModelEnumValue.ValueDomainPropertyId, parts[1])));
@@ -297,8 +331,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Add Properties
-      #region Generate Code
+#endregion Add Properties
+
+#region Generate Code
 
       private void OnStatusGenerateCode(object sender, EventArgs e)
       {
@@ -314,8 +349,9 @@ namespace Sawczyn.EFDesigner.EFModel
          EFModelDocData.GenerateCode();
       }
 
-      #endregion Generate Code
-      #region Show Shape
+#endregion Generate Code
+
+#region Show Shape
 
       private void OnStatusShowShape(object sender, EventArgs e)
       {
@@ -324,6 +360,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+
             command.Enabled = childShapes.OfType<ClassShape>().Any(s => !s.IsVisible) ||
                               childShapes.OfType<EnumShape>().Any(s => !s.IsVisible);
          }
@@ -332,24 +369,30 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuShowShape(object sender, EventArgs e)
       {
          NodeShape firstShape = CurrentSelection.OfType<NodeShape>().FirstOrDefault();
+
          if (firstShape != null)
          {
             using (Transaction tx = firstShape.Store.TransactionManager.BeginTransaction("HideShapes"))
             {
                LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+
                foreach (ClassShape shape in childShapes.OfType<ClassShape>().Where(s => !s.IsVisible))
                   shape.Visible = true;
+
                foreach (EnumShape shape in childShapes.OfType<EnumShape>().Where(s => !s.IsVisible))
                   shape.Visible = true;
+
                foreach (ShapeElement shape in childShapes.Where(s => !s.IsVisible))
                   shape.Show();
+
                tx.Commit();
             }
          }
       }
 
-      #endregion Show Shape
-      #region Hide Shape
+#endregion Show Shape
+
+#region Hide Shape
 
       private void OnStatusHideShape(object sender, EventArgs e)
       {
@@ -362,21 +405,25 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuHideShape(object sender, EventArgs e)
       {
          NodeShape firstShape = CurrentSelection.OfType<NodeShape>().FirstOrDefault();
+
          if (firstShape != null)
          {
             using (Transaction tx = firstShape.Store.TransactionManager.BeginTransaction("HideShapes"))
             {
                foreach (ClassShape shape in CurrentSelection.OfType<ClassShape>())
                   shape.Visible = false;
+
                foreach (EnumShape shape in CurrentSelection.OfType<EnumShape>())
                   shape.Visible = false;
+
                tx.Commit();
             }
          }
       }
 
-      #endregion Hide Shape
-      #region Expand Selected Shapes
+#endregion Hide Shape
+
+#region Expand Selected Shapes
 
       private void OnStatusExpandSelected(object sender, EventArgs e)
       {
@@ -401,8 +448,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Expand Selected Shapes
-      #region Collapse Selected Shapes
+#endregion Expand Selected Shapes
+
+#region Collapse Selected Shapes
 
       private void OnStatusCollapseSelected(object sender, EventArgs e)
       {
@@ -429,8 +477,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Collapse Selected Shapes
-      #region Layout Diagram
+#endregion Collapse Selected Shapes
+
+#region Layout Diagram
 
       private void OnStatusLayoutDiagram(object sender, EventArgs e)
       {
@@ -443,6 +492,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuLayoutDiagram(object sender, EventArgs e)
       {
          EFModelDiagram diagram = CurrentSelection.Cast<EFModelDiagram>().FirstOrDefault();
+
          if (diagram != null)
          {
             using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
@@ -454,38 +504,56 @@ namespace Sawczyn.EFDesigner.EFModel
 
                foreach (NodeShape nodeShape in nodeShapes)
                {
-                  ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width, nodeShape.Bounds.Height, new Microsoft.Msagl.Core.Geometry.Point(nodeShape.Bounds.Center.X, nodeShape.Bounds.Center.Y));
+                  ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width, nodeShape.Bounds.Height, new Point(nodeShape.Bounds.Center.X, nodeShape.Bounds.Center.Y));
                   Node diagramNode = new Node(graphRectangle, nodeShape);
                   graph.Nodes.Add(diagramNode);
                }
 
                // create links (edges)
                List<LinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<LinkShape>().ToList();
-
+               
                foreach (LinkShape linkShape in linkShapes)
                {
-                  graph.Edges.Add(new Edge(
-                     graph.FindNodeByUserData(linkShape.Nodes[0]),
-                     graph.FindNodeByUserData(linkShape.Nodes[1]))
-                  {
-                     Weight = 1,
-                     UserData = linkShape
-                  });
+                  graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]), 
+                                           graph.FindNodeByUserData(linkShape.Nodes[1]))
+                                  {
+                                     UserData = linkShape, 
+                                  });
                }
 
                // ranking layout with rectilinear line routing
-               RankingLayoutSettings layoutSettings = new RankingLayoutSettings
-               {
-                  NodeSeparation = .02,
-                  EdgeRoutingSettings = new EdgeRoutingSettings { EdgeRoutingMode = EdgeRoutingMode.Rectilinear }
-               };
+               //LayoutAlgorithmSettings layoutSettings = new RankingLayoutSettings
+               //                                       {
+               //                                          NodeSeparation = .02,
+               //                                          EdgeRoutingSettings = new EdgeRoutingSettings
+               //                                                                {
+               //                                                                   EdgeRoutingMode = EdgeRoutingMode.Rectilinear, 
+               //                                                                   Padding = .1
+               //                                                                },
+               //                                          ScaleX = 2,
+               //                                          ScaleY = 2,
+               //                                          ClusterMargin = .05
+               //                                       };
+
+               LayoutAlgorithmSettings layoutSettings = new SugiyamaLayoutSettings
+                                                       {
+                                                          AspectRatio = 0,
+                                                          GridSizeByX = 1,
+                                                          GridSizeByY = 1,
+                                                          NodeSeparation = .05,
+                                                          EdgeRoutingSettings = new EdgeRoutingSettings
+                                                                                {
+                                                                                   EdgeRoutingMode = EdgeRoutingMode.Rectilinear,
+                                                                                   Padding = .1
+                                                                                }
+                                                       };
 
                // go!
                LayoutHelpers.CalculateLayout(graph, layoutSettings, null);
 
                // Move model to positive axis.
                graph.UpdateBoundingBox();
-               graph.Translate(new Microsoft.Msagl.Core.Geometry.Point(-graph.Left, -graph.Bottom));
+               graph.Translate(new Point(-graph.Left, -graph.Bottom));
 
                // Update node position.
                foreach (Node node in graph.Nodes)
@@ -498,6 +566,27 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   LinkShape linkShape = (LinkShape)edge.UserData;
                   linkShape.ManuallyRouted = false;
+
+                  //if (edge.Curve is LineSegment lineSegment)
+                  //{
+                  //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.JumpStart));
+                  //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.JumpEnd));
+                  //}
+                  //else if (edge.Curve is Curve curve)
+                  //{
+                  //   LineSegment[] lineSegments = curve.Segments.Cast<LineSegment>().ToArray();
+
+                  //   for (int index = 0; index < lineSegments.Length; index++)
+                  //   {
+                  //      LineSegment segment = lineSegments[index];
+                  //      if (index == 0)
+                  //         linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.JumpStart));
+                  //      else if (index != lineSegments.Length - 1)
+                  //         linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.JumpMiddle));
+                  //      else
+                  //         linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.JumpEnd));
+                  //   }
+                  //}
                }
 
                //diagram.AutoLayoutShapeElements(shapes,
@@ -509,8 +598,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Layout Diagram
-      #region Save as Image
+#endregion Layout Diagram
+
+#region Save as Image
 
       private void OnStatusSaveAsImage(object sender, EventArgs e)
       {
@@ -548,12 +638,12 @@ namespace Sawczyn.EFDesigner.EFModel
                   catch (ArgumentException)
                   {
                      string errorMessage = $"Can't create a {Path.GetExtension(dlg.FileName)} image";
-                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, Microsoft.VisualStudio.Shell.Interop.OLEMSGBUTTON.OLEMSGBUTTON_OK, Microsoft.VisualStudio.Shell.Interop.OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, Microsoft.VisualStudio.Shell.Interop.OLEMSGICON.OLEMSGICON_CRITICAL);
+                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
                   }
                   catch
                   {
                      string errorMessage = $"Error saving {dlg.FileName}";
-                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, Microsoft.VisualStudio.Shell.Interop.OLEMSGBUTTON.OLEMSGBUTTON_OK, Microsoft.VisualStudio.Shell.Interop.OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, Microsoft.VisualStudio.Shell.Interop.OLEMSGICON.OLEMSGICON_CRITICAL);
+                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
                   }
                }
             }
@@ -565,24 +655,31 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (Path.GetExtension(fileName).ToLowerInvariant())
          {
             case ".bmp":
+
                return ImageFormat.Bmp;
             case ".gif":
+
                return ImageFormat.Gif;
             case ".jpg":
+
                return ImageFormat.Jpeg;
             case ".png":
+
                return ImageFormat.Png;
             case ".tiff":
+
                return ImageFormat.Tiff;
             case ".wmf":
+
                return ImageFormat.Wmf;
          }
 
          throw new ArgumentException();
       }
 
-      #endregion
-      #region Load NuGet
+#endregion
+
+#region Load NuGet
 
       private void OnStatusLoadNuGet(object sender, EventArgs e)
       {
@@ -590,7 +687,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Store store = CurrentDocData.Store;
             ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
-            command.Visible = (modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected());
+            command.Visible = modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected();
             command.Enabled = IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
          }
       }
@@ -603,8 +700,9 @@ namespace Sawczyn.EFDesigner.EFModel
          ((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
       }
 
-      #endregion Load NuGet
-      #region Select classes
+#endregion Load NuGet
+
+#region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)
       {
@@ -620,12 +718,14 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectClasses(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+
          foreach (ClassShape shape in childShapes.OfType<ClassShape>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Select classes
-      #region Select enums
+#endregion Select classes
+
+#region Select enums
 
       private void OnStatusSelectEnums(object sender, EventArgs e)
       {
@@ -641,12 +741,14 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectEnums(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+
          foreach (EnumShape shape in childShapes.OfType<EnumShape>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Select enums
-      #region Select associations
+#endregion Select enums
+
+#region Select associations
 
       private void OnStatusSelectAssocs(object sender, EventArgs e)
       {
@@ -662,12 +764,14 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectAssocs(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+
          foreach (AssociationConnector shape in childShapes.OfType<AssociationConnector>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Select associations
-      #region Select unidirectional associations
+#endregion Select associations
+
+#region Select unidirectional associations
 
       private void OnStatusSelectUnidir(object sender, EventArgs e)
       {
@@ -683,12 +787,14 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectUnidir(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+
          foreach (UnidirectionalConnector shape in childShapes.OfType<UnidirectionalConnector>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Find
-      #region Select bidirectional associations
+#endregion Find
+
+#region Select bidirectional associations
 
       private void OnStatusSelectBidir(object sender, EventArgs e)
       {
@@ -704,10 +810,11 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuSelectBidir(object sender, EventArgs e)
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
+
          foreach (BidirectionalConnector shape in childShapes.OfType<BidirectionalConnector>().Where(x => x.CanSelect))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Find
+#endregion Find
    }
 }
