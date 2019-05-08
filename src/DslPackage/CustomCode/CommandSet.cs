@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
+using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
@@ -17,6 +18,7 @@ using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
+using Microsoft.VisualStudio.Modeling.Extensibility;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -523,30 +525,81 @@ namespace Sawczyn.EFDesigner.EFModel
 
                // ranking layout with rectilinear line routing
                //LayoutAlgorithmSettings layoutSettings = new RankingLayoutSettings
-               //                                       {
-               //                                          NodeSeparation = .02,
-               //                                          EdgeRoutingSettings = new EdgeRoutingSettings
-               //                                                                {
-               //                                                                   EdgeRoutingMode = EdgeRoutingMode.Rectilinear, 
-               //                                                                   Padding = .1
-               //                                                                },
-               //                                          ScaleX = 2,
-               //                                          ScaleY = 2,
-               //                                          ClusterMargin = .05
-               //                                       };
+               //                                         {
+               //                                            NodeSeparation = .5,
+               //                                            EdgeRoutingSettings = new EdgeRoutingSettings
+               //                                                                  {
+               //                                                                     EdgeRoutingMode = EdgeRoutingMode.Rectilinear,
+               //                                                                     Padding = .5,
+               //                                                                     PolylinePadding = .5,
+               //                                                                     BundlingSettings = new BundlingSettings
+               //                                                                                        {
+               //                                                                                           KeepOverlaps = false
+               //                                                                                        }
+               //                                                                  },
+               //                                            //ScaleX = 1,
+               //                                            //ScaleY = 1,
+               //                                            ClusterMargin = .5
+               //                                         };
 
-               LayoutAlgorithmSettings layoutSettings = new SugiyamaLayoutSettings
-                                                       {
-                                                          AspectRatio = 0,
-                                                          GridSizeByX = 1,
-                                                          GridSizeByY = 1,
-                                                          NodeSeparation = .05,
-                                                          EdgeRoutingSettings = new EdgeRoutingSettings
-                                                                                {
-                                                                                   EdgeRoutingMode = EdgeRoutingMode.Rectilinear,
-                                                                                   Padding = .1
-                                                                                }
-                                                       };
+               //RankingLayoutSettings layoutSettings = new RankingLayoutSettings();
+               //layoutSettings.NodeSeparation = 0.0;
+               //layoutSettings.PivotNumber = 50;
+               //layoutSettings.OmegaX = 0.15;
+               //layoutSettings.OmegaY = 0.15;
+               //layoutSettings.ScaleX = 200.0;
+               //layoutSettings.ScaleY = 200.0;
+               //layoutSettings.Reporting = false;
+               //layoutSettings.PackingAspectRatio = PackingConstants.GoldenRatio;
+               //layoutSettings.ClusterMargin = 10.0;
+
+               //LayoutAlgorithmSettings layoutSettings = new SugiyamaLayoutSettings
+               //{
+               //   AspectRatio = 0,
+               //   GridSizeByX = 1,
+               //   GridSizeByY = 1,
+               //   NodeSeparation = .05,
+               //   EdgeRoutingSettings = new EdgeRoutingSettings
+               //   {
+               //      EdgeRoutingMode = EdgeRoutingMode.Rectilinear,
+               //      Padding = .1
+               //   }
+               //};
+
+               SugiyamaLayoutSettings layoutSettings = new SugiyamaLayoutSettings();
+               layoutSettings.MinimalHeight = 0;
+               layoutSettings.MinimalWidth = 0;
+               layoutSettings.MinNodeHeight = 0; //9.0;
+               layoutSettings.MinNodeWidth = 0; //13.5;
+               layoutSettings.AspectRatio = 0;
+               layoutSettings.LayerSeparation = 1; //30;
+               layoutSettings.SnapToGridByY = 0;
+               layoutSettings.GridSizeByX = 0;
+               layoutSettings.GridSizeByY = 0;
+               layoutSettings.NodeSeparation = .05;
+               layoutSettings.EdgeRoutingSettings.PolylinePadding = .1; //1.5;
+               layoutSettings.EdgeRoutingSettings.Padding = .2; //3;
+
+               // ensure generalizations are vertically over each other
+               foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
+               {
+                  //layoutSettings.AddUpDownVerticalConstraint(graph.FindNodeByUserData(linkShape.Nodes[0]),
+                  //                                           graph.FindNodeByUserData(linkShape.Nodes[1]));
+
+                  int upperNodeIndex = 1;
+                  int lowerNodeIndex = 0;
+
+                  if (linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement)
+                  {
+                     upperNodeIndex = 0;
+                     lowerNodeIndex = 1;
+                  }
+
+                  layoutSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
+                                                     graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
+               }
+
+               // add constraints ensuring descendents of a base class are on the same level
 
                // go!
                LayoutHelpers.CalculateLayout(graph, layoutSettings, null);
@@ -562,10 +615,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
                }
 
-               foreach (Edge edge in graph.Edges)
-               {
-                  LinkShape linkShape = (LinkShape)edge.UserData;
-                  linkShape.ManuallyRouted = false;
+               //foreach (Edge edge in graph.Edges)
+               //{
+               //   LinkShape linkShape = (LinkShape)edge.UserData;
+               //   diagram.EnsureConnectionPoints(linkShape);
 
                   //if (edge.Curve is LineSegment lineSegment)
                   //{
@@ -587,12 +640,15 @@ namespace Sawczyn.EFDesigner.EFModel
                   //         linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.JumpEnd));
                   //   }
                   //}
-               }
+               //}
+
+               //diagram.Reroute();
 
                //diagram.AutoLayoutShapeElements(shapes,
                //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
                //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
                //   true);
+
                tx.Commit();
             }
          }
