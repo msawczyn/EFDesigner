@@ -145,6 +145,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "Description", ModelRoot.DescriptionDomainPropertyId, typeof(ModelRoot.DescriptionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Summary", ModelRoot.SummaryDomainPropertyId, typeof(ModelRoot.SummaryPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "ShowWarningsInDesigner", ModelRoot.ShowWarningsInDesignerDomainPropertyId, typeof(ModelRoot.ShowWarningsInDesignerPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "LayoutAlgorithm", ModelRoot.LayoutAlgorithmDomainPropertyId, typeof(ModelRoot.LayoutAlgorithmPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "LayoutAlgorithmSettings", ModelRoot.LayoutAlgorithmSettingsDomainPropertyId, typeof(ModelRoot.LayoutAlgorithmSettingsPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -1461,6 +1463,47 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AutomaticAction/Ask.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Ask = 2,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: LayoutAlgorithm
+	/// Description for Sawczyn.EFDesigner.EFModel.LayoutAlgorithm
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum LayoutAlgorithm
+	{
+		/// <summary>
+		/// MDS
+		/// MDS
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/MDS.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		MDS = 4,
+		/// <summary>
+		/// Sugiyama
+		/// Sugiyama
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Sugiyama.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Sugiyama = 2,
+		/// <summary>
+		/// FastIncremental
+		/// FastIncremental
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/FastIncremental.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		FastIncremental = 3,
+		/// <summary>
+		/// Ranking
+		/// Ranking
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Ranking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Ranking = 1,
+		/// <summary>
+		/// Default
+		/// Default
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Default.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Default = 0,
 	}
 }
 

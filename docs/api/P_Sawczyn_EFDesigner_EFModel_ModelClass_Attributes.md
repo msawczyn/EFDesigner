@@ -18,7 +18,7 @@ Public Overridable ReadOnly Property Attributes As <a href="http://msdn2.microso
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L4797" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L4974" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/bb162910" target="_blank">LinkedElementCollection</a>(<a href="T_Sawczyn_EFDesigner_EFModel_ModelAttribute">ModelAttribute</a>)<br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelClass.Attributes"\]

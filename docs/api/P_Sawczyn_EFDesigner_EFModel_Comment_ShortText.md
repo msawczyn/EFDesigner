@@ -18,7 +18,7 @@ Public ReadOnly Property ShortText As <a href="http://msdn2.microsoft.com/en-us/
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L7547" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L7724" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.Comment.ShortText"\]

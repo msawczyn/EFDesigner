@@ -19,7 +19,7 @@ Public Property Concurrency As <a href="T_Sawczyn_EFDesigner_EFModel_Concurrency
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L3351" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L3528" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="T_Sawczyn_EFDesigner_EFModel_ConcurrencyOverride">ConcurrencyOverride</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelClass.Concurrency"\]

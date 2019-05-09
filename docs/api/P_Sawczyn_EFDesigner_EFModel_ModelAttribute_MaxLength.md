@@ -19,7 +19,7 @@ Public Property MaxLength As <a href="http://msdn2.microsoft.com/en-us/library/t
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L5535" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L5712" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/td2s409d" target="_blank">Int32</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelAttribute.MaxLength"\]

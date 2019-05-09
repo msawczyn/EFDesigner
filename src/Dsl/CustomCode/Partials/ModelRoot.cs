@@ -4,6 +4,10 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
 
+using Microsoft.Msagl.Layout.Incremental;
+using Microsoft.Msagl.Layout.Layered;
+using Microsoft.Msagl.Layout.MDS;
+using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
 #pragma warning disable 1591
@@ -37,6 +41,36 @@ namespace Sawczyn.EFDesigner.EFModel
          get
          {
             return Classes;
+         }
+      }
+
+      internal sealed partial class LayoutAlgorithmPropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, LayoutAlgorithm oldValue, LayoutAlgorithm newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+            {
+               switch (newValue)
+               {
+                  case LayoutAlgorithm.FastIncremental:
+                     element.LayoutAlgorithmSettings = new FastIncrementalLayoutSettings();
+                     break;
+                  case LayoutAlgorithm.MDS:
+                     element.LayoutAlgorithmSettings = new MdsLayoutSettings();
+                     break;
+                  case LayoutAlgorithm.Ranking:
+                     element.LayoutAlgorithmSettings = new RankingLayoutSettings();
+                     break;
+                  case LayoutAlgorithm.Sugiyama:
+                     element.LayoutAlgorithmSettings = new SugiyamaLayoutSettings();
+                     break;
+                  case LayoutAlgorithm.Default:
+                     element.LayoutAlgorithmSettings = null;
+                     break;
+               }
+            }
          }
       }
 
@@ -144,7 +178,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                      .OfType<ModelEnum>()
                                      .Where(e => baseResult.Contains(e.ValueType.ToString()))
                                      .Select(e => e.Name)
-                                     .OrderBy(n=>n));
+                                     .OrderBy(n => n));
 
             return baseResult.ToArray();
          }
@@ -297,5 +331,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion DefaultCollectionClass tracking property
+
+
    }
 }

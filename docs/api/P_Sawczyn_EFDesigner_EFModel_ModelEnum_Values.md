@@ -18,7 +18,7 @@ Public Overridable ReadOnly Property Values As <a href="http://msdn2.microsoft.c
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L8689" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L8866" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/bb162910" target="_blank">LinkedElementCollection</a>(<a href="T_Sawczyn_EFDesigner_EFModel_ModelEnumValue">ModelEnumValue</a>)<br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelEnum.Values"\]

@@ -241,6 +241,16 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e4381ece-36ab-40e4-869e-789499e9a886" Description="Strategy for auto-layout operations" Name="LayoutAlgorithm" DisplayName="Layout Algorithm" DefaultValue="Default" Category="Designer">
+          <Type>
+            <DomainEnumerationMoniker Name="LayoutAlgorithm" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="879483d1-6f57-4fc2-b501-4c62e9ff2a5d" Description="Tunable parameters for auto-layout of the designer" Name="LayoutAlgorithmSettings" DisplayName="Layout Algorithm Settings" Category="Designer">
+          <Type>
+            <ExternalTypeMoniker Name="/Microsoft.Msagl.Core.Layout/LayoutAlgorithmSettings" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1363,6 +1373,16 @@
         <EnumerationLiteral Description="Ask each time if should perform the action automatically" Name="Ask" Value="2" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="LayoutAlgorithm" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.LayoutAlgorithm">
+      <Literals>
+        <EnumerationLiteral Description="MDS" Name="MDS" Value="4" />
+        <EnumerationLiteral Description="Sugiyama" Name="Sugiyama" Value="2" />
+        <EnumerationLiteral Description="FastIncremental" Name="FastIncremental" Value="3" />
+        <EnumerationLiteral Description="Ranking" Name="Ranking" Value="1" />
+        <EnumerationLiteral Description="Default" Name="Default" Value="0" />
+      </Literals>
+    </DomainEnumeration>
+    <ExternalType Name="LayoutAlgorithmSettings" Namespace="Microsoft.Msagl.Core.Layout" />
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1688,6 +1708,12 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="classes">
             <DomainRelationshipMoniker Name="ModelRootHasClasses" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="layoutAlgorithm">
+            <DomainPropertyMoniker Name="ModelRoot/LayoutAlgorithm" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="layoutAlgorithmSettings">
+            <DomainPropertyMoniker Name="ModelRoot/LayoutAlgorithmSettings" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">

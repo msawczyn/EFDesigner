@@ -19,7 +19,7 @@ Public Property AutoProperty As <a href="http://msdn2.microsoft.com/en-us/librar
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L6691" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L6868" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/a28wyd50" target="_blank">Boolean</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelAttribute.AutoProperty"\]

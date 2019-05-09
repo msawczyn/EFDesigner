@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" transformOnSave="false" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="2.0.0" showWarningsInDesigner="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" transformOnSave="false" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="2.0.0" showWarningsInDesigner="false" layoutAlgorithm="Sugiyama" layoutAlgorithmSettings="Microsoft.Msagl.Layout.Layered.SugiyamaLayoutSettings" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <enums>
     <modelRootHasEnums Id="25a934bf-320d-4481-9801-2f7f2a920f0c">
       <modelEnum Id="d999f148-5d0f-4b8d-a3fc-5abf12f0242b" namespace="Testing" name="Enum1" isOutputDirectoryTracking="false">
@@ -210,7 +210,7 @@
     <modelRootHasClasses Id="e9bebc13-0bd1-4974-a1e0-d11147c5f27b">
       <modelClass Id="232ae00b-98c4-41e9-98ec-a17a8a3841c1" tableName="BaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="BaseClasses" name="BaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
-          <generalization Id="4bd0c574-fdd1-4967-bd7d-3533753bae6a">
+          <generalization Id="410f8397-0a5e-4d04-8a3f-ee64d08ac805">
             <modelClassMoniker Id="b45560b9-6af2-4b98-a9da-3f406fc214c5" />
           </generalization>
         </subclasses>
@@ -239,10 +239,10 @@
     <modelRootHasClasses Id="6fc790aa-0dcf-4c0d-b1ec-5b76259abe54">
       <modelClass Id="69fc6925-9e16-43ab-853e-1c8add21f51f" isAbstract="true" tableName="AbstractBaseClasses" databaseSchema="dbo" namespace="Testing" dbSetName="AbstractBaseClasses" name="AbstractBaseClass" isOutputDirectoryTracking="false" baseClass="BaseClassWithRequiredProperties">
         <subclasses>
-          <generalization Id="25b2d1e1-c282-4bad-a217-ee774588ca90">
+          <generalization Id="1d2b5c1e-a387-4833-8cdd-c1cc5769b03a">
             <modelClassMoniker Id="e61386e4-7f33-496a-be4d-67794bb4ab7f" />
           </generalization>
-          <generalization Id="0470f875-ddb5-47c7-8fd6-b346527eae0d">
+          <generalization Id="8ac80ccf-eadd-4408-bc91-799211efd2ad">
             <modelClassMoniker Id="181a7a13-a6b6-4c84-b26d-e828d1f264d8" />
           </generalization>
         </subclasses>

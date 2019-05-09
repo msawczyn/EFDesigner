@@ -19,7 +19,7 @@ Public Overridable Property Superclass As <a href="T_Sawczyn_EFDesigner_EFModel_
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L4824" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L5001" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">ModelClass</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelClass.Superclass"\]

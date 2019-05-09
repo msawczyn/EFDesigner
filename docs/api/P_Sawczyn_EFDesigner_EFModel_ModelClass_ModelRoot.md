@@ -19,7 +19,7 @@ Public Overridable Property ModelRoot As <a href="T_Sawczyn_EFDesigner_EFModel_M
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L4871" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L5048" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="T_Sawczyn_EFDesigner_EFModel_ModelRoot">ModelRoot</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelClass.ModelRoot"\]

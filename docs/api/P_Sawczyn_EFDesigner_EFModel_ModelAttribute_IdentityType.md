@@ -19,7 +19,7 @@ Public Property IdentityType As <a href="T_Sawczyn_EFDesigner_EFModel_IdentityTy
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L6066" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L6243" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="T_Sawczyn_EFDesigner_EFModel_IdentityType">IdentityType</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelAttribute.IdentityType"\]

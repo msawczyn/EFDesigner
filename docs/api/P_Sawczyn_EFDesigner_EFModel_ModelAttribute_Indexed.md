@@ -19,7 +19,7 @@ Public Property Indexed As <a href="http://msdn2.microsoft.com/en-us/library/a28
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L5623" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L5800" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/a28wyd50" target="_blank">Boolean</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelAttribute.Indexed"\]

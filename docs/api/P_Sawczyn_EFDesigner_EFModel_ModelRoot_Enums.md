@@ -18,7 +18,7 @@ Public Overridable ReadOnly Property Enums As <a href="http://msdn2.microsoft.co
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L2841" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L3018" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/bb162910" target="_blank">LinkedElementCollection</a>(<a href="T_Sawczyn_EFDesigner_EFModel_ModelEnum">ModelEnum</a>)<br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelRoot.Enums"\]

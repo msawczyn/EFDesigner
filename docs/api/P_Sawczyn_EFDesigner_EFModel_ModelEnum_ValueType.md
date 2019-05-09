@@ -19,7 +19,7 @@ Public Property ValueType As <a href="T_Sawczyn_EFDesigner_EFModel_EnumValueType
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L7723" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L7900" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="T_Sawczyn_EFDesigner_EFModel_EnumValueType">EnumValueType</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelEnum.ValueType"\]

@@ -19,7 +19,7 @@ Public Property ColumnType As <a href="http://msdn2.microsoft.com/en-us/library/
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L7043" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L7220" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelAttribute.ColumnType"\]

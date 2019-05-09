@@ -8,13 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.Core.Routing;
 using Microsoft.Msagl.Layout.Layered;
 using Microsoft.Msagl.Miscellaneous;
-using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
@@ -24,7 +21,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
 
-using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
 using Point = Microsoft.Msagl.Core.Geometry.Point;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -145,7 +141,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return commands;
       }
 
-#region Find
+      #region Find
 
       private void OnStatusFind(object sender, EventArgs e)
       {
@@ -169,9 +165,9 @@ namespace Sawczyn.EFDesigner.EFModel
          // bind data to each line of output so can highlight proper shape when entry is clicked (or double clicked)
       }
 
-#endregion Find
+      #endregion Find
 
-#region Add Properties
+      #region Add Properties
 
       private void OnStatusAddProperties(object sender, EventArgs e)
       {
@@ -248,9 +244,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Add Properties
+      #endregion Add Properties
 
-#region Add Values
+      #region Add Values
 
       private void OnStatusAddValues(object sender, EventArgs e)
       {
@@ -333,9 +329,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Add Properties
+      #endregion Add Properties
 
-#region Generate Code
+      #region Generate Code
 
       private void OnStatusGenerateCode(object sender, EventArgs e)
       {
@@ -351,9 +347,9 @@ namespace Sawczyn.EFDesigner.EFModel
          EFModelDocData.GenerateCode();
       }
 
-#endregion Generate Code
+      #endregion Generate Code
 
-#region Show Shape
+      #region Show Shape
 
       private void OnStatusShowShape(object sender, EventArgs e)
       {
@@ -392,9 +388,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Show Shape
+      #endregion Show Shape
 
-#region Hide Shape
+      #region Hide Shape
 
       private void OnStatusHideShape(object sender, EventArgs e)
       {
@@ -423,9 +419,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Hide Shape
+      #endregion Hide Shape
 
-#region Expand Selected Shapes
+      #region Expand Selected Shapes
 
       private void OnStatusExpandSelected(object sender, EventArgs e)
       {
@@ -450,9 +446,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Expand Selected Shapes
+      #endregion Expand Selected Shapes
 
-#region Collapse Selected Shapes
+      #region Collapse Selected Shapes
 
       private void OnStatusCollapseSelected(object sender, EventArgs e)
       {
@@ -479,9 +475,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Collapse Selected Shapes
+      #endregion Collapse Selected Shapes
 
-#region Layout Diagram
+      #region Layout Diagram
 
       private void OnStatusLayoutDiagram(object sender, EventArgs e)
       {
@@ -495,97 +491,51 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          EFModelDiagram diagram = CurrentSelection.Cast<EFModelDiagram>().FirstOrDefault();
 
-         if (diagram != null)
+         if (diagram == null)
+            return;
+
+         ModelRoot modelRoot = diagram.Store.ElementDirectory.AllElements.OfType<ModelRoot>().First();
+
+         using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
          {
-            using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
+            List<NodeShape> nodeShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<NodeShape>().ToList();
+
+            if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
             {
-               GeometryGraph graph = new GeometryGraph();
+               diagram.AutoLayoutShapeElements(nodeShapes, VGRoutingStyle.VGRouteStraight, PlacementValueStyle.VGPlaceSN, true);
+               return;
+            }
 
-               // create boxes
-               List<NodeShape> nodeShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<NodeShape>().ToList();
+            GeometryGraph graph = new GeometryGraph();
 
-               foreach (NodeShape nodeShape in nodeShapes)
+            // create boxes
+            foreach (NodeShape nodeShape in nodeShapes)
+            {
+               ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width,
+                                                                    nodeShape.Bounds.Height,
+                                                                    new Point(nodeShape.Bounds.Center.X,
+                                                                              nodeShape.Bounds.Center.Y));
+               Node diagramNode = new Node(graphRectangle, nodeShape);
+               graph.Nodes.Add(diagramNode);
+            }
+
+            // create links (edges)
+            List<LinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<LinkShape>().ToList();
+
+            foreach (LinkShape linkShape in linkShapes)
+            {
+               graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]),
+                                        graph.FindNodeByUserData(linkShape.Nodes[1]))
                {
-                  ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width, nodeShape.Bounds.Height, new Point(nodeShape.Bounds.Center.X, nodeShape.Bounds.Center.Y));
-                  Node diagramNode = new Node(graphRectangle, nodeShape);
-                  graph.Nodes.Add(diagramNode);
-               }
+                  UserData = linkShape,
+               });
+            }
 
-               // create links (edges)
-               List<LinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<LinkShape>().ToList();
-               
-               foreach (LinkShape linkShape in linkShapes)
+            // ensure generalizations are vertically over each other
+            foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
+            {
+               if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Sugiyama)
                {
-                  graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]), 
-                                           graph.FindNodeByUserData(linkShape.Nodes[1]))
-                                  {
-                                     UserData = linkShape, 
-                                  });
-               }
-
-               // ranking layout with rectilinear line routing
-               //LayoutAlgorithmSettings layoutSettings = new RankingLayoutSettings
-               //                                         {
-               //                                            NodeSeparation = .5,
-               //                                            EdgeRoutingSettings = new EdgeRoutingSettings
-               //                                                                  {
-               //                                                                     EdgeRoutingMode = EdgeRoutingMode.Rectilinear,
-               //                                                                     Padding = .5,
-               //                                                                     PolylinePadding = .5,
-               //                                                                     BundlingSettings = new BundlingSettings
-               //                                                                                        {
-               //                                                                                           KeepOverlaps = false
-               //                                                                                        }
-               //                                                                  },
-               //                                            //ScaleX = 1,
-               //                                            //ScaleY = 1,
-               //                                            ClusterMargin = .5
-               //                                         };
-
-               //RankingLayoutSettings layoutSettings = new RankingLayoutSettings();
-               //layoutSettings.NodeSeparation = 0.0;
-               //layoutSettings.PivotNumber = 50;
-               //layoutSettings.OmegaX = 0.15;
-               //layoutSettings.OmegaY = 0.15;
-               //layoutSettings.ScaleX = 200.0;
-               //layoutSettings.ScaleY = 200.0;
-               //layoutSettings.Reporting = false;
-               //layoutSettings.PackingAspectRatio = PackingConstants.GoldenRatio;
-               //layoutSettings.ClusterMargin = 10.0;
-
-               //LayoutAlgorithmSettings layoutSettings = new SugiyamaLayoutSettings
-               //{
-               //   AspectRatio = 0,
-               //   GridSizeByX = 1,
-               //   GridSizeByY = 1,
-               //   NodeSeparation = .05,
-               //   EdgeRoutingSettings = new EdgeRoutingSettings
-               //   {
-               //      EdgeRoutingMode = EdgeRoutingMode.Rectilinear,
-               //      Padding = .1
-               //   }
-               //};
-
-               SugiyamaLayoutSettings layoutSettings = new SugiyamaLayoutSettings();
-               layoutSettings.MinimalHeight = 0;
-               layoutSettings.MinimalWidth = 0;
-               layoutSettings.MinNodeHeight = 0; //9.0;
-               layoutSettings.MinNodeWidth = 0; //13.5;
-               layoutSettings.AspectRatio = 0;
-               layoutSettings.LayerSeparation = 1; //30;
-               layoutSettings.SnapToGridByY = 0;
-               layoutSettings.GridSizeByX = 0;
-               layoutSettings.GridSizeByY = 0;
-               layoutSettings.NodeSeparation = .05;
-               layoutSettings.EdgeRoutingSettings.PolylinePadding = .1; //1.5;
-               layoutSettings.EdgeRoutingSettings.Padding = .2; //3;
-
-               // ensure generalizations are vertically over each other
-               foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
-               {
-                  //layoutSettings.AddUpDownVerticalConstraint(graph.FindNodeByUserData(linkShape.Nodes[0]),
-                  //                                           graph.FindNodeByUserData(linkShape.Nodes[1]));
-
                   int upperNodeIndex = 1;
                   int lowerNodeIndex = 0;
 
@@ -595,68 +545,50 @@ namespace Sawczyn.EFDesigner.EFModel
                      lowerNodeIndex = 1;
                   }
 
-                  layoutSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
-                                                     graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
+                  if (modelRoot.LayoutAlgorithmSettings is SugiyamaLayoutSettings sugiyamaSettings)
+                  {
+                     sugiyamaSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
+                                                          graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
+                     
+                     // add constraints ensuring descendents of a base class are on the same level
+                  }
                }
-
-               // add constraints ensuring descendents of a base class are on the same level
-
-               // go!
-               LayoutHelpers.CalculateLayout(graph, layoutSettings, null);
-
-               // Move model to positive axis.
-               graph.UpdateBoundingBox();
-               graph.Translate(new Point(-graph.Left, -graph.Bottom));
-
-               // Update node position.
-               foreach (Node node in graph.Nodes)
-               {
-                  NodeShape nodeShape = (NodeShape)node.UserData;
-                  nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
-               }
-
-               //foreach (Edge edge in graph.Edges)
-               //{
-               //   LinkShape linkShape = (LinkShape)edge.UserData;
-               //   diagram.EnsureConnectionPoints(linkShape);
-
-                  //if (edge.Curve is LineSegment lineSegment)
-                  //{
-                  //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.JumpStart));
-                  //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.JumpEnd));
-                  //}
-                  //else if (edge.Curve is Curve curve)
-                  //{
-                  //   LineSegment[] lineSegments = curve.Segments.Cast<LineSegment>().ToArray();
-
-                  //   for (int index = 0; index < lineSegments.Length; index++)
-                  //   {
-                  //      LineSegment segment = lineSegments[index];
-                  //      if (index == 0)
-                  //         linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.JumpStart));
-                  //      else if (index != lineSegments.Length - 1)
-                  //         linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.JumpMiddle));
-                  //      else
-                  //         linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.JumpEnd));
-                  //   }
-                  //}
-               //}
-
-               //diagram.Reroute();
-
-               //diagram.AutoLayoutShapeElements(shapes,
-               //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
-               //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
-               //   true);
-
-               tx.Commit();
             }
+
+
+            // go!
+            LayoutHelpers.CalculateLayout(graph, modelRoot.LayoutAlgorithmSettings, null);
+
+            // Move model to positive axis.
+            graph.UpdateBoundingBox();
+            graph.Translate(new Point(-graph.Left, -graph.Bottom));
+
+            // Update node position.
+            foreach (Node node in graph.Nodes)
+            {
+               NodeShape nodeShape = (NodeShape)node.UserData;
+               nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
+            }
+
+            foreach (Edge edge in graph.Edges)
+            {
+               LinkShape linkShape = (LinkShape)edge.UserData;
+            }
+
+            //diagram.Reroute();
+
+            //diagram.AutoLayoutShapeElements(shapes,
+            //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
+            //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
+            //   true);
+
+            tx.Commit();
          }
       }
 
-#endregion Layout Diagram
+      #endregion Layout Diagram
 
-#region Save as Image
+      #region Save as Image
 
       private void OnStatusSaveAsImage(object sender, EventArgs e)
       {
@@ -733,9 +665,9 @@ namespace Sawczyn.EFDesigner.EFModel
          throw new ArgumentException();
       }
 
-#endregion
+      #endregion
 
-#region Load NuGet
+      #region Load NuGet
 
       private void OnStatusLoadNuGet(object sender, EventArgs e)
       {
@@ -756,9 +688,9 @@ namespace Sawczyn.EFDesigner.EFModel
          ((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
       }
 
-#endregion Load NuGet
+      #endregion Load NuGet
 
-#region Select classes
+      #region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)
       {
@@ -779,9 +711,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Select classes
+      #endregion Select classes
 
-#region Select enums
+      #region Select enums
 
       private void OnStatusSelectEnums(object sender, EventArgs e)
       {
@@ -802,9 +734,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Select enums
+      #endregion Select enums
 
-#region Select associations
+      #region Select associations
 
       private void OnStatusSelectAssocs(object sender, EventArgs e)
       {
@@ -825,9 +757,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Select associations
+      #endregion Select associations
 
-#region Select unidirectional associations
+      #region Select unidirectional associations
 
       private void OnStatusSelectUnidir(object sender, EventArgs e)
       {
@@ -848,9 +780,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Find
+      #endregion Find
 
-#region Select bidirectional associations
+      #region Select bidirectional associations
 
       private void OnStatusSelectBidir(object sender, EventArgs e)
       {
@@ -871,6 +803,6 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Find
+      #endregion Find
    }
 }

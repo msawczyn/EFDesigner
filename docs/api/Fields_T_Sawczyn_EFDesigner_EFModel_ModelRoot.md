@@ -5,7 +5,9 @@ The <a href="T_Sawczyn_EFDesigner_EFModel_ModelRoot">ModelRoot</a> type exposes 
 
 
 ## Fields
-&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public field](media/pubfield.gif "Public field")![Static member](media/static.gif "Static member")</td><td><a href="F_Sawczyn_EFDesigner_EFModel_ModelRoot_PluralizationService">PluralizationService</a></td><td /></tr></table>&nbsp;
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public field](media/pubfield.gif "Public field")![Static member](media/static.gif "Static member")</td><td><a href="F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmDomainPropertyId">LayoutAlgorithmDomainPropertyId</a></td><td>
+LayoutAlgorithm domain property Id.</td></tr><tr><td>![Public field](media/pubfield.gif "Public field")![Static member](media/static.gif "Static member")</td><td><a href="F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettingsDomainPropertyId">LayoutAlgorithmSettingsDomainPropertyId</a></td><td>
+LayoutAlgorithmSettings domain property Id.</td></tr><tr><td>![Public field](media/pubfield.gif "Public field")![Static member](media/static.gif "Static member")</td><td><a href="F_Sawczyn_EFDesigner_EFModel_ModelRoot_PluralizationService">PluralizationService</a></td><td /></tr></table>&nbsp;
 <a href="#modelroot-fields">Back to Top</a>
 
 ## See Also

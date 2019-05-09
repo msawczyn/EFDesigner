@@ -48,11 +48,6 @@ namespace Testing
       public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
 
       /// <inheritdoc />
-      public AllFeatureModel() : base()
-      {
-      }
-
-      /// <inheritdoc />
       public AllFeatureModel(DbContextOptions<AllFeatureModel> options) : base(options)
       {
       }
@@ -109,14 +104,14 @@ namespace Testing
 
          modelBuilder.Entity<global::Testing.BChild>().ToTable("BChilds").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.BChild>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentRequired).WithOne(x => x.BChildOptional).HasForeignKey<global::Testing.BParentRequired>("BParentRequired_Id");
-         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentRequired_1).WithOne(x => x.BChildRequired).HasForeignKey<global::Testing.BParentRequired>("BParentRequired_1_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentRequired).WithOne(x => x.BChildOptional).HasForeignKey<global::Testing.BChild>("BParentRequired_Id");
+         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentRequired_1).WithOne(x => x.BChildRequired).HasForeignKey<global::Testing.BChild>("BParentRequired_1_Id").IsRequired();
          modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).HasForeignKey("BParentRequired_2_Id");
          modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection).WithOne(x => x.BChildRequired).HasForeignKey("BChildRequired_Id").IsRequired();
          modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOne(x => x.BChildOptional).HasForeignKey("BChildOptional_Id");
-         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentOptional).WithOne(x => x.BChildRequired).HasForeignKey<global::Testing.BChild>("BChildRequired1_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentOptional).WithOne(x => x.BChildRequired).HasForeignKey<global::Testing.BParentOptional>("BChildRequired1_Id").IsRequired();
          modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).HasForeignKey("BParentOptional_1_Id");
-         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentOptional_2).WithOne(x => x.BChildOptional).HasForeignKey<global::Testing.BParentOptional>("BParentOptional_2_Id");
+         modelBuilder.Entity<global::Testing.BChild>().HasOne(x => x.BParentOptional_2).WithOne(x => x.BChildOptional).HasForeignKey<global::Testing.BChild>("BParentOptional_2_Id");
 
          modelBuilder.Entity<global::Testing.BParentCollection>().ToTable("BParentCollections").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.BParentCollection>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();

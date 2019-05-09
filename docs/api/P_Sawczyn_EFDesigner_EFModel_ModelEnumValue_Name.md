@@ -19,7 +19,7 @@ Public Property Name As <a href="http://msdn2.microsoft.com/en-us/library/s1wwdc
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L8903" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/GeneratedCode/DomainClasses.cs#L9080" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelEnumValue.Name"\]
