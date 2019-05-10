@@ -498,17 +498,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
          using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
          {
-            List<NodeShape> nodeShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<NodeShape>().ToList();
-
             if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
             {
-               diagram.AutoLayoutShapeElements(nodeShapes, VGRoutingStyle.VGRouteStraight, PlacementValueStyle.VGPlaceSN, true);
+               diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(), 
+                                               VGRoutingStyle.VGRouteStraight, 
+                                               PlacementValueStyle.VGPlaceSN, 
+                                               true);
                return;
             }
 
             GeometryGraph graph = new GeometryGraph();
 
-            // create boxes
+            // create nodes 
+            List<NodeShape> nodeShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<NodeShape>().ToList();
+
             foreach (NodeShape nodeShape in nodeShapes)
             {
                ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width,
@@ -520,9 +523,9 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             // create links (edges)
-            List<LinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<LinkShape>().ToList();
+            List<BinaryLinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<BinaryLinkShape>().ToList();
 
-            foreach (LinkShape linkShape in linkShapes)
+            foreach (BinaryLinkShape linkShape in linkShapes)
             {
                graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]),
                                         graph.FindNodeByUserData(linkShape.Nodes[1]))
@@ -531,30 +534,36 @@ namespace Sawczyn.EFDesigner.EFModel
                });
             }
 
-            // ensure generalizations are vertically over each other
-            foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
+
+            if (modelRoot.LayoutAlgorithmSettings is SugiyamaLayoutSettings sugiyamaSettings)
             {
-               if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Sugiyama)
+               // ensure generalizations are vertically over each other
+               foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
                {
-                  int upperNodeIndex = 1;
-                  int lowerNodeIndex = 0;
-
-                  if (linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement)
+                  if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Sugiyama)
                   {
-                     upperNodeIndex = 0;
-                     lowerNodeIndex = 1;
-                  }
+                     int upperNodeIndex = linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement ? 0 : 1;
+                     int lowerNodeIndex = upperNodeIndex == 0 ? 1 : 0;
 
-                  if (modelRoot.LayoutAlgorithmSettings is SugiyamaLayoutSettings sugiyamaSettings)
-                  {
                      sugiyamaSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
                                                           graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
-                     
-                     // add constraints ensuring descendents of a base class are on the same level
+
                   }
                }
-            }
 
+               // add constraints ensuring descendents of a base class are on the same level
+               Dictionary<string, List<NodeShape>> derivedClasses = linkShapes.OfType<GeneralizationConnector>()
+                                                                              .SelectMany(ls => ls.Nodes)
+                                                                              .Where(n => n.ModelElement is ModelClass mc && mc.BaseClass != null)
+                                                                              .GroupBy(n => ((ModelClass)n.ModelElement).BaseClass)
+                                                                              .ToDictionary(n => n.Key, n => n.ToList());
+
+               foreach (KeyValuePair<string, List<NodeShape>> derivedClass in derivedClasses)
+               {
+                  Node[] siblingNodes = derivedClass.Value.Select(nodeShape => graph.FindNodeByUserData(nodeShape)).ToArray();
+                  sugiyamaSettings.AddSameLayerNeighbors(siblingNodes);
+               }
+            }
 
             // go!
             LayoutHelpers.CalculateLayout(graph, modelRoot.LayoutAlgorithmSettings, null);
@@ -572,7 +581,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
             foreach (Edge edge in graph.Edges)
             {
-               LinkShape linkShape = (LinkShape)edge.UserData;
+               BinaryLinkShape linkShape = (BinaryLinkShape)edge.UserData;
+               linkShape.ManuallyRouted = true;
+               linkShape.RecalculateRoute();
             }
 
             //diagram.Reroute();
