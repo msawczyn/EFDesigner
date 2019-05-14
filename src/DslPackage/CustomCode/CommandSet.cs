@@ -21,6 +21,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
 
+using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
 using Point = Microsoft.Msagl.Core.Geometry.Point;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -141,7 +142,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return commands;
       }
 
-      #region Find
+#region Find
 
       private void OnStatusFind(object sender, EventArgs e)
       {
@@ -165,9 +166,9 @@ namespace Sawczyn.EFDesigner.EFModel
          // bind data to each line of output so can highlight proper shape when entry is clicked (or double clicked)
       }
 
-      #endregion Find
+#endregion Find
 
-      #region Add Properties
+#region Add Properties
 
       private void OnStatusAddProperties(object sender, EventArgs e)
       {
@@ -244,9 +245,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Add Properties
+#endregion Add Properties
 
-      #region Add Values
+#region Add Values
 
       private void OnStatusAddValues(object sender, EventArgs e)
       {
@@ -329,9 +330,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Add Properties
+#endregion Add Properties
 
-      #region Generate Code
+#region Generate Code
 
       private void OnStatusGenerateCode(object sender, EventArgs e)
       {
@@ -347,9 +348,9 @@ namespace Sawczyn.EFDesigner.EFModel
          EFModelDocData.GenerateCode();
       }
 
-      #endregion Generate Code
+#endregion Generate Code
 
-      #region Show Shape
+#region Show Shape
 
       private void OnStatusShowShape(object sender, EventArgs e)
       {
@@ -388,9 +389,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Show Shape
+#endregion Show Shape
 
-      #region Hide Shape
+#region Hide Shape
 
       private void OnStatusHideShape(object sender, EventArgs e)
       {
@@ -419,9 +420,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Hide Shape
+#endregion Hide Shape
 
-      #region Expand Selected Shapes
+#region Expand Selected Shapes
 
       private void OnStatusExpandSelected(object sender, EventArgs e)
       {
@@ -446,9 +447,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Expand Selected Shapes
+#endregion Expand Selected Shapes
 
-      #region Collapse Selected Shapes
+#region Collapse Selected Shapes
 
       private void OnStatusCollapseSelected(object sender, EventArgs e)
       {
@@ -475,9 +476,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Collapse Selected Shapes
+#endregion Collapse Selected Shapes
 
-      #region Layout Diagram
+#region Layout Diagram
 
       private void OnStatusLayoutDiagram(object sender, EventArgs e)
       {
@@ -490,116 +491,178 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuLayoutDiagram(object sender, EventArgs e)
       {
          EFModelDiagram diagram = CurrentSelection.Cast<EFModelDiagram>().FirstOrDefault();
+         ModelRoot modelRoot = diagram?.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
-         if (diagram == null)
+         if (modelRoot == null)
             return;
-
-         ModelRoot modelRoot = diagram.Store.ElementDirectory.AllElements.OfType<ModelRoot>().First();
 
          using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
          {
-            if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
-            {
-               diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(), 
-                                               VGRoutingStyle.VGRouteStraight, 
-                                               PlacementValueStyle.VGPlaceSN, 
-                                               true);
-               return;
-            }
-
-            GeometryGraph graph = new GeometryGraph();
-
-            // create nodes 
             List<NodeShape> nodeShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<NodeShape>().ToList();
-
-            foreach (NodeShape nodeShape in nodeShapes)
-            {
-               ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width,
-                                                                    nodeShape.Bounds.Height,
-                                                                    new Point(nodeShape.Bounds.Center.X,
-                                                                              nodeShape.Bounds.Center.Y));
-               Node diagramNode = new Node(graphRectangle, nodeShape);
-               graph.Nodes.Add(diagramNode);
-            }
-
-            // create links (edges)
             List<BinaryLinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<BinaryLinkShape>().ToList();
 
-            foreach (BinaryLinkShape linkShape in linkShapes)
-            {
-               graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]),
-                                        graph.FindNodeByUserData(linkShape.Nodes[1]))
-               {
-                  UserData = linkShape,
-               });
-            }
-
-
-            if (modelRoot.LayoutAlgorithmSettings is SugiyamaLayoutSettings sugiyamaSettings)
-            {
-               // ensure generalizations are vertically over each other
-               foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
-               {
-                  if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Sugiyama)
-                  {
-                     int upperNodeIndex = linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement ? 0 : 1;
-                     int lowerNodeIndex = upperNodeIndex == 0 ? 1 : 0;
-
-                     sugiyamaSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
-                                                          graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
-
-                  }
-               }
-
-               // add constraints ensuring descendents of a base class are on the same level
-               Dictionary<string, List<NodeShape>> derivedClasses = linkShapes.OfType<GeneralizationConnector>()
-                                                                              .SelectMany(ls => ls.Nodes)
-                                                                              .Where(n => n.ModelElement is ModelClass mc && mc.BaseClass != null)
-                                                                              .GroupBy(n => ((ModelClass)n.ModelElement).BaseClass)
-                                                                              .ToDictionary(n => n.Key, n => n.ToList());
-
-               foreach (KeyValuePair<string, List<NodeShape>> derivedClass in derivedClasses)
-               {
-                  Node[] siblingNodes = derivedClass.Value.Select(nodeShape => graph.FindNodeByUserData(nodeShape)).ToArray();
-                  sugiyamaSettings.AddSameLayerNeighbors(siblingNodes);
-               }
-            }
-
-            // go!
-            LayoutHelpers.CalculateLayout(graph, modelRoot.LayoutAlgorithmSettings, null);
-
-            // Move model to positive axis.
-            graph.UpdateBoundingBox();
-            graph.Translate(new Point(-graph.Left, -graph.Bottom));
-
-            // Update node position.
-            foreach (Node node in graph.Nodes)
-            {
-               NodeShape nodeShape = (NodeShape)node.UserData;
-               nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
-            }
-
-            foreach (Edge edge in graph.Edges)
-            {
-               BinaryLinkShape linkShape = (BinaryLinkShape)edge.UserData;
-               linkShape.ManuallyRouted = true;
-               linkShape.RecalculateRoute();
-            }
-
-            //diagram.Reroute();
-
-            //diagram.AutoLayoutShapeElements(shapes,
-            //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteStraight,
-            //   Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN,
-            //   true);
+            // The standard DSL layout method was selected. Just do the deed and be done with it.
+            // otherwise, we need to run an MSAGL layout
+            if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
+               DoStandardRouting(linkShapes, diagram);
+            else  
+               DoCustomRouting(nodeShapes, linkShapes, modelRoot);
 
             tx.Commit();
          }
       }
 
-      #endregion Layout Diagram
+      private static void DoCustomRouting(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
+      {
+         GeometryGraph graph = new GeometryGraph();
 
-      #region Save as Image
+         CreateDiagramNodes(nodeShapes, graph);
+         CreateDiagramLinks(linkShapes, graph);
+
+         AddDesignConstraints(linkShapes, modelRoot, graph);
+
+         LayoutHelpers.CalculateLayout(graph, modelRoot.LayoutAlgorithmSettings, null);
+
+         // Move model to positive axis.
+         graph.UpdateBoundingBox();
+         graph.Translate(new Point(-graph.Left, -graph.Bottom));
+
+         UpdateNodePositions(graph);
+         UpdateConnectors(graph);
+      }
+
+      private static void CreateDiagramNodes(List<NodeShape> nodeShapes, GeometryGraph graph)
+      {
+         foreach (NodeShape nodeShape in nodeShapes)
+         {
+            ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width,
+                                                                 nodeShape.Bounds.Height,
+                                                                 new Point(nodeShape.Bounds.Center.X,
+                                                                           nodeShape.Bounds.Center.Y));
+
+            Node diagramNode = new Node(graphRectangle, nodeShape);
+            graph.Nodes.Add(diagramNode);
+         }
+      }
+
+      private static void CreateDiagramLinks(List<BinaryLinkShape> linkShapes, GeometryGraph graph)
+      {
+         foreach (BinaryLinkShape linkShape in linkShapes)
+         {
+            graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]),
+                                     graph.FindNodeByUserData(linkShape.Nodes[1]))
+                            {
+                               UserData = linkShape
+                            });
+         }
+      }
+
+      private static void AddDesignConstraints(List<BinaryLinkShape> linkShapes, ModelRoot modelRoot, GeometryGraph graph)
+      {
+         // Sugiyama allows for layout constraints, so we can make sure that base classes are above derived classes,
+         // and put classes derived from the same base in the same vertical layer. Unfortunately, other layout strategies
+         // don't have that ability.
+         if (modelRoot.LayoutAlgorithmSettings is SugiyamaLayoutSettings sugiyamaSettings)
+         {
+            // ensure generalizations are vertically over each other
+            foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
+            {
+               if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Sugiyama)
+               {
+                  int upperNodeIndex = linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement
+                                          ? 0
+                                          : 1;
+
+                  int lowerNodeIndex = upperNodeIndex == 0
+                                          ? 1
+                                          : 0;
+
+                  sugiyamaSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
+                                                       graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
+               }
+            }
+
+            // add constraints ensuring descendents of a base class are on the same level
+            Dictionary<string, List<NodeShape>> derivedClasses = linkShapes.OfType<GeneralizationConnector>()
+                                                                           .SelectMany(ls => ls.Nodes)
+                                                                           .Where(n => n.ModelElement is ModelClass mc && mc.BaseClass != null)
+                                                                           .GroupBy(n => ((ModelClass)n.ModelElement).BaseClass)
+                                                                           .ToDictionary(n => n.Key, n => n.ToList());
+
+            foreach (KeyValuePair<string, List<NodeShape>> derivedClassData in derivedClasses)
+            {
+               Node[] siblingNodes = derivedClassData.Value.Select(graph.FindNodeByUserData).ToArray();
+               sugiyamaSettings.AddSameLayerNeighbors(siblingNodes);
+            }
+         }
+      }
+
+      private static void UpdateNodePositions(GeometryGraph graph)
+      {
+         foreach (Node node in graph.Nodes)
+         {
+            NodeShape nodeShape = (NodeShape)node.UserData;
+            nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
+         }
+      }
+
+      private static void UpdateConnectors(GeometryGraph graph)
+      {
+         foreach (Edge edge in graph.Edges)
+         {
+            BinaryLinkShape linkShape = (BinaryLinkShape)edge.UserData;
+            linkShape.ManuallyRouted = true;
+            linkShape.EdgePoints.Clear();
+
+            // When curve is a line segment.
+            if (edge.Curve is LineSegment line)
+            {
+               linkShape.EdgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
+               linkShape.EdgePoints.Add(new EdgePoint(line.End.X, line.End.Y, VGPointType.Normal));
+            }
+
+            // When curve is a complex segment.
+            else if (edge.Curve is Curve curve)
+            {
+               Point endPoint = new Point();
+
+               foreach (ICurve segment in curve.Segments)
+               {
+                  linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.Normal));
+                  endPoint = new Point(segment.End.X, segment.End.Y);
+               }
+
+               if (curve.Segments.Any())
+                  linkShape.EdgePoints.Add(new EdgePoint(endPoint.X, endPoint.Y, VGPointType.Normal));
+            }
+
+            linkShape.UpdateGraphEdgePoints();
+         }
+      }
+
+      private static void DoStandardRouting(List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
+      {
+         // first we need to mark all the connectors as dirty so they'll route. Easiest way is to flip their 'ManuallyRouted' flag
+         foreach (BinaryLinkShape linkShape in linkShapes)
+            linkShape.ManuallyRouted = !linkShape.ManuallyRouted;
+
+         // now let the layout mechanism route the connectors by setting 'ManuallyRouted' to false, regardless of what it was before
+         foreach (BinaryLinkShape linkShape in linkShapes)
+            linkShape.ManuallyRouted = false;
+
+         // this will layout the nodes, but not necessarily the connector routes
+         diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
+                                         VGRoutingStyle.VGRouteStraight,
+                                         PlacementValueStyle.VGPlaceSN,
+                                         true);
+
+         // but this will
+         diagram.Reroute();
+      }
+
+#endregion Layout Diagram
+
+#region Save as Image
 
       private void OnStatusSaveAsImage(object sender, EventArgs e)
       {
@@ -676,9 +739,9 @@ namespace Sawczyn.EFDesigner.EFModel
          throw new ArgumentException();
       }
 
-      #endregion
+#endregion
 
-      #region Load NuGet
+#region Load NuGet
 
       private void OnStatusLoadNuGet(object sender, EventArgs e)
       {
@@ -699,9 +762,9 @@ namespace Sawczyn.EFDesigner.EFModel
          ((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
       }
 
-      #endregion Load NuGet
+#endregion Load NuGet
 
-      #region Select classes
+#region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)
       {
@@ -722,9 +785,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Select classes
+#endregion Select classes
 
-      #region Select enums
+#region Select enums
 
       private void OnStatusSelectEnums(object sender, EventArgs e)
       {
@@ -745,9 +808,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Select enums
+#endregion Select enums
 
-      #region Select associations
+#region Select associations
 
       private void OnStatusSelectAssocs(object sender, EventArgs e)
       {
@@ -768,9 +831,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Select associations
+#endregion Select associations
 
-      #region Select unidirectional associations
+#region Select unidirectional associations
 
       private void OnStatusSelectUnidir(object sender, EventArgs e)
       {
@@ -791,9 +854,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Find
+#endregion Find
 
-      #region Select bidirectional associations
+#region Select bidirectional associations
 
       private void OnStatusSelectBidir(object sender, EventArgs e)
       {
@@ -814,6 +877,6 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-      #endregion Find
+#endregion Find
    }
 }
