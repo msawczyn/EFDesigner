@@ -142,7 +142,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return commands;
       }
 
-#region Find
+      #region Find
 
       private void OnStatusFind(object sender, EventArgs e)
       {
@@ -166,9 +166,9 @@ namespace Sawczyn.EFDesigner.EFModel
          // bind data to each line of output so can highlight proper shape when entry is clicked (or double clicked)
       }
 
-#endregion Find
+      #endregion Find
 
-#region Add Properties
+      #region Add Properties
 
       private void OnStatusAddProperties(object sender, EventArgs e)
       {
@@ -245,9 +245,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Add Properties
+      #endregion Add Properties
 
-#region Add Values
+      #region Add Values
 
       private void OnStatusAddValues(object sender, EventArgs e)
       {
@@ -330,9 +330,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Add Properties
+      #endregion Add Properties
 
-#region Generate Code
+      #region Generate Code
 
       private void OnStatusGenerateCode(object sender, EventArgs e)
       {
@@ -348,9 +348,9 @@ namespace Sawczyn.EFDesigner.EFModel
          EFModelDocData.GenerateCode();
       }
 
-#endregion Generate Code
+      #endregion Generate Code
 
-#region Show Shape
+      #region Show Shape
 
       private void OnStatusShowShape(object sender, EventArgs e)
       {
@@ -389,9 +389,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Show Shape
+      #endregion Show Shape
 
-#region Hide Shape
+      #region Hide Shape
 
       private void OnStatusHideShape(object sender, EventArgs e)
       {
@@ -420,9 +420,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Hide Shape
+      #endregion Hide Shape
 
-#region Expand Selected Shapes
+      #region Expand Selected Shapes
 
       private void OnStatusExpandSelected(object sender, EventArgs e)
       {
@@ -447,9 +447,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Expand Selected Shapes
+      #endregion Expand Selected Shapes
 
-#region Collapse Selected Shapes
+      #region Collapse Selected Shapes
 
       private void OnStatusCollapseSelected(object sender, EventArgs e)
       {
@@ -476,9 +476,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Collapse Selected Shapes
+      #endregion Collapse Selected Shapes
 
-#region Layout Diagram
+      #region Layout Diagram
 
       private void OnStatusLayoutDiagram(object sender, EventArgs e)
       {
@@ -505,7 +505,7 @@ namespace Sawczyn.EFDesigner.EFModel
             // otherwise, we need to run an MSAGL layout
             if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
                DoStandardRouting(linkShapes, diagram);
-            else  
+            else
                DoCustomRouting(nodeShapes, linkShapes, modelRoot);
 
             tx.Commit();
@@ -551,9 +551,9 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]),
                                      graph.FindNodeByUserData(linkShape.Nodes[1]))
-                            {
-                               UserData = linkShape
-                            });
+            {
+               UserData = linkShape
+            });
          }
       }
 
@@ -615,25 +615,62 @@ namespace Sawczyn.EFDesigner.EFModel
             linkShape.EdgePoints.Clear();
 
             // When curve is a line segment.
-            if (edge.Curve is LineSegment line)
+            if (edge.Curve is LineSegment lineSegment)
             {
-               linkShape.EdgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
-               linkShape.EdgePoints.Add(new EdgePoint(line.End.X, line.End.Y, VGPointType.Normal));
+               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.Normal));
+               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.Normal));
             }
 
             // When curve is a complex segment.
             else if (edge.Curve is Curve curve)
             {
-               Point endPoint = new Point();
-
-               foreach (ICurve segment in curve.Segments)
+               Point? end = null;
+               foreach (ICurve segment in (edge.Curve as Curve).Segments)
                {
-                  linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.Normal));
-                  endPoint = new Point(segment.End.X, segment.End.Y);
+                  switch (segment.GetType().Name)
+                  {
+                     case "LineSegment":
+                        LineSegment line = segment as LineSegment;
+                        linkShape.EdgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
+                        end = new Point(line.End.X, line.End.Y);
+                        break;
+                     case "CubicBezierSegment":
+                        CubicBezierSegment bezier = segment as CubicBezierSegment;
+
+                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(0).X, bezier.B(0).Y, VGPointType.Normal));
+                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(1).X, bezier.B(1).Y, VGPointType.Normal));
+                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(2).X, bezier.B(2).Y, VGPointType.Normal));
+                        end = new Point(bezier.B(3).X, bezier.B(3).Y);
+                        break;
+                     case "Ellipse":
+                        Ellipse ellipse = segment as Ellipse;
+                        double interval = (ellipse.ParEnd - ellipse.ParStart) / 5.0;
+                        List<Point> ellipsePoints = new List<Point>();
+                        for (double i = ellipse.ParStart; i < ellipse.ParEnd; i += interval)
+                        {
+                           Point p = ellipse.Center + (Math.Cos(i) * ellipse.AxisA) + (Math.Sin(i) * ellipse.AxisB);
+                           ellipsePoints.Add(new Point(p.X, p.Y));
+                        }
+                        for (int index = 0; index < ellipsePoints.Count - 1; ++index)
+                           linkShape.EdgePoints.Add(new EdgePoint(ellipsePoints[index].X, ellipsePoints[index].Y, VGPointType.Normal));
+                        end = ellipsePoints.Last();
+                        break;
+                  }
                }
 
-               if (curve.Segments.Any())
-                  linkShape.EdgePoints.Add(new EdgePoint(endPoint.X, endPoint.Y, VGPointType.Normal));
+               if (end != null)
+                  linkShape.EdgePoints.Add(new EdgePoint(end.Value.X, end.Value.Y, VGPointType.Normal));
+
+               //Point endPoint = new Point();
+
+               //foreach (ICurve segment in curve.Segments)
+               //{
+               //   linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.Normal));
+               //   endPoint = new Point(segment.End.X, segment.End.Y);
+               //}
+
+               //if (curve.Segments.Any())
+               //   linkShape.EdgePoints.Add(new EdgePoint(endPoint.X, endPoint.Y, VGPointType.Normal));
             }
 
             linkShape.UpdateGraphEdgePoints();
@@ -660,9 +697,9 @@ namespace Sawczyn.EFDesigner.EFModel
          diagram.Reroute();
       }
 
-#endregion Layout Diagram
+      #endregion Layout Diagram
 
-#region Save as Image
+      #region Save as Image
 
       private void OnStatusSaveAsImage(object sender, EventArgs e)
       {
@@ -739,9 +776,9 @@ namespace Sawczyn.EFDesigner.EFModel
          throw new ArgumentException();
       }
 
-#endregion
+      #endregion
 
-#region Load NuGet
+      #region Load NuGet
 
       private void OnStatusLoadNuGet(object sender, EventArgs e)
       {
@@ -762,9 +799,9 @@ namespace Sawczyn.EFDesigner.EFModel
          ((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
       }
 
-#endregion Load NuGet
+      #endregion Load NuGet
 
-#region Select classes
+      #region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)
       {
@@ -785,9 +822,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Select classes
+      #endregion Select classes
 
-#region Select enums
+      #region Select enums
 
       private void OnStatusSelectEnums(object sender, EventArgs e)
       {
@@ -808,9 +845,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Select enums
+      #endregion Select enums
 
-#region Select associations
+      #region Select associations
 
       private void OnStatusSelectAssocs(object sender, EventArgs e)
       {
@@ -831,9 +868,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Select associations
+      #endregion Select associations
 
-#region Select unidirectional associations
+      #region Select unidirectional associations
 
       private void OnStatusSelectUnidir(object sender, EventArgs e)
       {
@@ -854,9 +891,9 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Find
+      #endregion Find
 
-#region Select bidirectional associations
+      #region Select bidirectional associations
 
       private void OnStatusSelectBidir(object sender, EventArgs e)
       {
@@ -877,6 +914,6 @@ namespace Sawczyn.EFDesigner.EFModel
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
-#endregion Find
+      #endregion Find
    }
 }
