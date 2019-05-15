@@ -512,6 +512,8 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      #region Custom Layout
+
       private static void DoCustomLayout(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
       {
          GeometryGraph graph = new GeometryGraph();
@@ -677,6 +679,8 @@ namespace Sawczyn.EFDesigner.EFModel
             linkShape.UpdateGraphEdgePoints();
          }
       }
+
+      #endregion
 
       private static void DoStandardLayout(List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
       {
