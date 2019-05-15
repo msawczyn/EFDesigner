@@ -18,8 +18,8 @@ namespace Microsoft.Msagl.Layout.Layered {
         /// disposes the object
         /// </summary>
         public void Dispose() {
-            sw.Close();
-            sw.Dispose();
+            sw?.Close();
+            sw?.Dispose();
             sw = null;
             GC.SuppressFinalize(this);
         }

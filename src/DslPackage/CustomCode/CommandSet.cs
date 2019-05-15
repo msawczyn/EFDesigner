@@ -504,15 +504,15 @@ namespace Sawczyn.EFDesigner.EFModel
             // The standard DSL layout method was selected. Just do the deed and be done with it.
             // otherwise, we need to run an MSAGL layout
             if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
-               DoStandardRouting(linkShapes, diagram);
+               DoStandardLayout(linkShapes, diagram);
             else
-               DoCustomRouting(nodeShapes, linkShapes, modelRoot);
+               DoCustomLayout(nodeShapes, linkShapes, modelRoot);
 
             tx.Commit();
          }
       }
 
-      private static void DoCustomRouting(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
+      private static void DoCustomLayout(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
       {
          GeometryGraph graph = new GeometryGraph();
 
@@ -611,73 +611,74 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (Edge edge in graph.Edges)
          {
             BinaryLinkShape linkShape = (BinaryLinkShape)edge.UserData;
-            linkShape.ManuallyRouted = true;
-            linkShape.EdgePoints.Clear();
+            linkShape.ManuallyRouted = false;
+            //linkShape.EdgePoints.Clear();
 
+            // There's at least two points in the connectors we'll be interested in -- the ones attached to the nodes.
+            // Now that the nodes are moved, let's update those
+            linkShape.RecalculateRoute();
+            
+            // connectors we've calculated as not having turns in them are trivial and should be good, so we'll ignore then
+            if (edge.Curve is LineSegment)
+               continue;
             // When curve is a line segment.
-            if (edge.Curve is LineSegment lineSegment)
-            {
-               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.Normal));
-               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.Normal));
-            }
+            //if (edge.Curve is LineSegment lineSegment)
+            //{
+            //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.Normal));
+            //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.Normal));
+            //}
 
-            // When curve is a complex segment.
-            else if (edge.Curve is Curve curve)
+            //// When curve is a complex segment.
+            //else 
+
+            if (edge.Curve is Curve curve)
             {
-               Point? end = null;
-               foreach (ICurve segment in (edge.Curve as Curve).Segments)
+               List<EdgePoint> edgePoints = new List<EdgePoint>();
+
+               foreach (ICurve segment in curve.Segments)
                {
                   switch (segment.GetType().Name)
                   {
                      case "LineSegment":
                         LineSegment line = segment as LineSegment;
-                        linkShape.EdgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
-                        end = new Point(line.End.X, line.End.Y);
+                        edgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
                         break;
                      case "CubicBezierSegment":
                         CubicBezierSegment bezier = segment as CubicBezierSegment;
 
-                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(0).X, bezier.B(0).Y, VGPointType.Normal));
-                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(1).X, bezier.B(1).Y, VGPointType.Normal));
-                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(2).X, bezier.B(2).Y, VGPointType.Normal));
-                        end = new Point(bezier.B(3).X, bezier.B(3).Y);
+                        // there are 4 segments. Store all but the last one
+                        edgePoints.Add(new EdgePoint(bezier.B(0).X, bezier.B(0).Y, VGPointType.Normal));
+                        edgePoints.Add(new EdgePoint(bezier.B(1).X, bezier.B(1).Y, VGPointType.Normal));
+                        edgePoints.Add(new EdgePoint(bezier.B(2).X, bezier.B(2).Y, VGPointType.Normal));
                         break;
                      case "Ellipse":
+                        // rather than draw a curved line, we'll bust the curve into 5 parts and draw those as straight lines
                         Ellipse ellipse = segment as Ellipse;
                         double interval = (ellipse.ParEnd - ellipse.ParStart) / 5.0;
-                        List<Point> ellipsePoints = new List<Point>();
-                        for (double i = ellipse.ParStart; i < ellipse.ParEnd; i += interval)
+
+                        // use all but the last one
+                        for (int index = 0; index < 3; index++)
                         {
-                           Point p = ellipse.Center + (Math.Cos(i) * ellipse.AxisA) + (Math.Sin(i) * ellipse.AxisB);
-                           ellipsePoints.Add(new Point(p.X, p.Y));
+                           double offset = interval * index;
+                           Point p = ellipse.Center + (Math.Cos(ellipse.ParStart + offset) * ellipse.AxisA) + (Math.Sin(ellipse.ParStart + offset) * ellipse.AxisB);
+                           edgePoints.Add(new EdgePoint(p.X, p.Y, VGPointType.Normal));
                         }
-                        for (int index = 0; index < ellipsePoints.Count - 1; ++index)
-                           linkShape.EdgePoints.Add(new EdgePoint(ellipsePoints[index].X, ellipsePoints[index].Y, VGPointType.Normal));
-                        end = ellipsePoints.Last();
+                        
                         break;
                   }
                }
 
-               if (end != null)
-                  linkShape.EdgePoints.Add(new EdgePoint(end.Value.X, end.Value.Y, VGPointType.Normal));
-
-               //Point endPoint = new Point();
-
-               //foreach (ICurve segment in curve.Segments)
-               //{
-               //   linkShape.EdgePoints.Add(new EdgePoint(segment.Start.X, segment.Start.Y, VGPointType.Normal));
-               //   endPoint = new Point(segment.End.X, segment.End.Y);
-               //}
-
-               //if (curve.Segments.Any())
-               //   linkShape.EdgePoints.Add(new EdgePoint(endPoint.X, endPoint.Y, VGPointType.Normal));
+               // we haven't stored the last point, and we'll ignore the first point, instead using the existing
+               // first and last since they're already on the nodes in the right places
+               for (int index = edgePoints.Count - 1; index > 0; --index)
+                  linkShape.EdgePoints.Insert(1, edgePoints[index]);
             }
 
             linkShape.UpdateGraphEdgePoints();
          }
       }
 
-      private static void DoStandardRouting(List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
+      private static void DoStandardLayout(List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
       {
          // first we need to mark all the connectors as dirty so they'll route. Easiest way is to flip their 'ManuallyRouted' flag
          foreach (BinaryLinkShape linkShape in linkShapes)
@@ -687,14 +688,10 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (BinaryLinkShape linkShape in linkShapes)
             linkShape.ManuallyRouted = false;
 
-         // this will layout the nodes, but not necessarily the connector routes
          diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
                                          VGRoutingStyle.VGRouteStraight,
                                          PlacementValueStyle.VGPlaceSN,
                                          true);
-
-         // but this will
-         diagram.Reroute();
       }
 
       #endregion Layout Diagram
