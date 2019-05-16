@@ -14,6 +14,8 @@ namespace Sawczyn.EFDesigner.EFModel
    public static class FileDropHelper
    {
       private static List<string> knownInterfaces;
+      private static List<string> knownClasses;
+      private static List<string> knownEnums;
 
       public static void HandleDrop(Store store, string filename)
       {
@@ -21,7 +23,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
          {
-            knownInterfaces = new List<string>(new[] { "INotifyPropertyChanged" });
+            knownInterfaces = HarvestInterfaces(filename).Union(new List<string>(new[] {"INotifyPropertyChanged"})).ToList();
+            knownEnums = HarvestEnums(filename);
+            knownClasses = HarvestClasses(filename);
 
             StatusDisplay.Show($"Reading {filename}");
             if (DoHandleDrop(store, filename))
@@ -34,9 +38,13 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (store == null || filenames == null) return;
 
-         knownInterfaces = new List<string>(new[] { "INotifyPropertyChanged" });
+         List<string> filenameList = filenames.ToList();
 
-         foreach (string filename in filenames)
+         knownInterfaces = HarvestInterfaces(filenameList).Union(new List<string>(new[] {"INotifyPropertyChanged"})).ToList();
+         knownEnums = HarvestEnums(filenameList);
+         knownClasses = HarvestClasses(filenameList);
+
+         foreach (string filename in filenameList)
          {
             StatusDisplay.Show($"Reading {filename}");
             using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped classes"))
@@ -47,6 +55,80 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          StatusDisplay.Show(string.Empty);
+      }
+
+      private static List<string> HarvestInterfaces(List<string> filenameList)
+      {
+         return filenameList.SelectMany(HarvestInterfaces).Distinct().ToList();
+      }
+
+      private static List<string> HarvestInterfaces(string filename)
+      {
+         if (!string.IsNullOrEmpty(filename))
+         {
+            string fileContents = File.ReadAllText(filename);
+            SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContents);
+
+            if (tree.GetRoot() is CompilationUnitSyntax root)
+            {
+               return root.DescendantNodes()
+                          .OfType<InterfaceDeclarationSyntax>()
+                          .Select(decl => decl.Identifier.Text)
+                          .ToList();
+            }
+         }
+
+         return new List<string>();
+      }
+
+      private static List<string> HarvestEnums(List<string> filenameList)
+      {
+         return filenameList.SelectMany(HarvestEnums).Distinct().ToList();
+      }
+
+      private static List<string> HarvestEnums(string filename)
+      {
+         if (!string.IsNullOrEmpty(filename))
+         {
+            string fileContents = File.ReadAllText(filename);
+            SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContents);
+
+            if (tree.GetRoot() is CompilationUnitSyntax root)
+            {
+               return root.DescendantNodes()
+                          .OfType<EnumDeclarationSyntax>()
+                          .Select(decl => decl.Identifier.Text)
+                          .ToList();
+            }
+         }
+
+         return new List<string>();
+      }
+
+      private static List<string> HarvestClasses(List<string> filenameList)
+      {
+         return filenameList.SelectMany(HarvestClasses).Distinct().ToList();
+      }
+
+      private static List<string> HarvestClasses(string filename)
+      {
+         if (!string.IsNullOrEmpty(filename))
+         {
+            string fileContents = File.ReadAllText(filename);
+            SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContents);
+
+            if (tree.GetRoot() is CompilationUnitSyntax root)
+            {
+               return root.DescendantNodes()
+                          .OfType<ClassDeclarationSyntax>()
+                          .Where(decl => decl.BaseList == null ||
+                                         decl.BaseList.Types.FirstOrDefault()?.ToString() != "DbContext")
+                          .Select(decl => decl.Identifier.Text)
+                          .ToList();
+            }
+         }
+
+         return new List<string>();
       }
 
       private static bool DoHandleDrop([NotNull] Store store, [NotNull] string filename)
