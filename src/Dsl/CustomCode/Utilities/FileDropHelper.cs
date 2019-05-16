@@ -13,12 +13,16 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    public static class FileDropHelper
    {
+      private static List<string> knownInterfaces;
+
       public static void HandleDrop(Store store, string filename)
       {
          if (store == null || filename == null) return;
 
          using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
          {
+            knownInterfaces = new List<string>(new[] { "INotifyPropertyChanged" });
+
             if (DoHandleDrop(store, filename))
                tx.Commit();
          }
@@ -28,9 +32,9 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (store == null || filenames == null) return;
 
-         List<string> filenameList = filenames.ToList();
+         knownInterfaces = new List<string>(new[] { "INotifyPropertyChanged" });
 
-         foreach (string filename in filenameList)
+         foreach (string filename in filenames)
          {
             using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped classes"))
             {
@@ -162,7 +166,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   // there can only be one generic argument
                   if (contentTypes.Count != 1)
                   {
-                     WarningDisplay.Show($"Found {className}.{propertyName}, but its type isn't anything expected. Ignoring...");
+                     WarningDisplay.Show($"Found {className}.{propertyName}, but its type ({genericDecl.Identifier}<{string.Join(", ", contentTypes)}>) isn't anything expected. Ignoring...");
 
                      continue;
                   }
@@ -307,29 +311,70 @@ namespace Sawczyn.EFDesigner.EFModel
 
             XMLDocumentation xmlDocumentation = new XMLDocumentation(propertyDecl);
 
-            if (!store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>().Any(a => a.Source == source && a.Target == target && a.TargetPropertyName == propertyName))
+            // if the association doesn't yet exist, create it
+            if (!store.ElementDirectory
+                      .AllElements
+                      .OfType<UnidirectionalAssociation>()
+                      .Any(a => a.Source == source &&
+                                a.Target == target &&
+                                a.TargetPropertyName == propertyName))
             {
-               UnidirectionalAssociation unused = new UnidirectionalAssociation(store
-                                                                              , new[]
-                                                                                {
-                                                                                   new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source)
-                                                                                 , new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
-                                                                                }
-                                                                              , new[]
-                                                                                {
-                                                                                   new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One)
-                                                                                 , new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId
-                                                                                                        , toMany
-                                                                                                             ? Multiplicity.ZeroMany
-                                                                                                             : Multiplicity.ZeroOne)
-                                                                                 , new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, propertyName)
-                                                                                 , new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary)
-                                                                                 , new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
-                                                                                });
+               // if there's a unidirectional going the other direction, we'll whack that one and make a bidirectional
+               // otherwise, proceed as planned
+               UnidirectionalAssociation compliment = store.ElementDirectory
+                                                           .AllElements
+                                                           .OfType<UnidirectionalAssociation>()
+                                                           .FirstOrDefault(a => a.Source == target &&
+                                                                                a.Target == source);
+
+               if (compliment == null)
+               {
+                  UnidirectionalAssociation _ =
+                     new UnidirectionalAssociation(store,
+                                                   new[]
+                                                   {
+                                                      new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source),
+                                                      new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
+                                                   },
+                                                   new[]
+                                                   {
+                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, Multiplicity.One),
+
+                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, toMany ? Multiplicity.ZeroMany : Multiplicity.ZeroOne),
+                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, propertyName),
+                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary),
+                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
+                                                   });
+               }
+               else
+               {
+                  compliment.Delete();
+
+                  BidirectionalAssociation _ =
+                     new BidirectionalAssociation(store,
+                                                  new[]
+                                                  {
+                                                     new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, source),
+                                                     new RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, target)
+                                                  },
+                                                  new[]
+                                                  {
+                                                     new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, compliment.TargetMultiplicity),
+                                                     new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, compliment.TargetPropertyName),
+                                                     new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, compliment.TargetSummary),
+                                                     new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, compliment.TargetDescription),
+
+                                                     new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, toMany ? Multiplicity.ZeroMany : Multiplicity.ZeroOne),
+                                                     new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, propertyName),
+                                                     new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary),
+                                                     new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
+                                                  });
+               }
             }
          }
          catch
          {
+            tx.Rollback();
             tx = null;
 
             throw;
@@ -375,10 +420,10 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             result = new ModelEnum(store,
                                    new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName))
-                                   {
-                                      Namespace = namespaceName,
-                                      IsFlags = enumDecl.HasAttribute("Flags")
-                                   };
+            {
+               Namespace = namespaceName,
+               IsFlags = enumDecl.HasAttribute("Flags")
+            };
 
             SimpleBaseTypeSyntax baseTypeSyntax = enumDecl.DescendantNodes().OfType<SimpleBaseTypeSyntax>().FirstOrDefault();
 
@@ -481,10 +526,10 @@ namespace Sawczyn.EFDesigner.EFModel
                              ? store.TransactionManager.BeginTransaction()
                              : null;
 
+         List<string> customInterfaces = new List<string>();
          try
          {
             ModelClass superClass = null;
-            List<string> customInterfaces = new List<string>();
             result = store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
 
             // Base classes and interfaces
@@ -495,10 +540,12 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   string baseName = type.ToString();
 
-                  // INotifyPropertyChanged is special. We know it's an interface, and it'll turn into a class property later
-                  if (baseName == "INotifyPropertyChanged" || superClass != null || result?.Superclass != null)
+                  // Do we know this is an interface?
+                  if (knownInterfaces.Contains(baseName) || superClass != null || result?.Superclass != null)
                   {
                      customInterfaces.Add(baseName);
+                     if (!knownInterfaces.Contains(baseName))
+                        knownInterfaces.Add(baseName);
 
                      continue;
                   }
@@ -515,6 +562,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   else
                   {
                      customInterfaces.Add(baseName);
+                     knownInterfaces.Add(baseName);
                   }
                }
             }
