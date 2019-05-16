@@ -343,6 +343,7 @@
     <Compile Include="CustomCode\Type Converters\ProjectDirectoryTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\SourceMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\TargetMultiplicityTypeConverter.cs" />
+    <Compile Include="CustomCode\Utilities\StatusDisplay.cs" />
     <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />
     <Compile Include="CustomCode\Partials\EFModelSerializationHelperBase.cs" />
     <Compile Include="CustomCode\Type Converters\TypeConverterBase.cs" />

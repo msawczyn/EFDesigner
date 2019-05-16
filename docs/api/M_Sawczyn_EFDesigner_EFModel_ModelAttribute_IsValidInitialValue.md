@@ -23,7 +23,7 @@ Public Function IsValidInitialValue (
 ) As <a href="http://msdn2.microsoft.com/en-us/library/a28wyd50" target="_blank">Boolean</a>
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelAttribute.cs#L105" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelAttribute.cs#L107" title="View the source code">View Source</a><br />
 
 #### Parameters
 &nbsp;<dl><dt>typeName (Optional)</dt><dd>Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">System.String</a><br />Name of type to test. If typeName is null, Type property will be used. If initialValue is null, InitialValue property will be used</dd><dt>initialValue (Optional)</dt><dd>Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">System.String</a><br />Initial value to test</dd></dl>

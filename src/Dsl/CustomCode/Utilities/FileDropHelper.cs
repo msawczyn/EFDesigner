@@ -23,8 +23,10 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             knownInterfaces = new List<string>(new[] { "INotifyPropertyChanged" });
 
+            StatusDisplay.Show($"Reading {filename}");
             if (DoHandleDrop(store, filename))
                tx.Commit();
+            StatusDisplay.Show(string.Empty);
          }
       }
 
@@ -36,6 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          foreach (string filename in filenames)
          {
+            StatusDisplay.Show($"Reading {filename}");
             using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped classes"))
             {
                if (DoHandleDrop(store, filename))
@@ -43,6 +46,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
+         StatusDisplay.Show(string.Empty);
       }
 
       private static bool DoHandleDrop([NotNull] Store store, [NotNull] string filename)
