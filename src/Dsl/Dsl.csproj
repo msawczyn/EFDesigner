@@ -607,6 +607,12 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ParsingModels\ParsingModels.csproj">
+      <Project>{dd03b599-6f8f-4baf-850a-67f52dbd0920}</Project>
+      <Name>ParsingModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
