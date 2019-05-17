@@ -19,26 +19,39 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void HandleDrop(Store store, string filename)
       {
-         if (store == null || filename == null) return;
+         if (store == null || filename == null)
+            return;
 
+         StatusDisplay.Show("One moment...");
+
+         knownInterfaces = HarvestInterfaces(filename).Union(new List<string>(new[] {"INotifyPropertyChanged"})).ToList();
+         knownEnums = HarvestEnums(filename);
+         knownClasses = HarvestClasses(filename);
+
+         StatusDisplay.Show($"Reading {filename}");
          using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
          {
-            knownInterfaces = HarvestInterfaces(filename).Union(new List<string>(new[] {"INotifyPropertyChanged"})).ToList();
-            knownEnums = HarvestEnums(filename);
-            knownClasses = HarvestClasses(filename);
-
-            StatusDisplay.Show($"Reading {filename}");
             if (DoHandleDrop(store, filename))
                tx.Commit();
-            StatusDisplay.Show(string.Empty);
+
          }
+       
+         StatusDisplay.Show(string.Empty);
       }
 
       public static void HandleMultiDrop(Store store, IEnumerable<string> filenames)
       {
-         if (store == null || filenames == null) return;
+         if (store == null || filenames == null) 
+            return;
 
          List<string> filenameList = filenames.ToList();
+         if (filenameList.Count() == 1)
+         {
+            HandleDrop(store, filenameList[0]);
+            return;
+         }
+
+         StatusDisplay.Show("One moment...");
 
          knownInterfaces = HarvestInterfaces(filenameList).Union(new List<string>(new[] {"INotifyPropertyChanged"})).ToList();
          knownEnums = HarvestEnums(filenameList);
@@ -287,9 +300,7 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   // might be an enum. If so, we'll handle it like a CLR type
                   // if it's nullable, it's definitely an enum, but if we don't know about it, it could be an enum or a class
-                  ModelEnum enumTarget = modelRoot.Enums.FirstOrDefault(t => t.Name == propertyType);
-
-                  if (enumTarget == null && !propertyShowsNullable)
+                  if (!knownEnums.Contains(propertyType) && !propertyShowsNullable)
                   {
                      // assume it's a class and create the class
                      target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
@@ -640,7 +651,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   superClass = modelRoot.Classes.FirstOrDefault(c => c.Name == baseName);
 
                   // if it's not in the model, we just don't know. Ask the user
-                  if (superClass == null && QuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true)
+                  if (superClass == null && (knownClasses.Contains(baseName) || QuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true))
                   {
                      superClass = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, baseName));
                      modelRoot.Classes.Add(superClass);
@@ -657,8 +668,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                result = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
                {
-                  Namespace = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace
-                             ,
+                  Namespace = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace,
                   IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
                };
 

@@ -59,7 +59,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             if (string.IsNullOrWhiteSpace(message))
             {
-               ClearStatus();
+               StatusBar.SetText(string.Empty);
                return;
             }
 
@@ -70,13 +70,6 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             StatusBar.SetText(message);
          }
-      }
-
-      public static void ClearStatus()
-      {
-         StatusBar.IsFrozen(out int frozen);
-         if (frozen == 0)
-            StatusBar.Clear();
       }
    }
 }
