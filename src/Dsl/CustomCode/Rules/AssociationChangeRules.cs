@@ -143,16 +143,12 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.SourceRole = EndpointRole.Dependent;
                   element.TargetRole = EndpointRole.Principal;
                }
-               else
+               else if (!SetEndpointRoles(element))
                {
-                  EndpointRole sourceRole = (EndpointRole)e.NewValue;
-
-                  if (sourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
+                  if (element.SourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
                      element.TargetRole = EndpointRole.Principal;
-                  else if (sourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
+                  else if (element.SourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
                      element.TargetRole = EndpointRole.Dependent;
-
-                  SetEndpointRoles(element);
                }
 
                break;
@@ -231,16 +227,12 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.SourceRole = EndpointRole.Principal;
                   element.TargetRole = EndpointRole.Dependent;
                }
-               else
+               else if (!SetEndpointRoles(element))
                {
-                  EndpointRole targetRole = (EndpointRole)e.NewValue;
-
-                  if (targetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
+                  if (element.TargetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
                      element.SourceRole = EndpointRole.Principal;
-                  else if (targetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
+                  else if (element.TargetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
                      element.SourceRole = EndpointRole.Dependent;
-
-                  SetEndpointRoles(element);
                }
 
                break;
@@ -255,7 +247,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      internal static void SetEndpointRoles(Association element)
+      internal static bool SetEndpointRoles(Association element)
       {
          switch (element.TargetMultiplicity)
          {
@@ -264,20 +256,20 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.NotApplicable;
-                     element.TargetRole = EndpointRole.NotApplicable;
+                     if (element.SourceRole != EndpointRole.NotApplicable) element.SourceRole = EndpointRole.NotApplicable;
+                     if (element.TargetRole != EndpointRole.NotApplicable) element.TargetRole = EndpointRole.NotApplicable;
 
-                     break;
+                     return true;
                   case Multiplicity.One:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
+                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
+                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
 
-                     break;
+                     return true;
                   case Multiplicity.ZeroOne:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
+                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
+                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
 
-                     break;
+                     return true;
                }
 
                break;
@@ -286,18 +278,18 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
+                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
+                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
 
-                     break;
+                     return true;
                   case Multiplicity.One:
 
-                     break;
+                     return false;
                   case Multiplicity.ZeroOne:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
+                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
+                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
 
-                     break;
+                     return true;
                }
 
                break;
@@ -306,22 +298,24 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
+                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
+                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
 
-                     break;
+                     return true;
                   case Multiplicity.One:
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
+                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
+                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
 
-                     break;
+                     return true;
                   case Multiplicity.ZeroOne:
 
-                     break;
+                     return false;
                }
 
                break;
          }
+
+         return false;
       }
 
       internal static void UpdateDisplayForCascadeDelete(Association element,

@@ -18,7 +18,7 @@ Public ReadOnly Property ParentModelElement As IModelElementWithCompartments
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelAttribute.cs#L23" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelAttribute.cs#L24" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: IModelElementWithCompartments<br />The parent model element.
