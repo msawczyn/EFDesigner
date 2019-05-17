@@ -2,55 +2,80 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-
+using Newtonsoft.Json;
 using ParsingModels;
 
 namespace EF6Parser
 {
+   [SuppressMessage("ReSharper", "UnthrowableException")]
    public class Parser
    {
       private readonly DbContext dbContext;
-      private List<System.Data.Entity.Core.Metadata.Edm.NavigationProperty> processedNavigationProperties;
+      private readonly MetadataWorkspace metadata;
+      private List<NavigationProperty> processedNavigationProperties;
 
-      public Parser(DbContext dbContext)
+      public Parser(Assembly assembly, string dbContextTypeName = null)
       {
-         this.dbContext = dbContext;
-      }
+         Type contextType;
+         if (dbContextTypeName != null)
+            contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
+         else
+         {
+            List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
+            if (types.Count != 1)
+               throw new AmbiguousMatchException("Found more than one class derived from DbContext");
 
-      public static DbContext GetDbContext(Assembly assembly, string dbContextTypeName = null)
-      {
-         DbContext result = null;
+            contextType = types[0];
+         }
 
-         Type contextType = dbContextTypeName != null
-                               ? assembly.GetTypes().FirstOrDefault(t => t.FullName == dbContextTypeName)
-                               : assembly.GetTypes().FirstOrDefault(t => t.IsAssignableFrom(typeof(DbContext)));
+         ConstructorInfo constructor = contextType.GetConstructor(new[] {typeof(string)});
+         if (constructor == null)
+            throw new MissingMethodException("Can't find appropriate constructor");
 
-         if (contextType != null)
-            result = assembly.CreateInstance(dbContextTypeName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
-
-         return result;
+         dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[]{"App=EntityFramework"}, null, null) as DbContext;
+         metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;
       }
 
       public string Process()
       {
          if (dbContext == null)
+
             // ReSharper disable once NotResolvedInText
             throw new ArgumentNullException("dbContext");
 
-         ObjectContext objContext = ((IObjectContextAdapter)dbContext).ObjectContext;
-         processedNavigationProperties = new List<System.Data.Entity.Core.Metadata.Edm.NavigationProperty>();
+         processedNavigationProperties = new List<NavigationProperty>();
 
-         foreach (EntityType entityType in objContext.MetadataWorkspace.GetItems(DataSpace.CSpace).OfType<EntityType>().ToList())
-            ProcessEntity(entityType);
+         ModelRoot modelRoot = ProcessRoot();
 
-         foreach (EnumType enumType in objContext.MetadataWorkspace.GetItems(DataSpace.CSpace).OfType<EnumType>().ToList())
-            ProcessEnum(enumType);
+         foreach (EntityType entityType in metadata.GetItems(DataSpace.CSpace).OfType<EntityType>().ToList())
+         {
+            ModelClass modelClass = ProcessEntity(entityType);
+            if (modelClass != null)
+               modelRoot.Classes.Add(modelClass);
+         }
 
-         return null;
+         foreach (EnumType enumType in metadata.GetItems(DataSpace.CSpace).OfType<EnumType>().ToList())
+         {
+            ModelEnum modelEnum = ProcessEnum(enumType);
+            if (modelEnum != null)
+               modelRoot.Enumerations.Add(modelEnum);
+         }
+
+         return JsonConvert.SerializeObject(modelRoot);
+      }
+
+      private ModelRoot ProcessRoot()
+      {
+         ModelRoot result = new ModelRoot();
+         Type contextType = dbContext.GetType();
+
+         result.Name = contextType.Name;
+         result.Namespace = contextType.Namespace;
+         return result;
       }
 
       private ModelClass ProcessEntity(EntityType entityType)

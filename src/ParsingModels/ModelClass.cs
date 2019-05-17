@@ -11,8 +11,6 @@ namespace ParsingModels
 
       public string Name { get; set; }
       public string Namespace { get; set; }
-      public string Summary { get; set; }
-      public string Description { get; set; }
       public string CustomAttributes { get; set; }
       public bool IsAbstract { get; set; }
       public string BaseClass { get; set; }
