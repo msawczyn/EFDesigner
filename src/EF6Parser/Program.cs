@@ -18,7 +18,7 @@ namespace EF6Parser
       {
          if (args.Length < 2 || args.Length > 3)
          {
-            Usage(BAD_ARGUMENT_COUNT);
+            Exit(BAD_ARGUMENT_COUNT);
          }
 
          try
@@ -41,15 +41,15 @@ namespace EF6Parser
                   // ReSharper disable once UncatchableException
                   catch (MissingMethodException)
                   {
-                     Usage(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR);
+                     Exit(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR);
                   }
                   catch (AmbiguousMatchException)
                   {
-                     Usage(AMBIGUOUS_REQUEST);
+                     Exit(AMBIGUOUS_REQUEST);
                   }
                   catch
                   {
-                     Usage(CANNOT_CREATE_DBCONTEXT);
+                     Exit(CANNOT_CREATE_DBCONTEXT);
                   }
 
                   output.Write(parser?.Process());
@@ -58,26 +58,26 @@ namespace EF6Parser
                }
                catch 
                {
-                  Usage(CANNOT_LOAD_ASSEMBLY);
+                  Exit(CANNOT_LOAD_ASSEMBLY);
                }
             }
          }
          catch 
          {
-            Usage(CANNOT_WRITE_OUTPUTFILE);
+            Exit(CANNOT_WRITE_OUTPUTFILE);
          }
 
          return SUCCESS;
       }
 
-      private static void Usage(int returnCode)
+      private static void Exit(int returnCode)
       {
          Console.Error.WriteLine("Usage: EF6Parser InputFileName OutputFileName [FullyQualifiedClassName]");
          Console.Error.WriteLine("where");
          Console.Error.WriteLine("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
          Console.Error.WriteLine("   (required) OutputFileName          - path to create JSON file of results");
          Console.Error.WriteLine("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
-         Console.Error.WriteLine("                                        Class must have a constructor that takes a connection string name or value");
+         Console.Error.WriteLine("                                        DbContext class must have a constructor that takes a connection string name or value");
          Console.Error.WriteLine();
 
          Environment.Exit(returnCode);

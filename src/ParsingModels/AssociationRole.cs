@@ -2,6 +2,7 @@
 {
    public enum AssociationRole
    {
+      NotSet,
       Principal,
       Dependent
    }
