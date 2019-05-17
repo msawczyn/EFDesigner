@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
 namespace EF6Parser
 {
-   [SuppressMessage("ReSharper", "UncatchableException")]
    internal class Program
    {
       public const int SUCCESS = 0;
@@ -21,15 +18,7 @@ namespace EF6Parser
       {
          if (args.Length < 2 || args.Length > 3)
          {
-            Console.Error.WriteLine("Usage: EF6Parser InputFileName OutputFileName [FullyQualifiedClassName]");
-            Console.Error.WriteLine("where");
-            Console.Error.WriteLine("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
-            Console.Error.WriteLine("   (required) OutputFileName          - path to create JSON file of results");
-            Console.Error.WriteLine("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
-            Console.Error.WriteLine("                                        Class must have a constructor that takes a connection string name or value");
-            Console.Error.WriteLine();
-
-            return BAD_ARGUMENT_COUNT;
+            Usage(BAD_ARGUMENT_COUNT);
          }
 
          try
@@ -43,41 +32,55 @@ namespace EF6Parser
                try
                {
                   Assembly assembly = Assembly.LoadFrom(inputPath);
-                  Parser parser;
+                  Parser parser = null;
 
                   try
                   {
                      parser = new Parser(assembly, contextClassName);
                   }
+                  // ReSharper disable once UncatchableException
                   catch (MissingMethodException)
                   {
-                     return CANNOT_FIND_APPROPRIATE_CONSTRUCTOR;
+                     Usage(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR);
                   }
                   catch (AmbiguousMatchException)
                   {
-                     return AMBIGUOUS_REQUEST;
+                     Usage(AMBIGUOUS_REQUEST);
                   }
                   catch
                   {
-                     return CANNOT_CREATE_DBCONTEXT;
+                     Usage(CANNOT_CREATE_DBCONTEXT);
                   }
 
-                  output.Write(parser.Process());
+                  output.Write(parser?.Process());
                   output.Flush();
                   output.Close();
                }
                catch 
                {
-                  return CANNOT_LOAD_ASSEMBLY;
+                  Usage(CANNOT_LOAD_ASSEMBLY);
                }
             }
          }
          catch 
          {
-            return CANNOT_WRITE_OUTPUTFILE;
+            Usage(CANNOT_WRITE_OUTPUTFILE);
          }
 
          return SUCCESS;
+      }
+
+      private static void Usage(int returnCode)
+      {
+         Console.Error.WriteLine("Usage: EF6Parser InputFileName OutputFileName [FullyQualifiedClassName]");
+         Console.Error.WriteLine("where");
+         Console.Error.WriteLine("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
+         Console.Error.WriteLine("   (required) OutputFileName          - path to create JSON file of results");
+         Console.Error.WriteLine("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
+         Console.Error.WriteLine("                                        Class must have a constructor that takes a connection string name or value");
+         Console.Error.WriteLine();
+
+         Environment.Exit(returnCode);
       }
    }
 }

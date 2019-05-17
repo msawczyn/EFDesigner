@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
@@ -11,7 +10,6 @@ using ParsingModels;
 
 namespace EF6Parser
 {
-   [SuppressMessage("ReSharper", "UnthrowableException")]
    public class Parser
    {
       private readonly DbContext dbContext;
@@ -27,16 +25,18 @@ namespace EF6Parser
          {
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
             if (types.Count != 1)
+               // ReSharper disable once UnthrowableException
                throw new AmbiguousMatchException("Found more than one class derived from DbContext");
 
             contextType = types[0];
          }
 
          ConstructorInfo constructor = contextType.GetConstructor(new[] {typeof(string)});
+         // ReSharper disable once UnthrowableException
          if (constructor == null)
             throw new MissingMethodException("Can't find appropriate constructor");
 
-         dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[]{"App=EntityFramework"}, null, null) as DbContext;
+         dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
          metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;
       }
 
