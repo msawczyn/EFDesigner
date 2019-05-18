@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2019.4.14.0" projectFile="C:\Code\EFDesigner\src\EFDesigner.APIHelp\EFDesigner.APIHelp.shfbproj" started="5/17/2019 11:21:39 PM">
+<buildStep step="Initializing">
+Finding tools...
+The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\&#39;
+Locating components in the following folder(s):
+    C:\Code\EFDesigner\src\EFDesigner.APIHelp
+    C:\ProgramData\EWSoftware\Sandcastle Help File Builder\Components and Plug-Ins\
+    C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
+Using framework reflection data for &#39;.NET Framework 4.7.2&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NETFramework&#39;
+Using presentation style &#39;Markdown&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\Markdown&#39;
+-------------------------------
+Clearing any prior web/markdown output...
+</buildStep>
+<buildStep step="ValidatingDocumentationSources">
+Validating and copying documentation source information
+Source: C:\Code\EFDesigner\src\Dsl\Dsl.csproj
+    Found project &#39;C:\Code\EFDesigner\src\Dsl\Dsl.csproj&#39;
+
+Parsing project files
+    Found assembly &#39;C:\Code\EFDesigner\src\Dsl\bin\Release\Sawczyn.EFDesigner.EFModel.Dsl.dll&#39;
+    Last step completed in 00:00:00.0410
+</buildStep>
+<buildStep step="Failed">
+
+SHFB: Error BE0065: BUILD FAILED: Project XML comments file does not exist: C:\Code\EFDesigner\src\Dsl\bin\Release\Sawczyn.EFDesigner.EFModel.Dsl.xml
+   at SandcastleBuilder.Utils.BuildEngine.BuildProcess.ValidateDocumentationSources()
+   at SandcastleBuilder.Utils.BuildEngine.BuildProcess.Build()
+
+</buildStep>
+</shfbBuild>

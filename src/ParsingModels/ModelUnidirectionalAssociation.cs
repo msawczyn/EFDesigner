@@ -4,7 +4,9 @@
    {
       public string SourceClassName { get; set; }
       public Multiplicity SourceMultiplicity { get; set; }
+
       public string TargetClassName { get; set; }
+      public string TargetPropertyTypeName { get; set; }
       public Multiplicity TargetMultiplicity { get; set; }
       public string TargetPropertyName { get; set; }
       public string TargetSummary { get; set; }

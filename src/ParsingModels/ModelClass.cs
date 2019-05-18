@@ -12,6 +12,7 @@ namespace ParsingModels
       public string Name { get; set; }
       public string Namespace { get; set; }
       public string CustomAttributes { get; set; }
+      public string CustomInterfaces { get; set; }
       public bool IsAbstract { get; set; }
       public string BaseClass { get; set; }
       public string TableName { get; set; }
