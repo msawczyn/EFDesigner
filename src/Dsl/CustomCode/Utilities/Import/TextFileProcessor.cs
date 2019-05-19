@@ -1,81 +1,45 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.VisualStudio.Modeling;
-using Sawczyn.EFDesigner.EFModel.Annotations;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+﻿// 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.VisualStudio.Modeling;
+
+using Sawczyn.EFDesigner.EFModel.Annotations;
+using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public static class FileDropHelper
+   public interface FileProcessor
    {
-      private static List<string> knownInterfaces;
-      private static List<string> knownClasses;
-      private static List<string> knownEnums;
+      bool Process(string filename);
+   }
+   public class TextFileProcessor: FileProcessor
+   {
+      private List<string> KnownInterfaces;
 
-      public static void HandleDrop(Store store, string filename)
+      // ReSharper disable FieldCanBeMadeReadOnly.Local
+      private List<string> KnownClasses;
+      private List<string> KnownEnums;
+      // ReSharper restore FieldCanBeMadeReadOnly.Local
+
+      private readonly Store Store;
+
+      public TextFileProcessor(Store store)
       {
-         if (store == null || filename == null)
-            return;
+         Store = store;
 
-         StatusDisplay.Show("One moment...");
-
-         knownInterfaces = HarvestInterfaces(filename).Union(new List<string>(new[] {"INotifyPropertyChanged"})).ToList();
-         knownEnums = HarvestEnums(filename);
-         knownClasses = HarvestClasses(filename);
-
-         StatusDisplay.Show($"Reading {filename}");
-         using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
-         {
-            if (DoHandleDrop(store, filename))
-               tx.Commit();
-
-         }
-       
-         StatusDisplay.Show(string.Empty);
+         KnownInterfaces = new List<string>();
+         KnownEnums = new List<string>();
+         KnownClasses = new List<string>();
       }
 
-      public static void HandleMultiDrop(Store store, IEnumerable<string> filenames)
-      {
-         if (store == null || filenames == null) 
-            return;
-
-         List<string> filenameList = filenames.ToList();
-         if (filenameList.Count() == 1)
-         {
-            HandleDrop(store, filenameList[0]);
-            return;
-         }
-
-         StatusDisplay.Show("One moment...");
-
-         knownInterfaces = HarvestInterfaces(filenameList).Union(new List<string>(new[] {"INotifyPropertyChanged"})).ToList();
-         knownEnums = HarvestEnums(filenameList);
-         knownClasses = HarvestClasses(filenameList);
-
-         foreach (string filename in filenameList)
-         {
-            StatusDisplay.Show($"Reading {filename}");
-            using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped classes"))
-            {
-               if (DoHandleDrop(store, filename))
-                  tx.Commit();
-            }
-         }
-
-         StatusDisplay.Show(string.Empty);
-      }
-
-      private static List<string> HarvestInterfaces(List<string> filenameList)
-      {
-         return filenameList.SelectMany(HarvestInterfaces).Distinct().ToList();
-      }
-
-      private static List<string> HarvestInterfaces(string filename)
+      private List<string> HarvestInterfaces(string filename)
       {
          if (!string.IsNullOrEmpty(filename))
          {
@@ -94,14 +58,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return new List<string>();
       }
 
-      private static List<string> HarvestEnums(List<string> filenameList)
+      private List<string> HarvestEnums(string filename)
       {
-         return filenameList.SelectMany(HarvestEnums).Distinct().ToList();
-      }
-
-      private static List<string> HarvestEnums(string filename)
-      {
-         if (!string.IsNullOrEmpty(filename))
+         if (!String.IsNullOrEmpty(filename))
          {
             string fileContents = File.ReadAllText(filename);
             SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContents);
@@ -118,14 +77,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return new List<string>();
       }
 
-      private static List<string> HarvestClasses(List<string> filenameList)
+      private List<string> HarvestClasses(string filename)
       {
-         return filenameList.SelectMany(HarvestClasses).Distinct().ToList();
-      }
-
-      private static List<string> HarvestClasses(string filename)
-      {
-         if (!string.IsNullOrEmpty(filename))
+         if (!String.IsNullOrEmpty(filename))
          {
             string fileContents = File.ReadAllText(filename);
             SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContents);
@@ -144,19 +98,13 @@ namespace Sawczyn.EFDesigner.EFModel
          return new List<string>();
       }
 
-      private static bool DoHandleDrop([NotNull] Store store, [NotNull] string filename)
+      public bool Process([NotNull] string filename)
       {
-         if (store == null)
-            throw new ArgumentNullException(nameof(store));
-
-         if (filename == null)
+         if (String.IsNullOrEmpty(filename))
             throw new ArgumentNullException(nameof(filename));
 
          try
          {
-            if (string.IsNullOrEmpty(filename))
-               return false;
-
             // read the file
             string fileContents = File.ReadAllText(filename);
 
@@ -178,15 +126,15 @@ namespace Sawczyn.EFDesigner.EFModel
                // keep this order: enums, classes, class properties
 
                foreach (EnumDeclarationSyntax enumDecl in enumDecls)
-                  ProcessEnum(store, enumDecl);
+                  ProcessEnum(enumDecl);
 
                List<ModelClass> processedClasses = new List<ModelClass>();
                foreach (ClassDeclarationSyntax classDecl in classDecls)
-                  processedClasses.Add(ProcessClass(store, classDecl));
+                  processedClasses.Add(ProcessClass(classDecl));
 
                // process last so all classes and enums are already in the model
                foreach (ClassDeclarationSyntax classDecl in classDecls)
-                  ProcessProperties(store, classDecl);
+                  ProcessProperties(classDecl);
 
                // now that all the properties are in, go through the classes again and ensure identities are present based on convention
                // ReSharper disable once LoopCanBePartlyConvertedToQuery
@@ -198,7 +146,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   // if both 'Id' and '[ClassName]Id' are present, don't do anything since we don't know which to make the identity
                   if (identitiesByConvention.Count == 1)
                   {
-                     using (Transaction transaction = store.TransactionManager.BeginTransaction("Add identity"))
+                     using (Transaction transaction = Store.TransactionManager.BeginTransaction("Add identity"))
                      {
                         identitiesByConvention[0].IsIdentity = true;
                         transaction.Commit();
@@ -217,23 +165,20 @@ namespace Sawczyn.EFDesigner.EFModel
          return true;
       }
 
-      private static void ProcessProperties([NotNull] Store store, [NotNull] ClassDeclarationSyntax classDecl)
+      private void ProcessProperties([NotNull] ClassDeclarationSyntax classDecl)
       {
-         if (store == null)
-            throw new ArgumentNullException(nameof(store));
-
          if (classDecl == null)
             throw new ArgumentNullException(nameof(classDecl));
 
-         Transaction tx = store.TransactionManager.CurrentTransaction == null
-                             ? store.TransactionManager.BeginTransaction()
+         Transaction tx = Store.TransactionManager.CurrentTransaction == null
+                             ? Store.TransactionManager.BeginTransaction()
                              : null;
 
          try
          {
             string className = classDecl.Identifier.Text;
-            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
-            ModelClass modelClass = store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
+            ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelClass modelClass = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
             modelClass.Attributes.Clear();
 
             foreach (PropertyDeclarationSyntax propertyDecl in classDecl.DescendantNodes().OfType<PropertyDeclarationSyntax>())
@@ -265,7 +210,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   // there can only be one generic argument
                   if (contentTypes.Count != 1)
                   {
-                     WarningDisplay.Show($"Found {className}.{propertyName}, but its type ({genericDecl.Identifier}<{string.Join(", ", contentTypes)}>) isn't anything expected. Ignoring...");
+                     WarningDisplay.Show($"Found {className}.{propertyName}, but its type ({genericDecl.Identifier}<{String.Join(", ", contentTypes)}>) isn't anything expected. Ignoring...");
 
                      continue;
                   }
@@ -275,7 +220,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (target == null)
                   {
-                     target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
+                     target = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
                      modelRoot.Classes.Add(target);
                   }
 
@@ -300,10 +245,10 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   // might be an enum. If so, we'll handle it like a CLR type
                   // if it's nullable, it's definitely an enum, but if we don't know about it, it could be an enum or a class
-                  if (!knownEnums.Contains(propertyType) && !propertyShowsNullable)
+                  if (!KnownEnums.Contains(propertyType) && !propertyShowsNullable)
                   {
                      // assume it's a class and create the class
-                     target = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
+                     target = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
                      modelRoot.Classes.Add(target);
 
                      ProcessAssociation(modelClass, target, propertyDecl);
@@ -316,7 +261,7 @@ namespace Sawczyn.EFDesigner.EFModel
                try
                {
                   // ReSharper disable once UseObjectOrCollectionInitializer
-                  ModelAttribute modelAttribute = new ModelAttribute(store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName))
+                  ModelAttribute modelAttribute = new ModelAttribute(Store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName))
                   {
                      Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?'),
                      Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyShowsNullable,
@@ -331,7 +276,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      AttributeArgumentSyntax maxLength = maxLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (maxLength != null)
-                        modelAttribute.MaxLength = int.TryParse(maxLength.Expression.ToString(), out int maxLengthValue)
+                        modelAttribute.MaxLength = Int32.TryParse(maxLength.Expression.ToString(), out int maxLengthValue)
                                                       ? maxLengthValue
                                                       : 0;
 
@@ -339,7 +284,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      AttributeArgumentSyntax minLength = minLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (minLength != null)
-                        modelAttribute.MinLength = int.TryParse(minLength.Expression.ToString(), out int minLengthValue)
+                        modelAttribute.MinLength = Int32.TryParse(minLength.Expression.ToString(), out int minLengthValue)
                                                       ? minLengthValue
                                                       : 0;
                   }
@@ -382,7 +327,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static void ProcessAssociation([NotNull] ModelClass source, [NotNull] ModelClass target, [NotNull] PropertyDeclarationSyntax propertyDecl, bool toMany = false)
+      private void ProcessAssociation([NotNull] ModelClass source, [NotNull] ModelClass target, [NotNull] PropertyDeclarationSyntax propertyDecl, bool toMany = false)
       {
          if (source == null)
             throw new ArgumentNullException(nameof(source));
@@ -393,10 +338,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (propertyDecl == null)
             throw new ArgumentNullException(nameof(propertyDecl));
 
-         Store store = source.Store;
-
-         Transaction tx = store.TransactionManager.CurrentTransaction == null
-                             ? store.TransactionManager.BeginTransaction()
+         Transaction tx = Store.TransactionManager.CurrentTransaction == null
+                             ? Store.TransactionManager.BeginTransaction()
                              : null;
 
          try
@@ -409,7 +352,7 @@ namespace Sawczyn.EFDesigner.EFModel
             XMLDocumentation xmlDocumentation = new XMLDocumentation(propertyDecl);
 
             // if the association doesn't yet exist, create it
-            if (!store.ElementDirectory
+            if (!Store.ElementDirectory
                       .AllElements
                       .OfType<UnidirectionalAssociation>()
                       .Any(a => a.Source == source &&
@@ -418,7 +361,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                // if there's a unidirectional going the other direction, we'll whack that one and make a bidirectional
                // otherwise, proceed as planned
-               UnidirectionalAssociation compliment = store.ElementDirectory
+               UnidirectionalAssociation compliment = Store.ElementDirectory
                                                            .AllElements
                                                            .OfType<UnidirectionalAssociation>()
                                                            .FirstOrDefault(a => a.Source == target &&
@@ -427,7 +370,7 @@ namespace Sawczyn.EFDesigner.EFModel
                if (compliment == null)
                {
                   UnidirectionalAssociation _ =
-                     new UnidirectionalAssociation(store,
+                     new UnidirectionalAssociation(Store,
                                                    new[]
                                                    {
                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source),
@@ -448,7 +391,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   compliment.Delete();
 
                   BidirectionalAssociation _ =
-                     new BidirectionalAssociation(store,
+                     new BidirectionalAssociation(Store,
                                                   new[]
                                                   {
                                                      new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, source),
@@ -482,18 +425,12 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      // ReSharper disable once UnusedMethodReturnValue.Local
-      private static ModelEnum ProcessEnum([NotNull] Store store, [NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      private void ProcessEnum([NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
       {
-         ModelEnum result = null;
-
-         if (store == null)
-            throw new ArgumentNullException(nameof(store));
-
          if (enumDecl == null)
             throw new ArgumentNullException(nameof(enumDecl));
 
-         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          string enumName = enumDecl.Identifier.Text;
 
          if (namespaceDecl == null && enumDecl.Parent is NamespaceDeclarationSyntax enumDeclParent)
@@ -501,22 +438,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string namespaceName = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace;
 
-         if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any(c => c.Name == enumName) || store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == enumName))
+         if (Store.ElementDirectory.AllElements.OfType<ModelClass>().Any(c => c.Name == enumName) || Store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == enumName))
          {
             ErrorDisplay.Show($"'{enumName}' already exists in model.");
 
             // ReSharper disable once ExpressionIsAlwaysNull
-            return result;
+            return;
          }
 
-         Transaction tx = store.TransactionManager.CurrentTransaction == null
-                             ? store.TransactionManager.BeginTransaction()
+         Transaction tx = Store.TransactionManager.CurrentTransaction == null
+                             ? Store.TransactionManager.BeginTransaction()
                              : null;
 
          try
          {
-            result = new ModelEnum(store,
-                                   new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName))
+            ModelEnum result = new ModelEnum(Store,
+                                             new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName))
             {
                Namespace = namespaceName,
                IsFlags = enumDecl.HasAttribute("Flags")
@@ -554,7 +491,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             foreach (EnumMemberDeclarationSyntax enumValueDecl in enumDecl.DescendantNodes().OfType<EnumMemberDeclarationSyntax>())
             {
-               ModelEnumValue enumValue = new ModelEnumValue(store, new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, enumValueDecl.Identifier.ToString()));
+               ModelEnumValue enumValue = new ModelEnumValue(Store, new PropertyAssignment(ModelEnumValue.NameDomainPropertyId, enumValueDecl.Identifier.ToString()));
                EqualsValueClauseSyntax valueDecl = enumValueDecl.DescendantNodes().OfType<EqualsValueClauseSyntax>().FirstOrDefault();
 
                if (valueDecl != null)
@@ -583,27 +520,22 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             tx?.Commit();
          }
-
-         return result;
       }
 
-      private static ModelClass ProcessClass([NotNull] Store store, [NotNull] ClassDeclarationSyntax classDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      private ModelClass ProcessClass([NotNull] ClassDeclarationSyntax classDecl, NamespaceDeclarationSyntax namespaceDecl = null)
       {
          ModelClass result = null;
-
-         if (store == null)
-            throw new ArgumentNullException(nameof(store));
 
          if (classDecl == null)
             throw new ArgumentNullException(nameof(classDecl));
 
-         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          string className = classDecl.Identifier.Text;
 
          if (namespaceDecl == null && classDecl.Parent is NamespaceDeclarationSyntax classDeclParent)
             namespaceDecl = classDeclParent;
 
-         if (store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == className))
+         if (Store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == className))
          {
             ErrorDisplay.Show($"'{className}' already exists in model as an Enum.");
 
@@ -619,15 +551,15 @@ namespace Sawczyn.EFDesigner.EFModel
             return result;
          }
 
-         Transaction tx = store.TransactionManager.CurrentTransaction == null
-                             ? store.TransactionManager.BeginTransaction()
+         Transaction tx = Store.TransactionManager.CurrentTransaction == null
+                             ? Store.TransactionManager.BeginTransaction()
                              : null;
 
          List<string> customInterfaces = new List<string>();
          try
          {
             ModelClass superClass = null;
-            result = store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
+            result = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
 
             // Base classes and interfaces
             // Check these first. If we need to add new models, we want the base class already in the store
@@ -638,11 +570,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   string baseName = type.ToString();
 
                   // Do we know this is an interface?
-                  if (knownInterfaces.Contains(baseName) || superClass != null || result?.Superclass != null)
+                  if (KnownInterfaces.Contains(baseName) || superClass != null || result?.Superclass != null)
                   {
                      customInterfaces.Add(baseName);
-                     if (!knownInterfaces.Contains(baseName))
-                        knownInterfaces.Add(baseName);
+                     if (!KnownInterfaces.Contains(baseName))
+                        KnownInterfaces.Add(baseName);
 
                      continue;
                   }
@@ -651,22 +583,22 @@ namespace Sawczyn.EFDesigner.EFModel
                   superClass = modelRoot.Classes.FirstOrDefault(c => c.Name == baseName);
 
                   // if it's not in the model, we just don't know. Ask the user
-                  if (superClass == null && (knownClasses.Contains(baseName) || QuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true))
+                  if (superClass == null && (KnownClasses.Contains(baseName) || QuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true))
                   {
-                     superClass = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, baseName));
+                     superClass = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, baseName));
                      modelRoot.Classes.Add(superClass);
                   }
                   else
                   {
                      customInterfaces.Add(baseName);
-                     knownInterfaces.Add(baseName);
+                     KnownInterfaces.Add(baseName);
                   }
                }
             }
 
             if (result == null)
             {
-               result = new ModelClass(store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
+               result = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
                {
                   Namespace = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace,
                   IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
@@ -682,7 +614,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                customInterfaces.AddRange(result.CustomInterfaces
                                                .Split(',')
-                                               .Where(i => !string.IsNullOrEmpty(i))
+                                               .Where(i => !String.IsNullOrEmpty(i))
                                                .Select(i => i.Trim()));
             }
 
@@ -696,8 +628,8 @@ namespace Sawczyn.EFDesigner.EFModel
                customInterfaces.Remove(result.Superclass.Name);
 
             result.CustomInterfaces = customInterfaces.Any()
-                                             ? string.Join(",", customInterfaces.Distinct())
-                                             : null;
+                                         ? String.Join(",", customInterfaces.Distinct())
+                                         : null;
 
 
             XMLDocumentation xmlDocumentation = new XMLDocumentation(classDecl);
@@ -718,50 +650,19 @@ namespace Sawczyn.EFDesigner.EFModel
          return result;
       }
 
-   }
-
-   internal class XMLDocumentation
-   {
-      public string Summary { get; }
-      public string Description { get; }
-
-      public XMLDocumentation(SyntaxNode classDecl)
+      public void LoadCache(List<string> textFileList)
       {
-         if (classDecl == null)
-            throw new ArgumentNullException(nameof(classDecl));
+         foreach (string textFile in textFileList)
+            LoadCache(textFile);
 
-         List<DocumentationCommentTriviaSyntax> xmlTrivia = classDecl.GetLeadingTrivia().Select(i => i.GetStructure()).OfType<DocumentationCommentTriviaSyntax>().ToList();
-
-         foreach (DocumentationCommentTriviaSyntax xmlComment in xmlTrivia)
-         {
-            Summary = Extract(xmlComment, "summary");
-            Description = Extract(xmlComment, "remarks");
-         }
+         KnownInterfaces = KnownInterfaces.Distinct().ToList();
       }
 
-      private string Extract(DocumentationCommentTriviaSyntax xmlComment, string tagName)
+      public void LoadCache(string textFile)
       {
-         string extracted = null;
-         XmlElementSyntax summary = xmlComment.ChildNodes().OfType<XmlElementSyntax>().FirstOrDefault(x => x.StartTag.Name.ToString() == tagName);
-
-         if (summary != null)
-         {
-            extracted = string.Empty;
-
-            for (int index = 0; index < summary.Content.Count; index++)
-            {
-               XmlNodeSyntax xmlNodeSyntax = summary.Content[index];
-
-               extracted += (index == 0
-                                ? Clean(xmlNodeSyntax)
-                                : $"\n<p>{Clean(xmlNodeSyntax)}</p>");
-            }
-         }
-
-         return extracted;
+         KnownInterfaces.AddRange(HarvestInterfaces(textFile).Union(new List<string>(new[] {"INotifyPropertyChanged"})));
+         KnownEnums.AddRange(HarvestEnums(textFile));
+         KnownClasses.AddRange(HarvestClasses(textFile));
       }
-
-      private string Clean(XmlNodeSyntax xmlNodeSyntax) => xmlNodeSyntax.ToString().Replace("\r", "").Replace("\n", "").Replace("///", "").Trim();
    }
-
 }

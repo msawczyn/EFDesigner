@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ParsingModels
 {
@@ -7,6 +8,14 @@ namespace ParsingModels
       public ModelClass()
       {
          Properties = new List<ModelProperty>();
+      }
+
+      public string FullName
+      {
+         get
+         {
+            return string.Join(".", (new[] {Namespace, Name}).Where(x => x != null));
+         }
       }
 
       public string Name { get; set; }

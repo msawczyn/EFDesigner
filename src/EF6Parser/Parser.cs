@@ -93,7 +93,9 @@ namespace EF6Parser
             ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
 
             association.SourceClassName = navigationProperty.DeclaringType.Name;
+            association.SourceClassNamespace = navigationProperty.DeclaringType.NamespaceName;
             association.TargetClassName = navigationProperty.ToEndMember.GetEntityType().Name;
+            association.TargetClassNamespace = navigationProperty.ToEndMember.GetEntityType().NamespaceName;
 
             // the property in the source class (referencing the target class)
             association.TargetPropertyTypeName = navigationProperty.ToEndMember.GetEntityType().Name;
@@ -120,7 +122,10 @@ namespace EF6Parser
             ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
 
             association.SourceClassName = navigationProperty.DeclaringType.Name;
+            association.SourceClassNamespace = navigationProperty.DeclaringType.NamespaceName;
             association.TargetClassName = navigationProperty.ToEndMember.GetEntityType().Name;
+            association.TargetClassNamespace = navigationProperty.ToEndMember.GetEntityType().NamespaceName;
+
             NavigationProperty inverse = Inverse(navigationProperty);
 
             // the property in the source class (referencing the target class)
@@ -338,7 +343,6 @@ namespace EF6Parser
          ModelRoot result = new ModelRoot();
          Type contextType = dbContext.GetType();
 
-         result.Name = contextType.Name;
          result.Namespace = contextType.Namespace;
 
          return result;

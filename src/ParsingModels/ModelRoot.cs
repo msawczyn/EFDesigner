@@ -10,7 +10,6 @@ namespace ParsingModels
          Enumerations = new List<ModelEnum>();
       }
 
-      public string Name { get; set; }
       public string Namespace { get; set; }
       public List<ModelClass> Classes { get; set; }
       public List<ModelEnum> Enumerations { get; set; }
