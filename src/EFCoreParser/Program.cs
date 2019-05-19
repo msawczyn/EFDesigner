@@ -16,6 +16,8 @@ namespace EFCoreParser
 
       private static int Main(string[] args)
       {
+         return CANNOT_LOAD_ASSEMBLY;
+
          if (args.Length < 2 || args.Length > 3)
             return BAD_ARGUMENT_COUNT;
 
