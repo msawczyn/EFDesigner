@@ -14,6 +14,9 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementPropertyChanged(e);
 
          ModelEnumValue element = (ModelEnumValue)e.ModelElement;
+         if (element.IsDeleted)
+            return;
+
          ModelEnum modelEnum = element.Enum;
 
          Store store = element.Store;

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 using ParsingModels;
@@ -13,29 +14,61 @@ namespace EFCoreParser
 {
    public class Parser
    {
+      private readonly Assembly assembly;
       private readonly DbContext dbContext;
-
-      public Parser(DbContext dbContext)
+      private IModel model;
+      //Microsoft.EntityFrameworkCore.Metadata.INavigation;
+      public Parser(Assembly assembly, string dbContextTypeName = null)
       {
-         this.dbContext = dbContext;
-      }
+         this.assembly = assembly;
+         Type contextType;
 
-      public static DbContext GetDbContext(Assembly assembly, string dbContextTypeName = null)
-      {
-         DbContext result = null;
-
-         Type contextType = dbContextTypeName != null
-                               ? assembly.GetTypes().FirstOrDefault(t => t.FullName == dbContextTypeName)
-                               : assembly.GetTypes().FirstOrDefault(t => t.IsAssignableFrom(typeof(DbContext)));
-
-         if (contextType != null)
+         if (dbContextTypeName != null)
+            contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
+         else
          {
-            DbContextOptions options = new DbContextOptions<DbContext>();
+            List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
+
+            // ReSharper disable once UnthrowableException
+            if (types.Count != 1)
+               throw new AmbiguousMatchException("Found more than one class derived from DbContext");
+
+            contextType = types[0];
          }
 
-         result = assembly.CreateInstance(dbContextTypeName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
+         ConstructorInfo constructor = contextType.GetConstructor(Type.EmptyTypes);
 
-         return result;
+         // ReSharper disable once UnthrowableException
+         if (constructor == null)
+            throw new MissingMethodException("Can't find default constructor");
+
+         dbContext = assembly.CreateInstance(contextType.FullName) as DbContext;
+         model = dbContext.Model;
+      }
+
+      private static Multiplicity ConvertMultiplicity(RelationshipMultiplicity relationshipMultiplicity)
+      {
+         Multiplicity multiplicity = Multiplicity.ZeroOne;
+
+         switch (relationshipMultiplicity)
+         {
+            case RelationshipMultiplicity.ZeroOrOne:
+               multiplicity = Multiplicity.ZeroOne;
+
+               break;
+
+            case RelationshipMultiplicity.One:
+               multiplicity = Multiplicity.One;
+
+               break;
+
+            case RelationshipMultiplicity.Many:
+               multiplicity = Multiplicity.ZeroMany;
+
+               break;
+         }
+
+         return multiplicity;
       }
 
       public string Process()

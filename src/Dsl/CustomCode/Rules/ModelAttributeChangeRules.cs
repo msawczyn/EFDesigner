@@ -15,6 +15,9 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementPropertyChanged(e);
 
          ModelAttribute element = (ModelAttribute)e.ModelElement;
+         if (element.IsDeleted)
+            return;
+
          ModelClass modelClass = element.ModelClass;
          ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 

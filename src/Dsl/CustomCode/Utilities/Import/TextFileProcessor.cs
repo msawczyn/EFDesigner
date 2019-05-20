@@ -15,17 +15,16 @@ using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public interface FileProcessor
-   {
-      bool Process(string filename);
-   }
-   public class TextFileProcessor: FileProcessor
+   public class TextFileProcessor: IFileProcessor
    {
       private List<string> KnownInterfaces;
 
+
       // ReSharper disable FieldCanBeMadeReadOnly.Local
+#pragma warning disable IDE0044 // Add readonly modifier
       private List<string> KnownClasses;
       private List<string> KnownEnums;
+#pragma warning restore IDE0044 // Add readonly modifier
       // ReSharper restore FieldCanBeMadeReadOnly.Local
 
       private readonly Store Store;
@@ -98,7 +97,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return new List<string>();
       }
 
-      public bool Process([NotNull] string filename)
+      public bool Process(string filename)
       {
          if (String.IsNullOrEmpty(filename))
             throw new ArgumentNullException(nameof(filename));

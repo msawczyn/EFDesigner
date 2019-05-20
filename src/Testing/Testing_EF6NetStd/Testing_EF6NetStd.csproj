@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AllFeatureModel.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AllFeatureModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AllFeatureModel.efmodel.diagram">
+      <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Generated\Entities\" />
+    <Folder Include="Generated\Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AllFeatureModel.cs">
+      <DependentUpon>AllFeatureModel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+# Sawczyn.EFDesigner.EFModel Namespace
+
+<h2>Sawczyn.EFDesigner.EFModel.Dsl Namespace Summary goes here</h2>
+
+
+## Classes
+&nbsp;<table><tr><th></th><th>Class</th><th>Description</th></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_Association">Association</a></td><td>
+DomainRelationship Association Associations between Classes.</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation">BidirectionalAssociation</a></td><td>
+DomainRelationship BidirectionalAssociation</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_Comment">Comment</a></td><td>
+DomainClass Comment</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_DesignElement">DesignElement</a></td><td>
+DomainClass DesignElement Description for Sawczyn.EFDesigner.EFModel.DesignElement</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_Generalization">Generalization</a></td><td>
+DomainRelationship Generalization Inheritance between Classes.</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ModelAttribute">ModelAttribute</a></td><td>
+DomainClass ModelAttribute An attribute of a class.</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ModelClass">ModelClass</a></td><td>
+DomainClass ModelClass</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ModelEnum">ModelEnum</a></td><td>
+DomainClass ModelEnum No description available</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ModelEnumValue">ModelEnumValue</a></td><td>
+DomainClass ModelEnumValue No description available</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ModelRoot">ModelRoot</a></td><td>
+DomainClass ModelRoot</td></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions">MultiplicityExtensions</a></td><td /></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_NavigationProperty">NavigationProperty</a></td><td /></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_NuGetDisplay">NuGetDisplay</a></td><td /></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_NuGetHelper">NuGetHelper</a></td><td /></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_StringExtensions">StringExtensions</a></td><td /></tr><tr><td>![Public class](media/pubclass.gif "Public class")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation">UnidirectionalAssociation</a></td><td>
+DomainRelationship UnidirectionalAssociation</td></tr></table>
+
+## Enumerations
+&nbsp;<table><tr><th></th><th>Enumeration</th><th>Description</th></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_AutomaticAction">AutomaticAction</a></td><td>
+DomainEnumeration: AutomaticAction Description for Sawczyn.EFDesigner.EFModel.AutomaticAction</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_CodeStrategy">CodeStrategy</a></td><td>
+DomainEnumeration: CodeStrategy Which database strategy to use in code generation</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_CollectionType">CollectionType</a></td><td>
+DomainEnumeration: CollectionType No description available</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_Concurrency">Concurrency</a></td><td>
+DomainEnumeration: Concurrency Types of concurrency handling</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ConcurrencyOverride">ConcurrencyOverride</a></td><td>
+DomainEnumeration: ConcurrencyOverride Description for Sawczyn.EFDesigner.EFModel.ConcurrencyOverride</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ContainerAccess">ContainerAccess</a></td><td>
+DomainEnumeration: ContainerAccess</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_DatabaseInitializerKind">DatabaseInitializerKind</a></td><td>
+DomainEnumeration: DatabaseInitializerKind Description for Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_DatabaseKind">DatabaseKind</a></td><td>
+DomainEnumeration: DatabaseKind Database manifest token. Optimization if runtime database type is known and unchanging.</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_DBWorkflow">DBWorkflow</a></td><td>
+DomainEnumeration: DBWorkflow No description available</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_DeleteAction">DeleteAction</a></td><td>
+DomainEnumeration: DeleteAction No description available</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_EFVersion">EFVersion</a></td><td>
+DomainEnumeration: EFVersion Description for Sawczyn.EFDesigner.EFModel.EFVersion</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_EndpointRole">EndpointRole</a></td><td>
+DomainEnumeration: EndpointRole Role a class plays on an association</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_EnumValueType">EnumValueType</a></td><td>
+DomainEnumeration: EnumValueType No description available</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ForeignKeyOwner">ForeignKeyOwner</a></td><td>
+DomainEnumeration: ForeignKeyOwner The class that contains the foreign key in a relationship</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_HTML5Type">HTML5Type</a></td><td>
+DomainEnumeration: HTML5Type Description for Sawczyn.EFDesigner.EFModel.HTML5Type</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_IdentityType">IdentityType</a></td><td>
+DomainEnumeration: IdentityType Describes identity generation</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_InheritanceModifier">InheritanceModifier</a></td><td>
+DomainEnumeration: InheritanceModifier</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_Multiplicity">Multiplicity</a></td><td>
+DomainEnumeration: Multiplicity</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_SetterAccessModifier">SetterAccessModifier</a></td><td>
+DomainEnumeration: SetterAccessModifier Determines attribute setter visibility</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_TypeAccessModifier">TypeAccessModifier</a></td><td>
+DomainEnumeration: TypeAccessModifier</td></tr><tr><td>![Public enumeration](media/pubenumeration.gif "Public enumeration")</td><td><a href="T_Sawczyn_EFDesigner_EFModel_ValueConverter">ValueConverter</a></td><td>
+DomainEnumeration: ValueConverter Available value converters for EFCore (>= 2.1)</td></tr></table>&nbsp;

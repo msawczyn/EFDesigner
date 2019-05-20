@@ -90,7 +90,10 @@ namespace Sawczyn.EFDesigner.EFModel
             using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped assembly"))
             {
                if (assemblyProcessor.Process(filename))
+               {
+                  StatusDisplay.Show("Creating diagram elements...");
                   tx.Commit();
+               }
             }
          }
          else
@@ -98,7 +101,10 @@ namespace Sawczyn.EFDesigner.EFModel
             using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
             {
                if (textFileProcessor.Process(filename))
+               {
+                  StatusDisplay.Show("Creating diagram elements...");
                   tx.Commit();
+               }
             }
          }
       }

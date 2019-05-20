@@ -55,6 +55,9 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementPropertyChanged(e);
 
          Association element = (Association)e.ModelElement;
+         if (element.IsDeleted)
+            return;
+
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
 

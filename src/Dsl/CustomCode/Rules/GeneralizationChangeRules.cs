@@ -13,6 +13,9 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementPropertyChanged(e);
 
          Generalization element = (Generalization)e.ModelElement;
+         if (element.IsDeleted)
+            return;
+
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
 

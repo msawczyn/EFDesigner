@@ -14,6 +14,9 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementPropertyChanged(e);
 
          ModelEnum element = (ModelEnum)e.ModelElement;
+         if (element.IsDeleted)
+            return;
+
          Store store = element.Store;
          Transaction currentTransaction = store.TransactionManager.CurrentTransaction;
          ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();

@@ -1,6 +1,4 @@
-﻿// 
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,7 +15,7 @@ using ParsingModels;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public class AssemblyProcessor : FileProcessor
+   public class AssemblyProcessor : IFileProcessor
    {
       private readonly Store Store;
 
