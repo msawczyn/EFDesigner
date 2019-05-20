@@ -398,7 +398,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
             return $"{identifier} isn't a valid .NET identifier";
 
-         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass ?? targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
+         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass ?? 
+                                          targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
 
          return offendingModelClass != null
                    ? $"Duplicate symbol {identifier} in {offendingModelClass.Name}"

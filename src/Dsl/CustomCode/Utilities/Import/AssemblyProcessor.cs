@@ -106,8 +106,8 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             ProcessProperties(element, data.Properties);
-            ProcessUnidirectionalAssociations(data.UnidirectionalAssociations, modelRoot);
-            ProcessBidirectionalAssociations(data.BidirectionalAssociations, modelRoot);
+            ProcessUnidirectionalAssociations(data.UnidirectionalAssociations);
+            ProcessBidirectionalAssociations(data.BidirectionalAssociations);
          }
       }
 
@@ -144,129 +144,91 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private void ProcessUnidirectionalAssociations(List<ModelUnidirectionalAssociation> unidirectionalAssociations, ModelRoot modelRoot)
+      private void ProcessUnidirectionalAssociations(List<ModelUnidirectionalAssociation> unidirectionalAssociations)
       {
          foreach (ModelUnidirectionalAssociation data in unidirectionalAssociations)
          {
-            ModelClass source = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == data.SourceClassName && c.Namespace == data.SourceClassNamespace);
+            if (Store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>()
+                     .Any(x => x.Target.FullName == data.TargetClassFullName &&
+                               x.Source.FullName == data.SourceClassFullName &&
+                               x.TargetPropertyName == data.TargetPropertyName))
+               continue;
+
+            ModelClass source = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
 
             if (source == null)
-            {
-               source = new ModelClass(Store,
-                                       new PropertyAssignment(ModelClass.NameDomainPropertyId, data.SourceClassName),
-                                       new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, data.SourceClassNamespace));
+               continue;
 
-               modelRoot.Classes.Add(source);
-            }
-
-            ModelClass target = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName && c.Namespace == data.TargetClassNamespace);
+            ModelClass target = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.FullName == data.TargetClassFullName);
 
             if (target == null)
-            {
-               target = new ModelClass(Store,
-                                       new PropertyAssignment(ModelClass.NameDomainPropertyId, data.TargetClassName),
-                                       new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, data.TargetClassNamespace));
-
-               modelRoot.Classes.Add(target);
-            }
+               continue;
 
             // ReSharper disable once UnusedVariable
-            UnidirectionalAssociation element = Store.ElementDirectory
-                                                     .AllElements
-                                                     .OfType<UnidirectionalAssociation>()
-                                                     .FirstOrDefault(x => x.Source == source &&
-                                                                          x.Target == target &&
-                                                                          x.TargetPropertyName == data.TargetPropertyName);
-
-            if (element == null)
-            {
-               element = new UnidirectionalAssociation(Store,
-                                                       new[]
-                                                       {
-                                                          new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source), 
-                                                          new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
-                                                       },
-                                                       new[]
-                                                       {
-                                                          new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
-                                                          new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
-                                                          new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
-                                                          new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
-                                                          new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription)
-                                                       });
-            }
-            else
-            {
-               element.SourceMultiplicity = ConvertMultiplicity(data.SourceMultiplicity);
-               element.TargetMultiplicity = ConvertMultiplicity(data.TargetMultiplicity);
-               element.TargetSummary = data.TargetSummary;
-               element.TargetDescription = data.TargetDescription;
-            }
+            UnidirectionalAssociation element = new UnidirectionalAssociation(Store,
+                                                    new[]
+                                                    {
+                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source), 
+                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
+                                                    },
+                                                    new[]
+                                                    {
+                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
+                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
+                                                       new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
+                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
+                                                       new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription)
+                                                    });
          }
       }
 
-      private void ProcessBidirectionalAssociations(List<ModelBidirectionalAssociation> bidirectionalAssociations, ModelRoot modelRoot)
+      private void ProcessBidirectionalAssociations(List<ModelBidirectionalAssociation> bidirectionalAssociations)
       {
          foreach (ModelBidirectionalAssociation data in bidirectionalAssociations)
          {
-            ModelClass source = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == data.SourceClassName && c.Namespace == data.SourceClassNamespace);
+            if (Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+                     .Any(x => x.Target.FullName == data.TargetClassFullName &&
+                               x.Source.FullName == data.SourceClassFullName &&
+                               x.TargetPropertyName == data.TargetPropertyName &&
+                               x.SourcePropertyName == data.SourcePropertyName))
+               continue;
+
+            if (Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+                     .Any(x => x.Source.FullName == data.TargetClassFullName &&
+                               x.Target.FullName == data.SourceClassFullName &&
+                               x.SourcePropertyName == data.TargetPropertyName &&
+                               x.TargetPropertyName == data.SourcePropertyName))
+               continue;
+
+
+            ModelClass source = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
 
             if (source == null)
-            {
-               source = new ModelClass(Store,
-                                       new PropertyAssignment(ModelClass.NameDomainPropertyId, data.SourceClassName),
-                                       new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, data.SourceClassNamespace));
-               modelRoot.Classes.Add(source);
-            }
+               continue;
 
             ModelClass target = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName && c.Namespace == data.TargetClassNamespace);
 
             if (target == null)
-            {
-               target = new ModelClass(Store,
-                                       new PropertyAssignment(ModelClass.NameDomainPropertyId, data.TargetClassName),
-                                       new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, data.TargetClassNamespace));
-               modelRoot.Classes.Add(target);
-            }
+               continue;
 
             // ReSharper disable once UnusedVariable
-            BidirectionalAssociation element = Store.ElementDirectory
-                                                    .AllElements
-                                                    .OfType<BidirectionalAssociation>()
-                                                    .FirstOrDefault(x => x.Source == source &&
-                                                                         x.Target == target &&
-                                                                         x.TargetPropertyName == data.TargetPropertyName &&
-                                                                         x.SourcePropertyName == data.SourcePropertyName);
-
-            if (element == null)
-            {
-               element = new BidirectionalAssociation(Store,
-                                                      new[]
-                                                      {
-                                                         new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, source),
-                                                         new RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, target)
-                                                      },
-                                                      new[]
-                                                      {
-                                                         new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
-                                                         new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
-                                                         new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
-                                                         new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
-                                                         new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription), 
-                                                         new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName), 
-                                                         new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary), 
-                                                         new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
-                                                      });
-            }
-            else
-            {
-               element.SourceMultiplicity = ConvertMultiplicity(data.SourceMultiplicity);
-               element.TargetMultiplicity = ConvertMultiplicity(data.TargetMultiplicity);
-               element.TargetSummary = data.TargetSummary;
-               element.TargetDescription = data.TargetDescription;
-               element.SourceSummary = data.SourceSummary;
-               element.SourceDescription = data.SourceDescription;
-            }
+            BidirectionalAssociation element = new BidirectionalAssociation(Store,
+                                                   new[]
+                                                   {
+                                                      new RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, source),
+                                                      new RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, target)
+                                                   },
+                                                   new[]
+                                                   {
+                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
+                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
+                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
+                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
+                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription), 
+                                                      new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName), 
+                                                      new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary), 
+                                                      new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
+                                                   });
          }
       }
 
