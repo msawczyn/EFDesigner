@@ -43,9 +43,9 @@ namespace Sawczyn.EFDesigner.EFModel
             throw new ArgumentNullException(nameof(filename));
 
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
-
-         if (TryParseAssembly(filename, "EF6Parser.exe", outputFilename, "Trying EF6") == 0 ||
-             TryParseAssembly(filename, "EFCoreParser.exe", outputFilename, "Trying EFCore") == 0)
+         
+         if (TryParseAssembly(filename, "Parsers\\EF6Parser.exe", outputFilename, "Trying EF6") == 0 ||
+             TryParseAssembly(filename, "Parsers\\EFCoreParser.exe", outputFilename, "Trying EFCore") == 0)
             return ProcessAssemblyData(outputFilename);
 
          return false;
@@ -213,7 +213,13 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          int exitCode;
 
-         ProcessStartInfo processStartInfo = new ProcessStartInfo(Path.Combine(AssemblyDirectory, parserAssembly)) { Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", CreateNoWindow = true, ErrorDialog = false };
+         ProcessStartInfo processStartInfo = new ProcessStartInfo(Path.Combine(AssemblyDirectory, parserAssembly))
+                                             {
+                                                Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", 
+                                                CreateNoWindow = true, 
+                                                ErrorDialog = false,
+                                                UseShellExecute = false
+                                             };
 
          using (Process process = System.Diagnostics.Process.Start(processStartInfo))
          {

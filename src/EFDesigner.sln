@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsl", "Dsl\Dsl.csproj", "{B77C0323-1B94-4CE4-A416-6316EBCBA81C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DslPackage", "DslPackage\DslPackage.csproj", "{AA22BCBD-2B02-4AD1-B8DC-19DFEBFB4436}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D200343-A93F-4966-8861-5274B4328B20} = {6D200343-A93F-4966-8861-5274B4328B20}
+		{C516F1CE-DF41-41FB-AB16-C89706FD4656} = {C516F1CE-DF41-41FB-AB16-C89706FD4656}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AD324C9-3616-47A1-8A44-8A609C803C31}"
 	ProjectSection(SolutionItems) = preProject
@@ -84,7 +88,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metadata Parsing", "Metadat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreParser", "EFCoreParser\EFCoreParser.csproj", "{6D200343-A93F-4966-8861-5274B4328B20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsingModels", "ParsingModels\ParsingModels.csproj", "{DD03B599-6F8F-4BAF-850A-67F52DBD0920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsingModels", "ParsingModels\ParsingModels.csproj", "{DD03B599-6F8F-4BAF-850A-67F52DBD0920}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
