@@ -1,0 +1,633 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+   <Import Project="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\build\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\build\Microsoft.CodeAnalysis.Analyzers.props')" />
+   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\DSLTools\Microsoft.DslTools.settings.targets" />
+   <PropertyGroup>
+      <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+      <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+      <ProductVersion>9.0.20725</ProductVersion>
+      <SchemaVersion>2.0</SchemaVersion>
+      <ProjectGuid>{B77C0323-1B94-4CE4-A416-6316EBCBA81C}</ProjectGuid>
+      <OutputType>Library</OutputType>
+      <AppDesignerFolder>Properties</AppDesignerFolder>
+      <RootNamespace>Sawczyn.EFDesigner.EFModel</RootNamespace>
+      <AssemblyName>Sawczyn.EFDesigner.EFModel.Dsl</AssemblyName>
+      <AssemblyOriginatorKeyFile>..\Key.snk</AssemblyOriginatorKeyFile>
+      <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+      <SignAssembly>true</SignAssembly>
+      <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+      <GacTargetOutput>false</GacTargetOutput>
+      <StartupObject>
+      </StartupObject>
+      <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+      <NuGetPackageImportStamp>
+      </NuGetPackageImportStamp>
+      <TargetFrameworkProfile />
+   </PropertyGroup>
+   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>full</DebugType>
+      <Optimize>false</Optimize>
+      <OutputPath>bin\Debug\</OutputPath>
+      <DefineConstants>DEBUG;TRACE</DefineConstants>
+      <ErrorReport>prompt</ErrorReport>
+      <WarningLevel>4</WarningLevel>
+      <DocumentationFile>
+      </DocumentationFile>
+   </PropertyGroup>
+   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+      <DebugType>pdbonly</DebugType>
+      <Optimize>true</Optimize>
+      <OutputPath>bin\Release\</OutputPath>
+      <DefineConstants>TRACE</DefineConstants>
+      <ErrorReport>prompt</ErrorReport>
+      <WarningLevel>4</WarningLevel>
+      <DocumentationFile>bin\Release\Sawczyn.EFDesigner.EFModel.Dsl.xml</DocumentationFile>
+   </PropertyGroup>
+   <!-- Project specific properties to control T4/DSL targets -->
+   <PropertyGroup>
+      <TransformOnBuild>True</TransformOnBuild>
+   </PropertyGroup>
+   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+   <Import Project="$(DslTargetsPath)\Microsoft.DSLTools.targets" />
+   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+   <ItemGroup>
+      <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+         <EmbedInteropTypes>False</EmbedInteropTypes>
+      </Reference>
+      <Reference Include="GOLD Engine">
+         <HintPath>..\Libraries\GOLD Engine.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.CodeAnalysis, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+         <HintPath>..\packages\Microsoft.CodeAnalysis.Common.3.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+         <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.3.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+         <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.Workspaces.3.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.CodeAnalysis.VisualBasic, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+         <HintPath>..\packages\Microsoft.CodeAnalysis.VisualBasic.3.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+         <HintPath>..\packages\Microsoft.CodeAnalysis.VisualBasic.Workspaces.3.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.CodeAnalysis.Workspaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+         <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.3.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.CSharp" />
+      <Reference Include="Microsoft.Data.ConnectionUI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f4ca07f51760da93, processorArchitecture=MSIL">
+         <HintPath>..\packages\DataConnectionDialog.1.2\lib\Microsoft.Data.ConnectionUI.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.Data.ConnectionUI.Dialog, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f4ca07f51760da93, processorArchitecture=MSIL">
+         <HintPath>..\packages\DataConnectionDialog.1.2\lib\Microsoft.Data.ConnectionUI.Dialog.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.VisualStudio.Modeling.Sdk$(DslToolsVersionSuffix)" />
+      <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams$(DslToolsVersionSuffix)" />
+      <Reference Include="Microsoft.VisualStudio.TextTemplating$(T4VersionSuffix)" />
+      <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0" />
+      <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.11.0" />
+      <Reference Include="Microsoft.VisualStudio.TextTemplating.Modeling$(DslToolsVersionSuffix)" />
+      <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+         <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+         <SpecificVersion>False</SpecificVersion>
+         <Private>False</Private>
+      </Reference>
+      <Reference Include="SQLitePCLRaw.batteries_green, Version=1.1.13.388, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
+         <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.13\lib\net45\SQLitePCLRaw.batteries_green.dll</HintPath>
+      </Reference>
+      <Reference Include="SQLitePCLRaw.batteries_v2, Version=1.1.13.388, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
+         <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.13\lib\net45\SQLitePCLRaw.batteries_v2.dll</HintPath>
+      </Reference>
+      <Reference Include="SQLitePCLRaw.core, Version=1.1.13.388, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+         <HintPath>..\packages\SQLitePCLRaw.core.1.1.13\lib\net45\SQLitePCLRaw.core.dll</HintPath>
+      </Reference>
+      <Reference Include="SQLitePCLRaw.provider.e_sqlite3, Version=1.1.13.388, Culture=neutral, PublicKeyToken=9c301db686d0bd12, processorArchitecture=MSIL">
+         <HintPath>..\packages\SQLitePCLRaw.provider.e_sqlite3.net45.1.1.13\lib\net45\SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
+      </Reference>
+      <Reference Include="System" />
+      <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+      </Reference>
+      <Reference Include="System.ComponentModel.Composition" />
+      <Reference Include="System.Composition.AttributedModel, Version=1.0.33.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Composition.AttributedModel.1.2.0\lib\netstandard2.0\System.Composition.AttributedModel.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Composition.Convention, Version=1.0.33.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Composition.Convention.1.2.0\lib\netstandard2.0\System.Composition.Convention.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Composition.Hosting, Version=1.0.33.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Composition.Hosting.1.2.0\lib\netstandard2.0\System.Composition.Hosting.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Composition.Runtime, Version=1.0.33.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Composition.Runtime.1.2.0\lib\netstandard2.0\System.Composition.Runtime.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Composition.TypedParts, Version=1.0.33.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Composition.TypedParts.1.2.0\lib\netstandard2.0\System.Composition.TypedParts.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Core">
+         <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      </Reference>
+      <Reference Include="System.Data" />
+      <Reference Include="System.Data.Entity.Design" />
+      <Reference Include="System.Design" />
+      <Reference Include="System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Diagnostics.StackTrace, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Diagnostics.StackTrace.4.3.0\lib\net46\System.Diagnostics.StackTrace.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Drawing" />
+      <Reference Include="System.Drawing.Design" />
+      <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      </Reference>
+      <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      </Reference>
+      <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Numerics" />
+      <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Runtime.Extensions, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Runtime.Extensions.4.3.1\lib\net462\System.Runtime.Extensions.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Spatial, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Spatial.5.8.4\lib\net40\System.Spatial.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Text.Encoding.CodePages.4.5.1\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
+      </Reference>
+      <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Windows.Forms" />
+      <Reference Include="System.XML" />
+      <Reference Include="System.Xaml" />
+      <Reference Include="System.Xml.Linq" />
+      <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+         <Private>True</Private>
+         <Private>True</Private>
+      </Reference>
+      <Reference Include="System.Xml.XmlDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Xml.XPath, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Xml.XPath.4.3.0\lib\net46\System.Xml.XPath.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Xml.XPath.XDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+         <HintPath>..\packages\System.Xml.XPath.XDocument.4.3.0\lib\net46\System.Xml.XPath.XDocument.dll</HintPath>
+      </Reference>
+      <Reference Include="WindowsBase">
+         <RequiredTargetFramework>3.0</RequiredTargetFramework>
+      </Reference>
+   </ItemGroup>
+   <ItemGroup>
+      <Compile Include="CustomCode\Extensions\ColorExtensions.cs" />
+      <Compile Include="CustomCode\Extensions\DiagramViewExtensions.cs" />
+      <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />
+      <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
+      <Compile Include="CustomCode\Extensions\MultiplicityExtensions.cs" />
+      <Compile Include="CustomCode\Extensions\StringExtensions.cs" />
+      <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
+      <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
+      <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
+      <Compile Include="CustomCode\Type Descriptors\AssociationTypeDescriptor.cs" />
+      <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />
+      <Compile Include="CustomCode\Connection Builders\BidirectionalAssociationBuilder.cs" />
+      <Compile Include="CustomCode\Partials\BidirectionalConnector.cs" />
+      <Compile Include="CustomCode\Partials\Comment.cs" />
+      <Compile Include="CustomCode\Partials\CommentBoxShape.cs" />
+      <Compile Include="CustomCode\Partials\CommentConnector.cs" />
+      <Compile Include="CustomCode\Partials\EFModelDiagram.cs" />
+      <Compile Include="CustomCode\Partials\EFModelSerializationHelper.cs" />
+      <Compile Include="CustomCode\Partials\EnumShape.cs" />
+      <Compile Include="CustomCode\Partials\EnumShapeBase.cs" />
+      <Compile Include="CustomCode\Partials\Generalization.cs" />
+      <Compile Include="CustomCode\Connection Builders\GeneralizationBuilder.cs" />
+      <Compile Include="CustomCode\Partials\GeneralizationConnector.cs" />
+      <Compile Include="CustomCode\ModelElement Interfaces\IDisplaysWarning.cs" />
+      <Compile Include="CustomCode\ModelElement Interfaces\IHighlightFromModelExplorer.cs" />
+      <Compile Include="CustomCode\ModelElement Interfaces\IModelElementInCompartment.cs" />
+      <Compile Include="CustomCode\ModelElement Interfaces\IModelElementWithCompartments.cs" />
+      <Compile Include="CustomCode\ModelElement Interfaces\IMouseActionTarget.cs" />
+      <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
+      <Compile Include="CustomCode\Rules\GeneralizationDeletingRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelClassDeletingRules.cs" />
+      <Compile Include="CustomCode\Type Descriptors\ModelAttributeTypeDescriptor.cs" />
+      <Compile Include="CustomCode\Partials\ModelEnum.cs" />
+      <Compile Include="CustomCode\Type Descriptors\ModelEnumTypeDescriptor.cs" />
+      <Compile Include="CustomCode\Partials\ModelEnumValue.cs" />
+      <Compile Include="CustomCode\Partials\ModelRoot.cs" />
+      <Compile Include="CustomCode\Type Descriptors\ModelRootTypeDescriptor.cs" />
+      <Compile Include="CustomCode\Connection Builders\UnidirectionalAssociationBuilder.cs" />
+      <Compile Include="CustomCode\Rules\ModelAttributeAddRules.cs" />
+      <Compile Include="CustomCode\Utilities\Import\AssemblyProcessor.cs" />
+      <Compile Include="CustomCode\Utilities\Import\FileDropHelper.cs" />
+      <Compile Include="CustomCode\Utilities\Import\TextFileProcessor.cs" />
+      <Compile Include="CustomCode\Utilities\Import\XMLDocumentation.cs" />
+      <Compile Include="CustomCode\Utilities\ModelMigration.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetDisplay.cs" />
+      <Compile Include="CustomCode\Partials\UnidirectionalConnector.cs" />
+      <Compile Include="CustomCode\Rules\AssociationAddRules.cs" />
+      <Compile Include="CustomCode\Rules\AssociationChangeRules.cs" />
+      <Compile Include="CustomCode\Rules\CommonRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelEnumValueAddRules.cs" />
+      <Compile Include="CustomCode\Rules\GeneralizationAddRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelAttributeChangeRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelClassAddRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelClassChangeRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelEnumChangeRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelEnumValueChangeRules.cs" />
+      <Compile Include="CustomCode\Rules\ModelRootChangeRules.cs" />
+      <Compile Include="CustomCode\Rules\RuleRegistrations.cs" />
+      <Compile Include="CustomCode\ModelAttribute Parser\AttributeParser.cs" />
+      <Compile Include="CustomCode\Utilities\PresentationHelper.cs" />
+      <Compile Include="CustomCode\Utilities\QuestionDisplay.cs" />
+      <Compile Include="CustomCode\Type Converters\BaseClassTypeConverter.cs" />
+      <Compile Include="CustomCode\Type Converters\CollectionTypeTypeConverter.cs" />
+      <Compile Include="CustomCode\Type Descriptors\ModelClassTypeDescriptor.cs" />
+      <Compile Include="CustomCode\Utilities\ConnectionStringEditor.cs" />
+      <Compile Include="CustomCode\Utilities\EFCoreValidator.cs" />
+      <Compile Include="CustomCode\Type Converters\EFPackageVersionTypeConverter.cs" />
+      <Compile Include="CustomCode\Utilities\ErrorDisplay.cs" />
+      <Compile Include="CustomCode\Type Converters\IdentityAttributeTypeTypeConverter.cs" />
+      <Compile Include="CustomCode\Name Providers\ModelAttributeNameProvider.cs" />
+      <Compile Include="CustomCode\Name Providers\ModelClassNameProvider.cs" />
+      <Compile Include="CustomCode\Name Providers\ModelEnumNameProvider.cs" />
+      <Compile Include="CustomCode\Type Converters\MultiplicityTypeConverter.cs" />
+      <Compile Include="CustomCode\Type Converters\NavigationEndpointTypeConverter.cs" />
+      <Compile Include="CustomCode\Utilities\NavigationProperty.cs" />
+      <Compile Include="CustomCode\Type Converters\AttributeTypeTypeConverter.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\Context.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\Converter.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetPackages.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\PackageData.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\Serialize.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnum.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnumConverter.cs" />
+      <Compile Include="CustomCode\Utilities\Nuget\Models\Version.cs" />
+      <Compile Include="CustomCode\Type Converters\ProjectDirectoryTypeConverter.cs" />
+      <Compile Include="CustomCode\Type Converters\SourceMultiplicityTypeConverter.cs" />
+      <Compile Include="CustomCode\Type Converters\TargetMultiplicityTypeConverter.cs" />
+      <Compile Include="CustomCode\Utilities\StatusDisplay.cs" />
+      <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />
+      <Compile Include="CustomCode\Partials\EFModelSerializationHelperBase.cs" />
+      <Compile Include="CustomCode\Type Converters\TypeConverterBase.cs" />
+      <Compile Include="CustomCode\Utilities\WarningDisplay.cs" />
+      <Compile Include="GeneratedCode\DomainClasses.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>DomainClasses.tt</DependentUpon>
+      </Compile>
+      <Compile Include="GeneratedCode\Serializer.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>Serializer.tt</DependentUpon>
+      </Compile>
+      <Compile Include="MefExtension\GestureExtensionEnablement.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>GestureExtensionEnablement.tt</DependentUpon>
+      </Compile>
+      <Compile Include="MefExtension\GestureExtensionController.cs">
+         <DependentUpon>GestureExtensionController.tt</DependentUpon>
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+      </Compile>
+      <Compile Include="MefExtension\DesignerExtensionMetaDataAttribute.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>DesignerExtensionMetaDataAttribute.tt</DependentUpon>
+      </Compile>
+      <Compile Include="Properties\Annotations.cs" />
+      <Compile Include="Resources.Designer.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+      <None Include="..\Key.snk">
+         <Link>Key.snk</Link>
+      </None>
+      <None Include="app.config" />
+      <None Include="CustomCode\ModelAttribute Parser\AttributeGrammar.egt" />
+      <None Include="GeneratedCode\SerializationHelper.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>SerializationHelper.cs</LastGenOutput>
+      </None>
+      <Compile Include="CustomCode\Partials\Association.cs" />
+      <Compile Include="CustomCode\Partials\ClassShapeBase.cs" />
+      <Compile Include="CustomCode\Partials\ClassShape.cs" />
+      <Compile Include="CustomCode\Rules\GeneralizationChangeRules.cs" />
+      <Compile Include="CustomCode\Partials\ModelClass.cs" />
+      <Compile Include="GeneratedCode\ConnectionBuilders.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>ConnectionBuilders.tt</DependentUpon>
+      </Compile>
+      <Compile Include="GeneratedCode\Connectors.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>Connectors.tt</DependentUpon>
+      </Compile>
+      <Compile Include="GeneratedCode\Diagram.cs">
+         <DependentUpon>Diagram.tt</DependentUpon>
+         <SubType>Code</SubType>
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Include="GeneratedCode\DirectiveProcessor.cs">
+         <DependentUpon>DirectiveProcessor.tt</DependentUpon>
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Include="GeneratedCode\DomainRelationships.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>DomainRelationships.tt</DependentUpon>
+      </Compile>
+      <Compile Include="GeneratedCode\HelpKeywordHelper.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>HelpKeywordHelper.tt</DependentUpon>
+      </Compile>
+      <Compile Include="GeneratedCode\MultiplicityValidation.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>MultiplicityValidation.tt</DependentUpon>
+      </Compile>
+      <Compile Include="GeneratedCode\PropertiesGrid.cs">
+         <DependentUpon>PropertiesGrid.tt</DependentUpon>
+         <SubType>Code</SubType>
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Include="GeneratedCode\SerializationHelper.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>SerializationHelper.tt</DependentUpon>
+      </Compile>
+      <Compile Include="GeneratedCode\Shapes.cs">
+         <DependentUpon>Shapes.tt</DependentUpon>
+         <SubType>Code</SubType>
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Include="GeneratedCode\ToolboxHelper.cs">
+         <DependentUpon>ToolboxHelper.tt</DependentUpon>
+         <SubType>Code</SubType>
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Include="GlobalSuppressions.cs" />
+      <Compile Include="Properties\AssemblyInfo.cs" />
+      <Compile Include="GeneratedCode\DomainModel.cs">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>DomainModel.tt</DependentUpon>
+      </Compile>
+   </ItemGroup>
+   <ItemGroup>
+      <Content Include="Resources\cardinality-0-0.png" />
+      <Content Include="Resources\cardinality-0-1.png" />
+      <Content Include="Resources\cardinality-0-many.png" />
+      <Content Include="Resources\cardinality-1-0.png" />
+      <Content Include="Resources\cardinality-1-1.png" />
+      <Content Include="Resources\cardinality-1-many.png" />
+      <Content Include="Resources\cardinality-many-0.png" />
+      <Content Include="Resources\cardinality-many-1.png" />
+      <Content Include="Resources\cardinality-many-many.png" />
+      <Content Include="Resources\EnumValue.png" />
+      <None Include="Resources\Move.cur" />
+      <Content Include="Resources\Warning.png" />
+      <None Include="DslDefinition.dsl.diagram">
+         <DependentUpon>DslDefinition.dsl</DependentUpon>
+      </None>
+      <None Include="GeneratedCode\ConnectionBuilders.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>ConnectionBuilders.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\Diagram.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>Diagram.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\DirectiveProcessor.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>DirectiveProcessor.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\DomainRelationships.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>DomainRelationships.cs</LastGenOutput>
+      </None>
+      <None Include="DslDefinition.dsl">
+         <SubType>Designer</SubType>
+      </None>
+      <None Include="GeneratedCode\Connectors.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>Connectors.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\DomainClasses.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>DomainClasses.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\DomainModelResx.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>DomainModelResx.resx</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\HelpKeywordHelper.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>HelpKeywordHelper.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\MultiplicityValidation.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>MultiplicityValidation.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\PropertiesGrid.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>PropertiesGrid.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\EFModelSchema.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>EFModelSchema.xsd</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\DomainModel.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>DomainModel.cs</LastGenOutput>
+      </None>
+      <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
+         <Link>CodeAnalysisDictionary.xml</Link>
+      </CodeAnalysisDictionary>
+      <Content Include="GeneratedCode\EFModelSchema.xsd">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>EFModelSchema.tt</DependentUpon>
+         <SubType>
+         </SubType>
+         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="MefExtension\GestureExtensionController.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>GestureExtensionController.cs</LastGenOutput>
+      </Content>
+      <Content Include="MefExtension\DesignerExtensionMetaDataAttribute.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>DesignerExtensionMetaDataAttribute.cs</LastGenOutput>
+      </Content>
+      <Content Include="MefExtension\GestureExtensionEnablement.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>GestureExtensionEnablement.cs</LastGenOutput>
+      </Content>
+      <Content Include="Resources\AbstractEntityGlyph.png" />
+      <Content Include="Resources\Association.bmp" />
+      <Content Include="Resources\AssociationLinkTool.bmp" />
+      <Content Include="Resources\AssociationTool.bmp" />
+      <Content Include="Resources\Attribute.bmp" />
+      <Content Include="Resources\Calculated.png" />
+      <Content Include="Resources\CalculatedInternal.png" />
+      <Content Include="Resources\CalculatedProtected.png" />
+      <Content Include="Resources\CommentLinkTool.bmp" />
+      <Content Include="Resources\CommentTool.bmp" />
+      <Content Include="Resources\EntityGlyph.bmp" />
+      <Content Include="Resources\EnumTool.bmp" />
+      <Content Include="Resources\EnumValue.bmp" />
+      <Content Include="Resources\File.ico" />
+      <Content Include="Resources\GeneralizationTool.bmp" />
+      <Content Include="Resources\Internal.png" />
+      <Content Include="Resources\MultipleAssociationTool.bmp" />
+      <Content Include="Resources\Identity.png" />
+      <Content Include="Resources\Protected.png" />
+      <Content Include="Resources\Public.png" />
+      <Content Include="Resources\Spacer.png" />
+      <Content Include="Resources\UnidirectionTool.bmp" />
+      <None Include="GeneratedCode\Serializer.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>Serializer.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\Shapes.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>Shapes.cs</LastGenOutput>
+      </None>
+      <None Include="GeneratedCode\ToolboxHelper.tt">
+         <Generator>TextTemplatingFileGenerator</Generator>
+         <LastGenOutput>ToolboxHelper.cs</LastGenOutput>
+      </None>
+      <None Include="CustomCode\ModelAttribute Parser\AttributeGrammar.grm" />
+      <None Include="packages.config" />
+   </ItemGroup>
+   <ItemGroup>
+      <Service Include="{508349B6-6B84-4df5-91F0-309BEEBAD82D}" />
+   </ItemGroup>
+   <ItemGroup>
+      <EmbeddedResource Include="GeneratedCode\DomainModelResx.resx">
+         <AutoGen>True</AutoGen>
+         <DesignTime>True</DesignTime>
+         <DependentUpon>DomainModelResx.tt</DependentUpon>
+         <SubType>Designer</SubType>
+      </EmbeddedResource>
+      <EmbeddedResource Include="Resources.resx">
+         <Generator>ResXFileCodeGenerator</Generator>
+         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+         <SubType>Designer</SubType>
+      </EmbeddedResource>
+   </ItemGroup>
+   <ItemGroup>
+      <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+      <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+   </ItemGroup>
+   <ItemGroup>
+      <ProjectReference Include="..\ParsingModels\ParsingModels.csproj">
+         <Project>{dd03b599-6f8f-4baf-850a-67f52dbd0920}</Project>
+         <Name>ParsingModels</Name>
+      </ProjectReference>
+   </ItemGroup>
+   <PropertyGroup>
+   </PropertyGroup>
+   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+      <PropertyGroup>
+         <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      </PropertyGroup>
+      <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\build\Microsoft.CodeAnalysis.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.1\build\Microsoft.CodeAnalysis.Analyzers.props'))" />
+      <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets'))" />
+      <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets'))" />
+      <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets'))" />
+   </Target>
+   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />
+   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets')" />
+   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets')" />
+</Project>

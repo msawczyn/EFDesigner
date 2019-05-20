@@ -36,9 +36,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetValueImage(ModelElement element)
       {
+         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          if (element is ModelEnumValue enumValue)
          {
-            return enumValue.Enum.ModelRoot.ShowWarningsInDesigner && enumValue.GetHasWarningValue()
+            return modelRoot.ShowWarningsInDesigner && enumValue.GetHasWarningValue()
                       ? Resources.Warning
                       : Resources.EnumValue;
          }

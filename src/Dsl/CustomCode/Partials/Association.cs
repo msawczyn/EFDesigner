@@ -199,10 +199,9 @@ namespace Sawczyn.EFDesigner.EFModel
          internal void ResetValue(Association element)
          {
             object calculatedValue = null;
-
             try
             {
-               ModelRoot modelRoot = element.Source.ModelRoot ?? element.Target.ModelRoot;
+               ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
                calculatedValue = modelRoot.DefaultCollectionClass;
             }
             catch (NullReferenceException) { }

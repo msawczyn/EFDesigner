@@ -16,7 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ModelAttribute element = (ModelAttribute)e.ModelElement;
          ModelClass modelClass = element.ModelClass;
-         ModelRoot modelRoot = modelClass.ModelRoot;
+         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
@@ -210,7 +210,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   try
                   {
-                     fragment = ModelAttribute.Parse(element.ModelClass.ModelRoot, newName);
+                     fragment = ModelAttribute.Parse(modelRoot, newName);
 
                      if (fragment == null)
                         errorMessages.Add($"{modelClass.Name}: Could not parse entry '{newName}'");
