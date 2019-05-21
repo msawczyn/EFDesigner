@@ -19,7 +19,7 @@ namespace EFCoreParser
       /// <returns>List of PropertyInfo of Navigation Properties</returns>
       public static IEnumerable<PropertyInfo> GetNavigationProperties<T>(this IModel model, RelationshipMultiplicity multiplicity)
       {
-         var navigations = model.GetEntityTypes().FirstOrDefault(m => m.ClrType == typeof(T))?.GetNavigations();
+         IEnumerable<INavigation> navigations = model.GetEntityTypes().FirstOrDefault(m => m.ClrType == typeof(T))?.GetNavigations();
 
          switch (multiplicity)
          {
@@ -38,6 +38,22 @@ namespace EFCoreParser
             default:
                return null;
          }
+      }
+
+      public static RelationshipMultiplicity GetTargetMultiplicity(this INavigation navigation)
+      {
+         if (navigation.IsCollection())
+            return RelationshipMultiplicity.Many;
+
+         if (navigation.ForeignKey.IsRequired)
+            return RelationshipMultiplicity.One;
+
+         return RelationshipMultiplicity.ZeroOrOne;
+      }
+
+      public static RelationshipMultiplicity GetSourceMultiplicity(this INavigation navigation)
+      {
+         return RelationshipMultiplicity.ZeroOrOne;
       }
    }
 }

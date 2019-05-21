@@ -375,7 +375,7 @@ namespace Sawczyn.EFDesigner.EFModel
             PresentationViewsSubject.GetPresentation(element)
                                     .OfType<AssociationConnector>()
                                     .Where(connector => (persistent && connector.Color != Color.Black) ||
-                                                        (!persistent && connector.Color != Color.DarkGray))
+                                                        (!persistent && connector.Color != Color.Gray))
                                     .ToList();
 
          List<AssociationConnector> changeStyle =
@@ -388,7 +388,7 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (AssociationConnector connector in changeColors)
             connector.Color = persistent
                                  ? Color.Black
-                                 : Color.DarkGray;
+                                 : Color.Gray;
 
          foreach (AssociationConnector connector in changeStyle)
             connector.DashStyle = persistent
