@@ -122,6 +122,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context.cs" />
     <Compile Include="Generated\Context\AllFeatureModel.generated.cs" />
     <Compile Include="Generated\Entities\AbstractBaseClass.generated.cs" />
     <Compile Include="Generated\Entities\AllPropertyTypesOptional.generated.cs" />

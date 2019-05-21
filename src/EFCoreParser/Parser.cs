@@ -37,13 +37,19 @@ namespace EFCoreParser
             contextType = types[0];
          }
 
-         ConstructorInfo constructor = contextType.GetConstructor(Type.EmptyTypes);
+         Type optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(contextType);
+         DbContextOptionsBuilder optionsBuilder = Activator.CreateInstance(optionsBuilderType) as DbContextOptionsBuilder;
+
+         Type optionsType = typeof(DbContextOptions<>).MakeGenericType(contextType);
+         DbContextOptions options = optionsBuilder.UseInMemoryDatabase("Parser").Options;
+
+         ConstructorInfo constructor = contextType.GetConstructor(new[] { optionsType });
 
          // ReSharper disable once UnthrowableException
          if (constructor == null)
-            throw new MissingMethodException("Can't find default constructor");
+            throw new MissingMethodException("Can't find appropriate constructor");
 
-         dbContext = assembly.CreateInstance(contextType.FullName) as DbContext;
+         dbContext = assembly.CreateInstance(contextType.FullName, true, BindingFlags.Default, null, new object[] { options }, null, null) as DbContext;
          model = dbContext.Model;
       }
 
@@ -203,6 +209,7 @@ namespace EFCoreParser
                                       ? string.Join(",", entityType.ClrType.GetInterfaces().Select(t => t.FullName))
                                       : null;
 
+         // TODO continue here
          result.Properties = entityType.GetProperties().Where(p => !p.IsShadowProperty).Select(p => ProcessProperty(p, modelRoot)).Where(x => x != null).ToList();
          result.UnidirectionalAssociations = GetUnidirectionalAssociations(entityType);
          result.BidirectionalAssociations = GetBidirectionalAssociations(entityType);
@@ -229,7 +236,7 @@ namespace EFCoreParser
                                          : null;
 
             result.Values = Enum.GetNames(enumType)
-                                .Select(name => new ModelEnumValue {Name = name, Value = Enum.Parse(enumType, name).ToString()})
+                                .Select(name => new ModelEnumValue { Name = name, Value = Enum.Parse(enumType, name).ToString() })
                                 .ToList();
 
             modelRoot.Enumerations.Add(result);

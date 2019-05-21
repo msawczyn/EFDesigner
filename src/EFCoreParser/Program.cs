@@ -79,7 +79,7 @@ namespace EFCoreParser
          Console.Error.WriteLine("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
          Console.Error.WriteLine("   (required) OutputFileName          - path to create JSON file of results");
          Console.Error.WriteLine("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
-         Console.Error.WriteLine("                                        DbContext class must have a constructor that takes no parameters");
+         Console.Error.WriteLine("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
          Console.Error.WriteLine();
 
          Environment.Exit(returnCode);
