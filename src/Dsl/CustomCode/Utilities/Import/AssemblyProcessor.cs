@@ -60,6 +60,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
+         modelRoot.EntityContainerName = rootData.EntityContainerName;
          modelRoot.Namespace = rootData.Namespace;
 
          ProcessClasses(modelRoot, rootData.Classes);

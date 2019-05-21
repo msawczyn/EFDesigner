@@ -1,8 +1,10 @@
 ﻿// https://stackoverflow.com/questions/54968182/ef-core-get-navigation-properties-of-an-entity-from-model-with-multiplicity-zero
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -41,7 +43,7 @@ namespace EFCoreParser
          }
       }
 
-      public static RelationshipMultiplicity GetTargetMultiplicity(this INavigation navigation, IEntityType sourcEntityType)
+      public static RelationshipMultiplicity GetTargetMultiplicity(this INavigation navigation)
       {
          if (navigation.IsCollection())
             return RelationshipMultiplicity.Many;
@@ -52,10 +54,32 @@ namespace EFCoreParser
          return RelationshipMultiplicity.ZeroOrOne;
       }
 
-      public static RelationshipMultiplicity GetSourceMultiplicity(this INavigation navigation, IEntityType sourcEntityType)
+      public static RelationshipMultiplicity GetSourceMultiplicity(this INavigation navigation)
       {
          return RelationshipMultiplicity.ZeroOrOne;
+
+         INavigation inverse = navigation.IsDependentToPrincipal()
+                                  ? navigation.ForeignKey.PrincipalToDependent
+                                  : navigation.ForeignKey.DependentToPrincipal;
+
+         return GetTargetMultiplicity(inverse);
+
          //navigation.ForeignKey.PrincipalEntityType;
+      }
+
+      public static Type Unwrap(this Type type)
+      {
+         if (type.IsGenericType &&
+             (type.GetGenericTypeDefinition() == typeof(Nullable<>) ||
+              type.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
+              type.GetGenericTypeDefinition() == typeof(ICollection<>)))
+            type = type.GetGenericArguments()[0];
+         return type;
+      }
+
+      public static IEntityType GetSourceType(this INavigation navigation)
+      {
+         return navigation.DeclaringType as IEntityType;
       }
    }
 }

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using ParsingModels;
 
 // ReSharper disable UseObjectOrCollectionInitializer
+#pragma warning disable IDE0017 // Simplify object initialization
 
 namespace EFCoreParser
 {
@@ -78,6 +79,43 @@ namespace EFCoreParser
          return multiplicity;
       }
 
+      #region Associations
+
+      private List<ModelUnidirectionalAssociation> GetUnidirectionalAssociations(IEntityType entityType)
+      {
+         List<ModelUnidirectionalAssociation> result = new List<ModelUnidirectionalAssociation>();
+
+         foreach (INavigation navigationProperty in entityType.GetNavigations().Where(n => n.FindInverse() == null))
+         {
+            ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
+
+            association.SourceClassName = navigationProperty.DeclaringType.ClrType.Name;
+            association.SourceClassNamespace = navigationProperty.DeclaringType.ClrType.Namespace;
+
+            Type targetType = navigationProperty.GetTargetType().ClrType.Unwrap();
+            association.TargetClassName = targetType.Name;
+            association.TargetClassNamespace = targetType.Namespace;
+
+            // the property in the source class (referencing the target class)
+            association.TargetPropertyTypeName = navigationProperty.PropertyInfo.PropertyType.Name;
+            association.TargetPropertyName = navigationProperty.Name;
+            association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.GetTargetMultiplicity());
+
+            //association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
+            //association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
+
+            // the property in the target class (referencing the source class)
+            association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.GetSourceMultiplicity());
+
+            //association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
+            //association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
+
+            result.Add(association);
+         }
+
+         return result;
+      }
+
       private List<ModelBidirectionalAssociation> GetBidirectionalAssociations(IEntityType entityType)
       {
          List<ModelBidirectionalAssociation> result = new List<ModelBidirectionalAssociation>();
@@ -86,10 +124,13 @@ namespace EFCoreParser
          {
             ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
 
-            association.SourceClassName = navigationProperty.DeclaringType.Name;
-            association.SourceClassNamespace = navigationProperty.DeclaringType.ClrType.Namespace;
-            association.TargetClassName = navigationProperty.ClrType.Name;
-            association.TargetClassNamespace = navigationProperty.ClrType.Namespace;
+            Type sourceType = navigationProperty.GetSourceType().ClrType.Unwrap();
+            association.SourceClassName = sourceType.Name;
+            association.SourceClassNamespace = sourceType.Namespace;
+         
+            Type targetType = navigationProperty.GetTargetType().ClrType.Unwrap();
+            association.TargetClassName = targetType.Name;
+            association.TargetClassNamespace = targetType.Namespace;
 
             INavigation inverse = navigationProperty.FindInverse();
 
@@ -115,6 +156,8 @@ namespace EFCoreParser
          return result;
       }
 
+      #endregion
+
       private static string GetCustomAttributes(Type type)
       {
          return type == null
@@ -133,50 +176,6 @@ namespace EFCoreParser
          customAttributes.Remove("[System.FlagsAttribute()]");
 
          return string.Join("", customAttributes);
-      }
-
-      private Type GetTargetType(INavigation navigation)
-      {
-         Type type = navigation.ClrType;
-         if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>) || 
-                                    type.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
-            type = type.GetGenericArguments()[0];
-         return type;
-      }
-
-      private List<ModelUnidirectionalAssociation> GetUnidirectionalAssociations(IEntityType entityType)
-      {
-         List<ModelUnidirectionalAssociation> result = new List<ModelUnidirectionalAssociation>();
-
-         foreach (INavigation navigationProperty in entityType.GetNavigations().Where(n => n.FindInverse() == null))
-         {
-            ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
-
-            association.SourceClassName = navigationProperty.DeclaringType.ClrType.Name;
-            association.SourceClassNamespace = navigationProperty.DeclaringType.ClrType.Namespace;
-
-            Type targetType = GetTargetType(navigationProperty);
-            association.TargetClassName = targetType.Name;
-            association.TargetClassNamespace = targetType.Namespace;
-
-            // the property in the source class (referencing the target class)
-            association.TargetPropertyTypeName = navigationProperty.PropertyInfo.PropertyType.Name;
-            association.TargetPropertyName = navigationProperty.Name;
-            association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.GetTargetMultiplicity(entityType));
-
-            //association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
-            //association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
-
-            // the property in the target class (referencing the source class)
-            association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.GetSourceMultiplicity(entityType));
-
-            //association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
-            //association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
-
-            result.Add(association);
-         }
-
-         return result;
       }
 
       public string Process()
@@ -231,7 +230,6 @@ namespace EFCoreParser
 
       private void ProcessEnum(Type enumType, ModelRoot modelRoot)
       {
-         FlagsAttribute flagsAttr = enumType.GetTypeInfo().GetCustomAttribute(typeof(FlagsAttribute)) as FlagsAttribute;
          string customAttributes = GetCustomAttributes(enumType);
 
          ModelEnum result = new ModelEnum();
@@ -240,7 +238,7 @@ namespace EFCoreParser
 
          if (modelRoot.Enumerations.All(e => e.FullName != result.FullName))
          {
-            result.IsFlags = flagsAttr != null;
+            result.IsFlags = enumType.GetTypeInfo().GetCustomAttribute(typeof(FlagsAttribute)) is FlagsAttribute ;
             result.ValueType = Enum.GetUnderlyingType(enumType).Name;
 
             result.CustomAttributes = customAttributes.Length > 2

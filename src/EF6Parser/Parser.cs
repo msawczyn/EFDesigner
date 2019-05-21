@@ -343,6 +343,7 @@ namespace EF6Parser
          ModelRoot result = new ModelRoot();
          Type contextType = dbContext.GetType();
 
+         result.EntityContainerName = contextType.Name;
          result.Namespace = contextType.Namespace;
 
          return result;
