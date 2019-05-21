@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace EFCoreParser
 {
@@ -40,7 +41,7 @@ namespace EFCoreParser
          }
       }
 
-      public static RelationshipMultiplicity GetTargetMultiplicity(this INavigation navigation)
+      public static RelationshipMultiplicity GetTargetMultiplicity(this INavigation navigation, IEntityType sourcEntityType)
       {
          if (navigation.IsCollection())
             return RelationshipMultiplicity.Many;
@@ -51,9 +52,10 @@ namespace EFCoreParser
          return RelationshipMultiplicity.ZeroOrOne;
       }
 
-      public static RelationshipMultiplicity GetSourceMultiplicity(this INavigation navigation)
+      public static RelationshipMultiplicity GetSourceMultiplicity(this INavigation navigation, IEntityType sourcEntityType)
       {
          return RelationshipMultiplicity.ZeroOrOne;
+         //navigation.ForeignKey.PrincipalEntityType;
       }
    }
 }

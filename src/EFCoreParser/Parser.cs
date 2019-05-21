@@ -125,14 +125,23 @@ namespace EFCoreParser
       private static string GetCustomAttributes(IEnumerable<CustomAttributeData> customAttributeData)
       {
          List<string> customAttributes = customAttributeData.Select(a => a.ToString()).ToList();
-         //customAttributes.Remove("[System.SerializableAttribute()]");
-         //customAttributes.Remove("[System.Runtime.InteropServices.ComVisibleAttribute((Boolean)True)]");
-         //customAttributes.Remove("[__DynamicallyInvokableAttribute()]");
-         //customAttributes.Remove("[System.Reflection.DefaultMemberAttribute(\"Chars\")]");
-         //customAttributes.Remove("[System.Runtime.Versioning.NonVersionableAttribute()]");
-         //customAttributes.Remove("[System.FlagsAttribute()]");
+         customAttributes.Remove("[System.SerializableAttribute()]");
+         customAttributes.Remove("[System.Runtime.CompilerServices.TypeForwardedFromAttribute(\"mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\")]");
+         customAttributes.Remove("[__DynamicallyInvokableAttribute()]");
+         customAttributes.Remove("[System.Reflection.DefaultMemberAttribute(\"Chars\")]");
+         customAttributes.Remove("[System.Runtime.Versioning.NonVersionableAttribute()]");
+         customAttributes.Remove("[System.FlagsAttribute()]");
 
          return string.Join("", customAttributes);
+      }
+
+      private Type GetTargetType(INavigation navigation)
+      {
+         Type type = navigation.ClrType;
+         if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>) || 
+                                    type.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+            type = type.GetGenericArguments()[0];
+         return type;
       }
 
       private List<ModelUnidirectionalAssociation> GetUnidirectionalAssociations(IEntityType entityType)
@@ -143,21 +152,23 @@ namespace EFCoreParser
          {
             ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
 
-            association.SourceClassName = navigationProperty.DeclaringType.Name;
+            association.SourceClassName = navigationProperty.DeclaringType.ClrType.Name;
             association.SourceClassNamespace = navigationProperty.DeclaringType.ClrType.Namespace;
-            association.TargetClassName = navigationProperty.ClrType.Name;
-            association.TargetClassNamespace = navigationProperty.ClrType.Namespace;
+
+            Type targetType = GetTargetType(navigationProperty);
+            association.TargetClassName = targetType.Name;
+            association.TargetClassNamespace = targetType.Namespace;
 
             // the property in the source class (referencing the target class)
             association.TargetPropertyTypeName = navigationProperty.PropertyInfo.PropertyType.Name;
             association.TargetPropertyName = navigationProperty.Name;
-            association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.GetTargetMultiplicity());
+            association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.GetTargetMultiplicity(entityType));
 
             //association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
             //association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
 
             // the property in the target class (referencing the source class)
-            association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.GetSourceMultiplicity());
+            association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.GetSourceMultiplicity(entityType));
 
             //association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
             //association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
@@ -192,21 +203,22 @@ namespace EFCoreParser
       private ModelClass ProcessEntity(IEntityType entityType, ModelRoot modelRoot)
       {
          ModelClass result = new ModelClass();
+         Type type = entityType.ClrType;
 
-         result.Name = entityType.Name;
-         result.Namespace = entityType.ClrType.Namespace;
-         result.IsAbstract = entityType.ClrType.IsAbstract;
+         result.Name = type.Name;
+         result.Namespace = type.Namespace;
+         result.IsAbstract = type.IsAbstract;
 
-         result.BaseClass = entityType.ClrType.BaseType.Name == "System.Object"
+         result.BaseClass = type.BaseType.FullName == "System.Object"
                                ? null
-                               : entityType.ClrType.BaseType.Name;
+                               : type.BaseType.Name;
 
-         result.TableName = dbContext.Model.FindEntityType(entityType.ClrType).Relational().TableName;
+         result.TableName = entityType.Relational().TableName;
          result.IsDependentType = entityType.IsOwned();
-         result.CustomAttributes = GetCustomAttributes(entityType.ClrType.CustomAttributes);
+         result.CustomAttributes = GetCustomAttributes(type.CustomAttributes);
 
-         result.CustomInterfaces = entityType.ClrType.GetInterfaces().Any()
-                                      ? string.Join(",", entityType.ClrType.GetInterfaces().Select(t => t.FullName))
+         result.CustomInterfaces = type.GetInterfaces().Any()
+                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
                                       : null;
 
          // TODO continue here
@@ -251,10 +263,14 @@ namespace EFCoreParser
 
          ModelProperty result = new ModelProperty();
 
-         if (propertyData.ClrType.IsEnum)
+         if (type.IsEnum)
             ProcessEnum(propertyData.ClrType, modelRoot);
 
-         result.TypeName = propertyData.ClrType.Name;
+         // If it is NULLABLE, then get the underlying type. eg if "Nullable<int>" then this will return just "int"
+         if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            type = type.GetGenericArguments()[0];
+
+         result.TypeName = type.Name;
          result.Name = propertyData.Name;
          result.IsIdentity = propertyData.IsKey();
          result.Required = !propertyData.IsNullable;
