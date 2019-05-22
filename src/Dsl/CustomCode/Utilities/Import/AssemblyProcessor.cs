@@ -32,7 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
 
          if (TryParseAssembly(filename, @"Parsers\EF6Parser.exe", outputFilename, "Trying EF6") == 0 ||
-             TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename, "Trying EFCore") == 0)
+             TryParseAssembly(filename, @"Parsers\netcoreapp2.2\EFCoreParser.exe", outputFilename, "Trying EFCore") == 0)
          {
             try
             {

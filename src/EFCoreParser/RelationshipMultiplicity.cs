@@ -4,8 +4,8 @@ namespace EFCoreParser
 {
    public enum RelationshipMultiplicity
    {
-      Many = 2,
+      ZeroOrOne = 0,
       One = 1,
-      ZeroOrOne = 0
+      Many = 2
    }
 }

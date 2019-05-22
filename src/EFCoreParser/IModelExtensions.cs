@@ -56,15 +56,12 @@ namespace EFCoreParser
 
       public static RelationshipMultiplicity GetSourceMultiplicity(this INavigation navigation)
       {
-         return RelationshipMultiplicity.ZeroOrOne;
+         INavigation inverse = navigation.FindInverse();
 
-         INavigation inverse = navigation.IsDependentToPrincipal()
-                                  ? navigation.ForeignKey.PrincipalToDependent
-                                  : navigation.ForeignKey.DependentToPrincipal;
+         if (inverse == null)
+            return RelationshipMultiplicity.One;
 
-         return GetTargetMultiplicity(inverse);
-
-         //navigation.ForeignKey.PrincipalEntityType;
+         return inverse.GetTargetMultiplicity();
       }
 
       public static Type Unwrap(this Type type)

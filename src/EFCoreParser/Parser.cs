@@ -97,16 +97,17 @@ namespace EFCoreParser
             association.TargetClassNamespace = targetType.Namespace;
 
             // the property in the source class (referencing the target class)
-            association.TargetPropertyTypeName = navigationProperty.PropertyInfo.PropertyType.Name;
+            association.TargetPropertyTypeName = navigationProperty.PropertyInfo.PropertyType.Unwrap().Name;
             association.TargetPropertyName = navigationProperty.Name;
             association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.GetTargetMultiplicity());
-
-            //association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
-            //association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
 
             // the property in the target class (referencing the source class)
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.GetSourceMultiplicity());
 
+            // unfortunately, EFCore doesn't serialize documentation like EF6 did
+
+            //association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
+            //association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
             //association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
             //association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
 
@@ -135,7 +136,7 @@ namespace EFCoreParser
             INavigation inverse = navigationProperty.FindInverse();
 
             // the property in the source class (referencing the target class)
-            association.TargetPropertyTypeName = navigationProperty.PropertyInfo.PropertyType.Name;
+            association.TargetPropertyTypeName = navigationProperty.PropertyInfo.PropertyType.Unwrap().Name;
             association.TargetPropertyName = navigationProperty.Name;
             association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.GetTargetMultiplicity());
 
@@ -143,7 +144,7 @@ namespace EFCoreParser
             //association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
 
             // the property in the target class (referencing the source class)
-            association.SourcePropertyTypeName = inverse.PropertyInfo.PropertyType.Name;
+            association.SourcePropertyTypeName = inverse.PropertyInfo.PropertyType.Unwrap().Name;
             association.SourcePropertyName = inverse.Name;
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.GetSourceMultiplicity());
 
