@@ -170,8 +170,7 @@
     <Content Include="Microsoft.Data.ConnectionUI.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\EF6Parser.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Parsers\EF6ParserFmwk.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Parsers\EFCoreParserFmwk.exe">
@@ -185,16 +184,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\netcoreapp2.2\EFCoreParser.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Parsers\netcoreapp2.2\win-x86\EFCoreParser.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\netcoreapp2.2\EFCoreParser.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Parsers\netcoreapp2.2\win-x86\EFCoreParser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\netcoreapp2.2\ParsingModels.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Parsers\netcoreapp2.2\win-x86\hostfxr.dll">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp2.2\win-x86\hostpolicy.dll">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp2.2\win-x86\ParsingModels.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Parsers\Newtonsoft.Json.dll">
@@ -220,23 +222,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </None>
-    <Content Include="Parsers\EF6Parser.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\EFCoreParser.deps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\EFCoreParser.runtimeconfig.dev.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\EFCoreParser.runtimeconfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="Parsers\EFCoreParserFmwk.exe.config">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\EF6ParserFmwk.exe.config">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp2.2\win-x86\EFCoreParser.runtimeconfig.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="ProjectItemTemplates\efmodel.tt">

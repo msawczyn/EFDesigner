@@ -24,6 +24,31 @@ namespace Sawczyn.EFDesigner.EFModel
          Store = store;
       }
 
+      private bool DoProcessing(string outputFilename)
+      {
+         try
+         {
+            using (StreamReader sr = new StreamReader(outputFilename))
+            {
+               string json = sr.ReadToEnd();
+               ParsingModels.ModelRoot rootData = JsonConvert.DeserializeObject<ParsingModels.ModelRoot>(json);
+
+               ProcessRootData(rootData);
+               return true;
+            }
+         }
+         catch (Exception e)
+         {
+            ErrorDisplay.Show($"Error applying processed assembly: {e.Message}");
+         }
+         finally
+         {
+            if (!string.IsNullOrEmpty(outputFilename))
+               File.Delete(outputFilename);
+         }
+
+         return false;
+      }
       public bool Process(string filename)
       {
          if (filename == null)
@@ -31,26 +56,55 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
 
-         if (TryParseAssembly(filename, @"Parsers\EF6Parser.exe", outputFilename, "Trying EF6") == 0 ||
-             TryParseAssembly(filename, @"Parsers\netcoreapp2.2\EFCoreParser.exe", outputFilename, "Trying EFCore") == 0)
+         if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename) == 0)
          {
-            try
-            {
-               using (StreamReader sr = new StreamReader(outputFilename))
-               {
-                  string json = sr.ReadToEnd();
-                  ParsingModels.ModelRoot rootData = JsonConvert.DeserializeObject<ParsingModels.ModelRoot>(json);
-
-                  ProcessRootData(rootData);
-                  return true;
-               }
-            }
-            catch (Exception e)
-            {
-               ErrorDisplay.Show($"Error applying processed assembly: {e.Message}");
-            }
+            DoProcessing(outputFilename);
+         }
+         else if (TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0)
+         {
+            DoProcessing(outputFilename);
+         }
+         else if (TryParseAssembly(filename, @"Parsers\netcoreapp2.2\win-86\EFCoreParser.exe", outputFilename) == 0)
+         {
+            DoProcessing(outputFilename);
+         }
+         else
+         {
+            ErrorDisplay.Show($"Error applying processed assembly");
          }
 
+         //switch (exitCode)
+         //{
+         //   case FileDropHelper.BAD_ARGUMENT_COUNT:
+         //      ErrorDisplay.Show($"Internal error");
+
+         //      break;
+
+         //   case FileDropHelper.CANNOT_LOAD_ASSEMBLY:
+         //      ErrorDisplay.Show($"Can't load assembly {filename}");
+
+         //      break;
+
+         //   case FileDropHelper.CANNOT_WRITE_OUTPUTFILE:
+         //      ErrorDisplay.Show($"Can't write temporary file {outputFilename}");
+
+         //      break;
+
+         //   case FileDropHelper.CANNOT_CREATE_DBCONTEXT:
+         //      ErrorDisplay.Show($"Can't create DbContext object");
+
+         //      break;
+
+         //   case FileDropHelper.CANNOT_FIND_APPROPRIATE_CONSTRUCTOR:
+         //      ErrorDisplay.Show($"Can't find proper constructor in DbContext class. \n\nEF6 DbContext must have a constructor that takes one string parameter (its connection string), and EFCore DbContext must have a constructor that takes a DbContextOptions.");
+
+         //      break;
+
+         //   case FileDropHelper.AMBIGUOUS_REQUEST:
+         //      ErrorDisplay.Show($"Found more than one DbContext class in the assembly. Don't know which one to process.");
+
+         //      break;
+         //}
          return false;
       }
 
@@ -293,56 +347,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
-      private int TryParseAssembly(string filename, string parserAssembly, string outputFilename, string errorMessagePrefix)
+      private int TryParseAssembly(string filename, string parserAssembly, string outputFilename)
       {
-         int exitCode;
-
          ProcessStartInfo processStartInfo = new ProcessStartInfo(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), parserAssembly)) { Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", CreateNoWindow = true, ErrorDialog = false, UseShellExecute = false };
 
          using (Process process = System.Diagnostics.Process.Start(processStartInfo))
          {
             process.WaitForExit();
-            exitCode = process.ExitCode;
+            return process.ExitCode;
          }
-
-         string msgPrefix = string.IsNullOrEmpty(errorMessagePrefix)
-                               ? $"{errorMessagePrefix}: "
-                               : "";
-
-         switch (exitCode)
-         {
-            case FileDropHelper.BAD_ARGUMENT_COUNT:
-               ErrorDisplay.Show($"{msgPrefix}Internal error");
-
-               break;
-
-            case FileDropHelper.CANNOT_LOAD_ASSEMBLY:
-               ErrorDisplay.Show($"{msgPrefix}Can't load assembly {filename}");
-
-               break;
-
-            case FileDropHelper.CANNOT_WRITE_OUTPUTFILE:
-               ErrorDisplay.Show($"{msgPrefix}Can't write temporary file {outputFilename}");
-
-               break;
-
-            case FileDropHelper.CANNOT_CREATE_DBCONTEXT:
-               ErrorDisplay.Show($"{msgPrefix}Can't create DbContext object");
-
-               break;
-
-            case FileDropHelper.CANNOT_FIND_APPROPRIATE_CONSTRUCTOR:
-               ErrorDisplay.Show($"{msgPrefix}Can't find proper constructor in DbContext class. Class must have a constructor that takes one string parameter that's its connection string.");
-
-               break;
-
-            case FileDropHelper.AMBIGUOUS_REQUEST:
-               ErrorDisplay.Show($"{msgPrefix}Found more than one DbContext class in the assembly. Don't know which one to process.");
-
-               break;
-         }
-
-         return exitCode;
       }
 
       private Multiplicity ConvertMultiplicity(ParsingModels.Multiplicity data)

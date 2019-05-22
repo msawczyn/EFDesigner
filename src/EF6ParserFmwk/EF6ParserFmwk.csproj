@@ -7,7 +7,7 @@
     <ProjectGuid>{C516F1CE-DF41-41FB-AB16-C89706FD4656}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>EF6Parser</RootNamespace>
-    <AssemblyName>EF6Parser</AssemblyName>
+    <AssemblyName>EF6ParserFmwk</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
