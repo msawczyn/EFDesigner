@@ -14,9 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="AllFeatureModel.efmodel.diagram">
-      <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
-    </None>
     <None Update="AllFeatureModel.tt">
       <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>

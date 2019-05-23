@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable IDE0017 // Simplify object initialization
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -11,6 +12,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 
 using ParsingModels;
+// ReSharper disable UseObjectOrCollectionInitializer
 
 namespace EF6Parser
 {
@@ -177,24 +179,36 @@ namespace EF6Parser
 
          // Get the entity type from the model that maps to the CLR type
          EntityType entityType = metadata.GetItems<EntityType>(DataSpace.OSpace)
-                                         .Single(e => objectItemCollection.GetClrType(e) == type);
+                                         .SingleOrDefault(e => objectItemCollection.GetClrType(e) == type);
+
+         if (entityType == null) 
+            return null;
 
          // Get the entity set that uses this entity type
          EntitySet entitySet = metadata.GetItems<EntityContainer>(DataSpace.CSpace)
-                                       .Single()
-                                       .EntitySets
-                                       .Single(s => s.ElementType.Name == entityType.Name);
+                                       .SingleOrDefault()
+                                       ?.EntitySets
+                                       ?.SingleOrDefault(s => s.ElementType.Name == entityType.Name);
+
+         if (entitySet == null) 
+            return null;
 
          // Find the mapping between conceptual and storage model for this entity set
          EntitySetMapping mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
-                                            .Single()
-                                            .EntitySetMappings
-                                            .Single(s => s.EntitySet == entitySet);
+                                            .SingleOrDefault()
+                                            ?.EntitySetMappings
+                                            ?.SingleOrDefault(s => s.EntitySet == entitySet);
+
+         if (mapping == null) 
+            return null;
 
          // Find the storage entity set (table) that the entity is mapped
-         EntitySet table = mapping.EntityTypeMappings.Single()
-                                  .Fragments.Single()
-                                  .StoreEntitySet;
+         EntitySet table = mapping.EntityTypeMappings.SingleOrDefault()
+                                  ?.Fragments?.SingleOrDefault()
+                                  ?.StoreEntitySet;
+
+         if (table == null) 
+            return null;
 
          // Return the table name from the storage entity set
          return (string)table.MetadataProperties["Table"].Value ?? table.Name;
@@ -233,9 +247,16 @@ namespace EF6Parser
                                       ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
                                       : null;
 
-         result.TableName = type == null
-                               ? null
-                               : GetTableName(type, dbContext);
+         try
+         {
+            result.TableName = type == null
+                                  ? null
+                                  : GetTableName(type, dbContext);
+         }
+         catch (Exception e)
+         {
+            result.TableName = null;
+         }
 
          result.IsDependentType = false;
 
@@ -260,7 +281,14 @@ namespace EF6Parser
          result.Namespace = complexType.NamespaceName;
          result.IsAbstract = complexType.Abstract;
          result.BaseClass = complexType.BaseType?.Name;
-         result.TableName = GetTableName(assembly.GetType(complexType.FullName), dbContext);
+         try
+         {
+            result.TableName = GetTableName(assembly.GetType(complexType.FullName), dbContext);
+         }
+         catch 
+         {
+            result.TableName = null;
+         }
          result.IsDependentType = true;
 
          result.CustomAttributes = customAttributes.Length > 2

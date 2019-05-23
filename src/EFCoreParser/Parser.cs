@@ -5,7 +5,7 @@ using System.Reflection;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 
 using ParsingModels;
@@ -85,7 +85,7 @@ namespace EFCoreParser
       {
          List<ModelUnidirectionalAssociation> result = new List<ModelUnidirectionalAssociation>();
 
-         foreach (INavigation navigationProperty in entityType.GetNavigations().Where(n => n.FindInverse() == null))
+         foreach (INavigation navigationProperty in entityType.GetDeclaredNavigations().Where(n => n.FindInverse() == null))
          {
             ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
 
@@ -121,7 +121,7 @@ namespace EFCoreParser
       {
          List<ModelBidirectionalAssociation> result = new List<ModelBidirectionalAssociation>();
 
-         foreach (INavigation navigationProperty in entityType.GetNavigations().Where(n => n.FindInverse() != null))
+         foreach (INavigation navigationProperty in entityType.GetDeclaredNavigations().Where(n => n.FindInverse() != null))
          {
             ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
 
@@ -222,7 +222,7 @@ namespace EFCoreParser
                                       : null;
 
          // TODO continue here
-         result.Properties = entityType.GetProperties().Where(p => !p.IsShadowProperty).Select(p => ProcessProperty(p, modelRoot)).Where(x => x != null).ToList();
+         result.Properties = entityType.GetDeclaredProperties().Where(p => !p.IsShadowProperty).Select(p => ProcessProperty(p, modelRoot)).Where(x => x != null).ToList();
          result.UnidirectionalAssociations = GetUnidirectionalAssociations(entityType);
          result.BidirectionalAssociations = GetBidirectionalAssociations(entityType);
 
@@ -301,6 +301,7 @@ namespace EFCoreParser
          ModelRoot result = new ModelRoot();
          Type contextType = dbContext.GetType();
 
+         result.EntityContainerName = contextType.Name;
          result.Namespace = contextType.Namespace;
 
          return result;

@@ -52,6 +52,12 @@ namespace Sawczyn.EFDesigner.EFModel
          OutputWindowPane?.Activate();
       }
 
+      public static string LastStatusMessage
+      {
+         get;
+         set;
+      }
+
       public static void AddStatus(string message, Microsoft.VisualStudio.Shell.Interop.Constants? glyph = null)
       {
          StatusBar.IsFrozen(out int frozen);
@@ -69,6 +75,7 @@ namespace Sawczyn.EFDesigner.EFModel
                StatusBar.Animation(1, ref icon);
             }
             StatusBar.SetText(message);
+            LastStatusMessage = message;
          }
       }
    }

@@ -39,7 +39,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          catch (Exception e)
          {
-            ErrorDisplay.Show($"Error applying processed assembly: {e.Message}");
+            ErrorDisplay.Show($"Error procesing assembly: {e.Message}");
          }
          finally
          {
@@ -49,6 +49,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return false;
       }
+
       public bool Process(string filename)
       {
          if (filename == null)
@@ -60,45 +61,10 @@ namespace Sawczyn.EFDesigner.EFModel
              TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0 ||
              TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename) == 0)
          {
-            DoProcessing(outputFilename);
-         }
-         else
-         {
-            ErrorDisplay.Show($"Error applying processed assembly");
+            return DoProcessing(outputFilename);
          }
 
-         //switch (exitCode)
-         //{
-         //   case FileDropHelper.BAD_ARGUMENT_COUNT:
-         //      ErrorDisplay.Show($"Internal error");
-
-         //      break;
-
-         //   case FileDropHelper.CANNOT_LOAD_ASSEMBLY:
-         //      ErrorDisplay.Show($"Can't load assembly {filename}");
-
-         //      break;
-
-         //   case FileDropHelper.CANNOT_WRITE_OUTPUTFILE:
-         //      ErrorDisplay.Show($"Can't write temporary file {outputFilename}");
-
-         //      break;
-
-         //   case FileDropHelper.CANNOT_CREATE_DBCONTEXT:
-         //      ErrorDisplay.Show($"Can't create DbContext object");
-
-         //      break;
-
-         //   case FileDropHelper.CANNOT_FIND_APPROPRIATE_CONSTRUCTOR:
-         //      ErrorDisplay.Show($"Can't find proper constructor in DbContext class. \n\nEF6 DbContext must have a constructor that takes one string parameter (its connection string), and EFCore DbContext must have a constructor that takes a DbContextOptions.");
-
-         //      break;
-
-         //   case FileDropHelper.AMBIGUOUS_REQUEST:
-         //      ErrorDisplay.Show($"Found more than one DbContext class in the assembly. Don't know which one to process.");
-
-         //      break;
-         //}
+         ErrorDisplay.Show($"Error procesing assembly");
          return false;
       }
 

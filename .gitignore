@@ -2,3 +2,4 @@ docs/.jekyll-metadata
 docs/_site
 /.vs
 /src/DslPackage/Parsers
+/src/EFCoreParser/dotnetwarp_temp
