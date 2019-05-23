@@ -173,6 +173,9 @@
     <Content Include="Parsers\EF6ParserFmwk.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Parsers\EFCoreParser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Parsers\EFCoreParserFmwk.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -184,21 +187,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\netcoreapp2.2\win-x86\EFCoreParser.dll">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\win-x86\EFCoreParser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\win-x86\hostfxr.dll">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\win-x86\hostpolicy.dll">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\win-x86\ParsingModels.dll">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="Parsers\Newtonsoft.Json.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -207,6 +195,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="ReadMe - Build Events.txt" />
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -226,9 +215,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Parsers\EF6ParserFmwk.exe.config">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.2\win-x86\EFCoreParser.runtimeconfig.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="ProjectItemTemplates\efmodel.tt">
@@ -430,6 +416,13 @@
   <PropertyGroup>
     <PostBuildEvent>IF "$(ConfigurationName)"=="Release" copy /y "$(TargetDir)$(TargetName).vsix" "$(SolutionDir)..\dist\$(TargetName).vsix"
 </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>dotnet tool install -g dotnet-warp
+dotnet-warp "$(SolutionDir)EFCoreParser\EFCoreParser.csproj" -o "$(ProjectDir)Parsers\EFCoreParser.exe"
+mkdir "$(TargetDir)Parsers"
+copy /y "$(ProjectDir)Parsers\*.*" "$(TargetDir)Parsers"
+</PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

@@ -56,15 +56,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
 
-         if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename) == 0)
-         {
-            DoProcessing(outputFilename);
-         }
-         else if (TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0)
-         {
-            DoProcessing(outputFilename);
-         }
-         else if (TryParseAssembly(filename, @"Parsers\netcoreapp2.2\win-86\EFCoreParser.exe", outputFilename) == 0)
+         if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename) == 0 ||
+             TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0 ||
+             TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename) == 0)
          {
             DoProcessing(outputFilename);
          }
@@ -349,7 +343,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private int TryParseAssembly(string filename, string parserAssembly, string outputFilename)
       {
-         ProcessStartInfo processStartInfo = new ProcessStartInfo(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), parserAssembly)) { Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", CreateNoWindow = true, ErrorDialog = false, UseShellExecute = false };
+         string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), parserAssembly);
+         ProcessStartInfo processStartInfo = new ProcessStartInfo(path)
+                                             {
+                                                Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", 
+                                                CreateNoWindow = true, 
+                                                ErrorDialog = false, 
+                                                UseShellExecute = false
+                                             };
 
          using (Process process = System.Diagnostics.Process.Start(processStartInfo))
          {
