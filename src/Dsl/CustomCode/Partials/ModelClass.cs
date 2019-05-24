@@ -317,10 +317,11 @@ namespace Sawczyn.EFDesigner.EFModel
          internal void ResetValue(ModelClass element)
          {
             object calculatedValue = null;
+            ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
             try
             {
-               calculatedValue = element.ModelRoot?.DatabaseSchema;
+               calculatedValue = modelRoot?.DatabaseSchema;
             }
             catch (NullReferenceException) { }
             catch (Exception e)
@@ -415,10 +416,11 @@ namespace Sawczyn.EFDesigner.EFModel
          internal void ResetValue(ModelClass element)
          {
             object calculatedValue = null;
+            ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
             try
             {
-               calculatedValue = element.ModelRoot?.Namespace;
+               calculatedValue = modelRoot?.Namespace;
             }
             catch (NullReferenceException) { }
             catch (Exception e)
@@ -510,10 +512,11 @@ namespace Sawczyn.EFDesigner.EFModel
          internal void ResetValue(ModelClass element)
          {
             object calculatedValue = null;
+            ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
             try
             {
-               calculatedValue = element.IsDependentType ? element.ModelRoot?.StructOutputDirectory : element.ModelRoot?.EntityOutputDirectory;
+               calculatedValue = element.IsDependentType ? modelRoot?.StructOutputDirectory : element.ModelRoot?.EntityOutputDirectory;
             }
             catch (NullReferenceException) { }
             catch (Exception e)

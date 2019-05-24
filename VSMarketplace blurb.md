@@ -32,6 +32,9 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 
 **ChangeLog**
 
+**1.2.7.3**
+   -  Enhanced drag/drop to handle bidirectional associations and enumerations better.
+
 **1.2.7.2**
    - **[NEW]** Added additional types of UInt16, UInt32, UInt64 and SByte to property type list
    - **[NEW]** Added the ability to use a modeled enumeration, if it has a proper backing type, as an entity identifier

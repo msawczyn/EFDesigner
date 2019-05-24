@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
@@ -52,7 +50,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                if (!File.Exists(filename)) 
                   missingFiles = new[] {filename};
-               else                
+               else
                   FileDropHelper.HandleDrop(Store, filename);
             }
             else if (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames)

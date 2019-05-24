@@ -74,7 +74,7 @@
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Hide Element</ButtonText>
+               <ButtonText>Hide Selected Elements</ButtonText>
                <CommandName>HideElement</CommandName>
             </Strings>
          </Button>
@@ -88,6 +88,24 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Merge Unidirectional Associations</ButtonText>
+               <CommandName>MergeAssociations</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Split Bidirectional Association</ButtonText>
+               <CommandName>SplitAssociation</CommandName>
+            </Strings>
+         </Button>
+         
          <Button guid="guidEFDiagramMenuCmdSet" id="cmdidCollapseSelected" priority="0x0100" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
@@ -214,6 +232,8 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeValues"     context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidExpandSelected"    context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidCollapseSelected"  context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation"  context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
@@ -231,6 +251,8 @@
          <IDSymbol name="cmdidAddCodeValues"     value="0x00019"/>
          <IDSymbol name="cmdidExpandSelected"    value="0x0001A"/>
          <IDSymbol name="cmdidCollapseSelected"  value="0x0001B"/>
+         <IDSymbol name="cmdidMergeAssociations" value="0x0001C"/>
+         <IDSymbol name="cmdidSplitAssociation"  value="0x0001D"/>
 
          <IDSymbol name="menuidSelect"           value="0x1100"/>
          <IDSymbol name="grpidSelect"            value="0x1150"/>

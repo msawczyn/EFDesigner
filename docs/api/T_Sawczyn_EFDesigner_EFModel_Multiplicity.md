@@ -17,6 +17,7 @@ public enum Multiplicity
 Public Enumeration Multiplicity
 ```
 
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/ParsingModels/Multiplicity.cs" title="View the source code">View Source</a><br />
 
 ## Members
 &nbsp;<table><tr><th></th><th>Member name</th><th>Value</th><th>Description</th></tr><tr><td /><td target="F:Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany">**ZeroMany**</td><td>0</td><td>ZeroMany</td></tr><tr><td /><td target="F:Sawczyn.EFDesigner.EFModel.Multiplicity.One">**One**</td><td>1</td><td>One</td></tr><tr><td /><td target="F:Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne">**ZeroOne**</td><td>2</td><td>ZeroOne</td></tr></table>

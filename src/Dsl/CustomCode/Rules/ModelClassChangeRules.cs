@@ -14,6 +14,9 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementPropertyChanged(e);
 
          ModelClass element = (ModelClass)e.ModelElement;
+         if (element.IsDeleted)
+            return;
+
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
 

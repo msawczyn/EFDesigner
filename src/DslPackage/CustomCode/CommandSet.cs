@@ -20,6 +20,7 @@ using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
+// ReSharper disable InconsistentNaming
 
 using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
 using Point = Microsoft.Msagl.Core.Geometry.Point;
@@ -45,6 +46,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidAddCodeValues = 0x0019;
       private const int cmdidExpandSelected = 0x001A;
       private const int cmdidCollapseSelected = 0x001B;
+      private const int cmdidMergeAssociations = 0x001C;
+      private const int cmdidSplitAssociation = 0x001D;
 
       private const int cmdidSelectClasses = 0x0101;
       private const int cmdidSelectEnums = 0x0102;
@@ -138,6 +141,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
          commands.Add(collapseSelectedCommand);
 
+         DynamicStatusMenuCommand mergeAssociationsCommand =
+            new DynamicStatusMenuCommand(OnStatusMergeAssociations, OnMenuMergeAssociations, new CommandID(guidEFDiagramMenuCmdSet, cmdidMergeAssociations));
+         commands.Add(mergeAssociationsCommand);
+
+         DynamicStatusMenuCommand splitAssociationCommand =
+            new DynamicStatusMenuCommand(OnStatusSplitAssociation, OnMenuSplitAssociation, new CommandID(guidEFDiagramMenuCmdSet, cmdidSplitAssociation));
+         commands.Add(splitAssociationCommand);
+         
          // Additional commands go here.  
          return commands;
       }
@@ -802,6 +813,72 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion Load NuGet
 
+      #region Merge Unidirectional Associations
+
+      private void OnStatusMergeAssociations(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            command.Visible = true;
+
+            UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalConnector>()
+                                                                   .Select(connector => connector.ModelElement)
+                                                                   .Cast<UnidirectionalAssociation>()
+                                                                   .ToArray();
+
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              selected.Length == 2 &&
+                              selected[0].Source == selected[1].Target &&
+                              selected[0].Target == selected[1].Source;
+         }
+      }
+
+      private void OnMenuMergeAssociations(object sender, EventArgs e)
+      {
+         UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalConnector>()
+                                                                .Select(connector => connector.ModelElement)
+                                                                .Cast<UnidirectionalAssociation>()
+                                                                .ToArray();
+         ((EFModelDocData)CurrentDocData).Merge(selected);
+      }
+
+      #endregion
+      #region Split Bidirectional Association
+
+      private void OnStatusSplitAssociation(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentDocData.Store;
+            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            command.Visible = true;
+     
+            BidirectionalAssociation[] selected = CurrentSelection.OfType<BidirectionalConnector>()
+                                                                   .Select(connector => connector.ModelElement)
+                                                                   .Cast<BidirectionalAssociation>()
+                                                                   .ToArray();
+            
+            command.Enabled = modelRoot != null &&
+                              CurrentDocData is EFModelDocData &&
+                              selected.Count() == 1;
+         }
+      }
+
+      private void OnMenuSplitAssociation(object sender, EventArgs e)
+      {
+         BidirectionalAssociation selected = CurrentSelection.OfType<BidirectionalConnector>()
+                                                             .Select(connector => connector.ModelElement)
+                                                             .Cast<BidirectionalAssociation>()
+                                                             .Single();
+
+         ((EFModelDocData)CurrentDocData).Split(selected);
+      }
+
+      #endregion
+    
       #region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)

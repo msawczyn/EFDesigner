@@ -188,10 +188,11 @@ namespace Sawczyn.EFDesigner.EFModel
             internal void ResetValue(ModelEnum element)
             {
                 object calculatedValue = null;
+                ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
                 try
                 {
-                    calculatedValue = element.ModelRoot?.Namespace;
+                    calculatedValue = modelRoot?.Namespace;
                 }
                 catch (NullReferenceException) { }
                 catch (Exception e)
@@ -282,10 +283,11 @@ namespace Sawczyn.EFDesigner.EFModel
             internal void ResetValue(ModelEnum element)
             {
                 object calculatedValue = null;
+                ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
                 try
                 {
-                    calculatedValue = element.ModelRoot?.EnumOutputDirectory;
+                    calculatedValue = modelRoot?.EnumOutputDirectory;
                 }
                 catch (NullReferenceException) { }
                 catch (Exception e)
