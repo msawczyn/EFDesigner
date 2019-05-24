@@ -20,7 +20,8 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          // there could already be an identity property if this class was created via Paste or import
-         if (!element.AllIdentityAttributes.Any())
+         // NB: don't do anything if we're in an owned type
+         if (!element.AllIdentityAttributes.Any() && !element.IsDependentType)
          {
             // there could also be a property named "Id"
             ModelAttribute idProperty = element.AllAttributes.FirstOrDefault(a => a.Name == "Id");

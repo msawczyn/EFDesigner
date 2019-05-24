@@ -104,6 +104,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                         new PropertyAssignment(ModelClass.BaseClassDomainPropertyId, data.BaseClass),
                                         new PropertyAssignment(ModelClass.TableNameDomainPropertyId, data.TableName),
                                         new PropertyAssignment(ModelClass.IsDependentTypeDomainPropertyId, data.IsDependentType));
+               
                modelRoot.Classes.Add(element);
             }
             else
