@@ -6,7 +6,7 @@
 
 ## Inheritance Hierarchy
 <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">System.Object</a><br />&nbsp;&nbsp;ParsingModels.ModelUnidirectionalAssociation<br />
-**Namespace:**&nbsp;<a href="N_ParsingModels">ParsingModels</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.2.7.0
+**Namespace:**&nbsp;<a href="N_ParsingModels">ParsingModels</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.3.0.0
 
 ## Syntax
 

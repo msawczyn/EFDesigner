@@ -3,7 +3,7 @@
 
 \[Missing <summary> documentation for "P:ParsingModels.ModelEnum.Name"\]
 
-**Namespace:**&nbsp;<a href="N_ParsingModels">ParsingModels</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.2.7.0
+**Namespace:**&nbsp;<a href="N_ParsingModels">ParsingModels</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.3.0.0
 
 ## Syntax
 

@@ -3,7 +3,7 @@
 
 \[Missing <summary> documentation for "M:Sawczyn.EFDesigner.EFModel.ModelRoot.IsValidCLRType(System.String)"\]
 
-**Namespace:**&nbsp;<a href="N_Sawczyn_EFDesigner_EFModel">Sawczyn.EFDesigner.EFModel</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.2.7.0
+**Namespace:**&nbsp;<a href="N_Sawczyn_EFDesigner_EFModel">Sawczyn.EFDesigner.EFModel</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.3.0.0
 
 ## Syntax
 
@@ -21,7 +21,7 @@ Public Function IsValidCLRType (
 ) As <a href="http://msdn2.microsoft.com/en-us/library/a28wyd50" target="_blank">Boolean</a>
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelRoot.cs#L171" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelRoot.cs#L205" title="View the source code">View Source</a><br />
 
 #### Parameters
 &nbsp;<dl><dt>type</dt><dd>Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">System.String</a><br />\[Missing <param name="type"/> documentation for "M:Sawczyn.EFDesigner.EFModel.ModelRoot.IsValidCLRType(System.String)"\]</dd></dl>

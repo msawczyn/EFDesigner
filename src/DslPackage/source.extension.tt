@@ -1,7 +1,7 @@
-﻿<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\Dsl\DslDefinition.dsl'" #>
-<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
-<#@ output extension=".vsixmanifest" #>
-<#
+﻿<#@ 
+Dsl processor="DslDirectiveProcessor" requires="fileName='..\Dsl\DslDefinition.dsl'" #><#@ 
+template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #><#@ 
+output extension=".vsixmanifest" #><#
 /***************************************************************************
    Rather than following the normal DSL practice of including most of the
    template from a common include file, this template is deliberately inlined 
@@ -19,8 +19,7 @@
   string dslProjectName = "Dsl";
 
   string language = "en-US";
-#>
-<?xml version="1.0" encoding="utf-8"?>
+#><?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Id="<#= this.Dsl.PackageGuid #>" Version="<#= this.Dsl.MajorVersion #>.<#= this.Dsl.MinorVersion #>.<#= this.Dsl.Build #>.<#= this.Dsl.Revision #>" Language="<#= language #>" Publisher="<#= string.IsNullOrEmpty(this.Dsl.CompanyName) ? "Anon" : this.Dsl.CompanyName #>" />

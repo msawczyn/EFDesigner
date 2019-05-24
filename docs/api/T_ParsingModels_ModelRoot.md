@@ -6,7 +6,7 @@
 
 ## Inheritance Hierarchy
 <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">System.Object</a><br />&nbsp;&nbsp;ParsingModels.ModelRoot<br />
-**Namespace:**&nbsp;<a href="N_ParsingModels">ParsingModels</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.2.7.0
+**Namespace:**&nbsp;<a href="N_ParsingModels">ParsingModels</a><br />**Assembly:**&nbsp;Sawczyn.EFDesigner.EFModel.Dsl (in Sawczyn.EFDesigner.EFModel.Dsl.dll) Version: 1.3.0.0
 
 ## Syntax
 
@@ -30,7 +30,7 @@ Initializes a new instance of the ModelRoot class</td></tr></table>&nbsp;
 <a href="#modelroot-class">Back to Top</a>
 
 ## Properties
-&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_Classes">Classes</a></td><td /></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_Enumerations">Enumerations</a></td><td /></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_Namespace">Namespace</a></td><td /></tr></table>&nbsp;
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_Classes">Classes</a></td><td /></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_EntityContainerName">EntityContainerName</a></td><td /></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_Enumerations">Enumerations</a></td><td /></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_FullName">FullName</a></td><td /></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="P_ParsingModels_ModelRoot_Namespace">Namespace</a></td><td /></tr></table>&nbsp;
 <a href="#modelroot-class">Back to Top</a>
 
 ## Methods
