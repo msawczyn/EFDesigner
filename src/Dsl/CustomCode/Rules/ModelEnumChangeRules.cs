@@ -14,8 +14,12 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementPropertyChanged(e);
 
          ModelEnum element = (ModelEnum)e.ModelElement;
+         if (element.IsDeleted)
+            return;
+
          Store store = element.Store;
          Transaction currentTransaction = store.TransactionManager.CurrentTransaction;
+         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
 
          if (currentTransaction.IsSerializing)
             return;
@@ -50,7 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel
             case "Namespace":
 
                if (string.IsNullOrWhiteSpace(element.Namespace))
-                  element.Namespace = element.ModelRoot.Namespace;
+                  element.Namespace = modelRoot.Namespace;
 
                if (currentTransaction.Name.ToLowerInvariant() != "paste")
                   errorMessage = CommonRules.ValidateNamespace(element.Namespace, CodeGenerator.IsValidLanguageIndependentIdentifier);

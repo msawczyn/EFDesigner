@@ -77,9 +77,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetAssociationPropertyImage(ModelElement element)
       {
+         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          if (element is Association association)
          {
-            if (association.Target.ModelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
+            if (modelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
                return Resources.Warning;
 
             return AssociationGlyphs[association.SourceMultiplicity][association.TargetMultiplicity];
@@ -90,9 +91,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetSourcesPropertyImage(ModelElement element)
       {
+         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          if (element is BidirectionalAssociation association)
          {
-            if (association.Source.ModelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
+            if (modelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
                return Resources.Warning;
 
             return AssociationGlyphs[association.TargetMultiplicity][association.SourceMultiplicity];
@@ -103,9 +105,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetAttributePropertyImage(ModelElement element)
       {
+         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          if (element is ModelAttribute attribute)
          {
-            if (attribute.ModelClass.ModelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
+            if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
                return Resources.Warning;
 
             if (attribute.IsIdentity)

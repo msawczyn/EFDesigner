@@ -41,23 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\EFModel.cs" />
-    <Compile Include="EFModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Generated\EFModel.generated.cs" />
-    <Compile Include="Generated\Role.generated.cs" />
-    <Compile Include="Generated\Sandbox_EFCore.generated.cs" />
-    <Compile Include="Generated\Student.generated.cs" />
-    <Compile Include="Generated\StudentAddress.generated.cs" />
-    <Compile Include="Generated\User.generated.cs" />
-    <Compile Include="Migrations\20190416022846_Initial.cs" />
-    <Compile Include="Migrations\20190416022846_Initial.designer.cs">
-      <DependentUpon>20190416022846_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\EFModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,14 +65,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EFModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EFModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Custom\" />
+    <Folder Include="Generated\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

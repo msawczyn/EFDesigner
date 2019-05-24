@@ -5,10 +5,11 @@ using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   internal partial class EFModelDocView
+   internal partial class EFModelDocView 
    {
       /// <summary>
       /// Called when selection changes in this window.
@@ -35,6 +36,12 @@ namespace Sawczyn.EFDesigner.EFModel
          //   else if (selected_diagram[0] != selected_explorer.FirstOrDefault())
          //      ModelExplorerWindow.SetSelectedComponents(selected_diagram);
          //}
+      }
+
+      public override void SetInfo()
+      {
+         base.SetInfo();
+         Messages.AddStatus(Messages.LastStatusMessage);
       }
 
       protected EFModelExplorerToolWindow ModelExplorerWindow => EFModelPackage.Instance?.GetToolWindow(typeof(EFModelExplorerToolWindow), true) as EFModelExplorerToolWindow;

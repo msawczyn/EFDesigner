@@ -17,7 +17,7 @@ public override <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" targ
 Public Overrides Function ToString As <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a>
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelAttribute.cs#L538" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelAttribute.cs#L565" title="View the source code">View Source</a><br />
 
 #### Return Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a><br />A string that represents the current object.

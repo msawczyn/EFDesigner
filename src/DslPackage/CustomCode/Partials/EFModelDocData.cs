@@ -145,6 +145,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ErrorDisplay.RegisterDisplayHandler(ShowError);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
          QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
+         StatusDisplay.RegisterDisplayHandler(ShowStatus);
 
          ClassShape.OpenCodeFile = OpenFileFor;
          ClassShape.ExecCodeGeneration = GenerateCode;
@@ -285,6 +286,11 @@ namespace Sawczyn.EFDesigner.EFModel
       private void ShowWarning(string message)
       {
          Messages.AddWarning(message);
+      }
+
+      private void ShowStatus(string message)
+      {
+         Messages.AddStatus(message);
       }
 
       public override IEnumerable<ModelElement> GetAllElementsForValidation()

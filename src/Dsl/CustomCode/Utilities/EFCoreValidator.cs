@@ -86,7 +86,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static IEnumerable<string> GetErrors(Association element)
       {
-         ModelRoot modelRoot = element.Source.ModelRoot;
+         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
          List<string> errorMessages = new List<string>();
 
          if (modelRoot?.EntityFrameworkVersion > EFVersion.EF6)
