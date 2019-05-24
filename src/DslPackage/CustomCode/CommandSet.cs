@@ -567,21 +567,25 @@ namespace Sawczyn.EFDesigner.EFModel
             ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
             command.Visible = true;
 
-            UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalAssociation>().ToArray();
+            UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalConnector>()
+                                                                   .Select(connector => connector.ModelElement)
+                                                                   .Cast<UnidirectionalAssociation>()
+                                                                   .ToArray();
+
             command.Enabled = modelRoot != null &&
                               CurrentDocData is EFModelDocData &&
                               selected.Length == 2 &&
-                              selected[0].Source.FullName == selected[1].Target.FullName &&
-                              selected[0].Target.FullName == selected[1].Source.FullName;
+                              selected[0].Source == selected[1].Target &&
+                              selected[0].Target == selected[1].Source;
          }
       }
 
       private void OnMenuMergeAssociations(object sender, EventArgs e)
       {
-         Store store = CurrentDocData.Store;
-         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
-
-         UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalAssociation>().ToArray();
+         UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalConnector>()
+                                                                .Select(connector => connector.ModelElement)
+                                                                .Cast<UnidirectionalAssociation>()
+                                                                .ToArray();
          ((EFModelDocData)CurrentDocData).Merge(selected);
       }
 
@@ -595,17 +599,24 @@ namespace Sawczyn.EFDesigner.EFModel
             Store store = CurrentDocData.Store;
             ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
             command.Visible = true;
+     
+            BidirectionalAssociation[] selected = CurrentSelection.OfType<BidirectionalConnector>()
+                                                                   .Select(connector => connector.ModelElement)
+                                                                   .Cast<BidirectionalAssociation>()
+                                                                   .ToArray();
+            
             command.Enabled = modelRoot != null &&
                               CurrentDocData is EFModelDocData &&
-                              CurrentSelection.OfType<BidirectionalAssociation>().Count() == 1;
+                              selected.Count() == 1;
          }
       }
 
       private void OnMenuSplitAssociation(object sender, EventArgs e)
       {
-         Store store = CurrentDocData.Store;
-         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
-         BidirectionalAssociation selected = CurrentSelection.OfType<BidirectionalAssociation>().Single();
+         BidirectionalAssociation selected = CurrentSelection.OfType<BidirectionalConnector>()
+                                                             .Select(connector => connector.ModelElement)
+                                                             .Cast<BidirectionalAssociation>()
+                                                             .Single();
 
          ((EFModelDocData)CurrentDocData).Split(selected);
       }
