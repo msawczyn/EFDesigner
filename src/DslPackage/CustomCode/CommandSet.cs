@@ -621,32 +621,28 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private static void UpdateConnectors(GeometryGraph graph)
       {
+
          foreach (Edge edge in graph.Edges)
          {
             BinaryLinkShape linkShape = (BinaryLinkShape)edge.UserData;
             linkShape.ManuallyRouted = false;
-            //linkShape.EdgePoints.Clear();
+            linkShape.EdgePoints.Clear();
 
-            // There's at least two points in the connectors we'll be interested in -- the ones attached to the nodes.
-            // Now that the nodes are moved, let's update those
-            linkShape.RecalculateRoute();
-            
-            // connectors we've calculated as not having turns in them are trivial and should be good, so we'll ignore then
-            if (edge.Curve is LineSegment)
-               continue;
-            // When curve is a line segment.
-            //if (edge.Curve is LineSegment lineSegment)
-            //{
-            //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.Normal));
-            //   linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.Normal));
-            //}
-
-            //// When curve is a complex segment.
-            //else 
-
-            if (edge.Curve is Curve curve)
+            // MSAGL deals in line segments; DSL deals in points
+            // with the segments, tne end of one == the beginning of the next, so we can use just the beginning point
+            // of each segment. 
+            // But we have to hang on to the end point so that, when we hit the last segment, we can finish off the
+            // set of points
+            if (edge.Curve is LineSegment lineSegment)
             {
-               List<EdgePoint> edgePoints = new List<EdgePoint>();
+               // When curve is a single line segment.
+               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.Normal));
+               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.Normal));
+            }
+            else if (edge.Curve is Curve curve)
+            {
+               //// When curve is a complex segment.
+               EdgePoint lastPoint = null;
 
                foreach (ICurve segment in curve.Segments)
                {
@@ -654,40 +650,56 @@ namespace Sawczyn.EFDesigner.EFModel
                   {
                      case "LineSegment":
                         LineSegment line = segment as LineSegment;
-                        edgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
+                        linkShape.EdgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
+                        lastPoint = new EdgePoint(line.End.X, line.End.Y, VGPointType.Normal);
+
                         break;
+
                      case "CubicBezierSegment":
                         CubicBezierSegment bezier = segment as CubicBezierSegment;
 
                         // there are 4 segments. Store all but the last one
-                        edgePoints.Add(new EdgePoint(bezier.B(0).X, bezier.B(0).Y, VGPointType.Normal));
-                        edgePoints.Add(new EdgePoint(bezier.B(1).X, bezier.B(1).Y, VGPointType.Normal));
-                        edgePoints.Add(new EdgePoint(bezier.B(2).X, bezier.B(2).Y, VGPointType.Normal));
+                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(0).X, bezier.B(0).Y, VGPointType.Normal));
+                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(1).X, bezier.B(1).Y, VGPointType.Normal));
+                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(2).X, bezier.B(2).Y, VGPointType.Normal));
+                        lastPoint = new EdgePoint(bezier.B(3).X, bezier.B(3).Y, VGPointType.Normal);
+
                         break;
+
                      case "Ellipse":
                         // rather than draw a curved line, we'll bust the curve into 5 parts and draw those as straight lines
                         Ellipse ellipse = segment as Ellipse;
                         double interval = (ellipse.ParEnd - ellipse.ParStart) / 5.0;
+                        lastPoint = null;
 
-                        // use all but the last one
-                        for (int index = 0; index < 3; index++)
+                        for (double i = ellipse.ParStart; i <= ellipse.ParEnd; i += interval)
                         {
-                           double offset = interval * index;
-                           Point p = ellipse.Center + (Math.Cos(ellipse.ParStart + offset) * ellipse.AxisA) + (Math.Sin(ellipse.ParStart + offset) * ellipse.AxisB);
-                           edgePoints.Add(new EdgePoint(p.X, p.Y, VGPointType.Normal));
+                           Point p = ellipse.Center
+                                 + (Math.Cos(i) * ellipse.AxisA)
+                                 + (Math.Sin(i) * ellipse.AxisB);
+
+                           // we'll remember the one we just calculated, but store away the one we calculated last time around
+                           // (if there _was_ a last time around). That way, when we're done, we'll have stored all of them except
+                           // for the last one
+                           if (lastPoint != null)
+                              linkShape.EdgePoints.Add(lastPoint);
+
+                           lastPoint = new EdgePoint(p.X, p.Y, VGPointType.Normal);
                         }
                         
                         break;
                   }
                }
 
-               // we haven't stored the last point, and we'll ignore the first point, instead using the existing
-               // first and last since they're already on the nodes in the right places
-               for (int index = edgePoints.Count - 1; index > 0; --index)
-                  linkShape.EdgePoints.Insert(1, edgePoints[index]);
+               // finally tuck away the last one. Now we don't have duplicate points in our list
+               if (lastPoint != null)
+                  linkShape.EdgePoints.Add(lastPoint);
             }
 
-            linkShape.UpdateGraphEdgePoints();
+            // since we're not changing the nodes this edge connects, this really doesn't do much.
+            // what it DOES do, however, is call ConnectEdgeToNodes, which is an internal method we'd otherwise
+            // be unable to access
+            linkShape.Connect(linkShape.FromShape, linkShape.ToShape);
          }
       }
 

@@ -54,7 +54,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
             AssemblyProcessor assemblyProcessor = new AssemblyProcessor(store);
             TextFileProcessor textFileProcessor = new TextFileProcessor(store);
-            textFileProcessor.LoadCache(filenameList);
+
+            try
+            {
+               // may not work. Might not be a text file
+               textFileProcessor.LoadCache(filenameList);
+            }
+            catch 
+            {
+               // if not, no big deal. Either it's not a text file, or we'll just process suboptimally
+            }
 
             foreach (string filename in filenameList)
                Process(store, filename, assemblyProcessor, textFileProcessor);
