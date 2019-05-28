@@ -56,7 +56,7 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 
 ### Change Log
 
-**1.3.0.0**
+**1.3.0.1**
    - Enhanced source code drag/drop to handle bidirectional associations and enumerations better.
    - Can now import assemblies containing DbContext classes. Dropping a compiled assembly onto the design surface will attempt to process and merge it into the design.
    - Added ability to merge two unidirectional associations into one bidirectional association (via context menu action)

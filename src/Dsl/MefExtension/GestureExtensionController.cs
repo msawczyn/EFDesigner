@@ -7,25 +7,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using System;
-using System.Diagnostics;
-
-using Microsoft.VisualStudio.Modeling.Diagrams.ExtensionEnablement;
+using ExtensionEnablement = global::Microsoft.VisualStudio.Modeling.Diagrams.ExtensionEnablement;
 
 namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 { 
 	/// <summary>
 	/// GestureExtensionController base class to import and invoke GestureExtensions 
 	/// </summary>	
-	internal abstract class EFModelGestureExtensionControllerBase : GestureExtensionController
+	internal abstract class EFModelGestureExtensionControllerBase : ExtensionEnablement::GestureExtensionController
 	{
 		/// <summary>
 		/// This registrar will filter out GestureExtensions that do not provide an item of metadata with this value as its key.
 		/// </summary>
-		protected override String MetadataFilter
+		protected override global::System.String MetadataFilter
 		{
-			[DebuggerStepThrough]
+			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
 				return  EFModelExtensionFilter.MefMetadataFilter;
@@ -39,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 	/// <remarks>
 	/// Double-derived to allow customizations by Dsl Authors.
 	/// </remarks>	
-	internal class EFModelGestureExtensionController : EFModelGestureExtensionControllerBase
+	internal partial class EFModelGestureExtensionController : EFModelGestureExtensionControllerBase
 	{
 	}
 }
