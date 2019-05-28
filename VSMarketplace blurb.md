@@ -11,6 +11,7 @@ partial classes, any additions you make to your generated code is retained acros
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home. The goal was to duplicate 
 at least those features and, in addition, add all the little things that _should_ have been there. Things like:
 
+*   importing entities from C# source, or existing DbContext definitions (including their entities) from compiled EF6 or EFCore assemblies
 *   the ability to show and hide parts of the model
 *   easy customization of generated output by editing or even replacing the T4 templates
 *   entities by default generated as partial classes so the generated code can be easily extended
@@ -33,7 +34,7 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 **ChangeLog**
 
 **1.3.0.0**
-   - Enhanced drag/drop to handle bidirectional associations and enumerations better.
+   - Enhanced source code drag/drop to handle bidirectional associations and enumerations better.
    - **[NEW]** Can now import assemblies containing DbContext classes. Dropping a compiled assembly onto the design surface will attempt to process and merge it into the design.
    - **[NEW]** Added ability to merge two unidirectional associations into one bidirectional association (via context menu action)
    - **[NEW]** Added ability to split a bidirectional association to two unidirectional associations (via context menu action)
