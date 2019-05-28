@@ -17,14 +17,14 @@ and these can be modified to generate your own particular style.
 If you are used to the Entity Framework visual modeling that came with prior versions of 
 Visual Studio, you'll be pretty much at home. The goal was to duplicate at least those features 
 and, in addition, all the things that should have been there. Things like
-- importing code to populate the model
-- the ability to show and hide parts of the model
-- easy customization of generated output
-- class nodes that can be colored to visually group the model
-- different concerns that can be generated into different subdirectories (entities, enums, dbcontext)
-- entities by default being generated as partials so the default code can be easily modified
-- string length, index flags, required attributes and other properties being available in the designer
-- plus many other tiny bits that kept getting under my skin.
+
+*   importing entities from C# source, or existing DbContext definitions (including their entities) from compiled EF6 or EFCore assemblies
+*   the ability to show and hide parts of the model
+*   easy customization of generated output by editing or even replacing the T4 templates
+*   entities by default generated as partial classes so the generated code can be easily extended
+*   class and enumeration nodes that can be colored to visually group the model
+*   different concerns being generated into different subdirectories (entities, enums, dbcontext)
+*   string length, index flags, required attributes and other properties being available in the designer
 
 You should think of this extension as two parts: first the design surface and, separately, the 
 T4 templates that generate the code. The template(s) can be changed without modifying, compiling 
