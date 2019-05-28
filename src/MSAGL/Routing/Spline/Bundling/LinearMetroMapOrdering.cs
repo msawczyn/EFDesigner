@@ -4,9 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.Geometry.Curves;
-using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.DebugHelpers;
 
 namespace Microsoft.Msagl.Routing.Spline.Bundling {
     /// <summary>

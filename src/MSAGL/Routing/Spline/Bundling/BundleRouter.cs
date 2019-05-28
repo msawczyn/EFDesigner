@@ -9,7 +9,6 @@ using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
-using Microsoft.Msagl.DebugHelpers;
 using Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation;
 using Microsoft.Msagl.Routing.Visibility;
 

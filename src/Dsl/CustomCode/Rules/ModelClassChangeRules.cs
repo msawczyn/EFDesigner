@@ -4,6 +4,8 @@ using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelClass), FireTime = TimeToFire.TopLevelCommit)]
@@ -43,7 +45,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
 
                   // dependent type can't be source in an association
-                  if (store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>()
+                  if (store.Get<UnidirectionalAssociation>()
                            .Any(a => a.Source == element))
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it references other classes");
@@ -51,7 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      break;
                   }
 
-                  if (store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+                  if (store.Get<BidirectionalAssociation>()
                            .Any(a => a.Source == element || a.Target == element))
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it's in a bidirectional association");
@@ -59,7 +61,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      break;
                   }
 
-                  if (store.ElementDirectory.AllElements.OfType<Association>()
+                  if (store.Get<Association>()
                            .Any(a => a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it's the target of a 0..* association");
@@ -134,7 +136,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (string.IsNullOrEmpty(newTableName))
                      element.TableName = MakeDefaultName(element.Name);
 
-                  if (store.ElementDirectory.AllElements.OfType<ModelClass>()
+                  if (store.Get<ModelClass>()
                            .Except(new[] {element})
                            .Any(x => x.TableName == newTableName))
                      errorMessages.Add($"Table name '{newTableName}' already in use");
@@ -160,7 +162,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   {
                      errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
                   }
-                  else if (store.ElementDirectory.AllElements.OfType<ModelClass>()
+                  else if (store.Get<ModelClass>()
                                 .Except(new[] {element})
                                 .Any(x => x.DbSetName == newDbSetName))
                   {

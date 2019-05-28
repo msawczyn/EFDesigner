@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class ClassShape : IHighlightFromModelExplorer, IMouseActionTarget
@@ -77,7 +79,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetAssociationPropertyImage(ModelElement element)
       {
-         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = element.Store.ModelRoot();
          if (element is Association association)
          {
             if (modelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
@@ -91,7 +93,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetSourcesPropertyImage(ModelElement element)
       {
-         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = element.Store.ModelRoot();
          if (element is BidirectionalAssociation association)
          {
             if (modelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
@@ -105,7 +107,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetAttributePropertyImage(ModelElement element)
       {
-         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = element.Store.ModelRoot();
          if (element is ModelAttribute attribute)
          {
             if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())

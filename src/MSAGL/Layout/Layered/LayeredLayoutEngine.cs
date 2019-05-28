@@ -13,7 +13,6 @@ using Microsoft.Msagl.Core.Routing;
 using Microsoft.Msagl.DebugHelpers;
 using Microsoft.Msagl.Routing;
 using Microsoft.Msagl.Routing.Rectilinear;
-using Microsoft.Msagl.Routing.Spline.Bundling;
 
 namespace Microsoft.Msagl.Layout.Layered {
     /// <summary>

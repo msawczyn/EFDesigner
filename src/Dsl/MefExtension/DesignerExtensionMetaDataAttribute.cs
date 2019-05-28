@@ -8,10 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using MEF = global::System.ComponentModel.Composition;
-using Modeling = global::Microsoft.VisualStudio.Modeling;
-using ModelingExtEnablement = global::Microsoft.VisualStudio.Modeling.ExtensionEnablement;
-using DiagramsExtEnablement = global::Microsoft.VisualStudio.Modeling.Diagrams.ExtensionEnablement;
+using System;
+using System.Diagnostics;
+
+using Microsoft.VisualStudio.Modeling.Validation;
+
+using MEF = System.ComponentModel.Composition;
+using ModelingExtEnablement = Microsoft.VisualStudio.Modeling.ExtensionEnablement;
+using DiagramsExtEnablement = Microsoft.VisualStudio.Modeling.Diagrams.ExtensionEnablement;
 
 namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 {
@@ -33,9 +37,9 @@ namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 	///
 	/// Use this attribute to Export an IGestureExtension MEF part for EFModel designer.
 	/// </summary>
-	[MEF::MetadataAttribute]
-	[global::System.AttributeUsage(global::System.AttributeTargets.Class, AllowMultiple=false)]
-	public sealed class EFModelGestureExtensionAttribute : MEF::ExportAttribute
+	[MEF.MetadataAttributeAttribute]
+	[AttributeUsage(AttributeTargets.Class)]
+	public sealed class EFModelGestureExtensionAttribute : MEF.ExportAttribute
 	{
 		public EFModelGestureExtensionAttribute() : base(typeof(DiagramsExtEnablement.IGestureExtension))
 		{
@@ -48,7 +52,7 @@ namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 		/// </summary>
 		public object EFModelExtensionFilter
 		{
-			[global::System.Diagnostics.DebuggerStepThrough]
+			[DebuggerStepThrough]
 			get { return null; }
 		}
 	}
@@ -62,9 +66,9 @@ namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 	///
 	/// Use this attribute to Export an ICommandExtension MEF part for EFModel designer.
 	/// </summary>
-	[MEF::MetadataAttribute]
-	[global::System.AttributeUsage(global::System.AttributeTargets.Class, AllowMultiple=false)]
-	public sealed class EFModelCommandExtensionAttribute : MEF::ExportAttribute
+	[MEF.MetadataAttributeAttribute]
+	[AttributeUsage(AttributeTargets.Class)]
+	public sealed class EFModelCommandExtensionAttribute : MEF.ExportAttribute
 	{
 		public EFModelCommandExtensionAttribute() : base(typeof(ModelingExtEnablement.ICommandExtension))
 		{
@@ -77,7 +81,7 @@ namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 		/// </summary>
 		public object EFModelExtensionFilter
 		{
-			[global::System.Diagnostics.DebuggerStepThrough]
+			[DebuggerStepThrough]
 			get { return null; }
 		}
 	}
@@ -86,16 +90,16 @@ namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 	/// Provides a strongly typed custom attribute which allows user to use the following: 
 	///     [EFModelValidationExtension]
 	/// in lieu of
-	///		[Export(typeof(typeof(Action<ValidationContext, object>))]
+	///		[Export(typeof(typeof(Action&lt;ValidationContext, object&gt;))]
 	///		[ExportMetadata("EFModelExtensionFilter", null)]
 	///
 	/// Use this attribute to Export a ValidationExtension MEF part for EFModel designer.
 	/// </summary>
-	[MEF::MetadataAttribute]
-	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple=false)]
-	public sealed class EFModelValidationExtensionAttribute : MEF::ExportAttribute
+	[MEF.MetadataAttributeAttribute]
+	[AttributeUsage(AttributeTargets.Method)]
+	public sealed class EFModelValidationExtensionAttribute : MEF.ExportAttribute
 	{
-		public EFModelValidationExtensionAttribute() : base(typeof(global::System.Action<Modeling::Validation.ValidationContext, object>))
+		public EFModelValidationExtensionAttribute() : base(typeof(Action<ValidationContext, object>))
 		{
 		}
 		
@@ -106,7 +110,7 @@ namespace Sawczyn.EFDesigner.EFModel.ExtensionEnablement
 		/// </summary>
 		public object EFModelExtensionFilter
 		{
-			[global::System.Diagnostics.DebuggerStepThrough]
+			[DebuggerStepThrough]
 			get { return null; }
 		}
 	}	

@@ -4,6 +4,8 @@ using System;
 using System.Drawing;
 using System.Linq;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    /// <summary>
@@ -36,7 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private Image GetValueImage(ModelElement element)
       {
-         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = element.Store.ModelRoot();
          if (element is ModelEnumValue enumValue)
          {
             return modelRoot.ShowWarningsInDesigner && enumValue.GetHasWarningValue()

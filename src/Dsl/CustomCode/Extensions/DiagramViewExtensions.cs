@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
-namespace Sawczyn.EFDesigner.EFModel.CustomCode.Extensions {
+namespace Sawczyn.EFDesigner.EFModel.Extensions {
    public static class DiagramViewExtensions
    {
       public static bool SelectModelElement(this DiagramView diagramView, ModelElement modelElement)

@@ -18,7 +18,7 @@ Public ReadOnly Property ValidIdentityAttributeTypes As <a href="http://msdn2.mi
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelRoot.cs#L224" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelRoot.cs#L225" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a>[]<br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelRoot.ValidIdentityAttributeTypes"\]

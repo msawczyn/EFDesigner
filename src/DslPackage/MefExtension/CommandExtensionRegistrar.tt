@@ -1,2 +1,2 @@
-﻿<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #>  
-<#@ include file="DslPackage\CommandExtensionRegistrar.tt" #>
+﻿<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" 
+#><#@ include file="DslPackage\CommandExtensionRegistrar.tt" #>

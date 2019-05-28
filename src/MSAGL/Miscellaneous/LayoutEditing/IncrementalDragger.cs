@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,7 +6,6 @@ using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Layout.LargeGraphLayout;
-using Microsoft.Msagl.Miscellaneous.LayoutEditing;
 using Microsoft.Msagl.Routing;
 using GeomNode = Microsoft.Msagl.Core.Layout.Node;
 

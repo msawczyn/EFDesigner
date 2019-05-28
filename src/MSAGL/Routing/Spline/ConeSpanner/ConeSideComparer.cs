@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.Geometry.Curves;
 
 namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
     internal class ConeSideComparer : IComparer<ConeSide> {

@@ -11,9 +11,7 @@ using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Routing.Visibility;
 
 namespace Microsoft.Msagl.Routing.Rectilinear {
-    using DebugHelpers;
-
-    internal class TransientGraphUtility {
+   internal class TransientGraphUtility {
         // Vertices added to the graph for routing.
         internal List<VisibilityVertexRectilinear> AddedVertices = new List<VisibilityVertexRectilinear>();
 

@@ -11,9 +11,7 @@ using Microsoft.Msagl.Routing.Spline.ConeSpanner;
 using RectRout = Microsoft.Msagl.Routing.Rectilinear;
 
 namespace Microsoft.Msagl.Routing.Rectilinear {
-    using DebugHelpers;
-
-    /// <summary>
+   /// <summary>
     /// Wrap the tree of events.
     /// </summary>
     internal class EventQueue : IComparer<SweepEvent> {

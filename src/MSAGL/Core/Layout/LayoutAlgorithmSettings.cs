@@ -5,8 +5,7 @@ using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Routing;
 #if TEST_MSAGL
 using Microsoft.Msagl.DebugHelpers;
-using Microsoft.Msagl.Layout.LargeGraphLayout;
-using Microsoft.Msagl.Routing;
+
 #endif
 
 namespace Microsoft.Msagl.Core.Layout {

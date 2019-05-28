@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Msagl.Core.DataStructures;
-using Microsoft.Msagl.Core.Geometry;
+﻿using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Layout;
 
 namespace Microsoft.Msagl.Layout.LargeGraphLayout {

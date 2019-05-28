@@ -2,7 +2,7 @@ This Visual Studio 2017/2019 extension adds a new file type (.efmodel) that allo
 of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in 
 the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design.
 
-<img src="https://raw.githubusercontent.com/msawczyn/EFDesigner/master/docs/images/Designer.jpg">
+<img src="https://msawczyn.github.io/EFDesigner/images/Designer.jpg">
 
 While giving you complete control over how the code is generated you'll be able to, out of the box, create sophisticated, 
 consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using 
@@ -32,8 +32,12 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 
 **ChangeLog**
 
-**1.2.7.3**
-   -  Enhanced drag/drop to handle bidirectional associations and enumerations better.
+**1.3.0.0**
+   - Enhanced drag/drop to handle bidirectional associations and enumerations better.
+   - **[NEW]** Can now import assemblies containing DbContext classes. Dropping a compiled assembly onto the design surface will attempt to process and merge it into the design.
+   - **[NEW]** Added ability to merge two unidirectional associations into one bidirectional association (via context menu action)
+   - **[NEW]** Added ability to split a bidirectional association to two unidirectional associations (via context menu action)
+   - **[NEW]** Added [Microsoft Automatic Graph Layout](https://github.com/Microsoft/automatic-graph-layout), giving the user the ability to choose the diagram's auto-layout strategy 
 
 **1.2.7.2**
    - **[NEW]** Added additional types of UInt16, UInt32, UInt64 and SByte to property type list

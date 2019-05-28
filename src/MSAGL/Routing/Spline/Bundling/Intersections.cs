@@ -7,7 +7,6 @@ using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
-using Microsoft.Msagl.Routing.Visibility;
 using Microsoft.Msagl.DebugHelpers;
 
 namespace Microsoft.Msagl.Routing.Spline.Bundling {

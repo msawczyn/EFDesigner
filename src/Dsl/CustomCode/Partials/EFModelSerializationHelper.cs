@@ -75,7 +75,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="stream">The Stream from which the ModelRoot will be deserialized.</param>
       /// <returns>The loaded ModelRoot instance.</returns>
       [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code")]
-      public override ModelRoot LoadModel(SerializationResult serializationResult, Partition partition, string location, ISchemaResolver schemaResolver, ValidationController validationController, ISerializerLocator serializerLocator, System.IO.Stream stream)
+      public override ModelRoot LoadModel(SerializationResult serializationResult, Partition partition, string location, ISchemaResolver schemaResolver, ValidationController validationController, ISerializerLocator serializerLocator, Stream stream)
       {
          #region Check Parameters
 

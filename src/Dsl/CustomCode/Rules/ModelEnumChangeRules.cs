@@ -4,6 +4,8 @@ using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelEnum), FireTime = TimeToFire.TopLevelCommit)]
@@ -19,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          Store store = element.Store;
          Transaction currentTransaction = store.TransactionManager.CurrentTransaction;
-         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = store.ModelRoot();
 
          if (currentTransaction.IsSerializing)
             return;
@@ -38,14 +40,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (string.IsNullOrWhiteSpace(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
                   errorMessage = "Name must be a valid .NET identifier";
-               else if (store.ElementDirectory.AllElements.OfType<ModelClass>().Any(x => x.Name == element.Name))
+               else if (store.Get<ModelClass>().Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by a class";
-               else if (store.ElementDirectory.AllElements.OfType<ModelEnum>().Except(new[] {element}).Any(x => x.Name == element.Name))
+               else if (store.Get<ModelEnum>().Except(new[] {element}).Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by another enum";
                else
                {
                   // rename type names for ModelAttributes that reference this enum
-                  foreach (ModelAttribute modelAttribute in store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == (string)e.OldValue))
+                  foreach (ModelAttribute modelAttribute in store.Get<ModelAttribute>().Where(a => a.Type == (string)e.OldValue))
                      modelAttribute.Type = element.Name;
                }
 

@@ -3,6 +3,8 @@ using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelClass), FireTime = TimeToFire.TopLevelCommit)]
@@ -19,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         List<Generalization> generalizations = store.ElementDirectory.AllElements.OfType<Generalization>().Where(g => g.Superclass == element).ToList();
+         List<Generalization> generalizations = store.Get<Generalization>().Where(g => g.Superclass == element).ToList();
 
          if (generalizations.Any())
          {

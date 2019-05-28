@@ -3,7 +3,7 @@
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
-using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {

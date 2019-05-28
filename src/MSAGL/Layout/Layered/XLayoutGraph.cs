@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.Msagl.Core.GraphAlgorithms;
-using Microsoft.Msagl.Core.Layout;
 
 namespace Microsoft.Msagl.Layout.Layered
 {

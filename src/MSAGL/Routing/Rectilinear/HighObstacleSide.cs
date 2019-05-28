@@ -3,7 +3,7 @@
 // MSAGL class for ObstacleSides with the higher scanline-parallel coordinates for Rectilinear Edge Routing.
 //
 // Copyright Microsoft Corporation.
-using Microsoft.Msagl;
+
 using Microsoft.Msagl.Core.Geometry.Curves;
 
 namespace Microsoft.Msagl.Routing.Rectilinear {

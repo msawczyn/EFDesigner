@@ -17,7 +17,7 @@ public <a href="http://msdn2.microsoft.com/en-us/library/643eft0t" target="_blan
 Public Function GetEntityFrameworkPackageVersionNum As <a href="http://msdn2.microsoft.com/en-us/library/643eft0t" target="_blank">Double</a>
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelRoot.cs#L279" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelRoot.cs#L280" title="View the source code">View Source</a><br />
 
 #### Return Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/643eft0t" target="_blank">Double</a><br />\[Missing <returns> documentation for "M:Sawczyn.EFDesigner.EFModel.ModelRoot.GetEntityFrameworkPackageVersionNum"\]

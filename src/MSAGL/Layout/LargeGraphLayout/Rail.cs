@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Msagl.Core.DataStructures;
+
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.Routing.Visibility;
+
 using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
 
 namespace Microsoft.Msagl.Layout.LargeGraphLayout {

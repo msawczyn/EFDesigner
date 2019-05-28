@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.Geometry.Curves;
+
 using Microsoft.Msagl.Core.Layout;
 
 namespace Microsoft.Msagl.Layout.LargeGraphLayout {

@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Msagl.Core.GraphAlgorithms;
 
 namespace Microsoft.Msagl.Layout.Layered {
     /// <summary>

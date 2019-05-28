@@ -1,5 +1,4 @@
 ﻿using Microsoft.Msagl.Layout.LargeGraphLayout;
-using Microsoft.Msagl.Prototype.Ranking;
 #if PERSISTENCE
 using System;
 using System.Collections.Generic;

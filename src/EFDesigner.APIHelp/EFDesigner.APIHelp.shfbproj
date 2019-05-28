@@ -463,6 +463,22 @@
       <AlternateText>VSMarket Logo</AlternateText>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\TocCollapsed.gif">
+      <ImageId>TocCollapsed</ImageId>
+      <AlternateText>Toc Collapsed</AlternateText>
+    </Content>
+    <Content Include="icons\TocExpanded.gif">
+      <ImageId>TocExpanded</ImageId>
+      <AlternateText>Toc Expanded</AlternateText>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\Search.png">
+      <ImageId>Search</ImageId>
+      <AlternateText>Search</AlternateText>
+    </Content>
+  </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
   <!-- The pre-build and post-build event properties must appear *after* the targets file import in order to be

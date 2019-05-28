@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 
 using Microsoft.VisualStudio.Modeling;
+
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -60,7 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel
                // may not work. Might not be a text file
                textFileProcessor.LoadCache(filenameList);
             }
-            catch 
+            catch
             {
                // if not, no big deal. Either it's not a text file, or we'll just process suboptimally
             }
@@ -94,27 +97,38 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private static void Process(Store store, string filename, AssemblyProcessor assemblyProcessor, TextFileProcessor textFileProcessor)
       {
-         if (IsAssembly(filename))
+         try
          {
-            using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped assembly"))
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (IsAssembly(filename))
             {
-               if (assemblyProcessor.Process(filename))
+               using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped assembly"))
                {
-                  StatusDisplay.Show("Creating diagram elements...");
-                  tx.Commit();
+                  if (assemblyProcessor.Process(filename))
+                  {
+                     StatusDisplay.Show("Creating diagram elements. This might take a while...");
+                     tx.Commit();
+
+                     ModelDisplay.LayoutDiagram(store.ModelRoot().GetActiveDiagram() as EFModelDiagram);
+                  }
+               }
+            }
+            else
+            {
+               using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
+               {
+                  if (textFileProcessor.Process(filename))
+                  {
+                     StatusDisplay.Show("Creating diagram elements. This might take a while...");
+                     tx.Commit();
+                  }
                }
             }
          }
-         else
+         finally
          {
-            using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
-            {
-               if (textFileProcessor.Process(filename))
-               {
-                  StatusDisplay.Show("Creating diagram elements...");
-                  tx.Commit();
-               }
-            }
+            Cursor.Current = Cursors.Default;
          }
       }
    }

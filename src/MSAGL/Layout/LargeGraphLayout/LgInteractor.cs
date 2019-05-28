@@ -1,8 +1,6 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Msagl.Core;
@@ -24,7 +22,6 @@ using Microsoft.Msagl.Layout.OverlapRemovalFixedSegments;
 using Microsoft.Msagl.Miscellaneous;
 using Microsoft.Msagl.Miscellaneous.ConstrainedSkeleton;
 using Microsoft.Msagl.Miscellaneous.RegularGrid;
-using Microsoft.Msagl.Miscellaneous.Routing;
 using Microsoft.Msagl.Routing.Visibility;
 using Edge = Microsoft.Msagl.Core.Layout.Edge;
 using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
@@ -33,7 +30,7 @@ using Rectangle = Microsoft.Msagl.Core.Geometry.Rectangle;
 using Size = Microsoft.Msagl.Core.DataStructures.Size;
 using SymmetricSegment = Microsoft.Msagl.Core.DataStructures.SymmetricTuple<Microsoft.Msagl.Core.Geometry.Point>;
 #if !NETCORE
-using Timer = Microsoft.Msagl.DebugHelpers.Timer;
+
 #endif
 
 namespace Microsoft.Msagl.Layout.LargeGraphLayout

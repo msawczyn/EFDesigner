@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTree;
+﻿using Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTree;
 using Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy;
-using Microsoft.Msagl.Layout.MDS;
 
 namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval {
     /// <summary>

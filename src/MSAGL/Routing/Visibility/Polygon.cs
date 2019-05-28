@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 #if !SILVERLIGHT
 using System.Runtime.Serialization.Formatters.Binary;
 #endif

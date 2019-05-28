@@ -3,6 +3,8 @@ using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(Generalization), FireTime = TimeToFire.TopLevelCommit)]
@@ -25,7 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ModelClass superclass = element.Superclass;
          ModelClass subclass = element.Subclass;
-         List<Association> associations = store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source == superclass || a.Target == superclass).ToList();
+         List<Association> associations = store.Get<Association>().Where(a => a.Source == superclass || a.Target == superclass).ToList();
 
          if (!superclass.AllAttributes.Any() && !associations.Any())
             return;

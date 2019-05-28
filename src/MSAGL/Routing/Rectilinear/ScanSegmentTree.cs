@@ -11,9 +11,7 @@ using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
 
 namespace Microsoft.Msagl.Routing.Rectilinear {
-    using DebugHelpers;
-
-    internal class ScanSegmentTree : IComparer<ScanSegment> {
+   internal class ScanSegmentTree : IComparer<ScanSegment> {
         internal ScanDirection ScanDirection { get; private set; }
         private readonly RbTree<ScanSegment> segmentTree;
 

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -13,7 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Returns the property descriptors for the described ModelRoot domain class.
       /// </summary>
-      private global::System.ComponentModel.PropertyDescriptorCollection GetCustomProperties(global::System.Attribute[] attributes)
+      private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)
       {
          PropertyDescriptorCollection propertyDescriptors = base.GetProperties(attributes);
 

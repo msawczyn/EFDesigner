@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Microsoft.Msagl.Core.Geometry
+﻿namespace Microsoft.Msagl.Core.Geometry
 {
     /// <summary>
     /// A rectangle and associated data that need to be packed

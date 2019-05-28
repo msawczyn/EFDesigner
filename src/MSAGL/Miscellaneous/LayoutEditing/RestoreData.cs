@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Msagl.Prototype.LayoutEditing;
 
 namespace Microsoft.Msagl.Prototype.LayoutEditing {
     /// <summary>

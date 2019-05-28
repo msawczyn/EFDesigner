@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+
 using Microsoft.Msagl.Core;
-using Microsoft.Msagl.Core.GraphAlgorithms;
 using Microsoft.Msagl.Core.Layout;
 
 namespace Microsoft.Msagl.Layout.MDS {

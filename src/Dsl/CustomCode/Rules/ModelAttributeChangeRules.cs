@@ -5,6 +5,8 @@ using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.TopLevelCommit)]
@@ -19,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          ModelClass modelClass = element.ModelClass;
-         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = element.Store.ModelRoot();
 
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;

@@ -6,7 +6,6 @@ using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.DebugHelpers;
-using Microsoft.Msagl.Layout.LargeGraphLayout;
 using Microsoft.Msagl.Routing;
 using Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation;
 

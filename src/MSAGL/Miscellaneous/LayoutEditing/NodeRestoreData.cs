@@ -1,6 +1,4 @@
-using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
-using Microsoft.Msagl.Routing;
 
 namespace Microsoft.Msagl.Prototype.LayoutEditing {
     /// <summary>

@@ -1,5 +1,3 @@
-using System;
-
 namespace Microsoft.Msagl.Layout.Layered {
     /// <summary>
     /// Keeps all information about the hierarchy of layers

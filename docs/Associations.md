@@ -8,7 +8,7 @@ each class contains a property pointing to the other entity.
 
 As an example, consider the following:
 
-<img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Unidirectional.jpg">
+<img src="images/Unidirectional.jpg">
 
 This tells us that `Entity1` has a collection of `Entity2` objects named `TheEntity2s`. The type of collection will typically be set as the default value
 set in the design surface, but can be overridden (see the Properties tables, below).
@@ -23,7 +23,7 @@ but `Entity2` doesn't have a matching property.
 
 In contrast, a *bidirectional* association like
 
-<img src="https://raw.githubusercontent.com/wiki/msawczyn/EFDesigner/images/Bidirectional.jpg">
+<img src="images/Bidirectional.jpg">
 
 would have, in the `Entity2` class,
 

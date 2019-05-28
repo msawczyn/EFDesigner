@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using Microsoft.Msagl.Core.Geometry;
+
 using Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation;
 
 namespace Microsoft.Msagl.Routing {

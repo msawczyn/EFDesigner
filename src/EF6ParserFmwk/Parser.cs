@@ -199,13 +199,8 @@ namespace EF6Parser
                                             ?.EntitySetMappings
                                             ?.SingleOrDefault(s => s.EntitySet == entitySet);
 
-         if (mapping == null) 
-            return null;
-
          // Find the storage entity set (table) that the entity is mapped
-         EntitySet table = mapping.EntityTypeMappings.SingleOrDefault()
-                                  ?.Fragments?.SingleOrDefault()
-                                  ?.StoreEntitySet;
+         EntitySet table = mapping?.EntityTypeMappings.SingleOrDefault()?.Fragments?.SingleOrDefault()?.StoreEntitySet;
 
          if (table == null) 
             return null;
@@ -253,7 +248,7 @@ namespace EF6Parser
                                   ? null
                                   : GetTableName(type, dbContext);
          }
-         catch (Exception e)
+         catch 
          {
             result.TableName = null;
          }

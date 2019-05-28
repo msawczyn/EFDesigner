@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval {
+﻿namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval {
     /// <summary>
     /// Overlap Removal Interface. All Overlap Removal classes should implement this to unify usage of different methods.
     /// </summary>

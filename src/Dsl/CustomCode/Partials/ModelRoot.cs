@@ -7,11 +7,12 @@ using System.Linq;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
 using Microsoft.Msagl.Layout.Incremental;
-using Microsoft.Msagl.Layout.Layered;
 using Microsoft.Msagl.Layout.MDS;
 using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
+
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 using SugiyamaLayoutSettings = Microsoft.Msagl.Layout.Layered.SugiyamaLayoutSettings;
 
@@ -364,7 +365,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected virtual void OnCollectionClassChanged(string oldValue, string newValue)
       {
          TrackingHelper.UpdateTrackingCollectionProperty(Store,
-                                                         Store.ElementDirectory.AllElements.OfType<Association>().ToList(),
+                                                         Store.Get<Association>().ToList(),
                                                          Association.CollectionClassDomainPropertyId,
                                                          Association.IsCollectionClassTrackingDomainPropertyId);
       }

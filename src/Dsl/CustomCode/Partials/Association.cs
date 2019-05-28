@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
@@ -201,7 +203,7 @@ namespace Sawczyn.EFDesigner.EFModel
             object calculatedValue = null;
             try
             {
-               ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+               ModelRoot modelRoot = element.Store.ModelRoot();
                calculatedValue = modelRoot.DefaultCollectionClass;
             }
             catch (NullReferenceException) { }

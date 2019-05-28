@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Msagl.Core.Geometry;
+
 using Microsoft.Msagl.Core.Geometry.Curves;
 
 namespace Microsoft.Msagl.Routing.Visibility {

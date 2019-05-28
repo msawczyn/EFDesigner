@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Msagl.Core.DataStructures;
 using System.Diagnostics;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;

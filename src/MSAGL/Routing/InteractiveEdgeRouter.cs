@@ -8,8 +8,6 @@ using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.Layout.Initial;
-using Microsoft.Msagl.Layout.LargeGraphLayout;
 using Microsoft.Msagl.Routing.Spline.ConeSpanner;
 using Microsoft.Msagl.Routing.Visibility;
 #if TEST_MSAGL

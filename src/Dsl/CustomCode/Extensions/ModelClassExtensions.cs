@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    public static class ModelClassExtensions
@@ -27,7 +29,7 @@ namespace Sawczyn.EFDesigner.EFModel
             ModelClass src = superclass;
             while (src != null)
             {
-               associations.AddRange(store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source == src || a.Target == src));
+               associations.AddRange(store.Get<Association>().Where(a => a.Source == src || a.Target == src));
                src = src.Superclass;
             }
 

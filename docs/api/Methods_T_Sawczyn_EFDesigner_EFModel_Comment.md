@@ -16,6 +16,14 @@ Returns a string that represents the current object.
  (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr></table>&nbsp;
 <a href="#comment-methods">Back to Top</a>
 
+## Extension Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetActiveDiagram">GetActiveDiagram</a></td><td> (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetCompartment">GetCompartment</a></td><td>
+Gets the named compartment in this element
+ (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetFirstShapeElement">GetFirstShapeElement</a></td><td> (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_InvalidateDiagrams">InvalidateDiagrams</a></td><td>
+Causes all diagrams to redraw
+ (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_LocateInDiagram">LocateInDiagram</a></td><td> (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr></table>&nbsp;
+<a href="#comment-methods">Back to Top</a>
+
 ## See Also
 
 

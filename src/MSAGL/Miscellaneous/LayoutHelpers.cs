@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Msagl.Core;
@@ -16,7 +15,6 @@ using Microsoft.Msagl.Layout.MDS;
 using Microsoft.Msagl.Routing;
 using Microsoft.Msagl.Routing.Rectilinear;
 using Microsoft.Msagl.Prototype.Ranking;
-using Microsoft.Msagl.Routing.Spline.Bundling;
 
 namespace Microsoft.Msagl.Miscellaneous
 {

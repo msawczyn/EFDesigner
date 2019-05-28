@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using Microsoft.Msagl.Core.Geometry;
 using Point = Microsoft.Msagl.Core.Geometry.Point;
 

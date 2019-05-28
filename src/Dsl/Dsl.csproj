@@ -165,6 +165,7 @@
     <Compile Include="CustomCode\Utilities\Import\IFileProcessor.cs" />
     <Compile Include="CustomCode\Utilities\Import\TextFileProcessor.cs" />
     <Compile Include="CustomCode\Utilities\Import\XMLDocumentation.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\ModelDisplay.cs" />
     <Compile Include="CustomCode\Utilities\ModelMigration.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetDisplay.cs" />
@@ -183,14 +184,14 @@
     <Compile Include="CustomCode\Rules\RuleRegistrations.cs" />
     <Compile Include="CustomCode\ModelAttribute Parser\AttributeParser.cs" />
     <Compile Include="CustomCode\Utilities\PresentationHelper.cs" />
-    <Compile Include="CustomCode\Utilities\QuestionDisplay.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\QuestionDisplay.cs" />
     <Compile Include="CustomCode\Type Converters\BaseClassTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\CollectionTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelClassTypeDescriptor.cs" />
     <Compile Include="CustomCode\Utilities\ConnectionStringEditor.cs" />
     <Compile Include="CustomCode\Utilities\EFCoreValidator.cs" />
     <Compile Include="CustomCode\Type Converters\EFPackageVersionTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\ErrorDisplay.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\ErrorDisplay.cs" />
     <Compile Include="CustomCode\Type Converters\IdentityAttributeTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Name Providers\ModelAttributeNameProvider.cs" />
     <Compile Include="CustomCode\Name Providers\ModelClassNameProvider.cs" />
@@ -210,11 +211,12 @@
     <Compile Include="CustomCode\Type Converters\ProjectDirectoryTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\SourceMultiplicityTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\TargetMultiplicityTypeConverter.cs" />
-    <Compile Include="CustomCode\Utilities\StatusDisplay.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\ChoiceDisplay.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\StatusDisplay.cs" />
     <Compile Include="CustomCode\Utilities\TrackingHelper.cs" />
     <Compile Include="CustomCode\Partials\EFModelSerializationHelperBase.cs" />
     <Compile Include="CustomCode\Type Converters\TypeConverterBase.cs" />
-    <Compile Include="CustomCode\Utilities\WarningDisplay.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\WarningDisplay.cs" />
     <Compile Include="GeneratedCode\DomainClasses.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

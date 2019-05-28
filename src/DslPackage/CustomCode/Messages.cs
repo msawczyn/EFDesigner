@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -9,7 +11,13 @@ namespace Sawczyn.EFDesigner.EFModel
       private static readonly string MessagePaneTitle = "Entity Framework Designer";
 
       private static IVsOutputWindow _outputWindow;
-      private static IVsOutputWindow OutputWindow => _outputWindow ?? (_outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow);
+      private static IVsOutputWindow OutputWindow
+      {
+         get
+         {
+            return _outputWindow ?? (_outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow);
+         }
+      }
 
       private static IVsOutputWindowPane _outputWindowPane;
       private static IVsOutputWindowPane OutputWindowPane
@@ -34,7 +42,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private static IVsStatusbar _statusBar;
 
-      private static IVsStatusbar StatusBar => _statusBar ?? (_statusBar = Package.GetGlobalService(typeof(SVsStatusbar)) as IVsStatusbar);
+      private static IVsStatusbar StatusBar
+      {
+         get
+         {
+            return _statusBar ?? (_statusBar = Package.GetGlobalService(typeof(SVsStatusbar)) as IVsStatusbar);
+         }
+      }
 
       public static void AddError(string message)
       {
@@ -77,6 +91,16 @@ namespace Sawczyn.EFDesigner.EFModel
             StatusBar.SetText(message);
             LastStatusMessage = message;
          }
+      }
+
+      public static string GetChoice(string title, IEnumerable<string> choices)
+      {
+         ChooseForm form = new ChooseForm {Title = title};
+         form.SetChoices(choices);
+
+         return form.ShowDialog() == System.Windows.Forms.DialogResult.OK
+                   ? form.Selection
+                   : null;
       }
    }
 }

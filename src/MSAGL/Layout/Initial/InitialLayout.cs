@@ -1,14 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 
 using Microsoft.Msagl.Core;
 using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Layout.Incremental;
-using Microsoft.Msagl.Layout.Layered;
 using Microsoft.Msagl.Layout.MDS;
 
 //using Microsoft.Msagl.Routing;

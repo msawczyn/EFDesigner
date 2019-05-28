@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Msagl.Core.Layout;
 
 namespace Microsoft.Msagl.Core.Geometry.Curves {
     /// <summary>

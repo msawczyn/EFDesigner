@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using ExtensionEnablement = global::Microsoft.VisualStudio.Modeling.Diagrams.ExtensionEnablement;
+using ExtensionEnablement = Microsoft.VisualStudio.Modeling.Diagrams.ExtensionEnablement;
 using Sawczyn.EFDesigner.EFModel.ExtensionEnablement;
 
 namespace Sawczyn.EFDesigner.EFModel

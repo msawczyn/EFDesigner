@@ -83,6 +83,14 @@ LayoutAlgorithm domain property Id.</td></tr><tr><td>![Public field](media/pubfi
 LayoutAlgorithmSettings domain property Id.</td></tr><tr><td>![Public field](media/pubfield.gif "Public field")![Static member](media/static.gif "Static member")</td><td><a href="F_Sawczyn_EFDesigner_EFModel_ModelRoot_PluralizationService">PluralizationService</a></td><td /></tr></table>&nbsp;
 <a href="#modelroot-class">Back to Top</a>
 
+## Extension Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetActiveDiagram">GetActiveDiagram</a></td><td> (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetCompartment">GetCompartment</a></td><td>
+Gets the named compartment in this element
+ (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetFirstShapeElement">GetFirstShapeElement</a></td><td> (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_InvalidateDiagrams">InvalidateDiagrams</a></td><td>
+Causes all diagrams to redraw
+ (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_LocateInDiagram">LocateInDiagram</a></td><td> (Defined by <a href="T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions">ModelElementExtensions</a>.)</td></tr></table>&nbsp;
+<a href="#modelroot-class">Back to Top</a>
+
 ## See Also
 
 

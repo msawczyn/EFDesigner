@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using Sawczyn.EFDesigner.EFModel.Annotations;
 
-namespace Sawczyn.EFDesigner.EFModel.CustomCode.Extensions
+namespace Sawczyn.EFDesigner.EFModel.Extensions
 {
    public static class SyntaxNodeExtensions
    {

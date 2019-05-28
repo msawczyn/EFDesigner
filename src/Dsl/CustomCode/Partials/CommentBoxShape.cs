@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.InitializeDecorators(shapeFields, decorators);
 
          //Look up the shape field, which is called "Comment." 
-         TextField commentField = (TextField)ShapeElement.FindShapeField(shapeFields, "Comment");
+         TextField commentField = (TextField)FindShapeField(shapeFields, "Comment");
          // Allow multiple lines of text. 
          commentField.DefaultMultipleLine = true;
          // Autosize not supported for multi-line fields. 

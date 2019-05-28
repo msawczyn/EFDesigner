@@ -18,7 +18,7 @@ Public ReadOnly Property EffectiveConcurrency As <a href="T_Sawczyn_EFDesigner_E
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L72" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L125" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="T_Sawczyn_EFDesigner_EFModel_ConcurrencyOverride">ConcurrencyOverride</a><br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelClass.EffectiveConcurrency"\]

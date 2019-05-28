@@ -1,9 +1,5 @@
 #if SILVERLIGHT
-#else 
-using System;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+#else
 #if DEBUGGLEE
 
 namespace Microsoft.Msagl.Splines {

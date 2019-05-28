@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Msagl.Core.Geometry;
 
 #if DEBUG
-using System.Linq;
+
 #endif
 
 namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {

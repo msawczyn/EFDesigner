@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.Layout.MDS;
 using Microsoft.Msagl.Core;
 
 namespace Microsoft.Msagl.Layout.Incremental {

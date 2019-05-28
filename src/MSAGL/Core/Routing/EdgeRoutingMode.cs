@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Microsoft.Msagl.Core.Routing {
+﻿namespace Microsoft.Msagl.Core.Routing {
     /// <summary>
     /// defines the way edges are routed
     /// </summary>

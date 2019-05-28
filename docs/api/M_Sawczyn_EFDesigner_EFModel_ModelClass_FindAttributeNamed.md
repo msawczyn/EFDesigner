@@ -21,7 +21,7 @@ Public Function FindAttributeNamed (
 ) As <a href="T_Sawczyn_EFDesigner_EFModel_ModelAttribute">ModelAttribute</a>
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L174" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L227" title="View the source code">View Source</a><br />
 
 #### Parameters
 &nbsp;<dl><dt>identifier</dt><dd>Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">System.String</a><br />\[Missing <param name="identifier"/> documentation for "M:Sawczyn.EFDesigner.EFModel.ModelClass.FindAttributeNamed(System.String)"\]</dd></dl>

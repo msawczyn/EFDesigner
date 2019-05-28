@@ -7,10 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.Msagl.Core.DataStructures;
+
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
-using Microsoft.Msagl.Core.Layout;
 #if TEST_MSAGL
 using Microsoft.Msagl.DebugHelpers;
 #endif // TEST_MSAGL

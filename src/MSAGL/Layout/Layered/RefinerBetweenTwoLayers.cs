@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Routing;
-using Microsoft.Msagl.Core.Geometry.Curves;
 
 namespace Microsoft.Msagl.Layout.Layered {
     //  internal delegate bool Direction(ref Point a, ref Point b, ref Point c);

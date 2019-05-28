@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.Modeling;
 
-using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -98,6 +98,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if ((element.EntityFrameworkVersion == EFVersion.EFCore) && (element.NuGetPackageVersion.MajorMinorVersionNum < 2.1))
                   element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+
+               break;
+
+            case "LayoutAlgorithm":
+               ModelDisplay.LayoutDiagram(element.Classes.FirstOrDefault()?.GetActiveDiagram() as EFModelDiagram);
 
                break;
 

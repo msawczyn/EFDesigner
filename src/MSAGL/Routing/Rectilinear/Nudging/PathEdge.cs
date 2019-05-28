@@ -1,5 +1,4 @@
 using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.Geometry.Curves;
 
 namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
     /// <summary>

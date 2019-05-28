@@ -8,22 +8,14 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-using Microsoft.Msagl.Core.Geometry.Curves;
-using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.Layout.Layered;
-using Microsoft.Msagl.Miscellaneous;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
-using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
-using Microsoft.VisualStudio.Modeling.Extensibility;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
-// ReSharper disable InconsistentNaming
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
-using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
-using Point = Microsoft.Msagl.Core.Geometry.Point;
+// ReSharper disable InconsistentNaming
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -32,6 +24,8 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
    internal partial class EFModelCommandSet
    {
+      #region Identifiers
+
       // ReSharper disable once UnusedMember.Local
       private const int grpidEFDiagram = 0x01001;
 
@@ -56,6 +50,8 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidSelectBidir = 0x0105;
 
       private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
+
+      #endregion Identifiers
 
       protected override IList<MenuCommand> GetMenuCommands()
       {
@@ -148,7 +144,7 @@ namespace Sawczyn.EFDesigner.EFModel
          DynamicStatusMenuCommand splitAssociationCommand =
             new DynamicStatusMenuCommand(OnStatusSplitAssociation, OnMenuSplitAssociation, new CommandID(guidEFDiagramMenuCmdSet, cmdidSplitAssociation));
          commands.Add(splitAssociationCommand);
-         
+
          // Additional commands go here.  
          return commands;
       }
@@ -501,224 +497,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnMenuLayoutDiagram(object sender, EventArgs e)
       {
-         EFModelDiagram diagram = CurrentSelection.Cast<EFModelDiagram>().FirstOrDefault();
-         ModelRoot modelRoot = diagram?.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         EFModelDiagram diagram = CurrentSelection.Cast<EFModelDiagram>().SingleOrDefault();
 
-         if (modelRoot == null)
+         if (diagram == null)
             return;
 
-         using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
-         {
-            List<NodeShape> nodeShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<NodeShape>().ToList();
-            List<BinaryLinkShape> linkShapes = diagram.NestedChildShapes.Where(s => s.IsVisible).OfType<BinaryLinkShape>().ToList();
-
-            // The standard DSL layout method was selected. Just do the deed and be done with it.
-            // otherwise, we need to run an MSAGL layout
-            if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
-               DoStandardLayout(linkShapes, diagram);
-            else
-               DoCustomLayout(nodeShapes, linkShapes, modelRoot);
-
-            tx.Commit();
-         }
-      }
-
-      #region Custom Layout
-
-      private static void DoCustomLayout(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
-      {
-         GeometryGraph graph = new GeometryGraph();
-
-         CreateDiagramNodes(nodeShapes, graph);
-         CreateDiagramLinks(linkShapes, graph);
-
-         AddDesignConstraints(linkShapes, modelRoot, graph);
-
-         LayoutHelpers.CalculateLayout(graph, modelRoot.LayoutAlgorithmSettings, null);
-
-         // Move model to positive axis.
-         graph.UpdateBoundingBox();
-         graph.Translate(new Point(-graph.Left, -graph.Bottom));
-
-         UpdateNodePositions(graph);
-         UpdateConnectors(graph);
-      }
-
-      private static void CreateDiagramNodes(List<NodeShape> nodeShapes, GeometryGraph graph)
-      {
-         foreach (NodeShape nodeShape in nodeShapes)
-         {
-            ICurve graphRectangle = CurveFactory.CreateRectangle(nodeShape.Bounds.Width,
-                                                                 nodeShape.Bounds.Height,
-                                                                 new Point(nodeShape.Bounds.Center.X,
-                                                                           nodeShape.Bounds.Center.Y));
-
-            Node diagramNode = new Node(graphRectangle, nodeShape);
-            graph.Nodes.Add(diagramNode);
-         }
-      }
-
-      private static void CreateDiagramLinks(List<BinaryLinkShape> linkShapes, GeometryGraph graph)
-      {
-         foreach (BinaryLinkShape linkShape in linkShapes)
-         {
-            graph.Edges.Add(new Edge(graph.FindNodeByUserData(linkShape.Nodes[0]),
-                                     graph.FindNodeByUserData(linkShape.Nodes[1]))
-            {
-               UserData = linkShape
-            });
-         }
-      }
-
-      private static void AddDesignConstraints(List<BinaryLinkShape> linkShapes, ModelRoot modelRoot, GeometryGraph graph)
-      {
-         // Sugiyama allows for layout constraints, so we can make sure that base classes are above derived classes,
-         // and put classes derived from the same base in the same vertical layer. Unfortunately, other layout strategies
-         // don't have that ability.
-         if (modelRoot.LayoutAlgorithmSettings is SugiyamaLayoutSettings sugiyamaSettings)
-         {
-            // ensure generalizations are vertically over each other
-            foreach (GeneralizationConnector linkShape in linkShapes.OfType<GeneralizationConnector>())
-            {
-               if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Sugiyama)
-               {
-                  int upperNodeIndex = linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement
-                                          ? 0
-                                          : 1;
-
-                  int lowerNodeIndex = upperNodeIndex == 0
-                                          ? 1
-                                          : 0;
-
-                  sugiyamaSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
-                                                       graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
-               }
-            }
-
-            // add constraints ensuring descendents of a base class are on the same level
-            Dictionary<string, List<NodeShape>> derivedClasses = linkShapes.OfType<GeneralizationConnector>()
-                                                                           .SelectMany(ls => ls.Nodes)
-                                                                           .Where(n => n.ModelElement is ModelClass mc && mc.BaseClass != null)
-                                                                           .GroupBy(n => ((ModelClass)n.ModelElement).BaseClass)
-                                                                           .ToDictionary(n => n.Key, n => n.ToList());
-
-            foreach (KeyValuePair<string, List<NodeShape>> derivedClassData in derivedClasses)
-            {
-               Node[] siblingNodes = derivedClassData.Value.Select(graph.FindNodeByUserData).ToArray();
-               sugiyamaSettings.AddSameLayerNeighbors(siblingNodes);
-            }
-         }
-      }
-
-      private static void UpdateNodePositions(GeometryGraph graph)
-      {
-         foreach (Node node in graph.Nodes)
-         {
-            NodeShape nodeShape = (NodeShape)node.UserData;
-            nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
-         }
-      }
-
-      private static void UpdateConnectors(GeometryGraph graph)
-      {
-
-         foreach (Edge edge in graph.Edges)
-         {
-            BinaryLinkShape linkShape = (BinaryLinkShape)edge.UserData;
-            linkShape.ManuallyRouted = false;
-            linkShape.EdgePoints.Clear();
-
-            // MSAGL deals in line segments; DSL deals in points
-            // with the segments, tne end of one == the beginning of the next, so we can use just the beginning point
-            // of each segment. 
-            // But we have to hang on to the end point so that, when we hit the last segment, we can finish off the
-            // set of points
-            if (edge.Curve is LineSegment lineSegment)
-            {
-               // When curve is a single line segment.
-               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.Start.X, lineSegment.Start.Y, VGPointType.Normal));
-               linkShape.EdgePoints.Add(new EdgePoint(lineSegment.End.X, lineSegment.End.Y, VGPointType.Normal));
-            }
-            else if (edge.Curve is Curve curve)
-            {
-               //// When curve is a complex segment.
-               EdgePoint lastPoint = null;
-
-               foreach (ICurve segment in curve.Segments)
-               {
-                  switch (segment.GetType().Name)
-                  {
-                     case "LineSegment":
-                        LineSegment line = segment as LineSegment;
-                        linkShape.EdgePoints.Add(new EdgePoint(line.Start.X, line.Start.Y, VGPointType.Normal));
-                        lastPoint = new EdgePoint(line.End.X, line.End.Y, VGPointType.Normal);
-
-                        break;
-
-                     case "CubicBezierSegment":
-                        CubicBezierSegment bezier = segment as CubicBezierSegment;
-
-                        // there are 4 segments. Store all but the last one
-                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(0).X, bezier.B(0).Y, VGPointType.Normal));
-                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(1).X, bezier.B(1).Y, VGPointType.Normal));
-                        linkShape.EdgePoints.Add(new EdgePoint(bezier.B(2).X, bezier.B(2).Y, VGPointType.Normal));
-                        lastPoint = new EdgePoint(bezier.B(3).X, bezier.B(3).Y, VGPointType.Normal);
-
-                        break;
-
-                     case "Ellipse":
-                        // rather than draw a curved line, we'll bust the curve into 5 parts and draw those as straight lines
-                        Ellipse ellipse = segment as Ellipse;
-                        double interval = (ellipse.ParEnd - ellipse.ParStart) / 5.0;
-                        lastPoint = null;
-
-                        for (double i = ellipse.ParStart; i <= ellipse.ParEnd; i += interval)
-                        {
-                           Point p = ellipse.Center
-                                 + (Math.Cos(i) * ellipse.AxisA)
-                                 + (Math.Sin(i) * ellipse.AxisB);
-
-                           // we'll remember the one we just calculated, but store away the one we calculated last time around
-                           // (if there _was_ a last time around). That way, when we're done, we'll have stored all of them except
-                           // for the last one
-                           if (lastPoint != null)
-                              linkShape.EdgePoints.Add(lastPoint);
-
-                           lastPoint = new EdgePoint(p.X, p.Y, VGPointType.Normal);
-                        }
-                        
-                        break;
-                  }
-               }
-
-               // finally tuck away the last one. Now we don't have duplicate points in our list
-               if (lastPoint != null)
-                  linkShape.EdgePoints.Add(lastPoint);
-            }
-
-            // since we're not changing the nodes this edge connects, this really doesn't do much.
-            // what it DOES do, however, is call ConnectEdgeToNodes, which is an internal method we'd otherwise
-            // be unable to access
-            linkShape.Connect(linkShape.FromShape, linkShape.ToShape);
-         }
-      }
-
-      #endregion
-
-      private static void DoStandardLayout(List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
-      {
-         // first we need to mark all the connectors as dirty so they'll route. Easiest way is to flip their 'ManuallyRouted' flag
-         foreach (BinaryLinkShape linkShape in linkShapes)
-            linkShape.ManuallyRouted = !linkShape.ManuallyRouted;
-
-         // now let the layout mechanism route the connectors by setting 'ManuallyRouted' to false, regardless of what it was before
-         foreach (BinaryLinkShape linkShape in linkShapes)
-            linkShape.ManuallyRouted = false;
-
-         diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
-                                         VGRoutingStyle.VGRouteStraight,
-                                         PlacementValueStyle.VGPlaceSN,
-                                         true);
+         Commands.LayoutDiagram(diagram);
       }
 
       #endregion Layout Diagram
@@ -809,7 +593,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (sender is MenuCommand command)
          {
             Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelRoot modelRoot = store.ModelRoot();
             command.Visible = modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected();
             command.Enabled = IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
          }
@@ -818,7 +602,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuLoadNuGet(object sender, EventArgs e)
       {
          Store store = CurrentDocData.Store;
-         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = store.ModelRoot();
 
          ((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
       }
@@ -832,7 +616,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (sender is MenuCommand command)
          {
             Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelRoot modelRoot = store.ModelRoot();
             command.Visible = true;
 
             UnidirectionalAssociation[] selected = CurrentSelection.OfType<UnidirectionalConnector>()
@@ -858,6 +642,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
+
       #region Split Bidirectional Association
 
       private void OnStatusSplitAssociation(object sender, EventArgs e)
@@ -865,17 +650,17 @@ namespace Sawczyn.EFDesigner.EFModel
          if (sender is MenuCommand command)
          {
             Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelRoot modelRoot = store.ModelRoot();
             command.Visible = true;
-     
+
             BidirectionalAssociation[] selected = CurrentSelection.OfType<BidirectionalConnector>()
                                                                    .Select(connector => connector.ModelElement)
                                                                    .Cast<BidirectionalAssociation>()
                                                                    .ToArray();
-            
+
             command.Enabled = modelRoot != null &&
                               CurrentDocData is EFModelDocData &&
-                              selected.Count() == 1;
+                              selected.Length == 1;
          }
       }
 
@@ -890,7 +675,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
-    
+
       #region Select classes
 
       private void OnStatusSelectClasses(object sender, EventArgs e)

@@ -2,6 +2,8 @@
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelClass), FireTime = TimeToFire.TopLevelCommit)]
@@ -14,7 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelClass element = (ModelClass)e.ModelElement;
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
-         ModelRoot modelRoot = store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = store.ModelRoot();
 
          if (current.IsSerializing)
             return;

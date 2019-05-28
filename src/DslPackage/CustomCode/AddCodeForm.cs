@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
+namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class AddCodeForm : Form
    {
@@ -23,13 +23,20 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
       {
          lblClassName.Text = element.Name;
          txtCode.Lines = element.Values.Select(x => x.ToString()).ToArray();
+         // ReSharper disable once VirtualMemberCallInConstructor
          Text = "Add values as code";
          label1.Text = "Enum name";
          label2.Text = "Values";
          txtCode.AutoCompleteCustomSource.AddRange(element.ModelRoot.ValidTypes);
       }
 
-      public IEnumerable<string> Lines => txtCode.Lines.Where(s => !string.IsNullOrEmpty(s.Trim())).ToList();
+      public IEnumerable<string> Lines
+      {
+         get
+         {
+            return txtCode.Lines.Where(s => !string.IsNullOrEmpty(s.Trim())).ToList();
+         }
+      }
 
       private void btnOk_Click(object sender, EventArgs e)
       {

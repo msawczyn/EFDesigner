@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.Modeling;
 
 using Sawczyn.EFDesigner.EFModel.Annotations;
-using Sawczyn.EFDesigner.EFModel.CustomCode.Extensions;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -176,8 +176,8 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             string className = classDecl.Identifier.Text;
-            ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
-            ModelClass modelClass = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
+            ModelRoot modelRoot = Store.ModelRoot();
+            ModelClass modelClass = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == className);
             modelClass.Attributes.Clear();
 
             foreach (PropertyDeclarationSyntax propertyDecl in classDecl.DescendantNodes().OfType<PropertyDeclarationSyntax>())
@@ -429,7 +429,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (enumDecl == null)
             throw new ArgumentNullException(nameof(enumDecl));
 
-         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ModelRoot();
          string enumName = enumDecl.Identifier.Text;
 
          if (namespaceDecl == null && enumDecl.Parent is NamespaceDeclarationSyntax enumDeclParent)
@@ -437,7 +437,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string namespaceName = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace;
 
-         if (Store.ElementDirectory.AllElements.OfType<ModelClass>().Any(c => c.Name == enumName) || Store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == enumName))
+         if (Store.Get<ModelClass>().Any(c => c.Name == enumName) || Store.Get<ModelEnum>().Any(c => c.Name == enumName))
          {
             ErrorDisplay.Show($"'{enumName}' already exists in model.");
 
@@ -528,13 +528,13 @@ namespace Sawczyn.EFDesigner.EFModel
          if (classDecl == null)
             throw new ArgumentNullException(nameof(classDecl));
 
-         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ModelRoot();
          string className = classDecl.Identifier.Text;
 
          if (namespaceDecl == null && classDecl.Parent is NamespaceDeclarationSyntax classDeclParent)
             namespaceDecl = classDeclParent;
 
-         if (Store.ElementDirectory.AllElements.OfType<ModelEnum>().Any(c => c.Name == className))
+         if (Store.Get<ModelEnum>().Any(c => c.Name == className))
          {
             ErrorDisplay.Show($"'{className}' already exists in model as an Enum.");
 
@@ -558,7 +558,7 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             ModelClass superClass = null;
-            result = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == className);
+            result = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == className);
 
             // Base classes and interfaces
             // Check these first. If we need to add new models, we want the base class already in the store

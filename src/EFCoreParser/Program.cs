@@ -2,8 +2,6 @@
 using System.IO;
 using System.Reflection;
 
-using Microsoft.EntityFrameworkCore;
-
 namespace EFCoreParser
 {
    internal class Program

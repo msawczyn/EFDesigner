@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
     [ValidationState(ValidationState.Enabled)]
@@ -188,7 +190,7 @@ namespace Sawczyn.EFDesigner.EFModel
             internal void ResetValue(ModelEnum element)
             {
                 object calculatedValue = null;
-                ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+                ModelRoot modelRoot = element.Store.ModelRoot();
 
                 try
                 {
@@ -283,7 +285,7 @@ namespace Sawczyn.EFDesigner.EFModel
             internal void ResetValue(ModelEnum element)
             {
                 object calculatedValue = null;
-                ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+                ModelRoot modelRoot = element.Store.ModelRoot();
 
                 try
                 {

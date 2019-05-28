@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.Msagl.Core.Layout;
 
 namespace Microsoft.Msagl.Core.Geometry {
     /// <summary>

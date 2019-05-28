@@ -21,7 +21,7 @@ Public Function FindAssociationNamed (
 ) As <a href="T_Sawczyn_EFDesigner_EFModel_NavigationProperty">NavigationProperty</a>
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L172" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L225" title="View the source code">View Source</a><br />
 
 #### Parameters
 &nbsp;<dl><dt>identifier</dt><dd>Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">System.String</a><br />\[Missing <param name="identifier"/> documentation for "M:Sawczyn.EFDesigner.EFModel.ModelClass.FindAssociationNamed(System.String)"\]</dd></dl>

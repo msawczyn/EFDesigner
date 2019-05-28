@@ -17,7 +17,7 @@ public ModelClass()
 Public Sub New
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/ParsingModels/ModelClass.cs#L24" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/ParsingModels/ModelClass.cs#L23" title="View the source code">View Source</a><br />
 
 ## See Also
 

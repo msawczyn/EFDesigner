@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Msagl.Core;
+
 using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.GraphAlgorithms;
 

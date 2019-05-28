@@ -4,7 +4,6 @@ using Microsoft.Msagl.Core;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Routing.Visibility;
-using System.Linq;
 
 namespace Microsoft.Msagl.Routing.Spline.ConeSpanner
 {

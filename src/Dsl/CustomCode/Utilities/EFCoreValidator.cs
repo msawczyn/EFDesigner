@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    /// <summary>
@@ -86,7 +88,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static IEnumerable<string> GetErrors(Association element)
       {
-         ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = element.Store.ModelRoot();
          List<string> errorMessages = new List<string>();
 
          if (modelRoot?.EntityFrameworkVersion > EFVersion.EF6)
@@ -127,10 +129,10 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = modelRoot.Store;
          List<string> errorMessages = new List<string>();
 
-         foreach (Association association in store.ElementDirectory.AllElements.OfType<Association>().ToList())
+         foreach (Association association in store.Get<Association>().ToList())
             errorMessages.AddRange(GetErrors(association));
 
-         foreach (ModelClass modelClass in store.ElementDirectory.AllElements.OfType<ModelClass>().ToList())
+         foreach (ModelClass modelClass in store.Get<ModelClass>().ToList())
          {
             errorMessages.AddRange(GetErrors(modelClass));
 

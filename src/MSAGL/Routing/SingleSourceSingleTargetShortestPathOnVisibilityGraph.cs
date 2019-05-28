@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+
 using Microsoft.Msagl.Core.DataStructures;
-using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.GraphmapsWithMesh;
 using Microsoft.Msagl.Routing.Visibility;
 

@@ -9,7 +9,7 @@ Model and generate code for Entity Framework v6, Entity Framework Core 2.0 throu
 **Complete documentation in the [project's documentation site](https://msawczyn.github.io/EFDesigner/)**
 
 <table><tbody><tr><td>
-<img src="https://raw.githubusercontent.com/msawczyn/EFDesigner/master/docs/images/Designer.jpg">
+<img src="https://msawczyn.github.io/EFDesigner/images/Designer.jpg">
 </td></tr></tbody></table>
 
 This Visual Studio 2017/2019 extension adds a new file type (.efmodel) that allows for fast, easy and, most
@@ -25,6 +25,7 @@ to your generated code are retained across subsequent generations.
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home.
 The goal was to duplicate at least those features and, in addition, 
 add all the little things that *should* have been there. Things like: 
+- **_import existing source code and compiled assemblies directly into the model_**
 - the ability to show and hide parts of the model
 - easy customization of generated output
 - class and enumeration nodes that can be colored to visually group the model
@@ -47,9 +48,20 @@ In Visual Studio 2019, projects using the new project format (typically .NET Cor
 opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK and is currently under investigation. Visual Studio
 2017 does not exhibit this issue.
 
+**The workaround** is to place the `.efodel` file in a .NET Framework project and place the T4 in the .NET Core or .NET Standard project
+you want to generate into. You can then change the location of the `.efmodel` file in the T4 template (right at the top of the template) 
+to point to its location in the other project and it will use that as its source data. 
+
 If this is important to you, you can follow it at [developercommunity.visualstudio.com](https://developercommunity.visualstudio.com/content/problem/539313/microsoftvisualstudioprojectsystemvsimplementation.html).
 
 ### Change Log
+
+**1.3.0.0**
+   - Enhanced drag/drop to handle bidirectional associations and enumerations better.
+   - Can now import assemblies containing DbContext classes. Dropping a compiled assembly onto the design surface will attempt to process and merge it into the design.
+   - Added ability to merge two unidirectional associations into one bidirectional association (via context menu action)
+   - Added ability to split a bidirectional association to two unidirectional associations (via context menu action)
+   - Added [Microsoft Automatic Graph Layout](https://github.com/Microsoft/automatic-graph-layout), giving the user the ability to choose the diagram's auto-layout strategy 
 
 **1.2.7.2**
    - Added additional types of UInt16, UInt32, UInt64 and SByte to property type list
@@ -58,7 +70,9 @@ If this is important to you, you can follow it at [developercommunity.visualstud
    - Fix: "One-to-one relation in EFCore" (See https://github.com/msawczyn/EFDesigner/issues/71)
    - Remove default DbContext constructor in EFCore to allow support for AddDbContextPool calls in ConfigureServices (See https://github.com/msawczyn/EFDesigner/issues/72)
 
-**1.2.7.1**
+<details>
+<summary><b>1.2.7.1</b></summary>
+
    - Works with Visual Studio 2019 - mostly (see Known Issues, above)
    - Better formatting for XML comment docs
    - Added autoproperty toggle for association ends, allowing for implementation of partial methods to examine and/or override association getting and setting
@@ -71,6 +85,8 @@ If this is important to you, you can follow it at [developercommunity.visualstud
    - Fix: "EFCore indexed column not generated and support for multi column indexing" (See https://github.com/msawczyn/EFDesigner/issues/62)
    - Fix: "One-to-one seems to generate incorrect code" (See https://github.com/msawczyn/EFDesigner/issues/60)
    - Fix: "Error generating column type" (See https://github.com/msawczyn/EFDesigner/issues/58)
+
+</details>
 
 <details>
 <summary><b>1.2.6.24</b></summary>

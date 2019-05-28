@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 
 using ParsingModels;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 // ReSharper disable UseObjectOrCollectionInitializer
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -56,6 +58,7 @@ namespace Sawczyn.EFDesigner.EFModel
             throw new ArgumentNullException(nameof(filename));
 
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
+         StatusDisplay.Show($"Detecting .NET and EF versions");
 
          if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename) == 0 ||
              TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0 ||
@@ -72,7 +75,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void ProcessRootData(ParsingModels.ModelRoot rootData)
       {
-         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ModelRoot();
 
          modelRoot.EntityContainerName = rootData.EntityContainerName;
          modelRoot.Namespace = rootData.Namespace;
@@ -162,18 +165,18 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          foreach (ModelUnidirectionalAssociation data in unidirectionalAssociations)
          {
-            if (Store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>()
+            if (Store.Get<UnidirectionalAssociation>()
                      .Any(x => x.Target.FullName == data.TargetClassFullName &&
                                x.Source.FullName == data.SourceClassFullName &&
                                x.TargetPropertyName == data.TargetPropertyName))
                continue;
 
-            ModelClass source = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
+            ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
 
             if (source == null)
                continue;
 
-            ModelClass target = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.FullName == data.TargetClassFullName);
+            ModelClass target = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.TargetClassFullName);
 
             if (target == null)
                continue;
@@ -200,14 +203,14 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          foreach (ModelBidirectionalAssociation data in bidirectionalAssociations)
          {
-            if (Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+            if (Store.Get<BidirectionalAssociation>()
                      .Any(x => x.Target.FullName == data.TargetClassFullName &&
                                x.Source.FullName == data.SourceClassFullName &&
                                x.TargetPropertyName == data.TargetPropertyName &&
                                x.SourcePropertyName == data.SourcePropertyName))
                continue;
 
-            if (Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>()
+            if (Store.Get<BidirectionalAssociation>()
                      .Any(x => x.Source.FullName == data.TargetClassFullName &&
                                x.Target.FullName == data.SourceClassFullName &&
                                x.SourcePropertyName == data.TargetPropertyName &&
@@ -215,12 +218,12 @@ namespace Sawczyn.EFDesigner.EFModel
                continue;
 
 
-            ModelClass source = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
+            ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
 
             if (source == null)
                continue;
 
-            ModelClass target = Store.ElementDirectory.AllElements.OfType<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName && c.Namespace == data.TargetClassNamespace);
+            ModelClass target = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName && c.Namespace == data.TargetClassNamespace);
 
             if (target == null)
                continue;

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.Msagl.Core.Geometry.Curves;
+
 using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.Core.Routing;
 using Microsoft.Msagl.Prototype.Ranking;
-using Microsoft.Msagl.Routing;
 
 namespace Microsoft.Msagl.Layout.LargeGraphLayout {
     internal class LevelCalculator { 

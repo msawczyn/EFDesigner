@@ -4,7 +4,6 @@
 //
 // Copyright Microsoft Corporation.
 
-using System;
 using System.Collections.Generic;
 using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;

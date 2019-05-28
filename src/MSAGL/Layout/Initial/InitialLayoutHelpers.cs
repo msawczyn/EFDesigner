@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Microsoft.Msagl.Core;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
-using Microsoft.Msagl.Layout.Incremental;
-using Microsoft.Msagl.Layout.Layered;
-using Microsoft.Msagl.Layout.MDS;
 using Microsoft.Msagl.Routing;
 using Microsoft.Msagl.Routing.Rectilinear;
 

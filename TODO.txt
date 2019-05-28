@@ -1,5 +1,3 @@
-DSL: Add a Project Explorer icon for the EFModel type
-
 T4:  Implement entity splitting
 
 DSL: Context menu items should apply to model explorer as well as diagram

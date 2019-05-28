@@ -5,8 +5,6 @@ using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTree;
 using Microsoft.Msagl.Layout.MDS;
-using Microsoft.Msagl.Routing;
-using Microsoft.Msagl.Routing.Rectilinear;
 
 namespace Microsoft.Msagl.Prototype.Ranking {
     /// <summary>

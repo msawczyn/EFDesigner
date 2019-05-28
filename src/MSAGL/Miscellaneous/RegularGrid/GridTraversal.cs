@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.ProjectionSolver;
 
 namespace Microsoft.Msagl.Miscellaneous.RegularGrid
 {

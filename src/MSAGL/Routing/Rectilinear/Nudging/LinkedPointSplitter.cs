@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.Geometry.Curves;
 
 namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
     /// <summary>

@@ -5,8 +5,6 @@ using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using System.Diagnostics;
 using System;
-using Microsoft.Msagl.DebugHelpers;
-using Microsoft.Msagl.Core.Layout;
 
 namespace Microsoft.Msagl.Routing.Spline.Bundling {
     internal class BundleInfo {

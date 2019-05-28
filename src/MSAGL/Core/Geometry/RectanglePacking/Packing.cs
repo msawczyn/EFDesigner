@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-
-namespace Microsoft.Msagl.Core.Geometry
+﻿namespace Microsoft.Msagl.Core.Geometry
 {
     /// <summary>
     /// Algorithm to pack rectangles

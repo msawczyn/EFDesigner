@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sawczyn.EFDesigner.EFModel
+﻿namespace Sawczyn.EFDesigner.EFModel
 {
    partial class UnidirectionalAssociationBuilder
    {
@@ -13,6 +7,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return !candidate.IsDependentType;
       }
 
+      // ReSharper disable once UnusedParameter.Local
       private static bool CanAcceptModelClassAndModelClassAsSourceAndTarget(ModelClass sourceModelClass, ModelClass targetModelClass)
       {
          return !sourceModelClass.IsDependentType;

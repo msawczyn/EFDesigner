@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.Msagl.Core.DataStructures;
+
 using Microsoft.Msagl.Core.GraphAlgorithms;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.ProjectionSolver;

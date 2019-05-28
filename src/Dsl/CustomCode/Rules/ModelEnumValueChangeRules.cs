@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelEnumValue), FireTime = TimeToFire.TopLevelCommit)]
@@ -52,7 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   string oldInitialValue = $"{modelEnum.Name}.{e.OldValue}";
                   string newInitialValue = $"{modelEnum.Name}.{e.NewValue}";
 
-                  foreach (ModelAttribute modelAttribute in store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.InitialValue == oldInitialValue))
+                  foreach (ModelAttribute modelAttribute in store.Get<ModelAttribute>().Where(a => a.InitialValue == oldInitialValue))
                      modelAttribute.InitialValue = newInitialValue;
                }
 

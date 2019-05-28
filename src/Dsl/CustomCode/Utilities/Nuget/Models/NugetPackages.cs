@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace Sawczyn.EFDesigner.EFModel.Nuget
 {
+   // ReSharper disable once PartialTypeWithSinglePart
    public partial class NuGetPackages
    {
       [JsonProperty("@context")]

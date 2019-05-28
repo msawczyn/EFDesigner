@@ -3,61 +3,16 @@ using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
-namespace Sawczyn.EFDesigner.EFModel.CustomCode.Extensions
+
+namespace Sawczyn.EFDesigner.EFModel.Extensions
 {
    public static class ModelElementExtensions
    {
-      public static bool LocateInDiagram(this ModelElement element)
-      {
-         DiagramView diagramView = element.GetShapeElement()?.Diagram?.ActiveDiagramView;
-         return diagramView != null && diagramView.SelectModelElement(element);
-      }
-
       private static ShapeElement GetShapeElement(this ModelElement element)
       {
          // Get the first shape
          // If the model element is in a compartment the result will be null
-
-         return element.GetFirstShapeElement() ?? element.GetCompartmentElementFirstParentElement()?.GetFirstShapeElement();
-      }
-
-      public static ShapeElement GetFirstShapeElement(this ModelElement element)
-      {
-         return PresentationViewsSubject.GetPresentation(element).OfType<ShapeElement>().FirstOrDefault();
-      }
-
-      /// <summary>
-      /// Gets the named compartment in this element
-      /// </summary>
-      /// <param name="element"></param>
-      /// <param name="compartmentName"></param>
-      /// <returns></returns>
-      public static ElementListCompartment GetCompartment(this ModelElement element, string compartmentName)
-      {
-         return element.GetFirstShapeElement()
-                       .NestedChildShapes
-                       .OfType<ElementListCompartment>()
-                       .FirstOrDefault(s => s.Name == compartmentName);
-      }
-
-      /// <summary>
-      /// Causes all diagrams to redraw
-      /// </summary>
-      /// <param name="element"></param>
-      public static void InvalidateDiagrams(this ModelElement element)
-      {
-         List<EFModelDiagram> diagrams = element.Store
-                                                .DefaultPartitionForClass(EFModelDiagram.DomainClassId)
-                                                .ElementDirectory
-                                                .AllElements
-                                                .OfType<EFModelDiagram>()
-                                                .ToList();
-
-         foreach (EFModelDiagram diagram in diagrams)
-         {
-            diagram.Invalidate();
-         }
-
+         return element?.GetFirstShapeElement() ?? element?.GetCompartmentElementFirstParentElement()?.GetFirstShapeElement();
       }
 
       private static ModelElement GetCompartmentElementFirstParentElement(this ModelElement modelElement)
@@ -78,6 +33,77 @@ namespace Sawczyn.EFDesigner.EFModel.CustomCode.Extensions
          }
 
          return null;
+      }
+
+      public static ModelRoot ModelRoot(this Store store)
+      {
+         return store.Get<ModelRoot>().FirstOrDefault();
+      }
+
+      public static IEnumerable<T> Get<T>(this Store store)
+      {
+         return store.ElementDirectory.AllElements.OfType<T>();
+      }
+
+      public static bool LocateInDiagram(this ModelElement element)
+      {
+         DiagramView diagramView = element.GetShapeElement()?.Diagram?.ActiveDiagramView;
+         return diagramView != null && diagramView.SelectModelElement(element);
+      }
+
+      public static ShapeElement GetFirstShapeElement(this ModelElement element)
+      {
+         return PresentationViewsSubject.GetPresentation(element).OfType<ShapeElement>().FirstOrDefault();
+      }
+
+      /// <summary>
+      /// Gets the named compartment in this element
+      /// </summary>
+      /// <param name="element"></param>
+      /// <param name="compartmentName"></param>
+      /// <returns></returns>
+      public static ElementListCompartment GetCompartment(this ModelElement element, string compartmentName)
+      {
+         return element?.GetFirstShapeElement()
+                       ?.NestedChildShapes
+                       ?.OfType<ElementListCompartment>()
+                        .FirstOrDefault(s => s.Name == compartmentName);
+      }
+
+      /// <summary>
+      /// Causes all diagrams to redraw
+      /// </summary>
+      /// <param name="element"></param>
+      public static void InvalidateDiagrams(this ModelElement element)
+      {
+         if (element != null)
+         {
+            List<EFModelDiagram> diagrams = element.Store
+                                                   .DefaultPartitionForClass(EFModelDiagram.DomainClassId)
+                                                   .ElementDirectory
+                                                   .AllElements
+                                                   .OfType<EFModelDiagram>()
+                                                   .ToList();
+
+            foreach (EFModelDiagram diagram in diagrams)
+            {
+               diagram.Invalidate();
+            }
+         }
+      }
+
+      //public static DiagramView GetActiveDiagramView(this ModelElement element)
+      //{
+      //   // Get the shape that corresponds to this model element
+      //   ShapeElement shapeElement = element.GetShapeElement();
+      //   return shapeElement?.Vi
+      //}
+
+      public static Diagram GetActiveDiagram(this ModelElement element)
+      {
+         ShapeElement shapeElement = element.GetShapeElement();
+
+         return shapeElement?.Diagram;
       }
    }
 }

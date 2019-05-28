@@ -16,6 +16,9 @@ using Microsoft.VisualStudio.Modeling.Validation;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using NuGet.VisualStudio;
+
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 using VSLangProj;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -146,6 +149,8 @@ namespace Sawczyn.EFDesigner.EFModel
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
          QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
          StatusDisplay.RegisterDisplayHandler(ShowStatus);
+         ChoiceDisplay.RegisterDisplayHandler(GetChoice);
+         ModelDisplay.RegisterLayoutDiagramAction(Commands.LayoutDiagram);
 
          ClassShape.OpenCodeFile = OpenFileFor;
          ClassShape.ExecCodeGeneration = GenerateCode;
@@ -244,7 +249,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void ValidateAll()
       {
          ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;
-         Store.ElementDirectory.AllElements.OfType<IDisplaysWarning>().ToList().ForEach(e => e.ResetWarning());
+         Store.Get<IDisplaysWarning>().ToList().ForEach(e => e.ResetWarning());
          ValidationController?.ClearMessages();
          ValidationController?.Validate(Store.ElementDirectory.AllElements, allCategories);
       }
@@ -291,6 +296,11 @@ namespace Sawczyn.EFDesigner.EFModel
       private void ShowStatus(string message)
       {
          Messages.AddStatus(message);
+      }
+
+      private string GetChoice(string title, IEnumerable<string> choices)
+      {
+         return Messages.GetChoice(title, choices);
       }
 
       public override IEnumerable<ModelElement> GetAllElementsForValidation()
@@ -521,6 +531,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                       new PropertyAssignment(Association.TargetAutoPropertyDomainPropertyId, selected.TargetAutoProperty), 
                                                    });
 
+            // ReSharper disable once UnusedVariable
             UnidirectionalAssociation element2 = new UnidirectionalAssociation(Store,
                                                    new[]
                                                    {

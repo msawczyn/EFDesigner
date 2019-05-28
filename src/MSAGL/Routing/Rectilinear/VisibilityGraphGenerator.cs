@@ -14,7 +14,7 @@ using Microsoft.Msagl.Routing.Visibility;
 
 #if DEBUG
 using System.Linq;
-using Microsoft.Msagl.DebugHelpers;
+
 #endif
 
 namespace Microsoft.Msagl.Routing.Rectilinear {

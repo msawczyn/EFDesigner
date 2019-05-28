@@ -21,7 +21,7 @@ Public Function LocalNavigationProperties (
 ) As <a href="http://msdn2.microsoft.com/en-us/library/9eekhta0" target="_blank">IEnumerable</a>(Of <a href="T_Sawczyn_EFDesigner_EFModel_NavigationProperty">NavigationProperty</a>)
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L116" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L169" title="View the source code">View Source</a><br />
 
 #### Parameters
 &nbsp;<dl><dt>ignore</dt><dd>Type: <a href="T_Sawczyn_EFDesigner_EFModel_Association">Sawczyn.EFDesigner.EFModel.Association</a>[]<br />\[Missing <param name="ignore"/> documentation for "M:Sawczyn.EFDesigner.EFModel.ModelClass.LocalNavigationProperties(Sawczyn.EFDesigner.EFModel.Association[])"\]</dd></dl>

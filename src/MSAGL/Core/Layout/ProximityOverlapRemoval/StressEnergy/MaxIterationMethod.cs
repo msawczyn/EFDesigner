@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
+﻿namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
 
     /// <summary>
     /// Determines whether the given fixed number of iterations is used, or whether this number should be computed from the problem size.

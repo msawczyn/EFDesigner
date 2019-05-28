@@ -119,6 +119,13 @@
     <Compile Include="CustomCode\AddCodeForm.Designer.cs">
       <DependentUpon>AddCodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomCode\ChooseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomCode\ChooseForm.Designer.cs">
+      <DependentUpon>ChooseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomCode\Commands.cs" />
     <Compile Include="CustomCode\CommandSet.cs" />
     <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
@@ -365,6 +372,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CustomCode\AddCodeForm.resx">
       <DependentUpon>AddCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomCode\ChooseForm.resx">
+      <DependentUpon>ChooseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <SubType>Designer</SubType>

@@ -11,10 +11,10 @@ using Microsoft.Msagl.Layout.Incremental;
 using Microsoft.Msagl.Layout.Layered;
 using Microsoft.Msagl.Layout.MDS;
 using Microsoft.Msagl.Routing;
-using Microsoft.Msagl.Routing.Rectilinear;
+
 using System.Threading.Tasks;
 #if TEST_MSAGL
-using Microsoft.Msagl.DebugHelpers;
+
 #endif
 
 namespace Microsoft.Msagl.Layout.Initial {

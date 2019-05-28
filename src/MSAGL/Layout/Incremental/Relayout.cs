@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.Msagl.Core;
 using Microsoft.Msagl.Core.DataStructures;
@@ -10,13 +9,9 @@ using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
 using Microsoft.Msagl.Layout.Incremental;
 using Microsoft.Msagl.Layout.Layered;
-using Microsoft.Msagl.Layout.MDS;
 using Microsoft.Msagl.Miscellaneous;
-using Microsoft.Msagl.Routing;
-using Microsoft.Msagl.Routing.Rectilinear;
-using System.Threading.Tasks;
 #if TEST_MSAGL
-using Microsoft.Msagl.DebugHelpers;
+
 #endif
 
 namespace Microsoft.Msagl.Layout.Initial {

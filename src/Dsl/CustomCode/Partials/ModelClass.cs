@@ -4,6 +4,9 @@ using Microsoft.VisualStudio.Modeling.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedMember.Local
 
@@ -26,15 +29,65 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      public IEnumerable<ModelAttribute> RequiredAttributes => Attributes.Where(x => x.Required).ToList();
-      public IEnumerable<ModelAttribute> AllRequiredAttributes => AllAttributes.Where(x => x.Required).ToList();
-      public IEnumerable<ModelAttribute> IdentityAttributes => Attributes.Where(x => x.IsIdentity).ToList();
-      public IEnumerable<ModelAttribute> AllIdentityAttributes => AllAttributes.Where(x => x.IsIdentity).ToList();
-      public IEnumerable<string> IdentityAttributeNames => IdentityAttributes.Select(x => x.Name).ToList();
-      public IEnumerable<string> AllIdentityAttributeNames => AllIdentityAttributes.Select(x => x.Name).ToList();
-      public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{Name}" : $"global::{Namespace}.{Name}";
+      public IEnumerable<ModelAttribute> RequiredAttributes
+      {
+         get
+         {
+            return Attributes.Where(x => x.Required).ToList();
+         }
+      }
 
-      #region Warning display
+      public IEnumerable<ModelAttribute> AllRequiredAttributes
+      {
+         get
+         {
+            return AllAttributes.Where(x => x.Required).ToList();
+         }
+      }
+
+      public IEnumerable<ModelAttribute> IdentityAttributes
+      {
+         get
+         {
+            return Attributes.Where(x => x.IsIdentity).ToList();
+         }
+      }
+
+      public IEnumerable<ModelAttribute> AllIdentityAttributes
+      {
+         get
+         {
+            return AllAttributes.Where(x => x.IsIdentity).ToList();
+         }
+      }
+
+      public IEnumerable<string> IdentityAttributeNames
+      {
+         get
+         {
+            return IdentityAttributes.Select(x => x.Name).ToList();
+         }
+      }
+
+      public IEnumerable<string> AllIdentityAttributeNames
+      {
+         get
+         {
+            return AllIdentityAttributes.Select(x => x.Name).ToList();
+         }
+      }
+
+      public string FullName
+      {
+         get
+         {
+            return string.IsNullOrWhiteSpace(Namespace)
+                      ? $"global::{Name}"
+                      : $"global::{Namespace}.{Name}";
+         }
+      }
+
+#region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -262,7 +315,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
          bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
-         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ModelRoot();
 
          if (!loading && IsDatabaseSchemaTracking)
             try
@@ -271,14 +324,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default(string);
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default(string);
+               return default;
             }
 
          return databaseSchemaStorage;
@@ -317,7 +370,7 @@ namespace Sawczyn.EFDesigner.EFModel
          internal void ResetValue(ModelClass element)
          {
             object calculatedValue = null;
-            ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelRoot modelRoot = element.Store.ModelRoot();
 
             try
             {
@@ -361,7 +414,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (!loading && IsNamespaceTracking)
          {
-            ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelRoot modelRoot = Store.ModelRoot();
 
             try
             {
@@ -369,14 +422,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default(string);
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default(string);
+               return default;
             }
          }
 
@@ -416,7 +469,7 @@ namespace Sawczyn.EFDesigner.EFModel
          internal void ResetValue(ModelClass element)
          {
             object calculatedValue = null;
-            ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelRoot modelRoot = element.Store.ModelRoot();
 
             try
             {
@@ -457,7 +510,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
          bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
-         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ModelRoot();
 
          if (!loading && IsOutputDirectoryTracking)
             try
@@ -466,14 +519,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default(string);
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default(string);
+               return default;
             }
 
          return outputDirectoryStorage;
@@ -512,7 +565,7 @@ namespace Sawczyn.EFDesigner.EFModel
          internal void ResetValue(ModelClass element)
          {
             object calculatedValue = null;
-            ModelRoot modelRoot = element.Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+            ModelRoot modelRoot = element.Store.ModelRoot();
 
             try
             {

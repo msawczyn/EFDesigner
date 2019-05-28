@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Msagl.Core.DataStructures;
+﻿using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Routing.Visibility;
 using System.Diagnostics;

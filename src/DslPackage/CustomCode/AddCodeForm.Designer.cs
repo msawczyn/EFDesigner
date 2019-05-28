@@ -1,4 +1,4 @@
-﻿namespace Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode
+﻿namespace Sawczyn.EFDesigner.EFModel
 {
    partial class AddCodeForm
    {

@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
-using System.Linq;
+
 using System;
 using Microsoft.Msagl.Routing;
-using Microsoft.Msagl.DebugHelpers;
 
 namespace Microsoft.Msagl.Layout.Layered {
 

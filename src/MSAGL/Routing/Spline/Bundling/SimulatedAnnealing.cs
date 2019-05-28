@@ -1,16 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Microsoft.Msagl.Core.DataStructures;
+
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
-using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
-using Microsoft.Msagl.Routing.Visibility;
-using Microsoft.Msagl.DebugHelpers;
-using Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation;
 
 namespace Microsoft.Msagl.Routing.Spline.Bundling {
     /// <summary>

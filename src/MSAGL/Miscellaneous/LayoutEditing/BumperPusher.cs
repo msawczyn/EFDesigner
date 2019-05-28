@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.DebugHelpers;
 
 namespace Microsoft.Msagl.Miscellaneous.LayoutEditing {
     /// <summary>

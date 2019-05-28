@@ -19,7 +19,7 @@ Public Property Properties As <a href="http://msdn2.microsoft.com/en-us/library/
 	Set
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/ParsingModels/ModelClass.cs#L23" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/ParsingModels/ModelClass.cs#L22" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/6sh2ey19" target="_blank">List</a>(<a href="T_ParsingModels_ModelProperty">ModelProperty</a>)<br />\[Missing <value> documentation for "P:ParsingModels.ModelClass.Properties"\]

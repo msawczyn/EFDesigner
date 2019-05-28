@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.Msagl.Core.DataStructures;
+
 using Microsoft.Msagl.Core.Geometry;
 
 namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {

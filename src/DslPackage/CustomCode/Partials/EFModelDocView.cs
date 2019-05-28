@@ -1,49 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Shell;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-
-namespace Sawczyn.EFDesigner.EFModel
+﻿namespace Sawczyn.EFDesigner.EFModel
 {
    internal partial class EFModelDocView 
    {
-      /// <summary>
-      /// Called when selection changes in this window.
-      /// </summary>
-      /// <remarks>
-      /// Overriden to update the F1 help keyword for the selection.
-      /// </remarks>
-      /// <param name="e"></param>
-      protected override void OnSelectionChanged(EventArgs e)
-      {
-         base.OnSelectionChanged(e);
-
-         // TODO: look into how we can reset the explorer's selected node when the selection changes on the diagram without causing a recursive call that messes up the view of the diagram.
-
-         //List<ModelElement> selected_diagram = SelectedElements.OfType<ModelElement>().ToList();
-         //List<ModelElement> selected_explorer = ModelExplorerWindow?.GetSelectedComponents()?.OfType<ModelElement>() != null
-         //                                          ? ModelExplorerWindow.GetSelectedComponents().OfType<ModelElement>().ToList()
-         //                                          : null;
-
-         //if (selected_explorer != null)
-         //{
-         //   if (selected_diagram.Count != 1)
-         //      ModelExplorerWindow.SetSelectedComponents(null);
-         //   else if (selected_diagram[0] != selected_explorer.FirstOrDefault())
-         //      ModelExplorerWindow.SetSelectedComponents(selected_diagram);
-         //}
-      }
-
       public override void SetInfo()
       {
          base.SetInfo();
          Messages.AddStatus(Messages.LastStatusMessage);
       }
 
-      protected EFModelExplorerToolWindow ModelExplorerWindow => EFModelPackage.Instance?.GetToolWindow(typeof(EFModelExplorerToolWindow), true) as EFModelExplorerToolWindow;
+      protected EFModelExplorerToolWindow ModelExplorerWindow
+      {
+         get
+         {
+            return EFModelPackage.Instance?.GetToolWindow(typeof(EFModelExplorerToolWindow), true) as EFModelExplorerToolWindow;
+         }
+      }
    }
 }

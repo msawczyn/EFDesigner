@@ -17,7 +17,7 @@ public <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blan
 Public Function GetSourceMultiplicityDisplayValue As <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a>
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/Association.cs#L13" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/Association.cs#L15" title="View the source code">View Source</a><br />
 
 #### Return Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a><br />\[Missing <returns> documentation for "M:Sawczyn.EFDesigner.EFModel.Association.GetSourceMultiplicityDisplayValue"\]

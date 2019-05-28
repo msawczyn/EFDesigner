@@ -18,7 +18,7 @@ Public ReadOnly Property RequiredAttributes As <a href="http://msdn2.microsoft.c
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L29" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L36" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/9eekhta0" target="_blank">IEnumerable</a>(<a href="T_Sawczyn_EFDesigner_EFModel_ModelAttribute">ModelAttribute</a>)<br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelClass.RequiredAttributes"\]

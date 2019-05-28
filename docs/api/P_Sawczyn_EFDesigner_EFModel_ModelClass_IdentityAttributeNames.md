@@ -18,7 +18,7 @@ Public ReadOnly Property IdentityAttributeNames As <a href="http://msdn2.microso
 	Get
 ```
 
-<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L33" title="View the source code">View Source</a><br />
+<a href="https://github.com/msawczyn/EFDesigner/tree/master/src/Dsl/CustomCode/Partials/ModelClass.cs#L68" title="View the source code">View Source</a><br />
 
 #### Property Value
 Type: <a href="http://msdn2.microsoft.com/en-us/library/9eekhta0" target="_blank">IEnumerable</a>(<a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a>)<br />\[Missing <value> documentation for "P:Sawczyn.EFDesigner.EFModel.ModelClass.IdentityAttributeNames"\]

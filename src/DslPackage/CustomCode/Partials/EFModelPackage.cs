@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Sawczyn.EFDesigner.EFModel.DslPackage.CustomCode;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
