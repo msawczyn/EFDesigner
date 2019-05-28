@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="ed2e64f5-b23e-43ae-9e32-0311b0630eef" visible="True" isDefault="true" isSelected="true" title="Entity Framework Visual Designer Template API" tocTitle="Classes">
+  <Topic id="ed2e64f5-b23e-43ae-9e32-0311b0630eef" visible="True" isDefault="true" isSelected="true" title="API" tocTitle="Classes">
     <HelpKeywords>
       <HelpKeyword index="K" term="Home" />
     </HelpKeywords>
