@@ -1,0 +1,26 @@
+<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".vstemplate" #>
+<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #>
+<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<TemplateID>{3dacc232-34bc-4ae2-8394-212bec630667}</TemplateID>
+		<Name Package="{<#= this.Dsl.PackageGuid #>}" ID="113"/>
+		<Description Package="{<#= this.Dsl.PackageGuid #>}" ID="112"/>
+		<Icon Package="{<#= this.Dsl.PackageGuid #>}" ID="201" />
+		<ProjectType>CSharp</ProjectType>
+      <ProjectSubType>Data</ProjectSubType>
+      <NumberOfParentCategoriesToRollUp>2</NumberOfParentCategoriesToRollUp>
+		<DefaultName><#=  this.Dsl.Name #>.<#=this.Dsl.Editor.FileExtension#></DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.<#=this.Dsl.Editor.FileExtension#>" ReplaceParameters="true"><#=this.Dsl.Editor.FileExtension#>_identity.<#=this.Dsl.Editor.FileExtension#></ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.<#=this.Dsl.Editor.FileExtension#>.diagram"><#=this.Dsl.Editor.FileExtension#>_identity.diagram</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.tt" ReplaceParameters="true"><#=this.Dsl.Editor.FileExtension#>_identity.tt</ProjectItem>
+	</TemplateContent>
+   <WizardExtension>
+       <Assembly>Sawczyn.EFDesigner.EFModel.DslPackage</Assembly>
+       <FullClassName>Sawczyn.EFDesigner.EFModel.WizardImplementation</FullClassName>
+   </WizardExtension>
+</VSTemplate>
+

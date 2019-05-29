@@ -1,0 +1,2 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="$safeitemname$" namespace="$rootnamespace$" automaticMigrationsEnabled="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel" />

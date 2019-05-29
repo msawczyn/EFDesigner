@@ -11,7 +11,7 @@
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
-void GenerateEFCore(Manager manager, ModelRoot modelRoot)
+void GenerateEFCore(Manager manager, ModelRoot modelRoot, bool useIdentity = false)
 {
    // Entities
 
