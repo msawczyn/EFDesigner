@@ -56,6 +56,9 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 
 ### Change Log
 
+**1.3.0.2**
+   - Fixed error found in some VS2017 installations preventing running due to dependency problems
+
 **1.3.0.1**
    - Enhanced source code drag/drop to handle bidirectional associations and enumerations better.
    - Can now import assemblies containing DbContext classes. Dropping a compiled assembly onto the design surface will attempt to process and merge it into the design.
@@ -63,12 +66,16 @@ If this is important to you, you can follow it at [developercommunity.visualstud
    - Added ability to split a bidirectional association to two unidirectional associations (via context menu action)
    - Added [Microsoft Automatic Graph Layout](https://github.com/Microsoft/automatic-graph-layout), giving the user the ability to choose the diagram's auto-layout strategy 
 
-**1.2.7.2**
+<details>
+<summary><b>1.2.7.2</b></summary>
+
    - Added additional types of UInt16, UInt32, UInt64 and SByte to property type list
    - Added the ability to use a modeled enumeration, if it has a proper backing type, as an entity identifier
    - Added DateTime.UtcNow as a valid initial value for a DateTime property
    - Fix: "One-to-one relation in EFCore" (See https://github.com/msawczyn/EFDesigner/issues/71)
    - Remove default DbContext constructor in EFCore to allow support for AddDbContextPool calls in ConfigureServices (See https://github.com/msawczyn/EFDesigner/issues/72)
+
+</details>
 
 <details>
 <summary><b>1.2.7.1</b></summary>

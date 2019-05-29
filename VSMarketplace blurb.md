@@ -33,6 +33,9 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 
 **ChangeLog**
 
+**1.3.0.2**
+   - Fixed error found in some VS2017 installations preventing running due to dependency problems
+
 **1.3.0.1**
    - Enhanced source code drag/drop to handle bidirectional associations and enumerations better.
    - **[NEW]** Can now import assemblies containing DbContext classes. Dropping a compiled assembly onto the design surface will attempt to process and merge it into the design.
