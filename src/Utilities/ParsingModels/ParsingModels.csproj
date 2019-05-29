@@ -3,7 +3,7 @@
    <PropertyGroup>
       <TargetFramework>netstandard2.0</TargetFramework>
       <SignAssembly>true</SignAssembly>
-      <AssemblyOriginatorKeyFile>..\Key.snk</AssemblyOriginatorKeyFile>
+      <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
       <DelaySign>false</DelaySign>
       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
    </PropertyGroup>

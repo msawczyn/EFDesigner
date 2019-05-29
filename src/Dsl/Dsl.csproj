@@ -91,34 +91,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\ParsingModels\AssociationRole.cs">
+    <Compile Include="..\Utilities\ParsingModels\AssociationRole.cs">
       <Link>CustomCode\ParsingModels\AssociationRole.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\ModelBidirectionalAssociation.cs">
+    <Compile Include="..\Utilities\ParsingModels\ModelBidirectionalAssociation.cs">
       <Link>CustomCode\ParsingModels\ModelBidirectionalAssociation.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\ModelClass.cs">
+    <Compile Include="..\Utilities\ParsingModels\ModelClass.cs">
       <Link>CustomCode\ParsingModels\ModelClass.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\ModelEnum.cs">
+    <Compile Include="..\Utilities\ParsingModels\ModelEnum.cs">
       <Link>CustomCode\ParsingModels\ModelEnum.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\ModelEnumValue.cs">
+    <Compile Include="..\Utilities\ParsingModels\ModelEnumValue.cs">
       <Link>CustomCode\ParsingModels\ModelEnumValue.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\ModelProperty.cs">
+    <Compile Include="..\Utilities\ParsingModels\ModelProperty.cs">
       <Link>CustomCode\ParsingModels\ModelProperty.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\ModelRoot.cs">
+    <Compile Include="..\Utilities\ParsingModels\ModelRoot.cs">
       <Link>CustomCode\ParsingModels\ModelRoot.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\ModelUnidirectionalAssociation.cs">
+    <Compile Include="..\Utilities\ParsingModels\ModelUnidirectionalAssociation.cs">
       <Link>CustomCode\ParsingModels\ModelUnidirectionalAssociation.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\Multiplicity.cs">
+    <Compile Include="..\Utilities\ParsingModels\Multiplicity.cs">
       <Link>CustomCode\ParsingModels\Multiplicity.cs</Link>
     </Compile>
-    <Compile Include="..\ParsingModels\Visibility.cs">
+    <Compile Include="..\Utilities\ParsingModels\Visibility.cs">
       <Link>CustomCode\ParsingModels\Visibility.cs</Link>
     </Compile>
     <Compile Include="CustomCode\Extensions\ColorExtensions.cs" />
@@ -621,7 +621,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MSAGL\Msagl.csproj">
+    <ProjectReference Include="..\Utilities\MSAGL\Msagl.csproj">
       <Project>{415d3e3f-7105-46c1-84d2-7ecb34213d92}</Project>
       <Name>Msagl</Name>
     </ProjectReference>

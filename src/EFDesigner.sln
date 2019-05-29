@@ -89,15 +89,15 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "EFDesigner.APIHelp", "EFDes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metadata Parsing", "Metadata Parsing", "{B284D5B9-1693-45D8-A370-1A85C8ABBBB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsingModels", "ParsingModels\ParsingModels.csproj", "{DD03B599-6F8F-4BAF-850A-67F52DBD0920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsingModels", "Utilities\ParsingModels\ParsingModels.csproj", "{DD03B599-6F8F-4BAF-850A-67F52DBD0920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreParserFmwk", "EFCoreParserFmwk\EFCoreParserFmwk.csproj", "{43D73558-6220-4BA2-9145-7B5FE36F048F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreParserFmwk", "Utilities\EFCoreParserFmwk\EFCoreParserFmwk.csproj", "{43D73558-6220-4BA2-9145-7B5FE36F048F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF6ParserFmwk", "EF6ParserFmwk\EF6ParserFmwk.csproj", "{C516F1CE-DF41-41FB-AB16-C89706FD4656}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF6ParserFmwk", "Utilities\EF6ParserFmwk\EF6ParserFmwk.csproj", "{C516F1CE-DF41-41FB-AB16-C89706FD4656}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreParser", "EFCoreParser\EFCoreParser.csproj", "{4CB99C76-734A-4696-A0E0-0BA6A95754C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreParser", "Utilities\EFCoreParser\EFCoreParser.csproj", "{4CB99C76-734A-4696-A0E0-0BA6A95754C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msagl", "MSAGL\Msagl.csproj", "{415D3E3F-7105-46C1-84D2-7ECB34213D92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msagl", "Utilities\MSAGL\Msagl.csproj", "{415D3E3F-7105-46C1-84D2-7ECB34213D92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

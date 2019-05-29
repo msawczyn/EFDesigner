@@ -361,7 +361,7 @@
         DebugSymbolsProjectOutputGroup;
       </IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
-    <ProjectReference Include="..\MSAGL\Msagl.csproj">
+    <ProjectReference Include="..\Utilities\MSAGL\Msagl.csproj">
       <Project>{415d3e3f-7105-46c1-84d2-7ecb34213d92}</Project>
       <Name>Msagl</Name>
     </ProjectReference>
@@ -433,8 +433,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>dotnet tool install -g dotnet-warp
-dotnet-warp "$(SolutionDir)EFCoreParser\EFCoreParser.csproj" -o "$(ProjectDir)Parsers\EFCoreParser.exe"
+dotnet-warp "$(SolutionDir)Utilities\EFCoreParser\EFCoreParser.csproj" -o "$(ProjectDir)Parsers\EFCoreParser.exe"
+
 mkdir "$(TargetDir)Parsers"
+
 copy /y "$(ProjectDir)Parsers\*.*" "$(TargetDir)Parsers"
 </PreBuildEvent>
   </PropertyGroup>

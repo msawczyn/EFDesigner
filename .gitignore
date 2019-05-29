@@ -2,4 +2,6 @@ docs/.jekyll-metadata
 docs/_site
 /.vs
 /src/DslPackage/Parsers
-/src/EFCoreParser/dotnetwarp_temp
+/src/Utilities/EFCoreParser/dotnetwarp_temp
+/src/Utilities/DslPackage/Parsers
+/src/_ReSharper.Caches
