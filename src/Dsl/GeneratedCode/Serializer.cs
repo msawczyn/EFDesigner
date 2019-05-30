@@ -732,23 +732,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// IsIdentityDbContext
-			if (!serializationContext.Result.Failed)
-			{
-				string attribIsIdentityDbContext = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isIdentityDbContext");
-				if (attribIsIdentityDbContext != null)
-				{
-					global::System.Boolean valueOfIsIdentityDbContext;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsIdentityDbContext, out valueOfIsIdentityDbContext))
-					{
-						instanceOfModelRoot.IsIdentityDbContext = valueOfIsIdentityDbContext;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isIdentityDbContext", typeof(global::System.Boolean), attribIsIdentityDbContext);
-					}
-				}
-			}
 		}
 	
 		/// <summary>
@@ -1787,19 +1770,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "System.Data.Entity.DbContext") != 0))
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "baseClass", propValue);
-					}
-				}
-			}
-			// IsIdentityDbContext
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.Boolean propValue = instanceOfModelRoot.IsIdentityDbContext;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
-					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isIdentityDbContext", serializedPropValue);
 					}
 				}
 			}

@@ -165,6 +165,7 @@
     <Compile Include="CustomCode\Utilities\Import\IFileProcessor.cs" />
     <Compile Include="CustomCode\Utilities\Import\TextFileProcessor.cs" />
     <Compile Include="CustomCode\Utilities\Import\XMLDocumentation.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\InfoDisplay.cs" />
     <Compile Include="CustomCode\Utilities\UIProxies\ModelDisplay.cs" />
     <Compile Include="CustomCode\Utilities\ModelMigration.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />

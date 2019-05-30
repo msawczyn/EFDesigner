@@ -276,12 +276,6 @@
             <xsd:documentation>Fully qualified name of the base class for the custom DbContext</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: IsIdentityDbContext -->
-        <xsd:attribute name="isIdentityDbContext" type="xsd:boolean" >
-          <xsd:annotation>
-            <xsd:documentation>If true, this is an ASP.NET identity context</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

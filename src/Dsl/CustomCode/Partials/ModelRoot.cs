@@ -383,6 +383,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion DefaultCollectionClass tracking property
 
-
+      private bool GetIsIdentityDbContextValue()
+      {
+         return BaseClass?.EndsWith("IdentityDbContext") == true;
+      }
    }
 }

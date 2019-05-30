@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-
+using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 
 using Newtonsoft.Json;
@@ -20,6 +20,15 @@ namespace Sawczyn.EFDesigner.EFModel
    public class AssemblyProcessor : IFileProcessor
    {
       private readonly Store Store;
+
+      public const int SUCCESS = 0;
+      public const int BAD_ARGUMENT_COUNT = 1;
+      public const int CANNOT_LOAD_ASSEMBLY = 2;
+      public const int CANNOT_WRITE_OUTPUTFILE = 3;
+      public const int CANNOT_CREATE_DBCONTEXT = 4;
+      public const int CANNOT_FIND_APPROPRIATE_CONSTRUCTOR = 5;
+      public const int AMBIGUOUS_REQUEST = 6;
+
 
       public AssemblyProcessor(Store store)
       {
@@ -58,17 +67,18 @@ namespace Sawczyn.EFDesigner.EFModel
             throw new ArgumentNullException(nameof(filename));
 
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
-         StatusDisplay.Show($"Detecting .NET and EF versions");
+         StatusDisplay.Show("Detecting .NET and EF versions");
 
-         if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename) == 0 ||
-             TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0 ||
-             TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename) == 0)
-         {
-            return DoProcessing(outputFilename);
-         }
+         if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename))
+            InfoDisplay.Show("Assemblty is .NET Framework, DbContext is Entity Framework 6");
+         else if (TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename))
+            InfoDisplay.Show("Assemblty is .NET Framework, DbContext is Entity Framework Core");
+         else if (TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename))
+            InfoDisplay.Show("Assemblty is .NET Core, DbContext is Entity Framework Core");
+         else
+            return false;
 
-         ErrorDisplay.Show($"Error procesing assembly");
-         return false;
+         return DoProcessing(outputFilename);
       }
 
       #region ModelRoot
@@ -311,7 +321,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
-      private int TryParseAssembly(string filename, string parserAssembly, string outputFilename)
+      private bool TryParseAssembly(string filename, string parserAssembly, string outputFilename)
       {
          string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), parserAssembly);
          ProcessStartInfo processStartInfo = new ProcessStartInfo(path)
@@ -325,7 +335,37 @@ namespace Sawczyn.EFDesigner.EFModel
          using (Process process = System.Diagnostics.Process.Start(processStartInfo))
          {
             process.WaitForExit();
-            return process.ExitCode;
+            switch (process.ExitCode)
+            {
+               case AMBIGUOUS_REQUEST:
+                  using (StreamReader sr = new StreamReader(outputFilename))
+                  {
+                     string[] classNames = sr.ReadToEnd().Split('\n');
+                     sr.Close();
+
+                     string choice = ChoiceDisplay.GetChoice("Multiple classes found. Pick one to process", classNames);
+                     if (choice != null)
+                     {
+                        processStartInfo = new ProcessStartInfo(path)
+                                           {
+                                              Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\" \"{choice}\"", 
+                                              CreateNoWindow = true, 
+                                              ErrorDialog = false, 
+                                              UseShellExecute = false
+                                           };
+                        using (Process process2 = System.Diagnostics.Process.Start(processStartInfo))
+                        {
+                           process2.WaitForExit();
+                           return process2.ExitCode == SUCCESS;
+                        }
+                     }
+
+                     MessageBox.Show("Operation cancelled");
+                     return true;
+                  }
+            }
+
+            return process.ExitCode == SUCCESS;
          }
       }
 

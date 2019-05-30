@@ -256,7 +256,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="cbf6c0eb-ca88-49be-b066-e406f47e1e69" Description="If true, this is an ASP.NET identity context" Name="IsIdentityDbContext" DisplayName="Is Identity DbContext" DefaultValue="false" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="cbf6c0eb-ca88-49be-b066-e406f47e1e69" Description="If true, this is an ASP.NET identity context" Name="IsIdentityDbContext" DisplayName="Is Identity DbContext" DefaultValue="false" Kind="Calculated" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1732,7 +1732,7 @@
           <XmlPropertyData XmlName="baseClass">
             <DomainPropertyMoniker Name="ModelRoot/BaseClass" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="isIdentityDbContext">
+          <XmlPropertyData XmlName="isIdentityDbContext" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelRoot/IsIdentityDbContext" />
           </XmlPropertyData>
         </ElementData>

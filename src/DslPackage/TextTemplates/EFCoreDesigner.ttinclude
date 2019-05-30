@@ -15,7 +15,7 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
 {
    // Entities
 
-   foreach (ModelClass modelClass in modelRoot.Classes)
+   foreach (ModelClass modelClass in modelRoot.Classes.Where(c => !c.ReadOnly))
    {
       string dir = modelClass.IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
       if (!string.IsNullOrEmpty(modelClass.OutputDirectory)) dir = modelClass.OutputDirectory;

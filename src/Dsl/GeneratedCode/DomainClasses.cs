@@ -3086,11 +3086,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static readonly global::System.Guid IsIdentityDbContextDomainPropertyId = new global::System.Guid(0xcbf6c0eb, 0xca88, 0x49be, 0xb0, 0x66, 0xe4, 0x06, 0xf4, 0x7e, 0x1e, 0x69);
 		
 		/// <summary>
-		/// Storage for IsIdentityDbContext
-		/// </summary>
-		private global::System.Boolean isIdentityDbContextPropertyStorage;
-		
-		/// <summary>
 		/// Gets or sets the value of IsIdentityDbContext domain property.
 		/// If true, this is an ASP.NET identity context
 		/// </summary>
@@ -3098,24 +3093,20 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/IsIdentityDbContext.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
 		[DslModeling::DomainObjectId("cbf6c0eb-ca88-49be-b066-e406f47e1e69")]
 		public global::System.Boolean IsIdentityDbContext
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return isIdentityDbContextPropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				IsIdentityDbContextPropertyHandler.Instance.SetValue(this, value);
+				return IsIdentityDbContextPropertyHandler.Instance.GetValue(this);
 			}
 		}
 		/// <summary>
 		/// Value handler for the ModelRoot.IsIdentityDbContext domain property.
 		/// </summary>
-		internal sealed partial class IsIdentityDbContextPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		internal sealed partial class IsIdentityDbContextPropertyHandler : DslModeling::CalculatedPropertyValueHandler<ModelRoot, global::System.Boolean>
 		{
 			private IsIdentityDbContextPropertyHandler() { }
 		
@@ -3144,26 +3135,12 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed global::System.Boolean GetValue(ModelRoot element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.isIdentityDbContextPropertyStorage;
+				// There is no storage for IsIdentityDbContext because its Kind is
+				// set to Calculated. Please provide the GetIsIdentityDbContextValue()
+				// method on the domain class.
+				return element.GetIsIdentityDbContextValue();
 			}
 		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				global::System.Boolean oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.isIdentityDbContextPropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
 		}
 		
 		#endregion

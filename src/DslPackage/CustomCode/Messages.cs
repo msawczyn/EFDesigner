@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Windows;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -60,6 +60,11 @@ namespace Sawczyn.EFDesigner.EFModel
          AddMessage(message, "Warning");
       }
 
+      public static void AddInfoText(string message)
+      {
+         AddMessage(message, "Info");
+      }
+
       public static void AddMessage(string message, string prefix = null)
       {
          OutputWindowPane?.OutputString($"{(string.IsNullOrWhiteSpace(prefix) ? "" : prefix + ": ")}{message}{(message.EndsWith("\n") ? "" : "\n")}");
@@ -98,9 +103,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ChooseForm form = new ChooseForm {Title = title};
          form.SetChoices(choices);
 
-         return form.ShowDialog() == System.Windows.Forms.DialogResult.OK
-                   ? form.Selection
-                   : null;
+         return form.ShowDialog() == System.Windows.Forms.DialogResult.OK ? form.Selection : null;
       }
    }
 }

@@ -16,7 +16,7 @@
 	<TemplateContent>
 		<ProjectItem TargetFileName="$fileinputname$.<#=this.Dsl.Editor.FileExtension#>" ReplaceParameters="true"><#=this.Dsl.Editor.FileExtension#>_identity.<#=this.Dsl.Editor.FileExtension#></ProjectItem>
 		<ProjectItem TargetFileName="$fileinputname$.<#=this.Dsl.Editor.FileExtension#>.diagram"><#=this.Dsl.Editor.FileExtension#>_identity.diagram</ProjectItem>
-		<ProjectItem TargetFileName="$fileinputname$.tt" ReplaceParameters="true"><#=this.Dsl.Editor.FileExtension#>_identity.tt</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.tt" ReplaceParameters="true"><#=this.Dsl.Editor.FileExtension#>.tt</ProjectItem>
 	</TemplateContent>
    <WizardExtension>
        <Assembly>Sawczyn.EFDesigner.EFModel.DslPackage</Assembly>

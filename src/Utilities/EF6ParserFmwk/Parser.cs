@@ -1,57 +1,64 @@
 ﻿#pragma warning disable IDE0017 // Simplify object initialization
+// ReSharper disable UseObjectOrCollectionInitializer
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Data.Entity.Core.Mapping;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-
+using System.Text.RegularExpressions;
 using Effort.Provider;
 
 using Newtonsoft.Json;
 
 using ParsingModels;
-// ReSharper disable UseObjectOrCollectionInitializer
 
 namespace EF6Parser
 {
    public class Parser
    {
       private readonly Assembly assembly;
-      private readonly DbContext dbContext;
-      private readonly MetadataWorkspace metadata;
+      private readonly string requestedTypeName;
+      private DbContext dbContext;
+      private MetadataWorkspace metadata;
+      private List<Type> DbContextTypes { get; }
 
-      public Parser(Assembly assembly, string dbContextTypeName = null)
+      public List<string> DbContextClasses
       {
-         this.assembly = assembly;
-         Type contextType;
-
-         if (dbContextTypeName != null)
-            contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
-         else
+         get
          {
-            List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
-
-            // ReSharper disable once UnthrowableException
-            if (types.Count != 1)
-               throw new AmbiguousMatchException("Found more than one class derived from DbContext");
-
-            contextType = types[0];
+            return DbContextTypes.Select(t => CleanGeneric(t.FullName)).ToList();
          }
+      }
 
-         ConstructorInfo constructor = contextType.GetConstructor(new[] {typeof(string)});
+      private static string CleanGeneric(string className)
+      {
+         string[] parts = className.Split('`');
+         if (parts.Length == 1)
+            return className;
 
-         // ReSharper disable once UnthrowableException
-         if (constructor == null)
-            throw new MissingMethodException("Can't find appropriate constructor");
+         int argCount = int.Parse(parts[1]);
+         List<string> args = new List<string>();
 
-         EffortConnection connection = Effort.DbConnectionFactory.CreateTransient();
-         dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {connection}, null, null) as DbContext;
-         metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;
+         for (int i = 0; i < argCount; i++)
+            args.Add(((char)('A' + i)).ToString());
+
+         return $"{parts[0]}<{string.Join(",", args)}>";
+      }
+
+      public Parser(Assembly targetAssembly, string dbContextTypeName = null)
+      {
+         assembly = targetAssembly;
+         requestedTypeName = dbContextTypeName;
+         DbContextTypes = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
+         Debugger.Launch();
       }
 
       private static Multiplicity ConvertMultiplicity(RelationshipMultiplicity relationshipMultiplicity)
@@ -213,13 +220,57 @@ namespace EF6Parser
          return (string)table.MetadataProperties["Table"].Value ?? table.Name;
       }
 
-
       public string Process()
       {
-         if (dbContext == null)
+         Type contextType;
 
-            // ReSharper disable once NotResolvedInText
-            throw new ArgumentNullException("dbContext");
+         if (requestedTypeName != null)
+         {
+            string typename = requestedTypeName;
+            if (requestedTypeName.Contains("<"))
+            {
+               Match match = Regex.Match(requestedTypeName, @"[^\<]+\<([^\>]+)\>");
+               if (match.Success && match.Groups[1].Success)
+               {
+                  int argCount = match.Groups[1].Captures[0].Value.Split(',').Length;
+                  typename = $"{requestedTypeName.Split('<')[0]}`{argCount}";
+               }
+            }
+            contextType = DbContextTypes.FirstOrDefault(t => t.Name == typename || t.FullName == typename);
+         }
+         else
+         {
+            // ReSharper disable once UnthrowableException
+            if (DbContextTypes.Count != 1)
+               throw new AmbiguousMatchException("Found more than one class derived from DbContext");
+
+            contextType = DbContextTypes[0];
+         }
+
+         // try to use Effort's in-memory database, since IdentityDbContext needs a connection (if we're indeed needing IdentityDbContext)
+         ConstructorInfo constructor = contextType.GetConstructor(new[] {typeof(DbConnection), typeof(bool)});
+         if (constructor != null)
+         {
+            EffortConnection connection = Effort.DbConnectionFactory.CreateTransient();
+            dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {connection, false}, null, null) as DbContext;
+         }
+         else
+         {
+            // can't find a constructor there (silly lazy inheritors!) so try the much-mre-common connection string constructor
+            // note that this won't work if we're after an IdentityDbContext. Oh well.
+            constructor = contextType.GetConstructor(new[] {typeof(string)});
+            if (constructor != null)
+               dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
+         }
+
+         // ReSharper disable once UnthrowableException
+         if (constructor == null)
+            throw new MissingMethodException("Can't find appropriate constructor");
+
+         metadata = ((IObjectContextAdapter)dbContext)?.ObjectContext?.MetadataWorkspace;
+    
+         if (dbContext == null)
+            throw new ObjectNotFoundException();
 
          ReadOnlyCollection<GlobalItem> cSpace = metadata.GetItems(DataSpace.CSpace);
 

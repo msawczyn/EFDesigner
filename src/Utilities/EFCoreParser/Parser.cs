@@ -1,8 +1,11 @@
-﻿using System;
+﻿#pragma warning disable IDE0017 // Simplify object initialization
+// ReSharper disable UseObjectOrCollectionInitializer
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -10,48 +13,44 @@ using Newtonsoft.Json;
 
 using ParsingModels;
 
-// ReSharper disable UseObjectOrCollectionInitializer
-#pragma warning disable IDE0017 // Simplify object initialization
-
 namespace EFCoreParser
 {
    public class Parser
    {
-      private readonly DbContext dbContext;
-
+      private readonly Assembly assembly;
+      private readonly string requestedTypeName;
+      private DbContext dbContext;
       private IModel model;
+      private List<Type> DbContextTypes { get; }
 
-      public Parser(Assembly assembly, string dbContextTypeName = null)
+      public List<string> DbContextClasses
       {
-         Type contextType;
-
-         if (dbContextTypeName != null)
-            contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
-         else
+         get
          {
-            List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
-
-            // ReSharper disable once UnthrowableException
-            if (types.Count != 1)
-               throw new AmbiguousMatchException("Found more than one class derived from DbContext");
-
-            contextType = types[0];
+            return DbContextTypes.Select(t => CleanGeneric(t.FullName)).ToList();
          }
+      }
 
-         Type optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(contextType);
-         DbContextOptionsBuilder optionsBuilder = Activator.CreateInstance(optionsBuilderType) as DbContextOptionsBuilder;
+      private static string CleanGeneric(string className)
+      {
+         string[] parts = className.Split('`');
+         if (parts.Length == 1)
+            return className;
 
-         Type optionsType = typeof(DbContextOptions<>).MakeGenericType(contextType);
-         DbContextOptions options = optionsBuilder.UseInMemoryDatabase("Parser").Options;
+         int argCount = int.Parse(parts[1]);
+         List<string> args = new List<string>();
 
-         ConstructorInfo constructor = contextType.GetConstructor(new[] { optionsType });
+         for (int i = 0; i < argCount; i++)
+            args.Add(((char)('A' + i)).ToString());
 
-         // ReSharper disable once UnthrowableException
-         if (constructor == null)
-            throw new MissingMethodException("Can't find appropriate constructor");
+         return $"{parts[0]}<{string.Join(",", args)}>";
+      }
 
-         dbContext = assembly.CreateInstance(contextType.FullName, true, BindingFlags.Default, null, new object[] { options }, null, null) as DbContext;
-         model = dbContext.Model;
+      public Parser(Assembly targetAssembly, string dbContextTypeName = null)
+      {
+         assembly = targetAssembly;
+         requestedTypeName = dbContextTypeName;
+         DbContextTypes = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
       }
 
       private static Multiplicity ConvertMultiplicity(RelationshipMultiplicity relationshipMultiplicity)
@@ -181,6 +180,46 @@ namespace EFCoreParser
 
       public string Process()
       {
+         Type contextType;
+
+         if (requestedTypeName != null)
+         {
+            string typename = requestedTypeName;
+            if (requestedTypeName.Contains("<"))
+            {
+               Match match = Regex.Match(requestedTypeName, @"[^\<]+\<([^\>]+)\>");
+               if (match.Success && match.Groups[1].Success)
+               {
+                  int argCount = match.Groups[1].Captures[0].Value.Split(',').Length;
+                  typename = $"{requestedTypeName.Split('<')[0]}`{argCount}";
+               }
+            }
+            contextType = DbContextTypes.FirstOrDefault(t => t.Name == typename || t.FullName == typename);
+         }
+         else
+         {
+            // ReSharper disable once UnthrowableException
+            if (DbContextTypes.Count != 1)
+               throw new AmbiguousMatchException("Found more than one class derived from DbContext");
+
+            contextType = DbContextTypes[0];
+         }
+
+         Type optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(contextType);
+         DbContextOptionsBuilder optionsBuilder = Activator.CreateInstance(optionsBuilderType) as DbContextOptionsBuilder;
+
+         Type optionsType = typeof(DbContextOptions<>).MakeGenericType(contextType);
+         DbContextOptions options = optionsBuilder.UseInMemoryDatabase("Parser").Options;
+
+         ConstructorInfo constructor = contextType.GetConstructor(new[] { optionsType });
+
+         // ReSharper disable once UnthrowableException
+         if (constructor == null)
+            throw new MissingMethodException("Can't find appropriate constructor");
+
+         dbContext = assembly.CreateInstance(contextType.FullName, true, BindingFlags.Default, null, new object[] { options }, null, null) as DbContext;
+         model = dbContext.Model;
+
          if (dbContext == null)
 
             // ReSharper disable once NotResolvedInText
