@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.Mapping;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
+
+using Effort.Provider;
 
 using Newtonsoft.Json;
 
@@ -46,7 +49,8 @@ namespace EF6Parser
          if (constructor == null)
             throw new MissingMethodException("Can't find appropriate constructor");
 
-         dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
+         EffortConnection connection = Effort.DbConnectionFactory.CreateTransient();
+         dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {connection}, null, null) as DbContext;
          metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;
       }
 
