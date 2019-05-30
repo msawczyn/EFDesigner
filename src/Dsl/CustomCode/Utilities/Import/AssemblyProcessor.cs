@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 
 using Newtonsoft.Json;
@@ -21,6 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private readonly Store Store;
 
+      public const int CANCELLED = -1;
       public const int SUCCESS = 0;
       public const int BAD_ARGUMENT_COUNT = 1;
       public const int CANNOT_LOAD_ASSEMBLY = 2;
@@ -68,17 +68,52 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
          StatusDisplay.Show("Detecting .NET and EF versions");
+         bool? result;
+         if ((result = Process(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename, "Assembly is .NET Framework, DbContext is Entity Framework 6")) != null ||
+             (result = Process(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename, "Assembly is .NET Framework, DbContext is Entity Framework Core")) != null ||
+             (result = Process(filename, @"Parsers\EFCoreParser.exe", outputFilename, "Assembly is .NET Core, DbContext is Entity Framework Core")) != null)
+            return result.Value;
 
-         if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename))
-            InfoDisplay.Show("Assemblty is .NET Framework, DbContext is Entity Framework 6");
-         else if (TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename))
-            InfoDisplay.Show("Assemblty is .NET Framework, DbContext is Entity Framework Core");
-         else if (TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename))
-            InfoDisplay.Show("Assemblty is .NET Core, DbContext is Entity Framework Core");
-         else
-            return false;
+         return false;
+      }
 
-         return DoProcessing(outputFilename);
+      /// <summary>
+      /// Calls external utility and processes result if possible.
+      /// </summary>
+      /// <param name="filename"></param>
+      /// <param name="utilityProcess"></param>
+      /// <param name="outputFilename"></param>
+      /// <param name="info"></param>
+      /// <returns>True if result can be processed, false if not, null if wrong utility called</returns>
+      private bool? Process(string filename, string utilityProcess, string outputFilename, string info)
+      {
+         int exitCode;
+         if ((exitCode = TryParseAssembly(filename, utilityProcess, outputFilename)) == CANNOT_LOAD_ASSEMBLY)
+            return null;
+
+         InfoDisplay.Show(info);
+         switch (exitCode)
+         {
+            case CANCELLED:
+               return true;
+            case SUCCESS:
+               return DoProcessing(outputFilename);
+            case BAD_ARGUMENT_COUNT: // should never happen
+               ErrorDisplay.Show("Internal error");
+               return false;
+            case CANNOT_WRITE_OUTPUTFILE:
+               ErrorDisplay.Show("Cannot write temporary working file");
+               return false;
+            case CANNOT_CREATE_DBCONTEXT:
+               ErrorDisplay.Show("Cannot create DbContext object");
+               return false;
+            case CANNOT_FIND_APPROPRIATE_CONSTRUCTOR:
+               ErrorDisplay.Show("Cannot find appropriate constructor");
+               return false;
+         }
+
+         ErrorDisplay.Show("Unexpected error");
+         return false;
       }
 
       #region ModelRoot
@@ -117,7 +152,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                         new PropertyAssignment(ModelClass.BaseClassDomainPropertyId, data.BaseClass),
                                         new PropertyAssignment(ModelClass.TableNameDomainPropertyId, data.TableName),
                                         new PropertyAssignment(ModelClass.IsDependentTypeDomainPropertyId, data.IsDependentType));
-               
+
                modelRoot.Classes.Add(element);
             }
             else
@@ -195,15 +230,15 @@ namespace Sawczyn.EFDesigner.EFModel
             UnidirectionalAssociation element = new UnidirectionalAssociation(Store,
                                                     new[]
                                                     {
-                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source), 
+                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source),
                                                        new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
                                                     },
                                                     new[]
                                                     {
-                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
-                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
-                                                       new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
-                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
+                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)),
+                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)),
+                                                       new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName),
+                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
                                                        new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription)
                                                     });
          }
@@ -247,13 +282,13 @@ namespace Sawczyn.EFDesigner.EFModel
                                                    },
                                                    new[]
                                                    {
-                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
-                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
-                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
-                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
-                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription), 
-                                                      new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName), 
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary), 
+                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)),
+                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)),
+                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName),
+                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
+                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
+                                                      new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName),
+                                                      new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary),
                                                       new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
                                                    });
          }
@@ -321,15 +356,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
-      private bool TryParseAssembly(string filename, string parserAssembly, string outputFilename)
+      private int TryParseAssembly(string filename, string parserAssembly, string outputFilename)
       {
          string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), parserAssembly);
          ProcessStartInfo processStartInfo = new ProcessStartInfo(path)
                                              {
                                                 Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", 
-                                                CreateNoWindow = true, 
+                                                CreateNoWindow = false, 
                                                 ErrorDialog = false, 
-                                                UseShellExecute = false
+                                                UseShellExecute = true
                                              };
 
          using (Process process = System.Diagnostics.Process.Start(processStartInfo))
@@ -338,34 +373,29 @@ namespace Sawczyn.EFDesigner.EFModel
             switch (process.ExitCode)
             {
                case AMBIGUOUS_REQUEST:
+                  string[] classNames;
                   using (StreamReader sr = new StreamReader(outputFilename))
                   {
-                     string[] classNames = sr.ReadToEnd().Split('\n');
+                     classNames = sr.ReadToEnd().Split('\n');
                      sr.Close();
-
-                     string choice = ChoiceDisplay.GetChoice("Multiple classes found. Pick one to process", classNames);
-                     if (choice != null)
-                     {
-                        processStartInfo = new ProcessStartInfo(path)
-                                           {
-                                              Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\" \"{choice}\"", 
-                                              CreateNoWindow = true, 
-                                              ErrorDialog = false, 
-                                              UseShellExecute = false
-                                           };
-                        using (Process process2 = System.Diagnostics.Process.Start(processStartInfo))
-                        {
-                           process2.WaitForExit();
-                           return process2.ExitCode == SUCCESS;
-                        }
-                     }
-
-                     MessageBox.Show("Operation cancelled");
-                     return true;
                   }
+
+                  string choice = ChoiceDisplay.GetChoice("Multiple classes found. Pick one to process", classNames);
+
+                  if (choice != null)
+                  {
+                     processStartInfo.Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\" \"{choice}\"";
+                     using (Process process2 = System.Diagnostics.Process.Start(processStartInfo))
+                     {
+                        process2.WaitForExit();
+                        return process2.ExitCode;
+                     }
+                  }
+
+                  return CANCELLED;
             }
 
-            return process.ExitCode == SUCCESS;
+            return process.ExitCode;
          }
       }
 

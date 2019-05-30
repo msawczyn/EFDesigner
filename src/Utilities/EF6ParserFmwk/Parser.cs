@@ -58,7 +58,6 @@ namespace EF6Parser
          assembly = targetAssembly;
          requestedTypeName = dbContextTypeName;
          DbContextTypes = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
-         Debugger.Launch();
       }
 
       private static Multiplicity ConvertMultiplicity(RelationshipMultiplicity relationshipMultiplicity)

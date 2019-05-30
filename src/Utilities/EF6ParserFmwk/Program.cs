@@ -6,6 +6,7 @@ namespace EF6Parser
 {
    internal class Program
    {
+      public const int CANCELLED = -1;
       public const int SUCCESS = 0;
       public const int BAD_ARGUMENT_COUNT = 1;
       public const int CANNOT_LOAD_ASSEMBLY = 2;
