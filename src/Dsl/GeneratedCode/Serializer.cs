@@ -715,6 +715,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// BaseClass
+			if (!serializationContext.Result.Failed)
+			{
+				string attribBaseClass = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "baseClass");
+				if (attribBaseClass != null)
+				{
+					global::System.String valueOfBaseClass;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribBaseClass, out valueOfBaseClass))
+					{
+						instanceOfModelRoot.BaseClass = valueOfBaseClass;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "baseClass", typeof(global::System.String), attribBaseClass);
+					}
+				}
+			}
+			// IsIdentityDbContext
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsIdentityDbContext = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isIdentityDbContext");
+				if (attribIsIdentityDbContext != null)
+				{
+					global::System.Boolean valueOfIsIdentityDbContext;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsIdentityDbContext, out valueOfIsIdentityDbContext))
+					{
+						instanceOfModelRoot.IsIdentityDbContext = valueOfIsIdentityDbContext;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isIdentityDbContext", typeof(global::System.Boolean), attribIsIdentityDbContext);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1744,6 +1778,31 @@ namespace Sawczyn.EFDesigner.EFModel
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "layoutAlgorithmSettings", serializedPropValue);
 				}
 			}
+			// BaseClass
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.BaseClass;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "System.Data.Entity.DbContext") != 0))
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "baseClass", propValue);
+					}
+				}
+			}
+			// IsIdentityDbContext
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.IsIdentityDbContext;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isIdentityDbContext", serializedPropValue);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -2340,6 +2399,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					else
 					{	// Invalid property value, ignored.
 						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "customAttributes", typeof(global::System.String), attribCustomAttributes);
+					}
+				}
+			}
+			// ReadOnly
+			if (!serializationContext.Result.Failed)
+			{
+				string attribReadOnly = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "readOnly");
+				if (attribReadOnly != null)
+				{
+					global::System.Boolean valueOfReadOnly;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribReadOnly, out valueOfReadOnly))
+					{
+						instanceOfModelClass.ReadOnly = valueOfReadOnly;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "readOnly", typeof(global::System.Boolean), attribReadOnly);
 					}
 				}
 			}
@@ -3245,6 +3321,16 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
 	
+				}
+			}
+			// ReadOnly
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelClass.ReadOnly;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "readOnly", serializedPropValue);
 				}
 			}
 		}

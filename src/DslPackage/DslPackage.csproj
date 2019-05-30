@@ -205,7 +205,6 @@
     <None Include="ProjectItemTemplates\efmodel_identity.diagram" />
     <None Include="ProjectItemTemplates\efmodel_identity.efmodel" />
     <None Include="ReadMe - Build Events.txt" />
-    <None Include="ProjectItemTemplates\efmodel_identity.tt" />
     <None Include="ProjectItemTemplates\CSharp_identity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CSharp_identity.vstemplate</LastGenOutput>

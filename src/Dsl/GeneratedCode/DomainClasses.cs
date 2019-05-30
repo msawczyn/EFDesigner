@@ -2990,6 +2990,183 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region BaseClass domain property code
+		
+		/// <summary>
+		/// BaseClass domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid BaseClassDomainPropertyId = new global::System.Guid(0xc7e0390e, 0x5c88, 0x48e9, 0xa1, 0x60, 0x31, 0xe3, 0x6c, 0x8d, 0xc1, 0xe0);
+		
+		/// <summary>
+		/// Storage for BaseClass
+		/// </summary>
+		private global::System.String baseClassPropertyStorage = "System.Data.Entity.DbContext";
+		
+		/// <summary>
+		/// Gets or sets the value of BaseClass domain property.
+		/// Fully qualified name of the base class for the custom DbContext
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("System.Data.Entity.DbContext")]
+		[DslModeling::DomainObjectId("c7e0390e-5c88-48e9-a160-31e36c8dc1e0")]
+		public global::System.String BaseClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return baseClassPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				BaseClassPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.BaseClass domain property.
+		/// </summary>
+		internal sealed partial class BaseClassPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private BaseClassPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.BaseClass domain property value handler.
+			/// </summary>
+			public static readonly BaseClassPropertyHandler Instance = new BaseClassPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.BaseClass domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return BaseClassDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.baseClassPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.baseClassPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsIdentityDbContext domain property code
+		
+		/// <summary>
+		/// IsIdentityDbContext domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsIdentityDbContextDomainPropertyId = new global::System.Guid(0xcbf6c0eb, 0xca88, 0x49be, 0xb0, 0x66, 0xe4, 0x06, 0xf4, 0x7e, 0x1e, 0x69);
+		
+		/// <summary>
+		/// Storage for IsIdentityDbContext
+		/// </summary>
+		private global::System.Boolean isIdentityDbContextPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsIdentityDbContext domain property.
+		/// If true, this is an ASP.NET identity context
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/IsIdentityDbContext.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/IsIdentityDbContext.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainObjectId("cbf6c0eb-ca88-49be-b066-e406f47e1e69")]
+		public global::System.Boolean IsIdentityDbContext
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isIdentityDbContextPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsIdentityDbContextPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.IsIdentityDbContext domain property.
+		/// </summary>
+		internal sealed partial class IsIdentityDbContextPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private IsIdentityDbContextPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.IsIdentityDbContext domain property value handler.
+			/// </summary>
+			public static readonly IsIdentityDbContextPropertyHandler Instance = new IsIdentityDbContextPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.IsIdentityDbContext domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsIdentityDbContextDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isIdentityDbContextPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isIdentityDbContextPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -4899,6 +5076,94 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.customAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ReadOnly domain property code
+		
+		/// <summary>
+		/// ReadOnly domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ReadOnlyDomainPropertyId = new global::System.Guid(0x2059f438, 0x7539, 0x4ad4, 0x9c, 0xd5, 0xc8, 0x9d, 0x4e, 0x70, 0x14, 0x3c);
+		
+		/// <summary>
+		/// Storage for ReadOnly
+		/// </summary>
+		private global::System.Boolean readOnlyPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of ReadOnly domain property.
+		/// If true, this class can't be modified by the user
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("2059f438-7539-4ad4-9cd5-c89d4e70143c")]
+		public global::System.Boolean ReadOnly
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return readOnlyPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ReadOnlyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.ReadOnly domain property.
+		/// </summary>
+		internal sealed partial class ReadOnlyPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private ReadOnlyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.ReadOnly domain property value handler.
+			/// </summary>
+			public static readonly ReadOnlyPropertyHandler Instance = new ReadOnlyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.ReadOnly domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ReadOnlyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.readOnlyPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.readOnlyPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

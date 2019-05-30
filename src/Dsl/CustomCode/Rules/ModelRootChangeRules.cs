@@ -12,6 +12,11 @@ namespace Sawczyn.EFDesigner.EFModel
    [RuleOn(typeof(ModelRoot), FireTime = TimeToFire.TopLevelCommit)]
    internal class ModelRootChangeRules : ChangeRule
    {
+      private const string EF6_IDENTITY_BASE = "Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext";
+      private const string EFCORE_IDENTITY_BASE = "Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext";
+      private const string EF6_BASE = "System.Data.Entity.DbContext";
+      private const string EFCORE_BASE = "Microsoft.EntityFrameworkCore.DbContext";
+
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
          base.ElementPropertyChanged(e);
@@ -56,7 +61,23 @@ namespace Sawczyn.EFDesigner.EFModel
                element.EntityFrameworkPackageVersion = "Latest";
 
                if (element.EntityFrameworkVersion == EFVersion.EFCore)
+               {
                   element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+
+                  // don't change if user customized
+                  if (element.BaseClass == EF6_BASE || (element.IsIdentityDbContext && element.BaseClass == EF6_IDENTITY_BASE))
+                     element.BaseClass = element.IsIdentityDbContext
+                                            ? EFCORE_IDENTITY_BASE
+                                            : EFCORE_BASE;
+               }
+               else // EF6
+               {
+                  // don't change if user customized
+                  if (element.BaseClass == EFCORE_BASE || (element.IsIdentityDbContext && element.BaseClass == EFCORE_IDENTITY_BASE))
+                     element.BaseClass = element.IsIdentityDbContext
+                                            ? EF6_IDENTITY_BASE
+                                            : EF6_BASE;
+               }
 
                break;
 

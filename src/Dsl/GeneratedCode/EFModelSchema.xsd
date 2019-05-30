@@ -270,6 +270,18 @@
             <xsd:documentation>Tunable parameters for auto-layout of the designer</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: BaseClass -->
+        <xsd:attribute name="baseClass" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Fully qualified name of the base class for the custom DbContext</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsIdentityDbContext -->
+        <xsd:attribute name="isIdentityDbContext" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this is an ASP.NET identity context</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -473,6 +485,12 @@
         <xsd:attribute name="customAttributes" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Any custom attributes to be generated for this element.  Will be passed through as entered.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ReadOnly -->
+        <xsd:attribute name="readOnly" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this class can&apos;t be modified by the user</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

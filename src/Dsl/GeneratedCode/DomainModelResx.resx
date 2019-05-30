@@ -525,6 +525,22 @@
     <value>Designer</value>
     <comment>Category for DomainProperty &apos;LayoutAlgorithmSettings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Description" xml:space="preserve">
+    <value>Fully qualified name of the base class for the custom DbContext</value>
+    <comment>Description for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.DisplayName" xml:space="preserve">
+    <value>Base Class</value>
+    <comment>DisplayName for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/IsIdentityDbContext.Description" xml:space="preserve">
+    <value>If true, this is an ASP.NET identity context</value>
+    <comment>Description for DomainProperty &apos;IsIdentityDbContext&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/IsIdentityDbContext.DisplayName" xml:space="preserve">
+    <value>Is Identity DbContext</value>
+    <comment>DisplayName for DomainProperty &apos;IsIdentityDbContext&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -744,6 +760,14 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/CustomAttributes.Category" xml:space="preserve">
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.Description" xml:space="preserve">
+    <value>If true, this class can&apos;t be modified by the user</value>
+    <comment>Description for DomainProperty &apos;ReadOnly&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.DisplayName" xml:space="preserve">
+    <value>Read Only</value>
+    <comment>DisplayName for DomainProperty &apos;ReadOnly&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>

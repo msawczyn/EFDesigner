@@ -251,6 +251,16 @@
             <ExternalTypeMoniker Name="/Microsoft.Msagl.Core.Layout/LayoutAlgorithmSettings" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c7e0390e-5c88-48e9-a160-31e36c8dc1e0" Description="Fully qualified name of the base class for the custom DbContext" Name="BaseClass" DisplayName="Base Class" DefaultValue="System.Data.Entity.DbContext">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="cbf6c0eb-ca88-49be-b066-e406f47e1e69" Description="If true, this is an ASP.NET identity context" Name="IsIdentityDbContext" DisplayName="Is Identity DbContext" DefaultValue="false" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -406,6 +416,11 @@
         <DomainProperty Id="cae77164-7b85-4c67-8fa4-88f945353e92" Description="Any custom attributes to be generated for this element.  Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2059f438-7539-4ad4-9cd5-c89d4e70143c" Description="If true, this class can't be modified by the user" Name="ReadOnly" DisplayName="Read Only" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1714,6 +1729,12 @@
           <XmlPropertyData XmlName="layoutAlgorithmSettings">
             <DomainPropertyMoniker Name="ModelRoot/LayoutAlgorithmSettings" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="baseClass">
+            <DomainPropertyMoniker Name="ModelRoot/BaseClass" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isIdentityDbContext">
+            <DomainPropertyMoniker Name="ModelRoot/IsIdentityDbContext" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -1790,6 +1811,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="customAttributes">
             <DomainPropertyMoniker Name="ModelClass/CustomAttributes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="readOnly">
+            <DomainPropertyMoniker Name="ModelClass/ReadOnly" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

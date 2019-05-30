@@ -1,7 +1,4 @@
-﻿
-
-
-<!--DSL Tools Language Template-->
+﻿<!--DSL Tools Language Template-->
 <VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<TemplateData>
 		<TemplateID>{3dacc232-34bc-4ae2-8394-212bec630667}</TemplateID>
@@ -16,7 +13,7 @@
 	<TemplateContent>
 		<ProjectItem TargetFileName="$fileinputname$.efmodel" ReplaceParameters="true">efmodel_identity.efmodel</ProjectItem>
 		<ProjectItem TargetFileName="$fileinputname$.efmodel.diagram">efmodel_identity.diagram</ProjectItem>
-		<ProjectItem TargetFileName="$fileinputname$.tt" ReplaceParameters="true">efmodel_identity.tt</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.tt" ReplaceParameters="true">efmodel.tt</ProjectItem>
 	</TemplateContent>
    <WizardExtension>
        <Assembly>Sawczyn.EFDesigner.EFModel.DslPackage</Assembly>
