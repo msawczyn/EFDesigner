@@ -12,8 +12,10 @@ T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
 
 VSIX: Resolve the xsd warnings
 
+VSIX: Figure a way to bundle the dependencies with the Framework-based assembly parsers
+
 DSL:  Allow user to set name of foreign key in association
-T4:   Honor user's choice of foreign key names in dependent classes
+T4:   Honor user's choice of foreign key names in context for dependent end of association
 
 DSL:  Allow user to specify that foreign key property is visible (i.e., not shadow property)?
 T4:   Generate foreign key property in class if flagged as visible
