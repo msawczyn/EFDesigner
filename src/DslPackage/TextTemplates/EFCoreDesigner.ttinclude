@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.3.1.0
+// EFDesigner v1.3.0.3
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -15,7 +15,7 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
 {
    // Entities
 
-   foreach (ModelClass modelClass in modelRoot.Classes.Where(c => !c.ReadOnly))
+   foreach (ModelClass modelClass in modelRoot.Classes.Where(c => !c.ReadOnly && c.IsPersistent))
    {
       string dir = modelClass.IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
       if (!string.IsNullOrEmpty(modelClass.OutputDirectory)) dir = modelClass.OutputDirectory;

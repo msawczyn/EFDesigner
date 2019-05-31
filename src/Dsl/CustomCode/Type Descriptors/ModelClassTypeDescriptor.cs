@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-
+using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
 
@@ -24,6 +24,22 @@ namespace Sawczyn.EFDesigner.EFModel
             EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelClass);
 
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
+
+            // If the class isn't persistent, don't tease the user with persistence attributes
+            if (!modelClass.IsPersistent)
+            {
+               PropertyDescriptor dbSetNameTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "DbSetName");
+               propertyDescriptors.Remove(dbSetNameTypeDescriptor);
+
+               PropertyDescriptor tableNameTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "TableName");
+               propertyDescriptors.Remove(tableNameTypeDescriptor);
+
+               PropertyDescriptor databaseSchemaTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "DatabaseSchema");
+               propertyDescriptors.Remove(databaseSchemaTypeDescriptor);
+
+               PropertyDescriptor outputDirectoryTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "OutputDirectory");
+               propertyDescriptors.Remove(outputDirectoryTypeDescriptor);
+            }
 
             //Add the descriptors for the tracking properties 
             /********************************************************************************/

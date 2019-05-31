@@ -487,6 +487,12 @@
             <xsd:documentation>If true, this class can&apos;t be modified by the user</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsPersistent -->
+        <xsd:attribute name="isPersistent" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this class should be generated as a persistent entity</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

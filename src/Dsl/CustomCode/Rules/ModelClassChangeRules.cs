@@ -44,6 +44,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (newIsDependentType)
                {
+                  if (!element.IsPersistent)
+                  {
+                     errorMessages.Add($"Can't make {element.Name} a dependent class since it's not persistent");
+
+                     break;
+                  }
+
                   if (element.IsAbstract)
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it's abstract");
@@ -133,10 +140,9 @@ namespace Sawczyn.EFDesigner.EFModel
             case "TableName":
                string newTableName = (string)e.NewValue;
 
-               if (element.IsDependentType)
+               if (element.IsDependentType || !element.IsPersistent)
                {
-                  if (!string.IsNullOrEmpty(newTableName))
-                     element.TableName = string.Empty;
+                  element.TableName = string.Empty;
                }
                else
                {
@@ -144,7 +150,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TableName = MakeDefaultName(element.Name);
 
                   if (store.Get<ModelClass>()
-                           .Except(new[] {element})
+                           .Except(new[] { element })
                            .Any(x => x.TableName == newTableName))
                      errorMessages.Add($"Table name '{newTableName}' already in use");
                }
@@ -154,10 +160,9 @@ namespace Sawczyn.EFDesigner.EFModel
             case "DbSetName":
                string newDbSetName = (string)e.NewValue;
 
-               if (element.IsDependentType)
+               if (element.IsDependentType || !element.IsPersistent)
                {
-                  if (!string.IsNullOrEmpty(newDbSetName))
-                     element.DbSetName = string.Empty;
+                  element.DbSetName = string.Empty;
                }
                else
                {
@@ -170,7 +175,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
                   }
                   else if (store.Get<ModelClass>()
-                                .Except(new[] {element})
+                                .Except(new[] { element })
                                 .Any(x => x.DbSetName == newDbSetName))
                   {
                      errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
@@ -184,21 +189,24 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (current.Name.ToLowerInvariant() != "paste" &&
                    (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
+               {
                   errorMessages.Add($"Class name '{newName}' isn't a valid .NET identifier.");
-
+               }
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelClass>()
-                             .Except(new[] {element})
+                             .Except(new[] { element })
                              .Any(x => x.Name == newName))
+               {
                   errorMessages.Add($"Class name '{newName}' already in use by another class");
-
+               }
                else if (store.ElementDirectory
                              .AllElements
                              .OfType<ModelEnum>()
                              .Any(x => x.Name == newName))
+               {
                   errorMessages.Add($"Class name '{newName}' already in use by an enum");
-
+               }
                else if (!string.IsNullOrEmpty((string)e.OldValue))
                {
                   string oldDefaultName = MakeDefaultName((string)e.OldValue);

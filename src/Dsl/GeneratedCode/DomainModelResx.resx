@@ -769,6 +769,18 @@
     <value>Read Only</value>
     <comment>DisplayName for DomainProperty &apos;ReadOnly&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.Description" xml:space="preserve">
+    <value>If true, this class should be generated as a persistent entity</value>
+    <comment>Description for DomainProperty &apos;IsPersistent&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.DisplayName" xml:space="preserve">
+    <value>Is Persistent</value>
+    <comment>DisplayName for DomainProperty &apos;IsPersistent&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IsPersistent&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>

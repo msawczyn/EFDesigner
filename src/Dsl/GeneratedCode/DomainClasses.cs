@@ -5147,6 +5147,96 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region IsPersistent domain property code
+		
+		/// <summary>
+		/// IsPersistent domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsPersistentDomainPropertyId = new global::System.Guid(0x63258194, 0x8e61, 0x42a4, 0xb8, 0xc6, 0x8c, 0x31, 0xa0, 0xac, 0xbe, 0x23);
+		
+		/// <summary>
+		/// Storage for IsPersistent
+		/// </summary>
+		private global::System.Boolean isPersistentPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsPersistent domain property.
+		/// If true, this class should be generated as a persistent entity
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("63258194-8e61-42a4-b8c6-8c31a0acbe23")]
+		public global::System.Boolean IsPersistent
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isPersistentPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsPersistentPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.IsPersistent domain property.
+		/// </summary>
+		internal sealed partial class IsPersistentPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private IsPersistentPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.IsPersistent domain property value handler.
+			/// </summary>
+			public static readonly IsPersistentPropertyHandler Instance = new IsPersistentPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.IsPersistent domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsPersistentDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isPersistentPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isPersistentPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>

@@ -1,2 +1,107 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.3" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="$safeitemname$" namespace="$rootnamespace$" automaticMigrationsEnabled="false" isIdentityDbContext="true" xmlns="http://schemas.microsoft.com/dsltools/EFModel" />
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.3" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="$safeitemname$" namespace="$rootnamespace$" automaticMigrationsEnabled="false" isIdentityDbContext="true" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <classes>
+    <modelRootHasClasses Id="f9caf7b1-32db-44de-b01c-35fac2c9333f">
+      <modelClass Id="c848ca55-c328-4830-8fba-bc83c0f5ba79" namespace="Microsoft.AspNet.Identity.EntityFramework" name="IdentityRole" outputDirectory="" readOnly="true" isPersistent="false">
+        <attributes>
+          <modelAttribute Id="86015364-029c-4a70-8c05-2a1f60a06da6" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="83da7b9a-7dd4-4dec-a2fd-ac403777d2a2" required="true" indexed="false" indexedUnique="false" stringType="None" name="Name" columnName="Name" columnType="default" />
+        </attributes>
+        <subclasses>
+          <generalization Id="e64ba641-3753-48dd-a349-f58d5606634c">
+            <modelClassMoniker Id="d749abda-57b4-4ac2-8a1f-6880048755de" />
+          </generalization>
+        </subclasses>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="79a4e202-b523-47c6-904b-2a67a51144b9">
+      <modelClass Id="a3481922-71ac-47b1-baee-2bd0a40c13fc" namespace="Microsoft.AspNet.Identity.EntityFramework" name="IdentityUserRole" outputDirectory="" readOnly="true" isPersistent="false">
+        <attributes>
+          <modelAttribute Id="50749d48-67d2-415a-afa2-dd85621de451" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="599440d0-a6ba-47ff-aba5-6ad7781372cb" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="RoleId" columnName="RoleId" columnType="default" />
+        </attributes>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="2910e310-9d0b-423d-b382-fcbfb2a9630f">
+      <modelClass Id="29baca0f-5943-4d80-a0d9-d8a1a1d4944b" namespace="Microsoft.AspNet.Identity.EntityFramework" name="IdentityUser" outputDirectory="" readOnly="true" isPersistent="false">
+        <unidirectionalTargets>
+          <unidirectionalAssociation Id="025c2371-10f9-427f-976b-e8d359894009" targetPropertyName="Roles" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
+            <modelClassMoniker Id="a3481922-71ac-47b1-baee-2bd0a40c13fc" />
+          </unidirectionalAssociation>
+          <unidirectionalAssociation Id="975aeec6-787e-4f6e-af76-b7c471a9bcf7" targetPropertyName="Claims" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
+            <modelClassMoniker Id="bf2045c2-8da3-489b-a521-c50b24606d4d" />
+          </unidirectionalAssociation>
+          <unidirectionalAssociation Id="c9970672-5e55-47ef-98af-4d70cb0f0939" targetPropertyName="Logins" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
+            <modelClassMoniker Id="dfa69bd2-ad22-4258-bc47-233e81849578" />
+          </unidirectionalAssociation>
+        </unidirectionalTargets>
+        <attributes>
+          <modelAttribute Id="e7647ff0-d29c-460c-9204-6792dbe0500a" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="47e88be3-ba8d-443e-93c1-d4d0703b2f8a" indexed="false" indexedUnique="false" stringType="None" name="Email" columnName="Email" columnType="default" />
+          <modelAttribute Id="66f3bf85-1409-4412-aca5-b6b07d753454" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="EmailConfirmed" columnName="EmailConfirmed" columnType="default" />
+          <modelAttribute Id="cd1ae972-22b0-48f4-846f-1ccc3c8e2a6e" indexed="false" indexedUnique="false" stringType="None" name="PasswordHash" columnName="PasswordHash" columnType="default" />
+          <modelAttribute Id="939626f5-dd80-4b93-9155-504269823095" indexed="false" indexedUnique="false" stringType="None" name="SecurityStamp" columnName="SecurityStamp" columnType="default" />
+          <modelAttribute Id="7136b739-ef51-45ea-b7d7-a510b1e4be2f" indexed="false" indexedUnique="false" stringType="None" name="PhoneNumber" columnName="PhoneNumber" columnType="default" />
+          <modelAttribute Id="114c54e7-e729-4888-9ec0-97c5ad40be62" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="PhoneNumberConfirmed" columnName="PhoneNumberConfirmed" columnType="default" />
+          <modelAttribute Id="947f8117-54ee-4be4-957f-c8fe06f2c596" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="TwoFactorEnabled" columnName="TwoFactorEnabled" columnType="default" />
+          <modelAttribute Id="4b783203-0096-46f2-9b22-a081ee0f7815" type="DateTime" indexed="false" indexedUnique="false" stringType="None" name="LockoutEndDateUtc" columnName="LockoutEndDateUtc" columnType="default" />
+          <modelAttribute Id="6c9c2a7e-a153-4677-9223-586cfaa6a207" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" name="LockoutEnabled" columnName="LockoutEnabled" columnType="default" />
+          <modelAttribute Id="5e2188fa-9177-480b-8eef-a481e48741bd" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" name="AccessFailedCount" columnName="AccessFailedCount" columnType="default" />
+          <modelAttribute Id="d3e8c601-d67f-436c-92a7-ace915bd886f" required="true" indexed="false" indexedUnique="false" stringType="None" name="UserName" columnName="UserName" columnType="default" />
+        </attributes>
+        <subclasses>
+          <generalization Id="e42424d7-209c-48e3-b695-def1189f0838">
+            <modelClassMoniker Id="cc24adbb-9609-4d37-a669-a67cfb9a0698" />
+          </generalization>
+        </subclasses>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="cc2dcb28-635d-4d15-9b56-537850f6bda8">
+      <modelClass Id="4cd9603e-f0ec-4ece-af72-51243a249554" namespace="Microsoft.AspNet.Identity.EntityFramework" name="IdentityUserClaim" outputDirectory="" readOnly="true" isPersistent="false">
+        <attributes>
+          <modelAttribute Id="6af401fb-51a1-4b76-89ab-d13d4a899672" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="69d5ff08-de67-4a3a-9f0d-3120b9744ff7" required="true" indexed="false" indexedUnique="false" stringType="None" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="e7267906-3079-42c6-b9fd-f78f0d130d69" indexed="false" indexedUnique="false" stringType="None" name="ClaimType" columnName="ClaimType" columnType="default" />
+          <modelAttribute Id="e754bf15-081a-405a-9907-8bfcb9946004" indexed="false" indexedUnique="false" stringType="None" name="ClaimValue" columnName="ClaimValue" columnType="default" />
+        </attributes>
+        <subclasses>
+          <generalization Id="5210ad09-fa29-4175-9fd8-778ac3807b77">
+            <modelClassMoniker Id="bf2045c2-8da3-489b-a521-c50b24606d4d" />
+          </generalization>
+        </subclasses>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="4e4ed6bb-4c1f-49af-aa49-ec4a4c632d7e">
+      <modelClass Id="3469ddd7-4d78-4921-99df-362b05496c35" namespace="Microsoft.AspNet.Identity.EntityFramework" name="IdentityUserLogin" outputDirectory="" readOnly="true" isPersistent="false">
+        <attributes>
+          <modelAttribute Id="e76b899e-8eae-4573-bbd0-dff1368cf387" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="LoginProvider" columnName="LoginProvider" columnType="default" />
+          <modelAttribute Id="532c4ee8-d6f2-4fd6-abf8-a8dbd0b44c8f" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="ProviderKey" columnName="ProviderKey" columnType="default" />
+          <modelAttribute Id="7238337e-5501-4318-99ff-94ffc297a9ce" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" name="UserId" columnName="UserId" columnType="default" />
+        </attributes>
+        <subclasses>
+          <generalization Id="4b9ebf4a-45e0-4270-8042-02357287ab0f">
+            <modelClassMoniker Id="dfa69bd2-ad22-4258-bc47-233e81849578" />
+          </generalization>
+        </subclasses>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="1d2e9f3c-ac50-4ce4-9d4f-0884717009a9">
+      <modelClass Id="cc24adbb-9609-4d37-a669-a67cfb9a0698" databaseSchema="dbo" namespace="$rootnamespace$" dbSetName="Users" name="User" outputDirectory="" baseClass="IdentityUser" readOnly="false" isPersistent="true">
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="bdf163c1-8bcb-4a0c-9eb7-f8678c1a8872">
+      <modelClass Id="d749abda-57b4-4ac2-8a1f-6880048755de" databaseSchema="dbo" namespace="$rootnamespace$" dbSetName="Roles" name="Role" outputDirectory="" baseClass="IdentityRole" readOnly="false" isPersistent="true">
+        <unidirectionalTargets>
+          <unidirectionalAssociation Id="36dc0178-a155-46c2-9e8c-f2e2d98e13d5" targetPropertyName="Users" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
+            <modelClassMoniker Id="a3481922-71ac-47b1-baee-2bd0a40c13fc" />
+          </unidirectionalAssociation>
+        </unidirectionalTargets>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="9ea54e41-2d0c-4e3b-98ff-5cab8606b5d6">
+      <modelClass Id="bf2045c2-8da3-489b-a521-c50b24606d4d" databaseSchema="dbo" namespace="$rootnamespace$" dbSetName="UserClaims" name="UserClaim" outputDirectory="" baseClass="IdentityUserClaim" readOnly="false" isPersistent="true" />
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="ffd5eb02-fc9c-45de-8a63-a773bbc4f028">
+      <modelClass Id="dfa69bd2-ad22-4258-bc47-233e81849578" databaseSchema="dbo" namespace="$rootnamespace$" dbSetName="UserLogins" name="UserLogin" outputDirectory="" baseClass="IdentityUserLogin" readOnly="false" isPersistent="true" />
+    </modelRootHasClasses>
+  </classes>
+</modelRoot>
