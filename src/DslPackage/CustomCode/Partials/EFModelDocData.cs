@@ -147,6 +147,7 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnDocumentLoaded();
          ErrorDisplay.RegisterDisplayHandler(ShowError);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
+         InfoDisplay.RegisterDisplayHandler(ShowMessage);
          QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
          StatusDisplay.RegisterDisplayHandler(ShowStatus);
          ChoiceDisplay.RegisterDisplayHandler(GetChoice);

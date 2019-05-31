@@ -8,4 +8,16 @@
       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
    </PropertyGroup>
 
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+     <OutputPath>bin\Debug\</OutputPath>
+   </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+     <OutputPath>bin\Release\</OutputPath>
+   </PropertyGroup>
+
+   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+     <Exec Command="copy /Y &quot;$(TargetDir)*.*&quot; &quot;$(SolutionDir)DslPackage\Parsers" />
+   </Target>
+
 </Project>

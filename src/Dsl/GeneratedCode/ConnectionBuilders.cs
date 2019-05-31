@@ -50,7 +50,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			if (candidate == null) return false;
 			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelClass)
 			{ 
-				return true;
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelClassAsTarget(ModelClass candidate)
+				// {
+				// }
+				return CanAcceptModelClassAsTarget((global::Sawczyn.EFDesigner.EFModel.ModelClass)candidate);
 			}
 			else
 				return false;

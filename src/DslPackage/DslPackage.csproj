@@ -186,6 +186,9 @@
     <Content Include="Parsers\EFCoreParserFmwk.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Parsers\Effort.dll">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Parsers\EntityFramework.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -194,8 +197,27 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Parsers\Microsoft.EntityFrameworkCore.Abstractions.dll" />
+    <Content Include="Parsers\Microsoft.EntityFrameworkCore.dll" />
+    <Content Include="Parsers\Microsoft.EntityFrameworkCore.InMemory.dll" />
+    <Content Include="Parsers\Microsoft.EntityFrameworkCore.Relational.Design.dll" />
+    <Content Include="Parsers\Microsoft.EntityFrameworkCore.Relational.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Caching.Abstractions.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Caching.Memory.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Configuration.Binder.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Configuration.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.DependencyInjection.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Logging.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Options.dll" />
+    <Content Include="Parsers\Microsoft.Extensions.Primitives.dll" />
     <Content Include="Parsers\Newtonsoft.Json.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\NMemory.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Parsers\ParsingModels.dll">
@@ -215,6 +237,15 @@
       <SubType>Designer</SubType>
       <DesignTime>True</DesignTime>
     </VSItemTemplate>
+    <Content Include="Parsers\Remotion.Linq.dll" />
+    <Content Include="Parsers\System.Buffers.dll" />
+    <Content Include="Parsers\System.Collections.Immutable.dll" />
+    <Content Include="Parsers\System.ComponentModel.Annotations.dll" />
+    <Content Include="Parsers\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="Parsers\System.Interactive.Async.dll" />
+    <Content Include="Parsers\System.Memory.dll" />
+    <Content Include="Parsers\System.Numerics.Vectors.dll" />
+    <Content Include="Parsers\System.Runtime.CompilerServices.Unsafe.dll" />
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

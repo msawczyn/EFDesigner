@@ -38,23 +38,25 @@
          // 
          this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.btnOK.Enabled = false;
-         this.btnOK.Location = new System.Drawing.Point(132, 220);
+         this.btnOK.Location = new System.Drawing.Point(230, 185);
          this.btnOK.Name = "btnOK";
          this.btnOK.Size = new System.Drawing.Size(75, 23);
          this.btnOK.TabIndex = 0;
          this.btnOK.Text = "OK";
          this.btnOK.UseVisualStyleBackColor = true;
+         this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
          // 
          // btnCancel
          // 
          this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-         this.btnCancel.Location = new System.Drawing.Point(213, 220);
+         this.btnCancel.Location = new System.Drawing.Point(311, 185);
          this.btnCancel.Name = "btnCancel";
          this.btnCancel.Size = new System.Drawing.Size(75, 23);
          this.btnCancel.TabIndex = 1;
          this.btnCancel.Text = "Cancel";
          this.btnCancel.UseVisualStyleBackColor = true;
+         this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
          // 
          // lblTitle
          // 
@@ -62,17 +64,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.lblTitle.Location = new System.Drawing.Point(12, 9);
          this.lblTitle.Name = "lblTitle";
-         this.lblTitle.Size = new System.Drawing.Size(276, 23);
+         this.lblTitle.Size = new System.Drawing.Size(374, 23);
          this.lblTitle.TabIndex = 2;
          // 
          // lbChoices
          // 
+         this.lbChoices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.lbChoices.FormattingEnabled = true;
          this.lbChoices.Location = new System.Drawing.Point(15, 35);
          this.lbChoices.Name = "lbChoices";
-         this.lbChoices.Size = new System.Drawing.Size(273, 173);
+         this.lbChoices.Size = new System.Drawing.Size(371, 134);
          this.lbChoices.TabIndex = 3;
          this.lbChoices.SelectedIndexChanged += new System.EventHandler(this.LbChoices_SelectedIndexChanged);
+         this.lbChoices.DoubleClick += new System.EventHandler(this.LbChoices_DoubleClick);
          // 
          // ChooseForm
          // 
@@ -80,7 +86,7 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.CancelButton = this.btnCancel;
-         this.ClientSize = new System.Drawing.Size(300, 255);
+         this.ClientSize = new System.Drawing.Size(398, 220);
          this.ControlBox = false;
          this.Controls.Add(this.lbChoices);
          this.Controls.Add(this.lblTitle);

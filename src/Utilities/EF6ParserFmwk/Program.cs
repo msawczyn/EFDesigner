@@ -17,6 +17,8 @@ namespace EF6Parser
 
       private static int Main(string[] args)
       {
+         Console.WriteLine("pwd = " + Environment.CurrentDirectory);
+
          if (args.Length < 2 || args.Length > 3)
          {
             Usage();
@@ -39,12 +41,13 @@ namespace EF6Parser
                   try
                   {
                      parser = new Parser(assembly, contextClassName);
-                     output.Write(parser.Process());
+                     string result = parser.Process();
+                     output.Write(result);
                   }
-
-                  // ReSharper disable once UncatchableException
-                  catch (MissingMethodException)
+                  catch (MissingMethodException ex)
                   {
+                     output.WriteLine(ex.Message);
+                     Usage();
                      return CANNOT_FIND_APPROPRIATE_CONSTRUCTOR;
                   }
                   catch (AmbiguousMatchException)
@@ -55,14 +58,16 @@ namespace EF6Parser
                      Usage();
                      return AMBIGUOUS_REQUEST;
                   }
-                  catch
+                  catch (Exception ex)
                   {
+                     output.WriteLine(ex.Message);
                      Usage();
                      return CANNOT_CREATE_DBCONTEXT;
                   }
                }
-               catch
+               catch (Exception ex)
                {
+                  output.WriteLine(ex.Message);
                   Usage();
                   return CANNOT_LOAD_ASSEMBLY;
                }

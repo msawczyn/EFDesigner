@@ -10,3 +10,11 @@ T4:  Implement soft delete where marked in model
 DSL: Add bool Enhanced Cascade Delete
 T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
 
+VSIX: Resolve the xsd warnings
+
+DSL:  Allow user to set name of foreign key in association
+T4:   Honor user's choice of foreign key names in dependent classes
+
+DSL:  Allow user to specify that foreign key property is visible (i.e., not shadow property)?
+T4:   Generate foreign key property in class if flagged as visible
+

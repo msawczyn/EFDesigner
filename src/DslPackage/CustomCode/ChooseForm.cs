@@ -38,5 +38,20 @@ namespace Sawczyn.EFDesigner.EFModel
          // ReSharper disable once CoVariantArrayConversion
          lbChoices.Items.AddRange(choices.ToArray());
       }
+
+      private void LbChoices_DoubleClick(object sender, EventArgs e)
+      {
+         DialogResult = DialogResult.OK;
+      }
+
+      private void BtnOK_Click(object sender, EventArgs e)
+      {
+         DialogResult = DialogResult.OK;
+      }
+
+      private void BtnCancel_Click(object sender, EventArgs e)
+      {
+         DialogResult = DialogResult.Cancel;
+      }
    }
 }

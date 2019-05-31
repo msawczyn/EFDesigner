@@ -2158,7 +2158,7 @@
           </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
-          <RolePlayerConnectDirective>
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true">
             <AcceptingClass>
               <DomainClassMoniker Name="ModelClass" />
             </AcceptingClass>

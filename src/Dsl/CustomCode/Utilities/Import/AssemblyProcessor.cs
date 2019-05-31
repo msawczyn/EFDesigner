@@ -380,7 +380,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      sr.Close();
                   }
 
-                  string choice = ChoiceDisplay.GetChoice("Multiple classes found. Pick one to process", classNames);
+                  string choice = ChoiceDisplay.GetChoice("Multiple classes found. Pick one to process", classNames.Where(n => !string.IsNullOrEmpty(n)));
 
                   if (choice != null)
                   {
