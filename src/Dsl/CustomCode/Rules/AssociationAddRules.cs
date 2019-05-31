@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Design.PluralizationServices;
+﻿using System;
+using System.Data.Entity.Design.PluralizationServices;
 
 using Microsoft.VisualStudio.Modeling;
 
@@ -12,12 +13,47 @@ namespace Sawczyn.EFDesigner.EFModel
          base.ElementAdded(e);
 
          Association element = (Association)e.ModelElement;
+
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
          PluralizationService pluralizationService = ModelRoot.PluralizationService;
 
          if (current.IsSerializing)
             return;
+
+         if (element is UnidirectionalAssociation)
+         {
+            if (element.Source.ReadOnly)
+            {
+               ErrorDisplay.Show($"{element.Source.Name} is read-only; can't create a new property in that class");
+               current.Rollback();
+               return;
+            }
+
+            if (element.Target.ReadOnly && element.TargetRole == EndpointRole.Dependent)
+            {
+               ErrorDisplay.Show($"Dependent class {element.Target.Name} is read-only; can't create a new column in the database for the foreign key");
+               current.Rollback();
+               return;
+            }
+         }
+
+         if (element is BidirectionalAssociation)
+         {
+            if (element.Source.ReadOnly)
+            {
+               ErrorDisplay.Show($"{element.Source.Name} is read-only; can't create a new property in that class");
+               current.Rollback();
+               return;
+            }
+
+            if (element.Target.ReadOnly)
+            {
+               ErrorDisplay.Show($"{element.Target.Name} is read-only; can't create a new property in that class");
+               current.Rollback();
+               return;
+            }
+         }
 
          // add unidirectional
          //    source can't be dependent (connection builder handles this)

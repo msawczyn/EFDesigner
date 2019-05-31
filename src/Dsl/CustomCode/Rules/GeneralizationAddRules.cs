@@ -19,6 +19,14 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
+         if (element.Subclass.ReadOnly)
+         {
+            ErrorDisplay.Show($"{element.Subclass.Name} is read-only; can't change its base class.");
+            current.Rollback();
+
+            return;
+         }
+
          if (element.IsInCircularInheritance())
          {
             ErrorDisplay.Show($"{element.Subclass.Name} -> {element.Superclass.Name}: That inheritance link would cause a circular reference.");

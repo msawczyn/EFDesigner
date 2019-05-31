@@ -17,8 +17,6 @@ namespace EF6Parser
 
       private static int Main(string[] args)
       {
-         Console.WriteLine("pwd = " + Environment.CurrentDirectory);
-
          if (args.Length < 2 || args.Length > 3)
          {
             Usage();

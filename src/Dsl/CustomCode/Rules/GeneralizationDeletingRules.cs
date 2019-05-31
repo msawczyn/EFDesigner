@@ -27,6 +27,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ModelClass superclass = element.Superclass;
          ModelClass subclass = element.Subclass;
+
+         if (subclass.ReadOnly)
+         {
+            ErrorDisplay.Show($"{subclass.Name} is read-only; can't change its inheritance scheme");
+            current.Rollback();
+            return;
+         }
+
          List<Association> associations = store.Get<Association>().Where(a => a.Source == superclass || a.Target == superclass).ToList();
 
          if (!superclass.AllAttributes.Any() && !associations.Any())

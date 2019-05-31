@@ -10,7 +10,6 @@ using System.Data.Entity.Core;
 using System.Data.Entity.Core.Mapping;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -57,7 +56,7 @@ namespace EF6Parser
       {
          assembly = targetAssembly;
          requestedTypeName = dbContextTypeName;
-         DbContextTypes = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
+         DbContextTypes = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t) && !t.IsGenericType).ToList();
       }
 
       private static Multiplicity ConvertMultiplicity(RelationshipMultiplicity relationshipMultiplicity)

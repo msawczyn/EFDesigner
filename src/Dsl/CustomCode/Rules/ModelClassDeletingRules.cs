@@ -21,6 +21,13 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
+         if (element.ReadOnly)
+         {
+            ErrorDisplay.Show($"{element.Name} is read-only; can't delete it");
+            current.Rollback();
+            return;
+         }
+
          List<Generalization> generalizations = store.Get<Generalization>().Where(g => g.Superclass == element).ToList();
 
          if (generalizations.Any())

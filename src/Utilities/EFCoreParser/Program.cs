@@ -6,6 +6,7 @@ namespace EFCoreParser
 {
    internal class Program
    {
+      public const int CANCELLED = -1;
       public const int SUCCESS = 0;
       public const int BAD_ARGUMENT_COUNT = 1;
       public const int CANNOT_LOAD_ASSEMBLY = 2;
@@ -38,12 +39,12 @@ namespace EFCoreParser
                   try
                   {
                      parser = new Parser(assembly, contextClassName);
-                     output.Write(parser.Process());
+                     string result = parser.Process();
+                     output.Write(result);
                   }
-
-                  // ReSharper disable once UncatchableException
-                  catch (MissingMethodException)
+                  catch (MissingMethodException ex)
                   {
+                     output.WriteLine(ex.Message);
                      Usage();
                      return CANNOT_FIND_APPROPRIATE_CONSTRUCTOR;
                   }
@@ -55,14 +56,16 @@ namespace EFCoreParser
                      Usage();
                      return AMBIGUOUS_REQUEST;
                   }
-                  catch
+                  catch (Exception ex)
                   {
+                     output.WriteLine(ex.Message);
                      Usage();
                      return CANNOT_CREATE_DBCONTEXT;
                   }
                }
-               catch
+               catch (Exception ex)
                {
+                  output.WriteLine(ex.Message);
                   Usage();
                   return CANNOT_LOAD_ASSEMBLY;
                }

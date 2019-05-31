@@ -5077,7 +5077,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
 		[DslModeling::DomainObjectId("2059f438-7539-4ad4-9cd5-c89d4e70143c")]
 		public global::System.Boolean ReadOnly
 		{

@@ -418,7 +418,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="2059f438-7539-4ad4-9cd5-c89d4e70143c" Description="If true, this class can't be modified by the user" Name="ReadOnly" DisplayName="Read Only" IsBrowsable="false">
+        <DomainProperty Id="2059f438-7539-4ad4-9cd5-c89d4e70143c" Description="If true, this class can't be modified by the user" Name="ReadOnly" DisplayName="Read Only" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>

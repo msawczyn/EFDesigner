@@ -50,7 +50,7 @@ namespace EFCoreParser
       {
          assembly = targetAssembly;
          requestedTypeName = dbContextTypeName;
-         DbContextTypes = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
+         DbContextTypes = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t) && !t.IsGenericType).ToList();
       }
 
       private static Multiplicity ConvertMultiplicity(RelationshipMultiplicity relationshipMultiplicity)

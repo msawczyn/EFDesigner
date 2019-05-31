@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Modeling;
+﻿using System;
+using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -11,6 +12,19 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ModelAttribute element = (ModelAttribute)e.ModelElement;
          ModelClass modelClass = element.ModelClass;
+
+         Store store = element.Store;
+         Transaction current = store.TransactionManager.CurrentTransaction;
+
+         if (current.IsSerializing)
+            return;
+
+         if (modelClass.ReadOnly)
+         {
+            ErrorDisplay.Show($"{modelClass.Name} is read-only; can't add a property");
+            current.Rollback();
+            return;
+         }
 
          // set a new default value if we want to implement notify, to reduce the chance of forgetting to change it
          if (modelClass?.ImplementNotify == true)

@@ -25,6 +25,13 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
+         if (element.Subclass.ReadOnly)
+         {
+            ErrorDisplay.Show($"{element.Subclass.Name} is read-only; can't change its inheritance scheme");
+            current.Rollback();
+            return;
+         }
+
          switch (e.DomainProperty.Name)
          {
             case "Superclass":

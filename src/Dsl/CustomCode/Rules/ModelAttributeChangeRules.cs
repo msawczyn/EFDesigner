@@ -21,6 +21,10 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          ModelClass modelClass = element.ModelClass;
+     
+         if (modelClass.ReadOnly)
+            throw new InvalidOperationException("Class is read-only");
+         
          ModelRoot modelRoot = element.Store.ModelRoot();
 
          Store store = element.Store;

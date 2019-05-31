@@ -67,6 +67,20 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
+         if (element.Source.ReadOnly)
+         {
+            ErrorDisplay.Show($"{element.Source.Name} is read-only; can't any of its associations");
+            current.Rollback();
+            return;
+         }
+
+         if (element.Target.ReadOnly)
+         {
+            ErrorDisplay.Show($"{element.Target.Name} is read-only; can't any of its associations");
+            current.Rollback();
+            return;
+         }
+
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
          BidirectionalAssociation bidirectionalAssociation = element as BidirectionalAssociation;
 
@@ -74,7 +88,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             case "Persistent":
                UpdateDisplayForPersistence(element);
-
+               
                break;
 
             case "SourceCustomAttributes":

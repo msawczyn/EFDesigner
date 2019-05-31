@@ -7,7 +7,7 @@
       private static bool CanAcceptModelClassAsSource(ModelClass candidate)
       {
          // dependent types can't participate in inheritance relationships
-         return !candidate.IsDependentType && !candidate.ReadOnly;
+         return !candidate.IsDependentType;
       }
 
       private static bool CanAcceptModelClassAsTarget(ModelClass candidate)
@@ -22,7 +22,7 @@
          // can't have cycles
          for (ModelClass candidate = sourceModelClass; candidate != null; candidate = candidate.Superclass)
          {
-            if (candidate == targetModelClass || candidate.ReadOnly)
+            if (candidate == targetModelClass)
                return false;
          }
 

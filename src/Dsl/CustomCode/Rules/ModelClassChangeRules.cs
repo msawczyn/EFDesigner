@@ -28,6 +28,13 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
+         if (element.ReadOnly)
+         {
+            ErrorDisplay.Show($"{element.Name} is read-only; can't any of its properties");
+            current.Rollback();
+            return;
+         }
+
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
 
          switch (e.DomainProperty.Name)
