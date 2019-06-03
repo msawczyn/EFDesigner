@@ -22,18 +22,14 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         if (element.Superclass.IsDeleting)
-            return;
+         //if (element.Superclass.IsDeleting)
+         //   return;
 
          ModelClass superclass = element.Superclass;
          ModelClass subclass = element.Subclass;
 
-         if (subclass.ReadOnly)
-         {
-            ErrorDisplay.Show($"{subclass.Name} is read-only; can't change its inheritance scheme");
-            current.Rollback();
-            return;
-         }
+         // make sure identity associations are correct (if necessary)
+         store.ModelRoot().TargetIdentityAssociations();
 
          List<Association> associations = store.Get<Association>().Where(a => a.Source == superclass || a.Target == superclass).ToList();
 

@@ -57,6 +57,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "DefaultIdentityType":
+               if (element.IdentityKeyType == (string)e.OldValue)
+                  element.IdentityKeyType = (string)e.NewValue;
+
+               break;
+
             case "EntityFrameworkVersion":
                element.EntityFrameworkPackageVersion = "Latest";
 
@@ -88,6 +94,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "IdentityKeyType":
+               if (element.IsIdentityDbContext)
+                  element.SetIdentityKeyType((string)e.NewValue);
+
+               break;
             case "StructOutputDirectory":
 
                if (string.IsNullOrEmpty((string)e.NewValue) && !string.IsNullOrEmpty(element.EntityOutputDirectory))

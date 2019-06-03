@@ -102,17 +102,17 @@ namespace Sawczyn.EFDesigner.EFModel
                ErrorDisplay.Show("Internal error");
                return false;
             case CANNOT_WRITE_OUTPUTFILE:
-               ErrorDisplay.Show("Cannot write temporary working file");
+               ErrorDisplay.Show("Cannot write temporary working file\r\n"+File.ReadAllText(outputFilename));
                return false;
             case CANNOT_CREATE_DBCONTEXT:
-               ErrorDisplay.Show("Cannot create DbContext object");
+               ErrorDisplay.Show("Cannot create DbContext object\r\n"+File.ReadAllText(outputFilename));
                return false;
             case CANNOT_FIND_APPROPRIATE_CONSTRUCTOR:
-               ErrorDisplay.Show("Cannot find appropriate constructor");
+               ErrorDisplay.Show("Cannot find appropriate constructor\r\n"+File.ReadAllText(outputFilename));
                return false;
          }
 
-         ErrorDisplay.Show("Unexpected error");
+         ErrorDisplay.Show("Unexpected error\r\n"+File.ReadAllText(outputFilename));
          return false;
       }
 

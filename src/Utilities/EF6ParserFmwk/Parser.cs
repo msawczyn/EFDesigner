@@ -265,11 +265,10 @@ namespace EF6Parser
          if (constructor == null)
             throw new MissingMethodException("Can't find appropriate constructor");
 
-         metadata = ((IObjectContextAdapter)dbContext)?.ObjectContext?.MetadataWorkspace;
-    
          if (dbContext == null)
             throw new ObjectNotFoundException();
 
+         metadata = ((IObjectContextAdapter)dbContext).ObjectContext?.MetadataWorkspace;
          ReadOnlyCollection<GlobalItem> cSpace = metadata.GetItems(DataSpace.CSpace);
 
          ModelRoot modelRoot = ProcessRoot();

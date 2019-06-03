@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -77,6 +78,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
          }
+
+         // make sure identity associations are correct (if necessary)
+         store.ModelRoot().TargetIdentityAssociations();
       }
    }
 }

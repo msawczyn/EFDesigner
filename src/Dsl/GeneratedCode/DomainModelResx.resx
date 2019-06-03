@@ -533,6 +533,10 @@
     <value>Base Class</value>
     <comment>DisplayName for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/IsIdentityDbContext.Description" xml:space="preserve">
     <value>If true, this is an ASP.NET identity context</value>
     <comment>Description for DomainProperty &apos;IsIdentityDbContext&apos; on DomainClass &apos;ModelRoot&apos;</comment>
@@ -540,6 +544,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/IsIdentityDbContext.DisplayName" xml:space="preserve">
     <value>Is Identity DbContext</value>
     <comment>DisplayName for DomainProperty &apos;IsIdentityDbContext&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/IdentityKeyType.Description" xml:space="preserve">
+    <value>Type for ID properties in identity classes</value>
+    <comment>Description for DomainProperty &apos;IdentityKeyType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/IdentityKeyType.DisplayName" xml:space="preserve">
+    <value>Identity Key Type</value>
+    <comment>DisplayName for DomainProperty &apos;IdentityKeyType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/IdentityKeyType.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IdentityKeyType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>

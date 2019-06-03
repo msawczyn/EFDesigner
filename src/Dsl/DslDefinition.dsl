@@ -251,14 +251,26 @@
             <ExternalTypeMoniker Name="/Microsoft.Msagl.Core.Layout/LayoutAlgorithmSettings" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="c7e0390e-5c88-48e9-a160-31e36c8dc1e0" Description="Fully qualified name of the base class for the custom DbContext" Name="BaseClass" DisplayName="Base Class" DefaultValue="System.Data.Entity.DbContext">
+        <DomainProperty Id="c7e0390e-5c88-48e9-a160-31e36c8dc1e0" Description="Fully qualified name of the base class for the custom DbContext" Name="BaseClass" DisplayName="Base Class" DefaultValue="System.Data.Entity.DbContext" Category="Code Generation" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="cbf6c0eb-ca88-49be-b066-e406f47e1e69" Description="If true, this is an ASP.NET identity context" Name="IsIdentityDbContext" DisplayName="Is Identity DbContext" DefaultValue="false" Kind="Calculated" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="cbf6c0eb-ca88-49be-b066-e406f47e1e69" Description="If true, this is an ASP.NET identity context" Name="IsIdentityDbContext" DisplayName="Is Identity DbContext" DefaultValue="false" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="1c2f998f-ca3f-45fb-9571-ae7d71284f54" Description="Type for ID properties in identity classes" Name="IdentityKeyType" DisplayName="Identity Key Type" DefaultValue="Int32" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(IdentityAttributeTypeTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1737,8 +1749,11 @@
           <XmlPropertyData XmlName="baseClass">
             <DomainPropertyMoniker Name="ModelRoot/BaseClass" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="isIdentityDbContext" Representation="Ignore">
+          <XmlPropertyData XmlName="isIdentityDbContext">
             <DomainPropertyMoniker Name="ModelRoot/IsIdentityDbContext" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="identityKeyType">
+            <DomainPropertyMoniker Name="ModelRoot/IdentityKeyType" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

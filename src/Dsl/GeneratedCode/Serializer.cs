@@ -732,6 +732,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// IsIdentityDbContext
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsIdentityDbContext = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isIdentityDbContext");
+				if (attribIsIdentityDbContext != null)
+				{
+					global::System.Boolean valueOfIsIdentityDbContext;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsIdentityDbContext, out valueOfIsIdentityDbContext))
+					{
+						instanceOfModelRoot.IsIdentityDbContext = valueOfIsIdentityDbContext;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isIdentityDbContext", typeof(global::System.Boolean), attribIsIdentityDbContext);
+					}
+				}
+			}
+			// IdentityKeyType
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIdentityKeyType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "identityKeyType");
+				if (attribIdentityKeyType != null)
+				{
+					global::System.String valueOfIdentityKeyType;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribIdentityKeyType, out valueOfIdentityKeyType))
+					{
+						instanceOfModelRoot.IdentityKeyType = valueOfIdentityKeyType;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "identityKeyType", typeof(global::System.String), attribIdentityKeyType);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1770,6 +1804,31 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "System.Data.Entity.DbContext") != 0))
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "baseClass", propValue);
+					}
+				}
+			}
+			// IsIdentityDbContext
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.IsIdentityDbContext;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isIdentityDbContext", serializedPropValue);
+					}
+				}
+			}
+			// IdentityKeyType
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.IdentityKeyType;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "Int32") != 0))
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "identityKeyType", propValue);
 					}
 				}
 			}

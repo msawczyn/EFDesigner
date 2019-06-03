@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
-
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Core.Routing;
 using Microsoft.Msagl.Layout.Incremental;
+using Microsoft.Msagl.Layout.Layered;
 using Microsoft.Msagl.Layout.MDS;
 using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
-
 using Sawczyn.EFDesigner.EFModel.Extensions;
-
-using SugiyamaLayoutSettings = Microsoft.Msagl.Layout.Layered.SugiyamaLayoutSettings;
 
 #pragma warning disable 1591
 
@@ -26,6 +23,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public static readonly PluralizationService PluralizationService;
 
       public static Action ExecuteValidator { get; set; }
+
+      public static readonly string[] IdentityBaseClasses = {"IdentityRole", "IdentityUser", "IdentityUserClaim", "IdentityUserLogin", "IdentityUserRole"};
 
       static ModelRoot()
       {
@@ -48,6 +47,63 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             return Classes;
          }
+      }
+
+      internal void SetIdentityKeyType(string keyType)
+      {
+         // set these no matter if we're IdentityDbContext or not
+         // if not, they won't be used. But if (somehow) later this becomes IdentityDbContext, they'll be correct
+
+         // Note that this is primarily for display purposes. We could simply look at ModelRoot to determine what the value should be,
+         // but that would mean we'd have to change Type to a calculated property, and that's really messy.
+         // Since Identity classes aren't user-editable, we're ok in assuming they'll be correct since this is the only way they can
+         // be changed.
+
+         SetKeyType("IdentityRole", "Id", keyType);
+         SetKeyType("IdentityUser", "Id", keyType);
+         SetKeyType("IdentityLogin", "UserId", keyType);
+         SetKeyType("IdentityUserRole", "UserId", keyType);
+         SetKeyType("IdentityUserRole", "RoleId", keyType);
+         SetKeyType("IdentityUserClaim", "Id", keyType);
+         SetKeyType("IdentityUserClaim", "UserId", keyType);
+
+         void SetKeyType(string _className, string _attributeName, string _keyType)
+         {
+            ModelClass identityClass = Classes.Find(c => c.Name == _className);
+            identityClass.Attributes.Find(a => a.Name == _attributeName).Type = _keyType;
+         }
+      }
+
+      internal void TargetIdentityAssociations()
+      {
+         if (!IsIdentityDbContext)
+            return;
+
+         ModelClass identityRole = Classes.Find(c => c.Name == "IdentityRole");
+         ModelClass identityUserRole = Classes.Find(c => c.Name == "IdentityUserRole");
+         ModelClass identityUser = Classes.Find(c => c.Name == "IdentityUser");
+         ModelClass identityUserLogin = Classes.Find(c => c.Name == "IdentityUserLogin");
+         ModelClass identityUserClaim = Classes.Find(c => c.Name == "IdentityUserClaim");
+
+         Retarget(identityRole, identityUserRole, "Users");
+         Retarget(identityUser, identityUserRole, "Roles");
+         Retarget(identityUser, identityUserLogin, "Logins");
+         Retarget(identityUser, identityUserClaim, "Claims");
+      }
+
+      private void Retarget(ModelClass source, ModelClass oldTargetBase, string propertyName, ModelClass newTargetBase = null)
+      {
+         if (newTargetBase == null)
+            newTargetBase = oldTargetBase;
+
+         UnidirectionalAssociation association = Store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>()
+                                                      .FirstOrDefault(a => a.Source == source &&
+                                                                           a.Target == oldTargetBase &&
+                                                                           a.TargetPropertyName == propertyName);
+
+         ModelClass newTarget = newTargetBase.MostDerivedClasses().SingleOrDefault();
+         if (association != null && newTarget != null && association.Target != newTarget)
+            association.Target = newTarget;
       }
 
       internal sealed partial class LayoutAlgorithmPropertyHandler
@@ -383,9 +439,5 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion DefaultCollectionClass tracking property
 
-      private bool GetIsIdentityDbContextValue()
-      {
-         return BaseClass?.EndsWith("IdentityDbContext") == true;
-      }
    }
 }

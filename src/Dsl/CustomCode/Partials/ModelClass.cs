@@ -77,6 +77,25 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public IEnumerable<ModelClass> MostDerivedClasses()
+      {
+         List<ModelClass> result = new List<ModelClass>();
+         if (!Subclasses.Any())
+            result.Add(this);
+         foreach (ModelClass subclass in Subclasses)
+            result.AddRange(subclass.MostDerivedClasses());
+
+         return result;
+      }
+
+      public ModelClass FurthestAncestor()
+      {
+         ModelClass result = this;
+         while (result.Superclass != null)
+            result = result.Superclass;
+         return result;
+      }
+
       public string FullName
       {
          get
@@ -85,6 +104,19 @@ namespace Sawczyn.EFDesigner.EFModel
                       ? $"global::{Name}"
                       : $"global::{Namespace}.{Name}";
          }
+      }
+
+      public bool ShouldGenerateCode()
+      {
+         // don't generate if we're doing Identity and this class is one of the identity base classes
+         return !ModelRoot.IsIdentityDbContext || !IsIdentityClass();
+
+         // add more checks here if anything pops up down the road
+      }
+
+      public bool IsIdentityClass()
+      {
+         return ModelRoot.IdentityBaseClasses.Contains(Name);
       }
 
 #region Warning display

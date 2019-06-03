@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -14,6 +15,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          Generalization element = (Generalization)e.ModelElement;
          Store store = element.Store;
+         ModelRoot modelRoot = store.ModelRoot();
          Transaction current = store.TransactionManager.CurrentTransaction;
 
          if (current.IsSerializing)
@@ -68,7 +70,12 @@ namespace Sawczyn.EFDesigner.EFModel
             string nameClashList = string.Join("\n   ", nameClashes);
             ErrorDisplay.Show($"{element.Subclass.Name} -> {element.Superclass.Name}: That inheritance link would cause name clashes. Resolve the following before setting the inheritance:\n   {nameClashList}");
             current.Rollback();
+
+            return;
          }
+
+         // make sure identity associations are correct (if necessary)
+         modelRoot.TargetIdentityAssociations();
       }
    }
 }
