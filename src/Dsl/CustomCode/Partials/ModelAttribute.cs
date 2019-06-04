@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning
+   public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning, IDynamicCanDelete, IDynamicCanPaste
    {
 
       /// <summary>Gets the parent model element (ModelClass).</summary>
@@ -593,6 +593,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // get rid of the space between type name and length, if any
          return string.Join(" ", parts).Replace(" [", "[");
+      }
+
+      public bool CanPaste()
+      {
+         return !ModelClass.IsReadOnly;
+      }
+
+      public bool CanDelete()
+      {
+         return !ModelClass.IsReadOnly;
       }
 
       /// <summary>

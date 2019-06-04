@@ -430,7 +430,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="2059f438-7539-4ad4-9cd5-c89d4e70143c" Description="If true, this class can't be modified by the user" Name="ReadOnly" DisplayName="Read Only" IsUIReadOnly="true">
+        <DomainProperty Id="2059f438-7539-4ad4-9cd5-c89d4e70143c" Description="If true, this class can't be modified by the user" Name="IsReadOnly" DisplayName="Read Only" DefaultValue="false" Category="Designer" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1832,8 +1832,8 @@
           <XmlPropertyData XmlName="customAttributes">
             <DomainPropertyMoniker Name="ModelClass/CustomAttributes" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="readOnly">
-            <DomainPropertyMoniker Name="ModelClass/ReadOnly" />
+          <XmlPropertyData XmlName="isReadOnly">
+            <DomainPropertyMoniker Name="ModelClass/IsReadOnly" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="isPersistent">
             <DomainPropertyMoniker Name="ModelClass/IsPersistent" />

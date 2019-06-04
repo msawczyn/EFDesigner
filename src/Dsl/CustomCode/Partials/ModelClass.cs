@@ -13,7 +13,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning
+   public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning, IDynamicCanDelete, IDynamicCanCopy, IDynamicCanPaste
    {
       /// <summary>
       /// All attributes in the class, including those inherited from base classes
@@ -635,6 +635,21 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelClass baseClass = Store.ElementDirectory.FindElements<ModelClass>().FirstOrDefault(x => x.Name == newValue);
          Superclass = baseClass;
+      }
+
+      public bool CanDelete()
+      {
+         return !IsReadOnly;
+      }
+
+      public bool CanCopy()
+      {
+         return !IsReadOnly;
+      }
+
+      public bool CanPaste()
+      {
+         return !IsReadOnly;
       }
    }
 }

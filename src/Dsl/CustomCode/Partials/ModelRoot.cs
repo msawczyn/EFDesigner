@@ -91,19 +91,17 @@ namespace Sawczyn.EFDesigner.EFModel
          Retarget(identityUser, identityUserClaim, "Claims");
       }
 
-      private void Retarget(ModelClass source, ModelClass oldTargetBase, string propertyName, ModelClass newTargetBase = null)
+      private void Retarget(ModelClass source, ModelClass target, string propertyName)
       {
-         if (newTargetBase == null)
-            newTargetBase = oldTargetBase;
-
          UnidirectionalAssociation association = Store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>()
                                                       .FirstOrDefault(a => a.Source == source &&
-                                                                           a.Target == oldTargetBase &&
                                                                            a.TargetPropertyName == propertyName);
 
-         ModelClass newTarget = newTargetBase.MostDerivedClasses().SingleOrDefault();
-         if (association != null && newTarget != null && association.Target != newTarget)
-            association.Target = newTarget;
+         ModelClass actualTarget = target.MostDerivedClasses().SingleOrDefault();
+
+
+         if (association != null && actualTarget != null && association.Target != actualTarget)
+            association.Target = actualTarget;
       }
 
       internal sealed partial class LayoutAlgorithmPropertyHandler

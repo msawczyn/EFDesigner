@@ -2431,20 +2431,20 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// ReadOnly
+			// IsReadOnly
 			if (!serializationContext.Result.Failed)
 			{
-				string attribReadOnly = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "readOnly");
-				if (attribReadOnly != null)
+				string attribIsReadOnly = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isReadOnly");
+				if (attribIsReadOnly != null)
 				{
-					global::System.Boolean valueOfReadOnly;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribReadOnly, out valueOfReadOnly))
+					global::System.Boolean valueOfIsReadOnly;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsReadOnly, out valueOfIsReadOnly))
 					{
-						instanceOfModelClass.ReadOnly = valueOfReadOnly;
+						instanceOfModelClass.IsReadOnly = valueOfIsReadOnly;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "readOnly", typeof(global::System.Boolean), attribReadOnly);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isReadOnly", typeof(global::System.Boolean), attribIsReadOnly);
 					}
 				}
 			}
@@ -3369,14 +3369,17 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 				}
 			}
-			// ReadOnly
+			// IsReadOnly
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Boolean propValue = instanceOfModelClass.ReadOnly;
+				global::System.Boolean propValue = instanceOfModelClass.IsReadOnly;
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "readOnly", serializedPropValue);
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isReadOnly", serializedPropValue);
+					}
 				}
 			}
 			// IsPersistent

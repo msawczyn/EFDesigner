@@ -10,7 +10,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class Association : IDisplaysWarning
+   public partial class Association : IDisplaysWarning, IDynamicCanDelete
    {
       public string GetSourceMultiplicityDisplayValue() => MultiplicityDisplayValue(SourceMultiplicity);
 
@@ -232,5 +232,10 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion CollectionClass tracking property
+
+      public bool CanDelete()
+      {
+         return !Source.IsReadOnly;
+      }
    }
 }

@@ -169,7 +169,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelClass), "Summary", ModelClass.SummaryDomainPropertyId, typeof(ModelClass.SummaryPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "BaseClass", ModelClass.BaseClassDomainPropertyId, typeof(ModelClass.BaseClassPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "CustomAttributes", ModelClass.CustomAttributesDomainPropertyId, typeof(ModelClass.CustomAttributesPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelClass), "ReadOnly", ModelClass.ReadOnlyDomainPropertyId, typeof(ModelClass.ReadOnlyPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelClass), "IsReadOnly", ModelClass.IsReadOnlyDomainPropertyId, typeof(ModelClass.IsReadOnlyPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsPersistent", ModelClass.IsPersistentDomainPropertyId, typeof(ModelClass.IsPersistentPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),

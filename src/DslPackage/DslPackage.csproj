@@ -131,6 +131,7 @@
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelEnumExtensions.cs" />
     <Compile Include="CustomCode\Partials\Constants.cs" />
+    <Compile Include="CustomCode\Partials\EFModelClipboardCommandSet.cs" />
     <Compile Include="CustomCode\Partials\EFModelCommandSet.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocData.cs" />
     <Compile Include="CustomCode\Extensions\ProjectExtensions.cs" />

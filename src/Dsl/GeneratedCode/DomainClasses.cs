@@ -5175,60 +5175,61 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region ReadOnly domain property code
+		#region IsReadOnly domain property code
 		
 		/// <summary>
-		/// ReadOnly domain property Id.
+		/// IsReadOnly domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid ReadOnlyDomainPropertyId = new global::System.Guid(0x2059f438, 0x7539, 0x4ad4, 0x9c, 0xd5, 0xc8, 0x9d, 0x4e, 0x70, 0x14, 0x3c);
+		public static readonly global::System.Guid IsReadOnlyDomainPropertyId = new global::System.Guid(0x2059f438, 0x7539, 0x4ad4, 0x9c, 0xd5, 0xc8, 0x9d, 0x4e, 0x70, 0x14, 0x3c);
 		
 		/// <summary>
-		/// Storage for ReadOnly
+		/// Storage for IsReadOnly
 		/// </summary>
-		private global::System.Boolean readOnlyPropertyStorage;
+		private global::System.Boolean isReadOnlyPropertyStorage;
 		
 		/// <summary>
-		/// Gets or sets the value of ReadOnly domain property.
+		/// Gets or sets the value of IsReadOnly domain property.
 		/// If true, this class can't be modified by the user
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/ReadOnly.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsReadOnly.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsReadOnly.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsReadOnly.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.ReadOnly(true)]
 		[DslModeling::DomainObjectId("2059f438-7539-4ad4-9cd5-c89d4e70143c")]
-		public global::System.Boolean ReadOnly
+		public global::System.Boolean IsReadOnly
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return readOnlyPropertyStorage;
+				return isReadOnlyPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				ReadOnlyPropertyHandler.Instance.SetValue(this, value);
+				IsReadOnlyPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelClass.ReadOnly domain property.
+		/// Value handler for the ModelClass.IsReadOnly domain property.
 		/// </summary>
-		internal sealed partial class ReadOnlyPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		internal sealed partial class IsReadOnlyPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
 		{
-			private ReadOnlyPropertyHandler() { }
+			private IsReadOnlyPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelClass.ReadOnly domain property value handler.
+			/// Gets the singleton instance of the ModelClass.IsReadOnly domain property value handler.
 			/// </summary>
-			public static readonly ReadOnlyPropertyHandler Instance = new ReadOnlyPropertyHandler();
+			public static readonly IsReadOnlyPropertyHandler Instance = new IsReadOnlyPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelClass.ReadOnly domain property.
+			/// Gets the Id of the ModelClass.IsReadOnly domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return ReadOnlyDomainPropertyId;
+					return IsReadOnlyDomainPropertyId;
 				}
 			}
 			
@@ -5240,7 +5241,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed global::System.Boolean GetValue(ModelClass element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.readOnlyPropertyStorage;
+				return element.isReadOnlyPropertyStorage;
 			}
 		
 			/// <summary>
@@ -5256,7 +5257,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.readOnlyPropertyStorage = newValue;
+					element.isReadOnlyPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

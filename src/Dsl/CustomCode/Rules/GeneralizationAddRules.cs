@@ -21,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         if (element.Subclass.ReadOnly)
+         if (element.Subclass.IsReadOnly)
          {
             ErrorDisplay.Show($"{element.Subclass.Name} is read-only; can't change its base class.");
             current.Rollback();

@@ -22,14 +22,12 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         //if (element.Superclass.IsDeleting)
-         //   return;
+         // this rule can be called as a spinoff of the superclass being deleted
+         if (element.Superclass.IsDeleting)
+            return;
 
          ModelClass superclass = element.Superclass;
          ModelClass subclass = element.Subclass;
-
-         // make sure identity associations are correct (if necessary)
-         store.ModelRoot().TargetIdentityAssociations();
 
          List<Association> associations = store.Get<Association>().Where(a => a.Source == superclass || a.Target == superclass).ToList();
 

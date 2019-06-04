@@ -53,6 +53,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion Identifiers
 
+      protected override void ProcessOnStatusDeleteCommand(MenuCommand command)
+      {
+         OnStatusDeleteCommandLogic.ForEditor(command, 
+                                              CurrentDocumentSelection, 
+                                              base.ProcessOnStatusDeleteCommand);
+      }
+
       protected override IList<MenuCommand> GetMenuCommands()
       {
          IList<MenuCommand> commands = base.GetMenuCommands();

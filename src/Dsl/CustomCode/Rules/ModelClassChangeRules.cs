@@ -28,9 +28,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
-         if (element.ReadOnly)
+         if (element.IsReadOnly)
          {
-            ErrorDisplay.Show($"{element.Name} is read-only; can't any of its properties");
+            ErrorDisplay.Show($"{element.Name} is read-only; can't change any of its properties");
             current.Rollback();
             return;
          }

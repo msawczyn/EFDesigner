@@ -493,8 +493,8 @@
             <xsd:documentation>Any custom attributes to be generated for this element.  Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: ReadOnly -->
-        <xsd:attribute name="readOnly" type="xsd:boolean" >
+        <!-- Property: IsReadOnly -->
+        <xsd:attribute name="isReadOnly" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, this class can&apos;t be modified by the user</xsd:documentation>
           </xsd:annotation>
