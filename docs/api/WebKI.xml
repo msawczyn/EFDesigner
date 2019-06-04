@@ -11,10 +11,10 @@
   <HelpKINode Title="Ask enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_AutomaticAction.htm" />
   <HelpKINode Title="Association class">
     <HelpKINode Title="Association Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Association.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Association.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Association.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Association.htm" />
   </HelpKINode>
+  <HelpKINode Title="Association.CanDelete method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_CanDelete.htm" />
   <HelpKINode Title="Association.CollectionClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_CollectionClass.htm" />
   <HelpKINode Title="Association.ForeignKeyLocation property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_ForeignKeyLocation.htm" />
   <HelpKINode Title="Association.GetLinks method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinks.htm" />
@@ -33,7 +33,6 @@
   <HelpKINode Title="Association.Summary property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Summary.htm" />
   <HelpKINode Title="Association.Target property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Target.htm" />
   <HelpKINode Title="Association.TargetAutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetAutoProperty.htm" />
-  <HelpKINode Title="Association.TargetAutoPropertyDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_TargetAutoPropertyDomainPropertyId.htm" />
   <HelpKINode Title="Association.TargetCustomAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetCustomAttributes.htm" />
   <HelpKINode Title="Association.TargetDeleteAction property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetDeleteAction.htm" />
   <HelpKINode Title="Association.TargetDescription property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetDescription.htm" />
@@ -49,10 +48,12 @@
   <HelpKINode Title="AutomaticAction enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_AutomaticAction.htm" />
   <HelpKINode Title="AutomaticMigrationsEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_AutomaticMigrationsEnabled.htm" />
   <HelpKINode Title="AutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_AutoProperty.htm" />
-  <HelpKINode Title="BaseClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_BaseClass.htm" />
+  <HelpKINode Title="BaseClass property">
+    <HelpKINode Title="ModelClass.BaseClass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_BaseClass.htm" />
+    <HelpKINode Title="ModelRoot.BaseClass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClass.htm" />
+  </HelpKINode>
   <HelpKINode Title="BidirectionalAssociation class">
     <HelpKINode Title="BidirectionalAssociation Class" Url="html/T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm" />
   </HelpKINode>
@@ -65,7 +66,6 @@
   <HelpKINode Title="BidirectionalAssociation.GetLinksToBidirectionalTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetLinksToBidirectionalTargets.htm" />
   <HelpKINode Title="BidirectionalAssociation.Source property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_Source.htm" />
   <HelpKINode Title="BidirectionalAssociation.SourceAutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceAutoProperty.htm" />
-  <HelpKINode Title="BidirectionalAssociation.SourceAutoPropertyDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceAutoPropertyDomainPropertyId.htm" />
   <HelpKINode Title="BidirectionalAssociation.SourceCustomAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceCustomAttributes.htm" />
   <HelpKINode Title="BidirectionalAssociation.SourceDescription property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceDescription.htm" />
   <HelpKINode Title="BidirectionalAssociation.SourceDisplayText property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceDisplayText.htm" />
@@ -81,7 +81,22 @@
   <HelpKINode Title="BoolToZeroOneConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="Byte enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
   <HelpKINode Title="BytesToStringConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
+  <HelpKINode Title="CanCopy method">
+    <HelpKINode Title="IDynamicCanCopy.CanCopy Method " Url="html/M_Sawczyn_EFDesigner_EFModel_IDynamicCanCopy_CanCopy.htm" />
+    <HelpKINode Title="ModelClass.CanCopy Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_CanCopy.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CanDelete method">
+    <HelpKINode Title="Association.CanDelete Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_CanDelete.htm" />
+    <HelpKINode Title="IDynamicCanDelete.CanDelete Method " Url="html/M_Sawczyn_EFDesigner_EFModel_IDynamicCanDelete_CanDelete.htm" />
+    <HelpKINode Title="ModelAttribute.CanDelete Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_CanDelete.htm" />
+    <HelpKINode Title="ModelClass.CanDelete Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_CanDelete.htm" />
+  </HelpKINode>
   <HelpKINode Title="CanLoadNugetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_CanLoadNugetPackages.htm" />
+  <HelpKINode Title="CanPaste method">
+    <HelpKINode Title="IDynamicCanPaste.CanPaste Method " Url="html/M_Sawczyn_EFDesigner_EFModel_IDynamicCanPaste_CanPaste.htm" />
+    <HelpKINode Title="ModelAttribute.CanPaste Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_CanPaste.htm" />
+    <HelpKINode Title="ModelClass.CanPaste Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_CanPaste.htm" />
+  </HelpKINode>
   <HelpKINode Title="Cardinality property" Url="html/P_Sawczyn_EFDesigner_EFModel_NavigationProperty_Cardinality.htm" />
   <HelpKINode Title="Cascade enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_DeleteAction.htm" />
   <HelpKINode Title="CastingConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
@@ -178,11 +193,6 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_DesignElement.htm" />
   </HelpKINode>
   <HelpKINode Title="DesignElement.Comments property" Url="html/P_Sawczyn_EFDesigner_EFModel_DesignElement_Comments.htm" />
-  <HelpKINode Title="DiagramViewExtensions class">
-    <HelpKINode Title="DiagramViewExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions.htm" />
-  </HelpKINode>
-  <HelpKINode Title="DiagramViewExtensions.SelectModelElement method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions_SelectModelElement.htm" />
   <HelpKINode Title="Display method" Url="html/M_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions_Display.htm" />
   <HelpKINode Title="DisplayText property">
     <HelpKINode Title="ModelAttribute.DisplayText Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_DisplayText.htm" />
@@ -232,6 +242,7 @@
     <HelpKINode Title="ModelEnum.FullName Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_FullName.htm" />
     <HelpKINode Title="ModelRoot.FullName Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FullName.htm" />
   </HelpKINode>
+  <HelpKINode Title="FurthestAncestor method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FurthestAncestor.htm" />
   <HelpKINode Title="Generalization class">
     <HelpKINode Title="Generalization Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Generalization.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Generalization.htm" />
@@ -247,17 +258,10 @@
   <HelpKINode Title="Generalization.SetSuperclass method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_SetSuperclass.htm" />
   <HelpKINode Title="Generalization.Subclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Subclass.htm" />
   <HelpKINode Title="Generalization.Superclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Superclass.htm" />
-  <HelpKINode Title="Get(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
-  <HelpKINode Title="Get&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
-  <HelpKINode Title="GetActiveDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetActiveDiagram.htm" />
-  <HelpKINode Title="GetAttribute method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_GetAttribute.htm" />
-  <HelpKINode Title="GetAttributeArguments method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_GetAttributeArguments.htm" />
   <HelpKINode Title="GetBidirectionalSources method" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetBidirectionalSources.htm" />
   <HelpKINode Title="GetBidirectionalTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetBidirectionalTargets.htm" />
   <HelpKINode Title="GetChoice method" Url="html/M_Sawczyn_EFDesigner_ChoiceDisplay_GetChoice.htm" />
-  <HelpKINode Title="GetCompartment method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetCompartment.htm" />
   <HelpKINode Title="GetEntityFrameworkPackageVersionNum method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetEntityFrameworkPackageVersionNum.htm" />
-  <HelpKINode Title="GetFirstShapeElement method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetFirstShapeElement.htm" />
   <HelpKINode Title="GetLink method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetLink.htm" />
   <HelpKINode Title="GetLinks method">
     <HelpKINode Title="Association.GetLinks Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinks.htm" />
@@ -284,7 +288,6 @@
   <HelpKINode Title="GuidToBytesConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="GuidToStringConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="HasAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAssociationNamed.htm" />
-  <HelpKINode Title="HasAttribute method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_HasAttribute.htm" />
   <HelpKINode Title="HasAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAttributeNamed.htm" />
   <HelpKINode Title="HashSet enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_CollectionType.htm" />
   <HelpKINode Title="HasPropertyNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasPropertyNamed.htm" />
@@ -292,11 +295,33 @@
   <HelpKINode Title="HTML5Type enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
   <HelpKINode Title="IdentityAttributeNames property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IdentityAttributeNames.htm" />
   <HelpKINode Title="IdentityAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IdentityAttributes.htm" />
+  <HelpKINode Title="IdentityBaseClasses field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_IdentityBaseClasses.htm" />
+  <HelpKINode Title="IdentityKeyType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_IdentityKeyType.htm" />
   <HelpKINode Title="IdentityType enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_IdentityType.htm" />
   <HelpKINode Title="IdentityType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IdentityType.htm" />
+  <HelpKINode Title="IDynamicCanCopy interface">
+    <HelpKINode Title="IDynamicCanCopy Interface" Url="html/T_Sawczyn_EFDesigner_EFModel_IDynamicCanCopy.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_IDynamicCanCopy.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IDynamicCanCopy.CanCopy method" Url="html/M_Sawczyn_EFDesigner_EFModel_IDynamicCanCopy_CanCopy.htm" />
+  <HelpKINode Title="IDynamicCanDelete interface">
+    <HelpKINode Title="IDynamicCanDelete Interface" Url="html/T_Sawczyn_EFDesigner_EFModel_IDynamicCanDelete.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_IDynamicCanDelete.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IDynamicCanDelete.CanDelete method" Url="html/M_Sawczyn_EFDesigner_EFModel_IDynamicCanDelete_CanDelete.htm" />
+  <HelpKINode Title="IDynamicCanPaste interface">
+    <HelpKINode Title="IDynamicCanPaste Interface" Url="html/T_Sawczyn_EFDesigner_EFModel_IDynamicCanPaste.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_IDynamicCanPaste.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IDynamicCanPaste.CanPaste method" Url="html/M_Sawczyn_EFDesigner_EFModel_IDynamicCanPaste_CanPaste.htm" />
   <HelpKINode Title="ImplementNotify property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_ImplementNotify.htm" />
   <HelpKINode Title="Indexed property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Indexed.htm" />
   <HelpKINode Title="IndexedUnique property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IndexedUnique.htm" />
+  <HelpKINode Title="InfoDisplay class">
+    <HelpKINode Title="InfoDisplay Class" Url="html/T_Sawczyn_EFDesigner_InfoDisplay.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_InfoDisplay.htm" />
+  </HelpKINode>
+  <HelpKINode Title="InfoDisplay.Show method" Url="html/M_Sawczyn_EFDesigner_InfoDisplay_Show.htm" />
   <HelpKINode Title="InheritanceModifier enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_InheritanceModifier.htm" />
   <HelpKINode Title="InheritanceStrategy property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InheritanceStrategy.htm" />
   <HelpKINode Title="InitialValue property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_InitialValue.htm" />
@@ -309,7 +334,6 @@
     <HelpKINode Title="SetterAccessModifier Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_SetterAccessModifier.htm" />
     <HelpKINode Title="TypeAccessModifier Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_TypeAccessModifier.htm" />
   </HelpKINode>
-  <HelpKINode Title="InvalidateDiagrams method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_InvalidateDiagrams.htm" />
   <HelpKINode Title="IsAbstract property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsAbstract.htm" />
   <HelpKINode Title="IsAutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_NavigationProperty_IsAutoProperty.htm" />
   <HelpKINode Title="IsCollection property" Url="html/P_Sawczyn_EFDesigner_EFModel_NavigationProperty_IsCollection.htm" />
@@ -317,18 +341,19 @@
   <HelpKINode Title="IsDependentType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsDependentType.htm" />
   <HelpKINode Title="IsFlags property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_IsFlags.htm" />
   <HelpKINode Title="IsIdentity property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsIdentity.htm" />
+  <HelpKINode Title="IsIdentityClass method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_IsIdentityClass.htm" />
+  <HelpKINode Title="IsIdentityDbContext property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_IsIdentityDbContext.htm" />
   <HelpKINode Title="IsInCircularInheritance method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_IsInCircularInheritance.htm" />
+  <HelpKINode Title="IsPersistent property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsPersistent.htm" />
+  <HelpKINode Title="IsReadOnly property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsReadOnly.htm" />
   <HelpKINode Title="IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_IsValidCLRType.htm" />
   <HelpKINode Title="IsValidInitialValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsValidInitialValue.htm" />
   <HelpKINode Title="LayoutAlgorithm property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithm.htm" />
-  <HelpKINode Title="LayoutAlgorithmDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmDomainPropertyId.htm" />
   <HelpKINode Title="LayoutAlgorithmSettings property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettings.htm" />
-  <HelpKINode Title="LayoutAlgorithmSettingsDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettingsDomainPropertyId.htm" />
   <HelpKINode Title="LayoutDiagram method" Url="html/M_Sawczyn_EFDesigner_ModelDisplay_LayoutDiagram.htm" />
   <HelpKINode Title="LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
   <HelpKINode Title="List enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_CollectionType.htm" />
   <HelpKINode Title="LocalNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_LocalNavigationProperties.htm" />
-  <HelpKINode Title="LocateInDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_LocateInDiagram.htm" />
   <HelpKINode Title="MajorMinorVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetDisplay_MajorMinorVersion.htm" />
   <HelpKINode Title="MajorMinorVersionNum property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetDisplay_MajorMinorVersionNum.htm" />
   <HelpKINode Title="Manual enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_IdentityType.htm" />
@@ -341,6 +366,8 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm" />
   </HelpKINode>
   <HelpKINode Title="ModelAttribute.AutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_AutoProperty.htm" />
+  <HelpKINode Title="ModelAttribute.CanDelete method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_CanDelete.htm" />
+  <HelpKINode Title="ModelAttribute.CanPaste method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_CanPaste.htm" />
   <HelpKINode Title="ModelAttribute.CLRType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_CLRType.htm" />
   <HelpKINode Title="ModelAttribute.ColumnName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnName.htm" />
   <HelpKINode Title="ModelAttribute.ColumnType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnType.htm" />
@@ -389,6 +416,9 @@
   <HelpKINode Title="ModelClass.BaseClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_BaseClass.htm" />
   <HelpKINode Title="ModelClass.BidirectionalSources property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_BidirectionalSources.htm" />
   <HelpKINode Title="ModelClass.BidirectionalTargets property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_BidirectionalTargets.htm" />
+  <HelpKINode Title="ModelClass.CanCopy method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_CanCopy.htm" />
+  <HelpKINode Title="ModelClass.CanDelete method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_CanDelete.htm" />
+  <HelpKINode Title="ModelClass.CanPaste method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_CanPaste.htm" />
   <HelpKINode Title="ModelClass.Concurrency property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Concurrency.htm" />
   <HelpKINode Title="ModelClass.CustomAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_CustomAttributes.htm" />
   <HelpKINode Title="ModelClass.CustomInterfaces property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_CustomInterfaces.htm" />
@@ -399,6 +429,7 @@
   <HelpKINode Title="ModelClass.FindAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FindAssociationNamed.htm" />
   <HelpKINode Title="ModelClass.FindAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FindAttributeNamed.htm" />
   <HelpKINode Title="ModelClass.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_FullName.htm" />
+  <HelpKINode Title="ModelClass.FurthestAncestor method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FurthestAncestor.htm" />
   <HelpKINode Title="ModelClass.HasAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAssociationNamed.htm" />
   <HelpKINode Title="ModelClass.HasAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAttributeNamed.htm" />
   <HelpKINode Title="ModelClass.HasPropertyNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasPropertyNamed.htm" />
@@ -407,13 +438,18 @@
   <HelpKINode Title="ModelClass.ImplementNotify property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_ImplementNotify.htm" />
   <HelpKINode Title="ModelClass.IsAbstract property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsAbstract.htm" />
   <HelpKINode Title="ModelClass.IsDependentType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsDependentType.htm" />
+  <HelpKINode Title="ModelClass.IsIdentityClass method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_IsIdentityClass.htm" />
+  <HelpKINode Title="ModelClass.IsPersistent property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsPersistent.htm" />
+  <HelpKINode Title="ModelClass.IsReadOnly property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsReadOnly.htm" />
   <HelpKINode Title="ModelClass.LocalNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_LocalNavigationProperties.htm" />
   <HelpKINode Title="ModelClass.ModelRoot property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_ModelRoot.htm" />
+  <HelpKINode Title="ModelClass.MostDerivedClasses method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_MostDerivedClasses.htm" />
   <HelpKINode Title="ModelClass.Name property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Name.htm" />
   <HelpKINode Title="ModelClass.Namespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Namespace.htm" />
   <HelpKINode Title="ModelClass.OutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_OutputDirectory.htm" />
   <HelpKINode Title="ModelClass.RequiredAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_RequiredAttributes.htm" />
   <HelpKINode Title="ModelClass.RequiredNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_RequiredNavigationProperties.htm" />
+  <HelpKINode Title="ModelClass.ShouldGenerateCode method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_ShouldGenerateCode.htm" />
   <HelpKINode Title="ModelClass.Sources property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Sources.htm" />
   <HelpKINode Title="ModelClass.Subclasses property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Subclasses.htm" />
   <HelpKINode Title="ModelClass.Summary property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Summary.htm" />
@@ -427,18 +463,6 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_ModelDisplay.htm" />
   </HelpKINode>
   <HelpKINode Title="ModelDisplay.LayoutDiagram method" Url="html/M_Sawczyn_EFDesigner_ModelDisplay_LayoutDiagram.htm" />
-  <HelpKINode Title="ModelElementExtensions class">
-    <HelpKINode Title="ModelElementExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ModelElementExtensions.Get(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
-  <HelpKINode Title="ModelElementExtensions.Get&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
-  <HelpKINode Title="ModelElementExtensions.GetActiveDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetActiveDiagram.htm" />
-  <HelpKINode Title="ModelElementExtensions.GetCompartment method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetCompartment.htm" />
-  <HelpKINode Title="ModelElementExtensions.GetFirstShapeElement method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetFirstShapeElement.htm" />
-  <HelpKINode Title="ModelElementExtensions.InvalidateDiagrams method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_InvalidateDiagrams.htm" />
-  <HelpKINode Title="ModelElementExtensions.LocateInDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_LocateInDiagram.htm" />
-  <HelpKINode Title="ModelElementExtensions.ModelRoot method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_ModelRoot.htm" />
   <HelpKINode Title="ModelEnum class">
     <HelpKINode Title="ModelEnum Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm" />
@@ -477,13 +501,13 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelRoot.htm" />
   </HelpKINode>
-  <HelpKINode Title="ModelRoot method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_ModelRoot.htm" />
   <HelpKINode Title="ModelRoot property">
     <HelpKINode Title="Comment.ModelRoot Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ModelRoot.htm" />
     <HelpKINode Title="ModelClass.ModelRoot Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_ModelRoot.htm" />
     <HelpKINode Title="ModelEnum.ModelRoot Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_ModelRoot.htm" />
   </HelpKINode>
   <HelpKINode Title="ModelRoot.AutomaticMigrationsEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_AutomaticMigrationsEnabled.htm" />
+  <HelpKINode Title="ModelRoot.BaseClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClass.htm" />
   <HelpKINode Title="ModelRoot.CanLoadNugetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_CanLoadNugetPackages.htm" />
   <HelpKINode Title="ModelRoot.ChopMethodChains property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ChopMethodChains.htm" />
   <HelpKINode Title="ModelRoot.Classes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Classes.htm" />
@@ -510,13 +534,14 @@
   <HelpKINode Title="ModelRoot.FileNameMarker property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FileNameMarker.htm" />
   <HelpKINode Title="ModelRoot.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FullName.htm" />
   <HelpKINode Title="ModelRoot.GetEntityFrameworkPackageVersionNum method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetEntityFrameworkPackageVersionNum.htm" />
+  <HelpKINode Title="ModelRoot.IdentityBaseClasses field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_IdentityBaseClasses.htm" />
+  <HelpKINode Title="ModelRoot.IdentityKeyType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_IdentityKeyType.htm" />
   <HelpKINode Title="ModelRoot.InheritanceStrategy property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InheritanceStrategy.htm" />
   <HelpKINode Title="ModelRoot.InstallNuGetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InstallNuGetPackages.htm" />
+  <HelpKINode Title="ModelRoot.IsIdentityDbContext property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_IsIdentityDbContext.htm" />
   <HelpKINode Title="ModelRoot.IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_IsValidCLRType.htm" />
   <HelpKINode Title="ModelRoot.LayoutAlgorithm property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithm.htm" />
-  <HelpKINode Title="ModelRoot.LayoutAlgorithmDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.LayoutAlgorithmSettings property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettings.htm" />
-  <HelpKINode Title="ModelRoot.LayoutAlgorithmSettingsDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettingsDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
   <HelpKINode Title="ModelRoot.Namespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Namespace.htm" />
   <HelpKINode Title="ModelRoot.NuGetPackageVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_NuGetPackageVersion.htm" />
@@ -534,6 +559,7 @@
   <HelpKINode Title="ModelRoot.ValidTypes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ValidTypes.htm" />
   <HelpKINode Title="ModelRoot.WarnOnMissingDocumentation property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_WarnOnMissingDocumentation.htm" />
   <HelpKINode Title="Month enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
+  <HelpKINode Title="MostDerivedClasses method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_MostDerivedClasses.htm" />
   <HelpKINode Title="Multiplicity enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_Multiplicity.htm" />
   <HelpKINode Title="MultiplicityExtensions class">
     <HelpKINode Title="MultiplicityExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions.htm" />
@@ -676,14 +702,13 @@
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.EFVersion enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_EFVersion.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.EndpointRole enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_EndpointRole.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.EnumValueType enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
-  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions namespace" Url="html/N_Sawczyn_EFDesigner_EFModel_Extensions.htm" />
-  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions.DiagramViewExtensions class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions.htm" />
-  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions.ModelElementExtensions class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions.htm" />
-  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions.SyntaxNodeExtensions class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ForeignKeyOwner enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ForeignKeyOwner.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Generalization class" Url="html/T_Sawczyn_EFDesigner_EFModel_Generalization.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.HTML5Type enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.IdentityType enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_IdentityType.htm" />
+  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.IDynamicCanCopy interface" Url="html/T_Sawczyn_EFDesigner_EFModel_IDynamicCanCopy.htm" />
+  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.IDynamicCanDelete interface" Url="html/T_Sawczyn_EFDesigner_EFModel_IDynamicCanDelete.htm" />
+  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.IDynamicCanPaste interface" Url="html/T_Sawczyn_EFDesigner_EFModel_IDynamicCanPaste.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.InheritanceModifier enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_InheritanceModifier.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ModelAttribute class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelAttribute.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ModelClass class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelClass.htm" />
@@ -701,6 +726,7 @@
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation class" Url="html/T_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ValueConverter enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.ErrorDisplay class" Url="html/T_Sawczyn_EFDesigner_ErrorDisplay.htm" />
+  <HelpKINode Title="Sawczyn.EFDesigner.InfoDisplay class" Url="html/T_Sawczyn_EFDesigner_InfoDisplay.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.ModelDisplay class" Url="html/T_Sawczyn_EFDesigner_ModelDisplay.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.QuestionDisplay class" Url="html/T_Sawczyn_EFDesigner_QuestionDisplay.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.StatusDisplay class" Url="html/T_Sawczyn_EFDesigner_StatusDisplay.htm" />
@@ -708,13 +734,14 @@
   <HelpKINode Title="SByte enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
   <HelpKINode Title="Sealed enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_InheritanceModifier.htm" />
   <HelpKINode Title="Search enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
-  <HelpKINode Title="SelectModelElement method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions_SelectModelElement.htm" />
   <HelpKINode Title="SetSuperclass method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_SetSuperclass.htm" />
   <HelpKINode Title="SetterAccessModifier enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_SetterAccessModifier.htm" />
   <HelpKINode Title="SetterVisibility property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_SetterVisibility.htm" />
   <HelpKINode Title="ShortText property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ShortText.htm" />
+  <HelpKINode Title="ShouldGenerateCode method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_ShouldGenerateCode.htm" />
   <HelpKINode Title="Show method">
     <HelpKINode Title="ErrorDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_ErrorDisplay_Show.htm" />
+    <HelpKINode Title="InfoDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_InfoDisplay_Show.htm" />
     <HelpKINode Title="QuestionDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_QuestionDisplay_Show.htm" />
     <HelpKINode Title="StatusDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_StatusDisplay_Show.htm" />
     <HelpKINode Title="WarningDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_WarningDisplay_Show.htm" />
@@ -728,7 +755,6 @@
     <HelpKINode Title="UnidirectionalAssociation.Source Property " Url="html/P_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_Source.htm" />
   </HelpKINode>
   <HelpKINode Title="SourceAutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceAutoProperty.htm" />
-  <HelpKINode Title="SourceAutoPropertyDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceAutoPropertyDomainPropertyId.htm" />
   <HelpKINode Title="SourceCustomAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceCustomAttributes.htm" />
   <HelpKINode Title="SourceDeleteAction property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_SourceDeleteAction.htm" />
   <HelpKINode Title="SourceDescription property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_SourceDescription.htm" />
@@ -771,13 +797,6 @@
     <HelpKINode Title="Generalization.Superclass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Superclass.htm" />
     <HelpKINode Title="ModelClass.Superclass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Superclass.htm" />
   </HelpKINode>
-  <HelpKINode Title="SyntaxNodeExtensions class">
-    <HelpKINode Title="SyntaxNodeExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions.htm" />
-  </HelpKINode>
-  <HelpKINode Title="SyntaxNodeExtensions.GetAttribute method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_GetAttribute.htm" />
-  <HelpKINode Title="SyntaxNodeExtensions.GetAttributeArguments method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_GetAttributeArguments.htm" />
-  <HelpKINode Title="SyntaxNodeExtensions.HasAttribute method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_HasAttribute.htm" />
   <HelpKINode Title="TableName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_TableName.htm" />
   <HelpKINode Title="TableOverride property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_TableOverride.htm" />
   <HelpKINode Title="TablePerConcreteType enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_CodeStrategy.htm" />
@@ -791,7 +810,6 @@
     <HelpKINode Title="UnidirectionalAssociation.Target Property " Url="html/P_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_Target.htm" />
   </HelpKINode>
   <HelpKINode Title="TargetAutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetAutoProperty.htm" />
-  <HelpKINode Title="TargetAutoPropertyDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_TargetAutoPropertyDomainPropertyId.htm" />
   <HelpKINode Title="TargetCustomAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetCustomAttributes.htm" />
   <HelpKINode Title="TargetDeleteAction property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetDeleteAction.htm" />
   <HelpKINode Title="TargetDescription property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_TargetDescription.htm" />
