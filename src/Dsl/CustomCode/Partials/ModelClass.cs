@@ -15,6 +15,43 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning, IDynamicCanDelete, IDynamicCanCopy, IDynamicCanPaste
    {
+      /*
+      private string GetIdentityGenericClass(ModelRoot modelRoot, string className)
+      {
+         string identityNamespace = modelRoot.EntityFrameworkVersion == EFVersion.EF6 
+                                       ? "Microsoft.AspNet.Identity.EntityFramework" 
+                                       : "Microsoft.AspNetCore.Identity.EntityFrameworkCore";
+
+         
+         ModelClass TUserRole = modelRoot.Classes.Find(c => c.Name == "IdentityUserRole").MostDerivedClasses().FirstOrDefault();
+         ModelClass TUser = modelRoot.Classes.Find(c => c.Name == "IdentityUser").MostDerivedClasses().FirstOrDefault();
+         ModelClass TUserLogin = modelRoot.Classes.Find(c => c.Name == "IdentityUserLogin").MostDerivedClasses().FirstOrDefault();
+         ModelClass TUserClaim = modelRoot.Classes.Find(c => c.Name == "IdentityUserClaim").MostDerivedClasses().FirstOrDefault();
+         ModelClass TRole = modelRoot.Classes.Find(c => c.Name == "IdentityRole").MostDerivedClasses().FirstOrDefault();
+
+         switch (className)
+         {
+            // TKey,TUserClaim,TUserRole,TUserLogin,TRoleClaim,TUserToken
+            case "IdentityDbContext":
+               return $"IdentityDbContext<{TUser.FullName}, {TRole.FullName}, {modelRoot.IdentityKeyType}, {TUserLogin.FullName}, {TUserRole.FullName}, {TUserClaim.FullName}>";
+            case "IdentityRole":
+               return identityRole.FullName;
+            case "IdentityRoleClaim":
+               return identityRole.FullName;
+            case "IdentityUser":
+               return identityRole.FullName;
+            case "IdentityUserClaim":
+               return identityRole.FullName;
+            case "IdentityUserLogin":
+               return identityRole.FullName;
+            case "IdentityUserRole":
+               return identityUserRole.FullName;
+         }
+
+         return className;
+      }
+      */
+
       /// <summary>
       /// All attributes in the class, including those inherited from base classes
       /// </summary>

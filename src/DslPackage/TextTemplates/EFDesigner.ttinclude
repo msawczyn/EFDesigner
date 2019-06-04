@@ -294,7 +294,12 @@ void WriteClass(ModelClass modelClass)
 
    List<string> bases = new List<string>();
    if (modelClass.Superclass != null) 
-      bases.Add(modelClass.Superclass.FullName);
+   {
+      if (modelClass.ModelRoot.IsIdentityDbContext && modelClass.Superclass?.FurthestAncestor().Name)
+         bases.Add(modelClass.Superclass.FurthestAncestor().MostDerivedClasses().FirstOrDefault().FullName);
+      else
+         bases.Add(modelClass.Superclass.FullName);
+   }
    if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
       bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
    if (modelClass.ImplementNotify)
@@ -600,7 +605,7 @@ void WritePersistentProperties(ModelClass modelClass)
 
    foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent))
    {
-	   segments.Clear();
+      segments.Clear();
 
       if (modelAttribute.IsIdentity)
          segments.Add("Identity");
@@ -690,7 +695,7 @@ void WritePersistentProperties(ModelClass modelClass)
          Output("}");
          Output("}");
          Output("}");
-	  }
+     }
 
       NL();
    }
@@ -867,7 +872,7 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
          Output("}");
          Output("}");
          Output("}");
-	  }
+     }
 
      NL();
    }
