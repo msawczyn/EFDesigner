@@ -21,10 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          ModelClass modelClass = element.ModelClass;
-     
-         if (modelClass.ReadOnly)
-            throw new InvalidOperationException("Class is read-only");
-         
+
          ModelRoot modelRoot = element.Store.ModelRoot();
 
          Store store = element.Store;
@@ -35,6 +32,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (Equals(e.NewValue, e.OldValue))
             return;
+
+         if (modelClass.ReadOnly)
+         {
+            ErrorDisplay.Show($"{modelClass.Name} is read-only; can't change any of its properties");
+            current.Rollback();
+
+            return;
+         }
 
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
 

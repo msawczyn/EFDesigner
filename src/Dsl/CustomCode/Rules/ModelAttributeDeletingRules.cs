@@ -20,6 +20,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             ErrorDisplay.Show($"{element.ModelClass.Name} is read-only; can't delete any of its properties");
             current.Rollback();
+
+            return;
          }
       }
    }

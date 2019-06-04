@@ -24,7 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Action ExecuteValidator { get; set; }
 
-      public static readonly string[] IdentityBaseClasses = {"IdentityRole", "IdentityUser", "IdentityUserClaim", "IdentityUserLogin", "IdentityUserRole"};
+      public static readonly string[] IdentityBaseClasses = { "IdentityRole", "IdentityUser", "IdentityUserClaim", "IdentityUserLogin", "IdentityUserRole" };
 
       static ModelRoot()
       {
@@ -117,7 +117,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!element.Store.InUndoRedoOrRollback)
             {
                // if this is the first time we've been here, cache what's alread there
-               if (oldValue != LayoutAlgorithm.Default && !settingsCache.ContainsKey(oldValue) && element.LayoutAlgorithmSettings != null )
+               if (oldValue != LayoutAlgorithm.Default && !settingsCache.ContainsKey(oldValue) && element.LayoutAlgorithmSettings != null)
                   settingsCache[oldValue] = element.LayoutAlgorithmSettings;
 
                // use the prior settings for this layout type if available
@@ -158,11 +158,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      case LayoutAlgorithm.Sugiyama:
                         SugiyamaLayoutSettings sugiyamaLayoutSettings = new SugiyamaLayoutSettings
-                                                                        {
-                                                                           LayerSeparation = 1,
-                                                                           MinNodeHeight = 1,
-                                                                           MinNodeWidth = 1
-                                                                        };
+                        {
+                           LayerSeparation = 1,
+                           MinNodeHeight = 1,
+                           MinNodeWidth = 1
+                        };
 
                         element.LayoutAlgorithmSettings = sugiyamaLayoutSettings;
 

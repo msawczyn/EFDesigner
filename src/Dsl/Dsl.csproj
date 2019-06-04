@@ -130,6 +130,7 @@
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
+    <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\ModelAttributeDeletingRules.cs" />
     <Compile Include="CustomCode\Type Descriptors\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />
