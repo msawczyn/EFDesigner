@@ -251,7 +251,7 @@
             <ExternalTypeMoniker Name="/Microsoft.Msagl.Core.Layout/LayoutAlgorithmSettings" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="c7e0390e-5c88-48e9-a160-31e36c8dc1e0" Description="Fully qualified name of the base class for the custom DbContext" Name="BaseClass" DisplayName="Base Class" DefaultValue="System.Data.Entity.DbContext" Category="Code Generation" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="c7e0390e-5c88-48e9-a160-31e36c8dc1e0" Description="Fully qualified name of the base class for the custom DbContext" Name="BaseClass" DisplayName="Base Class" DefaultValue="System.Data.Entity.DbContext" Category="Code Generation" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

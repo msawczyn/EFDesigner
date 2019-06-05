@@ -38,7 +38,15 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
+      public string FullName
+      {
+         get
+         {
+            return string.IsNullOrWhiteSpace(Namespace)
+                      ? $"global::{EntityContainerName}"
+                      : $"global::{Namespace}.{EntityContainerName}";
+         }
+      }
 
       [Obsolete("Use ModelRoot.Classes instead")]
       public LinkedElementCollection<ModelClass> Types
@@ -48,6 +56,8 @@ namespace Sawczyn.EFDesigner.EFModel
             return Classes;
          }
       }
+
+      #region Identity
 
       internal void SetIdentityKeyType(string keyType)
       {
@@ -70,7 +80,31 @@ namespace Sawczyn.EFDesigner.EFModel
          void SetKeyType(string _className, string _attributeName, string _keyType)
          {
             ModelClass identityClass = Classes.Find(c => c.Name == _className);
-            identityClass.Attributes.Find(a => a.Name == _attributeName).Type = _keyType;
+            if (identityClass != null)
+            {
+               try
+               {
+                  identityClass.IsReadOnly = false;
+                  ModelAttribute keyAttribute = identityClass.Attributes.Find(a => a.Name == _attributeName);
+                  if (keyAttribute != null)
+                     keyAttribute.Type = _keyType;
+               }
+               finally
+               {
+                  identityClass.IsReadOnly = true;
+         
+               }
+            }
+         }
+      }
+
+      public string IdentityNamespace
+      {
+         get
+         {
+            return EntityFrameworkVersion == EFVersion.EF6
+                      ? "Microsoft.AspNet.Identity.EntityFramework"
+                      : "Microsoft.AspNetCore.Identity.EntityFrameworkCore";
          }
       }
 
@@ -103,6 +137,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (association != null && actualTarget != null && association.Target != actualTarget)
             association.Target = actualTarget;
       }
+
+      #endregion
 
       internal sealed partial class LayoutAlgorithmPropertyHandler
       {

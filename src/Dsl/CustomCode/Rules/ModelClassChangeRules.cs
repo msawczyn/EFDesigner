@@ -28,6 +28,14 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
+         // force this change early, since lots of other stuff may (or may not) block depending on its value
+         if (e.DomainProperty.Name == "IsReadOnly")
+         {
+            element.IsReadOnly = (bool)e.NewValue;
+
+            return;
+         }
+
          if (element.IsReadOnly)
          {
             ErrorDisplay.Show($"{element.Name} is read-only; can't change any of its properties");

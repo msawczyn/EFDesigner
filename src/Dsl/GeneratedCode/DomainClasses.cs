@@ -3010,7 +3010,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("System.Data.Entity.DbContext")]
-		[global::System.ComponentModel.Browsable(false)]
 		[global::System.ComponentModel.ReadOnly(true)]
 		[DslModeling::DomainObjectId("c7e0390e-5c88-48e9-a160-31e36c8dc1e0")]
 		public global::System.String BaseClass

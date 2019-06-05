@@ -268,6 +268,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                 })
                                                                 .ToList();
          targetProperties.AddRange(Association.GetLinksToSources(this)
+                                              .Where(a => !a.Source.IsIdentityClass())
                                               .Except(ignore)
                                               .OfType<UnidirectionalAssociation>()
                                               .Select(x => new NavigationProperty
@@ -277,6 +278,19 @@ namespace Sawczyn.EFDesigner.EFModel
                                                  AssociationObject = x,
                                                  PropertyName = null
                                               }));
+
+         targetProperties.AddRange(Association.GetLinksToSources(this)
+                                              .Where(a => a.Source.IsIdentityClass())
+                                              .Except(ignore)
+                                              .OfType<UnidirectionalAssociation>()
+                                              .Select(x => new NavigationProperty
+                                                           {
+                                                              Cardinality       = x.SourceMultiplicity,
+                                                              ClassType         = x.Source.MostDerivedClasses().FirstOrDefault(),
+                                                              AssociationObject = x,
+                                                              PropertyName      = null
+                                                           }));
+         
          int index = 0;
          foreach (NavigationProperty navigationProperty in targetProperties.Where(x => x.PropertyName == null))
          {

@@ -67,23 +67,7 @@ namespace Sawczyn.EFDesigner.EFModel
                element.EntityFrameworkPackageVersion = "Latest";
 
                if (element.EntityFrameworkVersion == EFVersion.EFCore)
-               {
                   element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
-
-                  // don't change if user customized
-                  if (element.BaseClass == EF6_BASE || (element.IsIdentityDbContext && element.BaseClass == EF6_IDENTITY_BASE))
-                     element.BaseClass = element.IsIdentityDbContext
-                                            ? EFCORE_IDENTITY_BASE
-                                            : EFCORE_BASE;
-               }
-               else // EF6
-               {
-                  // don't change if user customized
-                  if (element.BaseClass == EFCORE_BASE || (element.IsIdentityDbContext && element.BaseClass == EFCORE_IDENTITY_BASE))
-                     element.BaseClass = element.IsIdentityDbContext
-                                            ? EF6_IDENTITY_BASE
-                                            : EF6_BASE;
-               }
 
                break;
 
