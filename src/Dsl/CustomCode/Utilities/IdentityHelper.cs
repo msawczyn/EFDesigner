@@ -36,10 +36,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public string RealizedIdentityClassName(ModelClass identityClass)
       {
-         switch (identityClass?.Name)
+         return RealizedIdentityClassName(identityClass.Name);
+      }
+
+      public string RealizedIdentityClassName(string identityClassName)
+      {
+         switch (identityClassName)
          {
             case "IdentityDbContext":
-               return  $"{identityClass.ModelRoot.IdentityNamespace}.IdentityDbContext<"
+               return  $"{modelRoot.IdentityNamespace}.IdentityDbContext<"
                      + $"{RealizedIdentityClassName(IdentityActors["IdentityUser"])}, "
                      + $"{RealizedIdentityClassName(IdentityActors["IdentityRole"])}, "
                      + $"{modelRoot.IdentityKeyType}, "
@@ -48,33 +53,28 @@ namespace Sawczyn.EFDesigner.EFModel
                      + $"{RealizedIdentityClassName(IdentityActors["IdentityUserClaim"])}>";
 
             case "IdentityRole":
-               return  $"{identityClass.ModelRoot.IdentityNamespace}.IdentityRole<"
+               return  $"{modelRoot.IdentityNamespace}.IdentityRole<"
                      + $"{modelRoot.IdentityKeyType}, "
                      + $"{RealizedIdentityClassName(IdentityActors["IdentityUserRole"])}>";
 
             case "IdentityUser":
-               return  $"{identityClass.ModelRoot.IdentityNamespace}.IdentityUser<"
+               return  $"{modelRoot.IdentityNamespace}.IdentityUser<"
                      + $"{modelRoot.IdentityKeyType}, "
                      + $"{RealizedIdentityClassName(IdentityActors["IdentityUserLogin"])}, "
                      + $"{RealizedIdentityClassName(IdentityActors["IdentityUserRole"])}, "
                      + $"{RealizedIdentityClassName(IdentityActors["IdentityUserClaim"])}>";
 
             case "IdentityUserClaim":
-               return $"{identityClass.ModelRoot.IdentityNamespace}.IdentityUserClaim<{modelRoot.IdentityKeyType}>";
+               return $"{modelRoot.IdentityNamespace}.IdentityUserClaim<{modelRoot.IdentityKeyType}>";
 
             case "IdentityUserLogin":
-               return $"{identityClass.ModelRoot.IdentityNamespace}.IdentityUserLogin<{modelRoot.IdentityKeyType}>";
+               return $"{modelRoot.IdentityNamespace}.IdentityUserLogin<{modelRoot.IdentityKeyType}>";
 
             case "IdentityUserRole":
-               return $"{identityClass.ModelRoot.IdentityNamespace}.IdentityUserRole<{modelRoot.IdentityKeyType}>";
+               return $"{modelRoot.IdentityNamespace}.IdentityUserRole<{modelRoot.IdentityKeyType}>";
          }
 
-         return identityClass?.FullName;
-      }
-
-      public string RealizedIdentityClassName(string identityClassName)
-      {
-         return RealizedIdentityClassName(modelRoot.Classes.FirstOrDefault(x => x.Name == identityClassName));
+         return identityClassName;
       }
    }
 }

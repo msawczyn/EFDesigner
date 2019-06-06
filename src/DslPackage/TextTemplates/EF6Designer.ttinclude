@@ -132,7 +132,18 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       Output("/// <inheritdoc/>");
    }
 
-   Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : {modelRoot.BaseClass}");
+   string contextBase;
+   if (modelRoot.IsIdentityDbContext)
+   {
+      IdentityHelper identityHelper = new IdentityHelper(modelRoot);
+      contextBase = identityHelper.RealizedIdentityClassName("IdentityDbContext");
+   }
+   else
+   {
+      contextBase = $"{modelRoot.Namespace}.{modelRoot.BaseClass}";
+   }
+
+   Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : {contextBase}");
    Output("{");
 
    PluralizationService pluralizationService = ModelRoot.PluralizationService;
@@ -146,13 +157,13 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    switch (modelRoot.InheritanceStrategy)
    {
       case CodeStrategy.TablePerType:
-         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.ShouldGenerateCode()).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerConcreteType:
-         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.ShouldGenerateCode() && !mc.IsAbstract).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerHierarchy:
-         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.ShouldGenerateCode() && mc.Superclass == null).OrderBy(x => x.Name);
          break;
    }
 
@@ -160,7 +171,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    {
       Output("#region DbSets");
 
-      foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
+      foreach (ModelClass modelClass in classesWithTables.OrderBy(x => x.Name))
       {
          string dbSetName;
 
@@ -238,32 +249,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    NL();
 
    Output("/// <inheritdoc />");
-   Output($"public {modelRoot.EntityContainerName}(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)");
-   Output("{");
-   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
-   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
-   else
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
-   Output("CustomInit();");
-   Output("}");
-   NL();
-
-   Output("/// <inheritdoc />");
-   Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)");
-   Output("{");
-   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
-   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
-   else
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
-   Output("CustomInit();");
-   Output("}");
-   NL();
-
-   Output("/// <inheritdoc />");
    Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)");
    Output("{");
    Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
@@ -276,34 +261,63 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("}");
    NL();
 
-   Output("/// <inheritdoc />");
-   Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)");
-   Output("{");
-   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
-   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
-   else
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
-   Output("CustomInit();");
-   Output("}");
-   NL();
+      Output("/// <inheritdoc />");
+      Output($"public {modelRoot.EntityContainerName}(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)");
+      Output("{");
+      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+      else
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+      Output("CustomInit();");
+      Output("}");
+      NL();
 
-   Output("/// <inheritdoc />");
-   Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)");
-   Output("{");
-   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
-   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
-   else
-      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
-   Output("CustomInit();");
-   Output("}");
-   NL();
+      Output("/// <inheritdoc />");
+      Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)");
+      Output("{");
+      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+      else
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+      Output("CustomInit();");
+      Output("}");
+      NL();
+
+      Output("/// <inheritdoc />");
+      Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)");
+      Output("{");
+      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+      else
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+      Output("CustomInit();");
+      Output("}");
+      NL();
+
+   if (!modelRoot.IsIdentityDbContext)
+   {
+      Output("/// <inheritdoc />");
+      Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)");
+      Output("{");
+      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+      else
+         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+      Output("CustomInit();");
+      Output("}");
+      NL();
+   }
+
    Output("#endregion Constructors");
    NL();
-
    /***********************************************************************/
    // Experimental
    /***********************************************************************/
@@ -399,7 +413,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    List<Association> visited = new List<Association>();
    List<string> foreignKeyColumns = new List<string>();
 
-   foreach (ModelClass modelClass in modelRoot.Classes.OrderBy(x => x.Name))
+   foreach (ModelClass modelClass in modelRoot.Classes.Where(x => x.ShouldGenerateCode()).OrderBy(x => x.Name))
    {
       segments.Clear();
       foreignKeyColumns.Clear();
