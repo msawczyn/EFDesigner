@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.Inline)]
+   [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.TopLevelCommit)]
    internal class ModelAttributeAddRules : AddRule
    {
       public override void ElementAdded(ElementAddedEventArgs e)

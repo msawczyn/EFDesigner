@@ -9,7 +9,7 @@
           </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
-          <modelAttribute Id="88939342-82ff-4ddb-8b06-c6a772d0ae90" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the role id" name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="88939342-82ff-4ddb-8b06-c6a772d0ae90" isIdentity="true" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the role id" name="Id" columnName="Id" columnType="default" />
           <modelAttribute Id="23c3e1eb-6447-428e-9e9d-a870a245339b" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the role name" name="Name" columnName="Name" columnType="default" />
         </attributes>
       </modelClass>
@@ -17,8 +17,8 @@
     <modelRootHasClasses Id="e722d87b-1f59-4fdb-bd17-f2bfbb8af932">
       <modelClass Id="1e2bcd08-b3fb-4f6c-a802-f3191da94a2d" tableName="IdentityUserRoles" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserRoles" name="IdentityUserRole" outputDirectory="" summary="Represents an EntityType user belonging to a role" isReadOnly="true">
         <attributes>
-          <modelAttribute Id="09029e08-33a3-4650-bfcf-54e42385eb61" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the ID for the user that is in the role" name="UserId" columnName="UserId" columnType="default" />
-          <modelAttribute Id="16a4a941-0243-4b94-b3e0-c619424a16a2" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the Role ID for the role" name="RoleId" columnName="RoleId" columnType="default" />
+          <modelAttribute Id="09029e08-33a3-4650-bfcf-54e42385eb61" isIdentity="true" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the ID for the user that is in the role" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="16a4a941-0243-4b94-b3e0-c619424a16a2" isIdentity="true" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the Role ID for the role" name="RoleId" columnName="RoleId" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
@@ -36,7 +36,7 @@
           </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
-          <modelAttribute Id="75f1003b-be33-441d-b128-b09ab2b5bd42" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user identifier" name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="75f1003b-be33-441d-b128-b09ab2b5bd42" isIdentity="true" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user identifier" name="Id" columnName="Id" columnType="default" />
           <modelAttribute Id="3d494f73-adf8-4b35-878c-fb4049e665f4" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the email for the user" name="Email" columnName="Email" columnType="default" />
           <modelAttribute Id="b0597a46-defe-45fe-b964-f38498ee2449" type="Boolean" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets a value that indicates whether the email is confirmed" name="EmailConfirmed" columnName="EmailConfirmed" columnType="default" />
           <modelAttribute Id="3cdfcd24-b359-497b-a1f6-3e68c3ad1f73" maxLength="1024" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the salted/hashed form of the user password" name="PasswordHash" columnName="PasswordHash" columnType="default" />
@@ -55,7 +55,7 @@
       <modelClass Id="6d525445-f8cf-486b-b840-b2da7e032f36" tableName="IdentityUserClaims" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserClaims" name="IdentityUserClaim" outputDirectory="" summary="Specifies an EntityType that represents one specific user claim" isReadOnly="true">
         <attributes>
           <modelAttribute Id="ab9dc560-4155-4b93-8878-a5b7a786738b" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the primary key." name="Id" columnName="Id" columnType="default" />
-          <modelAttribute Id="32811a3a-a87c-41d0-b90b-622ce6a09a66" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="32811a3a-a87c-41d0-b90b-622ce6a09a66" type="Int32" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
           <modelAttribute Id="618da8a3-336a-4b2f-ae8d-195f65c10a24" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the claim type." name="ClaimType" columnName="ClaimType" columnType="default" />
           <modelAttribute Id="1dd7c93d-dea8-411e-a6ad-080f561a5eed" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the claim value" name="ClaimValue" columnName="ClaimValue" columnType="default" />
         </attributes>
@@ -66,7 +66,7 @@
         <attributes>
           <modelAttribute Id="749fe04a-1174-4ad0-b979-275cc9d03e1a" isIdentity="true" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the login provider for the login" name="LoginProvider" columnName="LoginProvider" columnType="default" />
           <modelAttribute Id="82ca3d61-fb66-4243-8d4d-827b9d89ee44" isIdentity="true" required="true" maxLength="1024" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the key representing the login for the provider" name="ProviderKey" columnName="ProviderKey" columnType="default" />
-          <modelAttribute Id="a5411226-6141-401f-929e-1a010b1820b8" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="a5411226-6141-401f-929e-1a010b1820b8" isIdentity="true" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>

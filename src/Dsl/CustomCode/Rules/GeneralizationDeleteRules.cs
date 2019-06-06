@@ -3,7 +3,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(Generalization), FireTime = TimeToFire.Inline)]
+   [RuleOn(typeof(Generalization), FireTime = TimeToFire.TopLevelCommit)]
    public class GeneralizationDeleteRules : DeleteRule
    {
       public override void ElementDeleted(ElementDeletedEventArgs e)

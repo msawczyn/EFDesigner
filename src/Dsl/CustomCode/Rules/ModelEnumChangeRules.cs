@@ -8,7 +8,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(ModelEnum), FireTime = TimeToFire.Inline)]
+   [RuleOn(typeof(ModelEnum), FireTime = TimeToFire.TopLevelCommit)]
    internal class ModelEnumChangeRules : ChangeRule
    {
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)

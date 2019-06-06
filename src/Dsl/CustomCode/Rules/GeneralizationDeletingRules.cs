@@ -7,7 +7,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(Generalization), FireTime = TimeToFire.Inline)]
+   [RuleOn(typeof(Generalization), FireTime = TimeToFire.TopLevelCommit)]
    internal class GeneralizationDeletingRules : DeletingRule
    {
       /// <inheritdoc />
