@@ -55,7 +55,7 @@
       <modelClass Id="6d525445-f8cf-486b-b840-b2da7e032f36" tableName="IdentityUserClaims" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserClaims" name="IdentityUserClaim" outputDirectory="" summary="Specifies an EntityType that represents one specific user claim" isReadOnly="true">
         <attributes>
           <modelAttribute Id="ab9dc560-4155-4b93-8878-a5b7a786738b" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the primary key." name="Id" columnName="Id" columnType="default" />
-          <modelAttribute Id="32811a3a-a87c-41d0-b90b-622ce6a09a66" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="32811a3a-a87c-41d0-b90b-622ce6a09a66" type="Int32" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
           <modelAttribute Id="618da8a3-336a-4b2f-ae8d-195f65c10a24" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the claim type." name="ClaimType" columnName="ClaimType" columnType="default" />
           <modelAttribute Id="1dd7c93d-dea8-411e-a6ad-080f561a5eed" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the claim value" name="ClaimValue" columnName="ClaimValue" columnType="default" />
         </attributes>

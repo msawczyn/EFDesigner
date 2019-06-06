@@ -690,17 +690,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public bool CanDelete()
       {
-         return !IsReadOnly;
+         return !IsReadOnly || ModelRoot.BypassReadOnlyChecks;
       }
 
       public bool CanCopy()
       {
-         return !IsReadOnly;
+         return !IsReadOnly || ModelRoot.BypassReadOnlyChecks;
       }
 
       public bool CanPaste()
       {
-         return !IsReadOnly;
+         return !IsReadOnly || ModelRoot.BypassReadOnlyChecks;
       }
    }
 }

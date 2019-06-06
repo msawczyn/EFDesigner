@@ -14,7 +14,7 @@
       {
          // dependent types can't participate in inheritance relationships
          // classes can't have > 1 superclass
-         return !candidate.IsDependentType && !candidate.IsReadOnly && candidate.Superclass == null;
+         return !candidate.IsDependentType && (candidate.ModelRoot.BypassReadOnlyChecks || !candidate.IsReadOnly) && candidate.Superclass == null;
       }
 
       private static bool CanAcceptModelClassAndModelClassAsSourceAndTarget(ModelClass sourceModelClass, ModelClass targetModelClass)

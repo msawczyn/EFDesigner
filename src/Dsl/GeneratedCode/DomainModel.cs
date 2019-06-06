@@ -150,6 +150,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "BaseClass", ModelRoot.BaseClassDomainPropertyId, typeof(ModelRoot.BaseClassPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "IsIdentityDbContext", ModelRoot.IsIdentityDbContextDomainPropertyId, typeof(ModelRoot.IsIdentityDbContextPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "IdentityKeyType", ModelRoot.IdentityKeyTypeDomainPropertyId, typeof(ModelRoot.IdentityKeyTypePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "BypassReadOnlyChecks", ModelRoot.BypassReadOnlyChecksDomainPropertyId, typeof(ModelRoot.BypassReadOnlyChecksPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),

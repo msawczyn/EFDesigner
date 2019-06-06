@@ -557,6 +557,14 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;IdentityKeyType&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BypassReadOnlyChecks.Description" xml:space="preserve">
+    <value>If true, validations can ignore any ModelClass elements&apos; IsReadOnly property</value>
+    <comment>Description for DomainProperty &apos;BypassReadOnlyChecks&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BypassReadOnlyChecks.DisplayName" xml:space="preserve">
+    <value>Bypass Read Only Checks</value>
+    <comment>DisplayName for DomainProperty &apos;BypassReadOnlyChecks&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>

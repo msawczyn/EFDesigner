@@ -291,12 +291,13 @@ void WriteClass(ModelClass modelClass)
    BeginNamespace(modelClass.Namespace);
 
    string isAbstract = modelClass.IsAbstract ? "abstract " : string.Empty;
+   IdentityHelper identityHelper = new IdentityHelper(modelClass.ModelRoot);
 
    List<string> bases = new List<string>();
    if (modelClass.Superclass != null) 
    {
-      if (modelClass.ModelRoot.IsIdentityDbContext && modelClass.Superclass?.FurthestAncestor().Name)
-         bases.Add(modelClass.Superclass.FurthestAncestor().MostDerivedClasses().FirstOrDefault().FullName);
+      if (modelClass.ModelRoot.IsIdentityDbContext && ModelRoot.IdentityBaseClasses.Contains(modelClass.Superclass.Name))
+         bases.Add(identityHelper.RealizedIdentityClassName(modelClass.Superclass));
       else
          bases.Add(modelClass.Superclass.FullName);
    }
@@ -470,7 +471,9 @@ void WriteConstructor(ModelClass modelClass)
       Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass))})");
       Output("{");
 
-      foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && !x.IsConcurrencyToken && x.SetterVisibility == SetterAccessModifier.Public))
+      foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && 
+                                                                                               !x.IsConcurrencyToken && 
+                                                                                               x.SetterVisibility == SetterAccessModifier.Public))
       {
          if (requiredAttribute.Type == "String")
             Output($"if (string.IsNullOrEmpty({requiredAttribute.Name.ToLower()})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");

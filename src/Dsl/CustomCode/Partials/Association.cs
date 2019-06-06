@@ -235,7 +235,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public bool CanDelete()
       {
-         return !Source.IsReadOnly;
+         return !Source.IsReadOnly || Source.ModelRoot.BypassReadOnlyChecks;
       }
    }
 }

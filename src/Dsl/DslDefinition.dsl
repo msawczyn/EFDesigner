@@ -273,6 +273,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="269ca124-8599-475d-b16e-b5eb24c621dd" Description="If true, validations can ignore any ModelClass elements' IsReadOnly property" Name="BypassReadOnlyChecks" DisplayName="Bypass Read Only Checks" DefaultValue="false" GetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1754,6 +1759,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="identityKeyType">
             <DomainPropertyMoniker Name="ModelRoot/IdentityKeyType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="bypassReadOnlyChecks">
+            <DomainPropertyMoniker Name="ModelRoot/BypassReadOnlyChecks" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

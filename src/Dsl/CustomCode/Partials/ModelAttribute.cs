@@ -597,12 +597,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public bool CanPaste()
       {
-         return !ModelClass.IsReadOnly;
+         return !ModelClass.IsReadOnly || ModelClass.ModelRoot.BypassReadOnlyChecks;
       }
 
       public bool CanDelete()
       {
-         return !ModelClass.IsReadOnly;
+         return !ModelClass.IsReadOnly || ModelClass.ModelRoot.BypassReadOnlyChecks;
       }
 
       /// <summary>

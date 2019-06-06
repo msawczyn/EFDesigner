@@ -288,6 +288,12 @@
             <xsd:documentation>Type for ID properties in identity classes</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: BypassReadOnlyChecks -->
+        <xsd:attribute name="bypassReadOnlyChecks" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, validations can ignore any ModelClass elements&apos; IsReadOnly property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

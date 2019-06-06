@@ -19,7 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         if (modelClass.IsReadOnly)
+         if (modelClass.IsReadOnly && !modelClass.ModelRoot.BypassReadOnlyChecks)
          {
             ErrorDisplay.Show($"{modelClass.Name} is read-only; can't add a property");
             current.Rollback();

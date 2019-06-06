@@ -69,32 +69,29 @@ namespace Sawczyn.EFDesigner.EFModel
          // Since Identity classes aren't user-editable, we're ok in assuming they'll be correct since this is the only way they can
          // be changed.
 
-         SetKeyType("IdentityRole", "Id", keyType);
-         SetKeyType("IdentityUser", "Id", keyType);
-         SetKeyType("IdentityLogin", "UserId", keyType);
-         SetKeyType("IdentityUserRole", "UserId", keyType);
-         SetKeyType("IdentityUserRole", "RoleId", keyType);
-         SetKeyType("IdentityUserClaim", "Id", keyType);
-         SetKeyType("IdentityUserClaim", "UserId", keyType);
+         try
+         {
+            BypassReadOnlyChecks = true;
+
+            SetKeyType("IdentityRole", "Id", keyType);
+            SetKeyType("IdentityUser", "Id", keyType);
+            SetKeyType("IdentityLogin", "UserId", keyType);
+            SetKeyType("IdentityUserRole", "UserId", keyType);
+            SetKeyType("IdentityUserRole", "RoleId", keyType);
+            SetKeyType("IdentityUserClaim", "Id", keyType);
+            SetKeyType("IdentityUserClaim", "UserId", keyType);
+         }
+         finally
+         {
+            BypassReadOnlyChecks = false;
+         }
 
          void SetKeyType(string _className, string _attributeName, string _keyType)
          {
             ModelClass identityClass = Classes.Find(c => c.Name == _className);
-            if (identityClass != null)
-            {
-               try
-               {
-                  identityClass.IsReadOnly = false;
-                  ModelAttribute keyAttribute = identityClass.Attributes.Find(a => a.Name == _attributeName);
-                  if (keyAttribute != null)
-                     keyAttribute.Type = _keyType;
-               }
-               finally
-               {
-                  identityClass.IsReadOnly = true;
-         
-               }
-            }
+            ModelAttribute keyAttribute = identityClass?.Attributes.Find(a => a.Name == _attributeName);
+            if (keyAttribute != null)
+               keyAttribute.Type = _keyType;
          }
       }
 

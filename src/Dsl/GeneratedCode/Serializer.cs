@@ -766,6 +766,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// BypassReadOnlyChecks
+			if (!serializationContext.Result.Failed)
+			{
+				string attribBypassReadOnlyChecks = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "bypassReadOnlyChecks");
+				if (attribBypassReadOnlyChecks != null)
+				{
+					global::System.Boolean valueOfBypassReadOnlyChecks;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribBypassReadOnlyChecks, out valueOfBypassReadOnlyChecks))
+					{
+						instanceOfModelRoot.BypassReadOnlyChecks = valueOfBypassReadOnlyChecks;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "bypassReadOnlyChecks", typeof(global::System.Boolean), attribBypassReadOnlyChecks);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1829,6 +1846,22 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "Int32") != 0))
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "identityKeyType", propValue);
+					}
+				}
+			}
+			// BypassReadOnlyChecks
+			if (!serializationContext.Result.Failed)
+			{
+				// Non-public getter, use DomainPropertyInfo method.
+				DslModeling::DomainPropertyInfo propInfo = instanceOfModelRoot.Partition.DomainDataDirectory.GetDomainProperty (ModelRoot.BypassReadOnlyChecksDomainPropertyId);
+				global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelRoot.BypassReadOnlyChecks!");
+				global::System.Boolean propValue = ((global::System.Boolean)propInfo.GetValue(instanceOfModelRoot));
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "bypassReadOnlyChecks", serializedPropValue);
 					}
 				}
 			}

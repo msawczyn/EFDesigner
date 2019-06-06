@@ -3259,6 +3259,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region BypassReadOnlyChecks domain property code
+		
+		/// <summary>
+		/// BypassReadOnlyChecks domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid BypassReadOnlyChecksDomainPropertyId = new global::System.Guid(0x269ca124, 0x8599, 0x475d, 0xb1, 0x6e, 0xb5, 0xeb, 0x24, 0xc6, 0x21, 0xdd);
+		
+		/// <summary>
+		/// Storage for BypassReadOnlyChecks
+		/// </summary>
+		private global::System.Boolean bypassReadOnlyChecksPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of BypassReadOnlyChecks domain property.
+		/// If true, validations can ignore any ModelClass elements' IsReadOnly property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BypassReadOnlyChecks.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BypassReadOnlyChecks.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainObjectId("269ca124-8599-475d-b16e-b5eb24c621dd")]
+		public global::System.Boolean BypassReadOnlyChecks
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			internal get
+			{
+				return bypassReadOnlyChecksPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				BypassReadOnlyChecksPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.BypassReadOnlyChecks domain property.
+		/// </summary>
+		internal sealed partial class BypassReadOnlyChecksPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private BypassReadOnlyChecksPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.BypassReadOnlyChecks domain property value handler.
+			/// </summary>
+			public static readonly BypassReadOnlyChecksPropertyHandler Instance = new BypassReadOnlyChecksPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.BypassReadOnlyChecks domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return BypassReadOnlyChecksDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.bypassReadOnlyChecksPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.bypassReadOnlyChecksPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

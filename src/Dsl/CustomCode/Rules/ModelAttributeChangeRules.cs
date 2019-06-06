@@ -33,7 +33,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
-         if (modelClass.IsReadOnly)
+         if (modelClass.IsReadOnly && !modelRoot.BypassReadOnlyChecks)
          {
             ErrorDisplay.Show($"{modelClass.Name} is read-only; can't change any of its properties");
             current.Rollback();
