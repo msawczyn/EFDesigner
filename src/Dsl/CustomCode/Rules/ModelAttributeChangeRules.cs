@@ -9,7 +9,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(ModelAttribute), FireTime = TimeToFire.Inline)]
    public class ModelAttributeChangeRules : ChangeRule
    {
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)

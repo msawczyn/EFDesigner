@@ -7,7 +7,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(ModelClass), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(ModelClass), FireTime = TimeToFire.Inline)]
    internal class ModelClassDeletingRules : DeletingRule
    {
       public override void ElementDeleting(ElementDeletingEventArgs e)

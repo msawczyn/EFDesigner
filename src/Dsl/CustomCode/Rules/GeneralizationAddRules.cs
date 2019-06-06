@@ -6,7 +6,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(Generalization), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(Generalization), FireTime = TimeToFire.Inline)]
    internal class GeneralizationAddRules : AddRule
    {
       public override void ElementAdded(ElementAddedEventArgs e)

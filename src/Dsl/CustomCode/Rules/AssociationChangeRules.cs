@@ -12,7 +12,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(Association), FireTime = TimeToFire.Inline)]
    public class AssociationChangeRules : ChangeRule
    {
       // matches [Display(Name="*")] and [System.ComponentModel.DataAnnotations.Display(Name="*")]

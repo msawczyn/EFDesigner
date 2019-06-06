@@ -76,6 +76,7 @@ namespace Sawczyn.EFDesigner.EFModel
             SetKeyType("IdentityRole", "Id", keyType);
             SetKeyType("IdentityUser", "Id", keyType);
             SetKeyType("IdentityLogin", "UserId", keyType);
+            SetKeyType("IdentityUserLogin", "UserId", keyType);
             SetKeyType("IdentityUserRole", "UserId", keyType);
             SetKeyType("IdentityUserRole", "RoleId", keyType);
             SetKeyType("IdentityUserClaim", "Id", keyType);

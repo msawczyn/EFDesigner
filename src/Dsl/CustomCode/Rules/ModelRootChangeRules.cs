@@ -9,14 +9,9 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(ModelRoot), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(ModelRoot), FireTime = TimeToFire.Inline)]
    internal class ModelRootChangeRules : ChangeRule
    {
-      private const string EF6_IDENTITY_BASE = "Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext";
-      private const string EFCORE_IDENTITY_BASE = "Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext";
-      private const string EF6_BASE = "System.Data.Entity.DbContext";
-      private const string EFCORE_BASE = "Microsoft.EntityFrameworkCore.DbContext";
-
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
          base.ElementPropertyChanged(e);
