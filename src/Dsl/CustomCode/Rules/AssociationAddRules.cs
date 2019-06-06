@@ -7,7 +7,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(Association), FireTime = TimeToFire.LocalCommit)]
    internal class AssociationAddRules : AddRule
    {
       public override void ElementAdded(ElementAddedEventArgs e)

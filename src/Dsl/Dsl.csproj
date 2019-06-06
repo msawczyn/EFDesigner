@@ -129,8 +129,10 @@
     <Compile Include="CustomCode\Extensions\StringExtensions.cs" />
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\IDynamicCanCopy.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\IDynamicCanPaste.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
-    <Compile Include="CustomCode\Partials\IDynamicCanDelete.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\IDynamicCanDelete.cs" />
     <Compile Include="CustomCode\Rules\GeneralizationDeleteRules.cs" />
     <Compile Include="CustomCode\Type Descriptors\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />

@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(ModelEnumValue), FireTime = TimeToFire.TopLevelCommit)]
+   [RuleOn(typeof(ModelEnumValue), FireTime = TimeToFire.LocalCommit)]
    internal class ModelEnumValueAddRules : AddRule
    {
       public override void ElementAdded(ElementAddedEventArgs e)

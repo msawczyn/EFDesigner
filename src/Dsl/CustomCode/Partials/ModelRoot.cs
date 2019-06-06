@@ -71,7 +71,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
          try
          {
-            BypassReadOnlyChecks = true;
+            // use sub-transactions since the rules will fire when they're committed (FireTime = TimeToFire.LocalCommit)
+            using (Transaction transaction = Store.TransactionManager.BeginTransaction("BypassReadOnlyChecks_On"))
+            {
+               BypassReadOnlyChecks = true;
+               transaction.Commit();
+            }
 
             SetKeyType("IdentityRole", "Id", keyType);
             SetKeyType("IdentityUser", "Id", keyType);
@@ -84,15 +89,24 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          finally
          {
-            BypassReadOnlyChecks = false;
+            using (Transaction transaction = Store.TransactionManager.BeginTransaction("BypassReadOnlyChecks_Off"))
+            {
+               BypassReadOnlyChecks = false;
+               transaction.Commit();
+            }
          }
 
          void SetKeyType(string _className, string _attributeName, string _keyType)
          {
-            ModelClass identityClass = Classes.Find(c => c.Name == _className);
-            ModelAttribute keyAttribute = identityClass?.Attributes.Find(a => a.Name == _attributeName);
-            if (keyAttribute != null)
-               keyAttribute.Type = _keyType;
+            using (Transaction transaction = Store.TransactionManager.BeginTransaction("SetKeyType"))
+            {
+               ModelClass     identityClass = Classes.Find(c => c.Name == _className);
+               ModelAttribute keyAttribute  = identityClass?.Attributes.Find(a => a.Name == _attributeName);
+
+               if (keyAttribute != null)
+                  keyAttribute.Type = _keyType;
+               transaction.Commit();
+            }
          }
       }
 
