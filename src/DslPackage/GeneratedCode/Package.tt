@@ -4,17 +4,15 @@
     This code sample is provided "AS IS" without warranty of any kind, 
     it is not recommended for use in a production environment.
 ***************************************************************************/
-#>
-<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #>
-<#
+#><#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" 
+#><#
 
    //DSL assembly name - used for toolbox item registration. 
    //This value is initially set to the default AssemblyName of the Dsl.csproj 
    //If you update the DSL Assembly name, please update the following string value to the new name.
    //Failure to do so may result in your Toolbox items not appearing correctly.
    string dslAssembly = "Sawczyn.EFDesigner.EFModel.Dsl.dll";
-#>
-<#@ include file="DslPackage\Package.tt" #>
+#><#@ include file="DslPackage\Package.tt" #>
 <#
    string directiveName = this.Dsl.Name;
 #>

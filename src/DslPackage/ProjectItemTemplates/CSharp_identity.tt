@@ -1,7 +1,7 @@
-<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
-<#@ output extension=".vstemplate" #>
-<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #>
-<!--DSL Tools Language Template-->
+<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" 
+#><#@ output extension=".vstemplate" 
+#><#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" 
+#><!--DSL Tools Language Template-->
 <VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<TemplateData>
 		<TemplateID>{3dacc232-34bc-4ae2-8394-212bec630667}</TemplateID>

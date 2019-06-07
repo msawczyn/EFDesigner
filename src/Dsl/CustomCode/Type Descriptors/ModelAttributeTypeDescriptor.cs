@@ -86,6 +86,21 @@ namespace Sawczyn.EFDesigner.EFModel
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, columnNamePropertyInfo, isColumnNameTrackingPropertyInfo, columnNameAttributes));
 
+            /********************************************************************************/
+
+            DomainPropertyInfo columnTypePropertyInfo           = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ColumnTypeDomainPropertyId);
+            DomainPropertyInfo isColumnTypeTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsColumnTypeTrackingDomainPropertyId);
+
+            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
+            Attribute[] columnTypeAttributes =
+            {
+               new DisplayNameAttribute("Column Type"),
+               new DescriptionAttribute("Overrides default column type"),
+               new CategoryAttribute("Database")
+            };
+
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, columnTypePropertyInfo, isColumnTypeTrackingPropertyInfo, columnTypeAttributes));
+
          }
 
          // Return the property descriptors for this element  

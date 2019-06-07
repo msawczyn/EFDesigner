@@ -607,7 +607,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="17cc5012-1352-4a08-9965-55dcecaa985f" Description="The data type for the table column backing this property" Name="ColumnType" DisplayName="Column Type" Kind="CustomStorage" Category="Database">
+        <DomainProperty Id="17cc5012-1352-4a08-9965-55dcecaa985f" Description="The data type for the table column backing this property" Name="ColumnType" DisplayName="Column Type" Kind="CustomStorage" Category="Database" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
