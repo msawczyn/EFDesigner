@@ -261,7 +261,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="1c2f998f-ca3f-45fb-9571-ae7d71284f54" Description="Type for ID properties in identity classes" Name="IdentityKeyType" DisplayName="Identity Key Type" DefaultValue="Int32" Category="Code Generation">
+        <DomainProperty Id="1c2f998f-ca3f-45fb-9571-ae7d71284f54" Description="Type for ID properties in identity classes" Name="IdentityKeyType" DisplayName="Identity Key Type" DefaultValue="String" Category="Code Generation">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
