@@ -21,7 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace IdentitySample.Models
 {
-   public partial class ApplicationUser : Microsoft.AspNet.Identity.EntityFramework.IdentityUser<String, Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<String>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<String>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<String>>
+   public partial class ApplicationUser : Microsoft.AspNet.Identity.EntityFramework.IdentityUser<Int64, Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<Int64>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<Int64>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<Int64>>
    {
       partial void Init();
 
@@ -73,17 +73,17 @@ namespace IdentitySample.Models
        *************************************************************************/
 
       /// <summary>
-      /// Max length = 256
+      /// Max length = 250
       /// </summary>
-      [MaxLength(256)]
-      [StringLength(256)]
+      [MaxLength(250)]
+      [StringLength(250)]
       public string Address { get; set; }
 
       /// <summary>
-      /// Max length = 256
+      /// Max length = 250
       /// </summary>
-      [MaxLength(256)]
-      [StringLength(256)]
+      [MaxLength(250)]
+      [StringLength(250)]
       public string City { get; set; }
 
       /// <summary>
@@ -94,11 +94,11 @@ namespace IdentitySample.Models
       public string State { get; set; }
 
       /// <summary>
-      /// Max length = 9
+      /// Max length = 10
       /// </summary>
-      [MaxLength(9)]
-      [StringLength(9)]
-      public string PostalCode { get; set; }
+      [MaxLength(10)]
+      [StringLength(10)]
+      public string Zip { get; set; }
 
    }
 }

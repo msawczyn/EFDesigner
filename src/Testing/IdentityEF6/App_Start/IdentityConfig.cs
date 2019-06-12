@@ -15,9 +15,10 @@ namespace IdentitySample.Models
 {
    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
-   public class ApplicationUserManager : UserManager<ApplicationUser>
+      public class ApplicationUserStore : UserStore<ApplicationUser, IdentityRole<long, IdentityUserRole<long>>, long, IdentityUserLogin<long>>, IdentityUserRol
+   public class ApplicationUserManager : UserManager<ApplicationUser, long>
    {
-      public ApplicationUserManager(IUserStore<ApplicationUser> store)
+      public ApplicationUserManager(IUserStore<ApplicationUser, long> store)
           : base(store)
       {
       }
@@ -25,9 +26,9 @@ namespace IdentitySample.Models
       public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
           IOwinContext context)
       {
-         ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+         ApplicationUserManager manager = new ApplicationUserManager(new ApplicationUserStore<ApplicationUser, long>(context.Get<ApplicationDbContext>()));
          // Configure validation logic for usernames
-         manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+         manager.UserValidator = new UserValidator<ApplicationUser, long>(manager)
          {
             AllowOnlyAlphanumericUserNames = false,
             RequireUniqueEmail = true

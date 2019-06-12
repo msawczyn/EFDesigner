@@ -23,7 +23,7 @@ namespace IdentitySample.Models
    /// Represents a class that uses the default entity types for ASP.NET Identity Users,
    /// Roles, Claims, Logins
    /// </summary>
-   public partial class ApplicationDbContext : Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext<ApplicationUser, Microsoft.AspNet.Identity.EntityFramework.IdentityRole<String, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<String>>, String, Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<String>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<String>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<String>>
+   public partial class ApplicationDbContext : Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext<ApplicationUser, Microsoft.AspNet.Identity.EntityFramework.IdentityRole<Int64, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<Int64>>, Int64, Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<Int64>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<Int64>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<Int64>>
    {
       #region DbSets
       public virtual System.Data.Entity.DbSet<global::IdentitySample.Models.ApplicationUser> ApplicationUsers { get; set; }
@@ -33,7 +33,18 @@ namespace IdentitySample.Models
 
       partial void CustomInit();
 
-      #warning Default constructor not generated for ApplicationDbContext since no default connection string was specified in the model
+      /// <summary>
+      /// Default connection string
+      /// </summary>
+      public static string ConnectionString { get; set; } = @"Name=DefaultConnection";
+      /// <inheritdoc />
+      public ApplicationDbContext() : base(ConnectionString)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<ApplicationDbContext>(new ApplicationDbContextDatabaseInitializer());
+         CustomInit();
+      }
 
       /// <inheritdoc />
       public ApplicationDbContext(string connectionString) : base(connectionString)
@@ -97,16 +108,16 @@ namespace IdentitySample.Models
                      .ToTable("ApplicationUsers");
          modelBuilder.Entity<global::IdentitySample.Models.ApplicationUser>()
                      .Property(t => t.Address)
-                     .HasMaxLength(256);
+                     .HasMaxLength(250);
          modelBuilder.Entity<global::IdentitySample.Models.ApplicationUser>()
                      .Property(t => t.City)
-                     .HasMaxLength(256);
+                     .HasMaxLength(250);
          modelBuilder.Entity<global::IdentitySample.Models.ApplicationUser>()
                      .Property(t => t.State)
                      .HasMaxLength(2);
          modelBuilder.Entity<global::IdentitySample.Models.ApplicationUser>()
-                     .Property(t => t.PostalCode)
-                     .HasMaxLength(9);
+                     .Property(t => t.Zip)
+                     .HasMaxLength(10);
 
          OnModelCreatedImpl(modelBuilder);
       }
