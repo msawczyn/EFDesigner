@@ -24,8 +24,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Action ExecuteValidator { get; set; }
 
-      public static readonly string[] IdentityBaseClasses = { "IdentityRole", "IdentityUser", "IdentityUserClaim", "IdentityUserLogin", "IdentityUserRole" };
-
       static ModelRoot()
       {
          try
@@ -56,101 +54,6 @@ namespace Sawczyn.EFDesigner.EFModel
             return Classes;
          }
       }
-
-      #region Identity
-
-      internal void SetIdentityKeyType(string keyType)
-      {
-         // set these no matter if we're IdentityDbContext or not
-         // if not, they won't be used. But if (somehow) later this becomes IdentityDbContext, they'll be correct
-
-         // Note that this is primarily for display purposes. We could simply look at ModelRoot to determine what the value should be,
-         // but that would mean we'd have to change Type to a calculated property, and that's really messy.
-         // Since Identity classes aren't user-editable, we're ok in assuming they'll be correct since this is the only way they can
-         // be changed.
-
-         try
-         {
-            // use sub-transactions since the rules will fire when they're committed (FireTime = TimeToFire.LocalCommit)
-            using (Transaction transaction = Store.TransactionManager.BeginTransaction("BypassReadOnlyChecks_On"))
-            {
-               BypassReadOnlyChecks = true;
-               transaction.Commit();
-            }
-
-            SetKeyType("IdentityRole", "Id", keyType);
-            SetKeyType("IdentityUser", "Id", keyType);
-            SetKeyType("IdentityLogin", "UserId", keyType);
-            SetKeyType("IdentityUserLogin", "UserId", keyType);
-            SetKeyType("IdentityUserRole", "UserId", keyType);
-            SetKeyType("IdentityUserRole", "RoleId", keyType);
-            SetKeyType("IdentityUserClaim", "Id", keyType);
-            SetKeyType("IdentityUserClaim", "UserId", keyType);
-         }
-         finally
-         {
-            using (Transaction transaction = Store.TransactionManager.BeginTransaction("BypassReadOnlyChecks_Off"))
-            {
-               BypassReadOnlyChecks = false;
-               transaction.Commit();
-            }
-         }
-
-         void SetKeyType(string _className, string _attributeName, string _keyType)
-         {
-            using (Transaction transaction = Store.TransactionManager.BeginTransaction("SetKeyType"))
-            {
-               ModelClass     identityClass = Classes.Find(c => c.Name == _className);
-               ModelAttribute keyAttribute  = identityClass?.Attributes.Find(a => a.Name == _attributeName);
-
-               if (keyAttribute != null)
-                  keyAttribute.Type = _keyType;
-               transaction.Commit();
-            }
-         }
-      }
-
-      public string IdentityNamespace
-      {
-         get
-         {
-            return EntityFrameworkVersion == EFVersion.EF6
-                      ? "Microsoft.AspNet.Identity.EntityFramework"
-                      : "Microsoft.AspNetCore.Identity.EntityFrameworkCore";
-         }
-      }
-
-      internal void TargetIdentityAssociations()
-      {
-         if (!IsIdentityDbContext)
-            return;
-
-         ModelClass identityRole = Classes.Find(c => c.Name == "IdentityRole");
-         ModelClass identityUserRole = Classes.Find(c => c.Name == "IdentityUserRole");
-         ModelClass identityUser = Classes.Find(c => c.Name == "IdentityUser");
-         ModelClass identityUserLogin = Classes.Find(c => c.Name == "IdentityUserLogin");
-         ModelClass identityUserClaim = Classes.Find(c => c.Name == "IdentityUserClaim");
-
-         Retarget(identityRole, identityUserRole, "Users");
-         Retarget(identityUser, identityUserRole, "Roles");
-         Retarget(identityUser, identityUserLogin, "Logins");
-         Retarget(identityUser, identityUserClaim, "Claims");
-      }
-
-      private void Retarget(ModelClass source, ModelClass target, string propertyName)
-      {
-         UnidirectionalAssociation association = Store.ElementDirectory.AllElements.OfType<UnidirectionalAssociation>()
-                                                      .FirstOrDefault(a => a.Source == source &&
-                                                                           a.TargetPropertyName == propertyName);
-
-         ModelClass actualTarget = target.MostDerivedClasses().SingleOrDefault();
-
-
-         if (association != null && actualTarget != null && association.Target != actualTarget)
-            association.Target = actualTarget;
-      }
-
-      #endregion
 
       internal sealed partial class LayoutAlgorithmPropertyHandler
       {

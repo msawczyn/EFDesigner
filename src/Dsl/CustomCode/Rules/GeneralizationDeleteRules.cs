@@ -22,8 +22,9 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          // make sure identity associations are correct (if necessary)
-         store.ModelRoot().TargetIdentityAssociations();
-
+         // this is important for when the generalization is being deleted by itself. There's another run of this in GeneralizationDeletingRules for when we're deleting a subclass. 
+         IdentityHelper identityHelper = new IdentityHelper(store.ModelRoot());
+         identityHelper.FixupIdentityAssociations();
       }
    }
 }

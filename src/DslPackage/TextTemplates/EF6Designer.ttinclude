@@ -45,6 +45,48 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 
    manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}.{modelRoot.FileNameMarker}.cs"));
    WriteDbContextEF6(modelRoot);
+
+   // Identity
+   if (modelRoot.IsIdentityDbContext)
+   {
+      string dir = modelRoot.EntityOutputDirectory;
+      manager.StartNewFile(Path.Combine(dir, $"UserStore.{modelRoot.FileNameMarker}.cs"));
+      WriteUserStoreEF6(modelRoot);
+   }
+}
+
+void WriteUserStoreEF6(ModelRoot modelRoot)
+{
+   IdentityHelper identityHelper = new IdentityHelper(modelRoot);
+
+   string storeClassName= $"{identityHelper.IdentityActors["IdentityUser"]}Store";
+   string userClassName = identityHelper.RealizedIdentityClassName("IdentityUser");
+   string roleClassName = identityHelper.RealizedIdentityClassName("IdentityRole");
+   string useerRoleClassName = identityHelper.RealizedIdentityClassName("IdentityUserRole");
+   string loginClassName = identityHelper.RealizedIdentityClassName("IdentityUserLogin");
+   string claimClassName = identityHelper.RealizedIdentityClassName("IdentityUserClaim");
+
+   Output("using System;");
+   NL();
+   BeginNamespace(modelRoot.Namespace);
+   Output($"public partial class {storeClassName} : Microsoft.AspNet.Identity.EntityFramework.UserStore<{userClassName}, {roleClassName}, {modelRoot.IdentityKeyType}, {loginClassName}, {useerRoleClassName}, {claimClassName}>, Microsoft.AspNet.Identity.IUserStore<{userClassName}, {modelRoot.IdentityKeyType}>, IDisposable");
+   Output("{");
+   Output("partial void Init();");
+   NL();
+
+   Output($"public {storeClassName}() : this(new {modelRoot.EntityContainerName}())");
+   Output("{");
+   Output("base.DisposeContext = true;");
+   Output("}");
+   NL();
+
+   Output($"public {storeClassName}(System.Data.Entity.DbContext context) : base(context)");
+   Output("{");
+   Output("Init();");
+   Output("}");
+   Output("}");
+   EndNamespace(modelRoot.Namespace);
+   NL();
 }
 
 List<string> GetAdditionalUsingStatementsEF6(ModelRoot modelRoot)
@@ -179,8 +221,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             dbSetName = modelClass.DbSetName;
          else
             dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
-               ? pluralizationService.Pluralize(modelClass.Name)
-               : modelClass.Name;
+            ? pluralizationService.Pluralize(modelClass.Name)
+            : modelClass.Name;
 
          if (!string.IsNullOrEmpty(modelClass.Summary))
          {
@@ -208,8 +250,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
    {
       string connectionString = string.IsNullOrEmpty(modelRoot.ConnectionString) 
-                                   ? $"Name={modelRoot.ConnectionStringName}"
-                                   : modelRoot.ConnectionString;
+         ? $"Name={modelRoot.ConnectionStringName}"
+         : modelRoot.ConnectionString;
 
       Output("/// <summary>");
       Output("/// Default connection string");
@@ -261,44 +303,44 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output("}");
    NL();
 
-      Output("/// <inheritdoc />");
-      Output($"public {modelRoot.EntityContainerName}(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)");
-      Output("{");
-      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
-      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
-         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
-      else
-         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
-      Output("CustomInit();");
-      Output("}");
-      NL();
+   Output("/// <inheritdoc />");
+   Output($"public {modelRoot.EntityContainerName}(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
 
-      Output("/// <inheritdoc />");
-      Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)");
-      Output("{");
-      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
-      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
-         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
-      else
-         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
-      Output("CustomInit();");
-      Output("}");
-      NL();
+   Output("/// <inheritdoc />");
+   Output($"public {modelRoot.EntityContainerName}(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
 
-      Output("/// <inheritdoc />");
-      Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)");
-      Output("{");
-      Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
-      Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
-      if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
-         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
-      else
-         Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
-      Output("CustomInit();");
-      Output("}");
-      NL();
+   Output("/// <inheritdoc />");
+   Output($"public {modelRoot.EntityContainerName}(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)");
+   Output("{");
+   Output($"Configuration.LazyLoadingEnabled = {modelRoot.LazyLoadingEnabled.ToString().ToLower()};");
+   Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
+   if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None)
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);");
+   else
+      Output($"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+   Output("CustomInit();");
+   Output("}");
+   NL();
 
    if (!modelRoot.IsIdentityDbContext)
    {
@@ -334,50 +376,50 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Dictionary<string, List<string>> orphanRemoval = new Dictionary<string, List<string>>();
    foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
    {
-      if (!orphanRemoval.ContainsKey(modelClass.DbSetName))
-         orphanRemoval.Add(modelClass.DbSetName, new List<string>());
-      foreach (NavigationProperty navigationProperty in modelClass.AllRequiredNavigationProperties())
-      {
-         Association association = navigationProperty.AssociationObject;
-         if (!string.IsNullOrEmpty(navigationProperty.PropertyName))
-         {
-            if (association is BidirectionalAssociation && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One ||
-                (association is UnidirectionalAssociation && (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One &&
-                                                              association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)))
-            {
-                orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted && x.{navigationProperty.PropertyName} == null));");
-            }
-            else if (association is UnidirectionalAssociation &&
-                     association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
-            {
-               orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({association.Source.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).SelectMany(x => x.{association.TargetPropertyName})));");
-            }
-            else if (association is UnidirectionalAssociation &&
-                     !association.Source.IsDependentType && !association.Target.IsDependentType &&
-                     (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne ||
-                      association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-            {
-               orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({association.Source.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Select(x => x.{association.TargetPropertyName})));");
-            }
-            else if (association is BidirectionalAssociation bidirectional &&
-                     !association.Source.IsDependentType && !association.Target.IsDependentType &&
-                     bidirectional.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
-            {
-               orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({bidirectional.Target.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Select(x => x.{bidirectional.SourcePropertyName})));");
-            }
-         }
-      }
+   if (!orphanRemoval.ContainsKey(modelClass.DbSetName))
+   orphanRemoval.Add(modelClass.DbSetName, new List<string>());
+   foreach (NavigationProperty navigationProperty in modelClass.AllRequiredNavigationProperties())
+   {
+   Association association = navigationProperty.AssociationObject;
+   if (!string.IsNullOrEmpty(navigationProperty.PropertyName))
+   {
+   if (association is BidirectionalAssociation && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One ||
+   (association is UnidirectionalAssociation && (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One &&
+   association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)))
+   {
+   orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted && x.{navigationProperty.PropertyName} == null));");
+   }
+   else if (association is UnidirectionalAssociation &&
+   association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+   {
+   orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({association.Source.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).SelectMany(x => x.{association.TargetPropertyName})));");
+   }
+   else if (association is UnidirectionalAssociation &&
+   !association.Source.IsDependentType && !association.Target.IsDependentType &&
+   (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne ||
+   association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One))
+   {
+   orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({association.Source.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Select(x => x.{association.TargetPropertyName})));");
+   }
+   else if (association is BidirectionalAssociation bidirectional &&
+   !association.Source.IsDependentType && !association.Target.IsDependentType &&
+   bidirectional.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
+   {
+   orphanRemoval[modelClass.DbSetName].Add($"{modelClass.DbSetName}.RemoveRange({modelClass.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Except({bidirectional.Target.DbSetName}.Local.Where(x => Entry(x).State != EntityState.Deleted).Select(x => x.{bidirectional.SourcePropertyName})));");
+   }
+   }
+   }
    }
 
    foreach (string key in orphanRemoval.Keys.Where(k => orphanRemoval[k].Any()))
    {
-       Output($"if ({key}.Local.Any(x => Entry(x).State != EntityState.Deleted))");
-       Output("{");
-       foreach (string action in orphanRemoval[key])
-       {
-         Output(action);
-       }
-       Output("}");
+   Output($"if ({key}.Local.Any(x => Entry(x).State != EntityState.Deleted))");
+   Output("{");
+   foreach (string action in orphanRemoval[key])
+   {
+   Output(action);
+   }
+   Output("}");
    }
 
    Output("}");
@@ -439,7 +481,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
          if (identityAttributes.Count() == 1)
             segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
          else if (identityAttributes.Count() > 1)
-               segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
+            segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
       }
       
       foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
@@ -453,10 +495,10 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             Output(string.Join(".", segments) + ";");
       }
       
-	  // indexed properties
+      // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
-	       segments.Clear();
+         segments.Clear();
          string attributeName = !indexed.AutoProperty ? $"_{indexed.Name}" : indexed.Name;
          segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{attributeName})");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
@@ -467,7 +509,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             else
                Output(string.Join(".", segments) + ";");
          }
-	  }
+      }
 
       // attribute level
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
@@ -730,7 +772,7 @@ string CreateForeignKeyColumnSegmentEF6(Association association, List<string> fo
    else if (association.TargetRole == EndpointRole.Dependent)
       nameBase = association is BidirectionalAssociation b ? b.SourcePropertyName :  $"{association.Source.Name}.{association.TargetPropertyName}";
    else
-      return null;
+   return null;
 
    string columnName = $"{nameBase}_Id";
    if (foreignKeyColumns.Contains(columnName))

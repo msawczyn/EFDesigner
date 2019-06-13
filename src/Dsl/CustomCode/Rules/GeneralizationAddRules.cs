@@ -75,7 +75,8 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          // make sure identity associations are correct (if necessary)
-         modelRoot.TargetIdentityAssociations();
+         IdentityHelper identityHelper = new IdentityHelper(store.ModelRoot());
+         identityHelper.FixupIdentityAssociations();
       }
    }
 }

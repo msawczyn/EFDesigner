@@ -69,7 +69,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
-         store.ModelRoot().TargetIdentityAssociations();
+         IdentityHelper identityHelper = new IdentityHelper(store.ModelRoot());
+         identityHelper.FixupIdentityAssociations();
 
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
          BidirectionalAssociation bidirectionalAssociation = element as BidirectionalAssociation;

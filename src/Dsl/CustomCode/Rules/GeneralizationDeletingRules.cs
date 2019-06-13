@@ -17,10 +17,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
          Generalization element = (Generalization)e.ModelElement;
          Store store = element.Store;
+         ModelRoot modelRoot = store.ModelRoot();
          Transaction current = store.TransactionManager.CurrentTransaction;
 
          if (current.IsSerializing)
             return;
+
+         // make sure identity associations are correct (if necessary)
+         // this is important for when we're deleting a subclass. There's another run of this in GeneralizationDeleteRules for when the generalization is being deleted by itself
+         IdentityHelper identityHelper = new IdentityHelper(modelRoot);
+         identityHelper.FixupIdentityAssociations();
 
          // this rule can be called as a spinoff of the superclass being deleted
          if (element.Superclass.IsDeleting)
@@ -36,6 +42,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (!subclass.IsDeleting && QuestionDisplay.Show($"Push {superclass.Name} attributes and associations down to {subclass.Name}?") == true)
             superclass.PushDown(subclass);
+
       }
    }
 }

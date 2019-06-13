@@ -23,7 +23,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing)
             return;
 
-         store.ModelRoot().TargetIdentityAssociations();
+         IdentityHelper identityHelper = new IdentityHelper(store.ModelRoot());
+         identityHelper.FixupIdentityAssociations();
 
          // add unidirectional
          //    source can't be dependent (connection builder handles this)

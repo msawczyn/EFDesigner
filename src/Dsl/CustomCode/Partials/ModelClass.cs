@@ -116,7 +116,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public bool IsIdentityClass()
       {
-         return ModelRoot.IdentityBaseClasses.Contains(Name);
+         return IdentityHelper.IdentityBaseClasses.Contains(Name);
       }
 
       #region Warning display

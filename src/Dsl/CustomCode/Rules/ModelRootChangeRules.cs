@@ -75,7 +75,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "IdentityKeyType":
                if (element.IsIdentityDbContext)
-                  element.SetIdentityKeyType((string)e.NewValue);
+               {
+                  IdentityHelper identityHelper = new IdentityHelper(store.ModelRoot());
+                  identityHelper.SetIdentityKeyType((string)e.NewValue);
+               }
 
                break;
             case "StructOutputDirectory":
