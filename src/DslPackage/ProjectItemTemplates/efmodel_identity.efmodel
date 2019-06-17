@@ -2,28 +2,28 @@
 <modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.3" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="$safeitemname$" namespace="$rootnamespace$" automaticMigrationsEnabled="false" isIdentityDbContext="true" transformOnSave="false" summary="Represents a class that uses the default entity types for ASP.NET Identity Users, Roles, Claims, Logins" xmlns="http://schemas.microsoft.com/dsltools/EFModel" baseClass="IdentityDbContext">
   <classes>
     <modelRootHasClasses Id="fc7ce70e-0539-4535-8a5c-2d0a352d3adb">
-      <modelClass Id="a8e05333-1d65-46bc-80aa-eed2c5f17d5a" tableName="IdentityRoles" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityRoles" name="IdentityRole" customInterfaces="Microsoft.AspNet.Identity.IRole`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" outputDirectory="" summary="Represents a role entity" isReadOnly="true">
+      <modelClass Id="a8e05333-1d65-46bc-80aa-eed2c5f17d5a" tableName="IdentityRoles" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityRoles" name="IdentityRole" customInterfaces="Microsoft.AspNet.Identity.IRole`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" outputDirectory="" summary="Represents a role entity">
         <unidirectionalTargets>
           <unidirectionalAssociation Id="61298771-aaf9-4af4-a7c2-9bc35d3cd67f" targetPropertyName="Users" collectionClass="HashSet" targetSummary="Gets the collection of users in the role" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
             <modelClassMoniker Id="1e2bcd08-b3fb-4f6c-a802-f3191da94a2d" />
           </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
-          <modelAttribute Id="88939342-82ff-4ddb-8b06-c6a772d0ae90" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the role id" name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="88939342-82ff-4ddb-8b06-c6a772d0ae90" maxLength="256" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the role id" name="Id" columnName="Id" columnType="default" />
           <modelAttribute Id="23c3e1eb-6447-428e-9e9d-a870a245339b" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the role name" name="Name" columnName="Name" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="e722d87b-1f59-4fdb-bd17-f2bfbb8af932">
-      <modelClass Id="1e2bcd08-b3fb-4f6c-a802-f3191da94a2d" tableName="IdentityUserRoles" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserRoles" name="IdentityUserRole" outputDirectory="" summary="Represents an EntityType user belonging to a role" isReadOnly="true">
+      <modelClass Id="1e2bcd08-b3fb-4f6c-a802-f3191da94a2d" tableName="IdentityUserRoles" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserRoles" name="IdentityUserRole" outputDirectory="" summary="Represents an EntityType user belonging to a role">
         <attributes>
-          <modelAttribute Id="09029e08-33a3-4650-bfcf-54e42385eb61" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the ID for the user that is in the role" name="UserId" columnName="UserId" columnType="default" />
-          <modelAttribute Id="16a4a941-0243-4b94-b3e0-c619424a16a2" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the Role ID for the role" name="RoleId" columnName="RoleId" columnType="default" />
+          <modelAttribute Id="09029e08-33a3-4650-bfcf-54e42385eb61" maxLength="256" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the ID for the user that is in the role" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="16a4a941-0243-4b94-b3e0-c619424a16a2" maxLength="256" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the Role ID for the role" name="RoleId" columnName="RoleId" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="430d36c2-1bb4-4e79-bedb-9339044ac16c">
-      <modelClass Id="d707e4cd-3736-4e26-a219-e825143c07ca" tableName="IdentityUsers" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUsers" name="IdentityUser" customInterfaces="Microsoft.AspNet.Identity.IUser`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],Microsoft.AspNet.Identity.IUser" outputDirectory="" summary="Default EntityFramework IUser implementation" isReadOnly="true">
+      <modelClass Id="d707e4cd-3736-4e26-a219-e825143c07ca" tableName="IdentityUsers" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUsers" name="IdentityUser" customInterfaces="Microsoft.AspNet.Identity.IUser`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],Microsoft.AspNet.Identity.IUser" outputDirectory="" summary="Default EntityFramework IUser implementation">
         <unidirectionalTargets>
           <unidirectionalAssociation Id="78b2375c-d6dc-467b-81c6-0d33dfb89818" targetPropertyName="Roles" collectionClass="HashSet" targetSummary="Gets the collection of roles for the user" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None">
             <modelClassMoniker Id="1e2bcd08-b3fb-4f6c-a802-f3191da94a2d" />
@@ -36,7 +36,7 @@
           </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
-          <modelAttribute Id="75f1003b-be33-441d-b128-b09ab2b5bd42" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user identifier" name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="75f1003b-be33-441d-b128-b09ab2b5bd42" maxLength="256" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user identifier" name="Id" columnName="Id" columnType="default" />
           <modelAttribute Id="3d494f73-adf8-4b35-878c-fb4049e665f4" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the email for the user" name="Email" columnName="Email" columnType="default" />
           <modelAttribute Id="b0597a46-defe-45fe-b964-f38498ee2449" type="Boolean" initialValue="false" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets a value that indicates whether the email is confirmed" name="EmailConfirmed" columnName="EmailConfirmed" columnType="default" />
           <modelAttribute Id="3cdfcd24-b359-497b-a1f6-3e68c3ad1f73" maxLength="1024" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the salted/hashed form of the user password" name="PasswordHash" columnName="PasswordHash" columnType="default" />
@@ -52,21 +52,21 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="da82e5a5-f7ba-47ea-8498-6fe79764fd2f">
-      <modelClass Id="6d525445-f8cf-486b-b840-b2da7e032f36" tableName="IdentityUserClaims" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserClaims" name="IdentityUserClaim" outputDirectory="" summary="Specifies an EntityType that represents one specific user claim" isReadOnly="true">
+      <modelClass Id="6d525445-f8cf-486b-b840-b2da7e032f36" tableName="IdentityUserClaims" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserClaims" name="IdentityUserClaim" outputDirectory="" summary="Specifies an EntityType that represents one specific user claim">
         <attributes>
-          <modelAttribute Id="ab9dc560-4155-4b93-8878-a5b7a786738b" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the primary key." name="Id" columnName="Id" columnType="default" />
-          <modelAttribute Id="32811a3a-a87c-41d0-b90b-622ce6a09a66" type="Int32" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="ab9dc560-4155-4b93-8878-a5b7a786738b" maxLength="256" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the primary key." name="Id" columnName="Id" columnType="default" />
+          <modelAttribute Id="32811a3a-a87c-41d0-b90b-622ce6a09a66" maxLength="256" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
           <modelAttribute Id="618da8a3-336a-4b2f-ae8d-195f65c10a24" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the claim type." name="ClaimType" columnName="ClaimType" columnType="default" />
           <modelAttribute Id="1dd7c93d-dea8-411e-a6ad-080f561a5eed" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the claim value" name="ClaimValue" columnName="ClaimValue" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="81552b45-b171-4070-ae97-97027b7133a4">
-      <modelClass Id="9ad72ef1-1f1f-4350-b320-f8d73a3d6a25" tableName="IdentityUserLogins" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserLogins" name="IdentityUserLogin" outputDirectory="" summary="Represents entity type for a user's login" isReadOnly="true">
+      <modelClass Id="9ad72ef1-1f1f-4350-b320-f8d73a3d6a25" tableName="IdentityUserLogins" databaseSchema="dbo" namespace="Microsoft.AspNet.Identity.EntityFramework" isNamespaceTracking="false" dbSetName="IdentityUserLogins" name="IdentityUserLogin" outputDirectory="" summary="Represents entity type for a user's login">
         <attributes>
           <modelAttribute Id="749fe04a-1174-4ad0-b979-275cc9d03e1a" isIdentity="true" required="true" maxLength="256" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the login provider for the login" name="LoginProvider" columnName="LoginProvider" columnType="default" />
           <modelAttribute Id="82ca3d61-fb66-4243-8d4d-827b9d89ee44" isIdentity="true" required="true" maxLength="1024" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the key representing the login for the provider" name="ProviderKey" columnName="ProviderKey" columnType="default" />
-          <modelAttribute Id="a5411226-6141-401f-929e-1a010b1820b8" type="Int32" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
+          <modelAttribute Id="a5411226-6141-401f-929e-1a010b1820b8" maxLength="256" isIdentity="true" required="true" indexed="false" indexedUnique="false" stringType="None" summary="Gets or sets the user ID for the user who owns this login" name="UserId" columnName="UserId" columnType="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>

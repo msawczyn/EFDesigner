@@ -108,8 +108,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public bool ShouldGenerateCode()
       {
-         // don't generate if we're doing Identity and this class is one of the identity base classes
-         return !ModelRoot.IsIdentityDbContext || !IsIdentityClass();
+         return IsPersistent && 
+                // don't generate if we're doing Identity and this class is one of the identity base classes
+                (!ModelRoot.IsIdentityDbContext || !IsIdentityClass());
 
          // add more checks here if anything pops up down the road
       }

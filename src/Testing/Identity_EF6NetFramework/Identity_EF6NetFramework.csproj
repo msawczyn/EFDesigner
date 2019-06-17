@@ -54,46 +54,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IdentityModel.cs">
+    <Compile Include="Custom\ApplicationIdentityRoleStore.cs" />
+    <Compile Include="Custom\ApplicationIdentityUserStore.cs" />
+    <Compile Include="EFModel1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IdentityModel.tt</DependentUpon>
+      <DependentUpon>EFModel1.tt</DependentUpon>
     </Compile>
-    <Compile Include="IdentityModel.generated.cs">
-      <DependentUpon>IdentityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IdentityModelDatabaseInitializer.generated.cs">
-      <DependentUpon>IdentityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IdentityModelDbMigrationConfiguration.generated.cs">
-      <DependentUpon>IdentityModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Generated\Context\ApplicationDbContext.generated.cs" />
+    <Compile Include="Generated\Context\ApplicationDbContextDatabaseInitializer.generated.cs" />
+    <Compile Include="Generated\Context\ApplicationDbContextDbMigrationConfiguration.generated.cs" />
+    <Compile Include="Generated\Entities\ApplicationRole.generated.cs" />
+    <Compile Include="Generated\Entities\ApplicationUser.generated.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserStore.generated.cs">
-      <DependentUpon>IdentityModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="IdentityModel.efmodel" />
-    <None Include="IdentityModel.efmodel.diagram">
-      <DependentUpon>IdentityModel.efmodel</DependentUpon>
+    <None Include="EF6Designer.ttinclude" />
+    <None Include="EFDesigner.ttinclude" />
+    <None Include="EFModel1.efmodel" />
+    <None Include="EFModel1.efmodel.diagram">
+      <DependentUpon>EFModel1.efmodel</DependentUpon>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="IdentityModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IdentityModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Generated\Context\" />
-    <Folder Include="Generated\Entities\" />
     <Folder Include="Generated\Enums\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EFModel1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFModel1.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
