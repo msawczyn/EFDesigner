@@ -15,7 +15,7 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 {
    // Entities
 
-   foreach (ModelClass modelClass in modelRoot.Classes.Where(c => !c.IsReadOnly && c.IsPersistent))
+   foreach (ModelClass modelClass in modelRoot.Classes.Where(c => c.ShouldGenerateCode()))
    {
       string dir = modelClass.IsDependentType ? modelRoot.StructOutputDirectory : modelRoot.EntityOutputDirectory;
       if (!string.IsNullOrEmpty(modelClass.OutputDirectory)) dir = modelClass.OutputDirectory;
@@ -47,12 +47,12 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
    WriteDbContextEF6(modelRoot);
 
    // Identity
-   if (modelRoot.IsIdentityDbContext)
-   {
-      string dir = modelRoot.EntityOutputDirectory;
-      manager.StartNewFile(Path.Combine(dir, $"UserStore.{modelRoot.FileNameMarker}.cs"));
-      WriteUserStoreEF6(modelRoot);
-   }
+   //if (modelRoot.IsIdentityDbContext)
+   //{
+      //string dir = modelRoot.EntityOutputDirectory;
+      //manager.StartNewFile(Path.Combine(dir, $"UserStore.{modelRoot.FileNameMarker}.cs"));
+      //WriteUserStoreEF6(modelRoot);
+   //}
 }
 
 void WriteUserStoreEF6(ModelRoot modelRoot)

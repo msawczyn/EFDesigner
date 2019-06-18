@@ -152,6 +152,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
+            // TODO: Not all EFCore identity classes have the same namespace
             return modelRoot.EntityFrameworkVersion == EFVersion.EF6
                       ? "Microsoft.AspNet.Identity.EntityFramework"
                       : "Microsoft.AspNetCore.Identity.EntityFrameworkCore";

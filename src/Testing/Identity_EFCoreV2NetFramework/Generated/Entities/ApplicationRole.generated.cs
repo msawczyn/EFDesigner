@@ -19,9 +19,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Identity_EF6NetFramework
+namespace Identity_EFCoreV2NetFramework
 {
-   public partial class ApplicationRole : Microsoft.AspNet.Identity.EntityFramework.IdentityRole<String, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<String>>
+   public partial class ApplicationRole : Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<String, Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<String>>
    {
       partial void Init();
 

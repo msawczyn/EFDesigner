@@ -19,9 +19,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Identity_EF6NetFramework
+namespace Identity_EFCoreV2NetFramework
 {
-   public partial class ApplicationUser : Microsoft.AspNet.Identity.EntityFramework.IdentityUser<String, Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<String>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<String>, Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<String>>
+   public partial class ApplicationUser : Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser<String, Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<String>, Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<String>, Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<String>>
    {
       partial void Init();
 

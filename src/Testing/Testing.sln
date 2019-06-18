@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{E2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity_EF6NetFramework", "Identity_EF6NetFramework\Identity_EF6NetFramework.csproj", "{0CA25B22-3442-4B27-9843-5D9A74819560}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity_EFCoreV2NetFramework", "Identity_EFCoreV2NetFramework\Identity_EFCoreV2NetFramework.csproj", "{3BA896BE-25A7-4A50-B9C8-60D3AF47E14C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{0CA25B22-3442-4B27-9843-5D9A74819560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CA25B22-3442-4B27-9843-5D9A74819560}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA25B22-3442-4B27-9843-5D9A74819560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BA896BE-25A7-4A50-B9C8-60D3AF47E14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BA896BE-25A7-4A50-B9C8-60D3AF47E14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BA896BE-25A7-4A50-B9C8-60D3AF47E14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BA896BE-25A7-4A50-B9C8-60D3AF47E14C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{B4A41735-E7A7-460C-80EC-EC8C87DB1D62} = {FA680FE6-5105-42DF-9F2D-AE96FAC16E77}
 		{0581B54F-378B-4D0B-9D10-01C73BDEB428} = {ECAF5926-A2D1-41A6-8C74-51081237E18B}
 		{0CA25B22-3442-4B27-9843-5D9A74819560} = {E24775E4-08E0-4055-BA1F-C7BCE8191815}
+		{3BA896BE-25A7-4A50-B9C8-60D3AF47E14C} = {E24775E4-08E0-4055-BA1F-C7BCE8191815}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1564741-D3E6-4EFB-B1A8-82190DB1A31C}

@@ -1,7 +1,7 @@
 ﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true"
-             hostSpecific="true" language="C#" compilerOptions="/langversion:latest"#>
-<#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" #>  
-<#@ assembly name="System.Data.Entity.Design.dll" 
+             hostSpecific="true" language="C#" compilerOptions="/langversion:latest"
+#><#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" 
+#><#@ assembly name="System.Data.Entity.Design.dll" 
 #><#@ assembly name="EnvDTE"
 #><#@ include file="MultipleOutputHelper.ttinclude" once="true"
 #><#@ include file="VSIntegration.ttinclude" once="true"
@@ -14,9 +14,8 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
 #><#@ import namespace="System.Globalization" 
 #><#@ import namespace="Sawczyn.EFDesigner.EFModel" 
-#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='EFModel1.efmodel'"  
-#>
-// This output should be empty. It's an unavoidable artifact of T4 templates
+#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='IdentityModel.efmodel'"  
+#>// This output should be empty. It's an unavoidable artifact of T4 templates
 <#
    Manager manager = Manager.Create(Host, GenerationEnvironment);
    manager.FileNameMarker = ModelRoot.FileNameMarker;

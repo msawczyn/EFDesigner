@@ -56,10 +56,10 @@
   <ItemGroup>
     <Compile Include="Custom\ApplicationIdentityRoleStore.cs" />
     <Compile Include="Custom\ApplicationIdentityUserStore.cs" />
-    <Compile Include="EFModel1.cs">
+    <Compile Include="IdentityModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EFModel1.tt</DependentUpon>
+      <DependentUpon>IdentityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generated\Context\ApplicationDbContext.generated.cs" />
     <Compile Include="Generated\Context\ApplicationDbContextDatabaseInitializer.generated.cs" />
@@ -73,9 +73,9 @@
     <None Include="App.config" />
     <None Include="EF6Designer.ttinclude" />
     <None Include="EFDesigner.ttinclude" />
-    <None Include="EFModel1.efmodel" />
-    <None Include="EFModel1.efmodel.diagram">
-      <DependentUpon>EFModel1.efmodel</DependentUpon>
+    <None Include="IdentityModel.efmodel" />
+    <None Include="IdentityModel.efmodel.diagram">
+      <DependentUpon>IdentityModel.efmodel</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -86,9 +86,9 @@
     <Folder Include="Generated\Enums\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EFModel1.tt">
+    <Content Include="IdentityModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EFModel1.cs</LastGenOutput>
+      <LastGenOutput>IdentityModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

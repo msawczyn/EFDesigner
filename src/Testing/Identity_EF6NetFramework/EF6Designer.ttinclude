@@ -47,47 +47,47 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
    WriteDbContextEF6(modelRoot);
 
    // Identity
-   if (modelRoot.IsIdentityDbContext)
-   {
-      string dir = modelRoot.EntityOutputDirectory;
+   //if (modelRoot.IsIdentityDbContext)
+   //{
+      //string dir = modelRoot.EntityOutputDirectory;
       //manager.StartNewFile(Path.Combine(dir, $"UserStore.{modelRoot.FileNameMarker}.cs"));
       //WriteUserStoreEF6(modelRoot);
-   }
+   //}
 }
 
-//void WriteUserStoreEF6(ModelRoot modelRoot)
-//{
-   //IdentityHelper identityHelper = new IdentityHelper(modelRoot);
-//
-   //string storeClassName= $"{identityHelper.IdentityActors["IdentityUser"]}Store";
-   //string userClassName = identityHelper.RealizedIdentityClassName("IdentityUser");
-   //string roleClassName = identityHelper.RealizedIdentityClassName("IdentityRole");
-   //string useerRoleClassName = identityHelper.RealizedIdentityClassName("IdentityUserRole");
-   //string loginClassName = identityHelper.RealizedIdentityClassName("IdentityUserLogin");
-   //string claimClassName = identityHelper.RealizedIdentityClassName("IdentityUserClaim");
-//
-   //Output("using System;");
-   //NL();
-   //BeginNamespace(modelRoot.Namespace);
-   //Output($"public partial class {storeClassName} : Microsoft.AspNet.Identity.EntityFramework.UserStore<{userClassName}, {roleClassName}, {modelRoot.IdentityKeyType}, {loginClassName}, {useerRoleClassName}, {claimClassName}>, Microsoft.AspNet.Identity.IUserStore<{userClassName}, {modelRoot.IdentityKeyType}>, IDisposable");
-   //Output("{");
-   //Output("partial void Init();");
-   //NL();
-//
-   //Output($"public {storeClassName}() : this(new {modelRoot.EntityContainerName}())");
-   //Output("{");
-   //Output("base.DisposeContext = true;");
-   //Output("}");
-   //NL();
-//
-   //Output($"public {storeClassName}(System.Data.Entity.DbContext context) : base(context)");
-   //Output("{");
-   //Output("Init();");
-   //Output("}");
-   //Output("}");
-   //EndNamespace(modelRoot.Namespace);
-   //NL();
-//}
+void WriteUserStoreEF6(ModelRoot modelRoot)
+{
+   IdentityHelper identityHelper = new IdentityHelper(modelRoot);
+
+   string storeClassName= $"{identityHelper.IdentityActors["IdentityUser"]}Store";
+   string userClassName = identityHelper.RealizedIdentityClassName("IdentityUser");
+   string roleClassName = identityHelper.RealizedIdentityClassName("IdentityRole");
+   string useerRoleClassName = identityHelper.RealizedIdentityClassName("IdentityUserRole");
+   string loginClassName = identityHelper.RealizedIdentityClassName("IdentityUserLogin");
+   string claimClassName = identityHelper.RealizedIdentityClassName("IdentityUserClaim");
+
+   Output("using System;");
+   NL();
+   BeginNamespace(modelRoot.Namespace);
+   Output($"public partial class {storeClassName} : Microsoft.AspNet.Identity.EntityFramework.UserStore<{userClassName}, {roleClassName}, {modelRoot.IdentityKeyType}, {loginClassName}, {useerRoleClassName}, {claimClassName}>, Microsoft.AspNet.Identity.IUserStore<{userClassName}, {modelRoot.IdentityKeyType}>, IDisposable");
+   Output("{");
+   Output("partial void Init();");
+   NL();
+
+   Output($"public {storeClassName}() : this(new {modelRoot.EntityContainerName}())");
+   Output("{");
+   Output("base.DisposeContext = true;");
+   Output("}");
+   NL();
+
+   Output($"public {storeClassName}(System.Data.Entity.DbContext context) : base(context)");
+   Output("{");
+   Output("Init();");
+   Output("}");
+   Output("}");
+   EndNamespace(modelRoot.Namespace);
+   NL();
+}
 
 List<string> GetAdditionalUsingStatementsEF6(ModelRoot modelRoot)
 {
