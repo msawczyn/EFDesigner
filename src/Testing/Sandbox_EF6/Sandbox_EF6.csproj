@@ -51,6 +51,10 @@
     <Compile Include="Generated\EFModelDbMigrationConfiguration.generated.cs" />
     <Compile Include="Generated\Role.generated.cs" />
     <Compile Include="Generated\User.generated.cs" />
+    <Compile Include="Migrations\201907051640101_Initial.cs" />
+    <Compile Include="Migrations\201907051640101_Initial.Designer.cs">
+      <DependentUpon>201907051640101_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\" />
-    <Folder Include="Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907051640101_Initial.resx">
+      <DependentUpon>201907051640101_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

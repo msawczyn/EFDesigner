@@ -127,6 +127,9 @@ namespace Sandbox_EF6
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Sandbox_EF6.User>()
+                     .Property(t => t.Property1)
+                     .IsRequired();
+         modelBuilder.Entity<global::Sandbox_EF6.User>()
                      .HasRequired(x => x.Role)
                      .WithMany(x => x.Users)
                      .Map(x => x.MapKey("Role_Id"));

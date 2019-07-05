@@ -41,24 +41,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom\EFModel.cs" />
+    <Compile Include="EFModel.cs">
+      <DependentUpon>EFModel.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Generated\EFModel.generated.cs" />
+    <Compile Include="Generated\Role.generated.cs" />
+    <Compile Include="Generated\Sandbox_EFCore.generated.cs" />
+    <Compile Include="Generated\Student.generated.cs" />
+    <Compile Include="Generated\StudentAddress.generated.cs" />
+    <Compile Include="Generated\User.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore">
-      <Version>2.2.1</Version>
+      <Version>2.2.4</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
-      <Version>2.2.1</Version>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions">
+      <Version>2.2.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory">
+      <Version>2.2.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational">
+      <Version>2.2.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>2.2.1</Version>
+      <Version>2.2.4</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EFCoreDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
@@ -68,9 +85,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Custom\" />
-    <Folder Include="Generated\" />
     <Folder Include="Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EFModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

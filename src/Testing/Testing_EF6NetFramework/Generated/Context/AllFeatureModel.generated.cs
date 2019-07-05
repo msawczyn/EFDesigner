@@ -138,7 +138,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(100);
 
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BinaryAttr).IsRequired();
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BooleanAttr).IsRequired();
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.ByteAttr).IsRequired();

@@ -30,15 +30,19 @@ namespace Sandbox_EF6
       /// </summary>
       protected User()
       {
+         Property1 = 0;
+
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
+      /// <param name="property1"></param>
       /// <param name="role"></param>
-      public User(global::Sandbox_EF6.Role role)
+      public User(global::Sandbox_EF6.Role role, short property1 = 0)
       {
+         this.Property1 = property1;
          if (role == null) throw new ArgumentNullException(nameof(role));
          this.Role = role;
 
@@ -48,10 +52,11 @@ namespace Sandbox_EF6
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
+      /// <param name="property1"></param>
       /// <param name="role"></param>
-      public static User Create(global::Sandbox_EF6.Role role)
+      public static User Create(global::Sandbox_EF6.Role role, short property1 = 0)
       {
-         return new User(role);
+         return new User(role, property1);
       }
 
       /*************************************************************************
@@ -64,6 +69,12 @@ namespace Sandbox_EF6
       [Key]
       [Required]
       public long Id { get; set; }
+
+      /// <summary>
+      /// Required, Default value = 0
+      /// </summary>
+      [Required]
+      public short Property1 { get; set; }
 
       /*************************************************************************
        * Persistent navigation properties
