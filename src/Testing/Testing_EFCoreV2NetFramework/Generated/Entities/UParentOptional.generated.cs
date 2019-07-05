@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public partial class UParentOptional : global::Testing.HiddenEntity
+   public partial class UParentOptional: global::Testing.HiddenEntity
    {
       partial void Init();
 

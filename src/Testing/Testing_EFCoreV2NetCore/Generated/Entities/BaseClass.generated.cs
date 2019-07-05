@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public partial class BaseClass : global::Testing.BaseClassWithRequiredProperties
+   public partial class BaseClass: global::Testing.BaseClassWithRequiredProperties
    {
       partial void Init();
 

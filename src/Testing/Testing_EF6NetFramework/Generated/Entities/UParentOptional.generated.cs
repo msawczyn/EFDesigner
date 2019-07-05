@@ -22,7 +22,7 @@ namespace Testing
    /// <summary>
    /// x
    /// </summary>
-   public partial class UParentOptional : global::Testing.HiddenEntity, INotifyPropertyChanged
+   public partial class UParentOptional: global::Testing.HiddenEntity, INotifyPropertyChanged
    {
       partial void Init();
 

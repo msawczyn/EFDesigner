@@ -24,35 +24,13 @@ namespace Testing
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// Default constructor
       /// </summary>
-      protected UParentRequired()
+      public UParentRequired()
       {
          UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
 
          Init();
-      }
-
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="uchildrequired"></param>
-      public UParentRequired(global::Testing.UChild uchildrequired)
-      {
-         if (uchildrequired == null) throw new ArgumentNullException(nameof(uchildrequired));
-         this.UChildRequired = uchildrequired;
-
-         this.UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
-         Init();
-      }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="uchildrequired"></param>
-      public static UParentRequired Create(global::Testing.UChild uchildrequired)
-      {
-         return new UParentRequired(uchildrequired);
       }
 
       /*************************************************************************

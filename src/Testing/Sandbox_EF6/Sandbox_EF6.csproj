@@ -46,6 +46,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Generated\EFModel.generated.cs" />
+    <Compile Include="Generated\EFModelDatabaseInitializer.generated.cs" />
+    <Compile Include="Generated\EFModelDbMigrationConfiguration.generated.cs" />
+    <Compile Include="Generated\Role.generated.cs" />
+    <Compile Include="Generated\User.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\" />
-    <Folder Include="Generated\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

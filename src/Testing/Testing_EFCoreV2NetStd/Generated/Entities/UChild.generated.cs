@@ -27,19 +27,21 @@ namespace Testing
       /// </summary>
       protected UChild()
       {
+         // NOTE: This class has one-to-one associations with UChild.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_uparentrequired0"></param>
       /// <param name="_uparentrequired1"></param>
       /// <param name="_uparentrequired2"></param>
-      public UChild(global::Testing.UParentRequired _uparentrequired0, global::Testing.UParentRequired _uparentrequired1, global::Testing.UParentRequired _uparentrequired2)
+      public UChild(global::Testing.UParentRequired _uparentrequired1, global::Testing.UParentRequired _uparentrequired2)
       {
-         if (_uparentrequired0 == null) throw new ArgumentNullException(nameof(_uparentrequired0));
-         _uparentrequired0.UChildRequired = this;
+         // NOTE: This class has one-to-one associations with UChild.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
 
          if (_uparentrequired1 == null) throw new ArgumentNullException(nameof(_uparentrequired1));
          _uparentrequired1.UChildCollection.Add(this);
@@ -53,12 +55,11 @@ namespace Testing
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_uparentrequired0"></param>
       /// <param name="_uparentrequired1"></param>
       /// <param name="_uparentrequired2"></param>
-      public static UChild Create(global::Testing.UParentRequired _uparentrequired0, global::Testing.UParentRequired _uparentrequired1, global::Testing.UParentRequired _uparentrequired2)
+      public static UChild Create(global::Testing.UParentRequired _uparentrequired1, global::Testing.UParentRequired _uparentrequired2)
       {
-         return new UChild(_uparentrequired0, _uparentrequired1, _uparentrequired2);
+         return new UChild(_uparentrequired1, _uparentrequired2);
       }
 
       /*************************************************************************

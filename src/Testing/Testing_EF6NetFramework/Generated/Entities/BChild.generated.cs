@@ -28,6 +28,9 @@ namespace Testing
       /// </summary>
       protected BChild()
       {
+         // NOTE: This class has one-to-one associations with BChild.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
          BParentCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          BParentCollection_1 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          BParentCollection_2 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
@@ -39,15 +42,14 @@ namespace Testing
       /// Public constructor with required data
       /// </summary>
       /// <param name="bparentrequired"></param>
-      /// <param name="bparentrequired_1"></param>
       /// <param name="bparentrequired_2"></param>
-      public BChild(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_1, global::Testing.BParentRequired bparentrequired_2)
+      public BChild(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_2)
       {
+         // NOTE: This class has one-to-one associations with BChild.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
          if (bparentrequired == null) throw new ArgumentNullException(nameof(bparentrequired));
          this.BParentRequired = bparentrequired;
-
-         if (bparentrequired_1 == null) throw new ArgumentNullException(nameof(bparentrequired_1));
-         this.BParentRequired_1 = bparentrequired_1;
 
          if (bparentrequired_2 == null) throw new ArgumentNullException(nameof(bparentrequired_2));
          this.BParentRequired_2 = bparentrequired_2;
@@ -62,11 +64,10 @@ namespace Testing
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
       /// <param name="bparentrequired"></param>
-      /// <param name="bparentrequired_1"></param>
       /// <param name="bparentrequired_2"></param>
-      public static BChild Create(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_1, global::Testing.BParentRequired bparentrequired_2)
+      public static BChild Create(global::Testing.BParentRequired bparentrequired, global::Testing.BParentRequired bparentrequired_2)
       {
-         return new BChild(bparentrequired, bparentrequired_1, bparentrequired_2);
+         return new BChild(bparentrequired, bparentrequired_2);
       }
 
       /*************************************************************************

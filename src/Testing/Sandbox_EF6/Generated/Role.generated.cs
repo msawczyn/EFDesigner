@@ -4,6 +4,9 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor
+//     https://github.com/msawczyn/EFDesigner
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -16,17 +19,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Testing
+namespace Sandbox_EF6
 {
-   public partial class RenamedColumn
+   public partial class Role
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public RenamedColumn()
+      public Role()
       {
+         Users = new System.Collections.Generic.HashSet<global::Sandbox_EF6.User>();
+
          Init();
       }
 
@@ -39,7 +44,16 @@ namespace Testing
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; private set; }
+      public long Id { get; set; }
+
+      /*************************************************************************
+       * Persistent navigation properties
+       *************************************************************************/
+
+      /// <summary>
+      /// Users
+      /// </summary>
+      public virtual ICollection<global::Sandbox_EF6.User> Users { get; private set; }
 
    }
 }

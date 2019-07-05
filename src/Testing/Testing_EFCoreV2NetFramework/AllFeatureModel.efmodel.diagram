@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<eFModelDiagram dslVersion="1.2.7.2" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 16.875, 18.625" name="AllFeatureModel">
+<eFModelDiagram dslVersion="1.3.0.4" Id="4a8ea36d-7b60-4e37-9a73-c17d1055881f" absoluteBounds="0, 0, 16.875, 18.625" name="AllFeatureModel">
   <modelRootMoniker Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" />
   <nestedChildShapes>
     <classShape Id="fa034a29-e70c-4f1e-b155-031e8800474b" absoluteBounds="12.75, 0.75, 3.875, 4.0626904296875" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
@@ -248,7 +248,7 @@
         <elementListCompartment Id="69c3c987-e391-405c-87ca-81174661e68c" absoluteBounds="9.015, 2.8383821614583331, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="4aa27c04-9e6a-495d-9b96-752d7db7c199" edgePoints="[(9.75 : 3.18777180989583); (9.75 : 3.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="4aa27c04-9e6a-495d-9b96-752d7db7c199" edgePoints="[(9.75 : 3.18777180989583); (9.75 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="44269a1e-892e-497f-bd78-4fc9fb139ead" />
       <nodes>
         <classShapeMoniker Id="9885f002-9f44-4b19-a3cd-2e7cd69a80a2" />
@@ -357,22 +357,22 @@
         <classShapeMoniker Id="648e2c28-d9c4-40a5-8aee-59afddb6d840" />
       </nodes>
     </unidirectionalConnector>
-    <generalizationConnector Id="f2095ea0-bd61-4385-a283-ca2bf7ba6da8" edgePoints="[(7.875 : 10.3031689453125); (7.875 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="411159ed-26f9-4c9c-9840-8b6091cdbe15" />
+    <generalizationConnector Id="95a2d112-324c-4a38-a9c7-b6b7997cbee0" edgePoints="[(7.875 : 10.3031689453125); (7.875 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="badbfb7f-91e9-4a24-a0cf-80b11f0b2d14" />
       <nodes>
         <classShapeMoniker Id="91ebab80-108f-4198-b2bb-a43ff000ad35" />
         <classShapeMoniker Id="10aae75a-82e2-4296-9d9f-faa440770436" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="b88ce49e-7557-49a7-b2ee-8240106fda97" edgePoints="[(10.5625 : 10.3031689453125); (10.5625 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="5933cc46-3547-417e-961c-9511abb4f038" />
+    <generalizationConnector Id="e9994377-6a0a-4d97-a6b2-3468a7f7106f" edgePoints="[(10.5625 : 10.3031689453125); (10.5625 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="86ad4216-bbdd-48b8-8162-83d73d27f8ac" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="d113c04f-14ad-44b9-9bb4-553107db92df" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="f7b02ca7-7e2a-4aa8-8877-719122daf310" edgePoints="[(11.9375 : 10.3031689453125); (11.9375 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <generalizationMoniker Id="7e46fee8-ee77-450d-85fd-69bc962465c8" />
+    <generalizationConnector Id="4277e740-f737-4e6a-b1ac-b0be1337e77e" edgePoints="[(11.9375 : 10.3031689453125); (11.9375 : 11)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <generalizationMoniker Id="e73a3b25-f973-4036-b834-e2eb982f56df" />
       <nodes>
         <classShapeMoniker Id="d3bf4d3b-87d9-44ac-adb0-74d613cff577" />
         <classShapeMoniker Id="279ef3e6-87a3-4739-b2a1-79058c189d98" />

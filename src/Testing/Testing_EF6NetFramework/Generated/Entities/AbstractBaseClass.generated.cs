@@ -19,7 +19,7 @@ using System.Data.Entity.Spatial;
 
 namespace Testing
 {
-   public abstract partial class AbstractBaseClass : global::Testing.BaseClassWithRequiredProperties
+   public abstract partial class AbstractBaseClass: global::Testing.BaseClassWithRequiredProperties
    {
       partial void Init();
 

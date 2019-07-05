@@ -19,7 +19,7 @@ using System.Data.Entity.Spatial;
 
 namespace Testing
 {
-   public partial class DerivedClass : global::Testing.BaseClass
+   public partial class DerivedClass: global::Testing.BaseClass
    {
       partial void Init();
 

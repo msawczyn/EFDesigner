@@ -41,6 +41,8 @@ namespace Testing
       [Required]
       public int Id { get; private set; }
 
+      public string Property1 { get; set; }
+
    }
 }
 
