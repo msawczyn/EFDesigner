@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.3.0.3
+// EFDesigner v1.3.0.4
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -299,7 +299,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             Output(string.Join(".", segments) + ";");
       }
 
-	  // indexed properties
+     // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
          segments.Clear();
@@ -312,7 +312,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             OutputChopped(segments);
          else
             Output(string.Join(".", segments) + ";");
-	  }
+     }
 
       // attribute level
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
@@ -579,13 +579,13 @@ string CreateForeignKeyColumnSegmentEFCore(Association association, List<string>
    if (association.SourceRole == EndpointRole.Dependent)
    {
       nameBase = association.TargetPropertyName; 
-	   dependentType = association.Source.FullName; 
+      dependentType = association.Source.FullName; 
       principalType = association.Target.FullName;
    }
    else if (association.TargetRole == EndpointRole.Dependent)
    {
       nameBase = association is BidirectionalAssociation b ? b.SourcePropertyName :  $"{association.Source.Name}.{association.TargetPropertyName}";
-	   dependentType = association.Target.FullName;
+      dependentType = association.Target.FullName;
       principalType = association.Source.FullName;
    }
    else

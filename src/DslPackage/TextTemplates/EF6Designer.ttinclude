@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.3.0.3
+// EFDesigner v1.3.0.4
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -439,10 +439,10 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             Output(string.Join(".", segments) + ";");
       }
       
-	  // indexed properties
+     // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
-	       segments.Clear();
+          segments.Clear();
          string attributeName = !indexed.AutoProperty ? $"_{indexed.Name}" : indexed.Name;
          segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{attributeName})");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
@@ -453,7 +453,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             else
                Output(string.Join(".", segments) + ";");
          }
-	  }
+     }
 
       // attribute level
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
