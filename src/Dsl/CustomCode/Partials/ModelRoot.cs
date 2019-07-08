@@ -27,6 +27,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Action ExecuteValidator { get; set; }
 
+      public static string DSLVersion { get; set; }
+
       static ModelRoot()
       {
          try

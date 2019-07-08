@@ -34,6 +34,8 @@ namespace Sawczyn.EFDesigner.EFModel
          string dslVersionStr = reader.GetAttribute("dslVersion");
          if (dslVersionStr != null)
          {
+            ModelRoot.DSLVersion = dslVersionStr;
+
             try
             {
                Version actualVersion = new Version(dslVersionStr);
