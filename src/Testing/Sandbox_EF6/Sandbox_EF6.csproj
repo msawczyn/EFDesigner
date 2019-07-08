@@ -51,9 +51,9 @@
     <Compile Include="Generated\EFModelDbMigrationConfiguration.generated.cs" />
     <Compile Include="Generated\PressRelease.generated.cs" />
     <Compile Include="Generated\PressReleaseDetail.generated.cs" />
-    <Compile Include="Migrations\201907071050494_Initial.cs" />
-    <Compile Include="Migrations\201907071050494_Initial.Designer.cs">
-      <DependentUpon>201907071050494_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201907081331255_Initial.cs" />
+    <Compile Include="Migrations\201907081331255_Initial.Designer.cs">
+      <DependentUpon>201907081331255_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,8 +84,8 @@
     <Folder Include="Custom\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907071050494_Initial.resx">
-      <DependentUpon>201907071050494_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907081331255_Initial.resx">
+      <DependentUpon>201907081331255_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

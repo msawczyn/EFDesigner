@@ -435,10 +435,10 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (required)
             segments.Add("IsRequired()");
 
-         if ((association.TargetDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal) ||
-             (association.SourceDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal))
+         if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) ||
+             (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
          {
-            DeleteAction deleteAction = (association.SourceRole == EndpointRole.Principal) 
+            DeleteAction deleteAction = (association.SourceRole == EndpointRole.Dependent) 
                                           ? association.TargetDeleteAction 
                                           : association.SourceDeleteAction;
             switch (deleteAction)

@@ -134,7 +134,7 @@ namespace Testing
 
 
          modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
          modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasMaxLength(100);
 
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
@@ -196,7 +196,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.Master>().HasMany(x => x.Children).WithRequired().Map(x => x.MapKey("Master.Children_Id"));
 
          modelBuilder.Entity<global::Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
          modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.foo).IsRequired();
          modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name7).HasMaxLength(6);
          modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name8).HasMaxLength(6);
@@ -211,7 +211,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.RenamedColumn>().Property(t => t.Id).IsRequired().HasColumnName("Foo").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<global::Testing.SpatialProperties>().ToTable("SpatialProperties").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
          modelBuilder.Entity<global::Testing.UChild>().ToTable("UChilds").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.UChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

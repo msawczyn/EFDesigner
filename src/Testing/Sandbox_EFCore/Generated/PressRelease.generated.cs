@@ -19,18 +19,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EF6
+namespace Sandbox_EFCore
 {
-   public partial class PressReleaseDetail
+   public partial class PressRelease
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected PressReleaseDetail()
+      protected PressRelease()
       {
-         PressReleases = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressRelease>();
+         PressReleaseDetails = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
+         PressReleaseDetailHistory = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
 
          Init();
       }
@@ -38,28 +39,24 @@ namespace Sandbox_EF6
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="pressrelease"></param>
-      /// <param name="_pressrelease0"></param>
-      public PressReleaseDetail(global::Sandbox_EF6.PressRelease pressrelease, global::Sandbox_EF6.PressRelease _pressrelease0)
+      /// <param name="_pressreleasedetail0"></param>
+      public PressRelease(global::Sandbox_EFCore.PressReleaseDetail _pressreleasedetail0)
       {
-         if (pressrelease == null) throw new ArgumentNullException(nameof(pressrelease));
-         this.PressRelease = pressrelease;
+         if (_pressreleasedetail0 == null) throw new ArgumentNullException(nameof(_pressreleasedetail0));
+         _pressreleasedetail0.PressReleases.Add(this);
 
-         if (_pressrelease0 == null) throw new ArgumentNullException(nameof(_pressrelease0));
-         _pressrelease0.PressReleaseDetails.Add(this);
-
-         this.PressReleases = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressRelease>();
+         this.PressReleaseDetails = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
+         this.PressReleaseDetailHistory = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="pressrelease"></param>
-      /// <param name="_pressrelease0"></param>
-      public static PressReleaseDetail Create(global::Sandbox_EF6.PressRelease pressrelease, global::Sandbox_EF6.PressRelease _pressrelease0)
+      /// <param name="_pressreleasedetail0"></param>
+      public static PressRelease Create(global::Sandbox_EFCore.PressReleaseDetail _pressreleasedetail0)
       {
-         return new PressReleaseDetail(pressrelease, _pressrelease0);
+         return new PressRelease(_pressreleasedetail0);
       }
 
       /*************************************************************************
@@ -71,18 +68,15 @@ namespace Sandbox_EF6
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Sandbox_EF6.PressRelease> PressReleases { get; private set; }
+      public virtual ICollection<global::Sandbox_EFCore.PressReleaseDetail> PressReleaseDetails { get; private set; }
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Sandbox_EF6.PressRelease PressRelease { get; set; }
+      public virtual ICollection<global::Sandbox_EFCore.PressReleaseDetail> PressReleaseDetailHistory { get; private set; }
 
    }
 }

@@ -19,7 +19,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EF6
+namespace Sandbox_EFCore
 {
    public partial class PressReleaseDetail
    {
@@ -30,7 +30,7 @@ namespace Sandbox_EF6
       /// </summary>
       protected PressReleaseDetail()
       {
-         PressReleases = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressRelease>();
+         PressReleases = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressRelease>();
 
          Init();
       }
@@ -40,7 +40,7 @@ namespace Sandbox_EF6
       /// </summary>
       /// <param name="pressrelease"></param>
       /// <param name="_pressrelease0"></param>
-      public PressReleaseDetail(global::Sandbox_EF6.PressRelease pressrelease, global::Sandbox_EF6.PressRelease _pressrelease0)
+      public PressReleaseDetail(global::Sandbox_EFCore.PressRelease pressrelease, global::Sandbox_EFCore.PressRelease _pressrelease0)
       {
          if (pressrelease == null) throw new ArgumentNullException(nameof(pressrelease));
          this.PressRelease = pressrelease;
@@ -48,7 +48,7 @@ namespace Sandbox_EF6
          if (_pressrelease0 == null) throw new ArgumentNullException(nameof(_pressrelease0));
          _pressrelease0.PressReleaseDetails.Add(this);
 
-         this.PressReleases = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressRelease>();
+         this.PressReleases = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressRelease>();
          Init();
       }
 
@@ -57,7 +57,7 @@ namespace Sandbox_EF6
       /// </summary>
       /// <param name="pressrelease"></param>
       /// <param name="_pressrelease0"></param>
-      public static PressReleaseDetail Create(global::Sandbox_EF6.PressRelease pressrelease, global::Sandbox_EF6.PressRelease _pressrelease0)
+      public static PressReleaseDetail Create(global::Sandbox_EFCore.PressRelease pressrelease, global::Sandbox_EFCore.PressRelease _pressrelease0)
       {
          return new PressReleaseDetail(pressrelease, _pressrelease0);
       }
@@ -71,18 +71,18 @@ namespace Sandbox_EF6
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; set; }
+      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Sandbox_EF6.PressRelease> PressReleases { get; private set; }
+      public virtual ICollection<global::Sandbox_EFCore.PressRelease> PressReleases { get; private set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Sandbox_EF6.PressRelease PressRelease { get; set; }
+      public virtual global::Sandbox_EFCore.PressRelease PressRelease { get; set; }
 
    }
 }

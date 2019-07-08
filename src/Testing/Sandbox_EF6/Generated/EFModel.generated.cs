@@ -121,7 +121,8 @@ namespace Sandbox_EF6
          modelBuilder.Entity<global::Sandbox_EF6.PressRelease>()
                      .HasMany(x => x.PressReleaseDetails)
                      .WithRequired()
-                     .Map(x => x.MapKey("PressRelease.PressReleaseDetails_Id"));
+                     .Map(x => x.MapKey("PressRelease.PressReleaseDetails_Id"))
+                     .WillCascadeOnDelete(false);
 
          modelBuilder.Entity<global::Sandbox_EF6.PressReleaseDetail>()
                      .ToTable("PressReleaseDetails")
@@ -131,9 +132,15 @@ namespace Sandbox_EF6
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Sandbox_EF6.PressReleaseDetail>()
+                     .HasMany(x => x.PressReleases)
+                     .WithRequired()
+                     .Map(x => x.MapKey("PressReleaseDetail.PressReleases_Id"))
+                     .WillCascadeOnDelete(false);
+         modelBuilder.Entity<global::Sandbox_EF6.PressReleaseDetail>()
                      .HasRequired(x => x.PressRelease)
                      .WithMany(x => x.PressReleaseDetailHistory)
-                     .Map(x => x.MapKey("PressRelease_Id"));
+                     .Map(x => x.MapKey("PressRelease_Id"))
+                     .WillCascadeOnDelete(false);
 
          OnModelCreatedImpl(modelBuilder);
       }

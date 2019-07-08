@@ -588,7 +588,8 @@ void WriteDbContextEF6(ModelRoot modelRoot)
 
             // Certain associations cascade delete automatically. Also, the user may ask for it.
             // We only generate a cascade delete call if the user asks for it. 
-            if (association.TargetDeleteAction != DeleteAction.Default)
+            if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) ||
+                (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
             {
                string willCascadeOnDelete = (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
                segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");

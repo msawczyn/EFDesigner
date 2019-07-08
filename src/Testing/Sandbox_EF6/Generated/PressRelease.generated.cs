@@ -26,14 +26,37 @@ namespace Sandbox_EF6
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public PressRelease()
+      protected PressRelease()
       {
          PressReleaseDetails = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressReleaseDetail>();
          PressReleaseDetailHistory = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressReleaseDetail>();
 
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_pressreleasedetail0"></param>
+      public PressRelease(global::Sandbox_EF6.PressReleaseDetail _pressreleasedetail0)
+      {
+         if (_pressreleasedetail0 == null) throw new ArgumentNullException(nameof(_pressreleasedetail0));
+         _pressreleasedetail0.PressReleases.Add(this);
+
+         this.PressReleaseDetails = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressReleaseDetail>();
+         this.PressReleaseDetailHistory = new System.Collections.Generic.HashSet<global::Sandbox_EF6.PressReleaseDetail>();
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_pressreleasedetail0"></param>
+      public static PressRelease Create(global::Sandbox_EF6.PressReleaseDetail _pressreleasedetail0)
+      {
+         return new PressRelease(_pressreleasedetail0);
       }
 
       /*************************************************************************
