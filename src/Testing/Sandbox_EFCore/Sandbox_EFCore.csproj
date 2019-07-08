@@ -47,12 +47,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Generated\EFModel.generated.cs" />
-    <Compile Include="Generated\Role.generated.cs" />
-    <Compile Include="Generated\Sandbox_EFCore.generated.cs" />
-    <Compile Include="Generated\Student.generated.cs" />
-    <Compile Include="Generated\StudentAddress.generated.cs" />
-    <Compile Include="Generated\User.generated.cs" />
+    <Compile Include="Migrations\20190707104341_Initial.cs" />
+    <Compile Include="Migrations\20190707104341_Initial.designer.cs">
+      <DependentUpon>20190707104341_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\EFModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +65,9 @@
       <Version>2.2.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational">
+      <Version>2.2.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
       <Version>2.2.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
@@ -85,7 +87,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="Generated\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EFModel.tt">

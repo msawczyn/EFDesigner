@@ -10,9 +10,11 @@ namespace Sandbox_EFCore
 {
    partial class EFModel
    {
+      public EFModel() { }
+
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
       {
-         optionsBuilder.UseInMemoryDatabase();
+         optionsBuilder.UseSqlServer(EFModel.ConnectionString);
       }
    }
 }

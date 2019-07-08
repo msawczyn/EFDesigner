@@ -23,8 +23,8 @@ namespace Sandbox_EF6
    public partial class EFModel : System.Data.Entity.DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.Role> Roles { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.User> Users { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.PressRelease> PressReleases { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.PressReleaseDetail> PressReleaseDetails { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -111,28 +111,29 @@ namespace Sandbox_EF6
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Sandbox_EF6.Role>()
-                     .ToTable("Roles")
+         modelBuilder.Entity<global::Sandbox_EF6.PressRelease>()
+                     .ToTable("PressReleases")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EF6.Role>()
+         modelBuilder.Entity<global::Sandbox_EF6.PressRelease>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Sandbox_EF6.PressRelease>()
+                     .HasMany(x => x.PressReleaseDetails)
+                     .WithRequired()
+                     .Map(x => x.MapKey("PressRelease.PressReleaseDetails_Id"));
 
-         modelBuilder.Entity<global::Sandbox_EF6.User>()
-                     .ToTable("Users")
+         modelBuilder.Entity<global::Sandbox_EF6.PressReleaseDetail>()
+                     .ToTable("PressReleaseDetails")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EF6.User>()
+         modelBuilder.Entity<global::Sandbox_EF6.PressReleaseDetail>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Sandbox_EF6.User>()
-                     .Property(t => t.Property1)
-                     .IsRequired();
-         modelBuilder.Entity<global::Sandbox_EF6.User>()
-                     .HasRequired(x => x.Role)
-                     .WithMany(x => x.Users)
-                     .Map(x => x.MapKey("Role_Id"));
+         modelBuilder.Entity<global::Sandbox_EF6.PressReleaseDetail>()
+                     .HasRequired(x => x.PressRelease)
+                     .WithMany(x => x.PressReleaseDetailHistory)
+                     .Map(x => x.MapKey("PressRelease_Id"));
 
          OnModelCreatedImpl(modelBuilder);
       }
