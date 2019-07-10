@@ -435,12 +435,11 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (required)
             segments.Add("IsRequired()");
 
-         if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) ||
-             (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
+         if (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal)
          {
-            DeleteAction deleteAction = (association.SourceRole == EndpointRole.Dependent) 
-                                          ? association.TargetDeleteAction 
-                                          : association.SourceDeleteAction;
+            DeleteAction deleteAction = (association.SourceRole == EndpointRole.Principal) 
+                                          ? association.SourceDeleteAction 
+                                          : association.TargetDeleteAction;
             switch (deleteAction)
             {
                case DeleteAction.None:
@@ -527,17 +526,17 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                                                                         foreignKeyColumns, 
                                                                         association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany 
                                                                      && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany);
-         if (foreignKeySegment != null) segments.Add(foreignKeySegment);
+         if (foreignKeySegment != null) 
+            segments.Add(foreignKeySegment);
 
          if (required)
             segments.Add("IsRequired()");
 
-         if ((association.TargetDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal) ||
-             (association.SourceDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal))
+         if (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal)
          {
             DeleteAction deleteAction = (association.SourceRole == EndpointRole.Principal) 
-                                          ? association.TargetDeleteAction 
-                                          : association.SourceDeleteAction;
+                                          ? association.SourceDeleteAction 
+                                          : association.TargetDeleteAction;
             switch (deleteAction)
             {
                case DeleteAction.None:

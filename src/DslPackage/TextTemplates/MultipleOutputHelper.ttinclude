@@ -207,10 +207,10 @@ class Manager
          string relativeFilePath = fileDirectory.Substring(projectDirectory.Length + 1);
          Queue<string> pathParts = new Queue<string>(relativeFilePath.Split('\\'));
          ProjectItems currentItemList = templateProjectItem.ContainingProject.ProjectItems;
-         bool found = false;
 
          while (pathParts.Any())
          {
+            bool found = false;
             string pathPart = pathParts.Dequeue();
 
             for (int index = 1; index <= currentItemList.Count; ++index)

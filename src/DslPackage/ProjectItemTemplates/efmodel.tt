@@ -33,6 +33,7 @@
       Output("//     Source:                    https://github.com/msawczyn/EFDesigner");
       Output("//     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner");
       Output("//     Documentation:             https://msawczyn.github.io/EFDesigner/");
+      Output("//     License (MIT):             https://github.com/msawczyn/EFDesigner/blob/master/LICENSE");
       Output("// </auto-generated>");
       Output("//------------------------------------------------------------------------------");
       NL();
