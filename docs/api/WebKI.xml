@@ -192,6 +192,7 @@
   <HelpKINode Title="DisplayVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetDisplay_DisplayVersion.htm" />
   <HelpKINode Title="DropCreateDatabaseAlways enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseInitializerKind.htm" />
   <HelpKINode Title="DropCreateDatabaseIfModelChanges enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseInitializerKind.htm" />
+  <HelpKINode Title="DSLVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DSLVersion.htm" />
   <HelpKINode Title="EF6 enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EFVersion.htm" />
   <HelpKINode Title="EFCore enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EFVersion.htm" />
   <HelpKINode Title="EffectiveConcurrency property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveConcurrency.htm" />
@@ -499,6 +500,7 @@
   <HelpKINode Title="ModelRoot.DefaultCollectionClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DefaultCollectionClass.htm" />
   <HelpKINode Title="ModelRoot.DefaultIdentityType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DefaultIdentityType.htm" />
   <HelpKINode Title="ModelRoot.Description property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Description.htm" />
+  <HelpKINode Title="ModelRoot.DSLVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DSLVersion.htm" />
   <HelpKINode Title="ModelRoot.EntityContainerAccess property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityContainerAccess.htm" />
   <HelpKINode Title="ModelRoot.EntityContainerName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityContainerName.htm" />
   <HelpKINode Title="ModelRoot.EntityFrameworkPackageVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityFrameworkPackageVersion.htm" />
