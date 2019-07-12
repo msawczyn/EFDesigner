@@ -31,7 +31,7 @@ opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK a
 
 If this is important to you, you can follow it at [developercommunity.visualstudio.com](https://developercommunity.visualstudio.com/content/problem/539313/microsoftvisualstudioprojectsystemvsimplementation.html).
 
-**Note:** We've [gotten confirmation](https://github.com/msawczyn/EFDesigner/issues/66#issuecomment-506878246) that the problem has been fixed in VS 2019 V16.2 Preview 3.
+**Note:** We've [gotten confirmation](https://github.com/msawczyn/EFDesigner/issues/66#issuecomment-506878246) that the problem has been fixed in [VS 2019 V16.2 Preview 3](https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes-preview#16.2.0-pre.3.0).
 
 **ChangeLog**
 
