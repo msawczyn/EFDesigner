@@ -54,6 +54,8 @@ to point to its location in the other project and it will use that as its source
 
 If this is important to you, you can follow it at [developercommunity.visualstudio.com](https://developercommunity.visualstudio.com/content/problem/539313/microsoftvisualstudioprojectsystemvsimplementation.html).
 
+Note: We've [gotten confirmation](https://github.com/msawczyn/EFDesigner/issues/66#issuecomment-506878246) that the problem has been fixed in VS 2019 V16.2 Preview 3.
+
 ### Change Log
 
 **1.3.0.4**
