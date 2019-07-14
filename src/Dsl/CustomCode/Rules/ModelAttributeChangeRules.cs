@@ -259,6 +259,10 @@ namespace Sawczyn.EFDesigner.EFModel
             case "InitialValue":
                string newInitialValue = (string)e.NewValue;
 
+               // if the property is an Enum and the user just typed the name of the Enum value without the Enum type name, help them out
+               if (element.ModelClass.ModelRoot.Enums.Any(x => x.Name == element.Type) && !newInitialValue.Contains("."))
+                  newInitialValue = element.InitialValue = $"{element.Type}.{newInitialValue}";
+
                if (!element.IsValidInitialValue(null, newInitialValue))
                   errorMessages.Add($"{modelClass.Name}.{element.Name}: {newInitialValue} isn't a valid value for {element.Type}");
 

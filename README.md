@@ -56,6 +56,9 @@ If this is important to you, you can follow it at [developercommunity.visualstud
 
 ### Change Log
 
+**1.3.0.5**
+   - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity
+
 **1.3.0.4**
    - Fixed problematic code generation in constructors for classes having 1..1 associations (See https://github.com/msawczyn/EFDesigner/issues/74)
    - Fixed problem where database was always generating identity values, regardless of setting in the model (See https://github.com/msawczyn/EFDesigner/issues/79)
@@ -63,8 +66,12 @@ If this is important to you, you can follow it at [developercommunity.visualstud
    - Fixed cascade delete errors in EFCore when overriding cascade behavior (See https://github.com/msawczyn/EFDesigner/issues/76)
    - Added more information in headers for generated code (tool version, URLs, license info)
 
-**1.3.0.2**
+<details>
+<summary><b>1.3.0.2</b></summary>
+
    - Fixed error found in some VS2017 installations preventing running due to dependency problems
+
+</details>
 
 <details>
 <summary><b>1.3.0.1</b></summary>
