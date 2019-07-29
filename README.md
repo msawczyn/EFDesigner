@@ -46,7 +46,7 @@ You can read more about how to use the designer in the [Documentation site](http
 
 **Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
 classes, enums, structs and comment blocks. [This has been reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html) 
-and is currently running through their process. As of this writing, there is no workaround in VS2019 -- use VS2017 (if
+and is currently running through their process. As of this writing, there is no workaround in VS2019 -- use VS2017 or VS2019 v16.1.x (if
 possible) to edit the model if you need to change connections (unidirectional/bidirectional associations, inheritance
 and comment attachments).
 
