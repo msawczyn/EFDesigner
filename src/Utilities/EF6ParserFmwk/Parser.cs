@@ -44,7 +44,7 @@ namespace EF6Parser
 
          // ReSharper disable once UnthrowableException
          if (constructor == null)
-            throw new MissingMethodException("Can't find appropriate constructor");
+            throw new MissingMethodException("Can't find constructor with one string parameter (connection string or connection name)");
 
          dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
          metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -25,6 +26,7 @@ namespace EF6Parser
          {
             string inputPath = args[0];
             string outputPath = args[1];
+            string logPath = Path.ChangeExtension(outputPath, Path.GetExtension(outputPath) + ".log");
             string contextClassName = args.Length == 3 ? args[2] : null;
 
             using (StreamWriter output = new StreamWriter(outputPath))
@@ -36,6 +38,7 @@ namespace EF6Parser
 
                   try
                   {
+                     Debugger.Break();
                      parser = new Parser(assembly, contextClassName);
                   }
                   // ReSharper disable once UncatchableException

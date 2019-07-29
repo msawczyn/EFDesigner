@@ -46,11 +46,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Generated\EFModel.generated.cs" />
-    <Compile Include="Generated\EFModelDatabaseInitializer.generated.cs" />
-    <Compile Include="Generated\EFModelDbMigrationConfiguration.generated.cs" />
-    <Compile Include="Generated\PressRelease.generated.cs" />
-    <Compile Include="Generated\PressReleaseDetail.generated.cs" />
     <Compile Include="Migrations\201907081331255_Initial.cs" />
     <Compile Include="Migrations\201907081331255_Initial.Designer.cs">
       <DependentUpon>201907081331255_Initial.cs</DependentUpon>
@@ -82,6 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\" />
+    <Folder Include="Entities\Custom\" />
+    <Folder Include="Generated\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907081331255_Initial.resx">
