@@ -18,6 +18,8 @@ namespace EF6Parser
 {
    public class Parser
    {
+      private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
       private readonly Assembly assembly;
       private readonly DbContext dbContext;
       private readonly MetadataWorkspace metadata;
@@ -28,23 +30,35 @@ namespace EF6Parser
          Type contextType;
 
          if (dbContextTypeName != null)
+         {
+            log.Info($"dbContextTypeName parameter is {dbContextTypeName}");
             contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
+            log.Info($"Using contextType = {contextType.FullName}");
+         }
          else
          {
+            log.Info("dbContextTypeName parameter is null");
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
 
             // ReSharper disable once UnthrowableException
             if (types.Count != 1)
+            {
+               log.Error($"Found more than one class derived from DbContext: {string.Join(", ", types.Select(t => t.FullName))}");
                throw new AmbiguousMatchException("Found more than one class derived from DbContext");
+            }
 
             contextType = types[0];
+            log.Info($"Using contextType = {contextType.FullName}");
          }
 
          ConstructorInfo constructor = contextType.GetConstructor(new[] {typeof(string)});
 
          // ReSharper disable once UnthrowableException
          if (constructor == null)
+         {
+            log.Error("Can't find constructor with one string parameter (connection string or connection name)");
             throw new MissingMethodException("Can't find constructor with one string parameter (connection string or connection name)");
+         }
 
          dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
          metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;
@@ -109,6 +123,7 @@ namespace EF6Parser
             // the property in the target class (referencing the source class)
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.FromEndMember.RelationshipMultiplicity);
 
+            log.Info($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
             result.Add(association);
          }
 
@@ -144,6 +159,7 @@ namespace EF6Parser
             association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
             association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
 
+            log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
             result.Add(association);
          }
 
@@ -213,17 +229,29 @@ namespace EF6Parser
       public string Process()
       {
          if (dbContext == null)
-
-            // ReSharper disable once NotResolvedInText
+         {
+            log.Error("Process: dbContext is null");
             throw new ArgumentNullException("dbContext");
+         }
 
          ReadOnlyCollection<GlobalItem> cSpace = metadata.GetItems(DataSpace.CSpace);
+         log.Info($"Found {cSpace.Count} CSpace items");
 
          ModelRoot modelRoot = ProcessRoot();
-         modelRoot.Classes.AddRange(cSpace.OfType<EntityType>().Select(ProcessEntity).Where(x => x != null));
-         modelRoot.Classes.AddRange(cSpace.OfType<ComplexType>().Select(ProcessEntity).Where(x => x != null));
-         modelRoot.Enumerations.AddRange(cSpace.OfType<EnumType>().Select(ProcessEnum).Where(x => x != null));
+         
+         List<ModelClass> modelClasses = cSpace.OfType<EntityType>().Select(ProcessEntity).Where(x => x != null).ToList();
+         log.Info($"Adding {modelClasses.Count} classes");
+         modelRoot.Classes.AddRange(modelClasses);
 
+         modelClasses = cSpace.OfType<ComplexType>().Select(ProcessEntity).Where(x => x != null).ToList();
+         log.Info($"Adding {modelClasses.Count} complex types");
+         modelRoot.Classes.AddRange(modelClasses);
+
+         List<ModelEnum> modelEnums = cSpace.OfType<EnumType>().Select(ProcessEnum).Where(x => x != null).ToList();
+         log.Info($"Adding {modelEnums.Count} enumerations");
+         modelRoot.Enumerations.AddRange(modelEnums);
+
+         log.Info($"Serializing to JSON string");
          return JsonConvert.SerializeObject(modelRoot);
       }
 
@@ -263,6 +291,7 @@ namespace EF6Parser
          result.UnidirectionalAssociations = GetUnidirectionalAssociations(entityType);
          result.BidirectionalAssociations = GetBidirectionalAssociations(entityType);
 
+         log.Info($"Found entity {result.Name}");
          return result;
       }
 
@@ -296,6 +325,7 @@ namespace EF6Parser
 
          result.Properties = complexType.Properties.Select(p => ProcessProperty(p)).Where(x => x != null).ToList();
 
+         log.Info($"Found complex type {result.Name}");
          return result;
       }
 
@@ -318,6 +348,7 @@ namespace EF6Parser
                                  .Select(enumMember => new ModelEnumValue {Name = enumMember.Name, Value = enumMember.Value.ToString()})
                                  .ToList();
 
+         log.Info($"Found enum {result.Name}");
          return result;
       }
 
@@ -357,6 +388,7 @@ namespace EF6Parser
                                       ? customAttributes
                                       : null;
 
+         log.Info($"Found property {parent.Name}.{result.Name}");
          return result;
       }
 
@@ -369,6 +401,7 @@ namespace EF6Parser
          result.EntityContainerName = contextType.Name;
          result.Namespace = contextType.Namespace;
 
+         log.Info($"Found DbContext {result.EntityContainerName}");
          return result;
       }
    }

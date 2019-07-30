@@ -318,8 +318,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                              {
                                                 Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", 
                                                 CreateNoWindow = true, 
-                                                ErrorDialog = false, 
-                                                UseShellExecute = false
+                                                ErrorDialog = true, 
+                                                UseShellExecute = true
                                              };
 
          using (Process process = System.Diagnostics.Process.Start(processStartInfo))

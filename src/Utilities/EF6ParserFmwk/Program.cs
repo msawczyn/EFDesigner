@@ -3,10 +3,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
+using log4net.Config;
+
 namespace EF6Parser
 {
    internal class Program
    {
+      private static log4net.ILog log;
+
       public const int SUCCESS = 0;
       public const int BAD_ARGUMENT_COUNT = 1;
       public const int CANNOT_LOAD_ASSEMBLY = 2;
@@ -17,6 +21,8 @@ namespace EF6Parser
 
       private static int Main(string[] args)
       {
+         log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
          if (args.Length < 2 || args.Length > 3)
          {
             Exit(BAD_ARGUMENT_COUNT);
@@ -26,7 +32,11 @@ namespace EF6Parser
          {
             string inputPath = args[0];
             string outputPath = args[1];
-            string logPath = Path.ChangeExtension(outputPath, Path.GetExtension(outputPath) + ".log");
+            log4net.GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, Path.GetExtension(outputPath) + ".log");
+            XmlConfigurator.Configure();
+
+            log.Info("Starting EF6ParserFmwk");
+
             string contextClassName = args.Length == 3 ? args[2] : null;
 
             using (StreamWriter output = new StreamWriter(outputPath))
@@ -38,38 +48,43 @@ namespace EF6Parser
 
                   try
                   {
-                     Debugger.Break();
                      parser = new Parser(assembly, contextClassName);
                   }
                   // ReSharper disable once UncatchableException
-                  catch (MissingMethodException)
+                  catch (MissingMethodException ex)
                   {
+                     log.Error(ex.Message);
                      Exit(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR);
                   }
-                  catch (AmbiguousMatchException)
+                  catch (AmbiguousMatchException ex)
                   {
+                     log.Error(ex.Message);
                      Exit(AMBIGUOUS_REQUEST);
                   }
-                  catch
+                  catch (Exception ex)
                   {
+                     log.Error(ex.Message);
                      Exit(CANNOT_CREATE_DBCONTEXT);
                   }
 
                   output.Write(parser?.Process());
-                  output.Flush();
+
                   output.Close();
                }
-               catch 
+               catch (Exception ex)
                {
+                  log.Error(ex.Message);
                   Exit(CANNOT_LOAD_ASSEMBLY);
                }
             }
          }
-         catch 
+         catch (Exception ex)
          {
+            log.Error(ex.Message);
             Exit(CANNOT_WRITE_OUTPUTFILE);
          }
 
+         log.Info("Success");
          return SUCCESS;
       }
 
@@ -83,6 +98,7 @@ namespace EF6Parser
          Console.Error.WriteLine("                                        DbContext class must have a constructor that takes a connection string name or value");
          Console.Error.WriteLine();
 
+         log.Info($"Exiting with return code {returnCode}");
          Environment.Exit(returnCode);
       }
    }
