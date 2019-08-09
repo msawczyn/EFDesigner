@@ -21,7 +21,7 @@ GEM
     execjs (2.7.0)
     faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.23)
+    ffi (1.11.1)
     forwardable-extended (2.6.0)
     gemoji (3.0.0)
     github-pages (179)
@@ -167,7 +167,6 @@ GEM
       jekyll (~> 3.5)
       jekyll-github-metadata (~> 2.9)
       jekyll-seo-tag (~> 2.2)
-    jekyll-theme-prologue (0.3.2)
     jekyll-theme-slate (0.1.0)
       jekyll (~> 3.5)
       jekyll-seo-tag (~> 2.0)
@@ -239,7 +238,6 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
-  jekyll-theme-prologue
 
 BUNDLED WITH
    1.16.1
