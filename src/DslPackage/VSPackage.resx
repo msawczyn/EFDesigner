@@ -124,7 +124,7 @@
     <value>Adds an Entity Framework Visual Designer file to the project.</value>
   </data>
   <data name="103" xml:space="preserve">
-    <value>EFDesigner</value>
+    <value>Entity Framework visual designer</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="104" type="System.Resources.ResXFileRef, System.Windows.Forms">

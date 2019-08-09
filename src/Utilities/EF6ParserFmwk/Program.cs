@@ -32,7 +32,7 @@ namespace EF6Parser
          {
             string inputPath = args[0];
             string outputPath = args[1];
-            log4net.GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, Path.GetExtension(outputPath) + ".log");
+            log4net.GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
             XmlConfigurator.Configure();
 
             log.Info("Starting EF6ParserFmwk");

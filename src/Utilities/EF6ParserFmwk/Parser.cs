@@ -6,13 +6,13 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Mapping;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
 using Newtonsoft.Json;
 
 using ParsingModels;
-// ReSharper disable UseObjectOrCollectionInitializer
 
 namespace EF6Parser
 {
@@ -106,6 +106,7 @@ namespace EF6Parser
 
          foreach (NavigationProperty navigationProperty in entityType.DeclaredNavigationProperties.Where(np => Inverse(np) == null))
          {
+            // ReSharper disable UseObjectOrCollectionInitializer
             ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
 
             association.SourceClassName = navigationProperty.DeclaringType.Name;
@@ -122,8 +123,11 @@ namespace EF6Parser
 
             // the property in the target class (referencing the source class)
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.FromEndMember.RelationshipMultiplicity);
+            // ReSharper restore UseObjectOrCollectionInitializer
 
             log.Info($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
+            log.Info("\n   " + JsonConvert.SerializeObject(association));
+
             result.Add(association);
          }
 
@@ -136,6 +140,7 @@ namespace EF6Parser
 
          foreach (NavigationProperty navigationProperty in entityType.DeclaredNavigationProperties.Where(np => Inverse(np) != null))
          {
+            // ReSharper disable UseObjectOrCollectionInitializer
             ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
 
             association.SourceClassName = navigationProperty.DeclaringType.Name;
@@ -158,8 +163,11 @@ namespace EF6Parser
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.FromEndMember.RelationshipMultiplicity);
             association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
             association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
+            // ReSharper restore UseObjectOrCollectionInitializer
 
             log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
+            log.Info("\n   " + JsonConvert.SerializeObject(association));
+
             result.Add(association);
          }
 
@@ -188,6 +196,18 @@ namespace EF6Parser
 
       private static string GetTableName(Type type, DbContext context)
       {
+         EntitySet table = GetTable(type, context);
+
+         if (table == null) 
+            return null;
+
+         // Return the table name from the storage entity set
+         return (string)table.MetadataProperties["Table"].Value ?? table.Name;
+      }
+
+      private static EntitySet GetTable(Type type, DbContext context)
+      {
+         EntitySet table = null;
          MetadataWorkspace metadata = ((IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
 
          // Get the part of the model that contains info about the actual CLR types
@@ -197,34 +217,30 @@ namespace EF6Parser
          EntityType entityType = metadata.GetItems<EntityType>(DataSpace.OSpace)
                                          .SingleOrDefault(e => objectItemCollection.GetClrType(e) == type);
 
-         if (entityType == null) 
-            return null;
+         if (entityType != null)
+         {
+            // Get the entity set that uses this entity type
+            EntitySet entitySet = metadata.GetItems<EntityContainer>(DataSpace.CSpace)
+                                          .SingleOrDefault()
+                                         ?.EntitySets
+                                         ?.SingleOrDefault(s => s.ElementType.Name == entityType.Name);
 
-         // Get the entity set that uses this entity type
-         EntitySet entitySet = metadata.GetItems<EntityContainer>(DataSpace.CSpace)
-                                       .SingleOrDefault()
-                                       ?.EntitySets
-                                       ?.SingleOrDefault(s => s.ElementType.Name == entityType.Name);
+            if (entitySet == null)
+            {
 
-         if (entitySet == null) 
-            return null;
+               // Find the mapping between conceptual and storage model for this entity set
+               EntitySetMapping mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
+                                                  .SingleOrDefault()
+                                                 ?.EntitySetMappings
+                                                 ?.SingleOrDefault(s => s.EntitySet == entitySet);
 
-         // Find the mapping between conceptual and storage model for this entity set
-         EntitySetMapping mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
-                                            .SingleOrDefault()
-                                            ?.EntitySetMappings
-                                            ?.SingleOrDefault(s => s.EntitySet == entitySet);
+               // Find the storage entity set (table) that the entity is mapped
+               table = mapping?.EntityTypeMappings.SingleOrDefault()?.Fragments?.SingleOrDefault()?.StoreEntitySet;
+            }
+         }
 
-         // Find the storage entity set (table) that the entity is mapped
-         EntitySet table = mapping?.EntityTypeMappings.SingleOrDefault()?.Fragments?.SingleOrDefault()?.StoreEntitySet;
-
-         if (table == null) 
-            return null;
-
-         // Return the table name from the storage entity set
-         return (string)table.MetadataProperties["Table"].Value ?? table.Name;
+         return table;
       }
-
 
       public string Process()
       {
@@ -234,174 +250,214 @@ namespace EF6Parser
             throw new ArgumentNullException("dbContext");
          }
 
-         ReadOnlyCollection<GlobalItem> cSpace = metadata.GetItems(DataSpace.CSpace);
-         log.Info($"Found {cSpace.Count} CSpace items");
+         ReadOnlyCollection<GlobalItem> oSpace = metadata.GetItems(DataSpace.OSpace);
+         log.Info($"Found {oSpace.Count} OSpace items");
 
+         ReadOnlyCollection<GlobalItem> sSpace = metadata.GetItems(DataSpace.SSpace);
+         log.Info($"Found {sSpace.Count} SSpace items");
+
+         // Context
+         ///////////////////////////////////////////
          ModelRoot modelRoot = ProcessRoot();
-         
-         List<ModelClass> modelClasses = cSpace.OfType<EntityType>().Select(ProcessEntity).Where(x => x != null).ToList();
+
+         // Entities
+         ///////////////////////////////////////////
+         List<ModelClass> modelClasses = oSpace.OfType<EntityType>()
+                                               .Select(e => ProcessEntity(e.FullName, oSpace.OfType<EntityType>().SingleOrDefault(o => o.FullName == e.FullName), sSpace.OfType<EntityType>().SingleOrDefault(s => s.FullName == "CodeFirstDatabaseSchema." + e.FullName.Split('.').Last())))
+                                               .Where(x => x != null)
+                                               .ToList();
          log.Info($"Adding {modelClasses.Count} classes");
          modelRoot.Classes.AddRange(modelClasses);
 
-         modelClasses = cSpace.OfType<ComplexType>().Select(ProcessEntity).Where(x => x != null).ToList();
+         // Complex types
+         ///////////////////////////////////////////
+         modelClasses = oSpace.OfType<ComplexType>()
+                              .Select(e => ProcessComplexType(e.FullName, oSpace.OfType<EntityType>().SingleOrDefault(s => s.FullName == e.FullName), 
+                                                              sSpace.OfType<EntityType>().SingleOrDefault(s => s.FullName == "CodeFirstDatabaseSchema." + e.FullName.Split('.').Last())))
+                              .Where(x => x != null)
+                              .ToList();
          log.Info($"Adding {modelClasses.Count} complex types");
          modelRoot.Classes.AddRange(modelClasses);
 
-         List<ModelEnum> modelEnums = cSpace.OfType<EnumType>().Select(ProcessEnum).Where(x => x != null).ToList();
+         // Enums
+         ///////////////////////////////////////////
+         List<ModelEnum> modelEnums = oSpace.OfType<EnumType>().Select(ProcessEnum).Where(x => x != null).ToList();
          log.Info($"Adding {modelEnums.Count} enumerations");
          modelRoot.Enumerations.AddRange(modelEnums);
 
-         log.Info($"Serializing to JSON string");
+         // Put it all together
+         ///////////////////////////////////////////
+         log.Info("Serializing to JSON string");
          return JsonConvert.SerializeObject(modelRoot);
       }
 
-      private ModelClass ProcessEntity(EntityType entityType)
+      private ModelClass ProcessEntity(string entityFullName, EntityType oSpaceType, EntityType sSpaceType)
       {
-         Type type = assembly.GetType(entityType.FullName);
+         Type type = assembly.GetType(entityFullName);
+       
+         if (type == null)
+         {
+            log.Warn($"Could not find type for entity {entityFullName}");
+            return null;
+         }
+         
+         log.Info($"Found entity {entityFullName}");
          string customAttributes = GetCustomAttributes(type);
-         ModelClass result = new ModelClass();
 
-         result.Name = entityType.Name;
-         result.Namespace = entityType.NamespaceName;
-         result.IsAbstract = entityType.Abstract;
-         result.BaseClass = entityType.BaseType?.Name;
+         ModelClass result = new ModelClass
+                             {
+                                Name = oSpaceType.Name
+                              , Namespace = oSpaceType.NamespaceName
+                              , IsAbstract = oSpaceType.Abstract
+                              , BaseClass = oSpaceType.BaseType?.Name
+                              , CustomInterfaces = type.GetInterfaces().Any() 
+                                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
+                                                      : null
+                              , IsDependentType = false
+                              , CustomAttributes = customAttributes.Length > 2
+                                                      ? customAttributes
+                                                      : null
+                              , Properties = oSpaceType.DeclaredProperties
+                                                       .Select(x => x.Name)
+                                                       .Select(propertyName => ProcessProperty(oSpaceType, 
+                                                                                               oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName), 
+                                                                                               sSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)))
+                                                       .Where(x => x != null)
+                                                       .ToList()
+                              , UnidirectionalAssociations = GetUnidirectionalAssociations(oSpaceType)
+                              , BidirectionalAssociations = GetBidirectionalAssociations(oSpaceType)
+                              , TableName = GetTableName(type, dbContext)
+                             };
 
-         result.CustomInterfaces = type?.GetInterfaces().Any() == true
-                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
-                                      : null;
-
-         try
-         {
-            result.TableName = type == null
-                                  ? null
-                                  : GetTableName(type, dbContext);
-         }
-         catch 
-         {
-            result.TableName = null;
-         }
-
-         result.IsDependentType = false;
-
-         result.CustomAttributes = customAttributes.Length > 2
-                                      ? customAttributes
-                                      : null;
-
-         result.Properties = entityType.DeclaredProperties.Select(p => ProcessProperty(p, entityType)).Where(x => x != null).ToList();
-         result.UnidirectionalAssociations = GetUnidirectionalAssociations(entityType);
-         result.BidirectionalAssociations = GetBidirectionalAssociations(entityType);
-
-         log.Info($"Found entity {result.Name}");
+         log.Info("\n   " + JsonConvert.SerializeObject(result));
          return result;
       }
 
-      private ModelClass ProcessEntity(ComplexType complexType)
+      private ModelClass ProcessComplexType(string entityFullName, EntityType oSpaceType, EntityType sSpaceType)
       {
-         Type type = assembly.GetType(complexType.FullName);
+         Type type = assembly.GetType(entityFullName);
+
+         if (type == null)
+         {
+            log.Warn($"Could not find type for complex type {entityFullName}");
+            return null;
+         }
+
+         log.Info($"Found complex type {entityFullName}");
          string customAttributes = GetCustomAttributes(type);
 
-         ModelClass result = new ModelClass();
-         result.Name = complexType.Name;
-         result.Namespace = complexType.NamespaceName;
-         result.IsAbstract = complexType.Abstract;
-         result.BaseClass = complexType.BaseType?.Name;
-         try
-         {
-            result.TableName = GetTableName(assembly.GetType(complexType.FullName), dbContext);
-         }
-         catch 
-         {
-            result.TableName = null;
-         }
-         result.IsDependentType = true;
+         ModelClass result = new ModelClass
+                             {
+                                Name = oSpaceType.Name
+                              , Namespace = oSpaceType.NamespaceName
+                              , IsAbstract = oSpaceType.Abstract
+                              , BaseClass = oSpaceType.BaseType?.Name
+                              , IsDependentType = true
+                              , CustomAttributes = customAttributes.Length > 2
+                                                      ? customAttributes
+                                                      : null
+                              , CustomInterfaces = type.GetInterfaces().Any() 
+                                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
+                                                      : null
+                              , Properties = oSpaceType.DeclaredProperties
+                                                       .Select(x => x.Name)
+                                                       .Select(propertyName => ProcessProperty(oSpaceType, 
+                                                                                               oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName), 
+                                                                                               sSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName),
+                                                                                               true))
+                                                       .Where(x => x != null)
+                                                       .ToList()
+                              , TableName = null
+                             };
 
-         result.CustomAttributes = customAttributes.Length > 2
-                                      ? customAttributes
-                                      : null;
-
-         result.CustomInterfaces = type?.GetInterfaces().Any() == true
-                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
-                                      : null;
-
-         result.Properties = complexType.Properties.Select(p => ProcessProperty(p)).Where(x => x != null).ToList();
-
-         log.Info($"Found complex type {result.Name}");
+         log.Info("\n   " + JsonConvert.SerializeObject(result));
          return result;
       }
 
       private ModelEnum ProcessEnum(EnumType enumType)
       {
          Type type = assembly.GetType(enumType.FullName);
+
+         if (type == null)
+         {
+            log.Warn($"Could not find type for complex type {enumType.FullName}");
+            return null;
+         }
+
+         log.Info($"Found enum {enumType.FullName}");
          string customAttributes = GetCustomAttributes(type);
 
-         ModelEnum result = new ModelEnum();
-         result.Name = enumType.Name;
-         result.Namespace = enumType.NamespaceName;
-         result.IsFlags = enumType.IsFlags;
-         result.ValueType = enumType.UnderlyingType.ClrEquivalentType.Name;
+         ModelEnum result = new ModelEnum
+                            {
+                               Name = enumType.Name
+                             , Namespace = enumType.NamespaceName
+                             , IsFlags = enumType.IsFlags
+                             , ValueType = enumType.UnderlyingType.ClrEquivalentType.Name
+                             , CustomAttributes = customAttributes.Length > 2
+                                                     ? customAttributes
+                                                     : null
+                             , Values = enumType.Members
+                                                .Select(enumMember => new ModelEnumValue
+                                                                      {
+                                                                         Name = enumMember.Name
+                                                                       , Value = enumMember.Value?.ToString()
+                                                                      })
+                                                .ToList()
+                            };
 
-         result.CustomAttributes = customAttributes.Length > 2
-                                      ? customAttributes
-                                      : null;
 
-         result.Values = enumType.Members
-                                 .Select(enumMember => new ModelEnumValue {Name = enumMember.Name, Value = enumMember.Value.ToString()})
-                                 .ToList();
 
-         log.Info($"Found enum {result.Name}");
+         log.Info("\n   " + JsonConvert.SerializeObject(result));
          return result;
       }
 
-      private ModelProperty ProcessProperty(EdmProperty edmProperty, EntityType parent = null)
+      private ModelProperty ProcessProperty(EntityType parent, 
+                                            EdmProperty oSpaceProperty, 
+                                            EdmProperty sSpaceProperty,
+                                            bool isComplexType = false)
       {
-         string typename = edmProperty.TypeUsage.EdmType.FullName;
+         if (oSpaceProperty == null || sSpaceProperty == null)
+            return null;
 
-         if (typename.StartsWith("Edm."))
-            typename = $"System.{typename.Substring(4)}";
+         log.Info($"Found property {parent.Name}.{oSpaceProperty.Name}");
+         try
+         {
+            ModelProperty result = new ModelProperty
+                                   {
+                                      TypeName = oSpaceProperty.TypeUsage.EdmType.Name
+                                    , Name = oSpaceProperty.Name
+                                    , IsIdentity = !isComplexType && parent.KeyProperties.Any(p => p.Name == oSpaceProperty.Name)
+                                    , IsIdentityGenerated = sSpaceProperty.IsStoreGeneratedIdentity
+                                    , Required = !(bool)sSpaceProperty.TypeUsage.Facets.First(facet => facet.Name == "Nullable").Value
+                                    , Indexed = bool.TryParse(oSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "Indexed")?.Value?.ToString(), out bool indexed) && indexed
+                                    , MaxStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MaxLength")?.Value?.ToString(), out int maxLength) && maxLength < int.MaxValue/2 ? maxLength : 0
+                                    , MinStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MinLength")?.Value?.ToString(), out int minLength) ? minLength : 0
+                                   };
 
-         Type type = Type.GetType(typename) ?? assembly.GetType(typename);
-         List<CustomAttributeData> attributes = type?.CustomAttributes.ToList() ?? new List<CustomAttributeData>();
+            log.Info("\n   " + JsonConvert.SerializeObject(result));
+            return result;
+         }
+         catch (InvalidOperationException)
+         {
+         }
 
-         ModelProperty result = new ModelProperty {TypeName = edmProperty.TypeName, Name = edmProperty.Name, IsIdentity = parent?.KeyProperties.Any(p => p.Name == edmProperty.Name) ?? false, Required = !edmProperty.Nullable};
-
-         CustomAttributeData indexedAttribute = attributes.FirstOrDefault(a => a.AttributeType.Name == "Indexed");
-         result.Indexed = indexedAttribute != null;
-
-         if (indexedAttribute != null)
-            attributes.Remove(indexedAttribute);
-
-         CustomAttributeData maxLengthAttribute = attributes.FirstOrDefault(a => a.AttributeType.Name == "MaxLength" || a.AttributeType.Name == "StringLength");
-         result.MaxStringLength = (int?)maxLengthAttribute?.ConstructorArguments.First().Value ?? 0;
-
-         if (maxLengthAttribute != null)
-            attributes.Remove(maxLengthAttribute);
-
-         CustomAttributeData minLengthAttribute = attributes.FirstOrDefault(a => a.AttributeType.Name == "MinLength");
-         result.MinStringLength = (int?)minLengthAttribute?.ConstructorArguments.First().Value ?? 0;
-
-         if (minLengthAttribute != null)
-            attributes.Remove(minLengthAttribute);
-
-         string customAttributes = GetCustomAttributes(attributes);
-
-         result.CustomAttributes = customAttributes.Length > 2
-                                      ? customAttributes
-                                      : null;
-
-         log.Info($"Found property {parent.Name}.{result.Name}");
-         return result;
+         return null;
       }
 
-      // [System.SerializableAttribute()][System.Runtime.InteropServices.ComVisibleAttribute((Boolean)True)][__DynamicallyInvokableAttribute()]
       private ModelRoot ProcessRoot()
       {
          ModelRoot result = new ModelRoot();
          Type contextType = dbContext.GetType();
+         if (contextType == null)
+            throw new InvalidDataException();
+
+         log.Info($"Found DbContext {contextType.Name}");
 
          result.EntityContainerName = contextType.Name;
          result.Namespace = contextType.Namespace;
 
-         log.Info($"Found DbContext {result.EntityContainerName}");
+         log.Info("\n   " + JsonConvert.SerializeObject(result));
+
          return result;
       }
    }
