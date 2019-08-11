@@ -42,17 +42,13 @@ ASP.Net Core in addition to any other project type, so you'll have flexibility i
 
 You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/).
 
-**Known Issues**
+### Known Issues
 
-In Visual Studio 2019, projects using the new project format (typically .NET Core and .NET Standard projects) will throw an exception when
-opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK and is currently under investigation. Visual Studio
-2017 does not exhibit this issue.
-
-**The workaround** is to place the `.efodel` file in a .NET Framework project and place the T4 in the .NET Core or .NET Standard project
-you want to generate into. You can then change the location of the `.efmodel` file in the T4 template (right at the top of the template) 
-to point to its location in the other project and it will use that as its source data. 
-
-If this is important to you, you can follow it at [developercommunity.visualstudio.com](https://developercommunity.visualstudio.com/content/problem/539313/microsoftvisualstudioprojectsystemvsimplementation.html).
+**Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
+classes, enums, structs and comment blocks. [This has been reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html) 
+and is currently running through their process. As of this writing, there is no workaround in VS2019 -- use VS2017 or VS2019 v16.1.x (if
+possible) to edit the model if you need to change connections (unidirectional/bidirectional associations, inheritance
+and comment attachments).
 
 ### Change Log
 

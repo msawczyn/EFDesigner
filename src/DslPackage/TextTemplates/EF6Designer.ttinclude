@@ -103,6 +103,8 @@ void WriteMigrationConfigurationEF6(ModelRoot modelRoot)
    EndNamespace(modelRoot.Namespace);
 }
 
+PluralizationService pluralizationService = ModelRoot.PluralizationService;
+
 void WriteDbContextEF6(ModelRoot modelRoot)
 {
    Output("using System;");
@@ -135,8 +137,6 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : System.Data.Entity.DbContext");
    Output("{");
 
-   PluralizationService pluralizationService = ModelRoot.PluralizationService;
-   
    /***********************************************************************/
    // generate DBSets
    /***********************************************************************/
@@ -591,7 +591,9 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) ||
                 (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
             {
-               string willCascadeOnDelete = (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+                  string willCascadeOnDelete = (association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal)
+                     ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
+                     : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
                segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
             }
 
@@ -687,9 +689,12 @@ void WriteDbContextEF6(ModelRoot modelRoot)
             string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
             if (foreignKeySegment != null) segments.Add(foreignKeySegment);
 
-            if (association.SourceDeleteAction != DeleteAction.Default)
+            if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) ||
+                (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
             {
-               string willCascadeOnDelete = (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+                  string willCascadeOnDelete = (association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal)
+                     ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
+                     : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
                segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
             }
 

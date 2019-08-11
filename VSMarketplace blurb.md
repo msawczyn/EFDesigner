@@ -25,13 +25,11 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **Known Issues**
 
-In Visual Studio 2019, projects using the new project format (typically .NET Core and .NET Standard projects) will throw an exception when
-opening an .efmodel file. This is an issue related to the Visual Studio 16 SDK and is currently under investigation. Visual Studio
-2017 does not exhibit this issue.
-
-If this is important to you, you can follow it at [developercommunity.visualstudio.com](https://developercommunity.visualstudio.com/content/problem/539313/microsoftvisualstudioprojectsystemvsimplementation.html).
-
-**Note:** We've [gotten confirmation](https://github.com/msawczyn/EFDesigner/issues/66#issuecomment-506878246) that the problem has been fixed in VS 2019 V16.2 Preview 3.
+**Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
+classes, enums, structs and comment blocks. [This has been reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html) 
+and is currently running through their process. As of this writing, there is no workaround in VS2019 -- use VS2017 (if
+possible) to edit the model if you need to change connections (unidirectional/bidirectional associations, inheritance
+and comment attachments).
 
 **ChangeLog**
 

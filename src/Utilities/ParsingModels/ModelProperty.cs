@@ -10,5 +10,6 @@
       public int MaxStringLength { get; set; }
       public int MinStringLength { get; set; }
       public bool IsIdentity { get; set; }
+      public bool IsIdentityGenerated { get; set; }
    }
 }

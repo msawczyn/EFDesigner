@@ -7,6 +7,3 @@ T4:  Use HTML5Type in code generation
 DSL: Add DeleteType enum to ModelClass (soft, hard)
 T4:  Implement soft delete where marked in model
 
-DSL: Add bool Enhanced Cascade Delete
-T4:  Implement as CascadeDeleteConvention replacement generating delete triggers
-
