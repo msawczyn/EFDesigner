@@ -3648,14 +3648,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				string attribMaxLength = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "maxLength");
 				if (attribMaxLength != null)
 				{
-					global::System.Int32 valueOfMaxLength;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int32>(serializationContext, attribMaxLength, out valueOfMaxLength))
+					Int32Nullable valueOfMaxLength;
+					if (DslModeling::SerializationUtilities.TryGetValue<Int32Nullable>(serializationContext, attribMaxLength, out valueOfMaxLength))
 					{
 						instanceOfModelAttribute.MaxLength = valueOfMaxLength;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "maxLength", typeof(global::System.Int32), attribMaxLength);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "maxLength", typeof(Int32Nullable), attribMaxLength);
 					}
 				}
 			}
@@ -3886,14 +3886,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				string attribMinLength = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "minLength");
 				if (attribMinLength != null)
 				{
-					global::System.Int32 valueOfMinLength;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int32>(serializationContext, attribMinLength, out valueOfMinLength))
+					Int32Nullable valueOfMinLength;
+					if (DslModeling::SerializationUtilities.TryGetValue<Int32Nullable>(serializationContext, attribMinLength, out valueOfMinLength))
 					{
 						instanceOfModelAttribute.MinLength = valueOfMinLength;
 					}
 					else
 					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "minLength", typeof(global::System.Int32), attribMinLength);
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "minLength", typeof(Int32Nullable), attribMinLength);
 					}
 				}
 			}
@@ -4490,11 +4490,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			// MaxLength
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Int32 propValue = instanceOfModelAttribute.MaxLength;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
+				Int32Nullable propValue = instanceOfModelAttribute.MaxLength;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<Int32Nullable>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, string.Empty) != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "maxLength", serializedPropValue);
 					}
@@ -4657,11 +4657,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			// MinLength
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Int32 propValue = instanceOfModelAttribute.MinLength;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
+				Int32Nullable propValue = instanceOfModelAttribute.MinLength;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<Int32Nullable>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, string.Empty) != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "minLength", serializedPropValue);
 					}

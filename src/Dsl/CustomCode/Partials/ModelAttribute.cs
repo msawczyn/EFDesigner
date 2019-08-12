@@ -10,31 +10,29 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
+   public class Int32Nullable
+   {
+      private readonly int? value;
+
+      public Int32Nullable(int? i) { value = i; }
+      public static implicit operator int?(Int32Nullable i) => i?.value;
+      public static implicit operator Int32Nullable(int? i) => new Int32Nullable(i);
+      public bool HasValue => value.HasValue;
+      public override string ToString() => $"{value}";
+   }
 
    [ValidationState(ValidationState.Enabled)]
+   [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
    public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning
    {
-
       /// <summary>Gets the parent model element (ModelClass).</summary>
       /// <value>The parent model element.</value>
-      public IModelElementWithCompartments ParentModelElement
-      {
-         get
-         {
-            return ModelClass;
-         }
-      }
-
+      public IModelElementWithCompartments ParentModelElement => ModelClass;
 
       /// <summary>Gets the name of the compartment holding this model element</summary>
       /// <value>The name of the compartment holding this model element.</value>
-      public string CompartmentName
-      {
-         get
-         {
-            return this.GetFirstShapeElement().AccessibleName;
-         }
-      }
+      public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
       #region Warning display
 
@@ -61,7 +59,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion
-
 
       /// <summary>Gets a value indicating whether this attribute supports initial values.</summary>
       /// <value>True if supports initial values, false if not.</value>
@@ -94,6 +91,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return true;
          }
       }
+     
       /// <summary>
       /// Tests if the InitialValue property is valid for the type indicated
       /// </summary>
@@ -192,21 +190,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return false;
       }
-#pragma warning restore 168
-
+      #pragma warning restore 168
 
       /// <summary>
       /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity. Converts the attribute's CLR type to a C# primitive type.
       /// </summary>
       /// <value>Name of primitive type</value>
-      public string PrimitiveType
-      {
-         get
-         {
-            return ToPrimitiveType(Type);
-         }
-      }
-
+      public string PrimitiveType => ToPrimitiveType(Type);
 
       // ReSharper disable once UnusedMember.Global
       /// <summary>Converts the attribute's CLR type to a C# primitive type.</summary>
@@ -225,18 +215,11 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-
       // ReSharper disable once UnusedMember.Global
       /// <summary>Converts a C# primitive type to a CLR type.</summary>
       ///
       /// <value>The type of the colour.</value>
-      public string CLRType
-      {
-         get
-         {
-            return ToCLRType(Type);
-         }
-      }
+      public string CLRType => ToCLRType(Type);
 
       /// <summary>
       /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity. Converts a CLR type to a C# primitive type.
@@ -299,7 +282,6 @@ namespace Sawczyn.EFDesigner.EFModel
          return typeName;
       }
 
-
       /// <summary>Converts a C# primitive type to a CLR type.</summary>
       /// <param name="typeName">C# type</param>
       /// <returns>Matching CLR type.</returns>
@@ -347,7 +329,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Storage for the ColumnName property.</summary>  
       private string columnNameStorage;
 
-
       /// <summary>Gets the storage for the ColumnName property.</summary>
       /// <returns>The ColumnName value.</returns>
       public string GetColumnNameValue()
@@ -356,7 +337,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return !loading && IsColumnNameTracking ? Name : columnNameStorage;
       }
-
 
       /// <summary>Sets the storage for the ColumnName property.</summary>
       /// <param name="value">The ColumnName value.</param>
@@ -373,7 +353,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Storage for the ColumnType property.</summary>  
       private string columnTypeStorage;
 
-
       /// <summary>Gets the storage for the ColumnType property.</summary>
       /// <returns>The ColumnType value.</returns>
       public string GetColumnTypeValue()
@@ -382,7 +361,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return !loading && IsColumnTypeTracking ? "default" : columnTypeStorage;
       }
-
 
       /// <summary>Sets the storage for the ColumnType property.</summary>
       /// <param name="value">The ColumnType value.</param>
@@ -395,6 +373,8 @@ namespace Sawczyn.EFDesigner.EFModel
             // ReSharper disable once ArrangeRedundantParentheses
             IsColumnTypeTracking = (columnTypeStorage == null);
       }
+
+      #region Tracking Properties
 
       internal sealed partial class IsColumnNameTrackingPropertyHandler
       {
@@ -514,11 +494,15 @@ namespace Sawczyn.EFDesigner.EFModel
          // same with other tracking properties as they get added
       }
 
+      #endregion Tracking Properties
+
+      #region Validation Rules
+
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void StringsShouldHaveLength(ValidationContext context)
       {
-         if (Type == "String" && MaxLength == 0)
+         if (Type == "String" && ((int?)MaxLength).HasValue && MaxLength == 0)
          {
             context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
             hasWarning = true;
@@ -547,6 +531,8 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogWarning($"{ModelClass.Name}.{Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages", "AWAutoPropertyWillNotNotify", this);
       }
 
+      #endregion Validation Rules
+
       #region To/From String
 
       /// <summary>Returns a string that represents the current object.</summary>
@@ -572,9 +558,9 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             // if a min length is present, output both the min and max
             // otherwise, just the max, if present
-            if (MinLength > 0)
+            if (((int?)MinLength).HasValue)
                parts.Add($"[{MinLength}-{MaxLength}]");
-            else if (MaxLength > 0)
+            else if (((int?)MaxLength).HasValue)
                parts.Add($"[{MaxLength}]");
          }
 

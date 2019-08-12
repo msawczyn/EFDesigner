@@ -276,16 +276,21 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      if (maxLength != null)
                         modelAttribute.MaxLength = Int32.TryParse(maxLength.Expression.ToString(), out int maxLengthValue)
-                                                      ? maxLengthValue
-                                                      : 0;
+                                                      ? (int?)maxLengthValue
+                                                      : null;
 
                      AttributeSyntax minLengthAttribute = propertyDecl.GetAttribute("MinLengthAttribute");
                      AttributeArgumentSyntax minLength = minLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (minLength != null)
                         modelAttribute.MinLength = Int32.TryParse(minLength.Expression.ToString(), out int minLengthValue)
-                                                      ? minLengthValue
-                                                      : 0;
+                                                      ? (int?)minLengthValue
+                                                      : null;
+                  }
+                  else
+                  {
+                     modelAttribute.MaxLength = null;
+                     modelAttribute.MinLength = null;
                   }
 
                   // if no setAccessor, it's a calculated readonly property

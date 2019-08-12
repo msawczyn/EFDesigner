@@ -74,7 +74,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (newType != "String")
                {
-                  element.MaxLength = 0;
+                  element.MaxLength = (int?)null;
+                  element.MinLength = (int?)null;
                   element.StringType = HTML5Type.None;
                }
                else
@@ -92,24 +93,24 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "MinLength":
-               int newMinLength = (int)e.NewValue;
+               Int32Nullable newMinLength = (Int32Nullable)e.NewValue;
 
                if (element.Type != "String")
-                  element.MinLength = 0;
+                  element.MinLength = null;
 
                if (newMinLength < 0)
-                  errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength must be zero or a positive number");
+                  errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength must be blank, zero or a positive number");
 
                break;
 
             case "MaxLength":
-               int newMaxLength = (int)e.NewValue;
+               Int32Nullable newMaxLength = (Int32Nullable)e.NewValue;
 
                if (element.Type != "String")
-                  element.MaxLength = 0;
+                  element.MaxLength = null;
 
                if (newMaxLength < 0)
-                  errorMessages.Add($"{modelClass.Name}.{element.Name}: MaxLength must be zero or a positive number");
+                  errorMessages.Add($"{modelClass.Name}.{element.Name}: MaxLength must be blank, zero or a positive number");
 
                break;
 
@@ -237,8 +238,8 @@ namespace Sawczyn.EFDesigner.EFModel
                            if (fragment.Required != null)
                               element.Required = fragment.Required.Value;
 
-                           if (fragment.MaxLength != null)
-                              element.MaxLength = fragment.MaxLength.Value;
+                           element.MaxLength = fragment.MaxLength;
+                           element.MinLength = fragment.MinLength;
 
                            if (fragment.InitialValue != null)
                               element.InitialValue = fragment.InitialValue;

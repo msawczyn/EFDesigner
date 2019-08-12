@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public class MultiplicityTypeConverter : TypeConverterBase
+   class Int32NullableTypeConverter : TypeConverterBase
    {
-      /// <summary>
+       /// <summary>
       ///    Returns whether this converter can convert an object of the given type to the type of this converter, using
       ///    the specified context.
       /// </summary>
@@ -24,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="destinationType">A <see cref="T:System.Type" /> that represents the type you want to convert to. </param>
       public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
       {
-         return destinationType == typeof(Multiplicity);
+         return destinationType == typeof(Int32Nullable);
       }
 
       /// <summary>Converts the given object to the type of this converter, using the specified context and culture information.</summary>
@@ -37,33 +41,12 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (value is string s)
          {
-            if (s.StartsWith("*"))
-               return Multiplicity.ZeroMany;
-            //if (s.StartsWith("1..*"))
-            //   return Multiplicity.OneMany;
-            if (s.StartsWith("0..1"))
-               return Multiplicity.ZeroOne;
-            if (s.StartsWith("1"))
-               return Multiplicity.One;
+            return int.TryParse(s, out int val)
+                      ? new Int32Nullable(val)
+                      : null;
          }
 
          return base.ConvertFrom(context, culture, value);
-      }
-
-      /// <summary>
-      ///    Returns whether the collection of standard values returned from
-      ///    <see cref="M:System.ComponentModel.TypeConverter.GetStandardValues" /> is an exclusive list of possible values,
-      ///    using the specified context.
-      /// </summary>
-      /// <returns>
-      ///    true if the <see cref="T:System.ComponentModel.TypeConverter.StandardValuesCollection" /> returned from
-      ///    <see cref="M:System.ComponentModel.TypeConverter.GetStandardValues" /> is an exhaustive list of possible values;
-      ///    false if other values are possible.
-      /// </returns>
-      /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context. </param>
-      public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
-      {
-         return true;
       }
 
       /// <summary>
@@ -77,7 +60,8 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context. </param>
       public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
       {
-         return true;
+         return false;
       }
+
    }
 }

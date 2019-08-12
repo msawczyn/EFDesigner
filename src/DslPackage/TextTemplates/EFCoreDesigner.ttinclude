@@ -319,7 +319,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       {
          segments.Clear();
 
-         if (modelAttribute.MaxLength > 0)
+         if (modelAttribute.MaxLength.HasValue && modelAttribute.MaxLength.Value > 0)
             segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
@@ -329,8 +329,8 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             segments.Add($"HasField(\"_{modelAttribute.Name}\")");
          if (!string.IsNullOrEmpty(modelAttribute.ColumnType) && modelAttribute.ColumnType.ToLowerInvariant() != "default")
          {
-            if (modelAttribute.ColumnType.ToLowerInvariant() == "varchar" || modelAttribute.ColumnType.ToLowerInvariant() == "char")
-               segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}({modelAttribute.MaxLength})\")");
+            if (modelAttribute.ColumnType.ToLowerInvariant() == "varchar" || modelAttribute.ColumnType.ToLowerInvariant() == "nvarchar" || modelAttribute.ColumnType.ToLowerInvariant() == "char")
+               segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}({(modelAttribute.MaxLength.HasValue && modelAttribute.MaxLength.Value > 0 ? modelAttribute.MaxLength.ToString() : "max")})\")");
             else
                segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\")");
          }

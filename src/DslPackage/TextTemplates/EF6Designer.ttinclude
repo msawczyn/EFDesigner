@@ -460,7 +460,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       {
          segments.Clear();
 
-         if (modelAttribute.MaxLength > 0)
+         if (modelAttribute.MaxLength.HasValue && modelAttribute.MaxLength.Value > 0)
             segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
