@@ -25,6 +25,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <VSIXSubPath>Sawczyn\EFDesigner</VSIXSubPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -147,6 +149,7 @@
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomCode\WizardImplementation.cs" />
+    <Compile Include="VSPackage.Designer.cs" />
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -521,6 +524,8 @@ dotnet-warp "$(SolutionDir)Utilities\EFCoreParser\EFCoreParser.csproj" -o "$(Pro
 mkdir "$(TargetDir)Parsers"
 
 copy /y "$(ProjectDir)Parsers\*.*" "$(TargetDir)Parsers"
+copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "EFModel.xsd"
+
 </PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>

@@ -628,7 +628,7 @@
         </DomainProperty>
       </Properties>
     </DomainClass>
-    <DomainClass Id="9c7f55aa-1cc9-4841-b671-0cab31164a24" Description="No description available" Name="ModelEnum" DisplayName="Enum" Namespace="Sawczyn.EFDesigner.EFModel">
+    <DomainClass Id="9c7f55aa-1cc9-4841-b671-0cab31164a24" Description="Represents an enumeration in C#" Name="ModelEnum" DisplayName="Enum" Namespace="Sawczyn.EFDesigner.EFModel">
       <BaseClass>
         <DomainClassMoniker Name="DesignElement" />
       </BaseClass>
@@ -731,7 +731,7 @@
         </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
-    <DomainClass Id="89938de9-60f8-472a-9507-f7c7de18a511" Description="No description available" Name="ModelEnumValue" DisplayName="Value" Namespace="Sawczyn.EFDesigner.EFModel">
+    <DomainClass Id="89938de9-60f8-472a-9507-f7c7de18a511" Description="Represents a value in a C# enumeration" Name="ModelEnumValue" DisplayName="Value" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
         <DomainProperty Id="f67322ba-10ef-44d8-bd5f-b54955cb70ff" Description="" Name="Name" DisplayName="Name" DefaultValue="" Category="Code Generation" IsElementName="true">
           <Type>
@@ -1083,7 +1083,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="7937b5d4-2003-470b-9140-051f2dcd8dd0" Description="No description available" Name="ModelRootHasEnums" DisplayName="Model Root Has Enums" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
+    <DomainRelationship Id="7937b5d4-2003-470b-9140-051f2dcd8dd0" Description="Relationship rooting ModelEnum domain entities to the tree" Name="ModelRootHasEnums" DisplayName="Model Root Has Enums" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
       <Source>
         <DomainRole Id="a613cf7f-477b-4842-b1c2-9586977463f8" Description="No description available" Name="ModelRoot" DisplayName="Model Root" PropertyName="Enums" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Enums">
           <RolePlayer>
@@ -1099,7 +1099,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="168660d9-3989-40a9-b6ef-25d54c6e6d34" Description="No description available" Name="ModelEnumHasValues" DisplayName="Model Enum Has Values" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
+    <DomainRelationship Id="168660d9-3989-40a9-b6ef-25d54c6e6d34" Description="Relationship linking enumeration values to an enumeration" Name="ModelEnumHasValues" DisplayName="Model Enum Has Values" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
       <Source>
         <DomainRole Id="0e073c3b-ea79-41d0-b820-b972052cfb86" Description="No description available" Name="Enum" DisplayName="Enum" PropertyName="Values" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Values">
           <RolePlayer>

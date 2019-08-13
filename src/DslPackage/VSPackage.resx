@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="101" xml:space="preserve">
-    <value>EFModel</value>
+    <value>Entity Framework Visual Designer</value>
   </data>
   <data name="102" xml:space="preserve">
     <value>Adds an Entity Framework Visual Designer file to the project.</value>

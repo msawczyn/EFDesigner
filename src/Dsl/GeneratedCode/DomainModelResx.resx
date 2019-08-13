@@ -1082,7 +1082,7 @@
     <comment>DisplayName for DomainProperty &apos;ShortText&apos; on DomainClass &apos;Comment&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Represents an enumeration in C#</value>
     <comment>Description for DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum.DisplayName" xml:space="preserve">
@@ -1210,7 +1210,7 @@
     <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Represents a value in a C# enumeration</value>
     <comment>Description for DomainClass &apos;ModelEnumValue&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.DisplayName" xml:space="preserve">
@@ -1782,7 +1782,7 @@
     <comment>PropertyDisplayName for DomainRole &apos;BidirectionalTarget&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasEnums.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Relationship rooting ModelEnum domain entities to the tree</value>
     <comment>Description for DomainClass &apos;ModelRootHasEnums&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasEnums.DisplayName" xml:space="preserve">
@@ -1814,7 +1814,7 @@
     <comment>PropertyDisplayName for DomainRole &apos;ModelEnum&apos; on DomainRelationship &apos;ModelRootHasEnums&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumHasValues.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Relationship linking enumeration values to an enumeration</value>
     <comment>Description for DomainClass &apos;ModelEnumHasValues&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumHasValues.DisplayName" xml:space="preserve">

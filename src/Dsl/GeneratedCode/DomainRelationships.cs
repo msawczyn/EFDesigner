@@ -3532,7 +3532,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
 	/// DomainRelationship ModelRootHasEnums
-	/// No description available
+	/// Relationship rooting ModelEnum domain entities to the tree
 	/// </summary>
 	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasEnums.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasEnums.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -3771,7 +3771,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
 	/// DomainRelationship ModelEnumHasValues
-	/// No description available
+	/// Relationship linking enumeration values to an enumeration
 	/// </summary>
 	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnumHasValues.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnumHasValues.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
