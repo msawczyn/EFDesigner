@@ -670,14 +670,14 @@ void WritePersistentProperties(ModelClass modelClass)
          segments.Add("Required");
       if (modelAttribute.Indexed)
          segments.Add("Indexed");
-      if (modelAttribute.MinLength.HasValue && modelAttribute.MinLength.Value > 0)
-         segments.Add($"Min length = {modelAttribute.MinLength}");
-      if (modelAttribute.MaxLength.HasValue && modelAttribute.MaxLength.Value > 0)
-         segments.Add($"Max length = {modelAttribute.MaxLength}");
+      if (modelAttribute.MinLength?.HasValue == true && ((int?)modelAttribute.MinLength).Value > 0)
+         segments.Add($"Min length = {((int?)modelAttribute.MinLength).Value}");
+      if (modelAttribute.MaxLength?.HasValue == true && ((int?)modelAttribute.MaxLength).Value > 0)
+         segments.Add($"Max length = {((int?)modelAttribute.MaxLength).Value}");
       if (!string.IsNullOrEmpty(modelAttribute.InitialValue))
       {
          string quote = modelAttribute.PrimitiveType == "string" ? "\"" : modelAttribute.PrimitiveType == "char" ? "'" : string.Empty;
-         segments.Add($"Default value = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue.Trim("\"")}{quote}");
+         segments.Add($"Default value = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue.Trim('"'))}{quote}");
       }
 
       string nullable = IsNullable(modelAttribute) ? "?" : string.Empty;
@@ -776,15 +776,15 @@ void GeneratePropertyAnnotations(ModelAttribute modelAttribute)
    if (modelAttribute.IsConcurrencyToken)       Output("[ConcurrencyCheck]");
    if (modelAttribute.FQPrimitiveType == "string") 
    {
-      if (modelAttribute.MaxLength.HasValue && modelAttribute.MaxLength.Value > 0)
+      if (modelAttribute.MaxLength?.HasValue == true && ((int?)modelAttribute.MaxLength).Value > 0)
       {
-         Output($"[MaxLength({modelAttribute.MaxLength})]");
-         Output($"[StringLength({modelAttribute.MaxLength})]");
+         Output($"[MaxLength({((int?)modelAttribute.MaxLength).Value})]");
+         Output($"[StringLength({((int?)modelAttribute.MaxLength).Value})]");
       }
       if (modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion != EFVersion.EFCore)
       {
-         if (modelAttribute.MinLength.HasValue && modelAttribute.MinLength.Value > 0)
-            Output($"[MinLength({modelAttribute.MinLength})]");
+         if (modelAttribute.MinLength?.HasValue == true && ((int?)modelAttribute.MinLength).Value > 0)
+            Output($"[MinLength({((int?)modelAttribute.MinLength).Value})]");
       } 
    }
    if (!string.IsNullOrWhiteSpace(modelAttribute.DisplayText))
