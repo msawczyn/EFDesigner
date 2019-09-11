@@ -165,7 +165,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults)
    if (haveDefaults != true)
    {
       requiredParameters.AddRange(modelClass.AllRequiredAttributes
-                                            .Where(x => !x.IsIdentity && 
+                                            .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual) &&
                                                         !x.IsConcurrencyToken && 
                                                          x.SetterVisibility == SetterAccessModifier.Public && 
                                                          string.IsNullOrEmpty(x.InitialValue))
@@ -181,7 +181,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults)
    if (haveDefaults != false)
    {
       requiredParameters.AddRange(modelClass.AllRequiredAttributes
-                                            .Where(x => !x.IsIdentity && 
+                                            .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual) &&
                                                         !x.IsConcurrencyToken && 
                                                          x.SetterVisibility == SetterAccessModifier.Public &&
                                                         !string.IsNullOrEmpty(x.InitialValue))
@@ -199,7 +199,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults)
 List<string> GetRequiredParameterNames(ModelClass modelClass)
 {
    List<string> requiredParameterNames = modelClass.AllRequiredAttributes
-      .Where(x => !x.IsIdentity && !x.IsConcurrencyToken && x.SetterVisibility == SetterAccessModifier.Public && string.IsNullOrEmpty(x.InitialValue))
+      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual) && && !x.IsConcurrencyToken && x.SetterVisibility == SetterAccessModifier.Public && string.IsNullOrEmpty(x.InitialValue))
       .Select(x => x.Name.ToLower())
       .ToList();
 
@@ -209,7 +209,7 @@ List<string> GetRequiredParameterNames(ModelClass modelClass)
       .Select(x => x.PropertyName.ToLower()));
 
    requiredParameterNames.AddRange(modelClass.AllRequiredAttributes
-      .Where(x => !x.IsIdentity && !x.IsConcurrencyToken && x.SetterVisibility == SetterAccessModifier.Public && !string.IsNullOrEmpty(x.InitialValue))
+      .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual) && && !x.IsConcurrencyToken && x.SetterVisibility == SetterAccessModifier.Public && !string.IsNullOrEmpty(x.InitialValue))
       .Select(x => x.Name.ToLower()));
 
    return requiredParameterNames;
@@ -519,7 +519,7 @@ void WriteConstructor(ModelClass modelClass)
       }
 
       foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes
-                                                             .Where(x => !x.IsIdentity && 
+                                                             .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual) &&
                                                                          !x.IsConcurrencyToken && 
                                                                           x.SetterVisibility == SetterAccessModifier.Public))
       {
@@ -626,7 +626,7 @@ bool AllSuperclassesAreNullOrAbstract(ModelClass modelClass)
 
 void WriteConstructorComments(ModelClass modelClass)
 {
-   foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => !x.IsIdentity && 
+   foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual) &&
                                                                                             !x.IsConcurrencyToken && 
                                                                                              x.SetterVisibility == SetterAccessModifier.Public))
       Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{requiredAttribute.Summary}</param>");
