@@ -45,15 +45,17 @@ You can read more about how to use the designer in the [Documentation site](http
 ### Known Issues
 
 **Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
-classes, enums, structs and comment blocks. [This has been reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html) 
-and is currently running through their process. As of this writing, there is no workaround in VS2019 -- use VS2017 or VS2019 v16.1.x (if
-possible) to edit the model if you need to change connections (unidirectional/bidirectional associations, inheritance
-and comment attachments).
+classes, enums, structs and comment blocks. [It was reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html), and has since been **fixed as of v16.2.5**, 
+so if you're using a version between 16.2.0 and 16.2.4, you'll want to upgrade to 16.2.5 in order to use not just 
+this extension, but any extension based on the Microsoft Modeling SDK.
 
 ### Change Log
 
-**1.3.0.5**
+**1.3.0.5** (upcoming)
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity
+   - Fix: Removed stray quote marks in default values for string properties (See https://github.com/msawczyn/EFDesigner/issues/86)
+   - Fix: Minimum string length was ignored when setting properties via text edit (See https://github.com/msawczyn/EFDesigner/issues/86)
+   - Fix: Required string identity property is not present in the constructor (See https://github.com/msawczyn/EFDesigner/issues/93)
 
 **1.3.0.4**
    - Fixed problematic code generation in constructors for classes having 1..1 associations (See https://github.com/msawczyn/EFDesigner/issues/74)
