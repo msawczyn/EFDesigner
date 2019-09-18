@@ -33,7 +33,7 @@ this extension, but any extension based on the Microsoft Modeling SDK.
 **ChangeLog**
 
 **1.3.0.5** (upcoming)
-   - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity
+   - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
    - Fix: Removed stray quote marks in default values for string properties (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Minimum string length was ignored when setting properties via text edit (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Required string identity property is not present in the constructor (See https://github.com/msawczyn/EFDesigner/issues/93)

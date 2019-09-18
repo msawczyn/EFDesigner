@@ -1,3 +1,8 @@
+Defect reports:
+If NotifyPropertyChanged is active, wrong Output is generated
+   https://github.com/msawczyn/EFDesigner/issues/97
+
+
 T4:  Implement entity splitting
 
 DSL: Context menu items should apply to model explorer as well as diagram
