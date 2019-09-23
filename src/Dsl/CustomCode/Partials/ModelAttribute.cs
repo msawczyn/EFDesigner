@@ -597,6 +597,7 @@ namespace Sawczyn.EFDesigner.EFModel
             element.isAutoPropertyTrackingPropertyStorage = false;
          }
       }
+   
       /// <summary>
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.

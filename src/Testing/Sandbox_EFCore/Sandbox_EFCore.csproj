@@ -85,6 +85,10 @@
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
     </None>
+    <None Include="Properties\EFModel.efmodel" />
+    <None Include="Properties\EFModel.efmodel.diagram">
+      <DependentUpon>EFModel.efmodel</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
