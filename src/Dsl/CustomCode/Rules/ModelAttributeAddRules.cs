@@ -13,7 +13,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelClass modelClass = element.ModelClass;
 
          // set a new default value if we want to implement notify, to reduce the chance of forgetting to change it
-         if (modelClass?.ImplementNotify == true)
+         if (element.ImplementNotify)
             element.AutoProperty = false;
       }
    }

@@ -192,6 +192,9 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelAttribute), "IsColumnTypeTracking", ModelAttribute.IsColumnTypeTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnTypeTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "CustomAttributes", ModelAttribute.CustomAttributesDomainPropertyId, typeof(ModelAttribute.CustomAttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "DisplayText", ModelAttribute.DisplayTextDomainPropertyId, typeof(ModelAttribute.DisplayTextPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelAttribute), "PersistencePoint", ModelAttribute.PersistencePointDomainPropertyId, typeof(ModelAttribute.PersistencePointPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelAttribute), "ImplementNotify", ModelAttribute.ImplementNotifyDomainPropertyId, typeof(ModelAttribute.ImplementNotifyPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelAttribute), "IsImplementNotifyTracking", ModelAttribute.IsImplementNotifyTrackingDomainPropertyId, typeof(ModelAttribute.IsImplementNotifyTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
@@ -1504,6 +1507,29 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Default.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Default = 0,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: PersistencePointType
+	/// Used to define whether the property or its backing field is persisted
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum PersistencePointType
+	{
+		/// <summary>
+		/// Property
+		/// Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PersistencePointType/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Property,
+		/// <summary>
+		/// Field
+		/// Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Field
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PersistencePointType/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Field,
 	}
 }
 

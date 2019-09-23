@@ -32,7 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
          //return errorMessages;
       }
 
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelClass element)
+      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelClass element)
       {
          //ModelRoot modelRoot = element.ModelRoot;
          //for (int index = 0; index < propertyDescriptors.Count; index++)
@@ -64,22 +64,27 @@ namespace Sawczyn.EFDesigner.EFModel
          return errorMessages;
       }
 
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
+      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
       {
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
+         ModelRoot modelRoot = element.ModelClass.ModelRoot;
 
-         //   switch (propertyDescriptors[index].Name)
-         //   {
-         //      default:
+         for (int index = 0; index < propertyDescriptors.Count; index++)
+         {
+            bool shouldRemove = false;
 
-         //         break;
-         //   }
+            switch (propertyDescriptors[index].Name)
+            {
+               case "PersistencePoint":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
+                  break;
 
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
+               default:
+                  break;
+            }
+
+            if (shouldRemove)
+               propertyDescriptors.Remove(propertyDescriptors[index--]);
+         }
       }
 
       #endregion ModelAttribute
@@ -101,22 +106,31 @@ namespace Sawczyn.EFDesigner.EFModel
          return errorMessages;
       }
 
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
+      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
       {
-         //ModelRoot modelRoot = element.Source.ModelRoot;
+         ModelRoot modelRoot = element.Source.ModelRoot;
 
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
-         //   switch (propertyDescriptors[index].Name)
-         //   {
-         //      default:
-         //         break;
-         //   }
+         for (int index = 0; index < propertyDescriptors.Count; index++)
+         {
+            bool shouldRemove = false;
+            switch (propertyDescriptors[index].Name)
+            {
+               case "TargetPersistencePoint":
+                  shouldRemove = element.TargetAutoProperty || modelRoot.EntityFrameworkVersion == EFVersion.EF6;
+                  break;
 
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
+               case "SourcePersistencePoint":
+                  if (element is BidirectionalAssociation bidirectionalAssociation)
+                     shouldRemove = bidirectionalAssociation.SourceAutoProperty || modelRoot.EntityFrameworkVersion == EFVersion.EF6;
+                  break;
+
+               default:
+                  break;
+            }
+
+            if (shouldRemove)
+               propertyDescriptors.Remove(propertyDescriptors[index--]);
+         }
       }
 
       #endregion Association
@@ -149,7 +163,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="propertyDescriptors"></param>
       /// <param name="element"></param>
-      public static void RemoveHiddenProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
+      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
       {
          ModelRoot modelRoot = element;
 

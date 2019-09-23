@@ -7554,6 +7554,276 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region PersistencePoint domain property code
+		
+		/// <summary>
+		/// PersistencePoint domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PersistencePointDomainPropertyId = new global::System.Guid(0xe85447bb, 0x4dfc, 0x4e0a, 0x80, 0x0f, 0xdc, 0x62, 0xd8, 0x31, 0xee, 0x25);
+		
+		/// <summary>
+		/// Storage for PersistencePoint
+		/// </summary>
+		private PersistencePointType persistencePointPropertyStorage = PersistencePointType.Property;
+		
+		/// <summary>
+		/// Gets or sets the value of PersistencePoint domain property.
+		/// The element that will be persisted for this attribute, either the property or
+		/// the backing field
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(PersistencePointType.Property)]
+		[DslModeling::DomainObjectId("e85447bb-4dfc-4e0a-800f-dc62d831ee25")]
+		public PersistencePointType PersistencePoint
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return persistencePointPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PersistencePointPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.PersistencePoint domain property.
+		/// </summary>
+		internal sealed partial class PersistencePointPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, PersistencePointType>
+		{
+			private PersistencePointPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.PersistencePoint domain property value handler.
+			/// </summary>
+			public static readonly PersistencePointPropertyHandler Instance = new PersistencePointPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.PersistencePoint domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PersistencePointDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed PersistencePointType GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.persistencePointPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, PersistencePointType newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				PersistencePointType oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.persistencePointPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ImplementNotify domain property code
+		
+		/// <summary>
+		/// ImplementNotify domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ImplementNotifyDomainPropertyId = new global::System.Guid(0xdfb9a776, 0x9fda, 0x4565, 0x8f, 0x78, 0xbc, 0xac, 0x2a, 0x6f, 0xb7, 0x34);
+		
+		/// <summary>
+		/// Gets or sets the value of ImplementNotify domain property.
+		/// Should this class implement INotifyPropertyChanged?
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ImplementNotify.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ImplementNotify.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ImplementNotify.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("dfb9a776-9fda-4565-8f78-bcac2a6fb734")]
+		public global::System.Boolean ImplementNotify
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ImplementNotifyPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ImplementNotifyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.ImplementNotify domain property.
+		/// </summary>
+		internal sealed partial class ImplementNotifyPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Boolean>
+		{
+			private ImplementNotifyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.ImplementNotify domain property value handler.
+			/// </summary>
+			public static readonly ImplementNotifyPropertyHandler Instance = new ImplementNotifyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.ImplementNotify domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ImplementNotifyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for ImplementNotify because its Kind is
+				// set to CustomStorage. Please provide the GetImplementNotifyValue()
+				// method on the domain class.
+				return element.GetImplementNotifyValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for ImplementNotify because its Kind is
+					// set to CustomStorage. Please provide the SetImplementNotifyValue()
+					// method on the domain class.
+					element.SetImplementNotifyValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsImplementNotifyTracking domain property code
+		
+		/// <summary>
+		/// IsImplementNotifyTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsImplementNotifyTrackingDomainPropertyId = new global::System.Guid(0x51e44c7a, 0x7fbc, 0x4ddc, 0xae, 0x59, 0x97, 0xea, 0x55, 0x19, 0xba, 0xa7);
+		
+		/// <summary>
+		/// Storage for IsImplementNotifyTracking
+		/// </summary>
+		private global::System.Boolean isImplementNotifyTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsImplementNotifyTracking domain property.
+		/// If true, ModelAttribute.ColumnName tracks ModelAttribute.Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsImplementNotifyTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsImplementNotifyTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("51e44c7a-7fbc-4ddc-ae59-97ea5519baa7")]
+		public global::System.Boolean IsImplementNotifyTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isImplementNotifyTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsImplementNotifyTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.IsImplementNotifyTracking domain property.
+		/// </summary>
+		internal sealed partial class IsImplementNotifyTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Boolean>
+		{
+			private IsImplementNotifyTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.IsImplementNotifyTracking domain property value handler.
+			/// </summary>
+			public static readonly IsImplementNotifyTrackingPropertyHandler Instance = new IsImplementNotifyTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.IsImplementNotifyTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsImplementNotifyTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isImplementNotifyTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isImplementNotifyTrackingPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.

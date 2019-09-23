@@ -10,7 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public override void ElementAdded(ElementAddedEventArgs e)
       {
          base.ElementAdded(e);
-
+         
          Association element = (Association)e.ModelElement;
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;

@@ -1057,6 +1057,38 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;DisplayText&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Description" xml:space="preserve">
+    <value>The element that will be persisted for this attribute, either the property or the backing field</value>
+    <comment>Description for DomainProperty &apos;PersistencePoint&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.DisplayName" xml:space="preserve">
+    <value>Persistence Point</value>
+    <comment>DisplayName for DomainProperty &apos;PersistencePoint&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;PersistencePoint&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ImplementNotify.Description" xml:space="preserve">
+    <value>Should this class implement INotifyPropertyChanged?</value>
+    <comment>Description for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ImplementNotify.DisplayName" xml:space="preserve">
+    <value>Implement INotifyPropertyChanged</value>
+    <comment>DisplayName for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ImplementNotify.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsImplementNotifyTracking.Description" xml:space="preserve">
+    <value>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</value>
+    <comment>Description for DomainProperty &apos;IsImplementNotifyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsImplementNotifyTracking.DisplayName" xml:space="preserve">
+    <value>Is Implement Notify Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsImplementNotifyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>
@@ -2772,6 +2804,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Default.Description" xml:space="preserve">
     <value>Default</value>
     <comment>Description for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Property.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property</value>
+    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Field.DisplayName" xml:space="preserve">
+    <value>Field</value>
+    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Field.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Field</value>
+    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

@@ -14,7 +14,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (ModelElement is ModelRoot modelRoot)
          {
-            EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelRoot);
+            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelRoot);
             //Add in extra custom properties here...
          }
 

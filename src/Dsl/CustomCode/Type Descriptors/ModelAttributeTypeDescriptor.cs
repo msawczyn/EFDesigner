@@ -24,27 +24,34 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             storeDomainDataDirectory = modelAttribute.Store.DomainDataDirectory;
 
-            EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelAttribute);
+            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelAttribute);
 
             // No sense asking for initial values if we won't use them
             if (!modelAttribute.SupportsInitialValue)
             {
-               PropertyDescriptor initialValueTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "InitialValue");
-               propertyDescriptors.Remove(initialValueTypeDescriptor);
+               PropertyDescriptor initialValuePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "InitialValue");
+               if (initialValuePropertyDescriptor != null) propertyDescriptors.Remove(initialValuePropertyDescriptor);
             }
 
             // don't display IdentityType unless the IsIdentity is true
             if (!modelAttribute.IsIdentity)
             {
-               PropertyDescriptor identityTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IdentityType");
-               propertyDescriptors.Remove(identityTypeDescriptor);
+               PropertyDescriptor identityPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "IdentityType");
+               if (identityPropertyDescriptor != null)  propertyDescriptors.Remove(identityPropertyDescriptor);
             }
 
             // ImplementNotify implicitly defines autoproperty as false, so we don't display it
             if (modelAttribute.ModelClass.ImplementNotify)
             {
-               PropertyDescriptor autoPropertyTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "AutoProperty");
-               propertyDescriptors.Remove(autoPropertyTypeDescriptor);
+               PropertyDescriptor autoPropertyPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "AutoProperty");
+               if (autoPropertyPropertyDescriptor != null) propertyDescriptors.Remove(autoPropertyPropertyDescriptor);
+            }
+
+            // don't need a persistence point type if it's not persistent
+            if (!modelAttribute.Persistent)
+            {
+               PropertyDescriptor persistencePointPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "PersistencePoint");
+               if (persistencePointPropertyDescriptor != null) propertyDescriptors.Remove(persistencePointPropertyDescriptor);
             }
 
             /********************************************************************************/
@@ -52,14 +59,14 @@ namespace Sawczyn.EFDesigner.EFModel
             // don't display String property modifiers unless the type is "String"
             if (modelAttribute.Type != "String")
             {
-               PropertyDescriptor minLengthTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "MinLength");
-               propertyDescriptors.Remove(minLengthTypeDescriptor);
+               PropertyDescriptor minLengthPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "MinLength");
+               if (minLengthPropertyDescriptor != null) propertyDescriptors.Remove(minLengthPropertyDescriptor);
 
-               PropertyDescriptor maxLengthTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "MaxLength");
-               propertyDescriptors.Remove(maxLengthTypeDescriptor);
+               PropertyDescriptor maxLengthPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "MaxLength");
+               if (maxLengthPropertyDescriptor != null) propertyDescriptors.Remove(maxLengthPropertyDescriptor);
 
-               PropertyDescriptor stringTypeTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "StringType");
-               propertyDescriptors.Remove(stringTypeTypeDescriptor);
+               PropertyDescriptor stringTypePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "StringType");
+               if (stringTypePropertyDescriptor != null) propertyDescriptors.Remove(stringTypePropertyDescriptor);
             }
 
             /********************************************************************************/
@@ -67,8 +74,8 @@ namespace Sawczyn.EFDesigner.EFModel
             // don't display IndexedUnique unless the Indexed is true
             if (!modelAttribute.Indexed)
             {
-               PropertyDescriptor indexedUniqueTypeDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().Single(x => x.Name == "IndexedUnique");
-               propertyDescriptors.Remove(indexedUniqueTypeDescriptor);
+               PropertyDescriptor indexedUniquePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "IndexedUnique");
+               if (indexedUniquePropertyDescriptor != null) propertyDescriptors.Remove(indexedUniquePropertyDescriptor);
             }
 
             /********************************************************************************/

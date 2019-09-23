@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="101" xml:space="preserve">
-    <value>Entity Framework Visual Designer</value>
+    <value>Entity Framework Visual Editor</value>
   </data>
   <data name="102" xml:space="preserve">
-    <value>Adds an Entity Framework Visual Designer file to the project.</value>
+    <value>Adds an Entity Framework Visual Editor file to the project.</value>
   </data>
   <data name="103" xml:space="preserve">
-    <value>Entity Framework visual designer</value>
+    <value>Entity Framework Visual Editor</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="104" type="System.Resources.ResXFileRef, System.Windows.Forms">

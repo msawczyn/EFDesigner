@@ -350,6 +350,30 @@ namespace Sawczyn.EFDesigner.EFModel
             IsColumnNameTracking = (columnNameStorage == null);
       }
 
+      /// <summary>Storage for the ImplementNotify property.</summary>  
+      private bool implementNotifyStorage;
+
+      /// <summary>Gets the storage for the ImplementNotify property.</summary>
+      /// <returns>The ImplementNotify value.</returns>
+      public bool GetImplementNotifyValue()
+      {
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         return !loading && IsImplementNotifyTracking ? ModelClass.ImplementNotify : implementNotifyStorage;
+      }
+
+      /// <summary>Sets the storage for the ImplementNotify property.</summary>
+      /// <param name="value">The ImplementNotify value.</param>
+      public void SetImplementNotifyValue(bool value)
+      {
+         implementNotifyStorage = value;
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         if (!Store.InUndoRedoOrRollback && !loading)
+            // ReSharper disable once ArrangeRedundantParentheses
+            IsImplementNotifyTracking = (implementNotifyStorage == ModelClass.ImplementNotify);
+      }
+
       /// <summary>Storage for the ColumnType property.</summary>  
       private string columnTypeStorage;
 
@@ -470,6 +494,46 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      internal sealed partial class IsImplementNotifyTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsImplementNotifyTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelAttribute element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(ImplementNotifyDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsColumnTypeTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelAttribute element)
+         {
+            element.isImplementNotifyTrackingPropertyStorage = (element.ImplementNotify == element.ModelClass.ImplementNotify);
+         }
+
+         /// <summary>
+         ///    Method to set IsImplementNotifyTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelAttribute element)
+         {
+            // Force the IsImplementNotifyTracking property to false so that the value  
+            // of the ImplementNotify property is retrieved from storage.  
+            element.isImplementNotifyTrackingPropertyStorage = false;
+         }
+      }
+
       /// <summary>
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.
@@ -479,6 +543,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IsColumnNameTrackingPropertyHandler.Instance.PreResetValue(this);
          IsColumnTypeTrackingPropertyHandler.Instance.PreResetValue(this);
+         IsImplementNotifyTrackingPropertyHandler.Instance.PreResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -491,6 +556,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IsColumnNameTrackingPropertyHandler.Instance.ResetValue(this);
          IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(this);
+         IsImplementNotifyTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -523,13 +589,13 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
-      private void AutoPropertyWillNotNotify(ValidationContext context)
-      {
-         if (ModelClass.ImplementNotify && AutoProperty)
-            context.LogWarning($"{ModelClass.Name}.{Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages", "AWAutoPropertyWillNotNotify", this);
-      }
+      //[ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      //// ReSharper disable once UnusedMember.Local
+      //private void AutoPropertyWillNotNotify(ValidationContext context)
+      //{
+      //   if (ModelClass.ImplementNotify && AutoProperty)
+      //      context.LogWarning($"{ModelClass.Name}.{Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages", "AWAutoPropertyWillNotNotify", this);
+      //}
 
       #endregion Validation Rules
 

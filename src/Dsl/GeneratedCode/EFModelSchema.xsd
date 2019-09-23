@@ -661,6 +661,24 @@
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: PersistencePoint -->
+        <xsd:attribute name="persistencePoint" type="PersistencePointType" >
+          <xsd:annotation>
+            <xsd:documentation>The element that will be persisted for this attribute, either the property or the backing field</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ImplementNotify -->
+        <xsd:attribute name="implementNotify" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Should this class implement INotifyPropertyChanged?</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsImplementNotifyTracking -->
+        <xsd:attribute name="isImplementNotifyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -2065,6 +2083,17 @@
           <xsd:documentation>Default</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum PersistencePointType -->
+  <xsd:simpleType name="PersistencePointType">
+    <xsd:annotation>
+      <xsd:documentation>Used to define whether the property or its backing field is persisted</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Property"/>
+      <xsd:enumeration value="Field"/>
     </xsd:restriction>
   </xsd:simpleType>
   

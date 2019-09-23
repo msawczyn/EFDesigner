@@ -21,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (ModelElement is ModelClass modelClass)
          {
-            EFCoreValidator.RemoveHiddenProperties(propertyDescriptors, modelClass);
+            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelClass);
 
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
 

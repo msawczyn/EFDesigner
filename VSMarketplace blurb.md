@@ -1,4 +1,4 @@
-This Visual Studio 2017/2019 extension adds a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
+This Visual Studio 2017/2019 extension is an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
 of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in 
 the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design.
 
@@ -26,14 +26,17 @@ For comprehensive documentation, please visit [the project's documentation site]
 **Known Issues**
 
 **Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
-classes, enums, structs and comment blocks. [It was reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html), and has since been **fixed as of v16.2.5**, 
-so if you're using a version between 16.2.0 and 16.2.4, you'll want to upgrade to 16.2.5 in order to use not just 
-this extension, but any extension based on the Microsoft Modeling SDK.
+classes, enums, structs and comment blocks. [It was reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html), 
+and has since been **fixed as of v16.2.5**, so if you're using a version between 16.2.0 and 16.2.4, you'll want 
+to upgrade to 16.2.5 in order to use not just this extension, but any extension based on the Microsoft Modeling SDK.
 
 **ChangeLog**
 
 **1.3.0.5** (upcoming)
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
+   - **[NEW]** To more fully support DDD models, added a toggle for persisting either the property or its backing field (if not an autoproperty) for EFCore
+   - **[NEW]** Also added a toggle for persisting entity properties as either the property or its backing field (if not an autoproperty) for EFCore
+   - **[NEW]** Can now override the NotifyPropertyChanged value for an entity on a per-property basis
    - Fix: Removed stray quote marks in default values for string properties (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Minimum string length was ignored when setting properties via text edit (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Required string identity property is not present in the constructor (See https://github.com/msawczyn/EFDesigner/issues/93)

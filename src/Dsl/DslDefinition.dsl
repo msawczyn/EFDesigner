@@ -604,6 +604,21 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e85447bb-4dfc-4e0a-800f-dc62d831ee25" Description="The element that will be persisted for this attribute, either the property or the backing field" Name="PersistencePoint" DisplayName="Persistence Point" DefaultValue="Property" Category="Code Generation">
+          <Type>
+            <DomainEnumerationMoniker Name="PersistencePointType" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="dfb9a776-9fda-4565-8f78-bcac2a6fb734" Description="Should this class implement INotifyPropertyChanged?" Name="ImplementNotify" DisplayName="Implement INotifyPropertyChanged" DefaultValue="" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="51e44c7a-7fbc-4ddc-ae59-97ea5519baa7" Description="If true, ModelAttribute.ColumnName tracks ModelAttribute.Name" Name="IsImplementNotifyTracking" DisplayName="Is Implement Notify Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -1398,6 +1413,15 @@
     </DomainEnumeration>
     <ExternalType Name="LayoutAlgorithmSettings" Namespace="Microsoft.Msagl.Core.Layout" />
     <ExternalType Name="Int32Nullable" Namespace="Sawczyn.EFDesigner.EFModel" />
+    <DomainEnumeration Name="PersistencePointType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Used to define whether the property or its backing field is persisted">
+      <Literals>
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property" Name="Property" Value="" />
+        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Field" Name="Field" Value="" />
+      </Literals>
+    </DomainEnumeration>
+    <ExternalType Name="InitialValueType" Namespace="Sawczyn.EFDesigner.EFModel">
+      <Notes>Just a string, but a specialized type so we can have a type converter for it</Notes>
+    </ExternalType>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1888,6 +1912,15 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="displayText">
             <DomainPropertyMoniker Name="ModelAttribute/DisplayText" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="persistencePoint">
+            <DomainPropertyMoniker Name="ModelAttribute/PersistencePoint" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="implementNotify">
+            <DomainPropertyMoniker Name="ModelAttribute/ImplementNotify" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isImplementNotifyTracking">
+            <DomainPropertyMoniker Name="ModelAttribute/IsImplementNotifyTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

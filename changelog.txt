@@ -1,5 +1,8 @@
-1.3.0.5
+1.3.0.5 
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
+   - To more fully support DDD models, added a toggle for persisting either the property or its backing field (if not an autoproperty) for EFCore
+   - Also added a toggle for persisting entity properties as either the property or its backing field (if not an autoproperty) for EFCore
+   - Can now override the NotifyPropertyChanged value for an entity on a per-property basis
    - Fix: Removed stray quote marks in default values for string properties (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Minimum string length was ignored when setting properties via text edit (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Required string identity property is not present in the constructor (See https://github.com/msawczyn/EFDesigner/issues/93)
