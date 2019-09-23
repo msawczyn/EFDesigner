@@ -475,6 +475,12 @@
             <xsd:documentation>Any custom attributes to be generated for this element.  Will be passed through as entered.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: AutoPropertyDefault -->
+        <xsd:attribute name="autoPropertyDefault" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Default value for this class&apos;s attribute AutoProperty setting</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -616,7 +622,7 @@
         <!-- Property: AutoProperty -->
         <xsd:attribute name="autoProperty" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+            <xsd:documentation>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: MinLength -->
@@ -677,6 +683,12 @@
         <xsd:attribute name="isImplementNotifyTracking" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsAutoPropertyTracking -->
+        <xsd:attribute name="isAutoPropertyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

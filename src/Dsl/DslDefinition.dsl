@@ -408,6 +408,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="aae9a58c-df8c-4557-826a-f0a66bb75d66" Description="Default value for this class's attribute AutoProperty setting" Name="AutoPropertyDefault" DisplayName="AutoProperty Default" DefaultValue="true" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -557,7 +562,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="bd0273dc-d3ea-44e2-8b01-f79d39ca0704" Description="If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="AutoProperty" DisplayName="Auto Property" DefaultValue="true" Category="Code Generation">
+        <DomainProperty Id="bd0273dc-d3ea-44e2-8b01-f79d39ca0704" Description="If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="AutoProperty" DisplayName="Auto Property" DefaultValue="" Kind="CustomStorage" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -615,6 +620,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="51e44c7a-7fbc-4ddc-ae59-97ea5519baa7" Description="If true, ModelAttribute.ColumnName tracks ModelAttribute.Name" Name="IsImplementNotifyTracking" DisplayName="Is Implement Notify Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="79e4dae8-e284-44a2-b7b2-6aaae8c0239d" Description="If true, AutoProperty tracks ModelClass.AutoPropertyDefault" Name="IsAutoPropertyTracking" DisplayName="Is Auto Property Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1830,6 +1840,9 @@
           <XmlPropertyData XmlName="customAttributes">
             <DomainPropertyMoniker Name="ModelClass/CustomAttributes" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="autoPropertyDefault">
+            <DomainPropertyMoniker Name="ModelClass/AutoPropertyDefault" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelAttribute" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelAttributeMoniker" ElementName="modelAttribute" MonikerTypeName="ModelAttributeMoniker">
@@ -1921,6 +1934,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isImplementNotifyTracking">
             <DomainPropertyMoniker Name="ModelAttribute/IsImplementNotifyTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isAutoPropertyTracking">
+            <DomainPropertyMoniker Name="ModelAttribute/IsAutoPropertyTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

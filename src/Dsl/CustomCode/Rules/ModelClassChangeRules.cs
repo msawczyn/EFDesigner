@@ -115,8 +115,19 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (newImplementNotify)
                {
-                  foreach (ModelAttribute attribute in element.Attributes.Where(x => x.AutoProperty))
-                     WarningDisplay.Show($"{element.Name}.{attribute.Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages");
+                  List<string> nameList = element.Attributes.Where(x => x.AutoProperty).Select(x => x.Name).ToList();
+                  if (nameList.Any())
+                  {
+                     string names = nameList.Count > 1
+                                       ? string.Join(", ", nameList.Take(nameList.Count - 1)) + " and " + nameList.Last()
+                                       : nameList.First();
+
+                     string verb = nameList.Count > 1
+                                      ? "is an autoproperty"
+                                      : "are autoproperties";
+
+                     WarningDisplay.Show($"{names} {verb}, so will not participate in INotifyPropertyChanged messages");
+                  }
                }
 
                PresentationHelper.ColorShapeOutline(element);

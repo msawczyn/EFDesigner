@@ -745,6 +745,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/AutoPropertyDefault.Description" xml:space="preserve">
+    <value>Default value for this class&apos;s attribute AutoProperty setting</value>
+    <comment>Description for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/AutoPropertyDefault.DisplayName" xml:space="preserve">
+    <value>AutoProperty Default</value>
+    <comment>DisplayName for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/AutoPropertyDefault.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>
@@ -970,7 +982,7 @@
     <comment>Category for DomainProperty &apos;ReadOnly&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/AutoProperty.Description" xml:space="preserve">
-    <value>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
+    <value>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
     <comment>Description for DomainProperty &apos;AutoProperty&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/AutoProperty.DisplayName" xml:space="preserve">
@@ -1088,6 +1100,14 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsImplementNotifyTracking.DisplayName" xml:space="preserve">
     <value>Is Implement Notify Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsImplementNotifyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAutoPropertyTracking.Description" xml:space="preserve">
+    <value>If true, AutoProperty tracks ModelClass.AutoPropertyDefault</value>
+    <comment>Description for DomainProperty &apos;IsAutoPropertyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAutoPropertyTracking.DisplayName" xml:space="preserve">
+    <value>Is Auto Property Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsAutoPropertyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>

@@ -326,7 +326,10 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
             segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
          if (!modelAttribute.AutoProperty)
+         {
             segments.Add($"HasField(\"_{modelAttribute.Name}\")");
+            segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{(modelAttribute.PersistencePoint == PersistencePointType.Field ? "PropertyAccessMode.Field" : "PropertyAccessMode.Property")});"
+         }
          if (!string.IsNullOrEmpty(modelAttribute.ColumnType) && modelAttribute.ColumnType.ToLowerInvariant() != "default")
          {
             if (modelAttribute.ColumnType.ToLowerInvariant() == "varchar" || modelAttribute.ColumnType.ToLowerInvariant() == "nvarchar" || modelAttribute.ColumnType.ToLowerInvariant() == "char")

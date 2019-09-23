@@ -16,7 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private readonly int? value;
 
       public Int32Nullable(int? i) { value = i; }
-      public static implicit operator int?(Int32Nullable i) => i?.value;
+      public static implicit operator int? (Int32Nullable i) => i?.value;
       public static implicit operator Int32Nullable(int? i) => new Int32Nullable(i);
       public bool HasValue => value.HasValue;
       public override string ToString() => $"{value}";
@@ -91,14 +91,14 @@ namespace Sawczyn.EFDesigner.EFModel
             return true;
          }
       }
-     
+
       /// <summary>
       /// Tests if the InitialValue property is valid for the type indicated
       /// </summary>
       /// <param name="typeName">Name of type to test. If typeName is null, Type property will be used. If initialValue is null, InitialValue property will be used</param>
       /// <param name="initialValue">Initial value to test</param>
       /// <returns>true if InitialValue is a valid value for the type, or if initialValue is null or empty</returns>
-      #pragma warning disable 168
+#pragma warning disable 168
       [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
       public bool IsValidInitialValue(string typeName = null, string initialValue = null)
       {
@@ -190,7 +190,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return false;
       }
-      #pragma warning restore 168
+#pragma warning restore 168
 
       /// <summary>
       /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity. Converts the attribute's CLR type to a C# primitive type.
@@ -374,6 +374,30 @@ namespace Sawczyn.EFDesigner.EFModel
             IsImplementNotifyTracking = (implementNotifyStorage == ModelClass.ImplementNotify);
       }
 
+      /// <summary>Storage for the AutoProperty property.</summary>  
+      private bool autoPropertyStorage;
+
+      /// <summary>Gets the storage for the AutoProperty property.</summary>
+      /// <returns>The AutoProperty value.</returns>
+      public bool GetAutoPropertyValue()
+      {
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         return !loading && IsAutoPropertyTracking ? ModelClass.AutoPropertyDefault : autoPropertyStorage;
+      }
+
+      /// <summary>Sets the storage for the AutoProperty property.</summary>
+      /// <param name="value">The AutoProperty value.</param>
+      public void SetAutoPropertyValue(bool value)
+      {
+         autoPropertyStorage = value;
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         if (!Store.InUndoRedoOrRollback && !loading)
+            // ReSharper disable once ArrangeRedundantParentheses
+            IsAutoPropertyTracking = (autoPropertyStorage == ModelClass.AutoPropertyDefault);
+      }
+
       /// <summary>Storage for the ColumnType property.</summary>  
       private string columnTypeStorage;
 
@@ -534,6 +558,45 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      internal sealed partial class IsAutoPropertyTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsAutoPropertyTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelAttribute element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(AutoPropertyDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsAutoPropertyTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelAttribute element)
+         {
+            element.isAutoPropertyTrackingPropertyStorage = (element.AutoProperty == element.ModelClass.AutoPropertyDefault);
+         }
+
+         /// <summary>
+         ///    Method to set IsAutoPropertyTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelAttribute element)
+         {
+            // Force the IsAutoPropertyTracking property to false so that the value  
+            // of the AutoProperty property is retrieved from storage.  
+            element.isAutoPropertyTrackingPropertyStorage = false;
+         }
+      }
       /// <summary>
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.
@@ -544,6 +607,7 @@ namespace Sawczyn.EFDesigner.EFModel
          IsColumnNameTrackingPropertyHandler.Instance.PreResetValue(this);
          IsColumnTypeTrackingPropertyHandler.Instance.PreResetValue(this);
          IsImplementNotifyTrackingPropertyHandler.Instance.PreResetValue(this);
+         IsAutoPropertyTrackingPropertyHandler.Instance.PreResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -557,6 +621,7 @@ namespace Sawczyn.EFDesigner.EFModel
          IsColumnNameTrackingPropertyHandler.Instance.ResetValue(this);
          IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(this);
          IsImplementNotifyTrackingPropertyHandler.Instance.ResetValue(this);
+         IsAutoPropertyTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
 

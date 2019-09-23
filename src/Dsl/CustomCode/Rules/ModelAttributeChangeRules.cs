@@ -50,8 +50,6 @@ namespace Sawczyn.EFDesigner.EFModel
                   {
                      if (element.IdentityType == IdentityType.None)
                         errorMessages.Add($"{modelClass.Name}.{element.Name}: Identity properties must have an identity type defined");
-                     else
-                        element.AutoProperty = true;
                   }
                   else
                      element.IdentityType = IdentityType.None;
