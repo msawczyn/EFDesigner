@@ -597,7 +597,7 @@ namespace Sawczyn.EFDesigner.EFModel
             element.isAutoPropertyTrackingPropertyStorage = false;
          }
       }
-   
+
       /// <summary>
       ///    Calls the pre-reset method on the associated property value handler for each
       ///    tracking property of this model element.
@@ -628,7 +628,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion Tracking Properties
 
-      #region Validation Rules
+      #region Validation methods
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
@@ -664,6 +664,52 @@ namespace Sawczyn.EFDesigner.EFModel
       //}
 
       #endregion Validation Rules
+
+      #region ColumnName tracking property
+
+      protected virtual void OnNameChanged(string oldValue, string newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         ModelClass.Attributes,
+                                                         ModelAttribute.ColumnNameDomainPropertyId,
+                                                         ModelAttribute.IsColumnNameTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class NamePropertyHandler
+      {
+         protected override void OnValueChanged(ModelAttribute element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnNameChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion ColumnName tracking property
+
+      #region ColumnType tracking property
+
+      protected virtual void OnTypeChanged(string oldValue, string newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         ModelClass.Attributes,
+                                                         ModelAttribute.ColumnTypeDomainPropertyId,
+                                                         ModelAttribute.IsColumnTypeTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class TypePropertyHandler
+      {
+         protected override void OnValueChanged(ModelAttribute element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnTypeChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion ColumnType tracking property
 
       #region To/From String
 

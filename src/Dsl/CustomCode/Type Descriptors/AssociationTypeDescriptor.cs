@@ -27,20 +27,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
             EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, association);
 
-            // ImplementNotify implicitly defines autoproperty as false, so we don't display it
-            // Similarly, collections are autoproperty == true, so no need to display it then either
-            if ((association.Target.ImplementNotify || association.SourceMultiplicity == Multiplicity.ZeroMany) && association is BidirectionalAssociation)
-            {
-               PropertyDescriptor sourceAutoPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "SourceAutoProperty");
-               if (sourceAutoPropertyDescriptor != null) propertyDescriptors.Remove(sourceAutoPropertyDescriptor);
-            }
-
-            if (association.Source.ImplementNotify || association.TargetMultiplicity == Multiplicity.ZeroMany)
-            {
-               PropertyDescriptor targetAutoPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "TargetAutoProperty");
-               if (targetAutoPropertyDescriptor != null) propertyDescriptors.Remove(targetAutoPropertyDescriptor);
-            }
-
             // only display roles for 1..1 and 0-1..0-1 associations
             if (((association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One) &&
                  (association.SourceMultiplicity != Multiplicity.ZeroOne || association.TargetMultiplicity != Multiplicity.ZeroOne)))

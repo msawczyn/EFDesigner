@@ -87,7 +87,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#region Warning display
+      #region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -178,7 +178,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                    Description = x.TargetDescription,
                                                                    CustomAttributes = x.TargetCustomAttributes,
                                                                    DisplayText = x.TargetDisplayText,
-                                                                   IsAutoProperty = x.TargetAutoProperty
+                                                                   IsAutoProperty = true
                                                                 })
                                                                 .ToList();
 
@@ -195,7 +195,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                    Description = x.SourceDescription,
                                                                    CustomAttributes = x.SourceCustomAttributes,
                                                                    DisplayText = x.SourceDisplayText,
-                                                                   IsAutoProperty = x.SourceAutoProperty
+                                                                   IsAutoProperty = true
                                                                 })
                                                                 .ToList();
          targetProperties.AddRange(Association.GetLinksToSources(this)
@@ -231,6 +231,14 @@ namespace Sawczyn.EFDesigner.EFModel
       public bool HasAttributeNamed(string identifier) => FindAttributeNamed(identifier) != null;
 
       public bool HasPropertyNamed(string identifier) => HasAssociationNamed(identifier) || HasAttributeNamed(identifier);
+
+      private string GetBaseClassValue() => Superclass?.Name;
+
+      private void SetBaseClassValue(string newValue)
+      {
+         ModelClass baseClass = Store.ElementDirectory.FindElements<ModelClass>().FirstOrDefault(x => x.Name == newValue);
+         Superclass = baseClass;
+      }
 
       #region Validations
 
@@ -597,12 +605,24 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion OutputDirectory tracking property
 
-      private string GetBaseClassValue() => Superclass?.Name;
+      #region IsImplementNotify tracking property
 
-      private void SetBaseClassValue(string newValue)
+      protected virtual void OnIsImplementNotifyChanged(bool oldValue, bool newValue)
       {
-         ModelClass baseClass = Store.ElementDirectory.FindElements<ModelClass>().FirstOrDefault(x => x.Name == newValue);
-         Superclass = baseClass;
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, Attributes, ModelAttribute.ImplementNotifyDomainPropertyId, ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
       }
+
+      internal sealed partial class ImplementNotifyPropertyHandler
+      {
+         protected override void OnValueChanged(ModelClass element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnIsImplementNotifyChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion Namespace tracking property
    }
 }

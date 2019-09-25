@@ -63,7 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!element.Store.InUndoRedoOrRollback)
             {
                // if this is the first time we've been here, cache what's alread there
-               if (oldValue != LayoutAlgorithm.Default && !settingsCache.ContainsKey(oldValue) && element.LayoutAlgorithmSettings != null )
+               if (oldValue != LayoutAlgorithm.Default && !settingsCache.ContainsKey(oldValue) && element.LayoutAlgorithmSettings != null)
                   settingsCache[oldValue] = element.LayoutAlgorithmSettings;
 
                // use the prior settings for this layout type if available
@@ -104,11 +104,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      case LayoutAlgorithm.Sugiyama:
                         SugiyamaLayoutSettings sugiyamaLayoutSettings = new SugiyamaLayoutSettings
-                                                                        {
-                                                                           LayerSeparation = 1,
-                                                                           MinNodeHeight = 1,
-                                                                           MinNodeWidth = 1
-                                                                        };
+                        {
+                           LayerSeparation = 1,
+                           MinNodeHeight = 1,
+                           MinNodeWidth = 1
+                        };
 
                         element.LayoutAlgorithmSettings = sugiyamaLayoutSettings;
 
@@ -341,27 +341,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion DatabaseSchema tracking property
 
-      #region Namespace tracking property
-
-      protected virtual void OnNamespaceChanged(string oldValue, string newValue)
-      {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Classes, ModelClass.NamespaceDomainPropertyId, ModelClass.IsNamespaceTrackingDomainPropertyId);
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Enums, ModelEnum.NamespaceDomainPropertyId, ModelEnum.IsNamespaceTrackingDomainPropertyId);
-      }
-
-      internal sealed partial class NamespacePropertyHandler
-      {
-         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
-         {
-            base.OnValueChanged(element, oldValue, newValue);
-
-            if (!element.Store.InUndoRedoOrRollback)
-               element.OnNamespaceChanged(oldValue, newValue);
-         }
-      }
-
-      #endregion Namespace tracking property
-
       #region DefaultCollectionClass tracking property
 
       protected virtual void OnCollectionClassChanged(string oldValue, string newValue)
@@ -385,6 +364,66 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion DefaultCollectionClass tracking property
 
+      #region Entity Output Directory tracking property
+
+      protected virtual void OnEntityOutputDirectoryChanged(string oldValue, string newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, Classes, ModelClass.OutputDirectoryDomainPropertyId, ModelClass.IsOutputDirectoryTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class EntityOutputDirectoryPropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnEntityOutputDirectoryChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion
+
+      #region Enum Output Directory tracking property
+
+      protected virtual void OnEnumOutputDirectoryChanged(string oldValue, string newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, Classes, ModelEnum.OutputDirectoryDomainPropertyId, ModelEnum.IsOutputDirectoryTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class EnumOutputDirectoryPropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnEnumOutputDirectoryChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion
+
+      #region Namespace tracking property
+
+      protected virtual void OnNamespaceChanged(string oldValue, string newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, Classes, ModelClass.NamespaceDomainPropertyId, ModelClass.IsNamespaceTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, Enums, ModelEnum.NamespaceDomainPropertyId, ModelEnum.IsNamespaceTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class NamespacePropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnNamespaceChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion Namespace tracking property
 
    }
 }

@@ -500,9 +500,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected[1].TargetMultiplicity), 
                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected[0].TargetMultiplicity), 
-
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceAutoPropertyDomainPropertyId, selected[1].TargetAutoProperty), 
-                                                      new PropertyAssignment(Association.TargetAutoPropertyDomainPropertyId, selected[0].TargetAutoProperty), 
                                                    });
             tx.Commit();
          }
@@ -542,8 +539,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected.SourceMultiplicity), 
                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected.TargetMultiplicity), 
-
-                                                      new PropertyAssignment(Association.TargetAutoPropertyDomainPropertyId, selected.TargetAutoProperty), 
                                                    });
 
             // ReSharper disable once UnusedVariable
@@ -572,8 +567,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, selected.TargetMultiplicity), 
                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, selected.SourceMultiplicity), 
-
-                                                      new PropertyAssignment(Association.TargetAutoPropertyDomainPropertyId, selected.SourceAutoProperty), 
                                                    });
 
             tx.Commit();

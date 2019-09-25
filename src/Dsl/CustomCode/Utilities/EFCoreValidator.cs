@@ -108,29 +108,21 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
       {
-         ModelRoot modelRoot = element.Source.ModelRoot;
+         //ModelRoot modelRoot = element.Source.ModelRoot;
 
-         for (int index = 0; index < propertyDescriptors.Count; index++)
-         {
-            bool shouldRemove = false;
-            switch (propertyDescriptors[index].Name)
-            {
-               case "TargetPersistencePoint":
-                  shouldRemove = element.TargetAutoProperty || modelRoot.EntityFrameworkVersion == EFVersion.EF6;
-                  break;
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
 
-               case "SourcePersistencePoint":
-                  if (element is BidirectionalAssociation bidirectionalAssociation)
-                     shouldRemove = bidirectionalAssociation.SourceAutoProperty || modelRoot.EntityFrameworkVersion == EFVersion.EF6;
-                  break;
+         //      default:
+         //         break;
+         //   }
 
-               default:
-                  break;
-            }
-
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
-         }
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
       }
 
       #endregion Association
