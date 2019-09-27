@@ -424,7 +424,7 @@
         <!-- Property: ImplementNotify -->
         <xsd:attribute name="implementNotify" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>Should this class implement INotifyPropertyChanged?</xsd:documentation>
+            <xsd:documentation>Should this class&apos;s properties implement INotifyPropertyChanged by default?</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: CustomInterfaces -->
@@ -682,13 +682,13 @@
         <!-- Property: IsImplementNotifyTracking -->
         <xsd:attribute name="isImplementNotifyTracking" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</xsd:documentation>
+            <xsd:documentation>If true, ModelAttribute.IsImplementNotify tracks ModelClass.ImplementNotify</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: IsAutoPropertyTracking -->
         <xsd:attribute name="isAutoPropertyTracking" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
+            <xsd:documentation>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

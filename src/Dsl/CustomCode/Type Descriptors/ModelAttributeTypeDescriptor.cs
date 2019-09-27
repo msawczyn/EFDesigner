@@ -30,28 +30,36 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!modelAttribute.SupportsInitialValue)
             {
                PropertyDescriptor initialValuePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "InitialValue");
-               if (initialValuePropertyDescriptor != null) propertyDescriptors.Remove(initialValuePropertyDescriptor);
+
+               if (initialValuePropertyDescriptor != null)
+                  propertyDescriptors.Remove(initialValuePropertyDescriptor);
             }
 
             // don't display IdentityType unless the IsIdentity is true
             if (!modelAttribute.IsIdentity)
             {
                PropertyDescriptor identityPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "IdentityType");
-               if (identityPropertyDescriptor != null)  propertyDescriptors.Remove(identityPropertyDescriptor);
+
+               if (identityPropertyDescriptor != null)
+                  propertyDescriptors.Remove(identityPropertyDescriptor);
             }
 
             // ImplementNotify implicitly defines autoproperty as false, so we don't display it
             if (modelAttribute.ModelClass.ImplementNotify)
             {
                PropertyDescriptor autoPropertyPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "AutoProperty");
-               if (autoPropertyPropertyDescriptor != null) propertyDescriptors.Remove(autoPropertyPropertyDescriptor);
+
+               if (autoPropertyPropertyDescriptor != null)
+                  propertyDescriptors.Remove(autoPropertyPropertyDescriptor);
             }
 
             // don't need a persistence point type if it's not persistent
             if (!modelAttribute.Persistent)
             {
                PropertyDescriptor persistencePointPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "PersistencePoint");
-               if (persistencePointPropertyDescriptor != null) propertyDescriptors.Remove(persistencePointPropertyDescriptor);
+
+               if (persistencePointPropertyDescriptor != null)
+                  propertyDescriptors.Remove(persistencePointPropertyDescriptor);
             }
 
             /********************************************************************************/
@@ -60,13 +68,19 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelAttribute.Type != "String")
             {
                PropertyDescriptor minLengthPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "MinLength");
-               if (minLengthPropertyDescriptor != null) propertyDescriptors.Remove(minLengthPropertyDescriptor);
+
+               if (minLengthPropertyDescriptor != null)
+                  propertyDescriptors.Remove(minLengthPropertyDescriptor);
 
                PropertyDescriptor maxLengthPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "MaxLength");
-               if (maxLengthPropertyDescriptor != null) propertyDescriptors.Remove(maxLengthPropertyDescriptor);
+
+               if (maxLengthPropertyDescriptor != null)
+                  propertyDescriptors.Remove(maxLengthPropertyDescriptor);
 
                PropertyDescriptor stringTypePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "StringType");
-               if (stringTypePropertyDescriptor != null) propertyDescriptors.Remove(stringTypePropertyDescriptor);
+
+               if (stringTypePropertyDescriptor != null)
+                  propertyDescriptors.Remove(stringTypePropertyDescriptor);
             }
 
             /********************************************************************************/
@@ -75,7 +89,9 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!modelAttribute.Indexed)
             {
                PropertyDescriptor indexedUniquePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "IndexedUnique");
-               if (indexedUniquePropertyDescriptor != null) propertyDescriptors.Remove(indexedUniquePropertyDescriptor);
+
+               if (indexedUniquePropertyDescriptor != null)
+                  propertyDescriptors.Remove(indexedUniquePropertyDescriptor);
             }
 
             /********************************************************************************/
@@ -84,14 +100,19 @@ namespace Sawczyn.EFDesigner.EFModel
             DomainPropertyInfo isColumnNameTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsColumnNameTrackingDomainPropertyId);
 
             // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] columnNameAttributes =
-            {
-               new DisplayNameAttribute("Column Name"),
-               new DescriptionAttribute("Overrides default column name"),
-               new CategoryAttribute("Database")
-            };
+            Attribute[] columnNameAttributes = {new DisplayNameAttribute("Column Name"), new DescriptionAttribute("Overrides default column name"), new CategoryAttribute("Database")};
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, columnNamePropertyInfo, isColumnNameTrackingPropertyInfo, columnNameAttributes));
+
+            /********************************************************************************/
+
+            DomainPropertyInfo columnTypePropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ColumnTypeDomainPropertyId);
+            DomainPropertyInfo isColumnTypeTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsColumnTypeTrackingDomainPropertyId);
+
+            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
+            Attribute[] columnTypeAttributes = {new DisplayNameAttribute("Column Type"), new DescriptionAttribute("Overrides default column type"), new CategoryAttribute("Database")};
+
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, columnTypePropertyInfo, isColumnTypeTrackingPropertyInfo, columnTypeAttributes));
 
             /********************************************************************************/
 
@@ -99,15 +120,19 @@ namespace Sawczyn.EFDesigner.EFModel
             DomainPropertyInfo autoPropertyTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsAutoPropertyTrackingDomainPropertyId);
 
             // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] autoPropertyAttributes =
-            {
-               new DisplayNameAttribute("AutoProperty"),
-               new DescriptionAttribute("Overrides default autoproperty setting"),
-               new CategoryAttribute("Code Generation")
-            };
+            Attribute[] autoPropertyAttributes = {new DisplayNameAttribute("AutoProperty"), new DescriptionAttribute("Overrides default autoproperty setting"), new CategoryAttribute("Code Generation")};
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, autoPropertyPropertyInfo, autoPropertyTrackingPropertyInfo, autoPropertyAttributes));
 
+            /********************************************************************************/
+
+            DomainPropertyInfo implementNotifyPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ImplementNotifyDomainPropertyId);
+            DomainPropertyInfo implementNotifyTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
+
+            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
+            Attribute[] implementNotifyAttributes = {new DisplayNameAttribute("Implement INotifyPropertyChanged"), new DescriptionAttribute("Should this attribute implement INotifyPropertyChanged?"), new CategoryAttribute("Code Generation")};
+
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, implementNotifyPropertyInfo, implementNotifyTrackingPropertyInfo, implementNotifyAttributes));
          }
 
          // Return the property descriptors for this element  

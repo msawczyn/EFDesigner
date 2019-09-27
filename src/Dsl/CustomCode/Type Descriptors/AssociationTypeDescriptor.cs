@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private DomainDataDirectory storeDomainDataDirectory;
 
       /// <summary>
-      ///    Returns the property descriptors for the described ModelClass domain class, adding tracking property
+      ///    Returns the property descriptors for the described Association domain class, adding tracking property
       ///    descriptor(s).
       /// </summary>
       private PropertyDescriptorCollection GetCustomProperties(Attribute[] attributes)

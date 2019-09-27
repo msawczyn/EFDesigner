@@ -148,6 +148,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
 
          if (!loading && IsCollectionClassTracking)
+         {
             try
             {
                ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
@@ -164,6 +165,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return default(string);
             }
+         }
 
          return collectionClassStorage;
       }
@@ -175,7 +177,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            IsCollectionClassTracking = false;
+            IsCollectionClassTracking = (value == Source.ModelRoot.DefaultCollectionClass);
       }
 
       internal sealed partial class IsCollectionClassTrackingPropertyHandler
@@ -232,5 +234,27 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion CollectionClass tracking property
+
+      /// <summary>
+      ///    Calls the pre-reset method on the associated property value handler for each
+      ///    tracking property of this model element.
+      /// </summary>
+      // ReSharper disable once UnusedMember.Global
+      internal virtual void PreResetIsTrackingProperties()
+      {
+         IsCollectionClassTrackingPropertyHandler.Instance.PreResetValue(this);
+         // same with other tracking properties as they get added
+      }
+
+      /// <summary>
+      ///    Calls the reset method on the associated property value handler for each
+      ///    tracking property of this model element.
+      /// </summary>
+      // ReSharper disable once UnusedMember.Global
+      internal virtual void ResetIsTrackingProperties()
+      {
+         IsCollectionClassTrackingPropertyHandler.Instance.ResetValue(this);
+         // same with other tracking properties as they get added
+      }
    }
 }

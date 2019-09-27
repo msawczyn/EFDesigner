@@ -634,7 +634,7 @@
     <comment>Category for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ImplementNotify.Description" xml:space="preserve">
-    <value>Should this class implement INotifyPropertyChanged?</value>
+    <value>Should this class&apos;s properties implement INotifyPropertyChanged by default?</value>
     <comment>Description for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ImplementNotify.DisplayName" xml:space="preserve">
@@ -1094,7 +1094,7 @@
     <comment>Category for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsImplementNotifyTracking.Description" xml:space="preserve">
-    <value>If true, ModelAttribute.ColumnName tracks ModelAttribute.Name</value>
+    <value>If true, ModelAttribute.IsImplementNotify tracks ModelClass.ImplementNotify</value>
     <comment>Description for DomainProperty &apos;IsImplementNotifyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsImplementNotifyTracking.DisplayName" xml:space="preserve">
@@ -1102,7 +1102,7 @@
     <comment>DisplayName for DomainProperty &apos;IsImplementNotifyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAutoPropertyTracking.Description" xml:space="preserve">
-    <value>If true, AutoProperty tracks ModelClass.AutoPropertyDefault</value>
+    <value>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</value>
     <comment>Description for DomainProperty &apos;IsAutoPropertyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAutoPropertyTracking.DisplayName" xml:space="preserve">
