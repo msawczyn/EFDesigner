@@ -441,9 +441,11 @@ void WriteDbContextEF6(ModelRoot modelRoot)
      // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
-          segments.Clear();
-         string attributeName = !indexed.AutoProperty ? $"_{indexed.Name}" : indexed.Name;
-         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{attributeName})");
+         segments.Clear();
+         if (indexed.AutoProperty)
+            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
+         else
+            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(\"_{indexed.Name}\")");
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
          if (segments.Count > 1)
          {

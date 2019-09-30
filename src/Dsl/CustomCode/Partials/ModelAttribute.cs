@@ -667,12 +667,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region ColumnName tracking property
 
+      // change the column name, if it's tracking the name of the property
+
       protected virtual void OnNameChanged(string oldValue, string newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store,
-                                                         ModelClass.Attributes,
-                                                         ModelAttribute.ColumnNameDomainPropertyId,
-                                                         ModelAttribute.IsColumnNameTrackingDomainPropertyId);
+         // not really a "tracking property" since we're tracking in the same class, so we're handling it a bit differently
+         if (ColumnName == oldValue)
+            ColumnName = newValue;
       }
 
       internal sealed partial class NamePropertyHandler
@@ -692,10 +693,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual void OnTypeChanged(string oldValue, string newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store,
-                                                         ModelClass.Attributes,
-                                                         ModelAttribute.ColumnTypeDomainPropertyId,
-                                                         ModelAttribute.IsColumnTypeTrackingDomainPropertyId);
+         if (ModelClass != null)
+            TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                            ModelClass.Attributes,
+                                                            ModelAttribute.ColumnTypeDomainPropertyId,
+                                                            ModelAttribute.IsColumnTypeTrackingDomainPropertyId);
       }
 
       internal sealed partial class TypePropertyHandler

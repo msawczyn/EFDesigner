@@ -14,7 +14,7 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
 #><#@ import namespace="System.Globalization" 
 #><#@ import namespace="Sawczyn.EFDesigner.EFModel" 
-#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='..\Testing_EFCoreV2NetFramework\AllFeatureModel.efmodel'"  
+#><#@ EFModel processor="EFModelDirectiveProcessor" requires="FileName='AllFeatureModel.efmodel'"  
 #><#
    Manager manager = Manager.Create(Host, GenerationEnvironment);
    manager.FileNameMarker = ModelRoot.FileNameMarker;
