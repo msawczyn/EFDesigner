@@ -95,7 +95,6 @@ namespace Testing
             if (oldValue != value)
             {
                _PropertyInChild = value;
-               OnPropertyChanged();
             }
          }
       }
@@ -104,64 +103,20 @@ namespace Testing
        * Persistent navigation properties
        *************************************************************************/
 
-      protected global::Testing.UChild _UChildOptional;
-      partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
-      partial void GetUChildOptional(ref global::Testing.UChild result);
-
       /// <summary>
       /// x
       /// </summary>
-      public virtual global::Testing.UChild UChildOptional
-      {
-         get
-         {
-            global::Testing.UChild value = _UChildOptional;
-            GetUChildOptional(ref value);
-            return (_UChildOptional = value);
-         }
-         set
-         {
-            global::Testing.UChild oldValue = _UChildOptional;
-            SetUChildOptional(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _UChildOptional = value;
-               OnPropertyChanged();
-            }
-         }
-      }
+      public virtual global::Testing.UChild UChildOptional { get; set; }
 
       /// <summary>
       /// h
       /// </summary>
       public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
-      protected global::Testing.UChild _UChildRequired;
-      partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
-      partial void GetUChildRequired(ref global::Testing.UChild result);
-
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.UChild UChildRequired
-      {
-         get
-         {
-            global::Testing.UChild value = _UChildRequired;
-            GetUChildRequired(ref value);
-            return (_UChildRequired = value);
-         }
-         set
-         {
-            global::Testing.UChild oldValue = _UChildRequired;
-            SetUChildRequired(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _UChildRequired = value;
-               OnPropertyChanged();
-            }
-         }
-      }
+      public virtual global::Testing.UChild UChildRequired { get; set; }
 
       public virtual event PropertyChangedEventHandler PropertyChanged;
 

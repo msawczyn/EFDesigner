@@ -35,11 +35,41 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
+      /// Backing field for Id
+      /// </summary>
+      protected int _Id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
+      partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
+      partial void GetId(ref int result);
+
+      /// <summary>
       /// Identity, Required, Indexed
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; private set; }
+      public int Id
+      {
+         get
+         {
+            int value = _Id;
+            GetId(ref value);
+            return (_Id = value);
+         }
+         private set
+         {
+            int oldValue = _Id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _Id = value;
+            }
+         }
+      }
 
    }
 }

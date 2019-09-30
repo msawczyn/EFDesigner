@@ -8560,6 +8560,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// TargetImplementNotify
+			if (!serializationContext.Result.Failed)
+			{
+				string attribTargetImplementNotify = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetImplementNotify");
+				if (attribTargetImplementNotify != null)
+				{
+					global::System.Boolean valueOfTargetImplementNotify;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribTargetImplementNotify, out valueOfTargetImplementNotify))
+					{
+						instanceOfAssociation.TargetImplementNotify = valueOfTargetImplementNotify;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetImplementNotify", typeof(global::System.Boolean), attribTargetImplementNotify);
+					}
+				}
+			}
+			// IsTargetImplementNotifyTracking
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsTargetImplementNotifyTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isTargetImplementNotifyTracking");
+				if (attribIsTargetImplementNotifyTracking != null)
+				{
+					global::System.Boolean valueOfIsTargetImplementNotifyTracking;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsTargetImplementNotifyTracking, out valueOfIsTargetImplementNotifyTracking))
+					{
+						instanceOfAssociation.IsTargetImplementNotifyTracking = valueOfIsTargetImplementNotifyTracking;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isTargetImplementNotifyTracking", typeof(global::System.Boolean), attribIsTargetImplementNotifyTracking);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
@@ -9069,6 +9103,29 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetDisplayText", propValue);
 	
+				}
+			}
+			// TargetImplementNotify
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfAssociation.TargetImplementNotify;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetImplementNotify", serializedPropValue);
+				}
+			}
+			// IsTargetImplementNotifyTracking
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfAssociation.IsTargetImplementNotifyTracking;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isTargetImplementNotifyTracking", serializedPropValue);
+					}
 				}
 			}
 		}
@@ -12561,6 +12618,40 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// SourceImplementNotify
+			if (!serializationContext.Result.Failed)
+			{
+				string attribSourceImplementNotify = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourceImplementNotify");
+				if (attribSourceImplementNotify != null)
+				{
+					global::System.Boolean valueOfSourceImplementNotify;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribSourceImplementNotify, out valueOfSourceImplementNotify))
+					{
+						instanceOfBidirectionalAssociation.SourceImplementNotify = valueOfSourceImplementNotify;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourceImplementNotify", typeof(global::System.Boolean), attribSourceImplementNotify);
+					}
+				}
+			}
+			// IsSourceImplementNotifyTracking
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsSourceImplementNotifyTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isSourceImplementNotifyTracking");
+				if (attribIsSourceImplementNotifyTracking != null)
+				{
+					global::System.Boolean valueOfIsSourceImplementNotifyTracking;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsSourceImplementNotifyTracking, out valueOfIsSourceImplementNotifyTracking))
+					{
+						instanceOfBidirectionalAssociation.IsSourceImplementNotifyTracking = valueOfIsSourceImplementNotifyTracking;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isSourceImplementNotifyTracking", typeof(global::System.Boolean), attribIsSourceImplementNotifyTracking);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
@@ -13079,6 +13170,29 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceDisplayText", propValue);
 	
+				}
+			}
+			// SourceImplementNotify
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfBidirectionalAssociation.SourceImplementNotify;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceImplementNotify", serializedPropValue);
+				}
+			}
+			// IsSourceImplementNotifyTracking
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfBidirectionalAssociation.IsSourceImplementNotifyTracking;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isSourceImplementNotifyTracking", serializedPropValue);
+					}
 				}
 			}
 		}

@@ -747,7 +747,7 @@ void WritePersistentProperties(ModelClass modelClass)
          Output("if (oldValue != value)");
          Output("{");
          Output($"_{modelAttribute.Name} = value;");
-         if (modelClass.ImplementNotify)
+         if (modelAttribute.ImplementNotify)
             Output("OnPropertyChanged();");
          Output("}");
          Output("}");
@@ -861,7 +861,7 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
                         ? $"ICollection<{navigationProperty.ClassType.FullName}>"
                         : navigationProperty.ClassType.FullName;
 
-      if (!navigationProperty.IsCollection && (modelClass.ImplementNotify || !navigationProperty.IsAutoProperty))
+      if (!navigationProperty.IsCollection && !navigationProperty.IsAutoProperty)
       {
          Output($"protected {type} _{navigationProperty.PropertyName};");
          Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");
@@ -903,7 +903,7 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
       {
          Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; private set; }}");
       }
-      else if (!modelClass.ImplementNotify && navigationProperty.IsAutoProperty)
+      else if (navigationProperty.IsAutoProperty)
       {
          Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; set; }}");
       }
@@ -924,7 +924,7 @@ void WritePersistentNavigationProperties(ModelClass modelClass, bool requireVirt
          Output("if (oldValue != value)");
          Output("{");
          Output($"_{navigationProperty.PropertyName} = value;");
-         if (modelClass.ImplementNotify)
+         if (navigationProperty.ImplementNotify)
             Output("OnPropertyChanged();");
          Output("}");
          Output("}");
@@ -983,17 +983,19 @@ void WriteCalculatedNavigationProperties(ModelClass modelClass)
 
 void WriteNotifyPropertyChanged(ModelClass modelClass)
 {
-   if (!modelClass.ImplementNotify)
-      return;
-
-   string modifier = (modelClass.Superclass != null && modelClass.Superclass.ImplementNotify) ? "override" : "virtual";
-   Output($"public {modifier} event PropertyChangedEventHandler PropertyChanged;");
-   NL();
-   Output($"protected {modifier} void OnPropertyChanged([CallerMemberName] string propertyName = null)");
-   Output("{");
-   Output("PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));");
-   Output("}");
-   NL();
+   if (modelClass.ImplementNotify || 
+       modelClass.LocalNavigationProperties().Any(x => x.ImplementNotify) || 
+       modelClass.Attributes.Any(x => x.ImplementNotify))
+   {
+      string modifier = (modelClass.Superclass != null && modelClass.Superclass.ImplementNotify) ? "override" : "virtual";
+      Output($"public {modifier} event PropertyChangedEventHandler PropertyChanged;");
+      NL();
+      Output($"protected {modifier} void OnPropertyChanged([CallerMemberName] string propertyName = null)");
+      Output("{");
+      Output("PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));");
+      Output("}");
+      NL();
+   }
 }
 
 #>

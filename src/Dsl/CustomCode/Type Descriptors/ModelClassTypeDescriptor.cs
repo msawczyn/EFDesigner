@@ -26,51 +26,37 @@ namespace Sawczyn.EFDesigner.EFModel
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
 
             //Add the descriptors for the tracking properties 
-            /********************************************************************************/
 
-            DomainPropertyInfo databaseSchemaPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.DatabaseSchemaDomainPropertyId);
-            DomainPropertyInfo isDatabaseSchemaTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.IsDatabaseSchemaTrackingDomainPropertyId);
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.DatabaseSchemaDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.IsDatabaseSchemaTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Database Schema")
+                                                                    , new DescriptionAttribute("The schema to use for table creation. Overrides default schema for model if present.")
+                                                                    , new CategoryAttribute("Database")
+                                                                   }));
 
-            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] databaseSchemaAttributes =
-            {
-               new DisplayNameAttribute("Database Schema"),
-               new DescriptionAttribute("The schema to use for table creation. Overrides default schema for model if present."),
-               new CategoryAttribute("Database")
-            };
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.NamespaceDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.IsNamespaceTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Namespace")
+                                                                    , new DescriptionAttribute("Overrides default namespace")
+                                                                    , new CategoryAttribute("Code Generation")
+                                                                   }));
 
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass, databaseSchemaPropertyInfo, isDatabaseSchemaTrackingPropertyInfo, databaseSchemaAttributes));
-
-            /********************************************************************************/
-
-            DomainPropertyInfo namespacePropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.NamespaceDomainPropertyId);
-            DomainPropertyInfo isNamespaceTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.IsNamespaceTrackingDomainPropertyId);
-
-            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] namespaceAttributes =
-            {
-               new DisplayNameAttribute("Namespace"),
-               new DescriptionAttribute("Overrides default namespace"),
-               new CategoryAttribute("Code Generation")
-            };
-
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass, namespacePropertyInfo, isNamespaceTrackingPropertyInfo, namespaceAttributes));
-
-            /********************************************************************************/
-
-            DomainPropertyInfo outputDirectoryPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.OutputDirectoryDomainPropertyId);
-            DomainPropertyInfo isOutputDirectoryTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelClass.IsOutputDirectoryTrackingDomainPropertyId);
-
-            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] outputDirectoryAttributes =
-            {
-               new DisplayNameAttribute("Output Directory"),
-               new DescriptionAttribute("Overrides default output directory"),
-               new CategoryAttribute("Code Generation"),
-               new TypeConverterAttribute(typeof(ProjectDirectoryTypeConverter))
-            };
-
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass, outputDirectoryPropertyInfo, isOutputDirectoryTrackingPropertyInfo, outputDirectoryAttributes));
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.OutputDirectoryDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelClass.IsOutputDirectoryTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Output Directory")
+                                                                    , new DescriptionAttribute("Overrides default output directory")
+                                                                    , new CategoryAttribute("Code Generation")
+                                                                    , new TypeConverterAttribute(typeof(ProjectDirectoryTypeConverter))
+                                                                   }));
          }
 
          // Return the property descriptors for this element  

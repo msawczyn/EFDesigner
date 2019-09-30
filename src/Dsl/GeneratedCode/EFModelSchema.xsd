@@ -1106,6 +1106,14 @@
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: TargetImplementNotify -->
+        <xsd:attribute name="targetImplementNotify" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsTargetImplementNotifyTracking -->
+        <xsd:attribute name="isTargetImplementNotifyTracking" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1318,6 +1326,14 @@
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: SourceImplementNotify -->
+        <xsd:attribute name="sourceImplementNotify" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsSourceImplementNotifyTracking -->
+        <xsd:attribute name="isSourceImplementNotifyTracking" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

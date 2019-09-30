@@ -31,7 +31,6 @@ namespace Sandbox_EFCore
       protected PressRelease()
       {
          PressReleaseDetails = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
-         PressReleaseDetailHistory = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
 
          Init();
       }
@@ -46,7 +45,6 @@ namespace Sandbox_EFCore
          _pressreleasedetail0.PressReleases.Add(this);
 
          this.PressReleaseDetails = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
-         this.PressReleaseDetailHistory = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.PressReleaseDetail>();
          Init();
       }
 
@@ -76,7 +74,14 @@ namespace Sandbox_EFCore
 
       public virtual ICollection<global::Sandbox_EFCore.PressReleaseDetail> PressReleaseDetails { get; private set; }
 
-      public virtual ICollection<global::Sandbox_EFCore.PressReleaseDetail> PressReleaseDetailHistory { get; private set; }
+      public virtual global::Sandbox_EFCore.PressReleaseDetail PressReleaseDetailHistory { get; set; }
+
+      public virtual event PropertyChangedEventHandler PropertyChanged;
+
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
 
    }
 }

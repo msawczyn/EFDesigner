@@ -951,6 +951,16 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="637b64d2-193d-47f9-b63f-df8ccc23f900" Description="Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets." Name="TargetImplementNotify" DisplayName="Implement INotifyPropertyChanged" Kind="CustomStorage" Category="End 2" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="30a6413f-ab71-4297-9d37-e53f0eda887f" Description="Description for Sawczyn.EFDesigner.EFModel.Association.Is Target Implement Notify Tracking" Name="IsTargetImplementNotifyTracking" DisplayName="Is Target Implement Notify Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1080,6 +1090,16 @@
         <DomainProperty Id="5069324e-4190-403e-8791-416c692c872a" Description="Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end's property" Name="SourceDisplayText" DisplayName="End1 Display Text" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="44fda399-d8f1-4d63-80f1-881277cb8115" Description="Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets." Name="SourceImplementNotify" DisplayName="Implement INotifyPropertyChanged" Kind="CustomStorage" Category="End 1" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="4b2acec5-2746-43a0-b4be-176e3cfa533f" Description="Description for Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.Is Source Implement Notify Tracking" Name="IsSourceImplementNotifyTracking" DisplayName="Is Source Implement Notify Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1628,6 +1648,12 @@
           <XmlPropertyData XmlName="targetDisplayText">
             <DomainPropertyMoniker Name="Association/TargetDisplayText" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="targetImplementNotify">
+            <DomainPropertyMoniker Name="Association/TargetImplementNotify" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isTargetImplementNotifyTracking">
+            <DomainPropertyMoniker Name="Association/IsTargetImplementNotifyTracking" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -1967,6 +1993,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="sourceDisplayText">
             <DomainPropertyMoniker Name="BidirectionalAssociation/SourceDisplayText" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="sourceImplementNotify">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourceImplementNotify" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isSourceImplementNotifyTracking">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/IsSourceImplementNotifyTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

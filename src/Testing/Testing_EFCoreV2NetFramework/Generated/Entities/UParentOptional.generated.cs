@@ -61,9 +61,39 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
+      /// Backing field for PropertyInChild
+      /// </summary>
+      protected string _PropertyInChild;
+      /// <summary>
+      /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
+      /// </summary>
+      partial void SetPropertyInChild(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of PropertyInChild to be changed before returning.
+      /// </summary>
+      partial void GetPropertyInChild(ref string result);
+
+      /// <summary>
       /// Default value = "hello"
       /// </summary>
-      public string PropertyInChild { get; set; }
+      public string PropertyInChild
+      {
+         get
+         {
+            string value = _PropertyInChild;
+            GetPropertyInChild(ref value);
+            return (_PropertyInChild = value);
+         }
+         set
+         {
+            string oldValue = _PropertyInChild;
+            SetPropertyInChild(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _PropertyInChild = value;
+            }
+         }
+      }
 
       /*************************************************************************
        * Persistent navigation properties

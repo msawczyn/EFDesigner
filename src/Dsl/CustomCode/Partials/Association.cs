@@ -138,6 +138,74 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"{Source.Name} <=> {Target.Name}: Principal/dependent designations must be manually set for 1..1 and 0-1..0-1 associations.", "AEEndpointRoles", this);
       }
 
+      #region TargetImplementNotify tracking property
+
+      /// <summary>Storage for the TargetImplementNotify property.</summary>  
+      private bool targetImplementNotifyStorage;
+
+      /// <summary>Gets the storage for the TargetImplementNotify property.</summary>
+      /// <returns>The TargetImplementNotify value.</returns>
+      public bool GetTargetImplementNotifyValue()
+      {
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         return !loading && IsTargetImplementNotifyTracking ? Target.ImplementNotify : targetImplementNotifyStorage;
+      }
+
+      /// <summary>Sets the storage for the TargetImplementNotify property.</summary>
+      /// <param name="value">The TargetImplementNotify value.</param>
+      public void SetTargetImplementNotifyValue(bool value)
+      {
+         targetImplementNotifyStorage = value;
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
+
+         if (!Store.InUndoRedoOrRollback && !loading)
+            // ReSharper disable once ArrangeRedundantParentheses
+            IsTargetImplementNotifyTracking = (targetImplementNotifyStorage == Target.ImplementNotify);
+      }
+
+      internal sealed partial class IsTargetImplementNotifyTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsTargetImplementNotifyTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(Association element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(TargetImplementNotifyDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsTargetImplementNotifyTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(Association element)
+         {
+            element.isTargetImplementNotifyTrackingPropertyStorage = (element.TargetImplementNotify == element.Target.ImplementNotify);
+         }
+
+         /// <summary>
+         ///    Method to set IsTargetImplementNotifyTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(Association element)
+         {
+            // Force the IsTargetImplementNotifyTracking property to false so that the value  
+            // of the TargetImplementNotify property is retrieved from storage.  
+            element.isTargetImplementNotifyTrackingPropertyStorage = false;
+         }
+      }
+
+      #endregion
+
       #region CollectionClass tracking property
 
       private string collectionClassStorage;
@@ -243,6 +311,7 @@ namespace Sawczyn.EFDesigner.EFModel
       internal virtual void PreResetIsTrackingProperties()
       {
          IsCollectionClassTrackingPropertyHandler.Instance.PreResetValue(this);
+         IsTargetImplementNotifyTrackingPropertyHandler.Instance.PreResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -254,6 +323,7 @@ namespace Sawczyn.EFDesigner.EFModel
       internal virtual void ResetIsTrackingProperties()
       {
          IsCollectionClassTrackingPropertyHandler.Instance.ResetValue(this);
+         IsTargetImplementNotifyTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
    }

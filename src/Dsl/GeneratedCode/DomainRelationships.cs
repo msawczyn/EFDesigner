@@ -1670,6 +1670,188 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region TargetImplementNotify domain property code
+		
+		/// <summary>
+		/// TargetImplementNotify domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TargetImplementNotifyDomainPropertyId = new global::System.Guid(0x637b64d2, 0x193d, 0x47f9, 0xb6, 0x3f, 0xdf, 0x8c, 0xcc, 0x23, 0xf9, 0x00);
+		
+		/// <summary>
+		/// Gets or sets the value of TargetImplementNotify domain property.
+		/// Should this end participate in INotifyPropertyChanged activities? Only valid for
+		/// non-collection targets.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetImplementNotify.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetImplementNotify.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetImplementNotify.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("637b64d2-193d-47f9-b63f-df8ccc23f900")]
+		public global::System.Boolean TargetImplementNotify
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return TargetImplementNotifyPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TargetImplementNotifyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.TargetImplementNotify domain property.
+		/// </summary>
+		internal sealed partial class TargetImplementNotifyPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private TargetImplementNotifyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.TargetImplementNotify domain property value handler.
+			/// </summary>
+			public static readonly TargetImplementNotifyPropertyHandler Instance = new TargetImplementNotifyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.TargetImplementNotify domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TargetImplementNotifyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for TargetImplementNotify because its Kind is
+				// set to CustomStorage. Please provide the GetTargetImplementNotifyValue()
+				// method on the domain class.
+				return element.GetTargetImplementNotifyValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for TargetImplementNotify because its Kind is
+					// set to CustomStorage. Please provide the SetTargetImplementNotifyValue()
+					// method on the domain class.
+					element.SetTargetImplementNotifyValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsTargetImplementNotifyTracking domain property code
+		
+		/// <summary>
+		/// IsTargetImplementNotifyTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsTargetImplementNotifyTrackingDomainPropertyId = new global::System.Guid(0x30a6413f, 0xab71, 0x4297, 0x9d, 0x37, 0xe5, 0x3f, 0x0e, 0xda, 0x88, 0x7f);
+		
+		/// <summary>
+		/// Storage for IsTargetImplementNotifyTracking
+		/// </summary>
+		private global::System.Boolean isTargetImplementNotifyTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsTargetImplementNotifyTracking domain property.
+		/// Description for Sawczyn.EFDesigner.EFModel.Association.Is Target Implement
+		/// Notify Tracking
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/IsTargetImplementNotifyTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/IsTargetImplementNotifyTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("30a6413f-ab71-4297-9d37-e53f0eda887f")]
+		public global::System.Boolean IsTargetImplementNotifyTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isTargetImplementNotifyTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsTargetImplementNotifyTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.IsTargetImplementNotifyTracking domain property.
+		/// </summary>
+		internal sealed partial class IsTargetImplementNotifyTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private IsTargetImplementNotifyTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.IsTargetImplementNotifyTracking domain property value handler.
+			/// </summary>
+			public static readonly IsTargetImplementNotifyTrackingPropertyHandler Instance = new IsTargetImplementNotifyTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.IsTargetImplementNotifyTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsTargetImplementNotifyTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isTargetImplementNotifyTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isTargetImplementNotifyTrackingPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a ModelClass.
@@ -3297,6 +3479,188 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.sourceDisplayTextPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region SourceImplementNotify domain property code
+		
+		/// <summary>
+		/// SourceImplementNotify domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SourceImplementNotifyDomainPropertyId = new global::System.Guid(0x44fda399, 0xd8f1, 0x4d63, 0x80, 0xf1, 0x88, 0x12, 0x77, 0xcb, 0x81, 0x15);
+		
+		/// <summary>
+		/// Gets or sets the value of SourceImplementNotify domain property.
+		/// Should this end participate in INotifyPropertyChanged activities? Only valid for
+		/// non-collection targets.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceImplementNotify.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceImplementNotify.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceImplementNotify.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("44fda399-d8f1-4d63-80f1-881277cb8115")]
+		public global::System.Boolean SourceImplementNotify
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return SourceImplementNotifyPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				SourceImplementNotifyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.SourceImplementNotify domain property.
+		/// </summary>
+		internal sealed partial class SourceImplementNotifyPropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.Boolean>
+		{
+			private SourceImplementNotifyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.SourceImplementNotify domain property value handler.
+			/// </summary>
+			public static readonly SourceImplementNotifyPropertyHandler Instance = new SourceImplementNotifyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.SourceImplementNotify domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SourceImplementNotifyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for SourceImplementNotify because its Kind is
+				// set to CustomStorage. Please provide the GetSourceImplementNotifyValue()
+				// method on the domain class.
+				return element.GetSourceImplementNotifyValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for SourceImplementNotify because its Kind is
+					// set to CustomStorage. Please provide the SetSourceImplementNotifyValue()
+					// method on the domain class.
+					element.SetSourceImplementNotifyValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsSourceImplementNotifyTracking domain property code
+		
+		/// <summary>
+		/// IsSourceImplementNotifyTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsSourceImplementNotifyTrackingDomainPropertyId = new global::System.Guid(0x4b2acec5, 0x2746, 0x43a0, 0xb4, 0xbe, 0x17, 0x6e, 0x3c, 0xfa, 0x53, 0x3f);
+		
+		/// <summary>
+		/// Storage for IsSourceImplementNotifyTracking
+		/// </summary>
+		private global::System.Boolean isSourceImplementNotifyTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsSourceImplementNotifyTracking domain property.
+		/// Description for Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.Is Source
+		/// Implement Notify Tracking
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceImplementNotifyTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceImplementNotifyTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("4b2acec5-2746-43a0-b4be-176e3cfa533f")]
+		public global::System.Boolean IsSourceImplementNotifyTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isSourceImplementNotifyTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsSourceImplementNotifyTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.IsSourceImplementNotifyTracking domain property.
+		/// </summary>
+		internal sealed partial class IsSourceImplementNotifyTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.Boolean>
+		{
+			private IsSourceImplementNotifyTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.IsSourceImplementNotifyTracking domain property value handler.
+			/// </summary>
+			public static readonly IsSourceImplementNotifyTrackingPropertyHandler Instance = new IsSourceImplementNotifyTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.IsSourceImplementNotifyTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsSourceImplementNotifyTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isSourceImplementNotifyTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isSourceImplementNotifyTrackingPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

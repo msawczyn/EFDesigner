@@ -32,11 +32,11 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       WriteEnum(modelEnum);
    }
 
-   // not supported as of EF Core 2.2
+   // not yet supported in EF Core
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
    // WriteDatabaseInitializerEFCore(modelRoot);
    
-   // not supported as of EF Core 2.2
+   // not yet supported in EF Core
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
    // WriteMigrationConfigurationEFCore(modelRoot);
 
@@ -56,6 +56,8 @@ List<string> GetAdditionalUsingStatementsEFCore(ModelRoot modelRoot)
 
    return result;
 }
+
+// Revisit if/when supported in EFCore
 
 // void WriteDatabaseInitializerEFCore(ModelRoot modelRoot)
 // {
@@ -291,7 +293,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          }
       }
 
-      if (segments.Count > 1)
+      if (segments.Count > 1 || modelClass.IsDependentType)
       {
          if (modelRoot.ChopMethodChains)
             OutputChopped(segments);
@@ -299,7 +301,9 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
             Output(string.Join(".", segments) + ";");
       }
 
-     // indexed properties
+	  if (modelClass.IsDependentType) continue;
+
+      // indexed properties
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
          segments.Clear();
@@ -328,7 +332,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (!modelAttribute.AutoProperty)
          {
             segments.Add($"HasField(\"_{modelAttribute.Name}\")");
-            segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{(modelAttribute.PersistencePoint == PersistencePointType.Field ? "PropertyAccessMode.Field" : "PropertyAccessMode.Property")});"
+            segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{(modelAttribute.PersistencePoint == PersistencePointType.Field ? "Field" : "Property")})");
          }
          if (!string.IsNullOrEmpty(modelAttribute.ColumnType) && modelAttribute.ColumnType.ToLowerInvariant() != "default")
          {
@@ -556,8 +560,6 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          else
             Output(string.Join(".", segments) + ";");
       }
-
-
    }
 
    NL();

@@ -10,11 +10,15 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          // Two passes required - one to set all elements to storage-based then another to set 
          // some back to being tracking.  
+         /************************************************/
+
          foreach (ModelClass element in store.ElementDirectory.FindElements<ModelClass>())
             element.PreResetIsTrackingProperties();
 
          foreach (ModelClass element in store.ElementDirectory.FindElements<ModelClass>())
             element.ResetIsTrackingProperties();
+
+         /************************************************/
 
          foreach (ModelEnum element in store.ElementDirectory.FindElements<ModelEnum>())
             element.PreResetIsTrackingProperties();
@@ -22,11 +26,16 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (ModelEnum element in store.ElementDirectory.FindElements<ModelEnum>())
             element.ResetIsTrackingProperties();
 
+         /************************************************/
+
          foreach (ModelAttribute element in store.ElementDirectory.FindElements<ModelAttribute>())
             element.PreResetIsTrackingProperties();
 
          foreach (ModelAttribute element in store.ElementDirectory.FindElements<ModelAttribute>())
             element.ResetIsTrackingProperties();
+
+         /************************************************/
+         // doubles as reset/prereset for both Association and BidirectionalAssociation
 
          foreach (Association element in store.ElementDirectory.FindElements<Association>())
             element.PreResetIsTrackingProperties();

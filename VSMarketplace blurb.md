@@ -35,11 +35,13 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
 **1.3.0.5** (upcoming)
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
    - **[NEW]** To more fully support DDD models, added a toggle for persisting either the property or its backing field (if not an autoproperty) for EFCore
-   - **[NEW]** Also added a toggle for persisting entity properties as either the property or its backing field (if not an autoproperty) for EFCore
-   - **[NEW]** Can now override the NotifyPropertyChanged value for an entity on a per-property basis
+   - **[NEW]** Can now override the NotifyPropertyChanged value for an entity on a per-property and per-association basis
    - Fix: Removed stray quote marks in default values for string properties (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Minimum string length was ignored when setting properties via text edit (See https://github.com/msawczyn/EFDesigner/issues/86)
    - Fix: Required string identity property is not present in the constructor (See https://github.com/msawczyn/EFDesigner/issues/93)
+   - Fix: Some issues with owned entities in EFCore
+   - Fix: If NotifyPropertyChanged is active, wrong Output is generated (See https://github.com/msawczyn/EFDesigner/issues/97)
+   - For folks wanting to read and/or modify the source for this tool, added a readme on how to deal with tracking properties
 
 **1.3.0.4**
    - Fixed problematic code generation in constructors for classes having 1..1 associations (See https://github.com/msawczyn/EFDesigner/issues/74)

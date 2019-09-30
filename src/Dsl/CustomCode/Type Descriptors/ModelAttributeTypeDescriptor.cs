@@ -96,43 +96,47 @@ namespace Sawczyn.EFDesigner.EFModel
 
             /********************************************************************************/
 
-            DomainPropertyInfo columnNamePropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ColumnNameDomainPropertyId);
-            DomainPropertyInfo isColumnNameTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsColumnNameTrackingDomainPropertyId);
+            //Add the descriptors for the tracking properties 
 
-            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] columnNameAttributes = {new DisplayNameAttribute("Column Name"), new DescriptionAttribute("Overrides default column name"), new CategoryAttribute("Database")};
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ColumnNameDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsColumnNameTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Column Name")
+                                                                    , new DescriptionAttribute("Overrides default column name")
+                                                                    , new CategoryAttribute("Database")
+                                                                   }));
 
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, columnNamePropertyInfo, isColumnNameTrackingPropertyInfo, columnNameAttributes));
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ColumnTypeDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsColumnTypeTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Column Type")
+                                                                    , new DescriptionAttribute("Overrides default column type")
+                                                                    , new CategoryAttribute("Database")
+                                                                   }));
 
-            /********************************************************************************/
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.AutoPropertyDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsAutoPropertyTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("AutoProperty")
+                                                                    , new DescriptionAttribute("Overrides default autoproperty setting")
+                                                                    , new CategoryAttribute("Code Generation")
+                                                                   }));
 
-            DomainPropertyInfo columnTypePropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ColumnTypeDomainPropertyId);
-            DomainPropertyInfo isColumnTypeTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsColumnTypeTrackingDomainPropertyId);
-
-            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] columnTypeAttributes = {new DisplayNameAttribute("Column Type"), new DescriptionAttribute("Overrides default column type"), new CategoryAttribute("Database")};
-
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, columnTypePropertyInfo, isColumnTypeTrackingPropertyInfo, columnTypeAttributes));
-
-            /********************************************************************************/
-
-            DomainPropertyInfo autoPropertyPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.AutoPropertyDomainPropertyId);
-            DomainPropertyInfo autoPropertyTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsAutoPropertyTrackingDomainPropertyId);
-
-            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] autoPropertyAttributes = {new DisplayNameAttribute("AutoProperty"), new DescriptionAttribute("Overrides default autoproperty setting"), new CategoryAttribute("Code Generation")};
-
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, autoPropertyPropertyInfo, autoPropertyTrackingPropertyInfo, autoPropertyAttributes));
-
-            /********************************************************************************/
-
-            DomainPropertyInfo implementNotifyPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ImplementNotifyDomainPropertyId);
-            DomainPropertyInfo implementNotifyTrackingPropertyInfo = storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
-
-            // Define attributes for the tracking property/properties so that the Properties window displays them correctly.  
-            Attribute[] implementNotifyAttributes = {new DisplayNameAttribute("Implement INotifyPropertyChanged"), new DescriptionAttribute("Should this attribute implement INotifyPropertyChanged?"), new CategoryAttribute("Code Generation")};
-
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute, implementNotifyPropertyInfo, implementNotifyTrackingPropertyInfo, implementNotifyAttributes));
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ImplementNotifyDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsImplementNotifyTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Implement INotifyPropertyChanged")
+                                                                    , new DescriptionAttribute("Should this attribute implement INotifyPropertyChanged?")
+                                                                    , new CategoryAttribute("Code Generation")
+                                                                   }));
          }
 
          // Return the property descriptors for this element  

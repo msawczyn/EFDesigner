@@ -15,5 +15,6 @@
       public string CustomAttributes { get; set; }
       public string DisplayText { get; set; }
       public bool IsAutoProperty { get; set; }
+      public bool ImplementNotify { get; set; }
    }
 }

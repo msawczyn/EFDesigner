@@ -178,7 +178,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                    Description = x.TargetDescription,
                                                                    CustomAttributes = x.TargetCustomAttributes,
                                                                    DisplayText = x.TargetDisplayText,
-                                                                   IsAutoProperty = true
+                                                                   IsAutoProperty = true,
+                                                                   ImplementNotify = x.TargetImplementNotify
                                                                 })
                                                                 .ToList();
 
@@ -195,7 +196,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                    Description = x.SourceDescription,
                                                                    CustomAttributes = x.SourceCustomAttributes,
                                                                    DisplayText = x.SourceDisplayText,
-                                                                   IsAutoProperty = true
+                                                                   IsAutoProperty = true,
+                                                                   ImplementNotify = x.SourceImplementNotify
                                                                 })
                                                                 .ToList();
          targetProperties.AddRange(Association.GetLinksToSources(this)
@@ -609,7 +611,18 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual void OnIsImplementNotifyChanged(bool oldValue, bool newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Attributes, ModelAttribute.ImplementNotifyDomainPropertyId, ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
+                                                         Attributes, 
+                                                         ModelAttribute.ImplementNotifyDomainPropertyId, 
+                                                         ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
+                                                         Store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source.FullName == FullName),
+                                                         Association.TargetImplementNotifyDomainPropertyId, 
+                                                         Association.IsTargetImplementNotifyTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
+                                                         Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>().Where(a => a.Target.FullName == FullName),
+                                                         BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, 
+                                                         BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId);
       }
 
       internal sealed partial class ImplementNotifyPropertyHandler

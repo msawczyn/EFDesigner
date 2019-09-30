@@ -60,9 +60,11 @@ namespace Sandbox_EFCore
          modelBuilder.Entity<global::Sandbox_EFCore.PressRelease>().HasMany(x => x.PressReleaseDetails).WithOne().HasForeignKey("PressReleaseDetail_PressReleaseDetails_Id").IsRequired().OnDelete(DeleteBehavior.Restrict);
 
          modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().ToTable("PressReleaseDetails").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().Property(t => t.Id).IsRequired().HasField("_Id").UsePropertyAccessMode(PropertyAccessMode.Property).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().Property(t => t.Property1).HasField("_Property1").UsePropertyAccessMode(PropertyAccessMode.Field);
+         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().Property(t => t.Property2).HasField("_Property2").UsePropertyAccessMode(PropertyAccessMode.Property);
          modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().HasMany(x => x.PressReleases).WithOne().HasForeignKey("PressRelease_PressReleases_Id").IsRequired().OnDelete(DeleteBehavior.Restrict);
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().HasOne(x => x.PressRelease).WithMany(x => x.PressReleaseDetailHistory).HasForeignKey("PressRelease_Id").OnDelete(DeleteBehavior.Restrict);
+         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().HasOne(x => x.PressRelease).WithOne(x => x.PressReleaseDetailHistory).HasForeignKey<global::Sandbox_EFCore.PressReleaseDetail>("PressRelease_Id").OnDelete(DeleteBehavior.Restrict);
 
          OnModelCreatedImpl(modelBuilder);
       }
