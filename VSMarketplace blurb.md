@@ -32,7 +32,7 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
 
 **ChangeLog**
 
-**1.3.0.5** (upcoming)
+**1.3.0.5**
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
    - **[NEW]** To more fully support DDD models, added a toggle for persisting either the property or its backing field (if not an autoproperty) for EFCore
    - **[NEW]** Can now override the NotifyPropertyChanged value for an entity on a per-property and per-association basis
