@@ -151,26 +151,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "MinLength":
                {
-                  Int32Nullable newMinLength = (Int32Nullable)e.NewValue;
-
                   if (element.Type != "String")
-                     element.MinLength = null;
-
-                  if (newMinLength < 0)
-                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength must be blank, zero or a positive number");
+                     element.MinLength = 0;
+                  else if ((int)e.NewValue < 0)
+                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength must be zero or a positive number");
                }
 
                break;
 
             case "MaxLength":
                {
-                  Int32Nullable newMaxLength = (Int32Nullable)e.NewValue;
-
                   if (element.Type != "String")
-                     element.MaxLength = null;
-
-                  if (newMaxLength < 0)
-                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MaxLength must be blank, zero or a positive number");
+                     element.MaxLength = 0;
+                  else if ((int)e.NewValue < 0)
+                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MaxLength must be zero or a positive number");
                }
 
                break;
@@ -209,8 +203,8 @@ namespace Sawczyn.EFDesigner.EFModel
                               if (fragment.Required != null)
                                  element.Required = fragment.Required.Value;
 
-                              element.MaxLength = fragment.MaxLength;
-                              element.MinLength = fragment.MinLength;
+                              element.MaxLength = fragment.MaxLength ?? 0;
+                              element.MinLength = fragment.MinLength ?? 0;
 
                               if (fragment.InitialValue != null)
                                  element.InitialValue = fragment.InitialValue;
@@ -292,8 +286,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (newType != "String")
                   {
-                     element.MaxLength = (int?)null;
-                     element.MinLength = (int?)null;
+                     element.MaxLength = 0;
+                     element.MinLength = 0;
                      element.StringType = HTML5Type.None;
                   }
                   else

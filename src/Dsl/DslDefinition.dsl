@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="3" Revision="6" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="3" Revision="7" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -472,15 +472,8 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="8c128f2b-8f9f-4c8e-acf1-dd5488736b79" Description="Maximum length of the string, 0 for no max length" Name="MaxLength" DisplayName="Max Length" DefaultValue="" Category="String Properties">
-          <Attributes>
-            <ClrAttribute Name="System.ComponentModel.TypeConverter">
-              <Parameters>
-                <AttributeParameter Value="typeof(Int32NullableTypeConverter)" />
-              </Parameters>
-            </ClrAttribute>
-          </Attributes>
           <Type>
-            <ExternalTypeMoniker Name="Int32Nullable" />
+            <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="59213f5b-9662-4f70-ade1-280d2d7ab77b" Description="Should this attribute create an index in the database?" Name="Indexed" DisplayName="Indexed" Category="Database">
@@ -568,15 +561,8 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="7fe42ef4-9691-4db1-8219-59107c14478b" Description="Minimum length of the string, 0 for no minimum length" Name="MinLength" DisplayName="Min Length" DefaultValue="" Category="String Properties">
-          <Attributes>
-            <ClrAttribute Name="System.ComponentModel.TypeConverter">
-              <Parameters>
-                <AttributeParameter Value="typeof(Int32NullableTypeConverter)" />
-              </Parameters>
-            </ClrAttribute>
-          </Attributes>
           <Type>
-            <ExternalTypeMoniker Name="Int32Nullable" />
+            <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="e4394dde-038f-4fea-a328-3b6bed8571f8" Description="The name for the table column backing this property" Name="ColumnName" DisplayName="Column Name" Kind="CustomStorage" Category="Database" IsBrowsable="false">
@@ -1432,7 +1418,6 @@
       </Literals>
     </DomainEnumeration>
     <ExternalType Name="LayoutAlgorithmSettings" Namespace="Microsoft.Msagl.Core.Layout" />
-    <ExternalType Name="Int32Nullable" Namespace="Sawczyn.EFDesigner.EFModel" />
     <DomainEnumeration Name="PersistencePointType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Used to define whether the property or its backing field is persisted">
       <Literals>
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property" Name="Property" Value="" />

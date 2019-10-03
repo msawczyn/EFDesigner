@@ -38,9 +38,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string lengthDisplay = "";
 
-         if (((int?)attribute.MinLength).HasValue)
+         if (attribute.MinLength > 0)
             lengthDisplay = $"[{attribute.MinLength}-{attribute.MaxLength}]";
-         else if (((int?)attribute.MaxLength).HasValue)
+         else if (attribute.MaxLength > 0)
             lengthDisplay = $"[{attribute.MaxLength}]";
 
          return $"{name} : {type}{nullable}{lengthDisplay}{initial}";

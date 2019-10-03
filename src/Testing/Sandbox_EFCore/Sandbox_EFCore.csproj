@@ -47,9 +47,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Generated\Currency.generated.cs" />
     <Compile Include="Generated\EFModel.generated.cs" />
-    <Compile Include="Generated\PressRelease.generated.cs" />
-    <Compile Include="Generated\PressReleaseDetail.generated.cs" />
+    <Compile Include="Migrations\20191003053920_Initial.cs" />
+    <Compile Include="Migrations\20191003053920_Initial.designer.cs">
+      <DependentUpon>20191003053920_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\EFModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="EF6Designer.ttinclude" />
     <None Include="EFCoreDesigner.ttinclude" />
     <None Include="EFDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
@@ -90,9 +95,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="EFModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

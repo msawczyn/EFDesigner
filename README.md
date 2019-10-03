@@ -51,7 +51,11 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
 
 ### Change Log
 
-**1.3.0.5** 
+**1.3.0.7**
+   - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
+   - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
+
+**1.3.0.6** 
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
    - To more fully support DDD models, added a toggle for persisting either the property or its backing field (if not an autoproperty) for EFCore
    - Can now override the NotifyPropertyChanged value for an entity on a per-property and per-association basis
@@ -62,12 +66,16 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
    - Fix: If NotifyPropertyChanged is active, wrong Output is generated (See https://github.com/msawczyn/EFDesigner/issues/97)
    - For folks wanting to read and/or modify the source for this tool, added a readme on how to deal with tracking properties
 
-**1.3.0.4**
+<details>
+<summary><b>1.3.0.4</b></summary>
+
    - Fixed problematic code generation in constructors for classes having 1..1 associations (See https://github.com/msawczyn/EFDesigner/issues/74)
    - Fixed problem where database was always generating identity values, regardless of setting in the model (See https://github.com/msawczyn/EFDesigner/issues/79)
    - Fixed errors when creating nested project folders (See https://github.com/msawczyn/EFDesigner/issues/77)
    - Fixed cascade delete errors in EFCore when overriding cascade behavior (See https://github.com/msawczyn/EFDesigner/issues/76)
    - Added more information in headers for generated code (tool version, URLs, license info)
+
+</details>
 
 <details>
 <summary><b>1.3.0.2</b></summary>

@@ -142,8 +142,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                             new PropertyAssignment(ModelAttribute.CustomAttributesDomainPropertyId, data.CustomAttributes),
                                             new PropertyAssignment(ModelAttribute.IndexedDomainPropertyId, data.Indexed),
                                             new PropertyAssignment(ModelAttribute.RequiredDomainPropertyId, data.Required),
-                                            new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, data.MaxStringLength == 0 ? null : (int?)data.MaxStringLength),
-                                            new PropertyAssignment(ModelAttribute.MinLengthDomainPropertyId, data.MinStringLength == 0 ? null : (int?)data.MinStringLength),
+                                            new PropertyAssignment(ModelAttribute.MaxLengthDomainPropertyId, data.MaxStringLength),
+                                            new PropertyAssignment(ModelAttribute.MinLengthDomainPropertyId, data.MinStringLength),
                                             new PropertyAssignment(ModelAttribute.IsIdentityDomainPropertyId, data.IsIdentity));
                modelClass.Attributes.Add(element);
             }
@@ -154,8 +154,8 @@ namespace Sawczyn.EFDesigner.EFModel
                element.CustomAttributes = data.CustomAttributes;
                element.Indexed = data.Indexed;
                element.Required = data.Required;
-               element.MaxLength = data.MaxStringLength == 0 ? null : (int?)data.MaxStringLength;
-               element.MinLength = data.MinStringLength == 0 ? null : (int?)data.MinStringLength;
+               element.MaxLength = data.MaxStringLength;
+               element.MinLength = data.MinStringLength;
                element.IsIdentity = data.IsIdentity;
             }
          }

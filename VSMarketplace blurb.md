@@ -4,9 +4,9 @@ the visual model, as is the ability to add text blocks to explain potentially ar
 
 <img src="https://msawczyn.github.io/EFDesigner/images/Designer.jpg">
 
-While giving you complete control over how the code is generated you'll be able to, out of the box, create sophisticated, 
+While giving you complete control over how the code is generated you'll be able to create, out of the box, sophisticated, 
 consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using 
-partial classes, any additions you make to your generated code is retained across subsequent generations.
+partial classes, any additions you make to your generated code are retained across subsequent generations.
 
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home. The goal was to duplicate 
 at least those features and, in addition, add all the little things that _should_ have been there. Things like:
@@ -28,11 +28,15 @@ For comprehensive documentation, please visit [the project's documentation site]
 **Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
 classes, enums, structs and comment blocks. [It was reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html), 
 and has since been **fixed as of v16.2.5**, so if you're using a version between 16.2.0 and 16.2.4, you'll want 
-to upgrade to 16.2.5 in order to use not just this extension, but any extension based on the Microsoft Modeling SDK.
+to upgrade to 16.2.5 or later in order to use not just this extension, but any extension based on the Microsoft Modeling SDK.
 
 **ChangeLog**
 
-**1.3.0.5**
+**1.3.0.7**
+   - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
+   - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
+
+**1.3.0.6**
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
    - **[NEW]** To more fully support DDD models, added a toggle for persisting either the property or its backing field (if not an autoproperty) for EFCore
    - **[NEW]** Can now override the NotifyPropertyChanged value for an entity on a per-property and per-association basis

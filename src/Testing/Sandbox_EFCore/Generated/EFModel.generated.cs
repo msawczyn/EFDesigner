@@ -22,8 +22,7 @@ namespace Sandbox_EFCore
    public partial class EFModel : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.PressRelease> PressReleases { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.PressReleaseDetail> PressReleaseDetails { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Currency> Currencies { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -55,16 +54,29 @@ namespace Sandbox_EFCore
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Sandbox_EFCore.PressRelease>().ToTable("PressReleases").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EFCore.PressRelease>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Sandbox_EFCore.PressRelease>().HasMany(x => x.PressReleaseDetails).WithOne().HasForeignKey("PressReleaseDetail_PressReleaseDetails_Id").IsRequired().OnDelete(DeleteBehavior.Restrict);
-
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().ToTable("PressReleaseDetails").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().Property(t => t.Id).IsRequired().HasField("_Id").UsePropertyAccessMode(PropertyAccessMode.Property).ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().Property(t => t.Property1).HasField("_Property1").UsePropertyAccessMode(PropertyAccessMode.Field);
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().Property(t => t.Property2).HasField("_Property2").UsePropertyAccessMode(PropertyAccessMode.Property);
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().HasMany(x => x.PressReleases).WithOne().HasForeignKey("PressRelease_PressReleases_Id").IsRequired().OnDelete(DeleteBehavior.Restrict);
-         modelBuilder.Entity<global::Sandbox_EFCore.PressReleaseDetail>().HasOne(x => x.PressRelease).WithOne(x => x.PressReleaseDetailHistory).HasForeignKey<global::Sandbox_EFCore.PressReleaseDetail>("PressRelease_Id").OnDelete(DeleteBehavior.Restrict);
+         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
+                     .ToTable("Currencies")
+                     .HasKey(t => t.Code);
+         modelBuilder.Entity<global::Sandbox_EFCore.Currency>().HasIndex(t => t.Name)
+                     .IsUnique();
+         modelBuilder.Entity<global::Sandbox_EFCore.Currency>().HasIndex(t => t.Symbol)
+                     .IsUnique();
+         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
+                     .Property(t => t.Code)
+                     .IsRequired()
+                     .HasField("_Code")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property)
+                     .ValueGeneratedNever();
+         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
+                     .Property(t => t.Name)
+                     .IsRequired()
+                     .HasField("_Name")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property);
+         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
+                     .Property(t => t.Symbol)
+                     .IsRequired()
+                     .HasField("_Symbol")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property);
 
          OnModelCreatedImpl(modelBuilder);
       }

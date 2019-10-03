@@ -5783,18 +5783,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for MaxLength
 		/// </summary>
-		private Int32Nullable maxLengthPropertyStorage;
+		private global::System.Int32 maxLengthPropertyStorage;
 		
 		/// <summary>
 		/// Gets or sets the value of MaxLength domain property.
 		/// Maximum length of the string, 0 for no max length
 		/// </summary>
-		[System.ComponentModel.TypeConverter(typeof(Int32NullableTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("8c128f2b-8f9f-4c8e-acf1-dd5488736b79")]
-		public Int32Nullable MaxLength
+		public global::System.Int32 MaxLength
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -5810,7 +5809,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Value handler for the ModelAttribute.MaxLength domain property.
 		/// </summary>
-		internal sealed partial class MaxLengthPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, Int32Nullable>
+		internal sealed partial class MaxLengthPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Int32>
 		{
 			private MaxLengthPropertyHandler() { }
 		
@@ -5836,7 +5835,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed Int32Nullable GetValue(ModelAttribute element)
+			public override sealed global::System.Int32 GetValue(ModelAttribute element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.maxLengthPropertyStorage;
@@ -5847,11 +5846,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, Int32Nullable newValue)
+			public override sealed void SetValue(ModelAttribute element, global::System.Int32 newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				Int32Nullable oldValue = GetValue(element);
+				global::System.Int32 oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
@@ -7030,18 +7029,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for MinLength
 		/// </summary>
-		private Int32Nullable minLengthPropertyStorage;
+		private global::System.Int32 minLengthPropertyStorage;
 		
 		/// <summary>
 		/// Gets or sets the value of MinLength domain property.
 		/// Minimum length of the string, 0 for no minimum length
 		/// </summary>
-		[System.ComponentModel.TypeConverter(typeof(Int32NullableTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("7fe42ef4-9691-4db1-8219-59107c14478b")]
-		public Int32Nullable MinLength
+		public global::System.Int32 MinLength
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -7057,7 +7055,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Value handler for the ModelAttribute.MinLength domain property.
 		/// </summary>
-		internal sealed partial class MinLengthPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, Int32Nullable>
+		internal sealed partial class MinLengthPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Int32>
 		{
 			private MinLengthPropertyHandler() { }
 		
@@ -7083,7 +7081,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed Int32Nullable GetValue(ModelAttribute element)
+			public override sealed global::System.Int32 GetValue(ModelAttribute element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.minLengthPropertyStorage;
@@ -7094,11 +7092,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, Int32Nullable newValue)
+			public override sealed void SetValue(ModelAttribute element, global::System.Int32 newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				Int32Nullable oldValue = GetValue(element);
+				global::System.Int32 oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);

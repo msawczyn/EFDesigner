@@ -10,17 +10,17 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
-   public class Int32Nullable
-   {
-      private readonly int? value;
+   //[SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
+   //public class Int32Nullable
+   //{
+   //   private readonly int? value;
 
-      public Int32Nullable(int? i) { value = i; }
-      public static implicit operator int? (Int32Nullable i) => i?.value;
-      public static implicit operator Int32Nullable(int? i) => new Int32Nullable(i);
-      public bool HasValue => value.HasValue;
-      public override string ToString() => $"{value}";
-   }
+   //   public Int32Nullable(int? i) { value = i; }
+   //   public static implicit operator int? (Int32Nullable i) => i?.value;
+   //   public static implicit operator Int32Nullable(int? i) => new Int32Nullable(i);
+   //   public bool HasValue => value.HasValue;
+   //   public override string ToString() => $"{value}";
+   //}
 
    [ValidationState(ValidationState.Enabled)]
    [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
@@ -357,6 +357,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The ImplementNotify value.</returns>
       public bool GetImplementNotifyValue()
       {
+         if (ModelClass == null)
+            return false;
+
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          return !loading && IsImplementNotifyTracking ? ModelClass.ImplementNotify : implementNotifyStorage;
@@ -371,7 +374,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (!Store.InUndoRedoOrRollback && !loading)
             // ReSharper disable once ArrangeRedundantParentheses
-            IsImplementNotifyTracking = (implementNotifyStorage == ModelClass.ImplementNotify);
+            IsImplementNotifyTracking = (implementNotifyStorage == (ModelClass?.ImplementNotify ?? false));
       }
 
       /// <summary>Storage for the AutoProperty property.</summary>  
@@ -381,6 +384,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The AutoProperty value.</returns>
       public bool GetAutoPropertyValue()
       {
+         if (ModelClass == null)
+            return true;
+
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          return !loading && IsAutoPropertyTracking ? ModelClass.AutoPropertyDefault : autoPropertyStorage;
@@ -394,8 +400,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            // ReSharper disable once ArrangeRedundantParentheses
-            IsAutoPropertyTracking = (autoPropertyStorage == ModelClass.AutoPropertyDefault);
+            IsAutoPropertyTracking = (autoPropertyStorage == (ModelClass?.AutoPropertyDefault ?? true));
       }
 
       /// <summary>Storage for the ColumnType property.</summary>  
@@ -738,9 +743,9 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             // if a min length is present, output both the min and max
             // otherwise, just the max, if present
-            if (((int?)MinLength).HasValue)
+            if (MinLength > 0)
                parts.Add($"[{MinLength}-{MaxLength}]");
-            else if (((int?)MaxLength).HasValue)
+            else if (MaxLength > 0)
                parts.Add($"[{MaxLength}]");
          }
 

@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.3.0.5
+// EFDesigner v1.3.0.7
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -307,10 +307,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
          segments.Clear();
-         if (indexed.AutoProperty)
-            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
-         else
-            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(\"_{indexed.Name}\")");
+         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
 
          if (indexed.IndexedUnique) segments.Add("IsUnique()");
 
@@ -325,7 +322,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       {
          segments.Clear();
 
-         if (modelAttribute.MaxLength?.HasValue == true && ((int?)modelAttribute.MaxLength).Value > 0)
+         if (modelAttribute.MaxLength > 0)
             segments.Add($"HasMaxLength({((int?)modelAttribute.MaxLength).Value})");
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
@@ -339,7 +336,7 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
          if (!string.IsNullOrEmpty(modelAttribute.ColumnType) && modelAttribute.ColumnType.ToLowerInvariant() != "default")
          {
             if (modelAttribute.ColumnType.ToLowerInvariant() == "varchar" || modelAttribute.ColumnType.ToLowerInvariant() == "nvarchar" || modelAttribute.ColumnType.ToLowerInvariant() == "char")
-               segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}({(modelAttribute.MaxLength?.HasValue == true && ((int?)modelAttribute.MaxLength).Value > 0 ? ((int?)modelAttribute.MaxLength).Value.ToString() : "max")})\")");
+               segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}({(modelAttribute.MaxLength > 0 ? modelAttribute.MaxLength.ToString() : "max")})\")");
             else
                segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\")");
          }
