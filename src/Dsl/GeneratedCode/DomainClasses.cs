@@ -5783,15 +5783,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for MaxLength
 		/// </summary>
-		private global::System.Int32 maxLengthPropertyStorage;
+		private global::System.Int32 maxLengthPropertyStorage = -1;
 		
 		/// <summary>
 		/// Gets or sets the value of MaxLength domain property.
 		/// Maximum length of the string, 0 for no max length
 		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(MaxLengthTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(-1)]
 		[DslModeling::DomainObjectId("8c128f2b-8f9f-4c8e-acf1-dd5488736b79")]
 		public global::System.Int32 MaxLength
 		{
@@ -7035,6 +7037,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Gets or sets the value of MinLength domain property.
 		/// Minimum length of the string, 0 for no minimum length
 		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(MinLengthTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MinLength.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]

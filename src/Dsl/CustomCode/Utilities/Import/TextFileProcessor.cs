@@ -13,6 +13,8 @@ using Microsoft.VisualStudio.Modeling;
 using Sawczyn.EFDesigner.EFModel.Annotations;
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
+using static System.Int32;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    public class TextFileProcessor: IFileProcessor
@@ -275,21 +277,17 @@ namespace Sawczyn.EFDesigner.EFModel
                      AttributeArgumentSyntax maxLength = maxLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (maxLength != null)
-                        modelAttribute.MaxLength = Int32.TryParse(maxLength.Expression.ToString(), out int maxLengthValue)
-                                                      ? maxLengthValue
-                                                      : 0;
+                        modelAttribute.MaxLength = TryParse(maxLength.Expression.ToString(), out int _max) ? _max : -1;
 
                      AttributeSyntax minLengthAttribute = propertyDecl.GetAttribute("MinLengthAttribute");
                      AttributeArgumentSyntax minLength = minLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (minLength != null)
-                        modelAttribute.MinLength = Int32.TryParse(minLength.Expression.ToString(), out int minLengthValue)
-                                                      ? minLengthValue
-                                                      : 0;
+                        modelAttribute.MinLength = TryParse(minLength.Expression.ToString(), out int _min) ? _min : 0;
                   }
                   else
                   {
-                     modelAttribute.MaxLength = 0;
+                     modelAttribute.MaxLength = -1;
                      modelAttribute.MinLength = 0;
                   }
 

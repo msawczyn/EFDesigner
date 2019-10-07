@@ -79,10 +79,13 @@ namespace Sandbox_EFCore
       partial void GetCode(ref string result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Required, Indexed, Min length = 1, Max length = 10
       /// </summary>
       [Key]
       [Required]
+      [MinLength(1)]
+      [MaxLength(10)]
+      [StringLength(10)]
       public string Code
       {
          get

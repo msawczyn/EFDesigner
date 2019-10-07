@@ -10,18 +10,6 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   //[SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
-   //public class Int32Nullable
-   //{
-   //   private readonly int? value;
-
-   //   public Int32Nullable(int? i) { value = i; }
-   //   public static implicit operator int? (Int32Nullable i) => i?.value;
-   //   public static implicit operator Int32Nullable(int? i) => new Int32Nullable(i);
-   //   public bool HasValue => value.HasValue;
-   //   public override string ToString() => $"{value}";
-   //}
-
    [ValidationState(ValidationState.Enabled)]
    [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
    public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning
@@ -639,7 +627,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void StringsShouldHaveLength(ValidationContext context)
       {
-         if (Type == "String" && ((int?)MaxLength).HasValue && MaxLength == 0)
+         if (Type == "String" && MaxLength < 0)
          {
             context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
             hasWarning = true;
@@ -733,37 +721,35 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>A string that represents the current object.</returns>
       public override string ToString()
       {
-         List<string> parts = new List<string>
-                              {
-                                 SetterVisibility.ToString().ToLower(),
-                                 $"{Type}{(Required ? string.Empty : "?")}"
-                              };
+         string visibility = SetterVisibility.ToString().ToLower();
+         string identity = IsIdentity ? "!" : string.Empty;
 
-         if (Type?.ToLower() == "string")
-         {
-            // if a min length is present, output both the min and max
-            // otherwise, just the max, if present
-            if (MinLength > 0)
-               parts.Add($"[{MinLength}-{MaxLength}]");
-            else if (MaxLength > 0)
-               parts.Add($"[{MaxLength}]");
-         }
+         string nullable = Required ? string.Empty : "?";
+         string initial = !string.IsNullOrEmpty(InitialValue) ? $" = {InitialValue.Trim('"')}" : string.Empty;
 
-         parts.Add($"{Name}{(IsIdentity ? "!" : string.Empty)}");
+         string lengthDisplay = "";
 
-         if (!string.IsNullOrEmpty(InitialValue))
-         {
-            string initialValue = InitialValue;
+         if (MinLength > 0)
+            lengthDisplay = $"[{MinLength}-{(MaxLength > 0 ? MaxLength.ToString() : "")}]";
+         else if (MaxLength > 0)
+            lengthDisplay = $"[{MaxLength}]";
 
-            // make sure string initial values are in quotes, but don't duplicate quotes if already present
-            if (Type?.ToLower() == "string")
-               initialValue = $"\"{InitialValue.Trim('"')}\"";
+         return $"{visibility} {Type}{nullable}{lengthDisplay} {Name}{identity}{initial}";
+      }
 
-            parts.Add($"= {initialValue}");
-         }
+      public string ToDisplayString()
+      {
+         string nullable = Required ? string.Empty : "?";
+         string initial = !string.IsNullOrEmpty(InitialValue) ? $" = {InitialValue.Trim('"')}" : string.Empty;
 
-         // get rid of the space between type name and length, if any
-         return string.Join(" ", parts).Replace(" [", "[");
+         string lengthDisplay = "";
+
+         if (MinLength > 0)
+            lengthDisplay = $"[{MinLength}-{(MaxLength > 0 ? MaxLength.ToString() : "")}]";
+         else if (MaxLength > 0)
+            lengthDisplay = $"[{MaxLength}]";
+
+         return $"{Type}{nullable}{lengthDisplay} {Name}{initial}";
       }
 
       /// <summary>

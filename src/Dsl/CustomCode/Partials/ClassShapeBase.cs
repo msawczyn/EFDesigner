@@ -29,21 +29,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private static string GetDisplayPropertyFromModelClassForAttributesCompartment(ModelElement element)
       {
-         ModelAttribute attribute = (ModelAttribute)element;
-
-         string nullable = attribute.Required ? "" : "?";
-         string name = attribute.Name;
-         string type = attribute.Type;
-         string initial = !string.IsNullOrEmpty(attribute.InitialValue) ? " = " + attribute.InitialValue : "";
-
-         string lengthDisplay = "";
-
-         if (attribute.MinLength > 0)
-            lengthDisplay = $"[{attribute.MinLength}-{attribute.MaxLength}]";
-         else if (attribute.MaxLength > 0)
-            lengthDisplay = $"[{attribute.MaxLength}]";
-
-         return $"{name} : {type}{nullable}{lengthDisplay}{initial}";
+         return ((ModelAttribute)element).ToDisplayString();
       }
 
       internal sealed partial class FillColorPropertyHandler

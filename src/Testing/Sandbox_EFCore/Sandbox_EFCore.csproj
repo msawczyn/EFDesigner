@@ -80,13 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EF6Designer.ttinclude" />
-    <None Include="EFCoreDesigner.ttinclude" />
-    <None Include="EFDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
-    <None Include="EFModel.efmodel.diagram">
-      <DependentUpon>EFModel.efmodel</DependentUpon>
-    </None>
     <None Include="Properties\EFModel.efmodel" />
     <None Include="Properties\EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>

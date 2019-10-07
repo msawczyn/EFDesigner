@@ -76,19 +76,19 @@ namespace Sawczyn.EFDesigner.EFModel
 
                            // <Max Length> ::= '[' DecLiteral ']'
                            // <Max Length> ::= '(' DecLiteral ')'
-                           result.MaxLength = int.Parse(reduction.get_Data(1) as string);
+                           result.MaxLength = int.TryParse(reduction.get_Data(1) as string, out int _max0) ? (int?)_max0 : null;
                            break;
 
                         case ProductionIndex.Lengths_Lbracket_Decliteral_Minus_Decliteral_Rbracket:
                         case ProductionIndex.Lengths_Lparen_Decliteral_Minus_Decliteral_Rparen:
                            // <Lengths> ::= '[' DecLiteral '-' DecLiteral ']'
                            // <Lengths> ::= '(' DecLiteral '-' DecLiteral ')'
-                           result.MinLength = int.Parse(reduction.get_Data(1) as string);
-                           result.MaxLength = int.Parse(reduction.get_Data(3) as string);
+                           result.MinLength = int.TryParse(reduction.get_Data(1) as string, out int _min) ? (int?)_min : null;
+                           result.MaxLength = int.TryParse(reduction.get_Data(3) as string, out int _max1) ? (int?)_max1 : null;
 
-                           if (result.MinLength < 0 || result.MaxLength < 0)
+                           if (result.MinLength < 0)
                            {
-                              FailMessage = "Min and Max lengths can't be negative numbers";
+                              FailMessage = "Min length can't be a negative number";
                               return null;
                            }
 

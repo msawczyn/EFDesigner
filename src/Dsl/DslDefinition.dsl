@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="3" Revision="7" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="3" Revision="8" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -471,7 +471,14 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8c128f2b-8f9f-4c8e-acf1-dd5488736b79" Description="Maximum length of the string, 0 for no max length" Name="MaxLength" DisplayName="Max Length" DefaultValue="" Category="String Properties">
+        <DomainProperty Id="8c128f2b-8f9f-4c8e-acf1-dd5488736b79" Description="Maximum length of the string, 0 for no max length" Name="MaxLength" DisplayName="Max Length" DefaultValue="-1" Category="String Properties">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(MaxLengthTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
@@ -561,6 +568,13 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="7fe42ef4-9691-4db1-8219-59107c14478b" Description="Minimum length of the string, 0 for no minimum length" Name="MinLength" DisplayName="Min Length" DefaultValue="" Category="String Properties">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(MinLengthTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="/System/Int32" />
           </Type>

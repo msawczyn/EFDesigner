@@ -63,6 +63,7 @@ namespace Sandbox_EFCore
                      .IsUnique();
          modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
                      .Property(t => t.Code)
+                     .HasMaxLength(10)
                      .IsRequired()
                      .HasField("_Code")
                      .UsePropertyAccessMode(PropertyAccessMode.Property)
