@@ -323,7 +323,24 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         return !loading && IsColumnNameTracking ? Name : columnNameStorage;
+         if (!loading && IsColumnNameTracking)
+            try
+            {
+               return Name;
+            }
+            catch (NullReferenceException)
+            {
+               return null;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return null;
+            }
+
+         return columnNameStorage;
       }
 
       /// <summary>Sets the storage for the ColumnName property.</summary>
@@ -345,12 +362,26 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The ImplementNotify value.</returns>
       public bool GetImplementNotifyValue()
       {
-         if (ModelClass == null)
-            return false;
-
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         return !loading && IsImplementNotifyTracking ? ModelClass.ImplementNotify : implementNotifyStorage;
+         if (!loading && IsImplementNotifyTracking)
+            try
+            {
+               return ModelClass?.ImplementNotify ?? false;
+            }
+            catch (NullReferenceException)
+            {
+               return false;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return false;
+            }
+
+         return implementNotifyStorage;
       }
 
       /// <summary>Sets the storage for the ImplementNotify property.</summary>
@@ -372,12 +403,26 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The AutoProperty value.</returns>
       public bool GetAutoPropertyValue()
       {
-         if (ModelClass == null)
-            return true;
-
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         return !loading && IsAutoPropertyTracking ? ModelClass.AutoPropertyDefault : autoPropertyStorage;
+         if (!loading && IsAutoPropertyTracking)
+            try
+            {
+               return ModelClass?.AutoPropertyDefault ?? false;
+            }
+            catch (NullReferenceException)
+            {
+               return true;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return true;
+            }
+
+         return autoPropertyStorage;
       }
 
       /// <summary>Sets the storage for the AutoProperty property.</summary>
@@ -400,7 +445,24 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         return !loading && IsColumnTypeTracking ? "default" : columnTypeStorage;
+         if (!loading && IsColumnTypeTracking)
+            try
+            {
+               return "default";
+            }
+            catch (NullReferenceException)
+            {
+               return "default";
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return "default";
+            }
+
+         return columnTypeStorage;
       }
 
       /// <summary>Sets the storage for the ColumnType property.</summary>
@@ -493,7 +555,21 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelAttribute element)
          {
-            element.isColumnTypeTrackingPropertyStorage = (element.ColumnType == "default");
+            object calculatedValue = null;
+
+            try
+            {
+               calculatedValue = "default";
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.ColumnType == (string)calculatedValue)
+               element.isColumnTypeTrackingPropertyStorage = true;
          }
 
          /// <summary>
@@ -533,7 +609,21 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelAttribute element)
          {
-            element.isImplementNotifyTrackingPropertyStorage = (element.ImplementNotify == element.ModelClass.ImplementNotify);
+            object calculatedValue = null;
+
+            try
+            {
+               calculatedValue = element.ModelClass?.ImplementNotify;
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.ImplementNotify == (bool)calculatedValue)
+               element.isImplementNotifyTrackingPropertyStorage = true;
          }
 
          /// <summary>
@@ -573,7 +663,21 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelAttribute element)
          {
-            element.isAutoPropertyTrackingPropertyStorage = (element.AutoProperty == element.ModelClass.AutoPropertyDefault);
+            object calculatedValue = null;
+
+            try
+            {
+               calculatedValue = element.ModelClass?.AutoPropertyDefault;
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.AutoProperty == (bool)calculatedValue)
+               element.isAutoPropertyTrackingPropertyStorage = true;
          }
 
          /// <summary>

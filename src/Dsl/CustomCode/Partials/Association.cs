@@ -149,7 +149,24 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         return !loading && IsTargetImplementNotifyTracking ? Target.ImplementNotify : targetImplementNotifyStorage;
+         if (!loading && IsTargetImplementNotifyTracking)
+            try
+            {
+               return Target?.ImplementNotify ?? false;
+            }
+            catch (NullReferenceException)
+            {
+               return false;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return false;
+            }
+
+         return targetImplementNotifyStorage;
       }
 
       /// <summary>Sets the storage for the TargetImplementNotify property.</summary>
@@ -186,7 +203,21 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(Association element)
          {
-            element.isTargetImplementNotifyTrackingPropertyStorage = (element.TargetImplementNotify == element.Target.ImplementNotify);
+            object calculatedValue = null;
+
+            try
+            {
+               calculatedValue = element.Target?.ImplementNotify;
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.TargetImplementNotify == (bool)calculatedValue)
+               element.isTargetImplementNotifyTrackingPropertyStorage = true;
          }
 
          /// <summary>
@@ -212,15 +243,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetCollectionClassValue()
       {
-         Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
-         bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsCollectionClassTracking)
          {
             try
             {
-               ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-               return modelRoot?.DefaultCollectionClass;
+               return Source?.ModelRoot?.DefaultCollectionClass;
             }
             catch (NullReferenceException)
             {

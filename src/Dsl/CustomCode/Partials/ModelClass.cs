@@ -323,14 +323,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetDatabaseSchemaValue()
       {
-         Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
-         bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
-         ModelRoot modelRoot = Store.ModelRoot();
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsDatabaseSchemaTracking)
             try
             {
-               return modelRoot?.DatabaseSchema;
+               return Store.ModelRoot()?.DatabaseSchema;
             }
             catch (NullReferenceException)
             {
@@ -419,16 +417,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetNamespaceValue()
       {
-         Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
-         bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsNamespaceTracking)
          {
-            ModelRoot modelRoot = Store.ModelRoot();
-
             try
             {
-               return modelRoot?.Namespace;
+               return Store.ModelRoot()?.Namespace;
             }
             catch (NullReferenceException)
             {
@@ -518,14 +513,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetOutputDirectoryValue()
       {
-         Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
-         bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
-         ModelRoot modelRoot = Store.ModelRoot();
+         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsOutputDirectoryTracking)
             try
             {
-               return IsDependentType ? modelRoot?.StructOutputDirectory : modelRoot?.EntityOutputDirectory;
+               return IsDependentType 
+                         ? Store.ModelRoot()?.StructOutputDirectory 
+                         : Store.ModelRoot()?.EntityOutputDirectory;
             }
             catch (NullReferenceException)
             {

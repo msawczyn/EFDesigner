@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
@@ -34,7 +35,26 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         return !loading && IsSourceImplementNotifyTracking ? Target.ImplementNotify : sourceImplementNotifyStorage;
+         if (!loading && IsCollectionClassTracking)
+         {
+            try
+            {
+               return Source.ImplementNotify;
+            }
+            catch (NullReferenceException)
+            {
+               return false;
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return false;
+            }
+         }
+
+         return sourceImplementNotifyStorage;
       }
 
       /// <summary>Sets the storage for the SourceImplementNotify property.</summary>
@@ -45,8 +65,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            // ReSharper disable once ArrangeRedundantParentheses
-            IsSourceImplementNotifyTracking = (sourceImplementNotifyStorage == Target.ImplementNotify);
+            IsSourceImplementNotifyTracking = (sourceImplementNotifyStorage == Source.ImplementNotify);
       }
 
       internal sealed partial class IsSourceImplementNotifyTrackingPropertyHandler
@@ -71,7 +90,21 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(BidirectionalAssociation element)
          {
-            element.isSourceImplementNotifyTrackingPropertyStorage = (element.SourceImplementNotify == element.Target.ImplementNotify);
+            object calculatedValue = null;
+
+            try
+            {
+               calculatedValue = element.Source?.ImplementNotify;
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.SourceImplementNotify == (bool)calculatedValue)
+               element.isSourceImplementNotifyTrackingPropertyStorage = true;
          }
 
          /// <summary>

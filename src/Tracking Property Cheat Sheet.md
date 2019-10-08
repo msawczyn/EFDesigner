@@ -72,7 +72,25 @@ Or, more succinctly:
       public FooType GetFooValue()
       {
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-         return !loading && IsFooTracking ? Source.FooMaster : FooStorage;
+
+         if (!loading && IsFooTracking)
+               try
+               {
+                  return Source?.FooMaster;
+               }
+               catch (NullReferenceException)
+               {
+                  return default(FooType);
+               }
+               catch (Exception e)
+               {
+                  if (CriticalException.IsCriticalException(e))
+                     throw;
+
+                  return default(FooType);
+               }
+
+         return fooStorage;
       }
 
       public void SetFooValue(FooType value)
@@ -81,7 +99,7 @@ Or, more succinctly:
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            IsFooTracking = (fooStorage == default(FooType));
+            IsFooTracking = (fooStorage == default(FooType)); // or whatever the value is for the tracked property
       }
 ```
  8. Also in the partial for Target, add a PropertyHandler for the Target.Foo
@@ -108,7 +126,7 @@ Or, more succinctly:
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(Target element)
          {
-            string calculatedValue = null;
+            object calculatedValue = null;
 
             try
             {
@@ -121,7 +139,7 @@ Or, more succinctly:
                   throw;
             }
 
-            if (calculatedValue != default(FooType) && element.Foo == calculatedValue)
+            if (calculatedValue != default(FooType) && element.Foo == (FooType)calculatedValue)
                element.isFooTrackingPropertyStorage = true;
          }
 

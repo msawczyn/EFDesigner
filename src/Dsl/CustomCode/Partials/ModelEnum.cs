@@ -134,8 +134,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
         private string GetNamespaceValue()
         {
-            Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
-            bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
+           bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
             if (!loading && IsNamespaceTracking)
                 try
@@ -229,8 +228,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
         private string GetOutputDirectoryValue()
         {
-            Transaction transactionManagerCurrentTransaction = Store.TransactionManager.CurrentTransaction;
-            bool loading = Store.TransactionManager.InTransaction && transactionManagerCurrentTransaction.IsSerializing;
+           bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
             if (!loading && IsOutputDirectoryTracking)
                 try
