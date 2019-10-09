@@ -58,6 +58,9 @@ CharLiteral    = '' ( {Char Ch} | '\'{Printable} )''
 
 <Type>
        ::= Identifier
+        
+<EnumValue>
+       ::= Identifier '.' Identifier  
 
 <Visibility>
        ::= 'public'
@@ -70,6 +73,7 @@ CharLiteral    = '' ( {Char Ch} | '\'{Printable} )''
         |  RealLiteral
         |  StringLiteral
         |  CharLiteral
+        |  <EnumValue>
 
 <Input>
        ::= <Visibility> <Type Spec> <Name Spec> <Initializer>
