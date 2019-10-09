@@ -104,13 +104,9 @@ namespace Microsoft.Msagl.Core.Geometry {
         public ICurve RectangularHull() {
             Debug.Assert(rectangle.Bottom <= rectangle.Top);
             if (RadiusX > 0 || RadiusY > 0)
-            {
-                return CurveFactory.CreateRectangleWithRoundedCorners(rectangle.Width, rectangle.Height, RadiusX, RadiusY, rectangle.Center);
-            }
+               return CurveFactory.CreateRectangleWithRoundedCorners(rectangle.Width, rectangle.Height, RadiusX, RadiusY, rectangle.Center);
             else
-            {
-                return CurveFactory.CreateRectangle(rectangle.Width, rectangle.Height, rectangle.Center);
-            }
+               return CurveFactory.CreateRectangle(rectangle.Width, rectangle.Height, rectangle.Center);
         }
         /// <summary>
         /// Will only return something useful if FastIncrementalLayoutSettings.AvoidOverlaps is true.

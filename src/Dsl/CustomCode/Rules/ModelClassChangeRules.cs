@@ -32,7 +32,76 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
+            case "DbSetName":
+            {
+               string newDbSetName = (string)e.NewValue;
+
+               if (element.IsDependentType)
+               {
+                  if (!string.IsNullOrEmpty(newDbSetName))
+                     element.DbSetName = string.Empty;
+               }
+               else
+               {
+                  if (string.IsNullOrEmpty(newDbSetName))
+                     element.DbSetName = MakeDefaultName(element.Name);
+
+                  if (current.Name.ToLowerInvariant() != "paste" &&
+                      (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
+                     errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
+                  else if (store.Get<ModelClass>()
+                                .Except(new[] {element})
+                                .Any(x => x.DbSetName == newDbSetName))
+                     errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
+               }
+
+               break;
+            }
+
+            case "ImplementNotify":
+            {
+               bool newImplementNotify = (bool)e.NewValue;
+
+               if (newImplementNotify)
+               {
+                  List<string> nameList = element.Attributes.Where(x => x.AutoProperty).Select(x => x.Name).ToList();
+                  if (nameList.Any())
+                  {
+                     string names = nameList.Count > 1
+                                       ? string.Join(", ", nameList.Take(nameList.Count - 1)) + " and " + nameList.Last()
+                                       : nameList.First();
+
+                     string verb = nameList.Count > 1
+                                      ? "is an autoproperty"
+                                      : "are autoproperties";
+
+                     WarningDisplay.Show($"{names} {verb}, so will not participate in INotifyPropertyChanged messages");
+                  }
+               }
+
+               PresentationHelper.SetClassVisuals(element);
+
+               break;
+            }
+
+            case "IsAbstract":
+            {
+               bool newIsAbstract = (bool)e.NewValue;
+
+               if (newIsAbstract && element.IsDependentType)
+               {
+                  errorMessages.Add($"Can't make {element.Name} abstract since it's a dependent type");
+
+                  break;
+               }
+
+               PresentationHelper.SetClassVisuals(element);
+
+               break;
+            }
+
             case "IsDependentType":
+            {
                bool newIsDependentType = (bool)e.NewValue;
 
                if (newIsDependentType)
@@ -92,98 +161,20 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.TableName = MakeDefaultName(element.Name);
                }
 
-               PresentationHelper.ColorShapeOutline(element);
+               PresentationHelper.SetClassVisuals(element);
 
                break;
+            }
 
-            case "IsAbstract":
-               bool newIsAbstract = (bool)e.NewValue;
-
-               if (newIsAbstract && element.IsDependentType)
-               {
-                  errorMessages.Add($"Can't make {element.Name} abstract since it's a dependent type");
-
-                  break;
-               }
-
-               PresentationHelper.ColorShapeOutline(element);
+            case "IsPersistent":
+            {
+               PresentationHelper.SetClassVisuals(element);
 
                break;
-
-            case "ImplementNotify":
-               bool newImplementNotify = (bool)e.NewValue;
-
-               if (newImplementNotify)
-               {
-                  List<string> nameList = element.Attributes.Where(x => x.AutoProperty).Select(x => x.Name).ToList();
-                  if (nameList.Any())
-                  {
-                     string names = nameList.Count > 1
-                                       ? string.Join(", ", nameList.Take(nameList.Count - 1)) + " and " + nameList.Last()
-                                       : nameList.First();
-
-                     string verb = nameList.Count > 1
-                                      ? "is an autoproperty"
-                                      : "are autoproperties";
-
-                     WarningDisplay.Show($"{names} {verb}, so will not participate in INotifyPropertyChanged messages");
-                  }
-               }
-
-               PresentationHelper.ColorShapeOutline(element);
-
-               break;
-
-            case "TableName":
-               string newTableName = (string)e.NewValue;
-
-               if (element.IsDependentType)
-               {
-                  if (!string.IsNullOrEmpty(newTableName))
-                     element.TableName = string.Empty;
-               }
-               else
-               {
-                  if (string.IsNullOrEmpty(newTableName))
-                     element.TableName = MakeDefaultName(element.Name);
-
-                  if (store.Get<ModelClass>()
-                           .Except(new[] {element})
-                           .Any(x => x.TableName == newTableName))
-                     errorMessages.Add($"Table name '{newTableName}' already in use");
-               }
-
-               break;
-
-            case "DbSetName":
-               string newDbSetName = (string)e.NewValue;
-
-               if (element.IsDependentType)
-               {
-                  if (!string.IsNullOrEmpty(newDbSetName))
-                     element.DbSetName = string.Empty;
-               }
-               else
-               {
-                  if (string.IsNullOrEmpty(newDbSetName))
-                     element.DbSetName = MakeDefaultName(element.Name);
-
-                  if (current.Name.ToLowerInvariant() != "paste" &&
-                      (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
-                  {
-                     errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
-                  }
-                  else if (store.Get<ModelClass>()
-                                .Except(new[] {element})
-                                .Any(x => x.DbSetName == newDbSetName))
-                  {
-                     errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
-                  }
-               }
-
-               break;
+            }
 
             case "Name":
+            {
                string newName = (string)e.NewValue;
 
                if (current.Name.ToLowerInvariant() != "paste" &&
@@ -216,14 +207,40 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                break;
+            }
 
             case "Namespace":
+            {
                string newNamespace = (string)e.NewValue;
 
                if (current.Name.ToLowerInvariant() != "paste")
                   errorMessages.Add(CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier));
 
                break;
+            }
+
+            case "TableName":
+            {
+               string newTableName = (string)e.NewValue;
+
+               if (element.IsDependentType)
+               {
+                  if (!string.IsNullOrEmpty(newTableName))
+                     element.TableName = string.Empty;
+               }
+               else
+               {
+                  if (string.IsNullOrEmpty(newTableName))
+                     element.TableName = MakeDefaultName(element.Name);
+
+                  if (store.Get<ModelClass>()
+                           .Except(new[] {element})
+                           .Any(x => x.TableName == newTableName))
+                     errorMessages.Add($"Table name '{newTableName}' already in use");
+               }
+
+               break;
+            }
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();

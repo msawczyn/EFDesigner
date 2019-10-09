@@ -30,9 +30,13 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
         void UpdateFront() {
             var newFrontEdges = new Set<CdtEdge>();
             foreach (var t in addedTriangles)
-                foreach (var e in t.Edges)
-                    if (e.CwTriangle == null || e.CcwTriangle == null)
-                        newFrontEdges.Insert(e);
+            {
+               foreach (var e in t.Edges)
+               {
+                  if (e.CwTriangle == null || e.CcwTriangle == null)
+                     newFrontEdges.Insert(e);
+               }
+            }
 
             foreach (var e in newFrontEdges)
                 AddEdgeToFront(e);

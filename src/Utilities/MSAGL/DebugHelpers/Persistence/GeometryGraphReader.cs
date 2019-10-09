@@ -191,9 +191,7 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
                     var token =
                         (GeometryToken)Enum.Parse(typeof(GeometryToken), str, false);
                     if (token == GeometryToken.SugiyamaLayoutSettings)
-                    {
-                        layoutSettings = ReadSugiyamaLayoutSettings(edgeRoutingMode);
-                    }
+                       layoutSettings = ReadSugiyamaLayoutSettings(edgeRoutingMode);
                     else if (token == GeometryToken.MdsLayoutSettings)
                     {
                         var mds = new MdsLayoutSettings();
@@ -269,12 +267,15 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             {
                 XmlRead();
                 for (int i = 0; i < 2; i++)
-                    for (int j = 0; j < 3; j++)
-                    {
-                        CheckToken(GeometryToken.TransformElement);
-                        MoveToContent();
-                        transform[i, j] = ReadElementContentAsDouble();
-                    }
+                {
+                   for (int j = 0; j < 3; j++)
+                   {
+                      CheckToken(GeometryToken.TransformElement);
+                      MoveToContent();
+                      transform[i, j] = ReadElementContentAsDouble();
+                   }
+                }
+
                 XmlRead();
             }
             else
@@ -408,9 +409,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             if (TokenIs(GeometryToken.LgEdgeInfos))
                 ReadLgEdgeInfos(lgData);
             if (TokenIs(GeometryToken.LgNodeInfos))
-            {
-                ReadLgNodeInfos(lgData);
-            }
+               ReadLgNodeInfos(lgData);
+
             ReadLevels(lgData);
         }
 
@@ -467,9 +467,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
         {
             int levelNodeCount = GetIntAttribute(GeometryToken.NodeCountOnLevel);
             if (lgData.LevelNodeCounts == null)
-            {
-                lgData.LevelNodeCounts = new List<int>();
-            }
+               lgData.LevelNodeCounts = new List<int>();
+
             lgData.LevelNodeCounts.Add(levelNodeCount);
             LgLevel level = new LgLevel(zoomLevel, _graph);
             lgData.Levels.Add(level);
@@ -566,9 +565,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             }
             XmlRead();
             while (TokenIs(GeometryToken.Rail))
-            {
-                ReadRail(level);
-            }
+               ReadRail(level);
+
             ReadEndElement();
         }
 
@@ -582,9 +580,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             }
             XmlRead();
             while (TokenIs(GeometryToken.Rail))
-            {
-                ReadSkeletonRail(level);
-            }
+               ReadSkeletonRail(level);
+
             ReadEndElement();
         }
 
@@ -721,15 +718,15 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             FleshOutClusters();
             var rootClusterSet = new Set<Cluster>();
             foreach (var cluster in stringToClusters.Values.Select(c => c.Cluster))
-                if (cluster.ClusterParents == null || !cluster.ClusterParents.Any())
-                    rootClusterSet.Insert(cluster);
+            {
+               if (cluster.ClusterParents == null || !cluster.ClusterParents.Any())
+                  rootClusterSet.Insert(cluster);
+            }
 
             if (rootClusterSet.Count == 1)
                 _graph.RootCluster = rootClusterSet.First();
             else
-            {
-                _graph.RootCluster.AddRangeOfCluster(rootClusterSet);
-            }
+               _graph.RootCluster.AddRangeOfCluster(rootClusterSet);
 
             if (!XmlReader.IsStartElement())
                 ReadEndElement();
@@ -890,9 +887,7 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
                 idToEdges[id] = edge;
             }
             else
-            {
-                Debug.Assert(idToEdges.Count == 0); // we consistently should have no ids or unique id per edge
-            }
+               Debug.Assert(idToEdges.Count == 0); // we consistently should have no ids or unique id per edge
 
             EdgeList.Add(edge);
             ReadArrowheadAtSource(edge);
@@ -1022,9 +1017,7 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
 
             var edge = geomObj as Edge;
             if (edge != null)
-            {
-                edge.Label = label;
-            }
+               edge.Label = label;
         }
 
 
@@ -1715,8 +1708,11 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             //todo, figure out how to find the line number for Silverlight
 #else
             if (xmlTextReader != null)
-                return String.Format(CultureInfo.InvariantCulture, "line {0} col {1}", xmlTextReader.LineNumber,
-                    xmlTextReader.LinePosition);
+            {
+               return String.Format(CultureInfo.InvariantCulture, "line {0} col {1}", xmlTextReader.LineNumber,
+                                    xmlTextReader.LinePosition);
+            }
+
             return String.Empty;
 #endif
         }

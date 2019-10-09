@@ -38,9 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
             ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().First();
 
             if (useIdentityTypes)
-            {
                values = new List<string>(modelRoot.ValidIdentityAttributeTypes);
-            }
             else
             {
                values = new List<string>(modelRoot.ValidTypes);

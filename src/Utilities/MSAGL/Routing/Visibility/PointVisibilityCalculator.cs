@@ -230,8 +230,10 @@ namespace Microsoft.Msagl.Routing.Visibility {
                 } else {
                     RBNode<PolylinePoint> changedNode = activeSidesTree.DeleteSubtree(node);
                     if (changedNode != null)
-                        if (changedNode.Item != null)
-                            sideNodes[changedNode.Item] = changedNode;
+                    {
+                       if (changedNode.Item != null)
+                          sideNodes[changedNode.Item] = changedNode;
+                    }
                 }
                 sideNodes.Remove(inSide);
             } else //the incoming edge is not active
@@ -253,9 +255,8 @@ namespace Microsoft.Msagl.Routing.Visibility {
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void AddEdge(PolylinePoint v) {
             if (visibilityKind == VisibilityKind.Regular ||
-                (visibilityKind == VisibilityKind.Tangent && LineTouchesPolygon(QVertex.Point, v))) {
-                visibilityGraph.AddEdge(QVertex.Point, v.Point, ((a,b)=>new TollFreeVisibilityEdge(a,b)));
-            }
+                (visibilityKind == VisibilityKind.Tangent && LineTouchesPolygon(QVertex.Point, v)))
+               visibilityGraph.AddEdge(QVertex.Point, v.Point, ((a,b)=>new TollFreeVisibilityEdge(a,b)));
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
@@ -331,8 +332,10 @@ namespace Microsoft.Msagl.Routing.Visibility {
 
             //now the side a, a.Next - is separating
             if (needToGoCounterclockWise)
-                while (HoleSideIsVisibleFromQ(hole, hole.Prev(a)))
-                    a = hole.Prev(a);
+            {
+               while (HoleSideIsVisibleFromQ(hole, hole.Prev(a)))
+                  a = hole.Prev(a);
+            }
 
             //go clockwise starting from b
             for (; HoleSideIsVisibleFromQ(hole, b); b = hole.Next(b)) {}

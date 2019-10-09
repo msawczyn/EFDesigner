@@ -126,10 +126,12 @@ namespace Microsoft.Msagl.Core.Layout {
                 Curve.Translate(delta);
 
             if (SmoothedPolyline != null)
-                for (Site s = SmoothedPolyline.HeadSite, s0 = SmoothedPolyline.HeadSite;
-                     s != null;
-                     s = s.Next, s0 = s0.Next)
-                    s.Point = s0.Point + delta;
+            {
+               for (Site s = SmoothedPolyline.HeadSite, s0 = SmoothedPolyline.HeadSite;
+                    s != null;
+                    s = s.Next, s0 = s0.Next)
+                  s.Point = s0.Point + delta;
+            }
 
             if (SourceArrowhead != null)
                 SourceArrowhead.TipPosition += delta;

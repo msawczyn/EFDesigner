@@ -147,12 +147,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             this.horizontalScanSegmentVector = new ScanSegmentVector(yCoordAccumulator, true);
             this.verticalScanSegmentVector = new ScanSegmentVector(xCoordAccumulator, false);
 
-            for (int slot = 0; slot < this.horizontalScanSegmentVector.Length; ++slot) {
-                this.horizontalCoordMap[this.horizontalScanSegmentVector[slot].Coord] = slot;
-            }
-            for (int slot = 0; slot < this.verticalScanSegmentVector.Length; ++slot) {
-                this.verticalCoordMap[this.verticalScanSegmentVector[slot].Coord] = slot;
-            }
+            for (int slot = 0; slot < this.horizontalScanSegmentVector.Length; ++slot)
+               this.horizontalCoordMap[this.horizontalScanSegmentVector[slot].Coord] = slot;
+
+            for (int slot = 0; slot < this.verticalScanSegmentVector.Length; ++slot)
+               this.verticalCoordMap[this.verticalScanSegmentVector[slot].Coord] = slot;
         }
 
         private void RunScanLineToCreateSegmentsAndBoundingBoxSteinerPoints() {
@@ -175,20 +174,18 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         private void AddAxisCoordinateEvents(ScanDirection scanDir) {
             // Normal event ordering will apply - and will thus order the ScanSegments created in the vectors.
             if (scanDir.IsHorizontal) {
-                foreach (var coord in yCoordAccumulator) {
-                    base.eventQueue.Enqueue(new AxisCoordinateEvent(new Point(ObstacleTree.GraphBox.Left - SentinelOffset, coord)));
-                }
+                foreach (var coord in yCoordAccumulator)
+                   base.eventQueue.Enqueue(new AxisCoordinateEvent(new Point(ObstacleTree.GraphBox.Left - SentinelOffset, coord)));
+
                 return;
             }
-            foreach (var coord in xCoordAccumulator) {
-                base.eventQueue.Enqueue(new AxisCoordinateEvent(new Point(coord, ObstacleTree.GraphBox.Bottom - SentinelOffset)));
-            }
+            foreach (var coord in xCoordAccumulator)
+               base.eventQueue.Enqueue(new AxisCoordinateEvent(new Point(coord, ObstacleTree.GraphBox.Bottom - SentinelOffset)));
         }
 
         protected override void ProcessCustomEvent(SweepEvent evt) {
-            if (!ProcessAxisCoordinate(evt)) {
-                base.ProcessCustomEvent(evt);
-            }
+            if (!ProcessAxisCoordinate(evt))
+               base.ProcessCustomEvent(evt);
         }
 
         private bool ProcessAxisCoordinate(SweepEvent evt) {
@@ -235,15 +232,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             // point and vertexEvent.Site (unless vertexEvent.Site is inside the bounding box).
             if (ObstacleTree.GraphBox.Contains(lowSteiner)) {
                 var bboxIntersectBeforeLowSteiner = StaticGraphUtility.RectangleBorderIntersect(lowNborSide.Obstacle.VisibilityBoundingBox, lowSteiner, highDir);
-                if (PointComparer.IsPureLower(bboxIntersectBeforeLowSteiner, vertexEvent.Site)) {
-                    this.boundingBoxSteinerPoints.Insert(bboxIntersectBeforeLowSteiner);
-                }
+                if (PointComparer.IsPureLower(bboxIntersectBeforeLowSteiner, vertexEvent.Site))
+                   this.boundingBoxSteinerPoints.Insert(bboxIntersectBeforeLowSteiner);
             }
             if (ObstacleTree.GraphBox.Contains(highSteiner)) {
                 var bboxIntersectBeforeHighSteiner = StaticGraphUtility.RectangleBorderIntersect(highNborSide.Obstacle.VisibilityBoundingBox, highSteiner, lowDir);
-                if (PointComparer.IsPureLower(vertexEvent.Site, bboxIntersectBeforeHighSteiner)) {
-                    this.boundingBoxSteinerPoints.Insert(bboxIntersectBeforeHighSteiner);
-                }
+                if (PointComparer.IsPureLower(vertexEvent.Site, bboxIntersectBeforeHighSteiner))
+                   this.boundingBoxSteinerPoints.Insert(bboxIntersectBeforeHighSteiner);
             }
 
             // Add the corners of the bounding box of the vertex obstacle, if they are visible to the event site.
@@ -251,12 +246,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             Point lowCorner, highCorner;
             GetBoundingCorners(lowSideNode.Item.Obstacle.VisibilityBoundingBox, vertexEvent is OpenVertexEvent, this.ScanDirection.IsHorizontal,
                         out lowCorner, out highCorner);
-            if (PointComparer.IsPureLower(lowSteiner, lowCorner) || lowNborSide.Obstacle.IsInSameClump(vertexEvent.Obstacle)) {
-                vertexPoints.Insert(lowCorner);
-            }
-            if (PointComparer.IsPureLower(highCorner, highSteiner) || highNborSide.Obstacle.IsInSameClump(vertexEvent.Obstacle)) {
-                vertexPoints.Insert(highCorner);
-            }
+            if (PointComparer.IsPureLower(lowSteiner, lowCorner) || lowNborSide.Obstacle.IsInSameClump(vertexEvent.Obstacle))
+               vertexPoints.Insert(lowCorner);
+
+            if (PointComparer.IsPureLower(highCorner, highSteiner) || highNborSide.Obstacle.IsInSameClump(vertexEvent.Obstacle))
+               vertexPoints.Insert(highCorner);
         }
 
         private static void GetBoundingCorners(Rectangle boundingBox, bool isLowSide, bool isHorizontal, out Point lowCorner, out Point highCorner) {
@@ -279,15 +273,14 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             var start = site;
             bool isInsideOverlappedObstacle = false;
             for (; null != nextNode; nextNode = base.scanLine.NextHigh(nextNode)) {
-                if (SkipSide(start, nextNode.Item)) {
-                    continue;
-                }
+                if (SkipSide(start, nextNode.Item))
+                   continue;
 
                 if (nextNode.Item.Obstacle.IsGroup) {
                     // Do not create internal group crossings in non-overlapped obstacles.
-                    if ((overlapDepth == 0) || isInsideOverlappedObstacle) {
-                        HandleGroupCrossing(site, nextNode.Item);
-                    }
+                    if ((overlapDepth == 0) || isInsideOverlappedObstacle)
+                       HandleGroupCrossing(site, nextNode.Item);
+
                     continue;
                 }
 
@@ -310,9 +303,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 // This is a HighObstacleSide.  If we've got overlap nesting, decrement the depth.
                 Debug.Assert(overlapDepth > 0, "Overlap depth must be positive");
                 --overlapDepth;
-                if (overlapDepth > 0) {
-                    continue;
-                }
+                if (overlapDepth > 0)
+                   continue;
 
                 // If we are not within an overlapped obstacle, don't bother creating the overlapped ScanSegment
                 // as there will never be visibility connecting to it.
@@ -333,9 +325,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         }
 
         private void HandleGroupCrossing(Point site, BasicObstacleSide groupSide) {
-            if (!base.ScanLineCrossesObstacle(site, groupSide.Obstacle)) {
-                return;
-            }
+            if (!base.ScanLineCrossesObstacle(site, groupSide.Obstacle))
+               return;
+
             // Here we are always going left-to-right.  As in base.SkipToNeighbor, we don't stop traversal for groups,
             // neither do we create overlapped edges (unless we're inside a non-group obstacle).  Instead we turn
             // the boundary crossing on or off based on group membership at ShortestPath-time.  Even though this is
@@ -356,29 +348,27 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         private void AddPerpendicularCoordForGroupCrossing(Point intersect) {
             var nonCrossingPerpSlot = this.FindPerpendicularSlot(intersect, 0);
-            if (-1 != nonCrossingPerpSlot) {
-                this.perpendicularSegmentVector[nonCrossingPerpSlot].AddPendingPerpendicularCoord(this.parallelSegmentVector.CurrentSlot.Coord);
-            }
+            if (-1 != nonCrossingPerpSlot)
+               this.perpendicularSegmentVector[nonCrossingPerpSlot].AddPendingPerpendicularCoord(this.parallelSegmentVector.CurrentSlot.Coord);
         }
 
         private bool SkipSide(Point start, BasicObstacleSide side) {
-            if (side.Obstacle.IsSentinel) {
-                return true;
-            }
+            if (side.Obstacle.IsSentinel)
+               return true;
 
             // Skip sides of obstacles that we do not actually pass through.
             var bbox = side.Obstacle.VisibilityBoundingBox;
-            if (base.ScanDirection.IsHorizontal) {
-                return ((start.Y == bbox.Bottom) || (start.Y == bbox.Top));
-            }
+            if (base.ScanDirection.IsHorizontal)
+               return ((start.Y == bbox.Bottom) || (start.Y == bbox.Top));
+
             return ((start.X == bbox.Left) || (start.X == bbox.Right));
         }
 
         private Point CreateScanSegment(Point start, BasicObstacleSide side, double weight) {
             var end = ScanLineIntersectSide(start, side);
-            if (start != end) {
-                this.parallelSegmentVector.CreateScanSegment(start, end, weight, CurrentGroupBoundaryCrossingMap.GetOrderedListBetween(start, end));
-            }
+            if (start != end)
+               this.parallelSegmentVector.CreateScanSegment(start, end, weight, CurrentGroupBoundaryCrossingMap.GetOrderedListBetween(start, end));
+
             return end;
         }
 
@@ -517,9 +507,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
             // See comments in FindIntersectingSlot; we don't add non-extreme vertices in the perpendicular direction
             // so in some heavily-overlapped scenarios, we may not have any intersections within this scan segment.
-            if (perpStartSlot >= perpEndSlot) {
-                return;
-            }
+            if (perpStartSlot >= perpEndSlot)
+               return;
 
             this.AddSlotToSegmentIntersections(parallelItem, perpStartSlot);
             this.AddSlotToSegmentIntersections(parallelItem, perpEndSlot);
@@ -537,9 +526,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         private static int FindIntersectingSlot(ScanSegmentVector segmentVector, Dictionary<double, int> coordMap, Point site, int directionIfMiss) {
             var coord = segmentVector.GetParallelCoord(site);
             int slot;
-            if (coordMap.TryGetValue(coord, out slot)) {
-                return slot;
-            }
+            if (coordMap.TryGetValue(coord, out slot))
+               return slot;
 
             // There are a few cases where the perpCoord is not in the map:
             // 1.  The first ScanSegment in a slot will have a Start at the sentinel, which is before the first 
@@ -574,15 +562,14 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 // in the lower half if it is at the midpoint.
                 if (siteSlot <= mid) {
                     high = mid;
-                    if ((siteSlot < high) && (high <= endSlot)) {
-                        this.AddSlotToSegmentIntersections(parallelItem, high);
-                    }
+                    if ((siteSlot < high) && (high <= endSlot))
+                       this.AddSlotToSegmentIntersections(parallelItem, high);
+
                     continue;
                 }
                 low = mid;
-                if ((siteSlot > low) && (low >= startSlot)) {
-                    this.AddSlotToSegmentIntersections(parallelItem, low);
-                }
+                if ((siteSlot > low) && (low >= startSlot))
+                   this.AddSlotToSegmentIntersections(parallelItem, low);
             }
         }
 
@@ -595,9 +582,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         private static void CreateScanSegmentTree(ScanSegmentVector segmentVector, ScanSegmentTree segmentTree) {
             foreach (var item in segmentVector.Items) {
                 for (var segment = item.FirstSegment; segment != null; segment = segment.NextSegment) {
-                    if (segment.HasVisibility()) {
-                        segmentTree.InsertUnique(segment);
-                    }
+                    if (segment.HasVisibility())
+                       segmentTree.InsertUnique(segment);
                 }
             }
         }

@@ -48,9 +48,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
         public GreedyNodeRailLevelCalculator(List<LgNodeInfo> sortedLgNodeInfos) {
             SortedLgNodeInfos = sortedLgNodeInfos;
 
-            foreach (var node in SortedLgNodeInfos) {
-                node.Processed = false;
-            }
+            foreach (var node in SortedLgNodeInfos)
+               node.Processed = false;
 
             InitBoundingBox();
         }
@@ -79,9 +78,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
         }
 
         void MarkAllNodesNotProcessed() {
-            foreach (var node in SortedLgNodeInfos) {
-                node.Processed = false;
-            }
+            foreach (var node in SortedLgNodeInfos)
+               node.Processed = false;
         }
 
         internal int TryInsertingNodesAndRoutes(int numNodesToInsert,
@@ -96,9 +94,7 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
 
             var canAddOldSegments = TryAddingOldSegments(oldSegments, grid);
             if (!canAddOldSegments)
-            {
-                return 0;
-            }
+               return 0;
 
             AddOldNodes(numNodesOnPreviousLevel, grid);
 
@@ -168,9 +164,7 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
                     Debug.Assert(e!=null, "VisibilityEdge on trajectory not found!");
 
                     if (!pathRouter.IsOnOldTrajectory(e))
-                    {
-                        edges.Insert(e);
-                    }
+                       edges.Insert(e);
                 }
             }
             return edges;
@@ -321,9 +315,7 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
                 _nodeLevels[iLevel] = new List<LgNodeInfo>();
 
             foreach (var ni in _insertedNodes)
-            {
-                _nodeLevels[iLevel].Add(ni);
-            }
+               _nodeLevels[iLevel].Add(ni);
         }
 
         public List<int> GetLevelNodeCounts()
@@ -344,9 +336,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
                 if (!_nodeTileTable.ContainsKey(tuple))
                     _nodeTileTable[tuple] = 0;
 
-                if (_nodeTileTable[tuple] >= MaxNodesPerTile(level)) {
-                    return i;
-                }
+                if (_nodeTileTable[tuple] >= MaxNodesPerTile(level))
+                   return i;
 
                 PerformNodeInsertion(ni, tuple);
                 ni.ZoomLevel = level;
@@ -407,9 +398,9 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
                 return false;
             }
 
-            foreach (var tile in intersectedTiles) {
-                _segmentTileTable[tile]++;
-            }
+            foreach (var tile in intersectedTiles)
+               _segmentTileTable[tile]++;
+
             return true;
         }
 
@@ -425,9 +416,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
         }
 
         void RemoveLooseSegmentsDecrementTiles(IEnumerable<SymmetricSegment> segs, GridTraversal grid) {
-            foreach (var seg in segs) {
-                RemoveLooseSegmentDecrementTiles(seg, grid);
-            }
+            foreach (var seg in segs)
+               RemoveLooseSegmentDecrementTiles(seg, grid);
         }
 
         void RemoveLooseSegmentDecrementTiles(SymmetricSegment seg, GridTraversal grid) {
@@ -459,9 +449,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout.NodeRailLevelCalculator {
         }
 
         void AddSegmentsToRtree(IEnumerable<SymmetricSegment> segs) {
-            foreach (var seg in segs) {
-                AddSegmentToRtree(seg);
-            }
+            foreach (var seg in segs)
+               AddSegmentToRtree(seg);
         }
 
 

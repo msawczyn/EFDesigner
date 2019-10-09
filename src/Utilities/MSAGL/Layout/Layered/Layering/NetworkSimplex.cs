@@ -41,9 +41,10 @@ namespace Microsoft.Msagl.Layout.Layered {
         private void ShiftLayerToZero() {
             int minLayer = NetworkEdge.Infinity;
             foreach (int i in layers)
-                if (i < minLayer)
-                    minLayer = i;
-
+            {
+               if (i < minLayer)
+                  minLayer = i;
+            }
 
             for (int i = 0; i < graph.NodeCount; i++)
                 layers[i] -= minLayer;
@@ -96,10 +97,12 @@ namespace Microsoft.Msagl.Layout.Layered {
             int s = treeEdge.Source;
             int t = treeEdge.Target;
             if (lim[s] > lim[t])//s belongs to the tree root component
-                if (lim[v] <= lim[t] && low[t] <= lim[v])
-                    return 0;
-                else
-                    return 1;
+            {
+               if (lim[v] <= lim[t] && low[t] <= lim[v])
+                  return 0;
+               else
+                  return 1;
+            }
             else //t belongs to the tree root component
                 if (lim[v] <= lim[s] && low[s] <= lim[v])
                     return 1;
@@ -119,8 +122,11 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         bool AllLowCutsHaveBeenDone(int v) {
             foreach (NetworkEdge ie in IncidentEdges(v))
-                if (ie.inTree && ie.Cut == NetworkEdge.Infinity && ie != parent[v])
-                    return false;
+            {
+               if (ie.inTree && ie.Cut == NetworkEdge.Infinity && ie != parent[v])
+                  return false;
+            }
+
             return true;
         }
 
@@ -321,9 +327,9 @@ namespace Microsoft.Msagl.Layout.Layered {
                     }
                     while (inEnum.MoveNext()) {
                         NetworkEdge e = inEnum.Current as NetworkEdge;
-                        if (!e.inTree || low[e.Source] > 0) {
-                            continue;
-                        }
+                        if (!e.inTree || low[e.Source] > 0)
+                           continue;
+
                         stack.Push(new StackStruct(v, outEnum, inEnum));
                         v = e.Source;
                         low[v] = curLim;
@@ -530,10 +536,8 @@ namespace Microsoft.Msagl.Layout.Layered {
 
 #if TEST_MSAGL
       if (enteringEdge == null)
-      {
-        throw new InvalidOperationException();
-      }
-#endif
+         throw new InvalidOperationException();
+      #endif
             return new Tuple<NetworkEdge, NetworkEdge>(leavingEdge, enteringEdge);
 
 
@@ -572,8 +576,10 @@ namespace Microsoft.Msagl.Layout.Layered {
 
             //set layers to infinity under l
             for (int i = 0; i < this.graph.NodeCount; i++)
-                if (low[l] <= lim[i] && lim[i] <= lim[l] && i != l)
-                    layers[i] = NetworkEdge.Infinity;
+            {
+               if (low[l] <= lim[i] && lim[i] <= lim[l] && i != l)
+                  layers[i] = NetworkEdge.Infinity;
+            }
 
             while (front.Count > 0) {
                 int u = front.Pop();
@@ -705,12 +711,9 @@ namespace Microsoft.Msagl.Layout.Layered {
             foreach (NetworkEdge e in this.graph.Edges) {
                 if (e.inTree) {
                     int cut = 0;
-                    foreach (NetworkEdge f in graph.Edges) {
+                    foreach (NetworkEdge f in graph.Edges)
+                       cut += EdgeSourceTargetVal(f, e) * f.Weight;
 
-
-                        cut += EdgeSourceTargetVal(f, e) * f.Weight;
-
-                    }
                     if (e.Cut != cut)
                         Console.WriteLine("cuts are wrong for {0}; should be {1} but is {2}", e, cut, e.Cut);
                 }

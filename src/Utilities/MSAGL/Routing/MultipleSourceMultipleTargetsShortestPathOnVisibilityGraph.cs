@@ -21,9 +21,8 @@ namespace Microsoft.Msagl.Routing {
             _visGraph = visibilityGraph;
             visibilityGraph.ClearPrevEdgesTable();
             foreach (var v in visibilityGraph.Vertices())
-            {
-                v.Distance = Double.PositiveInfinity;
-            }
+               v.Distance = Double.PositiveInfinity;
+
             sources = sourceVisVertices;
             targets = new Set<VisibilityVertex>(targetVisVertices);
 

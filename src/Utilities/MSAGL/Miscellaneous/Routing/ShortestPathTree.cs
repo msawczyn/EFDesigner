@@ -28,9 +28,7 @@ namespace Microsoft.Msagl.Miscellaneous.Routing
             int i;
 
             for (i = path.Count - 1; i >= 0; i--)
-            {
-                if (_points.Contains(path[i])) break;
-            }
+               if (_points.Contains(path[i])) break;
 
             for (int j = path.Count - 1; j > i; j--)
             {
@@ -50,9 +48,8 @@ namespace Microsoft.Msagl.Miscellaneous.Routing
             if (!_points.Contains(s))
                 return null;
             for (Point p = s; !p.Equals(_root); p = _paret[p])
-            {
-                path.Insert(0,p);
-            }
+               path.Insert(0,p);
+
             path.Insert(0, _root);
             return path;
         }

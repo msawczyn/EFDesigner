@@ -36,14 +36,16 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
                 if (prevLocationPathOffsets != null) {
                     //handle returning paths
                     if (departedPaths.Count > 0)
-                        foreach (var pair in pathOffsets) {
-                            LinkedPoint departerLinkedPoint;
-                            var path0 = pair.Key;
-                            if (departedPaths.TryGetValue(path0, out departerLinkedPoint)) {//returned!
-                                CollapseLoopingPath(path0, departerLinkedPoint, pair.Value, path, linkedPoint);
-                                departedPaths.Remove(path0);
-                            }
-                        }
+                    {
+                       foreach (var pair in pathOffsets) {
+                          LinkedPoint departerLinkedPoint;
+                          var path0 = pair.Key;
+                          if (departedPaths.TryGetValue(path0, out departerLinkedPoint)) {//returned!
+                             CollapseLoopingPath(path0, departerLinkedPoint, pair.Value, path, linkedPoint);
+                             departedPaths.Remove(path0);
+                          }
+                       }
+                    }
 
                     //find departed paths
                     foreach (var pair in prevLocationPathOffsets.Where(pair => !pathOffsets.ContainsKey(pair.Key)))
@@ -117,8 +119,10 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
         /// <returns>true is a is before b in the path</returns>
         static bool Before(LinkedPoint a, LinkedPoint b){
             for(a=a.Next;a!=null;a=a.Next)
-                if(a==b)
-                    return true;
+            {
+               if(a==b)
+                  return true;
+            }
 
             return false;
         }
@@ -126,8 +130,10 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
         static LinkedPoint FindLinkedPointInPath(Path path, Point point) {
             //this function is supposed to always succeed. it will throw a null reference exception otherwise
             for (var linkedPoint = (LinkedPoint) path.PathPoints;; linkedPoint = linkedPoint.Next)
-                if (linkedPoint.Point == point)
-                    return linkedPoint;
+            {
+               if (linkedPoint.Point == point)
+                  return linkedPoint;
+            }
         }
 
         void InitVerticesToPathOffsetsAndRemoveSelfCycles(){

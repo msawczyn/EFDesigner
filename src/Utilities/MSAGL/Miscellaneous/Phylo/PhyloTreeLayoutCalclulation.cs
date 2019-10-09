@@ -424,9 +424,8 @@ namespace Microsoft.Msagl.Prototype.Phylo {
             int[][]ll=layerArrays.Layers=new int[numberOfLayers][];
 
             i = 0;
-            foreach (List<int> layer in layers) {
-                ll[i++] = layer.ToArray();
-            }
+            foreach (List<int> layer in layers)
+               ll[i++] = layer.ToArray();
 
             this.properLayeredGraph = new ProperLayeredGraph(intGraph);
         }

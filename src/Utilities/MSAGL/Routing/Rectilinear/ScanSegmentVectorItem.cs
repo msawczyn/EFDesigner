@@ -32,9 +32,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             private List<double> pendingPerpCoords;
 
             internal void AddPendingPerpendicularCoord(double coord) {
-                if (pendingPerpCoords == null) {
-                    pendingPerpCoords = new List<double>();
-                }
+                if (pendingPerpCoords == null)
+                   pendingPerpCoords = new List<double>();
+
                 pendingPerpCoords.Add(coord);
             }
 
@@ -74,9 +74,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 // This is not a simple Next() because scan segments are extended "through" obstacles
                 // (intermixing overlapped and non-overlapped) and thus a ScanSegment's Start and End
                 // may not be in the vertexPoints collection and the ScanSegment must be skipped.
-                if (this.CurrentSegment.ContainsPoint(point)) {
-                    return true;
-                }
+                if (this.CurrentSegment.ContainsPoint(point))
+                   return true;
 
                 var pointCoord = this.IsHorizontal ? point.Y : point.X;
                 if (!PointComparer.Equal(this.Coord, pointCoord)) {
@@ -102,12 +101,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                         }
                     }
 
-                    if (!this.MoveNext()) {
-                        return false;
-                    }
-                    if (this.CurrentSegment.ContainsPoint(point)) {
-                        return true;
-                    }
+                    if (!this.MoveNext())
+                       return false;
+
+                    if (this.CurrentSegment.ContainsPoint(point))
+                       return true;
 
                     // This is likely the reverse of the above; the point rounding mismatched to just before
                     // rather than just after the current segment.
@@ -151,16 +149,16 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             /// </summary>
             /// <returns></returns>
             public override string ToString() {
-                if (null == this.FirstSegment) {
-                    return "-0- " + this.Coord;
-                }
+                if (null == this.FirstSegment)
+                   return "-0- " + this.Coord;
+
                 return (this.IsHorizontal ? "(H) Y == " : "(V) X == ") + this.Coord;
             }
 
             internal void AppendScanSegment(ScanSegment segment) {
-                if (null == this.FirstSegment) {
-                    this.FirstSegment = segment;
-                } else {
+                if (null == this.FirstSegment)
+                   this.FirstSegment = segment;
+                else {
                     // Note: segment.Start may != Current.End due to skipping internal ScanSegment creation for non-overlapped obstacles.
                     this.CurrentSegment.NextSegment = segment;
                 }
@@ -170,9 +168,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             internal void AddPendingPerpendicularCoordsToScanSegments() {
                 if (this.pendingPerpCoords != null) {
                     this.ResetForIntersections();
-                    foreach (var point in this.pendingPerpCoords) {
-                        this.AddPerpendicularCoord(point);
-                    }
+                    foreach (var point in this.pendingPerpCoords)
+                       this.AddPerpendicularCoord(point);
                 }
             }
         }

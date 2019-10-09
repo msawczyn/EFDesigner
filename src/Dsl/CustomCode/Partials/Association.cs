@@ -150,6 +150,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsTargetImplementNotifyTracking)
+         {
             try
             {
                return Target?.ImplementNotify ?? false;
@@ -165,6 +166,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return false;
             }
+         }
 
          return targetImplementNotifyStorage;
       }

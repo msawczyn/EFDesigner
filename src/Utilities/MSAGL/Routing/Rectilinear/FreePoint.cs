@@ -47,21 +47,20 @@ namespace Microsoft.Msagl.Routing.Rectilinear{
                     , VisibilityEdge targetEdge, Directions dirToExtend, Rectangle limitRect) {
             Point targetIntersect = StaticGraphUtility.SegmentIntersection(targetEdge, this.Point);
             VisibilityVertex targetVertex = transUtil.VisGraph.FindVertex(targetIntersect);
-            if (null != targetVertex) {
-                AddToAdjacentVertex(transUtil, targetVertex, dirToExtend, limitRect);
-            }
-            else {
-                targetVertex = transUtil.AddEdgeToTargetEdge(this.Vertex, targetEdge, targetIntersect);
-            }
+            if (null != targetVertex)
+               AddToAdjacentVertex(transUtil, targetVertex, dirToExtend, limitRect);
+            else
+               targetVertex = transUtil.AddEdgeToTargetEdge(this.Vertex, targetEdge, targetIntersect);
+
             ExtendEdgeChain(transUtil, targetVertex, dirToExtend, limitRect);
             return targetVertex;
         }
 
         internal void AddToAdjacentVertex(TransientGraphUtility transUtil
                     , VisibilityVertex targetVertex, Directions dirToExtend, Rectangle limitRect) {
-            if (!PointComparer.Equal(this.Point, targetVertex.Point)) {
-                transUtil.FindOrAddEdge(this.Vertex, targetVertex, InitialWeight);
-            }
+            if (!PointComparer.Equal(this.Point, targetVertex.Point))
+               transUtil.FindOrAddEdge(this.Vertex, targetVertex, InitialWeight);
+
             ExtendEdgeChain(transUtil, targetVertex, dirToExtend, limitRect);
         }
 
@@ -96,9 +95,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear{
             } else {
                 // For a waypoint this will be a target and then a source, so there may be a different lateral edge to
                 // connect to. In that case make sure we are consistent in directions - back up the start point if needed.
-                if (PointComparer.GetDirections(startVertex.Point, segmentAndCrossings.Item1.Start) == dirToExtend) {
-                    segmentAndCrossings.Item1.Start = startVertex.Point;
-                }
+                if (PointComparer.GetDirections(startVertex.Point, segmentAndCrossings.Item1.Start) == dirToExtend)
+                   segmentAndCrossings.Item1.Start = startVertex.Point;
             }
             return segmentAndCrossings;
         }

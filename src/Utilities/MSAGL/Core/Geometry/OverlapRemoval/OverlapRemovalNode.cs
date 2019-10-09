@@ -198,9 +198,7 @@ namespace Microsoft.Msagl.Core.Geometry
             // Due to multiple hierarchies, we must check to see if the variable has been created yet;
             // we share one Node (and its single Variable) across all clusters it's a member of.
             if (null == this.Variable)
-            {
-                this.Variable = solver.AddVariable(this /* userData */, this.Position, this.Weight);
-            }
+               this.Variable = solver.AddVariable(this /* userData */, this.Position, this.Weight);
             else
             {
                 // Make sure the position is updated as the caller may have called this before and then we recalculated
@@ -254,9 +252,8 @@ namespace Microsoft.Msagl.Core.Geometry
             ValidateArg.IsNotNull(other, "other");
             int cmp = this.Position.CompareTo(other.Position);
             if (0 == cmp)
-            {
-                cmp = this.Id.CompareTo(other.Id);
-            }
+               cmp = this.Id.CompareTo(other.Id);
+
             return cmp;
         }
         #endregion // IComparable<Node> Members

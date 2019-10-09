@@ -162,9 +162,8 @@ namespace Microsoft.Msagl.Core.DataStructures {
             int i = 0;
             foreach (T p in this) {
                 ret += p.ToString();
-                if (i != count - 1) {
-                    ret += ",";
-                }
+                if (i != count - 1)
+                   ret += ",";
 
                 i++;
             }

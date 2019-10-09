@@ -169,10 +169,11 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
         private static bool AllBoundaryVerticesAreJunctions(Tiling gPlanar, List<Vertex> face)
         {
             foreach (Vertex boundaryVertex in face)
-                if (boundaryVertex.Id < gPlanar.N)
-                {
-                    return false;
-                }
+            {
+               if (boundaryVertex.Id < gPlanar.N)
+                  return false;
+            }
+
             return true;
         }
 

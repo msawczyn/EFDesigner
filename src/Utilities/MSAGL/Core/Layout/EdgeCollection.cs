@@ -40,9 +40,8 @@ namespace Microsoft.Msagl.Core.Layout {
                 item.Source.AddOutEdge(item);
                 item.Target.AddInEdge(item);
             }
-            else {
-                item.Target.AddSelfEdge(item);
-            }
+            else
+               item.Target.AddSelfEdge(item);
         }
 
         /// <summary>
@@ -107,9 +106,9 @@ namespace Microsoft.Msagl.Core.Layout {
                 source.RemoveOutEdge(item);
                 target.RemoveInEdge(item);
             }
-            else {
-                source.RemoveSelfEdge(item);
-            }
+            else
+               source.RemoveSelfEdge(item);
+
             item.GeometryParent = null;
         }
 

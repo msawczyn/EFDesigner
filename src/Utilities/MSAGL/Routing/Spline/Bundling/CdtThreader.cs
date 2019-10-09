@@ -133,9 +133,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                     negativeSign = oppositeSiteSign;
                     j = i + 1;
                 }
-                else {
-                    j = i + 2;
-                }
+                else
+                   j = i + 2;
             }
             else if (positiveSign == 0) {
                 Debug.Assert(negativeSign == -1);
@@ -143,9 +142,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                     positiveSign = oppositeSiteSign;
                     j = i + 2;
                 }
-                else {
-                    j = i + 1;
-                }
+                else
+                   j = i + 1;
             }
             else if (oppositeSiteSign != positiveSign) {
                 negativeSign = oppositeSiteSign;

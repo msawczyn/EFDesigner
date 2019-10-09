@@ -65,9 +65,9 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
 
             Point p1 = start <= ParStart ? Start : (1 - start) * a + start * b;
             Point p2 = end >= ParEnd ? End : (1 - end) * a + end * b;
-            if (ApproximateComparer.Close(start, end)) {
-                return null;
-            }
+            if (ApproximateComparer.Close(start, end))
+               return null;
+
             return new LineSegment(p1, p2);
         }
 

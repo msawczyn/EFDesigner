@@ -54,9 +54,7 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
         /// <returns>new RoundedRect with the same CornerRadius inside the target bounds</returns>
         public ICurve FitTo(Rectangle target) {
             if (ApproximateComparer.Close(target, this.BoundingBox, ApproximateComparer.UserDefinedTolerance))
-            {
-                return this.Clone();
-            }
+               return this.Clone();
 
             return new RoundedRect(target, RadiusX, RadiusY);
         }

@@ -211,15 +211,13 @@ namespace Microsoft.Msagl.Layout.Layered {
         }
 
         void PutVerticalConstraintsIntoSolver(ISolverShell solver) {
-            foreach (var pair in horizontalConstraints.VerticalInts) {
-                solver.AddGoalTwoVariablesAreClose(pair.Item1, pair.Item2, ConstrainedVarWeight);
-            }
+            foreach (var pair in horizontalConstraints.VerticalInts)
+               solver.AddGoalTwoVariablesAreClose(pair.Item1, pair.Item2, ConstrainedVarWeight);
         }
 
         void PutLeftRightConstraintsIntoSolver(ISolverShell solver) {
-            foreach (var pair in horizontalConstraints.LeftRighInts) {
-                solver.AddLeftRightSeparationConstraint(pair.Item1, pair.Item2, SimpleGapBetweenTwoNodes(pair.Item1, pair.Item2));
-            }
+            foreach (var pair in horizontalConstraints.LeftRighInts)
+               solver.AddLeftRightSeparationConstraint(pair.Item1, pair.Item2, SimpleGapBetweenTwoNodes(pair.Item1, pair.Item2));
         }
 
         void PutLayerNodeSeparationsIntoSolver(ISolverShell solver) {
@@ -256,9 +254,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             foreach (var vertCompRoot in order)
                 PutVerticalComponentIntoLayers(EnumerateVertComponent(componentRootsToComponents, vertCompRoot), runninglayerCounts, alreadyInLayers);
             for (int i = 0; i < ProperLayeredGraph.NodeCount; i++)
-                if (alreadyInLayers[i] == false)
-                    AddVertToLayers(i, runninglayerCounts, alreadyInLayers);
-
+            {
+               if (alreadyInLayers[i] == false)
+                  AddVertToLayers(i, runninglayerCounts, alreadyInLayers);
+            }
         }
 
         IEnumerable<int> EnumerateVertComponent(Dictionary<int, List<int>> componentRootsToComponents, int vertCompRoot) {
@@ -289,11 +288,14 @@ namespace Microsoft.Msagl.Layout.Layered {
             alreadyInLayers[i] = true;
             List<int> block;
             if (horizontalConstraints.BlockRootToBlock.TryGetValue(i, out block))
-                foreach (var v in block) {
-                    if (alreadyInLayers[v]) continue;
-                    layer[xIndex++] = v;
-                    alreadyInLayers[v] = true;
-                }
+            {
+               foreach (var v in block) {
+                  if (alreadyInLayers[v]) continue;
+                  layer[xIndex++] = v;
+                  alreadyInLayers[v] = true;
+               }
+            }
+
             runningLayerCounts[layerIndex] = xIndex;
         }
 
@@ -303,9 +305,9 @@ namespace Microsoft.Msagl.Layout.Layered {
                 int i = kv.Key;
                 var root = kv.Value;
                 List<int> component;
-                if (!d.TryGetValue(root, out component)) {
-                    d[root] = component = new List<int>();
-                }
+                if (!d.TryGetValue(root, out component))
+                   d[root] = component = new List<int>();
+
                 component.Add(i);
             }
             return d;
@@ -313,11 +315,16 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         IEnumerable<IntPair> LiftLeftRightRelationsToComponentRoots(Dictionary<int, int> nodesToVerticalComponentsRoots) {
             foreach (var pair in horizontalConstraints.LeftRighInts)
-                yield return new IntPair(GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item1),
-                    GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item2));
+            {
+               yield return new IntPair(GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item1),
+                                        GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item2));
+            }
+
             foreach (var pair in horizontalConstraints.LeftRightIntNeibs)
-                yield return new IntPair(GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item1),
-                    GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item2));
+            {
+               yield return new IntPair(GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item1),
+                                        GetFromDictionaryOrIdentical(nodesToVerticalComponentsRoots, pair.Item2));
+            }
         }
 
         static int GetFromDictionaryOrIdentical(Dictionary<int, int> d, int key) {
@@ -393,12 +400,14 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         static void AddGoalToKeepFlatEdgesShortOnBlockLevel(LayerInfo layerInfo, ISolverShell solver) {
             if (layerInfo != null)
-                foreach (var couple in layerInfo.flatEdges) {
-                    int sourceBlockRoot = NodeToBlockRootSoftOnLayerInfo(layerInfo, couple.Item1);
-                    int targetBlockRoot = NodeToBlockRootSoftOnLayerInfo(layerInfo, couple.Item2);
-                    if (sourceBlockRoot != targetBlockRoot)
-                        solver.AddGoalTwoVariablesAreClose(sourceBlockRoot, targetBlockRoot);
-                }
+            {
+               foreach (var couple in layerInfo.flatEdges) {
+                  int sourceBlockRoot = NodeToBlockRootSoftOnLayerInfo(layerInfo, couple.Item1);
+                  int targetBlockRoot = NodeToBlockRootSoftOnLayerInfo(layerInfo, couple.Item2);
+                  if (sourceBlockRoot != targetBlockRoot)
+                     solver.AddGoalTwoVariablesAreClose(sourceBlockRoot, targetBlockRoot);
+               }
+            }
         }
 
         static bool NodeIsConstrainedBelow(int v, LayerInfo layerInfo) {
@@ -472,11 +481,13 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         void FillBlockRootToVertConstrainedNode() {
             foreach (LayerInfo layerInfo in layerInfos)
-                foreach (int v in VertConstrainedNodesOfLayer(layerInfo)) {
-                    int blockRoot;
-                    if (TryGetBlockRoot(v, out blockRoot, layerInfo))
-                        layerInfo.blockRootToVertConstrainedNodeOfBlock[blockRoot] = v;
-                }
+            {
+               foreach (int v in VertConstrainedNodesOfLayer(layerInfo)) {
+                  int blockRoot;
+                  if (TryGetBlockRoot(v, out blockRoot, layerInfo))
+                     layerInfo.blockRootToVertConstrainedNodeOfBlock[blockRoot] = v;
+               }
+            }
         }
 
         static bool TryGetBlockRoot(int v, out int blockRoot, LayerInfo layerInfo) {
@@ -548,8 +559,11 @@ namespace Microsoft.Msagl.Layout.Layered {
             else {
                 ie.LayerEdges[0] = new LayerEdge(source, numberOfNodesOfProperGraph, ie.CrossingWeight);
                 for (int i = 0; i < span - 2; i++)
-                    ie.LayerEdges[i + 1] = new LayerEdge(numberOfNodesOfProperGraph++, numberOfNodesOfProperGraph,
-                                                         ie.CrossingWeight);
+                {
+                   ie.LayerEdges[i + 1] = new LayerEdge(numberOfNodesOfProperGraph++, numberOfNodesOfProperGraph,
+                                                        ie.CrossingWeight);
+                }
+
                 ie.LayerEdges[span - 1] = new LayerEdge(numberOfNodesOfProperGraph++, target, ie.CrossingWeight);
             }
         }
@@ -579,9 +593,8 @@ namespace Microsoft.Msagl.Layout.Layered {
         void FillFlatEdges() {
             foreach (IntEdge edge in intGraph.Edges) {
                 int l = initialLayering[edge.Source];
-                if (l == initialLayering[edge.Target]) {
-                    GetOrCreateLayerInfo(l).flatEdges.Insert(new Tuple<int, int>(edge.Source, edge.Target));
-                }
+                if (l == initialLayering[edge.Target])
+                   GetOrCreateLayerInfo(l).flatEdges.Insert(new Tuple<int, int>(edge.Source, edge.Target));
             }
         }
 

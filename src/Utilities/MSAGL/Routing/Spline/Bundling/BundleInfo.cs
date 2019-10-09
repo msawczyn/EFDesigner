@@ -86,12 +86,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
             if (mw <= FeasibleWidthEpsilon) {
                 //try one side
-                if (SetRLParamsIfWidthIsFeasible(2 * FeasibleWidthEpsilon * perp / 2, new Point(), a, b)) {
-                    mw = 2 * FeasibleWidthEpsilon;
-                }
-                else if (SetRLParamsIfWidthIsFeasible(new Point(), -2 * FeasibleWidthEpsilon * perp / 2, a, b)) {
-                    mw = 2 * FeasibleWidthEpsilon;
-                }
+                if (SetRLParamsIfWidthIsFeasible(2 * FeasibleWidthEpsilon * perp / 2, new Point(), a, b))
+                   mw = 2 * FeasibleWidthEpsilon;
+                else if (SetRLParamsIfWidthIsFeasible(new Point(), -2 * FeasibleWidthEpsilon * perp / 2, a, b))
+                   mw = 2 * FeasibleWidthEpsilon;
             }
 
             Debug.Assert(mw > FeasibleWidthEpsilon);
@@ -288,12 +286,16 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
             //2. we are also not allowed to change the order of bundles around a hub
             if (rotationOfSourceRightPoint != 0 || rotationOfSourceLeftPoint != 0)
-                if (!SourceBase.RelativeOrderOfBasesIsPreserved(rotationOfSourceRightPoint, rotationOfSourceLeftPoint, parameterChange))
-                    return false;
+            {
+               if (!SourceBase.RelativeOrderOfBasesIsPreserved(rotationOfSourceRightPoint, rotationOfSourceLeftPoint, parameterChange))
+                  return false;
+            }
 
             if (rotationOfTargetRightPoint != 0 || rotationOfTargetLeftPoint != 0)
-                if (!TargetBase.RelativeOrderOfBasesIsPreserved(rotationOfTargetRightPoint, rotationOfTargetLeftPoint, parameterChange))
-                    return false;
+            {
+               if (!TargetBase.RelativeOrderOfBasesIsPreserved(rotationOfTargetRightPoint, rotationOfTargetLeftPoint, parameterChange))
+                  return false;
+            }
 
             return true;
         }

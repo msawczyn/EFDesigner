@@ -52,16 +52,15 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         internal void AddToGraph(TransientGraphUtility transUtil, bool routeToCenter) {
             // We use only border vertices if !routeToCenter.
-            if (routeToCenter) {
-                CenterVertex = transUtil.FindOrAddVertex(this.Location);
-            }
+            if (routeToCenter)
+               CenterVertex = transUtil.FindOrAddVertex(this.Location);
         }
 
         internal void RemoveFromGraph() {
             // Currently all transient removals and edge restorations are done by TransientGraphUtility itself.
-            foreach (var entrance in PortEntrances) {
-                entrance.RemoveFromGraph();
-            }
+            foreach (var entrance in PortEntrances)
+               entrance.RemoveFromGraph();
+
             CenterVertex = null;
         }
 

@@ -32,9 +32,9 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner
         public override string ToString() {
             string typeString = this.GetType().ToString();
             int lastDotLoc = typeString.LastIndexOf('.');
-            if (lastDotLoc >= 0) {
-                typeString = typeString.Substring(lastDotLoc + 1);
-            }
+            if (lastDotLoc >= 0)
+               typeString = typeString.Substring(lastDotLoc + 1);
+
             return typeString + " [" + this.Start.ToString() + " -> " + this.End.ToString() + "]";
         }
     }

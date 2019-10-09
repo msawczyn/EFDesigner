@@ -17,9 +17,7 @@ namespace Microsoft.Msagl.Layout.Initial
 
             // Use straight line routing on very large graphs otherwise it is too slow 
             if (component.Nodes.Count >= 2000)
-            {
-                mode = EdgeRoutingMode.StraightLine;
-            }
+               mode = EdgeRoutingMode.StraightLine;
 
             switch (mode)
             {

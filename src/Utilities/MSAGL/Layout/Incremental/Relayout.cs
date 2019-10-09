@@ -126,9 +126,8 @@ namespace Microsoft.Msagl.Layout.Initial {
                     : new FastIncrementalLayoutSettings();
                 layoutDirection = LayeredLayoutEngine.GetLayoutDirection(ss);
             }
-            else {
-                settings = new FastIncrementalLayoutSettings((FastIncrementalLayoutSettings) s);
-            }
+            else
+               settings = new FastIncrementalLayoutSettings((FastIncrementalLayoutSettings) s);
 
             settings.ApplyForces = true;
             settings.MinorIterations = 10;
@@ -175,16 +174,16 @@ namespace Microsoft.Msagl.Layout.Initial {
         void GenerateOrthogonalOrderingConstraints(IEnumerable<Node> nodes, FastIncrementalLayoutSettings settings) {
             Node p = null;
             foreach (var v in graph.Nodes.OrderBy(v => v.Center.X)) {
-                if (p != null) {
-                    settings.AddStructuralConstraint(new HorizontalSeparationConstraint(p, v, 0.1));
-                }
+                if (p != null)
+                   settings.AddStructuralConstraint(new HorizontalSeparationConstraint(p, v, 0.1));
+
                 p = v;
             }
             p = null;
             foreach (var v in graph.Nodes.OrderBy(v => v.Center.Y)) {
-                if (p != null) {
-                    settings.AddStructuralConstraint(new VerticalSeparationConstraint(p, v, 0.1));
-                }
+                if (p != null)
+                   settings.AddStructuralConstraint(new VerticalSeparationConstraint(p, v, 0.1));
+
                 p = v;
             }
         }
@@ -199,17 +198,22 @@ namespace Microsoft.Msagl.Layout.Initial {
             var newGraph = CreateGeometryGraphAndPopulateItWithNodes(originalToCopyNodeMap);
 
             foreach (var target in originalToCopyNodeMap.Keys)
-                foreach (var underNode in AllSuccessors(target)) { 
-                    foreach (var e in underNode.InEdges) {
-                        var sourceAncestorUnderRoot = InitialLayoutByCluster.Ancestor(e.Source, cluster);
-                        if (IsBetweenClusters(sourceAncestorUnderRoot, target))
-                            //it is a flat edge and we are only interested in flat edges
-                            newGraph.Edges.Add(InitialLayoutByCluster.CopyEdge(originalToCopyNodeMap, e,
-                                sourceAncestorUnderRoot, target));
-                    }
-                    foreach (var e in target.SelfEdges)
-                        newGraph.Edges.Add(InitialLayoutByCluster.CopyEdge(originalToCopyNodeMap, e));
-                }
+            {
+               foreach (var underNode in AllSuccessors(target)) { 
+                  foreach (var e in underNode.InEdges) {
+                     var sourceAncestorUnderRoot = InitialLayoutByCluster.Ancestor(e.Source, cluster);
+                     if (IsBetweenClusters(sourceAncestorUnderRoot, target))
+                        //it is a flat edge and we are only interested in flat edges
+                     {
+                        newGraph.Edges.Add(InitialLayoutByCluster.CopyEdge(originalToCopyNodeMap, e,
+                                                                           sourceAncestorUnderRoot, target));
+                     }
+                  }
+                  foreach (var e in target.SelfEdges)
+                     newGraph.Edges.Add(InitialLayoutByCluster.CopyEdge(originalToCopyNodeMap, e));
+               }
+            }
+
             return newGraph;
         }
 
@@ -228,8 +232,11 @@ namespace Microsoft.Msagl.Layout.Initial {
             var ret = new List<Node> {node};
             var cl = node as Cluster;
             if (cl != null)
-                foreach (var u in cl.AllSuccessorsWidthFirst())
-                    if (u != node) ret.Add(u);
+            {
+               foreach (var u in cl.AllSuccessorsWidthFirst())
+                  if (u != node) ret.Add(u);
+            }
+
             return ret;
         }
 

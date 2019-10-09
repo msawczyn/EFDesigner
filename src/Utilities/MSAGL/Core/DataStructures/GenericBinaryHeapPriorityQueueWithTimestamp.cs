@@ -93,9 +93,9 @@ namespace Microsoft.Msagl.Core.DataStructures {
         /// Gets the next element to be dequeued, without dequeueing it.
         /// </summary>
         internal T Peek() {
-            if (heapSize == 0) {
-                throw new InvalidOperationException();
-            }
+            if (heapSize == 0)
+               throw new InvalidOperationException();
+
             return A[1].v;
         }
 
@@ -103,9 +103,9 @@ namespace Microsoft.Msagl.Core.DataStructures {
         /// Gets the timestamp of the next element to be dequeued, without dequeueing it.
         /// </summary>
         internal UInt64 PeekTimestamp() {
-            if (heapSize == 0) {
-                throw new InvalidOperationException();
-            }
+            if (heapSize == 0)
+               throw new InvalidOperationException();
+
             return A[1].Timestamp;
         }
 #endif // TEST_MSAGL

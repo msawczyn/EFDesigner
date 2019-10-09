@@ -150,9 +150,7 @@ namespace Microsoft.Msagl.Core.Geometry
                 // This is probably the default ctor that we can't override in a struct so default to unfixed.
                 this.Weight = DefaultFreeWeight;
                 if (0.0 == this.FixedPosition)
-                {
-                    this.FixedPosition = NoFixedPosition;
-                }
+                   this.FixedPosition = NoFixedPosition;
             }
         }
 
@@ -223,21 +221,17 @@ namespace Microsoft.Msagl.Core.Geometry
         public static bool operator <(BorderInfo left, BorderInfo right)
         {
             if (left.FixedPosition < right.FixedPosition)
-            {
-                return true;
-            }
+               return true;
+
             if (left.FixedPosition > right.FixedPosition)
-            {
-                return false;
-            }
+               return false;
+
             if (left.Weight < right.Weight)
-            {
-                return true;
-            }
+               return true;
+
             if (left.Weight > right.Weight)
-            {
-                return false;
-            }
+               return false;
+
             return (left.InnerMargin < right.InnerMargin);
         }
 

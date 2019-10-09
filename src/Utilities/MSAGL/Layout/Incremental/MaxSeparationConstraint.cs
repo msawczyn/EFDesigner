@@ -19,11 +19,10 @@ namespace Microsoft.Msagl.Layout.Incremental {
         /// </summary>
         public override double Project() {
             Point uv = v.Center - u.Center;
-            if (uv.Length > separation) {
-                return base.Project();
-            } else {
-                return 0;
-            }
+            if (uv.Length > separation)
+               return base.Project();
+            else
+               return 0;
         }
     }
 }

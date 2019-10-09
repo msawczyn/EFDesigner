@@ -33,12 +33,11 @@ namespace Microsoft.Msagl.Core.Geometry {
                     //because of the double point error pi and pj can be on different sizes of the pivot on the horizontal line passing through the pivot, or rather just above it
                     var piDelX = i.Point.X - pivot.X;
                     var pjDelX = j.Point.X - pivot.X;
-                    if (piDelX > ApproximateComparer.DistanceEpsilon && pjDelX < -ApproximateComparer.DistanceEpsilon) {
-                        return -1;
-                    }
-                    if (piDelX < -ApproximateComparer.DistanceEpsilon && pjDelX > ApproximateComparer.DistanceEpsilon) {
-                        return 1;
-                    }
+                    if (piDelX > ApproximateComparer.DistanceEpsilon && pjDelX < -ApproximateComparer.DistanceEpsilon)
+                       return -1;
+
+                    if (piDelX < -ApproximateComparer.DistanceEpsilon && pjDelX > ApproximateComparer.DistanceEpsilon)
+                       return 1;
 
                     //here i and j cannot be on the different sides of the pivot because of the choice of the pivot
                     //delete the one that is closer to the pivot.

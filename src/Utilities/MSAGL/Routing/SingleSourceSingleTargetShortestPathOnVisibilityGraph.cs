@@ -92,9 +92,7 @@ namespace Microsoft.Msagl.Routing
         internal void AssertEdgesPassable(List<VisibilityEdge> path)
         {
             foreach (var edge in path)
-            {
-                Debug.Assert(PassableOutEdge(edge) || PassableInEdge(edge));
-            }
+               Debug.Assert(PassableOutEdge(edge) || PassableInEdge(edge));
         }
 
         bool PassableOutEdge(VisibilityEdge e)
@@ -133,9 +131,7 @@ namespace Microsoft.Msagl.Routing
                 v.Distance = c;
                 _visGraph.SetPreviousEdge(v, l);
                 if (v != _target)
-                {
-                    pq.Enqueue(v, H(v));
-                }
+                   pq.Enqueue(v, H(v));
             }
             else if (v != _source && c < v.Distance)
             { //This condition should never hold for the dequeued nodes.
@@ -172,9 +168,7 @@ namespace Microsoft.Msagl.Routing
                 v.Distance = c;
                 _visGraph.SetPreviousEdge(v, l);
                 if (v != _target)
-                {
-                    pq.Enqueue(v, H(v));
-                }
+                   pq.Enqueue(v, H(v));
             }
             else if (v != _source && c < v.Distance)
             { //This condition should never hold for the dequeued nodes.

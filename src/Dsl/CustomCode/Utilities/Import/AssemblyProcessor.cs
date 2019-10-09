@@ -63,9 +63,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename) == 0 ||
              TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0 ||
              TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename) == 0)
-         {
             return DoProcessing(outputFilename);
-         }
 
          ErrorDisplay.Show("Error procesing assembly");
          return false;

@@ -99,23 +99,29 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
             {
                 //Console.Write(route.Id+" ");
                 for (int neighb = 1; neighb <= degList[route.Id]; neighb++)
-                    if (eList[route.Id, neighb].NodeId == route.Parent.Id)
-                    {
+                {
+                   if (eList[route.Id, neighb].NodeId == route.Parent.Id)
+                   {
 
-                        Edgelist.Add(new VertexNeighbor(route.Id, neighb));
+                      Edgelist.Add(new VertexNeighbor(route.Id, neighb));
 
-                        Distance += Math.Sqrt((route.XLoc - route.Parent.XLoc) * (route.XLoc - route.Parent.XLoc) + (route.YLoc - route.Parent.YLoc) * (route.YLoc - route.Parent.YLoc));
+                      Distance += Math.Sqrt((route.XLoc - route.Parent.XLoc) * (route.XLoc - route.Parent.XLoc) + (route.YLoc - route.Parent.YLoc) * (route.YLoc - route.Parent.YLoc));
 
-                        break;
-                    }
+                      break;
+                   }
+                }
+
                 for (int neighb = 1; neighb <= degList[route.Parent.Id]; neighb++)
-                    if (eList[route.Parent.Id, neighb].NodeId == route.Id)
-                    {
+                {
+                   if (eList[route.Parent.Id, neighb].NodeId == route.Id)
+                   {
 
-                        Edgelist.Add(new VertexNeighbor(route.Parent.Id, neighb));
+                      Edgelist.Add(new VertexNeighbor(route.Parent.Id, neighb));
 
-                        break;
-                    }
+                      break;
+                   }
+                }
+
                 route = route.Parent;
             }
             //Console.Write(route.Id + " ");
@@ -193,15 +199,17 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
             {
                 ShortestPath.Add(route.Id);
                 for (int neighb = 0; neighb < degList[route.Id]; neighb++)
-                    if (eList[route.Id, neighb].NodeId == route.Parent.Id)
-                    {
-                        SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, zoomlevel);
-                        Edgelist.Add(new VertexNeighbor(route.Id, neighb));
+                {
+                   if (eList[route.Id, neighb].NodeId == route.Parent.Id)
+                   {
+                      SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, zoomlevel);
+                      Edgelist.Add(new VertexNeighbor(route.Id, neighb));
 
-                        Distance += Math.Sqrt((route.XLoc - route.Parent.XLoc) * (route.XLoc - route.Parent.XLoc) + (route.YLoc - route.Parent.YLoc) * (route.YLoc - route.Parent.YLoc));
+                      Distance += Math.Sqrt((route.XLoc - route.Parent.XLoc) * (route.XLoc - route.Parent.XLoc) + (route.YLoc - route.Parent.YLoc) * (route.YLoc - route.Parent.YLoc));
 
-                        break;
-                    }
+                      break;
+                   }
+                }
 
                 route = route.Parent;
             }
@@ -266,14 +274,16 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
             {
                 ShortestPath.Add(route.Id);
                 for (int neighb = 0; neighb < degList[route.Id]; neighb++)
-                    if (eList[route.Id, neighb].NodeId == route.Parent.Id)
-                    {
-                        SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, zoomlevel);
-                        Edgelist.Add(new VertexNeighbor(route.Id, neighb));
+                {
+                   if (eList[route.Id, neighb].NodeId == route.Parent.Id)
+                   {
+                      SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, zoomlevel);
+                      Edgelist.Add(new VertexNeighbor(route.Id, neighb));
 
 
-                        break;
-                    }
+                      break;
+                   }
+                }
 
                 route = route.Parent;
             }
@@ -347,12 +357,14 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 {
                     ShortestPath.Add(route.Id);
                     for (int neighb = 0; neighb < degList[route.Id]; neighb++)
-                        if (eList[route.Id, neighb].NodeId == route.Parent.Id)
-                        {
-                            SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, zoomlevel);
-                            Edgelist.Add(new VertexNeighbor(route.Id, neighb));
-                            break;
-                        }
+                    {
+                       if (eList[route.Id, neighb].NodeId == route.Parent.Id)
+                       {
+                          SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, zoomlevel);
+                          Edgelist.Add(new VertexNeighbor(route.Id, neighb));
+                          break;
+                       }
+                    }
 
                     route = route.Parent;
                 }
@@ -421,15 +433,18 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
             {
                 //Console.Write(route.Id+" ");
                 for (int neighb = 0; neighb < degList[route.Id]; neighb++)
-                    if (eList[route.Id, neighb].NodeId == route.Parent.Id)
-                    {
-                        SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, 1);
-                        Edgelist.Add(new VertexNeighbor(route.Id, neighb));
+                {
+                   if (eList[route.Id, neighb].NodeId == route.Parent.Id)
+                   {
+                      SetUsed(vList, eList, degList, route.Id, eList[route.Id, neighb].NodeId, 1);
+                      Edgelist.Add(new VertexNeighbor(route.Id, neighb));
 
-                        Distance += Math.Sqrt((route.XLoc - route.Parent.XLoc) * (route.XLoc - route.Parent.XLoc) + (route.YLoc - route.Parent.YLoc) * (route.YLoc - route.Parent.YLoc));
+                      Distance += Math.Sqrt((route.XLoc - route.Parent.XLoc) * (route.XLoc - route.Parent.XLoc) + (route.YLoc - route.Parent.YLoc) * (route.YLoc - route.Parent.YLoc));
 
-                        break;
-                    }
+                      break;
+                   }
+                }
+
                 /*
                 for (int neighb = 0; neighb <  degList[route.Parent.Id]; neighb++)
                     if (eList[route.Parent.Id, neighb].NodeId == route.Id)

@@ -336,9 +336,8 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
                 } else if (c.Next == null) {
                     u = 1;
                     v = 2; //this will allow to the segment to end at site "c"
-                } else {
-                    u = v = 1;
-                }
+                } else
+                   u = v = 1;
 
                 do {
                     seg = Curve.CreateBezierSeg(k * u, k * v, a, b, c);
@@ -442,10 +441,12 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
 
         static Polyline RemoveCollinearPoint(Polyline ret) {
             for (PolylinePoint pp = ret.StartPoint.Next; pp.Next != null; pp = pp.Next)
-                if (Point.GetTriangleOrientation(pp.Prev.Point, pp.Point, pp.Next.Point) == TriangleOrientation.Collinear) {
-                    pp.Prev.Next = pp.Next;
-                    pp.Next.Prev = pp.Prev;
-                }
+            {
+               if (Point.GetTriangleOrientation(pp.Prev.Point, pp.Point, pp.Next.Point) == TriangleOrientation.Collinear) {
+                  pp.Prev.Next = pp.Next;
+                  pp.Next.Prev = pp.Prev;
+               }
+            }
 
             return ret;
         }
@@ -462,8 +463,10 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
             obstacleCalculator = new ObstacleCalculator(this);
             obstacleCalculator.Calculate();
             foreach (Polyline poly in obstacleCalculator.TightObstacles)
-                foreach (Point p in poly)
-                    pointsToObstacles[p] = poly;
+            {
+               foreach (Point p in poly)
+                  pointsToObstacles[p] = poly;
+            }
         }
     }
 }

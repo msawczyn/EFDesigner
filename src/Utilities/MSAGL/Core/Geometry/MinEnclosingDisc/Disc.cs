@@ -63,9 +63,7 @@ namespace Microsoft.Msagl.Core.Geometry
             for (int i = 0; i < points.Length; ++i)
             {
                 if (!except.Contains(i) && !Contains(points[i]))
-                {
-                    return false;
-                }
+                   return false;
             }
             return true;
         }
@@ -129,13 +127,10 @@ namespace Microsoft.Msagl.Core.Geometry
             c.X = ma * mb * (p1.Y - p3.Y) + mb * (p1.X + p2.X) - ma * (p2.X + p3.X);
             c.X /= 2.0 * (mb - ma);
             if (Math.Abs(ma) > Math.Abs(mb))
-            {
-                c.Y = (p1.Y + p2.Y) / 2.0 - (c.X - (p1.X + p2.X) / 2.0) / ma;
-            }
+               c.Y = (p1.Y + p2.Y) / 2.0 - (c.X - (p1.X + p2.X) / 2.0) / ma;
             else
-            {
-                c.Y = (p2.Y + p3.Y) / 2.0 - (c.X - (p2.X + p3.X) / 2.0) / mb;
-            }
+               c.Y = (p2.Y + p3.Y) / 2.0 - (c.X - (p2.X + p3.X) / 2.0) / mb;
+
             return c;
         }
         /// <summary>
@@ -177,9 +172,7 @@ namespace Microsoft.Msagl.Core.Geometry
                 if (dx12 != 0)
                 {
                     if (dx23 != 0)
-                    {
-                        c = centre(p1, p2, p3);
-                    }
+                       c = centre(p1, p2, p3);
                     else
                     {
                         Debug.Assert(dx13 != 0);

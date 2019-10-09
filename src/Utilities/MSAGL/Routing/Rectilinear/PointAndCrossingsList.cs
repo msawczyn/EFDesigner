@@ -35,9 +35,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         }
 
         internal bool CurrentIsBeforeOrAt(Point comparand) {
-            if (index >= ListOfPointsAndCrossings.Count) {
-                return false;
-            }
+            if (index >= ListOfPointsAndCrossings.Count)
+               return false;
+
             return PointComparer.Compare(ListOfPointsAndCrossings[index].Location, comparand) <= 0;
         }
 
@@ -50,12 +50,12 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         internal void MergeFrom(PointAndCrossingsList other) {
             Reset();
-            if ((null == other) || (0 == other.ListOfPointsAndCrossings.Count)) {
-                return;
-            }
-            if (0 == this.ListOfPointsAndCrossings.Count) {
-                this.ListOfPointsAndCrossings.AddRange(other.ListOfPointsAndCrossings);
-            }
+            if ((null == other) || (0 == other.ListOfPointsAndCrossings.Count))
+               return;
+
+            if (0 == this.ListOfPointsAndCrossings.Count)
+               this.ListOfPointsAndCrossings.AddRange(other.ListOfPointsAndCrossings);
+
             if (null == this.ListOfPointsAndCrossings) {
                 this.ListOfPointsAndCrossings = new List<PointAndCrossings>(other.ListOfPointsAndCrossings);
                 return;
@@ -98,9 +98,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         internal void Trim(Point start, Point end) {
             Reset();
-            if ((null == ListOfPointsAndCrossings) || (0 == ListOfPointsAndCrossings.Count)) {
-                return;
-            }
+            if ((null == ListOfPointsAndCrossings) || (0 == ListOfPointsAndCrossings.Count))
+               return;
 
             ListOfPointsAndCrossings = new List<PointAndCrossings>(ListOfPointsAndCrossings.Where(
                     pair => (PointComparer.Compare(pair.Location, start) >= 0) && (PointComparer.Compare(pair.Location, end) <= 0)));
@@ -115,20 +114,17 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             int numInDir = 0;
             var crossingsCount = crossings.Count;       // cache for perf
             for (int ii = 0; ii < crossingsCount; ++ii) {
-                if (crossings[ii].DirectionToInside == dirToInside) {
-                    ++numInDir;
-                }
+                if (crossings[ii].DirectionToInside == dirToInside)
+                   ++numInDir;
             }
-            if (0 == numInDir) {
-                return null;
-            }
+            if (0 == numInDir)
+               return null;
 
             var vector = new GroupBoundaryCrossing[numInDir];
             int jj = 0;
             for (int ii = 0; ii < crossingsCount; ++ii) {
-                if (crossings[ii].DirectionToInside == dirToInside) {
-                    vector[jj++] = crossings[ii];
-                }
+                if (crossings[ii].DirectionToInside == dirToInside)
+                   vector[jj++] = crossings[ii];
             }
             return vector;
         }

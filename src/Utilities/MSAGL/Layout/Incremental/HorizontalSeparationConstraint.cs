@@ -79,9 +79,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 u.Center = new Point(u.Center.X - wv * f, u.Center.Y);
                 v.Center = new Point(v.Center.X + wu * f, v.Center.Y);
                 return d;
-            } else {
-                return 0;
-            }
+            } else
+               return 0;
         }
         /// <summary>
         /// HorizontalSeparationConstraint are usually structural and therefore default to level 0

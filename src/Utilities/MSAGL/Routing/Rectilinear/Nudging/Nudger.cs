@@ -66,9 +66,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
         void MapPathToItsObstacles(Path path) {
             var startNode = HierarchyOfObstacles.FirstHitNode(path.PathPoints.First(),ObstacleTest);
             var endNode = HierarchyOfObstacles.FirstHitNode(path.PathPoints.Last(), ObstacleTest);
-            if ((null != startNode) && (null != endNode)) {
-                PathToObstacles[path] = new Tuple<Polyline, Polyline>(startNode.UserData, endNode.UserData);
-            }
+            if ((null != startNode) && (null != endNode))
+               PathToObstacles[path] = new Tuple<Polyline, Polyline>(startNode.UserData, endNode.UserData);
         }
 
         static HitTestBehavior ObstacleTest(Point pnt, Polyline polyline) {
@@ -116,15 +115,21 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         PathEdge FindLastUnmappedEdge(Path path) {
             for (var edge = path.LastEdge; edge != null; edge = edge.Prev)
-                if (edge.AxisEdge.Direction != NudgingDirection)
-                    return edge;
+            {
+               if (edge.AxisEdge.Direction != NudgingDirection)
+                  return edge;
+            }
+
             return null;
         }
 
         PathEdge FindFirstUnmappedEdge(Path path) {
             for (var edge = path.FirstEdge; edge != null; edge = edge.Next)
-                if (edge.AxisEdge.Direction != NudgingDirection)
-                    return edge;
+            {
+               if (edge.AxisEdge.Direction != NudgingDirection)
+                  return edge;
+            }
+
             return null;
         }
 
@@ -342,8 +347,10 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
                     //if count ==1 the value of deltaW does not matter
                 int i = 0;
                 foreach (var e in path.PathEdges)
-                    yield return
-                        new DebugCurve(150, startWidth + deltaW*(i++), color, new LineSegment(e.Source, e.Target));
+                {
+                   yield return
+                      new DebugCurve(150, startWidth + deltaW*(i++), color, new LineSegment(e.Source, e.Target));
+                }
             }else {
                 int count = path.PathPoints.Count();
                 var pts = path.PathPoints.ToArray();
@@ -519,9 +526,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
             foreach (var pathEdge in segment.Edges) {
                 var axisEdge = pathEdge.AxisEdge;
                 if (axisEdge != null)
-                    foreach (var rightNeiAxisEdge in axisEdge.RightNeighbors)
-                        foreach (var longSeg in rightNeiAxisEdge.LongestNudgedSegments)
-                            rightNeighbors.Insert(longSeg);
+                {
+                   foreach (var rightNeiAxisEdge in axisEdge.RightNeighbors)
+                   {
+                      foreach (var longSeg in rightNeiAxisEdge.LongestNudgedSegments)
+                         rightNeighbors.Insert(longSeg);
+                   }
+                }
             }
 
             foreach (var seg in rightNeighbors)
@@ -531,8 +542,10 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         void CreateConstraintsOfTheOrder() {
             foreach (var kv in PathOrders)
-                if (ParallelToDirection(kv.Key, NudgingDirection))
-                    CreateConstraintsOfThePathOrder(kv.Value);
+            {
+               if (ParallelToDirection(kv.Key, NudgingDirection))
+                  CreateConstraintsOfThePathOrder(kv.Value);
+            }
         }
 
         static bool ParallelToDirection(VisibilityEdge edge, Directions direction) {
@@ -644,12 +657,14 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         void BoundPathByMinCommonAncestors(Path path) {
             foreach (var rect in GetMinCommonAncestors(path.EdgeGeometry).Select(sh => sh.BoundingBox))
-                foreach (
-                    var edge in
-                        path.PathEdges.Select(e => e.AxisEdge).Where(
-                            axisEdge => axisEdge.Direction == NudgingDirection)
-                    )
-                    BoundAxisEdgeByRect(rect, edge);
+            {
+               foreach (
+                  var edge in
+                  path.PathEdges.Select(e => e.AxisEdge).Where(
+                                                               axisEdge => axisEdge.Direction == NudgingDirection)
+               )
+                  BoundAxisEdgeByRect(rect, edge);
+            }
         }
 
         
@@ -667,9 +682,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         Set<Shape> AncestorsForPort(Port port) {
             Shape shape;
-            if (PortToShapes.TryGetValue(port, out shape)) {
-                return AncestorsSets[shape];
-            }
+            if (PortToShapes.TryGetValue(port, out shape))
+               return AncestorsSets[shape];
 
             // This is a FreePort or Waypoint; return all spatial parents.
             return new Set<Shape>(HierarchyOfGroups.AllHitItems(new Rectangle(port.Location, port.Location), null));
@@ -694,13 +708,15 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         void BoundAxisByPoint(Point point, AxisEdge axisEdge) {
             if (axisEdge != null && axisEdge.Direction == NudgingDirection)
-                if (NudgingDirection == Directions.North) {
-                    axisEdge.BoundFromLeft(point.X);
-                    axisEdge.BoundFromRight(point.X);
-                } else {
-                    axisEdge.BoundFromLeft(-point.Y);
-                    axisEdge.BoundFromRight(-point.Y);
-                }
+            {
+               if (NudgingDirection == Directions.North) {
+                  axisEdge.BoundFromLeft(point.X);
+                  axisEdge.BoundFromRight(point.X);
+               } else {
+                  axisEdge.BoundFromLeft(-point.Y);
+                  axisEdge.BoundFromRight(-point.Y);
+               }
+            }
         }
 
         static bool FindPortEntryRectCrossingAxisEdge(PortEntryOnCurve portEntry, AxisEdge axisEdge, out Rectangle rect) {
@@ -722,13 +738,15 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         void BoundAxisEdgeByRect(Rectangle rectangle, AxisEdge axisEdge) {
             if (axisEdge != null && axisEdge.Direction == NudgingDirection)
-                if (NudgingDirection == Directions.North) {
-                    axisEdge.BoundFromLeft(rectangle.Left);
-                    axisEdge.BoundFromRight(rectangle.Right);
-                } else {
-                    axisEdge.BoundFromLeft(-rectangle.Top);
-                    axisEdge.BoundFromRight(-rectangle.Bottom);
-                }
+            {
+               if (NudgingDirection == Directions.North) {
+                  axisEdge.BoundFromLeft(rectangle.Left);
+                  axisEdge.BoundFromRight(rectangle.Right);
+               } else {
+                  axisEdge.BoundFromLeft(-rectangle.Top);
+                  axisEdge.BoundFromRight(-rectangle.Bottom);
+               }
+            }
         }
 
      
@@ -778,10 +796,12 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
             var max = Math.Max(offset0, offset1);
             var min = Math.Min(offset0, offset1);
             if (min + ApproximateComparer.DistanceEpsilon < segPosition)
-                if (segPosition < max)
-                    segment.IdealPosition = 0.5 * (max + min);
-                else
-                    segment.IdealPosition = max;
+            {
+               if (segPosition < max)
+                  segment.IdealPosition = 0.5 * (max + min);
+               else
+                  segment.IdealPosition = max;
+            }
             else
                 segment.IdealPosition = min;
 
@@ -803,10 +823,12 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
                         LongestNudgedSegs.Add(edge.LongestNudgedSegment);
                     }
 #else
-                        LongestNudgedSegs.Add(
-                            edge.LongestNudgedSegment =
-                            currentLongestSeg = new LongestNudgedSegment(LongestNudgedSegs.Count));
-#endif
+                    {
+                       LongestNudgedSegs.Add(
+                                             edge.LongestNudgedSegment =
+                                                currentLongestSeg = new LongestNudgedSegment(LongestNudgedSegs.Count));
+                    }
+                    #endif
                     else
                         edge.LongestNudgedSegment = currentLongestSeg;
 
@@ -986,8 +1008,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
         internal static Dictionary<Port, Shape> MapPortsToShapes(IEnumerable<Shape> listOfShapes) {
             var portToShapes = new Dictionary<Port, Shape>();
             foreach (Shape shape in listOfShapes)
-                foreach (Port port in shape.Ports)
-                    portToShapes[port] = shape;
+            {
+               foreach (Port port in shape.Ports)
+                  portToShapes[port] = shape;
+            }
+
             return portToShapes;
         }
     }

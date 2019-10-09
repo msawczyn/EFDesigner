@@ -11,9 +11,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         internal VertexEntry[] VertexEntries { get; set; }
         
         internal void SetVertexEntry(VertexEntry entry) {
-            if (this.VertexEntries == null) {
-                this.VertexEntries = new VertexEntry[4];
-            }
+            if (this.VertexEntries == null)
+               this.VertexEntries = new VertexEntry[4];
+
             this.VertexEntries[CompassVector.ToIndex(entry.Direction)] = entry;
         }
 

@@ -88,19 +88,13 @@ namespace Microsoft.Msagl.Core
             finally
             {
                 if (exceptionHandleTask != null)
-                {
-                    exceptionHandleTask.Dispose();
-                }
+                   exceptionHandleTask.Dispose();
 
                 if (task != null)
-                {
-                    task.Dispose();
-                }
+                   task.Dispose();
 
                 if (progressMade != null)
-                {
-                    progressMade.Dispose();
-                }
+                   progressMade.Dispose();
             }
         }
 
@@ -114,9 +108,7 @@ namespace Microsoft.Msagl.Core
                 // Nested cancels are propagated as OperationCanceledExceptions.
                 AggregateException innerException = exception.InnerException as AggregateException;
                 if (innerException != null && innerException.InnerException is OperationCanceledException)
-                {
-                    throw new OperationCanceledException(Strings.ParallelOperationCanceledExceptionMessage, innerException.InnerException);
-                }
+                   throw new OperationCanceledException(Strings.ParallelOperationCanceledExceptionMessage, innerException.InnerException);
 
                 throw exception;
             }

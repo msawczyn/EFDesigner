@@ -193,9 +193,9 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
         Point FigureOutHookLocation(Polyline poly, Port otherEdgeEndPort, EdgeGeometry edgeGeom) {
             var clusterPort = otherEdgeEndPort as ClusterBoundaryPort;
-            if (clusterPort == null) {
-                return FigureOutHookLocationForSimpleOtherPort(poly, otherEdgeEndPort, edgeGeom);
-            }
+            if (clusterPort == null)
+               return FigureOutHookLocationForSimpleOtherPort(poly, otherEdgeEndPort, edgeGeom);
+
             return FigureOutHookLocationForClusterOtherPort(poly, clusterPort, edgeGeom);
         }
 
@@ -237,8 +237,11 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
             //find appropriate edge separation
             if (shortestPathRouter.Cdt != null)
-                if (!AnalyzeEdgeSeparation())
-                    return false;
+            {
+               if (!AnalyzeEdgeSeparation())
+                  return false;
+            }
+
             return true;
         }
 
@@ -308,8 +311,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             //number of edges with requiredWidth <= availableWidth
             double ok = 0;
             foreach (var edge in pathsOnCdtEdge.Keys)
-                if (EdgeSeparationIsOk(edge, pathsOnCdtEdge[edge], separation))
-                    ok++;
+            {
+               if (EdgeSeparationIsOk(edge, pathsOnCdtEdge[edge], separation))
+                  ok++;
+            }
 
             //at least 95% of edges should be okay
             return (ok / total > bundlingSettings.MinimalRatioOfGoodCdtEdges);
@@ -331,10 +336,12 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
         void FixArrowheads() {
             foreach (var edge in geometryGraph.Edges)
-                Arrowheads.TrimSplineAndCalculateArrowheads(edge.EdgeGeometry,
-                                                                 edge.Source.BoundaryCurve,
-                                                                 edge.Target.BoundaryCurve, 
-                                                                 edge.Curve, false, this.bundlingSettings.KeepOriginalSpline);
+            {
+               Arrowheads.TrimSplineAndCalculateArrowheads(edge.EdgeGeometry,
+                                                           edge.Source.BoundaryCurve,
+                                                           edge.Target.BoundaryCurve, 
+                                                           edge.Curve, false, this.bundlingSettings.KeepOriginalSpline);
+            }
         }
     }
 }

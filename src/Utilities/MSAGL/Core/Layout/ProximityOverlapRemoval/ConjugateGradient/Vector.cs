@@ -22,9 +22,8 @@
         /// <param name="b">vector to be substracted</param>
         /// <returns></returns>
         public void Sub(Vector b) {
-            for (int i = 0; i < array.Length; i++) {
-                array[i] -= b.array[i];
-            }
+            for (int i = 0; i < array.Length; i++)
+               array[i] -= b.array[i];
         }
 
         /// <summary>
@@ -35,9 +34,9 @@
         /// <returns></returns>
         public static Vector operator -(Vector a,Vector b) {
             double[] res = new double[a.array.Length];
-            for (int i = 0; i < a.array.Length; i++) {
-                res[i] = a.array[i] - b.array[i];
-            }
+            for (int i = 0; i < a.array.Length; i++)
+               res[i] = a.array[i] - b.array[i];
+
             return new Vector(res);
         }
 
@@ -48,9 +47,8 @@
         /// <param name="b">vector</param>
         /// <returns></returns>
         public void Add(Vector b) {
-            for (int i = 0; i < array.Length; i++) {
-                array[i] += b.array[i];
-            }   
+            for (int i = 0; i < array.Length; i++)
+               array[i] += b.array[i];
         }
 
         /// <summary>
@@ -61,9 +59,9 @@
         /// <returns></returns>
         public static Vector operator +(Vector a,Vector b) {
             double[] res = new double[a.array.Length];
-            for (int i = 0; i < a.array.Length; i++) {
-                res[i] = a.array[i] + b.array[i];
-            }
+            for (int i = 0; i < a.array.Length; i++)
+               res[i] = a.array[i] + b.array[i];
+
             return new Vector(res);
         }
 
@@ -83,9 +81,9 @@
       /// <returns>vector product</returns>
         public static double operator *(Vector v1, Vector v2) {
           double res = 0;
-            for (int i = 0; i < v1.array.Length; i++) {
-                res  += v1.array[i] * v2.array[i];
-            }
+            for (int i = 0; i < v1.array.Length; i++)
+               res  += v1.array[i] * v2.array[i];
+
             return res;
         }
 
@@ -96,9 +94,9 @@
        /// <returns></returns>
         public Vector CompProduct(Vector v) {
             double[] res = new double[array.Length];
-            for (int i = 0; i < array.Length; i++) {
-                res[i] = array[i] * v.array[i];
-            }
+            for (int i = 0; i < array.Length; i++)
+               res[i] = array[i] * v.array[i];
+
             return new Vector(res);
         }
 
@@ -110,9 +108,9 @@
         /// <returns></returns>
         public static Vector operator *(double scalar, Vector v) {
             double[] res = new double[v.array.Length];
-            for (int i = 0; i < v.array.Length; i++) {
-                res[i] = v.array[i]*scalar;
-            }
+            for (int i = 0; i < v.array.Length; i++)
+               res[i] = v.array[i]*scalar;
+
             return new Vector(res);  
         }
     }

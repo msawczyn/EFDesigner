@@ -64,9 +64,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             var endpts = new List<SymmetricSegment>();
             Point p0, p1;
             foreach (var rail in _railTree.GetAllLeaves()) {
-                if (rail.GetStartEnd(out p0, out p1)) {
-                    endpts.Add(new SymmetricSegment(p0, p1));
-                }
+                if (rail.GetStartEnd(out p0, out p1))
+                   endpts.Add(new SymmetricSegment(p0, p1));
             }
             return endpts;
         }
@@ -111,9 +110,9 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
         public Rail CreateRail(Point ep0, Point ep1) {
             var st = new SymmetricSegment(ep0, ep1);
             Rail rail;
-            if (RailDictionary.TryGetValue(st, out rail)) {
-                return rail;
-            }
+            if (RailDictionary.TryGetValue(st, out rail))
+               return rail;
+
             var ls = new LineSegment(ep0, ep1);
             rail = new Rail(ls, ZoomLevel);
             RailTree.Add(rail.BoundingBox, rail);
@@ -180,8 +179,10 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             //Console.WriteLine("running stats "+nodes.Count());
             tileTableForStatistic.Clear();
             foreach (var rail in _railDictionary.Values)
-                if (rail.ZoomLevel == ZoomLevel)
-                    CreateStatisticsForRail(rail);
+            {
+               if (rail.ZoomLevel == ZoomLevel)
+                  CreateStatisticsForRail(rail);
+            }
 
             RunStatisticsForNodes(nodes);
 
@@ -209,9 +210,11 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             //Console.WriteLine("running stats "+nodes.Count());
             tileTableForStatistic.Clear();
             foreach (var rail in _railDictionary.Values)
-                if (rail.ZoomLevel == ZoomLevel)
-                    CreateStatisticsForRail(rail);
- 
+            {
+               if (rail.ZoomLevel == ZoomLevel)
+                  CreateStatisticsForRail(rail);
+            }
+
             RunStatisticsForNodes(nodes);
 
  
@@ -279,9 +282,7 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
 
         void RunStatisticsForNodes(IEnumerable<Node> nodes) {
             foreach (var node in nodes)
-            {
-                CreateStatisticsForNode(node);
-            }
+               CreateStatisticsForNode(node);
         }
 
         void CreateStatisticsForNode(Node node) {
@@ -295,8 +296,10 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             if (arrowhead != null)
                 CreateStatisticsForArrowhead(arrowhead);
             else
-                foreach (var t in GetCurveTiles(rail.Geometry as ICurve))
-                    t.rails++;
+            {
+               foreach (var t in GetCurveTiles(rail.Geometry as ICurve))
+                  t.rails++;
+            }
         }
 
         void CreateStatisticsForArrowhead(Arrowhead arrowhead) {
@@ -355,8 +358,10 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
 
         public void CreateNodeTree(IEnumerable<LgNodeInfo> nodeInfos, double nodeDotWidth) {
             foreach (var n in nodeInfos)
-                NodeInfoTree.Add(new RectangleNode<LgNodeInfo>(n,
-                    new Rectangle(new Size(nodeDotWidth, nodeDotWidth),n.Center)));
+            {
+               NodeInfoTree.Add(new RectangleNode<LgNodeInfo>(n,
+                                                              new Rectangle(new Size(nodeDotWidth, nodeDotWidth),n.Center)));
+            }
         }
 
         public IEnumerable<Node> GetNodesIntersectingRect(Rectangle visibleRectangle) {
@@ -367,10 +372,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             var x =  NodeInfoTree.GetAllIntersecting(visibleRectangle);//.Select(n => n.GeometryNode);
             List<Node> r = new List<Node>();
             foreach (var y in x)
-            {
-                if(y.ZoomLevel <= l) r.Add(y.GeometryNode);
+               if(y.ZoomLevel <= l) r.Add(y.GeometryNode);
 
-            }
             return r;
         }
         public bool RectIsEmptyOnLevel(Rectangle tileBox) {

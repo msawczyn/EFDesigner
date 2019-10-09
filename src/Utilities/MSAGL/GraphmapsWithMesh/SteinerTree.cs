@@ -22,9 +22,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
         public void AddVertex(Vertex w)
         {
             foreach (Vertex z in V)
-            {
-                if (w.Id == z.Id) return;
-            }
+               if (w.Id == z.Id) return;
+
             V.Add(w);
         }
     }

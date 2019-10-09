@@ -196,13 +196,11 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                             //foreach (var st in metroGraphData.Stations) {
                             //    l.Add(new DebugCurve(100, 0.5, "grey", st.BoundaryCurve));
                             //}
-                            foreach (var poly in obstaclesToIgnore(station)) {
-                                l.Add(new DebugCurve(100, 5, "green", poly));
-                            }
+                            foreach (var poly in obstaclesToIgnore(station))
+                               l.Add(new DebugCurve(100, 5, "green", poly));
 
-                            foreach (var obstacle in obstacleTree.GetAllLeaves()) {
-                                l.Add(new DebugCurve(100, 1, "red", obstacle));
-                            }
+                            foreach (var obstacle in obstacleTree.GetAllLeaves())
+                               l.Add(new DebugCurve(100, 1, "red", obstacle));
 
                             l.Add(new DebugCurve(1, "blue", station.BoundaryCurve));
                             l.Add(new DebugCurve(1, "blue", adj.BoundaryCurve));
@@ -223,13 +221,14 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
         void ShowStationWithObstaclesToIgnore(Station station, IEnumerable<Polyline> allHitItems) {
             var l = new List<DebugCurve>();
-            foreach (var poly in allHitItems) {
-                l.Add(new DebugCurve(100, 0.5, "brown", poly));
-            }
-            if (obstaclesToIgnore(station) != null)
-                foreach (var poly in obstaclesToIgnore(station))
-                    l.Add(new DebugCurve(100, 1, "red", poly));
+            foreach (var poly in allHitItems)
+               l.Add(new DebugCurve(100, 0.5, "brown", poly));
 
+            if (obstaclesToIgnore(station) != null)
+            {
+               foreach (var poly in obstaclesToIgnore(station))
+                  l.Add(new DebugCurve(100, 1, "red", poly));
+            }
 
             foreach (var obstacle in obstacleTree.GetAllLeaves())
                 l.Add(new DebugCurve(50, 0.1, "green", obstacle));

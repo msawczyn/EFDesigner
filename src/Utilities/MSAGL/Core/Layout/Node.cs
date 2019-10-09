@@ -251,9 +251,8 @@ namespace Microsoft.Msagl.Core.Layout {
                     BoundaryCurve.Translate(targetBounds.LeftBottom);
                 }
                 else
-                {
-                    BoundaryCurve = rr.FitTo(targetBounds);
-                }
+                   BoundaryCurve = rr.FitTo(targetBounds);
+
                 Debug.Assert(ApproximateComparer.Close(BoundaryCurve.BoundingBox, targetBounds, ApproximateComparer.UserDefinedTolerance),
                     "FitToBounds didn't succeed in scaling/translating to target bounds");
             }
@@ -270,13 +269,9 @@ namespace Microsoft.Msagl.Core.Layout {
             set
             {
                 if(Math.Abs(value.Width - Width) < 0.01 && Math.Abs(value.Height - Height) < 0.01)
-                {
-                    Center = value.Center;
-                }
+                   Center = value.Center;
                 else
-                {
-                    this.FitBoundaryCurveToTarget(value);
-                }
+                   this.FitBoundaryCurveToTarget(value);
             }
         }
         /// <summary>
@@ -345,14 +340,10 @@ namespace Microsoft.Msagl.Core.Layout {
                 Cluster parent = parents.Dequeue();
 
                 if (parent == cluster)
-                {
-                    return true;
-                }
+                   return true;
 
                 foreach (Cluster grandParent in parent.ClusterParents)
-                {
-                    parents.Enqueue(grandParent);
-                }
+                   parents.Enqueue(grandParent);
             }
 
             return false;

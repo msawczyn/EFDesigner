@@ -141,13 +141,10 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                 return GetOverlapAmount(rect, p1 - d * rect.Diagonal, p2 + d * rect.Diagonal);
             }
             if (out1 == INSIDE)
-            {
-                return GetOverlapAmountInsideOutside(rect, p1, p2);
-            }
+               return GetOverlapAmountInsideOutside(rect, p1, p2);
+
             if (out2 == INSIDE)
-            {
-                return GetOverlapAmountInsideOutside(rect, p2, p1);
-            }
+               return GetOverlapAmountInsideOutside(rect, p2, p1);
 
             Point pc1, pc2;
             ClipOnRect(rect, p1, p2, out pc1, out pc2);

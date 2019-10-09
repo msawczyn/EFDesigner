@@ -29,9 +29,8 @@ namespace Microsoft.Msagl.Layout.Incremental
         static internal void Enforce(FastIncrementalLayoutSettings settings, int currentConstraintLevel, IEnumerable<FiNode> nodes, List<IConstraint> horizontalConstraints, List<IConstraint> verticalConstraints, IEnumerable<Cluster> clusterHierarchies, Func<Cluster, LayoutAlgorithmSettings> clusterSettings)
         {
             foreach (LockPosition l in settings.locks)
-            {
-                l.Project();
-            }
+               l.Project();
+
             ResetPositions(nodes);
             double dblVpad = settings.NodeSeparation + Pad;
             double dblHpad = settings.NodeSeparation;
@@ -117,9 +116,7 @@ namespace Microsoft.Msagl.Layout.Incremental
         private static void ResetPositions(IEnumerable<FiNode> nodes)
         {
             foreach (FiNode v in nodes)
-            {
-                v.previousCenter = v.desiredPosition = v.mNode.Center;
-            }
+               v.previousCenter = v.desiredPosition = v.mNode.Center;
         }
     }
 }

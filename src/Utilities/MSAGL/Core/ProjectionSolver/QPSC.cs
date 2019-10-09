@@ -202,10 +202,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
 #if VERIFY
             // Ensure that we've zero'd out all entries after the prior iteration.
             foreach (double dbl in this.vectorPrevY)
-            {
-                Debug.Assert(0.0 == dbl, "Unexpected nonzero value in vectorPrevY");
-            }
-#endif // VERIFY
+               Debug.Assert(0.0 == dbl, "Unexpected nonzero value in vectorPrevY");
+            #endif // VERIFY
 
             // Sum the weight for cell i,i (the diagonal).
             this.vectorPrevY[variable.Ordinal] = variable.Weight;
@@ -275,9 +273,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                         {
                             variable.Scale = 1.0 / Math.Sqrt(Math.Abs(cell.Value));
                             if (double.IsInfinity(variable.Scale))
-                            {
-                                variable.Scale = 1.0;
-                            }
+                               variable.Scale = 1.0;
 
                             // This is the y = Sx step from the Scaling paper.
                             variable.ActualPos /= variable.Scale;
@@ -307,9 +303,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
 #endif // VERBOSE
 
             if (!solverParameters.Advanced.ScaleInQpsc)
-            {
-                return;
-            }
+               return;
 
             // Now convert mxQ to its scaled form S#QS (noting that the transform of a diagonal matrix S is S
             // so this is optimized), and we've made the S matrix such that Q[i][i] is 1.  The result is in-place
@@ -325,9 +319,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 for (int sparseCol = 0; sparseCol < row.Length; ++sparseCol)
                 {
                     if (row[sparseCol].Column == rowNum)
-                    {
-                        row[sparseCol].Value = 1.0;
-                    }
+                       row[sparseCol].Value = 1.0;
                     else
                     {
                         // Diagonal on left scales rows [SQ], on right scales columns [QS].
@@ -368,9 +360,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // affect feasibility since QpscMakeFeasible would already have ensured that any unsatisfiable
                 // constraints are so marked.
                 foreach (var qvar in this.vectorQpscVars)
-                {
-                    this.vectorCurY[qvar.Variable.Ordinal] = qvar.Variable.ActualPos;
-                }
+                   this.vectorCurY[qvar.Variable.Ordinal] = qvar.Variable.ActualPos;
             }
 
             //
@@ -383,9 +373,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // This uses the Q'y value we've just put into gradientVector and tests the goal-function value
             // to see if it is sufficiently close to the previous value to be considered converged.
             if (HasConverged())
-            {
-                return false;
-            }
+               return false;
 
             // ...g = Q'y + b'
             VectorVectorAdd(this.gradientVector, this.vectorWiDi, this.gradientVector /*result*/);
@@ -664,9 +652,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // Do not use LINQ's Sum, it slows end-to-end by over 10%.
             double sum = 0.0;
             for (int ii = 0; ii < lhs.Length; ++ii)
-            {
-                sum += lhs[ii] * rhs[ii];
-            }
+               sum += lhs[ii] * rhs[ii];
+
             return sum;
         }
 
@@ -680,9 +667,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // Do not use LINQ's Sum, it slows end-to-end by over 10%.
                 double sum = 0.0;
                 foreach (var cell in row)
-                {
-                    sum += cell.Value * rhs[cell.Column];
-                }
+                   sum += cell.Value * rhs[cell.Column];
+
                 result[rowIndex++] = sum;
             }
         }
@@ -713,27 +699,21 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
         private static void VectorVectorAdd(double[] lhs, double[] rhs, double[] result)
         {
             for (int ii = 0; ii < lhs.Length; ++ii)
-            {
-                result[ii] = lhs[ii] + rhs[ii];
-            }
+               result[ii] = lhs[ii] + rhs[ii];
         }
 
         // Returns the subtraction result in result[] (which may be lhs or rhs or a different vector).
         private static void VectorVectorSubtract(double[] lhs, double[] rhs, double[] result)
         {
             for (int ii = 0; ii < lhs.Length; ++ii)
-            {
-                result[ii] = lhs[ii] - rhs[ii];
-            }
+               result[ii] = lhs[ii] - rhs[ii];
         }
 
         // Same as VectorVectorSubtract except that rhs is multiplied by the scale value.
         private static void VectorScaledVectorSubtract(double[] lhs, double scale, double[] rhs, double[] result)
         {
             for (int ii = 0; ii < lhs.Length; ++ii)
-            {
-                result[ii] = lhs[ii] - (scale * rhs[ii]);
-            }
+               result[ii] = lhs[ii] - (scale * rhs[ii]);
         }
 
 #if DEAD_CODE
@@ -752,9 +732,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
         private static void VectorCopy(double[] dest, double[] src)
         {
             for (int ii = 0; ii < src.Length; ++ii)
-            {
-                dest[ii] = src[ii];
-            }
+               dest[ii] = src[ii];
         }
 
 #if VERBOSE

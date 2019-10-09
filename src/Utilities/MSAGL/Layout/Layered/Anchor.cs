@@ -314,9 +314,9 @@ namespace Microsoft.Msagl.Layout.Layered {
             if (padding == 0)
                 return curve;
 
-            if (CurveIsConvex(curve)) {
-                return PadConvexCurve(curve, padding);
-            } else
+            if (CurveIsConvex(curve))
+               return PadConvexCurve(curve, padding);
+            else
                 return PadConvexCurve(Curve.StandardRectBoundary(curve), padding);
         }
 

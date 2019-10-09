@@ -171,8 +171,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         
         static PolylinePoint FindPolylinePoint(Polyline poly, Point point) {
             foreach (var ppp in poly.PolylinePoints)
-                if (ppp.Point == point)
-                    return ppp;
+            {
+               if (ppp.Point == point)
+                  return ppp;
+            }
 
             throw new NotSupportedException();
         }
@@ -198,9 +200,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             Debug.Assert(Cdt.PointIsInsideOfTriangle(start, currentTriangle));
 
             Point end = u.Position;
-            if (Cdt.PointIsInsideOfTriangle(end, currentTriangle)) {
-                return true;
-            }
+            if (Cdt.PointIsInsideOfTriangle(end, currentTriangle))
+               return true;
 
             var threader = new CdtThreader(currentTriangle, start, end);
             

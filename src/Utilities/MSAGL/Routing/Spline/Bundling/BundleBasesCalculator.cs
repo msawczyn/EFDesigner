@@ -146,9 +146,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         }
 
         void CreateOrientedSegs() {
-            foreach (var metroline in metroGraphData.Metrolines) {
-                CreateOrientedSegsOnLine(metroline);
-            }
+            foreach (var metroline in metroGraphData.Metrolines)
+               CreateOrientedSegsOnLine(metroline);
         }
 
         void CreateOrientedSegsOnLine(Metroline line) {
@@ -193,28 +192,24 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             var intersections = Curve.GetAllIntersections(curve, new LineSegment(sPos, neighbPos), true);
             foreach (var intersectionInfo in intersections) {
                 var xP = intersectionInfo.IntersectionPoint;
-                if ((xP - sPos) * (xP - neighbPos) <= 0) {
-                    return intersectionInfo.Par0;
-                }
+                if ((xP - sPos) * (xP - neighbPos) <= 0)
+                   return intersectionInfo.Par0;
             }
 
             throw new InvalidOperationException();
         }
 
         void SetRightLeftParamsFeasiblySymmetrically() {
-            foreach (var bundle in Bundles) {
-                bundle.SetParamsFeasiblySymmetrically(metroGraphData.TightTree);
-            }
+            foreach (var bundle in Bundles)
+               bundle.SetParamsFeasiblySymmetrically(metroGraphData.TightTree);
         }
 
         void AdjustStartEndParamsToAvoidBaseOverlaps() {
-            foreach (var c in externalBases.Keys) {
-                AdjustCurrentBundleWidthsOnCurve(externalBases[c]);
-            }
+            foreach (var c in externalBases.Keys)
+               AdjustCurrentBundleWidthsOnCurve(externalBases[c]);
 
-            foreach (var c in internalBases.Keys) {
-                AdjustCurrentBundleWidthsOnCurve(internalBases[c]);
-            }
+            foreach (var c in internalBases.Keys)
+               AdjustCurrentBundleWidthsOnCurve(internalBases[c]);
         }
 
         void AdjustCurrentBundleWidthsOnCurve(List<BundleBase> bases) {
@@ -615,9 +610,9 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         double IntersectRegularIntervals(double a, double b, double c, double d) {
             var low = Math.Max(a, c);
             var up = Math.Min(b, d);
-            if (low < up) {
-                return up - low;
-            }
+            if (low < up)
+               return up - low;
+
             return 0;
         }
 

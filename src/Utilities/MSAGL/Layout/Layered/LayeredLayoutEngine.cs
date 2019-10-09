@@ -191,13 +191,15 @@ namespace Microsoft.Msagl.Layout.Layered {
                 gluedPairsToGluedEdge[new IntPair(ie.Source, ie.Target)] = ie;
 
             foreach (var t in database.Multiedges)
-                if (t.Key.x != t.Key.y) {
-                    IntPair gluedPair = VerticalConstraints.GluedIntPair(t.Key);
-                    if (gluedPair.x == gluedPair.y) continue;
-                    IntEdge gluedIntEdge = gluedPairsToGluedEdge[gluedPair];
-                    foreach (IntEdge ie in t.Value)
-                        gluedIntEdge.Weight += ie.Weight;
-                }
+            {
+               if (t.Key.x != t.Key.y) {
+                  IntPair gluedPair = VerticalConstraints.GluedIntPair(t.Key);
+                  if (gluedPair.x == gluedPair.y) continue;
+                  IntEdge gluedIntEdge = gluedPairsToGluedEdge[gluedPair];
+                  foreach (IntEdge ie in t.Value)
+                     gluedIntEdge.Weight += ie.Weight;
+               }
+            }
         }
 
         IEnumerable<IntEdge> GluedDagSkeletonEdges() {
@@ -376,20 +378,24 @@ namespace Microsoft.Msagl.Layout.Layered {
             if (nodePosition > 0) {
                 int target = layer[nodePosition - 1];
                 foreach (IntEdge ie in xLayoutGraph.OutEdges(nodeIndex))
-                    if (ie.Target == target) {
-                        ie.Separation =
-                            (int) (sugiyamaSettings.NodeSeparation + a.LeftAnchor + anchors[target].RightAnchor + 1);
-                        break;
-                    }
+                {
+                   if (ie.Target == target) {
+                      ie.Separation =
+                         (int) (sugiyamaSettings.NodeSeparation + a.LeftAnchor + anchors[target].RightAnchor + 1);
+                      break;
+                   }
+                }
             }
             if (nodePosition < layer.Length - 1) {
                 int source = layer[nodePosition + 1];
                 foreach (IntEdge ie in xLayoutGraph.InEdges(nodeIndex))
-                    if (ie.Source == source) {
-                        ie.Separation =
-                            (int) (sugiyamaSettings.NodeSeparation + a.RightAnchor + anchors[source].LeftAnchor + 1);
-                        break;
-                    }
+                {
+                   if (ie.Source == source) {
+                      ie.Separation =
+                         (int) (sugiyamaSettings.NodeSeparation + a.RightAnchor + anchors[source].LeftAnchor + 1);
+                      break;
+                   }
+                }
             }
         }
 
@@ -488,9 +494,7 @@ namespace Microsoft.Msagl.Layout.Layered {
             if (this.sugiyamaSettings.GridSizeByX > 0)
             {
                 for (int i = 0; i < originalGraph.Nodes.Count; i++)
-                {
-                    SnapLeftSidesOfTheNodeToGrid(i, this.sugiyamaSettings.GridSizeByX);
-                }
+                   SnapLeftSidesOfTheNodeToGrid(i, this.sugiyamaSettings.GridSizeByX);
             }
 
         }
@@ -508,21 +512,16 @@ namespace Microsoft.Msagl.Layout.Layered {
             double delta = left - k * gridSize;
 
             if (Math.Abs(delta) < 0.001)
-            {
-                return;
-            }
+               return;
+
             // we are free to shift at least gridSize horizontally
             // find the minimal shift
 
             if (Math.Abs(delta) <= gridSize / 2)
-            {
-                node.Center += new Point(-delta, 0); // shifting to the left
-                
-            }
+               node.Center += new Point(-delta, 0); // shifting to the left
             else
-            {
-                node.Center += new Point(gridSize - delta, 0); // shifting to the right
-            }
+               node.Center += new Point(gridSize - delta, 0); // shifting to the right
+
             anchor.X = node.Center.X;
         }
 
@@ -556,8 +555,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             if (currentSpan.Length > ApproximateComparer.DistanceEpsilon) {
                 double stretch = desiredSpan.Length/currentSpan.Length;
                 if (stretch > 1)
-                    foreach (Anchor a in anchors)
-                        a.X *= stretch;
+                {
+                   foreach (Anchor a in anchors)
+                      a.X *= stretch;
+                }
             }
         }
 
@@ -592,8 +593,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             if (currentSpan.Length > ApproximateComparer.DistanceEpsilon) {
                 double stretch = desiredSpan.Length/currentSpan.Length;
                 if (stretch > 1)
-                    foreach (Anchor a in anchors)
-                        a.Y *= stretch;
+                {
+                   foreach (Anchor a in anchors)
+                      a.Y *= stretch;
+                }
             }
         }
 
@@ -720,10 +723,15 @@ namespace Microsoft.Msagl.Layout.Layered {
         bool StraightenEdgePaths() {
             bool ret = false;
             foreach (IntEdge e in database.AllIntEdges)
-                if (e.LayerSpan == 2)
-                    ret =
-                        ShiftVertexWithNeighbors(e.LayerEdges[0].Source, e.LayerEdges[0].Target, e.LayerEdges[1].Target) ||
-                        ret;
+            {
+               if (e.LayerSpan == 2)
+               {
+                  ret =
+                     ShiftVertexWithNeighbors(e.LayerEdges[0].Source, e.LayerEdges[0].Target, e.LayerEdges[1].Target) ||
+                     ret;
+               }
+            }
+
             return ret;
             //foreach (LayerEdge[][] edgeStrings in this.dataBase.RefinedEdges.Values)
             //    if (edgeStrings[0].Length == 2)
@@ -1027,15 +1035,17 @@ namespace Microsoft.Msagl.Layout.Layered {
             var extendedVertexLayering = new int[originalGraph.Nodes.Count + nOfVV];
 
             foreach (IntEdge e in database.SkeletonEdges())
-                if (e.LayerEdges != null) {
-                    int l = layering[e.Source];
-                    extendedVertexLayering[e.Source] = l--;
-                    foreach (LayerEdge le in e.LayerEdges)
-                        extendedVertexLayering[le.Target] = l--;
-                } else {
-                    extendedVertexLayering[e.Source] = layering[e.Source];
-                    extendedVertexLayering[e.Target] = layering[e.Target];
-                }
+            {
+               if (e.LayerEdges != null) {
+                  int l = layering[e.Source];
+                  extendedVertexLayering[e.Source] = l--;
+                  foreach (LayerEdge le in e.LayerEdges)
+                     extendedVertexLayering[le.Target] = l--;
+               } else {
+                  extendedVertexLayering[e.Source] = layering[e.Source];
+                  extendedVertexLayering[e.Target] = layering[e.Target];
+               }
+            }
 
             properLayeredGraph =
                 new ProperLayeredGraph(new BasicGraph<Node, IntEdge>(database.SkeletonEdges(), layering.Length));
@@ -1187,24 +1197,30 @@ namespace Microsoft.Msagl.Layout.Layered {
         void AnalyzeNeedToInsertLayersAndHasMultiedges(LayerArrays layerArrays, ref bool needToInsertLayers,
                                                        ref bool multipleEdges) {
             foreach (IntEdge ie in IntGraph.Edges)
-                if (ie.HasLabel && layerArrays.Y[ie.Source] != layerArrays.Y[ie.Target]) {
-                    //if an edge is a flat edge then
-                    needToInsertLayers = true;
-                    break;
-                }
+            {
+               if (ie.HasLabel && layerArrays.Y[ie.Source] != layerArrays.Y[ie.Target]) {
+                  //if an edge is a flat edge then
+                  needToInsertLayers = true;
+                  break;
+               }
+            }
 
             if (needToInsertLayers == false && constrainedOrdering == null)
                 //if we have constrains the multiple edges have been already represented in layers
-                foreach (var kv in database.Multiedges)
-                    if (kv.Value.Count > 1) {
-                        multipleEdges = true;
-                        if (layerArrays.Y[kv.Key.x] - layerArrays.Y[kv.Key.y] == 1) {
-                            //there is a multi edge spanning exactly one layer; unfortunately we need to introduce virtual vertices for 
-                            //the edges middle points 
-                            needToInsertLayers = true;
-                            break;
-                        }
-                    }
+            {
+               foreach (var kv in database.Multiedges)
+               {
+                  if (kv.Value.Count > 1) {
+                     multipleEdges = true;
+                     if (layerArrays.Y[kv.Key.x] - layerArrays.Y[kv.Key.y] == 1) {
+                        //there is a multi edge spanning exactly one layer; unfortunately we need to introduce virtual vertices for 
+                        //the edges middle points 
+                        needToInsertLayers = true;
+                        break;
+                     }
+                  }
+               }
+            }
         }
 
         void InsertVirtualEdgesIfNeeded(LayerArrays layerArrays) {
@@ -1214,13 +1230,15 @@ namespace Microsoft.Msagl.Layout.Layered {
             foreach (var kv in database.Multiedges)
                 // If there are an even number of multi-edges between two nodes then
                 //  add a virtual edge in the multi-edge dict to improve the placement, but only in case when the edge goes down only one layer.         
-                if (kv.Value.Count%2 == 0 && layerArrays.Y[kv.Key.First] - 1 == layerArrays.Y[kv.Key.Second]) {
-                    var newVirtualEdge = new IntEdge(kv.Key.First, kv.Key.Second);
-                    newVirtualEdge.Edge = new Edge();
-                    newVirtualEdge.IsVirtualEdge = true;
-                    kv.Value.Insert(kv.Value.Count/2, newVirtualEdge);
-                    IntGraph.AddEdge(newVirtualEdge);
-                }
+            {
+               if (kv.Value.Count%2 == 0 && layerArrays.Y[kv.Key.First] - 1 == layerArrays.Y[kv.Key.Second]) {
+                  var newVirtualEdge = new IntEdge(kv.Key.First, kv.Key.Second);
+                  newVirtualEdge.Edge = new Edge();
+                  newVirtualEdge.IsVirtualEdge = true;
+                  kv.Value.Insert(kv.Value.Count/2, newVirtualEdge);
+                  IntGraph.AddEdge(newVirtualEdge);
+               }
+            }
         }
 
 
@@ -1278,34 +1296,36 @@ namespace Microsoft.Msagl.Layout.Layered {
 
             //go over virtual vertices
             foreach (IntEdge intEdge in database.AllIntEdges)
-                if (intEdge.LayerEdges != null) {
-                    foreach (LayerEdge layerEdge in intEdge.LayerEdges) {
-                        int v = layerEdge.Target;
-                        if (v != intEdge.Target) {
-                            Anchor anchor = anchors[v];
-                            if (!database.MultipleMiddles.Contains(v)) {
-                                anchor.LeftAnchor = anchor.RightAnchor = VirtualNodeWidth/2.0f;
-                                anchor.TopAnchor = anchor.BottomAnchor = VirtualNodeHeight(settings)/2.0f;
-                            } else {
-                                anchor.LeftAnchor = anchor.RightAnchor = VirtualNodeWidth*4;
-                                anchor.TopAnchor = anchor.BottomAnchor = VirtualNodeHeight(settings)/2.0f;
-                            }
+            {
+               if (intEdge.LayerEdges != null) {
+                  foreach (LayerEdge layerEdge in intEdge.LayerEdges) {
+                     int v = layerEdge.Target;
+                     if (v != intEdge.Target) {
+                        Anchor anchor = anchors[v];
+                        if (!database.MultipleMiddles.Contains(v)) {
+                           anchor.LeftAnchor = anchor.RightAnchor = VirtualNodeWidth/2.0f;
+                           anchor.TopAnchor = anchor.BottomAnchor = VirtualNodeHeight(settings)/2.0f;
+                        } else {
+                           anchor.LeftAnchor = anchor.RightAnchor = VirtualNodeWidth*4;
+                           anchor.TopAnchor = anchor.BottomAnchor = VirtualNodeHeight(settings)/2.0f;
                         }
-                    }
-                    //fix label vertices      
-                    if (intEdge.HasLabel) {
-                        int lj = intEdge.LayerEdges[intEdge.LayerEdges.Count/2].Source;
-                        Anchor a = anchors[lj];
-                        double w = intEdge.LabelWidth, h = intEdge.LabelHeight;
-                        a.RightAnchor = w;
-                        a.LeftAnchor = VirtualNodeWidth*8;
+                     }
+                  }
+                  //fix label vertices      
+                  if (intEdge.HasLabel) {
+                     int lj = intEdge.LayerEdges[intEdge.LayerEdges.Count/2].Source;
+                     Anchor a = anchors[lj];
+                     double w = intEdge.LabelWidth, h = intEdge.LabelHeight;
+                     a.RightAnchor = w;
+                     a.LeftAnchor = VirtualNodeWidth*8;
 
-                        if (a.TopAnchor < h/2.0)
-                            a.TopAnchor = a.BottomAnchor = h/2.0;
+                     if (a.TopAnchor < h/2.0)
+                        a.TopAnchor = a.BottomAnchor = h/2.0;
 
-                        a.LabelToTheRightOfAnchorCenter = true;
-                    }
-                }
+                     a.LabelToTheRightOfAnchorCenter = true;
+                  }
+               }
+            }
         }
 
         /// <summary>
@@ -1378,9 +1398,8 @@ namespace Microsoft.Msagl.Layout.Layered {
             double delta = y - k * gridSize;
             Debug.Assert(delta >= 0 && delta < gridSize);
             if (Math.Abs(delta) < 0.0001) // ??? 
-            {
-                return 0;
-            }
+               return 0;
+
             return gridSize - delta;
         }
       
@@ -1495,18 +1514,25 @@ namespace Microsoft.Msagl.Layout.Layered {
         static void MakeVirtualNodesTall(int[] yLayer, double bottomAnchorMax, double topAnchorMax,
                                          int originalNodeCount, Anchor[] anchors) {
             if (LayerIsOriginal(yLayer, originalNodeCount))
-                foreach (int j in yLayer)
-                    if (j >= originalNodeCount) {
-                        Anchor p = anchors[j];
-                        p.BottomAnchor = bottomAnchorMax;
-                        p.TopAnchor = topAnchorMax;
-                    }
+            {
+               foreach (int j in yLayer)
+               {
+                  if (j >= originalNodeCount) {
+                     Anchor p = anchors[j];
+                     p.BottomAnchor = bottomAnchorMax;
+                     p.TopAnchor = topAnchorMax;
+                  }
+               }
+            }
         }
 
         static bool LayerIsOriginal(int[] yLayer, int origNodeCount) {
             foreach (int j in yLayer)
-                if (j < origNodeCount)
-                    return true;
+            {
+               if (j < origNodeCount)
+                  return true;
+            }
+
             return false;
         }
 
@@ -1560,11 +1586,13 @@ namespace Microsoft.Msagl.Layout.Layered {
             //it could be a multiple self edge
             if (multiedges.Count > 0) {
                 foreach (IntEdge e in multiedges)
-                    if (e.Edge.Label != null) {
-                        rightAnchor += e.Edge.Label.Width;
-                        if (topAnchor < e.Edge.Label.Height/2.0)
-                            topAnchor = bottomAnchor = e.Edge.Label.Height/2.0f;
-                    }
+                {
+                   if (e.Edge.Label != null) {
+                      rightAnchor += e.Edge.Label.Width;
+                      if (topAnchor < e.Edge.Label.Height/2.0)
+                         topAnchor = bottomAnchor = e.Edge.Label.Height/2.0f;
+                   }
+                }
 
                 delta += (settings.NodeSeparation + settings.MinNodeWidth)*multiedges.Count;
             }
@@ -1621,19 +1649,21 @@ namespace Microsoft.Msagl.Layout.Layered {
             }
 
             foreach (var layer in layerArrays.Layers)
-                for (int i = layer.Length - 1; i > 0; i--) {
-                    int source = layer[i];
-                    int target = layer[i - 1];
-                    var ie = new IntEdge(source, target);
-                    Anchor sourceAnchor = database.Anchors[source];
-                    Anchor targetAnchor = database.Anchors[target];
+            {
+               for (int i = layer.Length - 1; i > 0; i--) {
+                  int source = layer[i];
+                  int target = layer[i - 1];
+                  var ie = new IntEdge(source, target);
+                  Anchor sourceAnchor = database.Anchors[source];
+                  Anchor targetAnchor = database.Anchors[target];
 
-                    double sep = sourceAnchor.LeftAnchor + targetAnchor.RightAnchor + sugiyamaSettings.NodeSeparation;
+                  double sep = sourceAnchor.LeftAnchor + targetAnchor.RightAnchor + sugiyamaSettings.NodeSeparation;
 
-                    ie.Separation = (int) (sep + 1);
+                  ie.Separation = (int) (sep + 1);
 
-                    edges.Add(ie);
-                }
+                  edges.Add(ie);
+               }
+            }
 
             var ret = new XLayoutGraph(IntGraph, properLayeredGraph, layerArrays, edges, nOfVerts);
             ret.SetEdgeWeights();

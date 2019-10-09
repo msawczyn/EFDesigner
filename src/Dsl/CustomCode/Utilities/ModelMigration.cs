@@ -31,9 +31,7 @@ namespace Sawczyn.EFDesigner.EFModel
                XElement types = elements.FirstOrDefault(e => e.Name.LocalName == "types");
 
                if (types != null)
-               {
                   types.Name = "classes";
-               }
 
                //XElement enums = elements.FirstOrDefault(e => e.Name.LocalName == "enums");
 

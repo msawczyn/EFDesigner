@@ -42,18 +42,16 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             int cEdges = vertex.InEdges.Count;      // indexing is faster than foreach for Lists
             for (int ii = 0; ii < cEdges; ++ii) {
                 var edge = vertex.InEdges[ii];
-                if (PointComparer.GetPureDirection(vertex.Point, edge.SourcePoint) == dir) {
-                    return edge.Source;
-                }
+                if (PointComparer.GetPureDirection(vertex.Point, edge.SourcePoint) == dir)
+                   return edge.Source;
             }
 
             // Avoid GetEnumerator overhead.
             var outEdgeNode = vertex.OutEdges.IsEmpty() ? null : vertex.OutEdges.TreeMinimum();
             for (; outEdgeNode != null; outEdgeNode = vertex.OutEdges.Next(outEdgeNode)) {
                 var edge = outEdgeNode.Item;
-                if (PointComparer.GetPureDirection(vertex.Point, edge.TargetPoint) == dir) {
-                    return edge.Target;
-                }
+                if (PointComparer.GetPureDirection(vertex.Point, edge.TargetPoint) == dir)
+                   return edge.Target;
             }
             return null;
         }
@@ -99,9 +97,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         static internal Point SegmentIntersection(SegmentBase first, SegmentBase second) {
             // Caller expects segments to intersect.
             Point intersect;
-            if (!SegmentsIntersect(first, second, out intersect)) {
-                Debug.Assert(false, "intersect is not on both segments");
-            }
+            if (!SegmentsIntersect(first, second, out intersect))
+               Debug.Assert(false, "intersect is not on both segments");
+
             return intersect;
         }
 
@@ -270,9 +268,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                             ? new DebugCurve(0.3, "gold", obstacle.PaddedPolyline)
                             : new DebugCurve(0.1, obstacle.IsGroup ? "purple" : "black", obstacle.PaddedPolyline));
                 }
-                if (!noVisPoly && obstacle.IsPrimaryObstacle && (obstacle.VisibilityPolyline != obstacle.PaddedPolyline)) {
-                    debugCurves.Add(new DebugCurve(0.1, obstacle.IsGroup ? "mediumpurple" : "lightgray", obstacle.VisibilityPolyline));
-                }
+                if (!noVisPoly && obstacle.IsPrimaryObstacle && (obstacle.VisibilityPolyline != obstacle.PaddedPolyline))
+                   debugCurves.Add(new DebugCurve(0.1, obstacle.IsGroup ? "mediumpurple" : "lightgray", obstacle.VisibilityPolyline));
             }
             return debugCurves;
         }
@@ -289,9 +286,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             var debugCurves = new List<DebugCurve>();
             foreach (var path in edgePaths) {
                 var points = path.PathPoints.ToArray();
-                for (int ii = 0; ii < points.Length - 1; ++ii) {
-                    debugCurves.Add(new DebugCurve(0.1, "purple", new LineSegment(points[ii], points[ii + 1])));
-                }
+                for (int ii = 0; ii < points.Length - 1; ++ii)
+                   debugCurves.Add(new DebugCurve(0.1, "purple", new LineSegment(points[ii], points[ii + 1])));
             }
             return debugCurves;
         }

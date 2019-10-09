@@ -74,13 +74,9 @@ namespace Microsoft.Msagl.Layout.MDS
                 g.Edges.Add(ee);
             }
             if (graph.Edges.Count != 0)
-            {
-                avgLength /= graph.Edges.Count;
-            }
+               avgLength /= graph.Edges.Count;
             else
-            {
-                avgLength = 100;
-            }
+               avgLength = 100;
 
             // create edges from the children of each parent cluster to the parent cluster node
             foreach (var c in graph.RootCluster.AllClustersDepthFirst())

@@ -128,9 +128,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             System.Diagnostics.Debug.Assert(a.Next.Next == null);
 
             if (curve.Segments.Count == 0) {
-                if (!ApproximateComparer.Close(a.Point, a.Next.Point)) {
-                    Curve.AddLineSegment(curve, a.Point, a.Next.Point);
-                } else {
+                if (!ApproximateComparer.Close(a.Point, a.Next.Point))
+                   Curve.AddLineSegment(curve, a.Point, a.Next.Point);
+                else {
                     double w = 5;
                     curve.Segments.Add(new CubicBezierSegment(a.Point, a.Point + new Point(w, w), a.Point + new Point(-w, w), b.Point));
                 }

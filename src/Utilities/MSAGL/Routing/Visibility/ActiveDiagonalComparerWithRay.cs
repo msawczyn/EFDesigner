@@ -19,14 +19,16 @@ namespace Microsoft.Msagl.Routing.Visibility {
               ValidateArg.IsNotNull(y, "y");
               System.Diagnostics.Debug.Assert(BelongsToTheDiagonal(PointOnTangentAndInsertedDiagonal, x.Start, x.End));
               if (x.Start != y.Start)
-                  switch (Point.GetTriangleOrientation(PointOnTangentAndInsertedDiagonal, y.Start, y.End)) {
-                      case TriangleOrientation.Counterclockwise:
-                          return -1;
-                      default:
-                          return 1;
-                  } else {
-                  return 0;
+              {
+                 switch (Point.GetTriangleOrientation(PointOnTangentAndInsertedDiagonal, y.Start, y.End)) {
+                    case TriangleOrientation.Counterclockwise:
+                       return -1;
+                    default:
+                       return 1;
+                 }
               }
+              else
+                 return 0;
           }
 
           [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]

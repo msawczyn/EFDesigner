@@ -118,18 +118,18 @@ namespace Microsoft.Msagl.Layout.Layered {
         IEnumerator<int> IEnumerable<int>.GetEnumerator() {
 #endif
         IEnumerable e = graph.InEdges(vert);
-            if (e == null) {
-                return new EmptyEnumerator();
-            } else
+            if (e == null)
+               return new EmptyEnumerator();
+            else
                 return new PredEnumerator(e.GetEnumerator());
 
         }
 
         IEnumerator IEnumerable.GetEnumerator() {
             IEnumerable e = graph.InEdges(vert);
-            if (e == null) {
-                return new EmptyEnumerator();
-            } else
+            if (e == null)
+               return new EmptyEnumerator();
+            else
                 return new PredEnumerator(e.GetEnumerator());
 
         }

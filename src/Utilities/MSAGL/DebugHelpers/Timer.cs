@@ -20,9 +20,8 @@ namespace Microsoft.Msagl.DebugHelpers {
         /// ctor
         /// </summary>
         public Timer() {
-            if (QueryPerformanceFrequency(out freq) == false) {
-                throw new Win32Exception(); // timer not supanchored
-            }
+            if (QueryPerformanceFrequency(out freq) == false)
+               throw new Win32Exception(); // timer not supanchored
         }
         /// <summary>
         /// Start the timer

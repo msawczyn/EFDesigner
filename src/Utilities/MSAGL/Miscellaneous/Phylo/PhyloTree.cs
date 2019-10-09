@@ -34,8 +34,10 @@ namespace Microsoft.Msagl.Prototype.Phylo {
         public IEnumerable<Node> Leaves {
             get {
                 foreach (Node node in this.Nodes)
-                    if (NodeIsALeaf(node))
-                        yield return node;
+                {
+                   if (NodeIsALeaf(node))
+                      yield return node;
+                }
             }
         }
 

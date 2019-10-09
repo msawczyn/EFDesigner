@@ -76,9 +76,8 @@ namespace Microsoft.Msagl.Layout.MDS
             ValidateArg.IsNotNull(graph, "graph");
             double stress = 0;
             if (graph.Edges.Count == 0)
-            {
-                return stress;
-            }
+               return stress;
+
             var apd = new AllPairsDistances(graph, false);
             apd.Run();
             var D = apd.Result;

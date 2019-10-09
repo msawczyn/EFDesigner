@@ -72,9 +72,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         internal void RouteEdges() {
             Initialize();
             RestoreCapacities();
-            foreach (var edgeGeometry in EdgeGeometries) {
-                EdgesToRoutes[edgeGeometry] = RouteEdge(edgeGeometry);
-            }
+            foreach (var edgeGeometry in EdgeGeometries)
+               EdgesToRoutes[edgeGeometry] = RouteEdge(edgeGeometry);
 
             RerouteEdges();
 
@@ -173,9 +172,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                 List<SdBoneEdge> ret = RouteOnKnownSourceTargetVertices((CurrentEdgeGeometry.TargetPort.Location - CurrentEdgeGeometry.SourcePort.Location).Normalize(), i == 0);
                 if (ret != null)
                     return ret;
-                for (int j = 0; j < vertexArray.Length; j++) {
-                    vertexArray[j].SetPreviousToNull();
-                }
+                for (int j = 0; j < vertexArray.Length; j++)
+                   vertexArray[j].SetPreviousToNull();
             }
             //SplineRouter.ShowVisGraph(this.VisibilityGraph, ObstacleHierarchy.GetAllLeaves(), null, new[] { new LineSegment(
            // CurrentEdgeGeometry.SourcePort.Location, CurrentEdgeGeometry.TargetPort.Location)});
@@ -319,9 +317,9 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             if (Cdt == null || BundlingSettings.CapacityOverflowCoefficient == 0)
                 return 0;
             double ret = 0;
-            foreach (var cdtEdge in CrossedCdtEdgesOfBoneEdge(boneEdge)) {
-                ret += CostOfCrossingCdtEdgeLocal(capacityOverlowPenaltyMultiplier, BundlingSettings, CurrentEdgeGeometry, cdtEdge);
-            }
+            foreach (var cdtEdge in CrossedCdtEdgesOfBoneEdge(boneEdge))
+               ret += CostOfCrossingCdtEdgeLocal(capacityOverlowPenaltyMultiplier, BundlingSettings, CurrentEdgeGeometry, cdtEdge);
+
             return ret;
         }
 
@@ -451,9 +449,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                 sdVert.Cost = initialCost;
                 Enqueue(sdVert);
             }
-            else {
-                sdVert.IsTargetOfRouting = true;
-            }
+            else
+               sdVert.IsTargetOfRouting = true;
         }
 
         VisibilityVertex FindVertex(Point p) {
@@ -503,9 +500,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                     vertexArray.Select(v => new RectangleNode<SdVertex>(v, new Rectangle(v.Point))));
 
             RectangleNodeUtils.CrossRectangleNodes(triangleTree, vertexTree, TryToAssigenTriangleToVertex);
-            foreach (var v in vertexArray) {
-                Debug.Assert(v.Triangle != null);
-            }
+            foreach (var v in vertexArray)
+               Debug.Assert(v.Triangle != null);
         }
 
         void TryToAssigenTriangleToVertex(CdtTriangle triangle, SdVertex vertex) {

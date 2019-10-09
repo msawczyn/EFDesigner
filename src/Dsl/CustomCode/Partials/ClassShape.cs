@@ -9,8 +9,18 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+
+   internal class ColorCache
+   {
+      public Color FillColor { get; set; }
+      public Color LineColor { get; set; }
+      public Color TextColor { get; set; }
+   }
+
    public partial class ClassShape : IHighlightFromModelExplorer, IMouseActionTarget
    {
+      internal ColorCache ColorCache = null;
+
       private static readonly Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>> AttributeGlyphs =
          new Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>>
          {

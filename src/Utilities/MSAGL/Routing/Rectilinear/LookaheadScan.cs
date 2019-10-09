@@ -47,9 +47,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         internal void RemoveStaleSites() {
             int cSites = staleSites.Count; // for (;;) is faster than IEnumerator for Lists
             if (cSites > 0) {
-                for (int ii = 0; ii < cSites; ++ii) {
-                    RemoveExact(staleSites[ii]);
-                }
+                for (int ii = 0; ii < cSites; ++ii)
+                   RemoveExact(staleSites[ii]);
+
                 staleSites.Clear();
             }
         }
@@ -57,9 +57,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         internal void RemoveSitesForFlatBottom(Point low, Point high) {
             for (RBNode<BasicReflectionEvent> node = FindFirstInRange(low, high);
                  null != node;
-                 node = FindNextInRange(node, high)) {
-                MarkStaleSite(node.Item);
-            }
+                 node = FindNextInRange(node, high))
+               MarkStaleSite(node.Item);
+
             RemoveStaleSites();
         }
 
@@ -86,9 +86,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
             if (null != nextNode) {
                 // It's >= low; is it <= high?
-                if (Compare(nextNode.Item.Site, high) <= 0) {
-                    return nextNode;
-                }
+                if (Compare(nextNode.Item.Site, high) <= 0)
+                   return nextNode;
             }
             return null;
         }
@@ -99,9 +98,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         internal RBNode<BasicReflectionEvent> FindNextInRange(RBNode<BasicReflectionEvent> prev, Point high) {
             RBNode<BasicReflectionEvent> nextNode = eventTree.Next(prev);
-            if ((null != nextNode) && (Compare(nextNode.Item.Site, high) <= 0)) {
-                return nextNode;
-            }
+            if ((null != nextNode) && (Compare(nextNode.Item.Site, high) <= 0))
+               return nextNode;
+
             return null;
         }
 

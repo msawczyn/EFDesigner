@@ -87,9 +87,9 @@ namespace Microsoft.Msagl.Core.GraphAlgorithms{
                 visited[e.Source]=visited[e.Target]=false;
                 var x=e.Source;
                 List<int> list;
-                if(! graph.TryGetValue(x, out list)) {
+                if(! graph.TryGetValue(x, out list))
                    graph[x]=list=new List<int>();
-                }
+
                 list.Add(e.Target);
             }
             //organize a couple of stacks to avoid the recursion

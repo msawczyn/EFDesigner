@@ -119,8 +119,10 @@ namespace Microsoft.Msagl.Core.ProjectionSolver{
             //removing cycles
             var feedbackSet = CycleRemoval<IntPair>.GetFeedbackSet(graph);
             if(feedbackSet!=null)
-                foreach(var edge in feedbackSet)
-                    graph.RemoveEdge(edge as IntPair);
+            {
+               foreach(var edge in feedbackSet)
+                  graph.RemoveEdge(edge as IntPair);
+            }
         }
 
         internal double GetVariablePosition(int id){

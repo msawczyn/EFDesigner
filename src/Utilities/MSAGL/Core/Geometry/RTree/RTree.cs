@@ -195,9 +195,8 @@ namespace Microsoft.Msagl.Core.Geometry {
         ///<returns></returns>
         public TData Remove(Rectangle rectangle, TData userData) {
             if (_rootNode==null)
-            {
-                return default(TData);
-            }
+               return default(TData);
+
             var ret = _rootNode.GetLeafRectangleNodesIntersectingRectangle(rectangle).FirstOrDefault(node => node.UserData.Equals(userData));
             if (ret == null)
                 return default(TData);
@@ -270,8 +269,11 @@ namespace Microsoft.Msagl.Core.Geometry {
 
         static RectangleNode<TData> FindTopUnbalancedNode(RectangleNode<TData> node) {
             for (var parent = node.Parent; parent != null; parent = parent.Parent)
-                if (! Balanced(parent))
-                    return parent;
+            {
+               if (! Balanced(parent))
+                  return parent;
+            }
+
             return null;
         }
 

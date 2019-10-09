@@ -125,9 +125,7 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             oldPositionsMoveable = new Point[moveableRectangles.Length];
 
             for(int i=0; i<moveableRectangles.Length; i++)
-            {
-                oldPositionsMoveable[i] = moveableRectangles[i].Center;
-            }
+               oldPositionsMoveable[i] = moveableRectangles[i].Center;
         }
 
         public Point[] GetTranslations() {            
@@ -135,9 +133,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             Point[] translation = new Point[_moveableRectanglesTree.Count];
 
             foreach (var n in nodes)
-            {
-                translation[n.rectId] = n.rect.Center - oldPositionsMoveable[n.rectId];
-            }
+               translation[n.rectId] = n.rect.Center - oldPositionsMoveable[n.rectId];
+
             return translation;
         }
 
@@ -165,9 +162,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                 Point p = Round( fixedRectangles[i].Center );
                 var node = new TreeNode { isFixed = true, rectId = i, rect = fixedRectangles[i], sitePoint = p, type = SiteType.RectFixed };
                 if (nodeLabelsFixed != null)
-                {
-                    node.label = nodeLabelsFixed[i];
-                }
+                   node.label = nodeLabelsFixed[i];
+
                 pointToTreeNode[p] = node;
                 _rectNodesRtree.Add(node.rect, node);
                 _fixedRectanglesTree.Add(fixedRectangles[i], node);
@@ -178,9 +174,7 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                 Point p = Round(moveableRectangles[i].Center);
                 var node = new TreeNode { isFixed = false, rectId = i, rect = moveableRectangles[i], sitePoint = p, type = SiteType.RectMoveable };
                 if (nodeLabelsMoveable != null)
-                {
-                    node.label = nodeLabelsMoveable[i];
-                }
+                   node.label = nodeLabelsMoveable[i];
 
                 pointToTreeNode[p] = node;
                 _rectNodesRtree.Add(node.rect, node);
@@ -219,10 +213,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                         p = Round(rect.Center + delta);
                     }
                     else
-                    {
-                        p = Round(0.5 * (rect.Center + pClosestOnSeg));
-                    }
-                                        
+                       p = Round(0.5 * (rect.Center + pClosestOnSeg));
+
                     TreeNode node = new TreeNode { isFixed = false, sitePoint = p, type = SiteType.AdditionalPointBoxSegmentOverlap, segment = seg, rect = rect, label = "SegOvlp "};
                     if (!pointToTreeNode.ContainsKey(p)) {
                         sites.Add(p);
@@ -361,17 +353,11 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
 
             //double t;
             if (dx < machineAcc * wx)
-            {
-                t = wy / dy;
-            }
+               t = wy / dy;
             else if (dy < machineAcc * wy)
-            {
-                t = wx / dx;
-            }
+               t = wx / dx;
             else
-            {
-                t = Math.Min(wx / dx, wy / dy);
-            }
+               t = Math.Min(wx / dx, wy / dy);
 
             //if (t > 1) t = Math.Max(t, 1.001); // must be done, otherwise the convergence is very slow
             ////            tmax = Math.Max(tmax, t);
@@ -398,17 +384,12 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
 
             double t;
             if (dx < machineAcc * wx)
-            {
-                t = wy / dy;
-            }
+               t = wy / dy;
             else if (dy < machineAcc * wy)
-            {
-                t = wx / dx;
-            }
+               t = wx / dx;
             else
-            {
-                t = Math.Min(wx / dx, wy / dy);
-            }
+               t = Math.Min(wx / dx, wy / dy);
+
             return t;
         }
 
@@ -464,13 +445,12 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
         public Rectangle GetInitialBoundingBox() {
             Rectangle bbox = new Rectangle();
             bbox.SetToEmpty();
-            foreach (var rect in fixedRectangles) {
-                bbox.Add(rect);
-            }
+            foreach (var rect in fixedRectangles)
+               bbox.Add(rect);
+
             foreach (var rect in moveableRectangles)
-            {
-                bbox.Add(rect);
-            }
+               bbox.Add(rect);
+
             return bbox;
         }
 
@@ -479,9 +459,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             Rectangle bbox = new Rectangle();
             bbox.SetToEmpty();
             foreach (var node in nodes)
-            {
-                bbox.Add(node.rect);
-            }
+               bbox.Add(node.rect);
+
             return bbox;
         }
 
@@ -577,17 +556,13 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                 {
                     PrecomputeMovedCriticalNodes(neighb);
                     if (!n.isFixed)
-                    {
-                        movedCriticalNodes[n].AddRange(movedCriticalNodes[neighb]);
-                    }
+                       movedCriticalNodes[n].AddRange(movedCriticalNodes[neighb]);
                 }
             }
             //int numOverlaps = _nodesRtree.GetAllIntersecting(n.rect).Count();
             //if(!n.isFixed && numOverlaps > 1)
             if (!n.isFixed && (oldOverlapsBoxes.ContainsKey(n) ))
-            {
-                movedCriticalNodes[n].Add(n);
-            }
+               movedCriticalNodes[n].Add(n);
         }
 
         public void PrecomputeMovedCriticalNodesBoxesSegments(TreeNode n)
@@ -603,15 +578,11 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                 {
                     PrecomputeMovedCriticalNodesBoxesSegments(neighb);
                     if (!n.isFixed)
-                    {
-                        movedCriticalNodes[n].AddRange(movedCriticalNodes[neighb]);
-                    }
+                       movedCriticalNodes[n].AddRange(movedCriticalNodes[neighb]);
                 }
             }
             if (n.type == SiteType.RectMoveable && (oldOverlapsBoxes.ContainsKey(n) || oldOverlapsSegments.ContainsKey(n)))
-            {
-                movedCriticalNodes[n].Add(n);
-            }
+               movedCriticalNodes[n].Add(n);
         }
 
         public void MoveSubtree(TreeNode n, Point delta) {
@@ -619,9 +590,7 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             foreach (var neighb in n.neighbors)
             {
                 if (neighb != n.parent)
-                {
-                    MoveSubtree(neighb, delta);
-                }
+                   MoveSubtree(neighb, delta);
             }
             n.rect = translate(n.rect, delta);            
         }
@@ -629,33 +598,25 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
         public void PrecomputeMovedCriticalNodesRoot(TreeNode root)
         {
             foreach (var n in root.neighbors)
-            {
-                PrecomputeMovedCriticalNodes(n);
-            }
+               PrecomputeMovedCriticalNodes(n);
         }
 
         public void PrecomputeMovedCriticalNodesBoxesSegmentsRoot(TreeNode root)
         {
             foreach (var n in root.neighbors)
-            {
-                PrecomputeMovedCriticalNodesBoxesSegments(n);
-            }
+               PrecomputeMovedCriticalNodesBoxesSegments(n);
         }
 
         public void PrecomputeMovedCriticalNodesBoxesSegmentsAllRoots()
         {
             foreach (var root in _roots)
-            {
-                PrecomputeMovedCriticalNodesBoxesSegmentsRoot(root);
-            }
+               PrecomputeMovedCriticalNodesBoxesSegmentsRoot(root);
         }
 
         public void PrecomputeMovedCriticalNodesAllRoots()
         {
             foreach (var root in _roots)
-            {
-                PrecomputeMovedCriticalNodesRoot(root);
-            }
+               PrecomputeMovedCriticalNodesRoot(root);
         }
 
         public void GetDfsOrder(TreeNode node, List<TreeNode> nodes) {
@@ -714,9 +675,7 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             PrecomputeMovedCriticalNodesBoxesSegmentsAllRoots();
 
             foreach (var root in _roots)
-            {
-                DoOneIterationBoxesSegments(root);
-            }
+               DoOneIterationBoxesSegments(root);
         }
 
         public void DoOneIterationBoxesSegments(TreeNode root)
@@ -734,13 +693,9 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                 Point delta;
 
                 if (v.type == SiteType.AdditionalPointBoxSegmentOverlap)
-                {
-                    HandleCaseAdditionalPointOvlp(v, out delta);
-                }
+                   HandleCaseAdditionalPointOvlp(v, out delta);
                 else// if (v.type == SiteType.RectMoveable)
-                {
-                    HandleCaseRectMoveable(v, out delta);
-                }
+                   HandleCaseRectMoveable(v, out delta);
 
                 double a1 = GetAreaOldOverlapsBoxesSegments(vMovesCritical);
 
@@ -775,13 +730,9 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             if (v.parent.type == SiteType.RectFixed || v.parent.type == SiteType.RectMoveable)
             {
                 if (RectsOverlap(v, v.parent))
-                {
-                    delta = EdgeExpansionFactor*GetShiftUntilNoLongerOverlap(v.parent.rect, v.rect);
-                }
+                   delta = EdgeExpansionFactor*GetShiftUntilNoLongerOverlap(v.parent.rect, v.rect);
                 else
-                {
-                    delta = EdgeContractionFactor*GetShiftUntilOverlap(v.parent.rect, v.rect);
-                }
+                   delta = EdgeContractionFactor*GetShiftUntilOverlap(v.parent.rect, v.rect);
             }
             else //if (v.parent.type == SiteType.AdditionalPointBoxSegmentOverlap)
             {
@@ -799,13 +750,9 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
         {
             // v should be assigned the corresponding rectangle
             if (RectsOverlap(v, v.parent))
-            {
-                delta = EdgeExpansionFactor * GetShiftUntilNoLongerOverlap(v.parent.rect, v.rect);
-            }
+               delta = EdgeExpansionFactor * GetShiftUntilNoLongerOverlap(v.parent.rect, v.rect);
             else
-            {
-                delta = EdgeContractionFactor * GetShiftUntilOverlap(v.parent.rect, v.rect);
-            }
+               delta = EdgeContractionFactor * GetShiftUntilOverlap(v.parent.rect, v.rect);
         }
 
          double GetAreaOldOverlapsBoxesSegments(List<TreeNode> vMovesCritical)
@@ -825,9 +772,7 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
                 if (oldOverlapsSegments.ContainsKey(u)) {
                     var uOverlaps = oldOverlapsSegments[u];
                     foreach (var seg in uOverlaps)
-                    {
-                        a += RectSegIntersection.GetOverlapAmount(u.rect, seg.p1, seg.p2);
-                    }
+                       a += RectSegIntersection.GetOverlapAmount(u.rect, seg.p1, seg.p2);
                 }
             }
             return a;
@@ -839,9 +784,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
 
          void translateAllRects(List<TreeNode> nodes, Point delta)
         {
-            foreach (var v in nodes) {
-                v.rect = translate(v.rect, delta);
-            }
+            foreach (var v in nodes)
+               v.rect = translate(v.rect, delta);
         }
 
 
@@ -860,9 +804,7 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
         {
             var treeNodes = new TreeNode[pointToTreeNode.Count];
             foreach (var node in pointToTreeNode.Values)
-            {
-                treeNodes[node.id] = node;
-            }
+               treeNodes[node.id] = node;
 
             var intEdges = new List<SimpleIntEdge>();
             foreach (var edge in edges)
@@ -877,9 +819,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             {
                 List<TreeNode> nodeList = new List<TreeNode>();
                 foreach (var nodeId in component)
-                {
-                    nodeList.Add(treeNodes[nodeId]);
-                }
+                   nodeList.Add(treeNodes[nodeId]);
+
                 _subtrees.Add(nodeList);
             }
 
@@ -889,9 +830,7 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments
             BuildForestFromCdtEdges(edges);
 
             foreach (var root in _roots)
-            {
-                OrientTreeEdges(root);
-            }
+               OrientTreeEdges(root);
         }
 
         public void ChooseRoots()

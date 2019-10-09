@@ -266,68 +266,76 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         void UpdatePsContainingUv(int u, int v) {
             if (successors[u].Length <= successors[v].Length)
-                foreach (int a in successors[u]) {
-                    Dictionary<int, int> porder = pOrder[a];
-                    //of course porder contains u, let us see if it contains v
-                    if (porder.ContainsKey(v)) {
-                        int vOffset = porder[v];
-                        //swap u and v in the array P[coeff]
-                        int[] p = predecessors[a];
-                        p[vOffset - 1] = v;
-                        p[vOffset] = u;
-                        //update sorder itself
-                        porder[v] = vOffset - 1;
-                        porder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in successors[u]) {
+                  Dictionary<int, int> porder = pOrder[a];
+                  //of course porder contains u, let us see if it contains v
+                  if (porder.ContainsKey(v)) {
+                     int vOffset = porder[v];
+                     //swap u and v in the array P[coeff]
+                     int[] p = predecessors[a];
+                     p[vOffset - 1] = v;
+                     p[vOffset] = u;
+                     //update sorder itself
+                     porder[v] = vOffset - 1;
+                     porder[u] = vOffset;
+                  }
+               }
+            }
             else
-                foreach (int a in successors[v]) {
-                    Dictionary<int, int> porder = pOrder[a];
-                    //of course porder contains u, let us see if it contains v
-                    if (porder.ContainsKey(u)) {
-                        int vOffset = porder[v];
-                        //swap u and v in the array P[coeff]
-                        int[] p = predecessors[a];
-                        p[vOffset - 1] = v;
-                        p[vOffset] = u;
-                        //update sorder itself
-                        porder[v] = vOffset - 1;
-                        porder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in successors[v]) {
+                  Dictionary<int, int> porder = pOrder[a];
+                  //of course porder contains u, let us see if it contains v
+                  if (porder.ContainsKey(u)) {
+                     int vOffset = porder[v];
+                     //swap u and v in the array P[coeff]
+                     int[] p = predecessors[a];
+                     p[vOffset - 1] = v;
+                     p[vOffset] = u;
+                     //update sorder itself
+                     porder[v] = vOffset - 1;
+                     porder[u] = vOffset;
+                  }
+               }
+            }
         }
 
         void UpdateSsContainingUv(int u, int v) {
             if (predecessors[u].Length <= predecessors[v].Length)
-                foreach (int a in predecessors[u]) {
-                    Dictionary<int, int> sorder = sOrder[a];
-                    //of course sorder contains u, let us see if it contains v
-                    if (sorder.ContainsKey(v)) {
-                        int vOffset = sorder[v];
-                        //swap u and v in the array S[coeff]
-                        int[] s = successors[a];
-                        s[vOffset - 1] = v;
-                        s[vOffset] = u;
-                        //update sorder itself
-                        sorder[v] = vOffset - 1;
-                        sorder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in predecessors[u]) {
+                  Dictionary<int, int> sorder = sOrder[a];
+                  //of course sorder contains u, let us see if it contains v
+                  if (sorder.ContainsKey(v)) {
+                     int vOffset = sorder[v];
+                     //swap u and v in the array S[coeff]
+                     int[] s = successors[a];
+                     s[vOffset - 1] = v;
+                     s[vOffset] = u;
+                     //update sorder itself
+                     sorder[v] = vOffset - 1;
+                     sorder[u] = vOffset;
+                  }
+               }
+            }
             else
-                foreach (int a in predecessors[v]) {
-                    Dictionary<int, int> sorder = sOrder[a];
-                    //of course sorder contains u, let us see if it contains v
-                    if (sorder.ContainsKey(u)) {
-                        int vOffset = sorder[v];
-                        //swap u and v in the array S[coeff]
-                        int[] s = successors[a];
-                        s[vOffset - 1] = v;
-                        s[vOffset] = u;
-                        //update sorder itself
-                        sorder[v] = vOffset - 1;
-                        sorder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in predecessors[v]) {
+                  Dictionary<int, int> sorder = sOrder[a];
+                  //of course sorder contains u, let us see if it contains v
+                  if (sorder.ContainsKey(u)) {
+                     int vOffset = sorder[v];
+                     //swap u and v in the array S[coeff]
+                     int[] s = successors[a];
+                     s[vOffset - 1] = v;
+                     s[vOffset] = u;
+                     //update sorder itself
+                     sorder[v] = vOffset - 1;
+                     sorder[u] = vOffset;
+                  }
+               }
+            }
         }
 
 
@@ -368,11 +376,13 @@ namespace Microsoft.Msagl.Layout.Layered {
         bool ExchangeWithGain(int[] layer) {
             //find a first pair giving some gain
             for (int i = 0; i < layer.Length - 1; i++)
-                if (SwapWithGain(layer[i], layer[i + 1])) {
-                    SwapToTheLeft(layer, i);
-                    SwapToTheRight(layer, i + 1);
-                    return true;
-                }
+            {
+               if (SwapWithGain(layer[i], layer[i + 1])) {
+                  SwapToTheLeft(layer, i);
+                  SwapToTheRight(layer, i + 1);
+                  return true;
+               }
+            }
 
             return false;
         }
@@ -380,11 +390,13 @@ namespace Microsoft.Msagl.Layout.Layered {
         bool ExchangeWithGainWithBalance(int[] layer) {
             //find a first pair giving some gain
             for (int i = 0; i < layer.Length - 1; i++)
-                if (SwapWithGainWithBalance(layer[i], layer[i + 1])) {
-                    SwapToTheLeftWithBalance(layer, i);
-                    SwapToTheRightWithBalance(layer, i + 1);
-                    return true;
-                }
+            {
+               if (SwapWithGainWithBalance(layer[i], layer[i + 1])) {
+                  SwapToTheLeftWithBalance(layer, i);
+                  SwapToTheRightWithBalance(layer, i + 1);
+                  return true;
+               }
+            }
 
             return false;
         }

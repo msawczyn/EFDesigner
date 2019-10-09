@@ -115,9 +115,12 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
         /// <returns></returns>
         static public PlaneTransformation Multiply(PlaneTransformation a, PlaneTransformation b) {
             if (a != null && b != null)
-                return new PlaneTransformation(
-                   a[0, 0] * b[0, 0] + a[0, 1] * b[1, 0], a[0, 0] * b[0, 1] + a[0, 1] * b[1, 1], a[0, 0] * b[0, 2] + a[0, 1] * b[1, 2] + a[0, 2],
-                   a[1, 0] * b[0, 0] + a[1, 1] * b[1, 0], a[1, 0] * b[0, 1] + a[1, 1] * b[1, 1], a[1, 0] * b[0, 2] + a[1, 1] * b[1, 2] + a[1, 2]);
+            {
+               return new PlaneTransformation(
+                                              a[0, 0] * b[0, 0] + a[0, 1] * b[1, 0], a[0, 0] * b[0, 1] + a[0, 1] * b[1, 1], a[0, 0] * b[0, 2] + a[0, 1] * b[1, 2] + a[0, 2],
+                                              a[1, 0] * b[0, 0] + a[1, 1] * b[1, 0], a[1, 0] * b[0, 1] + a[1, 1] * b[1, 1], a[1, 0] * b[0, 2] + a[1, 1] * b[1, 2] + a[1, 2]);
+            }
+
             return null;
         }
 
@@ -221,9 +224,14 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             if ((object)b == null)
                 return false;
             for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 3;j++ )
-                    if (a[i,j] != b[i,j])
-                        return false;
+            {
+               for (int j = 0; j < 3;j++ )
+               {
+                  if (a[i,j] != b[i,j])
+                     return false;
+               }
+            }
+
             return true;
         }
 

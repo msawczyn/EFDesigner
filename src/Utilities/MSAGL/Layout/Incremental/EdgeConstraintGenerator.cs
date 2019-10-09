@@ -47,9 +47,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
             AxisSolver verticalSolver)
         {
             if (settings.EdgeDirectionConstraints == Directions.None)
-            {
-                return;
-            }
+               return;
+
             EdgeConstraintGenerator g = new EdgeConstraintGenerator(edges, settings, horizontalSolver, verticalSolver);
             g.GenerateSeparationConstraints();
 
@@ -80,9 +79,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
             }
 
             foreach (var v in nodeMap.Values) {
-                if(v.stackNode==null) {
-                    DFS(v);
-                }
+                if(v.stackNode==null)
+                   DFS(v);
             }
 
             while (stack.Count > 0) {
@@ -90,9 +88,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 RDFS(stack.Last.Value);
                 if (component.Count > 1) {
                     var cyclicComponent = new Set<Node>();
-                    foreach (var v in component) {
-                        cyclicComponent.Insert(v.v);
-                    }
+                    foreach (var v in component)
+                       cyclicComponent.Insert(v.v);
+
                     cyclicComponents.Add(cyclicComponent);
                 }
             }
@@ -153,9 +151,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
                         break;
                     }
                 }
-                if (!edgeInCycle) {
-                    this.addConstraint(u, v);
-                }
+                if (!edgeInCycle)
+                   this.addConstraint(u, v);
             }
         }
 
@@ -172,9 +169,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
         private void DFS(TNode u) {
             u.visited = true;
             foreach (var v in u.outNeighbours) {
-                if (!v.visited) {
-                    DFS(v);
-                }
+                if (!v.visited)
+                   DFS(v);
             }
             PushStack(u);
         }
@@ -182,9 +178,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
             component.Add(u);
             PopStack(u);
             foreach (var v in u.inNeighbours) {
-                if (v.stackNode != null) {
-                    RDFS(v);
-                }
+                if (v.stackNode != null)
+                   RDFS(v);
             }
         }
         private TNode CreateTNode(Node v) {
@@ -192,9 +187,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
             if (!nodeMap.ContainsKey(v)) {
                 tv = new TNode(v);
                 nodeMap[v] = tv;
-            } else {
-                tv = nodeMap[v];
-            }
+            } else
+               tv = nodeMap[v];
+
             return tv;
         }
         private void PushStack(TNode v) {

@@ -62,9 +62,14 @@ namespace Microsoft.Msagl.Routing
         {
             Debug.Assert(Cdt.Above(this, b) > 0);
             if (Edges != null)
-                foreach (var edge in Edges)
-                    if (edge.lowerSite == b)
-                        return edge;
+            {
+               foreach (var edge in Edges)
+               {
+                  if (edge.lowerSite == b)
+                     return edge;
+               }
+            }
+
             return null;
         }
 
@@ -110,9 +115,8 @@ namespace Microsoft.Msagl.Routing
                     { 
                         var t = e.upperSite == this ? e.CwTriangle : e.CcwTriangle;
                         if (t == null)
-                        {
-                            break;
-                        }
+                           break;
+
                         yield return t;
                         e = t.Edges[t.Edges.Index(e) + 1];
                     } while (true); // we will hit a null triangle for the convex hull border edge

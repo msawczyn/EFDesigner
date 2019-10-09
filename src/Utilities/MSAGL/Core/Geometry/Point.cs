@@ -459,9 +459,8 @@ namespace Microsoft.Msagl.Core.Geometry {
             }
 
             // v2 is collinear with v0
-            if (ApproximateComparer.Close(xp2, 0.0) && ApproximateComparer.GreaterOrEqual(dotp2, 0.0)) {
-                return -1;
-            }
+            if (ApproximateComparer.Close(xp2, 0.0) && ApproximateComparer.GreaterOrEqual(dotp2, 0.0))
+               return -1;
 
             if (ApproximateComparer.Close(xp1, 0.0) || ApproximateComparer.Close(xp2, 0.0) || xp1 * xp2 > 0.0) {
                 // both on same side of v0, compare to each other

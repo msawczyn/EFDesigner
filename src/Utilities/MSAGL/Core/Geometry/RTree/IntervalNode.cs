@@ -131,9 +131,9 @@ namespace Microsoft.Msagl.Core.Geometry {
         public IntervalNode<TData> FirstHitNode(double point, Func<double, TData, HitTestBehavior> hitTestFordoubleDelegate) {
             if (interval.Contains(point)) {
                 if (IsLeaf) {
-                    if (hitTestFordoubleDelegate != null) {
-                        return hitTestFordoubleDelegate(point, UserData) == HitTestBehavior.Stop ? this : null;
-                    }
+                    if (hitTestFordoubleDelegate != null)
+                       return hitTestFordoubleDelegate(point, UserData) == HitTestBehavior.Stop ? this : null;
+
                     return this;
                 }
                 return Left.FirstHitNode(point, hitTestFordoubleDelegate) ??
@@ -186,9 +186,8 @@ namespace Microsoft.Msagl.Core.Geometry {
                 IntervalNode<TData> node = stack.Pop();
                 if (node.Interval.Intersects(intervalPar)) {
                     if (node.IsLeaf) {
-                        if ((null == hitTestAccept) || hitTestAccept(node.UserData)) {
-                            yield return node.UserData;
-                        }
+                        if ((null == hitTestAccept) || hitTestAccept(node.UserData))
+                           yield return node.UserData;
                     }
                     else {
                         stack.Push(node.left);
@@ -224,9 +223,9 @@ namespace Microsoft.Msagl.Core.Geometry {
                     if (intervalNode.Left != null) {
                         // If intervalNode.Left is not null, intervalNode.Right won't be either.
                         if (VisitTreeStatic(intervalNode.Left, hitTest, hitInterval) == HitTestBehavior.Continue &&
-                            VisitTreeStatic(intervalNode.Right, hitTest, hitInterval) == HitTestBehavior.Continue) {
-                            return HitTestBehavior.Continue;
-                        }
+                            VisitTreeStatic(intervalNode.Right, hitTest, hitInterval) == HitTestBehavior.Continue)
+                           return HitTestBehavior.Continue;
+
                         return HitTestBehavior.Stop;
                     }
                     return HitTestBehavior.Continue;
@@ -270,9 +269,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             while (stack.Count > 0) {
                 IntervalNode<TData> node = stack.Pop();
                 if (node.Interval.Intersects(intervalPar)) {
-                    if (node.IsLeaf) {
-                        yield return node;
-                    } else {
+                    if (node.IsLeaf)
+                       yield return node;
+                    else {
                         stack.Push(node.left);
                         stack.Push(node.right);
                     }
@@ -298,9 +297,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             stack.Push(this);
             while (stack.Count > 0) {
                 var node = stack.Pop();
-                if (node.IsLeaf || !leafOnly) {
-                    yield return node;
-                }
+                if (node.IsLeaf || !leafOnly)
+                   yield return node;
+
                 if (!node.IsLeaf) {
                     stack.Push(node.left);
                     stack.Push(node.right);

@@ -43,12 +43,12 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 return weight;
             }
             set {
-                if (value > 1e20) {
-                    throw new ArgumentOutOfRangeException("value", "must be < 1e10 or we run out of precision");
-                }
-                if (value < 1e-3) {
-                    throw new ArgumentOutOfRangeException("value", "must be > 1e-3 or we run out of precision");
-                }
+                if (value > 1e20)
+                   throw new ArgumentOutOfRangeException("value", "must be < 1e10 or we run out of precision");
+
+                if (value < 1e-3)
+                   throw new ArgumentOutOfRangeException("value", "must be > 1e-3 or we run out of precision");
+
                 weight = value;
             }
         }
@@ -87,9 +87,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
                         v.Center += delta;
                         displacement += deltaLength;
                     }
-                    if(c == cluster) {
-                        cluster.RectangularBoundary.Rect = Bounds;
-                    }
+                    if(c == cluster)
+                       cluster.RectangularBoundary.Rect = Bounds;
                     else 
                     {
                         var r = c.RectangularBoundary.Rect;
@@ -98,9 +97,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 }
             } 
             else
-            {
-                node.BoundingBox = Bounds;
-            }
+               node.BoundingBox = Bounds;
+
             return displacement;
         }
         /// <summary>
@@ -129,21 +127,17 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 {
                     c.RectangularBoundary.GenerateFixedConstraints = true;
                     foreach (var child in  c.Nodes)
-                    {
-                        SetFINodeWeight(child, weight);
-                    }
+                       SetFINodeWeight(child, weight);
                 }
             }
             else
-            {
-                SetFINodeWeight(node, weight);
-            }
+               SetFINodeWeight(node, weight);
+
             foreach (Cluster ancestor in this.node.AllClusterAncestors)
             {
                 if (ancestor.RectangularBoundary != null)
-                {
-                    ancestor.RectangularBoundary.GenerateFixedConstraints = false;
-                }
+                   ancestor.RectangularBoundary.GenerateFixedConstraints = false;
+
                 ancestor.UnsetInitialLayoutState();
             }
         }
@@ -160,22 +154,18 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 {
                     c.RectangularBoundary.GenerateFixedConstraints = c.RectangularBoundary.GenerateFixedConstraintsDefault;
                     foreach (var child in c.Nodes)
-                    {
-                        SetFINodeWeight(child, 1);
-                    }
+                       SetFINodeWeight(child, 1);
                 }
             }
             else
-            {
-                SetFINodeWeight(node, 1);
-            }
+               SetFINodeWeight(node, 1);
+
             Cluster parent = node.ClusterParents.FirstOrDefault();
             while (parent != null)
             {
                 if (parent.RectangularBoundary != null)
-                {
-                    parent.RectangularBoundary.GenerateFixedConstraints = parent.RectangularBoundary.GenerateFixedConstraintsDefault;
-                }
+                   parent.RectangularBoundary.GenerateFixedConstraints = parent.RectangularBoundary.GenerateFixedConstraintsDefault;
+
                 parent = parent.ClusterParents.FirstOrDefault();
             }
         }
@@ -184,9 +174,7 @@ namespace Microsoft.Msagl.Layout.Incremental {
         {
             var v = child.AlgorithmData as FiNode;
             if (v != null)
-            {
-                v.stayWeight = weight;
-            }
+               v.stayWeight = weight;
         }
 
         /// <summary>
@@ -199,13 +187,10 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 var nodes = new List<Node>();
                 var cluster = node as Cluster;
                 if(cluster!=null)
-                {
-                    cluster.ForEachNode(nodes.Add);
-                }
+                   cluster.ForEachNode(nodes.Add);
                 else
-                {
-                    nodes.Add(node);
-                }
+                   nodes.Add(node);
+
                 return nodes;
             }
         }

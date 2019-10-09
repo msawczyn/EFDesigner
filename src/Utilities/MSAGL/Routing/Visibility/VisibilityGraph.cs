@@ -411,9 +411,7 @@ namespace Microsoft.Msagl.Routing.Visibility
         public void ClearEdges()
         {
             foreach (var visibilityVertex in Vertices())
-            {
-                visibilityVertex.ClearEdges();
-            }
+               visibilityVertex.ClearEdges();
         }
     }
 }

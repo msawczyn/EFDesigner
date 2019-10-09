@@ -84,25 +84,24 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         }
 
         private bool InitPath(VertexEntry[] sourceVertexEntries, VisibilityVertexRectilinear source, VisibilityVertexRectilinear target) {
-            if ((source == target) || !InitEntryDirectionsAtTarget(target)) {
-                return false;
-            }
+            if ((source == target) || !InitEntryDirectionsAtTarget(target))
+               return false;
+
             this.Target = target;
             this.Source = source;
             double cost = this.TotalCostFromSourceToVertex(0, 0) + HeuristicDistanceFromVertexToTarget(source.Point, Directions. None);
-            if (cost >= this.upperBoundOnCost) {
-                return false;
-            }
+            if (cost >= this.upperBoundOnCost)
+               return false;
 
             // This path starts lower than upperBoundOnCost, so create our structures and process it.
             this.queue = new GenericBinaryHeapPriorityQueueWithTimestamp<VertexEntry>();
             this.visitedVertices = new List<VisibilityVertexRectilinear> { source };
 
-            if (sourceVertexEntries == null) {
-                EnqueueInitialVerticesFromSource(cost);
-            } else {
-                EnqueueInitialVerticesFromSourceEntries(sourceVertexEntries);
-            }
+            if (sourceVertexEntries == null)
+               EnqueueInitialVerticesFromSource(cost);
+            else
+               EnqueueInitialVerticesFromSourceEntries(sourceVertexEntries);
+
             return this.queue.Count > 0;
         }
 
@@ -155,9 +154,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             if (entryDirToVertex == Directions. None) {
                 entryDirToVertex = Directions.East | Directions.North | Directions.West | Directions.South;
                 numberOfBends = GetNumberOfBends(entryDirToVertex, dirToTarget);
-            } else {
-                numberOfBends = GetNumberOfBends(entryDirToVertex, dirToTarget);
-            }
+            } else
+               numberOfBends = GetNumberOfBends(entryDirToVertex, dirToTarget);
+
             return CombinedCost(ManhattanDistance(point, Target.Point), numberOfBends) + this.targetCostAdjustment;
         }
 
@@ -169,12 +168,12 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         private int GetNumberOfBendsForPureDirection(Directions entryDirToVertex, Directions dirToTarget) {
             if ( (dirToTarget & entryDirToVertex) == dirToTarget) {
-                if (IsInDirs(dirToTarget, EntryDirectionsToTarget)) {
-                    return 0;
-                }
-                if (IsInDirs(Left(dirToTarget), EntryDirectionsToTarget) || IsInDirs(Right(dirToTarget), EntryDirectionsToTarget)) {
-                    return 2;
-                }
+                if (IsInDirs(dirToTarget, EntryDirectionsToTarget))
+                   return 0;
+
+                if (IsInDirs(Left(dirToTarget), EntryDirectionsToTarget) || IsInDirs(Right(dirToTarget), EntryDirectionsToTarget))
+                   return 2;
+
                 return 4;
             }
             return GetNumberOfBendsForPureDirection(AddOneTurn[(int)entryDirToVertex], dirToTarget) + 1;
@@ -182,13 +181,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         private static int GetBendsForNotPureDirection(Directions dirToTarget, Directions entryDirToVertex, Directions entryDirectionsToTarget) {
             Directions a = dirToTarget & entryDirToVertex;
-            if (a == Directions. None) {
-                return GetBendsForNotPureDirection(dirToTarget, AddOneTurn[(int)entryDirToVertex], entryDirectionsToTarget) + 1;
-            }
+            if (a == Directions. None)
+               return GetBendsForNotPureDirection(dirToTarget, AddOneTurn[(int)entryDirToVertex], entryDirectionsToTarget) + 1;
+
             Directions b = dirToTarget & entryDirectionsToTarget;
-            if (b == Directions. None) {
-                return GetBendsForNotPureDirection(dirToTarget, entryDirToVertex, AddOneTurn[(int)entryDirectionsToTarget]) + 1;
-            }
+            if (b == Directions. None)
+               return GetBendsForNotPureDirection(dirToTarget, entryDirToVertex, AddOneTurn[(int)entryDirectionsToTarget]) + 1;
+
             return (a | b) == dirToTarget ? 1 : 2;
         }
 
@@ -250,31 +249,31 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         }
 
         internal static IEnumerable<Point> RestorePath(ref VertexEntry entry, VisibilityVertex firstVertexInStage) {
-            if (entry == null) {
-                return null;
-            }
+            if (entry == null)
+               return null;
+
             var list = new List<Point>();
             bool skippedCollinearEntry = false;
             Directions lastEntryDir = Directions. None;
             while (true) {
                 // Reduce unnecessary AxisEdge creations in Nudger by including only bend points, not points in the middle of a segment.
-                if (lastEntryDir == entry.Direction) {
-                    skippedCollinearEntry = true;
-                } else {
+                if (lastEntryDir == entry.Direction)
+                   skippedCollinearEntry = true;
+                else {
                     skippedCollinearEntry = false;
                     list.Add(entry.Vertex.Point);
                     lastEntryDir = entry.Direction;
                 }
 
                 var previousEntry = entry.PreviousEntry;
-                if ((previousEntry == null) || (entry.Vertex == firstVertexInStage)) {
-                    break;
-                }
+                if ((previousEntry == null) || (entry.Vertex == firstVertexInStage))
+                   break;
+
                 entry = previousEntry;
             }
-            if (skippedCollinearEntry) {
-                list.Add(entry.Vertex.Point);
-            }
+            if (skippedCollinearEntry)
+               list.Add(entry.Vertex.Point);
+
             list.Reverse();
             return list;
         }
@@ -299,20 +298,20 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             var count = this.visitedVertices.Count;
             for (int ii = 0; ii < count; ++ii) {
                 var vertex = this.visitedVertices[ii];
-                if (vertex.VertexEntries == null) {
-                    continue;   // this is the source vertex
-                }
+                if (vertex.VertexEntries == null)
+                   continue;   // this is the source vertex
+
                 foreach (var entry in vertex.VertexEntries) {
-                    if (entry == null) {
-                        continue;
-                    }
+                    if (entry == null)
+                       continue;
+
                     var color = "green";
                     if (entry.PreviousEntry == mostRecentlyExtendedPath) {
                         newEntries.Add(entry);
                         color = "red";
-                    } else if (!entry.IsClosed) {
-                        color = "yellow";
-                    }
+                    } else if (!entry.IsClosed)
+                       color = "yellow";
+
                     pathEdges.Add(new DebugCurve(2, color, new LineSegment(entry.PreviousVertex.Point, vertex.Point)));
                 }
             }
@@ -377,17 +376,16 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             while (!targetFound) {
                 while (q.Count > 0) {
                     VisibilityVertex v = q.Dequeue();
-                    if (processedVertices.Contains(v)) {
-                        continue;
-                    }
+                    if (processedVertices.Contains(v))
+                       continue;
+
                     targetFound |= (v == this.Target);
                     processedVertices.Insert(v);
-                    foreach (var u in VertsToGo(v).Where(u => !processedVertices.Contains(u))) {
-                        q.Enqueue(u);
-                    }
-                    foreach (VisibilityEdge edge in v.OutEdges) {
-                        yield return edge;
-                    }
+                    foreach (var u in VertsToGo(v).Where(u => !processedVertices.Contains(u)))
+                       q.Enqueue(u);
+
+                    foreach (VisibilityEdge edge in v.OutEdges)
+                       yield return edge;
                 }
                 q.Enqueue(this.Target);
                 targetFound = true;
@@ -395,11 +393,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         }
 
         private static IEnumerable<VisibilityVertex> VertsToGo(VisibilityVertex visibilityVertex) {
-            foreach (var edge in visibilityVertex.OutEdges) {
-                yield return edge.Target;
-            }
-            foreach (var edge in visibilityVertex.InEdges) {
-                yield return edge.Source;}
+            foreach (var edge in visibilityVertex.OutEdges)
+               yield return edge.Target;
+
+            foreach (var edge in visibilityVertex.InEdges)
+               yield return edge.Source;
         }
 
 #endif // TEST_MSAGL
@@ -437,9 +435,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             var dirToNeighbor = GetLengthAndNumberOfBendsToNeighborVertex(bestEntry, neigVer, weight, out numberOfBends, out length);
             var cost = this.TotalCostFromSourceToVertex(length, numberOfBends) + HeuristicDistanceFromVertexToTarget(neigVer.Point, dirToNeighbor);
             if (cost < this.upperBoundOnCost) {
-                if (neigVer.VertexEntries == null) {
-                    this.visitedVertices.Add(neigVer);
-                }
+                if (neigVer.VertexEntries == null)
+                   this.visitedVertices.Add(neigVer);
+
                 EnqueueEntry(bestEntry, neigVer, length, numberOfBends, cost);
             }
         }
@@ -455,9 +453,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             length = prevEntry.Length + ManhattanDistance(prevEntry.Vertex.Point, vertex.Point)*weight;
             Directions directionToVertex = CompassVector.PureDirectionFromPointToPoint(prevEntry.Vertex.Point, vertex.Point);
             numberOfBends = prevEntry.NumberOfBends;
-            if (prevEntry.Direction != Directions. None && directionToVertex != prevEntry.Direction) {
-                numberOfBends++;
-            }
+            if (prevEntry.Direction != Directions. None && directionToVertex != prevEntry.Direction)
+               numberOfBends++;
+
             return directionToVertex;
         }
 
@@ -515,24 +513,23 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 bestEntry.IsClosed = true;
 
                 // PerfNote: Array.ForEach is optimized, but don't use .Where.
-                foreach (var bendNeighbor in this.nextNeighbors) {
-                    bendNeighbor.Clear();
-                }
+                foreach (var bendNeighbor in this.nextNeighbors)
+                   bendNeighbor.Clear();
+
                 var preferredBendDir = Right(bestEntry.Direction);
                 this.ExtendPathAlongInEdges(bestEntry, bestVertex.InEdges, preferredBendDir);
                 this.ExtendPathAlongOutEdges(bestEntry, bestVertex.OutEdges, preferredBendDir);
                 foreach (var bendNeighbor in this.nextNeighbors) {
-                    if (bendNeighbor.Vertex != null) {
-                        this.ExtendPathToNeighborVertex(bestEntry, bendNeighbor.Vertex, bendNeighbor.Weight);
-                    }
+                    if (bendNeighbor.Vertex != null)
+                       this.ExtendPathToNeighborVertex(bestEntry, bendNeighbor.Vertex, bendNeighbor.Weight);
                 }
                 this.DevTraceShowAllPartialPaths(source, bestEntry);
             }
 
             // Either there is no path to the target, or we have abandoned the path due to exceeding priorBestCost.
-            if ((targetVertexEntries != null) && (this.Target.VertexEntries != null)) {
-                this.Target.VertexEntries.CopyTo(targetVertexEntries, 0);
-            }
+            if ((targetVertexEntries != null) && (this.Target.VertexEntries != null))
+               this.Target.VertexEntries.CopyTo(targetVertexEntries, 0);
+
             this.DevTraceShowPath(source, null);
             Cleanup();
             return null;
@@ -550,15 +547,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         private void ExtendPathAlongOutEdges(VertexEntry bestEntry, RbTree<VisibilityEdge> edges, Directions preferredBendDir) {
             // Avoid GetEnumerator overhead.
             var outEdgeNode = edges.IsEmpty() ? null : edges.TreeMinimum();
-            for (; outEdgeNode != null; outEdgeNode = edges.Next(outEdgeNode)) {
-                ExtendPathAlongEdge(bestEntry, outEdgeNode.Item, false, preferredBendDir);
-            }
+            for (; outEdgeNode != null; outEdgeNode = edges.Next(outEdgeNode))
+               ExtendPathAlongEdge(bestEntry, outEdgeNode.Item, false, preferredBendDir);
         }
 
         private void ExtendPathAlongEdge(VertexEntry bestEntry, VisibilityEdge edge, bool isInEdges, Directions preferredBendDir) {
-            if (!IsPassable(edge)) {
-                return;
-            }
+            if (!IsPassable(edge))
+               return;
 
             // This is after the initial source vertex so PreviousEntry won't be null.
             var neigVer = (VisibilityVertexRectilinear)(isInEdges ? edge.Source : edge.Target);
@@ -566,9 +561,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 // For multistage paths, the source may be a waypoint outside the graph boundaries that is collinear
                 // with both the previous and next points in the path; in that case it may have only one degree.
                 // For other cases, we just ignore it and the path will be abandoned.
-                if ((bestEntry.Vertex.Degree > 1) || (bestEntry.Vertex != this.Source)) {
-                    return;
-                }
+                if ((bestEntry.Vertex.Degree > 1) || (bestEntry.Vertex != this.Source))
+                   return;
+
                 this.ExtendPathToNeighborVertex(bestEntry, neigVer, edge.Weight);
                 return;
             }
@@ -576,9 +571,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             // Enqueue in reverse order of preference per comments on NextNeighbor class.
             var neigDir = CompassVector.PureDirectionFromPointToPoint(bestEntry.Vertex.Point, neigVer.Point);
             var nextNeighbor = this.nextNeighbors[2];
-            if (neigDir != bestEntry.Direction) {
-                nextNeighbor = this.nextNeighbors[(neigDir == preferredBendDir) ? 1 : 0];
-            }
+            if (neigDir != bestEntry.Direction)
+               nextNeighbor = this.nextNeighbors[(neigDir == preferredBendDir) ? 1 : 0];
+
             Debug.Assert(nextNeighbor.Vertex == null, "bend neighbor already exists");
             nextNeighbor.Set(neigVer, edge.Weight);
         }
@@ -589,19 +584,17 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             };
 
             // This routine is only called once so don't worry about optimizing foreach.where
-            foreach (var edge in this.Source.OutEdges.Where(IsPassable)) {
-                this.ExtendPathToNeighborVertex(bestEntry, (VisibilityVertexRectilinear)edge.Target, edge.Weight);
-            }
-            foreach (var edge in this.Source.InEdges.Where(IsPassable)) {
-                this.ExtendPathToNeighborVertex(bestEntry, (VisibilityVertexRectilinear)edge.Source, edge.Weight);
-            }
+            foreach (var edge in this.Source.OutEdges.Where(IsPassable))
+               this.ExtendPathToNeighborVertex(bestEntry, (VisibilityVertexRectilinear)edge.Target, edge.Weight);
+
+            foreach (var edge in this.Source.InEdges.Where(IsPassable))
+               this.ExtendPathToNeighborVertex(bestEntry, (VisibilityVertexRectilinear)edge.Source, edge.Weight);
         }
 
         private void EnqueueInitialVerticesFromSourceEntries(VertexEntry[] sourceEntries) {
             foreach (var entry in sourceEntries) {
-                if (entry != null) {
-                    this.queue.Enqueue(entry, entry.Cost);
-                }
+                if (entry != null)
+                   this.queue.Enqueue(entry, entry.Cost);
             }
         }
 
@@ -610,12 +603,10 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
             var neigEntry = (neigVer.VertexEntries != null) ? neigVer.VertexEntries[CompassVector.ToIndex(dirToNeighbor)] : null;
             if (neigEntry == null) {
-                if (!this.CreateAndEnqueueReversedEntryToNeighborVertex(bestEntry, neigVer, weight)) {
-                    this.CreateAndEnqueueEntryToNeighborVertex(bestEntry, neigVer, weight);
-                }
-            } else if (!neigEntry.IsClosed) {
-                this.UpdateEntryToNeighborVertexIfNeeded(bestEntry, neigEntry, weight);
-            }
+                if (!this.CreateAndEnqueueReversedEntryToNeighborVertex(bestEntry, neigVer, weight))
+                   this.CreateAndEnqueueEntryToNeighborVertex(bestEntry, neigVer, weight);
+            } else if (!neigEntry.IsClosed)
+               this.UpdateEntryToNeighborVertexIfNeeded(bestEntry, neigEntry, weight);
         }
 
         private bool CreateAndEnqueueReversedEntryToNeighborVertex(VertexEntry bestEntry, VisibilityVertexRectilinear neigVer, double weight) {
@@ -645,9 +636,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         private void Cleanup()
         {
-            foreach (var v in this.visitedVertices) {
-                v.RemoveVertexEntries();
-            }
+            foreach (var v in this.visitedVertices)
+               v.RemoveVertexEntries();
+
             this.visitedVertices.Clear();
             this.queue = null;
             this.TestClearIterations();

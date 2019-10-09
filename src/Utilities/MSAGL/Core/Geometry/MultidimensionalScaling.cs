@@ -31,9 +31,8 @@ namespace Microsoft.Msagl.Core.Geometry {
             mean /= matrix.Length;
             mean /= matrix[0].Length;
             for (int i = 0; i < matrix.Length; i++) {
-                for (int j = 0; j < matrix[0].Length; j++) {
-                    matrix[i][j] -= rowMean[i] + colMean[j] - mean;
-                }
+                for (int j = 0; j < matrix[0].Length; j++)
+                   matrix[i][j] -= rowMean[i] + colMean[j] - mean;
             }
         }
 
@@ -44,9 +43,8 @@ namespace Microsoft.Msagl.Core.Geometry {
         public static void SquareEntries(double[][] matrix) {
             ValidateArg.IsNotNull(matrix, "matrix");
             for (int i = 0; i < matrix.Length; i++) {
-                for (int j = 0; j < matrix[0].Length; j++) {
-                    matrix[i][j] = Math.Pow(matrix[i][j], 2);
-                }
+                for (int j = 0; j < matrix[0].Length; j++)
+                   matrix[i][j] = Math.Pow(matrix[i][j], 2);
             }
         }
 
@@ -58,9 +56,8 @@ namespace Microsoft.Msagl.Core.Geometry {
         public static void Multiply(double[][] matrix, double factor) {
             ValidateArg.IsNotNull(matrix, "matrix");
             for (int i = 0; i < matrix.Length; i++) {
-                for (int j = 0; j < matrix[0].Length; j++) {
-                    matrix[i][j] *= factor;
-                }
+                for (int j = 0; j < matrix[0].Length; j++)
+                   matrix[i][j] *= factor;
             }
         }
 
@@ -80,9 +77,8 @@ namespace Microsoft.Msagl.Core.Geometry {
             if(A[0].Length!=x.Length) return null;
             double[] y=new double[x.Length];
             for (int i = 0; i < A.Length; i++) {
-                for (int j = 0; j < A[0].Length; j++) {
-                    y[i]+=A[i][j]*x[j];
-                }
+                for (int j = 0; j < A[0].Length; j++)
+                   y[i]+=A[i][j]*x[j];
             }
             return y;
         }
@@ -97,9 +93,9 @@ namespace Microsoft.Msagl.Core.Geometry {
         public static double Norm(double[] x) {
             ValidateArg.IsNotNull(x, "x");
             double norm=0;
-            for (int i = 0; i < x.Length; i++) {
-                norm += Math.Pow(x[i], 2);
-            }
+            for (int i = 0; i < x.Length; i++)
+               norm += Math.Pow(x[i], 2);
+
             norm = Math.Sqrt(norm);
             return norm;
         }
@@ -116,9 +112,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             ValidateArg.IsNotNull(x, "x");
             double lambda = Norm(x);
             if (lambda <= 0) return 0;
-            for (int i = 0; i < x.Length; i++) {
-                x[i] /= lambda;
-            }
+            for (int i = 0; i < x.Length; i++)
+               x[i] /= lambda;
+
             return lambda;
         }
 
@@ -132,9 +128,9 @@ namespace Microsoft.Msagl.Core.Geometry {
         public static double[] RandomUnitLengthVector(int n, int seed) {
             double[] result=new double[n];
             Random random=new Random(seed);
-            for (int i = 0; i < n; i++) {
-                result[i] = random.NextDouble();
-            }
+            for (int i = 0; i < n; i++)
+               result[i] = random.NextDouble();
+
             Normalize(result);
             return result;
         }
@@ -205,9 +201,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             ValidateArg.IsNotNull(y, "y");
             if (x.Length != y.Length) return 0;
             double result = 0;
-            for (int i = 0; i < x.Length; i++) {
-                result += x[i]*y[i];
-            }
+            for (int i = 0; i < x.Length; i++)
+               result += x[i]*y[i];
+
             return result;
         }
 
@@ -223,9 +219,8 @@ namespace Microsoft.Msagl.Core.Geometry {
             ValidateArg.IsNotNull(y, "y");
             if (x.Length != y.Length) return;
             double prod = DotProduct(x, y) / DotProduct(y, y);            
-            for (int i = 0; i < x.Length; i++) {
-                x[i] -= prod*y[i];
-            }
+            for (int i = 0; i < x.Length; i++)
+               x[i] -= prod*y[i];
         }
 
         /// <summary>
@@ -288,18 +283,16 @@ namespace Microsoft.Msagl.Core.Geometry {
             int[] index = new int[k];
             for (int i = 0; i < k; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (d[i][j] == 0) {
-                        index[i] = j;
-                    }
+                    if (d[i][j] == 0)
+                       index[i] = j;
                 }
             }
 
             double[] wSum = new double[k];
             for (int i = 0; i < k; i++) {
                 for (int j = 0; j < n; j++) {
-                    if(index[i]!=j) {
-                        wSum[i] += w[i][j];
-                    }
+                    if(index[i]!=j)
+                       wSum[i] += w[i][j];
                 }
             }
             for (int c = 0; c < numberOfIterations; c++) {
@@ -401,9 +394,8 @@ namespace Microsoft.Msagl.Core.Geometry {
             double[][] d = new double[x.Length][];
             for (int i = 0; i < x.Length; i++) {
                 d[i] = new double[x.Length];
-                for (int j = 0; j < x.Length; j++) {
-                    d[i][j] = Math.Sqrt(Math.Pow(x[i] - x[j], 2) + Math.Pow(y[i] - y[j], 2));
-                }
+                for (int j = 0; j < x.Length; j++)
+                   d[i][j] = Math.Sqrt(Math.Pow(x[i] - x[j], 2) + Math.Pow(y[i] - y[j], 2));
             }
             return d;
         }
@@ -427,16 +419,15 @@ namespace Microsoft.Msagl.Core.Geometry {
             double[][] c=new double[d.Length][];
             for (int i = 0; i < d.Length; i++) {
                 c[i]=new double[d.Length];
-                for (int j = 0; j < d.Length; j++) {
-                    c[i][j]=d[i][pivotArray[j]];
-                }
+                for (int j = 0; j < d.Length; j++)
+                   c[i][j]=d[i][pivotArray[j]];
             }
             SquareEntries(c);
             double[] mean=new double[d.Length];
             for (int i = 0; i < d.Length; i++) {
-                for (int j = 0; j < d.Length; j++) {
-                    mean[i] += c[i][j];
-                }
+                for (int j = 0; j < d.Length; j++)
+                   mean[i] += c[i][j];
+
                 mean[i] /= d.Length;
             }
             DoubleCenter(c);

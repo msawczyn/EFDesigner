@@ -32,12 +32,12 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 eventList.Add(new SegEvent(SegEventType.VOpen, seg));
                 eventList.Add(new SegEvent(SegEventType.VClose, seg));
             }
-            foreach (ScanSegment seg in hSegments) {
-                eventList.Add(new SegEvent(SegEventType.HOpen, seg));
-            }
-            if (0 == eventList.Count) {
-                return null; // empty
-            }
+            foreach (ScanSegment seg in hSegments)
+               eventList.Add(new SegEvent(SegEventType.HOpen, seg));
+
+            if (0 == eventList.Count)
+               return null; // empty
+
             eventList.Sort(this);
 
             // Note: We don't need any sentinels in the scanline here, because the lowest VOpen
@@ -75,9 +75,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         void OnSegmentClose(ScanSegment seg) {
             seg.OnSegmentIntersectorEnd(visGraph);
-            if (null == seg.LowestVisibilityVertex) {
-                segmentsWithoutVisibility.Add(seg);
-            }
+            if (null == seg.LowestVisibilityVertex)
+               segmentsWithoutVisibility.Add(seg);
         }
 
         // Scan segments with no visibility will usually be internal to an overlap clump, 
@@ -86,9 +85,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         // would require extra handling later.
         internal void RemoveSegmentsWithNoVisibility(ScanSegmentTree horizontalScanSegments,
                                                      ScanSegmentTree verticalScanSegments) {
-            foreach (ScanSegment seg in segmentsWithoutVisibility) {
-                (seg.IsVertical ? verticalScanSegments : horizontalScanSegments).Remove(seg);
-            }
+            foreach (ScanSegment seg in segmentsWithoutVisibility)
+               (seg.IsVertical ? verticalScanSegments : horizontalScanSegments).Remove(seg);
         }
 
         #region Scanline utilities
@@ -116,9 +114,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
             for (; null != segNode; segNode = verticalSegmentsScanLine.Next(segNode)) {
                 ScanSegment vSeg = segNode.Item;
-                if (1 == PointComparer.Compare(vSeg.Start.X, hSeg.End.X)) {
-                    break; // Out of HSeg range
-                }
+                if (1 == PointComparer.Compare(vSeg.Start.X, hSeg.End.X))
+                   break; // Out of HSeg range
+
                 VisibilityVertex newVertex = visGraph.AddVertex(new Point(vSeg.Start.X, hSeg.Start.Y));
 
                 // HSeg has just opened so if we are overlapped and newVertex already existed,
@@ -146,22 +144,20 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         /// <param name="second"></param>
         /// <returns></returns>
         public int Compare(SegEvent first, SegEvent second) {
-            if (first == second) {
-                return 0;
-            }
-            if (first == null) {
-                return -1;
-            }
-            if (second == null) {
-                return 1;
-            }
+            if (first == second)
+               return 0;
+
+            if (first == null)
+               return -1;
+
+            if (second == null)
+               return 1;
 
             // Unlike the ScanSegment-generating scanline in VisibilityGraphGenerator, this scanline has no slope
             // calculations so no additional rounding error is introduced.
             int cmp = PointComparer.Compare(first.Site.Y, second.Site.Y);
-            if (0 != cmp) {
-                return cmp;
-            }
+            if (0 != cmp)
+               return cmp;
 
             // Both are at same Y so we must ensure that for equivalent Y, VClose comes after 
             // HOpen which comes after VOpen, thus make sure VOpen comes before VClose.
@@ -198,12 +194,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             // (RectilinearTests.Connected_Vertical_Segments_Are_Intersected tests that we get the expected count here.)
             // Start assuming Vevent is 'first' and it's VOpen, which should come before HOpen.
             cmp = -1; // Start with first == VOpen
-            if (SegEventType.VClose == vEvent.EventType) {
-                cmp = 1; // change to first == VClose
-            }
-            if (vEvent != first) {
-                cmp *= -1; // undo the swap.
-            }
+            if (SegEventType.VClose == vEvent.EventType)
+               cmp = 1; // change to first == VClose
+
+            if (vEvent != first)
+               cmp *= -1; // undo the swap.
 
             return cmp;
         }
@@ -219,15 +214,14 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         /// <param name="second"></param>
         /// <returns></returns>
         public int Compare(ScanSegment first, ScanSegment second) {
-            if (first == second) {
-                return 0;
-            }
-            if (first == null) {
-                return -1;
-            }
-            if (second == null) {
-                return 1;
-            }
+            if (first == second)
+               return 0;
+
+            if (first == null)
+               return -1;
+
+            if (second == null)
+               return 1;
 
             // Note: Unlike the ScanSegment-generating scanline, this scanline has no slope
             // calculations so no additional rounding error is introduced.
@@ -235,9 +229,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
             // Separate segments may join at Start and End due to overlap, so compare the Y positions;
             // the Close (lowest Y) comes before the Open.
-            if (0 == cmp) {
-                cmp = PointComparer.Compare(first.Start.Y, second.Start.Y);
-            }
+            if (0 == cmp)
+               cmp = PointComparer.Compare(first.Start.Y, second.Start.Y);
+
             return cmp;
         }
 

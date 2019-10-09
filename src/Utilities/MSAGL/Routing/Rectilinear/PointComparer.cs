@@ -52,11 +52,10 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             Assert_Rounded(rhs);
 
             int cmp = 0;
-            if (lhs + DifferenceEpsilon < rhs) {
-                cmp = -1;
-            } else if (rhs + DifferenceEpsilon < lhs) {
-                cmp = 1;
-            }
+            if (lhs + DifferenceEpsilon < rhs)
+               cmp = -1;
+            else if (rhs + DifferenceEpsilon < lhs)
+               cmp = 1;
 
             // Just to be sure we're in sync with CompassVector
             Debug.Assert((cmp < 0) == (Directions.East == CompassVector.VectorDirection(new Point(lhs, 0), new Point(rhs, 0))));
@@ -73,9 +72,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         /// less than rhs, else 1.</returns>
         public static int Compare(Point lhs, Point rhs) {
             int cmp = Compare(lhs.X, rhs.X);
-            if (0 == cmp) {
-                cmp = Compare(lhs.Y, rhs.Y);
-            }
+            if (0 == cmp)
+               cmp = Compare(lhs.Y, rhs.Y);
+
             return cmp;
         }
 
@@ -106,9 +105,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         static void Assert_Rounded(double d) {
             // Be sure there is enough precision to round that far; anything larger than this is
             // unlikely to be a graph coordinate (it's probably a line intersection way out of range).
-            if (Math.Log10(Math.Abs(d)) < (14 - ApproximateComparer.DistanceEpsilonPrecision)) {
-                Debug.Assert(Math.Abs(ApproximateComparer.Round(d) - d) < DifferenceEpsilon, "unRounded value passed");
-            }
+            if (Math.Log10(Math.Abs(d)) < (14 - ApproximateComparer.DistanceEpsilonPrecision))
+               Debug.Assert(Math.Abs(ApproximateComparer.Round(d) - d) < DifferenceEpsilon, "unRounded value passed");
         }
 
         [Conditional("DEBUG")]

@@ -219,10 +219,10 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("ColorShapeOutlines"))
+         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("SetClassVisuals"))
          {
             foreach (ModelClass modelClass in modelRoot.Store.ElementDirectory.FindElements<ModelClass>())
-               PresentationHelper.ColorShapeOutline(modelClass);
+               PresentationHelper.SetClassVisuals(modelClass);
             tx.Commit();
          }
 

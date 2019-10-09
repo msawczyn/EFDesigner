@@ -202,10 +202,12 @@ namespace Microsoft.Msagl.Layout.Layered {
             //add non overlapping constraints between to neighbor labels
             double prevLabelWidth = GetMaxLabelWidth(pairArray[0]);
             for (i = 0; i < pairArray.Length - 1; i++)
-                solver.AddLeftRightSeparationConstraint(i, i + 1,
-                                                        (prevLabelWidth +
-                                                         (prevLabelWidth = GetMaxLabelWidth(pairArray[i + 1])))/2 +
-                                                        settings.NodeSeparation);
+            {
+               solver.AddLeftRightSeparationConstraint(i, i + 1,
+                                                       (prevLabelWidth +
+                                                        (prevLabelWidth = GetMaxLabelWidth(pairArray[i + 1])))/2 +
+                                                       settings.NodeSeparation);
+            }
 
             for (i = 0; i < labelCenters.Length; i++) {
                 double x = labelCenters[i] = solver.GetVariableResolvedPosition(i);

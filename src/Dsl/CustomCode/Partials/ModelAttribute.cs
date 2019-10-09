@@ -324,6 +324,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsColumnNameTracking)
+         {
             try
             {
                return Name;
@@ -339,6 +340,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return null;
             }
+         }
 
          return columnNameStorage;
       }
@@ -365,6 +367,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsImplementNotifyTracking)
+         {
             try
             {
                return ModelClass?.ImplementNotify ?? false;
@@ -380,6 +383,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return false;
             }
+         }
 
          return implementNotifyStorage;
       }
@@ -406,6 +410,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsAutoPropertyTracking)
+         {
             try
             {
                return ModelClass?.AutoPropertyDefault ?? false;
@@ -421,6 +426,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return true;
             }
+         }
 
          return autoPropertyStorage;
       }
@@ -446,6 +452,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsColumnTypeTracking)
+         {
             try
             {
                return "default";
@@ -461,6 +468,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return "default";
             }
+         }
 
          return columnTypeStorage;
       }
@@ -791,10 +799,12 @@ namespace Sawczyn.EFDesigner.EFModel
       protected virtual void OnTypeChanged(string oldValue, string newValue)
       {
          if (ModelClass != null)
+         {
             TrackingHelper.UpdateTrackingCollectionProperty(Store,
                                                             ModelClass.Attributes,
                                                             ModelAttribute.ColumnTypeDomainPropertyId,
                                                             ModelAttribute.IsColumnTypeTrackingDomainPropertyId);
+         }
       }
 
       internal sealed partial class TypePropertyHandler
@@ -884,9 +894,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
          else
-         {
             throw new ArgumentException(AttributeParser.FailMessage);
-         }
 
          return result;
       }

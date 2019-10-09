@@ -103,8 +103,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             foreach (var s in gluedDomain) {
                 affectedPoints.Add(s.Position);
                 foreach (var neig in s.Neighbors)
-                    if (!neig.IsRealNode)
-                        affectedPoints.Add(neig.Position);
+                {
+                   if (!neig.IsRealNode)
+                      affectedPoints.Add(neig.Position);
+                }
             }
 
             //TimeMeasurer.DebugOutput("gluing nodes");
@@ -115,9 +117,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         }
 
         RectangleNode<Station> GetCirclesHierarchy() {
-            foreach (var v in metroGraphData.VirtualNodes()) {
-                v.Radius = GetCurrentHubRadius(v);
-            }
+            foreach (var v in metroGraphData.VirtualNodes())
+               v.Radius = GetCurrentHubRadius(v);
 
             return RectangleNode<Station>.CreateRectangleNodeOnEnumeration(from i in metroGraphData.VirtualNodes()
                                                                            let p = i.Position
@@ -128,9 +129,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         }
 
         double GetCurrentHubRadius(Station node) {
-            if (node.IsRealNode) {
-                return node.BoundaryCurve.BoundingBox.Diagonal/2;
-            }
+            if (node.IsRealNode)
+               return node.BoundaryCurve.BoundingBox.Diagonal/2;
             else {
                 double idealR = node.cachedIdealRadius;
                 //TODO: which one?
@@ -309,8 +309,11 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             while (relaxing) {
                 relaxing = false;
                 for (var p = metroline.Polyline.StartPoint; p.Next != null && p.Next.Next != null; p = p.Next)
-                    if (TryShortcutPolypoint(p, segsToPolylines, affectedPoints, obstaclesAllowedToIntersect))
-                        relaxing = true;
+                {
+                   if (TryShortcutPolypoint(p, segsToPolylines, affectedPoints, obstaclesAllowedToIntersect))
+                      relaxing = true;
+                }
+
                 if (relaxing) progress = true;
             }
             return progress;
@@ -385,17 +388,15 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             double widthABC = metroGraphData.GetWidth(abcPolylines, bundlingSettings.EdgeSeparation);
             double widthABD = metroGraphData.GetWidth(abPolylines - abcPolylines, bundlingSettings.EdgeSeparation);
             double idealR = HubRadiiCalculator.GetMinRadiusForTwoAdjacentBundles(nowR, a, c, b, widthABC, widthABD, metroGraphData, bundlingSettings);
-            if (idealR > nowR) {
-                gain -= CostCalculator.RError(idealR, nowR, bundlingSettings);
-            }
+            if (idealR > nowR)
+               gain -= CostCalculator.RError(idealR, nowR, bundlingSettings);
 
             //check opposite side
             nowR = GetCurrentHubRadius(metroGraphData.PointToStations[c]);
             double widthCBD = metroGraphData.GetWidth(bcPolylines - abcPolylines, bundlingSettings.EdgeSeparation);
             idealR = HubRadiiCalculator.GetMinRadiusForTwoAdjacentBundles(nowR, c, b, a, widthCBD, widthABC, metroGraphData, bundlingSettings);
-            if (idealR > nowR) {
-                gain -= CostCalculator.RError(idealR, nowR, bundlingSettings);
-            }
+            if (idealR > nowR)
+               gain -= CostCalculator.RError(idealR, nowR, bundlingSettings);
 
             return gain;
         }
@@ -517,9 +518,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                 //TODO: need this???
                 if (step < 5 && ratio > 0.5) {
                     Point newPosition = ConstructGluingPoint(node, a, b);
-                    if (EdgeGluingIsAllowed(node, a, b, newPosition)) {
-                        AddEdgeToGlue(node, b, a, newPosition, gluedEdges);
-                    }
+                    if (EdgeGluingIsAllowed(node, a, b, newPosition))
+                       AddEdgeToGlue(node, b, a, newPosition, gluedEdges);
                 }
             }
         }
@@ -603,13 +603,11 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             double nowR = GetCurrentHubRadius(node);
             double idealR = HubRadiiCalculator.GetMinRadiusForTwoAdjacentBundles(nowR, node, node.Position, a, b, metroGraphData, bundlingSettings);
 
-            if (idealR > nowR) {
-                gain += CostCalculator.RError(idealR, nowR, bundlingSettings);
-            }
+            if (idealR > nowR)
+               gain += CostCalculator.RError(idealR, nowR, bundlingSettings);
 
-            if (id2 > (node.Position - newp).Length && !node.IsRealNode) {
-                gain -= CostCalculator.RError(id2, (node.Position - newp).Length, bundlingSettings);
-            }
+            if (id2 > (node.Position - newp).Length && !node.IsRealNode)
+               gain -= CostCalculator.RError(id2, (node.Position - newp).Length, bundlingSettings);
 
             return gain;
         }
@@ -707,10 +705,12 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                     PolylinePoint pp = null;
                     //TODO: replace the cycle!
                     foreach (var ppp in metroline.Polyline.PolylinePoints)
-                        if (ppp.Point == a.Position) {
-                            pp = ppp;
-                            break;
-                        }
+                    {
+                       if (ppp.Point == a.Position) {
+                          pp = ppp;
+                          break;
+                       }
+                    }
 
                     Debug.Assert(pp != null);
                     if (pp.Next != null && pp.Next.Point == b.Position)

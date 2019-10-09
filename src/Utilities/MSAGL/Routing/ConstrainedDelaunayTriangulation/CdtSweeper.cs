@@ -72,9 +72,9 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
                    a = ShortcutTwoListElements(a);
                    while (a.Start != firstSite) {
                        var c=a.Prev;
-                       if (Point.GetTriangleOrientationWithNoEpsilon(c.Start.Point, c.End.Point, a.End.Point) == TriangleOrientation.Counterclockwise) {
-                           a = ShortcutTwoListElements(c);
-                       } else break;
+                       if (Point.GetTriangleOrientationWithNoEpsilon(c.Start.Point, c.End.Point, a.End.Point) == TriangleOrientation.Counterclockwise)
+                          a = ShortcutTwoListElements(c);
+                       else break;
                    }
                } else
                    a = b;
@@ -141,8 +141,11 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
         void RemoveP1AndP2Triangles() {
             var trianglesToRemove = new Set<CdtTriangle>();
             foreach (var t in triangles)
-                if (t.Sites.Contains(p_1) || t.Sites.Contains(p_2))
-                    trianglesToRemove.Insert(t);
+            {
+               if (t.Sites.Contains(p_1) || t.Sites.Contains(p_2))
+                  trianglesToRemove.Insert(t);
+            }
+
             foreach (var t in trianglesToRemove)
                 RemoveTriangleWithEdges(triangles, t);
         }
@@ -160,12 +163,14 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
        
         internal static void RemoveTriangleButLeaveEdges(Set<CdtTriangle> cdtTriangles, CdtTriangle t) {
            cdtTriangles.Remove(t);
-           foreach (var e in t.Edges) 
-               if (e.CwTriangle == t)
-                   e.CwTriangle = null;
-               else 
-                   e.CcwTriangle = null;                          
-       }
+           foreach (var e in t.Edges)
+           {
+              if (e.CwTriangle == t)
+                 e.CwTriangle = null;
+              else 
+                 e.CcwTriangle = null;
+           }
+        }
 
         void ProcessSite(CdtSite site) {
             PointEvent(site);
@@ -206,8 +211,10 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
 
 
             if (site.Edges != null)
-                foreach (var e in site.Edges)
-                    ls.Add(new DebugCurve(100, 0.001, e.Constrained?"pink":"brown", new LineSegment(e.upperSite.Point, e.lowerSite.Point)));
+            {
+               foreach (var e in site.Edges)
+                  ls.Add(new DebugCurve(100, 0.001, e.Constrained?"pink":"brown", new LineSegment(e.upperSite.Point, e.lowerSite.Point)));
+            }
 
             ls.Add(new DebugCurve(100,0.01,"brown", new Ellipse(0.5,0.5,site.Point)));
 
@@ -223,9 +230,12 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
 
 
             foreach (var frontElement in front)
-                ls.Add(new DebugCurve(100, 0.005, "green",
-                                      new LineSegment(frontElement.Edge.upperSite.Point,
-                                                      frontElement.Edge.lowerSite.Point)));
+            {
+               ls.Add(new DebugCurve(100, 0.005, "green",
+                                     new LineSegment(frontElement.Edge.upperSite.Point,
+                                                     frontElement.Edge.lowerSite.Point)));
+            }
+
             LayoutAlgorithmSettings.ShowDebugCurvesEnumeration(ls);
         }
         void ShowFront() {
@@ -235,17 +245,27 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
         internal static void ShowFront(IEnumerable<CdtTriangle> cdtTriangles, RbTree<CdtFrontElement> cdtFrontElements, IEnumerable<ICurve> redCurves, IEnumerable<ICurve> blueCurves) {
             List<DebugCurve> ls = new List<DebugCurve>();
             if (redCurves != null)
-                foreach (var c in redCurves)
-                    ls.Add(new DebugCurve(100, 0.5, "red", c));
+            {
+               foreach (var c in redCurves)
+                  ls.Add(new DebugCurve(100, 0.5, "red", c));
+            }
+
             if (blueCurves != null)
-                foreach (var c in blueCurves)
-                    ls.Add(new DebugCurve(100, 2, "blue", c));
+            {
+               foreach (var c in blueCurves)
+                  ls.Add(new DebugCurve(100, 2, "blue", c));
+            }
 
             if (cdtFrontElements != null)
-                foreach (var frontElement in cdtFrontElements)
-                    ls.Add(new DebugCurve(100, 0.001, "green",
-                                          new LineSegment(frontElement.Edge.upperSite.Point,
-                                                          frontElement.Edge.lowerSite.Point)));
+            {
+               foreach (var frontElement in cdtFrontElements)
+               {
+                  ls.Add(new DebugCurve(100, 0.001, "green",
+                                        new LineSegment(frontElement.Edge.upperSite.Point,
+                                                        frontElement.Edge.lowerSite.Point)));
+               }
+            }
+
             foreach (var t in cdtTriangles) {
                 for (int i = 0; i < 3; i++) {
                     var e = t.Edges[i];
@@ -282,9 +302,8 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
             var usedSites = new Set<CdtSite>();
             foreach(var t in Triangles)
                 usedSites.InsertRange(t.Sites);
-            foreach (var triangle in Triangles) {
-                TestTriangle(triangle, usedSites);
-            }
+            foreach (var triangle in Triangles)
+               TestTriangle(triangle, usedSites);
         }
 
         void TestTriangle(CdtTriangle triangle, Set<CdtSite> usedSites) {
@@ -304,8 +323,11 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
 
         static bool SeparatedByConstrainedEdge(CdtTriangle triangle, CdtSite site) {
             for (int i = 0; i < 3; i++)
-                if (SeparatedByEdge(triangle, i, site))
-                    return true;
+            {
+               if (SeparatedByEdge(triangle, i, site))
+                  return true;
+            }
+
             return false;
         }
 
@@ -424,9 +446,9 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
                     ShortcutTwoFrontElements(prev, leftLegNode);
               //      ShowFrontWithSite(site);
                 } else {
-                    if (leftLegNode.Item.LeftSite.Point.Y > leftLegNode.Item.RightSite.Point.Y) {
-                        stack.Push(prev.Item.LeftSite);
-                    } else {
+                    if (leftLegNode.Item.LeftSite.Point.Y > leftLegNode.Item.RightSite.Point.Y)
+                       stack.Push(prev.Item.LeftSite);
+                    else {
                         if (prev.Item.LeftSite.Point.Y <= prev.Item.RightSite.Point.Y)
                             return;
                         stack.Push(prev.Item.LeftSite);
@@ -494,9 +516,9 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
                     ShortcutTwoFrontElements(piNode, next);
                     stack.Push(site);
                 } else {
-                    if (piNode.Item.LeftSite.Point.Y > piNode.Item.RightSite.Point.Y) {
-                        stack.Push(piNode.Item.RightSite);
-                    } else {
+                    if (piNode.Item.LeftSite.Point.Y > piNode.Item.RightSite.Point.Y)
+                       stack.Push(piNode.Item.RightSite);
+                    else {
                         if (next.Item.LeftSite.Point.Y >= next.Item.RightSite.Point.Y)
                             return;
                         stack.Push(piNode.Item.RightSite);
@@ -783,9 +805,9 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
 #endif
 
         static bool CheckTriangle(CdtTriangle t) {
-            if (Point.GetTriangleOrientationWithNoEpsilon(t.Sites[0].Point, t.Sites[1].Point, t.Sites[2].Point) != TriangleOrientation.Counterclockwise) {
-                return false;
-            }
+            if (Point.GetTriangleOrientationWithNoEpsilon(t.Sites[0].Point, t.Sites[1].Point, t.Sites[2].Point) != TriangleOrientation.Counterclockwise)
+               return false;
+
             for (int i = 0; i < 3; i++) {
                 var e = t.Edges[i];
                 var a = t.Sites[i];

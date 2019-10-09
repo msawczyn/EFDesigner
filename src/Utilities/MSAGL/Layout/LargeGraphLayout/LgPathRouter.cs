@@ -397,9 +397,7 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout
         {
             var edges = GetEdgesOfPath(oldPath);
             foreach (var edge in edges)
-            {
-                edge.LengthMultiplier = Math.Min(edge.LengthMultiplier, d);
-            }
+               edge.LengthMultiplier = Math.Min(edge.LengthMultiplier, d);
         }
 
         internal void AssertEdgesPresentAndPassable(List<Point> path)
@@ -434,27 +432,21 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout
         {
             var edges = GetEdgesOfPath(oldPath);
             foreach (var edge in edges)
-            {
-                edge.LengthMultiplier = Math.Max(edge.LengthMultiplier, dmin);
-            }
+               edge.LengthMultiplier = Math.Max(edge.LengthMultiplier, dmin);
         }
 
         internal void ResetAllEdgeLengthMultipliers()
         {
             var edges = _visGraph.Edges;
             foreach (var edge in edges)
-            {
-                edge.LengthMultiplier = 1;
-            }
+               edge.LengthMultiplier = 1;
         }
 
         internal void SetAllEdgeLengthMultipliersMin(double wmin)
         {
             var edges = _visGraph.Edges;
             foreach (var edge in edges)
-            {
-                edge.LengthMultiplier = Math.Max(edge.LengthMultiplier, wmin);
-            }
+               edge.LengthMultiplier = Math.Max(edge.LengthMultiplier, wmin);
         }
 
         internal bool ContainsVertex(Point point)
@@ -492,9 +484,7 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout
         internal void AddEdges(List<SymmetricSegment> toAdd)
         {
             foreach (var e in toAdd)
-            {
-                AddVisGraphEdge(e.A, e.B);
-            }
+               AddVisGraphEdge(e.A, e.B);
         }
 
         void RegisterInTree(VisibilityVertex vv)
@@ -543,9 +533,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout
         {
             var segs = new List<SymmetricSegment>();
             foreach (var edge in _edgesOnOldTrajectories)
-            {
-                segs.Add(new SymmetricSegment(edge.SourcePoint, edge.TargetPoint));
-            }
+               segs.Add(new SymmetricSegment(edge.SourcePoint, edge.TargetPoint));
+
             return segs;
         }
 
@@ -555,9 +544,7 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout
             foreach (var edge in VisGraph.Edges)
             {
                 if (!_edgesOnOldTrajectories.Contains(edge))
-                {
-                    segs.Add(new SymmetricSegment(edge.SourcePoint, edge.TargetPoint));
-                }
+                   segs.Add(new SymmetricSegment(edge.SourcePoint, edge.TargetPoint));
             }
             return segs;
         }

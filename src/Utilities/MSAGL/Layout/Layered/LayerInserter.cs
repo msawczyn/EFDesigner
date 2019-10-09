@@ -181,10 +181,16 @@ namespace Microsoft.Msagl.Layout.Layered {
         void MapVirtualNodesToEdges() {
             virtNodesToIntEdges = new IntEdge[this.NLayering.Length];
             foreach (IntEdge e in database.AllIntEdges)
-                if (e.Source != e.Target && e.LayerEdges!=null)
-                    foreach (LayerEdge le in e.LayerEdges)
-                        if (le.Target != e.Target)
-                            virtNodesToIntEdges[le.Target] = e;
+            {
+               if (e.Source != e.Target && e.LayerEdges!=null)
+               {
+                  foreach (LayerEdge le in e.LayerEdges)
+                  {
+                     if (le.Target != e.Target)
+                        virtNodesToIntEdges[le.Target] = e;
+                  }
+               }
+            }
         }
         int totalNodes;
         /// <summary>
@@ -260,11 +266,16 @@ namespace Microsoft.Msagl.Layout.Layered {
 #if SHARPKIT //https://code.google.com/p/sharpkit/issues/detail?id=347
                     if (v.GetType() == typeof(int))
 #else
-                    if (v is int)
-#endif
-                        layer[c++] = (int)v;
-                    else foreach (int k in v as List<int>)
-                            layer[c++] = k;
+                {
+                   if (v is int)
+                      #endif
+                      layer[c++] = (int)v;
+                   else
+                   {
+                      foreach (int k in v as List<int>)
+                         layer[c++] = k;
+                   }
+                }
 
                 //update X now
                 for (int m = 0; m < layer.Length; m++)
@@ -291,8 +302,10 @@ namespace Microsoft.Msagl.Layout.Layered {
                     foreach (IntEdge e in kv.Value) {
                         int layer = top - 1;
                         foreach (LayerEdge le in e.LayerEdges)
-                            if (le.Target != e.Target)
-                                NLayering[le.Target] = layer--;
+                        {
+                           if (le.Target != e.Target)
+                              NLayering[le.Target] = layer--;
+                        }
                     }
                 }
             }

@@ -144,8 +144,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             int nOfLayers = 0;
 
             foreach (int l in this.Y)
-                if (l + 1 > nOfLayers)
-                    nOfLayers = l + 1;
+            {
+               if (l + 1 > nOfLayers)
+                  nOfLayers = l + 1;
+            }
 
             int[] counts = new int[nOfLayers];
 

@@ -59,8 +59,10 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             Curve c = iCurve as Curve;
             if (c != null) {
                 foreach (ICurve seg in c.Segments)
-                    foreach (CurveTangent ct in TangentsAroundCurve(seg))
-                        yield return ct;
+                {
+                   foreach (CurveTangent ct in TangentsAroundCurve(seg))
+                      yield return ct;
+                }
             } else {
                 LineSegment ls = iCurve as LineSegment;
                 if (ls != null)
@@ -73,9 +75,11 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                     } else {
                         CubicBezierSegment bez = iCurve as CubicBezierSegment;
                         if (bez != null)
-                            foreach (CurveTangent ct in TangentsOfBezier(bez))
-                                yield return ct;
+                        {
+                           foreach (CurveTangent ct in TangentsOfBezier(bez))
+                              yield return ct;
                         }
+                    }
                 }
                 
             }
@@ -139,9 +143,9 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             Point ret = new Point();
             do {
                 PolylinePoint pn = pp.Polyline.Next(pp);
-                if (Point.GetTriangleOrientation(origin, pp.Point, pn.Point) != TriangleOrientation.Clockwise) {
-                    return new Point();
-                }
+                if (Point.GetTriangleOrientation(origin, pp.Point, pn.Point) != TriangleOrientation.Clockwise)
+                   return new Point();
+
                 double t;
                 double dist = Point.DistToLineSegment(origin, pp.Point, pn.Point, out t);
                 if (dist < d) {
@@ -189,11 +193,15 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
          static PolylinePoint GetMostLeftLow(Polyline poly) {
             PolylinePoint ret = poly.StartPoint;
             for (PolylinePoint p = ret.Next; p != null; p = p.Next)
-                if (p.Point.X < ret.Point.X)
-                    ret = p;
-                else if (p.Point.X == ret.Point.X)
-                    if (p.Point.Y < ret.Point.Y)
-                        ret = p;
+            {
+               if (p.Point.X < ret.Point.X)
+                  ret = p;
+               else if (p.Point.X == ret.Point.X)
+               {
+                  if (p.Point.Y < ret.Point.Y)
+                     ret = p;
+               }
+            }
 
             return ret;
         }

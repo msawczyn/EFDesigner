@@ -46,12 +46,12 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
             var v = other as CvxHull;
             var vc = v as ClusterConvexHull;
             var c = this as ClusterConvexHull;
-            if (c!=null && c.Contains(v)) {
-                return 0;
-            }
-            if (vc != null && vc.Contains(this)) {
-                return 0;
-            }
+            if (c!=null && c.Contains(v))
+               return 0;
+
+            if (vc != null && vc.Contains(this))
+               return 0;
+
             Debug.Assert(v != null);
             Point pd = PenetrationDepth.PenetrationDepthForPolylines(TranslatedBoundary(), v.TranslatedBoundary());
             if (pd.Length > 0) {
@@ -205,9 +205,7 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
             }
 
             foreach (Cluster c in cluster.Clusters)
-            {
-                points.AddRange(new ClusterConvexHull(c, this).TranslatedBoundary());
-            }
+               points.AddRange(new ClusterConvexHull(c, this).TranslatedBoundary());
 
             return new Polyline(ConvexHull.CalculateConvexHull(points)) {Closed = true};
         }
@@ -218,12 +216,12 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
         /// <param name="child"></param>
         /// <returns>true if child is a descendent of this cluster</returns>
         public bool Contains(CvxHull child) {
-            if (child.Parent == null) {
-                return false;
-            }
-            if (child.Parent == this) {
-                return true;
-            }
+            if (child.Parent == null)
+               return false;
+
+            if (child.Parent == this)
+               return true;
+
             return Contains(child.Parent);
         }
     }
@@ -235,12 +233,11 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
         private void traverseClusters(ClusterConvexHull parent, Cluster cluster, double padding) {
             ClusterConvexHull hull = new ClusterConvexHull(cluster, parent);
             hulls.Add(hull);
-            foreach (var v in cluster.nodes) {
-                hulls.Add(new RCHull(hull, v, padding));
-            }
-            foreach (var c in cluster.clusters) {
-                traverseClusters(hull, c, padding);
-            }
+            foreach (var v in cluster.nodes)
+               hulls.Add(new RCHull(hull, v, padding));
+
+            foreach (var c in cluster.clusters)
+               traverseClusters(hull, c, padding);
         }
         /// <summary>
         /// 
@@ -250,12 +247,11 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
         /// <param name="cluster"></param>
         /// <param name="settings">for padding extra space around nodes</param>
         public AllPairsNonOverlappingBoundaries(Cluster cluster, FastIncrementalLayoutSettings settings) {
-            foreach (var v in cluster.nodes) {
-                hulls.Add(new RCHull(null,v, settings.NodeSeparation));
-            }
-            foreach (var c in cluster.clusters) {
-                traverseClusters(null, c, settings.NodeSeparation);
-            }
+            foreach (var v in cluster.nodes)
+               hulls.Add(new RCHull(null,v, settings.NodeSeparation));
+
+            foreach (var c in cluster.clusters)
+               traverseClusters(null, c, settings.NodeSeparation);
         }
         #region IConstraint Members
         private static int AllPairsComputationLimit = 20;
@@ -269,17 +265,15 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
                 // if there are only a few nodes then do it the most straightforward n^2 way
                 for (int i = 0; i < hulls.Count - 1; ++i) {
                     IHull u = hulls[i];
-                    for (int j = i + 1; j < hulls.Count; ++j) {
-                        displacement += u.Project(hulls[j]);
-                    }
+                    for (int j = i + 1; j < hulls.Count; ++j)
+                       displacement += u.Project(hulls[j]);
                 }
             } else {
                 var pq = new ProximityQuery(hulls);
                 List<Tuple<IHull, IHull>> closePairs = pq.GetAllIntersections();
                 //shuffle(ref closePairs);
-                foreach (var k in closePairs) {
-                    displacement += k.Item1.Project(k.Item2);
-                }
+                foreach (var k in closePairs)
+                   displacement += k.Item1.Project(k.Item2);
             }
             return displacement;
         }

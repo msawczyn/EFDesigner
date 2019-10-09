@@ -50,9 +50,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 yc += p;
             }
             yc /= n;
-            for (i = 0; i < n; ++i) {
-                Y[i] -= yc;
-            }
+            for (i = 0; i < n; ++i)
+               Y[i] -= yc;
         }
         #region IConstraint Members
 
@@ -200,9 +199,7 @@ namespace Microsoft.Msagl.Layout.Incremental {
         /// <returns></returns>
         public double Project() {
             for (int i = 0; i < n; ++i)
-            {
-                X[i] = V[i].Center;
-            }
+               X[i] = V[i].Center;
 
             Point[] T;
             double s;
@@ -235,9 +232,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
             System.Console.Write("{");
             for (int i = 0; i < points.Length;) {
                 System.Console.Write("{{{0},{1}}}", points[i].X, points[i].Y);
-                if (++i != points.Length) {
-                    System.Console.Write(",");
-                }
+                if (++i != points.Length)
+                   System.Console.Write(",");
             }
             System.Console.WriteLine("};");
         }
@@ -321,9 +317,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
             s = XYT[0].X + XYT[1].Y;
             s /= Y2[0].X + Y2[1].Y;
             t = new Point();
-            for (int i = 0; i < ni; ++i) {
-                t += X[i] - s * MatrixTimesVector(T, Y[i]);
-            }
+            for (int i = 0; i < ni; ++i)
+               t += X[i] - s * MatrixTimesVector(T, Y[i]);
+
             t /= ni;
         }
         /// <summary>

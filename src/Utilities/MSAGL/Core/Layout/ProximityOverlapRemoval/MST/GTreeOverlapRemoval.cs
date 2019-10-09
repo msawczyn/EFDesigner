@@ -64,27 +64,21 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTre
             Size[] nodeSizes;
             ProximityOverlapRemoval.InitNodePositionsAndBoxes(_settings, _nodes
                 , out nodePositions, out nodeSizes);
-            if (_overlapForLayers) {
-                nodeSizes = _sizes;
-            }
-            
+            if (_overlapForLayers)
+               nodeSizes = _sizes;
+
             lastRunNumberIterations = 0;
-            while (OneIteration(nodePositions, nodeSizes, false)) {
-                lastRunNumberIterations++;
+            while (OneIteration(nodePositions, nodeSizes, false)) lastRunNumberIterations++;
 //                if (lastRunNumberIterations%10 == 0)
 //                    Console.Write("removing overlaps with cdt only {0},", lastRunNumberIterations);
-            }
             //        Console.WriteLine();
-            while (OneIteration(nodePositions, nodeSizes, true)) {
-                lastRunNumberIterations++;
+            while (OneIteration(nodePositions, nodeSizes, true)) lastRunNumberIterations++;
 //                Console.Write("iterations with sweeping line {0},", lastRunNumberIterations);
-            }
 
             Console.WriteLine();
 
-            for (int i = 0; i < _nodes.Length; i++) {
-                _nodes[i].Center = nodePositions[i];
-            }
+            for (int i = 0; i < _nodes.Length; i++)
+               _nodes[i].Center = nodePositions[i];
         }
 
         void RemoveOverlapsOnTinyGraph() {
@@ -185,19 +179,20 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTre
             List<Tuple<int, int, double, double, double>> proximityEdges =
                 new List<Tuple<int, int, double, double, double>>();
             foreach (var site in cdt.PointsToSites.Values)
-                foreach (var edge in site.Edges) {
+            {
+               foreach (var edge in site.Edges) {
 
-                    Point point1 = edge.upperSite.Point;
-                    Point point2 = edge.lowerSite.Point;
-                    var nodeId1 = siteIndex[edge.upperSite];
-                    var nodeId2 = siteIndex[edge.lowerSite];
-                    Debug.Assert(ApproximateComparer.Close(point1, nodePositions[nodeId1]));
-                    Debug.Assert(ApproximateComparer.Close(point2, nodePositions[nodeId2]));
-                    var tuple = GetIdealEdgeLength(nodeId1, nodeId2, point1, point2, nodeSizes, _overlapForLayers);
-                    proximityEdges.Add(tuple);
-                    if (tuple.Item3 > 1) numCrossings++;
-                }
-
+                  Point point1 = edge.upperSite.Point;
+                  Point point2 = edge.lowerSite.Point;
+                  var nodeId1 = siteIndex[edge.upperSite];
+                  var nodeId2 = siteIndex[edge.lowerSite];
+                  Debug.Assert(ApproximateComparer.Close(point1, nodePositions[nodeId1]));
+                  Debug.Assert(ApproximateComparer.Close(point2, nodePositions[nodeId2]));
+                  var tuple = GetIdealEdgeLength(nodeId1, nodeId2, point1, point2, nodeSizes, _overlapForLayers);
+                  proximityEdges.Add(tuple);
+                  if (tuple.Item3 > 1) numCrossings++;
+               }
+            }
 
             if (numCrossings == 0 || scanlinePhase) {
                 int additionalCrossings = FindProximityEdgesWithSweepLine(proximityEdges, nodeSizes, nodePositions);
@@ -353,15 +348,12 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTre
             double wy = (nodeBoxes[nodeId1].Height/2 + nodeBoxes[nodeId2].Height/2);
 
             double t;
-            if (dx < machineAcc*wx) {
-                t = wy/dy;
-            }
-            else if (dy < machineAcc*wy) {
-                t = wx/dx;
-            }
-            else {
-                t = Math.Min(wx/dx, wy/dy);
-            }
+            if (dx < machineAcc*wx)
+               t = wy/dy;
+            else if (dy < machineAcc*wy)
+               t = wx/dx;
+            else
+               t = Math.Min(wx/dx, wy/dy);
 
             if (t > 1) t = Math.Max(t, 1.001); // must be done, otherwise the convergence is very slow
 
@@ -384,19 +376,15 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTre
 
             double dx = 0, dy = 0;
 
-            if (a.Right < b.Left) {
-                dx = a.Left - b.Right;
-            }
-            else if (b.Right < a.Left) {
-                dx = a.Left - b.Right;
-            }
+            if (a.Right < b.Left)
+               dx = a.Left - b.Right;
+            else if (b.Right < a.Left)
+               dx = a.Left - b.Right;
 
-            if (a.Top < b.Bottom) {
-                dy = b.Bottom - a.Top;
-            }
-            else if (b.Top < a.Bottom) {
-                dy = a.Bottom - b.Top;
-            }
+            if (a.Top < b.Bottom)
+               dy = b.Bottom - a.Top;
+            else if (b.Top < a.Bottom)
+               dy = a.Bottom - b.Top;
 
             double euclid = Math.Sqrt(dx*dx + dy*dy);
             return euclid;
@@ -423,11 +411,14 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTre
                 nodeBoxes[i] = new Rectangle(nodeSizes[i], nodePos[i]);
             l.AddRange(nodeBoxes.Select(b => new DebugCurve(100, 0.3, "green", b.Perimeter())));
             if (treeEdges != null)
-                l.AddRange(
-                    treeEdges.Select(
-                        e =>
-                            new DebugCurve(200, GetEdgeWidth(e), "red",
-                                new LineSegment(nodePos[e.Item1], nodePos[e.Item2]))));
+            {
+               l.AddRange(
+                          treeEdges.Select(
+                                           e =>
+                                              new DebugCurve(200, GetEdgeWidth(e), "red",
+                                                             new LineSegment(nodePos[e.Item1], nodePos[e.Item2]))));
+            }
+
             if (rootId >= 0)
                 l.Add(new DebugCurve(100, 10, "blue", CurveFactory.CreateOctagon(30, 30, nodePos[rootId])));
             LayoutAlgorithmSettings.ShowDebugCurvesEnumeration(l);

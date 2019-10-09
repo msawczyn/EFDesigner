@@ -27,10 +27,8 @@ namespace Microsoft.Msagl.Layout.Incremental
             z0 = new Complex(center.X, center.Y);
             a = new Complex[precision];
             for (int k = 0; k < precision; ++k)
-            {
-                a[k] = compute(k, points);
-            }
-#endif
+               a[k] = compute(k, points);
+            #endif
         }
 /// <summary>
 /// 
@@ -49,17 +47,14 @@ namespace Microsoft.Msagl.Layout.Incremental
             Complex[] m1a = m1.shift(z0), m2a = m2.shift(z0);
             a = new Complex[p];
             for (int i = 0; i < p; ++i)
-            {
-                a[i] = m1a[i] + m2a[i];
-            }
+               a[i] = m1a[i] + m2a[i];
         }
         static double factorial(double n)
         {
             double f = 1;
             for (int i = 2; i <= n; ++i)
-            {
-                f *= i;
-            }
+               f *= i;
+
             return f;
         }
         static double binomial(int n, int k)
@@ -99,9 +94,7 @@ namespace Microsoft.Msagl.Layout.Incremental
             int m = ps.Length;
             Complex ak = new Complex(0.0);
             if (k == 0)
-            {
-                ak.re = m;
-            }
+               ak.re = m;
             else
             {
                 for (int i = 0; i < m; ++i)
@@ -130,9 +123,9 @@ namespace Microsoft.Msagl.Layout.Incremental
             while(true) {
                 fz -= (a[k] * (double)k) / z_minus_z0_to_k_plus_1;
                 ++k;
-                if(k==p) {
-                    break;
-                }
+                if(k==p)
+                   break;
+
                 z_minus_z0_to_k_plus_1 *= z_minus_z0;
             }
             return new Point(fz.re, -fz.im);
@@ -151,9 +144,9 @@ namespace Microsoft.Msagl.Layout.Incremental
             double l = duv.LengthSquared;
             if (l < 0.1)
             {
-                if (l != 0) {
-                    return duv/0.1;
-                }
+                if (l != 0)
+                   return duv/0.1;
+
                 return new Point(1, 0);
             }
             return duv / l;
@@ -196,9 +189,8 @@ namespace Microsoft.Msagl.Layout.Incremental
                 double c1, c2, d;
                 d = b.re * b.re + b.im * b.im;
                 if (d == 0)
-                {
-                    return (new Complex(0.0));
-                }
+                   return (new Complex(0.0));
+
                 c1 = a.re * b.re + a.im * b.im;
                 c2 = a.im * b.re - a.re * b.im;
                 return (new Complex(c1 / d, c2 / d));

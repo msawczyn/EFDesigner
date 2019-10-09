@@ -118,9 +118,9 @@ namespace Microsoft.Msagl.Core.DataStructures {
         /// <returns></returns>
         public Set<T> Clone() {
             Set<T> ret = new Set<T>();
-            foreach (T i in this) {
-                ret.Insert(i);
-            }
+            foreach (T i in this)
+               ret.Insert(i);
+
             return ret;
         }
 
@@ -151,9 +151,9 @@ namespace Microsoft.Msagl.Core.DataStructures {
         public System.Array ToArray(System.Type type) {
             System.Array ret = System.Array.CreateInstance(type, this.Count);
             int i = 0;
-            foreach (T o in this) {
-                ret.SetValue(o, i++);
-            }
+            foreach (T o in this)
+               ret.SetValue(o, i++);
+
             return ret;
         }
         /// <summary>
@@ -201,12 +201,16 @@ namespace Microsoft.Msagl.Core.DataStructures {
                 return false;
 
             foreach (T t in set0)
-                if (!set1.Contains(t))
-                    return false;
+            {
+               if (!set1.Contains(t))
+                  return false;
+            }
 
             foreach (T t in set1)
-                if (!set0.Contains(t))
-                    return false;
+            {
+               if (!set0.Contains(t))
+                  return false;
+            }
 
             return true;
         }

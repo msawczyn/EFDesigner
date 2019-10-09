@@ -55,9 +55,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             VertexEntry lastEntry;
             if (!GetFirstPathStage(sourceWaypointEntry, sources)
                     || !GetWaypointPathStages(waypointEnum, waypointEntries, ref sourceWaypointEntry)
-                    || !GetLastPathStage(sourceWaypointEntry, targets, out lastEntry)) {
-                return null;
-            }
+                    || !GetLastPathStage(sourceWaypointEntry, targets, out lastEntry))
+               return null;
+
             return RestorePathStages(waypointEntries, lastEntry);
         }
 
@@ -73,9 +73,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 waypointEntries.Add(targetWaypointEntry);
 
                 if (null == this.GetPathStage(sourceWaypointEntry.entryVector, sourceWaypointEntry.waypointVector,
-                        targetWaypointEntry.entryVector, targetWaypointEntry.waypointVector)) {
-                    return false;
-                }
+                        targetWaypointEntry.entryVector, targetWaypointEntry.waypointVector))
+                   return false;
+
                 sourceWaypointEntry = targetWaypointEntry;
             }
             return true;
@@ -92,9 +92,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             // Back up to restore the path stages back to each waypoint.
             var paths = new List<IEnumerable<Point>>();
             waypointEntries.Reverse();
-            foreach (var waypointEntry in waypointEntries) {
-                paths.Add(SsstRectilinearPath.RestorePath(ref lastEntry, waypointEntry.waypointVector[0]));
-            }
+            foreach (var waypointEntry in waypointEntries)
+               paths.Add(SsstRectilinearPath.RestorePath(ref lastEntry, waypointEntry.waypointVector[0]));
 
             // Add the first stage.
             paths.Add(SsstRectilinearPath.RestorePath(lastEntry));
@@ -151,9 +150,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                     select new { sourceV = source, targetV = target }) {
                 var source = pair.sourceV;
                 var target = pair.targetV;
-                if (PointComparer.Equal(source.Point, target.Point)) {
-                    continue;
-                }
+                if (PointComparer.Equal(source.Point, target.Point))
+                   continue;
+
                 var sourceCostAdjustment = SsstRectilinearPath.ManhattanDistance(source.Point, sourceCenter) * interiorLengthAdjustment;
                 var targetCostAdjustment = SsstRectilinearPath.ManhattanDistance(target.Point, targetCenter) * interiorLengthAdjustment;
 
@@ -171,9 +170,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 }
 
                 // This is the final (or only) stage. Break ties by picking the lowest ratio of cost to ManhattanDistance between the endpoints.
-                if (lastEntry == null) {
-                    continue;
-                }
+                if (lastEntry == null)
+                   continue;
+
                 var costRatio = lastEntry.Cost / SsstRectilinearPath.ManhattanDistance(source.Point, target.Point);
                 if ((lastEntry.Cost < bestCost) || ApproximateComparer.Close(lastEntry.Cost, bestCost) && (costRatio < bestPathCostRatio)) {
                     bestCost = lastEntry.Cost;
@@ -188,9 +187,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                             ref double bestCost, ref VertexEntry bestEntry) {
             for (int ii = 0; ii < tempTargetEntries.Length; ++ii) {
                 var tempEntry = tempTargetEntries[ii];
-                if (tempEntry == null) {
-                    continue;
-                }
+                if (tempEntry == null)
+                   continue;
+
                 if ((targetVertexEntries[ii] == null) || (tempEntry.Cost < targetVertexEntries[ii].Cost)) {
                     targetVertexEntries[ii] = tempEntry;
                     if (tempEntry.Cost < bestCost) {
@@ -208,9 +207,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             VisibilityVertex prevVertex = null;
             int count = 0;
             foreach (var vertex in vertices.OrderBy(s => s.Point)) {
-                if ((prevVertex != null) && ApproximateComparer.CloseIntersections(vertex.Point, prevVertex.Point)) {
-                    continue;
-                }
+                if ((prevVertex != null) && ApproximateComparer.CloseIntersections(vertex.Point, prevVertex.Point))
+                   continue;
+
                 prevVertex = vertex;
                 ++count;
                 center += vertex.Point;

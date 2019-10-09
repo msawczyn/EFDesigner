@@ -64,9 +64,7 @@ namespace Microsoft.Msagl.Layout.Incremental
                     if (!l.intersects(v))
                     {
                         foreach (var p in l.particles[0])
-                        {
-                            p.force -= v.multipoleCoefficients.ApproximateForce(p.point);
-                        }
+                           p.force -= v.multipoleCoefficients.ApproximateForce(p.point);
                     }
                     else
                     {
@@ -77,9 +75,8 @@ namespace Microsoft.Msagl.Layout.Incremental
                             {
                                 foreach (var q in leaf.particles[0])
                                 {
-                                    if(p!=q) {
-                                        p.force += MultipoleCoefficients.Force(p.point, q.point);
-                                    }
+                                    if(p!=q)
+                                       p.force += MultipoleCoefficients.Force(p.point, q.point);
                                 }
                             }
                         }
@@ -150,9 +147,8 @@ namespace Microsoft.Msagl.Layout.Incremental
                 int n = Size();
                 ps = new Point[n];
                 for (int i = 0; i < n; ++i)
-                {
-                    ps[i] = particles[0][i].point;
-                }
+                   ps[i] = particles[0][i].point;
+
                 return med = MinimumEnclosingDisc.LinearComputation(ps);
             }
             private double Min(Particle.Dim d)
@@ -202,13 +198,9 @@ namespace Microsoft.Msagl.Layout.Incremental
                 {
                     Particle p = particles[(int)nonSplitDirection][i];
                     if (p.splitLeft)
-                    {
-                        leftParticles[(int)nonSplitDirection][lCtr++] = p;
-                    }
+                       leftParticles[(int)nonSplitDirection][lCtr++] = p;
                     else
-                    {
-                        rightParticles[(int)nonSplitDirection][rCtr++] = p;
-                    }
+                       rightParticles[(int)nonSplitDirection][rCtr++] = p;
                 }
                 Debug.Assert(lCtr == nLeft);
                 Debug.Assert(rCtr == nRight);
@@ -225,9 +217,7 @@ namespace Microsoft.Msagl.Layout.Incremental
                     foreach (var v in particles[0])
                     {
                         if (u != v)
-                        {
-                            u.force += MultipoleCoefficients.Force(u.point, v.point);
-                        }
+                           u.force += MultipoleCoefficients.Force(u.point, v.point);
                     }
                 }
             }
@@ -243,9 +233,7 @@ namespace Microsoft.Msagl.Layout.Incremental
                 if (parent != null)
                 {
                     if (parent.leftChild == left)
-                    {
-                        parent.leftChild = this;
-                    }
+                       parent.leftChild = this;
                     else
                     {
                         Debug.Assert(parent.rightChild == left);
@@ -274,13 +262,10 @@ namespace Microsoft.Msagl.Layout.Incremental
             public void Enqueue(LeafKdNode l, LeafKdNode r)
             {
                 if (l.Size() > B)
-                {
-                    Enqueue(l);
-                }
+                   Enqueue(l);
+
                 if (r.Size() > B)
-                {
-                    Enqueue(r);
-                }
+                   Enqueue(r);
             }
         }
     }

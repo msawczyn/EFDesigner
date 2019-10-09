@@ -134,10 +134,13 @@ namespace Microsoft.Msagl.Core.Layout {
         int GetModifiedGranularity(List<Edge> edgeList) {
             int modifiedGranularity = CollisionGranularity;
             if (ScaleCollisionGranularity)
-                modifiedGranularity = LayoutAlgorithmHelpers.LinearInterpolation(edgeList.Count, LowerEdgeBound,
-                                                                                 UpperEdgeBound,
-                                                                                 CollisionGranularity,
-                                                                                 MaxGranularity);
+            {
+               modifiedGranularity = LayoutAlgorithmHelpers.LinearInterpolation(edgeList.Count, LowerEdgeBound,
+                                                                                UpperEdgeBound,
+                                                                                CollisionGranularity,
+                                                                                MaxGranularity);
+            }
+
             return modifiedGranularity;
         }
 
@@ -149,13 +152,15 @@ namespace Microsoft.Msagl.Core.Layout {
             // Labels can be added by multiple threads at once.  Lock to prevent conflicts.
             // The lock doesn't appear to significantly affect the performance of the algorithm.
             lock (this)
-                if (labelObstacleMap == null) {
-                    labelObstacleMap =
-                        new RTree<IObstacle>(new[] {new KeyValuePair<Rectangle, IObstacle>(label.Rectangle, label)});
-                    obstacleMaps[0] = labelObstacleMap;
-                }
-                else
-                    labelObstacleMap.Add(label.Rectangle, label);
+            {
+               if (labelObstacleMap == null) {
+                  labelObstacleMap =
+                     new RTree<IObstacle>(new[] {new KeyValuePair<Rectangle, IObstacle>(label.Rectangle, label)});
+                  obstacleMaps[0] = labelObstacleMap;
+               }
+               else
+                  labelObstacleMap.Add(label.Rectangle, label);
+            }
         }
 
         /// <summary>
@@ -175,10 +180,12 @@ namespace Microsoft.Msagl.Core.Layout {
                 ParallelUtilities.ForEach(sortedLabels, PlaceLabel, ProgressSteps);
             else
 #endif
-                foreach (Label label in sortedLabels) {
-                    PlaceLabel(label);
-                    ProgressStep();
-                }
+            {
+               foreach (Label label in sortedLabels) {
+                  PlaceLabel(label);
+                  ProgressStep();
+               }
+            }
         }
 
         /// <summary>
@@ -187,12 +194,14 @@ namespace Microsoft.Msagl.Core.Layout {
         void PlaceLabel(Label label) {
             bool placed = false;
             if (label.PlacementStrategyPriority != null)
-                foreach (Label.PlacementStrategy s in label.PlacementStrategyPriority) {
-                    placed = s == Label.PlacementStrategy.AlongCurve && PlaceEdgeLabelOnCurve(label)
-                             || s == Label.PlacementStrategy.Horizontal && PlaceEdgeLabelHorizontally(label);
-                    if (placed)
-                        break;
-                }
+            {
+               foreach (Label.PlacementStrategy s in label.PlacementStrategyPriority) {
+                  placed = s == Label.PlacementStrategy.AlongCurve && PlaceEdgeLabelOnCurve(label)
+                        || s == Label.PlacementStrategy.Horizontal && PlaceEdgeLabelHorizontally(label);
+                  if (placed)
+                     break;
+               }
+            }
 
             if (placed)
                 CalculateCenterNotSure(label);
@@ -215,9 +224,8 @@ namespace Microsoft.Msagl.Core.Layout {
 
             // If the curve is a line of length (close to) 0, the derivative may be (close to) 0.
             // Pick a direction in that case.
-            if (derivative.Length < ApproximateComparer.Tolerance) {
-                derivative = new Point(1, 1);
-            }
+            if (derivative.Length < ApproximateComparer.Tolerance)
+               derivative = new Point(1, 1);
 
             var widthHeight = new Point(label.Width, label.Height);
             double side = GetPossibleSides(label.Side, derivative).First();
@@ -370,9 +378,8 @@ namespace Microsoft.Msagl.Core.Layout {
         /// </summary>
         /// <returns>An enumeration of the possible sides (-1 or 1).</returns>
         static double[] GetPossibleSides(Label.PlacementSide side, Point derivative) {
-            if (derivative.Length == 0) {
-                side = Label.PlacementSide.Any;
-            }
+            if (derivative.Length == 0)
+               side = Label.PlacementSide.Any;
 
             switch (side) {
                 case Label.PlacementSide.Port:
@@ -439,9 +446,9 @@ namespace Microsoft.Msagl.Core.Layout {
             double l = 0;
             Point? q = null;
             foreach (PointSet p in ps.OrderBy(p => p.Key)) {
-                if (q != null) {
-                    l += ((Point) q - p.Center).Length;
-                }
+                if (q != null)
+                   l += ((Point) q - p.Center).Length;
+
                 q = p.Center;
             }
             return l;
@@ -574,9 +581,8 @@ namespace Microsoft.Msagl.Core.Layout {
                                         ? placedPoints.AddFirst(ps)
                                         : placedPoints.AddLast(ps);
                     Debug.Assert(Math.Abs(PointSetLength(placedPoints.Points) - coveredLength) < 0.01);
-                    if (coveredLength >= labelLength) {
-                        break;
-                    }
+                    if (coveredLength >= labelLength)
+                       break;
                 }
                 else {
                     // not going to work!
@@ -676,19 +682,18 @@ namespace Microsoft.Msagl.Core.Layout {
                 SubdivideCurveSegment(list, curve, delta2, start, mid);
                 SubdivideCurveSegment(list, curve, delta2, mid, end);
             }
-            else {
-                list.Add(new KeyValuePair<double, Point>(start, startPoint));
-            }
+            else
+               list.Add(new KeyValuePair<double, Point>(start, startPoint));
         }
 
         class PointComparer : IComparer<KeyValuePair<double, Point>> {
             public int Compare(KeyValuePair<double, Point> x, KeyValuePair<double, Point> y) {
-                if (x.Key < y.Key) {
-                    return -1;
-                }
-                if (x.Key > y.Key) {
-                    return 1;
-                }
+                if (x.Key < y.Key)
+                   return -1;
+
+                if (x.Key > y.Key)
+                   return 1;
+
                 return 0;
             }
         }
@@ -699,9 +704,9 @@ namespace Microsoft.Msagl.Core.Layout {
             SubdivideCurveSegment(points, curve, delta, curve.ParStart, curve.ParEnd);
 
             points.Sort(new PointComparer());
-            if (points.Last().Key < curve.ParEnd) {
-                points.Add(new KeyValuePair<double, Point>(curve.ParEnd, curve.End));
-            }
+            if (points.Last().Key < curve.ParEnd)
+               points.Add(new KeyValuePair<double, Point>(curve.ParEnd, curve.End));
+
             return points;
         }
     }

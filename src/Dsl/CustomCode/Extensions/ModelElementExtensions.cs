@@ -86,9 +86,7 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
                                                    .ToList();
 
             foreach (EFModelDiagram diagram in diagrams)
-            {
                diagram.Invalidate();
-            }
          }
       }
 

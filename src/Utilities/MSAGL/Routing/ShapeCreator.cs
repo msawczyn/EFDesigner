@@ -25,10 +25,13 @@ namespace Microsoft.Msagl.Routing
                 nodesToShapes[v] = CreateShapeWithCenterPort(v);
             foreach (var c in graph.RootCluster.AllClustersDepthFirst()) {
                 if (!c.IsCollapsed)
-                    foreach (var v in c.Nodes)
-                        if (!nodesToShapes.ContainsKey(v))
-                            nodesToShapes[v] = CreateShapeWithCenterPort(v);
-
+                {
+                   foreach (var v in c.Nodes)
+                   {
+                      if (!nodesToShapes.ContainsKey(v))
+                         nodesToShapes[v] = CreateShapeWithCenterPort(v);
+                   }
+                }
 
                 if (c == graph.RootCluster) continue;
                 var parent = nodesToShapes[c] = CreateShapeWithClusterBoundaryPort(c);

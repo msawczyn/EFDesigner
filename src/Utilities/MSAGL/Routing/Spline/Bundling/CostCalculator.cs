@@ -65,9 +65,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             cost += bundlingSettings.InkImportance * metroGraphData.Ink;
 
             //path lengths
-            foreach (var metroline in metroGraphData.Metrolines) {
-                cost += bundlingSettings.PathLengthImportance * metroline.Length / metroline.IdealLength;
-            }
+            foreach (var metroline in metroGraphData.Metrolines)
+               cost += bundlingSettings.PathLengthImportance * metroline.Length / metroline.IdealLength;
 
             cost += CostOfForces(metroGraphData, bundlingSettings);
 
@@ -81,9 +80,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             double cost = 0;
 
             //hubs
-            foreach (var v in metroGraphData.VirtualNodes()) {
-                cost += v.cachedRadiusCost;
-            }
+            foreach (var v in metroGraphData.VirtualNodes())
+               cost += v.cachedRadiusCost;
 
             //bundles
             foreach (var edge in metroGraphData.VirtualEdges()) {
@@ -152,9 +150,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
 
             List<Tuple<Polyline, Point>> touchedObstacles;
-            if (!metroGraphData.looseIntersections.HubAvoidsObstacles(node, newPosition, idealR, out touchedObstacles)) {
-                return Inf;
-            }
+            if (!metroGraphData.looseIntersections.HubAvoidsObstacles(node, newPosition, idealR, out touchedObstacles))
+               return Inf;
 
             double cost = 0;
             foreach (var d in touchedObstacles) {
@@ -188,9 +185,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
             double cost = 0;
             //find conflicting obstacles
-            if (!metroGraphData.cdtIntersections.BundleAvoidsObstacles(node, adj, newPosition, adj.Position, idealWidth, out closestDist)) {
-                return Inf;
-            }
+            if (!metroGraphData.cdtIntersections.BundleAvoidsObstacles(node, adj, newPosition, adj.Position, idealWidth, out closestDist))
+               return Inf;
 
             foreach (var pair in closestDist) {
                 double dist = (pair.Item1 - pair.Item2).Length;

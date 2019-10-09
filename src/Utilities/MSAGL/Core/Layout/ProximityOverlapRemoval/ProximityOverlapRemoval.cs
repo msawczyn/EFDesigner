@@ -280,15 +280,12 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval {
             double wy = (nodeBoxes[nodeId1].Height/2 + nodeBoxes[nodeId2].Height/2);
 
             double t;
-            if (dx < machineAcc*wx) {
-                t = wy/dy;
-            }
-            else if (dy < machineAcc*wy) {
-                t = wx/dx;
-            }
-            else {
-                t = Math.Min(wx/dx, wy/dy);
-            }
+            if (dx < machineAcc*wx)
+               t = wy/dy;
+            else if (dy < machineAcc*wy)
+               t = wx/dx;
+            else
+               t = Math.Min(wx/dx, wy/dy);
 
             if (t > 1) t = Math.Max(t, 1.001); // must be done, otherwise the convergence is very slow
 //            tmax = Math.Max(tmax, t);
@@ -333,10 +330,9 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval {
             bool scanlinePhase = false;
             int iter = 0;
             bool finished = false;
-            while (!finished && ((iter++) < Settings.IterationsMax || !Settings.StopOnMaxIterat)) {
-                finished = DoSingleIteration(iter, ref scanlinePhase);
-            }
-#if !SILVERLIGHT && !SHARPKIT
+            while (!finished && ((iter++) < Settings.IterationsMax || !Settings.StopOnMaxIterat))
+               finished = DoSingleIteration(iter, ref scanlinePhase);
+            #if !SILVERLIGHT && !SHARPKIT
             stopWatch.Stop();
 #endif
             LastRunIterations = iter;
@@ -416,10 +412,9 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval {
             //clear the data structures
             StressSolver.ClearVotings();
 #if DEBUG
-            for (int i = 0; i < nodePositions.Length; i++) {
-                trajectories[i].AddPoint(newPositions[i]);
-            }
-#endif
+            for (int i = 0; i < nodePositions.Length; i++)
+               trajectories[i].AddPoint(newPositions[i]);
+            #endif
             return false;
         }
 
@@ -609,9 +604,9 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval {
          int CreateProximityEdgesWithRTree(List<Tuple<int, int, double, double>> proximityEdges) {
             var edgeSet = new HashSet<Tuple<int, int>>();
 
-            foreach (var proximityEdge in proximityEdges) {
-                edgeSet.Add(Tuple.Create(proximityEdge.Item1, proximityEdge.Item2));
-            }
+            foreach (var proximityEdge in proximityEdges)
+               edgeSet.Add(Tuple.Create(proximityEdge.Item1, proximityEdge.Item2));
+
             RectangleNode<int> rootNode =
                 RectangleNode<int>.CreateRectangleNodeOnEnumeration(
                     nodeSizes.Select((size, index) => new RectangleNode<int>(index, new Rectangle(size, nodePositions[index]))));

@@ -81,13 +81,11 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
         {
             // Qpsc requires reinitializing the block structure
             if (null == Vector)
-            {
-                return;
-            }
+               return;
+
             foreach (var constraint in Vector)
-            {
-                constraint.Reinitialize();
-            }
+               constraint.Reinitialize();
+
             firstActiveConstraintIndex = Vector.Length;
         }
 
@@ -106,13 +104,9 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 var constraint = Vector[ii];
                 Debug.Assert(constraint.VectorIndex == ii, "Inconsistent constraint.VectorIndex");
                 if (constraint.IsActive)
-                {
-                    Debug.Assert(constraint.VectorIndex >= firstActiveConstraintIndex, "Active constraint is in Inactive region");
-                }
+                   Debug.Assert(constraint.VectorIndex >= firstActiveConstraintIndex, "Active constraint is in Inactive region");
                 else
-                {
-                    Debug.Assert(constraint.VectorIndex < firstActiveConstraintIndex, "Inactive constraint is in Active region");
-                }
+                   Debug.Assert(constraint.VectorIndex < firstActiveConstraintIndex, "Inactive constraint is in Active region");
             }
         }
 
@@ -127,9 +121,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
 
         internal void RecycleDfDvNode(DfDvNode node) {
             // In the case of long constraint chains make sure this does not end up as big as the number of constraints in the block.
-            if (this.DfDvRecycleStack.Count < 1024) {
-                DfDvRecycleStack.Push(node);
-            }
+            if (this.DfDvRecycleStack.Count < 1024)
+               DfDvRecycleStack.Push(node);
         }
 
         // Initialized in Solve() and computed during Block.ComputeDfDv.

@@ -44,9 +44,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 C[k].Dist = 0;
                 C[k].Dead = false;
                 foreach (Vertex x in C[k].V)
-                {
-                    x.CId = C[k].CId;
-                }
+                   x.CId = C[k].CId;
+
                 NumOfComponents++;
             }
             NumOfAliveComponents = NumOfComponents;

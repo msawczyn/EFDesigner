@@ -220,11 +220,13 @@ namespace Microsoft.Msagl.Layout.Layered {
         bool ExchangeWithGain(int[] layer) {
             //find a first pair giving some gain
             for (int i = 0; i < layer.Length - 1; i++)
-                if (SwapWithGain(layer[i], layer[i + 1])) {
-                    SwapToTheLeft(layer, i);
-                    SwapToTheRight(layer, i + 1);
-                    return true;
-                }
+            {
+               if (SwapWithGain(layer[i], layer[i + 1])) {
+                  SwapToTheLeft(layer, i);
+                  SwapToTheRight(layer, i + 1);
+                  return true;
+               }
+            }
 
             return false;
         }
@@ -253,8 +255,10 @@ namespace Microsoft.Msagl.Layout.Layered {
         {
             int n = this.properLayeredGraph.NodeCount;
             for (int i = 0; i < n; i++)
-                if (!SIsCorrect(i))
-                    return false;
+            {
+               if (!SIsCorrect(i))
+                  return false;
+            }
 
             return true;
         }
@@ -353,35 +357,39 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         void UpdatePsContainingUV(int u, int v) {
             if (S[u].Count <= S[v].Count)
-                foreach (int a in S[u]) {
-                    Dictionary<int, int> porder = POrder[a];
-                    //of course porder contains u, let us see if it contains v
-                    if (porder.ContainsKey(v)) {
-                        int vOffset = porder[v];
-                        //swap u and v in the array P[coeff]
-                        var p = P[a];
-                        p[vOffset - 1] = v;
-                        p[vOffset] = u;
-                        //update sorder itself
-                        porder[v] = vOffset - 1;
-                        porder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in S[u]) {
+                  Dictionary<int, int> porder = POrder[a];
+                  //of course porder contains u, let us see if it contains v
+                  if (porder.ContainsKey(v)) {
+                     int vOffset = porder[v];
+                     //swap u and v in the array P[coeff]
+                     var p = P[a];
+                     p[vOffset - 1] = v;
+                     p[vOffset] = u;
+                     //update sorder itself
+                     porder[v] = vOffset - 1;
+                     porder[u] = vOffset;
+                  }
+               }
+            }
             else
-                foreach (int a in S[v]) {
-                    Dictionary<int, int> porder = POrder[a];
-                    //of course porder contains u, let us see if it contains v
-                    if (porder.ContainsKey(u)) {
-                        int vOffset = porder[v];
-                        //swap u and v in the array P[coeff]
-                        var p = P[a];
-                        p[vOffset - 1] = v;
-                        p[vOffset] = u;
-                        //update sorder itself
-                        porder[v] = vOffset - 1;
-                        porder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in S[v]) {
+                  Dictionary<int, int> porder = POrder[a];
+                  //of course porder contains u, let us see if it contains v
+                  if (porder.ContainsKey(u)) {
+                     int vOffset = porder[v];
+                     //swap u and v in the array P[coeff]
+                     var p = P[a];
+                     p[vOffset - 1] = v;
+                     p[vOffset] = u;
+                     //update sorder itself
+                     porder[v] = vOffset - 1;
+                     porder[u] = vOffset;
+                  }
+               }
+            }
         }
 
         void SwapToTheRight(int[] layer, int i) {
@@ -443,35 +451,39 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         void UpdateSsContainingUV(int u, int v) {
             if (P[u].Count <= P[v].Count)
-                foreach (int a in P[u]) {
-                    Dictionary<int, int> sorder = SOrder[a];
-                    //of course sorder contains u, let us see if it contains v
-                    if (sorder.ContainsKey(v)) {
-                        int vOffset = sorder[v];
-                        //swap u and v in the array S[coeff]
-                        var s = S[a];
-                        s[vOffset - 1] = v;
-                        s[vOffset] = u;
-                        //update sorder itself
-                        sorder[v] = vOffset - 1;
-                        sorder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in P[u]) {
+                  Dictionary<int, int> sorder = SOrder[a];
+                  //of course sorder contains u, let us see if it contains v
+                  if (sorder.ContainsKey(v)) {
+                     int vOffset = sorder[v];
+                     //swap u and v in the array S[coeff]
+                     var s = S[a];
+                     s[vOffset - 1] = v;
+                     s[vOffset] = u;
+                     //update sorder itself
+                     sorder[v] = vOffset - 1;
+                     sorder[u] = vOffset;
+                  }
+               }
+            }
             else
-                foreach (int a in P[v]) {
-                    Dictionary<int, int> sorder = SOrder[a];
-                    //of course sorder contains u, let us see if it contains v
-                    if (sorder.ContainsKey(u)) {
-                        int vOffset = sorder[v];
-                        //swap u and v in the array S[coeff]
-                        var s = S[a];
-                        s[vOffset - 1] = v;
-                        s[vOffset] = u;
-                        //update sorder itself
-                        sorder[v] = vOffset - 1;
-                        sorder[u] = vOffset;
-                    }
-                }
+            {
+               foreach (int a in P[v]) {
+                  Dictionary<int, int> sorder = SOrder[a];
+                  //of course sorder contains u, let us see if it contains v
+                  if (sorder.ContainsKey(u)) {
+                     int vOffset = sorder[v];
+                     //swap u and v in the array S[coeff]
+                     var s = S[a];
+                     s[vOffset - 1] = v;
+                     s[vOffset] = u;
+                     //update sorder itself
+                     sorder[v] = vOffset - 1;
+                     sorder[u] = vOffset;
+                  }
+               }
+            }
         }
 
         private bool UAndVAreOnSameLayer(int u, int v)

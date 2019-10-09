@@ -210,10 +210,12 @@ namespace Microsoft.Msagl.Routing {
 
             foreach (var rootShape in rootShapes) {
                 foreach(var sh in rootShape.Descendants)
-                    foreach (var port in sh.Ports) {
-                        var enterableSet = portsToEnterableShapes[port];
-                        enterableSet.InsertRange(sh.Ancestors.Where(s => s.BoundaryCurve != null));
-                    }
+                {
+                   foreach (var port in sh.Ports) {
+                      var enterableSet = portsToEnterableShapes[port];
+                      enterableSet.InsertRange(sh.Ancestors.Where(s => s.BoundaryCurve != null));
+                   }
+                }
             }
         }
 
@@ -317,8 +319,10 @@ namespace Microsoft.Msagl.Routing {
                 }
             }
             else
-                foreach (var eg in edgeGeometryGroup)
-                    RouteEdge(interactiveEdgeRouter, eg);
+            {
+               foreach (var eg in edgeGeometryGroup)
+                  RouteEdge(interactiveEdgeRouter, eg);
+            }
         }
 
         /// <summary>
@@ -461,8 +465,10 @@ namespace Microsoft.Msagl.Routing {
                 var a = queue.Dequeue();
                 foreach (var parent in a.Parents) {
                     foreach (var sibling in parent.Children)
-                        if (!allAncestors.Contains(sibling))
-                            ret.Insert(sibling);
+                    {
+                       if (!allAncestors.Contains(sibling))
+                          ret.Insert(sibling);
+                    }
 
                     if (!commonAncestors.Contains(parent) && !enqueued.Contains(parent)) {
                         queue.Enqueue(parent);
@@ -633,8 +639,11 @@ namespace Microsoft.Msagl.Routing {
         void CalculatePortsToShapes() {
             portsToShapes = new Dictionary<Port, Shape>();
             foreach (var shape in root.Descendants)
-                foreach (var port in shape.Ports)
-                    portsToShapes[port] = shape;
+            {
+               foreach (var port in shape.Ports)
+                  portsToShapes[port] = shape;
+            }
+
             //assign all orphan ports to the root 
             foreach (var port in AllPorts().Where(p => !portsToShapes.ContainsKey(p))) {
                 root.Ports.Insert(port);
@@ -654,11 +663,13 @@ namespace Microsoft.Msagl.Routing {
                 addedEdges.AddRange(AddVisibilityEdgesFromPort(edgeGeometry.TargetPort));
             SmoothedPolyline smoothedPolyline;
             if (!ApproximateComparer.Close(edgeGeometry.SourcePort.Location, edgeGeometry.TargetPort.Location))
-                edgeGeometry.Curve = iRouter.RouteSplineFromPortToPortWhenTheWholeGraphIsReady(
-                edgeGeometry.SourcePort, edgeGeometry.TargetPort, true, out smoothedPolyline);
-            else {
-                edgeGeometry.Curve = Edge.RouteSelfEdge(edgeGeometry.SourcePort.Curve, Math.Max(LoosePadding * 2, edgeGeometry.GetMaxArrowheadLength()), out smoothedPolyline);
+            {
+               edgeGeometry.Curve = iRouter.RouteSplineFromPortToPortWhenTheWholeGraphIsReady(
+                                                                                              edgeGeometry.SourcePort, edgeGeometry.TargetPort, true, out smoothedPolyline);
             }
+            else
+               edgeGeometry.Curve = Edge.RouteSelfEdge(edgeGeometry.SourcePort.Curve, Math.Max(LoosePadding * 2, edgeGeometry.GetMaxArrowheadLength()), out smoothedPolyline);
+
             edgeGeometry.SmoothedPolyline = smoothedPolyline;
             
             if (edgeGeometry.Curve == null)
@@ -713,8 +724,11 @@ namespace Microsoft.Msagl.Routing {
             var transparentLooseShapes = new List<Shape>();
 
             foreach (var shape in GetTransparentShapes(edgeGeometry.SourcePort, edgeGeometry.TargetPort, sourceShape, targetShape).ToArray())
-                if (shape != null)
-                    transparentLooseShapes.Add(LooseShapeOfOriginalShape(shape));
+            {
+               if (shape != null)
+                  transparentLooseShapes.Add(LooseShapeOfOriginalShape(shape));
+            }
+
             foreach (var shape in portsToEnterableShapes[edgeGeometry.SourcePort])
                 transparentLooseShapes.Add(LooseShapeOfOriginalShape(shape));
             foreach (var shape in portsToEnterableShapes[edgeGeometry.TargetPort])
@@ -750,13 +764,19 @@ namespace Microsoft.Msagl.Routing {
             new DebugCurve(100, 0.1, GetEdgeColor(e, sourcePort, targetPort),
                            new LineSegment(e.SourcePoint, e.TargetPoint))));
             if (obstacleShapes != null)
-                dd.AddRange(
-                    obstacleShapes.Select(s => new DebugCurve(1, s.BoundaryCurve)));
+            {
+               dd.AddRange(
+                           obstacleShapes.Select(s => new DebugCurve(1, s.BoundaryCurve)));
+            }
+
             if (sourcePort != null && targetPort != null)
-                dd.AddRange(new[] {
+            {
+               dd.AddRange(new[] {
                                     new DebugCurve(CurveFactory.CreateDiamond(3, 3, sourcePort.Location)),
                                     new DebugCurve(CurveFactory.CreateEllipse(3, 3, targetPort.Location)),
-                                });
+                                 });
+            }
+
             if (curve != null)
                 dd.Add(new DebugCurve(5, "purple", curve));
 
@@ -1031,8 +1051,10 @@ namespace Microsoft.Msagl.Routing {
 
         void RemoveRoot() {
             if (rootWasCreated)
-                foreach (var rootShape in rootShapes)
-                    rootShape.RemoveParent(root);
+            {
+               foreach (var rootShape in rootShapes)
+                  rootShape.RemoveParent(root);
+            }
         }
 
 

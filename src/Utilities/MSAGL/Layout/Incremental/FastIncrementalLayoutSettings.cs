@@ -569,9 +569,7 @@ namespace Microsoft.Msagl.Layout.Incremental
          ValidateArg.IsNotNull(graph, "graph");
 
          if (!IsInitialized)
-         {
             InitializeLayout(graph, MaxConstraintLevel, clusterSettings);
-         }
          else if (IsDone)
          {
             // If we were already done from last time but we are doing more work then something has changed.

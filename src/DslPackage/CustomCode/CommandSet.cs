@@ -404,9 +404,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusHideShape(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
             command.Visible = command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
-         }
       }
 
       private void OnMenuHideShape(object sender, EventArgs e)
@@ -491,9 +489,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusLayoutDiagram(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-         {
             command.Visible = command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
-         }
       }
 
       private void OnMenuLayoutDiagram(object sender, EventArgs e)

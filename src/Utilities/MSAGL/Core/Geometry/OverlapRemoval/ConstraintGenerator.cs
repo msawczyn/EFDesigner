@@ -200,9 +200,7 @@ namespace Microsoft.Msagl.Core.Geometry
                             openBorderInfo, closeBorderInfo, openBorderInfoP, closeBorderInfoP);
             this.nextNodeId += OverlapRemovalCluster.NumInternalNodes;
             if (null == parentCluster)
-            {
-                this.clusterHierarchies.Add(newCluster);
-            }
+               this.clusterHierarchies.Add(newCluster);
             else
             {
                 // @@DCR: Enforce that Clusters live in only one hierarchy - they can have only one parent, so add a 
@@ -278,13 +276,10 @@ namespace Microsoft.Msagl.Core.Geometry
         {
             ValidateArg.IsNotNull(solver, "solver");
             if (null == parameters)
-            {
-                parameters = new OverlapRemovalParameters();
-            }
+               parameters = new OverlapRemovalParameters();
+
             foreach (OverlapRemovalCluster cluster in this.clusterHierarchies)
-            {
-                cluster.Generate(solver, parameters, this.IsHorizontal);
-            }
+               cluster.Generate(solver, parameters, this.IsHorizontal);
 
             // For Clusters we reposition their "fake border" variables between the constraint-generation
             // and solving phases, so we need to tell the solver to do this.
@@ -304,22 +299,18 @@ namespace Microsoft.Msagl.Core.Geometry
                                     OverlapRemovalParameters parameters, bool doGenerate)
         {
             if (null == solver)
-            {
-                solver = new ProjectionSolver.Solver();
-            }
+               solver = new ProjectionSolver.Solver();
+
             if (null == parameters)
-            {
-                parameters = new OverlapRemovalParameters();
-            }
+               parameters = new OverlapRemovalParameters();
+
             if (doGenerate)
-            {
-                Generate(solver, parameters);
-            }
+               Generate(solver, parameters);
+
             ProjectionSolver.Solution solverSolution = solver.Solve(parameters.SolverParameters);
             foreach (OverlapRemovalCluster cluster in this.clusterHierarchies)
-            {
-                cluster.UpdateFromVariable();   // "recursively" processes all child clusters
-            }
+               cluster.UpdateFromVariable();   // "recursively" processes all child clusters
+
             return solverSolution;
         }
     }

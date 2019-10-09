@@ -173,9 +173,8 @@ namespace Microsoft.Msagl.Core.Geometry {
         ///<returns></returns>
         public TData Remove(Interval rectangle, TData userData) {
             if (rootNode==null)
-            {
-                return default(TData);
-            }
+               return default(TData);
+
             var ret = rootNode.GetLeafIntervalNodesIntersectingInterval(rectangle).FirstOrDefault(node => node.UserData.Equals(userData));
             if (ret == null)
                 return default(TData);
@@ -248,8 +247,11 @@ namespace Microsoft.Msagl.Core.Geometry {
 
         static IntervalNode<TData> FindTopUnbalancedNode(IntervalNode<TData> node) {
             for (var parent = node.Parent; parent != null; parent = parent.Parent)
-                if (! Balanced(parent))
-                    return parent;
+            {
+               if (! Balanced(parent))
+                  return parent;
+            }
+
             return null;
         }
 

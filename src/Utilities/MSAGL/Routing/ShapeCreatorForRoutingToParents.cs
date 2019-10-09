@@ -79,14 +79,18 @@ namespace Microsoft.Msagl.Routing {
 
         internal static bool NumberOfActiveNodesIsUnderThreshold(List<Edge> inParentEdges, List<Edge> outParentEdges, int threshold) {
             var usedNodeSet = new Set<Node>();
-            foreach (var edge in inParentEdges) 
-                if(SetOfActiveNodesIsLargerThanThreshold((Cluster)edge.Target, edge.Source, usedNodeSet, threshold))
-                   return false;
-            
-            foreach (var edge in outParentEdges) 
-                if(SetOfActiveNodesIsLargerThanThreshold((Cluster)edge.Source, edge.Target, usedNodeSet, threshold))
+            foreach (var edge in inParentEdges)
+            {
+               if(SetOfActiveNodesIsLargerThanThreshold((Cluster)edge.Target, edge.Source, usedNodeSet, threshold))
                   return false;
-            
+            }
+
+            foreach (var edge in outParentEdges)
+            {
+               if(SetOfActiveNodesIsLargerThanThreshold((Cluster)edge.Source, edge.Target, usedNodeSet, threshold))
+                  return false;
+            }
+
             return true;
         }
 

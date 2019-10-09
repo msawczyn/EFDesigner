@@ -51,20 +51,28 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
             //for now suppose that the data is correct: no isolatedSites coincide with obstacles or isolatedSegments, obstacles are mutually disjoint, etc
 
             if (isolatedSitesWithObject != null)
-                foreach (var tuple in isolatedSitesWithObject)
-                    AddSite(tuple.Item1, tuple.Item2);
+            {
+               foreach (var tuple in isolatedSitesWithObject)
+                  AddSite(tuple.Item1, tuple.Item2);
+            }
 
             if (isolatedSites != null)
-                foreach (var isolatedSite in isolatedSites)
-                    AddSite(isolatedSite, null);
+            {
+               foreach (var isolatedSite in isolatedSites)
+                  AddSite(isolatedSite, null);
+            }
 
             if (obstacles != null)
-                foreach (var poly in obstacles)
-                    AddPolylineToAllInputSites(poly);
+            {
+               foreach (var poly in obstacles)
+                  AddPolylineToAllInputSites(poly);
+            }
 
             if (isolatedSegments != null)
-                foreach (var isolatedSegment in isolatedSegments)
-                    AddConstrainedEdge(isolatedSegment.A, isolatedSegment.B, null);
+            {
+               foreach (var isolatedSegment in isolatedSegments)
+                  AddConstrainedEdge(isolatedSegment.A, isolatedSegment.B, null);
+            }
 
             AddP1AndP2();
 
@@ -204,9 +212,13 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
 
         internal void RestoreEdgeCapacities() {
             foreach (var site in allInputSites)
-                foreach (var e in site.Edges)
-                    if (!e.Constrained) //do not care of constrained edges
-                        e.ResidualCapacity = e.Capacity;
+            {
+               foreach (var e in site.Edges)
+               {
+                  if (!e.Constrained) //do not care of constrained edges
+                     e.ResidualCapacity = e.Capacity;
+               }
+            }
         }
 
         ///<summary>
@@ -321,9 +333,8 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
         RectangleNode<CdtTriangle> cdtTree = null;
 
         internal RectangleNode<CdtTriangle> GetCdtTree() {
-            if (cdtTree == null) {
-                cdtTree = RectangleNode<CdtTriangle>.CreateRectangleNodeOnEnumeration(GetTriangles().Select(t => new RectangleNode<CdtTriangle>(t, t.BoundingBox())));
-            }
+            if (cdtTree == null)
+               cdtTree = RectangleNode<CdtTriangle>.CreateRectangleNodeOnEnumeration(GetTriangles().Select(t => new RectangleNode<CdtTriangle>(t, t.BoundingBox())));
 
             return cdtTree;
         }

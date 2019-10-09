@@ -328,9 +328,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
 
             Set<Rail> railsOfEdge;
             if (level._railsOfEdges.TryGetValue(edge, out railsOfEdge))
-            {
-                railsToHighlight.InsertRange(railsOfEdge);
-            }
+               railsToHighlight.InsertRange(railsOfEdge);
+
             //else
             //{
             //    var edgeInfo = GeometryEdgesToLgEdgeInfos[edge];
@@ -345,14 +344,12 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
         static void TransferHighlightedRails(LgLevel level, Edge edge, Set<Rail> railsOfEdge) {
             //need to remove those rails later, when putting them off
             foreach (var rail in railsOfEdge)
-            {
-                /*
+            /*
                 if (rail.A.X <= 4154 && rail.A.X >= 4152)
                 {
                     Console.WriteLine("NOW I SEE YOU");
                 }*/
-                AddRailToRailTreeOfLowerLevel(rail, level);
-            }
+               AddRailToRailTreeOfLowerLevel(rail, level);
             level._railsOfEdges[edge] = railsOfEdge;
             level.HighlightedRails.InsertRange(railsOfEdge);
         }
@@ -494,8 +491,10 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             foreach (var rail in level.HighlightedRails) {
                 if (!railsThatShouldBeHiglighted.Contains(rail)) {
                     if (RailBelongsToLevel(level, rail))
-                        if (rail.Color != null && rail.Color.Count > 0) { }
-                        else rail.IsHighlighted = false;
+                    {
+                       if (rail.Color != null && rail.Color.Count > 0) { }
+                       else rail.IsHighlighted = false;
+                    }
                     else
                     {
                         
@@ -536,9 +535,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             foreach (var edge in SelectedEdges) {
                 if (edgesToPutOff.Contains(edge)) continue;
                 Set<Rail> railsOfEdge;
-                if (level._railsOfEdges.TryGetValue(edge, out railsOfEdge)) {
-                    ret.InsertRange(railsOfEdge);
-                }
+                if (level._railsOfEdges.TryGetValue(edge, out railsOfEdge))
+                   ret.InsertRange(railsOfEdge);
             }
             return ret;
         }

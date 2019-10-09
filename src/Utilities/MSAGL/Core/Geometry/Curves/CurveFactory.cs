@@ -254,9 +254,8 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             ps[6] = new Point(ps[1].X, -ps[1].Y);
             ps[5] = new Point(ps[2].X, -ps[2].Y);
 
-            for (int i = 0; i < 8; i++) {
-                ps[i] += center;
-            }
+            for (int i = 0; i < 8; i++)
+               ps[i] += center;
 
             Polyline polyline = new Polyline(ps) {Closed = true};
             return polyline;

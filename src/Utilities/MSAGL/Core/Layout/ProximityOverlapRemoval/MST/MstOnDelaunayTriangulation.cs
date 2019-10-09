@@ -25,14 +25,13 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTre
         /// <returns></returns>
         static internal List<Tuple<int, int, double, double, double>> GetMstOnTuple(List<Tuple<int,int,double,double,double>> proximityEdges, int sizeId) {
             if (proximityEdges.Count == 0)
-            {
-                return null;
-            }
+               return null;
+
             var intPairs = proximityEdges.Select(t => new IntPair(t.Item1, t.Item2)).ToArray();
             var weighting = new Dictionary<IntPair, Tuple<int, int, double, double, double>>(intPairs.Count());
-            for (int i = 0; i < proximityEdges.Count; i++) {
-                weighting[intPairs[i]] = proximityEdges[i];
-            }
+            for (int i = 0; i < proximityEdges.Count; i++)
+               weighting[intPairs[i]] = proximityEdges[i];
+
             var graph = new BasicGraph<IEdge>(intPairs, sizeId);
 
             var mstOnBasicGraph = new MinimumSpanningTreeByPrim(graph, intPair => weighting[(IntPair)intPair].Item5, intPairs[0].First);
@@ -90,14 +89,14 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.MinimumSpanningTre
             var ret = GetMstOnCdt(cdt, e => (e.lowerSite.Point - e.upperSite.Point).Length);
             var l = new List<DebugCurve>();
             foreach(var s in cdt.PointsToSites.Values)
-                foreach (var e in s.Edges)
-                {
-                    l.Add(new DebugCurve(100, 0.1, "black", new LineSegment(e.lowerSite.Point, e.upperSite.Point)));
-                }
-            foreach (var e in ret)
             {
-                l.Add(new DebugCurve(100, 0.12, "red", new LineSegment(e.lowerSite.Point, e.upperSite.Point)));
+               foreach (var e in s.Edges)
+                  l.Add(new DebugCurve(100, 0.1, "black", new LineSegment(e.lowerSite.Point, e.upperSite.Point)));
             }
+
+            foreach (var e in ret)
+               l.Add(new DebugCurve(100, 0.12, "red", new LineSegment(e.lowerSite.Point, e.upperSite.Point)));
+
             LayoutAlgorithmSettings.ShowDebugCurvesEnumeration(l);
 #endif
         }

@@ -233,14 +233,12 @@ namespace Microsoft.Msagl.Core.Layout {
         public void Translate(Point delta) {
             RaiseLayoutChangeEvent(delta);
             if (InnerPoints != null) {
-                for (int i = 0; i < InnerPoints.Count; ++i) {
-                    InnerPoints[i] = InnerPoints[i] + delta;
-                }
+                for (int i = 0; i < InnerPoints.Count; ++i)
+                   InnerPoints[i] = InnerPoints[i] + delta;
             }
             if (OuterPoints != null) {
-                for (int i = 0; i < OuterPoints.Count; ++i) {
-                    OuterPoints[i] = OuterPoints[i] + delta;
-                }
+                for (int i = 0; i < OuterPoints.Count; ++i)
+                   OuterPoints[i] = OuterPoints[i] + delta;
             }
             boundingBox = Rectangle.Translate(boundingBox, delta);
             

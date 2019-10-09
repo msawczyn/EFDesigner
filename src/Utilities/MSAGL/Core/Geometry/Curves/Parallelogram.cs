@@ -378,16 +378,15 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                         minX = maxX = x;
                         minY = maxY = y;
                     } else {
-                        if (x < minX) {
-                            minX = x;
-                        } else if (x > maxX) {
-                            maxX = x;
-                        }
-                        if (y < minY) {
-                            minY = y;
-                        } else if (y > maxY) {
-                            maxY = y;
-                        }
+                        if (x < minX)
+                           minX = x;
+                        else if (x > maxX)
+                           maxX = x;
+
+                        if (y < minY)
+                           minY = y;
+                        else if (y > maxY)
+                           maxY = y;
                     }
                 }
 
@@ -446,16 +445,15 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
 
          static void PumpMinMax(ref double minX, ref double maxX, ref double minY, ref double maxY, 
             ref Point p) {
-            if (p.X < minX) {
-                minX = p.X;
-            } else if (p.X > maxX) {
-                maxX = p.X;
-            }
-            if (p.Y < minY) {
-                minY = p.Y;
-            } else if (p.Y > maxY) {
-                maxY = p.Y;
-            }
-        }
+            if (p.X < minX)
+               minX = p.X;
+            else if (p.X > maxX)
+               maxX = p.X;
+
+            if (p.Y < minY)
+               minY = p.Y;
+            else if (p.Y > maxY)
+               maxY = p.Y;
+         }
     }
 }

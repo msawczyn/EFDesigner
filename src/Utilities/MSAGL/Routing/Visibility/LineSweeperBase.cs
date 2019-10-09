@@ -116,8 +116,10 @@ namespace Microsoft.Msagl.Routing.Visibility {
             foreach (var obstacle in Obstacles)
                 EnqueueLowestPointsOnObstacles(obstacle);
             if (Ports != null)
-                foreach (var point in Ports)
-                    EnqueueEvent(new PortObstacleEvent(point));
+            {
+               foreach (var point in Ports)
+                  EnqueueEvent(new PortObstacleEvent(point));
+            }
         }
 
         void EnqueueLowestPointsOnObstacles(Polyline poly) {
@@ -130,8 +132,11 @@ namespace Microsoft.Msagl.Routing.Visibility {
             PolylinePoint pp = poly.StartPoint.Next;
 
             for (; pp != null; pp = pp.Next)
-                if (Less(pp.Point, candidate.Point))
-                    candidate = pp;
+            {
+               if (Less(pp.Point, candidate.Point))
+                  candidate = pp;
+            }
+
             return candidate;
         }
 

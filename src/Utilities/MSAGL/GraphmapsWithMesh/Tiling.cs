@@ -708,9 +708,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 {
                     //check for angular resolution   
                     if (Angle.getAngleIfSmallerThanPIby2(w, VList[listNeighbors[i, 1]], VList[listNeighbors[j, 1]]) < _angularResolution)
-                    {
-                        return false;
-                    }
+                       return false;
                 }
 
 
@@ -734,9 +732,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
 
                     //distance from z to w,i
                     if (PointToSegmentDistance.GetDistance(w, VList[listNeighbors[i, 1]], z) < _edgeNodeSeparation[0])
-                    {
-                        return false;
-                    }
+                       return false;
                 }
 
             }
@@ -875,9 +871,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
 
                 //otherwise find distance from index to w1w2                
                 if (PointToSegmentDistance.GetDistance(VList[w1], VList[w2], VList[index]) < _edgeNodeSeparation[0])
-                {
-                    return false;
-                }
+                   return false;
             }
 
             /*
@@ -1119,14 +1113,16 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                                     adjust = true;
                                     //check if it already exists in the neighbor list
                                     for (int check = 1; check <= DegList[listNeighbors[2, 1]]; check++)
-                                        if (EList[listNeighbors[2, 1], check].NodeId == listNeighbors[1, 1])
-                                        {
-                                            EList[listNeighbors[2, 1], check].Selected = EList[w.Id, listNeighbors[2, 2]].Selected;
-                                            EList[listNeighbors[2, 1], check].Used = EList[w.Id, listNeighbors[2, 2]].Used;
-                                            EList[listNeighbors[2, 1], j].Selected = 0;
-                                            EList[listNeighbors[2, 1], j].Used = 0;
-                                            adjust = false;
-                                        }
+                                    {
+                                       if (EList[listNeighbors[2, 1], check].NodeId == listNeighbors[1, 1])
+                                       {
+                                          EList[listNeighbors[2, 1], check].Selected = EList[w.Id, listNeighbors[2, 2]].Selected;
+                                          EList[listNeighbors[2, 1], check].Used = EList[w.Id, listNeighbors[2, 2]].Used;
+                                          EList[listNeighbors[2, 1], j].Selected = 0;
+                                          EList[listNeighbors[2, 1], j].Used = 0;
+                                          adjust = false;
+                                       }
+                                    }
 
                                     if (adjust)
                                     {
@@ -1145,14 +1141,16 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                                     adjust = true;
                                     //check if it already exists in the neighbor list
                                     for (int check = 1; check <= DegList[listNeighbors[1, 1]]; check++)
-                                        if (EList[listNeighbors[1, 1], check].NodeId == listNeighbors[2, 1])
-                                        {
-                                            EList[listNeighbors[1, 1], check].Selected = EList[w.Id, listNeighbors[1, 2]].Selected;
-                                            EList[listNeighbors[1, 1], check].Used = EList[w.Id, listNeighbors[1, 2]].Used;
-                                            EList[listNeighbors[1, 1], i].Selected = 0;
-                                            EList[listNeighbors[1, 1], i].Used = 0;
-                                            adjust = false;
-                                        }
+                                    {
+                                       if (EList[listNeighbors[1, 1], check].NodeId == listNeighbors[2, 1])
+                                       {
+                                          EList[listNeighbors[1, 1], check].Selected = EList[w.Id, listNeighbors[1, 2]].Selected;
+                                          EList[listNeighbors[1, 1], check].Used = EList[w.Id, listNeighbors[1, 2]].Used;
+                                          EList[listNeighbors[1, 1], i].Selected = 0;
+                                          EList[listNeighbors[1, 1], i].Used = 0;
+                                          adjust = false;
+                                       }
+                                    }
 
                                     if (adjust)
                                     {
@@ -1224,7 +1222,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                             list[newnode++] = VList[a];
                             NumOfnodes++;
                         }
-                        else { list[newnode++] = VList[exists]; }
+                        else
+                           list[newnode++] = VList[exists];
                     }
 
                     if (w.YLoc == b.YLoc && w.XLoc < b.XLoc)
@@ -1430,9 +1429,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x + 1 < N && y + 1 < N && NodeMap[x + 1, y + 1] > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y + 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y + 1]].Id) break;
+
                     if (EList[NodeMap[x, y], neighb].Selected == 0) break;
                     x = x + 1;
                     y = y + 1;
@@ -1440,9 +1438,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x + 1 < N && y + 1 < N && NodeMap[x + 1, y + 1] > 0 && VList[NodeMap[x + 1, y + 1]].CId == 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y + 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y + 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x + 1;
                     y = y + 1;
@@ -1452,9 +1449,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 if (x + 1 < N && y + 1 < N && NodeMap[x + 1, y + 1] > 0 && VList[NodeMap[x + 1, y + 1]].CId > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y + 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y + 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x + 1;
                     y = y + 1;
@@ -1469,9 +1465,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x - 1 > 0 && y + 1 < N && NodeMap[x - 1, y + 1] > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y + 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y + 1]].Id) break;
+
                     if (EList[NodeMap[x, y], neighb].Selected == 0) break;
                     x = x - 1;
                     y = y + 1;
@@ -1479,9 +1474,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x - 1 > 0 && y + 1 < N && NodeMap[x - 1, y + 1] > 0 && VList[NodeMap[x - 1, y + 1]].CId == 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y + 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y + 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x - 1;
                     y = y + 1;
@@ -1491,9 +1485,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 if (x - 1 > 0 && y + 1 < N && NodeMap[x - 1, y + 1] > 0 && VList[NodeMap[x - 1, y + 1]].CId > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y + 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y + 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x - 1;
                     y = y + 1;
@@ -1508,9 +1501,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x + 1 < N && y - 1 > 0 && NodeMap[x + 1, y - 1] > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y - 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y - 1]].Id) break;
+
                     if (EList[NodeMap[x, y], neighb].Selected == 0) break;
                     x = x + 1;
                     y = y - 1;
@@ -1518,9 +1510,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x + 1 < N && y - 1 > 0 && NodeMap[x + 1, y - 1] > 0 && VList[NodeMap[x + 1, y - 1]].CId == 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y - 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y - 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x + 1;
                     y = y - 1;
@@ -1530,9 +1521,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 if (x + 1 < N && y - 1 > 0 && NodeMap[x + 1, y - 1] > 0 && VList[NodeMap[x + 1, y - 1]].CId > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y - 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x + 1, y - 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x + 1;
                     y = y - 1;
@@ -1547,9 +1537,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x - 1 > 0 && y - 1 > 0 && NodeMap[x - 1, y - 1] > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y - 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y - 1]].Id) break;
+
                     if (EList[NodeMap[x, y], neighb].Selected == 0) break;
                     x = x - 1;
                     y = y - 1;
@@ -1557,9 +1546,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 while (x - 1 > 0 && y - 1 > 0 && NodeMap[x - 1, y - 1] > 0 && VList[NodeMap[x - 1, y - 1]].CId == 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y - 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y - 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x - 1;
                     y = y - 1;
@@ -1569,9 +1557,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 if (x - 1 > 0 && y - 1 > 0 && NodeMap[x - 1, y - 1] > 0 && VList[NodeMap[x - 1, y - 1]].CId > 0)
                 {
                     for (neighb = 1; neighb <= DegList[NodeMap[x, y]]; neighb++)
-                    {
-                        if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y - 1]].Id) break;
-                    }
+                       if (EList[NodeMap[x, y], neighb].NodeId == VList[NodeMap[x - 1, y - 1]].Id) break;
+
                     SelectEdge(EList, DegList, VList[NodeMap[x, y]], VList[EList[NodeMap[x, y], neighb].NodeId], 6);
                     x = x - 1;
                     y = y - 1;
@@ -1589,9 +1576,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 if (eList[a.Id, neighb].NodeId == b.Id)
                 {
                     if (eList[a.Id, neighb].Selected == 0)
-                    {
-                        eList[a.Id, neighb].Selected = givenLevel;
-                    }
+                       eList[a.Id, neighb].Selected = givenLevel;
                     else temp = eList[a.Id, neighb].Selected;
                     break;
                 }
@@ -1601,9 +1586,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 if (eList[b.Id, neighb].NodeId == a.Id)
                 {
                     if (eList[b.Id, neighb].Selected == 0)
-                    {
-                        eList[b.Id, neighb].Selected = givenLevel;
-                    }
+                       eList[b.Id, neighb].Selected = givenLevel;
                     else temp = eList[b.Id, neighb].Selected;
                     break;
                 }
@@ -1614,13 +1597,11 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
         public bool AddEdge(int a, int b)
         {
             for (int index = 0; index < DegList[a]; index++)
-            {
-                if (EList[a, index].NodeId == b) return false;
-            }
+               if (EList[a, index].NodeId == b) return false;
+
             for (int index = 0; index < DegList[b]; index++)
-            {
-                if (EList[b, index].NodeId == a) return false;
-            }
+               if (EList[b, index].NodeId == a) return false;
+
             EList[a, DegList[a]] = new Edge(b);
             DegList[a]++;
             EList[b, DegList[b]] = new Edge(a);
@@ -1631,22 +1612,19 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
         public bool IsAnEdge(int a, int b)
         {
             for (int index = 0; index < DegList[a]; index++)
-            {
-                if (EList[a, index].NodeId == b) return true;
-            }
+               if (EList[a, index].NodeId == b) return true;
+
             return false;
         }
 
         public bool AddEdge(int a, int b, int select, int zoomLevel)
         {
             for (int index = 0; index < DegList[a]; index++)
-            {
-                if (EList[a, index].NodeId == b) return false;
-            }
+               if (EList[a, index].NodeId == b) return false;
+
             for (int index = 0; index < DegList[b]; index++)
-            {
-                if (EList[b, index].NodeId == a) return false;
-            }
+               if (EList[b, index].NodeId == a) return false;
+
             EList[a, DegList[a]] = new Edge(b) { Selected = select, Used = zoomLevel };
             DegList[a]++;
             EList[b, DegList[b]] = new Edge(a) { Selected = select, Used = zoomLevel };
@@ -1688,7 +1666,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 {
                     DegList[a]--;
                     i++;
-                    for (; index < DegList[a]; index++) { EList[a, index] = EList[a, index + 1]; }
+                    for (; index < DegList[a]; index++)
+                       EList[a, index] = EList[a, index + 1];
                 }
             }
             for (int index = 0; index < DegList[b]; index++)

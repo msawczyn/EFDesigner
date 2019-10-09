@@ -2360,6 +2360,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// IsPersistent
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsPersistent = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isPersistent");
+				if (attribIsPersistent != null)
+				{
+					global::System.Boolean valueOfIsPersistent;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsPersistent, out valueOfIsPersistent))
+					{
+						instanceOfModelClass.IsPersistent = valueOfIsPersistent;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isPersistent", typeof(global::System.Boolean), attribIsPersistent);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3274,6 +3291,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "autoPropertyDefault", serializedPropValue);
+					}
+				}
+			}
+			// IsPersistent
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelClass.IsPersistent;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isPersistent", serializedPropValue);
 					}
 				}
 			}

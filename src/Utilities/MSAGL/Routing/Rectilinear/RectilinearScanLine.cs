@@ -55,9 +55,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         internal RBNode<BasicObstacleSide> Find(BasicObstacleSide side) {
             // Sides that start after the current position cannot be in the scanline.
-            if (-1 == scanDirection.ComparePerpCoord(this.linePositionAtLastInsertOrRemove, side.Start)) {
-                return null;
-            }
+            if (-1 == scanDirection.ComparePerpCoord(this.linePositionAtLastInsertOrRemove, side.Start))
+               return null;
+
             return SideTree.Find(side);
         }
 
@@ -127,9 +127,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             
             // If these are two sides of the same obstacle then the ordering is obvious.
             if (first.Obstacle == second.Obstacle) {
-                if (first == second) {
-                    return 0;
-                }
+                if (first == second)
+                   return 0;
+
                 return (first is LowObstacleSide) ? -1 : 1;
             }
 
@@ -148,9 +148,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 bool firstIsLow = first is LowObstacleSide;
                 bool secondIsLow = second is LowObstacleSide;
                 cmp = firstIsLow.CompareTo(secondIsLow);
-                if (0 == cmp) {
-                    cmp = first.Obstacle.Ordinal.CompareTo(second.Obstacle.Ordinal);
-                }
+                if (0 == cmp)
+                   cmp = first.Obstacle.Ordinal.CompareTo(second.Obstacle.Ordinal);
             }
 
             DevTraceInfo(4, "Compare {0} @ {1:F5} {2:F5} and {3:F5} {4:F5}: {5} {6}",
@@ -161,9 +160,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         [Conditional("DEBUG")]
         internal static void Debug_VerifySidesDoNotIntersect(BasicObstacleSide side1, BasicObstacleSide side2) {
             Point intersect;
-            if (!Point.LineLineIntersection(side1.Start, side1.End, side2.Start, side2.End, out intersect)) {
-                return;
-            }
+            if (!Point.LineLineIntersection(side1.Start, side1.End, side2.Start, side2.End, out intersect))
+               return;
 
             // The test for being within the interval is just multiplying to ensure that both subtractions 
             // return same-signed results (including endpoints).
@@ -185,10 +183,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         void Assert(bool condition, string message) {
 #if TEST_MSAGL
-            if (!condition) {
-                Test_DumpScanLine();
-            }
-#endif // TEST
+            if (!condition)
+               Test_DumpScanLine();
+            #endif // TEST
             Debug.Assert(condition, message);
         }
 

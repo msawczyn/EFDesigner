@@ -254,9 +254,7 @@ namespace Microsoft.Msagl.Core.Geometry
             this.nodeList.Add(newNode);
             var newCluster = newNode as OverlapRemovalCluster;
             if (null != newCluster)
-            {
-                this.clusterList.Add(newCluster);
-            }
+               this.clusterList.Add(newCluster);
         }
 
         // Adds an open/close event pair for the node. paddingP is either cluster or node padding.
@@ -272,9 +270,8 @@ namespace Microsoft.Msagl.Core.Geometry
         {
             // Margin applies only to the inside edge.
             if (margin > 0.0)
-            {
-                return margin;
-            }
+               return margin;
+
             return DefaultBorderWidth;
         }
 
@@ -304,13 +301,10 @@ namespace Microsoft.Msagl.Core.Geometry
                 {
                     item.ChildrenHaveBeenPushed = true;
                     foreach (var childCluster in item.Cluster.Clusters)
-                    {
-                        stack.Push(new ClusterItem(childCluster));
-                    }
+                       stack.Push(new ClusterItem(childCluster));
+
                     if (stack.Count > prevStackCount)
-                    {
-                        continue;
-                    }
+                       continue;
                 } // endif !node.ChildrenHaveBeenPushed
 
                 // No children to push so pop and process this cluster.
@@ -340,20 +334,15 @@ namespace Microsoft.Msagl.Core.Geometry
             // Squeezing causes constraints to be *minimally* enforced.  Note - this may introduce
             // a defer-to-vertical issue, so we special-case that section to ignore border nodes).
             if (this.IsEmpty || this.IsRootCluster || !this.IsInSolver)
-            {
-                return;
-            }
+               return;
 
             double leftBorderDesiredPos = this.LeftBorderNode.Position;
             double rightBorderDesiredPos = this.RightBorderNode.Position;
             if (!this.OpenBorderInfo.IsFixedPosition)
-            {
-                this.LeftBorderNode.Variable.DesiredPos = rightBorderDesiredPos;
-            }
+               this.LeftBorderNode.Variable.DesiredPos = rightBorderDesiredPos;
+
             if (!this.CloseBorderInfo.IsFixedPosition)
-            {
-                this.RightBorderNode.Variable.DesiredPos = leftBorderDesiredPos;
-            }
+               this.RightBorderNode.Variable.DesiredPos = leftBorderDesiredPos;
         }
 
         // Returns false if the cluster is empty; this handles nested clusters of empty clusters.
@@ -402,9 +391,7 @@ namespace Microsoft.Msagl.Core.Geometry
 
             // If we added no events, we're either Fixed (so continue) or empty (so return).
             if (0 == events.Count && !TranslateChildren)
-            {
-                return false;
-            }
+               return false;
 
             // Top/Bottom are considered the secondary (Perpendicular) axis here.
             double leftBorderWidth = DefaultBorderWidth;
@@ -451,9 +438,7 @@ namespace Microsoft.Msagl.Core.Geometry
                     // If a child cluster is empty, it will have zero size and no way to set its position.
                     // That includes clusters containing nothing but empty clusters.  We skip those here.
                     if (!cluster.IsInSolver)
-                    {
-                        continue;
-                    }
+                       continue;
                 }
                 else
                 {
@@ -493,16 +478,13 @@ namespace Microsoft.Msagl.Core.Geometry
                 // getting unresolved overlaps when dragging an external node over the corner of a cluster boundary.
                 double padMinSize = this.MinimumSize - boundaryRect.Width;
                 if (padMinSize > 0)
-                {
-                    boundaryRect.PadWidth(padMinSize / 2);
-                }
+                   boundaryRect.PadWidth(padMinSize / 2);
+
                 double padMinSizeP = this.MinimumSizeP - boundaryRect.Height;
                 if (padMinSizeP > 0)
-                {
-                    boundaryRect.PadHeight(padMinSizeP / 2);
-                }
+                   boundaryRect.PadHeight(padMinSizeP / 2);
 
-#if VERBOSE
+                #if VERBOSE
                 Console.WriteLine(" {0} BoundaryRect after CreateEvents: L/R T/B {1:F5}/{2:F5} {3:F5}/{4:F5}"
                         , this.Name, boundaryRect.Left, boundaryRect.Right, boundaryRect.Top, boundaryRect.Bottom);
 #endif
@@ -846,9 +828,8 @@ namespace Microsoft.Msagl.Core.Geometry
                         double p = leftNeighborNode == LeftBorderNode || currentRightNode == RightBorderNode ? ClusterPadding : NodePadding;
                         double separation = ((leftNeighborNode.Size + currentRightNode.Size) / 2) + p;
                         if (TranslateChildren)
-                        {
-                            separation = Math.Max(separation, currentRightNode.Position - leftNeighborNode.Position);
-                        }
+                           separation = Math.Max(separation, currentRightNode.Position - leftNeighborNode.Position);
+
                         Constraint cst = solver.AddConstraint(leftNeighborNode.Variable, currentRightNode.Variable, separation);
                         Debug.Assert(null != cst, "LeftNeighbors: unexpected null cst");
 #if VERBOSE
@@ -875,9 +856,8 @@ namespace Microsoft.Msagl.Core.Geometry
                         double p = currentLeftNode == LeftBorderNode || rightNeighborNode == RightBorderNode ? ClusterPadding : NodePadding;
                         double separation = ((currentLeftNode.Size + rightNeighborNode.Size) / 2) + p;
                         if (TranslateChildren)
-                        {
-                            separation = Math.Max(separation, rightNeighborNode.Position - currentLeftNode.Position);
-                        }
+                           separation = Math.Max(separation, rightNeighborNode.Position - currentLeftNode.Position);
+
                         Constraint cst = solver.AddConstraint(currentLeftNode.Variable, rightNeighborNode.Variable, separation);
                         Debug.Assert(null != cst, "RightNeighbors: unexpected null cst");
 #if VERBOSE
@@ -912,9 +892,7 @@ namespace Microsoft.Msagl.Core.Geometry
                                 , isHorizontal))
                 {
                     if (!nextNode.DeferredLeftNeighborToV)
-                    {
-                        break;
-                    }
+                       break;
                 }
             } // endfor NextLeft
             return lstNeighbours;
@@ -932,9 +910,7 @@ namespace Microsoft.Msagl.Core.Geometry
                                 , isHorizontal))
                 {
                     if (!nextNode.DeferredRightNeighborToV)
-                    {
-                        break;
-                    }
+                       break;
                 }
             } // endfor NextLeft
             return lstNeighbours;
@@ -1060,9 +1036,7 @@ namespace Microsoft.Msagl.Core.Geometry
                 // If empty, we had nothing to do.  We're also empty if we had child clusters
                 // that were empty; in that case we check that we don't have our Variables created.
                 if (IsEmpty || (null == this.LeftBorderNode.Variable))
-                {
-                    return;
-                }
+                   return;
 
                 // We put the fake border Nodes right up against the outer true Nodes (plus padding) initially,
                 // and then moved them to the midpoint (subsequently, the caller may have updated their position
@@ -1091,9 +1065,7 @@ namespace Microsoft.Msagl.Core.Geometry
 
                 // Child Clusters have already "recursively" been processed before the current cluster.
                 if (!(node is OverlapRemovalCluster))
-                {
-                    node.UpdateFromVariable();
-                }
+                   node.UpdateFromVariable();
             }
         }
     }

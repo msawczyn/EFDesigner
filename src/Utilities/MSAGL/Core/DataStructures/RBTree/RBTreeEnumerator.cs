@@ -20,9 +20,9 @@ namespace Microsoft.Msagl.Core.DataStructures {
             if (initialState == true) {
                 initialState = false;
                 c = tree.TreeMinimum();
-            } else {
-                c = tree.Next(c);
-            }
+            } else
+               c = tree.Next(c);
+
             return c != null;
         }
 

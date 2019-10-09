@@ -109,8 +109,10 @@ namespace Microsoft.Msagl.Miscellaneous
                     geometryGraph.Edges.Where(e => e.Curve == null).ToArray());
             }
             else
-                geometryGraph.AlgorithmData = SugiyamaLayoutSettings.CalculateLayout(geometryGraph,
-                    sugiyamaLayoutSettings, cancelToken);
+            {
+               geometryGraph.AlgorithmData = SugiyamaLayoutSettings.CalculateLayout(geometryGraph,
+                                                                                    sugiyamaLayoutSettings, cancelToken);
+            }
 
             if (transformIsNotIdentity)
                 sugiyamaLayoutSettings.Transformation = originalTransform;
@@ -173,9 +175,12 @@ namespace Microsoft.Msagl.Miscellaneous
                 }
             }
             if (sugiyamaLayoutSettings.FallbackLayoutSettings == null)
-                sugiyamaLayoutSettings.FallbackLayoutSettings = new FastIncrementalLayoutSettings() {
-                    AvoidOverlaps = true
-                };
+            {
+               sugiyamaLayoutSettings.FallbackLayoutSettings = new FastIncrementalLayoutSettings() {
+                                                                                                      AvoidOverlaps = true
+                                                                                                   };
+            }
+
             AddOrphanNodesToRootCluster(geometryGraph);
         }
 
@@ -307,9 +312,7 @@ namespace Microsoft.Msagl.Miscellaneous
             if (e.UnderlyingPolyline != null)
             {
                 for (Site s = e.UnderlyingPolyline.HeadSite; s != null; s = s.Next)
-                {
-                    s.Point = settings.Transformation*s.Point;
-                }
+                   s.Point = settings.Transformation*s.Point;
             }
         }
     }

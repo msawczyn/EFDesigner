@@ -282,11 +282,14 @@ namespace Microsoft.Msagl.Routing {
                 bool foundIntersectionsOutsideOfSource = false;
                 foreach (IntersectionInfo ii in
                     IntersectionsOfLineAndRectangleNodeOverPolyline(ls, ObstacleCalculator.RootOfLooseHierarchy))
-                    if (ii.Segment1 != loosePolyline) {
-                        del /= 1.5;
-                        foundIntersectionsOutsideOfSource = true;
-                        break;
-                    }
+                {
+                   if (ii.Segment1 != loosePolyline) {
+                      del /= 1.5;
+                      foundIntersectionsOutsideOfSource = true;
+                      break;
+                   }
+                }
+
                 if (!foundIntersectionsOutsideOfSource)
                     break;
             }
@@ -422,9 +425,9 @@ namespace Microsoft.Msagl.Routing {
             Debug.Assert(offset > ApproximateComparer.DistanceEpsilon); //otherwise we are cycling infinitely here
             SetRelaxedPointLocation(offset, relaxedPoint);
 
-            if (StickingSegmentDoesNotIntersectTightObstacles(relaxedPoint)) {
-                return true;
-            }
+            if (StickingSegmentDoesNotIntersectTightObstacles(relaxedPoint))
+               return true;
+
             PullCloserRelaxedPoint(relaxedPoint.Prev);
             return false;
         }
@@ -497,11 +500,17 @@ namespace Microsoft.Msagl.Routing {
             bool targetIsFloating = TargetPort is FloatingPort;
 
             if (!sourceIsFloating && !targetIsInsideOfSourceTightPolyline)
-                if (!InsideOfTheAllowedConeOfBoundaryPort(ls.End, SourcePort as CurvePort))
-                    return false;
+            {
+               if (!InsideOfTheAllowedConeOfBoundaryPort(ls.End, SourcePort as CurvePort))
+                  return false;
+            }
+
             if (!targetIsFloating && TargetPort != null && !sourceIsInsideOfTargetTightPolyline)
-                if (!InsideOfTheAllowedConeOfBoundaryPort(ls.Start, TargetPort as CurvePort))
-                    return false;
+            {
+               if (!InsideOfTheAllowedConeOfBoundaryPort(ls.Start, TargetPort as CurvePort))
+                  return false;
+            }
+
             List<IntersectionInfo> xx = IntersectionsOfLineAndRectangleNodeOverPolyline(ls,
                                                                                         ObstacleCalculator.
                                                                                             RootOfTightHierarchy);
@@ -1129,9 +1138,11 @@ namespace Microsoft.Msagl.Routing {
             if (UseSpanner)
                 targetVisibilityVertex = AddTransientVisibilityEdgesForPort(targetLocation, targetLoosePoly);
             else
-                PointVisibilityCalculator.CalculatePointVisibilityGraph(
-                    GetActivePolylinesWithException(targetLoosePoly), VisibilityGraph, targetLocation,
-                    VisibilityKind.Tangent, out targetVisibilityVertex);
+            {
+               PointVisibilityCalculator.CalculatePointVisibilityGraph(
+                                                                       GetActivePolylinesWithException(targetLoosePoly), VisibilityGraph, targetLocation,
+                                                                       VisibilityKind.Tangent, out targetVisibilityVertex);
+            }
         }
 
         VisibilityVertex AddTransientVisibilityEdgesForPort(Point point, IEnumerable<Point> loosePoly) {
@@ -1142,8 +1153,10 @@ namespace Microsoft.Msagl.Routing {
 
             v = visibilityGraph.AddVertex(point);
             if (loosePoly != null) //if the edges have not been calculated do it in a quick and dirty mode
-                foreach (Point p in loosePoly)
-                    visibilityGraph.AddEdge(point, p, ((a, b) => new TollFreeVisibilityEdge(a, b)));
+            {
+               foreach (Point p in loosePoly)
+                  visibilityGraph.AddEdge(point, p, ((a, b) => new TollFreeVisibilityEdge(a, b)));
+            }
             else {
                 PointVisibilityCalculator.CalculatePointVisibilityGraph(GetActivePolylines(),
                                                                         VisibilityGraph, point,
@@ -1183,9 +1196,9 @@ namespace Microsoft.Msagl.Routing {
                 Debug.Assert(coneSpannerAngle <= 90 * Math.PI / 180);
                 UseSpanner = true;
                 ExpectedProgressSteps = ConeSpanner.GetTotalSteps(coneSpannerAngle);
-            } else {
-                ExpectedProgressSteps = obstacles.Count();
-            }
+            } else
+               ExpectedProgressSteps = obstacles.Count();
+
             ConeSpannerAngle = coneSpannerAngle;
             Obstacles = obstacles;
             CalculateObstacles();
@@ -1336,10 +1349,13 @@ namespace Microsoft.Msagl.Routing {
             bool lineIsGood = true;
             foreach (IntersectionInfo ii in
                 IntersectionsOfLineAndRectangleNodeOverPolyline(ls, ObstacleCalculator.RootOfTightHierarchy))
-                if (ii.Segment1 != polylineToExclude) {
-                    lineIsGood = false;
-                    break;
-                }
+            {
+               if (ii.Segment1 != polylineToExclude) {
+                  lineIsGood = false;
+                  break;
+               }
+            }
+
             return lineIsGood;
         }
 
@@ -1347,10 +1363,13 @@ namespace Microsoft.Msagl.Routing {
             bool lineIsGood = true;
             foreach (IntersectionInfo ii in
                 IntersectionsOfLineAndRectangleNodeOverPolyline(ls, ObstacleCalculator.RootOfTightHierarchy))
-                if (!(ii.Segment1 == polylineToExclude0 || ii.Segment1 == polylineToExclude1)) {
-                    lineIsGood = false;
-                    break;
-                }
+            {
+               if (!(ii.Segment1 == polylineToExclude0 || ii.Segment1 == polylineToExclude1)) {
+                  lineIsGood = false;
+                  break;
+               }
+            }
+
             return lineIsGood;
         }
 
@@ -1459,10 +1478,12 @@ namespace Microsoft.Msagl.Routing {
                     StartPointOfEdgeRouting = SourcePort.Location;
                 }
                 else
-                    StartPointOfEdgeRouting = TakeBoundaryPortOutsideOfItsLoosePolyline(SourcePort.Curve,
-                                                                                        ((CurvePort) sourcePort).
-                                                                                            Parameter,
-                                                                                        SourceLoosePolyline);
+                {
+                   StartPointOfEdgeRouting = TakeBoundaryPortOutsideOfItsLoosePolyline(SourcePort.Curve,
+                                                                                       ((CurvePort) sourcePort).
+                                                                                       Parameter,
+                                                                                       SourceLoosePolyline);
+                }
             }
         }
 
@@ -1556,9 +1577,11 @@ namespace Microsoft.Msagl.Routing {
                     //the edge has to be reversed to route from CurvePort to FloatingPort
                     curve = RouteFromFloatingPortToFloatingPort(targetLoosePolyline, smooth, out smoothedPolyline);
                 } else
-                    curve = RouteFromFloatingPortToAnywherePort(((HookUpAnywhereFromInsidePort) targetPort).LoosePolyline,
-                                                                smooth, out smoothedPolyline,
-                                                                (HookUpAnywhereFromInsidePort) targetPort);
+                {
+                   curve = RouteFromFloatingPortToAnywherePort(((HookUpAnywhereFromInsidePort) targetPort).LoosePolyline,
+                                                               smooth, out smoothedPolyline,
+                                                               (HookUpAnywhereFromInsidePort) targetPort);
+                }
             }
             return curve;
         }

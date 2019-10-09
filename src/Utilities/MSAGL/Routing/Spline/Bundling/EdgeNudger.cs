@@ -228,9 +228,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         static IEnumerable<DebugCurve> DebugHubBases(MetroGraphData metroGraphData) {
             List<DebugCurve> dc = new List<DebugCurve>();
             foreach (var s in metroGraphData.Stations)
-                foreach (var h in s.BundleBases.Values) {
-                    dc.Add(new DebugCurve(100, 1, "red", new LineSegment(h.LeftPoint, h.RightPoint)));
-                }
+            {
+               foreach (var h in s.BundleBases.Values)
+                  dc.Add(new DebugCurve(100, 1, "red", new LineSegment(h.LeftPoint, h.RightPoint)));
+            }
 
             return dc;
             //return
@@ -259,9 +260,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                             var j = h.Other.Index;
                             ls.Add(new LineSegment(b.Points[i], uBase.Points[j]));
                         }
-                        else {
-                            ls.Add(h.Segment);
-                        }
+                        else
+                           ls.Add(h.Segment);
                     }
                 }
             }
@@ -307,12 +307,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             var c = v * v;
             double al;
             if (Math.Abs(a) < ApproximateComparer.DistanceEpsilon) { //we have b*al+c=0
-                if (Math.Abs(b) > ApproximateComparer.DistanceEpsilon) {
-                    al = -c / b;
-                }
-                else {
-                    return null;
-                }
+                if (Math.Abs(b) > ApproximateComparer.DistanceEpsilon)
+                   al = -c / b;
+                else
+                   return null;
             }
             else {
                 var d = b * b - 4 * a * c;
@@ -420,8 +418,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             while (progress && steps++ < maxSteps) {
                 progress = false;
                 foreach (Station s in metroGraphData.Stations)
-                    foreach (var segmentHub in s.BundleBases.Values)
-                        progress |= FanEdgesOfHubSegment(segmentHub);
+                {
+                   foreach (var segmentHub in s.BundleBases.Values)
+                      progress |= FanEdgesOfHubSegment(segmentHub);
+                }
             }
         }
 

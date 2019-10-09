@@ -148,10 +148,12 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
         void TryCreateConeClosureForLeftSide(BrokenConeSide leftSide) {
             var coneRightSide = leftSide.Cone.RightSide as ConeRightSide;
             if (coneRightSide != null)
-                if (
-                    Point.GetTriangleOrientation(coneRightSide.Start, coneRightSide.Start + coneRightSide.Direction,
-                                                 leftSide.EndVertex.Point) == TriangleOrientation.Clockwise)
-                    CreateConeClosureEvent(leftSide, coneRightSide);
+            {
+               if (
+                  Point.GetTriangleOrientation(coneRightSide.Start, coneRightSide.Start + coneRightSide.Direction,
+                                               leftSide.EndVertex.Point) == TriangleOrientation.Clockwise)
+                  CreateConeClosureEvent(leftSide, coneRightSide);
+            }
         }
 
         void CreateConeClosureEvent(BrokenConeSide brokenConeSide, ConeSide otherSide) {
@@ -187,10 +189,12 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
         void TryCreateConeClosureForRightSide(BrokenConeSide rightSide) {
             var coneLeftSide = rightSide.Cone.LeftSide as ConeLeftSide;
             if (coneLeftSide != null)
-                if (
-                    Point.GetTriangleOrientation(coneLeftSide.Start, coneLeftSide.Start + coneLeftSide.Direction,
-                                                 rightSide.EndVertex.Point) == TriangleOrientation.Counterclockwise)
-                    CreateConeClosureEvent(rightSide, coneLeftSide);
+            {
+               if (
+                  Point.GetTriangleOrientation(coneLeftSide.Start, coneLeftSide.Start + coneLeftSide.Direction,
+                                               rightSide.EndVertex.Point) == TriangleOrientation.Counterclockwise)
+                  CreateConeClosureEvent(rightSide, coneLeftSide);
+            }
         }
 
         void RemoveConesClosedBySegment(Point leftPoint, Point rightPoint) {
@@ -451,9 +455,8 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
             if (coneLeftSide == null) return;
             Point intersection;
             if (Point.IntervalIntersectsRay(obstacleSideStart, obstacleSideVertex.Point, coneLeftSide.Start,
-                                            ConeLeftSideDirection, out intersection)) {
-                EnqueueEvent(new LeftIntersectionEvent(coneLeftSide, intersection, obstacleSideVertex));
-            }
+                                            ConeLeftSideDirection, out intersection))
+               EnqueueEvent(new LeftIntersectionEvent(coneLeftSide, intersection, obstacleSideVertex));
         }
 
         RBNode<ConeSide> GetFirstNodeToTheRightOfPoint(Point p) {
@@ -494,9 +497,8 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
                 var seg = rbNode.Item as ConeLeftSide;
                 if (seg != null &&
                     Point.IntervalIntersectsRay(obstSideStart.Point, obstSideEnd.Point, seg.Start, seg.Direction,
-                                                out intersection)) {
-                    EnqueueEvent(new LeftIntersectionEvent(seg, intersection, obstSideEnd));
-                }
+                                                out intersection))
+                   EnqueueEvent(new LeftIntersectionEvent(seg, intersection, obstSideEnd));
             }
         }
 
@@ -645,9 +647,8 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
                 if (seg != null &&
                     Point.IntervalIntersectsRay(obstSideStartVertex.Point, obstSideEndVertex.Point, seg.Start,
                                                 seg.Direction,
-                                                out intersection)) {
-                    EnqueueEvent(CreateRightIntersectionEvent(seg, intersection, obstSideEndVertex));
-                }
+                                                out intersection))
+                   EnqueueEvent(CreateRightIntersectionEvent(seg, intersection, obstSideEndVertex));
             }
         }
 
@@ -823,9 +824,9 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         static GeometryGraph CreateGraphFromObstacles(IEnumerable<Polyline> obstacles) {
             var gg = new GeometryGraph();
-            foreach (var ob in obstacles) {
-                gg.Nodes.Add(new Node(ob.ToCurve()));
-            }
+            foreach (var ob in obstacles)
+               gg.Nodes.Add(new Node(ob.ToCurve()));
+
             return gg;
         }
 

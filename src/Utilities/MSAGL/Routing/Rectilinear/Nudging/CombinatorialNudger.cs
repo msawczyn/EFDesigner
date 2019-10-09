@@ -150,9 +150,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         static Directions FindContinuedDirection(AxisEdge edge, Directions direction, AxisEdge nextAxisEdge) {
             if (edge.Direction == direction)
-                return nextAxisEdge.Source == edge.Target
-                           ? nextAxisEdge.Direction
-                           : CompassVector.OppositeDir(nextAxisEdge.Direction);
+            {
+               return nextAxisEdge.Source == edge.Target
+                         ? nextAxisEdge.Direction
+                         : CompassVector.OppositeDir(nextAxisEdge.Direction);
+            }
 
             return nextAxisEdge.Source == edge.Source
                        ? nextAxisEdge.Direction

@@ -19,9 +19,9 @@ namespace Microsoft.Msagl.Core.Layout {
         public IEnumerable<Rectangle> AllowedRectangles {
             
             get {
-                if (this.allowedRects == null) {
-                    this.allowedRects = this.Spans.Select(span => this.TrimEntryCurve(span).BoundingBox).ToArray();
-                }
+                if (this.allowedRects == null)
+                   this.allowedRects = this.Spans.Select(span => this.TrimEntryCurve(span).BoundingBox).ToArray();
+
                 return this.allowedRects;
             }
         }
@@ -29,14 +29,12 @@ namespace Microsoft.Msagl.Core.Layout {
          ICurve TrimEntryCurve(Tuple<double, double> span) {
             var start = span.Item1;
             var end = span.Item2;
-            if (start < end) {
-                return this.EntryCurve.Trim(start, end);
-            }
-            
+            if (start < end)
+               return this.EntryCurve.Trim(start, end);
+
             // For the classes that implement it, wrap the Trim.
-            if ((this.EntryCurve is Polyline) || (this.EntryCurve is Curve) || (this.EntryCurve is RoundedRect)) {
-                return this.EntryCurve.TrimWithWrap(start, end);
-            }
+            if ((this.EntryCurve is Polyline) || (this.EntryCurve is Curve) || (this.EntryCurve is RoundedRect))
+               return this.EntryCurve.TrimWithWrap(start, end);
 
             // Ellipse does not (yet) support TrimWithWrap but for our purposes we can deal with it as a Curve.
             if (this.EntryCurve is Ellipse) {
@@ -111,9 +109,8 @@ namespace Microsoft.Msagl.Core.Layout {
             // If the EntryCurve is of a type that may contain multiple segments, get their midpoints.
             if ((this.EntryCurve is Polyline) || (this.EntryCurve is Curve) || (this.EntryCurve is RoundedRect)) {
                 var trimmedCurve = this.TrimEntryCurve(span) as Curve;
-                if (trimmedCurve != null) {
-                    return SpanPointsFromCurveSegments(trimmedCurve);
-                }
+                if (trimmedCurve != null)
+                   return SpanPointsFromCurveSegments(trimmedCurve);
             }
 
             // Otherwise we just take the midpoint of the span.  Ellipse could be made smart enough here to

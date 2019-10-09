@@ -54,9 +54,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
         public bool exists(int x, int y, int n)
         {
             for (int i = NumPoints - 1; i > n; i--)
-            {
-                if (Pt[i].X == x && Pt[i].Y == y) return true;
-            }
+               if (Pt[i].X == x && Pt[i].Y == y) return true;
+
             return false;
         }
         public PointSet(int n, Tiling g, int pointsPerLevel)
@@ -98,9 +97,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
             if (NumPoints % pointsPerLevel > 0) NumOfLevels++;
 
             for (int index = 1; index <= NumPoints; index++)
-            {
-                Pt[index].ZoomLevel = 1 + (index - 1) / pointsPerLevel;
-            }
+               Pt[index].ZoomLevel = 1 + (index - 1) / pointsPerLevel;
 
             for (int i = 1; i <= NumPoints; i++)
             {

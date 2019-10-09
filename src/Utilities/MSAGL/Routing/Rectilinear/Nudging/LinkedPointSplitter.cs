@@ -41,10 +41,12 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
 
         void ProcessEvent(LinkedPoint linkedPoint, double z){
             if(ApproximateComparer.Close(linkedPoint.Next.Point.X, linkedPoint.Point.X))
-                if(z==Low(linkedPoint))
-                    ProcessLowLinkedPointEvent(linkedPoint);
-                else
-                    ProcessHighLinkedPointEvent(linkedPoint);
+            {
+               if(z==Low(linkedPoint))
+                  ProcessLowLinkedPointEvent(linkedPoint);
+               else
+                  ProcessHighLinkedPointEvent(linkedPoint);
+            }
             else
                 IntersectWithTree(linkedPoint);
         }
@@ -64,20 +66,25 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
                 xAligned=false;
             }
             if(xAligned)
-            for( var node = tree.FindFirst(p => left<= p.Point.X); 
-                node!=null &&  node.Item.Point.X <= right ;
-                node=tree.Next(node)) {
-                var p = new Point(node.Item.Point.X, y );
-                horizontalPoint = TrySplitHorizontalPoint(horizontalPoint, p, true);
-                TrySplitVerticalPoint(node.Item,p);
-            }else //xAligned==false
-                for (var node = tree.FindLast(p => p.Point.X <= right);
-                node != null && node.Item.Point.X >= left;
-                node = tree.Previous(node)) {
-                    var p = new Point(node.Item.Point.X, y);
-                    horizontalPoint = TrySplitHorizontalPoint(horizontalPoint, p, false);
-                    TrySplitVerticalPoint(node.Item, p);
-                }
+            {
+               for( var node = tree.FindFirst(p => left<= p.Point.X); 
+                    node!=null &&  node.Item.Point.X <= right ;
+                    node=tree.Next(node)) {
+                  var p = new Point(node.Item.Point.X, y );
+                  horizontalPoint = TrySplitHorizontalPoint(horizontalPoint, p, true);
+                  TrySplitVerticalPoint(node.Item,p);
+               }
+            }
+            else //xAligned==false
+            {
+               for (var node = tree.FindLast(p => p.Point.X <= right);
+                    node != null && node.Item.Point.X >= left;
+                    node = tree.Previous(node)) {
+                  var p = new Point(node.Item.Point.X, y);
+                  horizontalPoint = TrySplitHorizontalPoint(horizontalPoint, p, false);
+                  TrySplitVerticalPoint(node.Item, p);
+               }
+            }
         }
 
         static void TrySplitVerticalPoint(LinkedPoint linkedPoint, Point point) {

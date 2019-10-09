@@ -24,9 +24,7 @@ namespace EF6Parser
          log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
          if (args.Length < 2 || args.Length > 3)
-         {
             Exit(BAD_ARGUMENT_COUNT);
-         }
 
          try
          {

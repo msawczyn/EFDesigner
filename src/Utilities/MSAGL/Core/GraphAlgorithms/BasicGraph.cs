@@ -97,10 +97,12 @@ namespace Microsoft.Msagl.Core.GraphAlgorithms {
 
         static void FillArraySkippingTheEdge(TEdge edge, TEdge[] edgesToChange, TEdge[] newEdges) {
             for (int i = 0, j = 0; i < edgesToChange.Length; i++)
-                if ((object) edgesToChange[i] != (object) edge)
-                    newEdges[i - j] = edgesToChange[i];
-                else
-                    j = 1;
+            {
+               if ((object) edgesToChange[i] != (object) edge)
+                  newEdges[i - j] = edgesToChange[i];
+               else
+                  j = 1;
+            }
         }
 
         /// <summary>
@@ -164,9 +166,8 @@ namespace Microsoft.Msagl.Core.GraphAlgorithms {
                 if (e.Source != e.Target) {
                     outEdgesCounts[e.Source]++;
                     inEdgesCounts[e.Target]++;
-                } else {
-                    selfEdgesCounts[e.Source]++;
-                }
+                } else
+                   selfEdgesCounts[e.Source]++;
             }
 
             //allocate now

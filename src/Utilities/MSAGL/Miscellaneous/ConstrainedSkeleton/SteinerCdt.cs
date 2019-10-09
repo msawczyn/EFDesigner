@@ -38,8 +38,10 @@ namespace Microsoft.Msagl.Miscellaneous.ConstrainedSkeleton
         void MakeSureThatNodeBoundariesAreInVisGraph(IEnumerable<LgNodeInfo> nodeInfos)
         {
             foreach (var nodeInfo in nodeInfos)
-                foreach (var polypoint in nodeInfo.BoundaryOnLayer.PolylinePoints)
-                    _visGraph.AddVertex(polypoint.Point);
+            {
+               foreach (var polypoint in nodeInfo.BoundaryOnLayer.PolylinePoints)
+                  _visGraph.AddVertex(polypoint.Point);
+            }
         }
 
         public void SaveInputFilePoly(string path)
@@ -91,9 +93,7 @@ namespace Microsoft.Msagl.Miscellaneous.ConstrainedSkeleton
             file.WriteLine("# vertices");
             file.WriteLine(_pointsToIndices.Count + " 2 0 0");
             foreach (var tuple in _pointsToIndices)
-            {
-                file.WriteLine(tuple.Value + 1 + " " + tuple.Key.X + " " + tuple.Key.Y);
-            }
+               file.WriteLine(tuple.Value + 1 + " " + tuple.Key.X + " " + tuple.Key.Y);
         }
 
         /*
@@ -197,13 +197,9 @@ namespace Microsoft.Msagl.Miscellaneous.ConstrainedSkeleton
         public void AddVisEdge(VisibilityVertex v0, VisibilityVertex v1)
         {
             if (v0 != v1)
-            {
-                VisibilityGraph.AddEdge(v0, v1);
-            }
+               VisibilityGraph.AddEdge(v0, v1);
             else
-            {
-                Console.WriteLine("avoiding creating a small visibility edge");
-            }
+               Console.WriteLine("avoiding creating a small visibility edge");
         }
 
         void InitSegment(Point p1, Point p2)
@@ -224,9 +220,7 @@ namespace Microsoft.Msagl.Miscellaneous.ConstrainedSkeleton
         void IndexNodeInfos()
         {
             foreach (var ni in _nodeInfos)
-            {
-                AddNodeBoundaryToPointIndices(ni);
-            }
+               AddNodeBoundaryToPointIndices(ni);
         }
 
         void IndexVisGraphVertices()
@@ -271,9 +265,7 @@ namespace Microsoft.Msagl.Miscellaneous.ConstrainedSkeleton
         {
             Point[] indexToPoints = new Point[_pointsToIndices.Count];
             foreach (var pp in _pointsToIndices)
-            {
-                indexToPoints[pp.Value] = pp.Key;
-            }
+               indexToPoints[pp.Value] = pp.Key;
 
             var tree =
                 new RTree<Point>(_pointsToIndices.Keys.Select(p => new KeyValuePair<Rectangle, Point>(new Rectangle(p), p)));

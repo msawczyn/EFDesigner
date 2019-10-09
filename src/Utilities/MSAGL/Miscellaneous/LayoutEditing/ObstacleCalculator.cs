@@ -132,11 +132,17 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
         void RemoveTightObstaclesOverlappingPortTightObstacles() {
             var toRemove = new List<Polyline>();
             foreach (Polyline poly in TightObstaclesMinusPortObstacles())
-                foreach (ICurve portObstacle in portObstacles)
-                    if (poly.BoundingBox.Intersects(portObstacle.BoundingBox))
-                        if (Curve.GetAllIntersections(poly, portObstacle, false).Count > 0 ||
-                            OneCurveLiesInsideOfOther(poly, portObstacle))
-                            toRemove.Add(poly);
+            {
+               foreach (ICurve portObstacle in portObstacles)
+               {
+                  if (poly.BoundingBox.Intersects(portObstacle.BoundingBox))
+                  {
+                     if (Curve.GetAllIntersections(poly, portObstacle, false).Count > 0 ||
+                         OneCurveLiesInsideOfOther(poly, portObstacle))
+                        toRemove.Add(poly);
+                  }
+               }
+            }
 
             foreach (Polyline poly in toRemove)
                 TightObstacles.Remove(poly);
@@ -144,8 +150,10 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
 
         IEnumerable<Polyline> TightObstaclesMinusPortObstacles() {
             foreach (Polyline p in TightObstacles)
-                if (portObstacles.Contains(p) == false)
-                    yield return p;
+            {
+               if (portObstacles.Contains(p) == false)
+                  yield return p;
+            }
         }
 
         void InsertOverlappingSet(Set<Polyline> overlappingSet) {
@@ -171,8 +179,10 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
 
         IEnumerable<Point> EnumerateOverSetOfPolylines(Set<Polyline> pp) {
             foreach (Polyline poly in pp)
-                foreach (Point p in poly)
-                    yield return p;
+            {
+               foreach (Point p in poly)
+                  yield return p;
+            }
         }
 
         List<Set<Polyline>> GetOverlappingSets() {
@@ -242,11 +252,13 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
                 if (a.UserData != null) {
                     if (b.UserData != null) {
                         if (a.UserData != b.UserData)
-                            if (Curve.GetAllIntersections(a.UserData, b.UserData, false).Count > 0 ||
-                                OneCurveLiesInsideOfOther(a.UserData, b.UserData)) {
-                                overlapGraph.AddEdge(a.UserData, b.UserData);
-                                overlapGraph.AddEdge(b.UserData, a.UserData);
-                            }
+                        {
+                           if (Curve.GetAllIntersections(a.UserData, b.UserData, false).Count > 0 ||
+                               OneCurveLiesInsideOfOther(a.UserData, b.UserData)) {
+                              overlapGraph.AddEdge(a.UserData, b.UserData);
+                              overlapGraph.AddEdge(b.UserData, a.UserData);
+                           }
+                        }
                     } else {
                         CreateEdgesUnderTwoNodes(a, b.Left, overlapGraph);
                         CreateEdgesUnderTwoNodes(a, b.Right, overlapGraph);
@@ -280,9 +292,8 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
                     CreatePortObstacles(router.Source, router.SourcePort, out sourceFilterLine);
                 else if (node == router.Target)
                     CreatePortObstacles(router.Target, router.TargetPort, out targetFilterLine);
-                else {
-                    TightObstacles.Insert(PaddedPolylineBoundaryOfNode(node, router.Padding));
-                }
+                else
+                   TightObstacles.Insert(PaddedPolylineBoundaryOfNode(node, router.Padding));
             }
         }
 
@@ -475,9 +486,8 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
                     if (Point.GetTriangleOrientation(ret.EndPoint.Point, blockingPoint, ret.StartPoint.Next.Point) ==
                         TriangleOrientation.Counterclockwise)
                         ret.RemoveStartPoint();
-                } else {
-                    ret.AddPoint(candidate);
-                }
+                } else
+                   ret.AddPoint(candidate);
             } else {
                 //trying to cut away the first point
                 if (
@@ -547,8 +557,10 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
                 return false;
 
             if (rectNode.UserData != null)
-                return Curve.CurveCurveIntersectionOne(rectNode.UserData, curve, false) != null ||
-                       Inside(rectNode.UserData, curve);
+            {
+               return Curve.CurveCurveIntersectionOne(rectNode.UserData, curve, false) != null ||
+                      Inside(rectNode.UserData, curve);
+            }
 
             Debug.Assert(rectNode.Left != null && rectNode.Right != null);
 
@@ -590,9 +602,11 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
                 return false;
 
             if (rectNode.UserData != null)
-                return rectNode.UserData != polylineToIgnore &&
-                       (Curve.CurveCurveIntersectionOne(rectNode.UserData, curve, false) != null ||
-                        Inside(rectNode.UserData, curve));
+            {
+               return rectNode.UserData != polylineToIgnore &&
+                      (Curve.CurveCurveIntersectionOne(rectNode.UserData, curve, false) != null ||
+                       Inside(rectNode.UserData, curve));
+            }
 
             Debug.Assert(rectNode.Left != null && rectNode.Right != null);
 
@@ -610,9 +624,7 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing {
             {
                 List<Polyline> listOfEdges;
                 if (!sourceToTargets.TryGetValue(source, out listOfEdges))
-                {
-                    sourceToTargets[source] = listOfEdges = new List<Polyline>();
-                }
+                   sourceToTargets[source] = listOfEdges = new List<Polyline>();
 
                 listOfEdges.Add(target);
             }

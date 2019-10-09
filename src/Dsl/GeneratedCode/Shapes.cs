@@ -322,6 +322,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			field5.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeWarningGlyphDefaultImage"));
 			shapeFields.Add(field5);
 			
+			DslDiagrams::ImageField field6 = new DslDiagrams::ImageField("TransientGlyph");
+			field6.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeTransientGlyphDefaultImage"));
+			shapeFields.Add(field6);
+			
 		}
 		
 		/// <summary>
@@ -352,6 +356,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslDiagrams::ShapeField field5 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "WarningGlyph");
 			DslDiagrams::Decorator decorator5 = new DslDiagrams::ShapeDecorator(field5, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator5);
+				
+			DslDiagrams::ShapeField field6 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "TransientGlyph");
+			DslDiagrams::Decorator decorator6 = new DslDiagrams::ShapeDecorator(field6, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
+			decorators.Add(decorator6);
 				
 		}
 		

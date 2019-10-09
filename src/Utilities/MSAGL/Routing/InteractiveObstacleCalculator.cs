@@ -307,9 +307,13 @@ namespace Microsoft.Msagl.Routing {
 
 
             for (var pp = poly.StartPoint; pp.Next.Next != null; pp = pp.Next)
-                if (!PadCorner(ret, pp, pp.Next, pp.Next.Next, padding))
-                    return CreatePaddedPolyline(new Polyline(ConvexHull.CalculateConvexHull(poly)) {Closed = true},
-                                                padding);
+            {
+               if (!PadCorner(ret, pp, pp.Next, pp.Next.Next, padding))
+               {
+                  return CreatePaddedPolyline(new Polyline(ConvexHull.CalculateConvexHull(poly)) {Closed = true},
+                                              padding);
+               }
+            }
 
             Debug.Assert(Point.GetTriangleOrientation(ret[0], ret[1], ret[2]) != TriangleOrientation.Counterclockwise
                          , "Padded polyline is counterclockwise");

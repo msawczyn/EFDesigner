@@ -119,9 +119,9 @@ namespace Microsoft.Msagl.Layout.Layered {
 
                 Array.Sort(predecessors, new System.Comparison<int>(CompareByX));
                 int m = count / 2;
-                if (m * 2 == count) {
-                    this.upperMedians[i] = new IntPair(predecessors[m - 1], predecessors[m]);
-                } else
+                if (m * 2 == count)
+                   this.upperMedians[i] = new IntPair(predecessors[m - 1], predecessors[m]);
+                else
                     this.upperMedians[i] = predecessors[m];
             } else
                 this.upperMedians[i] = -1;
@@ -144,9 +144,9 @@ namespace Microsoft.Msagl.Layout.Layered {
 
                 Array.Sort(successors, new System.Comparison<int>(CompareByX));
                 int m = count / 2;
-                if (m * 2 == count) {
-                    this.lowMedians[i] = new IntPair(successors[m - 1], successors[m]);
-                } else
+                if (m * 2 == count)
+                   this.lowMedians[i] = new IntPair(successors[m - 1], successors[m]);
+                else
                     this.lowMedians[i] = successors[m];
             } else
                 this.lowMedians[i] = -1;
@@ -178,9 +178,10 @@ namespace Microsoft.Msagl.Layout.Layered {
                     delta = b[leastWidthAssignment] - b[i];
                 x = xCoords[i];
                 if (delta != 0)
-                    for (int j = 0; j < nOfVertices; j++)
-                        x[j] += delta;
-
+                {
+                   for (int j = 0; j < nOfVertices; j++)
+                      x[j] += delta;
+                }
             }
 
 
@@ -441,9 +442,10 @@ namespace Microsoft.Msagl.Layout.Layered {
                       IsLeftFrom(j, targetPos);
                       j = NextRight(j)) {
                         foreach (LayerEdge ie in InEdges(lowerLayer[j]))
-                            if (IsLeftFrom(positionOfInnerEdgeSource, Pos(Source(ie))))
-                                MarkEdge(ie);
-
+                        {
+                           if (IsLeftFrom(positionOfInnerEdgeSource, Pos(Source(ie))))
+                              MarkEdge(ie);
+                        }
                     }
 
                     int innerSourcePos = Pos(Source(innerEdge));
@@ -647,24 +649,27 @@ namespace Microsoft.Msagl.Layout.Layered {
             //push the roots of the graph maximally to the right 
             foreach (int v in topoSort) {
                 if (v == root[v])
-                    if (blockGraph.InEdges(v).Count == 0) {
-                        int w = v;//w runs over the block
-                        double xLeftMost = RightMost(-infinity, infinity);
-                        double xl = xLeftMost;
-                        do {
-                            int wRightNeigbor;
-                            if (TryToGetRightNeighbor(w, out wRightNeigbor))
-                                xLeftMost = LeftMost(xLeftMost,
-                                    x[root[wRightNeigbor]] - DeltaBetweenVertices(w, wRightNeigbor));
+                {
+                   if (blockGraph.InEdges(v).Count == 0) {
+                      int w = v;//w runs over the block
+                      double xLeftMost = RightMost(-infinity, infinity);
+                      double xl = xLeftMost;
+                      do {
+                         int wRightNeigbor;
+                         if (TryToGetRightNeighbor(w, out wRightNeigbor))
+                         {
+                            xLeftMost = LeftMost(xLeftMost,
+                                                 x[root[wRightNeigbor]] - DeltaBetweenVertices(w, wRightNeigbor));
+                         }
 
-                            w = align[w];
-                        } while (w != v);
+                         w = align[w];
+                      } while (w != v);
 
-                        //leave the value zero if there are no right neighbours
-                        if (xl != xLeftMost)
-                            x[v] = xLeftMost;
-                    }
-
+                      //leave the value zero if there are no right neighbours
+                      if (xl != xLeftMost)
+                         x[v] = xLeftMost;
+                   }
+                }
             }
 
             for (int v = 0; v < this.nOfVertices; v++) {

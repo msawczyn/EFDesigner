@@ -38,9 +38,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments {
             int right = Math.Min(left + w, _width - 1);
             for (int y = bottom; y < top; y++) {
                 int offset = Offset(left, y);
-                for (int x = left; x < right; x++) {
-                    _m[offset++] = 1;
-                }
+                for (int x = left; x < right; x++)
+                   _m[offset++] = 1;
             }
         }
 

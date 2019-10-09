@@ -93,7 +93,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private bool hasWarning;
 
-      public bool GetHasWarningValue() => hasWarning;
+      public bool GetHasWarningValue() => IsPersistent && hasWarning;
 
       public void ResetWarning() => hasWarning = false;
 
@@ -106,6 +106,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected string GetGlyphTypeValue()
       {
+         if (!IsPersistent)
+            return "TransientGlyph";
+
          if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
             return "WarningGlyph";
 
@@ -326,6 +329,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsDatabaseSchemaTracking)
+         {
             try
             {
                return Store.ModelRoot()?.DatabaseSchema;
@@ -341,6 +345,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return null;
             }
+         }
 
          return databaseSchemaStorage;
       }
@@ -516,6 +521,7 @@ namespace Sawczyn.EFDesigner.EFModel
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!loading && IsOutputDirectoryTracking)
+         {
             try
             {
                return IsDependentType 
@@ -533,6 +539,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                return null;
             }
+         }
 
          return outputDirectoryStorage;
       }

@@ -77,18 +77,20 @@ namespace Microsoft.Msagl.Layout.Layered {
         void CreateMappingOfNeibBlocks() {
             BasicGraph<IntPair> graph = BasicGraphFromLeftRightIntNeibs();
             for (int root = 0; root < graph.NodeCount; root++)
-                if (graph.InEdges(root).Count == 0 && !nodeToBlockRoot.ContainsKey(root)) {
-                    var block = new List<int>();
-                    int current = root;
-                    for (IList<IntPair> outEdges = graph.OutEdges(current); outEdges.Count > 0;
-                         outEdges = graph.OutEdges(current)) {
-                        current = outEdges[0].Second;
-                        block.Add(current);
-                        nodeToBlockRoot[current] = root;
-                    }
-                    if (block.Count > 0)
-                        BlockRootToBlock[root] = block;
-                }
+            {
+               if (graph.InEdges(root).Count == 0 && !nodeToBlockRoot.ContainsKey(root)) {
+                  var block = new List<int>();
+                  int current = root;
+                  for (IList<IntPair> outEdges = graph.OutEdges(current); outEdges.Count > 0;
+                       outEdges = graph.OutEdges(current)) {
+                     current = outEdges[0].Second;
+                     block.Add(current);
+                     nodeToBlockRoot[current] = root;
+                  }
+                  if (block.Count > 0)
+                     BlockRootToBlock[root] = block;
+               }
+            }
         }
 
 

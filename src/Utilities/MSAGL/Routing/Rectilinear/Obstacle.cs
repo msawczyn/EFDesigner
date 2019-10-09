@@ -43,9 +43,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
             RoundVertices(this.PaddedPolyline);
             this.IsRectangle = this.IsPolylineRectangle();
-            if (!this.IsRectangle) {
-                this.ConvertToRectangleIfClose();
-            }
+            if (!this.IsRectangle)
+               this.ConvertToRectangleIfClose();
+
             InputShape = shape;
             Ports = new Set<Port>(InputShape.Ports);
         }
@@ -81,9 +81,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         /// </summary>
         internal Polyline LooseVisibilityPolyline {
             get { 
-                if (this.looseVisibilityPolyline == null) {
-                    this.looseVisibilityPolyline = CreateLoosePolyline(this.VisibilityPolyline);
-                }
+                if (this.looseVisibilityPolyline == null)
+                   this.looseVisibilityPolyline = CreateLoosePolyline(this.VisibilityPolyline);
+
                 return this.looseVisibilityPolyline;
             }
         }
@@ -212,51 +212,49 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             var epsilon = ApproximateComparer.IntersectionEpsilon * 10;
             for (PolylinePoint pp = polyline.StartPoint.Next; pp != null; pp = pp.Next) {
                 if (ApproximateComparer.Close(pp.Prev.Point, pp.Point, epsilon)) {
-                    if (pp.Next == null) {
-                        polyline.RemoveEndPoint();
-                    } else {
+                    if (pp.Next == null)
+                       polyline.RemoveEndPoint();
+                    else {
                         pp.Prev.Next = pp.Next;
                         pp.Next.Prev = pp.Prev;
                     }
                 }
             }
 
-            if (ApproximateComparer.Close(polyline.Start, polyline.End, epsilon)) {
-                polyline.RemoveStartPoint();
-            }
+            if (ApproximateComparer.Close(polyline.Start, polyline.End, epsilon))
+               polyline.RemoveStartPoint();
 
             InteractiveEdgeRouter.RemoveCollinearVertices(polyline);
             if ((polyline.EndPoint.Prev != null) && 
-                    (Point.GetTriangleOrientation(polyline.EndPoint.Prev.Point, polyline.End, polyline.Start) == TriangleOrientation.Collinear)) {
-                polyline.RemoveEndPoint();
-            }
+                    (Point.GetTriangleOrientation(polyline.EndPoint.Prev.Point, polyline.End, polyline.Start) == TriangleOrientation.Collinear))
+               polyline.RemoveEndPoint();
+
             if ((polyline.StartPoint.Next != null) && 
-                    (Point.GetTriangleOrientation(polyline.End, polyline.Start, polyline.StartPoint.Next.Point) == TriangleOrientation.Collinear)) {
-                polyline.RemoveStartPoint();
-            }
+                    (Point.GetTriangleOrientation(polyline.End, polyline.Start, polyline.StartPoint.Next.Point) == TriangleOrientation.Collinear))
+               polyline.RemoveStartPoint();
+
             return polyline;
         }
 
         private bool IsPolylineRectangle () {
-            if (this.PaddedPolyline.PolylinePoints.Count() != 4) {
-                return false;
-            }
+            if (this.PaddedPolyline.PolylinePoints.Count() != 4)
+               return false;
 
             var ppt = this.PaddedPolyline.StartPoint;
             var nextPpt = ppt.NextOnPolyline;
             var dir = CompassVector.DirectionsFromPointToPoint(ppt.Point, nextPpt.Point);
-            if (!CompassVector.IsPureDirection(dir)) {
-                return false;
-            }
+            if (!CompassVector.IsPureDirection(dir))
+               return false;
+
             do {
                 ppt = nextPpt;
                 nextPpt = ppt.NextOnPolyline;
                 var nextDir = CompassVector.DirectionsFromPointToPoint(ppt.Point, nextPpt.Point);
 
                 // We know the polyline is clockwise.
-                if (nextDir != CompassVector.RotateRight(dir)) {
-                    return false;
-                }
+                if (nextDir != CompassVector.RotateRight(dir))
+                   return false;
+
                 dir = nextDir;
             } while (ppt != this.PaddedPolyline.StartPoint);
             return true;
@@ -264,9 +262,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 
         // Internal for testing
         internal void ConvertToRectangleIfClose() {
-            if (this.PaddedPolyline.PolylinePoints.Count() != 4) {
-                return;
-            }
+            if (this.PaddedPolyline.PolylinePoints.Count() != 4)
+               return;
 
             // We're not a rectangle now but that may be due to rounding error, so we may be close to one.
             // First check that it's close to an axis.
@@ -275,9 +272,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             var testPoint = ppt.Point - nextPpt.Point;
             var slope = ((testPoint.X == 0) || (testPoint.Y == 0)) ? 0 : Math.Abs(testPoint.Y / testPoint.X);
             const double factor = 1000.0;
-            if ((slope < factor) && (slope > (1.0/factor))) {
-                return;
-            }
+            if ((slope < factor) && (slope > (1.0/factor)))
+               return;
+
             const double radian90 = 90.0 * (Math.PI/180.0);
             const double maxAngleDiff = radian90/factor;
 
@@ -285,9 +282,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             do {
                 var nextNextPpt = nextPpt.NextOnPolyline;
                 var angle = Point.Angle(ppt.Point, nextPpt.Point, nextNextPpt.Point);
-                if (Math.Abs(radian90 - angle) > maxAngleDiff) {
-                    return;
-                }
+                if (Math.Abs(radian90 - angle) > maxAngleDiff)
+                   return;
 
                 ppt = nextPpt;
                 nextPpt = nextNextPpt;
@@ -303,9 +299,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         internal bool GetPortChanges(out Set<Port> addedPorts, out Set<Port> removedPorts) {
             addedPorts = InputShape.Ports - Ports;
             removedPorts = Ports - InputShape.Ports;
-            if ((0 == addedPorts.Count) && (0 == removedPorts.Count)) {
-                return false;
-            }
+            if ((0 == addedPorts.Count) && (0 == removedPorts.Count))
+               return false;
+
             Ports = new Set<Port>(InputShape.Ports);
             return true;
         }
@@ -316,9 +312,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         public override string ToString() {
             string typeString = GetType().ToString();
             int lastDotLoc = typeString.LastIndexOf('.');
-            if (lastDotLoc >= 0) {
-                typeString = typeString.Substring(lastDotLoc + 1);
-            }
+            if (lastDotLoc >= 0)
+               typeString = typeString.Substring(lastDotLoc + 1);
+
             return typeString + " [" + InputShape + "]";
         }
     }

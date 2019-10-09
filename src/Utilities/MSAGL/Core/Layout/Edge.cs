@@ -43,11 +43,10 @@ namespace Microsoft.Msagl.Core.Layout {
                 return labels[0];
             }
             set {
-                if (labels.Count == 0) {
-                    labels.Add(value);
-                } else {
-                    labels[0] = value;
-                }
+                if (labels.Count == 0)
+                   labels.Add(value);
+                else
+                   labels[0] = value;
             }
         }
         /// <summary>
@@ -203,8 +202,10 @@ namespace Microsoft.Msagl.Core.Layout {
 
                 var rect = Rectangle.CreateAnEmptyBox();
                 if (UnderlyingPolyline != null)
-                    foreach (Point p in UnderlyingPolyline)
-                        rect.Add(p);
+                {
+                   foreach (Point p in UnderlyingPolyline)
+                      rect.Add(p);
+                }
 
                 if (Curve != null)
                     rect.Add(Curve.BoundingBox);
@@ -267,10 +268,12 @@ namespace Microsoft.Msagl.Core.Layout {
                 return;
             Curve = Curve.Transform(matrix);
             if (UnderlyingPolyline != null)
-                for (Site s = UnderlyingPolyline.HeadSite, s0 = UnderlyingPolyline.HeadSite;
-                     s != null;
-                     s = s.Next, s0 = s0.Next)
-                    s.Point = matrix * s.Point;
+            {
+               for (Site s = UnderlyingPolyline.HeadSite, s0 = UnderlyingPolyline.HeadSite;
+                    s != null;
+                    s = s.Next, s0 = s0.Next)
+                  s.Point = matrix * s.Point;
+            }
 
             var sourceArrow = edgeGeometry.SourceArrowhead;
             if (sourceArrow != null)
@@ -290,13 +293,10 @@ namespace Microsoft.Msagl.Core.Layout {
         public void Translate(Point delta)
         {
             if (this.EdgeGeometry != null)
-            {
-                this.EdgeGeometry.Translate(delta);
-            }
+               this.EdgeGeometry.Translate(delta);
+
             foreach (var l in this.Labels)
-            {
-                l.Translate(delta);
-            }
+               l.Translate(delta);
         }
 
 		/// <summary>
@@ -312,9 +312,7 @@ namespace Microsoft.Msagl.Core.Layout {
                 Transform(toNewBounds*scale*toOrigin);
             }
             foreach (var l in this.Labels)
-            {
-                l.Translate(newBounds.LeftBottom - oldBounds.LeftBottom);
-            }
+               l.Translate(newBounds.LeftBottom - oldBounds.LeftBottom);
         }
 
         /// <summary>

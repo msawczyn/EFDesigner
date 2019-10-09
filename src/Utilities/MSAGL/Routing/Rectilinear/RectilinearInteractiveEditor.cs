@@ -104,9 +104,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear{
         }
 
         static void CreateSelfEdges(IEnumerable<Edge> selfEdges, double cornerFitRadius) {
-            foreach (var edge in selfEdges) {
-                CreateSimpleEdgeCurveWithGivenFitRadius(edge, cornerFitRadius);
-            }
+            foreach (var edge in selfEdges)
+               CreateSimpleEdgeCurveWithGivenFitRadius(edge, cornerFitRadius);
         }
 
 

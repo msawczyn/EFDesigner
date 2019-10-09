@@ -44,8 +44,10 @@ namespace Microsoft.Msagl.Layout.Layered {
         internal IEnumerable<IntEdge> AllIntEdges {
             get {
                 foreach (List<IntEdge> l in Multiedges.Values)
-                    foreach (IntEdge e in l)
-                        yield return e;
+                {
+                   foreach (IntEdge e in l)
+                      yield return e;
+                }
             }
         }
 
@@ -92,8 +94,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             get {
                 foreach (KeyValuePair<IntPair, List<IntEdge>>
                         kv in Multiedges)
-                    if (kv.Key.x != kv.Key.y)
-                        yield return kv.Value;
+                {
+                   if (kv.Key.x != kv.Key.y)
+                      yield return kv.Value;
+                }
             }
         }
 #if TEST_MSAGL

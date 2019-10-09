@@ -180,9 +180,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
         internal void AddNeighbor(Variable neighbor, double weight)
         {
             if (null == this.Neighbors)
-            {
-                this.Neighbors = new List<NeighborAndWeight>();
-            }
+               this.Neighbors = new List<NeighborAndWeight>();
+
             this.Neighbors.Add(new NeighborAndWeight(neighbor, weight));
         }
 

@@ -171,9 +171,11 @@ namespace Microsoft.Msagl.Core.Layout {
                 edge.Transform(matrix);
 #if DEBUG && TEST_MSAGL
             if (DebugCurves != null)
-                foreach (var dc in DebugCurves)
-                    dc.Curve = dc.Curve.Transform(matrix);
-#endif
+            {
+               foreach (var dc in DebugCurves)
+                  dc.Curve = dc.Curve.Transform(matrix);
+            }
+            #endif
             UpdateBoundingBox();
         }
 
@@ -238,9 +240,11 @@ namespace Microsoft.Msagl.Core.Layout {
             }
 #if DEBUG && TEST_MSAGL
             if(DebugCurves!=null)
-                foreach (var debugCurve in DebugCurves.Where(d => d.Curve != null))
-                    b.Add(debugCurve.Curve.BoundingBox);
-#endif
+            {
+               foreach (var debugCurve in DebugCurves.Where(d => d.Curve != null))
+                  b.Add(debugCurve.Curve.BoundingBox);
+            }
+            #endif
         }
 
         /// <summary>
@@ -281,16 +285,12 @@ namespace Microsoft.Msagl.Core.Layout {
         public IEnumerable<Node> GetFlattenedNodesAndClusters()
         {
             foreach (Node v in Nodes)
-            {
-                yield return v;
-            }
-            
+               yield return v;
+
             foreach(Cluster cluster in this.RootCluster.AllClustersDepthFirst())
             {
                 if (cluster != this.RootCluster)
-                {
-                    yield return cluster;
-                }
+                   yield return cluster;
             }
         }
 
@@ -313,8 +313,10 @@ namespace Microsoft.Msagl.Core.Layout {
                 node.DebugId = id++;
 
             foreach (var node in Nodes)
-                if (node.DebugId == null)
-                    node.DebugId = id++;
+            {
+               if (node.DebugId == null)
+                  node.DebugId = id++;
+            }
         }
 
         internal void CheckClusterConsistency() {

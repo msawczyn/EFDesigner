@@ -145,9 +145,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             }
 
             //update ink
-            foreach (var adj in node.Neighbors) {
-                ink += (newPosition - adj.Position).Length - (oldPosition - adj.Position).Length;
-            }
+            foreach (var adj in node.Neighbors)
+               ink += (newPosition - adj.Position).Length - (oldPosition - adj.Position).Length;
 
             //update neighbors order
             SortNeighbors(node);
@@ -165,9 +164,9 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
         internal double GetWidth(IEnumerable<Metroline> metrolines, double edgeSeparation) {
             double width = 0;
-            foreach (var metroline in metrolines) {
-                width += metroline.Width;
-            }
+            foreach (var metroline in metrolines)
+               width += metroline.Width;
+
             int count = metrolines.Count();
             width += count > 0 ? (count - 1) * edgeSeparation : 0;
             Debug.Assert(ApproximateComparer.GreaterOrEqual(width, 0));
@@ -312,9 +311,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                 }
             }
 
-            foreach (var s in Stations) {
-                s.Neighbors = neighbors[s].ToArray();
-            }
+            foreach (var s in Stations)
+               s.Neighbors = neighbors[s].ToArray();
         }
 
         StationEdgeInfo GetUnorderedIjInfo(Station i, Station j) {
@@ -392,14 +390,15 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             Station station = PointToStations[point];
             if (!cachedEnterableLooseForEnd.ContainsKey(point)) {
                 foreach (var poly in LooseTree.AllHitItems(point))
-                    if (Curve.PointRelativeToCurveLocation(point, poly) == PointLocation.Inside) 
-                        station.AddEnterableLoosePolyline(poly);
-                    
+                {
+                   if (Curve.PointRelativeToCurveLocation(point, poly) == PointLocation.Inside) 
+                      station.AddEnterableLoosePolyline(poly);
+                }
+
                 cachedEnterableLooseForEnd.Add(point, station.EnterableLoosePolylines);
             }
-            else {
-                station.EnterableLoosePolylines = cachedEnterableLooseForEnd[point];
-            }
+            else
+               station.EnterableLoosePolylines = cachedEnterableLooseForEnd[point];
 
             //foreach (var poly in LooseTree.AllHitItems(point))
             //    if (Curve.PointRelativeToCurveLocation(point, poly) == PointLocation.Inside)
@@ -409,8 +408,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         void AddTightEnterableForEnd(Point point) {
             Station station = PointToStations[point];
             foreach (var poly in TightTree.AllHitItems(point))
-                if (Curve.PointRelativeToCurveLocation(point, poly) == PointLocation.Inside)
-                    station.AddEnterableTightPolyline(poly);
+            {
+               if (Curve.PointRelativeToCurveLocation(point, poly) == PointLocation.Inside)
+                  station.AddEnterableTightPolyline(poly);
+            }
         }
 
         void InitNodeEnterableTightPolylines(Metroline metroline, EdgeGeometry regularEdge) {

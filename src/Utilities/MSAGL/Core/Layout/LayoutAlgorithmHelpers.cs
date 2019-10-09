@@ -52,9 +52,8 @@ namespace Microsoft.Msagl.Core.Layout
         public static void ComputeDesiredEdgeLengths(IdealEdgeLengthSettings settings, GeometryGraph component)
         {
             if (component == null)
-            {
-                return;
-            }
+               return;
+
             foreach (var e in component.Edges)
             {
                 e.SourcePort = null;
@@ -66,9 +65,7 @@ namespace Microsoft.Msagl.Core.Layout
                     Math.Sqrt(2d * Math.Min(e.Source.BoundingBox.Width * e.Source.BoundingBox.Height, e.Target.BoundingBox.Width * e.Target.BoundingBox.Height)));
             }
             if (settings.ProportionalToSymmetricDifference)
-            {
-                SetEdgeLengthsProportionalToSymmetricDifference(component, settings.ProportionalEdgeLengthOffset, settings.ProportionalEdgeLengthAdjustment);
-            }
+               SetEdgeLengthsProportionalToSymmetricDifference(component, settings.ProportionalEdgeLengthOffset, settings.ProportionalEdgeLengthAdjustment);
         }
 
         ///<summary>
@@ -88,16 +85,12 @@ namespace Microsoft.Msagl.Core.Layout
                 foreach (var e in u.OutEdges)
                 {
                     if (!(e.Target is Cluster))
-                    {
-                        ns.Insert(e.Target);
-                    }
+                       ns.Insert(e.Target);
                 }
                 foreach (var e in u.InEdges)
                 {
                     if (!(e.Source is Cluster))
-                    {
-                        ns.Insert(e.Source);
-                    }
+                       ns.Insert(e.Source);
                 }
             }
             foreach (var e in graph.Edges)

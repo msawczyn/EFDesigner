@@ -130,9 +130,9 @@ namespace Microsoft.Msagl.Core.Geometry {
         public RectangleNode<TData> FirstHitNode(Point point, Func<Point, TData, HitTestBehavior> hitTestForPointDelegate) {
             if (rectangle.Contains(point)) {
                 if (IsLeaf) {
-                    if (hitTestForPointDelegate != null) {
-                        return hitTestForPointDelegate(point, UserData) == HitTestBehavior.Stop ? this : null;
-                    }
+                    if (hitTestForPointDelegate != null)
+                       return hitTestForPointDelegate(point, UserData) == HitTestBehavior.Stop ? this : null;
+
                     return this;
                 }
                 return Left.FirstHitNode(point, hitTestForPointDelegate) ??
@@ -185,9 +185,8 @@ namespace Microsoft.Msagl.Core.Geometry {
                 RectangleNode<TData> node = stack.Pop();
                 if (node.Rectangle.Intersects(rectanglePar)) {
                     if (node.IsLeaf) {
-                        if ((null == hitTestAccept) || hitTestAccept(node.UserData)) {
-                            yield return node.UserData;
-                        }
+                        if ((null == hitTestAccept) || hitTestAccept(node.UserData))
+                           yield return node.UserData;
                     }
                     else {
                         stack.Push(node.left);
@@ -234,9 +233,9 @@ namespace Microsoft.Msagl.Core.Geometry {
                     if (rectangleNode.Left != null) {
                         // If rectangleNode.Left is not null, rectangleNode.Right won't be either.
                         if (VisitTreeStatic(rectangleNode.Left, hitTest, hitRectangle) == HitTestBehavior.Continue &&
-                            VisitTreeStatic(rectangleNode.Right, hitTest, hitRectangle) == HitTestBehavior.Continue) {
-                            return HitTestBehavior.Continue;
-                        }
+                            VisitTreeStatic(rectangleNode.Right, hitTest, hitRectangle) == HitTestBehavior.Continue)
+                           return HitTestBehavior.Continue;
+
                         return HitTestBehavior.Stop;
                     }
                     return HitTestBehavior.Continue;
@@ -280,9 +279,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             while (stack.Count > 0) {
                 RectangleNode<TData> node = stack.Pop();
                 if (node.Rectangle.Intersects(rectanglePar)) {
-                    if (node.IsLeaf) {
-                        yield return node;
-                    } else {
+                    if (node.IsLeaf)
+                       yield return node;
+                    else {
                         stack.Push(node.left);
                         stack.Push(node.right);
                     }
@@ -308,9 +307,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             stack.Push(this);
             while (stack.Count > 0) {
                 var node = stack.Pop();
-                if (node.IsLeaf || !leafOnly) {
-                    yield return node;
-                }
+                if (node.IsLeaf || !leafOnly)
+                   yield return node;
+
                 if (!node.IsLeaf) {
                     stack.Push(node.left);
                     stack.Push(node.right);

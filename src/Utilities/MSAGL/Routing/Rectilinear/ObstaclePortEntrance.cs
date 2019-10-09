@@ -63,19 +63,16 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             if (this.Obstacle.IsOverlapped || (this.Obstacle.IsGroup && !this.Obstacle.IsInConvexHull)) {
                 this.IsOverlapped = obstacleTree.IntersectionIsInsideAnotherObstacle(/*sideObstacle:*/ null, this.Obstacle
                         , this.VisibilityBorderIntersect, ScanDirection.GetInstance(OutwardDirection));
-                if (!this.Obstacle.IsGroup || this.IsOverlapped || this.InteriorEdgeCrossesObstacle(obstacleTree)) {
-                    unpaddedToPaddedBorderWeight = ScanSegment.OverlappedWeight;
-                }
+                if (!this.Obstacle.IsGroup || this.IsOverlapped || this.InteriorEdgeCrossesObstacle(obstacleTree))
+                   unpaddedToPaddedBorderWeight = ScanSegment.OverlappedWeight;
             }
-            if (this.Obstacle.IsInConvexHull && (unpaddedToPaddedBorderWeight == ScanSegment.NormalWeight)) {
-                SetUnpaddedToPaddedBorderWeightFromHullSiblingOverlaps(obstacleTree);
-            }
+            if (this.Obstacle.IsInConvexHull && (unpaddedToPaddedBorderWeight == ScanSegment.NormalWeight))
+               SetUnpaddedToPaddedBorderWeightFromHullSiblingOverlaps(obstacleTree);
         }
 
         private void SetUnpaddedToPaddedBorderWeightFromHullSiblingOverlaps(ObstacleTree obstacleTree) {
-            if (this.Obstacle.IsGroup ? this.InteriorEdgeCrossesObstacle(obstacleTree) : this.InteriorEdgeCrossesConvexHullSiblings()) {
-                this.unpaddedToPaddedBorderWeight = ScanSegment.OverlappedWeight;
-            }
+            if (this.Obstacle.IsGroup ? this.InteriorEdgeCrossesObstacle(obstacleTree) : this.InteriorEdgeCrossesConvexHullSiblings())
+               this.unpaddedToPaddedBorderWeight = ScanSegment.OverlappedWeight;
         }
 
         private bool InteriorEdgeCrossesObstacle(ObstacleTree obstacleTree) {
@@ -99,17 +96,16 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             LineSegment lineSeg = null;
             foreach (var blocker in candidates) {
                 var blockerPolyline = whichPolylineToUse(blocker);
-                if (!StaticGraphUtility.RectangleInteriorsIntersect(rect, blockerPolyline.BoundingBox)) {
-                    continue;
-                }
+                if (!StaticGraphUtility.RectangleInteriorsIntersect(rect, blockerPolyline.BoundingBox))
+                   continue;
+
                 lineSeg = lineSeg ?? new LineSegment(this.UnpaddedBorderIntersect, this.VisibilityBorderIntersect);
                 var xx = Curve.CurveCurveIntersectionOne(lineSeg, blockerPolyline, liftIntersection: false);
-                if (xx != null) {
-                    return true;
-                }
-                if (PointLocation.Outside != Curve.PointRelativeToCurveLocation(this.UnpaddedBorderIntersect, blockerPolyline)) {
-                    return true;
-                }
+                if (xx != null)
+                   return true;
+
+                if (PointLocation.Outside != Curve.PointRelativeToCurveLocation(this.UnpaddedBorderIntersect, blockerPolyline))
+                   return true;
             }
             return false;
         }
@@ -117,9 +113,9 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         internal bool HasGroupCrossings { get { return (this.pointAndCrossingsList != null) && (this.pointAndCrossingsList.Count > 0); } }
 
         internal bool HasGroupCrossingBeforePoint(Point point) {
-            if (!this.HasGroupCrossings) {
-                return false;
-            }
+            if (!this.HasGroupCrossings)
+               return false;
+
             var pac = StaticGraphUtility.IsAscending(this.OutwardDirection) ? this.pointAndCrossingsList.First : this.pointAndCrossingsList.Last;
             return PointComparer.GetDirections(this.MaxVisibilitySegment.Start, pac.Location) == PointComparer.GetDirections(pac.Location, point);
         }

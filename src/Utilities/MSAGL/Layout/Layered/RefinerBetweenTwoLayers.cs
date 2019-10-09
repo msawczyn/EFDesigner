@@ -224,18 +224,26 @@ namespace Microsoft.Msagl.Layout.Layered {
             double rightMost = this.currentBottomSite.Point.X;
             foreach (int node in this.LeftFromTheNode(NodeLayer(bottomNode), bottomPosition,
                 NodeKind.Bottom, leftMost, rightMost))
-                foreach (Point p in NodeCorners(node))
-                    if (p.Y > currentBottomSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
-                        yield return p;
+            {
+               foreach (Point p in NodeCorners(node))
+               {
+                  if (p.Y > currentBottomSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
+                     yield return p;
+               }
+            }
         }
         IEnumerable<Point> CornersToTheLeftOfTop() {
             int topPosition = layerArrays.X[this.topNode];
             double leftMost = this.currentBottomSite.Point.X;
             double rightMost = this.currentTopSite.Point.X;
             foreach (int node in this.LeftFromTheNode(NodeLayer(topNode), topPosition, NodeKind.Top, leftMost, rightMost))
-                foreach (Point p in NodeCorners(node))
-                    if (p.Y < currentTopSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
-                        yield return p;
+            {
+               foreach (Point p in NodeCorners(node))
+               {
+                  if (p.Y < currentTopSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
+                     yield return p;
+               }
+            }
         }
         IEnumerable<Point> CornersToTheRightOfBottom() {
             int bottomPosition = layerArrays.X[this.bottomNode];
@@ -244,19 +252,26 @@ namespace Microsoft.Msagl.Layout.Layered {
 
             foreach (int node in this.RightFromTheNode(NodeLayer(bottomNode), bottomPosition,
                 NodeKind.Bottom, leftMost, rightMost))
-                foreach (Point p in NodeCorners(node))
-                    if (p.Y > currentBottomSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
-                        yield return p;
-
+            {
+               foreach (Point p in NodeCorners(node))
+               {
+                  if (p.Y > currentBottomSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
+                     yield return p;
+               }
+            }
         }
         IEnumerable<Point> CornersToTheRightOfTop() {
             int topPosition = layerArrays.X[this.topNode];
             double leftMost = this.currentTopSite.Point.X;
             double rightMost = this.currentBottomSite.Point.X;
             foreach (int node in this.RightFromTheNode(NodeLayer(topNode), topPosition, NodeKind.Top, leftMost, rightMost))
-                foreach (Point p in NodeCorners(node))
-                    if (p.Y < currentTopSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
-                        yield return p;
+            {
+               foreach (Point p in NodeCorners(node))
+               {
+                  if (p.Y < currentTopSite.Point.Y && PossibleCorner(leftMost, rightMost, p))
+                     yield return p;
+               }
+            }
         }
 
         private static bool PossibleCorner(double leftMost, double rightMost, Point p) {

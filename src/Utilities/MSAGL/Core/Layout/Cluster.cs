@@ -77,9 +77,8 @@ namespace Microsoft.Msagl.Core.Layout {
         public Cluster(IEnumerable<Node> nodes)
             : this() {
             ValidateArg.IsNotNull(nodes, "nodes");
-            foreach (Node v in nodes) {
-                AddNode(v);
-            }
+            foreach (Node v in nodes)
+               AddNode(v);
         }
 
         /// <summary>
@@ -90,9 +89,8 @@ namespace Microsoft.Msagl.Core.Layout {
         public Cluster(IEnumerable<Node> nodes, IEnumerable<Cluster> clusters)
             : this(nodes) {
             ValidateArg.IsNotNull(clusters, "clusters");
-            foreach (Cluster c in clusters) {
-                AddCluster(c);
-            }
+            foreach (Cluster c in clusters)
+               AddCluster(c);
         }
 
         /// <summary>
@@ -130,9 +128,8 @@ namespace Microsoft.Msagl.Core.Layout {
         public override Rectangle BoundingBox {
             get {
                 if (!IsCollapsed ||CollapsedBoundary==null) {
-                    if (RectangularBoundary != null) {
-                        return RectangularBoundary.Rect;
-                    }
+                    if (RectangularBoundary != null)
+                       return RectangularBoundary.Rect;
 
                     // Default to the cluster's content bounds
 #if SILVERLIGHT
@@ -156,12 +153,11 @@ namespace Microsoft.Msagl.Core.Layout {
             ValidateArg.IsNotNull(child, "child");
             Debug.Assert(child != this);
             var childCluster = child as Cluster;
-            if (childCluster != null) {
-                clusters.Add(childCluster);
-            }
-            else {
-                nodes.Add(child);
-            }
+            if (childCluster != null)
+               clusters.Add(childCluster);
+            else
+               nodes.Add(child);
+
             child.AddClusterParent(this);
         }
 
@@ -178,9 +174,9 @@ namespace Microsoft.Msagl.Core.Layout {
         /// <returns></returns>
         public double ComputeWeight() {
             Weight = nodes.Count;
-            foreach (Cluster c in clusters) {
-                Weight += c.ComputeWeight();
-            }
+            foreach (Cluster c in clusters)
+               Weight += c.ComputeWeight();
+
             return Weight;
         }
 
@@ -195,20 +191,16 @@ namespace Microsoft.Msagl.Core.Layout {
             // If these are empty then Weight is 0 and barycenter becomes NaN.
             // If there are no child clusters with nodes, then Weight stays 0.
             if ((0 != nodes.Count) || (0 != clusters.Count)) {
-                if (0 == Weight) {
-                    ComputeWeight();
-                }
+                if (0 == Weight)
+                   ComputeWeight();
+
                 if (0 != Weight) {
-                    foreach (Node v in nodes) {
-                        //double wv = ((FastIncrementalLayout.Node)v.AlgorithmData).stayWeight;
-                        //p+=wv*v.Center;
-                        //w += wv;
-                        Barycenter += v.Center;
-                    }
-                    foreach (Cluster c in clusters) {
-                        // SetBarycenter ensures Weight is calculated so call it first.
-                        Barycenter += c.SetBarycenter()*c.Weight;
-                    }
+                    foreach (Node v in nodes) //double wv = ((FastIncrementalLayout.Node)v.AlgorithmData).stayWeight;
+                       //p+=wv*v.Center;
+                       //w += wv;
+                       Barycenter += v.Center;
+                    foreach (Cluster c in clusters) // SetBarycenter ensures Weight is calculated so call it first.
+                       Barycenter += c.SetBarycenter()*c.Weight;
                     Barycenter /= Weight;
                 }
             }
@@ -223,9 +215,8 @@ namespace Microsoft.Msagl.Core.Layout {
         /// <returns>This cluster and all clusters beneath this one, in depth first order</returns>
         public IEnumerable<Cluster> AllClustersDepthFirst() {
             foreach (Cluster c in clusters) {
-                foreach (Cluster d in c.AllClustersDepthFirst()) {
-                    yield return d;
-                }
+                foreach (Cluster d in c.AllClustersDepthFirst())
+                   yield return d;
             }
             yield return this;
         }
@@ -252,9 +243,8 @@ namespace Microsoft.Msagl.Core.Layout {
         /// <returns>This cluster and all clusters beneath this one, in depth first order</returns>
         public IEnumerable<Cluster> AllClustersDepthFirstExcludingSelf() {
             foreach (Cluster c in clusters) {
-                foreach (Cluster d in c.AllClustersDepthFirst()) {
-                    yield return d;
-                }
+                foreach (Cluster d in c.AllClustersDepthFirst())
+                   yield return d;
             }
         }
 
@@ -263,12 +253,11 @@ namespace Microsoft.Msagl.Core.Layout {
         /// </summary>
         /// <param name="f"></param>
         internal void ForEachNode(Action<Node> f) {
-            foreach (Node v in nodes) {
-                f(v);
-            }
-            foreach (Cluster c in clusters) {
-                c.ForEachNode(f);
-            }
+            foreach (Node v in nodes)
+               f(v);
+
+            foreach (Cluster c in clusters)
+               c.ForEachNode(f);
         }
 
         /// <summary>
@@ -286,14 +275,13 @@ namespace Microsoft.Msagl.Core.Layout {
             foreach (Cluster c in AllClustersDepthFirst()) {
                 foreach (Node v in c.Nodes.Concat(c.Clusters.Cast<Node>())) {
                     var cluster = v as Cluster;
-                    if (cluster != null) {
-                        cluster.RectangularBoundary.TranslateRectangle(delta);
-                    }
+                    if (cluster != null)
+                       cluster.RectangularBoundary.TranslateRectangle(delta);
+
                     v.Center += delta;
                     if (translateEdges) {
-                        foreach (Edge e in EdgesIncomingToNodeWithDescendantSource(v)) {
-                            e.Translate(delta);
-                        }
+                        foreach (Edge e in EdgesIncomingToNodeWithDescendantSource(v))
+                           e.Translate(delta);
                     }
                 }
             }
@@ -353,13 +341,13 @@ namespace Microsoft.Msagl.Core.Layout {
                     r.Right + RectangularBoundary.RightMargin,
                     r.Top + RectangularBoundary.TopMargin);
                 double widthPad = (RectangularBoundary.MinWidth - r.Width)/2;
-                if (widthPad > 0) {
-                    r.PadWidth(widthPad);
-                }
+                if (widthPad > 0)
+                   r.PadWidth(widthPad);
+
                 double heightPad = (RectangularBoundary.MinHeight - r.Height)/2;
-                if (heightPad > 0) {
-                    r.PadHeight(heightPad);
-                }
+                if (heightPad > 0)
+                   r.PadHeight(heightPad);
+
                 RectangularBoundary.Rect = r;
             }
             BoundingBox = r;
@@ -403,9 +391,8 @@ namespace Microsoft.Msagl.Core.Layout {
         public void UnsetInitialLayoutState() {
             isInInitialLayoutState = false;
             RectangularClusterBoundary rb = RectangularBoundary;
-            if (rb != null) {
-                rb.RestoreDefaultMargin();
-            }
+            if (rb != null)
+               rb.RestoreDefaultMargin();
         }
 
         /// <summary>
@@ -413,9 +400,8 @@ namespace Microsoft.Msagl.Core.Layout {
         /// </summary>
         public void UnsetInitialLayoutStateIncludingAncestors() {
             UnsetInitialLayoutState();
-            foreach (Cluster c in AllClusterAncestors) {
-                c.UnsetInitialLayoutState();
-            }
+            foreach (Cluster c in AllClusterAncestors)
+               c.UnsetInitialLayoutState();
         }
 
         /// <summary>

@@ -107,15 +107,24 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
             containerNode.Item.AddEdge(edge);
             var prev = edgeContainersTree.Previous(containerNode);
             if (prev != null)
-                foreach (var prevEdge in prev.Item)
-                    foreach (var ed in containerNode.Item)
-                        TryToAddRightNeighbor(prevEdge, ed);
-                        
+            {
+               foreach (var prevEdge in prev.Item)
+               {
+                  foreach (var ed in containerNode.Item)
+                     TryToAddRightNeighbor(prevEdge, ed);
+               }
+            }
+
             var next = edgeContainersTree.Next(containerNode);
             if (next != null)
-                foreach (var ed in containerNode.Item)
-                    foreach (var neEdge in next.Item)
-                        TryToAddRightNeighbor(ed, neEdge);
+            {
+               foreach (var ed in containerNode.Item)
+               {
+                  foreach (var neEdge in next.Item)
+                     TryToAddRightNeighbor(ed, neEdge);
+               }
+            }
+
             ConstraintEdgeWithObstaclesAtZ(edge, edge.Source.Point);
         }
 
@@ -276,9 +285,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
         static IEnumerable<DebugCurve> RightNeighborsCurvesTest(IEnumerable<AxisEdgesContainer> rbTree) {
             foreach (var container in rbTree) {
                 foreach (var edge  in container) {
-                    foreach (var rn in edge.RightNeighbors) {
-                        yield return new DebugCurve(100,1,"brown",new LineSegment(EdgeMidPoint(edge), EdgeMidPoint(rn)));
-                    }
+                    foreach (var rn in edge.RightNeighbors)
+                       yield return new DebugCurve(100,1,"brown",new LineSegment(EdgeMidPoint(edge), EdgeMidPoint(rn)));
                 }
             }
         }
@@ -341,8 +349,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
             var ret =
                 edgeContainersTree.FindFirst(cont => xProjection(cont.Source) >= prj-ApproximateComparer.DistanceEpsilon/2);
             if(ret != null)
-                if (xProjection(ret.Item.Source) <= prj+ApproximateComparer.DistanceEpsilon/2) 
-                    return ret;
+            {
+               if (xProjection(ret.Item.Source) <= prj+ApproximateComparer.DistanceEpsilon/2) 
+                  return ret;
+            }
+
             return null;
         }
 
@@ -396,9 +407,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
                     (container => siteX <= xProjection(container.Source));
 
             if (containerNode != null)
-                foreach (var edge in containerNode.Item)
-                    if (!NotRestricting(edge, polylinePoint.Polyline))
-                        edge.BoundFromLeft(DirectionPerp*site);
+            {
+               foreach (var edge in containerNode.Item)
+               {
+                  if (!NotRestricting(edge, polylinePoint.Polyline))
+                     edge.BoundFromLeft(DirectionPerp*site);
+               }
+            }
         }
 
         bool NotRestricting(AxisEdge edge, Polyline polyline) {
@@ -454,9 +469,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
             RBNode<AxisEdgesContainer> containerNode = GetContainerNodeToTheLeftOfEvent(site);
 
             if (containerNode != null)
-                foreach (var edge in containerNode.Item)
-                    if (!NotRestricting(edge, polylinePoint.Polyline))
-                        edge.BoundFromRight(site*DirectionPerp);
+            {
+               foreach (var edge in containerNode.Item)
+               {
+                  if (!NotRestricting(edge, polylinePoint.Polyline))
+                     edge.BoundFromRight(site*DirectionPerp);
+               }
+            }
         }
 
         RBNode<AxisEdgesContainer> GetContainerNodeToTheLeftOfEvent(Point site) {

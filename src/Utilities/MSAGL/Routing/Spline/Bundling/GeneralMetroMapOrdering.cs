@@ -36,9 +36,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             var pointPair = new PointPair(u.Position, v.Position);
             var orderedMetrolineListForUv = bundles[pointPair].Metrolines;
             if (u.Position == pointPair.First) {
-                foreach (var Metroline in orderedMetrolineListForUv) {
-                    yield return Metroline;
-                }
+                foreach (var Metroline in orderedMetrolineListForUv)
+                   yield return Metroline;
             }
             else {
                 for (int i = orderedMetrolineListForUv.Count - 1; i >= 0; i--)
@@ -121,9 +120,9 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
             while ((p00 = prev0(p0)) != null && (p11 = prev1(p1)) != null && p00.Point == p11.Point) {
                 var edge = new PointPair(p00.Point, p0.Point);
-                if (bundles[edge].orderFixed) {
-                    return CompareOnFixedOrder(edge, ml0, ml1, p00.Point !=edge.First);
-                }
+                if (bundles[edge].orderFixed)
+                   return CompareOnFixedOrder(edge, ml0, ml1, p00.Point !=edge.First);
+
                 p0 = p00;
                 p1 = p11;
             }

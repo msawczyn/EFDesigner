@@ -14,9 +14,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
 #else
             Point closest = RawIntersection(closestIntersection, rayOrigin);
 #endif
-            if (isHorizontal) {
-                closest.X = MungeIntersect(rayOrigin.X, closest.X, bbox.Left, bbox.Right);
-            }
+            if (isHorizontal)
+               closest.X = MungeIntersect(rayOrigin.X, closest.X, bbox.Left, bbox.Right);
             else {                                          // vertical
                 closest.Y = MungeIntersect(rayOrigin.Y, closest.Y, bbox.Bottom, bbox.Top);
             }
@@ -27,15 +26,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         static internal double MungeIntersect(double site, double intersect, double start, double end) {
             if (site < intersect) {
                 double min = Math.Min(start, end);
-                if (intersect < min) {
-                    intersect = min;
-                }
+                if (intersect < min)
+                   intersect = min;
             }
             else if (site > intersect) {
                 double max = Math.Max(start, end);
-                if (intersect > max) {
-                    intersect = max;
-                }
+                if (intersect > max)
+                   intersect = max;
             }
             return ApproximateComparer.Round(intersect);
         }
@@ -57,13 +54,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             // caller addresses this later).  The purpose of the assert is to verify that the LineSegment
             // interception is not outside the bbox in the perpendicular direction.
             var lineSeg = (LineSegment)xx.Segment0;
-            if (StaticGraphUtility.IsVertical(PointComparer.GetDirections(lineSeg.Start, lineSeg.End))) {
-                Debug.Assert(PointComparer.Equal(point.X, origin.X), "segment0 obstacle intersection is off the vertical line");
-            }
-            else {
-                Debug.Assert(PointComparer.Equal(point.Y, origin.Y), "segment0 obstacle intersection is off the horizontal line");
-            }
-#endif // DEBUG
+            if (StaticGraphUtility.IsVertical(PointComparer.GetDirections(lineSeg.Start, lineSeg.End)))
+               Debug.Assert(PointComparer.Equal(point.X, origin.X), "segment0 obstacle intersection is off the vertical line");
+            else
+               Debug.Assert(PointComparer.Equal(point.Y, origin.Y), "segment0 obstacle intersection is off the horizontal line");
+            #endif // DEBUG
             return ApproximateComparer.Round(point);
         }
     }

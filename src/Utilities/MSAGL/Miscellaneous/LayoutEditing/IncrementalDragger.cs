@@ -76,9 +76,9 @@ namespace Microsoft.Msagl.Miscellaneous.LayoutEditing
                 cluster.CalculateBoundsFromChildren(layoutSettings.ClusterMargin);
                 Debug.Assert(cluster.Nodes.All(n => cluster.BoundingBox.Contains(n.BoundingBox)));
                 var newBox = cluster.BoundaryCurve.BoundingBox;
-                if (newBox == box) {
-                    break;
-                }
+                if (newBox == box)
+                   break;
+
                 listOfPushers[i + 1].UpdateRTreeByChangedNodeBox(cluster, box);
             } 
         }
@@ -92,12 +92,14 @@ namespace Microsoft.Msagl.Miscellaneous.LayoutEditing
         /// <param name="delta"></param>
         public void Drag(Point delta) {
             if(delta.Length>0)
-                foreach (var n in pushingNodesArray) {
-                    n.Center += delta;
-                    var cl = n as Cluster;
-                    if (cl != null)
-                        cl.DeepContentsTranslation(delta, true);
-                }
+            {
+               foreach (var n in pushingNodesArray) {
+                  n.Center += delta;
+                  var cl = n as Cluster;
+                  if (cl != null)
+                     cl.DeepContentsTranslation(delta, true);
+               }
+            }
 
             RunPushers();
             RouteChangedEdges();
@@ -188,8 +190,11 @@ namespace Microsoft.Msagl.Miscellaneous.LayoutEditing
             var boxPoly = box.Perimeter();
 
             foreach (var e in graph.Edges)
-                if (EdgeNeedsRouting(ref box, e, boxPoly, changedNodes))
-                    list.Add(e);
+            {
+               if (EdgeNeedsRouting(ref box, e, boxPoly, changedNodes))
+                  list.Add(e);
+            }
+
             return list;
         }
 

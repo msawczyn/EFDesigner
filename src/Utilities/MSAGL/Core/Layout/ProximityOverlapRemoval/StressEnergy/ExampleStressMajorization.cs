@@ -34,10 +34,8 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
 
             //array with desired distances between the nodes for every edge
             double[] idealEdgeLength=new double[graph.Edges.Count];
-            for (int i = 0; i < graph.Edges.Count; i++) {
-                idealEdgeLength[i] = 100; //all edges should have this euclidean length
-            }
-
+            for (int i = 0; i < graph.Edges.Count; i++)
+               idealEdgeLength[i] = 100; //all edges should have this euclidean length
 
             //create stress majorization class and set the desired distances on the edges
             StressMajorization majorizer = new StressMajorization();
@@ -60,9 +58,8 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
 
             // for every edge set the desired distances by setting votings among the two end nodes.
             Dictionary<Node,int> posDict=new Dictionary<Node, int>();
-            for (int i = 0; i < graph.Nodes.Count; i++) {
-                posDict[graph.Nodes[i]] = i;
-            }
+            for (int i = 0; i < graph.Nodes.Count; i++)
+               posDict[graph.Nodes[i]] = i;
 
             var edges = graph.Edges.ToArray();
             for (int i=0; i<graph.Edges.Count;i++) {
@@ -89,10 +86,9 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
 
             List<Point> result = majorizer.IterateAll();
 
-            for (int i = 0; i < result.Count; i++) {
-                graph.Nodes[i].Center = result[i];
-            }
-#if DEBUG && !SILVERLIGHT && !SHARPKIT && !NETCORE
+            for (int i = 0; i < result.Count; i++)
+               graph.Nodes[i].Center = result[i];
+            #if DEBUG && !SILVERLIGHT && !SHARPKIT && !NETCORE
             LayoutAlgorithmSettings.ShowGraph(graph);
 #endif
         }

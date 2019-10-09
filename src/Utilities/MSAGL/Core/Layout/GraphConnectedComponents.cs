@@ -108,15 +108,11 @@ namespace Microsoft.Msagl.Core.Layout {
             ValidateArg.IsNotNull(edges, "edges");
             var nodeIndex = new Dictionary<Node, int>();
             int nodeCount = 0;
-            foreach (var v in nodes) {
-                // Debug.Assert(v.Parent == null, "Node is already in a graph");
-                nodeIndex[v] = nodeCount++;
-            }
+            foreach (var v in nodes) // Debug.Assert(v.Parent == null, "Node is already in a graph");
+               nodeIndex[v] = nodeCount++;
             var intEdges = new List<SimpleIntEdge>();
-            foreach (var e in edges) {
-                // Debug.Assert(e.Parent == null, "Edge is already in a graph");
-                intEdges.Add(new SimpleIntEdge {Source = nodeIndex[e.Source], Target = nodeIndex[e.Target]});
-            }
+            foreach (var e in edges) // Debug.Assert(e.Parent == null, "Edge is already in a graph");
+               intEdges.Add(new SimpleIntEdge {Source = nodeIndex[e.Source], Target = nodeIndex[e.Target]});
             var components =
                 ConnectedComponentCalculator<SimpleIntEdge>.GetComponents(new BasicGraph<SimpleIntEdge>(intEdges,
                                                                                                         nodeCount));
@@ -165,17 +161,15 @@ namespace Microsoft.Msagl.Core.Layout {
                     var original = (Node) v.UserData;
                     bool topLevel = ((AlgorithmDataNodeWrap) original.AlgorithmData).TopLevel;
                     if (v.UserData is Cluster) {
-                        if (topLevel) {
-                            topClusters.Add((Cluster) original);
-                        }
+                        if (topLevel)
+                           topClusters.Add((Cluster) original);
                     } else {
                         // clear edges, we fix them up below
                         v.ClearEdges();
 
                         g.Nodes.Add(v);
-                        if (topLevel) {
-                            topNodes.Add(v);
-                        }
+                        if (topLevel)
+                           topNodes.Add(v);
                     }
                 }
 
@@ -183,9 +177,9 @@ namespace Microsoft.Msagl.Core.Layout {
                 int index = g.Nodes.Count;
                 if (topClusters.Count != 0) {
                     var root = new Cluster(topNodes);
-                    foreach (var top in topClusters) {
-                        root.AddChild(CopyCluster(top, ref index));
-                    }
+                    foreach (var top in topClusters)
+                       root.AddChild(CopyCluster(top, ref index));
+
                     g.RootCluster = root;
                 }
 
@@ -317,10 +311,12 @@ namespace Microsoft.Msagl.Core.Layout {
                 flatGraph.Nodes.Add(uOfCluster);
 
                 foreach (var v in c.Nodes.Concat(from cc in c.Clusters select (Node) cc))
-                    flatGraph.Edges.Add(
-                        AlgorithmDataEdgeWrap.MakeDummyEdgeFromNodeToItsCluster(
-                            v.AlgorithmData as AlgorithmDataNodeWrap, uuOfCluster,
-                            avgLength));
+                {
+                   flatGraph.Edges.Add(
+                                       AlgorithmDataEdgeWrap.MakeDummyEdgeFromNodeToItsCluster(
+                                                                                               v.AlgorithmData as AlgorithmDataNodeWrap, uuOfCluster,
+                                                                                               avgLength));
+                }
             }
 
             // mark top-level nodes and clusters
@@ -329,8 +325,10 @@ namespace Microsoft.Msagl.Core.Layout {
 
             // create edges between clusters
             foreach (var e in graph.Edges)
-                if (e.Source is Cluster || e.Target is Cluster)
-                    flatGraph.Edges.Add(AlgorithmDataEdgeWrap.MakeEdge(e));
+            {
+               if (e.Source is Cluster || e.Target is Cluster)
+                  flatGraph.Edges.Add(AlgorithmDataEdgeWrap.MakeEdge(e));
+            }
 
             return flatGraph;
         }

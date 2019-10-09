@@ -17,9 +17,7 @@ namespace EFCoreParser
       private static int Main(string[] args)
       {
          if (args.Length < 2 || args.Length > 3)
-         {
             Exit(BAD_ARGUMENT_COUNT);
-         }
 
          try
          {

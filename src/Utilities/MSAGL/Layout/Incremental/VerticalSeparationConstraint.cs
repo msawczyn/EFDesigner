@@ -80,9 +80,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 u.Center = new Point(u.Center.X, u.Center.Y - wv*f);
                 v.Center = new Point(v.Center.X, v.Center.Y + wu*f);
                 return d;
-            } else {
-                return 0;
-            }
+            } else
+               return 0;
         }
         /// <summary>
         /// VerticalSeparationConstraint are usually structural and therefore default to level 0

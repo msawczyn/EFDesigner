@@ -82,25 +82,24 @@ namespace Microsoft.Msagl.Layout.Incremental {
                                             , IsHorizontal ? cVPad : cHPad);
             solver = new Solver();
 
-            foreach (var filNode in nodes) {
-                filNode.SetOlapNode(IsHorizontal,null);
-            }
+            foreach (var filNode in nodes)
+               filNode.SetOlapNode(IsHorizontal,null);
+
             // Calculate horizontal non-Overlap constraints.  
             if (avoidOverlaps && clusterHierarchies != null) {
-                foreach (var c in clusterHierarchies) {
-                    AddOlapClusters(cg, null /* OlapParentCluster */, c, nodeCenter);
-                }
+                foreach (var c in clusterHierarchies)
+                   AddOlapClusters(cg, null /* OlapParentCluster */, c, nodeCenter);
             }
 
             foreach (var filNode in nodes) {
-                if (filNode.getOlapNode(IsHorizontal) == null) {
-                    AddOlapNode(cg, cg.DefaultClusterHierarchy /* olapParentCluster */, filNode, nodeCenter);
-                }
+                if (filNode.getOlapNode(IsHorizontal) == null)
+                   AddOlapNode(cg, cg.DefaultClusterHierarchy /* olapParentCluster */, filNode, nodeCenter);
+
                 filNode.getOlapNode(IsHorizontal).CreateVariable(solver);
             }
-            if (avoidOverlaps && this.ConstraintLevel >= 2) {
-                cg.Generate(solver, OverlapRemovalParameters);
-            }
+            if (avoidOverlaps && this.ConstraintLevel >= 2)
+               cg.Generate(solver, OverlapRemovalParameters);
+
             AddStructuralConstraints();
         }
 
@@ -116,15 +115,11 @@ namespace Microsoft.Msagl.Layout.Incremental {
 
             // Update the positions.
             if (avoidOverlaps && clusterHierarchies != null) {
-                foreach (var c in clusterHierarchies) {
-                    // Don't update the root cluster of the hierarachy as it doesn't have borders.
-                    UpdateOlapClusters(c.Clusters);
-                }
+                foreach (var c in clusterHierarchies) // Don't update the root cluster of the hierarachy as it doesn't have borders.
+                   UpdateOlapClusters(c.Clusters);
             }
-            foreach (FiNode v in nodes) {
-                // Set the position from the constraint solution on this axis.
-                v.UpdatePos(IsHorizontal);
-            }
+            foreach (FiNode v in nodes) // Set the position from the constraint solution on this axis.
+               v.UpdatePos(IsHorizontal);
             this.DebugVerifyClusterHierarchy(solution);
             return solution;
         }
@@ -132,9 +127,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
         /// Must be called before Solve if the caller has updated Variable Initial Positions
         /// </summary>
         internal void SetDesiredPositions() {
-            foreach (var v in nodes) {
-                v.SetVariableDesiredPos(IsHorizontal);
-            }
+            foreach (var v in nodes)
+               v.SetVariableDesiredPos(IsHorizontal);
+
             solver.UpdateVariables();
         }
 
@@ -210,15 +205,11 @@ namespace Microsoft.Msagl.Layout.Incremental {
             // Note: Incremental.Cluster always creates child List<Cluster|Node> so we don't have to check for null here.
             // Add our child nodes.
             foreach (var filNode in incClus.Nodes)
-            {
-                AddOlapNode(generator, rb.olapCluster, (FiNode)filNode.AlgorithmData, nodeCenter);
-            }
+               AddOlapNode(generator, rb.olapCluster, (FiNode)filNode.AlgorithmData, nodeCenter);
 
             // Now recurse through all child clusters.
             foreach (var incChildClus in incClus.Clusters)
-            {
-                AddOlapClusters(generator, rb.olapCluster, incChildClus, nodeCenter);
-            }
+               AddOlapClusters(generator, rb.olapCluster, incChildClus, nodeCenter);
         }
 
         private void AddOlapNode(ConstraintGenerator generator, OverlapRemovalCluster olapParentCluster, FiNode filNode, InitialCenterDelegateType nodeCenter) {

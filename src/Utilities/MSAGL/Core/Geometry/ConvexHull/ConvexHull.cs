@@ -27,20 +27,25 @@ namespace Microsoft.Msagl.Core.Geometry {
                     pivotIndex = n;
                 }
                 else if (point.Y == pivot.Y)
-                    if (point.X > pivot.X) {
-                        pivot = point;
-                        pivotIndex = n;
-                    }
+                {
+                   if (point.X > pivot.X) {
+                      pivot = point;
+                      pivotIndex = n;
+                   }
+                }
+
                 n++;
             }
             if (n >= 1) {
                 hullPoints = new HullPoint[n - 1]; //we will not copy the pivot into the hull points
                 n = 0;
                 foreach (Point point in bodyPoints)
-                    if (n != pivotIndex)
-                        hullPoints[n++] = new HullPoint(point);
-                    else
-                        pivotIndex = -1; //forget where the pivot was
+                {
+                   if (n != pivotIndex)
+                      hullPoints[n++] = new HullPoint(point);
+                   else
+                      pivotIndex = -1; //forget where the pivot was
+                }
             }
         }
 

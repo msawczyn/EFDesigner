@@ -89,10 +89,12 @@ namespace Microsoft.Msagl.Layout.Layered {
                                          SugiyamaLayoutSettings settings, CancelToken cancelToken) {
             bool hasCrossWeight = false;
             foreach (LayerEdge le in graph.Edges)
-                if (le.CrossingWeight != 1) {
-                    hasCrossWeight = true;
-                    break;
-                }
+            {
+               if (le.CrossingWeight != 1) {
+                  hasCrossWeight = true;
+                  break;
+               }
+            }
 
             var o = new Ordering(graph, true, layerArrays, startOfVirtualNodes, balanceVirtualAndOriginalNodes, hasCrossWeight, settings);
             o.Run(cancelToken);
@@ -204,8 +206,10 @@ namespace Microsoft.Msagl.Layout.Layered {
                 for (int i = 0; i < layers.Length; i++)
                     layerArraysCopy[i] = (int[]) layers[i].Clone();
             } else
-                for (int i = 0; i < layers.Length; i++)
-                    layers[i].CopyTo(layerArraysCopy[i], 0);
+            {
+               for (int i = 0; i < layers.Length; i++)
+                  layers[i].CopyTo(layerArraysCopy[i], 0);
+            }
         }
 
         void Restore() {
@@ -217,8 +221,10 @@ namespace Microsoft.Msagl.Layout.Layered {
                 for (int i = 1; i < nOfLayers; i++)
                     SweepLayer(i, true);
             } else
-                for (int i = nOfLayers - 2; i >= 0; i--)
-                    SweepLayer(i, false);
+            {
+               for (int i = nOfLayers - 2; i >= 0; i--)
+                  SweepLayer(i, false);
+            }
         }
 
         //static int count;
@@ -342,11 +348,15 @@ namespace Microsoft.Msagl.Layout.Layered {
 
             int i = 0;
             if (theMedianGoingDown)
-                foreach (LayerEdge e in edges)
-                    parray[i++] = X[e.Target];
+            {
+               foreach (LayerEdge e in edges)
+                  parray[i++] = X[e.Target];
+            }
             else
-                foreach (LayerEdge e in edges)
-                    parray[i++] = X[e.Source];
+            {
+               foreach (LayerEdge e in edges)
+                  parray[i++] = X[e.Source];
+            }
 
             Array.Sort(parray);
 
@@ -377,9 +387,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             var q = new Stack<int>();
             //enqueue all sources of the graph 
             for (int i = 0; i < properLayeredGraph.NodeCount; i++)
-                if (properLayeredGraph.InEdgesCount(i) == 0)
-                    q.Push(i);
-
+            {
+               if (properLayeredGraph.InEdgesCount(i) == 0)
+                  q.Push(i);
+            }
 
             var visited = new bool[properLayeredGraph.NodeCount];
 
@@ -393,10 +404,12 @@ namespace Microsoft.Msagl.Layout.Layered {
                 counts[l]++;
 
                 foreach (int v in properLayeredGraph.Succ(u))
-                    if (!visited[v]) {
-                        visited[v] = true;
-                        q.Push(v);
-                    }
+                {
+                   if (!visited[v]) {
+                      visited[v] = true;
+                      q.Push(v);
+                   }
+                }
             }
 
             X = layerArrays.X;
@@ -417,8 +430,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             //count original and virtual nodes
             int originals = 0;
             foreach (int j in layers[i])
-                if (j < startOfVirtNodes)
-                    originals++;
+            {
+               if (j < startOfVirtNodes)
+                  originals++;
+            }
 
             int virtuals = layers[i].Length - originals;
 
@@ -454,8 +469,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             if (bottomVerts.Length <= topVerts.Length)
                 return GetCrossingCountFromStripWhenBottomLayerIsShorter(bottomVerts, properLayeredGraph, layerArrays);
             else
-                return GetCrossingCountFromStripWhenTopLayerIsShorter(topVerts, bottomVerts, properLayeredGraph,
-                                                                      layerArrays);
+            {
+               return GetCrossingCountFromStripWhenTopLayerIsShorter(topVerts, bottomVerts, properLayeredGraph,
+                                                                     layerArrays);
+            }
         }
 
         static int GetCrossingCountFromStripWhenTopLayerIsShorter(int[] topVerts, int[] bottomVerts,

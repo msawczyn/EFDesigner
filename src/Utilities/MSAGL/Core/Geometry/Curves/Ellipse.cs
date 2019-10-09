@@ -227,11 +227,10 @@ namespace Microsoft.Msagl.Core.Geometry.Curves{
             bool we = WithinEpsilon(seg, start, end, eps);
             var box = new Parallelogram();
 
-            if(we && CreateParallelogramOnSubSeg(start, end, seg, ref box)){
-                return new ParallelogramLeaf(start, end, box, seg, eps);
-            } else{
-                return CreateNodeWithSegmentSplit(start, end, seg, eps);
-            }
+            if(we && CreateParallelogramOnSubSeg(start, end, seg, ref box))
+               return new ParallelogramLeaf(start, end, box, seg, eps);
+            else
+               return CreateNodeWithSegmentSplit(start, end, seg, eps);
         }
 
         internal static bool CreateParallelogramOnSubSeg(double start, double end, Ellipse seg, ref Parallelogram box){
@@ -342,9 +341,10 @@ namespace Microsoft.Msagl.Core.Geometry.Curves{
                 //now Start and End are in the box, we need just add all k*P/2 that are in between
                 double t;
                 for (int i = (int)Math.Ceiling(ParStart / (Math.PI / 2)); (t = i * Math.PI / 2) < ParEnd; i++)
-                    if (t > parStart) 
-                        box.Add(this[t]);
-
+                {
+                   if (t > parStart) 
+                      box.Add(this[t]);
+                }
             }
         }
 

@@ -60,12 +60,15 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
             var horizontalPoints = new List<LinkedPoint>();
             var verticalPoints = new List<LinkedPoint>();
             foreach (var pnt in pathsFirstLinked)
-                for (var p = pnt; p.Next != null; p = p.Next)
-                    if (ApproximateComparer.Close(p.Point.X, p.Next.Point.X))
-                        verticalPoints.Add(p);
-                    else
-                        horizontalPoints.Add(p);
-
+            {
+               for (var p = pnt; p.Next != null; p = p.Next)
+               {
+                  if (ApproximateComparer.Close(p.Point.X, p.Next.Point.X))
+                     verticalPoints.Add(p);
+                  else
+                     horizontalPoints.Add(p);
+               }
+            }
 
             (new LinkedPointSplitter(horizontalPoints, verticalPoints)).SplitPoints();
         }
@@ -114,9 +117,13 @@ namespace Microsoft.Msagl.Routing.Rectilinear.Nudging {
             PointProjection projectionToPerp,
             IEnumerable<LinkedPoint> initialVerts) {
             foreach (var vert in initialVerts)
-                for (var v = vert; v.Next != null; v = v.Next)
-                    if ( ApproximateComparer.Close(projectionToPerp(v.Point),projectionToPerp(v.Next.Point)))
-                        yield return v;
+            {
+               for (var v = vert; v.Next != null; v = v.Next)
+               {
+                  if ( ApproximateComparer.Close(projectionToPerp(v.Point),projectionToPerp(v.Next.Point)))
+                     yield return v;
+               }
+            }
         }
         /// <summary>
         /// refine vertices belonging to a bucket; 

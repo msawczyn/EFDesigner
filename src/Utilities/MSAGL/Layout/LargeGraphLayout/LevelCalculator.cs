@@ -82,8 +82,10 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
                 foreach (var cluster in lgInfo.GeometryNode.ClusterParents) {
                     LgNodeInfo clusterLgInfo;
                     if (lgData.GeometryNodesToLgNodeInfos.TryGetValue(cluster, out clusterLgInfo))
-                        if (clusterLgInfo.Rank < lgInfo.Rank)
-                            clusterLgInfo.Rank = lgInfo.Rank;
+                    {
+                       if (clusterLgInfo.Rank < lgInfo.Rank)
+                          clusterLgInfo.Rank = lgInfo.Rank;
+                    }
                 }
             }
         }

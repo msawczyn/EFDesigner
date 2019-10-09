@@ -56,12 +56,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         int IMetroMapOrderingAlgorithm.GetLineIndexInOrder(Station u, Station v, Metroline Metroline) {
             MetroEdge me = MetroEdge.CreateFromTwoNodes(u.SerialNumber, v.SerialNumber);
             Dictionary<Metroline, int> d = lineIndexInOrder[me];
-            if (u.SerialNumber < v.SerialNumber) {
-                return d[Metroline];
-            }
-            else {
-                return d.Count - 1 - d[Metroline];
-            }
+            if (u.SerialNumber < v.SerialNumber)
+               return d[Metroline];
+            else
+               return d.Count - 1 - d[Metroline];
         }
 
         void ConvertParameters(Dictionary<Point, Station> pointToIndex) {
@@ -174,9 +172,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             {
                 if (!labelCached) {
                     ulong hc = (ulong)nodes.Count;
-                    for (int i = 0; i < nodes.Count; i++) {
-                        hc = unchecked(hc * 314159 + (ulong)nodes[i]);
-                    }
+                    for (int i = 0; i < nodes.Count; i++)
+                       hc = unchecked(hc * 314159 + (ulong)nodes[i]);
 
                     label = (int)hc;
                     labelCached = true;
@@ -246,9 +243,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             Initialize();
 
             //ordering itself
-            foreach (int v in nonTerminals) {
-                ProcessNonTerminal(v);
-            }
+            foreach (int v in nonTerminals)
+               ProcessNonTerminal(v);
 
             //get result
             RestoreResult();
@@ -392,9 +388,9 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                 order.Add(me, RestoreResult(me));
                 Dictionary<Metroline, int> d = new Dictionary<Metroline, int>();
                 int index = 0;
-                foreach (int v in order[me]) {
-                    d[MetrolinesGlobal[v]] = index++;
-                }
+                foreach (int v in order[me])
+                   d[MetrolinesGlobal[v]] = index++;
+
                 lineIndexInOrder.Add(me, d);
             }
         }
@@ -429,9 +425,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                     e2p.Add(newEdge, pl);
 
                     //update paths
-                    foreach (PathOnEdge path in pl.paths) {
-                        UpdatePath(path, v, newEdge);
-                    }
+                    foreach (PathOnEdge path in pl.paths)
+                       UpdatePath(path, v, newEdge);
                 }
             }
         }

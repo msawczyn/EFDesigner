@@ -391,9 +391,10 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                                               ref intersections);
 
             if (liftIntersections)
-                for (int i = 0; i < intersections.Count; i++)
-                    intersections[i] = LiftIntersectionToCurves(curve0, curve1, intersections[i]);
-
+            {
+               for (int i = 0; i < intersections.Count; i++)
+                  intersections[i] = LiftIntersectionToCurves(curve0, curve1, intersections[i]);
+            }
 
             //fix the parameters - adjust them to the curve
             return intersections;
@@ -423,9 +424,11 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
         static IList<IntersectionInfo> GetAllIntersectionsOfLineAndRoundedRect(LineSegment lineSeg, RoundedRect roundedRect, bool liftIntersections) {
             var ret = GetAllIntersectionsOfLineAndCurve(lineSeg, roundedRect.Curve, liftIntersections);
             if(liftIntersections)
-                foreach (var intersectionInfo in ret) {
-                    intersectionInfo.Segment1 = roundedRect;
-                }
+            {
+               foreach (var intersectionInfo in ret)
+                  intersectionInfo.Segment1 = roundedRect;
+            }
+
             return ret;
         }
 
@@ -544,12 +547,14 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 offset++;
             }
             if (poly.Closed)
-                if (CrossTwoLineSegs(lineSeg.Start, lineSeg.End, polyPoint.Point, poly.Start, 0, 1, 0, 1, out par0,
-                                     out par1, out x)) {
-                    AdjustSolution(lineSeg.Start, lineSeg.End, polyPoint.Point, poly.Start, ref par0, ref par1, ref x);
-                    if (!OldIntersection(ret, ref x))
-                        ret.Add(new IntersectionInfo(par0, offset + par1, x, lineSeg, poly));
-                }
+            {
+               if (CrossTwoLineSegs(lineSeg.Start, lineSeg.End, polyPoint.Point, poly.Start, 0, 1, 0, 1, out par0,
+                                    out par1, out x)) {
+                  AdjustSolution(lineSeg.Start, lineSeg.End, polyPoint.Point, poly.Start, ref par0, ref par1, ref x);
+                  if (!OldIntersection(ret, ref x))
+                     ret.Add(new IntersectionInfo(par0, offset + par1, x, lineSeg, poly));
+               }
+            }
 
             return ret;
         }
@@ -591,21 +596,29 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             var n0Pb = n0 as ParallelogramInternalTreeNode;
             var n1Pb = n1 as ParallelogramInternalTreeNode;
             if (n0Pb != null && n1Pb != null)
-                foreach (ParallelogramNodeOverICurve n00 in n0Pb.Children)
-                    foreach (ParallelogramNodeOverICurve n11 in n1Pb.Children) {
-                        IntersectionInfo x = CurveCurveXWithParallelogramNodesOne(n00, n11);
-                        if (x != null) return x;
-                    }
+            {
+               foreach (ParallelogramNodeOverICurve n00 in n0Pb.Children)
+               {
+                  foreach (ParallelogramNodeOverICurve n11 in n1Pb.Children) {
+                     IntersectionInfo x = CurveCurveXWithParallelogramNodesOne(n00, n11);
+                     if (x != null) return x;
+                  }
+               }
+            }
             else if (n1Pb != null)
-                foreach (ParallelogramNodeOverICurve n in n1Pb.Children) {
-                    IntersectionInfo x = CurveCurveXWithParallelogramNodesOne(n0, n);
-                    if (x != null) return x;
-                }
+            {
+               foreach (ParallelogramNodeOverICurve n in n1Pb.Children) {
+                  IntersectionInfo x = CurveCurveXWithParallelogramNodesOne(n0, n);
+                  if (x != null) return x;
+               }
+            }
             else if (n0Pb != null)
-                foreach (ParallelogramNodeOverICurve n in n0Pb.Children) {
-                    IntersectionInfo x = CurveCurveXWithParallelogramNodesOne(n, n1);
-                    if (x != null) return x;
-                }
+            {
+               foreach (ParallelogramNodeOverICurve n in n0Pb.Children) {
+                  IntersectionInfo x = CurveCurveXWithParallelogramNodesOne(n, n1);
+                  if (x != null) return x;
+               }
+            }
             else
                 return CrossOverIntervalsOne(n0, n1);
 
@@ -623,15 +636,23 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             var n0Pb = n0 as ParallelogramInternalTreeNode;
             var n1Pb = n1 as ParallelogramInternalTreeNode;
             if (n0Pb != null && n1Pb != null)
-                foreach (ParallelogramNodeOverICurve n00 in n0Pb.Children)
-                    foreach (ParallelogramNodeOverICurve n11 in n1Pb.Children)
-                        CurveCurveXWithParallelogramNodes(n00, n11, ref intersections);
+            {
+               foreach (ParallelogramNodeOverICurve n00 in n0Pb.Children)
+               {
+                  foreach (ParallelogramNodeOverICurve n11 in n1Pb.Children)
+                     CurveCurveXWithParallelogramNodes(n00, n11, ref intersections);
+               }
+            }
             else if (n1Pb != null)
-                foreach (ParallelogramNodeOverICurve n in n1Pb.Children)
-                    CurveCurveXWithParallelogramNodes(n0, n, ref intersections);
+            {
+               foreach (ParallelogramNodeOverICurve n in n1Pb.Children)
+                  CurveCurveXWithParallelogramNodes(n0, n, ref intersections);
+            }
             else if (n0Pb != null)
-                foreach (ParallelogramNodeOverICurve n in n0Pb.Children)
-                    CurveCurveXWithParallelogramNodes(n, n1, ref intersections);
+            {
+               foreach (ParallelogramNodeOverICurve n in n0Pb.Children)
+                  CurveCurveXWithParallelogramNodes(n, n1, ref intersections);
+            }
             else intersections = CrossOverIntervals(n0, n1, intersections);
         }
 
@@ -650,8 +671,10 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                     Point x;
                     bool r;
                     if (l0.Chord == null && l1.Chord == null)
-                        r = CrossWithinIntervalsWithGuess(n0.Seg, n1.Seg, l0.Low, l0.High, l1.Low, l1.High,
-                                                          p0, p1, out aSol, out bSol, out x);
+                    {
+                       r = CrossWithinIntervalsWithGuess(n0.Seg, n1.Seg, l0.Low, l0.High, l1.Low, l1.High,
+                                                         p0, p1, out aSol, out bSol, out x);
+                    }
                     else if (l0.Chord != null && l1.Chord == null) {
                         r = CrossWithinIntervalsWithGuess(l0.Chord, n1.Seg, 0, 1, l1.Low, l1.High,
                                                           0.5*i,
@@ -706,8 +729,10 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
 
                     bool r;
                     if (l0.Chord == null && l1.Chord == null)
-                        r = CrossWithinIntervalsWithGuess(n0.Seg, n1.Seg, l0.Low, l0.High, l1.Low, l1.High,
-                                                          p0, p1, out aSol, out bSol, out x);
+                    {
+                       r = CrossWithinIntervalsWithGuess(n0.Seg, n1.Seg, l0.Low, l0.High, l1.Low, l1.High,
+                                                         p0, p1, out aSol, out bSol, out x);
+                    }
                     else if (l0.Chord != null && l1.Chord == null) {
                         r = CrossWithinIntervalsWithGuess(l0.Chord, n1.Seg, 0, 1, l1.Low, l1.High,
                                                           0.5*i,
@@ -787,12 +812,15 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             bool oldIntersection = false;
             //we don't expect many intersections so it's ok just go through all of them
             foreach (IntersectionInfo ii in intersections)
-                if ((x - ii.IntersectionPoint).Length < ApproximateComparer.DistanceEpsilon*100)
-                    //please no close intersections
-                {
-                    oldIntersection = true;
-                    break;
-                }
+            {
+               if ((x - ii.IntersectionPoint).Length < ApproximateComparer.DistanceEpsilon*100)
+                  //please no close intersections
+               {
+                  oldIntersection = true;
+                  break;
+               }
+            }
+
             return oldIntersection;
         }
 
@@ -1224,9 +1252,12 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             out double bSolution, out Point x) {
             bool r;
             if (a is LineSegment && b is LineSegment)
-                if (CrossTwoLineSegs(a.Start, a.End, b.Start, b.End, amin, amax, bmin, bmax, out aSolution,
-                                     out bSolution, out x))
-                    return true;
+            {
+               if (CrossTwoLineSegs(a.Start, a.End, b.Start, b.End, amin, amax, bmin, bmax, out aSolution,
+                                    out bSolution, out x))
+                  return true;
+            }
+
             //it also handles the case of almost parallel segments
             Point aPoint;
             Point bPoint;
@@ -1312,8 +1343,11 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 // CurveSerializer.Serialize("cornerC:\\tmp\\pol",curve);
                 if (AllIntersectionsAreGood(intersections, curve)) {
                     foreach (IntersectionInfo xx in intersections)
-                        if (ApproximateComparer.Close(xx.IntersectionPoint, point))
-                            return PointLocation.Boundary;
+                    {
+                       if (ApproximateComparer.Close(xx.IntersectionPoint, point))
+                          return PointLocation.Boundary;
+                    }
+
                     bool insideThisTime = intersections.Count%2 == 1;
                     //to be on the safe side we need to get the same result at least twice
                     if (insideThisTime)
@@ -1344,9 +1378,14 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                     polyCurve = polyLine.ToCurve();
             }
             if (null != polyCurve)
-                foreach (IntersectionInfo xx in intersections)
-                    if (!RealCut(DropIntersectionToSegs(xx), polyCurve, false))
-                        return false;
+            {
+               foreach (IntersectionInfo xx in intersections)
+               {
+                  if (!RealCut(DropIntersectionToSegs(xx), polyCurve, false))
+                     return false;
+               }
+            }
+
             return true;
         }
 
@@ -1376,10 +1415,12 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 //so pseg enters the spline 
                 ICurve exitSeg = null;
                 for (int i = 0; i < polygon.Segments.Count; i++)
-                    if (polygon.Segments[i] == pseg) {
-                        exitSeg = polygon.Segments[(i + 1)%polygon.Segments.Count];
-                        break;
-                    }
+                {
+                   if (polygon.Segments[i] == pseg) {
+                      exitSeg = polygon.Segments[(i + 1)%polygon.Segments.Count];
+                      break;
+                   }
+                }
 
                 if (exitSeg == null)
                     throw new InvalidOperationException(); //"exitSeg==null");
@@ -1396,10 +1437,12 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 //so pseg exits the spline 
                 ICurve enterSeg = null;
                 for (int i = 0; i < polygon.Segments.Count; i++)
-                    if (polygon.Segments[i] == pseg) {
-                        enterSeg = polygon.Segments[i > 0 ? (i - 1) : polygon.Segments.Count - 1];
-                        break;
-                    }
+                {
+                   if (polygon.Segments[i] == pseg) {
+                      enterSeg = polygon.Segments[i > 0 ? (i - 1) : polygon.Segments.Count - 1];
+                      break;
+                   }
+                }
 
                 Point tsn = ts.Rotate((Math.PI/2));
                 bool touch = (tsn*pseg.Derivative(pseg.ParStart))*
@@ -1440,10 +1483,12 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 //so pseg enters the spline 
                 ICurve exitSeg = null;
                 for (int i = 0; i < polyline.Segments.Count - 1; i++)
-                    if (polyline.Segments[i] == pseg) {
-                        exitSeg = polyline.Segments[i + 1];
-                        break;
-                    }
+                {
+                   if (polyline.Segments[i] == pseg) {
+                      exitSeg = polyline.Segments[i + 1];
+                      break;
+                   }
+                }
 
                 if (exitSeg == null)
                     return false; //hit the end of the polyline
@@ -1460,10 +1505,13 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 //so pseg exits the spline 
                 ICurve enterSeg = null;
                 for (int i = polyline.segs.Count - 1; i > 0; i--)
-                    if (polyline.Segments[i] == pseg) {
-                        enterSeg = polyline.Segments[i - 1];
-                        break;
-                    }
+                {
+                   if (polyline.Segments[i] == pseg) {
+                      enterSeg = polyline.Segments[i - 1];
+                      break;
+                   }
+                }
+
                 if (enterSeg == null)
                     return false;
                 Point tsn = ts.Rotate((Math.PI/2));
@@ -1837,10 +1885,13 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             IList<IntersectionInfo> xx = GetAllIntersections(innerCurve, outerCurve, true);
             if (xx.Count == 0) return NonIntersectingCurveIsInsideOther(innerCurve, outerCurve);
             if (xx.Count == 1) //it has to be a touch
-                return innerCurve.Start != xx[0].IntersectionPoint
-                           ? PointRelativeToCurveLocation(innerCurve.Start, outerCurve) == PointLocation.Inside
-                           : PointRelativeToCurveLocation(innerCurve[(innerCurve.ParStart + innerCurve.ParEnd)/2],
-                                                          outerCurve) == PointLocation.Inside;
+            {
+               return innerCurve.Start != xx[0].IntersectionPoint
+                         ? PointRelativeToCurveLocation(innerCurve.Start, outerCurve) == PointLocation.Inside
+                         : PointRelativeToCurveLocation(innerCurve[(innerCurve.ParStart + innerCurve.ParEnd)/2],
+                                                        outerCurve) == PointLocation.Inside;
+            }
+
             return
                 PointsBetweenIntersections(innerCurve, xx).All(
                     p => PointRelativeToCurveLocation(p, outerCurve) != PointLocation.Outside);
@@ -1888,17 +1939,23 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 return false;
             IList<IntersectionInfo> xx = GetAllIntersections(curve1, curve2, true);
             if (xx.Count == 0)
-                return NonIntersectingCurveIsInsideOther(curve1, curve2) ||
-                       NonIntersectingCurveIsInsideOther(curve2, curve1);
+            {
+               return NonIntersectingCurveIsInsideOther(curve1, curve2) ||
+                      NonIntersectingCurveIsInsideOther(curve2, curve1);
+            }
+
             if (xx.Count == 1) //it is a touch
-                return curve1.Start != xx[0].IntersectionPoint
-                           ? PointRelativeToCurveLocation(curve1.Start, curve2) == PointLocation.Inside
-                           : PointRelativeToCurveLocation(curve1[(curve1.ParStart + curve1.ParEnd)/2], curve2) ==
-                             PointLocation.Inside ||
-                             curve2.Start != xx[0].IntersectionPoint
-                                 ? PointRelativeToCurveLocation(curve2.Start, curve1) == PointLocation.Inside
-                                 : PointRelativeToCurveLocation(curve2[(curve2.ParStart + curve2.ParEnd)/2], curve1) ==
-                                   PointLocation.Inside;
+            {
+               return curve1.Start != xx[0].IntersectionPoint
+                         ? PointRelativeToCurveLocation(curve1.Start, curve2) == PointLocation.Inside
+                         : PointRelativeToCurveLocation(curve1[(curve1.ParStart + curve1.ParEnd)/2], curve2) ==
+                           PointLocation.Inside ||
+                           curve2.Start != xx[0].IntersectionPoint
+                            ? PointRelativeToCurveLocation(curve2.Start, curve1) == PointLocation.Inside
+                            : PointRelativeToCurveLocation(curve2[(curve2.ParStart + curve2.ParEnd)/2], curve1) ==
+                              PointLocation.Inside;
+            }
+
             return
                 PointsBetweenIntersections(curve1, xx).Any(
                     p => PointRelativeToCurveLocation(p, curve2) == PointLocation.Inside);
@@ -1992,15 +2049,19 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             if (narrowestInterval) {
                 end = spline.ParEnd;
                 foreach (IntersectionInfo xx in intersections)
-                    if (xx.Par0 < end)
-                        end = xx.Par0;
+                {
+                   if (xx.Par0 < end)
+                      end = xx.Par0;
+                }
             }
             else {
                 //looking for the last intersection
                 end = spline.ParStart;
                 foreach (IntersectionInfo xx in intersections)
-                    if (xx.Par0 > end)
-                        end = xx.Par0;
+                {
+                   if (xx.Par0 > end)
+                      end = xx.Par0;
+                }
             }
         }
 
@@ -2013,14 +2074,18 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
             if (narrowestInterval) {
                 start = spline.ParStart;
                 foreach (IntersectionInfo xx in intersections)
-                    if (xx.Par0 > start)
-                        start = xx.Par0;
+                {
+                   if (xx.Par0 > start)
+                      start = xx.Par0;
+                }
             }
             else {
                 start = spline.ParEnd;
                 foreach (IntersectionInfo xx in intersections)
-                    if (xx.Par0 < start)
-                        start = xx.Par0;
+                {
+                   if (xx.Par0 < start)
+                      start = xx.Par0;
+                }
             }
         }
 
@@ -2055,8 +2120,11 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
 
         static bool AllSegsAreLines(Curve c) {
             foreach (ICurve s in c.Segments)
-                if (!(s is LineSegment))
-                    return false;
+            {
+               if (!(s is LineSegment))
+                  return false;
+            }
+
             return true;
         }
 

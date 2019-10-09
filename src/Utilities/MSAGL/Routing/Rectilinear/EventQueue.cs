@@ -53,15 +53,14 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         /// <param name="rhs"></param>
         /// <returns></returns>
         public int Compare(SweepEvent lhs, SweepEvent rhs) {
-            if (lhs == rhs) {
-                return 0;
-            }
-            if (lhs == null) {
-                return -1;
-            }
-            if (rhs == null) {
-                return 1;
-            }
+            if (lhs == rhs)
+               return 0;
+
+            if (lhs == null)
+               return -1;
+
+            if (rhs == null)
+               return 1;
 
             // First see if it's at the same scanline level (perpendicular coordinate).
             int cmp = scanDirection.ComparePerpCoord(lhs.Site, rhs.Site);
@@ -75,9 +74,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 cmp = lhsIsNotReflection.CompareTo(rhsIsNotReflection);
 
                 // If the scanline-parallel coordinate is the same these events are at the same point.
-                if (0 == cmp) {
-                    cmp = scanDirection.CompareScanCoord(lhs.Site, rhs.Site);
-                }
+                if (0 == cmp)
+                   cmp = scanDirection.CompareScanCoord(lhs.Site, rhs.Site);
             }   
             return cmp;
         }

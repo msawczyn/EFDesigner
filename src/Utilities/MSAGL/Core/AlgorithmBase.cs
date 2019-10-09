@@ -24,9 +24,7 @@ namespace Microsoft.Msagl.Core
             this.RunInternal();
 
             if (!this.IsCanceled)
-            {
-                this.ProgressComplete();
-            }
+               this.ProgressComplete();
         }
 
         /// <summary>
@@ -47,9 +45,7 @@ namespace Microsoft.Msagl.Core
                 this.RunInternal();
                 
                 if (!this.IsCanceled)
-                {
-                    this.ProgressComplete();
-                }
+                   this.ProgressComplete();
             }
             finally
             {
@@ -86,9 +82,7 @@ namespace Microsoft.Msagl.Core
         public void Cancel()
         {
             if (this.cancelToken != null)
-            {
-                this.cancelToken.Canceled = true;
-            }
+               this.cancelToken.Canceled = true;
         }
 
         /// <summary>
@@ -105,9 +99,7 @@ namespace Microsoft.Msagl.Core
         protected void ThrowIfCanceled()
         {
             if (this.cancelToken != null)
-            {
-                this.cancelToken.ThrowIfCanceled();
-            }
+               this.cancelToken.ThrowIfCanceled();
         }
 
         /// <summary>
@@ -262,9 +254,7 @@ namespace Microsoft.Msagl.Core
             localStepCount += stepsTaken;
 
             if (localProgressSpecified)
-            {
-                progressRatio = progressRatio + (localProgressStepSize * stepsTaken);
-            }
+               progressRatio = progressRatio + (localProgressStepSize * stepsTaken);
             else
             {
                 // If no local step count was specified, use a progress bar
@@ -278,9 +268,7 @@ namespace Microsoft.Msagl.Core
 
             // Round up to 100% if the sum of steps doesn't quite reach it.
             if (Math.Round(progressRatio, 6) == 1.0)
-            {
-                progressRatio = 1.0;
-            }
+               progressRatio = 1.0;
 
             this.NotifyProgressChanged(this, new ProgressChangedEventArgs(progressRatio));
         }

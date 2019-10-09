@@ -60,9 +60,8 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
             if (!leafNode.Rectangle.Intersects(internalNode.Rectangle))
                 return;
             if (internalNode.UserData != null) {
-                if (leafNode.UserData != internalNode.UserData) {
-                    intersecting.Add(internalNode.UserData);
-                }
+                if (leafNode.UserData != internalNode.UserData)
+                   intersecting.Add(internalNode.UserData);
             } else {
                 GetIntersecting(leafNode, internalNode.Left, intersecting);
                 GetIntersecting(leafNode, internalNode.Right, intersecting);
@@ -75,9 +74,8 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
                 if (a.UserData != b.UserData) {
                     Point ap = a.UserData.Center;
                     Point bp = b.UserData.Center;
-                    if (ap.X <= bp.X || (ap.X == bp.X && ap.Y <= bp.Y)) {
-                        closePairs.Add(new Tuple<IHull, IHull>(a.UserData, b.UserData));
-                    }
+                    if (ap.X <= bp.X || (ap.X == bp.X && ap.Y <= bp.Y))
+                       closePairs.Add(new Tuple<IHull, IHull>(a.UserData, b.UserData));
                 }
             } else if (a.UserData == null && b.UserData == null) {
                 GetClosePairs(a.Left, b.Left, closePairs);
@@ -94,9 +92,8 @@ namespace Microsoft.Msagl.Prototype.NonOverlappingBoundaries {
         }
 
         private IEnumerable<RectangleNode<IHull>> GetNodeRects(List<IHull> nodes) {
-            foreach (var v in nodes) {
-                yield return v.RectangleNode;
-            }
+            foreach (var v in nodes)
+               yield return v.RectangleNode;
         }
     }
 }

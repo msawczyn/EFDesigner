@@ -43,9 +43,8 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
                 NodeVoting nodeVoting = NodeVotings[i];
                 int votedIndex = nodeVoting.VotedNodeIndex;
                 Point newPos = LocalizedOptimization(nodeVoting);
-                if (Settings.UpdateMethod == UpdateMethod.Serial) {
-                    newPositions[votedIndex] = newPos;
-                }
+                if (Settings.UpdateMethod == UpdateMethod.Serial)
+                   newPositions[votedIndex] = newPos;
                 else newPositions.Add(newPos);
             }
 
@@ -175,9 +174,8 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
             double sumWeights = 0;
 
             // if there is not voting vlock, the position of this node will not change
-            if (nodeVoting.VotingBlocks == null || nodeVoting.VotingBlocks.Count == 0) {
-                return currentPosition;
-            }
+            if (nodeVoting.VotingBlocks == null || nodeVoting.VotingBlocks.Count == 0)
+               return currentPosition;
 
             foreach (VoteBlock votingBlock in nodeVoting.VotingBlocks) {
                 double blockWeight = votingBlock.BlockWeight;
@@ -212,18 +210,16 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
         /// </summary>
         /// <param name="nodeVoting"></param>
          void ClearVoting(NodeVoting nodeVoting) {
-            foreach (VoteBlock block in nodeVoting.VotingBlocks) {
-                block.Votings.Clear();
-            }
+            foreach (VoteBlock block in nodeVoting.VotingBlocks)
+               block.Votings.Clear();
         }
 
         /// <summary>
         ///     Clears the Votings of the nodes.
         /// </summary>
         public void ClearVotings() {
-            foreach (NodeVoting nodeVoting in NodeVotings) {
-                ClearVoting(nodeVoting);
-            }
+            foreach (NodeVoting nodeVoting in NodeVotings)
+               ClearVoting(nodeVoting);
         }
 
 #if DEBUG
@@ -275,9 +271,8 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
             for (int i = 0; i < 20; i++) {
                 List<Point> result = majorization.IterateSingleLocalizedMethod();
 
-                foreach (Point point in result) {
-                    Console.WriteLine("ResultPoint: {0}", point.ToString());
-                }
+                foreach (Point point in result)
+                   Console.WriteLine("ResultPoint: {0}", point.ToString());
 
                 Console.WriteLine("Distance To Left: {0}", (result[0] - result[1]).Length);
                 Console.WriteLine("Distance To Right: {0}", (result[0] - result[2]).Length);
@@ -398,9 +393,8 @@ namespace Microsoft.Msagl.Core.Layout.ProximityOverlapRemoval.StressEnergy {
             int i = 0;
             foreach (NodeVoting nodeVoting in nodeVotings) {
                 int targetId = nodeVoting.VotedNodeIndex;
-                foreach (VoteBlock block in nodeVoting.VotingBlocks) {
-                    i += block.Votings.Count;
-                }
+                foreach (VoteBlock block in nodeVoting.VotingBlocks)
+                   i += block.Votings.Count;
             }
             return i;
         }

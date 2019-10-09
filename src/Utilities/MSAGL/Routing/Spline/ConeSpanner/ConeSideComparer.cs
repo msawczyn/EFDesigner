@@ -18,9 +18,9 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
         public int Compare(ConeSide a, ConeSide b) {
             var aObst = a as BrokenConeSide;
             var bObst = b as BrokenConeSide;
-            if (aObst != null) {
-                return bObst != null ? CompareBrokenSides(aObst, bObst) : CompareObstacleSideAndConeSide(b);
-            } else {
+            if (aObst != null)
+               return bObst != null ? CompareBrokenSides(aObst, bObst) : CompareObstacleSideAndConeSide(b);
+            else {
                 //a is ConeSide
                 return bObst != null ? CompareConeSideAndObstacleSide(a, bObst) : CompareNotIntersectingSegs(a, b);
             }

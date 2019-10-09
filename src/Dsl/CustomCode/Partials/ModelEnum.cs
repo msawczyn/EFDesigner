@@ -33,11 +33,14 @@ namespace Sawczyn.EFDesigner.EFModel
                 shapeElement.Invalidate();
         }
 
-        protected string GetGlyphTypeValue() => ModelRoot.ShowWarningsInDesigner && GetHasWarningValue()
+        protected string GetGlyphTypeValue()
+        {
+           return ModelRoot.ShowWarningsInDesigner && GetHasWarningValue()
                      ? "WarningGlyph"
                      : "EnumGlyph";
+        }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// If enum is flags, renumbers all enum values starting at 1 without regard to its current value
@@ -137,21 +140,23 @@ namespace Sawczyn.EFDesigner.EFModel
            bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
             if (!loading && IsNamespaceTracking)
-                try
-                {
-                    return ModelRoot?.Namespace;
-                }
-                catch (NullReferenceException)
-                {
-                    return default(string);
-                }
-                catch (Exception e)
-                {
-                    if (CriticalException.IsCriticalException(e))
-                        throw;
+            {
+               try
+               {
+                  return ModelRoot?.Namespace;
+               }
+               catch (NullReferenceException)
+               {
+                  return default(string);
+               }
+               catch (Exception e)
+               {
+                  if (CriticalException.IsCriticalException(e))
+                     throw;
 
-                    return default(string);
-                }
+                  return default(string);
+               }
+            }
 
             return namespaceStorage;
         }
@@ -231,21 +236,23 @@ namespace Sawczyn.EFDesigner.EFModel
            bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
             if (!loading && IsOutputDirectoryTracking)
-                try
-                {
-                    return ModelRoot?.EnumOutputDirectory;
-                }
-                catch (NullReferenceException)
-                {
-                    return default(string);
-                }
-                catch (Exception e)
-                {
-                    if (CriticalException.IsCriticalException(e))
-                        throw;
+            {
+               try
+               {
+                  return ModelRoot?.EnumOutputDirectory;
+               }
+               catch (NullReferenceException)
+               {
+                  return default(string);
+               }
+               catch (Exception e)
+               {
+                  if (CriticalException.IsCriticalException(e))
+                     throw;
 
-                    return default(string);
-                }
+                  return default(string);
+               }
+            }
 
             return outputDirectoryStorage;
         }

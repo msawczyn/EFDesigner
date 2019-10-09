@@ -21,9 +21,8 @@ namespace Microsoft.Msagl.Prototype.MultiScale
         public void CalculateLayout(GeometryGraph graph, double edgeLengthOffset, double edgeLengthMultiplier)
         {
             if (graph.Nodes.Count <= 1)
-            {
-                return;
-            }
+               return;
+
             GeometryGraph G = graph;
             // build stack of successively more abridged graphs
             var GraphStack = new Stack<GeometryGraph>();
@@ -55,9 +54,7 @@ namespace Microsoft.Msagl.Prototype.MultiScale
                 {
                     var v = u.UserData as Node;
                     if (v != null)
-                    {
-                        v.Center = u.Center;
-                    }
+                       v.Center = u.Center;
                     else
                     {
                         var e = u.UserData as Edge;

@@ -142,8 +142,11 @@ namespace Microsoft.Msagl.Routing.Visibility {
         private void RemoveDiagonalFromActiveNodes(Diagonal diag) {
             RBNode<Diagonal> changedNode = activeDiagonalTree.DeleteSubtree(diag.RbNode);
             if (changedNode != null)
-                if (changedNode.Item != null)
-                    changedNode.Item.RbNode = changedNode;
+            {
+               if (changedNode.Item != null)
+                  changedNode.Item.RbNode = changedNode;
+            }
+
             diag.LeftTangent.Diagonal = null;
             diag.RightTangent.Diagonal = null;
         }
@@ -190,9 +193,11 @@ namespace Microsoft.Msagl.Routing.Visibility {
 
         private void OrganizeTangents() {
             foreach (Polygon q in AllObstacles)
-                if (q != this.currentPolygon)
-                    ProcessPolygonQ(q);
-    
+            {
+               if (q != this.currentPolygon)
+                  ProcessPolygonQ(q);
+            }
+
             this.tangents.Sort(new Comparison<Tangent>(TangentComparison));
         }
 

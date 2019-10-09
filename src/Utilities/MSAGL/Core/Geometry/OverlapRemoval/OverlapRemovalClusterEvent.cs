@@ -60,9 +60,8 @@ namespace Microsoft.Msagl.Core.Geometry
                 int cmp = 0;
                 // Use a range so that rounding inaccuracy will give consistent results.
                 if (Math.Abs(this.Position - other.Position) > OverlapRemovalGlobalConfiguration.EventComparisonEpsilon)
-                {
-                    cmp = this.Position.CompareTo(other.Position);
-                }
+                   cmp = this.Position.CompareTo(other.Position);
+
                 if (0 == cmp)
                 {
                     // Sub-order by IsRendered (false precedes true, which is what we want).

@@ -356,14 +356,18 @@ namespace Sawczyn.EFDesigner.EFModel
                                     .ToList();
 
          foreach (AssociationConnector connector in changeColor)
+         {
             connector.Color = cascade
                                  ? Color.Red
                                  : Color.Black;
+         }
 
          foreach (AssociationConnector connector in changeStyle)
+         {
             connector.DashStyle = cascade
                                      ? DashStyle.Dash
                                      : DashStyle.Solid;
+         }
       }
 
       internal static void UpdateDisplayForPersistence(Association element)
@@ -386,14 +390,18 @@ namespace Sawczyn.EFDesigner.EFModel
                                     .ToList();
 
          foreach (AssociationConnector connector in changeColors)
+         {
             connector.Color = persistent
                                  ? Color.Black
                                  : Color.Gray;
+         }
 
          foreach (AssociationConnector connector in changeStyle)
+         {
             connector.DashStyle = persistent
                                      ? DashStyle.Solid
                                      : DashStyle.Dash;
+         }
       }
 
       private static string ValidateAssociationIdentifier(Association association, ModelClass targetedClass, string identifier)

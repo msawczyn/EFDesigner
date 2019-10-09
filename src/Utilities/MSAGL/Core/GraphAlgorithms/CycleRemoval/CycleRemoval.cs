@@ -91,9 +91,9 @@ namespace Microsoft.Msagl.Core.GraphAlgorithms {
                                 continue;
 
                             VertStatus targetStatus = status[e.Target];
-                            if (targetStatus == VertStatus.InStack) {
-                                feedbackSet.Insert(e);
-                            } else if (targetStatus == VertStatus.NotVisited) {				//have to go deeper
+                            if (targetStatus == VertStatus.InStack)
+                               feedbackSet.Insert(e);
+                            else if (targetStatus == VertStatus.NotVisited) {				//have to go deeper
                                 Push(enumStack, vertexStack, status, vertex, outEnum);
                                 vertex = e.Target;
                                 status[e.Target] = VertStatus.Visited;

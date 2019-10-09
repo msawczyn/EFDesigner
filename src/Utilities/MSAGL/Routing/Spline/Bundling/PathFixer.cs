@@ -27,8 +27,11 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         IEnumerable<PointPair> Edges() {
             var set = new Set<PointPair>();
             foreach (var poly in Polylines)
-                for (var pp = poly.StartPoint; pp.Next != null; pp = pp.Next)
-                    set.Insert(FlipCollapser.OrderedPair(pp));
+            {
+               for (var pp = poly.StartPoint; pp.Next != null; pp = pp.Next)
+                  set.Insert(FlipCollapser.OrderedPair(pp));
+            }
+
             return set;
         }
 
@@ -100,19 +103,24 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             var endPolyPoint = pp.Next;
             var poly = pp.Polyline;
             if (reversed)
-                for (int i = list.Count - 1; i >= 0; i--) {
-                    if ( polylineAcceptsPoint!=null && !polylineAcceptsPoint(metroline, list[i])) continue;
-                    var p = new PolylinePoint(list[i]) { Prev = pp, Polyline = poly };
-                    pp.Next = p;
-                    pp = p;
-                }
+            {
+               for (int i = list.Count - 1; i >= 0; i--) {
+                  if ( polylineAcceptsPoint!=null && !polylineAcceptsPoint(metroline, list[i])) continue;
+                  var p = new PolylinePoint(list[i]) { Prev = pp, Polyline = poly };
+                  pp.Next = p;
+                  pp = p;
+               }
+            }
             else
-                for (int i = 0; i < list.Count; i++) {
-                    if (polylineAcceptsPoint!=null &&!polylineAcceptsPoint(metroline, list[i])) continue;
-                    var p = new PolylinePoint(list[i]) { Prev = pp, Polyline = poly };
-                    pp.Next = p;
-                    pp = p;
-                }
+            {
+               for (int i = 0; i < list.Count; i++) {
+                  if (polylineAcceptsPoint!=null &&!polylineAcceptsPoint(metroline, list[i])) continue;
+                  var p = new PolylinePoint(list[i]) { Prev = pp, Polyline = poly };
+                  pp.Next = p;
+                  pp = p;
+               }
+            }
+
             pp.Next = endPolyPoint;
             endPolyPoint.Prev = pp;
             return true;
@@ -134,9 +142,9 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
                 PolylinePoint previous;
 
                 if (pointsToPp.TryGetValue(point, out previous)) {//we have a cycle
-                    for (var px = previous.Next; px != pp.Next; px = px.Next) {
-                        pointsToPp.Remove(px.Point);
-                    }
+                    for (var px = previous.Next; px != pp.Next; px = px.Next)
+                       pointsToPp.Remove(px.Point);
+
                     previous.Next = pp.Next;
                     pp.Next.Prev = previous;
                     progress = true;
@@ -174,15 +182,18 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         bool RemoveUnimportantCrossingsFromPolyline(Polyline polyline) {
             bool removed = false;
             for (var p = polyline.StartPoint.Next; p != null && p.Next != null; p = p.Next)
-                if (pointsToDelete.Contains(p.Point) && Point.GetTriangleOrientation(p.Prev.Point, p.Point, p.Next.Point) == TriangleOrientation.Collinear) {
-                    //forget p
-                    var pp = p.Prev;
-                    var pn = p.Next;
-                    pp.Next = pn;
-                    pn.Prev = pp;
-                    p = pp;
-                    removed = true;
-                }
+            {
+               if (pointsToDelete.Contains(p.Point) && Point.GetTriangleOrientation(p.Prev.Point, p.Point, p.Next.Point) == TriangleOrientation.Collinear) {
+                  //forget p
+                  var pp = p.Prev;
+                  var pn = p.Next;
+                  pp.Next = pn;
+                  pn.Prev = pp;
+                  p = pp;
+                  removed = true;
+               }
+            }
+
             return removed;
         }
 

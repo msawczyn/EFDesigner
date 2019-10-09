@@ -131,9 +131,13 @@ namespace Microsoft.Msagl.Routing.Visibility {
             // ReSharper restore UnusedMember.Local
             double ret = double.PositiveInfinity, u, v;
             for (int i = 0; i < a.Count; i++)
-                for (int j = 0; j < b.Count; j++)
-                    ret = Math.Min(ret, LineSegment.MinDistBetweenLineSegments(a.Pnt(i), a.Pnt(i + 1), b.Pnt(j),
-                                                                                b.Pnt(j + 1), out u, out v));
+            {
+               for (int j = 0; j < b.Count; j++)
+               {
+                  ret = Math.Min(ret, LineSegment.MinDistBetweenLineSegments(a.Pnt(i), a.Pnt(i + 1), b.Pnt(j),
+                                                                             b.Pnt(j + 1), out u, out v));
+               }
+            }
 
             return ret;
         }
@@ -180,9 +184,12 @@ namespace Microsoft.Msagl.Routing.Visibility {
         {
             var poly = a.Polyline;
             for (var p = poly.StartPoint; p.Next != null && p.Next.Next != null; p = p.Next)
-                if (Point.GetTriangleOrientation(p.Point, p.Next.Point, p.Next.Next.Point) ==
-                    TriangleOrientation.Collinear)
-                    return false;
+            {
+               if (Point.GetTriangleOrientation(p.Point, p.Next.Point, p.Next.Next.Point) ==
+                   TriangleOrientation.Collinear)
+                  return false;
+            }
+
             return true;
         }
 

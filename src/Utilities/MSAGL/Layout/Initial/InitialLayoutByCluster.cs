@@ -109,8 +109,10 @@ namespace Microsoft.Msagl.Layout.Initial {
             if (runInParallel && clusters.Count > 1)
                 Parallel.ForEach(clusters, parallelOptions, ProcessCluster);
             else
-                foreach (Cluster cluster in clusters)
-                    ProcessCluster(cluster);
+            {
+               foreach (Cluster cluster in clusters)
+                  ProcessCluster(cluster);
+            }
 
             bool isRootCluster = clusters.Any(c => c == graph.RootCluster);
 
@@ -281,9 +283,11 @@ namespace Microsoft.Msagl.Layout.Initial {
     /// <param name="cluster">check is applied to specified cluster and below</param>
         static void ValidateLayout(Cluster cluster) {
             foreach (var c in cluster.AllClustersDepthFirst())
-                foreach (var v in c.nodes.Concat(c.Clusters.Cast<Node>()))
-                    Debug.Assert(c.BoundingBox.Contains(v.BoundingBox));
-        }
+            {
+               foreach (var v in c.nodes.Concat(c.Clusters.Cast<Node>()))
+                  Debug.Assert(c.BoundingBox.Contains(v.BoundingBox));
+            }
+    }
 #endif
 
         /// <summary>
@@ -300,8 +304,10 @@ namespace Microsoft.Msagl.Layout.Initial {
             if (runInParallel && cluster.Clusters.Count() > 1)
                 Parallel.ForEach(cluster.Clusters, parallelOptions, LayoutCluster);
             else
-                foreach (var cl in cluster.Clusters)
-                    LayoutCluster(cl);
+            {
+               foreach (var cl in cluster.Clusters)
+                  LayoutCluster(cl);
+            }
 
             List<GeometryGraph> components = (List<GeometryGraph>) GetComponents(cluster);
 
@@ -338,9 +344,8 @@ namespace Microsoft.Msagl.Layout.Initial {
                 var originalNode = (Node) v.UserData;
                 var delta = v.BoundingBox.LeftBottom - originalNode.BoundingBox.LeftBottom;
                 var cluster = originalNode as Cluster;
-                if (cluster != null) {
-                    cluster.DeepTranslation(delta, translateEdges);
-                }
+                if (cluster != null)
+                   cluster.DeepTranslation(delta, translateEdges);
                 else
                     originalNode.Center += delta;
             }
@@ -485,18 +490,15 @@ namespace Microsoft.Msagl.Layout.Initial {
             var fdSettings = settings as FastIncrementalLayoutSettings;
             var mdsSettings = settings as MdsLayoutSettings;
             var layeredSettings = settings as SugiyamaLayoutSettings;
-            if (fdSettings != null) {
-                ForceDirectedLayout(fdSettings, component);
-            }
-            else if (mdsSettings != null) {
-                MDSLayout(mdsSettings, component);
-            }
-            else if (layeredSettings != null) {
-                LayeredLayout(layeredSettings, component);
-            }
-            else {
-                throw new NotImplementedException("Unknown type of layout settings!");
-            }
+            if (fdSettings != null)
+               ForceDirectedLayout(fdSettings, component);
+            else if (mdsSettings != null)
+               MDSLayout(mdsSettings, component);
+            else if (layeredSettings != null)
+               LayeredLayout(layeredSettings, component);
+            else
+               throw new NotImplementedException("Unknown type of layout settings!");
+
             //LayoutAlgorithmSettings.ShowGraph(component);
         }
 
@@ -548,9 +550,9 @@ namespace Microsoft.Msagl.Layout.Initial {
                 var prevEdgeRouting = layeredSettings.EdgeRoutingSettings.EdgeRoutingMode;
                 // for large graphs there's really no point trying to produce nice edge routes
                 // the sugiyama edge routing can be quite circuitous on large graphs anyway
-                if (component.Nodes.Count > 100 && edgeDensity > 2.0) {
-                    layeredSettings.EdgeRoutingSettings.EdgeRoutingMode = EdgeRoutingMode.StraightLine;
-                }
+                if (component.Nodes.Count > 100 && edgeDensity > 2.0)
+                   layeredSettings.EdgeRoutingSettings.EdgeRoutingMode = EdgeRoutingMode.StraightLine;
+
                 layeredLayout.Run(this.CancelToken);
                 layeredSettings.EdgeRoutingSettings.EdgeRoutingMode = prevEdgeRouting;
                 InitialLayoutHelpers.FixBoundingBox(component, layeredSettings);

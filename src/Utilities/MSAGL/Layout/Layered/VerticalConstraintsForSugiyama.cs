@@ -120,18 +120,22 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         private void AddMaxMinConstraintsToGluedConstraints() {
             if (this.maxRepresentative != -1)
-                for (int i = 0; i < this.intGraph.NodeCount; i++) {
-                    int j = NodeToRepr(i);
-                    if (j != maxRepresentative)
-                        GluedUpDownIntConstraints.Insert(new IntPair(maxRepresentative, j));
-                }
+            {
+               for (int i = 0; i < this.intGraph.NodeCount; i++) {
+                  int j = NodeToRepr(i);
+                  if (j != maxRepresentative)
+                     GluedUpDownIntConstraints.Insert(new IntPair(maxRepresentative, j));
+               }
+            }
 
             if (this.minRepresentative != -1)
-                for (int i = 0; i < this.intGraph.NodeCount; i++) {
-                    int j = NodeToRepr(i);
-                    if (j != minRepresentative)
-                        GluedUpDownIntConstraints.Insert(new IntPair(j, minRepresentative));
-                }
+            {
+               for (int i = 0; i < this.intGraph.NodeCount; i++) {
+                  int j = NodeToRepr(i);
+                  if (j != minRepresentative)
+                     GluedUpDownIntConstraints.Insert(new IntPair(j, minRepresentative));
+               }
+            }
         }
 
         private void GlueTogetherSameConstraintsMaxAndMin() {
@@ -196,11 +200,15 @@ namespace Microsoft.Msagl.Layout.Layered {
             if (sameLayerNodes.Count<int>() > 1) {
                 int representative = -1;
                 if (ComponentsIsMaxLayer(sameLayerNodes))
-                    foreach (int v in sameLayerNodes)
-                        this.sameLayerDictionaryOfRepresentatives[v] = representative = maxRepresentative;
+                {
+                   foreach (int v in sameLayerNodes)
+                      this.sameLayerDictionaryOfRepresentatives[v] = representative = maxRepresentative;
+                }
                 else if (ComponentIsMinLayer(sameLayerNodes))
-                    foreach (int v in sameLayerNodes)
-                        sameLayerDictionaryOfRepresentatives[v] = representative = minRepresentative;
+                {
+                   foreach (int v in sameLayerNodes)
+                      sameLayerDictionaryOfRepresentatives[v] = representative = minRepresentative;
+                }
                 else {
                     foreach (int v in sameLayerNodes) {
                         if (representative == -1)
@@ -289,16 +297,21 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         private IEnumerable<IEdge> UnglueIntPairs(IEnumerable<IEdge> gluedEdges) {
             foreach (IEdge gluedEdge in gluedEdges)
-                foreach (IEdge ungluedEdge in UnglueEdge(gluedEdge))
-                    yield return ungluedEdge; 
-
+            {
+               foreach (IEdge ungluedEdge in UnglueEdge(gluedEdge))
+                  yield return ungluedEdge;
+            }
         }
 
         private IEnumerable<IEdge> UnglueEdge(IEdge gluedEdge) {
             foreach (int source in UnglueNode(gluedEdge.Source))
-                foreach (IntEdge edge in intGraph.OutEdges(source))
-                    if (NodeToRepr(edge.Target) == gluedEdge.Target)
-                        yield return edge;
+            {
+               foreach (IntEdge edge in intGraph.OutEdges(source))
+               {
+                  if (NodeToRepr(edge.Target) == gluedEdge.Target)
+                     yield return edge;
+               }
+            }
         }
 
         private BasicGraph<IntPair> CreateGluedGraph() {

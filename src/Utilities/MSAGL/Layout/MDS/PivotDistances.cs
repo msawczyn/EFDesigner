@@ -48,9 +48,8 @@ namespace Microsoft.Msagl.Layout.MDS
             graph.Nodes.CopyTo(nodes, 0);
             double[] min = new double[graph.Nodes.Count];
             for (int i = 0; i < min.Length; i++)
-            {
-                min[i] = Double.PositiveInfinity;
-            }
+               min[i] = Double.PositiveInfinity;
+
             Node pivot = nodes[0];
             pivotArray[0] = 0;
             for (int i = 0; ; i++) {

@@ -32,9 +32,8 @@ namespace Microsoft.Msagl.Core.Geometry
             this.ps = ps;
             L = new LinkedList<int>();
             for (int i = 0; i < ps.Length; ++i)
-            {
-                L.AddLast(i);
-            }
+               L.AddLast(i);
+
             MinDisc md = mtf_md(null, new List<int>());
             disc = md.disc;
             boundary = md.boundary;
@@ -66,9 +65,8 @@ namespace Microsoft.Msagl.Core.Geometry
             public bool contains(Point p)
             {
                 if (disc == null)
-                {
-                    return false;
-                }
+                   return false;
+
                 return disc.Contains(p);
             }
         }
@@ -76,9 +74,8 @@ namespace Microsoft.Msagl.Core.Geometry
          bool collinear3(List<int> b)
         {
             if (b.Count == 3)
-            {
-                return Disc.Collinear(ps[b[0]], ps[b[1]], ps[b[2]]);
-            }
+               return Disc.Collinear(ps[b[0]], ps[b[1]], ps[b[2]]);
+
             return false;
         }
 #endif
@@ -87,9 +84,8 @@ namespace Microsoft.Msagl.Core.Geometry
             Debug.Assert(b.Count <= 3);
             MinDisc md = new MinDisc(ps,b);
             if (b.Count == 3)
-            {
-                return md;
-            }
+               return md;
+
             LinkedListNode<int> lnode = L.First;
             while(lnode!=null&&lnode!=lPtr)
             {

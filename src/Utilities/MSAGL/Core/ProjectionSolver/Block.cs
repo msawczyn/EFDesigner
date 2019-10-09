@@ -95,9 +95,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // On initialization, each variable is put into its own block.  If this was called from Block.Split
             // initialVariable will be null.
             if (null != initialVariable)
-            {
-                AddVariable(initialVariable);
-            }
+               AddVariable(initialVariable);
+
             this.allConstraints = allConstraints;
 #if VERIFY || VERBOSE
             // Increment the ID so the caller doesn't need a second #if VERIFY... block to do so.
@@ -250,13 +249,9 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                             // If the node has no constraints other than the one we're now processing, it's a leaf
                             // and we don't need the overhead of pushing to and popping from the stack.
                             if (1 == constraint.Right.ActiveConstraintCount)
-                            {
-                                ProcessDfDvLeafNodeDirectly(childNode);
-                            }
+                               ProcessDfDvLeafNodeDirectly(childNode);
                             else
-                            {
-                                PushDfDvNode(childNode);
-                            }
+                               PushDfDvNode(childNode);
                         }
                     }
 
@@ -269,21 +264,15 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                         {
                             var childNode = GetDfDvNode(node, constraint, constraint.Left, node.VariableToEval);
                             if (1 == constraint.Left.ActiveConstraintCount)
-                            {
-                                ProcessDfDvLeafNodeDirectly(childNode);
-                            }
+                               ProcessDfDvLeafNodeDirectly(childNode);
                             else
-                            {
-                                PushDfDvNode(childNode);
-                            }
+                               PushDfDvNode(childNode);
                         }
                     }
 
                     // If we just pushed one or more nodes, loop back up and "recurse" into them.
                     if (this.allConstraints.DfDvStack.Count > prevStackCount)
-                    {
-                        continue;
-                    }
+                       continue;
                 } // endif !node.ChildrenHaveBeenPushed
 
                 // We are at a non-leaf node and have "recursed" through all its descendents; therefore pop it off
@@ -406,9 +395,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                             : new DfDvNode(parent, constraintToEval, variableToEval, variableDoneEval);
             node.Depth = node.Parent.Depth + 1;
             if (this.allConstraints.MaxConstraintTreeDepth < node.Depth)
-            {
-                this.allConstraints.MaxConstraintTreeDepth = node.Depth;
-            }
+               this.allConstraints.MaxConstraintTreeDepth = node.Depth;
+
             return node;
         }
 
@@ -491,9 +479,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 {
                     var variable = this.Variables[ii];
                     foreach (var constraint in variable.LeftConstraints)
-                    {
-                        constraint.ClearDfDv();
-                    }
+                       constraint.ClearDfDv();
                 }
             }
             else
@@ -506,9 +492,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 foreach (var variable in this.Variables)
                 {
                     foreach (var constraint in variable.LeftConstraints)
-                    {
-                        constraint.Lagrangian = 0.0;
-                    }
+                       constraint.Lagrangian = 0.0;
                 }
 #endif // VERIFY || VERBOSE
             }
@@ -577,9 +561,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // multiplier. The ActiveConstraints form a spanning tree so there will be no more than
             // one path. violatedConstraint is not yet active so it will not appear in this list.
             if (null == this.constraintPath)
-            {
-                this.constraintPath = new List<ConstraintDirectionPair>();
-            }
+               this.constraintPath = new List<ConstraintDirectionPair>();
+
             this.constraintPath.Clear();
             this.pathTargetVariable = violatedConstraint.Right;
 
@@ -613,9 +596,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                             && ((null == minLagrangianConstraint) || (pathItem.Constraint.Lagrangian < minLagrangianConstraint.Lagrangian)))
                     {
                         if (!pathItem.Constraint.IsEquality)
-                        {
-                            minLagrangianConstraint = pathItem.Constraint;
-                        }
+                           minLagrangianConstraint = pathItem.Constraint;
                     }
                 }
 #if VERBOSE
@@ -660,9 +641,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             double violation = violatedConstraint.Violation;
             int cConnectedVars = lstConnectedVars.Count;
             for (int ii = 0; ii < cConnectedVars; ++ii)
-            {
-                lstConnectedVars[ii].OffsetInBlock += violation;
-            }
+               lstConnectedVars[ii].OffsetInBlock += violation;
 
             // Now make the (no-longer-) violated constraint active.
             this.allConstraints.ActivateConstraint(violatedConstraint);
@@ -703,9 +682,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
 
             // If there is only one variable there's nothing to split.
             if (this.Variables.Count < 2)
-            {
-                return null;
-            }
+               return null;
 
             Constraint minLagrangianConstraint = null;
             Debug_ClearDfDv(false /* forceFull */);
@@ -750,11 +727,9 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
 
             // If we have no satisfying constraint, we're done.
             if (null == minLagrangianConstraint)
-            {
-                return null;
-            }
+               return null;
 
-#if VERBOSE
+            #if VERBOSE
             DumpSplitConstraint("Splitting block at Constraint", minLagrangianConstraint);
 #endif // VERBOSE
 
@@ -837,13 +812,10 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             foreach (var v in Variables)
             {
                 foreach (var c in v.LeftConstraints)
-                {
-                    Debug.Assert(!c.IsActive || (c.Left.Block == c.Right.Block), "LeftConstraint outside of Block");
-                }
+                   Debug.Assert(!c.IsActive || (c.Left.Block == c.Right.Block), "LeftConstraint outside of Block");
+
                 foreach (var c in v.RightConstraints)
-                {
-                    Debug.Assert(!c.IsActive || (c.Left.Block == c.Right.Block), "RightConstraint outside of Block");
-                }
+                   Debug.Assert(!c.IsActive || (c.Left.Block == c.Right.Block), "RightConstraint outside of Block");
             }
         }
 
@@ -915,9 +887,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             this.sumA2 = 0.0;
             var numVars = this.Variables.Count;           // cache for perf
             for (var ii = 0; ii < numVars; ++ii)
-            {
-                AddVariableToBlockSums(this.Variables[ii]);
-            }
+               AddVariableToBlockSums(this.Variables[ii]);
+
             UpdateReferencePosFromSums();
         }
 
@@ -1040,18 +1011,14 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                                 lstVars.Add(constraint.Left);
                             }
                             else
-                            {
-                                AddVariableAndPushDfDvNode(lstVars, GetDfDvNode(node, constraint, constraint.Left, node.VariableToEval));
-                            }
+                               AddVariableAndPushDfDvNode(lstVars, GetDfDvNode(node, constraint, constraint.Left, node.VariableToEval));
                         }
                     }
                 } // endif !node.ChildrenHaveBeenPushed
 
                 // If we just pushed one or more nodes, loop back up and "recurse" into them.
                 if (this.allConstraints.DfDvStack.Count > prevStackCount)
-                {
-                    continue;
-                }
+                   continue;
 
                 // We are at a non-leaf node and have "recursed" through all its descendents, so we're done with it.
                 Debug.Assert(this.allConstraints.DfDvStack.Peek() == node, "DfDvStack.Peek() should be 'node'");
@@ -1071,9 +1038,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // to preserve the order of members).  We don't care about variable ordering within the block
             // so we can just repeatedly swap in the end one over whichever we're removing.
             for (int moveIndex = 0; moveIndex < numVarsToMove; ++moveIndex)
-            {
-                newSplitBlock.Variables[moveIndex].Block = newSplitBlock;
-            }
+               newSplitBlock.Variables[moveIndex].Block = newSplitBlock;
 
             // Now iterate from the end and swap in the last one we'll keep over the ones we'll remove.
             int lastKeepIndex = this.Variables.Count - 1;
@@ -1118,10 +1083,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // If blockFrom's DfDv-cycle detection value was higher than ours, we need to set ours to
             // that value, to avoid running into stale values.
             if (blockFrom.idDfDv > this.idDfDv)
-            {
-                this.idDfDv = blockFrom.idDfDv;
-            }
-#endif // DEBUG
+               this.idDfDv = blockFrom.idDfDv;
+            #endif // DEBUG
         }
     }
 }

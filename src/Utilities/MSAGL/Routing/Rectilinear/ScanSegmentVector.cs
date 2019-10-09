@@ -61,9 +61,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             }
 
             internal void ScanSegmentsComplete() {
-                foreach (var item in this.vector) {
-                    item.AddPendingPerpendicularCoordsToScanSegments();
-                }
+                foreach (var item in this.vector)
+                   item.AddPendingPerpendicularCoordsToScanSegments();
             }
 
             /// <summary>
@@ -77,9 +76,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             /// Reset vector state between passes.
             /// </summary>
             internal void ResetForIntersections() {
-                foreach (ScanSegmentVectorItem t in this.vector) {
-                    t.ResetForIntersections();
-                }
+                foreach (ScanSegmentVectorItem t in this.vector)
+                   t.ResetForIntersections();
             }
 
             /// <summary>
@@ -95,12 +93,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 int low = 0;
                 int high = this.vector.Length - 1;
 
-                if (coord <= this.vector[low].Coord) {
-                    return low;
-                }
-                if (coord >= this.vector[high].Coord) {
-                    return high;
-                }
+                if (coord <= this.vector[low].Coord)
+                   return low;
+
+                if (coord >= this.vector[high].Coord)
+                   return high;
 
                 while ((high - low) > 2) {
                     var mid = low + ((high - low)/2);
@@ -122,12 +119,11 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
                 // We know the value is between low and high, non-inclusive.
                 for (++low; low <= high; ++low) {
                     var item = this.vector[low];
-                    if (coord < item.Coord) {
-                        return (directionIfMiss > 0) ? low : low - 1;
-                    }
-                    if (coord == item.Coord) {
-                        break;
-                    }
+                    if (coord < item.Coord)
+                       return (directionIfMiss > 0) ? low : low - 1;
+
+                    if (coord == item.Coord)
+                       break;
                 }
 
                 // TODOsparse - profile - see if I really need the perpCoordMap
@@ -138,9 +134,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             internal void CreateSparseVerticesAndEdges(VisibilityGraph vg) {
                 foreach (var item in this.vector) {
                     item.ResetForIntersections();
-                    for (var segment = item.FirstSegment; segment != null; segment = segment.NextSegment) {
-                        segment.CreateSparseVerticesAndEdges(vg);
-                    }
+                    for (var segment = item.FirstSegment; segment != null; segment = segment.NextSegment)
+                       segment.CreateSparseVerticesAndEdges(vg);
                 }
             }
 

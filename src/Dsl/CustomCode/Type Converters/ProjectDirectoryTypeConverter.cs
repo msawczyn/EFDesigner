@@ -41,6 +41,7 @@ namespace Sawczyn.EFDesigner.EFModel
          List<string> result = new List<string>();
 
          if (projectItems != null)
+         {
             for (int index = 1; index <= projectItems.Count; index++)
             {
                ProjectItem item = projectItems.Item(index);
@@ -52,6 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   result.AddRange(GetProjectDirectories(item.ProjectItems, path));
                }
             }
+         }
 
          return result;
       }

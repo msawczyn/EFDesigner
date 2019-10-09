@@ -117,11 +117,10 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         IEnumerable<int> FillRightTopAndBottomVerts(int[] layer, int vPosition, NodeKind nodeKind) {
             double t = 0, b = 0;
-            if (nodeKind == NodeKind.Bottom) {
-                b = Single.MaxValue;//we don't have bottom boundaries here since they will be cut off
-            } else if (nodeKind == NodeKind.Top) {
-                t = Single.MaxValue;//we don't have top boundaries here since they will be cut off
-            }
+            if (nodeKind == NodeKind.Bottom)
+               b = Single.MaxValue;//we don't have bottom boundaries here since they will be cut off
+            else if (nodeKind == NodeKind.Top)
+               t = Single.MaxValue;//we don't have top boundaries here since they will be cut off
 
             int v = layer[vPosition];
 
@@ -434,9 +433,8 @@ namespace Microsoft.Msagl.Layout.Layered {
             bool progress = true;
             while (progress) {
                 progress = false;
-                for (Site s = this.headSite; s != null && s.Next != null; s = s.Next) {
-                    progress = TryToRemoveInflectionEdge(ref s) || progress;
-                }
+                for (Site s = this.headSite; s != null && s.Next != null; s = s.Next)
+                   progress = TryToRemoveInflectionEdge(ref s) || progress;
             }
         }
 
@@ -499,11 +497,14 @@ namespace Microsoft.Msagl.Layout.Layered {
 
             bool ret = false;
             for (Site s = headSite; s.Next != null && s.Next.Next != null; s = s.Next)
-                if (Flat(s.Next)) {
-                    ret = true;
-                    s.Next = s.Next.Next;//crossing out s.next
-                    s.Next.Previous = s;
-                }
+            {
+               if (Flat(s.Next)) {
+                  ret = true;
+                  s.Next = s.Next.Next;//crossing out s.next
+                  s.Next.Previous = s;
+               }
+            }
+
             return ret;
         }
 
@@ -571,9 +572,9 @@ namespace Microsoft.Msagl.Layout.Layered {
                 return false;
             if (Parallelogram.Intersect(seg.ParallelogramNodeOverICurve.Parallelogram, tree.Parallelogram)) {
                 ParallelogramBinaryTreeNode n = tree as ParallelogramBinaryTreeNode;
-                if (n != null) {
-                    return BezierSegIntersectsTree(seg, n.LeftSon) || BezierSegIntersectsTree(seg, n.RightSon);
-                } else
+                if (n != null)
+                   return BezierSegIntersectsTree(seg, n.LeftSon) || BezierSegIntersectsTree(seg, n.RightSon);
+                else
                     return BezierSegIntersectsBoundary(seg, ((ParallelogramNodeOverICurve)tree).Seg);
 
             } else return false;

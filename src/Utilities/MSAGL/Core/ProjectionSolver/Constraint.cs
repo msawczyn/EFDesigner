@@ -177,13 +177,11 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             ValidateArg.IsNotNull(other, "other");
             int cmp = this.Left.CompareTo(other.Left);
             if (0 == cmp)
-            {
-                cmp = this.Right.CompareTo(other.Right);
-            }
+               cmp = this.Right.CompareTo(other.Right);
+
             if (0 == cmp)
-            {
-                cmp = this.Gap.CompareTo(other.Gap);
-            }
+               cmp = this.Gap.CompareTo(other.Gap);
+
             return cmp;
         }
         #endregion // IComparable<Constraint> Members

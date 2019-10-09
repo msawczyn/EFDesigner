@@ -101,10 +101,12 @@ namespace Microsoft.Msagl.Layout.MDS {
             }
             if(avgLength>0) avgSum /= avgLength;
             if(avgSum>0)
-                for (int i = 0; i < x.Length; i++) {
-                    x[i] /= avgSum;
-                    y[i] /= avgSum;
-                }
+            {
+               for (int i = 0; i < x.Length; i++) {
+                  x[i] /= avgSum;
+                  y[i] /= avgSum;
+               }
+            }
         }
 
 
@@ -170,10 +172,12 @@ namespace Microsoft.Msagl.Layout.MDS {
                 System.Threading.Tasks.Parallel.ForEach(graphs, options, LayoutConnectedGraphWithMds);
             }
             else
-                for (int i = 0; i < graphs.Length; i++) {
-                    Console.WriteLine("laying out {0} connected component", i);
-                    LayoutConnectedGraphWithMds(graphs[i]);
-                }
+            {
+               for (int i = 0; i < graphs.Length; i++) {
+                  Console.WriteLine("laying out {0} connected component", i);
+                  LayoutConnectedGraphWithMds(graphs[i]);
+               }
+            }
 
             if (graphs.Length > 1) {
                 Console.WriteLine("packing");
@@ -205,9 +209,7 @@ namespace Microsoft.Msagl.Layout.MDS {
                 node.Center = new Point(x[index] * scaleX, y[index] * scaleY);
                 index++;
                 if ((index % 100) == 0)
-                {
-                    ProgressStep();
-                }
+                   ProgressStep();
             }
             if (settings.AdjustScale)
                 AdjustScale(compGraph.Nodes);

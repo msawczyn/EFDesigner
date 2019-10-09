@@ -223,19 +223,15 @@ namespace Microsoft.Msagl.Core.Layout
                 b = a + perp.Rotate(Math.PI / 2);
             }
             else
-            {
-                perp = bMinA.Rotate(Math.PI / 2);
-            }
+               perp = bMinA.Rotate(Math.PI / 2);
 
             double maxArrowLength = 1;
             if (edge.EdgeGeometry.SourceArrowhead != null)
-            {
-                maxArrowLength += edge.EdgeGeometry.SourceArrowhead.Length;
-            }
+               maxArrowLength += edge.EdgeGeometry.SourceArrowhead.Length;
+
             if (edge.EdgeGeometry.TargetArrowhead != null)
-            {
-                maxArrowLength += edge.EdgeGeometry.TargetArrowhead.Length;
-            }
+               maxArrowLength += edge.EdgeGeometry.TargetArrowhead.Length;
+
             perp = perp.Normalize() * 1.5 * maxArrowLength;
 
             int i = 1;
@@ -245,9 +241,7 @@ namespace Microsoft.Msagl.Core.Layout
                 if (TrimSplineAndCalculateArrowheads(edge.EdgeGeometry, edge.Source.BoundaryCurve,
                                                      edge.Target.BoundaryCurve,
                                                      seg, false, false))
-                {
-                    break;
-                }
+                   break;
 
                 i *= 2;
                 const int stop = 10000;

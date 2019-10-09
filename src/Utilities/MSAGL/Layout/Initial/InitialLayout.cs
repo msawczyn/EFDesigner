@@ -71,9 +71,7 @@ namespace Microsoft.Msagl.Layout.Initial
                 componentCount = components.Count;
 
                 foreach (var component in components)
-                {
-                    LayoutComponent(component);
-                }
+                   LayoutComponent(component);
 
                 graph.BoundingBox = MdsGraphLayout.PackGraphs(components, settings);
                 this.ProgressComplete();
@@ -134,13 +132,11 @@ namespace Microsoft.Msagl.Layout.Initial
                 foreach (var level in GetConstraintLevels(component))
                 {
                     if (level > settings.MaxConstraintLevel)
-                    {
-                        break;
-                    }
+                       break;
+
                     if (level > settings.MinConstraintLevel)
-                    {
-                        fil.CurrentConstraintLevel = level;
-                    }
+                       fil.CurrentConstraintLevel = level;
+
                     do
                     {
                         fil.Run();
@@ -167,10 +163,12 @@ namespace Microsoft.Msagl.Layout.Initial
         {
             var keys = (from c in this.settings.StructuralConstraints select c.Level).ToList();
             keys.Add(0);
-            if (this.settings.IdealEdgeLength.EdgeDirectionConstraints != Directions.None) { 
-                keys.Add(1); 
-            }
-            if (this.settings.AvoidOverlaps && component.Nodes.Count < 2000) { keys.Add(2); }
+            if (this.settings.IdealEdgeLength.EdgeDirectionConstraints != Directions.None)
+               keys.Add(1);
+
+            if (this.settings.AvoidOverlaps && component.Nodes.Count < 2000)
+               keys.Add(2);
+
             return keys.Distinct();
         }
 

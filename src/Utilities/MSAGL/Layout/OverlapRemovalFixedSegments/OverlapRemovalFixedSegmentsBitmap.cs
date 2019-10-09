@@ -68,12 +68,12 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments {
         public Rectangle GetInitialBoundingBox() {
             Rectangle bbox = new Rectangle();
             bbox.SetToEmpty();
-            foreach (var rect in _fixedRectangles) {
-                bbox.Add(rect);
-            }
-            foreach (var rect in _moveableRectangles) {
-                bbox.Add(rect);
-            }
+            foreach (var rect in _fixedRectangles)
+               bbox.Add(rect);
+
+            foreach (var rect in _moveableRectangles)
+               bbox.Add(rect);
+
             return bbox;
         }
 
@@ -128,16 +128,14 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments {
                     movedRectangles[i] = Translate(rect, newPos - rect.Center);
                 }
 
-                if (!couldInsert) {
-                    return i;
-                }
+                if (!couldInsert)
+                   return i;
 
                 fixedRectanglesTree.Add(movedRectangles[i], movedRectangles[i]);
                 DrawRectDilated(movedRectangles[i]);
 
-                if (i%10 == 0) {
-                    Console.Write(".");
-                }
+                if (i%10 == 0)
+                   Console.Write(".");
             }
             return _moveableRectangles.Length;
         }
@@ -147,9 +145,8 @@ namespace Microsoft.Msagl.Layout.OverlapRemovalFixedSegments {
             RTree<SymmetricSegment> fixedSegmentsTree) {
             foreach (var fr in fixedRectanglesTree.GetAllLeaves())
                 DrawRectDilated(fr);
-            foreach (var seg in fixedSegmentsTree.GetAllLeaves()) {
-                DrawLineSegDilated(seg.A, seg.B);
-            }
+            foreach (var seg in fixedSegmentsTree.GetAllLeaves())
+               DrawLineSegDilated(seg.A, seg.B);
         }
         
         public bool FindClosestFreePos(Point p, out Point newPos) {

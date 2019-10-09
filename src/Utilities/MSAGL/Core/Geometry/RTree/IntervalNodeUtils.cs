@@ -31,9 +31,9 @@ namespace Microsoft.Msagl.Core.Geometry {
             if (Equals(a, b))
                 HandleEquality(a, action);
             else if (a.Left == null) {
-                if (b.Left == null) {
-                    action(a.UserData, b.UserData);
-                } else {
+                if (b.Left == null)
+                   action(a.UserData, b.UserData);
+                else {
                     CrossIntervalNodes<TA>(a, b.Left, action);
                     CrossIntervalNodes<TA>(a, b.Right, action);
                 }

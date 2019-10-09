@@ -121,15 +121,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (newIsIdentity)
                   {
                      if (element.ModelClass.IsDependentType)
-                     {
                         errorMessages.Add($"{modelClass.Name}.{element.Name}: Can't make {element.Name} an identity because {modelClass.Name} is a dependent type and can't have an identity property.");
-                     }
                      else
                      {
                         if (!modelRoot.ValidIdentityAttributeTypes.Contains(element.Type))
-                        {
                            errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {element.Type} can't be used as identity properties.");
-                        }
                         else
                         {
                            element.IsConcurrencyToken = false;
@@ -259,8 +255,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   bool newRequired = (bool)e.NewValue;
 
                   if (!newRequired)
+                  {
                      if (element.IsIdentity || element.IsConcurrencyToken)
                         element.Required = true;
+                  }
                }
 
                break;
@@ -272,9 +270,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (element.IsIdentity)
                   {
                      if (!modelRoot.ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
-                     {
                         errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {newType} can't be used as identity properties.");
-                     }
                      else
                      {
                         element.Required = true;

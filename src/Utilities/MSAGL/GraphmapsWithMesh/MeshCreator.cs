@@ -387,9 +387,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 }
 
                 foreach (var s in removeList)
-                {
-                    g.VList[s.Value].SegmentList.Remove(s.Key);
-                }
+                   g.VList[s.Value].SegmentList.Remove(s.Key);
+
                 removeList.Clear();
                 foreach (var s in addList)
                 {
@@ -420,9 +419,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 }
 
                 foreach (var s in removeList)
-                {
-                    g.VList[s.Value].SegmentList.Remove(s.Key);
-                }
+                   g.VList[s.Value].SegmentList.Remove(s.Key);
+
                 removeList.Clear();
                 foreach (var s in addList)
                 {
@@ -1301,9 +1299,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
 
                             double currentNeighborValue = IdToX[currentneighborId] - IdToY[currentneighborId];
                             if (currentNeighborValue < LargestXMinusY && IdToY[CandidateNeighborId] >= IdToY[currentPointId])
-                            {
-                                neighborlist[currentPointId] = CandidateNeighborId;
-                            }
+                               neighborlist[currentPointId] = CandidateNeighborId;
                         }
                         else
                         {
@@ -1421,9 +1417,13 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                                     Core.Geometry.Point[] points = list.ToArray();
 
                                     for (int i = 0; i < points.Length; i++)
-                                        for (int j = i + 1; j < points.Length; j++)
-                                            g.RemoveEdge(g.GetNode((int)points[i].X, (int)points[i].Y),
-                                                g.GetNode((int)points[j].X, (int)points[j].Y));
+                                    {
+                                       for (int j = i + 1; j < points.Length; j++)
+                                       {
+                                          g.RemoveEdge(g.GetNode((int)points[i].X, (int)points[i].Y),
+                                                       g.GetNode((int)points[j].X, (int)points[j].Y));
+                                       }
+                                    }
 
                                     for (int i = 0; i < points.Length - 1; i++)
                                     {
@@ -1439,9 +1439,10 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
 
 
             for (int nodeIndex = 0; nodeIndex < g.NumOfnodes; nodeIndex++)
-                g.nodeTree.Add(new Rectangle(new Core.Geometry.Point(g.VList[nodeIndex].XLoc, g.VList[nodeIndex].YLoc)),
-                    nodeIndex);
-
+            {
+               g.nodeTree.Add(new Rectangle(new Core.Geometry.Point(g.VList[nodeIndex].XLoc, g.VList[nodeIndex].YLoc)),
+                              nodeIndex);
+            }
 
             bool searchNew = true;
             while (searchNew)
@@ -1614,9 +1615,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 }
 
                 foreach (var s in removeList)
-                {
-                    g.VList[s.Value].SegmentList.Remove(s.Key);
-                }
+                   g.VList[s.Value].SegmentList.Remove(s.Key);
+
                 removeList.Clear();
                 foreach (var s in addList)
                 {
@@ -1647,9 +1647,8 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                 }
 
                 foreach (var s in removeList)
-                {
-                    g.VList[s.Value].SegmentList.Remove(s.Key);
-                }
+                   g.VList[s.Value].SegmentList.Remove(s.Key);
+
                 removeList.Clear();
                 foreach (var s in addList)
                 {

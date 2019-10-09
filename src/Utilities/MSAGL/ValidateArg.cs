@@ -24,9 +24,7 @@ namespace Microsoft.Msagl.Core
         public static void IsNotNull([ValidatedNotNull] object arg, string parameterName)
         {
             if (arg == null)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
+               throw new ArgumentNullException(parameterName);
         }
 
         /// <summary>
@@ -41,9 +39,7 @@ namespace Microsoft.Msagl.Core
         public static void IsPositive(double value, string parameterName)
         {
             if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException(parameterName, "The argument must be positive");
-            }
+               throw new ArgumentOutOfRangeException(parameterName, "The argument must be positive");
         }
 
         /// <summary>
@@ -55,13 +51,10 @@ namespace Microsoft.Msagl.Core
         public static void IsNotEmpty<T>(IEnumerable<T> enumerable, string parameterName)
         {
             if (enumerable == null)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
+               throw new ArgumentNullException(parameterName);
+
             if (!enumerable.Any())
-            {
-                throw new ArgumentException("The argument enumerable must not be empty", parameterName);
-            }
+               throw new ArgumentException("The argument enumerable must not be empty", parameterName);
         }
 
         /// <summary>

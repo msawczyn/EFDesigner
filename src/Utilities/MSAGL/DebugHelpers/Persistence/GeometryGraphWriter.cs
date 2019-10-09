@@ -158,16 +158,14 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             Dictionary<Rail, int> railIds = CreateRailIds();
 
             for (int i = 0; i < graph.LgData.Levels.Count; i++)
-            {
-                WriteLevel(graph.LgData.Levels[i], railIds, graph.LgData.LevelNodeCounts[i]);
-            }
+               WriteLevel(graph.LgData.Levels[i], railIds, graph.LgData.LevelNodeCounts[i]);
+
             WriteEndElement();
 
             WriteStartElement(GeometryToken.LgSkeletonLevels);
             for (int i = 0; i < graph.LgData.SkeletonLevels.Count; i++)
-            {
-                WriteSkeletonLevel(graph.LgData.SkeletonLevels[i], railIds);
-            }
+               WriteSkeletonLevel(graph.LgData.SkeletonLevels[i], railIds);
+
             WriteEndElement();
 
         }
@@ -214,9 +212,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
         {
             WriteStartElement(GeometryToken.RailsPerEdge);
             foreach (var t in level._railsOfEdges)
-            {
-                WriteEdgeRails(t.Key, t.Value, railIds);
-            }
+               WriteEdgeRails(t.Key, t.Value, railIds);
+
             WriteEndElement();
             WriteRailsGeometry(level, railIds);
         }
@@ -261,9 +258,7 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             WriteAttribute(GeometryToken.EdgeId, edgeIds[edge]);
             List<string> railIdStrings = new List<string>();
             foreach (var rail in rails)
-            {
-                railIdStrings.Add(railIds[rail].ToString());
-            }
+               railIdStrings.Add(railIds[rail].ToString());
 
             WriteAttribute(GeometryToken.EdgeRails, String.Join(" ", railIdStrings));
             WriteEndElement();
@@ -279,9 +274,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
                 foreach (var rail in level._railDictionary.Values)
                 {
                     if (ret.ContainsKey(rail))
-                    {
-                        continue;
-                    }
+                       continue;
+
                     ret[rail] = id++;
                 }
             }
@@ -292,9 +286,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
         {
             WriteStartElement(GeometryToken.LgNodeInfos);
             foreach (var lgNodeInfo in graph.LgData.SortedLgNodeInfos)
-            {
-                WriteLgNodeInfo(lgNodeInfo);
-            }
+               WriteLgNodeInfo(lgNodeInfo);
+
             WriteEndElement();
         }
 
@@ -687,8 +680,10 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             if (iCurve == null) return;
             var rect = iCurve as RoundedRect;
             if (rect != null)
-                WriteRect(rect.BoundingBox.Left, rect.BoundingBox.Bottom, rect.BoundingBox.Width,
-                          rect.BoundingBox.Height, rect.RadiusX, rect.RadiusY);
+            {
+               WriteRect(rect.BoundingBox.Left, rect.BoundingBox.Bottom, rect.BoundingBox.Width,
+                         rect.BoundingBox.Height, rect.RadiusX, rect.RadiusY);
+            }
             else
             {
                 var c = iCurve as Curve;
@@ -713,9 +708,7 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
                             {
                                 var bs = iCurve as CubicBezierSegment;
                                 if (bs != null)
-                                {
-                                    WriteBezierSegment(bs);
-                                }
+                                   WriteBezierSegment(bs);
                                 else
                                     throw new InvalidOperationException();
                             }
@@ -738,8 +731,11 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             if (iCurve == null) return;
             var rect = iCurve as RoundedRect;
             if (rect != null)
-                WriteRectIpe(rect.BoundingBox.Left, rect.BoundingBox.Bottom, rect.BoundingBox.Width,
-                          rect.BoundingBox.Height, rect.RadiusX, rect.RadiusY);
+            {
+               WriteRectIpe(rect.BoundingBox.Left, rect.BoundingBox.Bottom, rect.BoundingBox.Width,
+                            rect.BoundingBox.Height, rect.RadiusX, rect.RadiusY);
+            }
+
             return;
         }
 
@@ -785,11 +781,10 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
 
         void WriteEllipseInSvgStyle(Ellipse ellipse)
         {
-            if (ApproximateComparer.Close(ellipse.ParStart, 0) && ApproximateComparer.Close(ellipse.ParEnd, 2 * Math.PI)) { WriteFullEllipse(ellipse); }
+            if (ApproximateComparer.Close(ellipse.ParStart, 0) && ApproximateComparer.Close(ellipse.ParEnd, 2 * Math.PI))
+               WriteFullEllipse(ellipse);
             else
-            {
-                WriteEllepticalArc(ellipse);
-            }
+               WriteEllepticalArc(ellipse);
         }
 
         void WriteFullEllipse(Ellipse ellipse)
@@ -828,19 +823,21 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             var curve = iCurve as Curve;
             var previousInstruction = 'w'; //a character that is not used by the SVG curve
             if (curve != null)
-                for (int i = 0; i < curve.Segments.Count; i++)
-                {
-                    var segment = curve.Segments[i];
-                    if (i != curve.Segments.Count - 1)
+            {
+               for (int i = 0; i < curve.Segments.Count; i++)
+               {
+                  var segment = curve.Segments[i];
+                  if (i != curve.Segments.Count - 1)
+                     yield return SegmentString(segment, ref previousInstruction);
+                  else
+                  { //it is the last seg
+                     if (segment is LineSegment && ApproximateComparer.Close(segment.End, iCurve.Start))
+                        yield return "Z";
+                     else
                         yield return SegmentString(segment, ref previousInstruction);
-                    else
-                    { //it is the last seg
-                        if (segment is LineSegment && ApproximateComparer.Close(segment.End, iCurve.Start))
-                            yield return "Z";
-                        else
-                            yield return SegmentString(segment, ref previousInstruction);
-                    }
-                }
+                  }
+               }
+            }
         }
 
         string SegmentString(ICurve segment, ref char previousInstruction)
@@ -882,9 +879,8 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             var largeArcFlag = Math.Abs(ellipse.ParEnd - ellipse.ParStart) >= Math.PI ? "1" : "0";
             var sweepFlagInt = ellipse.ParEnd > ellipse.ParStart ? 1 : 0; //it happens because of the y-axis orientation down in SVG
             if (AxesSwapped(ellipse.AxisA, ellipse.AxisB))
-            {
-                sweepFlagInt = sweepFlagInt == 1 ? 0 : 1;
-            }
+               sweepFlagInt = sweepFlagInt == 1 ? 0 : 1;
+
             var endPoint = PointToString(ellipse.End);
             return string.Join(" ", new[] { rx, ry, xAxisRotation, largeArcFlag, sweepFlagInt.ToString(), endPoint });
         }
@@ -926,8 +922,11 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
             WriteStartElement(GeometryToken.Transform);
             XmlWriter.WriteComment("the order of elements is [0,0],[0,1],[0,2],[1,0],[1,1],[1,2]");
             for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 3; j++)
-                    WriteTransformationElement(transformation[i, j]);
+            {
+               for (int j = 0; j < 3; j++)
+                  WriteTransformationElement(transformation[i, j]);
+            }
+
             WriteEndElement();
         }
 

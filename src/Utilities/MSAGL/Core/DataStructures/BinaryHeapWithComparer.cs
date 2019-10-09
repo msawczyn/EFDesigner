@@ -116,8 +116,11 @@ namespace Microsoft.Msagl.Core.DataStructures {
 
         string Print(int i) {
             if (2*i + 1 <= heapSize)
-                return String.Format(CultureInfo.InvariantCulture, "({0}->{1},{2})", A[i], A[i*2], A[i*2 + 1]) +
-                       Print(i*2) + Print(i*2 + 1);
+            {
+               return String.Format(CultureInfo.InvariantCulture, "({0}->{1},{2})", A[i], A[i*2], A[i*2 + 1]) +
+                      Print(i*2) + Print(i*2 + 1);
+            }
+
             if (2*i == heapSize)
                 return String.Format(CultureInfo.InvariantCulture, "({0}->{1}", A[i], A[i*2]);
             if (i == heapSize && i == 1)

@@ -79,12 +79,14 @@ namespace Microsoft.Msagl.Layout.Layered {
         Dictionary<Point, List<int>> CreateInitialOrdering() {
             var initialOrdering = new Dictionary<Point, List<int>>();
             for (int i = 0; i < layerArrays.Layers.Length; i++)
-                for (int j = 0; j < layerArrays.Layers[i].Length; j++) {
-                    int node = layerArrays.Layers[i][j];
-                    if (!initialOrdering.ContainsKey(nodePositions[node]))
-                        initialOrdering[nodePositions[node]] = new List<int>();
-                    initialOrdering[nodePositions[node]].Add(node);
-                }
+            {
+               for (int j = 0; j < layerArrays.Layers[i].Length; j++) {
+                  int node = layerArrays.Layers[i][j];
+                  if (!initialOrdering.ContainsKey(nodePositions[node]))
+                     initialOrdering[nodePositions[node]] = new List<int>();
+                  initialOrdering[nodePositions[node]].Add(node);
+               }
+            }
 
             return initialOrdering;
         }
@@ -95,14 +97,16 @@ namespace Microsoft.Msagl.Layout.Layered {
             var result = new Dictionary<Point, List<int>>();
             var reverseOrder = new Dictionary<int, int>();
             for (int i = 0; i < layerArrays.Layers.Length; i++)
-                for (int j = 0; j < layerArrays.Layers[i].Length; j++) {
-                    int node = layerArrays.Layers[i][j];
+            {
+               for (int j = 0; j < layerArrays.Layers[i].Length; j++) {
+                  int node = layerArrays.Layers[i][j];
 
-                    //already processed
-                    if (result.ContainsKey(nodePositions[node])) continue;
+                  //already processed
+                  if (result.ContainsKey(nodePositions[node])) continue;
 
-                    result[nodePositions[node]] = BuildNodeOrdering(initialOrdering[nodePositions[node]], reverseOrder);
-                }
+                  result[nodePositions[node]] = BuildNodeOrdering(initialOrdering[nodePositions[node]], reverseOrder);
+               }
+            }
 
             return result;
         }

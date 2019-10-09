@@ -87,9 +87,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 foreach (var componentNodes in ConnectedComponentCalculator<FiEdge>.GetComponents(basicGraph)) {
                     var vs = new FiNode[componentNodes.Count()];
                     int vi = 0;
-                    foreach (int v in componentNodes) {
-                        vs[vi++] = nodes[v];
-                    }
+                    foreach (int v in componentNodes)
+                       vs[vi++] = nodes[v];
+
                     components.Add(vs);
                 }
             }
@@ -113,29 +113,25 @@ namespace Microsoft.Msagl.Layout.Incremental {
 
             foreach (
                 Cluster c in geometryGraph.RootCluster.AllClustersDepthFirst().Where(c => c.RectangularBoundary == null)
-                ) {
-                c.RectangularBoundary = new RectangularClusterBoundary();
-            }
+                )
+               c.RectangularBoundary = new RectangularClusterBoundary();
 
             CurrentConstraintLevel = initialConstraintLevel;
         }
 
         void SetupConstraints() {
             AddConstraintLevel(0);
-            if (settings.AvoidOverlaps) {
-                AddConstraintLevel(2);
-            }
+            if (settings.AvoidOverlaps)
+               AddConstraintLevel(2);
+
             foreach (IConstraint c in settings.StructuralConstraints) {
                 AddConstraintLevel(c.Level);
-                if (c is VerticalSeparationConstraint) {
-                    verticalSolver.AddStructuralConstraint(c);
-                }
-                else if (c is HorizontalSeparationConstraint) {
-                    horizontalSolver.AddStructuralConstraint(c);
-                }
-                else {
-                    AddConstraint(c);
-                }
+                if (c is VerticalSeparationConstraint)
+                   verticalSolver.AddStructuralConstraint(c);
+                else if (c is HorizontalSeparationConstraint)
+                   horizontalSolver.AddStructuralConstraint(c);
+                else
+                   AddConstraint(c);
             }
             EdgeConstraintGenerator.GenerateEdgeConstraints(graph.Edges, settings.IdealEdgeLength, horizontalSolver,
                                                             verticalSolver);
@@ -164,9 +160,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
         /// </summary>
         /// <param name="c"></param>
         void AddConstraint(IConstraint c) {
-            if (!constraints.ContainsKey(c.Level)) {
-                constraints[c.Level] = new List<IConstraint>();
-            }
+            if (!constraints.ContainsKey(c.Level))
+               constraints[c.Level] = new List<IConstraint>();
+
             constraints[c.Level].Add(c);
         }
 
@@ -175,25 +171,22 @@ namespace Microsoft.Msagl.Layout.Incremental {
         /// </summary>
         /// <param name="level"></param>
         void AddConstraintLevel(int level) {
-            if (!constraints.ContainsKey(level)) {
-                constraints[level] = new List<IConstraint>();
-            }
+            if (!constraints.ContainsKey(level))
+               constraints[level] = new List<IConstraint>();
         }
 
         internal void SetLockNodeWeights() {
-            foreach (LockPosition l in settings.locks) {
-                l.SetLockNodeWeight();
-            }
+            foreach (LockPosition l in settings.locks)
+               l.SetLockNodeWeight();
         }
 
         internal void ResetNodePositions() {
-            foreach (FiNode v in nodes) {
-                v.ResetBounds();
-            }
+            foreach (FiNode v in nodes)
+               v.ResetBounds();
+
             foreach (var e in edges) {
-                foreach (var l in e.mEdge.Labels) {
-                    l.InnerPoints = l.OuterPoints = null;
-                }
+                foreach (var l in e.mEdge.Labels)
+                   l.InnerPoints = l.OuterPoints = null;
             }
         }
 
@@ -221,13 +214,12 @@ namespace Microsoft.Msagl.Layout.Incremental {
             var sourceLocation = e.source.Center;
             var targetLocation = e.target.Center;
             var sourceMultiPort = e.mEdge.SourcePort as MultiLocationFloatingPort;
-            if (sourceMultiPort != null) {
-                sourceMultiPort.SetClosestLocation(targetLocation);
-            }
+            if (sourceMultiPort != null)
+               sourceMultiPort.SetClosestLocation(targetLocation);
+
             var targetMultiPort = e.mEdge.TargetPort as MultiLocationFloatingPort;
-            if (targetMultiPort != null) {
-                targetMultiPort.SetClosestLocation(sourceLocation);
-            }
+            if (targetMultiPort != null)
+               targetMultiPort.SetClosestLocation(sourceLocation);
         }
 
         void AddSpringForces(FiEdge e) {
@@ -236,24 +228,22 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 var sourceLocation = e.source.Center;
                 var targetLocation = e.target.Center;
                 var sourceFloatingPort = e.mEdge.SourcePort as FloatingPort;
-                if (sourceFloatingPort != null) {
-                    sourceLocation = sourceFloatingPort.Location;
-                }
+                if (sourceFloatingPort != null)
+                   sourceLocation = sourceFloatingPort.Location;
+
                 var targetFloatingPort = e.mEdge.TargetPort as FloatingPort;
-                if (targetFloatingPort != null) {
-                    targetLocation = targetFloatingPort.Location;
-                }
+                if (targetFloatingPort != null)
+                   targetLocation = targetFloatingPort.Location;
+
                 duv = sourceLocation - targetLocation;
             }
-            else {
-                duv = e.vector();
-            }
-            if (settings.LogScaleEdgeForces) {
-                AddLogSpringForces(e, duv, e.mEdge.Length);
-            }
-            else {
-                AddSquaredSpringForces(e, duv, e.mEdge.Length);
-            }
+            else
+               duv = e.vector();
+
+            if (settings.LogScaleEdgeForces)
+               AddLogSpringForces(e, duv, e.mEdge.Length);
+            else
+               AddSquaredSpringForces(e, duv, e.mEdge.Length);
         }
 
         static void AddGravityForce(Point origin, double gravity, FiNode v) {
@@ -275,17 +265,15 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 }
                 var kdTree = new KDTree(ps, 8);
                 kdTree.ComputeForces(5);
-                for (int i = 0; i < vs.Length; ++i) {
-                    AddRepulsiveForce(vs[i], ps[i].force);
-                }
+                for (int i = 0; i < vs.Length; ++i)
+                   AddRepulsiveForce(vs[i], ps[i].force);
             }
             else {
                 foreach (FiNode u in vs) {
                     var fu = new Point();
                     foreach (FiNode v in vs) {
-                        if (u != v) {
-                            fu += MultipoleCoefficients.Force(u.Center, v.Center);
-                        }
+                        if (u != v)
+                           fu += MultipoleCoefficients.Force(u.Center, v.Center);
                     }
                     AddRepulsiveForce(u, fu);
                 }
@@ -317,54 +305,51 @@ namespace Microsoft.Msagl.Layout.Incremental {
                         fv.force += f*duv;
                     });
                 }
-                else {
-                    n1.force += f*duv;
-                }
+                else
+                   n1.force += f*duv;
+
                 if (c2 != null) {
                     c2.ForEachNode(v => {
                         var fv = v.AlgorithmData as FiNode;
                         fv.force -= f*duv;
                     });
                 }
-                else {
-                    n2.force -= f*duv;
-                }
+                else
+                   n2.force -= f*duv;
             }
             foreach (Cluster c in root.AllClustersDepthFirst())
-                if (c != root) {
-                    c.ForEachNode(v => AddGravityForce(c.Barycenter, settings.ClusterGravity, (FiNode) v.AlgorithmData));
-                }
+            {
+               if (c != root)
+                  c.ForEachNode(v => AddGravityForce(c.Barycenter, settings.ClusterGravity, (FiNode) v.AlgorithmData));
+            }
         }
 
         /// <summary>
         /// Aggregate all the forces affecting each node
         /// </summary>
         void ComputeForces() {
-            if (components != null) {
-                components.ForEach(ComputeRepulsiveForces);
-            }
-            else {
-                ComputeRepulsiveForces(nodes);
-            }
+            if (components != null)
+               components.ForEach(ComputeRepulsiveForces);
+            else
+               ComputeRepulsiveForces(nodes);
+
             edges.ForEach(AddSpringForces);
             foreach (var c in components) {
                 var origin = new Point();
-                for (int i = 0; i < c.Length; ++i) {
-                    origin += c[i].Center;
-                }
+                for (int i = 0; i < c.Length; ++i)
+                   origin += c[i].Center;
+
                 origin /= (double) c.Length;
                 double maxForce = double.NegativeInfinity;
                 for (int i = 0; i < c.Length; ++i) {
                     FiNode v = c[i];
                     AddGravityForce(origin, settings.GravityConstant, v);
-                    if (v.force.Length > maxForce) {
-                        maxForce = v.force.Length;
-                    }
+                    if (v.force.Length > maxForce)
+                       maxForce = v.force.Length;
                 }
                 if (maxForce > 100.0) {
-                    for (int i = 0; i < c.Length; ++i) {
-                        c[i].force *= 100.0/maxForce;
-                    }
+                    for (int i = 0; i < c.Length; ++i)
+                       c[i].force *= 100.0/maxForce;
                 }
             }
             // This is the only place where ComputeForces (and hence verletIntegration) considers clusters.
@@ -375,15 +360,14 @@ namespace Microsoft.Msagl.Layout.Incremental {
         void SatisfyConstraints() {
             for (int i = 0; i < settings.ProjectionIterations; ++i) {
                 foreach (var level in constraints.Keys) {
-                    if (level > CurrentConstraintLevel) {
-                        break;
-                    }
+                    if (level > CurrentConstraintLevel)
+                       break;
+
                     foreach (var c in constraints[level]) {
                         c.Project();
                         // c.Project operates only on MSAGL nodes, so need to update the local FiNode.Centers
-                        foreach (var v in c.Nodes) {
-                            ((FiNode) v.AlgorithmData).Center = v.Center;
-                        }
+                        foreach (var v in c.Nodes)
+                           ((FiNode) v.AlgorithmData).Center = v.Center;
                     }
                 }
 
@@ -395,9 +379,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
 
                         // the locks should have had their AlgorithmData updated, but if (for some reason)
                         // the locks list is out of date we don't want to null ref here.
-                        if (fiNode != null && v.AlgorithmData != null) {
-                            fiNode.ResetBounds();
-                        }
+                        if (fiNode != null && v.AlgorithmData != null)
+                           fiNode.ResetBounds();
                     }
                 }
             }
@@ -451,9 +434,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
                 double dblCHpad = dblCVpad + Feasibility.Pad;
 
                 // The centers are our desired positions, but we need to find a feasible configuration
-                foreach (FiNode v in nodes) {
-                    v.desiredPosition = v.Center;
-                }
+                foreach (FiNode v in nodes)
+                   v.desiredPosition = v.Center;
+
                 // Set up horizontal non-overlap constraints based on the (feasible) starting configuration
                 horizontalSolver.Initialize(dblHpad, dblVpad, dblCHpad, dblCVpad, v => v.previousCenter);
                 horizontalSolver.SetDesiredPositions();
@@ -466,18 +449,17 @@ namespace Microsoft.Msagl.Layout.Incremental {
 
                 // If we have multiple locks (hence multiple high-weight nodes), there can still be some
                 // movement of the locked variables - so update all lock positions.
-                foreach (LockPosition l in settings.locks.Where(l => !l.Sticky)) {
-                    l.Bounds = l.node.BoundingBox;
-                }
+                foreach (LockPosition l in settings.locks.Where(l => !l.Sticky))
+                   l.Bounds = l.node.BoundingBox;
             }
         }
 
         double ComputeDescentDirection(double alpha) {
             ResetForceVectors();
             // velocity is the distance travelled last time step
-            if (settings.ApplyForces) {
-                ComputeForces();
-            }
+            if (settings.ApplyForces)
+               ComputeForces();
+
             //System.Console.WriteLine("Iteration = {0}, Energy = {1}, StepSize = {2}", settings.maxIterations - settings.RemainingIterations, energy, stepSize);
             double lEnergy = 0;
             foreach (FiNode v in nodes) {
@@ -503,9 +485,8 @@ namespace Microsoft.Msagl.Layout.Incremental {
         // end VerletIntegration()
 
         void ResetForceVectors() {
-            foreach (var v in nodes) {
-                v.force = new Point();
-            }
+            foreach (var v in nodes)
+               v.force = new Point();
         }
 
         /// <summary>
@@ -535,9 +516,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
             var k4 = new Point[nodes.Length];
             float energy0 = energy;
             SatisfyConstraints();
-            for (int i = 0; i < nodes.Length; ++i) {
-                y0[i] = nodes[i].previousCenter = nodes[i].Center;
-            }
+            for (int i = 0; i < nodes.Length; ++i)
+               y0[i] = nodes[i].previousCenter = nodes[i].Center;
+
             const double alpha = 3;
             ComputeDescentDirection(alpha);
             for (int i = 0; i < nodes.Length; ++i) {
@@ -592,9 +573,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
             }
             this.StartListenToLocalProgress(settings.MinorIterations);
             for (int i = 0; i < settings.MinorIterations; ++i) {
-                if (settings.RespectEdgePorts) {
-                    edges.ForEach(CalculateMultiPorts);
-                }
+                if (settings.RespectEdgePorts)
+                   edges.ForEach(CalculateMultiPorts);
+
                 double d2 = settings.RungeKuttaIntegration ? RungeKuttaIntegration() : VerletIntegration();
 
                 if (d2 < settings.DisplacementThreshold || settings.Iterations > settings.MaxIterations) {
@@ -620,9 +601,9 @@ namespace Microsoft.Msagl.Layout.Incremental {
                     // if we are not using the solver (e.g. when constraintLevel == 0) then we need to get the cluster bounds manually
                     c.CalculateBoundsFromChildren(this.settings.ClusterMargin);
                 }
-                else {
-                    c.BoundingBox = c.RectangularBoundary.Rect;
-                }
+                else
+                   c.BoundingBox = c.RectangularBoundary.Rect;
+
                 c.RaiseLayoutDoneEvent();
             }
         }

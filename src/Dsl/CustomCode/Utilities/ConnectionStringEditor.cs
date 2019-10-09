@@ -25,9 +25,7 @@ namespace Sawczyn.EFDesigner.EFModel
                dialog.SelectedDataProvider = DataProvider.SqlDataProvider;
             }
             else
-            {
                dialog.ConnectionString = value.ToString();
-            }
 
             return DataConnectionDialog.Show(dialog) == DialogResult.OK ? dialog.ConnectionString : value;
          }

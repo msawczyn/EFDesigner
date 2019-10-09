@@ -69,9 +69,9 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
 
         internal Set<Point> GetPointsOnSavedTrajectories() {
             var points = new Set<Point>();
-            foreach (var edgeTrajectory in _edgeTrajectories.Values) {
-                points.InsertRange(edgeTrajectory);
-            }
+            foreach (var edgeTrajectory in _edgeTrajectories.Values)
+               points.InsertRange(edgeTrajectory);
+
             return points;
         }
 
@@ -102,9 +102,9 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
             foreach (var s in visEdgeDump - routesDump)
                 Console.WriteLine("{0} is in visgraph but no in routes", s);
             var routesOutOfVisGraph = routesDump - visEdgeDump;
-            if (routesOutOfVisGraph.Count > 0) {
-                SplineRouter.ShowVisGraph(PathRouter.VisGraph, null,null, Ttt(routesOutOfVisGraph));
-            }
+            if (routesOutOfVisGraph.Count > 0)
+               SplineRouter.ShowVisGraph(PathRouter.VisGraph, null,null, Ttt(routesOutOfVisGraph));
+
             foreach (var s in usedEdges - routesDump)
                 Console.WriteLine("{0} is in usedEdges but not in routes", s);
 
@@ -117,9 +117,8 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
 
 #if DEBUG
         IEnumerable<ICurve> Ttt(Set<SymmetricSegment> routesOutOfVisGraph) {
-            foreach (var symmetricTuple in routesOutOfVisGraph) {
-                yield return new LineSegment(symmetricTuple.A,symmetricTuple.B);
-            }
+            foreach (var symmetricTuple in routesOutOfVisGraph)
+               yield return new LineSegment(symmetricTuple.A,symmetricTuple.B);
         }
 #endif
 
@@ -132,9 +131,9 @@ namespace Microsoft.Msagl.Layout.LargeGraphLayout {
         void RemoveEdgeTrajectory(SymmetricTuple<LgNodeInfo> symmetricTuple) {
             List<Point> trajectory;
             if (_edgeTrajectories.TryGetValue(symmetricTuple, out trajectory)) {
-                for (int i = 0; i < trajectory.Count - 1; i++) {
-                    DiminishUsed(trajectory[i], trajectory[i + 1]);
-                }
+                for (int i = 0; i < trajectory.Count - 1; i++)
+                   DiminishUsed(trajectory[i], trajectory[i + 1]);
+
                 _edgeTrajectories.Remove(symmetricTuple);
             }
         }

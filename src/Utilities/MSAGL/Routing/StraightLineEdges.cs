@@ -75,9 +75,7 @@ namespace Microsoft.Msagl.Routing
             }
 
             if (!ContainmentLoop(eg, padding))
-            {
-                eg.Curve = GetEdgeLine(edge);
-            }
+               eg.Curve = GetEdgeLine(edge);
 
             Arrowheads.TrimSplineAndCalculateArrowheads(eg, eg.SourcePort.Curve,
                                                          eg.TargetPort.Curve, edge.Curve, false, false);
@@ -185,9 +183,7 @@ namespace Microsoft.Msagl.Routing
                     {
                         trimmedLine = (LineSegment)line.Trim(0.0, intersects[0].Par1);
                         if(trimmedLine != null)
-                        {
-                            line = trimmedLine;
-                        }
+                           line = trimmedLine;
                     }
                 }
             }

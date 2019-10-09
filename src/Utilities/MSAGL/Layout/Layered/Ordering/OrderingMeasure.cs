@@ -32,10 +32,11 @@ namespace Microsoft.Msagl.Layout.Layered {
         }
 
         void CalculateLayerGroupDisbalance() {
-            for(int i = 0; i<la.Length;i++)     
-                layerGroupDisbalance+=LayerGroupDisbalance(la[i],this.optimalOriginalGroupSize[i],
-                    this.optimalVirtualGroupSize[i]);
-
+            for(int i = 0; i<la.Length;i++)
+            {
+               layerGroupDisbalance+=LayerGroupDisbalance(la[i],this.optimalOriginalGroupSize[i],
+                                                          this.optimalVirtualGroupSize[i]);
+            }
         }
 
         double LayerGroupDisbalance(int[] l, double origGroupOptSize, double virtGroupOptSize){

@@ -46,9 +46,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
         readonly List<Point> pointList = new List<Point>();
 
         internal PointAndCrossingsList GetOrderedListBetween(Point start, Point end) {
-            if (0 == pointCrossingMap.Count) {
-                return null;
-            }
+            if (0 == pointCrossingMap.Count)
+               return null;
 
             if (PointComparer.Compare(start, end) > 0) {
                 Point temp = start;
@@ -59,9 +58,8 @@ namespace Microsoft.Msagl.Routing.Rectilinear {
             // Start and end are inclusive.
             pointList.Clear();
             foreach (var intersection in pointCrossingMap.Keys) {
-                if ((PointComparer.Compare(intersection, start) >= 0) && (PointComparer.Compare(intersection, end) <= 0)) {
-                    pointList.Add(intersection);
-                }
+                if ((PointComparer.Compare(intersection, start) >= 0) && (PointComparer.Compare(intersection, end) <= 0))
+                   pointList.Add(intersection);
             }
 
             pointList.Sort();

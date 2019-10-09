@@ -90,9 +90,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         }
 
         HashSet<Station> GetStationsForOptimizations(HashSet<Point> changedPoints) {
-            if (changedPoints == null) {
-                return new HashSet<Station>(metroGraphData.VirtualNodes());
-            }
+            if (changedPoints == null)
+               return new HashSet<Station>(metroGraphData.VirtualNodes());
             else {
                 HashSet<Station> result = new HashSet<Station>();
                 foreach (var p in changedPoints) {

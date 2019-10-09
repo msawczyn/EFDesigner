@@ -81,9 +81,8 @@ namespace Microsoft.Msagl.Prototype.Ranking {
             SetNodePositionsAndMovedBoundaries(graph);
             double nodeSeparation = settings.NodeSeparation;
             if (nodeSeparation <= 0 )
-            {
-                nodeSeparation = 10;
-            }
+               nodeSeparation = 10;
+
             GTreeOverlapRemoval.RemoveOverlaps(graph.Nodes.ToArray(), nodeSeparation);
             SetGraphBoundingBox(graph);
         }
@@ -107,9 +106,7 @@ namespace Microsoft.Msagl.Prototype.Ranking {
                 min = Math.Min(min, x[i]);
             }
             for (int i = 0; i < x.Length; i++)
-            {
-                x[i] = (x[i] - min) / (max - min);
-            }
+               x[i] = (x[i] - min) / (max - min);
         }
     }
 }

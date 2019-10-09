@@ -80,9 +80,7 @@ namespace Microsoft.Msagl.Layout.Layered
             if (transform)
             {
                 foreach (Node n in geometryGraph.Nodes)
-                {
-                    n.Transform(transformation);
-                }
+                   n.Transform(transformation);
 
                 //restore labels widths and heights
                 foreach (Edge e in geometryGraph.Edges)
@@ -128,9 +126,7 @@ namespace Microsoft.Msagl.Layout.Layered
             if (e.UnderlyingPolyline != null)
             {
                 for (Site s = e.UnderlyingPolyline.HeadSite; s != null; s = s.Next)
-                {
-                    s.Point = transformation * s.Point;
-                }
+                   s.Point = transformation * s.Point;
             }
         }
 

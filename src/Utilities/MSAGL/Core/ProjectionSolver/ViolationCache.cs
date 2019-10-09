@@ -61,9 +61,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             LowViolation = 0.0;
             this.numConstraints = 0;
             if (null == this.constraints)
-            {
-                this.constraints = new Constraint[MaxConstraints];
-            }
+               this.constraints = new Constraint[MaxConstraints];
         }
 
         internal bool FilterBlock(Block blockToFilter)
@@ -99,9 +97,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                     // If there are any items after this one, then they are ones we want to keep,
                     // so swap in the last one in the array before decrementing the count.
                     if (ii < (this.numConstraints - 1))
-                    {
-                        this.constraints[ii] = this.constraints[this.numConstraints - 1];
-                    }
+                       this.constraints[ii] = this.constraints[this.numConstraints - 1];
+
                     --this.numConstraints;
                 }
                 else
@@ -115,15 +112,12 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                     Debug.Assert(constraint.Violation == violation, "LeftConstraints: constraint.Violation must == violation");
 #endif // Inline_Violation
                     if (violation < LowViolation)
-                    {
-                        LowViolation = violation;
-                    }
+                       LowViolation = violation;
                 }
             }
             if (0 == this.numConstraints)
-            {
-                LowViolation = 0.0;
-            }
+               LowViolation = 0.0;
+
             return fRet;
         }
 
@@ -185,9 +179,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                     lowViolation = cacheViolation;
                 }
                 else if (cacheViolation < nextLowViolation)
-                {
-                    nextLowViolation = cacheViolation;
-                }
+                   nextLowViolation = cacheViolation;
             } // endfor each constraint
 
             // If the cache isn't full yet, add the new one, else replace the lowest violation in the list.
@@ -196,9 +188,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // Add to the cache.
                 this.constraints[this.numConstraints++] = constraintToInsert;
                 if (IsFull)
-                {
-                    this.LowViolation = lowViolation;
-                }
+                   this.LowViolation = lowViolation;
             }
             else
             {
@@ -233,9 +223,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                             );
                     }
                     if (this.constraints[ii].Violation < lowViolation)
-                    {
-                        lowViolation = this.constraints[ii].Violation;
-                    }
+                       lowViolation = this.constraints[ii].Violation;
                 }
                 if (lowViolation != this.LowViolation)
                 {

@@ -54,9 +54,10 @@ namespace Microsoft.Msagl.Core.GraphAlgorithms {
 
 
             foreach (IntPair pair in graphForCycleRemoval.GetOriginalIntPairs())
-                if (S[pair.First] > S[pair.Second])
-                    yield return pair;
-
+            {
+               if (S[pair.First] > S[pair.Second])
+                  yield return pair;
+            }
         }
 
          IEnumerable<GraphForCycleRemoval> CreateGraphsForCycleRemoval() {

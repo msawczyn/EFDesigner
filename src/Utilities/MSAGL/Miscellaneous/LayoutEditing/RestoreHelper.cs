@@ -51,27 +51,19 @@ namespace Microsoft.Msagl.Prototype.LayoutEditing
         {
             Node node = geometryObject as Node;
             if (node != null)
-            {
-                return GetRestoreData(node);
-            }
+               return GetRestoreData(node);
 
             Edge edge = geometryObject as Edge;
             if (edge != null)
-            {
-                return GetRestoreData(edge);
-            }
+               return GetRestoreData(edge);
 
             Label label = geometryObject as Label;
             if (label != null)
-            {
-                return GetRestoreData(label);
-            }
+               return GetRestoreData(label);
 
             GeometryGraph graph = geometryObject as GeometryGraph;
             if (graph != null)
-            {
-                return GetRestoreData(graph);
-            }
+               return GetRestoreData(graph);
 
             return null;
         }

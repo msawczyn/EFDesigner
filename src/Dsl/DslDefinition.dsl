@@ -413,6 +413,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="d4ec29c8-6fbc-4fda-be30-244793089aae" Description="If false, will be generated with a [NotMapped] attribute" Name="IsPersistent" DisplayName="Persistent" DefaultValue="true" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1491,6 +1496,9 @@
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="WarningGlyph" DisplayName="Warning Glyph" DefaultIcon="Resources\Warning.png" />
       </ShapeHasDecorators>
+      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
+        <IconDecorator Name="TransientGlyph" DisplayName="Transient Glyph" DefaultIcon="Resources\TransientClass.png" />
+      </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
       <Compartment Name="AssociationsCompartment" Title="Association Targets" />
       <Compartment Name="SourcesCompartment" Title="Association Sources" />
@@ -1854,6 +1862,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="autoPropertyDefault">
             <DomainPropertyMoniker Name="ModelClass/AutoPropertyDefault" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isPersistent">
+            <DomainPropertyMoniker Name="ModelClass/IsPersistent" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -2340,6 +2351,15 @@
             <DomainPropertyMoniker Name="ModelClass/GlyphType" />
             <PropertyFilters>
               <PropertyFilter FilteringValue="WarningGlyph" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="ClassShape/TransientGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelClass/GlyphType" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="TransientGlyph" />
             </PropertyFilters>
           </VisibilityPropertyPath>
         </DecoratorMap>

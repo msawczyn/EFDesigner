@@ -252,9 +252,7 @@ namespace Microsoft.Msagl.Core.Geometry{
         {
             ValidateArg.IsNotNull(points, "points");
             foreach (var p in points)
-            {
-                Add(p);
-            }
+               Add(p);
         }
 
         /// <summary>
@@ -265,9 +263,7 @@ namespace Microsoft.Msagl.Core.Geometry{
         {
             ValidateArg.IsNotNull(rectangles, "rectangles");
             foreach (var r in rectangles)
-            {
-                Add(r);
-            }
+               Add(r);
         }
 
         /// <summary>
@@ -521,8 +517,11 @@ namespace Microsoft.Msagl.Core.Geometry{
         /// <returns></returns>
         public static Rectangle Intersect(Rectangle rect1,Rectangle rect2) {
             if (rect1.Intersects(rect2))
-                return new Rectangle(new Point(Math.Max(rect1.Left, rect2.Left), Math.Max(rect1.Bottom, rect2.Bottom)),
-                    new Point(Math.Min(rect1.Right, rect2.Right), Math.Min(rect1.Top, rect2.Top)));
+            {
+               return new Rectangle(new Point(Math.Max(rect1.Left, rect2.Left), Math.Max(rect1.Bottom, rect2.Bottom)),
+                                    new Point(Math.Min(rect1.Right, rect2.Right), Math.Min(rect1.Top, rect2.Top)));
+            }
+
             return Rectangle.CreateAnEmptyBox();
         }
 

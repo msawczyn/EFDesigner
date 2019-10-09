@@ -28,9 +28,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
         static internal void ShowHubs(MetroGraphData mgd, BundlingSettings bundlingSettings, bool withIdeal) {
             if (!withIdeal) return;
 
-            foreach (var v in mgd.Stations) {
-                ShowHubs(mgd, bundlingSettings, v);
-            }
+            foreach (var v in mgd.Stations)
+               ShowHubs(mgd, bundlingSettings, v);
         }
 
         static internal void ShowHubs(MetroGraphData mgd, BundlingSettings bundlingSettings, Station highlightedNode) {
@@ -62,8 +61,10 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
             if (iCurves != null) {
                 int i = 0;
                 foreach(var iCurve in iCurves)
-                if (iCurve != null)
-                    curves.Add(new DebugCurve(100,0.2, DebugCurve.Colors[i++], iCurve));
+                {
+                   if (iCurve != null)
+                      curves.Add(new DebugCurve(100,0.2, DebugCurve.Colors[i++], iCurve));
+                }
             }
             return curves;
         }
@@ -115,9 +116,8 @@ namespace Microsoft.Msagl.Routing.Spline.Bundling {
 
         IEnumerable<DebugCurve> Paths() {
             List<DebugCurve> dc = new List<DebugCurve>();
-            foreach (var metroline in mgd.Metrolines) {
-                dc.Add(new DebugCurve(100, 1, "black", metroline.Polyline));
-            }
+            foreach (var metroline in mgd.Metrolines)
+               dc.Add(new DebugCurve(100, 1, "black", metroline.Polyline));
 
             return dc;
         }

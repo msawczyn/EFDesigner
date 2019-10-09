@@ -182,9 +182,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // been updated one at a time. (This doesn't need to be called if constraints are re-gapped
             // while variable positions are unchanged; Solve() checks for that).
             foreach (Block block in this.allBlocks.Vector)
-            {
-                block.UpdateReferencePos();
-            }
+               block.UpdateReferencePos();
         } // end UpdateVariables()
 
         /// <summary>
@@ -218,9 +216,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 {
                     // Solve() has been called.
                     foreach (Constraint constraint in this.allConstraints.Vector)
-                    {
-                        yield return constraint;
-                    }
+                       yield return constraint;
                 }
                 else
                 {
@@ -236,9 +232,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                             {
                                 Constraint constraint = constraintsForVar.Constraints[ii];
                                 if (variable == constraint.Left)
-                                {
-                                    yield return constraint;
-                                }
+                                   yield return constraint;
                             }
                         }
                     }
@@ -338,9 +332,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             constraintsForRightVar.Constraints.Add(constraint);
             ++this.numberOfConstraints;
             if (isEquality)
-            {
-                this.equalityConstraints.Add(constraint);
-            }
+               this.equalityConstraints.Add(constraint);
+
             return constraint;
         }
 
@@ -368,9 +361,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // Defer this to the Solve() call, so the variables' positions are not altered by doing a
             // Block.Split here (which updates Block.ReferencePos, upon which Variable.(Scaled)ActualPos relies).
             if (gap != constraint.Gap)
-            {
-                this.updatedConstraints.Add(new KeyValuePair<Constraint, double>(constraint, gap));
-            }
+               this.updatedConstraints.Add(new KeyValuePair<Constraint, double>(constraint, gap));
         }
 
         /// <summary>
@@ -428,9 +419,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
         public Solution Solve(Parameters solverParameters)
         {
             if (null != solverParameters)
-            {
-                this.solverParams = (Parameters)solverParameters.Clone();
-            }
+               this.solverParams = (Parameters)solverParameters.Clone();
 
             // Reset some parameter defaults to per-solver-instance values.
             if (this.solverParams.OuterProjectIterationsLimit < 0)
@@ -477,14 +466,10 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             {
                 // For Qpsc, we may have neighbours but no constraints.
                 if (!this.IsQpsc)
-                {
-                    return (Solution)this.solverSolution.Clone();
-                }
+                   return (Solution)this.solverSolution.Clone();
             }
             else if (!isReSolve)
-            {
-                SetupConstraints();
-            }
+               SetupConstraints();
 
             // This is the number of unsatisfiable constraints encountered.
             this.allConstraints.NumberOfUnsatisfiableConstraints = 0;
@@ -506,9 +491,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             // complete with Gradient projection.  Otherwise, we have a much simpler Project/Split loop.
             //
             if (this.IsQpsc)
-            {
-                this.SolveQpsc();
-            }
+               this.SolveQpsc();
             else
             {
                 this.SolveByStandaloneProject();
@@ -553,9 +536,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
         private void CheckForUpdatedConstraints()
         {
             if (0 == this.updatedConstraints.Count)
-            {
-                return;
-            }
+               return;
+
             Debug.Assert(!this.allConstraints.IsEmpty, "Cannot have updated constraints if AllConstraints is empty.");
 
             // For Qpsc, all Block.ReferencePos values are based upon Variable.DesiredPos values, and the latter
@@ -580,9 +562,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             this.updatedConstraints.Clear();
 
             if (mustReinitializeBlocks)
-            {
-                this.ReinitializeBlocks();
-            }
+               this.ReinitializeBlocks();
         }
 
         private void SplitOnConstraintIfActive(Constraint constraint)
@@ -596,9 +576,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
 #endif // VERIFY || VERBOSE
                     );
                 if (null != newSplitBlock)
-                {
-                    this.allBlocks.Add(newSplitBlock);
-                }
+                   this.allBlocks.Add(newSplitBlock);
             } // endif constraint.IsActive
         }
 
@@ -625,14 +603,12 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // Create the Variable's Constraint arrays, using the single emptyConstraintList for efficiency.
                 Constraint[] leftConstraints = this.emptyConstraintList;
                 if (0 != numLeftConstraints)
-                {
-                    leftConstraints = new Constraint[numLeftConstraints];
-                }
+                   leftConstraints = new Constraint[numLeftConstraints];
+
                 Constraint[] rightConstraints = this.emptyConstraintList;
                 if (0 != numRightConstraints)
-                {
-                    rightConstraints = new Constraint[numRightConstraints];
-                }
+                   rightConstraints = new Constraint[numRightConstraints];
+
                 variable.SetConstraints(leftConstraints, rightConstraints);
 
                 // Now load the Variables' Arrays.  We're done with the loadedVariablesAndConstraintLists lists after this.
@@ -645,13 +621,9 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                     Constraint loadedConstraint = constraints[loadedConstraintIndex];
 // ReSharper restore PossibleNullReferenceException
                     if (variable == loadedConstraint.Left)
-                    {
-                        leftConstraints[leftConstraintIndex++] = loadedConstraint;
-                    }
+                       leftConstraints[leftConstraintIndex++] = loadedConstraint;
                     else
-                    {
-                        rightConstraints[rightConstraintIndex++] = loadedConstraint;
-                    }
+                       rightConstraints[rightConstraintIndex++] = loadedConstraint;
                 }
                 Debug.Assert(leftConstraintIndex == numLeftConstraints, "leftConstraintIndex must == numLeftConstraints");
                 Debug.Assert(rightConstraintIndex == numRightConstraints, "rightConstraintIndex must == numRightConstraints");
@@ -660,9 +632,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // All constraints are stored in a LeftConstraints array (and duplicated in a RightConstraints
                 // array), so just load the LeftConstraints into AllConstraints. Array.Foreach is optimized.
                 foreach (var constraint in variable.LeftConstraints)
-                {
-                    this.allConstraints.Add(constraint);
-                }
+                   this.allConstraints.Add(constraint);
             }
             this.allConstraints.Debug_AssertIsFull();
 
@@ -699,15 +669,11 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // a feasible stopping state.
                 bool violationsFound;
                 if (!this.RunProject(out violationsFound))
-                {
-                    return;
-                }
+                   return;
 
                 // If SplitBlocks doesn't find anything to split then Project would do nothing.
                 if (!SplitBlocks())
-                {
-                    break;
-                }
+                   break;
             }
         }
 
@@ -747,9 +713,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 }
             }
             if (this.solverSolution.InnerProjectIterationsLimitExceeded)
-            {
-                return true;
-            }
+               return true;
+
             return false;
         }
 
@@ -781,18 +746,14 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
         {
             this.solverSolution.AlgorithmUsed = this.solverParams.Advanced.ScaleInQpsc ? SolverAlgorithm.QpscWithScaling : SolverAlgorithm.QpscWithoutScaling;
             if (!QpscMakeFeasible())
-            {
-                return;
-            }
+               return;
 
             // Initialize the Qpsc state, which also sets the scale for all variables (if we are scaling).
             var qpsc = new Qpsc(this.solverParams, this.numberOfVariables);
             foreach (var block in this.allBlocks.Vector)
             {
                 foreach (var variable in block.Variables)
-                {
-                    qpsc.AddVariable(variable);
-                }
+                   qpsc.AddVariable(variable);
             }
             qpsc.VariablesComplete();
             this.ReinitializeBlocks();
@@ -811,9 +772,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // result and the previous iteration did not split or encounter a violation, we're done.
                 //
                 if (!qpsc.PreProject() && !foundSplit && !foundViolation)
-                {
-                    break;
-                }
+                   break;
 
                 //
                 // Split the blocks (if this the first time through the loop then all variables are in their
@@ -825,9 +784,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // Examine limits post-Project to ensure a feasible stopping state.  We don't test for 
                 // termination due to "no violations found" here, deferring that to the next iteration's PreProject().
                 if (!this.RunProject(out foundViolation))
-                {
-                    break;
-                }
+                   break;
 
                 //
                 // Calculate the new adjustment to the current positions based upon the amount of movement
@@ -835,9 +792,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // we're done if there was no split or constraint violation.
                 //
                 if (!qpsc.PostProject() && !foundSplit && !foundViolation)
-                {
-                    break;
-                }
+                   break;
             } // end forever
 
             this.solverSolution.GoalFunctionValue = qpsc.QpscComplete();
@@ -977,9 +932,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 {
                     maxViolatedConstraint.Left.Block.Expand(maxViolatedConstraint);
                     if (maxViolatedConstraint.IsUnsatisfiable)
-                    {
-                        this.violationCache.Clear();   // We're confusing the lineage of lastModifiedBlock
-                    }
+                       this.violationCache.Clear();   // We're confusing the lineage of lastModifiedBlock
+
                     this.lastModifiedBlock = maxViolatedConstraint.Left.Block;
                 }
                 else
@@ -1008,22 +962,18 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                 // Now we've potentially changed one or many variables' positions so recalculate the max violation.
                 useViolationCache = this.allBlocks.Count > this.violationCacheMinBlockCutoff;
                 if (!useViolationCache)
-                {
-                    this.violationCache.Clear();
-                }
+                   this.violationCache.Clear();
+
                 ++cIterations;
                 maxViolatedConstraint = GetMaxViolatedConstraint(out maxViolation, useViolationCache);
             } // endwhile violations exist
 
             this.solverSolution.InnerProjectIterationsTotal += cIterations;
             if (this.solverSolution.MaxInnerProjectIterations < cIterations)
-            {
-                this.solverSolution.MaxInnerProjectIterations = cIterations;
-            }
+               this.solverSolution.MaxInnerProjectIterations = cIterations;
+
             if (this.solverSolution.MinInnerProjectIterations > cIterations)
-            {
-                this.solverSolution.MinInnerProjectIterations = cIterations;
-            }
+               this.solverSolution.MinInnerProjectIterations = cIterations;
 
             // If we got here, we had at least one violation.
             this.allConstraints.Debug_AssertConsistency();
@@ -1142,9 +1092,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
 #endif // VERIFY || VERBOSE
                     );
                 if (null != newSplitBlock)
-                {
-                    newBlocks.Add(newSplitBlock);
-                }
+                   newBlocks.Add(newSplitBlock);
             }
 
             int numNewBlocks = newBlocks.Count;         // cache for perf
@@ -1181,9 +1129,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             maxViolation = this.solverParams.GapTolerance;
             Constraint maxViolatedConstraint = this.SearchViolationCache(maxViolation);
             if (null != maxViolatedConstraint)
-            {
-                return maxViolatedConstraint;
-            }
+               return maxViolatedConstraint;
 
             // Nothing in ViolationCache or we've got too many Constraints in the block, so search 
             // the list of all constraints.
@@ -1242,9 +1188,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                                 // Cache the previous high violation.  Pass the violation as a tiny perf optimization
                                 // to save re-doing the double operations in this inner loop.
                                 if ((null != maxViolatedConstraint) && (maxViolation > this.violationCache.LowViolation))
-                                {
-                                    this.violationCache.Insert(maxViolatedConstraint, maxViolation);
-                                }
+                                   this.violationCache.Insert(maxViolatedConstraint, maxViolation);
+
                                 maxViolation = constraint.Violation;
                                 maxViolatedConstraint = constraint;
                             }
@@ -1269,9 +1214,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                             if (ApproximateComparer.Greater(violation, maxViolation))
                             {
                                 if ((null != maxViolatedConstraint) && (maxViolation > this.violationCache.LowViolation))
-                                {
-                                    this.violationCache.Insert(maxViolatedConstraint, maxViolation);
-                                }
+                                   this.violationCache.Insert(maxViolatedConstraint, maxViolation);
+
                                 maxViolation = violation;
                                 maxViolatedConstraint = constraint;
                             }
@@ -1288,9 +1232,8 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                     // The cache had something more violated than maxViolatedConstraint, but maxViolatedConstraint
                     // may be larger than at least one cache element.
                     if ((null != maxViolatedConstraint) && (maxViolation > this.violationCache.LowViolation))
-                    {
-                        this.violationCache.Insert(maxViolatedConstraint, maxViolation);
-                    }
+                       this.violationCache.Insert(maxViolatedConstraint, maxViolation);
+
                     maxViolatedConstraint = cachedConstraint;
                 }
             } // endif FilterBlock
@@ -1309,13 +1252,10 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
             {
                 // The constraint vector is now organized with all inactive constraints first.
                 if (constraint.IsActive)
-                {
-                    break;
-                }
+                   break;
+
                 if (constraint.IsUnsatisfiable)
-                {
-                    continue;
-                }
+                   continue;
 
                 // Note:  The docs have >= 0 for violation condition but it should be just > 0.
 #if Inline_Violation
@@ -1355,9 +1295,7 @@ namespace Microsoft.Msagl.Core.ProjectionSolver
                     }
 
                     if ((null != cacheInsertConstraint) && (cacheInsertViolation > this.violationCache.LowViolation))
-                    {
-                        this.violationCache.Insert(cacheInsertConstraint, cacheInsertViolation);
-                    }
+                       this.violationCache.Insert(cacheInsertConstraint, cacheInsertViolation);
                 } // endif useViolationCache
             } // endfor each constraint
 

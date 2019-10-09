@@ -33,9 +33,8 @@ namespace Microsoft.Msagl.Core.Geometry
             get
             {
                 if (bestPacking != null)
-                {
-                    return bestPacking.PackedWidth;
-                }
+                   return bestPacking.PackedWidth;
+
                 return 0;
             }
         }
@@ -47,9 +46,8 @@ namespace Microsoft.Msagl.Core.Geometry
             get
             {
                 if (bestPacking != null)
-                {
-                    return bestPacking.PackedHeight;
-                }
+                   return bestPacking.PackedHeight;
+
                 return 0;
             }
         }
@@ -89,9 +87,7 @@ namespace Microsoft.Msagl.Core.Geometry
                 Pack(upperBound);
             }
             else if (rectangles.Count > 2)
-            {
-                GoldenSectionSearch(Pack, lowerBound, c0, upperBound, precision);
-            }
+               GoldenSectionSearch(Pack, lowerBound, c0, upperBound, precision);
 
             // packing works on the rectangles in place, so we need to rerun to get back the best packing.
             bestPacking.Run();
@@ -128,9 +124,7 @@ namespace Microsoft.Msagl.Core.Geometry
 
             // check termination
             if (Math.Abs(x1 - x3) < precision)
-            {
-                return f(x1) < f(x3) ? x1 : x3;
-            }
+               return f(x1) < f(x3) ? x1 : x3;
 
             // x2 must be between x1 and x3
             Debug.Assert(x1 < x2 && x2 < x3 || x3 < x2 && x2 < x1, "x2 not bounded by x1 and x3");
@@ -165,9 +159,8 @@ namespace Microsoft.Msagl.Core.Geometry
          static double GetGoldenSectionStep(double x1, double x2)
         {
             if (x1 < x2)
-            {
-                return x1 + PackingConstants.GoldenRatioRemainder * (x2 - x1);
-            }
+               return x1 + PackingConstants.GoldenRatioRemainder * (x2 - x1);
+
             return x1 - PackingConstants.GoldenRatioRemainder * (x1 - x2);
         }
     }

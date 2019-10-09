@@ -51,9 +51,7 @@ namespace Microsoft.Msagl.Miscellaneous.RegularGrid
 
             tiles.Add(tile1);
             if (tile1.Equals(tile2))
-            {
-                return tiles;
-            }
+               return tiles;
 
             tiles.Add(tile2);
             var midPoint = (p1 + p2) / 2;

@@ -86,23 +86,29 @@ namespace Microsoft.Msagl.Layout.Layered {
             Set<int> neighborPossibleJumpers = new Set<int>();
             //update possible jumpers neighbors
             foreach (int v in new Pred(dag, jumper))
-                if (IsJumper(v)) {
-                    this.CalculateRegionAndInsertJumper(v);
-                    neighborPossibleJumpers.Insert(v);
-                }
+            {
+               if (IsJumper(v)) {
+                  this.CalculateRegionAndInsertJumper(v);
+                  neighborPossibleJumpers.Insert(v);
+               }
+            }
 
             foreach (int v in new Succ(dag, jumper))
-                if (IsJumper(v)) {
-                    this.CalculateRegionAndInsertJumper(v);
-                    neighborPossibleJumpers.Insert(v);
-                }
+            {
+               if (IsJumper(v)) {
+                  this.CalculateRegionAndInsertJumper(v);
+                  neighborPossibleJumpers.Insert(v);
+               }
+            }
 
             List<int> possibleJumpersToUpdate = new List<int>();
 
             foreach (KeyValuePair<int, IntPair> kv in this.possibleJumperFeasibleIntervals) {
                 if (!neighborPossibleJumpers.Contains(kv.Key))
-                    if (kv.Value.x > jumperLayer && kv.Value.y < jumperLayer)
-                        possibleJumpersToUpdate.Add(kv.Key);
+                {
+                   if (kv.Value.x > jumperLayer && kv.Value.y < jumperLayer)
+                      possibleJumpersToUpdate.Add(kv.Key);
+                }
             }
 
             foreach (int v in possibleJumpersToUpdate)
@@ -119,8 +125,10 @@ namespace Microsoft.Msagl.Layout.Layered {
             this.possibleJumperFeasibleIntervals = new Dictionary<int, IntPair>();
 
             for (int i = 0; i < dag.NodeCount; i++)
-                if (deltas[i] == 0)
-                    CalculateRegionAndInsertJumper(i);
+            {
+               if (deltas[i] == 0)
+                  CalculateRegionAndInsertJumper(i);
+            }
         }
 
         void CalculateRegionAndInsertJumper(int i) {
@@ -152,17 +160,22 @@ namespace Microsoft.Msagl.Layout.Layered {
             layerToJumpTo = -1;
             int min = this.vertsCounts[jumperLayer] - 2*nodeCount[jumper];
             // jump makes sense if some layer has less than min vertices
-            for (int i = upLayer - 1; i > jumperLayer; i--) 
-                if (vertsCounts[i] < min) {
-                    min = vertsCounts[i];
-                    layerToJumpTo = i;
-                }
- 
+            for (int i = upLayer - 1; i > jumperLayer; i--)
+            {
+               if (vertsCounts[i] < min) {
+                  min = vertsCounts[i];
+                  layerToJumpTo = i;
+               }
+            }
+
             for (int i = jumperLayer - 1; i > lowLayer; i--)
-                if (vertsCounts[i] < min) {
-                    min = vertsCounts[i];
-                    layerToJumpTo = i;
-                }
+            {
+               if (vertsCounts[i] < min) {
+                  min = vertsCounts[i];
+                  layerToJumpTo = i;
+               }
+            }
+
             return layerToJumpTo != -1;
         }
         /// <summary>

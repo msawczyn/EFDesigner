@@ -44,10 +44,10 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
 
         void Traverse() {
             while (!BIsReached()) {
-                if (piercedToTheLeftFrontElemNode != null) { ProcessLeftFrontPiercedElement(); }
-                else if (piercedToTheRightFrontElemNode != null) {
-                    ProcessRightFrontPiercedElement();
-                }
+                if (piercedToTheLeftFrontElemNode != null)
+                   ProcessLeftFrontPiercedElement();
+                else if (piercedToTheRightFrontElemNode != null)
+                   ProcessRightFrontPiercedElement();
                 else ProcessPiercedEdge();
             }
             if (piercedTriangle != null)
@@ -157,9 +157,12 @@ namespace Microsoft.Msagl.Routing.ConstrainedDelaunayTriangulation {
         void RemovePiercedTriangle(CdtTriangle t) {
             triangles.Remove(t);
             foreach (var e in t.Edges)
-                if (e.CwTriangle == t)
-                    e.CwTriangle = null;
-                else e.CcwTriangle = null;
+            {
+               if (e.CwTriangle == t)
+                  e.CwTriangle = null;
+               else e.CcwTriangle = null;
+            }
+
             removedTriangles.Add(t);
         }
 

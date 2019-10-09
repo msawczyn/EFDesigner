@@ -240,8 +240,10 @@ foreach (var intEdgeList in Database.RegularMultiedges) {
             var curve = edgeCurve as Curve;
             if (curve != null) {
                 foreach (ICurve seg in curve.Segments)
-                    if ((seg.Start.Y - labelY)*(seg.End.Y - labelY) <= 0)
-                        return seg;
+                {
+                   if ((seg.Start.Y - labelY)*(seg.End.Y - labelY) <= 0)
+                      return seg;
+                }
             }
             else Debug.Assert(false); //not implemented
             return null;

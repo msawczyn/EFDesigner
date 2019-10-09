@@ -98,18 +98,13 @@ namespace Microsoft.Msagl.Core.Layout {
             set
             {
                 if (Math.Abs(value.X) < 0.1 && value.Y > 0.4)
-                {
-                    LabelPosition = LabelPlacement.Top;
-                }
-                else if (Math.Abs(value.X) < 0.1 && value.Y < -0.4) {
-                    LabelPosition = LabelPlacement.Bottom;
-                } 
-                else if (Math.Abs(value.Y) < 0.1 && value.X > 0.4) {
-                    LabelPosition = LabelPlacement.Right;
-                } 
-                else {
-                    LabelPosition = LabelPlacement.Left;
-                }
+                   LabelPosition = LabelPlacement.Top;
+                else if (Math.Abs(value.X) < 0.1 && value.Y < -0.4)
+                   LabelPosition = LabelPlacement.Bottom;
+                else if (Math.Abs(value.Y) < 0.1 && value.X > 0.4)
+                   LabelPosition = LabelPlacement.Right;
+                else
+                   LabelPosition = LabelPlacement.Left;
             }
         }
         /// <summary>

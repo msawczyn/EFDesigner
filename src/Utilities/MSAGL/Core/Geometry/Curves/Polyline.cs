@@ -215,8 +215,11 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
 
         PolylinePoint TryToGetPolylinePointCorrespondingToT(double t) {
             for (PolylinePoint p = StartPoint; p != null; p = p.Next, t--)
-                if (Math.Abs(t) < ApproximateComparer.Tolerance)
-                    return p;
+            {
+               if (Math.Abs(t) < ApproximateComparer.Tolerance)
+                  return p;
+            }
+
             return null;
         }
 
@@ -445,9 +448,9 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                     pp.Next = StartPoint;
                     StartPoint = pp;
                 }
-            } else {
-                StartPoint = EndPoint = pp;
-            }
+            } else
+               StartPoint = EndPoint = pp;
+
             RequireInit();
         }
 
@@ -463,9 +466,9 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                     pp.Prev = EndPoint;
                     EndPoint = pp;
                // }
-            } else {
-                StartPoint = EndPoint = pp;
-            }
+            } else
+               StartPoint = EndPoint = pp;
+
             RequireInit();
         }
 
@@ -555,9 +558,8 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 return this;
             var poly = new Polyline {Closed = Closed};
             foreach (var p in this)
-            {
-                poly.AddPoint(transformation*p);
-            }
+               poly.AddPoint(transformation*p);
+
             return poly;
         }
 
@@ -773,10 +775,12 @@ namespace Microsoft.Msagl.Core.Geometry.Curves {
                 if (triangleOrientation == TriangleOrientation.Counterclockwise)
                     return PointLocation.Outside;
                 if (triangleOrientation == TriangleOrientation.Collinear)
-                    if ((point - polyPoint.Point)*(secondPoint.Point - point) >= 0) {
-                        witness = polyPoint;
-                        return PointLocation.Boundary;
-                    }
+                {
+                   if ((point - polyPoint.Point)*(secondPoint.Point - point) >= 0) {
+                      witness = polyPoint;
+                      return PointLocation.Boundary;
+                   }
+                }
             }
 
             return PointLocation.Inside;

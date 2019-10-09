@@ -19,14 +19,14 @@ namespace Microsoft.Msagl.Prototype.Ranking {
         public static double[] PageRank(GeometryGraph graph, double omega, bool inverse) {
             Dictionary<Node, double> p=new Dictionary<Node,double>();
             int n = graph.Nodes.Count;
-            foreach(Node v in graph.Nodes) {
-                p[v] = 1d / (graph.Nodes.Count);
-            }
+            foreach(Node v in graph.Nodes)
+               p[v] = 1d / (graph.Nodes.Count);
+
             for(int c=0; c<50; c++) {
                 Dictionary<Node, double> q = new Dictionary<Node, double>();
-                foreach (Node v in graph.Nodes) {
-                    q[v] = (1 - omega) / (graph.Nodes.Count);
-                }
+                foreach (Node v in graph.Nodes)
+                   q[v] = (1 - omega) / (graph.Nodes.Count);
+
                 if(inverse) { // backward propagation
                     foreach(Node v in graph.Nodes) {
                         foreach(Edge edge in v.OutEdges) {

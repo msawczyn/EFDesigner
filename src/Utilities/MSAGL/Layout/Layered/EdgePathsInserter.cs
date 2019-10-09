@@ -97,12 +97,19 @@ namespace Microsoft.Msagl.Layout.Layered {
 
         void MapVirtualNodesToEdges() {
             foreach (List<IntEdge> list in this.database.RegularMultiedges)
-                foreach (IntEdge e in list)
-                    if (! EdgeIsFlat(e))//the edge is not flat
-                        foreach (LayerEdge le in e.LayerEdges)
-                            if (le.Target != e.Target)
-                                this.virtNodesToIntEdges[le.Target] = e;
-
+            {
+               foreach (IntEdge e in list)
+               {
+                  if (! EdgeIsFlat(e))//the edge is not flat
+                  {
+                     foreach (LayerEdge le in e.LayerEdges)
+                     {
+                        if (le.Target != e.Target)
+                           this.virtNodesToIntEdges[le.Target] = e;
+                     }
+                  }
+               }
+            }
         }
 
 

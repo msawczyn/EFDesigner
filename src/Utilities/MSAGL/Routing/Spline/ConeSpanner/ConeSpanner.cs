@@ -99,8 +99,10 @@ namespace Microsoft.Msagl.Routing.Spline.ConeSpanner {
 
         void AddIntersectionOfBothDirectionSweepsToTheResult(VisibilityGraph vg0, VisibilityGraph vg1) {
             foreach (var edge in vg0.Edges)
-                if (vg1.FindEdge(edge.SourcePoint, edge.TargetPoint) != null)
-                    _visibilityGraph.AddEdge(edge.SourcePoint, edge.TargetPoint);
+            {
+               if (vg1.FindEdge(edge.SourcePoint, edge.TargetPoint) != null)
+                  _visibilityGraph.AddEdge(edge.SourcePoint, edge.TargetPoint);
+            }
         }
 
         void AddDirection(Point direction, Polyline borderPolyline, VisibilityGraph visibilityGraph) {

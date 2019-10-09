@@ -56,16 +56,16 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                                 int id = g.EList[neighbor.Id, j].NodeId;
 
                                 if (id != w.Id)
-                                {
-                                    modificationList.Add(id);
-                                }
+                                   modificationList.Add(id);
                             }
                             //check whether it is safe to modify the graph
                             bool safetomodify = true;
                             if (g.DegList[w.Id] + modificationList.Count >= g.maxDeg) continue;
                             foreach (var x in modificationList)
-                                if (g.DegList[x] + 1 >= g.maxDeg)
-                                    safetomodify = false;
+                            {
+                               if (g.DegList[x] + 1 >= g.maxDeg)
+                                  safetomodify = false;
+                            }
 
                             foreach (var x in modificationList)
                             {
@@ -77,9 +77,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
 
                             //add edges between w and the neighbor's neighbor
                             foreach (var x in modificationList)
-                            {
-                                g.AddEdge(w.Id, x);
-                            }
+                               g.AddEdge(w.Id, x);
 
                             g.RemoveEdge(w.Id, neighbor.Id);
                             shortcutcount++;
@@ -159,10 +157,7 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                                           (w.YLoc + b - g.VList[listNeighbors[k, 1]].YLoc)
                                     );
                             if (length < 1)
-                            {
-                                length = 1000;
-                            }
-
+                               length = 1000;
 
                             d[counter] += length;
 
@@ -246,8 +241,10 @@ namespace Microsoft.Msagl.GraphmapsWithMesh
                     //compute the lowest zoom level among incident rails
                     var lowestZoomLevel = int.MaxValue;
                     for (int index2 = 1; index2 <= numNeighbors; index2++)
-                        if (g.EList[index, listNeighbors[index2, 2]].Used < lowestZoomLevel)
-                            lowestZoomLevel = g.EList[index, listNeighbors[index2, 2]].Used;
+                    {
+                       if (g.EList[index, listNeighbors[index2, 2]].Used < lowestZoomLevel)
+                          lowestZoomLevel = g.EList[index, listNeighbors[index2, 2]].Used;
+                    }
 
                     //for each possible move
                     for (int counter = 1; counter <= 9; counter++)
