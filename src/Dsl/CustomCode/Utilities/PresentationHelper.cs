@@ -21,20 +21,19 @@ namespace Sawczyn.EFDesigner.EFModel
                   classShape.ColorCache = new ColorCache
                                           {
                                              FillColor = classShape.FillColor, 
-                                             LineColor = classShape.OutlineColor, 
                                              TextColor = classShape.TextColor
                                           };
-               }
 
-               classShape.FillColor = Color.White;
-               classShape.OutlineColor = Color.Gainsboro;
+                  classShape.FillColor = Color.White;
+                  classShape.OutlineColor = Color.Gainsboro;
+                  classShape.TextColor = Color.SlateGray;
+               }
             }
             else
             {
                if (element.IsPersistent)
                {
                   classShape.FillColor = classShape.ColorCache.FillColor;
-                  classShape.OutlineColor = classShape.ColorCache.LineColor;
                   classShape.TextColor = classShape.ColorCache.TextColor;
                }
 

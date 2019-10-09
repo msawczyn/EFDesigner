@@ -13,7 +13,6 @@ namespace Sawczyn.EFDesigner.EFModel
    internal class ColorCache
    {
       public Color FillColor { get; set; }
-      public Color LineColor { get; set; }
       public Color TextColor { get; set; }
    }
 
