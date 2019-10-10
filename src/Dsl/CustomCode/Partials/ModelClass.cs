@@ -618,11 +618,11 @@ namespace Sawczyn.EFDesigner.EFModel
                                                          ModelAttribute.ImplementNotifyDomainPropertyId, 
                                                          ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
          TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source.FullName == FullName),
+                                                         Store.ElementDirectory.AllElements.OfType<Association>().Where(a => a?.Source?.FullName == FullName),
                                                          Association.TargetImplementNotifyDomainPropertyId, 
                                                          Association.IsTargetImplementNotifyTrackingDomainPropertyId);
          TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>().Where(a => a.Target.FullName == FullName),
+                                                         Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>().Where(a => a?.Target?.FullName == FullName),
                                                          BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, 
                                                          BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId);
       }
