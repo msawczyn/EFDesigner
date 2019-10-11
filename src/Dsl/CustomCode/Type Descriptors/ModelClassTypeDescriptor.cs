@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
@@ -34,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
             // DbSetName
             // IsDependentType
 
-            // ModelAttribute - hide only if no persistent inheritors
+            // ModelAttribute - hide only if parent class no persistent inheritors
             // -----------------------
             // Persistent
             // Indexed
@@ -43,6 +44,15 @@ namespace Sawczyn.EFDesigner.EFModel
             // ColumnType
             // PersistencePoint
 
+            if (!modelClass.IsPersistent)
+            {
+               string[] propertyNames = { "TableName", "DatabaseSchema", "DbSetName", "IsDependentType" };
+
+               foreach (PropertyDescriptor propertyDescriptor in propertyNames.Select(propertyName => propertyDescriptors.OfType<PropertyDescriptor>()
+                                                                                                                         .SingleOrDefault(x => x.Name == propertyName))
+                                                                              .Where(descriptor => descriptor != null))
+                  propertyDescriptors.Remove(propertyDescriptor);
+            }
 
             //Add the descriptors for the tracking properties 
 

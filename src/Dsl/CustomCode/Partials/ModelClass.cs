@@ -87,6 +87,18 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public bool HasPersistentChildren
+      {
+         get
+         {
+            return Store.ElementDirectory
+                        .AllElements
+                        .OfType<Generalization>()
+                        .Where(g => g.Superclass == this)
+                        .Any(g => g.Subclass.IsPersistent || g.Subclass.HasPersistentChildren);
+         }
+      }
+
       #region Warning display
 
       // set as methods to avoid issues around serialization
