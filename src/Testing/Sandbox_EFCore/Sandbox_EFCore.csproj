@@ -49,6 +49,7 @@
     </Compile>
     <Compile Include="Generated\Currency.generated.cs" />
     <Compile Include="Generated\EFModel.generated.cs" />
+    <Compile Include="Generated\Entity1.generated.cs" />
     <Compile Include="Migrations\20191003053920_Initial.cs" />
     <Compile Include="Migrations\20191003053920_Initial.designer.cs">
       <DependentUpon>20191003053920_Initial.cs</DependentUpon>

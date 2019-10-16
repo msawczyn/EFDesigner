@@ -23,6 +23,7 @@ namespace Sandbox_EFCore
    {
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Currency> Currencies { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Entity1> Entity1 { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -74,6 +75,28 @@ namespace Sandbox_EFCore
                      .HasField("_Name")
                      .UsePropertyAccessMode(PropertyAccessMode.Property);
          modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
+                     .Property(t => t.Symbol)
+                     .IsRequired()
+                     .HasField("_Symbol")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property);
+
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
+                     .ToTable("Entity1")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>().HasIndex(t => t.Name)
+                     .IsUnique();
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>().HasIndex(t => t.Symbol)
+                     .IsUnique();
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
+                     .Property(t => t.Name)
+                     .IsRequired()
+                     .HasField("_Name")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property);
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
                      .Property(t => t.Symbol)
                      .IsRequired()
                      .HasField("_Symbol")

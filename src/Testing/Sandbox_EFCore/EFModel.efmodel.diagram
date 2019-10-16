@@ -10,5 +10,13 @@
         <elementListCompartment Id="dec28368-513f-4484-a3e2-3d497ab5ea3a" absoluteBounds="0.515, 2.65568359375, 2.2199999999999998, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="cc92853a-96fd-43dd-82ec-1952c910e55f" absoluteBounds="3.875, 2.25, 1.5, 1.7550732421874997" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+      <modelClassMoniker Id="19b53b82-ec70-4546-8579-1f0dfb30419d" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e4535ee2-2f68-47c2-b76e-3852ae16a3ea" absoluteBounds="3.8899999999999997, 2.56, 1.4700000000000002, 0.8262939453125" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="db290192-046f-478a-adeb-7dae50eac1fd" absoluteBounds="3.89, 3.3962939453125003, 1.4700000000000002, 0.2493896484375" name="AssociationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9473984b-1d05-4fbf-a33c-744cffdf2e26" absoluteBounds="3.89, 3.65568359375, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </eFModelDiagram>

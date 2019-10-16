@@ -300,6 +300,7 @@
   <HelpKINode Title="HasAttribute method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_HasAttribute.htm" />
   <HelpKINode Title="HasAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAttributeNamed.htm" />
   <HelpKINode Title="HashSet enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_CollectionType.htm" />
+  <HelpKINode Title="HasPersistentChildren property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_HasPersistentChildren.htm" />
   <HelpKINode Title="HasPropertyNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasPropertyNamed.htm" />
   <HelpKINode Title="Home" Url="html/ed2e64f5-b23e-43ae-9e32-0311b0630eef.htm" />
   <HelpKINode Title="HTML5Type enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
@@ -334,6 +335,8 @@
   <HelpKINode Title="IsFlags property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_IsFlags.htm" />
   <HelpKINode Title="IsIdentity property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsIdentity.htm" />
   <HelpKINode Title="IsInCircularInheritance method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_IsInCircularInheritance.htm" />
+  <HelpKINode Title="IsPersistent property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsPersistent.htm" />
+  <HelpKINode Title="IsPersistentDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_IsPersistentDomainPropertyId.htm" />
   <HelpKINode Title="IsSourceImplementNotifyTracking property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_IsSourceImplementNotifyTracking.htm" />
   <HelpKINode Title="IsSourceImplementNotifyTrackingDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_IsSourceImplementNotifyTrackingDomainPropertyId.htm" />
   <HelpKINode Title="IsTargetImplementNotifyTracking property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTracking.htm" />
@@ -424,12 +427,15 @@
   <HelpKINode Title="ModelClass.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_FullName.htm" />
   <HelpKINode Title="ModelClass.HasAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAssociationNamed.htm" />
   <HelpKINode Title="ModelClass.HasAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAttributeNamed.htm" />
+  <HelpKINode Title="ModelClass.HasPersistentChildren property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_HasPersistentChildren.htm" />
   <HelpKINode Title="ModelClass.HasPropertyNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasPropertyNamed.htm" />
   <HelpKINode Title="ModelClass.IdentityAttributeNames property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IdentityAttributeNames.htm" />
   <HelpKINode Title="ModelClass.IdentityAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IdentityAttributes.htm" />
   <HelpKINode Title="ModelClass.ImplementNotify property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_ImplementNotify.htm" />
   <HelpKINode Title="ModelClass.IsAbstract property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsAbstract.htm" />
   <HelpKINode Title="ModelClass.IsDependentType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsDependentType.htm" />
+  <HelpKINode Title="ModelClass.IsPersistent property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_IsPersistent.htm" />
+  <HelpKINode Title="ModelClass.IsPersistentDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_IsPersistentDomainPropertyId.htm" />
   <HelpKINode Title="ModelClass.LocalNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_LocalNavigationProperties.htm" />
   <HelpKINode Title="ModelClass.ModelRoot property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_ModelRoot.htm" />
   <HelpKINode Title="ModelClass.Name property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Name.htm" />
