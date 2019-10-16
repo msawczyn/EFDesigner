@@ -20333,61 +20333,6 @@ namespace Sawczyn.EFDesigner.EFModel
 			throw new global::System.NotSupportedException();
 		}
 	
-		/// <summary>
-		/// This method deserializes all properties that are serialized as XML attributes.
-		/// </summary>
-		/// <remarks>
-		/// Because this method only handles properties serialized as XML attributes, the passed-in reader shouldn't be moved inside this method.
-		/// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
-		/// </remarks>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory AssociationConnector instance that will get the deserialized data.</param>
-		/// <param name="reader">XmlReader to read serialized data from.</param>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
-		protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
-		{
-			// Always call the base class so any extensions are deserialized
-			base.ReadPropertiesFromAttributes(serializationContext, element, reader);
-	
-			AssociationConnector instanceOfAssociationConnector = element as AssociationConnector;
-			global::System.Diagnostics.Debug.Assert(instanceOfAssociationConnector != null, "Expecting an instance of AssociationConnector");
-	
-			// Color
-			if (!serializationContext.Result.Failed)
-			{
-				string attribColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "color");
-				if (attribColor != null)
-				{
-					global::System.Drawing.Color valueOfColor;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribColor, out valueOfColor))
-					{
-						instanceOfAssociationConnector.Color = valueOfColor;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "color", typeof(global::System.Drawing.Color), attribColor);
-					}
-				}
-			}
-			// DashStyle
-			if (!serializationContext.Result.Failed)
-			{
-				string attribDashStyle = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dashStyle");
-				if (attribDashStyle != null)
-				{
-					global::System.Drawing.Drawing2D.DashStyle valueOfDashStyle;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Drawing2D.DashStyle>(serializationContext, attribDashStyle, out valueOfDashStyle))
-					{
-						instanceOfAssociationConnector.DashStyle = valueOfDashStyle;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dashStyle", typeof(global::System.Drawing.Drawing2D.DashStyle), attribDashStyle);
-					}
-				}
-			}
-		}
-	
 		#region TryCreateInstance
 		/// <summary>
 		/// This method creates a correct instance of AssociationConnector based on the tag currently pointed by the reader. If the reader
@@ -20668,43 +20613,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		public override void Write(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
 		{
 			throw new global::System.NotSupportedException();
-		}
-	
-		/// <summary>
-		/// Write all properties that need to be serialized as XML attributes.
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">AssociationConnector instance to be serialized.</param>
-		/// <param name="writer">XmlWriter to write serialized data to.</param> 
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
-		protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
-		{
-			// Always call the base class so any extensions are serialized
-			base.WritePropertiesAsAttributes(serializationContext, element, writer);
-	
-			AssociationConnector instanceOfAssociationConnector = element as AssociationConnector;
-			global::System.Diagnostics.Debug.Assert(instanceOfAssociationConnector != null, "Expecting an instance of AssociationConnector");
-	
-			// Color
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.Drawing.Color propValue = instanceOfAssociationConnector.Color;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "color", serializedPropValue);
-				}
-			}
-			// DashStyle
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.Drawing.Drawing2D.DashStyle propValue = instanceOfAssociationConnector.DashStyle;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Drawing2D.DashStyle>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dashStyle", serializedPropValue);
-				}
-			}
 		}
 		#endregion
 	

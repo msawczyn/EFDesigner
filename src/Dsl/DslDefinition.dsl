@@ -1559,12 +1559,12 @@
   <Connectors>
     <Connector Id="6b6c3915-4ad2-4118-ab70-d1adf80dc3ba" Description="" Name="AssociationConnector" DisplayName="Association Connector" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01" ExposesColorAsProperty="true" ExposesDashStyleAsProperty="true">
       <Properties>
-        <DomainProperty Id="87700344-4a49-4734-b376-47dd7ec79b24" Description="No description available" Name="Color" DisplayName="Color" Kind="CustomStorage" IsBrowsable="false">
+        <DomainProperty Id="87700344-4a49-4734-b376-47dd7ec79b24" Description="No description available" Name="Color" DisplayName="Color" Kind="Calculated" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="657f50bd-4284-4ec3-bc1d-7dcdf731ab62" Description="No description available" Name="DashStyle" DisplayName="Dash Style" Kind="CustomStorage" IsBrowsable="false">
+        <DomainProperty Id="657f50bd-4284-4ec3-bc1d-7dcdf731ab62" Description="No description available" Name="DashStyle" DisplayName="Dash Style" Kind="Calculated" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing.Drawing2D/DashStyle" />
           </Type>
@@ -2041,10 +2041,10 @@
       <XmlClassData TypeName="AssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="associationConnectorMoniker" ElementName="associationConnector" MonikerTypeName="AssociationConnectorMoniker">
         <ConnectorMoniker Name="AssociationConnector" />
         <ElementData>
-          <XmlPropertyData XmlName="color">
+          <XmlPropertyData XmlName="color" Representation="Ignore">
             <DomainPropertyMoniker Name="AssociationConnector/Color" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="dashStyle">
+          <XmlPropertyData XmlName="dashStyle" Representation="Ignore">
             <DomainPropertyMoniker Name="AssociationConnector/DashStyle" />
           </XmlPropertyData>
         </ElementData>

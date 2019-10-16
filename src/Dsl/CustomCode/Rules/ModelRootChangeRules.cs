@@ -117,9 +117,9 @@ namespace Sawczyn.EFDesigner.EFModel
                // so we need to set this early -- requires guarding against recursion.
                bool newShowCascadeDeletes = (bool)e.NewValue;
 
-               if (element.ShowCascadeDeletes != newShowCascadeDeletes)
+               //if (element.ShowCascadeDeletes != newShowCascadeDeletes)
                {
-                  element.ShowCascadeDeletes = newShowCascadeDeletes;
+                  //element.ShowCascadeDeletes = newShowCascadeDeletes;
 
                   foreach (Association association in store.ElementDirectory.FindElements<Association>())
                      AssociationChangeRules.UpdateDisplayForCascadeDelete(association);

@@ -89,7 +89,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "SourceDeleteAction":
                DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
-               UpdateDisplayForCascadeDelete(element, sourceDeleteAction);
+               UpdateDisplayForCascadeDelete(element, sourceDeleteAction : sourceDeleteAction);
 
                break;
 
@@ -125,7 +125,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               UpdateDisplayForCascadeDelete(element, null, null, sourceMultiplicity);
+               UpdateDisplayForCascadeDelete(element, sourceMultiplicity : sourceMultiplicity);
 
                break;
 
@@ -174,7 +174,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "TargetDeleteAction":
                DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
-               UpdateDisplayForCascadeDelete(element, null, targetDeleteAction);
+               UpdateDisplayForCascadeDelete(element, targetDeleteAction : targetDeleteAction);
 
                break;
 
@@ -203,7 +203,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               UpdateDisplayForCascadeDelete(element, null, null, null, newTargetMultiplicity);
+               UpdateDisplayForCascadeDelete(element, targetMultiplicity : newTargetMultiplicity);
 
                break;
 
