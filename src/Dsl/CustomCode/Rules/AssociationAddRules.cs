@@ -71,7 +71,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          AssociationChangeRules.SetEndpointRoles(element);
-         AssociationChangeRules.UpdateDisplayForCascadeDelete(element);
+         PresentationHelper.UpdateDisplayForCascadeDelete(element);
       }
    }
 }

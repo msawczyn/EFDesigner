@@ -185,8 +185,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/Color.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/Color.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
-		[global::System.ComponentModel.ReadOnly(true)]
-		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("87700344-4a49-4734-b376-47dd7ec79b24")]
 		public global::System.Drawing.Color Color
 		{
@@ -195,11 +194,16 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				return ColorPropertyHandler.Instance.GetValue(this);
 			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ColorPropertyHandler.Instance.SetValue(this, value);
+			}
 		}
 		/// <summary>
 		/// Value handler for the AssociationConnector.Color domain property.
 		/// </summary>
-		internal sealed partial class ColorPropertyHandler : DslModeling::CalculatedPropertyValueHandler<AssociationConnectorBase, global::System.Drawing.Color>
+		internal sealed partial class ColorPropertyHandler : DslModeling::DomainPropertyValueHandler<AssociationConnectorBase, global::System.Drawing.Color>
 		{
 			private ColorPropertyHandler() { }
 		
@@ -229,11 +233,31 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				// There is no storage for Color because its Kind is
-				// set to Calculated. Please provide the GetColorValue()
+				// set to CustomStorage. Please provide the GetColorValue()
 				// method on the domain class.
 				return element.GetColorValue();
 			}
 		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(AssociationConnectorBase element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for Color because its Kind is
+					// set to CustomStorage. Please provide the SetColorValue()
+					// method on the domain class.
+					element.SetColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
 		}
 		
 		#endregion
@@ -251,8 +275,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/DashStyle.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.AssociationConnector/DashStyle.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
-		[global::System.ComponentModel.ReadOnly(true)]
-		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("657f50bd-4284-4ec3-bc1d-7dcdf731ab62")]
 		public global::System.Drawing.Drawing2D.DashStyle DashStyle
 		{
@@ -261,11 +284,16 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				return DashStylePropertyHandler.Instance.GetValue(this);
 			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DashStylePropertyHandler.Instance.SetValue(this, value);
+			}
 		}
 		/// <summary>
 		/// Value handler for the AssociationConnector.DashStyle domain property.
 		/// </summary>
-		internal sealed partial class DashStylePropertyHandler : DslModeling::CalculatedPropertyValueHandler<AssociationConnectorBase, global::System.Drawing.Drawing2D.DashStyle>
+		internal sealed partial class DashStylePropertyHandler : DslModeling::DomainPropertyValueHandler<AssociationConnectorBase, global::System.Drawing.Drawing2D.DashStyle>
 		{
 			private DashStylePropertyHandler() { }
 		
@@ -295,11 +323,31 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				// There is no storage for DashStyle because its Kind is
-				// set to Calculated. Please provide the GetDashStyleValue()
+				// set to CustomStorage. Please provide the GetDashStyleValue()
 				// method on the domain class.
 				return element.GetDashStyleValue();
 			}
 		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(AssociationConnectorBase element, global::System.Drawing.Drawing2D.DashStyle newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Drawing2D.DashStyle oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for DashStyle because its Kind is
+					// set to CustomStorage. Please provide the SetDashStyleValue()
+					// method on the domain class.
+					element.SetDashStyleValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
 		}
 		
 		#endregion

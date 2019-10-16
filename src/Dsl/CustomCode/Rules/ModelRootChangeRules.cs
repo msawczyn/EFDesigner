@@ -122,7 +122,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   //element.ShowCascadeDeletes = newShowCascadeDeletes;
 
                   foreach (Association association in store.ElementDirectory.FindElements<Association>())
-                     AssociationChangeRules.UpdateDisplayForCascadeDelete(association);
+                     PresentationHelper.UpdateDisplayForCascadeDelete(association);
                }
 
                redraw = true;
