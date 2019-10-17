@@ -89,7 +89,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "SourceDeleteAction":
                DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
-               PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceDeleteAction : sourceDeleteAction);
+               //PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceDeleteAction : sourceDeleteAction);
 
                break;
 
@@ -125,7 +125,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceMultiplicity : sourceMultiplicity);
+               //PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceMultiplicity : sourceMultiplicity);
 
                break;
 
@@ -172,11 +172,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
-            case "TargetDeleteAction":
-               DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
-               PresentationHelper.UpdateDisplayForCascadeDelete(element, targetDeleteAction : targetDeleteAction);
+            //case "TargetDeleteAction":
+            //   DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
+            //   PresentationHelper.UpdateDisplayForCascadeDelete(element, targetDeleteAction : targetDeleteAction);
 
-               break;
+            //   break;
 
             case "TargetMultiplicity":
                Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
@@ -203,7 +203,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               PresentationHelper.UpdateDisplayForCascadeDelete(element, targetMultiplicity : newTargetMultiplicity);
+               //PresentationHelper.UpdateDisplayForCascadeDelete(element, targetMultiplicity : newTargetMultiplicity);
 
                break;
 

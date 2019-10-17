@@ -115,15 +115,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
                // need these change rules to fire even though nothing in Association has changed
                // so we need to set this early -- requires guarding against recursion.
-               bool newShowCascadeDeletes = (bool)e.NewValue;
+               
+               //bool newShowCascadeDeletes = (bool)e.NewValue;
 
                //if (element.ShowCascadeDeletes != newShowCascadeDeletes)
-               {
+               //{
                   //element.ShowCascadeDeletes = newShowCascadeDeletes;
 
                   foreach (Association association in store.ElementDirectory.FindElements<Association>())
                      PresentationHelper.UpdateDisplayForCascadeDelete(association);
-               }
+               //}
 
                redraw = true;
 

@@ -13,6 +13,12 @@
           <unidirectionalAssociation Id="96d2c6fc-498f-4630-b97d-54a314c0afea" targetPropertyName="Entity1_2" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
             <modelClassMoniker Id="19b53b82-ec70-4546-8579-1f0dfb30419d" />
           </unidirectionalAssociation>
+          <unidirectionalAssociation Id="fa4f0d1a-af7f-4681-9c05-5b75153aae7a" targetPropertyName="Entity1_3" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
+            <modelClassMoniker Id="19b53b82-ec70-4546-8579-1f0dfb30419d" />
+          </unidirectionalAssociation>
+          <unidirectionalAssociation Id="8fc20d74-2e31-4117-8024-41109a89b356" targetPropertyName="Entity1_4" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
+            <modelClassMoniker Id="19b53b82-ec70-4546-8579-1f0dfb30419d" />
+          </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
           <modelAttribute Id="2b4b5f74-c38d-4108-8cf3-cf1af386da84" isIdentity="true" required="true" maxLength="10" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Code" autoProperty="false" minLength="1" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />

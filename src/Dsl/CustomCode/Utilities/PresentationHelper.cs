@@ -72,10 +72,10 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       public static void UpdateDisplayForCascadeDelete(Association element,
-                                                         DeleteAction? sourceDeleteAction = null,
-                                                         DeleteAction? targetDeleteAction = null,
-                                                         Multiplicity? sourceMultiplicity = null,
-                                                         Multiplicity? targetMultiplicity = null)
+                                                       DeleteAction? sourceDeleteAction = null,
+                                                       DeleteAction? targetDeleteAction = null,
+                                                       Multiplicity? sourceMultiplicity = null,
+                                                       Multiplicity? targetMultiplicity = null)
       {
          ModelRoot modelRoot = element.Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
 
