@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Modeling.Diagrams;
+﻿using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -17,6 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
          AssociateValueWith(Store, Association.SourceMultiplicityDisplayDomainPropertyId);
          AssociateValueWith(Store, Association.TargetMultiplicityDomainPropertyId);
          AssociateValueWith(Store, Association.PersistentDomainPropertyId);
+         AssociateValueWith(Store, Association.TargetPropertyNameDomainPropertyId);
       }
 
       /// <summary>
@@ -57,6 +59,13 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             switch (e.PropertyName)
             {
+               case "TargetPropertyName":
+                  if (association.Source != null && association.Target != null)
+                  {
+                     if (!PresentationHelper.UpdateDisplayForCascadeDelete(association))
+                        PresentationHelper.UpdateDisplayForPersistence(association);
+                  }
+                  break;
                case "SourceDeleteAction":
                   PresentationHelper.UpdateDisplayForCascadeDelete(association, sourceDeleteAction: (DeleteAction)e.NewValue);
                   break;
@@ -70,13 +79,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   PresentationHelper.UpdateDisplayForCascadeDelete(association, targetMultiplicity: (Multiplicity)e.NewValue);
                   break;
                case "Persistent":
-                  PresentationHelper.UpdateDisplayForCascadeDelete(association);
-                  PresentationHelper.UpdateDisplayForPersistence(association);
+                  if (!PresentationHelper.UpdateDisplayForCascadeDelete(association))
+                     PresentationHelper.UpdateDisplayForPersistence(association);
                   break;
             }
          }
 
          base.OnAssociatedPropertyChanged(e);
       }
+
    }
 }
