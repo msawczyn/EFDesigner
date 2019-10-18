@@ -11,8 +11,77 @@ namespace Sawczyn.EFDesigner.EFModel
 
    public static class PresentationHelper
    {
-      public static void SetClassVisuals(ModelClass element)
+      public static void UpdateAssociationDisplay(Association element
+                                                , DeleteAction? sourceDeleteAction = null
+                                                , DeleteAction? targetDeleteAction = null
+                                                , Multiplicity? sourceMultiplicity = null
+                                                , Multiplicity? targetMultiplicity = null)
       {
+         if (element == null)
+            return;
+
+         ModelRoot modelRoot = element.Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
+
+         sourceDeleteAction = sourceDeleteAction ?? element.SourceDeleteAction;
+         targetDeleteAction = targetDeleteAction ?? element.TargetDeleteAction;
+         sourceMultiplicity = sourceMultiplicity ?? element.SourceMultiplicity;
+         targetMultiplicity = targetMultiplicity ?? element.TargetMultiplicity;
+
+         bool persistent = element.Persistent;
+
+         bool cascade = modelRoot.ShowCascadeDeletes
+                     && persistent
+                     && (sourceMultiplicity == Multiplicity.One || 
+                         targetMultiplicity == Multiplicity.One || 
+                         targetDeleteAction == DeleteAction.Cascade || 
+                         sourceDeleteAction == DeleteAction.Cascade);
+
+         Color black = Color.FromArgb(255, 113, 111, 110);
+
+         List<AssociationConnector> changeColor =
+            PresentationViewsSubject.GetPresentation(element)
+                                    .OfType<AssociationConnector>()
+                                    .Where(connector => (cascade && connector.Color != Color.Red)
+                                                     || (persistent && connector.Color != Color.SlateGray)
+                                                     || (!cascade && connector.Color != black))
+                                    .ToList();
+
+         List<AssociationConnector> changeStyle =
+            PresentationViewsSubject.GetPresentation(element)
+                                    .OfType<AssociationConnector>()
+                                    .Where(connector => (persistent && cascade && connector.DashStyle != DashStyle.Dash)
+                                                     || ((!persistent || !cascade) && connector.DashStyle != DashStyle.Solid))
+                                    .ToList();
+
+         using (Transaction trans = element.Store.TransactionManager.BeginTransaction("Display associations"))
+         {
+            foreach (AssociationConnector connector in changeColor)
+            {
+               if (persistent && !cascade)
+                  connector.Color = black;
+               else if (!persistent)
+                  connector.Color = Color.SlateGray;
+               else
+                  connector.Color = Color.Red;
+            }
+
+            foreach (AssociationConnector connector in changeStyle)
+            {
+               if (persistent && cascade)
+                  connector.DashStyle = DashStyle.Dash;
+               else
+                  connector.DashStyle = DashStyle.Solid;
+            }
+
+            trans.Commit();
+         }
+      }
+
+      public static void UpdateClassDisplay(ModelClass element)
+      {
+         if (element == null)
+            return;
+
          foreach (ClassShape classShape in PresentationViewsSubject
                                           .GetPresentation(element)
                                           .OfType<ClassShape>())
@@ -68,101 +137,6 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
       }
-
-      public static bool UpdateDisplayForCascadeDelete(Association element
-                                                     , DeleteAction? sourceDeleteAction = null
-                                                     , DeleteAction? targetDeleteAction = null
-                                                     , Multiplicity? sourceMultiplicity = null
-                                                     , Multiplicity? targetMultiplicity = null)
-      {
-         if (element == null)
-            return false;
-
-         ModelRoot modelRoot = element.Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-
-         sourceDeleteAction = sourceDeleteAction ?? element.SourceDeleteAction;
-         targetDeleteAction = targetDeleteAction ?? element.TargetDeleteAction;
-         sourceMultiplicity = sourceMultiplicity ?? element.SourceMultiplicity;
-         targetMultiplicity = targetMultiplicity ?? element.TargetMultiplicity;
-
-         bool cascade = modelRoot.ShowCascadeDeletes
-                     && element.Persistent
-                     && (sourceMultiplicity == Multiplicity.One || targetMultiplicity == Multiplicity.One || targetDeleteAction == DeleteAction.Cascade || sourceDeleteAction == DeleteAction.Cascade);
-
-         List<AssociationConnector> changeColor =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (cascade && connector.Color != Color.Red) || (!cascade && connector.Color != Color.Black))
-                                    .ToList();
-
-         List<AssociationConnector> changeStyle =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (cascade && connector.DashStyle != DashStyle.Dash) || (!cascade && connector.DashStyle != DashStyle.Solid))
-                                    .ToList();
-
-
-         using (Transaction trans = element.Store.TransactionManager.BeginTransaction("Display cascade delete"))
-         {
-            foreach (AssociationConnector connector in changeColor)
-            {
-               connector.Color = cascade
-                                    ? Color.Red
-                                    : Color.Black;
-            }
-
-            foreach (AssociationConnector connector in changeStyle)
-            {
-               connector.DashStyle = cascade
-                                        ? DashStyle.Dash
-                                        : DashStyle.Solid;
-            }
-
-            trans.Commit();
-         }
-
-         return changeColor.Count + changeStyle.Count > 0;
-      }
-
-      public static bool UpdateDisplayForPersistence(Association element)
-      {
-         // don't change unless necessary so as to not set the model's dirty flag without need
-         bool persistent = element.Persistent;
-
-         List<AssociationConnector> changeColor =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (persistent && connector.Color != Color.Black) || (!persistent && connector.Color != Color.Gray))
-                                    .ToList();
-
-         List<AssociationConnector> changeStyle =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (persistent && connector.DashStyle != DashStyle.Solid) || (!persistent && connector.DashStyle != DashStyle.Dash))
-                                    .ToList();
-
-         using (Transaction trans = element.Store.TransactionManager.BeginTransaction("Display persistence"))
-         {
-            foreach (AssociationConnector connector in changeColor)
-            {
-               connector.Color = persistent
-                                    ? Color.Black
-                                    : Color.Gray;
-            }
-
-            foreach (AssociationConnector connector in changeStyle)
-            {
-               connector.DashStyle = persistent
-                                        ? DashStyle.Solid
-                                        : DashStyle.Dash;
-            }
-
-            trans.Commit();
-         }
-
-         return changeColor.Count + changeStyle.Count > 0;
-      }
-
    }
 
 }

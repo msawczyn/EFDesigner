@@ -184,8 +184,7 @@ namespace Sawczyn.EFDesigner.EFModel
                // style association connectors if needed
                foreach (Association association in associations)
                {
-                  if (!PresentationHelper.UpdateDisplayForCascadeDelete(association))
-                     PresentationHelper.UpdateDisplayForPersistence(association);
+                  PresentationHelper.UpdateAssociationDisplay(association);
 
                   // for older diagrams that didn't calculate this initially
                   AssociationChangeRules.SetEndpointRoles(association);
@@ -222,7 +221,7 @@ namespace Sawczyn.EFDesigner.EFModel
          using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("SetClassVisuals"))
          {
             foreach (ModelClass modelClass in modelRoot.Store.ElementDirectory.FindElements<ModelClass>())
-               PresentationHelper.SetClassVisuals(modelClass);
+               PresentationHelper.UpdateClassDisplay(modelClass);
             tx.Commit();
          }
 

@@ -79,7 +79,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                }
 
-               PresentationHelper.SetClassVisuals(element);
+               PresentationHelper.UpdateClassDisplay(element);
 
                break;
             }
@@ -95,7 +95,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
-               PresentationHelper.SetClassVisuals(element);
+               PresentationHelper.UpdateClassDisplay(element);
 
                break;
             }
@@ -161,14 +161,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.TableName = MakeDefaultName(element.Name);
                }
 
-               PresentationHelper.SetClassVisuals(element);
+               PresentationHelper.UpdateClassDisplay(element);
 
                break;
             }
 
             case "IsPersistent":
             {
-               PresentationHelper.SetClassVisuals(element);
+               PresentationHelper.UpdateClassDisplay(element);
 
                break;
             }

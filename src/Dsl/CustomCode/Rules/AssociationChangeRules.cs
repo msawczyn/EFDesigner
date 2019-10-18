@@ -73,7 +73,7 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (e.DomainProperty.Name)
          {
             case "Persistent":
-               PresentationHelper.UpdateDisplayForPersistence(element);
+               PresentationHelper.UpdateAssociationDisplay(element);
 
                break;
 

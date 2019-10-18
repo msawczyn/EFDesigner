@@ -21,23 +21,26 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
       public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
       {
-         Association association = context.Instance as Association;
-
-         if (association == null && context.Instance is AssociationConnector connector)
-            association = PresentationViewsSubject.GetSubject(connector) as Association;
-
-         if (destinationType == typeof(string) && association != null && value is Multiplicity multiplicity)
+         if (context != null)
          {
-            switch (multiplicity)
+            Association association = context.Instance as Association;
+
+            if (association == null && context.Instance is AssociationConnector connector)
+               association = PresentationViewsSubject.GetSubject(connector) as Association;
+
+            if (destinationType == typeof(string) && association != null && value is Multiplicity multiplicity)
             {
-               case Multiplicity.One:
-                  return $"1 (One {association.Source.Name})";
-               //case Multiplicity.OneMany:
-               //   return $"1..* (Collection of one or more {association.Source.Name})";
-               case Multiplicity.ZeroMany:
-                  return $"* (Collection of {association.Source.Name})";
-               case Multiplicity.ZeroOne:
-                  return $"0..1 (Zero or one of {association.Source.Name})";
+               switch (multiplicity)
+               {
+                  case Multiplicity.One:
+                     return $"1 (One {association.Source.Name})";
+                  //case Multiplicity.OneMany:
+                  //   return $"1..* (Collection of one or more {association.Source.Name})";
+                  case Multiplicity.ZeroMany:
+                     return $"* (Collection of {association.Source.Name})";
+                  case Multiplicity.ZeroOne:
+                     return $"0..1 (Zero or one of {association.Source.Name})";
+               }
             }
          }
 

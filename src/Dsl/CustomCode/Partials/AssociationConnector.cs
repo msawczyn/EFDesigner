@@ -15,10 +15,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          AssociateValueWith(Store, Association.SourceDeleteActionDomainPropertyId);
          AssociateValueWith(Store, Association.TargetDeleteActionDomainPropertyId);
-         AssociateValueWith(Store, Association.SourceMultiplicityDisplayDomainPropertyId);
+         AssociateValueWith(Store, Association.SourceMultiplicityDomainPropertyId);
          AssociateValueWith(Store, Association.TargetMultiplicityDomainPropertyId);
          AssociateValueWith(Store, Association.PersistentDomainPropertyId);
-         AssociateValueWith(Store, Association.TargetPropertyNameDomainPropertyId);
+         //AssociateValueWith(Store, Association.TargetPropertyNameDomainPropertyId);
       }
 
       /// <summary>
@@ -60,27 +60,22 @@ namespace Sawczyn.EFDesigner.EFModel
             switch (e.PropertyName)
             {
                case "TargetPropertyName":
-                  if (association.Source != null && association.Target != null)
-                  {
-                     if (!PresentationHelper.UpdateDisplayForCascadeDelete(association))
-                        PresentationHelper.UpdateDisplayForPersistence(association);
-                  }
+                  PresentationHelper.UpdateAssociationDisplay(association);
                   break;
                case "SourceDeleteAction":
-                  PresentationHelper.UpdateDisplayForCascadeDelete(association, sourceDeleteAction: (DeleteAction)e.NewValue);
+                  PresentationHelper.UpdateAssociationDisplay(association, sourceDeleteAction: (DeleteAction)e.NewValue);
                   break;
                case "TargetDeleteAction":
-                  PresentationHelper.UpdateDisplayForCascadeDelete(association, targetDeleteAction: (DeleteAction)e.NewValue);
+                  PresentationHelper.UpdateAssociationDisplay(association, targetDeleteAction: (DeleteAction)e.NewValue);
                   break;
                case "SourceMultiplicity":
-                  PresentationHelper.UpdateDisplayForCascadeDelete(association, sourceMultiplicity: (Multiplicity)e.NewValue);
+                  PresentationHelper.UpdateAssociationDisplay(association, sourceMultiplicity: (Multiplicity)e.NewValue);
                   break;
                case "TargetMultiplicity":
-                  PresentationHelper.UpdateDisplayForCascadeDelete(association, targetMultiplicity: (Multiplicity)e.NewValue);
+                  PresentationHelper.UpdateAssociationDisplay(association, targetMultiplicity: (Multiplicity)e.NewValue);
                   break;
                case "Persistent":
-                  if (!PresentationHelper.UpdateDisplayForCascadeDelete(association))
-                     PresentationHelper.UpdateDisplayForPersistence(association);
+                  PresentationHelper.UpdateAssociationDisplay(association);
                   break;
             }
          }

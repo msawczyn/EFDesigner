@@ -13,16 +13,7 @@
     <modelRootHasClasses Id="6d1cb193-a963-437a-baef-b0cb7230f688">
       <modelClass Id="19b53b82-ec70-4546-8579-1f0dfb30419d" tableName="Entity1" databaseSchema="dbo" namespace="Sandbox_EFCore" dbSetName="Entity1" name="Entity1" outputDirectory="Generated">
         <unidirectionalTargets>
-          <unidirectionalAssociation Id="26d47610-e71a-4711-a2f9-6c499919aa5e" targetPropertyName="Currencies" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
-            <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
-          </unidirectionalAssociation>
-          <unidirectionalAssociation Id="7bbd4445-86cd-45e9-aaf0-27c8934a3e59" targetPropertyName="Currencies_1" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
-            <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
-          </unidirectionalAssociation>
-          <unidirectionalAssociation Id="1be10433-fb72-463d-87f6-76eb9760911d" targetPropertyName="Currencies_2" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
-            <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
-          </unidirectionalAssociation>
-          <unidirectionalAssociation Id="39ee1376-0a64-40bd-b2a9-8079c8de0124" targetPropertyName="Currencies_3" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
+          <unidirectionalAssociation Id="469040d9-6dd4-40f8-b1c1-d49d203c2e6f" sourceMultiplicity="ZeroOne" targetPropertyName="Currencies_1" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
             <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
           </unidirectionalAssociation>
         </unidirectionalTargets>
@@ -31,6 +22,11 @@
           <modelAttribute Id="4cc25848-6ef6-4646-8425-e40789a8b874" required="true" maxLength="0" indexed="true" indexedUnique="true" stringType="None" name="Name" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />
           <modelAttribute Id="b2914821-83f0-4988-8804-7ccbb2122551" required="true" maxLength="0" indexed="true" indexedUnique="true" stringType="None" name="Symbol" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />
         </attributes>
+        <bidirectionalTargets>
+          <bidirectionalAssociation Id="5aee9ac0-84bf-468d-8a80-1db879b6427a" sourceMultiplicity="ZeroOne" targetPropertyName="Currencies" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false" sourcePropertyName="Entity1" sourceImplementNotify="false">
+            <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
+          </bidirectionalAssociation>
+        </bidirectionalTargets>
       </modelClass>
     </modelRootHasClasses>
   </classes>
