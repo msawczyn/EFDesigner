@@ -10,7 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public override void ElementAdded(ElementAddedEventArgs e)
       {
          base.ElementAdded(e);
-         
+
          Association element = (Association)e.ModelElement;
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
@@ -37,8 +37,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (string.IsNullOrEmpty(element.TargetPropertyName))
          {
-            string rootName = element.TargetMultiplicity == Multiplicity.ZeroMany &&
-                              pluralizationService?.IsSingular(element.Target.Name) == true
+            string rootName = element.TargetMultiplicity == Multiplicity.ZeroMany && pluralizationService?.IsSingular(element.Target.Name) == true
                                  ? pluralizationService.Pluralize(element.Target.Name)
                                  : element.Target.Name;
 
@@ -55,8 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             if (string.IsNullOrEmpty(bidirectionalAssociation.SourcePropertyName))
             {
-               string rootName = element.SourceMultiplicity == Multiplicity.ZeroMany &&
-                                 pluralizationService?.IsSingular(element.Source.Name) == true
+               string rootName = element.SourceMultiplicity == Multiplicity.ZeroMany && pluralizationService?.IsSingular(element.Source.Name) == true
                                     ? pluralizationService.Pluralize(element.Source.Name)
                                     : element.Source.Name;
 
@@ -71,7 +69,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          AssociationChangeRules.SetEndpointRoles(element);
-         //PresentationHelper.UpdateDisplayForCascadeDelete(element);
       }
    }
 }

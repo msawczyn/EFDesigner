@@ -538,14 +538,14 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// Double-derived base class for DomainClass BidirectionalConnector
+	/// DomainClass BidirectionalConnector
 	/// </summary>
 	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalConnector.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalConnector.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("84eb1033-0168-44f5-bf5d-76a6a748c53f")]
-	public abstract partial class BidirectionalConnectorBase : AssociationConnector
+	public partial class BidirectionalConnector : AssociationConnector
 	{
 		#region DiagramElement boilerplate
 		private static DslDiagrams::StyleSet classStyleSet;
@@ -699,25 +699,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// BidirectionalConnector domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x84eb1033, 0x0168, 0x44f5, 0xbf, 0x5d, 0x76, 0xa6, 0xa7, 0x48, 0xc5, 0x3f);
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		protected BidirectionalConnectorBase(DslModeling::Partition partition, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-	}
-	/// <summary>
-	/// DomainClass BidirectionalConnector
-	/// </summary>
-	[global::System.CLSCompliant(true)]
-			
-	public partial class BidirectionalConnector : BidirectionalConnectorBase
-	{
-		#region Constructors
 		/// <summary>
 		/// Constructor
 		/// </summary>

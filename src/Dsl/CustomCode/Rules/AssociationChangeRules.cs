@@ -72,10 +72,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
-            case "Persistent":
-               PresentationHelper.UpdateAssociationDisplay(element);
+            //case "Persistent":
+            //   PresentationHelper.UpdateAssociationDisplay(element);
 
-               break;
+            //   break;
 
             case "SourceCustomAttributes":
 
@@ -87,11 +87,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
-            case "SourceDeleteAction":
-               DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
-               //PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceDeleteAction : sourceDeleteAction);
+            //case "SourceDeleteAction":
+            //   DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
+            //   PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceDeleteAction: sourceDeleteAction);
 
-               break;
+            //   break;
 
             case "SourceDisplayText":
 

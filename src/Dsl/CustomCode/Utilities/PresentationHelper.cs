@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -17,7 +18,17 @@ namespace Sawczyn.EFDesigner.EFModel
                                                 , Multiplicity? sourceMultiplicity = null
                                                 , Multiplicity? targetMultiplicity = null)
       {
-         if (element == null)
+         foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>())
+            UpdateAssociationDisplay(connector, sourceDeleteAction, targetDeleteAction, sourceMultiplicity, targetMultiplicity);
+      }
+
+      public static void UpdateAssociationDisplay(AssociationConnector connector
+                                                , DeleteAction? sourceDeleteAction = null
+                                                , DeleteAction? targetDeleteAction = null
+                                                , Multiplicity? sourceMultiplicity = null
+                                                , Multiplicity? targetMultiplicity = null)
+      {
+         if (!(connector?.ModelElement is Association element))
             return;
 
          ModelRoot modelRoot = element.Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
@@ -31,46 +42,35 @@ namespace Sawczyn.EFDesigner.EFModel
 
          bool cascade = modelRoot.ShowCascadeDeletes
                      && persistent
-                     && (sourceMultiplicity == Multiplicity.One || 
-                         targetMultiplicity == Multiplicity.One || 
-                         targetDeleteAction == DeleteAction.Cascade || 
-                         sourceDeleteAction == DeleteAction.Cascade);
+                     && (sourceMultiplicity == Multiplicity.One
+                      || targetMultiplicity == Multiplicity.One
+                      || targetDeleteAction == DeleteAction.Cascade
+                      || sourceDeleteAction == DeleteAction.Cascade);
 
          Color black = Color.FromArgb(255, 113, 111, 110);
 
-         List<AssociationConnector> changeColor =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (cascade && connector.Color != Color.Red)
-                                                     || (persistent && connector.Color != Color.SlateGray)
-                                                     || (!cascade && connector.Color != black))
-                                    .ToList();
+         Color lineColor = !persistent
+                              ? Color.SlateGray
+                              : cascade
+                                 ? Color.Red
+                                 : black;
 
-         List<AssociationConnector> changeStyle =
-            PresentationViewsSubject.GetPresentation(element)
-                                    .OfType<AssociationConnector>()
-                                    .Where(connector => (persistent && cascade && connector.DashStyle != DashStyle.Dash)
-                                                     || ((!persistent || !cascade) && connector.DashStyle != DashStyle.Solid))
-                                    .ToList();
+         DashStyle lineStyle = cascade
+                                  ? DashStyle.Dash
+                                  : DashStyle.Solid;
 
          using (Transaction trans = element.Store.TransactionManager.BeginTransaction("Display associations"))
          {
-            foreach (AssociationConnector connector in changeColor)
+            if (connector.Color != lineColor)
             {
-               if (persistent && !cascade)
-                  connector.Color = black;
-               else if (!persistent)
-                  connector.Color = Color.SlateGray;
-               else
-                  connector.Color = Color.Red;
+               connector.Color = lineColor;
+               element.InvalidateDiagrams();
             }
 
-            foreach (AssociationConnector connector in changeStyle)
+            if (connector.DashStyle != lineStyle)
             {
-               if (persistent && cascade)
-                  connector.DashStyle = DashStyle.Dash;
-               else
-                  connector.DashStyle = DashStyle.Solid;
+               connector.DashStyle = lineStyle;
+               element.InvalidateDiagrams();
             }
 
             trans.Commit();

@@ -1585,7 +1585,7 @@
         <ConnectorMoniker Name="AssociationConnector" />
       </BaseConnector>
     </Connector>
-    <Connector Id="84eb1033-0168-44f5-bf5d-76a6a748c53f" Description="" Name="BidirectionalConnector" DisplayName="Bidirectional Connector" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" TooltipType="Variable" FixedTooltipText="" Color="113, 111, 110" Thickness="0.01">
+    <Connector Id="84eb1033-0168-44f5-bf5d-76a6a748c53f" Description="" Name="BidirectionalConnector" DisplayName="Bidirectional Connector" Namespace="Sawczyn.EFDesigner.EFModel" TooltipType="Variable" FixedTooltipText="" Color="113, 111, 110" Thickness="0.01">
       <BaseConnector>
         <ConnectorMoniker Name="AssociationConnector" />
       </BaseConnector>

@@ -130,6 +130,8 @@
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
+    <Compile Include="CustomCode\Rules\BidirectionalAssociationAddRules.cs" />
+    <Compile Include="CustomCode\Rules\UnidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\Type Converters\MaxLengthTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\MinLengthTypeConverter.cs" />
     <Compile Include="CustomCode\Type Descriptors\AssociationTypeDescriptor.cs" />

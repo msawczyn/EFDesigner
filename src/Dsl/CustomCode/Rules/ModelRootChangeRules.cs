@@ -112,19 +112,10 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "ShowCascadeDeletes":
-
-               // need these change rules to fire even though nothing in Association has changed
-               // so we need to set this early -- requires guarding against recursion.
-               
-               //bool newShowCascadeDeletes = (bool)e.NewValue;
-
-               //if (element.ShowCascadeDeletes != newShowCascadeDeletes)
-               //{
-                  //element.ShowCascadeDeletes = newShowCascadeDeletes;
-
-                  foreach (Association association in store.ElementDirectory.FindElements<Association>())
-                     PresentationHelper.UpdateAssociationDisplay(association);
-               //}
+               // Normally you'd think that we should be able to register this in a AssociateValueWith call
+               // in AssociationConnector, but that doesn't appear to work. So call the update method here.
+               foreach (Association association in store.ElementDirectory.FindElements<Association>())
+                  PresentationHelper.UpdateAssociationDisplay(association);
 
                redraw = true;
 
