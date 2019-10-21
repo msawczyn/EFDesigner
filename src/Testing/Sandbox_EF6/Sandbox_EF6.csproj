@@ -46,6 +46,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Generated\BaseClass.generated.cs" />
     <Compile Include="Generated\Detail.generated.cs" />
     <Compile Include="Generated\EFModel.generated.cs" />
     <Compile Include="Generated\EFModelDatabaseInitializer.generated.cs" />
@@ -66,6 +67,8 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="EF6Designer.ttinclude" />
+    <None Include="EFDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
@@ -80,10 +83,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Custom\" />
-    <Folder Include="Entities\Custom\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907081331255_Initial.resx">
       <DependentUpon>201907081331255_Initial.cs</DependentUpon>

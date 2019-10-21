@@ -22,8 +22,8 @@ namespace Sandbox_EFCore
    public partial class EFModel : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Currency> Currencies { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Entity1> Entity1 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Derived> Deriveds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Derived2> Derived2 { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -55,52 +55,35 @@ namespace Sandbox_EFCore
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
-                     .ToTable("Currencies")
-                     .HasKey(t => t.Code);
-         modelBuilder.Entity<global::Sandbox_EFCore.Currency>().HasIndex(t => t.Name)
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Name)
                      .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Currency>().HasIndex(t => t.Symbol)
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Symbol)
                      .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
-                     .Property(t => t.Code)
-                     .HasMaxLength(10)
-                     .IsRequired()
-                     .HasField("_Code")
-                     .UsePropertyAccessMode(PropertyAccessMode.Property)
-                     .ValueGeneratedNever();
-         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>()
                      .Property(t => t.Name)
-                     .IsRequired()
-                     .HasField("_Name")
-                     .UsePropertyAccessMode(PropertyAccessMode.Property);
-         modelBuilder.Entity<global::Sandbox_EFCore.Currency>()
+                     .IsRequired();
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>()
                      .Property(t => t.Symbol)
-                     .IsRequired()
-                     .HasField("_Symbol")
-                     .UsePropertyAccessMode(PropertyAccessMode.Property);
+                     .IsRequired();
 
-         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
-                     .ToTable("Entity1")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>().HasIndex(t => t.Name)
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>().HasIndex(t => t.Name)
                      .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>().HasIndex(t => t.Symbol)
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>().HasIndex(t => t.Symbol)
                      .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
                      .Property(t => t.Name)
-                     .IsRequired()
-                     .HasField("_Name")
-                     .UsePropertyAccessMode(PropertyAccessMode.Property);
-         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>()
+                     .IsRequired();
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
                      .Property(t => t.Symbol)
-                     .IsRequired()
-                     .HasField("_Symbol")
-                     .UsePropertyAccessMode(PropertyAccessMode.Property);
+                     .IsRequired();
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
+                     .HasOne(x => x.Optional)
+                     .WithMany(x => x.NotCascading)
+                     .HasForeignKey("Optional_Id");
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
+                     .HasOne(x => x.Required)
+                     .WithMany(x => x.Cascading)
+                     .HasForeignKey("Required_Id");
 
          OnModelCreatedImpl(modelBuilder);
       }

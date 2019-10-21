@@ -111,21 +111,7 @@ namespace Sandbox_EF6
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
-                     .ToTable("Details")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-         modelBuilder.Entity<global::Sandbox_EF6.Master>()
-                     .ToTable("Masters")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EF6.Master>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
          modelBuilder.Entity<global::Sandbox_EF6.Master>()
                      .HasMany(x => x.Details)
                      .WithRequired()

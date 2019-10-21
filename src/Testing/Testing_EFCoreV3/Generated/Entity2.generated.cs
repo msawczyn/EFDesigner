@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v1.3.0.6
+//     Produced by Entity Framework Visual Editor v1.3.0.8
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -24,14 +24,14 @@ using System.Runtime.CompilerServices;
 
 namespace Testing_EFCoreV3
 {
-   public partial class Entity2
+   public partial class Entity2: global::Testing_EFCoreV3.Entity3
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Entity2()
+      protected Entity2(): base()
       {
          Init();
       }
@@ -56,17 +56,6 @@ namespace Testing_EFCoreV3
       {
          return new Entity2(entity1);
       }
-
-      /*************************************************************************
-       * Persistent properties
-       *************************************************************************/
-
-      /// <summary>
-      /// Identity, Required, Indexed
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id { get; private set; }
 
       /*************************************************************************
        * Persistent navigation properties

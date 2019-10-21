@@ -29,6 +29,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// All required attributes defined in this class
+      /// </summary>
       public IEnumerable<ModelAttribute> RequiredAttributes
       {
          get
@@ -37,6 +40,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// All required attributes in the inheritance chain
+      /// </summary>
       public IEnumerable<ModelAttribute> AllRequiredAttributes
       {
          get
@@ -45,6 +51,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// All identity attributes defined in this class
+      /// </summary>
       public IEnumerable<ModelAttribute> IdentityAttributes
       {
          get
@@ -53,6 +62,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// All identity attributes in the inheritance chain
+      /// </summary>
       public IEnumerable<ModelAttribute> AllIdentityAttributes
       {
          get
@@ -61,6 +73,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Names of identity attributes defined in this class
+      /// </summary>
       public IEnumerable<string> IdentityAttributeNames
       {
          get
@@ -69,6 +84,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Names of all identity attributes in the inheritance chain
+      /// </summary>
       public IEnumerable<string> AllIdentityAttributeNames
       {
          get
@@ -77,6 +95,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Class name with namespace
+      /// </summary>
       public string FullName
       {
          get
@@ -87,6 +108,9 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// True if class has persistent subclasses, false otherwise
+      /// </summary>
       public bool HasPersistentChildren
       {
          get
@@ -96,6 +120,22 @@ namespace Sawczyn.EFDesigner.EFModel
                         .OfType<Generalization>()
                         .Where(g => g.Superclass == this)
                         .Any(g => g.Subclass.IsPersistent || g.Subclass.HasPersistentChildren);
+         }
+      }
+
+      /// <summary>
+      /// First superclass up the inheritance chain that is persistent. Null if none found.
+      /// </summary>
+      public ModelClass NearestPersistentSuperclass
+      {
+         get
+         {
+            ModelClass result = this;
+
+            while (result?.Superclass?.IsPersistent == true)
+               result = result.Superclass;
+
+            return result.Superclass;
          }
       }
 
@@ -133,6 +173,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+      /// <summary>
+      /// Concurrency type, taking into account the model's default concurrency and any override defined in this class
+      /// </summary>
       public ConcurrencyOverride EffectiveConcurrency
       {
          get
@@ -169,6 +212,11 @@ namespace Sawczyn.EFDesigner.EFModel
          // same with other tracking properties as they get added
       }
 
+      /// <summary>
+      /// All navigation properties including those in superclasses
+      /// </summary>
+      /// <param name="ignore">Associations to remove from the result</param>
+      /// <returns>All navigation properties including those in superclasses, except those listed in the parameter</returns>
       public IEnumerable<NavigationProperty> AllNavigationProperties(params Association[] ignore)
       {
          List<NavigationProperty> result = LocalNavigationProperties(ignore).ToList();
@@ -179,6 +227,11 @@ namespace Sawczyn.EFDesigner.EFModel
          return result;
       }
 
+      /// <summary>
+      /// All navigation properties defined in this class
+      /// </summary>
+      /// <param name="ignore">Associations to remove from the result</param>
+      /// <returns>All navigation properties defined in this class, except those listed in the parameter</returns>
       public IEnumerable<NavigationProperty> LocalNavigationProperties(params Association[] ignore)
       {
          List<NavigationProperty> sourceProperties = Association.GetLinksToTargets(this)

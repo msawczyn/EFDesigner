@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v1.3.0.6
+//     Produced by Entity Framework Visual Editor v1.3.0.8
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -24,14 +24,14 @@ using System.Runtime.CompilerServices;
 
 namespace Testing_EFCoreV3
 {
-   public partial class Entity1
+   public partial class Entity1: global::Testing_EFCoreV3.Entity3
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Entity1()
+      public Entity1(): base()
       {
          Entity2 = new System.Collections.Generic.HashSet<global::Testing_EFCoreV3.Entity2>();
 
@@ -41,13 +41,6 @@ namespace Testing_EFCoreV3
       /*************************************************************************
        * Persistent properties
        *************************************************************************/
-
-      /// <summary>
-      /// Identity, Required, Indexed
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id { get; private set; }
 
       /// <summary>
       /// Backing field for Property1

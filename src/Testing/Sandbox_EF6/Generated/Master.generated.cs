@@ -21,14 +21,14 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox_EF6
 {
-   public partial class Master
+   public partial class Master: global::Sandbox_EF6.BaseClass
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Master()
+      public Master(): base()
       {
          Details = new System.Collections.Generic.HashSet<global::Sandbox_EF6.Detail>();
 
@@ -36,25 +36,78 @@ namespace Sandbox_EF6
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Backing field for StringMax
       /// </summary>
-      [Key]
-      [Required]
-      public long Id { get; set; }
+      protected string _StringMax;
+      /// <summary>
+      /// When provided in a partial class, allows value of StringMax to be changed before setting.
+      /// </summary>
+      partial void SetStringMax(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of StringMax to be changed before returning.
+      /// </summary>
+      partial void GetStringMax(ref string result);
 
-      public string StringMax { get; set; }
+      public string StringMax
+      {
+         get
+         {
+            string value = _StringMax;
+            GetStringMax(ref value);
+            return (_StringMax = value);
+         }
+         set
+         {
+            string oldValue = _StringMax;
+            SetStringMax(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _StringMax = value;
+            }
+         }
+      }
 
-      public string String100 { get; set; }
+      /// <summary>
+      /// Backing field for String100
+      /// </summary>
+      protected string _String100;
+      /// <summary>
+      /// When provided in a partial class, allows value of String100 to be changed before setting.
+      /// </summary>
+      partial void SetString100(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of String100 to be changed before returning.
+      /// </summary>
+      partial void GetString100(ref string result);
+
+      public string String100
+      {
+         get
+         {
+            string value = _String100;
+            GetString100(ref value);
+            return (_String100 = value);
+         }
+         set
+         {
+            string oldValue = _String100;
+            SetString100(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _String100 = value;
+            }
+         }
+      }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Sandbox_EF6.Detail> Details { get; private set; }
+      public virtual ICollection<global::Sandbox_EF6.Detail> Details { get; protected set; }
 
    }
 }

@@ -19,16 +19,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EF6
+namespace Sandbox_EFCore
 {
-   public partial class Detail: global::Sandbox_EF6.BaseClass
+   public partial class Derived2: global::Sandbox_EFCore.BaseClass
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Detail(): base()
+      protected Derived2(): base()
       {
          Init();
       }
@@ -36,11 +36,17 @@ namespace Sandbox_EF6
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_master0"></param>
-      public Detail(global::Sandbox_EF6.Master _master0)
+      /// <param name="name"></param>
+      /// <param name="symbol"></param>
+      /// <param name="required"></param>
+      public Derived2(string name, string symbol, global::Sandbox_EFCore.Derived required)
       {
-         if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
-         _master0.Details.Add(this);
+         if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+         this.Name = name;
+         if (string.IsNullOrEmpty(symbol)) throw new ArgumentNullException(nameof(symbol));
+         this.Symbol = symbol;
+         if (required == null) throw new ArgumentNullException(nameof(required));
+         this.Required = required;
 
          Init();
       }
@@ -48,10 +54,12 @@ namespace Sandbox_EF6
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_master0"></param>
-      public static Detail Create(global::Sandbox_EF6.Master _master0)
+      /// <param name="name"></param>
+      /// <param name="symbol"></param>
+      /// <param name="required"></param>
+      public static Derived2 Create(string name, string symbol, global::Sandbox_EFCore.Derived required)
       {
-         return new Detail(_master0);
+         return new Derived2(name, symbol, required);
       }
 
       /*************************************************************************
@@ -59,40 +67,27 @@ namespace Sandbox_EF6
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for StringMax
+      /// Indexed, Required
       /// </summary>
-      protected string _StringMax;
-      /// <summary>
-      /// When provided in a partial class, allows value of StringMax to be changed before setting.
-      /// </summary>
-      partial void SetStringMax(string oldValue, ref string newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of StringMax to be changed before returning.
-      /// </summary>
-      partial void GetStringMax(ref string result);
+      [Required]
+      public string Name { get; set; }
 
-      public string StringMax
-      {
-         get
-         {
-            string value = _StringMax;
-            GetStringMax(ref value);
-            return (_StringMax = value);
-         }
-         set
-         {
-            string oldValue = _StringMax;
-            SetStringMax(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _StringMax = value;
-            }
-         }
-      }
+      /// <summary>
+      /// Indexed, Required
+      /// </summary>
+      [Required]
+      public string Symbol { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      public virtual global::Sandbox_EFCore.Derived Optional { get; set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Sandbox_EFCore.Derived Required { get; set; }
 
    }
 }

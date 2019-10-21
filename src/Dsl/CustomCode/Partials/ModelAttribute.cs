@@ -863,7 +863,7 @@ namespace Sawczyn.EFDesigner.EFModel
          else if (MaxLength > 0)
             lengthDisplay = $"[{MaxLength}]";
 
-         return $"{Type}{nullable}{lengthDisplay} {Name}{initial}";
+         return $"{Name}: {Type}{nullable}{lengthDisplay}{initial}";
       }
 
       /// <summary>

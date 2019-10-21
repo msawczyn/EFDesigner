@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v1.3.0.6
+//     Produced by Entity Framework Visual Editor v1.3.0.8
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -27,6 +27,7 @@ namespace Testing_EFCoreV3
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing_EFCoreV3.Entity1> Entity1 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing_EFCoreV3.Entity2> Entity2 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing_EFCoreV3.Entity3> Entity3 { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -58,30 +59,24 @@ namespace Testing_EFCoreV3
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Testing_EFCoreV3.Entity1>()
-                     .ToTable("Entity1")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing_EFCoreV3.Entity1>().HasIndex("_Property1");
-         modelBuilder.Entity<global::Testing_EFCoreV3.Entity1>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing_EFCoreV3.Entity1>().HasIndex(t => t.Property1);
          modelBuilder.Entity<global::Testing_EFCoreV3.Entity1>()
                      .Property(t => t.Property1)
                      .HasField("_Property1")
                      .UsePropertyAccessMode(PropertyAccessMode.Property);
 
          modelBuilder.Entity<global::Testing_EFCoreV3.Entity2>()
-                     .ToTable("Entity2")
-                     .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing_EFCoreV3.Entity2>()
-                     .Property(t => t.Id)
-                     .IsRequired()
-                     .ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Testing_EFCoreV3.Entity2>()
                      .HasOne(x => x.Entity1)
                      .WithMany(x => x.Entity2)
                      .HasForeignKey("Entity1_Id");
+
+         modelBuilder.Entity<global::Testing_EFCoreV3.Entity3>()
+                     .ToTable("Entity3")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing_EFCoreV3.Entity3>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .ValueGeneratedOnAdd();
 
          OnModelCreatedImpl(modelBuilder);
       }
