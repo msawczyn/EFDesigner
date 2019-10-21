@@ -111,7 +111,11 @@ namespace Sandbox_EF6
 
          modelBuilder.HasDefaultSchema("dbo");
 
+         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
+                     .ToTable("Details");
 
+         modelBuilder.Entity<global::Sandbox_EF6.Master>()
+                     .ToTable("Masters");
          modelBuilder.Entity<global::Sandbox_EF6.Master>()
                      .HasMany(x => x.Details)
                      .WithRequired()

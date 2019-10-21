@@ -132,7 +132,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             ModelClass result = this;
 
-            while (result?.Superclass?.IsPersistent == true)
+            while (result?.Superclass != null && !result.Superclass.IsPersistent)
                result = result.Superclass;
 
             return result.Superclass;

@@ -42,14 +42,14 @@
         <elementListCompartment Id="5a6ca20f-2425-41f0-bd63-a4eabdd84534" absoluteBounds="3.765, 1.8960807291666666, 4.2200000000000006, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="d4e0858c-27fb-4c49-b6c6-f90e613f6aba" edgePoints="[(7.5 : 2.24547037760417); (7.5 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="d4e0858c-27fb-4c49-b6c6-f90e613f6aba" edgePoints="[(7.5 : 2.24547037760417); (7.5 : 3.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="739cf477-c56a-4aa6-a22a-cd96fedc655b" />
       <nodes>
         <classShapeMoniker Id="aa9bc68b-b4b1-43d8-8eb7-3d5a2665d276" />
         <classShapeMoniker Id="f06d08e6-d2c2-40bd-a060-ee17d989fd26" />
       </nodes>
     </generalizationConnector>
-    <generalizationConnector Id="e26e6453-6496-425d-8b4e-55b2e6f368f1" edgePoints="[(4.5625 : 2.24547037760417); (4.5625 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="e26e6453-6496-425d-8b4e-55b2e6f368f1" edgePoints="[(4.5625 : 2.24547037760417); (4.5625 : 3.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="0a6805ef-710b-4ddd-af97-afa9f8c6b208" />
       <nodes>
         <classShapeMoniker Id="aa9bc68b-b4b1-43d8-8eb7-3d5a2665d276" />
