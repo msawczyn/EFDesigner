@@ -39,69 +39,9 @@ namespace Sandbox_EF6
        * Properties
        *************************************************************************/
 
-      /// <summary>
-      /// Backing field for StringMax
-      /// </summary>
-      protected string _StringMax;
-      /// <summary>
-      /// When provided in a partial class, allows value of StringMax to be changed before setting.
-      /// </summary>
-      partial void SetStringMax(string oldValue, ref string newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of StringMax to be changed before returning.
-      /// </summary>
-      partial void GetStringMax(ref string result);
+      public string StringMax { get; set; }
 
-      public string StringMax
-      {
-         get
-         {
-            string value = _StringMax;
-            GetStringMax(ref value);
-            return (_StringMax = value);
-         }
-         set
-         {
-            string oldValue = _StringMax;
-            SetStringMax(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _StringMax = value;
-            }
-         }
-      }
-
-      /// <summary>
-      /// Backing field for String100
-      /// </summary>
-      protected string _String100;
-      /// <summary>
-      /// When provided in a partial class, allows value of String100 to be changed before setting.
-      /// </summary>
-      partial void SetString100(string oldValue, ref string newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of String100 to be changed before returning.
-      /// </summary>
-      partial void GetString100(ref string result);
-
-      public string String100
-      {
-         get
-         {
-            string value = _String100;
-            GetString100(ref value);
-            return (_String100 = value);
-         }
-         set
-         {
-            string oldValue = _String100;
-            SetString100(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _String100 = value;
-            }
-         }
-      }
+      public string String100 { get; set; }
 
       /*************************************************************************
        * Navigation properties

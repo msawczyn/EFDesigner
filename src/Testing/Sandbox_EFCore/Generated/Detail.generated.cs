@@ -19,47 +19,39 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EFCore
+namespace Sandbox_EF6
 {
-   public partial class Derived: global::Sandbox_EFCore.BaseClass
+   public partial class Detail: global::Sandbox_EF6.BaseClass
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Derived(): base()
+      protected Detail(): base()
       {
-         NotCascading = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived2>();
-         Cascading = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived2>();
-
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="name"></param>
-      /// <param name="symbol"></param>
-      public Derived(string name, string symbol)
+      /// <param name="_master0"></param>
+      public Detail(global::Sandbox_EF6.Master _master0)
       {
-         if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
-         this.Name = name;
-         if (string.IsNullOrEmpty(symbol)) throw new ArgumentNullException(nameof(symbol));
-         this.Symbol = symbol;
-         this.NotCascading = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived2>();
-         this.Cascading = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived2>();
+         if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
+         _master0.Details.Add(this);
+
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="name"></param>
-      /// <param name="symbol"></param>
-      public static Derived Create(string name, string symbol)
+      /// <param name="_master0"></param>
+      public static Detail Create(global::Sandbox_EF6.Master _master0)
       {
-         return new Derived(name, symbol);
+         return new Detail(_master0);
       }
 
       /*************************************************************************
@@ -67,24 +59,40 @@ namespace Sandbox_EFCore
        *************************************************************************/
 
       /// <summary>
-      /// Indexed, Required
+      /// Backing field for StringMax
       /// </summary>
-      [Required]
-      public string Name { get; set; }
-
+      protected string _StringMax;
       /// <summary>
-      /// Indexed, Required
+      /// When provided in a partial class, allows value of StringMax to be changed before setting.
       /// </summary>
-      [Required]
-      public string Symbol { get; set; }
+      partial void SetStringMax(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of StringMax to be changed before returning.
+      /// </summary>
+      partial void GetStringMax(ref string result);
+
+      public string StringMax
+      {
+         get
+         {
+            string value = _StringMax;
+            GetStringMax(ref value);
+            return (_StringMax = value);
+         }
+         set
+         {
+            string oldValue = _StringMax;
+            SetStringMax(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _StringMax = value;
+            }
+         }
+      }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
-
-      public virtual ICollection<global::Sandbox_EFCore.Derived2> NotCascading { get; protected set; }
-
-      public virtual ICollection<global::Sandbox_EFCore.Derived2> Cascading { get; protected set; }
 
    }
 }

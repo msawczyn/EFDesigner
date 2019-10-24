@@ -16,14 +16,14 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Sandbox_EFCore
+namespace Sandbox_EF6
 {
    /// <inheritdoc/>
    public partial class EFModel : Microsoft.EntityFrameworkCore.DbContext
    {
       #region DbSets
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Derived> Deriveds { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Derived2> Derived2 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EF6.Detail> Details { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EF6.Master> Masters { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -55,35 +55,28 @@ namespace Sandbox_EFCore
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Name)
-                     .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Symbol)
-                     .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived>()
-                     .Property(t => t.Name)
-                     .IsRequired();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived>()
-                     .Property(t => t.Symbol)
-                     .IsRequired();
+         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
+                     .ToTable("Details");
+         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
+                     .Property(t => t.StringMax)
+                     .HasField("_StringMax")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property);
 
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>().HasIndex(t => t.Name)
-                     .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>().HasIndex(t => t.Symbol)
-                     .IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
-                     .Property(t => t.Name)
+         modelBuilder.Entity<global::Sandbox_EF6.Master>()
+                     .ToTable("Masters");
+         modelBuilder.Entity<global::Sandbox_EF6.Master>()
+                     .Property(t => t.StringMax)
+                     .HasField("_StringMax")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property);
+         modelBuilder.Entity<global::Sandbox_EF6.Master>()
+                     .Property(t => t.String100)
+                     .HasField("_String100")
+                     .UsePropertyAccessMode(PropertyAccessMode.Property);
+         modelBuilder.Entity<global::Sandbox_EF6.Master>()
+                     .HasMany(x => x.Details)
+                     .WithOne()
+                     .HasForeignKey("Detail_Details_Id")
                      .IsRequired();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
-                     .Property(t => t.Symbol)
-                     .IsRequired();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
-                     .HasOne(x => x.Optional)
-                     .WithMany(x => x.NotCascading)
-                     .HasForeignKey("Optional_Id");
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
-                     .HasOne(x => x.Required)
-                     .WithMany(x => x.Cascading)
-                     .HasForeignKey("Required_Id");
 
          OnModelCreatedImpl(modelBuilder);
       }

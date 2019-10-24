@@ -42,15 +42,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Custom\EFModel.cs" />
+    <Compile Include="EFModel2.cs">
+      <DependentUpon>EFModel2.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="EFModel.cs">
       <DependentUpon>EFModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Generated\BaseClass.generated.cs" />
-    <Compile Include="Generated\Derived.generated.cs" />
-    <Compile Include="Generated\Derived2.generated.cs" />
+    <Compile Include="Generated\Detail.generated.cs" />
     <Compile Include="Generated\EFModel.generated.cs" />
+    <Compile Include="Generated\Master.generated.cs" />
+    <Compile Include="Migrations\20191024095120_initial.cs" />
+    <Compile Include="Migrations\20191024095120_initial.designer.cs">
+      <DependentUpon>20191024095120_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\EFModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +93,10 @@
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
     </None>
+    <None Include="EFModel2.efmodel" />
+    <None Include="EFModel2.efmodel.diagram">
+      <DependentUpon>EFModel2.efmodel</DependentUpon>
+    </None>
     <None Include="Properties\EFModel.efmodel" />
     <None Include="Properties\EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
@@ -91,10 +105,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="EFModel2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFModel2.cs</LastGenOutput>
+    </Content>
     <Content Include="EFModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel.cs</LastGenOutput>

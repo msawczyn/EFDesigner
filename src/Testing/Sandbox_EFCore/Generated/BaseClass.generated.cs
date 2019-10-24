@@ -19,7 +19,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EFCore
+namespace Sandbox_EF6
 {
    [NotMapped]
    public partial class BaseClass
@@ -42,7 +42,7 @@ namespace Sandbox_EFCore
       /// Required
       /// </summary>
       [Required]
-      public int Id { get; protected set; }
+      public long Id { get; protected set; }
 
    }
 }

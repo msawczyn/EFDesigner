@@ -52,10 +52,6 @@
     <Compile Include="Generated\EFModelDatabaseInitializer.generated.cs" />
     <Compile Include="Generated\EFModelDbMigrationConfiguration.generated.cs" />
     <Compile Include="Generated\Master.generated.cs" />
-    <Compile Include="Migrations\201907081331255_Initial.cs" />
-    <Compile Include="Migrations\201907081331255_Initial.Designer.cs">
-      <DependentUpon>201907081331255_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,11 +79,8 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907081331255_Initial.resx">
-      <DependentUpon>201907081331255_Initial.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

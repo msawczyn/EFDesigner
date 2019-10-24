@@ -341,7 +341,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
       segments.Add($"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
 
       // note: this must come before the 'ToTable' call or there's a runtime error
-      if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
+      if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.NearestPersistentSuperclass != null)
          segments.Add("Map(x => x.MapInheritedProperties())");
 
       if (classesWithTables.Contains(modelClass))

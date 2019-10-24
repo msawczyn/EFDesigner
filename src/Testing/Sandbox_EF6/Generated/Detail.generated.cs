@@ -58,37 +58,7 @@ namespace Sandbox_EF6
        * Properties
        *************************************************************************/
 
-      /// <summary>
-      /// Backing field for StringMax
-      /// </summary>
-      protected string _StringMax;
-      /// <summary>
-      /// When provided in a partial class, allows value of StringMax to be changed before setting.
-      /// </summary>
-      partial void SetStringMax(string oldValue, ref string newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of StringMax to be changed before returning.
-      /// </summary>
-      partial void GetStringMax(ref string result);
-
-      public string StringMax
-      {
-         get
-         {
-            string value = _StringMax;
-            GetStringMax(ref value);
-            return (_StringMax = value);
-         }
-         set
-         {
-            string oldValue = _StringMax;
-            SetStringMax(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _StringMax = value;
-            }
-         }
-      }
+      public string StringMax { get; set; }
 
       /*************************************************************************
        * Navigation properties
