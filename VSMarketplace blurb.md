@@ -23,6 +23,8 @@ and many other nice-to-have bits.
 
 For comprehensive documentation, please visit [the project's documentation site](https://msawczyn.github.io/EFDesigner/).
 
+The latest preview version is 1.3.0.8 and [available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/v1.3.0.8-pre).
+
 **Known Issues**
 
 **Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
