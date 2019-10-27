@@ -103,6 +103,8 @@ namespace Sawczyn.EFDesigner.EFModel
         // ReSharper disable once UnusedMember.Local
         private void EnumMustHaveValues(ValidationContext context)
         {
+           if (ModelRoot == null) return;
+
             if (!Values.Any())
                 context.LogError($"{Name}: Enum has no values", "MEENoValues", this);
         }
@@ -111,6 +113,8 @@ namespace Sawczyn.EFDesigner.EFModel
         // ReSharper disable once UnusedMember.Local
         private void EnumValueInitializationsShouldBeAllOrNothing(ValidationContext context)
         {
+           if (ModelRoot == null) return;
+
             if (Values.Any(x => !string.IsNullOrEmpty(x.Value)) && Values.Any(x => string.IsNullOrEmpty(x.Value)))
             {
                 context.LogWarning($"{Name}: Enum has some, but not all, values initialized. Please ensure this is what was intended.", "MWPartialEnumValueInitialization", this);
@@ -123,6 +127,8 @@ namespace Sawczyn.EFDesigner.EFModel
         // ReSharper disable once UnusedMember.Local
         private void SummaryDescriptionIsEmpty(ValidationContext context)
         {
+           if (ModelRoot == null) return;
+
             ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
             if (modelRoot?.WarnOnMissingDocumentation == true && string.IsNullOrWhiteSpace(Summary))
             {

@@ -53,12 +53,12 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Generated\BaseClass.generated.cs" />
-    <Compile Include="Generated\Detail.generated.cs" />
+    <Compile Include="Generated\Derived.generated.cs" />
+    <Compile Include="Generated\Derived2.generated.cs" />
     <Compile Include="Generated\EFModel.generated.cs" />
-    <Compile Include="Generated\Master.generated.cs" />
-    <Compile Include="Migrations\20191024095120_initial.cs" />
-    <Compile Include="Migrations\20191024095120_initial.designer.cs">
-      <DependentUpon>20191024095120_initial.cs</DependentUpon>
+    <Compile Include="Migrations\20191026234521_initial.cs" />
+    <Compile Include="Migrations\20191026234521_initial.designer.cs">
+      <DependentUpon>20191026234521_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\EFModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,8 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EFCoreDesigner.ttinclude" />
-    <None Include="EFDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>

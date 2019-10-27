@@ -26,13 +26,35 @@ namespace Sandbox_EF6
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public Master(): base()
+      protected Master(): base()
       {
          Details = new System.Collections.Generic.HashSet<global::Sandbox_EF6.Detail>();
 
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_detail0"></param>
+      public Master(global::Sandbox_EF6.Detail _detail0)
+      {
+         if (_detail0 == null) throw new ArgumentNullException(nameof(_detail0));
+         _detail0.BaseClasses.Add(this);
+
+         this.Details = new System.Collections.Generic.HashSet<global::Sandbox_EF6.Detail>();
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="_detail0"></param>
+      public static Master Create(global::Sandbox_EF6.Detail _detail0)
+      {
+         return new Master(_detail0);
       }
 
       /*************************************************************************

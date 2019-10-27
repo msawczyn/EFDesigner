@@ -32,6 +32,14 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
 
 **ChangeLog**
 
+**1.3.0.8**
+   - Fix: showing cascade delete in the designer worked inconsistently (See https://github.com/msawczyn/EFDesigner/issues/108)
+   - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
+   - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
+   - Fix: attribute parser ("edit as code" feature) didn't handle enumeration initial values well; it does now (See https://github.com/msawczyn/EFDesigner/issues/104)
+   - Fix: drag and drop developed regressions (See https://github.com/msawczyn/EFDesigner/issues/112 and https://github.com/msawczyn/EFDesigner/issues/114)
+   - Fix: undo threw null reference errors when undoing drag and drop from code files (See https://github.com/msawczyn/EFDesigner/issues/113)
+
 **1.3.0.7**
    - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
    - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)

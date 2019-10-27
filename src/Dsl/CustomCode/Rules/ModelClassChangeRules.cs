@@ -166,13 +166,6 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
             }
 
-            case "IsPersistent":
-            {
-               PresentationHelper.UpdateClassDisplay(element);
-
-               break;
-            }
-
             case "Name":
             {
                string newName = (string)e.NewValue;

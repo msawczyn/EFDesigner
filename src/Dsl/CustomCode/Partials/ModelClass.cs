@@ -108,44 +108,13 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      /// <summary>
-      /// True if class has persistent subclasses, false otherwise
-      /// </summary>
-      public bool HasPersistentChildren
-      {
-         get
-         {
-            return Store.ElementDirectory
-                        .AllElements
-                        .OfType<Generalization>()
-                        .Where(g => g.Superclass == this)
-                        .Any(g => g.Subclass.IsPersistent || g.Subclass.HasPersistentChildren);
-         }
-      }
-
-      /// <summary>
-      /// First superclass up the inheritance chain that is persistent. Null if none found.
-      /// </summary>
-      public ModelClass NearestPersistentSuperclass
-      {
-         get
-         {
-            ModelClass result = this;
-
-            while (result?.Superclass != null && !result.Superclass.IsPersistent)
-               result = result.Superclass;
-
-            return result.Superclass;
-         }
-      }
-
       #region Warning display
 
       // set as methods to avoid issues around serialization
 
       private bool hasWarning;
 
-      public bool GetHasWarningValue() => IsPersistent && hasWarning;
+      public bool GetHasWarningValue() => hasWarning;
 
       public void ResetWarning() => hasWarning = false;
 
@@ -158,9 +127,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected string GetGlyphTypeValue()
       {
-         if (!IsPersistent)
-            return "TransientGlyph";
-
          if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
             return "WarningGlyph";
 
@@ -237,47 +203,48 @@ namespace Sawczyn.EFDesigner.EFModel
          List<NavigationProperty> sourceProperties = Association.GetLinksToTargets(this)
                                                                 .Except(ignore)
                                                                 .Select(x => new NavigationProperty
-                                                                {
-                                                                   Cardinality = x.TargetMultiplicity,
-                                                                   ClassType = x.Target,
-                                                                   AssociationObject = x,
-                                                                   PropertyName = x.TargetPropertyName,
-                                                                   Summary = x.TargetSummary,
-                                                                   Description = x.TargetDescription,
-                                                                   CustomAttributes = x.TargetCustomAttributes,
-                                                                   DisplayText = x.TargetDisplayText,
-                                                                   IsAutoProperty = true,
-                                                                   ImplementNotify = x.TargetImplementNotify
-                                                                })
+                                                                             {
+                                                                                Cardinality = x.TargetMultiplicity
+                                                                              , ClassType = x.Target
+                                                                              , AssociationObject = x
+                                                                              , PropertyName = x.TargetPropertyName
+                                                                              , Summary = x.TargetSummary
+                                                                              , Description = x.TargetDescription
+                                                                              , CustomAttributes = x.TargetCustomAttributes
+                                                                              , DisplayText = x.TargetDisplayText
+                                                                              , IsAutoProperty = true
+                                                                              , ImplementNotify = x.TargetImplementNotify
+                                                                             })
                                                                 .ToList();
 
          List<NavigationProperty> targetProperties = Association.GetLinksToSources(this)
                                                                 .Except(ignore)
                                                                 .OfType<BidirectionalAssociation>()
                                                                 .Select(x => new NavigationProperty
-                                                                {
-                                                                   Cardinality = x.SourceMultiplicity,
-                                                                   ClassType = x.Source,
-                                                                   AssociationObject = x,
-                                                                   PropertyName = x.SourcePropertyName,
-                                                                   Summary = x.SourceSummary,
-                                                                   Description = x.SourceDescription,
-                                                                   CustomAttributes = x.SourceCustomAttributes,
-                                                                   DisplayText = x.SourceDisplayText,
-                                                                   IsAutoProperty = true,
-                                                                   ImplementNotify = x.SourceImplementNotify
-                                                                })
+                                                                             {
+                                                                                Cardinality = x.SourceMultiplicity
+                                                                              , ClassType = x.Source
+                                                                              , AssociationObject = x
+                                                                              , PropertyName = x.SourcePropertyName
+                                                                              , Summary = x.SourceSummary
+                                                                              , Description = x.SourceDescription
+                                                                              , CustomAttributes = x.SourceCustomAttributes
+                                                                              , DisplayText = x.SourceDisplayText
+                                                                              , IsAutoProperty = true
+                                                                              , ImplementNotify = x.SourceImplementNotify
+                                                                             })
                                                                 .ToList();
+
          targetProperties.AddRange(Association.GetLinksToSources(this)
                                               .Except(ignore)
                                               .OfType<UnidirectionalAssociation>()
                                               .Select(x => new NavigationProperty
-                                              {
-                                                 Cardinality = x.SourceMultiplicity,
-                                                 ClassType = x.Source,
-                                                 AssociationObject = x,
-                                                 PropertyName = null
-                                              }));
+                                                           {
+                                                              Cardinality = x.SourceMultiplicity
+                                                            , ClassType = x.Source
+                                                            , AssociationObject = x
+                                                            , PropertyName = null
+                                                           }));
          int index = 0;
          foreach (NavigationProperty navigationProperty in targetProperties.Where(x => x.PropertyName == null))
          {
@@ -315,6 +282,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void ClassShouldHaveAttributes(ValidationContext context)
       {
+         if (ModelRoot == null) return;
+
          if (!Attributes.Any() && !LocalNavigationProperties().Any())
          {
             context.LogWarning($"{Name}: Class has no properties", "MCWNoProperties", this);
@@ -327,6 +296,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void AttributesCannotBeNamedSameAsEnclosingClass(ValidationContext context)
       {
+         if (ModelRoot == null) return;
+
          if (HasPropertyNamed(Name))
             context.LogError($"{Name}: Properties can't be named the same as the enclosing class", "MCESameName", this);
       }
@@ -334,6 +305,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void PersistentClassesMustHaveIdentity(ValidationContext context)
       {
+         if (ModelRoot == null) return;
+
          if (!IsDependentType && !AllIdentityAttributes.Any())
             context.LogError($"{Name}: Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
@@ -341,6 +314,8 @@ namespace Sawczyn.EFDesigner.EFModel
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void DerivedClassesShouldNotHaveIdentity(ValidationContext context)
       {
+         if (ModelRoot == null) return;
+
          if (Attributes.Any(x => x.IsIdentity))
          {
             ModelClass modelClass = Superclass;
@@ -359,21 +334,11 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      // Removed since code generation will add a Timestamp property if needed
-      //
-      //[ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      //private void EnsureProperNumberOfConcurrencyProperties(ValidationContext context)
-      //{
-      //   int tokenCount = AllAttributes.Count(x => x.IsConcurrencyToken);
-      //   int shouldHave = EffectiveConcurrency == ConcurrencyOverride.Optimistic ? 1 : 0;
-
-      //   if (tokenCount != shouldHave)
-      //      context.LogWarning($"{Name}: Should have {shouldHave} concurrency properties but has {tokenCount}.", "MCEConcurrencyCount", this);
-      //}
-
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
+         if (ModelRoot == null) return;
+
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
          if (modelRoot?.WarnOnMissingDocumentation == true && string.IsNullOrWhiteSpace(Summary))
          {
@@ -683,11 +648,11 @@ namespace Sawczyn.EFDesigner.EFModel
                                                          ModelAttribute.ImplementNotifyDomainPropertyId, 
                                                          ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
          TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Store.ElementDirectory.AllElements.OfType<Association>().Where(a => a?.Source?.FullName == FullName),
+                                                         Store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source?.FullName == FullName),
                                                          Association.TargetImplementNotifyDomainPropertyId, 
                                                          Association.IsTargetImplementNotifyTrackingDomainPropertyId);
          TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>().Where(a => a?.Target?.FullName == FullName),
+                                                         Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>().Where(a => a.Target?.FullName == FullName),
                                                          BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, 
                                                          BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId);
       }

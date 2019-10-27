@@ -26,17 +26,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
             EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelAttribute);
 
-            // if parent ModelClass is not persistent and has no persistent children, the following aren't relevant
-            if (!modelAttribute.ModelClass.IsPersistent && !modelAttribute.ModelClass.HasPersistentChildren)
-            {
-               string[] propertyNames = { "Persistent", "Indexed", "IndexedUnique", "ColumnName", "ColumnType", "PersistencePoint", "IsIdentity", "IdentityType" };
-
-               foreach (PropertyDescriptor propertyDescriptor in propertyNames.Select(propertyName => propertyDescriptors.OfType<PropertyDescriptor>()
-                                                                                                                         .SingleOrDefault(x => x.Name == propertyName))
-                                                                              .Where(descriptor => descriptor != null))
-                  propertyDescriptors.Remove(propertyDescriptor);
-            }
-
             // No sense asking for initial values if we won't use them
             if (!modelAttribute.SupportsInitialValue)
             {

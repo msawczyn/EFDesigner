@@ -10,11 +10,12 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class BidirectionalAssociation
    {
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
+         if (Source?.ModelRoot == null) return;
+
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot.WarnOnMissingDocumentation && string.IsNullOrWhiteSpace(SourceSummary))
+         if (modelRoot?.WarnOnMissingDocumentation == true && Target != null && string.IsNullOrWhiteSpace(SourceSummary))
          {
             context.LogWarning($"{Target.Name}.{SourcePropertyName}: Association end should be documented", "AWMissingSummary", this);
             hasWarning = true;

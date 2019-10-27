@@ -23,6 +23,7 @@ namespace Sandbox_EF6
    public partial class EFModel : System.Data.Entity.DbContext
    {
       #region DbSets
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.BaseClass> BaseClasses { get; set; }
       public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.Detail> Details { get; set; }
       public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.Master> Masters { get; set; }
       #endregion DbSets
@@ -111,15 +112,28 @@ namespace Sandbox_EF6
 
          modelBuilder.HasDefaultSchema("dbo");
 
+         modelBuilder.Entity<global::Sandbox_EF6.BaseClass>()
+                     .ToTable("BaseClasses")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EF6.BaseClass>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
          modelBuilder.Entity<global::Sandbox_EF6.Detail>()
                      .ToTable("Details");
+         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
+                     .HasMany(x => x.BaseClasses)
+                     .WithRequired()
+                     .Map(x => x.MapKey("Detail.BaseClasses_Id"));
 
          modelBuilder.Entity<global::Sandbox_EF6.Master>()
                      .ToTable("Masters");
          modelBuilder.Entity<global::Sandbox_EF6.Master>()
                      .HasMany(x => x.Details)
-                     .WithRequired()
-                     .Map(x => x.MapKey("Master.Details_Id"));
+                     .WithOptional()
+                     .Map(x => x.MapKey("Master.Details_Id"))
+                     .WillCascadeOnDelete(true);
 
          OnModelCreatedImpl(modelBuilder);
       }

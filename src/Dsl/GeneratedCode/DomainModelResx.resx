@@ -757,18 +757,6 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.Description" xml:space="preserve">
-    <value>If false, will be generated with a [NotMapped] attribute</value>
-    <comment>Description for DomainProperty &apos;IsPersistent&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.DisplayName" xml:space="preserve">
-    <value>Persistent</value>
-    <comment>DisplayName for DomainProperty &apos;IsPersistent&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPersistent.Category" xml:space="preserve">
-    <value>Database</value>
-    <comment>Category for DomainProperty &apos;IsPersistent&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>

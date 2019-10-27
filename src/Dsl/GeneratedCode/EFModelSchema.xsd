@@ -481,12 +481,6 @@
             <xsd:documentation>Default value for this class&apos;s attribute AutoProperty setting</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: IsPersistent -->
-        <xsd:attribute name="isPersistent" type="xsd:boolean" >
-          <xsd:annotation>
-            <xsd:documentation>If false, will be generated with a [NotMapped] attribute</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

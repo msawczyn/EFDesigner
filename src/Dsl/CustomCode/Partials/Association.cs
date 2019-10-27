@@ -111,8 +111,10 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
+         if (Source?.ModelRoot == null) return;
+
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot.WarnOnMissingDocumentation && string.IsNullOrWhiteSpace(TargetSummary))
+         if (modelRoot?.WarnOnMissingDocumentation == true && Source != null && string.IsNullOrWhiteSpace(TargetSummary))
          {
             context.LogWarning($"{Source.Name}.{TargetPropertyName}: Association end should be documented", "AWMissingSummary", this);
             hasWarning = true;
@@ -125,8 +127,11 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void TPCEndpointsOnlyOnLeafNodes(ValidationContext context)
       {
+         if (Source?.ModelRoot == null) return;
+
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType && (Target.Subclasses.Any() || Source.Subclasses.Any()))
+         if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType && 
+             (Target?.Subclasses.Any() == true || Source?.Subclasses.Any() == true))
             context.LogError($"{Source.Name} <=> {Target.Name}: Association endpoints can only be to most-derived classes in TPC inheritance strategy", "AEWrongEndpoints", this);
       }
 
@@ -134,7 +139,9 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void MustDetermineEndpointRoles(ValidationContext context)
       {
-         if (SourceRole == EndpointRole.NotSet || TargetRole == EndpointRole.NotSet)
+         if (Source?.ModelRoot == null) return;
+
+         if (Source != null && Target != null && (SourceRole == EndpointRole.NotSet || TargetRole == EndpointRole.NotSet))
             context.LogError($"{Source.Name} <=> {Target.Name}: Principal/dependent designations must be manually set for 1..1 and 0-1..0-1 associations.", "AEEndpointRoles", this);
       }
 

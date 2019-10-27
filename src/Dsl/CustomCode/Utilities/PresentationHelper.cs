@@ -86,57 +86,31 @@ namespace Sawczyn.EFDesigner.EFModel
                                           .GetPresentation(element)
                                           .OfType<ClassShape>())
          {
-            if (classShape.ColorCache == null)
+            if (element.IsAbstract)
             {
-               if (!element.IsPersistent)
-               {
-                  classShape.ColorCache = new ColorCache { FillColor = classShape.FillColor, TextColor = classShape.TextColor };
-
-                  classShape.FillColor = Color.White;
-                  classShape.OutlineColor = Color.Gainsboro;
-                  classShape.TextColor = Color.SlateGray;
-               }
+               classShape.OutlineColor = Color.OrangeRed;
+               classShape.OutlineThickness = 0.03f;
+               classShape.OutlineDashStyle = DashStyle.Dot;
+            }
+            else if (element.IsDependentType)
+            {
+               classShape.OutlineColor = Color.ForestGreen;
+               classShape.OutlineThickness = 0.03f;
+               classShape.OutlineDashStyle = DashStyle.Dot;
+            }
+            else if (element.ImplementNotify)
+            {
+               classShape.OutlineColor = Color.CornflowerBlue;
+               classShape.OutlineThickness = 0.03f;
+               classShape.OutlineDashStyle = DashStyle.Dot;
             }
             else
             {
-               if (element.IsPersistent)
-               {
-                  classShape.FillColor = classShape.ColorCache.FillColor;
-                  classShape.TextColor = classShape.ColorCache.TextColor;
-               }
-
-               classShape.ColorCache = null;
-            }
-
-            if (element.IsPersistent)
-            {
-               if (element.IsAbstract)
-               {
-                  classShape.OutlineColor = Color.OrangeRed;
-                  classShape.OutlineThickness = 0.03f;
-                  classShape.OutlineDashStyle = DashStyle.Dot;
-               }
-               else if (element.IsDependentType)
-               {
-                  classShape.OutlineColor = Color.ForestGreen;
-                  classShape.OutlineThickness = 0.03f;
-                  classShape.OutlineDashStyle = DashStyle.Dot;
-               }
-               else if (element.ImplementNotify)
-               {
-                  classShape.OutlineColor = Color.CornflowerBlue;
-                  classShape.OutlineThickness = 0.03f;
-                  classShape.OutlineDashStyle = DashStyle.Dot;
-               }
-               else
-               {
-                  classShape.OutlineColor = Color.Black;
-                  classShape.OutlineThickness = 0.01f;
-                  classShape.OutlineDashStyle = DashStyle.Solid;
-               }
+               classShape.OutlineColor = Color.Black;
+               classShape.OutlineThickness = 0.01f;
+               classShape.OutlineDashStyle = DashStyle.Solid;
             }
          }
       }
    }
-
 }

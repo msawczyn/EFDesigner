@@ -322,9 +322,6 @@ void WriteClass(ModelClass modelClass)
    if (!string.IsNullOrWhiteSpace(modelClass.CustomAttributes))
          Output($"[{modelClass.CustomAttributes.Trim('[',']')}]");
 
-   if (!modelClass.IsPersistent && modelClass.CustomAttributes.IndexOf("NotMapped") < 0)
-      Output("[NotMapped]");
-
    if (baseClass.Length > 0)
       Output($"public {isAbstract}partial class {modelClass.Name}: {baseClass}");
    else
@@ -662,13 +659,10 @@ void WriteProperties(ModelClass modelClass)
    {
       segments.Clear();
 
-      if (modelClass.IsPersistent)
-      {
-         if (modelAttribute.IsIdentity)
-            segments.Add("Identity");
-         if (modelAttribute.Indexed)
-            segments.Add("Indexed");
-      }
+      if (modelAttribute.IsIdentity)
+         segments.Add("Identity");
+      if (modelAttribute.Indexed)
+         segments.Add("Indexed");
       if (modelAttribute.Required || modelAttribute.IsIdentity)
          segments.Add("Required");
       if (modelAttribute.MinLength > 0)
@@ -717,13 +711,10 @@ void WriteProperties(ModelClass modelClass)
          Output("/// </remarks>");
       }
 
-      string setterVisibility = modelAttribute.IsIdentity && modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelAttribute.ModelClass.IsPersistent
-                                   ? "private " 
-                                   : modelAttribute.SetterVisibility == SetterAccessModifier.Protected || (modelAttribute.IsIdentity && !modelAttribute.ModelClass.IsPersistent)
-                                      ? "protected " 
-                                      : modelAttribute.SetterVisibility == SetterAccessModifier.Internal 
-                                         ? "internal " 
-                                         : string.Empty;
+      string setterVisibility = modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelAttribute.IsIdentity ? "private " :
+                                modelAttribute.SetterVisibility == SetterAccessModifier.Protected ? "protected " : 
+                                modelAttribute.SetterVisibility == SetterAccessModifier.Internal ? "internal " : 
+                                string.Empty;
 
       GeneratePropertyAnnotations(modelAttribute);
 
@@ -775,13 +766,15 @@ void WriteProperties(ModelClass modelClass)
 
 void GeneratePropertyAnnotations(ModelAttribute modelAttribute)
 {
-   if (modelAttribute.ModelClass.IsPersistent && modelAttribute.Persistent)
+   if (modelAttribute.Persistent)
    {
       if (modelAttribute.IsIdentity)               
          Output("[Key]");
       if (modelAttribute.IsConcurrencyToken)       
          Output("[ConcurrencyCheck]");
    }
+   else
+      Output("[NotMapped]");
 
    if (modelAttribute.Required)                 
       Output("[Required]");
@@ -799,14 +792,11 @@ void GeneratePropertyAnnotations(ModelAttribute modelAttribute)
    }
    if (!string.IsNullOrWhiteSpace(modelAttribute.DisplayText))
       Output($"[Display(Name=\"{modelAttribute.DisplayText}\")]");
-
-   if (modelAttribute.ModelClass.IsPersistent && !modelAttribute.Persistent)
-      Output("[NotMapped]");
 }
 
 void WriteNavigationProperties(ModelClass modelClass, bool requireVirtual)
 {
-   if (!modelClass.IsPersistent || !modelClass.LocalNavigationProperties().Any(x => x.AssociationObject.Persistent))
+   if (!modelClass.LocalNavigationProperties().Any(x => x.AssociationObject.Persistent))
       return;
 
    Output("/*************************************************************************");

@@ -34,8 +34,6 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 
    // Context
 
-   if (modelRoot.Classes.Any(mc => mc.IsPersistent))
-   {
    if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.None)
    {
       manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
@@ -47,7 +45,6 @@ void GenerateEF6(Manager manager, ModelRoot modelRoot)
 
    manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}.{modelRoot.FileNameMarker}.cs"));
    WriteDbContextEF6(modelRoot);
-}
 }
 
 List<string> GetAdditionalUsingStatementsEF6(ModelRoot modelRoot)
@@ -149,13 +146,13 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    switch (modelRoot.InheritanceStrategy)
    {
       case CodeStrategy.TablePerType:
-         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.IsPersistent).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerConcreteType:
-         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract && mc.IsPersistent).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name);
          break;
       case CodeStrategy.TablePerHierarchy:
-         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.NearestPersistentSuperclass == null && mc.IsPersistent).OrderBy(x => x.Name);
+         classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name);
          break;
    }
 
@@ -163,7 +160,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    {
       Output("#region DbSets");
 
-      foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType && x.IsPersistent).OrderBy(x => x.Name))
+      foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
       {
          string dbSetName;
 
@@ -330,7 +327,7 @@ void WriteDbContextEF6(ModelRoot modelRoot)
    List<Association> visited = new List<Association>();
    List<string> foreignKeyColumns = new List<string>();
 
-   foreach (ModelClass modelClass in modelRoot.Classes.Where(x => x.IsPersistent).OrderBy(x => x.Name))
+   foreach (ModelClass modelClass in modelRoot.Classes.OrderBy(x => x.Name))
    {
       segments.Clear();
       foreignKeyColumns.Clear();
@@ -391,20 +388,13 @@ void WriteDbContextEF6(ModelRoot modelRoot)
      }
 
       // attribute level
-      List<ModelAttribute> modelAttributes = modelClass.Attributes.Where(x => x.Persistent /* && !SpatialTypes.Contains(x.Type) */).ToList();
-      ModelClass additionalAttributeParent = modelClass.Superclass;
-      while (additionalAttributeParent?.IsPersistent == false)
-      {
-         modelAttributes.AddRange(additionalAttributeParent.Attributes /* .Where(x => !SpatialTypes.Contains(x.Type)) */);
-         additionalAttributeParent = additionalAttributeParent.Superclass;
-      }
-
-      foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent))
+      foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
       {
          segments.Clear();
 
          if (modelAttribute.MaxLength > 0)
             segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
+
          if (modelAttribute.Required)
             segments.Add("IsRequired()");
 

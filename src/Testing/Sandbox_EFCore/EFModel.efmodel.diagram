@@ -34,7 +34,7 @@
         <classShapeMoniker Id="f06d08e6-d2c2-40bd-a060-ee17d989fd26" />
       </nodes>
     </bidirectionalConnector>
-    <classShape Id="aa9bc68b-b4b1-43d8-8eb7-3d5a2665d276" absoluteBounds="3.75, 0.875, 4.25, 1.3704703776041667" fillColor="White" textColor="SlateGray" outlineColor="Gainsboro" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
+    <classShape Id="aa9bc68b-b4b1-43d8-8eb7-3d5a2665d276" absoluteBounds="3.75, 0.875, 4.25, 1.3704703776041667" fillColor="White" textColor="SlateGray" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">
       <modelClassMoniker Id="d3bebe14-6792-44dc-886f-563789be922a" />
       <nestedChildShapes>
         <elementListCompartment Id="98a9c374-ac61-43e6-b05a-58c11413ab61" absoluteBounds="3.765, 1.185, 4.2200000000000006, 0.44169108072916657" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />

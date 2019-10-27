@@ -21,16 +21,27 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox_EF6
 {
-   [NotMapped]
-   public partial class BaseClass
+   public abstract partial class BaseClass
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to being abstract.
       /// </summary>
-      public BaseClass()
+      protected BaseClass()
       {
+         Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="_detail0"></param>
+      protected BaseClass(global::Sandbox_EF6.Detail _detail0)
+      {
+         if (_detail0 == null) throw new ArgumentNullException(nameof(_detail0));
+         _detail0.BaseClasses.Add(this);
+
          Init();
       }
 
@@ -39,10 +50,15 @@ namespace Sandbox_EF6
        *************************************************************************/
 
       /// <summary>
-      /// Required
+      /// Identity, Indexed, Required
       /// </summary>
+      [Key]
       [Required]
-      public long Id { get; protected set; }
+      public long Id { get; set; }
+
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
 
    }
 }

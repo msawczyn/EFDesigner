@@ -30,28 +30,31 @@ namespace Sandbox_EF6
       /// </summary>
       protected Detail(): base()
       {
+         BaseClasses = new System.Collections.Generic.HashSet<global::Sandbox_EF6.BaseClass>();
+
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_master0"></param>
-      public Detail(global::Sandbox_EF6.Master _master0)
+      /// <param name="_detail0"></param>
+      public Detail(global::Sandbox_EF6.Detail _detail0)
       {
-         if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
-         _master0.Details.Add(this);
+         if (_detail0 == null) throw new ArgumentNullException(nameof(_detail0));
+         _detail0.BaseClasses.Add(this);
 
+         this.BaseClasses = new System.Collections.Generic.HashSet<global::Sandbox_EF6.BaseClass>();
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_master0"></param>
-      public static Detail Create(global::Sandbox_EF6.Master _master0)
+      /// <param name="_detail0"></param>
+      public static Detail Create(global::Sandbox_EF6.Detail _detail0)
       {
-         return new Detail(_master0);
+         return new Detail(_detail0);
       }
 
       /*************************************************************************
@@ -63,6 +66,8 @@ namespace Sandbox_EF6
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      public virtual ICollection<global::Sandbox_EF6.BaseClass> BaseClasses { get; protected set; }
 
    }
 }

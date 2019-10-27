@@ -413,11 +413,6 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="d4ec29c8-6fbc-4fda-be30-244793089aae" Description="If false, will be generated with a [NotMapped] attribute" Name="IsPersistent" DisplayName="Persistent" DefaultValue="true" Category="Database">
-          <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
-          </Type>
-        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1862,9 +1857,6 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="autoPropertyDefault">
             <DomainPropertyMoniker Name="ModelClass/AutoPropertyDefault" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="isPersistent">
-            <DomainPropertyMoniker Name="ModelClass/IsPersistent" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -41,9 +41,12 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Redraws the presentation element on any diagram rendering this model element</summary>
       public void RedrawItem()
       {
-         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().ToList();
-         foreach (ShapeElement shapeElement in shapeElements)
-            shapeElement.Invalidate();
+         if (ParentModelElement != null)
+         {
+            List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().ToList();
+            foreach (ShapeElement shapeElement in shapeElements)
+               shapeElement.Invalidate();
+         }
       }
 
       #endregion
@@ -739,7 +742,9 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void StringsShouldHaveLength(ValidationContext context)
       {
-         if (Type == "String" && MaxLength < 0)
+         if (ModelClass?.ModelRoot == null) return;
+
+         if (ModelClass != null && Type == "String" && MaxLength < 0)
          {
             context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
             hasWarning = true;
@@ -751,22 +756,16 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
+         if (ModelClass?.ModelRoot == null) return;
+
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot.WarnOnMissingDocumentation && string.IsNullOrWhiteSpace(Summary))
+         if (ModelClass != null && modelRoot?.WarnOnMissingDocumentation == true && string.IsNullOrWhiteSpace(Summary))
          {
             context.LogWarning($"{ModelClass.Name}.{Name}: Property should be documented", "AWMissingSummary", this);
             hasWarning = true;
             RedrawItem();
          }
       }
-
-      //[ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
-      //// ReSharper disable once UnusedMember.Local
-      //private void AutoPropertyWillNotNotify(ValidationContext context)
-      //{
-      //   if (ModelClass.ImplementNotify && AutoProperty)
-      //      context.LogWarning($"{ModelClass.Name}.{Name} is an autoproperty, so will not participate in INotifyPropertyChanged messages", "AWAutoPropertyWillNotNotify", this);
-      //}
 
       #endregion Validation Rules
 

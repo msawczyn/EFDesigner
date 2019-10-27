@@ -19,9 +19,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EF6
+namespace Sandbox_EFCore
 {
-   [NotMapped]
    public partial class BaseClass
    {
       partial void Init();
@@ -39,10 +38,11 @@ namespace Sandbox_EF6
        *************************************************************************/
 
       /// <summary>
-      /// Required
+      /// Identity, Indexed, Required
       /// </summary>
+      [Key]
       [Required]
-      public long Id { get; protected set; }
+      public int Id { get; private set; }
 
    }
 }

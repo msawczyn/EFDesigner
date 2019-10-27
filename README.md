@@ -51,11 +51,25 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
 
 ### Change Log
 
-**1.3.0.7**
+**1.3.0.8**
+   - Fix: showing cascade delete in the designer worked inconsistently (See https://github.com/msawczyn/EFDesigner/issues/108)
+   - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
+   - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
+   - Fix: attribute parser ("edit as code" feature) didn't handle enumeration initial values well; it does now (See https://github.com/msawczyn/EFDesigner/issues/104)
+   - Fix: drag and drop developed regressions (See https://github.com/msawczyn/EFDesigner/issues/112 and https://github.com/msawczyn/EFDesigner/issues/114)
+   - Fix: undo threw null reference errors when undoing drag and drop from code files (See https://github.com/msawczyn/EFDesigner/issues/113)
+
+<details>
+<summary><b>1.3.0.7</b></summary>
+
    - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
    - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
 
-**1.3.0.6** 
+</details>
+
+<details>
+<summary><b>1.3.0.6</b></summary>
+
    - Added a model fixup for when user doesn't use full enumeration name for a property's initial value in an entity (See https://github.com/msawczyn/EFDesigner/issues/82)
    - To more fully support DDD models, added a toggle for persisting either the property or its backing field (if not an autoproperty) for EFCore
    - Can now override the NotifyPropertyChanged value for an entity on a per-property and per-association basis
@@ -65,6 +79,8 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
    - Fix: Some issues with owned entities in EFCore
    - Fix: If NotifyPropertyChanged is active, wrong Output is generated (See https://github.com/msawczyn/EFDesigner/issues/97)
    - For folks wanting to read and/or modify the source for this tool, added a readme on how to deal with tracking properties
+
+</details>
 
 <details>
 <summary><b>1.3.0.4</b></summary>

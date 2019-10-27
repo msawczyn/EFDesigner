@@ -26,34 +26,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
 
-            // Hide these if transient:
-
-            // ModelClass
-            // -----------------------
-            // TableName
-            // DatabaseSchema
-            // DbSetName
-            // IsDependentType
-
-            // ModelAttribute - hide only if parent class no persistent inheritors
-            // -----------------------
-            // Persistent
-            // Indexed
-            // IndexedUnique
-            // ColumnName
-            // ColumnType
-            // PersistencePoint
-
-            if (!modelClass.IsPersistent)
-            {
-               string[] propertyNames = { "TableName", "DatabaseSchema", "DbSetName", "IsDependentType" };
-
-               foreach (PropertyDescriptor propertyDescriptor in propertyNames.Select(propertyName => propertyDescriptors.OfType<PropertyDescriptor>()
-                                                                                                                         .SingleOrDefault(x => x.Name == propertyName))
-                                                                              .Where(descriptor => descriptor != null))
-                  propertyDescriptors.Remove(propertyDescriptor);
-            }
-
             //Add the descriptors for the tracking properties 
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelClass

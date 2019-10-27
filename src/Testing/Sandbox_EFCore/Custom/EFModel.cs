@@ -6,7 +6,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Sandbox_EF6
+namespace Sandbox_EFCore
 {
    partial class EFModel
    {
