@@ -42,19 +42,19 @@ namespace Sawczyn.EFDesigner.EFModel
                break;
 
             case "SourceDeleteAction":
-               PresentationHelper.UpdateAssociationDisplay(this, sourceDeleteAction : (DeleteAction)e.NewValue);
+               PresentationHelper.UpdateAssociationDisplay(this, sourceDeleteAction: (DeleteAction)e.NewValue);
                break;
 
             case "TargetDeleteAction":
-               PresentationHelper.UpdateAssociationDisplay(this, targetDeleteAction : (DeleteAction)e.NewValue);
+               PresentationHelper.UpdateAssociationDisplay(this, targetDeleteAction: (DeleteAction)e.NewValue);
                break;
 
             case "SourceMultiplicity":
-               PresentationHelper.UpdateAssociationDisplay(this, sourceMultiplicity : (Multiplicity)e.NewValue);
+               PresentationHelper.UpdateAssociationDisplay(this);
                break;
 
             case "TargetMultiplicity":
-               PresentationHelper.UpdateAssociationDisplay(this, targetMultiplicity : (Multiplicity)e.NewValue);
+               PresentationHelper.UpdateAssociationDisplay(this);
                break;
          }
 

@@ -4,7 +4,7 @@
     <modelRootHasClasses Id="693c38fd-9b6b-4986-b6d8-1fc44948951a">
       <modelClass Id="8b214af9-15ca-480f-b5c1-d8f36080ab4e" tableName="Masters" databaseSchema="dbo" namespace="Sandbox_EF6" dbSetName="Masters" name="Master" outputDirectory="Generated" baseClass="BaseClass">
         <unidirectionalTargets>
-          <unidirectionalAssociation Id="cc4bf176-0ce6-4772-81f9-563383b21c1f" sourceMultiplicity="ZeroOne" targetPropertyName="Details" sourceDeleteAction="Cascade" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
+          <unidirectionalAssociation Id="cc4bf176-0ce6-4772-81f9-563383b21c1f" sourceMultiplicity="ZeroOne" targetPropertyName="Details" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
             <modelClassMoniker Id="2384ad70-0886-4d36-904d-603bb3554a69" />
           </unidirectionalAssociation>
         </unidirectionalTargets>

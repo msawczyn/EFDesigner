@@ -72,11 +72,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
-            //case "Persistent":
-            //   PresentationHelper.UpdateAssociationDisplay(element);
-
-            //   break;
-
             case "SourceCustomAttributes":
 
                if (bidirectionalAssociation != null && !string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceCustomAttributes))
@@ -86,12 +81,6 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                break;
-
-            //case "SourceDeleteAction":
-            //   DeleteAction sourceDeleteAction = (DeleteAction)e.NewValue;
-            //   PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceDeleteAction: sourceDeleteAction);
-
-            //   break;
 
             case "SourceDisplayText":
 
@@ -125,7 +114,9 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               //PresentationHelper.UpdateDisplayForCascadeDelete(element, sourceMultiplicity : sourceMultiplicity);
+               // cascade delete behavior could now be illegal. Reset to default
+               element.SourceDeleteAction = DeleteAction.Default;
+               element.TargetDeleteAction = DeleteAction.Default;
 
                break;
 
@@ -172,12 +163,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
-            //case "TargetDeleteAction":
-            //   DeleteAction targetDeleteAction = (DeleteAction)e.NewValue;
-            //   PresentationHelper.UpdateDisplayForCascadeDelete(element, targetDeleteAction : targetDeleteAction);
-
-            //   break;
-
             case "TargetMultiplicity":
                Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
 
@@ -203,7 +188,9 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   SetEndpointRoles(element);
 
-               //PresentationHelper.UpdateDisplayForCascadeDelete(element, targetMultiplicity : newTargetMultiplicity);
+               // cascade delete behavior could now be illegal. Reset to default
+               element.SourceDeleteAction = DeleteAction.Default;
+               element.TargetDeleteAction = DeleteAction.Default;
 
                break;
 
@@ -259,18 +246,18 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     if (element.SourceRole != EndpointRole.NotApplicable) element.SourceRole = EndpointRole.NotApplicable;
-                     if (element.TargetRole != EndpointRole.NotApplicable) element.TargetRole = EndpointRole.NotApplicable;
+                     element.SourceRole = EndpointRole.NotApplicable;
+                     element.TargetRole = EndpointRole.NotApplicable;
 
                      return true;
                   case Multiplicity.One:
-                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
-                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
+                     element.SourceRole = EndpointRole.Principal;
+                     element.TargetRole = EndpointRole.Dependent;
 
                      return true;
                   case Multiplicity.ZeroOne:
-                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
-                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
+                     element.SourceRole = EndpointRole.Principal;
+                     element.TargetRole = EndpointRole.Dependent;
 
                      return true;
                }
@@ -281,16 +268,16 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
-                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
+                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Principal;
 
                      return true;
                   case Multiplicity.One:
 
                      return false;
                   case Multiplicity.ZeroOne:
-                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
-                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
+                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Principal;
 
                      return true;
                }
@@ -301,13 +288,13 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     if (element.SourceRole != EndpointRole.Dependent) element.SourceRole = EndpointRole.Dependent;
-                     if (element.TargetRole != EndpointRole.Principal) element.TargetRole = EndpointRole.Principal;
+                     element.SourceRole = EndpointRole.Dependent;
+                     element.TargetRole = EndpointRole.Principal;
 
                      return true;
                   case Multiplicity.One:
-                     if (element.SourceRole != EndpointRole.Principal) element.SourceRole = EndpointRole.Principal;
-                     if (element.TargetRole != EndpointRole.Dependent) element.TargetRole = EndpointRole.Dependent;
+                     element.SourceRole = EndpointRole.Principal;
+                     element.TargetRole = EndpointRole.Dependent;
 
                      return true;
                   case Multiplicity.ZeroOne:
