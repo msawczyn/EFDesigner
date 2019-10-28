@@ -149,6 +149,11 @@
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomCode\WizardImplementation.cs" />
+    <Compile Include="MefExtension\ValidationExtensionRegistrar.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
+    </Compile>
     <Compile Include="VSPackage.Designer.cs" />
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -395,11 +400,6 @@
     </Compile>
     <Compile Include="MefExtension\ValidationExtensionEnablement.cs">
       <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="MefExtension\ValidationExtensionRegistrar.cs">
-      <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
