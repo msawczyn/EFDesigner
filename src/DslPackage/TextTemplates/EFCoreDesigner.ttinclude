@@ -271,6 +271,9 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
       // class level
       segments.Add($"modelBuilder.{(modelClass.IsDependentType ? "Owned" : "Entity")}<{modelClass.FullName}>()");
 
+      foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
+         segments.Add($"Ignore(t => t.{transient.Name})");
+
       if (!modelClass.IsDependentType)
       {
          // note: this must come before the 'ToTable' call or there's a runtime error
@@ -292,9 +295,6 @@ void WriteDbContextEFCore(ModelRoot modelRoot)
                segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
          }
       }
-
-      foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
-         segments.Add($"Ignore(t => t.{transient.Name})");
 
       if (segments.Count > 1 || modelClass.IsDependentType)
       {
