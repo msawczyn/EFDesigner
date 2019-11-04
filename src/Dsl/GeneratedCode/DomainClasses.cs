@@ -330,11 +330,13 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of Namespace domain property.
-		/// Namespace for all generated classes
+		/// Namespace for DBContext and, unless otherwise specified, all other generated
+		/// code
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainObjectId("259ca9ae-0772-41d4-90b5-abd10888e839")]
 		public global::System.String Namespace
 		{
@@ -2985,6 +2987,361 @@ namespace Sawczyn.EFDesigner.EFModel
 					ValueChanging(element, oldValue, newValue);
 					element.layoutAlgorithmSettingsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EntityNamespace domain property code
+		
+		/// <summary>
+		/// EntityNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EntityNamespaceDomainPropertyId = new global::System.Guid(0xf11b0472, 0x3a86, 0x497c, 0xb8, 0xa7, 0xcd, 0x90, 0x35, 0x0f, 0xe2, 0x89);
+		
+		/// <summary>
+		/// Storage for EntityNamespace
+		/// </summary>
+		private global::System.String entityNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of EntityNamespace domain property.
+		/// Namespace for entities
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("f11b0472-3a86-497c-b8a7-cd90350fe289")]
+		public global::System.String EntityNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return entityNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EntityNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EntityNamespace domain property.
+		/// </summary>
+		internal sealed partial class EntityNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private EntityNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EntityNamespace domain property value handler.
+			/// </summary>
+			public static readonly EntityNamespacePropertyHandler Instance = new EntityNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EntityNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EntityNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.entityNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.entityNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EnumNamespace domain property code
+		
+		/// <summary>
+		/// EnumNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EnumNamespaceDomainPropertyId = new global::System.Guid(0xf7d6b698, 0xb82a, 0x4438, 0xbf, 0x49, 0xc8, 0x8c, 0x9c, 0x02, 0x99, 0xc7);
+		
+		/// <summary>
+		/// Storage for EnumNamespace
+		/// </summary>
+		private global::System.String enumNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of EnumNamespace domain property.
+		/// Namespace for enumerations
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EnumNamespace.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EnumNamespace.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("f7d6b698-b82a-4438-bf49-c88c9c0299c7")]
+		public global::System.String EnumNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return enumNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EnumNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EnumNamespace domain property.
+		/// </summary>
+		internal sealed partial class EnumNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private EnumNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EnumNamespace domain property value handler.
+			/// </summary>
+			public static readonly EnumNamespacePropertyHandler Instance = new EnumNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EnumNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EnumNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.enumNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.enumNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region StructNamespace domain property code
+		
+		/// <summary>
+		/// StructNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid StructNamespaceDomainPropertyId = new global::System.Guid(0xc3e26d6b, 0x3032, 0x4cb2, 0xaa, 0xc3, 0x05, 0x76, 0x34, 0xaa, 0x40, 0x96);
+		
+		/// <summary>
+		/// Storage for StructNamespace
+		/// </summary>
+		private global::System.String structNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of StructNamespace domain property.
+		/// Namespace for owned entities
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("c3e26d6b-3032-4cb2-aac3-057634aa4096")]
+		public global::System.String StructNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return structNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				StructNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.StructNamespace domain property.
+		/// </summary>
+		internal sealed partial class StructNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private StructNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.StructNamespace domain property value handler.
+			/// </summary>
+			public static readonly StructNamespacePropertyHandler Instance = new StructNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.StructNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return StructNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.structNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.structNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Namespaces domain property code
+		
+		/// <summary>
+		/// Namespaces domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid NamespacesDomainPropertyId = new global::System.Guid(0x441a9ed6, 0xa2d6, 0x48a2, 0x8d, 0x49, 0x13, 0x6a, 0xfd, 0xea, 0xc9, 0xfc);
+		
+		/// <summary>
+		/// Gets or sets the value of Namespaces domain property.
+		/// Default namespaces for generated code
+		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(System.ComponentModel.ExpandableObjectConverter))]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespaces.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespaces.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespaces.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("441a9ed6-a2d6-48a2-8d49-136afdeac9fc")]
+		public Namespaces Namespaces
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return NamespacesPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				NamespacesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.Namespaces domain property.
+		/// </summary>
+		internal sealed partial class NamespacesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, Namespaces>
+		{
+			private NamespacesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.Namespaces domain property value handler.
+			/// </summary>
+			public static readonly NamespacesPropertyHandler Instance = new NamespacesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.Namespaces domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return NamespacesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed Namespaces GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for Namespaces because its Kind is
+				// set to CustomStorage. Please provide the GetNamespacesValue()
+				// method on the domain class.
+				return element.GetNamespacesValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, Namespaces newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				Namespaces oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for Namespaces because its Kind is
+					// set to CustomStorage. Please provide the SetNamespacesValue()
+					// method on the domain class.
+					element.SetNamespacesValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}
 		}

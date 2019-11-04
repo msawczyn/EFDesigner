@@ -16,6 +16,26 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning
    {
       /// <summary>
+      /// Namespace for generated code. Takes overrides into account.
+      /// </summary>
+      public string EffectiveNamespace
+      {
+         get
+         {
+            if (!string.IsNullOrWhiteSpace(Namespace))
+               return Namespace;
+
+            if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.StructNamespace))
+               return ModelRoot.StructNamespace;
+
+            if (!IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.EntityNamespace))
+               return ModelRoot.EntityNamespace;
+
+            return ModelRoot.Namespace;
+         }
+      }
+
+      /// <summary>
       /// All attributes in the class, including those inherited from base classes
       /// </summary>
       public IEnumerable<ModelAttribute> AllAttributes

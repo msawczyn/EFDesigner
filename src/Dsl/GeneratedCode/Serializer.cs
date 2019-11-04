@@ -715,6 +715,74 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// EntityNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEntityNamespace = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entityNamespace");
+				if (attribEntityNamespace != null)
+				{
+					global::System.String valueOfEntityNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEntityNamespace, out valueOfEntityNamespace))
+					{
+						instanceOfModelRoot.EntityNamespace = valueOfEntityNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entityNamespace", typeof(global::System.String), attribEntityNamespace);
+					}
+				}
+			}
+			// EnumNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEnumNamespace = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "enumNamespace");
+				if (attribEnumNamespace != null)
+				{
+					global::System.String valueOfEnumNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEnumNamespace, out valueOfEnumNamespace))
+					{
+						instanceOfModelRoot.EnumNamespace = valueOfEnumNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "enumNamespace", typeof(global::System.String), attribEnumNamespace);
+					}
+				}
+			}
+			// StructNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribStructNamespace = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "structNamespace");
+				if (attribStructNamespace != null)
+				{
+					global::System.String valueOfStructNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribStructNamespace, out valueOfStructNamespace))
+					{
+						instanceOfModelRoot.StructNamespace = valueOfStructNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "structNamespace", typeof(global::System.String), attribStructNamespace);
+					}
+				}
+			}
+			// Namespaces
+			if (!serializationContext.Result.Failed)
+			{
+				string attribNamespaces = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "namespaces");
+				if (attribNamespaces != null)
+				{
+					Namespaces valueOfNamespaces;
+					if (DslModeling::SerializationUtilities.TryGetValue<Namespaces>(serializationContext, attribNamespaces, out valueOfNamespaces))
+					{
+						instanceOfModelRoot.Namespaces = valueOfNamespaces;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "namespaces", typeof(Namespaces), attribNamespaces);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1742,6 +1810,49 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (!serializationContext.Result.Failed)
 				{
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "layoutAlgorithmSettings", serializedPropValue);
+				}
+			}
+			// EntityNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.EntityNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entityNamespace", propValue);
+	
+				}
+			}
+			// EnumNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.EnumNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enumNamespace", propValue);
+	
+				}
+			}
+			// StructNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.StructNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "structNamespace", propValue);
+	
+				}
+			}
+			// Namespaces
+			if (!serializationContext.Result.Failed)
+			{
+				Namespaces propValue = instanceOfModelRoot.Namespaces;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<Namespaces>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "namespaces", serializedPropValue);
 				}
 			}
 		}

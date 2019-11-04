@@ -130,6 +130,7 @@
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
+    <Compile Include="CustomCode\Domain Types\Namespaces.cs" />
     <Compile Include="CustomCode\Rules\BidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\Rules\UnidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\Type Converters\MaxLengthTypeConverter.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
     <Compile Include="CustomCode\Rules\GeneralizationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\ModelClassDeletingRules.cs" />
+    <Compile Include="CustomCode\Type Descriptors\DynamicPropertyManager.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelAttributeTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelEnumTypeDescriptor.cs" />
@@ -635,6 +637,7 @@
       <Name>Msagl</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
   </PropertyGroup>
 </Project>

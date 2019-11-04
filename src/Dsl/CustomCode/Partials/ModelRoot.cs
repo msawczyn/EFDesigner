@@ -41,16 +41,24 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+
+      // ReSharper disable once UnusedMember.Global
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
 
       [Obsolete("Use ModelRoot.Classes instead")]
-      public LinkedElementCollection<ModelClass> Types
+      public LinkedElementCollection<ModelClass> Types => Classes;
+
+      private Namespaces GetNamespacesValue()
       {
-         get
-         {
-            return Classes;
-         }
+         return new Namespaces(this);
       }
+
+      private void SetNamespacesValue(Namespaces value)
+      {
+         Namespaces = value;
+      }
+
+      #region LayoutAlgorithmPropertyHandler
 
       internal sealed partial class LayoutAlgorithmPropertyHandler
       {
@@ -126,6 +134,8 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
       }
+
+      #endregion
 
       #region Valid types based on EF version
 
@@ -406,12 +416,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Namespace tracking property
 
-      protected virtual void OnNamespaceChanged(string oldValue, string newValue)
-      {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Classes, ModelClass.NamespaceDomainPropertyId, ModelClass.IsNamespaceTrackingDomainPropertyId);
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, Enums, ModelEnum.NamespaceDomainPropertyId, ModelEnum.IsNamespaceTrackingDomainPropertyId);
-      }
-
       internal sealed partial class NamespacePropertyHandler
       {
          protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
@@ -419,11 +423,73 @@ namespace Sawczyn.EFDesigner.EFModel
             base.OnValueChanged(element, oldValue, newValue);
 
             if (!element.Store.InUndoRedoOrRollback)
-               element.OnNamespaceChanged(oldValue, newValue);
+            {
+               if (string.IsNullOrWhiteSpace(element.EntityNamespace))
+               {
+                  TrackingHelper.UpdateTrackingCollectionProperty(element.Store
+                                                                , element.Classes.Where(c => !c.IsDependentType)
+                                                                , ModelClass.NamespaceDomainPropertyId
+                                                                , ModelClass.IsNamespaceTrackingDomainPropertyId);
+               }
+
+               if (string.IsNullOrWhiteSpace(element.StructNamespace))
+               {
+                  TrackingHelper.UpdateTrackingCollectionProperty(element.Store
+                                                                , element.Classes.Where(c => c.IsDependentType)
+                                                                , ModelClass.NamespaceDomainPropertyId
+                                                                , ModelClass.IsNamespaceTrackingDomainPropertyId);
+               }
+
+               if (string.IsNullOrWhiteSpace(element.EnumNamespace))
+                  TrackingHelper.UpdateTrackingCollectionProperty(element.Store, element.Enums, ModelEnum.NamespaceDomainPropertyId, ModelEnum.IsNamespaceTrackingDomainPropertyId);
+            }
          }
       }
 
-      #endregion Namespace tracking property
+      internal sealed partial class EntityNamespacePropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+            {
+               TrackingHelper.UpdateTrackingCollectionProperty(element.Store, 
+                                                               element.Classes.Where(c => !c.IsDependentType), 
+                                                               ModelClass.NamespaceDomainPropertyId, 
+                                                               ModelClass.IsNamespaceTrackingDomainPropertyId);
+            }
+         }
+      }
+
+      internal sealed partial class EnumNamespacePropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               TrackingHelper.UpdateTrackingCollectionProperty(element.Store, element.Enums, ModelEnum.NamespaceDomainPropertyId, ModelEnum.IsNamespaceTrackingDomainPropertyId);
+         }
+      }
+
+      internal sealed partial class StructNamespacePropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+            {
+               TrackingHelper.UpdateTrackingCollectionProperty(element.Store
+                                                             , element.Classes.Where(c => c.IsDependentType)
+                                                             , ModelClass.NamespaceDomainPropertyId
+                                                             , ModelClass.IsNamespaceTrackingDomainPropertyId);
+            }
+         }
+      }
+
+#endregion Namespace tracking property
 
    }
 }

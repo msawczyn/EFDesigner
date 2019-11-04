@@ -21,7 +21,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="259ca9ae-0772-41d4-90b5-abd10888e839" Description="Namespace for all generated classes" Name="Namespace" DisplayName="Namespace" Category="Code Generation">
+        <DomainProperty Id="259ca9ae-0772-41d4-90b5-abd10888e839" Description="Namespace for DBContext and, unless otherwise specified, all other generated code" Name="Namespace" DisplayName="Namespace" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -249,6 +249,33 @@
         <DomainProperty Id="879483d1-6f57-4fc2-b501-4c62e9ff2a5d" Description="Tunable parameters for auto-layout of the designer" Name="LayoutAlgorithmSettings" DisplayName="Layout Algorithm Settings" Category="Designer">
           <Type>
             <ExternalTypeMoniker Name="/Microsoft.Msagl.Core.Layout/LayoutAlgorithmSettings" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f11b0472-3a86-497c-b8a7-cd90350fe289" Description="Namespace for entities" Name="EntityNamespace" DisplayName="Entity Namespace" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f7d6b698-b82a-4438-bf49-c88c9c0299c7" Description="Namespace for enumerations" Name="EnumNamespace" DisplayName="Enum Namespace" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="c3e26d6b-3032-4cb2-aac3-057634aa4096" Description="Namespace for owned entities" Name="StructNamespace" DisplayName="Struct Namespace" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="441a9ed6-a2d6-48a2-8d49-136afdeac9fc" Description="Default namespaces for generated code" Name="Namespaces" DisplayName="Namespaces" Kind="CustomStorage" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.ExpandableObjectConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+          <Type>
+            <ExternalTypeMoniker Name="Namespaces" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1438,9 +1465,7 @@
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Field" Name="Field" Value="" />
       </Literals>
     </DomainEnumeration>
-    <ExternalType Name="InitialValueType" Namespace="Sawczyn.EFDesigner.EFModel">
-      <Notes>Just a string, but a specialized type so we can have a type converter for it</Notes>
-    </ExternalType>
+    <ExternalType Name="Namespaces" Namespace="Sawczyn.EFDesigner.EFModel" />
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1777,6 +1802,18 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="layoutAlgorithmSettings">
             <DomainPropertyMoniker Name="ModelRoot/LayoutAlgorithmSettings" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="entityNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/EntityNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="enumNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/EnumNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="structNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/StructNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="namespaces">
+            <DomainPropertyMoniker Name="ModelRoot/Namespaces" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

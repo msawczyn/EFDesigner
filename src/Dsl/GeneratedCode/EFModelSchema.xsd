@@ -93,7 +93,7 @@
         <!-- Property: Namespace -->
         <xsd:attribute name="namespace" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>Namespace for all generated classes</xsd:documentation>
+            <xsd:documentation>Namespace for DBContext and, unless otherwise specified, all other generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: DatabaseInitializerType -->
@@ -268,6 +268,30 @@
         <xsd:attribute name="layoutAlgorithmSettings" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Tunable parameters for auto-layout of the designer</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: EntityNamespace -->
+        <xsd:attribute name="entityNamespace" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Namespace for entities</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: EnumNamespace -->
+        <xsd:attribute name="enumNamespace" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Namespace for enumerations</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: StructNamespace -->
+        <xsd:attribute name="structNamespace" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Namespace for owned entities</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Namespaces -->
+        <xsd:attribute name="namespaces" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Default namespaces for generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
