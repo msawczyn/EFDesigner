@@ -454,12 +454,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          try
          {
-            ModelEnum result = new ModelEnum(Store,
-                                             new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName))
-            {
-               Namespace = namespaceName,
-               IsFlags = enumDecl.HasAttribute("Flags")
-            };
+            ModelEnum result = new ModelEnum(Store
+                                           , new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName)
+                                           , new PropertyAssignment(ModelEnum.NamespaceDomainPropertyId, namespaceName)
+                                           , new PropertyAssignment(ModelEnum.IsFlagsDomainPropertyId, enumDecl.HasAttribute("Flags")));
 
             SimpleBaseTypeSyntax baseTypeSyntax = enumDecl.DescendantNodes().OfType<SimpleBaseTypeSyntax>().FirstOrDefault();
 
@@ -600,11 +598,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (result == null)
             {
-               result = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, className))
-               {
-                  Namespace = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace,
-                  IsAbstract = classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)
-               };
+               result = new ModelClass(Store
+                                     , new PropertyAssignment(ModelClass.NameDomainPropertyId, className)
+                                     , new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace)
+                                     , new PropertyAssignment(ModelClass.IsAbstractDomainPropertyId, classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)));
 
                modelRoot.Classes.Add(result);
             }

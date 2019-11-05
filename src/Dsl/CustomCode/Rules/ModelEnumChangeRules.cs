@@ -55,9 +55,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "Namespace":
 
-               if (string.IsNullOrWhiteSpace(element.Namespace))
-                  element.Namespace = modelRoot.Namespace;
-
                if (currentTransaction.Name.ToLowerInvariant() != "paste")
                   errorMessage = CommonRules.ValidateNamespace(element.Namespace, CodeGenerator.IsValidLanguageIndependentIdentifier);
 

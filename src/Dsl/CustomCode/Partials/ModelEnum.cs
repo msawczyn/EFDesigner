@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelEnum : IModelElementWithCompartments, IDisplaysWarning
    {
-      public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{Name}" : $"global::{Namespace}.{Name}";
+      public string FullName => string.IsNullOrWhiteSpace(EffectiveNamespace) ? $"global::{Name}" : $"global::{EffectiveNamespace}.{Name}";
 
       #region Warning display
 
@@ -47,8 +47,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            if (!string.IsNullOrWhiteSpace(Namespace))
-               return Namespace;
+            if (!string.IsNullOrWhiteSpace(namespaceStorage))
+               return namespaceStorage;
 
             if (!string.IsNullOrWhiteSpace(ModelRoot.EnumNamespace))
                return ModelRoot.EnumNamespace;
@@ -165,7 +165,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return ModelRoot?.Namespace;
+               return EffectiveNamespace;
             }
             catch (NullReferenceException)
             {
@@ -185,12 +185,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetNamespaceValue(string value)
       {
-         namespaceStorage = value;
+         namespaceStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveNamespace
+                               ? null
+                               : value;
 
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            IsNamespaceTracking = false;
+            IsNamespaceTracking = namespaceStorage == null;
       }
 
       internal sealed partial class IsNamespaceTrackingPropertyHandler
@@ -215,22 +217,7 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelEnum element)
          {
-            object calculatedValue = null;
-            ModelRoot modelRoot = element.Store.ModelRoot();
-
-            try
-            {
-               calculatedValue = modelRoot?.Namespace;
-            }
-            catch (NullReferenceException) { }
-            catch (Exception e)
-            {
-               if (CriticalException.IsCriticalException(e))
-                  throw;
-            }
-
-            if (calculatedValue != null && element.Namespace == (string)calculatedValue)
-               element.isNamespaceTrackingPropertyStorage = true;
+            element.isNamespaceTrackingPropertyStorage = string.IsNullOrWhiteSpace(element.namespaceStorage);
          }
 
          /// <summary>

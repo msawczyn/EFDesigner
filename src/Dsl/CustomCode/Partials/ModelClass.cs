@@ -22,8 +22,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            if (!string.IsNullOrWhiteSpace(Namespace))
-               return Namespace;
+            if (!string.IsNullOrWhiteSpace(namespaceStorage))
+               return namespaceStorage;
 
             if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.StructNamespace))
                return ModelRoot.StructNamespace;
@@ -122,9 +122,9 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return string.IsNullOrWhiteSpace(Namespace)
+            return string.IsNullOrWhiteSpace(EffectiveNamespace)
                       ? $"global::{Name}"
-                      : $"global::{Namespace}.{Name}";
+                      : $"global::{EffectiveNamespace}.{Name}";
          }
       }
 
@@ -478,7 +478,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return Store.ModelRoot()?.Namespace;
+               return EffectiveNamespace;
             }
             catch (NullReferenceException)
             {
@@ -498,12 +498,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetNamespaceValue(string value)
       {
-         namespaceStorage = value;
+         namespaceStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveNamespace
+                               ? null
+                               : value;
 
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            IsNamespaceTracking = false;
+            IsNamespaceTracking = namespaceStorage == null;
       }
 
       internal sealed partial class IsNamespaceTrackingPropertyHandler
@@ -528,22 +530,7 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelClass element)
          {
-            object calculatedValue = null;
-            ModelRoot modelRoot = element.Store.ModelRoot();
-
-            try
-            {
-               calculatedValue = modelRoot?.Namespace;
-            }
-            catch (NullReferenceException) { }
-            catch (Exception e)
-            {
-               if (CriticalException.IsCriticalException(e))
-                  throw;
-            }
-
-            if (calculatedValue != null && element.Namespace == (string)calculatedValue)
-               element.isNamespaceTrackingPropertyStorage = true;
+            element.isNamespaceTrackingPropertyStorage = string.IsNullOrWhiteSpace(element.namespaceStorage);
          }
 
          /// <summary>
@@ -688,6 +675,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #endregion Namespace tracking property
+      #endregion IsImplementNotify tracking property
    }
 }

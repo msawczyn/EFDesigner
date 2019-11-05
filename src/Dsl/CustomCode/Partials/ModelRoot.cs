@@ -48,15 +48,21 @@ namespace Sawczyn.EFDesigner.EFModel
       [Obsolete("Use ModelRoot.Classes instead")]
       public LinkedElementCollection<ModelClass> Types => Classes;
 
+      #region Namespaces
+
+      private Namespaces namespacesStorage;
+
       private Namespaces GetNamespacesValue()
       {
-         return new Namespaces(this);
+         return namespacesStorage ?? (namespacesStorage = new Namespaces(this));
       }
 
       private void SetNamespacesValue(Namespaces value)
       {
-         Namespaces = value;
+         namespacesStorage = value;
       }
+
+      #endregion Namespaces
 
       #region LayoutAlgorithmPropertyHandler
 
@@ -454,9 +460,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (!element.Store.InUndoRedoOrRollback)
             {
-               TrackingHelper.UpdateTrackingCollectionProperty(element.Store, 
-                                                               element.Classes.Where(c => !c.IsDependentType), 
-                                                               ModelClass.NamespaceDomainPropertyId, 
+               TrackingHelper.UpdateTrackingCollectionProperty(element.Store,
+                                                               element.Classes.Where(c => !c.IsDependentType),
+                                                               ModelClass.NamespaceDomainPropertyId,
                                                                ModelClass.IsNamespaceTrackingDomainPropertyId);
             }
          }
@@ -489,7 +495,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-#endregion Namespace tracking property
+      #endregion Namespace tracking property
 
    }
 }
