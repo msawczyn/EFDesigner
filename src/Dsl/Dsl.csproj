@@ -171,7 +171,7 @@
     <Compile Include="CustomCode\Utilities\Import\IFileProcessor.cs" />
     <Compile Include="CustomCode\Utilities\Import\TextFileProcessor.cs" />
     <Compile Include="CustomCode\Utilities\Import\XMLDocumentation.cs" />
-    <Compile Include="CustomCode\Utilities\OutputLocation.cs" />
+    <Compile Include="CustomCode\Domain Types\OutputLocations.cs" />
     <Compile Include="CustomCode\Utilities\PropertyDefaults.cs" />
     <Compile Include="CustomCode\Utilities\UIProxies\ModelDisplay.cs" />
     <Compile Include="CustomCode\Utilities\ModelMigration.cs" />

@@ -3,9 +3,8 @@ using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-
-using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -43,6 +42,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Namespace for generated code. Takes overrides into account.
       /// </summary>
+      [Browsable(false)]
       public string EffectiveNamespace
       {
          get
@@ -54,6 +54,24 @@ namespace Sawczyn.EFDesigner.EFModel
                return ModelRoot.EnumNamespace;
 
             return ModelRoot.Namespace;
+         }
+      }
+
+      /// <summary>
+      /// Output location for generated code. Takes overrides into account.
+      /// </summary>
+      [Browsable(false)]
+      public string EffectiveOutputLocation
+      {
+         get
+         {
+            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
+               return outputDirectoryStorage;
+
+            if (!string.IsNullOrWhiteSpace(ModelRoot.EntityOutputDirectory))
+               return ModelRoot.EntityOutputDirectory;
+
+            return ModelRoot.ContextOutputDirectory;
          }
       }
 
@@ -248,7 +266,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return ModelRoot?.EnumOutputDirectory;
+               return EffectiveOutputLocation;
             }
             catch (NullReferenceException)
             {
@@ -268,12 +286,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
-         outputDirectoryStorage = value;
+         outputDirectoryStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveOutputLocation
+                                     ? null
+                                     : value;
 
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            IsOutputDirectoryTracking = false;
+            IsOutputDirectoryTracking = outputDirectoryStorage == null;
       }
 
       internal sealed partial class IsOutputDirectoryTrackingPropertyHandler
@@ -298,22 +318,7 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="element">The model element that has the property to reset.</param>
          internal void ResetValue(ModelEnum element)
          {
-            object calculatedValue = null;
-            ModelRoot modelRoot = element.Store.ModelRoot();
-
-            try
-            {
-               calculatedValue = modelRoot?.EnumOutputDirectory;
-            }
-            catch (NullReferenceException) { }
-            catch (Exception e)
-            {
-               if (CriticalException.IsCriticalException(e))
-                  throw;
-            }
-
-            if (calculatedValue != null && element.OutputDirectory == (string)calculatedValue)
-               element.isOutputDirectoryTrackingPropertyStorage = true;
+            element.isOutputDirectoryTrackingPropertyStorage = string.IsNullOrWhiteSpace(element.outputDirectoryStorage);
          }
 
          /// <summary>

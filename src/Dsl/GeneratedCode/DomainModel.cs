@@ -151,6 +151,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "EnumNamespace", ModelRoot.EnumNamespaceDomainPropertyId, typeof(ModelRoot.EnumNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "StructNamespace", ModelRoot.StructNamespaceDomainPropertyId, typeof(ModelRoot.StructNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Namespaces", ModelRoot.NamespacesDomainPropertyId, typeof(ModelRoot.NamespacesPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "OutputLocations", ModelRoot.OutputLocationsDomainPropertyId, typeof(ModelRoot.OutputLocationsPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),

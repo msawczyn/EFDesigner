@@ -48,6 +48,22 @@ namespace Sawczyn.EFDesigner.EFModel
       [Obsolete("Use ModelRoot.Classes instead")]
       public LinkedElementCollection<ModelClass> Types => Classes;
 
+      #region OutputLocations
+
+      private OutputLocations outputLocationsStorage;
+
+      private OutputLocations GetOutputLocationsValue()
+      {
+         return outputLocationsStorage ?? (outputLocationsStorage = new OutputLocations(this));
+      }
+
+      private void SetOutputLocationsValue(OutputLocations value)
+      {
+         outputLocationsStorage = value;
+      }
+
+      #endregion OutputLocations
+
       #region Namespaces
 
       private Namespaces namespacesStorage;

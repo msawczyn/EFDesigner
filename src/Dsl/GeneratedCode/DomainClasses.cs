@@ -3347,6 +3347,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region OutputLocations domain property code
+		
+		/// <summary>
+		/// OutputLocations domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid OutputLocationsDomainPropertyId = new global::System.Guid(0xad922a6e, 0xebe8, 0x4cf7, 0xae, 0x7d, 0xb0, 0x44, 0x10, 0x10, 0x68, 0xda);
+		
+		/// <summary>
+		/// Gets or sets the value of OutputLocations domain property.
+		/// Default output folders for generated code
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/OutputLocations.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/OutputLocations.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("ad922a6e-ebe8-4cf7-ae7d-b044101068da")]
+		public OutputLocations OutputLocations
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return OutputLocationsPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				OutputLocationsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.OutputLocations domain property.
+		/// </summary>
+		internal sealed partial class OutputLocationsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, OutputLocations>
+		{
+			private OutputLocationsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.OutputLocations domain property value handler.
+			/// </summary>
+			public static readonly OutputLocationsPropertyHandler Instance = new OutputLocationsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.OutputLocations domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return OutputLocationsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed OutputLocations GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for OutputLocations because its Kind is
+				// set to CustomStorage. Please provide the GetOutputLocationsValue()
+				// method on the domain class.
+				return element.GetOutputLocationsValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, OutputLocations newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				OutputLocations oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for OutputLocations because its Kind is
+					// set to CustomStorage. Please provide the SetOutputLocationsValue()
+					// method on the domain class.
+					element.SetOutputLocationsValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

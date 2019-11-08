@@ -278,6 +278,11 @@
             <ExternalTypeMoniker Name="Namespaces" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="ad922a6e-ebe8-4cf7-ae7d-b044101068da" Description="Default output folders for generated code" Name="OutputLocations" DisplayName="Output Locations" Kind="CustomStorage">
+          <Type>
+            <ExternalTypeMoniker Name="OutputLocations" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1466,6 +1471,7 @@
       </Literals>
     </DomainEnumeration>
     <ExternalType Name="Namespaces" Namespace="Sawczyn.EFDesigner.EFModel" />
+    <ExternalType Name="OutputLocations" Namespace="Sawczyn.EFDesigner.EFModel" />
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1814,6 +1820,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="namespaces">
             <DomainPropertyMoniker Name="ModelRoot/Namespaces" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="outputLocations">
+            <DomainPropertyMoniker Name="ModelRoot/OutputLocations" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

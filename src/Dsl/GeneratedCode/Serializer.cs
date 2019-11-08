@@ -783,6 +783,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// OutputLocations
+			if (!serializationContext.Result.Failed)
+			{
+				string attribOutputLocations = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outputLocations");
+				if (attribOutputLocations != null)
+				{
+					OutputLocations valueOfOutputLocations;
+					if (DslModeling::SerializationUtilities.TryGetValue<OutputLocations>(serializationContext, attribOutputLocations, out valueOfOutputLocations))
+					{
+						instanceOfModelRoot.OutputLocations = valueOfOutputLocations;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outputLocations", typeof(OutputLocations), attribOutputLocations);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1853,6 +1870,16 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (!serializationContext.Result.Failed)
 				{
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "namespaces", serializedPropValue);
+				}
+			}
+			// OutputLocations
+			if (!serializationContext.Result.Failed)
+			{
+				OutputLocations propValue = instanceOfModelRoot.OutputLocations;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<OutputLocations>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outputLocations", serializedPropValue);
 				}
 			}
 		}

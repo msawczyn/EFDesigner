@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
@@ -18,6 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Namespace for generated code. Takes overrides into account.
       /// </summary>
+      [Browsable(false)]
       public string EffectiveNamespace
       {
          get
@@ -32,6 +34,27 @@ namespace Sawczyn.EFDesigner.EFModel
                return ModelRoot.EntityNamespace;
 
             return ModelRoot.Namespace;
+         }
+      }
+
+      /// <summary>
+      /// Output loation for generated code. Takes overrides into account.
+      /// </summary>
+      [Browsable(false)]
+      public string EffectiveOutputLocation
+      {
+         get
+         {
+            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
+               return outputDirectoryStorage;
+
+            if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.StructOutputDirectory))
+               return ModelRoot.StructOutputDirectory;
+
+            if (!IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.EntityOutputDirectory))
+               return ModelRoot.EntityOutputDirectory;
+
+            return ModelRoot.ContextOutputDirectory;
          }
       }
 

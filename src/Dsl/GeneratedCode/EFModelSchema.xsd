@@ -294,6 +294,12 @@
             <xsd:documentation>Default namespaces for generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: OutputLocations -->
+        <xsd:attribute name="outputLocations" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Default output folders for generated code</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
