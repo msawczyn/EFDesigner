@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
 
-namespace Sawczyn.EFDesigner.EFModel {
+namespace Sawczyn.EFDesigner.EFModel
+{
+
    public class Namespaces
    {
       private readonly ModelRoot modelRoot;
@@ -12,9 +14,9 @@ namespace Sawczyn.EFDesigner.EFModel {
       }
 
       // ReSharper disable once UnusedMember.Global
-      [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-      [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-      [DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.Category", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.Description", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
       public string DbContext
       {
          get
@@ -27,13 +29,13 @@ namespace Sawczyn.EFDesigner.EFModel {
             {
                modelRoot.Namespace = value;
                t.Commit();
-
             }
          }
       }
 
-      [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-      [DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.Category", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.Description", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
       public string Entity
       {
          get
@@ -49,12 +51,15 @@ namespace Sawczyn.EFDesigner.EFModel {
                modelRoot.EntityNamespace = string.IsNullOrWhiteSpace(value) || value == modelRoot.Namespace
                                               ? null
                                               : value;
-               t.Commit();
 
+               t.Commit();
             }
          }
       }
 
+      [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EnumNamespace.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EnumNamespace.Category", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/EnumNamespace.Description", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
       public string Enumeration
       {
          get
@@ -70,12 +75,15 @@ namespace Sawczyn.EFDesigner.EFModel {
                modelRoot.EnumNamespace = string.IsNullOrWhiteSpace(value) || value == modelRoot.Namespace
                                             ? null
                                             : value;
-               t.Commit();
 
+               t.Commit();
             }
          }
       }
 
+      [DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.DisplayName", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.Category", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+      [DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.Description", typeof(EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
       public string Struct
       {
          get
@@ -91,6 +99,7 @@ namespace Sawczyn.EFDesigner.EFModel {
                modelRoot.StructNamespace = string.IsNullOrWhiteSpace(value) || value == modelRoot.Namespace
                                               ? null
                                               : value;
+
                t.Commit();
             }
          }
@@ -104,4 +113,5 @@ namespace Sawczyn.EFDesigner.EFModel {
          return string.Empty;
       }
    }
+
 }

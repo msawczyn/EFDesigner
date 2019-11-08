@@ -49,7 +49,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="368a7c8c-e0db-40ef-b678-dbc4580d9e54" Description="Output directory for entities" Name="EntityOutputDirectory" DisplayName="Output Directory - Entities" Category="Code Generation">
+        <DomainProperty Id="368a7c8c-e0db-40ef-b678-dbc4580d9e54" Description="Output directory for entities" Name="EntityOutputDirectory" DisplayName="Output Directory - Entities" Category="Code Generation" IsBrowsable="false">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -61,7 +61,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="9e0ffa12-8733-40d2-8819-73740de7fecf" Description="Project directory for DbContext-related files" Name="ContextOutputDirectory" DisplayName="Output Directory - DbContext" Category="Code Generation">
+        <DomainProperty Id="9e0ffa12-8733-40d2-8819-73740de7fecf" Description="Project directory for DbContext-related files" Name="ContextOutputDirectory" DisplayName="Output Directory - DbContext" Category="Code Generation" IsBrowsable="false">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -73,7 +73,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="5de798f2-310f-40f7-8188-37690e6691b5" Description="Project directory for enums" Name="EnumOutputDirectory" DisplayName="Output Directory - Enums" Category="Code Generation">
+        <DomainProperty Id="5de798f2-310f-40f7-8188-37690e6691b5" Description="Project directory for enums" Name="EnumOutputDirectory" DisplayName="Output Directory - Enums" Category="Code Generation" IsBrowsable="false">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -188,7 +188,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="35350509-1856-4ca7-884a-1cee2552eef9" Description="Project directory for generated structures (owned/complex types)" Name="StructOutputDirectory" DisplayName="Output Directory - Structs" Category="Code Generation">
+        <DomainProperty Id="35350509-1856-4ca7-884a-1cee2552eef9" Description="Project directory for generated structures (owned/complex types)" Name="StructOutputDirectory" DisplayName="Output Directory - Structs" Category="Code Generation" IsBrowsable="false">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -251,17 +251,17 @@
             <ExternalTypeMoniker Name="/Microsoft.Msagl.Core.Layout/LayoutAlgorithmSettings" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f11b0472-3a86-497c-b8a7-cd90350fe289" Description="Namespace for entities" Name="EntityNamespace" DisplayName="Entity Namespace" IsBrowsable="false">
+        <DomainProperty Id="f11b0472-3a86-497c-b8a7-cd90350fe289" Description="Namespace for entities" Name="EntityNamespace" DisplayName="Entity Namespace" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f7d6b698-b82a-4438-bf49-c88c9c0299c7" Description="Namespace for enumerations" Name="EnumNamespace" DisplayName="Enum Namespace" IsBrowsable="false">
+        <DomainProperty Id="f7d6b698-b82a-4438-bf49-c88c9c0299c7" Description="Namespace for enumerations" Name="EnumNamespace" DisplayName="Enum Namespace" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="c3e26d6b-3032-4cb2-aac3-057634aa4096" Description="Namespace for owned entities" Name="StructNamespace" DisplayName="Struct Namespace" IsBrowsable="false">
+        <DomainProperty Id="c3e26d6b-3032-4cb2-aac3-057634aa4096" Description="Namespace for owned entities" Name="StructNamespace" DisplayName="Struct Namespace" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

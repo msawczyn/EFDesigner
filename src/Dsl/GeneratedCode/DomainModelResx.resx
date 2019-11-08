@@ -533,6 +533,10 @@
     <value>Entity Namespace</value>
     <comment>DisplayName for DomainProperty &apos;EntityNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;EntityNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EnumNamespace.Description" xml:space="preserve">
     <value>Namespace for enumerations</value>
     <comment>Description for DomainProperty &apos;EnumNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
@@ -541,6 +545,10 @@
     <value>Enum Namespace</value>
     <comment>DisplayName for DomainProperty &apos;EnumNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EnumNamespace.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;EnumNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.Description" xml:space="preserve">
     <value>Namespace for owned entities</value>
     <comment>Description for DomainProperty &apos;StructNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
@@ -548,6 +556,10 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.DisplayName" xml:space="preserve">
     <value>Struct Namespace</value>
     <comment>DisplayName for DomainProperty &apos;StructNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/StructNamespace.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;StructNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Namespaces.Description" xml:space="preserve">
     <value>Default namespaces for generated code</value>

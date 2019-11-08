@@ -13,9 +13,8 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = GetStore(context.Instance);
          DTE dte = store?.GetService(typeof(DTE)) as DTE;
          Array projects = dte?.ActiveSolutionProjects as Array;
-         Project currentProject = projects?.GetValue(0) as Project;
 
-         if (currentProject != null)
+         if (projects?.GetValue(0) is Project currentProject)
          {
             List<string> result = new List<string> {string.Empty};
             result.AddRange(GetProjectDirectories(currentProject.ProjectItems, ""));

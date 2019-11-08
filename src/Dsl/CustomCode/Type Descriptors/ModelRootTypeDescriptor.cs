@@ -55,10 +55,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="component">The component with the property value that is to be reset to the default value. </param>
       public override void ResetValue(object component)
       {
-         //if (!(component is ModelRoot modelRoot))
-         //   throw new ArgumentException(nameof(component));
-
-         //modelRoot.Namespaces = new Namespaces(modelRoot);
          throw new NotImplementedException();
       }
 
@@ -67,13 +63,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="value">The new value. </param>
       public override void SetValue(object component, object value)
       {
-         //if (!(component is ModelRoot modelRoot))
-         //   throw new ArgumentException(nameof(component));
-
-         //if (!(value is Namespaces namespaces))
-         //   throw new ArgumentException(nameof(value));
-
-         //modelRoot.Namespaces = namespaces;
          throw new NotImplementedException();
       }
 
@@ -103,15 +92,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
             //Add in extra custom properties here...
          }
-
-         //propertyDescriptors.Add(new NamespacesPropertyDescriptor("Namespaces"
-         //                                                       , new Attribute[]
-         //                                                         {
-         //                                                            new DisplayNameAttribute("Namespaces")
-         //                                                          , new DescriptionAttribute("Default namespaces for generated code.")
-         //                                                          , new CategoryAttribute("Code Generation")
-         //                                                          , new TypeConverterAttribute(typeof(ExpandableObjectConverter))
-         //                                                         }));
 
          // Return the property descriptors for this element
          return propertyDescriptors;

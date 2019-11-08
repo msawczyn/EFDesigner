@@ -35,6 +35,23 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public string EffectiveOutputDirectory
+      {
+         get
+         {
+            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
+               return outputDirectoryStorage;
+
+            if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.StructOutputDirectory))
+               return ModelRoot.StructOutputDirectory;
+
+            if (!IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.EntityOutputDirectory))
+               return ModelRoot.EntityOutputDirectory;
+
+            return ModelRoot.ContextOutputDirectory;
+         }
+      }
+
       /// <summary>
       /// All attributes in the class, including those inherited from base classes
       /// </summary>

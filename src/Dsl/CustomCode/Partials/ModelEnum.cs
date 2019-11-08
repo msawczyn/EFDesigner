@@ -57,6 +57,20 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public string EffectiveOutputDirectory
+      {
+         get
+         {
+            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
+               return outputDirectoryStorage;
+
+            if (!string.IsNullOrWhiteSpace(ModelRoot.EnumOutputDirectory))
+               return ModelRoot.EnumOutputDirectory;
+
+            return ModelRoot.ContextOutputDirectory;
+         }
+      }
+
       /// <summary>
       /// If enum is flags, renumbers all enum values starting at 1 without regard to its current value
       /// </summary>
