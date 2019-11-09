@@ -244,7 +244,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="isDiagram">Indicates whether a diagram or model file is currently being serialized.</param>
 		internal virtual global::System.Xml.XmlReaderSettings CreateXmlReaderSettings(DslModeling::SerializationContext serializationContext, bool isDiagram)
 		{
-			return new global::System.Xml.XmlReaderSettings();
+			return new global::System.Xml.XmlReaderSettings() { DtdProcessing = System.Xml.DtdProcessing.Prohibit };
 		}
 	
 		/// <summary>
@@ -445,7 +445,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					this.InitializeSerializationContext(partition, serializationContext, true);
 					DslModeling::TransactionContext transactionContext = new DslModeling::TransactionContext();
 					transactionContext.Add(DslModeling::SerializationContext.TransactionContextKey, serializationContext);
-					using (DslModeling::Transaction t = partition.Store.TransactionManager.BeginTransaction("Load Model from " + location??"stream", true, transactionContext))
+					using (DslModeling::Transaction t = partition.Store.TransactionManager.BeginTransaction("Load Model from " + location ?? "stream", true, transactionContext))
 					{
 						// Ensure there is some content in the file.  Blank (or almost blank, to account for encoding header bytes, etc.)
 						// files will cause a new root element to be created and returned. 
@@ -506,7 +506,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					///// <param name="partition">Partition in which the new ModelRoot instance will be created.</param>
 					///// <param name="fileName">Name of the file from which the ModelRoot instance will be deserialized.</param>
 					///// <param name="modelRoot">The root of the file that was loaded.</param>
-					// private void OnPostLoadModel(DslModeling::SerializationResult serializationResult, DslModeling::Partition partition, string location, ModelRoot modelRoot )
+					// private void OnPostLoadModel(DslModeling::SerializationResult serializationResult, DslModeling::Partition partition, string fileName, ModelRoot modelRoot )
 	
 					this.OnPostLoadModel(serializationResult, partition, location, modelRoot);
 					if (serializationResult.Failed)

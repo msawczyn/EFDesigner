@@ -57,6 +57,20 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public string EffectiveOutputDirectory
+      {
+         get
+         {
+            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
+               return outputDirectoryStorage;
+
+            if (!string.IsNullOrWhiteSpace(ModelRoot.EnumOutputDirectory))
+               return ModelRoot.EnumOutputDirectory;
+
+            return ModelRoot.ContextOutputDirectory;
+         }
+      }
+
       /// <summary>
       /// Output location for generated code. Takes overrides into account.
       /// </summary>
