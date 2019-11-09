@@ -1,6 +1,6 @@
 ﻿namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class Comment
+   public partial class Comment: IHasStore
    {
       private string GetShortTextValue()
       {

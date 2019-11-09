@@ -9,7 +9,7 @@ using System.Linq;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelEnum : IModelElementWithCompartments, IDisplaysWarning
+   public partial class ModelEnum : IModelElementWithCompartments, IDisplaysWarning, IHasStore
    {
       public string FullName => string.IsNullOrWhiteSpace(EffectiveNamespace) ? $"global::{Name}" : $"global::{EffectiveNamespace}.{Name}";
 
@@ -50,6 +50,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!string.IsNullOrWhiteSpace(namespaceStorage))
                return namespaceStorage;
 
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (!string.IsNullOrWhiteSpace(ModelRoot.EnumNamespace))
                return ModelRoot.EnumNamespace;
 
@@ -57,6 +58,10 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Output directory for generated code. Takes overrides into account.
+      /// </summary>
+      [Browsable(false)]
       public string EffectiveOutputDirectory
       {
          get
@@ -64,6 +69,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
                return outputDirectoryStorage;
 
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (!string.IsNullOrWhiteSpace(ModelRoot.EnumOutputDirectory))
                return ModelRoot.EnumOutputDirectory;
 
@@ -82,6 +88,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
                return outputDirectoryStorage;
 
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (!string.IsNullOrWhiteSpace(ModelRoot.EntityOutputDirectory))
                return ModelRoot.EntityOutputDirectory;
 

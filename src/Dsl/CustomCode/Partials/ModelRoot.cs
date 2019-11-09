@@ -21,7 +21,7 @@ using SugiyamaLayoutSettings = Microsoft.Msagl.Layout.Layered.SugiyamaLayoutSett
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelRoot
+   public partial class ModelRoot: IHasStore
    {
       public static readonly PluralizationService PluralizationService;
 

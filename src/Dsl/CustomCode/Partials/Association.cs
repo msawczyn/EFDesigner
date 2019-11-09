@@ -10,7 +10,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class Association : IDisplaysWarning
+   public partial class Association : IDisplaysWarning, IHasStore
    {
       public string GetSourceMultiplicityDisplayValue() => MultiplicityDisplayValue(SourceMultiplicity);
 

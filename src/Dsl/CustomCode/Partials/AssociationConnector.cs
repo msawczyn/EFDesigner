@@ -1,9 +1,8 @@
-﻿using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Diagrams;
+﻿using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public abstract partial class AssociationConnector
+   public abstract partial class AssociationConnector: IHasStore
    {
       /// <summary>
       /// Initializes style set resources for this shape type

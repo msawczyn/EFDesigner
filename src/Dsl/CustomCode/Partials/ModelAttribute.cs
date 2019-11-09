@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
    [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
-   public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning
+   public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning, IHasStore
    {
       /// <summary>Gets the parent model element (ModelClass).</summary>
       /// <value>The parent model element.</value>

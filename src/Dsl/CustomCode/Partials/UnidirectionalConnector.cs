@@ -8,8 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override string GetToolTipText(DiagramItem item)
       {
-         UnidirectionalAssociation association = item.Shape.ModelElement as UnidirectionalAssociation;
-         return association != null
+         return item.Shape.ModelElement is UnidirectionalAssociation association
                    ? $"{association.Source.Name}.{association.TargetPropertyName}"
                    : string.Empty;
       }

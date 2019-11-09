@@ -2,7 +2,7 @@
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class Generalization
+   public partial class Generalization: IHasStore
    {
       public bool IsInCircularInheritance()
       {

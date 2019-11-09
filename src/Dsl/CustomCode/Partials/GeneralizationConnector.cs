@@ -2,7 +2,7 @@
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class GeneralizationConnector
+   public partial class GeneralizationConnector: IHasStore
    {
       public override bool HasToolTip => true;
 

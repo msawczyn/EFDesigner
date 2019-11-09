@@ -14,17 +14,17 @@ namespace Sawczyn.EFDesigner.EFModel
          // We assume that "instance" will either be a single model element, or   
          // an array of model elements (if multiple items are selected).  
 
-         ModelElement currentElement = gridSelection is object[] objects && objects.Length > 0
-                                          ? objects[0] as ModelElement
-                                          : gridSelection as ModelElement;
+         IHasStore currentElement = gridSelection is object[] objects && objects.Length > 0
+                                       ? objects[0] as IHasStore
+                                       : gridSelection as IHasStore;
 
          return currentElement?.Store;
       }
 
-        protected ModelElement[] GetSelectedElements(object gridSelection)
+      protected IHasStore[] GetSelectedElements(object gridSelection)
         {
             object[] objects = gridSelection as object[];
-            return objects?.Cast<ModelElement>().ToArray() ?? new[] { (ModelElement)gridSelection };
+            return objects?.Cast<IHasStore>().ToArray() ?? new[] { (IHasStore)gridSelection };
         }
     }
 }

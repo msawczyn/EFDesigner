@@ -10,6 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class BidirectionalAssociation
    {
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)
       {
          if (Source?.ModelRoot == null) return;

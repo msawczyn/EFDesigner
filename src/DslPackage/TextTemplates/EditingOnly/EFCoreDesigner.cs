@@ -11,62 +11,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      string CreateForeignKeyColumnSegmentEFCore(Association association, List<string> foreignKeyColumns, bool useGeneric)
-      {
-         // foreign key definitions always go in the table representing the Dependent end of the association
-         // if there is no dependent end (i.e., many-to-many), there are no foreign keys
-         string nameBase;
-         string dependentType;
-
-         if (association.SourceRole == EndpointRole.Dependent)
-         {
-            nameBase = association.TargetPropertyName;
-            dependentType = association.Source.FullName;
-         }
-         else if (association.TargetRole == EndpointRole.Dependent)
-         {
-            nameBase = association is BidirectionalAssociation b
-                          ? b.SourcePropertyName
-                          : $"{association.Source.Name}.{association.TargetPropertyName}";
-
-            dependentType = association.Target.FullName;
-         }
-         else
-            return null;
-
-         string columnName = $"{nameBase}_Id";
-
-         if (foreignKeyColumns.Contains(columnName))
-         {
-            int index = 0;
-
-            do
-            {
-               columnName = $"{nameBase}{++index}_Id";
-            } while (foreignKeyColumns.Contains(columnName));
-         }
-
-         foreignKeyColumns.Add(columnName);
-
-         return useGeneric
-                   ? $"HasForeignKey<{dependentType}>(\"{columnName}\")"
-                   : $"HasForeignKey(\"{columnName}\")";
-      }
-
       void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       {
          // Entities
 
          foreach (ModelClass modelClass in modelRoot.Classes)
          {
-            string dir = modelClass.IsDependentType
-                            ? modelRoot.StructOutputDirectory
-                            : modelRoot.EntityOutputDirectory;
-
-            if (!string.IsNullOrEmpty(modelClass.OutputDirectory))
-               dir = modelClass.OutputDirectory;
-
-            manager.StartNewFile(Path.Combine(dir, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
+            manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
             WriteClass(modelClass);
          }
 
@@ -74,11 +25,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          foreach (ModelEnum modelEnum in modelRoot.Enums)
          {
-            string dir = !string.IsNullOrEmpty(modelEnum.OutputDirectory)
-                            ? modelEnum.OutputDirectory
-                            : modelRoot.EnumOutputDirectory;
-
-            manager.StartNewFile(Path.Combine(dir, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
+            manager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
             WriteEnum(modelEnum);
          }
 
@@ -677,5 +624,48 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          EndNamespace(modelRoot.Namespace);
       }
+
+      string CreateForeignKeyColumnSegmentEFCore(Association association, List<string> foreignKeyColumns, bool useGeneric)
+      {
+         // foreign key definitions always go in the table representing the Dependent end of the association
+         // if there is no dependent end (i.e., many-to-many), there are no foreign keys
+         string nameBase;
+         string dependentType;
+
+         if (association.SourceRole == EndpointRole.Dependent)
+         {
+            nameBase = association.TargetPropertyName;
+            dependentType = association.Source.FullName;
+         }
+         else if (association.TargetRole == EndpointRole.Dependent)
+         {
+            nameBase = association is BidirectionalAssociation b
+                          ? b.SourcePropertyName
+                          : $"{association.Source.Name}.{association.TargetPropertyName}";
+
+            dependentType = association.Target.FullName;
+         }
+         else
+            return null;
+
+         string columnName = $"{nameBase}_Id";
+
+         if (foreignKeyColumns.Contains(columnName))
+         {
+            int index = 0;
+
+            do
+            {
+               columnName = $"{nameBase}{++index}_Id";
+            } while (foreignKeyColumns.Contains(columnName));
+         }
+
+         foreignKeyColumns.Add(columnName);
+
+         return useGeneric
+                   ? $"HasForeignKey<{dependentType}>(\"{columnName}\")"
+                   : $"HasForeignKey(\"{columnName}\")";
+      }
+
    }
 }

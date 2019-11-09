@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class EnumShapeBase
+   public partial class EnumShapeBase: IHasStore
    {
       internal sealed partial class FillColorPropertyHandler
       {

@@ -8,7 +8,7 @@ using System.Linq;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelEnumValue : IModelElementInCompartment, IDisplaysWarning
+   public partial class ModelEnumValue : IModelElementInCompartment, IDisplaysWarning, IHasStore
    {
       private ModelEnum cachedParent;
 

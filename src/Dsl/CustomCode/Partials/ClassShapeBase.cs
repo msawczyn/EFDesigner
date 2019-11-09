@@ -3,13 +3,14 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public abstract partial class ClassShapeBase
+   public abstract partial class ClassShapeBase: IHasStore
    {
       private static string GetDisplayPropertyFromModelClassForAssociationsCompartment(ModelElement element)
       {
          Association association = (Association)element;
          ModelClass target = association.Target;
          
+         // ReSharper disable once ConvertIfStatementToReturnStatement
          if (!string.IsNullOrEmpty(association.TargetPropertyName))
             return $"{association.TargetPropertyName} : {target.Name}";
 
@@ -21,6 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel
          BidirectionalAssociation association = (BidirectionalAssociation)element;
          ModelClass source = association.Source;
 
+         // ReSharper disable once ConvertIfStatementToReturnStatement
          if (!string.IsNullOrEmpty(association.SourcePropertyName))
             return $"{association.SourcePropertyName} : {source.Name}";
 

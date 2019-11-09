@@ -278,7 +278,14 @@
             <ExternalTypeMoniker Name="Namespaces" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="ad922a6e-ebe8-4cf7-ae7d-b044101068da" Description="Default output folders for generated code" Name="OutputLocations" DisplayName="Output Locations" Kind="CustomStorage">
+        <DomainProperty Id="ad922a6e-ebe8-4cf7-ae7d-b044101068da" Description="Default output folders for generated code" Name="OutputLocations" DisplayName="Output Locations" Kind="CustomStorage" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(System.ComponentModel.ExpandableObjectConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <ExternalTypeMoniker Name="OutputLocations" />
           </Type>

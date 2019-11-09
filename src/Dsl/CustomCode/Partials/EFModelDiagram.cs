@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class EFModelDiagram
+   public partial class EFModelDiagram: IHasStore
    {
       public override void OnInitialize()
       {

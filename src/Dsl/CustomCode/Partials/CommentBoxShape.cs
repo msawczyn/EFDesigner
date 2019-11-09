@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class CommentBoxShape
+   public partial class CommentBoxShape: IHasStore
    {
       //Called once for each shape instance. 
       protected override void InitializeDecorators(IList<ShapeField> shapeFields, IList<Decorator> decorators)

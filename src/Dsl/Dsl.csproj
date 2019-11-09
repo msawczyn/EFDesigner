@@ -133,6 +133,7 @@
     <Compile Include="CustomCode\Domain Types\Namespaces.cs" />
     <Compile Include="CustomCode\Rules\BidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\Rules\UnidirectionalAssociationAddRules.cs" />
+    <Compile Include="CustomCode\ModelElement Interfaces\IHasStore.cs" />
     <Compile Include="CustomCode\Type Converters\MaxLengthTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\MinLengthTypeConverter.cs" />
     <Compile Include="CustomCode\Type Descriptors\AssociationTypeDescriptor.cs" />

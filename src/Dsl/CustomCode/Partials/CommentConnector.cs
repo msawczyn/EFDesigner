@@ -2,7 +2,7 @@
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class CommentConnector
+   public partial class CommentConnector: IHasStore
    {
       protected override int ModifyLuminosity(int currentLuminosity, DiagramClientView view)
       {

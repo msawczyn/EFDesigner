@@ -5,8 +5,8 @@ using Microsoft.VisualStudio.Modeling.Design;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [TypeConverter(typeof(ExpandableObjectConverter))]
-   public class OutputLocations
+   //[TypeConverter(typeof(ExpandableObjectConverter))]
+   public class OutputLocations: IHasStore
    {
       private readonly ModelRoot modelRoot;
 
@@ -14,6 +14,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          this.modelRoot = modelRoot;
       }
+
+      public Store Store => modelRoot.Store;
 
       // ReSharper disable once UnusedMember.Global
       [TypeConverter(typeof(ProjectDirectoryTypeConverter))]
@@ -127,5 +129,16 @@ namespace Sawczyn.EFDesigner.EFModel
    //{
    //   public string Project { get; set; }
    //   public string Folder { get; set; }
+   //}
+
+   //[TypeConverter(typeof(ProjectDirectoryTypeConverter))]
+   //public class ProjectFolder
+   //{
+
+   //}
+
+   //public class Project
+   //{
+
    //}
 }
