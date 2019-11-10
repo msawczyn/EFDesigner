@@ -62,7 +62,7 @@ namespace Sandbox_EFCore
          modelBuilder.Entity<global::Sandbox_EFCore.BaseClass>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .ValueGeneratedOnAdd();
+                     .ValueGeneratedNever();
 
          modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Name)
                      .IsUnique();
@@ -81,6 +81,7 @@ namespace Sandbox_EFCore
                      .IsUnique();
          modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
                      .Property(t => t.Name)
+                     .HasMaxLength(15)
                      .IsRequired();
          modelBuilder.Entity<global::Sandbox_EFCore.Derived2>()
                      .Property(t => t.Symbol)

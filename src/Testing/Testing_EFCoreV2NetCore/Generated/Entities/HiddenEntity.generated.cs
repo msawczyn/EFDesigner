@@ -31,7 +31,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -48,7 +48,7 @@ namespace Testing
       partial void GetId(ref int result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
@@ -60,7 +60,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         private set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);

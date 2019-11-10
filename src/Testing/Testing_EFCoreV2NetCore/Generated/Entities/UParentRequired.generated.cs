@@ -33,7 +33,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -50,7 +50,7 @@ namespace Testing
       partial void GetId(ref int result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
@@ -62,7 +62,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         private set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -74,7 +74,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
       /// <summary>
@@ -82,7 +82,7 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.UChild UChildRequired { get; set; }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
 
       public virtual global::Testing.UChild UChildOptional { get; set; }
 

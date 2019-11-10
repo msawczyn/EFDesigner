@@ -54,6 +54,7 @@ namespace Testing
 
          this.BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
          this.BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
+
          Init();
       }
 
@@ -68,7 +69,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -85,7 +86,7 @@ namespace Testing
       partial void GetId(ref int result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
@@ -97,7 +98,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         private set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -109,7 +110,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
       /// <summary>
@@ -127,9 +128,9 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; private set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; protected set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; private set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; protected set; }
 
       public virtual global::Testing.BParentOptional BParentOptional { get; set; }
 

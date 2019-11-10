@@ -12,7 +12,7 @@
 
 using System.Data.Entity.Migrations;
 
-namespace Sandbox_EF6
+namespace Sandbox_EF61
 {
    /// <inheritdoc/>
    public sealed partial class EFModelDbMigrationConfiguration : DbMigrationsConfiguration<EFModel>

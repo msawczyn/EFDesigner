@@ -39,8 +39,11 @@ namespace Testing
       {
          if (string.IsNullOrEmpty(property1)) throw new ArgumentNullException(nameof(property1));
          this.Property1 = property1;
+
          if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
          this.Property0 = property0;
+
+
          Init();
       }
 
@@ -55,44 +58,14 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
-
-      /// <summary>
-      /// Backing field for Property1
-      /// </summary>
-      protected string _Property1;
-      /// <summary>
-      /// When provided in a partial class, allows value of Property1 to be changed before setting.
-      /// </summary>
-      partial void SetProperty1(string oldValue, ref string newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Property1 to be changed before returning.
-      /// </summary>
-      partial void GetProperty1(ref string result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public string Property1
-      {
-         get
-         {
-            string value = _Property1;
-            GetProperty1(ref value);
-            return (_Property1 = value);
-         }
-         set
-         {
-            string oldValue = _Property1;
-            SetProperty1(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _Property1 = value;
-            }
-         }
-      }
+      public string Property1 { get; set; }
 
    }
 }

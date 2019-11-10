@@ -32,7 +32,10 @@ namespace EFCoreParser
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
 
             // ReSharper disable once UnthrowableException
-            if (types.Count != 1)
+            if (types.Count == 0)
+               throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
+            
+            if (types.Count > 1)
                throw new AmbiguousMatchException("Found more than one class derived from DbContext");
 
             contextType = types[0];

@@ -28,38 +28,19 @@ namespace Sawczyn.EFDesigner.EFModel
             EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, association);
 
             // only display roles for 1..1 and 0-1..0-1 associations
-            if (((association.SourceMultiplicity != Multiplicity.One
-               || association.TargetMultiplicity != Multiplicity.One)
-              && (association.SourceMultiplicity != Multiplicity.ZeroOne
-               || association.TargetMultiplicity != Multiplicity.ZeroOne)))
+            if ((association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One)
+             && (association.SourceMultiplicity != Multiplicity.ZeroOne || association.TargetMultiplicity != Multiplicity.ZeroOne))
             {
-               PropertyDescriptor sourceRolePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "SourceRole");
-
-               if (sourceRolePropertyDescriptor != null)
-                  propertyDescriptors.Remove(sourceRolePropertyDescriptor);
-
-               PropertyDescriptor targetRolePropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "TargetRole");
-
-               if (targetRolePropertyDescriptor != null)
-                  propertyDescriptors.Remove(targetRolePropertyDescriptor);
+               propertyDescriptors.Remove("SourceRole");
+               propertyDescriptors.Remove("TargetRole");
             }
 
             // only display delete behavior on the principal end
             if (association.SourceRole != EndpointRole.Principal)
-            {
-               PropertyDescriptor sourceDeleteActionPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "SourceDeleteAction");
-
-               if (sourceDeleteActionPropertyDescriptor != null)
-                  propertyDescriptors.Remove(sourceDeleteActionPropertyDescriptor);
-            }
+               propertyDescriptors.Remove("SourceDeleteAction");
 
             if (association.TargetRole != EndpointRole.Principal)
-            {
-               PropertyDescriptor targetDeleteActionPropertyDescriptor = propertyDescriptors.OfType<PropertyDescriptor>().SingleOrDefault(x => x.Name == "TargetDeleteAction");
-
-               if (targetDeleteActionPropertyDescriptor != null)
-                  propertyDescriptors.Remove(targetDeleteActionPropertyDescriptor);
-            }
+               propertyDescriptors.Remove("TargetDeleteAction");
 
             /********************************************************************************/
 
@@ -109,5 +90,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // Return the property descriptors for this element  
          return propertyDescriptors;
       }
+
+
    }
 }

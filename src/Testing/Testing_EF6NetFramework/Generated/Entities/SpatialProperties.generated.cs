@@ -53,34 +53,50 @@ namespace Testing
       {
          if (attrgeography == null) throw new ArgumentNullException(nameof(attrgeography));
          this.AttrGeography = attrgeography;
+
          if (attrgeographycollection == null) throw new ArgumentNullException(nameof(attrgeographycollection));
          this.AttrGeographyCollection = attrgeographycollection;
+
          if (attrgeographylinestring == null) throw new ArgumentNullException(nameof(attrgeographylinestring));
          this.AttrGeographyLineString = attrgeographylinestring;
+
          if (attrgeographymultilinestring == null) throw new ArgumentNullException(nameof(attrgeographymultilinestring));
          this.AttrGeographyMultiLineString = attrgeographymultilinestring;
+
          if (attrgeographymultipoint == null) throw new ArgumentNullException(nameof(attrgeographymultipoint));
          this.AttrGeographyMultiPoint = attrgeographymultipoint;
+
          if (attrgeographymultipolygon == null) throw new ArgumentNullException(nameof(attrgeographymultipolygon));
          this.AttrGeographyMultiPolygon = attrgeographymultipolygon;
+
          if (attrgeographypoint == null) throw new ArgumentNullException(nameof(attrgeographypoint));
          this.AttrGeographyPoint = attrgeographypoint;
+
          if (attrgeographypolygon == null) throw new ArgumentNullException(nameof(attrgeographypolygon));
          this.AttrGeographyPolygon = attrgeographypolygon;
+
          if (attrgeometry == null) throw new ArgumentNullException(nameof(attrgeometry));
          this.AttrGeometry = attrgeometry;
+
          if (attrgeometrycollection == null) throw new ArgumentNullException(nameof(attrgeometrycollection));
          this.AttrGeometryCollection = attrgeometrycollection;
+
          if (attrgeometrylinestring == null) throw new ArgumentNullException(nameof(attrgeometrylinestring));
          this.AttrGeometryLineString = attrgeometrylinestring;
+
          if (attrgeometrymultilinestring == null) throw new ArgumentNullException(nameof(attrgeometrymultilinestring));
          this.AttrGeometryMultiLineString = attrgeometrymultilinestring;
+
          if (attrgeometrymultipoint == null) throw new ArgumentNullException(nameof(attrgeometrymultipoint));
          this.AttrGeometryMultiPoint = attrgeometrymultipoint;
+
          if (attrgeometrymultipolygon == null) throw new ArgumentNullException(nameof(attrgeometrymultipolygon));
          this.AttrGeometryMultiPolygon = attrgeometrymultipolygon;
+
          if (attrgeometrypoint == null) throw new ArgumentNullException(nameof(attrgeometrypoint));
          this.AttrGeometryPoint = attrgeometrypoint;
+
+
          Init();
       }
 
@@ -108,7 +124,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -137,7 +153,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);

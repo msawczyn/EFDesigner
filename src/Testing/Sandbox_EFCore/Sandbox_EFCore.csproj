@@ -42,11 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Custom\EFModel.cs" />
-    <Compile Include="EFModel2.cs">
-      <DependentUpon>EFModel2.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="EFModel.cs">
       <DependentUpon>EFModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -91,10 +86,6 @@
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
     </None>
-    <None Include="EFModel2.efmodel" />
-    <None Include="EFModel2.efmodel.diagram">
-      <DependentUpon>EFModel2.efmodel</DependentUpon>
-    </None>
     <None Include="Properties\EFModel.efmodel" />
     <None Include="Properties\EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
@@ -105,10 +96,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="EFModel2.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EFModel2.cs</LastGenOutput>
-    </Content>
     <Content Include="EFModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel.cs</LastGenOutput>

@@ -12,7 +12,7 @@
 
 using System.Data.Entity;
 
-namespace Sandbox_EF6
+namespace Sandbox_EF61
 {
    /// <inheritdoc/>
    public partial class EFModelDatabaseInitializer : MigrateDatabaseToLatestVersion<EFModel, EFModelDbMigrationConfiguration>

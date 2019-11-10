@@ -206,6 +206,8 @@
   <HelpKINode Title="EF6 enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EFVersion.htm" />
   <HelpKINode Title="EFCore enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EFVersion.htm" />
   <HelpKINode Title="EffectiveConcurrency property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveConcurrency.htm" />
+  <HelpKINode Title="EffectiveNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveNamespace.htm" />
+  <HelpKINode Title="EffectiveOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveOutputDirectory.htm" />
   <HelpKINode Title="EFPackageVersions property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetHelper_EFPackageVersions.htm" />
   <HelpKINode Title="EFVersion enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_EFVersion.htm" />
   <HelpKINode Title="EFVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetDisplay_EFVersion.htm" />
@@ -215,8 +217,12 @@
   <HelpKINode Title="EntityContainerName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityContainerName.htm" />
   <HelpKINode Title="EntityFrameworkPackageVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityFrameworkPackageVersion.htm" />
   <HelpKINode Title="EntityFrameworkVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityFrameworkVersion.htm" />
+  <HelpKINode Title="EntityNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityNamespace.htm" />
+  <HelpKINode Title="EntityNamespaceDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityNamespaceDomainPropertyId.htm" />
   <HelpKINode Title="EntityOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityOutputDirectory.htm" />
   <HelpKINode Title="Enum property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_Enum.htm" />
+  <HelpKINode Title="EnumNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EnumNamespace.htm" />
+  <HelpKINode Title="EnumNamespaceDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_EnumNamespaceDomainPropertyId.htm" />
   <HelpKINode Title="EnumOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EnumOutputDirectory.htm" />
   <HelpKINode Title="Enums property">
     <HelpKINode Title="Comment.Enums Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Enums.htm" />
@@ -419,6 +425,8 @@
   <HelpKINode Title="ModelClass.DbSetName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_DbSetName.htm" />
   <HelpKINode Title="ModelClass.Description property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Description.htm" />
   <HelpKINode Title="ModelClass.EffectiveConcurrency property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveConcurrency.htm" />
+  <HelpKINode Title="ModelClass.EffectiveNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveNamespace.htm" />
+  <HelpKINode Title="ModelClass.EffectiveOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveOutputDirectory.htm" />
   <HelpKINode Title="ModelClass.FindAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FindAssociationNamed.htm" />
   <HelpKINode Title="ModelClass.FindAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FindAttributeNamed.htm" />
   <HelpKINode Title="ModelClass.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_FullName.htm" />
@@ -464,7 +472,6 @@
   <HelpKINode Title="ModelElementExtensions.ModelRoot method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_ModelRoot.htm" />
   <HelpKINode Title="ModelEnum class">
     <HelpKINode Title="ModelEnum Class" Url="html/T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_ModelEnum.htm" />
   </HelpKINode>
@@ -477,7 +484,6 @@
   <HelpKINode Title="ModelEnum.Namespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Namespace.htm" />
   <HelpKINode Title="ModelEnum.OutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_OutputDirectory.htm" />
   <HelpKINode Title="ModelEnum.Summary property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Summary.htm" />
-  <HelpKINode Title="ModelEnum.ValidValueTypes field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnum_ValidValueTypes.htm" />
   <HelpKINode Title="ModelEnum.Values property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Values.htm" />
   <HelpKINode Title="ModelEnum.ValueType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_ValueType.htm" />
   <HelpKINode Title="ModelEnumValue class">
@@ -527,7 +533,11 @@
   <HelpKINode Title="ModelRoot.EntityContainerName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityContainerName.htm" />
   <HelpKINode Title="ModelRoot.EntityFrameworkPackageVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityFrameworkPackageVersion.htm" />
   <HelpKINode Title="ModelRoot.EntityFrameworkVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityFrameworkVersion.htm" />
+  <HelpKINode Title="ModelRoot.EntityNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityNamespace.htm" />
+  <HelpKINode Title="ModelRoot.EntityNamespaceDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityNamespaceDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.EntityOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityOutputDirectory.htm" />
+  <HelpKINode Title="ModelRoot.EnumNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EnumNamespace.htm" />
+  <HelpKINode Title="ModelRoot.EnumNamespaceDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_EnumNamespaceDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.EnumOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EnumOutputDirectory.htm" />
   <HelpKINode Title="ModelRoot.Enums property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Enums.htm" />
   <HelpKINode Title="ModelRoot.ExecuteValidator property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ExecuteValidator.htm" />
@@ -543,12 +553,18 @@
   <HelpKINode Title="ModelRoot.LayoutAlgorithmSettingsDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettingsDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
   <HelpKINode Title="ModelRoot.Namespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Namespace.htm" />
+  <HelpKINode Title="ModelRoot.Namespaces property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Namespaces.htm" />
+  <HelpKINode Title="ModelRoot.NamespacesDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_NamespacesDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.NuGetPackageVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_NuGetPackageVersion.htm" />
+  <HelpKINode Title="ModelRoot.OutputLocations property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_OutputLocations.htm" />
+  <HelpKINode Title="ModelRoot.OutputLocationsDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_OutputLocationsDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.PluralizationService field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_PluralizationService.htm" />
   <HelpKINode Title="ModelRoot.ProxyGenerationEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ProxyGenerationEnabled.htm" />
   <HelpKINode Title="ModelRoot.ShowCascadeDeletes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowCascadeDeletes.htm" />
   <HelpKINode Title="ModelRoot.ShowWarningsInDesigner property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowWarningsInDesigner.htm" />
   <HelpKINode Title="ModelRoot.SpatialTypes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_SpatialTypes.htm" />
+  <HelpKINode Title="ModelRoot.StructNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_StructNamespace.htm" />
+  <HelpKINode Title="ModelRoot.StructNamespaceDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_StructNamespaceDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.StructOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_StructOutputDirectory.htm" />
   <HelpKINode Title="ModelRoot.Summary property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Summary.htm" />
   <HelpKINode Title="ModelRoot.TransformOnSave property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_TransformOnSave.htm" />
@@ -575,6 +591,8 @@
     <HelpKINode Title="ModelEnum.Namespace Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Namespace.htm" />
     <HelpKINode Title="ModelRoot.Namespace Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Namespace.htm" />
   </HelpKINode>
+  <HelpKINode Title="Namespaces property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Namespaces.htm" />
+  <HelpKINode Title="NamespacesDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_NamespacesDomainPropertyId.htm" />
   <HelpKINode Title="NavigationProperty class">
     <HelpKINode Title="NavigationProperty Class" Url="html/T_Sawczyn_EFDesigner_EFModel_NavigationProperty.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_NavigationProperty.htm" />
@@ -641,6 +659,8 @@
     <HelpKINode Title="ModelClass.OutputDirectory Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_OutputDirectory.htm" />
     <HelpKINode Title="ModelEnum.OutputDirectory Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_OutputDirectory.htm" />
   </HelpKINode>
+  <HelpKINode Title="OutputLocations property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_OutputLocations.htm" />
+  <HelpKINode Title="OutputLocationsDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_OutputLocationsDomainPropertyId.htm" />
   <HelpKINode Title="PackageId property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetDisplay_PackageId.htm" />
   <HelpKINode Title="PACKAGEID_EF6 field" Url="html/F_Sawczyn_EFDesigner_EFModel_NuGetHelper_PACKAGEID_EF6.htm" />
   <HelpKINode Title="PACKAGEID_EFCORE field" Url="html/F_Sawczyn_EFDesigner_EFModel_NuGetHelper_PACKAGEID_EFCORE.htm" />
@@ -781,6 +801,8 @@
   <HelpKINode Title="StringExtensions.Truncate method" Url="html/M_Sawczyn_EFDesigner_EFModel_StringExtensions_Truncate.htm" />
   <HelpKINode Title="StringToBytesConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="StringType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_StringType.htm" />
+  <HelpKINode Title="StructNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_StructNamespace.htm" />
+  <HelpKINode Title="StructNamespaceDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_StructNamespaceDomainPropertyId.htm" />
   <HelpKINode Title="StructOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_StructOutputDirectory.htm" />
   <HelpKINode Title="Subclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Subclass.htm" />
   <HelpKINode Title="Subclasses property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Subclasses.htm" />
@@ -871,7 +893,6 @@
   <HelpKINode Title="ValidCLRTypes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ValidCLRTypes.htm" />
   <HelpKINode Title="ValidIdentityAttributeTypes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ValidIdentityAttributeTypes.htm" />
   <HelpKINode Title="ValidTypes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ValidTypes.htm" />
-  <HelpKINode Title="ValidValueTypes field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelEnum_ValidValueTypes.htm" />
   <HelpKINode Title="Value property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_Value.htm" />
   <HelpKINode Title="ValueConverter enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="Values property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Values.htm" />

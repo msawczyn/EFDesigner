@@ -40,8 +40,13 @@ namespace EF6Parser
             log.Info("dbContextTypeName parameter is null");
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
 
-            // ReSharper disable once UnthrowableException
-            if (types.Count != 1)
+            if (types.Count == 0)
+            {
+               log.Error($"No DBContext found in {assembly.Location}");
+               throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
+            }
+            
+            if (types.Count > 1)
             {
                log.Error($"Found more than one class derived from DbContext: {string.Join(", ", types.Select(t => t.FullName))}");
                throw new AmbiguousMatchException("Found more than one class derived from DbContext");

@@ -37,7 +37,10 @@ namespace Testing
       /// <param name="foo"></param>
       public ParserTest(long foo)
       {
+         if (foo == default(long)) throw new ArgumentNullException(nameof(foo));
          this.foo = foo;
+
+
          Init();
       }
 
@@ -51,7 +54,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -80,7 +83,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);

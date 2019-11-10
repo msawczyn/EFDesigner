@@ -26,11 +26,33 @@ namespace Sandbox_EFCore
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public BaseClass()
+      protected BaseClass()
       {
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="id"></param>
+      public BaseClass(int id)
+      {
+         if (id == default(int)) throw new ArgumentNullException(nameof(id));
+         this.Id = id;
+
+
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="id"></param>
+      public static BaseClass Create(int id)
+      {
+         return new BaseClass(id);
       }
 
       /*************************************************************************
@@ -42,7 +64,7 @@ namespace Sandbox_EFCore
       /// </summary>
       [Key]
       [Required]
-      public int Id { get; private set; }
+      public int Id { get; set; }
 
    }
 }

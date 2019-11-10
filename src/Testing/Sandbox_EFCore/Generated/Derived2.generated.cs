@@ -38,15 +38,22 @@ namespace Sandbox_EFCore
       /// </summary>
       /// <param name="name"></param>
       /// <param name="symbol"></param>
+      /// <param name="id"></param>
       /// <param name="required"></param>
-      public Derived2(string name, string symbol, global::Sandbox_EFCore.Derived required)
+      public Derived2(string name, string symbol, int id, global::Sandbox_EFCore.Derived required)
       {
          if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
          this.Name = name;
+
          if (string.IsNullOrEmpty(symbol)) throw new ArgumentNullException(nameof(symbol));
          this.Symbol = symbol;
+
+         if (id == default(int)) throw new ArgumentNullException(nameof(id));
+         this.Id = id;
+
          if (required == null) throw new ArgumentNullException(nameof(required));
          this.Required = required;
+
 
          Init();
       }
@@ -56,10 +63,11 @@ namespace Sandbox_EFCore
       /// </summary>
       /// <param name="name"></param>
       /// <param name="symbol"></param>
+      /// <param name="id"></param>
       /// <param name="required"></param>
-      public static Derived2 Create(string name, string symbol, global::Sandbox_EFCore.Derived required)
+      public static Derived2 Create(string name, string symbol, int id, global::Sandbox_EFCore.Derived required)
       {
-         return new Derived2(name, symbol, required);
+         return new Derived2(name, symbol, id, required);
       }
 
       /*************************************************************************
@@ -67,9 +75,11 @@ namespace Sandbox_EFCore
        *************************************************************************/
 
       /// <summary>
-      /// Indexed, Required
+      /// Indexed, Required, Max length = 15
       /// </summary>
       [Required]
+      [MaxLength(15)]
+      [StringLength(15)]
       public string Name { get; set; }
 
       /// <summary>

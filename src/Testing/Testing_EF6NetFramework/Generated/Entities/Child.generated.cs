@@ -47,6 +47,7 @@ namespace Testing
          _master0.Children.Add(this);
 
          this.Children = new System.Collections.ObjectModel.ObservableCollection<global::Testing.Child>();
+
          Init();
       }
 
@@ -61,7 +62,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -78,7 +79,7 @@ namespace Testing
       partial void GetId(ref int result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
@@ -90,7 +91,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -102,10 +103,10 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing.Child> Children { get; private set; }
+      public virtual ICollection<global::Testing.Child> Children { get; protected set; }
 
       /// <summary>
       /// Required

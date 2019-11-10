@@ -38,8 +38,11 @@ namespace Testing
       /// <param name="id1"></param>
       public AllPropertyTypesOptional(int id1)
       {
+         if (id1 == default(int)) throw new ArgumentNullException(nameof(id1));
          this.Id1 = id1;
+
          this.OwnedType = new global::Testing.OwnedType();
+
          Init();
       }
 
@@ -53,7 +56,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -70,7 +73,7 @@ namespace Testing
       partial void GetId(ref int result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
@@ -82,7 +85,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         private set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);
@@ -555,7 +558,7 @@ namespace Testing
       partial void GetId1(ref int result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
@@ -567,7 +570,7 @@ namespace Testing
             GetId1(ref value);
             return (_Id1 = value);
          }
-         private set
+         set
          {
             int oldValue = _Id1;
             SetId1(oldValue, ref value);
@@ -585,7 +588,7 @@ namespace Testing
       public Byte[] Timestamp { get; set; }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
       public virtual global::Testing.OwnedType OwnedType { get; set; }

@@ -45,6 +45,7 @@ namespace Testing_EFCoreV3
          if (entity1 == null) throw new ArgumentNullException(nameof(entity1));
          this.Entity1 = entity1;
 
+
          Init();
       }
 
@@ -58,7 +59,11 @@ namespace Testing_EFCoreV3
       }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Properties
+       *************************************************************************/
+
+      /*************************************************************************
+       * Navigation properties
        *************************************************************************/
 
       /// <summary>

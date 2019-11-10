@@ -38,6 +38,8 @@ namespace Testing
       {
          if (string.IsNullOrEmpty(property0)) throw new ArgumentNullException(nameof(property0));
          this.Property0 = property0;
+
+
          Init();
       }
 
@@ -51,7 +53,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>

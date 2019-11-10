@@ -17,7 +17,7 @@ string[] NonNullableTypes
    {
       return new[]
                {
-                  "Binary"
+                 "Binary"
                , "Geography"
                , "GeographyCollection"
                , "GeographyLineString"
@@ -45,7 +45,7 @@ string[] SpatialTypes
    {
       return new[]
                {
-                  "Geography"
+                 "Geography"
                , "GeographyCollection"
                , "GeographyLineString"
                , "GeographyMultiLineString"
@@ -195,12 +195,12 @@ string GetFullContainerName(string containerType, string payloadType)
    return result;
 }
 
-List<string> GetRequiredParameterNames(ModelClass modelClass)
+List<string> GetRequiredParameterNames(ModelClass modelClass, bool? publicOnly = null)
 {
    List<string> requiredParameterNames = modelClass.AllRequiredAttributes
                                                    .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                             && !x.IsConcurrencyToken
-                                                            && x.SetterVisibility == SetterAccessModifier.Public
+                                                            && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
                                                             && string.IsNullOrEmpty(x.InitialValue))
                                                    .Select(x => x.Name.ToLower())
                                                    .ToList();
@@ -213,14 +213,14 @@ List<string> GetRequiredParameterNames(ModelClass modelClass)
    requiredParameterNames.AddRange(modelClass.AllRequiredAttributes
                                              .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                       && !x.IsConcurrencyToken
-                                                      && x.SetterVisibility == SetterAccessModifier.Public
+                                                      && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
                                                       && !string.IsNullOrEmpty(x.InitialValue))
                                              .Select(x => x.Name.ToLower()));
 
    return requiredParameterNames;
 }
 
-List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults)
+List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bool? publicOnly = null)
 {
    List<string> requiredParameters = new List<string>();
 
@@ -229,7 +229,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults)
       requiredParameters.AddRange(modelClass.AllRequiredAttributes
                                              .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                       && !x.IsConcurrencyToken
-                                                      && x.SetterVisibility == SetterAccessModifier.Public
+                                                      && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
                                                       && string.IsNullOrEmpty(x.InitialValue))
                                              .Select(x => $"{x.FQPrimitiveType} {x.Name.ToLower()}"));
 
@@ -245,7 +245,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults)
       requiredParameters.AddRange(modelClass.AllRequiredAttributes
                                              .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                       && !x.IsConcurrencyToken
-                                                      && x.SetterVisibility == SetterAccessModifier.Public
+                                                      && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
                                                       && !string.IsNullOrEmpty(x.InitialValue))
                                              .Select(x =>
                                                       {
@@ -543,8 +543,11 @@ void WriteConstructor(ModelClass modelClass)
             Output($"if (string.IsNullOrEmpty({requiredAttribute.Name.ToLower()})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
          else if (requiredAttribute.Type.StartsWith("Geo"))
             Output($"if ({requiredAttribute.Name.ToLower()} == null) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
+         else
+            Output($"if ({requiredAttribute.Name.ToLower()} == default({requiredAttribute.PrimitiveType})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
 
          Output($"this.{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
+         NL();
       }
 
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public
@@ -596,6 +599,7 @@ void WriteConstructor(ModelClass modelClass)
          }
       }
 
+      NL();
       Output("Init();");
       Output("}");
       NL();

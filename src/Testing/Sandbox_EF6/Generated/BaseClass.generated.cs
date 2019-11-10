@@ -19,7 +19,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EF6
+namespace Sandbox_EF61a3
 {
    public abstract partial class BaseClass
    {
@@ -36,11 +36,16 @@ namespace Sandbox_EF6
       /// <summary>
       /// Public constructor with required data
       /// </summary>
+      /// <param name="id"></param>
       /// <param name="_detail0"></param>
-      protected BaseClass(global::Sandbox_EF6.Detail _detail0)
+      protected BaseClass(long id, global::Sandbox_EF61a2.Detail _detail0)
       {
+         if (id == default(long)) throw new ArgumentNullException(nameof(id));
+         this.Id = id;
+
          if (_detail0 == null) throw new ArgumentNullException(nameof(_detail0));
          _detail0.BaseClasses.Add(this);
+
 
          Init();
       }

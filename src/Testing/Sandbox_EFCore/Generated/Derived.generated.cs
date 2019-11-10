@@ -41,14 +41,21 @@ namespace Sandbox_EFCore
       /// </summary>
       /// <param name="name"></param>
       /// <param name="symbol"></param>
-      public Derived(string name, string symbol)
+      /// <param name="id"></param>
+      public Derived(string name, string symbol, int id)
       {
          if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
          this.Name = name;
+
          if (string.IsNullOrEmpty(symbol)) throw new ArgumentNullException(nameof(symbol));
          this.Symbol = symbol;
+
+         if (id == default(int)) throw new ArgumentNullException(nameof(id));
+         this.Id = id;
+
          this.NotCascading = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived2>();
          this.Cascading = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived2>();
+
          Init();
       }
 
@@ -57,9 +64,10 @@ namespace Sandbox_EFCore
       /// </summary>
       /// <param name="name"></param>
       /// <param name="symbol"></param>
-      public static Derived Create(string name, string symbol)
+      /// <param name="id"></param>
+      public static Derived Create(string name, string symbol, int id)
       {
-         return new Derived(name, symbol);
+         return new Derived(name, symbol, id);
       }
 
       /*************************************************************************

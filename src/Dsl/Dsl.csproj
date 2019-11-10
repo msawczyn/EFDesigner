@@ -126,6 +126,7 @@
     <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
     <Compile Include="CustomCode\Extensions\MultiplicityExtensions.cs" />
+    <Compile Include="CustomCode\Extensions\PropertyDescriptorCollectionExtensions.cs" />
     <Compile Include="CustomCode\Extensions\StringExtensions.cs" />
     <Compile Include="CustomCode\Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="CustomCode\Gestures\CompartmentDragMouseAction.cs" />
@@ -158,7 +159,6 @@
     <Compile Include="CustomCode\Partials\ModelAttribute.cs" />
     <Compile Include="CustomCode\Rules\GeneralizationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\ModelClassDeletingRules.cs" />
-    <Compile Include="CustomCode\Type Descriptors\DynamicPropertyManager.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelAttributeTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\ModelEnum.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelEnumTypeDescriptor.cs" />

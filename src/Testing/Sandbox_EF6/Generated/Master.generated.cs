@@ -19,9 +19,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EF6
+namespace Sandbox_EF61a1
 {
-   public partial class Master: global::Sandbox_EF6.BaseClass
+   public partial class Master: global::Sandbox_EF61a3.BaseClass
    {
       partial void Init();
 
@@ -30,7 +30,7 @@ namespace Sandbox_EF6
       /// </summary>
       protected Master(): base()
       {
-         Details = new System.Collections.Generic.HashSet<global::Sandbox_EF6.Detail>();
+         Details = new System.Collections.Generic.HashSet<global::Sandbox_EF61a2.Detail>();
 
          Init();
       }
@@ -38,23 +38,29 @@ namespace Sandbox_EF6
       /// <summary>
       /// Public constructor with required data
       /// </summary>
+      /// <param name="id"></param>
       /// <param name="_detail0"></param>
-      public Master(global::Sandbox_EF6.Detail _detail0)
+      public Master(long id, global::Sandbox_EF61a2.Detail _detail0)
       {
+         if (id == default(long)) throw new ArgumentNullException(nameof(id));
+         this.Id = id;
+
          if (_detail0 == null) throw new ArgumentNullException(nameof(_detail0));
          _detail0.BaseClasses.Add(this);
 
-         this.Details = new System.Collections.Generic.HashSet<global::Sandbox_EF6.Detail>();
+         this.Details = new System.Collections.Generic.HashSet<global::Sandbox_EF61a2.Detail>();
+
          Init();
       }
 
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
+      /// <param name="id"></param>
       /// <param name="_detail0"></param>
-      public static Master Create(global::Sandbox_EF6.Detail _detail0)
+      public static Master Create(long id, global::Sandbox_EF61a2.Detail _detail0)
       {
-         return new Master(_detail0);
+         return new Master(id, _detail0);
       }
 
       /*************************************************************************
@@ -69,7 +75,7 @@ namespace Sandbox_EF6
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Sandbox_EF6.Detail> Details { get; protected set; }
+      public virtual ICollection<global::Sandbox_EF61a2.Detail> Details { get; protected set; }
 
    }
 }

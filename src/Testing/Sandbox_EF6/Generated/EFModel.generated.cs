@@ -17,15 +17,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 
-namespace Sandbox_EF6
+namespace Sandbox_EF61
 {
    /// <inheritdoc/>
    public partial class EFModel : System.Data.Entity.DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.BaseClass> BaseClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.Detail> Details { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Sandbox_EF6.Master> Masters { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF61a3.BaseClass> BaseClasses { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF61a2.Detail> Details { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox_EF61a1.Master> Masters { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -112,28 +112,27 @@ namespace Sandbox_EF6
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Sandbox_EF6.BaseClass>()
+         modelBuilder.Entity<global::Sandbox_EF61a3.BaseClass>()
                      .ToTable("BaseClasses")
                      .HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EF6.BaseClass>()
+         modelBuilder.Entity<global::Sandbox_EF61a3.BaseClass>()
                      .Property(t => t.Id)
                      .IsRequired()
-                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
+         modelBuilder.Entity<global::Sandbox_EF61a2.Detail>()
                      .ToTable("Details");
-         modelBuilder.Entity<global::Sandbox_EF6.Detail>()
+         modelBuilder.Entity<global::Sandbox_EF61a2.Detail>()
                      .HasMany(x => x.BaseClasses)
                      .WithRequired()
                      .Map(x => x.MapKey("Detail.BaseClasses_Id"));
 
-         modelBuilder.Entity<global::Sandbox_EF6.Master>()
+         modelBuilder.Entity<global::Sandbox_EF61a1.Master>()
                      .ToTable("Masters");
-         modelBuilder.Entity<global::Sandbox_EF6.Master>()
+         modelBuilder.Entity<global::Sandbox_EF61a1.Master>()
                      .HasMany(x => x.Details)
                      .WithOptional()
-                     .Map(x => x.MapKey("Master.Details_Id"))
-                     .WillCascadeOnDelete(true);
+                     .Map(x => x.MapKey("Master.Details_Id"));
 
          OnModelCreatedImpl(modelBuilder);
       }

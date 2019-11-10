@@ -33,48 +33,18 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for Id
-      /// </summary>
-      protected int _Id;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before setting.
-      /// </summary>
-      partial void SetId(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before returning.
-      /// </summary>
-      partial void GetId(ref int result);
-
-      /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
-      public int Id
-      {
-         get
-         {
-            int value = _Id;
-            GetId(ref value);
-            return (_Id = value);
-         }
-         private set
-         {
-            int oldValue = _Id;
-            SetId(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _Id = value;
-            }
-         }
-      }
+      public int Id { get; protected set; }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
       public virtual global::Testing.BChild BChildOptional { get; set; }
@@ -84,7 +54,7 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
 
    }
 }

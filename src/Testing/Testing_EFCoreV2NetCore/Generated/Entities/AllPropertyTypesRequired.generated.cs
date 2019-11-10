@@ -49,21 +49,49 @@ namespace Testing
       /// <param name="timeattr"></param>
       public AllPropertyTypesRequired(byte[] binaryattr, bool booleanattr, byte byteattr, DateTime datetimeattr, DateTimeOffset datetimeoffsetattr, decimal decimalattr, double doubleattr, Guid guidattr, short int16attr, int int32attr, long int64attr, Single singleattr, string stringattr, TimeSpan timeattr)
       {
+         if (binaryattr == default(byte[])) throw new ArgumentNullException(nameof(binaryattr));
          this.BinaryAttr = binaryattr;
+
+         if (booleanattr == default(bool)) throw new ArgumentNullException(nameof(booleanattr));
          this.BooleanAttr = booleanattr;
+
+         if (byteattr == default(byte)) throw new ArgumentNullException(nameof(byteattr));
          this.ByteAttr = byteattr;
+
+         if (datetimeattr == default(DateTime)) throw new ArgumentNullException(nameof(datetimeattr));
          this.DateTimeAttr = datetimeattr;
+
+         if (datetimeoffsetattr == default(DateTimeOffset)) throw new ArgumentNullException(nameof(datetimeoffsetattr));
          this.DateTimeOffsetAttr = datetimeoffsetattr;
+
+         if (decimalattr == default(decimal)) throw new ArgumentNullException(nameof(decimalattr));
          this.DecimalAttr = decimalattr;
+
+         if (doubleattr == default(double)) throw new ArgumentNullException(nameof(doubleattr));
          this.DoubleAttr = doubleattr;
+
+         if (guidattr == default(Guid)) throw new ArgumentNullException(nameof(guidattr));
          this.GuidAttr = guidattr;
+
+         if (int16attr == default(short)) throw new ArgumentNullException(nameof(int16attr));
          this.Int16Attr = int16attr;
+
+         if (int32attr == default(int)) throw new ArgumentNullException(nameof(int32attr));
          this.Int32Attr = int32attr;
+
+         if (int64attr == default(long)) throw new ArgumentNullException(nameof(int64attr));
          this.Int64Attr = int64attr;
+
+         if (singleattr == default(Single)) throw new ArgumentNullException(nameof(singleattr));
          this.SingleAttr = singleattr;
+
          if (string.IsNullOrEmpty(stringattr)) throw new ArgumentNullException(nameof(stringattr));
          this.StringAttr = stringattr;
+
+         if (timeattr == default(TimeSpan)) throw new ArgumentNullException(nameof(timeattr));
          this.TimeAttr = timeattr;
+
+
          Init();
       }
 
@@ -90,7 +118,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -107,7 +135,7 @@ namespace Testing
       partial void GetId(ref int result);
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
@@ -119,7 +147,7 @@ namespace Testing
             GetId(ref value);
             return (_Id = value);
          }
-         private set
+         protected set
          {
             int oldValue = _Id;
             SetId(oldValue, ref value);

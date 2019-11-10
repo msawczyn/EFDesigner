@@ -44,6 +44,7 @@ namespace Testing
          this.UChildRequired = uchildrequired;
 
          this.UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
+
          Init();
       }
 
@@ -57,7 +58,7 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -96,12 +97,12 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
       public virtual global::Testing.UChild UChildOptional { get; set; }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
 
       /// <summary>
       /// Required

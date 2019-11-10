@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+// ReSharper disable RedundantNameQualifier
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 {
@@ -104,8 +105,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          ModelEnum modelEnum = modelRoot.Store.ElementDirectory.AllElements.OfType<ModelEnum>().FirstOrDefault(e => e.Name == simpleName);
 
          return modelEnum != null
-                   ? $"{modelEnum.FullName}.{parts.Last()}"
-                   : typeName;
+                     ? $"{modelEnum.FullName}.{parts.Last()}"
+                     : typeName;
       }
 
       void GeneratePropertyAnnotations(ModelAttribute modelAttribute)
@@ -193,70 +194,70 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          return result;
       }
 
-      List<string> GetRequiredParameterNames(ModelClass modelClass)
+      List<string> GetRequiredParameterNames(ModelClass modelClass, bool? publicOnly = null)
       {
          List<string> requiredParameterNames = modelClass.AllRequiredAttributes
                                                          .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                                   && !x.IsConcurrencyToken
-                                                                  && x.SetterVisibility == SetterAccessModifier.Public
+                                                                  && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
                                                                   && string.IsNullOrEmpty(x.InitialValue))
                                                          .Select(x => x.Name.ToLower())
                                                          .ToList();
 
          requiredParameterNames.AddRange(modelClass.AllRequiredNavigationProperties()
                                                    .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
-                                                             || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+                                                               || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                    .Select(x => x.PropertyName.ToLower()));
 
          requiredParameterNames.AddRange(modelClass.AllRequiredAttributes
                                                    .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                             && !x.IsConcurrencyToken
-                                                            && x.SetterVisibility == SetterAccessModifier.Public
+                                                            && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
                                                             && !string.IsNullOrEmpty(x.InitialValue))
                                                    .Select(x => x.Name.ToLower()));
 
          return requiredParameterNames;
       }
 
-      List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults)
+      List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bool? publicOnly = null)
       {
          List<string> requiredParameters = new List<string>();
 
          if (haveDefaults != true)
          {
             requiredParameters.AddRange(modelClass.AllRequiredAttributes
-                                                  .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                           && !x.IsConcurrencyToken
-                                                           && x.SetterVisibility == SetterAccessModifier.Public
-                                                           && string.IsNullOrEmpty(x.InitialValue))
-                                                  .Select(x => $"{x.FQPrimitiveType} {x.Name.ToLower()}"));
+                                                   .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
+                                                            && !x.IsConcurrencyToken
+                                                            && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
+                                                            && string.IsNullOrEmpty(x.InitialValue))
+                                                   .Select(x => $"{x.FQPrimitiveType} {x.Name.ToLower()}"));
 
             // don't use 1..1 associations in constructor parameters. Becomes a Catch-22 scenario.
             requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
-                                                  .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
                                                             || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-                                                  .Select(x => $"{x.ClassType.FullName} {x.PropertyName.ToLower()}"));
+                                                   .Select(x => $"{x.ClassType.FullName} {x.PropertyName.ToLower()}"));
          }
 
          if (haveDefaults != false)
          {
             requiredParameters.AddRange(modelClass.AllRequiredAttributes
-                                                  .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                           && !x.IsConcurrencyToken
-                                                           && x.SetterVisibility == SetterAccessModifier.Public
-                                                           && !string.IsNullOrEmpty(x.InitialValue))
-                                                  .Select(x =>
-                                                          {
-                                                             string quote = x.PrimitiveType == "string"
-                                                                               ? "\""
-                                                                               : x.PrimitiveType == "char"
-                                                                                  ? "'"
-                                                                                  : string.Empty;
+                                                   .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
+                                                            && !x.IsConcurrencyToken
+                                                            && (x.SetterVisibility == SetterAccessModifier.Public || publicOnly != false)
+                                                            && !string.IsNullOrEmpty(x.InitialValue))
+                                                   .Select(x =>
+                                                            {
+                                                               string quote = x.PrimitiveType == "string"
+                                                                                 ? "\""
+                                                                                 : x.PrimitiveType == "char"
+                                                                                    ? "'"
+                                                                                    : string.Empty;
 
-                                                             string value = FullyQualified(modelClass.ModelRoot, x.InitialValue.Trim('"', '\''));
+                                                               string value = FullyQualified(modelClass.ModelRoot, x.InitialValue.Trim('"', '\''));
 
-                                                             return $"{x.FQPrimitiveType} {x.Name.ToLower()} = {quote}{value}{quote}";
-                                                          }));
+                                                               return $"{x.FQPrimitiveType} {x.Name.ToLower()} = {quote}{value}{quote}";
+                                                            }));
          }
 
          return requiredParameters;
@@ -338,8 +339,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          BeginNamespace(modelClass.EffectiveNamespace);
 
          string isAbstract = modelClass.IsAbstract
-                                ? "abstract "
-                                : string.Empty;
+                                 ? "abstract "
+                                 : string.Empty;
 
          List<string> bases = new List<string>();
 
@@ -372,8 +373,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             Output($"[{modelClass.CustomAttributes.Trim('[', ']')}]");
 
          Output(baseClass.Length > 0
-                   ? $"public {isAbstract}partial class {modelClass.Name}: {baseClass}"
-                   : $"public {isAbstract}partial class {modelClass.Name}");
+                     ? $"public {isAbstract}partial class {modelClass.Name}: {baseClass}"
+                     : $"public {isAbstract}partial class {modelClass.Name}");
 
          Output("{");
 
@@ -404,8 +405,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                if (outputText.Length > chunkSize)
                {
                   outputText = (text.IndexOf(' ', chunkSize) > 0
-                                   ? text.Substring(0, text.IndexOf(' ', chunkSize))
-                                   : text).Trim();
+                                    ? text.Substring(0, text.IndexOf(' ', chunkSize))
+                                    : text).Trim();
 
                   text = text.Substring(outputText.Length).Trim();
                }
@@ -429,12 +430,12 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
 
          bool hasOneToOneAssociations = modelClass.AllRequiredNavigationProperties()
-                                                  .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One 
-                                                          && np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One);
+                                                   .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                                            && np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One);
 
          string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
-                                ? "protected"
-                                : "public";
+                                 ? "protected"
+                                 : "public";
 
          if (visibility == "public")
          {
@@ -461,7 +462,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          {
             List<Association> oneToOneAssociations = modelClass.AllRequiredNavigationProperties()
                                                                .Where(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One 
-                                                                         && np.AssociationObject.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+                                                                           && np.AssociationObject.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                                .Select(np => np.AssociationObject)
                                                                .ToList();
 
@@ -488,8 +489,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          }
 
          Output(modelClass.Superclass != null
-                   ? $"{visibility} {modelClass.Name}(): base()"
-                   : $"{visibility} {modelClass.Name}()");
+                     ? $"{visibility} {modelClass.Name}(): base()"
+                     : $"{visibility} {modelClass.Name}()");
 
          Output("{");
 
@@ -513,8 +514,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          if (hasRequiredParameters)
          {
             visibility = modelClass.IsAbstract
-                            ? "protected"
-                            : "public";
+                              ? "protected"
+                              : "public";
 
             Output("/// <summary>");
             Output("/// Public constructor with required data");
@@ -533,16 +534,19 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             }
 
             foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes
-                                                                   .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                                            && !x.IsConcurrencyToken
-                                                                            && x.SetterVisibility == SetterAccessModifier.Public))
+                                                                     .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
+                                                                              && !x.IsConcurrencyToken
+                                                                              && x.SetterVisibility == SetterAccessModifier.Public))
             {
                if (requiredAttribute.Type == "String")
                   Output($"if (string.IsNullOrEmpty({requiredAttribute.Name.ToLower()})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
                else if (requiredAttribute.Type.StartsWith("Geo"))
                   Output($"if ({requiredAttribute.Name.ToLower()} == null) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
+               else
+                  Output($"if ({requiredAttribute.Name.ToLower()} == default({requiredAttribute.CLRType})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
 
                Output($"this.{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
+               NL();
             }
 
             foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public
@@ -560,7 +564,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             }
 
             foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
-                                                                                .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                                                 .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                                                           || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
             {
                string parameterName = requiredNavigationProperty.PropertyName.ToLower();
@@ -573,8 +577,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   UnidirectionalAssociation association = requiredNavigationProperty.AssociationObject as UnidirectionalAssociation;
 
                   Output(association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                            ? $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName}.Add(this);"
-                            : $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName} = this;");
+                              ? $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName}.Add(this);"
+                              : $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName} = this;");
                }
                else
                   Output($"this.{requiredNavigationProperty.PropertyName} = {parameterName};");
@@ -594,6 +598,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                }
             }
 
+            NL();
             Output("Init();");
             Output("}");
             NL();
@@ -628,13 +633,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       void WriteConstructorComments(ModelClass modelClass)
       {
          foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
-                                                                                               && !x.IsConcurrencyToken
-                                                                                               && x.SetterVisibility == SetterAccessModifier.Public))
+                                                                                                && !x.IsConcurrencyToken
+                                                                                                && x.SetterVisibility == SetterAccessModifier.Public))
             Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{requiredAttribute.Summary}</param>");
 
          // TODO: Add comment if available
          foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
-                                                                             .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                                              .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                                                        || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
             Output($@"/// <param name=""{requiredNavigationProperty.PropertyName.ToLower()}""></param>");
       }
@@ -732,8 +737,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output($"[System.ComponentModel.DataAnnotations.Display(Name=\"{values[index].DisplayText}\")]");
 
             Output(string.IsNullOrEmpty(values[index].Value)
-                      ? $"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}"
-                      : $"{values[index].Name} = {values[index].Value}{(index < values.Length - 1 ? "," : string.Empty)}");
+                        ? $"{values[index].Name}{(index < values.Length - 1 ? "," : string.Empty)}"
+                        : $"{values[index].Name} = {values[index].Value}{(index < values.Length - 1 ? "," : string.Empty)}");
          }
 
          Output("}");
@@ -754,8 +759,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties().Where(x => !x.ConstructorParameterOnly))
          {
             string type = navigationProperty.IsCollection
-                             ? $"ICollection<{navigationProperty.ClassType.FullName}>"
-                             : navigationProperty.ClassType.FullName;
+                              ? $"ICollection<{navigationProperty.ClassType.FullName}>"
+                              : navigationProperty.ClassType.FullName;
 
             if (!navigationProperty.IsCollection && !navigationProperty.IsAutoProperty)
             {
@@ -772,8 +777,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                comments.Add("Required");
 
             string comment = comments.Count > 0
-                                ? string.Join(", ", comments)
-                                : string.Empty;
+                                 ? string.Join(", ", comments)
+                                 : string.Empty;
 
             if (!string.IsNullOrEmpty(navigationProperty.Summary) || !string.IsNullOrEmpty(comment))
             {
@@ -937,13 +942,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output("/// </remarks>");
             }
 
-            string setterVisibility = modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelAttribute.IsIdentity
-                                         ? "private "
-                                         : modelAttribute.SetterVisibility == SetterAccessModifier.Protected
-                                            ? "protected "
-                                            : modelAttribute.SetterVisibility == SetterAccessModifier.Internal
-                                               ? "internal "
-                                               : string.Empty;
+            string setterVisibility = (modelAttribute.IsIdentity && modelAttribute.IdentityType != IdentityType.Manual) || modelAttribute.SetterVisibility == SetterAccessModifier.Protected
+                                             ? "protected "
+                                             : modelAttribute.SetterVisibility == SetterAccessModifier.Internal
+                                                ? "internal "
+                                                : string.Empty;
 
             GeneratePropertyAnnotations(modelAttribute);
 
@@ -982,7 +985,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          }
 
          if (!modelClass.AllAttributes.Any(x => x.IsConcurrencyToken)
-          && (modelClass.Concurrency == ConcurrencyOverride.Optimistic || modelClass.ModelRoot.ConcurrencyDefault == Concurrency.Optimistic))
+            && (modelClass.Concurrency == ConcurrencyOverride.Optimistic || modelClass.ModelRoot.ConcurrencyDefault == Concurrency.Optimistic))
          {
             Output("/// <summary>");
             Output("/// Concurrency token");

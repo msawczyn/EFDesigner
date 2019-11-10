@@ -39,7 +39,7 @@ namespace Testing_EFCoreV3
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
@@ -78,10 +78,10 @@ namespace Testing_EFCoreV3
       }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing_EFCoreV3.Entity2> Entity2 { get; private set; }
+      public virtual ICollection<global::Testing_EFCoreV3.Entity2> Entity2 { get; protected set; }
 
    }
 }

@@ -24,7 +24,6 @@ using System.Runtime.CompilerServices;
 
 namespace Testing_EFCoreV3
 {
-   [NotMapped]
    public partial class Entity3
    {
       partial void Init();
@@ -38,11 +37,11 @@ namespace Testing_EFCoreV3
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required, Indexed
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]

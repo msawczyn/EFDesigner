@@ -39,6 +39,7 @@ namespace Testing
          if (_allpropertytypesoptional0 == null) throw new ArgumentNullException(nameof(_allpropertytypesoptional0));
          _allpropertytypesoptional0.OwnedType = this;
 
+
          Init();
       }
 
@@ -52,43 +53,13 @@ namespace Testing
       }
 
       /*************************************************************************
-       * Persistent properties
+       * Properties
        *************************************************************************/
 
-      /// <summary>
-      /// Backing field for SingleAttr
-      /// </summary>
-      protected Single? _SingleAttr;
-      /// <summary>
-      /// When provided in a partial class, allows value of SingleAttr to be changed before setting.
-      /// </summary>
-      partial void SetSingleAttr(Single? oldValue, ref Single? newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of SingleAttr to be changed before returning.
-      /// </summary>
-      partial void GetSingleAttr(ref Single? result);
-
-      public Single? SingleAttr
-      {
-         get
-         {
-            Single? value = _SingleAttr;
-            GetSingleAttr(ref value);
-            return (_SingleAttr = value);
-         }
-         set
-         {
-            Single? oldValue = _SingleAttr;
-            SetSingleAttr(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _SingleAttr = value;
-            }
-         }
-      }
+      public Single? SingleAttr { get; set; }
 
       /*************************************************************************
-       * Persistent navigation properties
+       * Navigation properties
        *************************************************************************/
 
    }
