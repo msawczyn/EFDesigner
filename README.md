@@ -55,7 +55,12 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**1.3.0.9**
+**1.3.0.10**
+   - Build for VS2017 support
+
+<details>
+<summary><b>1.3.0.9</b></summary>
+
    - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
    - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
    - Fix: attribute parser ("edit as code" feature) didn't handle enumeration initial values well; it does now (See https://github.com/msawczyn/EFDesigner/issues/104)
@@ -67,6 +72,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Changed string MaxLength to differentiate between undefined and max length (See https://github.com/msawczyn/EFDesigner/issues/118)
    - Restructured display of namespaces and output directories in the designer's property window
    - Removed visibility option for setters of automatic identity properties. 
+
+</details>
 
 <details>
 <summary><b>1.3.0.7</b></summary>

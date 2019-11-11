@@ -32,6 +32,9 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
 
 **ChangeLog**
 
+**1.3.0.10**
+   - Build for VS2017 support
+
 **1.3.0.9**
    - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
    - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)

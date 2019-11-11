@@ -67,9 +67,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 		}
 	
-		/// <summary>
-		/// Returns a collection of property descriptors
-		/// </summary>
 		public override global::System.ComponentModel.PropertyDescriptorCollection GetProperties(global::System.Attribute[] attributes)
 		{
 			// The following method needs to be added in a partial class
@@ -160,9 +157,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 		}
 	
-		/// <summary>
-		/// Returns a collection of property descriptors
-		/// </summary>
 		public override global::System.ComponentModel.PropertyDescriptorCollection GetProperties(global::System.Attribute[] attributes)
 		{
 			// The following method needs to be added in a partial class
@@ -253,9 +247,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 		}
 	
-		/// <summary>
-		/// Returns a collection of property descriptors
-		/// </summary>
 		public override global::System.ComponentModel.PropertyDescriptorCollection GetProperties(global::System.Attribute[] attributes)
 		{
 			// The following method needs to be added in a partial class
@@ -346,9 +337,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 		}
 	
-		/// <summary>
-		/// Returns a collection of property descriptors
-		/// </summary>
 		public override global::System.ComponentModel.PropertyDescriptorCollection GetProperties(global::System.Attribute[] attributes)
 		{
 			// The following method needs to be added in a partial class
@@ -439,9 +427,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 		}
 	
-		/// <summary>
-		/// Returns a collection of property descriptors
-		/// </summary>
 		public override global::System.ComponentModel.PropertyDescriptorCollection GetProperties(global::System.Attribute[] attributes)
 		{
 			// The following method needs to be added in a partial class
