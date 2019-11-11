@@ -51,7 +51,7 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
 
 ### Shout out and a big thanks
 
-to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains.svg"></a> for providing free development tools to support this project.
+to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains-variant-2a.png"></a> for providing free development tools to support this project.
 
 ### Change Log
 
