@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsl", "Dsl\Dsl.csproj", "{B77C0323-1B94-4CE4-A416-6316EBCBA81C}"
 EndProject
@@ -68,6 +68,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{89098F
 		..\docs\images\EnumValueMenu.jpg = ..\docs\images\EnumValueMenu.jpg
 		..\docs\images\EnumValueProperties.jpg = ..\docs\images\EnumValueProperties.jpg
 		..\docs\images\Inheritance.jpg = ..\docs\images\Inheritance.jpg
+		..\docs\images\jetbrains-variant-2a.png = ..\docs\images\jetbrains-variant-2a.png
 		..\docs\images\PropertyEditor.jpg = ..\docs\images\PropertyEditor.jpg
 		..\docs\images\PropertyMenu.jpg = ..\docs\images\PropertyMenu.jpg
 		..\docs\images\PropertyProperties.jpg = ..\docs\images\PropertyProperties.jpg
