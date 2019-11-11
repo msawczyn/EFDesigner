@@ -51,11 +51,6 @@
     <Compile Include="Generated\Derived.generated.cs" />
     <Compile Include="Generated\Derived2.generated.cs" />
     <Compile Include="Generated\EFModel.generated.cs" />
-    <Compile Include="Migrations\20191026234521_initial.cs" />
-    <Compile Include="Migrations\20191026234521_initial.designer.cs">
-      <DependentUpon>20191026234521_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\EFModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +89,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="EFModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

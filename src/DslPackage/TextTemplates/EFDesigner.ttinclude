@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.3.0.8
+// EFDesigner v1.3.0.9
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -544,7 +544,7 @@ void WriteConstructor(ModelClass modelClass)
          else if (requiredAttribute.Type.StartsWith("Geo"))
             Output($"if ({requiredAttribute.Name.ToLower()} == null) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
          else
-            Output($"if ({requiredAttribute.Name.ToLower()} == default({requiredAttribute.PrimitiveType})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
+            Output($"if ({requiredAttribute.Name.ToLower()} == default({requiredAttribute.PrimitiveType})) throw new ArgumentOutOfRangeException(nameof({requiredAttribute.Name.ToLower()}));");
 
          Output($"this.{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
          NL();
@@ -943,9 +943,7 @@ void WriteProperties(ModelClass modelClass)
          Output("/// </remarks>");
       }
 
-      string setterVisibility = modelAttribute.ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelAttribute.IsIdentity
-                                    ? "private "
-                                    : modelAttribute.SetterVisibility == SetterAccessModifier.Protected
+      string setterVisibility = (modelAttribute.IsIdentity && modelAttribute.IdentityType != IdentityType.Manual) || modelAttribute.SetterVisibility == SetterAccessModifier.Protected
                                        ? "protected "
                                        : modelAttribute.SetterVisibility == SetterAccessModifier.Internal
                                           ? "internal "

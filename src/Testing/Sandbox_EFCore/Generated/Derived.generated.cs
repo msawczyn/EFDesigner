@@ -50,7 +50,7 @@ namespace Sandbox_EFCore
          if (string.IsNullOrEmpty(symbol)) throw new ArgumentNullException(nameof(symbol));
          this.Symbol = symbol;
 
-         if (id == default(int)) throw new ArgumentNullException(nameof(id));
+         if (id == default(int)) throw new ArgumentOutOfRangeException(nameof(id));
          this.Id = id;
 
          this.NotCascading = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived2>();

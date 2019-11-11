@@ -42,7 +42,7 @@ namespace Sandbox_EF61a1
       /// <param name="_detail0"></param>
       public Master(long id, global::Sandbox_EF61a2.Detail _detail0)
       {
-         if (id == default(long)) throw new ArgumentNullException(nameof(id));
+         if (id == default(long)) throw new ArgumentOutOfRangeException(nameof(id));
          this.Id = id;
 
          if (_detail0 == null) throw new ArgumentNullException(nameof(_detail0));

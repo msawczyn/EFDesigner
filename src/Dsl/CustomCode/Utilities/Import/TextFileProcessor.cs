@@ -277,7 +277,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      AttributeArgumentSyntax maxLength = maxLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (maxLength != null)
-                        modelAttribute.MaxLength = TryParse(maxLength.Expression.ToString(), out int _max) ? _max : -1;
+                        modelAttribute.MaxLength = TryParse(maxLength.Expression.ToString(), out int _max) ? (int?)_max : null;
 
                      AttributeSyntax minLengthAttribute = propertyDecl.GetAttribute("MinLengthAttribute");
                      AttributeArgumentSyntax minLength = minLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
@@ -287,7 +287,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                   else
                   {
-                     modelAttribute.MaxLength = -1;
+                     modelAttribute.MaxLength = null;
                      modelAttribute.MinLength = 0;
                   }
 

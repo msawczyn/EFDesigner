@@ -51,7 +51,7 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
 
 ### Change Log
 
-**1.3.0.8**
+**1.3.0.9**
    - Fix: backing fields caused duplicate database columns (See https://github.com/msawczyn/EFDesigner/issues/101)
    - Fix: bad merge broke MaxLength and MinLength properties in entity string properties (See https://github.com/msawczyn/EFDesigner/issues/103)
    - Fix: attribute parser ("edit as code" feature) didn't handle enumeration initial values well; it does now (See https://github.com/msawczyn/EFDesigner/issues/104)
@@ -60,6 +60,7 @@ to upgrade to 16.2.5 in order to use not just this extension, but any extension 
    - Fix: undo threw null reference errors when undoing drag and drop from code files (See https://github.com/msawczyn/EFDesigner/issues/113)
    - Fix: 'KeyBuilder' does not contain definition for 'Ignore' in EF Core (See https://github.com/msawczyn/EFDesigner/issues/115)
    - Fix: Identity properties ignore Setter Visibility setting (See https://github.com/msawczyn/EFDesigner/issues/118)
+   - Changed string MaxLength to differentiate between undefined and max length (See https://github.com/msawczyn/EFDesigner/issues/118)
    - Restructured display of namespaces and output directories in the designer's property window
    - Removed visibility option for setters of automatic identity properties. 
 

@@ -24,7 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="destinationType">A <see cref="T:System.Type" /> that represents the type you want to convert to. </param>
       public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
       {
-         return destinationType == typeof(int);
+         return destinationType == typeof(int?);
       }
 
       /// <summary>Converts the given object to the type of this converter, using the specified context and culture information.</summary>
@@ -44,7 +44,7 @@ namespace Sawczyn.EFDesigner.EFModel
                return val;
          }
 
-         return -1;
+         return null;
       }
 
       /// <summary>Converts the given value object to the specified type, using the specified context and culture information.</summary>
@@ -57,10 +57,13 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
       public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
       {
+         if (value?.ToString()?.ToLowerInvariant() == "max")
+            return "max";
+
          if (value is int i)
          {
             if (i < 0)
-               return string.Empty;
+               return null;
 
             if (i == 0)
                return "max";

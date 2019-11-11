@@ -744,7 +744,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (ModelClass?.ModelRoot == null) return;
 
-         if (ModelClass != null && Type == "String" && MaxLength < 0)
+         if (ModelClass != null && Type == "String" && (!MaxLength.HasValue || MaxLength.Value < 0))
          {
             context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
             hasWarning = true;
@@ -842,10 +842,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string lengthDisplay = "";
 
-         if (MinLength > 0)
-            lengthDisplay = $"[{MinLength}-{(MaxLength > 0 ? MaxLength.ToString() : "")}]";
-         else if (MaxLength > 0)
-            lengthDisplay = $"[{MaxLength}]";
+         if (Type == "String")
+         {
+            if (MinLength > 0)
+               lengthDisplay = $"[{MinLength}-{(MaxLength.HasValue && MaxLength.Value > 0 ? MaxLength.ToString() : "")}]";
+            else if (MaxLength.HasValue)
+               lengthDisplay = $"[{(MaxLength == 0 ? "max" : MaxLength.ToString())}]";
+         }
 
          return $"{visibility} {Type}{nullable}{lengthDisplay} {Name}{identity}{initial}";
       }
@@ -857,10 +860,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string lengthDisplay = "";
 
-         if (MinLength > 0)
-            lengthDisplay = $"[{MinLength}-{(MaxLength > 0 ? MaxLength.ToString() : "")}]";
-         else if (MaxLength > 0)
-            lengthDisplay = $"[{MaxLength}]";
+         if (Type == "String")
+         {
+            if (MinLength > 0)
+               lengthDisplay = $"[{MinLength}-{(MaxLength.HasValue && MaxLength.Value > 0 ? MaxLength.ToString() : "")}]";
+            else if (MaxLength.HasValue)
+               lengthDisplay = $"[{(MaxLength == 0 ? "max" : MaxLength.ToString())}]";
+         }
 
          return $"{Name}: {Type}{nullable}{lengthDisplay}{initial}";
       }

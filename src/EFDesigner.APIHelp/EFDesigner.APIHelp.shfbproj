@@ -39,7 +39,7 @@
     <IndentHtml>True</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpTitle>Entity Framework Designer T4 API</HelpTitle>
-    <HelpFileVersion>1.3.0.8</HelpFileVersion>
+    <HelpFileVersion>1.3.0.9</HelpFileVersion>
     <NamingMethod>MemberName</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceContainer>False</RootNamespaceContainer>

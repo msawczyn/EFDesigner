@@ -39,7 +39,7 @@ namespace Sandbox_EFCore
       /// <param name="id"></param>
       public BaseClass(int id)
       {
-         if (id == default(int)) throw new ArgumentNullException(nameof(id));
+         if (id == default(int)) throw new ArgumentOutOfRangeException(nameof(id));
          this.Id = id;
 
 

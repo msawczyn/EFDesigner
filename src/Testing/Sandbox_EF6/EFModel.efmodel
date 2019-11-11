@@ -9,7 +9,7 @@
           </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
-          <modelAttribute Id="795208af-d1cc-4f50-aa6c-90ec073c9884" maxLength="0" indexed="false" indexedUnique="false" stringType="None" name="StringMax" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
+          <modelAttribute Id="795208af-d1cc-4f50-aa6c-90ec073c9884" maxLength="" indexed="false" indexedUnique="false" stringType="None" name="StringMax" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
           <modelAttribute Id="60b8433d-f83b-45d2-9684-bf8a7e81801a" maxLength="0" indexed="false" indexedUnique="false" stringType="None" name="String100" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
         </attributes>
       </modelClass>

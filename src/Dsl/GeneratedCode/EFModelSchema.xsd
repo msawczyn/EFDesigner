@@ -572,7 +572,7 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: MaxLength -->
-        <xsd:attribute name="maxLength" type="xsd:integer" >
+        <xsd:attribute name="maxLength" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Maximum length of the string, 0 for no max length</xsd:documentation>
           </xsd:annotation>

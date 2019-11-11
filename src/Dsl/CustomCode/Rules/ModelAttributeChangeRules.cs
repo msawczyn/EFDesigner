@@ -158,7 +158,7 @@ namespace Sawczyn.EFDesigner.EFModel
             case "MaxLength":
                {
                   if (element.Type != "String")
-                     element.MaxLength = -1;
+                     element.MaxLength = null;
                }
 
                break;
@@ -197,7 +197,7 @@ namespace Sawczyn.EFDesigner.EFModel
                               if (fragment.Required != null)
                                  element.Required = fragment.Required.Value;
 
-                              element.MaxLength = fragment.MaxLength ?? -1;
+                              element.MaxLength = fragment.MaxLength;
                               element.MinLength = fragment.MinLength ?? 0;
 
                               if (fragment.InitialValue != null)
@@ -280,7 +280,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (newType != "String")
                   {
-                     element.MaxLength = -1;
+                     element.MaxLength = null;
                      element.MinLength = 0;
                      element.StringType = HTML5Type.None;
                   }
