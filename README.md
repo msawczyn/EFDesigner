@@ -55,8 +55,15 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**1.3.0.10**
+**1.3.0.11**
+   - Removed default checks in constructors for scalars
+
+<details>
+<summary><b>1.3.0.10</b></summary>
+
    - Build for VS2017 support
+
+</details>
 
 <details>
 <summary><b>1.3.0.9</b></summary>

@@ -542,8 +542,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   Output($"if (string.IsNullOrEmpty({requiredAttribute.Name.ToLower()})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
                else if (requiredAttribute.Type.StartsWith("Geo"))
                   Output($"if ({requiredAttribute.Name.ToLower()} == null) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
-               else
-                  Output($"if ({requiredAttribute.Name.ToLower()} == default({requiredAttribute.CLRType})) throw new ArgumentNullException(nameof({requiredAttribute.Name.ToLower()}));");
 
                Output($"this.{requiredAttribute.Name} = {requiredAttribute.Name.ToLower()};");
                NL();
