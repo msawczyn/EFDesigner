@@ -57,7 +57,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**1.3.0.11**
+**1.3.0.11** (next release)
    - Removed default checks in constructors for scalars
 
 <details>
