@@ -50,8 +50,11 @@ and has since been **fixed as of v16.2.5**, so if you're using a version between
 to upgrade to 16.2.5 in order to use not just this extension, but any extension based on the Microsoft Modeling SDK.
 
 ### Shout out and a big thanks
-
-to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains-variant-2a.png"></a> for providing free development tools to support this project.
+<table border="0" cellspacing="0" cellpadding="0" style="border:none">
+<tr vstyle="center" style="border:none"><td>to</td><td><a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains-variant-2a.png"></a></td><td>for providing free development tools to support this project.</td></tr>
+</table>
+<!--
+to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains-variant-2a.png"></a> for providing free development tools to support this project. -->
 
 ### Change Log
 
