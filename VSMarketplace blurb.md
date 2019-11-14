@@ -85,4 +85,4 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
 
 [Earlier changes](https://github.com/msawczyn/EFDesigner/blob/master/changelog.txt)
 
-A big thanks to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains-variant-2a" style="margin-bottom: -20px"></a> &nbsp; for providing free development tools to support this project.
+A big thanks to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains-variant-2a.png" style="margin-bottom: -30px"></a> &nbsp; for providing free development tools to support this project.
