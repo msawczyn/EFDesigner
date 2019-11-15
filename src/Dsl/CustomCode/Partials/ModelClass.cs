@@ -27,13 +27,13 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!string.IsNullOrWhiteSpace(namespaceStorage))
                return namespaceStorage;
 
-            if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.StructNamespace))
+            if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot?.StructNamespace))
                return ModelRoot.StructNamespace;
 
-            if (!IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.EntityNamespace))
+            if (!IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot?.EntityNamespace))
                return ModelRoot.EntityNamespace;
 
-            return ModelRoot.Namespace;
+            return ModelRoot?.Namespace;
          }
       }
 
@@ -48,13 +48,13 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
                return outputDirectoryStorage;
 
-            if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.StructOutputDirectory))
+            if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot?.StructOutputDirectory))
                return ModelRoot.StructOutputDirectory;
 
-            if (!IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot.EntityOutputDirectory))
+            if (!IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot?.EntityOutputDirectory))
                return ModelRoot.EntityOutputDirectory;
 
-            return ModelRoot.ContextOutputDirectory;
+            return ModelRoot?.ContextOutputDirectory;
          }
       }
 

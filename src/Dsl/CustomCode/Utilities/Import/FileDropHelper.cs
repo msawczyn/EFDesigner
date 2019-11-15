@@ -129,6 +129,7 @@ namespace Sawczyn.EFDesigner.EFModel
          finally
          {
             Cursor.Current = Cursors.Default;
+            StatusDisplay.Show("");
          }
       }
    }

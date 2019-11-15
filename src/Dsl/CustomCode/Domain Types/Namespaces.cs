@@ -1,12 +1,17 @@
-﻿using Microsoft.VisualStudio.Modeling;
+﻿using System.ComponentModel;
+
+using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
 
-   public class Namespaces
+   public class Namespaces: IHasStore
    {
       private readonly ModelRoot modelRoot;
+
+      [Browsable(false)]
+      public Store Store => modelRoot?.Store;
 
       public Namespaces(ModelRoot modelRoot)
       {

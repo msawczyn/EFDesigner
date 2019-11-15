@@ -15,7 +15,8 @@ namespace Sawczyn.EFDesigner.EFModel
          this.modelRoot = modelRoot;
       }
 
-      public Store Store => modelRoot.Store;
+      [Browsable(false)]
+      public Store Store => modelRoot?.Store;
 
       // ReSharper disable once UnusedMember.Global
       [TypeConverter(typeof(ProjectDirectoryTypeConverter))]

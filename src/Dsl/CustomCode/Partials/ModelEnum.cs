@@ -51,29 +51,10 @@ namespace Sawczyn.EFDesigner.EFModel
                return namespaceStorage;
 
             // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (!string.IsNullOrWhiteSpace(ModelRoot.EnumNamespace))
+            if (!string.IsNullOrWhiteSpace(ModelRoot?.EnumNamespace))
                return ModelRoot.EnumNamespace;
 
-            return ModelRoot.Namespace;
-         }
-      }
-
-      /// <summary>
-      /// Output directory for generated code. Takes overrides into account.
-      /// </summary>
-      [Browsable(false)]
-      public string EffectiveOutputDirectory
-      {
-         get
-         {
-            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
-               return outputDirectoryStorage;
-
-            // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (!string.IsNullOrWhiteSpace(ModelRoot.EnumOutputDirectory))
-               return ModelRoot.EnumOutputDirectory;
-
-            return ModelRoot.ContextOutputDirectory;
+            return ModelRoot?.Namespace;
          }
       }
 
@@ -81,7 +62,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// Output location for generated code. Takes overrides into account.
       /// </summary>
       [Browsable(false)]
-      public string EffectiveOutputLocation
+      public string EffectiveOutputDirectory
       {
          get
          {
@@ -287,7 +268,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return EffectiveOutputLocation;
+               return EffectiveOutputDirectory;
             }
             catch (NullReferenceException)
             {
@@ -307,7 +288,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
-         outputDirectoryStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveOutputLocation
+         outputDirectoryStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveOutputDirectory
                                      ? null
                                      : value;
 
