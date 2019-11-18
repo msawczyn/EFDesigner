@@ -268,6 +268,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="EFModel.xsd">
+      <SubType>Designer</SubType>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <InstallRoot>Schemas</InstallRoot>
+    </Content>
     <None Include="ReadMe - Build Events.txt" />
     <Content Include="Parsers\Remotion.Linq.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -323,11 +328,6 @@
             &lt;ArrayOfParameterStorage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;
          </Parameters>
     </None>
-    <Content Include="EFModel.xsd">
-      <SubType>Designer</SubType>
-      <InstallRoot>Schemas</InstallRoot>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>
@@ -522,11 +522,9 @@
   <PropertyGroup>
     <PreBuildEvent>dotnet tool install -g dotnet-warp
 dotnet-warp "$(SolutionDir)Utilities\EFCoreParser\EFCoreParser.csproj" -o "$(ProjectDir)Parsers\EFCoreParser.exe"
-
 mkdir "$(TargetDir)Parsers"
-
 copy /y "$(ProjectDir)Parsers\*.*" "$(TargetDir)Parsers"
-copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "EFModel.xsd"
+copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFModel.xsd"
 
 </PreBuildEvent>
   </PropertyGroup>

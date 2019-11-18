@@ -10,6 +10,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      /**************************************************
+       * Code generation methods and data common to EF6 and EFCore
+       */
       string[] NonNullableTypes
       {
          get
@@ -992,6 +995,25 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             Output("public Byte[] Timestamp { get; set; }");
             NL();
          }
+      }
+
+      private void WriteDbContextComments(ModelRoot modelRoot)
+      {
+         if (!string.IsNullOrEmpty(modelRoot.Summary))
+         {
+            Output("/// <summary>");
+            WriteCommentBody(modelRoot.Summary);
+            Output("/// </summary>");
+
+            if (!string.IsNullOrEmpty(modelRoot.Description))
+            {
+               Output("/// <remarks>");
+               WriteCommentBody(modelRoot.Description);
+               Output("/// </remarks>");
+            }
+         }
+         else
+            Output("/// <inheritdoc/>");
       }
    }
 }

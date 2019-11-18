@@ -8,6 +8,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      /**************************************************
+       * Common methods used in formatting generated code
+       */
+
       private ITextTemplatingEngineHost Host { get; set; }
 
       private string PopIndent() { return string.Empty; }

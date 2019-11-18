@@ -15,6 +15,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      /**************************************************
+       * Support for creating multiple output files from a single T4
+       */
+
       class Manager
       {
          private readonly List<Block> files = new List<Block>();

@@ -11,6 +11,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      /**************************************************
+       * EF6-specific code generation methods
+       */
+
       void GenerateEF6(Manager manager, ModelRoot modelRoot)
       {
          // Entities
@@ -75,41 +79,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
       void WriteDbContextEF6(ModelRoot modelRoot)
       {
-         Output("using System;");
-         Output("using System.Collections.Generic;");
-         Output("using System.Linq;");
-         Output("using System.ComponentModel.DataAnnotations.Schema;");
-         Output("using System.Data.Entity;");
-         Output("using System.Data.Entity.Infrastructure.Annotations;");
-         NL();
-
-         BeginNamespace(modelRoot.Namespace);
-
-         if (!string.IsNullOrEmpty(modelRoot.Summary))
-         {
-            Output("/// <summary>");
-            WriteCommentBody(modelRoot.Summary);
-            Output("/// </summary>");
-
-            if (!string.IsNullOrEmpty(modelRoot.Description))
-            {
-               Output("/// <remarks>");
-               WriteCommentBody(modelRoot.Description);
-               Output("/// </remarks>");
-            }
-         }
-         else
-            Output("/// <inheritdoc/>");
-
-         Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : System.Data.Entity.DbContext");
-         Output("{");
-
-         PluralizationService pluralizationService = ModelRoot.PluralizationService;
-
-         /***********************************************************************/
-         // generate DBSets
-         /***********************************************************************/
-
          ModelClass[] classesWithTables = null;
 
          switch (modelRoot.InheritanceStrategy)
@@ -130,46 +99,72 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                break;
          }
 
+         Output("using System;");
+         Output("using System.Collections.Generic;");
+         Output("using System.Linq;");
+         Output("using System.ComponentModel.DataAnnotations.Schema;");
+         Output("using System.Data.Entity;");
+         Output("using System.Data.Entity.Infrastructure.Annotations;");
+         NL();
+
+         BeginNamespace(modelRoot.Namespace);
+
+         WriteDbContextComments(modelRoot);
+
+         Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : System.Data.Entity.DbContext");
+         Output("{");
+
+
          if (classesWithTables?.Any() == true)
+            WriteDbSetsEF6(modelRoot);
+
+         WriteConstructorsEF6(modelRoot);
+         WriteModelCreateEF6(modelRoot, classesWithTables);
+
+         Output("}");
+
+         EndNamespace(modelRoot.Namespace);
+      }
+
+      private void WriteDbSetsEF6(ModelRoot modelRoot)
+      {
+         Output("#region DbSets");
+         PluralizationService pluralizationService = ModelRoot.PluralizationService;
+
+         foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
          {
-            Output("#region DbSets");
+            string dbSetName;
 
-            foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
+            if (!string.IsNullOrEmpty(modelClass.DbSetName))
+               dbSetName = modelClass.DbSetName;
+            else
             {
-               string dbSetName;
-
-               if (!string.IsNullOrEmpty(modelClass.DbSetName))
-                  dbSetName = modelClass.DbSetName;
-               else
-               {
-                  dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
-                                 ? pluralizationService.Pluralize(modelClass.Name)
-                                 : modelClass.Name;
-               }
-
-               if (!string.IsNullOrEmpty(modelClass.Summary))
-               {
-                  NL();
-                  Output("/// <summary>");
-                  WriteCommentBody($"Repository for {modelClass.FullName} - {modelClass.Summary}");
-                  Output("/// </summary>");
-               }
-
-               Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual System.Data.Entity.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
+               dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
+                              ? pluralizationService.Pluralize(modelClass.Name)
+                              : modelClass.Name;
             }
 
-            Output("#endregion DbSets");
-            NL();
+            if (!string.IsNullOrEmpty(modelClass.Summary))
+            {
+               NL();
+               Output("/// <summary>");
+               WriteCommentBody($"Repository for {modelClass.FullName} - {modelClass.Summary}");
+               Output("/// </summary>");
+            }
+
+            Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual System.Data.Entity.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
          }
 
+         Output("#endregion DbSets");
+         NL();
+      }
+
+      private void WriteConstructorsEF6(ModelRoot modelRoot)
+      {
          Output("#region Constructors");
          NL();
          Output("partial void CustomInit();");
          NL();
-
-         /***********************************************************************/
-         // constructors
-         /***********************************************************************/
 
          if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
          {
@@ -287,10 +282,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          NL();
          Output("#endregion Constructors");
          NL();
+      }
 
-         /***********************************************************************/
-         // OnModelCreating 
-         /***********************************************************************/
+      private void WriteModelCreateEF6(ModelRoot modelRoot, ModelClass[] classesWithTables)
+      {
          Output("partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
          Output("partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);");
          NL();
@@ -469,19 +464,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         {
                            if (modelClass == association.Source)
                            {
-                              segments.Add("Map(x => { "
-                                         + $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); "
-                                         + $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + "})");
+                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
                            }
                            else
                            {
-                              segments.Add("Map(x => { "
-                                         + $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); "
-                                         + $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + "})");
+                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
                            }
                         }
 
@@ -523,8 +510,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                   // Certain associations cascade delete automatically. Also, the user may ask for it.
                   // We only generate a cascade delete call if the user asks for it. 
-                  if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal)
-                   || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
+                  if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
                   {
                      string willCascadeOnDelete = association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal
                                                      ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
@@ -584,19 +570,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         {
                            if (modelClass == association.Source)
                            {
-                              segments.Add("Map(x => { "
-                                         + $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); "
-                                         + $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + "})");
+                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
                            }
                            else
                            {
-                              segments.Add("Map(x => { "
-                                         + $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); "
-                                         + $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); "
-                                         + "})");
+                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
                            }
                         }
 
@@ -637,8 +615,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   if (foreignKeySegment != null)
                      segments.Add(foreignKeySegment);
 
-                  if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal)
-                   || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
+                  if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
                   {
                      string willCascadeOnDelete = association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal
                                                      ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
@@ -659,10 +636,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          Output("OnModelCreatedImpl(modelBuilder);");
          Output("}");
-
-         Output("}");
-
-         EndNamespace(modelRoot.Namespace);
       }
 
       void WriteMigrationConfigurationEF6(ModelRoot modelRoot)
@@ -723,6 +696,5 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          return $@"Map(x => x.MapKey(""{columnName}""))";
       }
-
    }
 }

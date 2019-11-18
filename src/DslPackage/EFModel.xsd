@@ -93,7 +93,7 @@
         <!-- Property: Namespace -->
         <xsd:attribute name="namespace" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>Namespace for all generated classes</xsd:documentation>
+            <xsd:documentation>Namespace for DBContext and, unless otherwise specified, all other generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: DatabaseInitializerType -->
@@ -270,6 +270,36 @@
             <xsd:documentation>Tunable parameters for auto-layout of the designer</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: EntityNamespace -->
+        <xsd:attribute name="entityNamespace" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Namespace for entities</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: EnumNamespace -->
+        <xsd:attribute name="enumNamespace" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Namespace for enumerations</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: StructNamespace -->
+        <xsd:attribute name="structNamespace" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Namespace for owned entities</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Namespaces -->
+        <xsd:attribute name="namespaces" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Default namespaces for generated code</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: OutputLocations -->
+        <xsd:attribute name="outputLocations" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Default output folders for generated code</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -424,7 +454,7 @@
         <!-- Property: ImplementNotify -->
         <xsd:attribute name="implementNotify" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>Should this class implement INotifyPropertyChanged?</xsd:documentation>
+            <xsd:documentation>Should this class&apos;s properties implement INotifyPropertyChanged by default?</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: CustomInterfaces -->
@@ -473,6 +503,12 @@
         <xsd:attribute name="customAttributes" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Any custom attributes to be generated for this element.  Will be passed through as entered.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: AutoPropertyDefault -->
+        <xsd:attribute name="autoPropertyDefault" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Default value for this class&apos;s attribute AutoProperty setting</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -616,11 +652,11 @@
         <!-- Property: AutoProperty -->
         <xsd:attribute name="autoProperty" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+            <xsd:documentation>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: MinLength -->
-        <xsd:attribute name="minLength" type="xsd:string" >
+        <xsd:attribute name="minLength" type="xsd:integer" >
           <xsd:annotation>
             <xsd:documentation>Minimum length of the string, 0 for no minimum length</xsd:documentation>
           </xsd:annotation>
@@ -659,6 +695,30 @@
         <xsd:attribute name="displayText" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: PersistencePoint -->
+        <xsd:attribute name="persistencePoint" type="PersistencePointType" >
+          <xsd:annotation>
+            <xsd:documentation>The element that will be persisted for this attribute, either the property or the backing field</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ImplementNotify -->
+        <xsd:attribute name="implementNotify" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Should this class implement INotifyPropertyChanged?</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsImplementNotifyTracking -->
+        <xsd:attribute name="isImplementNotifyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.IsImplementNotify tracks ModelClass.ImplementNotify</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsAutoPropertyTracking -->
+        <xsd:attribute name="isAutoPropertyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1076,12 +1136,14 @@
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: TargetAutoProperty -->
-        <xsd:attribute name="targetAutoProperty" type="xsd:boolean" >
+        <!-- Property: TargetImplementNotify -->
+        <xsd:attribute name="targetImplementNotify" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+            <xsd:documentation>Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsTargetImplementNotifyTracking -->
+        <xsd:attribute name="isTargetImplementNotifyTracking" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1294,12 +1356,14 @@
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute on this end&apos;s property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: SourceAutoProperty -->
-        <xsd:attribute name="sourceAutoProperty" type="xsd:boolean" >
+        <!-- Property: SourceImplementNotify -->
+        <xsd:attribute name="sourceImplementNotify" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If false, generates a backing field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+            <xsd:documentation>Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsSourceImplementNotifyTracking -->
+        <xsd:attribute name="isSourceImplementNotifyTracking" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -2065,6 +2129,17 @@
           <xsd:documentation>Default</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum PersistencePointType -->
+  <xsd:simpleType name="PersistencePointType">
+    <xsd:annotation>
+      <xsd:documentation>Used to define whether the property or its backing field is persisted</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Property"/>
+      <xsd:enumeration value="Field"/>
     </xsd:restriction>
   </xsd:simpleType>
   

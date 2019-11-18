@@ -11,6 +11,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      /**************************************************
+       * EFCore-specific code generation methods
+       */
+
       void GenerateEFCore(Manager manager, ModelRoot modelRoot)
       {
          // Entities
@@ -29,11 +33,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             WriteEnum(modelEnum);
          }
 
-         // not yet supported in EF Core
+         // DatabaseInitializer not yet supported in EF Core
          // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
          // WriteDatabaseInitializerEFCore(modelRoot);
-
-         // not yet supported in EF Core
+         
+         // MigrationConfiguration not yet supported in EF Core
          // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
          // WriteMigrationConfigurationEFCore(modelRoot);
 
@@ -52,54 +56,71 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          return result;
       }
 
-// Revisit if/when supported in EFCore
+      // Revisit if/when supported in EFCore
 
-// void WriteDatabaseInitializerEFCore(ModelRoot modelRoot)
-// {
-//    Output("using System.Data.Entity;");
-//    NL();
-// 
-//    BeginNamespace(modelRoot.Namespace);
-// 
-//    if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
-//       Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>");
-//    else
-//       Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.EntityContainerName}>");
-// 
-//    Output("{");
-//    Output("}");
-//    EndNamespace(modelRoot.Namespace);
-// }
-// 
-// void WriteMigrationConfigurationEFCore(ModelRoot modelRoot)
-// {
-//    //if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
-//    //   return;
-// 
-//    Output("using System.Data.Entity.Migrations;");
-//    NL();
-// 
-//    BeginNamespace(modelRoot.Namespace);
-//    Output("public sealed partial class {0}DbMigrationConfiguration : DbMigrationsConfiguration<{0}>", modelRoot.EntityContainerName);
-// 
-//    Output("{");
-//    Output("partial void Init();");
-//    NL();
-// 
-//    Output("public {0}DbMigrationConfiguration()", modelRoot.EntityContainerName);
-//    Output("{");
-//    Output("AutomaticMigrationsEnabled = {0};", modelRoot.AutomaticMigrationsEnabled.ToString().ToLower());
-//    Output("AutomaticMigrationDataLossAllowed = false;");
-//    Output("Init();");
-//    Output("}");
-// 
-//    Output("}");
-//    EndNamespace(modelRoot.Namespace);
-// }
+      // void WriteDatabaseInitializerEFCore(ModelRoot modelRoot)
+      // {
+      //    Output("using System.Data.Entity;");
+      //    NL();
+      // 
+      //    BeginNamespace(modelRoot.Namespace);
+      // 
+      //    if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
+      //       Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>");
+      //    else
+      //       Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.EntityContainerName}>");
+      // 
+      //    Output("{");
+      //    Output("}");
+      //    EndNamespace(modelRoot.Namespace);
+      // }
+      // 
+      // void WriteMigrationConfigurationEFCore(ModelRoot modelRoot)
+      // {
+      //    //if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
+      //    //   return;
+      // 
+      //    Output("using System.Data.Entity.Migrations;");
+      //    NL();
+      // 
+      //    BeginNamespace(modelRoot.Namespace);
+      //    Output("public sealed partial class {0}DbMigrationConfiguration : DbMigrationsConfiguration<{0}>", modelRoot.EntityContainerName);
+      // 
+      //    Output("{");
+      //    Output("partial void Init();");
+      //    NL();
+      // 
+      //    Output("public {0}DbMigrationConfiguration()", modelRoot.EntityContainerName);
+      //    Output("{");
+      //    Output("AutomaticMigrationsEnabled = {0};", modelRoot.AutomaticMigrationsEnabled.ToString().ToLower());
+      //    Output("AutomaticMigrationDataLossAllowed = false;");
+      //    Output("Init();");
+      //    Output("}");
+      // 
+      //    Output("}");
+      //    EndNamespace(modelRoot.Namespace);
+      // }
 
       void WriteDbContextEFCore(ModelRoot modelRoot)
       {
          List<string> segments = new List<string>();
+         ModelClass[] classesWithTables = null;
+
+         // Note: TablePerType and TablePerConcreteType not yet available, but it doesn't hurt for them to be here since they shouldn't make it past the designer's validations
+         switch (modelRoot.InheritanceStrategy)
+         {
+            case CodeStrategy.TablePerType:
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType).OrderBy(x => x.Name).ToArray();
+               break;
+
+            case CodeStrategy.TablePerConcreteType:
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name).ToArray();
+               break;
+
+            case CodeStrategy.TablePerHierarchy:
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name).ToArray();
+               break;
+         }
 
          Output("using System;");
          Output("using System.Collections.Generic;");
@@ -110,87 +131,58 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          BeginNamespace(modelRoot.Namespace);
 
-         if (!string.IsNullOrEmpty(modelRoot.Summary))
-         {
-            Output("/// <summary>");
-            WriteCommentBody(modelRoot.Summary);
-            Output("/// </summary>");
-
-            if (!string.IsNullOrEmpty(modelRoot.Description))
-            {
-               Output("/// <remarks>");
-               WriteCommentBody(modelRoot.Description);
-               Output("/// </remarks>");
-            }
-         }
-         else
-            Output("/// <inheritdoc/>");
+         WriteDbContextComments(modelRoot);
 
          Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : Microsoft.EntityFrameworkCore.DbContext");
          Output("{");
 
+         if (classesWithTables?.Any() == true)
+            WriteDbSetsEFCore(modelRoot);
+
+         WriteConstructorsEFCore(modelRoot);
+         WriteOnConfiguringEFCore(modelRoot, segments);
+         WriteOnModelCreateEFCore(modelRoot, segments, classesWithTables);
+
+         Output("}");
+
+         EndNamespace(modelRoot.Namespace);
+      }
+
+      private void WriteDbSetsEFCore(ModelRoot modelRoot)
+      {
+         Output("#region DbSets");
          PluralizationService pluralizationService = ModelRoot.PluralizationService;
 
-         /***********************************************************************/
-         // generate DBSets
-         /***********************************************************************/
-
-         ModelClass[] classesWithTables = null;
-
-         switch (modelRoot.InheritanceStrategy)
+         foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
          {
-            case CodeStrategy.TablePerType:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType).OrderBy(x => x.Name).ToArray();
+            string dbSetName;
 
-               break;
-
-            case CodeStrategy.TablePerConcreteType:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name).ToArray();
-
-               break;
-
-            case CodeStrategy.TablePerHierarchy:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name).ToArray();
-
-               break;
-         }
-
-         if (classesWithTables != null)
-         {
-            Output("#region DbSets");
-
-            foreach (ModelClass modelClass in modelRoot.Classes.Where(x => !x.IsDependentType).OrderBy(x => x.Name))
+            if (!string.IsNullOrEmpty(modelClass.DbSetName))
+               dbSetName = modelClass.DbSetName;
+            else
             {
-               string dbSetName;
-
-               if (!string.IsNullOrEmpty(modelClass.DbSetName))
-                  dbSetName = modelClass.DbSetName;
-               else
-               {
-                  dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
-                                 ? pluralizationService.Pluralize(modelClass.Name)
-                                 : modelClass.Name;
-               }
-
-               if (!string.IsNullOrEmpty(modelClass.Summary))
-               {
-                  NL();
-                  Output("/// <summary>");
-                  WriteCommentBody($"Repository for {modelClass.FullName} - {modelClass.Summary}");
-                  Output("/// </summary>");
-               }
-
-               Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual Microsoft.EntityFrameworkCore.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
+               dbSetName = pluralizationService?.IsSingular(modelClass.Name) == true
+                              ? pluralizationService.Pluralize(modelClass.Name)
+                              : modelClass.Name;
             }
 
-            Output("#endregion DbSets");
-            NL();
+            if (!string.IsNullOrEmpty(modelClass.Summary))
+            {
+               NL();
+               Output("/// <summary>");
+               WriteCommentBody($"Repository for {modelClass.FullName} - {modelClass.Summary}");
+               Output("/// </summary>");
+            }
+
+            Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual Microsoft.EntityFrameworkCore.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
          }
 
-         /***********************************************************************/
-         // constructors
-         /***********************************************************************/
+         Output("#endregion DbSets");
+         NL();
+      }
 
+      private void WriteConstructorsEFCore(ModelRoot modelRoot)
+      {
          if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
          {
             string connectionString = string.IsNullOrEmpty(modelRoot.ConnectionString)
@@ -204,11 +196,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             NL();
          }
 
-         //Output("/// <inheritdoc />");
-         //Output($"public {modelRoot.EntityContainerName}() : base()");
-         //Output("{");
-         //Output("}");
-         //NL();
          Output("/// <inheritdoc />");
          Output($"public {modelRoot.EntityContainerName}(DbContextOptions<{modelRoot.EntityContainerName}> options) : base(options)");
          Output("{");
@@ -217,7 +204,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          Output("partial void CustomInit(DbContextOptionsBuilder optionsBuilder);");
          NL();
+      }
 
+      private void WriteOnConfiguringEFCore(ModelRoot modelRoot, List<string> segments)
+      {
          Output("/// <inheritdoc />");
          Output("protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)");
          Output("{");
@@ -242,14 +232,14 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("CustomInit(optionsBuilder);");
          Output("}");
          NL();
+      }
 
+      private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments, ModelClass[] classesWithTables)
+      {
          Output("partial void OnModelCreatingImpl(ModelBuilder modelBuilder);");
          Output("partial void OnModelCreatedImpl(ModelBuilder modelBuilder);");
          NL();
 
-         /***********************************************************************/
-         // OnModelCreating 
-         /***********************************************************************/
          Output("/// <inheritdoc />");
          Output("protected override void OnModelCreating(ModelBuilder modelBuilder)");
          Output("{");
@@ -501,8 +491,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                                                                          .OfType<UnidirectionalAssociation>()
                                                                          .Where(x => x.Persistent && x.Target.IsDependentType))
             {
-               if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne 
-                || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+               if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                   Output($"modelBuilder.Entity<{modelClass.FullName}>().OwnsOne(x => x.{association.TargetPropertyName});");
                else
                   Output($"// Dependent 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
@@ -579,8 +568,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                string foreignKeySegment = CreateForeignKeyColumnSegmentEFCore(association
                                                                             , foreignKeyColumns
-                                                                            , association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                                                                           && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany);
+                                                                            , association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany);
 
                if (foreignKeySegment != null)
                   segments.Add(foreignKeySegment);
@@ -619,10 +607,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          Output("OnModelCreatedImpl(modelBuilder);");
          Output("}");
-
-         Output("}");
-
-         EndNamespace(modelRoot.Namespace);
       }
 
       string CreateForeignKeyColumnSegmentEFCore(Association association, List<string> foreignKeyColumns, bool useGeneric)
@@ -666,6 +650,5 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                    ? $"HasForeignKey<{dependentType}>(\"{columnName}\")"
                    : $"HasForeignKey(\"{columnName}\")";
       }
-
    }
 }

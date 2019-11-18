@@ -7,9 +7,13 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.3.0.11
+// EFDesigner v1.3.0.12
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
+
+/**************************************************
+ * Code generation methods and data common to EF6 and EFCore
+ */
 
 string[] NonNullableTypes
 {
@@ -993,6 +997,25 @@ void WriteProperties(ModelClass modelClass)
       Output("public Byte[] Timestamp { get; set; }");
       NL();
    }
+}
+
+private void WriteDbContextComments(ModelRoot modelRoot)
+{
+   if (!string.IsNullOrEmpty(modelRoot.Summary))
+   {
+      Output("/// <summary>");
+      WriteCommentBody(modelRoot.Summary);
+      Output("/// </summary>");
+
+      if (!string.IsNullOrEmpty(modelRoot.Description))
+      {
+         Output("/// <remarks>");
+         WriteCommentBody(modelRoot.Description);
+         Output("/// </remarks>");
+      }
+   }
+   else
+      Output("/// <inheritdoc/>");
 }
 
 #>

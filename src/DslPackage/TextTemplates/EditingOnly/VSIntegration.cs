@@ -12,6 +12,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      /**************************************************
+       * Interactions with Visual Studio
+       */
+
       public IEnumerable<Project> GetAllProjects()
       {
          foreach (Project project in GetSolution().Projects.OfType<Project>())
