@@ -14,6 +14,9 @@ namespace Sawczyn.EFDesigner.EFModel
    [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
    public partial class ModelAttribute : IModelElementInCompartment, IDisplaysWarning, IHasStore
    {
+      internal const int MAXLENGTH_MAX = -1;
+      internal const int MAXLENGTH_UNDEFINED = 0;
+
       /// <summary>Gets the parent model element (ModelClass).</summary>
       /// <value>The parent model element.</value>
       public IModelElementWithCompartments ParentModelElement => ModelClass;
@@ -744,7 +747,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (ModelClass?.ModelRoot == null) return;
 
-         if (ModelClass != null && Type == "String" && (!MaxLength.HasValue || MaxLength.Value < 0))
+         if (ModelClass != null && Type == "String" && (!MaxLength.HasValue || MaxLength.Value == MAXLENGTH_UNDEFINED))
          {
             context.LogWarning($"{ModelClass.Name}.{Name}: String length not specified", "MWStringNoLength", this);
             hasWarning = true;
@@ -826,12 +829,12 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <ul>
       /// <li>Visibility</li>
       /// <li>Type (with optional '?' if not a required field</li>
-      /// <li>Max length in brackets, if a string field and length is specified</li>
+      /// <li>Min/Max length in brackets, if a string field and length(s) is/are specified</li>
       /// <li>Name (with optional '!' if an identity field</li>
       /// <li>an equal sign (=) followed by an initializer, if an initializer is specified</li>
       /// </ul>
       /// </remarks>
-      /// <returns>A string that represents the current object.</returns>
+      /// <returns>A string that represents the current object. Note that this is a parsable string when turning back to a ModelAttribute.</returns>
       public override string ToString()
       {
          string visibility = SetterVisibility.ToString().ToLower();
@@ -840,17 +843,41 @@ namespace Sawczyn.EFDesigner.EFModel
          string nullable = Required ? string.Empty : "?";
          string initial = !string.IsNullOrEmpty(InitialValue) ? $" = {InitialValue.Trim('"')}" : string.Empty;
 
-         string lengthDisplay = "";
+         return $"{visibility} {Type}{nullable}{LengthDisplay()} {Name}{identity}{initial}";
+      }
 
-         if (Type == "String")
+      private string LengthDisplay()
+      {
+         string result = string.Empty;
+
+         if (Type != "String")
+            return result;
+
+         if (MinLength > 0)
          {
-            if (MinLength > 0)
-               lengthDisplay = $"[{MinLength}-{(MaxLength.HasValue && MaxLength.Value > 0 ? MaxLength.ToString() : "")}]";
-            else if (MaxLength.HasValue)
-               lengthDisplay = $"[{(MaxLength == 0 ? "max" : MaxLength.ToString())}]";
-         }
+            switch (MaxLength)
+            {
+               case null:
+               case MAXLENGTH_UNDEFINED:
+                  result = $"[{MinLength}-]";
 
-         return $"{visibility} {Type}{nullable}{lengthDisplay} {Name}{identity}{initial}";
+                  break;
+               case MAXLENGTH_MAX:
+                  result = $"[{MinLength}-max]";
+
+                  break;
+               default:
+                  result = $"[{MinLength}-{MaxLength}]";
+
+                  break;
+            }
+         }
+         else if (MaxLength == MAXLENGTH_MAX)
+            result = "[max]";
+         else if (MaxLength != null && MaxLength != MAXLENGTH_UNDEFINED)
+            result = $"[{MaxLength}]";
+
+         return result;
       }
 
       public string ToDisplayString()
@@ -858,17 +885,7 @@ namespace Sawczyn.EFDesigner.EFModel
          string nullable = Required ? string.Empty : "?";
          string initial = !string.IsNullOrEmpty(InitialValue) ? $" = {InitialValue.Trim('"')}" : string.Empty;
 
-         string lengthDisplay = "";
-
-         if (Type == "String")
-         {
-            if (MinLength > 0)
-               lengthDisplay = $"[{MinLength}-{(MaxLength.HasValue && MaxLength.Value > 0 ? MaxLength.ToString() : "")}]";
-            else if (MaxLength.HasValue)
-               lengthDisplay = $"[{(MaxLength == 0 ? "max" : MaxLength.ToString())}]";
-         }
-
-         return $"{Name}: {Type}{nullable}{lengthDisplay}{initial}";
+         return $"{Name}: {Type}{nullable}{LengthDisplay()}{initial}";
       }
 
       /// <summary>

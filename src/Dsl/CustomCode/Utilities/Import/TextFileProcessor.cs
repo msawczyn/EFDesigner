@@ -130,11 +130,19 @@ namespace Sawczyn.EFDesigner.EFModel
                   ProcessEnum(enumDecl);
 
                List<ModelClass> processedClasses = new List<ModelClass>();
+               List<ClassDeclarationSyntax> badClasses = new List<ClassDeclarationSyntax>();
+
                foreach (ClassDeclarationSyntax classDecl in classDecls)
-                  processedClasses.Add(ProcessClass(classDecl));
+               {
+                  ModelClass modelClass = ProcessClass(classDecl);
+                  if (modelClass == null)
+                     badClasses.Add(classDecl);
+                  else
+                     processedClasses.Add(modelClass);
+               }
 
                // process last so all classes and enums are already in the model
-               foreach (ClassDeclarationSyntax classDecl in classDecls)
+               foreach (ClassDeclarationSyntax classDecl in classDecls.Except(badClasses))
                   ProcessProperties(classDecl);
 
                // now that all the properties are in, go through the classes again and ensure identities are present based on convention
@@ -530,7 +538,14 @@ namespace Sawczyn.EFDesigner.EFModel
             throw new ArgumentNullException(nameof(classDecl));
 
          ModelRoot modelRoot = Store.ModelRoot();
-         string className = classDecl.Identifier.Text;
+         string className = classDecl.Identifier.Text.Split(':').LastOrDefault();
+
+         if (className == null)
+         {
+            ErrorDisplay.Show("Can't find class name");
+            // ReSharper disable once ExpressionIsAlwaysNull
+            return result;
+         }
 
          if (namespaceDecl == null && classDecl.Parent is NamespaceDeclarationSyntax classDeclParent)
             namespaceDecl = classDeclParent;
@@ -567,7 +582,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                foreach (BaseTypeSyntax type in classDecl.BaseList.Types)
                {
-                  string baseName = type.ToString();
+                  string baseName = type.ToString().Split(':').Last();
 
                   // Do we know this is an interface?
                   if (KnownInterfaces.Contains(baseName) || superClass != null || result?.Superclass != null)
@@ -585,7 +600,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   // if it's not in the model, we just don't know. Ask the user
                   if (superClass == null && (KnownClasses.Contains(baseName) || QuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true))
                   {
-                     superClass = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, baseName));
+                     string[] nameparts = baseName.Split('.');
+
+                     superClass = nameparts.Length == 1
+                                     ? new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, nameparts.Last()))
+                                     : new ModelClass(Store
+                                                    , new PropertyAssignment(ModelClass.NameDomainPropertyId, nameparts.Last())
+                                                    , new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, string.Join(".", nameparts.Take(nameparts.Length - 1))));
+
                      modelRoot.Classes.Add(superClass);
                   }
                   else

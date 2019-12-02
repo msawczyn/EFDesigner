@@ -147,10 +147,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "MinLength":
                {
+                  int minLengthValue = (int)e.NewValue;
+
                   if (element.Type != "String")
                      element.MinLength = 0;
-                  else if ((int)e.NewValue < 0)
+                  else if (minLengthValue < 0)
                      errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength must be zero or a positive number");
+                  else if (element.MaxLength > 0 && minLengthValue > element.MaxLength)
+                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength cannot be greater than MaxLength");
                }
 
                break;
@@ -159,6 +163,13 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   if (element.Type != "String")
                      element.MaxLength = null;
+                  else
+                  {
+                     int? maxLengthValue = (int?)e.NewValue;
+
+                     if (maxLengthValue > 0 && element.MinLength > maxLengthValue)
+                        errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength cannot be greater than MaxLength");
+                  }
                }
 
                break;

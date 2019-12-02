@@ -886,7 +886,7 @@
     <comment>Category for DomainProperty &apos;Persistent&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Description" xml:space="preserve">
-    <value>Maximum length of the string, 0 for no max length</value>
+    <value>Maximum length of the string, A positive number will generate a length constraint, negative number means the database maximum (approx. 2GB), and null or 0 for no max length entry (migration traditionally will set the database column to 2000 characters).</value>
     <comment>Description for DomainProperty &apos;MaxLength&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.DisplayName" xml:space="preserve">

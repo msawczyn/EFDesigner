@@ -510,7 +510,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8c128f2b-8f9f-4c8e-acf1-dd5488736b79" Description="Maximum length of the string, 0 for no max length" Name="MaxLength" DisplayName="Max Length" DefaultValue="-1" Category="String Properties">
+        <DomainProperty Id="8c128f2b-8f9f-4c8e-acf1-dd5488736b79" Description="Maximum length of the string, A positive number will generate a length constraint, negative number means the database maximum (approx. 2GB), and null or 0 for no max length entry (migration traditionally will set the database column to 2000 characters)." Name="MaxLength" DisplayName="Max Length" DefaultValue="" Category="String Properties">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>

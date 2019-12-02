@@ -6238,17 +6238,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for MaxLength
 		/// </summary>
-		private global::System.Nullable<System.Int32> maxLengthPropertyStorage = DslModeling::SerializationUtilities.GetValue<global::System.Nullable<System.Int32>>("-1");
+		private global::System.Nullable<System.Int32> maxLengthPropertyStorage;
 		
 		/// <summary>
 		/// Gets or sets the value of MaxLength domain property.
-		/// Maximum length of the string, 0 for no max length
+		/// Maximum length of the string, A positive number will generate a length
+		/// constraint, negative number means the database maximum (approx. 2GB), and null
+		/// or 0 for no max length entry (migration traditionally will set the database
+		/// column to 2000 characters).
 		/// </summary>
 		[System.ComponentModel.TypeConverter(typeof(MaxLengthTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/MaxLength.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(typeof(global::System.Nullable<System.Int32>), "-1")]
 		[DslModeling::DomainObjectId("8c128f2b-8f9f-4c8e-acf1-dd5488736b79")]
 		public global::System.Nullable<System.Int32> MaxLength
 		{

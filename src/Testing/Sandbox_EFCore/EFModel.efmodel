@@ -1,43 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.8" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="EFModel" namespace="Sandbox_EFCore" connectionString="Data Source=.;Initial Catalog=Sandbox;Integrated Security=True" automaticMigrationsEnabled="false" entityOutputDirectory="Generated" contextOutputDirectory="Generated" enumOutputDirectory="Generated" entityFrameworkVersion="EFCore" transformOnSave="false" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" structOutputDirectory="Generated" layoutAlgorithmSettings="" namespaces="" outputLocations="" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.12" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="EFModel" namespace="Sandbox_EFCore" connectionString="Data Source=.;Initial Catalog=Sandbox;Integrated Security=True" automaticMigrationsEnabled="false" entityOutputDirectory="Generated" contextOutputDirectory="Generated" enumOutputDirectory="Generated" entityFrameworkVersion="EFCore" chopMethodChains="false" transformOnSave="false" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" structOutputDirectory="Generated" layoutAlgorithmSettings="" namespaces="" outputLocations="" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <classes>
-    <modelRootHasClasses Id="2f0ea37c-f440-4ac6-a81a-3c2ff650d6cd">
-      <modelClass Id="3790656d-d4d1-435c-870f-398bca702886" tableName="Derived2" databaseSchema="dbo" namespace="Sandbox_EFCore" dbSetName="Derived2" name="Derived2" outputDirectory="Generated" baseClass="BaseClass">
-        <attributes>
-          <modelAttribute Id="d9180246-c5c0-4a9f-a03d-b643928e2894" required="true" maxLength="15" indexed="true" indexedUnique="true" stringType="None" name="Name" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
-          <modelAttribute Id="8b08e740-84c0-49d7-a74c-21553ef6dbcf" required="true" maxLength="0" indexed="true" indexedUnique="true" stringType="None" name="Symbol" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
-        </attributes>
-      </modelClass>
-    </modelRootHasClasses>
     <modelRootHasClasses Id="6d1cb193-a963-437a-baef-b0cb7230f688">
-      <modelClass Id="19b53b82-ec70-4546-8579-1f0dfb30419d" tableName="Deriveds" databaseSchema="dbo" namespace="Sandbox_EFCore" dbSetName="Deriveds" name="Derived" outputDirectory="Generated" baseClass="BaseClass">
+      <modelClass Id="19b53b82-ec70-4546-8579-1f0dfb30419d" tableName="Deriveds" databaseSchema="dbo" namespace="Sandbox_EFCore" dbSetName="Deriveds" name="Derived" outputDirectory="Generated">
         <attributes>
           <modelAttribute Id="4cc25848-6ef6-4646-8425-e40789a8b874" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" name="Name" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
-          <modelAttribute Id="b2914821-83f0-4988-8804-7ccbb2122551" required="true" maxLength="0" indexed="true" indexedUnique="true" stringType="None" name="Symbol" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
+          <modelAttribute Id="b2914821-83f0-4988-8804-7ccbb2122551" required="true" maxLength="255" indexed="true" indexedUnique="true" stringType="None" name="Symbol" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />
+          <modelAttribute Id="479ef942-8eac-477b-af3f-661b8757046c" type="Int32" isIdentity="true" required="true" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Id" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
         </attributes>
-        <bidirectionalTargets>
-          <bidirectionalAssociation Id="5aee9ac0-84bf-468d-8a80-1db879b6427a" sourceMultiplicity="ZeroOne" targetPropertyName="NotCascading" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false" sourcePropertyName="Optional" sourceImplementNotify="false">
-            <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
-          </bidirectionalAssociation>
-          <bidirectionalAssociation Id="db6a40c9-282b-4f7d-bcdf-bd32a2f310e7" targetPropertyName="Cascading" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false" sourcePropertyName="Required" sourceImplementNotify="false">
-            <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
-          </bidirectionalAssociation>
-        </bidirectionalTargets>
-      </modelClass>
-    </modelRootHasClasses>
-    <modelRootHasClasses Id="74518ccb-03de-4aed-bbb3-5ae0435b883b">
-      <modelClass Id="d3bebe14-6792-44dc-886f-563789be922a" tableName="BaseClasses" databaseSchema="dbo" namespace="Sandbox_EFCore" dbSetName="BaseClasses" name="BaseClass" outputDirectory="Generated">
-        <attributes>
-          <modelAttribute Id="e563893a-43b5-45c6-9c92-aa197d46c5a7" type="Int32" isIdentity="true" required="true" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Id" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
-        </attributes>
-        <subclasses>
-          <generalization Id="739cf477-c56a-4aa6-a22a-cd96fedc655b">
-            <modelClassMoniker Id="3790656d-d4d1-435c-870f-398bca702886" />
-          </generalization>
-          <generalization Id="0a6805ef-710b-4ddd-af97-afa9f8c6b208">
-            <modelClassMoniker Id="19b53b82-ec70-4546-8579-1f0dfb30419d" />
-          </generalization>
-        </subclasses>
       </modelClass>
     </modelRootHasClasses>
   </classes>

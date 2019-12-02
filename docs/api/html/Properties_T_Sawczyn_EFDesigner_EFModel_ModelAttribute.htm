@@ -76,7 +76,10 @@
             Does this attribute represent the identity of the object?
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="P_Sawczyn_EFDesigner_EFModel_ModelAttribute_MaxLength.htm">MaxLength</a></td><td><div class="summary">
             Gets or sets the value of MaxLength domain property.
-            Maximum length of the string, 0 for no max length
+            Maximum length of the string, A positive number will generate a length
+            constraint, negative number means the database maximum (approx. 2GB), and null
+            or 0 for no max length entry (migration traditionally will set the database
+            column to 2000 characters).
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="P_Sawczyn_EFDesigner_EFModel_ModelAttribute_MinLength.htm">MinLength</a></td><td><div class="summary">
             Gets or sets the value of MinLength domain property.
             Minimum length of the string, 0 for no minimum length

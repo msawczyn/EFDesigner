@@ -301,7 +301,9 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
       foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
       {
          segments.Clear();
-         segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})");
+         segments.Add(indexed.AutoProperty
+                  ? $"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})"
+                  : $"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(\"_{indexed.Name}\")");
 
          if (indexed.IndexedUnique)
             segments.Add("IsUnique()");

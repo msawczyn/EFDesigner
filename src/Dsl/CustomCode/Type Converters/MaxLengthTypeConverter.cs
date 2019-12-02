@@ -38,7 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (value is string s && !string.IsNullOrWhiteSpace(s))
          {
             if (s.ToLowerInvariant() == "max")
-               return 0;
+               return ModelAttribute.MAXLENGTH_MAX;
 
             if (int.TryParse(s, out int val))
                return val;
@@ -57,15 +57,16 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
       public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
       {
+
          if (value?.ToString()?.ToLowerInvariant() == "max")
             return "max";
 
          if (value is int i)
          {
-            if (i < 0)
+            if (i == ModelAttribute.MAXLENGTH_UNDEFINED)
                return null;
 
-            if (i == 0)
+            if (i == ModelAttribute.MAXLENGTH_MAX)
                return "max";
 
             return i.ToString();
