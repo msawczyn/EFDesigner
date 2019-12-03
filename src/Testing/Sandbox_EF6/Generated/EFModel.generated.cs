@@ -130,6 +130,9 @@ namespace Sandbox_EF61
          modelBuilder.Entity<global::Sandbox_EF61a1.Master>()
                      .ToTable("Masters");
          modelBuilder.Entity<global::Sandbox_EF61a1.Master>()
+                     .Property(t => t.StringMax)
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
+         modelBuilder.Entity<global::Sandbox_EF61a1.Master>()
                      .HasMany(x => x.Details)
                      .WithOptional()
                      .Map(x => x.MapKey("Master.Details_Id"));

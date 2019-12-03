@@ -32,6 +32,9 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
 
 **ChangeLog**
 
+**1.3.0.12** (upcoming)
+   - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)
+
 **1.3.0.11**
    - Removed default checks in constructors for scalars
 

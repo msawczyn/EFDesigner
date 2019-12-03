@@ -66,7 +66,40 @@ namespace Sandbox_EF61a1
        * Properties
        *************************************************************************/
 
-      public string StringMax { get; set; }
+      /// <summary>
+      /// Backing field for StringMax
+      /// </summary>
+      internal string _StringMax;
+      /// <summary>
+      /// When provided in a partial class, allows value of StringMax to be changed before setting.
+      /// </summary>
+      partial void SetStringMax(string oldValue, ref string newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of StringMax to be changed before returning.
+      /// </summary>
+      partial void GetStringMax(ref string result);
+
+      /// <summary>
+      /// Indexed
+      /// </summary>
+      public string StringMax
+      {
+         get
+         {
+            string value = _StringMax;
+            GetStringMax(ref value);
+            return (_StringMax = value);
+         }
+         set
+         {
+            string oldValue = _StringMax;
+            SetStringMax(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _StringMax = value;
+            }
+         }
+      }
 
       public string String100 { get; set; }
 

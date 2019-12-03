@@ -57,8 +57,15 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**1.3.0.11** 
+**1.3.0.12** (upcoming)
+   - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)
+
+<details>
+<summary><b>1.3.0.11</b></summary>
+
    - Removed default checks in constructors for scalars
+
+</details>
 
 <details>
 <summary><b>1.3.0.10</b></summary>
