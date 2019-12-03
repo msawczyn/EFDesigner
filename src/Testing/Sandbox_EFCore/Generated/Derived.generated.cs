@@ -77,7 +77,7 @@ namespace Sandbox_EFCore
       /// <summary>
       /// Backing field for Symbol
       /// </summary>
-      protected string _Symbol;
+      internal string _Symbol;
       /// <summary>
       /// When provided in a partial class, allows value of Symbol to be changed before setting.
       /// </summary>

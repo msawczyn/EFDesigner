@@ -55,10 +55,10 @@ namespace Sandbox_EFCore
          modelBuilder.HasDefaultSchema("dbo");
 
          modelBuilder.Entity<global::Sandbox_EFCore.Derived>().ToTable("Deriveds").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Name).IsUnique();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex("_Symbol").IsUnique();
          modelBuilder.Entity<global::Sandbox_EFCore.Derived>().Property(t => t.Name).IsRequired();
-         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().Property(t => t.Symbol).HasMaxLength(255).IsRequired().HasField("_Symbol").UsePropertyAccessMode(PropertyAccessMode.Property);
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Name).IsUnique();
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().Property(t => t.Symbol).HasMaxLength(255).IsRequired().HasField("_Symbol").UsePropertyAccessMode(PropertyAccessMode.Field);
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Symbol).IsUnique();
          modelBuilder.Entity<global::Sandbox_EFCore.Derived>().Property(t => t.Id).IsRequired().ValueGeneratedNever();
 
          OnModelCreatedImpl(modelBuilder);

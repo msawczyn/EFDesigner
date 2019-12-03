@@ -5,8 +5,8 @@
       <modelClass Id="19b53b82-ec70-4546-8579-1f0dfb30419d" tableName="Deriveds" databaseSchema="dbo" namespace="Sandbox_EFCore" dbSetName="Deriveds" name="Derived" outputDirectory="Generated">
         <attributes>
           <modelAttribute Id="4cc25848-6ef6-4646-8425-e40789a8b874" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" name="Name" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
-          <modelAttribute Id="b2914821-83f0-4988-8804-7ccbb2122551" required="true" maxLength="255" indexed="true" indexedUnique="true" stringType="None" name="Symbol" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />
-          <modelAttribute Id="479ef942-8eac-477b-af3f-661b8757046c" type="Int32" isIdentity="true" required="true" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Id" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
+          <modelAttribute Id="b2914821-83f0-4988-8804-7ccbb2122551" required="true" maxLength="255" indexed="true" indexedUnique="true" stringType="None" name="Symbol" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" persistencePoint="Field" implementNotify="false" isAutoPropertyTracking="false" />
+          <modelAttribute Id="479ef942-8eac-477b-af3f-661b8757046c" type="Int32" isIdentity="true" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Id" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>

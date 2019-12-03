@@ -13,31 +13,32 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       /**************************************************
        * Code generation methods and data common to EF6 and EFCore
        */
+
       string[] NonNullableTypes
       {
          get
          {
             return new[]
-                   {
-                      "Binary"
-                    , "Geography"
-                    , "GeographyCollection"
-                    , "GeographyLineString"
-                    , "GeographyMultiLineString"
-                    , "GeographyMultiPoint"
-                    , "GeographyMultiPolygon"
-                    , "GeographyPoint"
-                    , "GeographyPolygon"
-                    , "Geometry"
-                    , "GeometryCollection"
-                    , "GeometryLineString"
-                    , "GeometryMultiLineString"
-                    , "GeometryMultiPoint"
-                    , "GeometryMultiPolygon"
-                    , "GeometryPoint"
-                    , "GeometryPolygon"
-                    , "String"
-                   };
+                     {
+                 "Binary"
+               , "Geography"
+               , "GeographyCollection"
+               , "GeographyLineString"
+               , "GeographyMultiLineString"
+               , "GeographyMultiPoint"
+               , "GeographyMultiPolygon"
+               , "GeographyPoint"
+               , "GeographyPolygon"
+               , "Geometry"
+               , "GeometryCollection"
+               , "GeometryLineString"
+               , "GeometryMultiLineString"
+               , "GeometryMultiPoint"
+               , "GeometryMultiPolygon"
+               , "GeometryPoint"
+               , "GeometryPolygon"
+               , "String"
+               };
          }
       }
 
@@ -46,24 +47,24 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          get
          {
             return new[]
-                   {
-                      "Geography"
-                    , "GeographyCollection"
-                    , "GeographyLineString"
-                    , "GeographyMultiLineString"
-                    , "GeographyMultiPoint"
-                    , "GeographyMultiPolygon"
-                    , "GeographyPoint"
-                    , "GeographyPolygon"
-                    , "Geometry"
-                    , "GeometryCollection"
-                    , "GeometryLineString"
-                    , "GeometryMultiLineString"
-                    , "GeometryMultiPoint"
-                    , "GeometryMultiPolygon"
-                    , "GeometryPoint"
-                    , "GeometryPolygon"
-                   };
+                     {
+                 "Geography"
+               , "GeographyCollection"
+               , "GeographyLineString"
+               , "GeographyMultiLineString"
+               , "GeographyMultiPoint"
+               , "GeographyMultiPolygon"
+               , "GeographyPoint"
+               , "GeographyPolygon"
+               , "Geometry"
+               , "GeometryCollection"
+               , "GeometryLineString"
+               , "GeometryMultiLineString"
+               , "GeometryMultiPoint"
+               , "GeometryMultiPolygon"
+               , "GeometryPoint"
+               , "GeometryPolygon"
+               };
          }
       }
 
@@ -208,7 +209,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                                                          .ToList();
 
          requiredParameterNames.AddRange(modelClass.AllRequiredNavigationProperties()
-                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                                || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                    .Select(x => x.PropertyName.ToLower()));
 
@@ -237,7 +238,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             // don't use 1..1 associations in constructor parameters. Becomes a Catch-22 scenario.
             requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
-                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                             || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                    .Select(x => $"{x.ClassType.FullName} {x.PropertyName.ToLower()}"));
          }
@@ -351,7 +352,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             bases.Add(modelClass.Superclass.FullName);
 
          if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
-            bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
+            bases.AddRange(modelClass.CustomInterfaces.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
 
          if (modelClass.ImplementNotify)
             bases.Add("INotifyPropertyChanged");
@@ -395,7 +396,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       void WriteCommentBody(string comment)
       {
          int chunkSize = 80;
-         string[] parts = comment.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+         string[] parts = comment.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
          foreach (string value in parts)
          {
@@ -433,7 +434,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
 
          bool hasOneToOneAssociations = modelClass.AllRequiredNavigationProperties()
-                                                   .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                                   .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                             && np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One);
 
          string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
@@ -464,7 +465,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          if (hasOneToOneAssociations)
          {
             List<Association> oneToOneAssociations = modelClass.AllRequiredNavigationProperties()
-                                                               .Where(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                                               .Where(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                                            && np.AssociationObject.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                                .Select(np => np.AssociationObject)
                                                                .ToList();
@@ -907,10 +908,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             if (!modelAttribute.IsConcurrencyToken && !modelAttribute.AutoProperty)
             {
+               string visibility = modelAttribute.Indexed ? "internal" : "protected";
                Output("/// <summary>");
                Output($"/// Backing field for {modelAttribute.Name}");
                Output("/// </summary>");
-               Output($"protected {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
+               Output($"{visibility} {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
                Output("/// <summary>");
                Output($"/// When provided in a partial class, allows value of {modelAttribute.Name} to be changed before setting.");
                Output("/// </summary>");

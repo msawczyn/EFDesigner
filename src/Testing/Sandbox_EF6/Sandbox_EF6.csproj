@@ -41,6 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Db\DbModel.dgen.cs" />
+    <Compile Include="Data\Db\DbModelDatabaseInitializer.dgen.cs" />
+    <Compile Include="Data\Db\DbModelDbMigrationConfiguration.dgen.cs" />
+    <Compile Include="Data\Db\Entity\Keyword.dgen.cs" />
+    <Compile Include="Data\Db\DbModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EFModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -67,12 +76,18 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Data\Db\DbModel.efmodel" />
+    <None Include="Data\Db\DbModel.efmodel.diagram" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Db\DbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DbModel.cs</LastGenOutput>
+    </Content>
     <Content Include="EFModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel.cs</LastGenOutput>

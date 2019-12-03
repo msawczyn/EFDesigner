@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.3.0.12" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="DbModel" namespace="QuickArchive.Data.Db" databaseInitializerType="CreateDatabaseIfNotExists" automaticMigrationsEnabled="true" entityOutputDirectory="Data\Db\Entity" contextOutputDirectory="Data\Db" enumOutputDirectory="Data\Db\Enum" fileNameMarker="dgen" connectionStringName="DbModelConnectionString" inheritanceStrategy="TablePerType" defaultIdentityType="Guid" showCascadeDeletes="false" databaseType="None" warnOnMissingDocumentation="false" structOutputDirectory="Data\Db\Struct" layoutAlgorithmSettings="" namespaces="" outputLocations="" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <classes>
+    <modelRootHasClasses Id="3d93278e-4ae8-4b26-92a8-dddc986049e6">
+      <modelClass Id="0fdd115e-8b1f-4721-84f0-c3c32d2671f8" tableName="Keyword" databaseSchema="dbo" namespace="QuickArchive.Data.Db" dbSetName="Keyword" name="Keyword" outputDirectory="Data\Db\Entity">
+        <attributes>
+          <modelAttribute Id="d9735097-190f-4a4f-b0b9-e4025826e01b" type="Guid" isIdentity="true" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Id" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />
+          <modelAttribute Id="d210be37-6a01-4aeb-8a35-b2f2b9634b31" required="true" maxLength="255" indexed="true" indexedUnique="true" stringType="None" name="Name" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />
+        </attributes>
+      </modelClass>
+    </modelRootHasClasses>
+  </classes>
+</modelRoot>

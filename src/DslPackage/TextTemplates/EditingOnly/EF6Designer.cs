@@ -69,8 +69,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("/// <inheritdoc/>");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.MigrateDatabaseToLatestVersion
-                   ? $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>"
-                   : $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.EntityContainerName}>");
+                     ? $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>"
+                     : $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.EntityContainerName}>");
 
          Output("{");
          Output("}");
@@ -169,8 +169,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
          {
             string connectionString = string.IsNullOrEmpty(modelRoot.ConnectionString)
-                                         ? $"Name={modelRoot.ConnectionStringName}"
-                                         : modelRoot.ConnectionString;
+                                          ? $"Name={modelRoot.ConnectionStringName}"
+                                          : modelRoot.ConnectionString;
 
             Output("/// <summary>");
             Output("/// Default connection string");
@@ -184,8 +184,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
 
             Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None
-                      ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
-                      : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+                        ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
+                        : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
 
             Output("CustomInit();");
             Output("}");
@@ -204,8 +204,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None
-                   ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
-                   : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+                     ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
+                     : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
 
          Output("CustomInit();");
          Output("}");
@@ -218,8 +218,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None
-                   ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
-                   : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+                     ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
+                     : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
 
          Output("CustomInit();");
          Output("}");
@@ -232,8 +232,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None
-                   ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
-                   : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+                     ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
+                     : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
 
          Output("CustomInit();");
          Output("}");
@@ -246,8 +246,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None
-                   ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
-                   : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+                     ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
+                     : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
 
          Output("CustomInit();");
          Output("}");
@@ -260,8 +260,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None
-                   ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
-                   : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+                     ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
+                     : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
 
          Output("CustomInit();");
          Output("}");
@@ -274,8 +274,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output($"Configuration.ProxyCreationEnabled = {modelRoot.ProxyGenerationEnabled.ToString().ToLower()};");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.None
-                   ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
-                   : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
+                     ? $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(null);"
+                     : $"System.Data.Entity.Database.SetInitializer<{modelRoot.EntityContainerName}>(new {modelRoot.EntityContainerName}DatabaseInitializer());");
 
          Output("CustomInit();");
          Output("}");
@@ -324,8 +324,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             if (classesWithTables.Contains(modelClass))
             {
                segments.Add(modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
-                               ? $"ToTable(\"{modelClass.TableName}\")"
-                               : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+                                 ? $"ToTable(\"{modelClass.TableName}\")"
+                                 : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
 
                // primary key code segments must be output last, since HasKey returns a different type
                List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
@@ -346,27 +346,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             if (modelClass.IsDependentType)
                continue;
-
-            // indexed properties
-            foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
-            {
-               segments.Clear();
-
-               segments.Add(indexed.AutoProperty
-                               ? $"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})"
-                               : $"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(\"_{indexed.Name}\")");
-
-               if (indexed.IndexedUnique)
-                  segments.Add("IsUnique()");
-
-               if (segments.Count > 1)
-               {
-                  if (modelRoot.ChopMethodChains)
-                     OutputChopped(segments);
-                  else
-                     Output(string.Join(".", segments) + ";");
-               }
-            }
 
             // attribute level
             foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
@@ -394,8 +373,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                if (modelAttribute.IsIdentity)
                {
                   segments.Add(modelAttribute.IdentityType == IdentityType.AutoGenerated
-                                  ? "HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)"
-                                  : "HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)");
+                                    ? "HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)"
+                                    : "HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)");
                }
 
                if (segments.Any())
@@ -407,6 +386,24 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      OutputChopped(segments);
                   else
                      Output(string.Join(".", segments) + ";");
+               }
+
+               if (modelAttribute.Indexed && !modelAttribute.IsIdentity)
+               {
+                  segments.Clear();
+
+                  segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{modelAttribute.Name})");
+
+                  if (modelAttribute.IndexedUnique)
+                     segments.Add("IsUnique()");
+
+                  if (segments.Count > 1)
+                  {
+                     if (modelRoot.ChopMethodChains)
+                        OutputChopped(segments);
+                     else
+                        Output(string.Join(".", segments) + ";");
+                  }
                }
             }
 
@@ -422,8 +419,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                // navigation properties
                // ReSharper disable once LoopCanBePartlyConvertedToQuery
                foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
-                                                                            .OfType<UnidirectionalAssociation>()
-                                                                            .Where(x => x.Persistent && !x.Target.IsDependentType))
+                                                                              .OfType<UnidirectionalAssociation>()
+                                                                              .Where(x => x.Persistent && !x.Target.IsDependentType))
                {
                   if (visited.Contains(association))
                      continue;
@@ -450,9 +447,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                         break;
 
-                     //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-                     //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-                     //   break;
+                        //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                        //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+                        //   break;
                   }
 
                   switch (association.SourceMultiplicity) // realized by property on target, but no property on target
@@ -478,8 +475,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                         {
                            segments.Add(association.TargetRole == EndpointRole.Dependent
-                                           ? "WithRequiredDependent()"
-                                           : "WithRequiredPrincipal()");
+                                             ? "WithRequiredDependent()"
+                                             : "WithRequiredPrincipal()");
                         }
                         else
                            segments.Add("WithRequired()");
@@ -490,17 +487,17 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
                         {
                            segments.Add(association.TargetRole == EndpointRole.Dependent
-                                           ? "WithOptionalDependent()"
-                                           : "WithOptionalPrincipal()");
+                                             ? "WithOptionalDependent()"
+                                             : "WithOptionalPrincipal()");
                         }
                         else
                            segments.Add("WithOptional()");
 
                         break;
 
-                     //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-                     //   segments.Add("HasMany()");
-                     //   break;
+                        //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                        //   segments.Add("HasMany()");
+                        //   break;
                   }
 
                   string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
@@ -513,8 +510,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
                   {
                      string willCascadeOnDelete = association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal
-                                                     ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
-                                                     : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+                                                      ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
+                                                      : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
 
                      segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
                   }
@@ -555,10 +552,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                         break;
 
-                     //one or more constraint not supported in EF. TODO: make this possible ... later
-                     //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-                     //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
-                     //   break;
+                        //one or more constraint not supported in EF. TODO: make this possible ... later
+                        //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                        //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
+                        //   break;
                   }
 
                   switch (association.TargetMultiplicity) // realized by property on source
@@ -584,8 +581,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                         {
                            segments.Add(association.SourceRole == EndpointRole.Dependent
-                                           ? $"WithRequiredDependent(x => x.{association.TargetPropertyName})"
-                                           : $"WithRequiredPrincipal(x => x.{association.TargetPropertyName})");
+                                             ? $"WithRequiredDependent(x => x.{association.TargetPropertyName})"
+                                             : $"WithRequiredPrincipal(x => x.{association.TargetPropertyName})");
                         }
                         else
                            segments.Add($"WithRequired(x => x.{association.TargetPropertyName})");
@@ -596,18 +593,18 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne)
                         {
                            segments.Add(association.SourceRole == EndpointRole.Dependent
-                                           ? $"WithOptionalDependent(x => x.{association.TargetPropertyName})"
-                                           : $"WithOptionalPrincipal(x => x.{association.TargetPropertyName})");
+                                             ? $"WithOptionalDependent(x => x.{association.TargetPropertyName})"
+                                             : $"WithOptionalPrincipal(x => x.{association.TargetPropertyName})");
                         }
                         else
                            segments.Add($"WithOptional(x => x.{association.TargetPropertyName})");
 
                         break;
 
-                     //one or more constraint not supported in EF. TODO: make this possible ... later
-                     //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-                     //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-                     //   break;
+                        //one or more constraint not supported in EF. TODO: make this possible ... later
+                        //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                        //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+                        //   break;
                   }
 
                   string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
@@ -618,8 +615,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
                   {
                      string willCascadeOnDelete = association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal
-                                                     ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
-                                                     : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+                                                      ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
+                                                      : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
 
                      segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
                   }
@@ -674,8 +671,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          else if (association.TargetRole == EndpointRole.Dependent)
          {
             nameBase = association is BidirectionalAssociation b
-                          ? b.SourcePropertyName
-                          : $"{association.Source.Name}.{association.TargetPropertyName}";
+                           ? b.SourcePropertyName
+                           : $"{association.Source.Name}.{association.TargetPropertyName}";
          }
          else
             return null;
@@ -696,5 +693,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          return $@"Map(x => x.MapKey(""{columnName}""))";
       }
+
    }
 }

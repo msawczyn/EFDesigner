@@ -297,23 +297,6 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
       if (modelClass.IsDependentType)
          continue;
 
-      // indexed properties
-      foreach (ModelAttribute indexed in modelClass.Attributes.Where(x => x.Indexed && !x.IsIdentity))
-      {
-         segments.Clear();
-         segments.Add(indexed.AutoProperty
-                  ? $"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{indexed.Name})"
-                  : $"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(\"_{indexed.Name}\")");
-
-         if (indexed.IndexedUnique)
-            segments.Add("IsUnique()");
-
-         if (modelRoot.ChopMethodChains)
-            OutputChopped(segments);
-         else
-            Output(string.Join(".", segments) + ";");
-      }
-
       // attribute level
       foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypes.Contains(x.Type)))
       {
@@ -356,6 +339,21 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
          {
             segments.Insert(0, $"modelBuilder.{(modelClass.IsDependentType ? "Owned" : "Entity")}<{modelClass.FullName}>()");
             segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
+
+            if (modelRoot.ChopMethodChains)
+               OutputChopped(segments);
+            else
+               Output(string.Join(".", segments) + ";");
+         }
+
+         if (modelAttribute.Indexed && !modelAttribute.IsIdentity)
+         {
+            segments.Clear();
+
+            segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().HasIndex(t => t.{modelAttribute.Name})");
+
+            if (modelAttribute.IndexedUnique)
+               segments.Add("IsUnique()");
 
             if (modelRoot.ChopMethodChains)
                OutputChopped(segments);

@@ -909,10 +909,11 @@ void WriteProperties(ModelClass modelClass)
 
       if (!modelAttribute.IsConcurrencyToken && !modelAttribute.AutoProperty)
       {
+         string visibility = modelAttribute.Indexed ? "internal" : "protected";
          Output("/// <summary>");
          Output($"/// Backing field for {modelAttribute.Name}");
          Output("/// </summary>");
-         Output($"protected {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
+         Output($"{visibility} {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
          Output("/// <summary>");
          Output($"/// When provided in a partial class, allows value of {modelAttribute.Name} to be changed before setting.");
          Output("/// </summary>");
