@@ -59,6 +59,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 **1.3.0.12** (upcoming)
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)
+   - Fix: Designer Drag/Drop Interpreter fails (See https://github.com/msawczyn/EFDesigner/issues/128 and https://github.com/msawczyn/EFDesigner/issues/132)
+   - Fix: Enumerations generated into entity directory rather than enumeration directory
 
 <details>
 <summary><b>1.3.0.11</b></summary>

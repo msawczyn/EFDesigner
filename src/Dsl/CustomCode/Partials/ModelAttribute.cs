@@ -348,7 +348,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         return columnNameStorage;
+         return columnNameStorage ?? Name;
       }
 
       /// <summary>Sets the storage for the ColumnName property.</summary>

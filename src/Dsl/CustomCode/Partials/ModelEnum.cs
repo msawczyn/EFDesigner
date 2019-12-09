@@ -70,10 +70,10 @@ namespace Sawczyn.EFDesigner.EFModel
                return outputDirectoryStorage;
 
             // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (!string.IsNullOrWhiteSpace(ModelRoot.EntityOutputDirectory))
-               return ModelRoot.EntityOutputDirectory;
+            if (!string.IsNullOrWhiteSpace(ModelRoot?.EnumOutputDirectory))
+               return ModelRoot.EnumOutputDirectory;
 
-            return ModelRoot.ContextOutputDirectory;
+            return ModelRoot?.ContextOutputDirectory;
          }
       }
 
