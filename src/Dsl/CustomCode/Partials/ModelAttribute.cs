@@ -337,18 +337,18 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return null;
+               return Name;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return null;
+               return Name;
             }
          }
 
-         return columnNameStorage;
+         return columnNameStorage ?? Name;
       }
 
       /// <summary>Sets the storage for the ColumnName property.</summary>
@@ -419,7 +419,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return ModelClass?.AutoPropertyDefault ?? false;
+               return ModelClass?.AutoPropertyDefault ?? true;
             }
             catch (NullReferenceException)
             {
@@ -476,7 +476,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         return columnTypeStorage;
+         return columnTypeStorage ?? "default";
       }
 
       /// <summary>Sets the storage for the ColumnType property.</summary>

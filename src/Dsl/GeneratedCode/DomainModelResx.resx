@@ -174,7 +174,7 @@
     <comment>Description for DomainProperty &apos;Namespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.DisplayName" xml:space="preserve">
-    <value>Namespace</value>
+    <value>DbContext Namespace</value>
     <comment>DisplayName for DomainProperty &apos;Namespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/Namespace.Category" xml:space="preserve">

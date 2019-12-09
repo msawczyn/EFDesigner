@@ -9,8 +9,8 @@
           </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
-          <modelAttribute Id="795208af-d1cc-4f50-aa6c-90ec073c9884" maxLength="" indexed="true" indexedUnique="false" stringType="None" name="StringMax" autoProperty="false" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" isAutoPropertyTracking="false" />
-          <modelAttribute Id="60b8433d-f83b-45d2-9684-bf8a7e81801a" maxLength="0" indexed="false" indexedUnique="false" stringType="None" name="String100" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
+          <modelAttribute Id="795208af-d1cc-4f50-aa6c-90ec073c9884" maxLength="" indexed="true" indexedUnique="false" stringType="None" name="StringMax" autoProperty="false" minLength="0" columnName="StringMax" columnType="default" implementNotify="false" isAutoPropertyTracking="false" />
+          <modelAttribute Id="60b8433d-f83b-45d2-9684-bf8a7e81801a" maxLength="0" indexed="false" indexedUnique="false" stringType="None" name="String100" autoProperty="true" minLength="0" columnName="String100" columnType="default" implementNotify="false" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
@@ -22,14 +22,14 @@
           </unidirectionalAssociation>
         </unidirectionalTargets>
         <attributes>
-          <modelAttribute Id="67f666c3-b5c9-44e2-b5a3-d117e6528867" maxLength="0" indexed="false" indexedUnique="false" stringType="None" name="StringMax" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
+          <modelAttribute Id="67f666c3-b5c9-44e2-b5a3-d117e6528867" maxLength="0" indexed="false" indexedUnique="false" stringType="None" name="StringMax" autoProperty="true" minLength="0" columnName="StringMax" columnType="default" implementNotify="false" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="4c97e050-487f-4deb-84c9-022182569655">
       <modelClass Id="b8fdeb2e-040c-46a6-888c-f6b215106ce5" isAbstract="true" tableName="BaseClasses" databaseSchema="dbo" namespace="Sandbox_EF61a3" isNamespaceTracking="false" dbSetName="BaseClasses" name="BaseClass" outputDirectory="Generated">
         <attributes>
-          <modelAttribute Id="3fac775a-0392-427c-ab94-cbc1eafca95c" type="Int64" isIdentity="true" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Id" autoProperty="true" minLength="0" isColumnNameTracking="false" isColumnTypeTracking="false" implementNotify="false" />
+          <modelAttribute Id="3fac775a-0392-427c-ab94-cbc1eafca95c" type="Int64" isIdentity="true" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" identityType="Manual" name="Id" autoProperty="true" minLength="0" columnName="Id" columnType="default" implementNotify="false" />
         </attributes>
         <subclasses>
           <generalization Id="53d85a13-edea-4fef-8601-6cc34f31f850">

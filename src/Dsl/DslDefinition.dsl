@@ -21,7 +21,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="259ca9ae-0772-41d4-90b5-abd10888e839" Description="Namespace for DBContext and, unless otherwise specified, all other generated code" Name="Namespace" DisplayName="Namespace" Category="Code Generation" IsBrowsable="false">
+        <DomainProperty Id="259ca9ae-0772-41d4-90b5-abd10888e839" Description="Namespace for DBContext and, unless otherwise specified, all other generated code" Name="Namespace" DisplayName="DbContext Namespace" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

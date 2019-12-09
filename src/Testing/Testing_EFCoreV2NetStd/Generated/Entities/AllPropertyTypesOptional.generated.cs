@@ -38,7 +38,6 @@ namespace Testing
       /// <param name="id1"></param>
       public AllPropertyTypesOptional(int id1)
       {
-         if (id1 == default(int)) throw new ArgumentNullException(nameof(id1));
          this.Id1 = id1;
 
          this.OwnedType = new global::Testing.OwnedType();

@@ -34,6 +34,8 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
 
 **1.3.0.12** (upcoming)
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)
+   - Fix: Designer Drag/Drop Interpreter fails (See https://github.com/msawczyn/EFDesigner/issues/128 and https://github.com/msawczyn/EFDesigner/issues/132)
+   - Fix: Enumerations generated into entity directory rather than enumeration directory
 
 **1.3.0.11**
    - Removed default checks in constructors for scalars
