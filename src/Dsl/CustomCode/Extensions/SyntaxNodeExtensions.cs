@@ -10,39 +10,27 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 {
    public static class SyntaxNodeExtensions
    {
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
       public static bool HasAttribute([NotNull] this SyntaxNode node, string attributeName)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
-         string name = attributeName.EndsWith("Attribute")
-                          ? attributeName
-                          : $"{attributeName}Attribute";
+         string fullname = attributeName.EndsWith("Attribute") ? attributeName : $"{attributeName}Attribute";
+         string shortName = attributeName.EndsWith("Attribute") ? attributeName.Substring(0, attributeName.Length - 9) : attributeName;
 
          return node.DescendantNodes()
                     .OfType<AttributeSyntax>()
-                    .Any(x => x.Name.ToString() == name);
+                    .Any(x => x.Name.ToString() == shortName || x.Name.ToString() == fullname);
       }
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
-#pragma warning disable CS3002 // Return type is not CLS-compliant
-      public static AttributeSyntax GetAttribute(this SyntaxNode node, string attributeName)
-#pragma warning restore CS3002 // Return type is not CLS-compliant
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
+      public static AttributeSyntax GetAttribute([NotNull] this SyntaxNode node, string attributeName)
       {
-         string name = attributeName.EndsWith("Attribute")
-                          ? attributeName
-                          : $"{attributeName}Attribute";
+         string fullname = attributeName.EndsWith("Attribute") ? attributeName : $"{attributeName}Attribute";
+         string shortName = attributeName.EndsWith("Attribute") ? attributeName.Substring(0, attributeName.Length - 9) : attributeName;
 
          return node.DescendantNodes()
                     .OfType<AttributeSyntax>()
-                    .FirstOrDefault(x => x.Name.ToString() == name);
+                    .FirstOrDefault(x => x.Name.ToString() == shortName || x.Name.ToString() == fullname);
       }
 
-#pragma warning disable CS3002 // Return type is not CLS-compliant
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
       public static IEnumerable<AttributeArgumentSyntax> GetAttributeArguments(this AttributeSyntax node)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
-#pragma warning restore CS3002 // Return type is not CLS-compliant
       {
          return node.DescendantNodes().OfType<AttributeArgumentSyntax>();
       }
