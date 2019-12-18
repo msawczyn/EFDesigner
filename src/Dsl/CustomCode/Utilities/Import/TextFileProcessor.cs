@@ -214,58 +214,23 @@ namespace Sawczyn.EFDesigner.EFModel
                // TODO: this really isn't a good assumption. Fix later
                if (propertyDecl.ChildNodes().OfType<GenericNameSyntax>().Any())
                {
-                  GenericNameSyntax genericDecl = propertyDecl.ChildNodes().OfType<GenericNameSyntax>().FirstOrDefault();
-                  List<string> contentTypes = genericDecl.DescendantNodes().OfType<IdentifierNameSyntax>().Select(i => i.Identifier.ToString()).ToList();
-
-                  // there can only be one generic argument
-                  if (contentTypes.Count != 1)
-                  {
-                     WarningDisplay.Show($"Found {className}.{propertyName}, but its type ({genericDecl.Identifier}<{string.Join(", ", contentTypes)}>) isn't anything expected. Ignoring...");
-
-                     continue;
-                  }
-
-                  propertyType = contentTypes[0];
-                  target = modelRoot.Classes.FirstOrDefault(t => t.Name == propertyType);
-
-                  if (target == null)
-                  {
-                     target = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
-                     modelRoot.Classes.Add(target);
-                  }
-
-                  ProcessAssociation(modelClass, target, propertyDecl, true);
-
+                  ProcessAsList(propertyDecl, className, propertyName, propertyType, modelRoot, modelClass);
                   continue;
                }
-
 
                // is the property type an existing ModelClass?
                if (target != null)
                {
                   ProcessAssociation(modelClass, target, propertyDecl);
-
                   continue;
                }
 
                bool propertyShowsNullable = propertyDecl.DescendantNodes().OfType<NullableTypeSyntax>().Any();
 
                // is the property type something we don't know about?
-               if (!modelRoot.IsValidCLRType(propertyType))
-               {
-                  // might be an enum. If so, we'll handle it like a CLR type
-                  // if it's nullable, it's definitely an enum, but if we don't know about it, it could be an enum or a class
-                  if (!KnownEnums.Contains(propertyType) && !propertyShowsNullable)
-                  {
-                     // assume it's a class and create the class
-                     target = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
-                     modelRoot.Classes.Add(target);
-
-                     ProcessAssociation(modelClass, target, propertyDecl);
-
-                     continue;
-                  }
-               }
+               if (!modelRoot.IsValidCLRType(propertyType) &&
+                   ProcessUnknownType(propertyType, propertyShowsNullable, modelRoot, modelClass, propertyDecl))
+                  continue;
 
                // if we're here, it's just a property (CLR or enum)
                try
@@ -315,9 +280,21 @@ namespace Sawczyn.EFDesigner.EFModel
                                                           ? SetterAccessModifier.Internal
                                                           : SetterAccessModifier.Public;
 
+                  AttributeSyntax columnAttribute = propertyDecl.GetAttribute("Column");
+
+                  if (columnAttribute != null)
+                  {
+                     modelAttribute.ColumnName = columnAttribute.GetAttributeArguments().First().Expression.ToString().Trim('"');
+
+                     string columnType = columnAttribute.GetNamedArgumentValue("TypeName");
+                     if (columnType != null)
+                        modelAttribute.ColumnType = columnType;
+                  }
+
                   XMLDocumentation xmlDocumentation = new XMLDocumentation(propertyDecl);
                   modelAttribute.Summary = xmlDocumentation.Summary;
                   modelAttribute.Description = xmlDocumentation.Description;
+
                   modelClass.Attributes.Add(modelAttribute);
                }
                catch
@@ -335,6 +312,47 @@ namespace Sawczyn.EFDesigner.EFModel
          finally
          {
             tx?.Commit();
+         }
+
+         void ProcessAsList(PropertyDeclarationSyntax propertyDecl, string className, string propertyName, string propertyType, ModelRoot modelRoot, ModelClass modelClass)
+         {
+            GenericNameSyntax genericDecl = propertyDecl.ChildNodes().OfType<GenericNameSyntax>().FirstOrDefault();
+            List<string> contentTypes = genericDecl.DescendantNodes().OfType<IdentifierNameSyntax>().Select(i => i.Identifier.ToString()).ToList();
+
+            // there can only be one generic argument
+            if (contentTypes.Count == 1)
+            {
+               propertyType = contentTypes[0];
+               ModelClass target = modelRoot.Classes.FirstOrDefault(t => t.Name == propertyType);
+
+               if (target == null)
+               {
+                  target = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
+                  modelRoot.Classes.Add(target);
+               }
+
+               ProcessAssociation(modelClass, target, propertyDecl, true);
+            }
+            else
+               WarningDisplay.Show($"Found {className}.{propertyName}, but its type ({genericDecl.Identifier}<{string.Join(", ", contentTypes)}>) isn't anything expected. Ignoring...");
+         }
+
+         bool ProcessUnknownType(string propertyType, bool propertyShowsNullable, ModelRoot modelRoot, ModelClass modelClass, PropertyDeclarationSyntax propertyDecl)
+         {
+            // might be an enum. If so, we'll handle it like a CLR type
+            // if it's nullable, it's definitely an enum, but if we don't know about it, it could be an enum or a class
+            if (!KnownEnums.Contains(propertyType) && !propertyShowsNullable)
+            {
+               // assume it's a class and create the class
+               ModelClass target = new ModelClass(Store, new PropertyAssignment(ModelClass.NameDomainPropertyId, propertyType));
+               modelRoot.Classes.Add(target);
+
+               ProcessAssociation(modelClass, target, propertyDecl);
+
+               return true;
+            }
+
+            return false;
          }
       }
 
@@ -591,28 +609,24 @@ namespace Sawczyn.EFDesigner.EFModel
 
             AttributeSyntax tableAttribute = classDecl.GetAttribute("Table");
 
-            //AttributeSyntax tableAttribute = classDecl.AttributeLists
-            //                                          .SelectMany(l => l.Attributes)
-            //                                          .FirstOrDefault(a => ((IdentifierNameSyntax)a.Name).Identifier.Text == "Table"
-            //                                                            || ((IdentifierNameSyntax)a.Name).Identifier.Text == "TableAttribute");
-
             if (tableAttribute != null)
-               result.TableName = tableAttribute.ArgumentList.Arguments.FirstOrDefault()?.Expression?.ToString();
-            
+            {
+               result.TableName = tableAttribute.GetAttributeArguments().First().Expression.ToString().Trim('"');
+
+               string schemaName = tableAttribute.GetNamedArgumentValue("Schema");
+               if (schemaName != null)
+                  result.DatabaseSchema = schemaName;
+            }
+
             XMLDocumentation xmlDocumentation = new XMLDocumentation(classDecl);
             result.Summary = xmlDocumentation.Summary;
             result.Description = xmlDocumentation.Description;
+            tx?.Commit();
          }
          catch
          {
             tx?.Rollback();
-            tx = null;
-
             throw;
-         }
-         finally
-         {
-            tx?.Commit();
          }
 
          return result;
