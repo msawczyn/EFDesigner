@@ -272,7 +272,7 @@ namespace EFCoreParser
          if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             type = type.GetGenericArguments()[0];
 
-         result.TypeName = type.Name;
+         result.TypeName = type.IsEnum ? type.FullName : type.Name;
          result.Name = propertyData.Name;
          result.IsIdentity = propertyData.IsKey();
          result.Required = !propertyData.IsNullable;

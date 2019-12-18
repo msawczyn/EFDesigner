@@ -429,7 +429,9 @@ namespace EF6Parser
          {
             ModelProperty result = new ModelProperty
                                    {
-                                      TypeName = oSpaceProperty.TypeUsage.EdmType.Name
+                                      TypeName = oSpaceProperty.TypeUsage.EdmType.BuiltInTypeKind == BuiltInTypeKind.EnumType 
+                                                    ? oSpaceProperty.TypeUsage.EdmType.FullName 
+                                                    : oSpaceProperty.TypeUsage.EdmType.Name
                                     , Name = oSpaceProperty.Name
                                     , IsIdentity = !isComplexType && parent.KeyProperties.Any(p => p.Name == oSpaceProperty.Name)
                                     , IsIdentityGenerated = sSpaceProperty.IsStoreGeneratedIdentity
