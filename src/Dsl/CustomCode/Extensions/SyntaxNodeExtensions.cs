@@ -34,5 +34,17 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
       {
          return node.DescendantNodes().OfType<AttributeArgumentSyntax>();
       }
+
+      public static string GetNamedArgumentValue(this AttributeSyntax node, string argumentName)
+      {
+         AttributeArgumentSyntax namedArgument =
+            node.DescendantNodes()
+                           .OfType<AttributeArgumentSyntax>()
+                           .FirstOrDefault(aas => aas.DescendantNodes().OfType<IdentifierNameSyntax>()
+                                                     .Any(ins => ins.Identifier.Text == argumentName));
+     
+         SyntaxToken? valueToken = namedArgument.DescendantNodes().OfType<LiteralExpressionSyntax>().FirstOrDefault()?.Token;
+         return valueToken?.Text.Trim('"');
+      }
    }
 }
