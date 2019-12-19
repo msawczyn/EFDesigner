@@ -157,10 +157,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private bool hasWarning;
 
+      /// <summary>
+      /// Determines if this class has warnings being displayed.
+      /// </summary>
+      /// <returns>True if this class has warnings visible, false otherwise</returns>
       public bool GetHasWarningValue() => hasWarning;
 
+      /// <summary>
+      /// Clears visible warnings.
+      /// </summary>
       public void ResetWarning() => hasWarning = false;
 
+      /// <summary>
+      /// Redraws this class.
+      /// </summary>
       public void RedrawItem()
       {
          List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
@@ -168,6 +178,10 @@ namespace Sawczyn.EFDesigner.EFModel
             shapeElement.Invalidate();
       }
 
+      /// <summary>
+      /// Gets the glyph type value for display
+      /// </summary>
+      /// <returns>The type of glyph that should be displayed</returns>
       protected string GetGlyphTypeValue()
       {
          if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
@@ -298,22 +312,71 @@ namespace Sawczyn.EFDesigner.EFModel
          return sourceProperties.Concat(targetProperties);
       }
 
+      /// <summary>
+      /// required navigation (1.. cardinality) properties in this class
+      /// </summary>
+      /// <param name="ignore">Associations to remove from the result.</param>
+      /// <returns>All required associations found, except for those in the [ignore] parameter</returns>
       public IEnumerable<NavigationProperty> RequiredNavigationProperties(params Association[] ignore) => LocalNavigationProperties(ignore).Where(x => x.Required).ToList();
 
+      /// <summary>
+      /// All the required navigation (1.. cardinality) properties in both this and base classes.
+      /// </summary>
+      /// <param name="ignore">Associations to remove from the result.</param>
+      /// <returns>All required associations found, except for those in the [ignore] parameter</returns>
       public IEnumerable<NavigationProperty> AllRequiredNavigationProperties(params Association[] ignore) => AllNavigationProperties(ignore).Where(x => x.Required).ToList();
 
+      /// <summary>
+      /// Finds the association named by the value specified in the parameter
+      /// </summary>
+      /// <param name="identifier">Association property name to find.</param>
+      /// <returns>The object representing the association, if could</returns>
       public NavigationProperty FindAssociationNamed(string identifier) => AllNavigationProperties().FirstOrDefault(x => x.PropertyName == identifier);
 
+      /// <summary>
+      /// Finds the attribute named by the value specified in the parameter 
+      /// </summary>
+      /// <param name="identifier">Attribute name to find.</param>
+      /// <returns>The object representing the attribute, if could</returns>
       public ModelAttribute FindAttributeNamed(string identifier) => AllAttributes.FirstOrDefault(x => x.Name == identifier);
 
+      /// <summary>
+      /// Determines whether the generated code will have an association property with the name specified in the parameter
+      /// </summary>
+      /// <param name="identifier">Property name to find.</param>
+      /// <returns>
+      ///   <c>true</c> if the class will have this property; otherwise, <c>false</c>.
+      /// </returns>
       public bool HasAssociationNamed(string identifier) => FindAssociationNamed(identifier) != null;
 
+      /// <summary>
+      /// Determines whether [has attribute named] [the specified identifier].
+      /// </summary>
+      /// <param name="identifier">The identifier.</param>
+      /// <returns>
+      ///   <c>true</c> if [has attribute named] [the specified identifier]; otherwise, <c>false</c>.
+      /// </returns>
       public bool HasAttributeNamed(string identifier) => FindAttributeNamed(identifier) != null;
 
+      /// <summary>
+      /// Determines whether the generated code will have a property with the name specified in the parameter
+      /// </summary>
+      /// <param name="identifier">Property name to find.</param>
+      /// <returns>
+      ///   <c>true</c> if the class will have this property; otherwise, <c>false</c>.
+      /// </returns>
       public bool HasPropertyNamed(string identifier) => HasAssociationNamed(identifier) || HasAttributeNamed(identifier);
 
+      /// <summary>
+      /// Gets the name of the superclass, if any.
+      /// </summary>
+      /// <returns></returns>
       private string GetBaseClassValue() => Superclass?.Name;
 
+      /// <summary>
+      /// Sets the superclass to the class with the supplied name, if it exists. Sets to null if can't be found.
+      /// </summary>
+      /// <param name="newValue">Simple name (not FQN) of class to use as superclass.</param>
       private void SetBaseClassValue(string newValue)
       {
          ModelClass baseClass = Store.ElementDirectory.FindElements<ModelClass>().FirstOrDefault(x => x.Name == newValue);
@@ -584,20 +647,18 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return IsDependentType 
-                         ? Store.ModelRoot()?.StructOutputDirectory 
-                         : Store.ModelRoot()?.EntityOutputDirectory;
+               return EffectiveOutputDirectory;
             }
             catch (NullReferenceException)
             {
-               return null;
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return null;
+               return default;
             }
          }
 
@@ -606,12 +667,29 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
-         outputDirectoryStorage = value;
-
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
-            IsOutputDirectoryTracking = false;
+         {
+            if (IsDependentType)
+            {
+               outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
+                                     || value == ModelRoot.OutputLocations.Struct
+                                     || (string.IsNullOrWhiteSpace(ModelRoot.OutputLocations.Struct) && value == ModelRoot.OutputLocations.DbContext)
+                                           ? null
+                                           : value;
+            }
+            else
+            {
+               outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
+                                     || value == ModelRoot.OutputLocations.Entity
+                                     || (string.IsNullOrWhiteSpace(ModelRoot.OutputLocations.Entity) && value == ModelRoot.OutputLocations.DbContext)
+                                           ? null
+                                           : value;
+            }
+
+            IsOutputDirectoryTracking = outputDirectoryStorage == null;
+         }
       }
 
       internal sealed partial class IsOutputDirectoryTrackingPropertyHandler
@@ -671,6 +749,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region IsImplementNotify tracking property
 
+      /// <summary>
+      /// Updates tracking properties when the IsImplementNotify value changes
+      /// </summary>
+      /// <param name="oldValue">Prior value</param>
+      /// <param name="newValue">Current value</param>
       protected virtual void OnIsImplementNotifyChanged(bool oldValue, bool newValue)
       {
          TrackingHelper.UpdateTrackingCollectionProperty(Store, 

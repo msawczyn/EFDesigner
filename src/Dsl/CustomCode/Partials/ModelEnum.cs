@@ -11,6 +11,12 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelEnum : IModelElementWithCompartments, IDisplaysWarning, IHasStore
    {
+      /// <summary>
+      /// Gets the full name.
+      /// </summary>
+      /// <value>
+      /// The full name.
+      /// </value>
       public string FullName => string.IsNullOrWhiteSpace(EffectiveNamespace) ? $"global::{Name}" : $"global::{EffectiveNamespace}.{Name}";
 
       #region Warning display
@@ -19,10 +25,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private bool hasWarning;
 
+      /// <summary>
+      /// Determines if this class has warnings being displayed.
+      /// </summary>
+      /// <returns>True if this class has warnings visible, false otherwise</returns>
       public bool GetHasWarningValue() => hasWarning;
 
+      /// <summary>
+      /// Clears visible warnings.
+      /// </summary>
       public void ResetWarning() => hasWarning = false;
 
+      /// <summary>
+      /// Redraws this enum.
+      /// </summary>
       public void RedrawItem()
       {
          List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
@@ -30,6 +46,10 @@ namespace Sawczyn.EFDesigner.EFModel
             shapeElement.Invalidate();
       }
 
+      /// <summary>
+      /// Gets the glyph type value for display
+      /// </summary>
+      /// <returns>The type of glyph that should be displayed</returns>
       protected string GetGlyphTypeValue()
       {
          return ModelRoot.ShowWarningsInDesigner && GetHasWarningValue()
@@ -189,14 +209,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default(string);
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default(string);
+               return default;
             }
          }
 
@@ -272,14 +292,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default(string);
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default(string);
+               return default;
             }
          }
 
@@ -288,14 +308,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
-         outputDirectoryStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveOutputDirectory
-                                     ? null
-                                     : value;
 
          bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
          if (!Store.InUndoRedoOrRollback && !loading)
+         {
+
+            outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
+                                  || value == ModelRoot.OutputLocations.Enumeration
+                                  || (string.IsNullOrWhiteSpace(ModelRoot.OutputLocations.Enumeration) && value == ModelRoot.OutputLocations.DbContext)
+                                        ? null
+                                        : value;
+
             IsOutputDirectoryTracking = outputDirectoryStorage == null;
+         }
       }
 
       internal sealed partial class IsOutputDirectoryTrackingPropertyHandler
