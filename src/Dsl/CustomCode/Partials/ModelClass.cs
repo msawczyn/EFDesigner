@@ -73,6 +73,32 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
+      /// Names of all properties in the class
+      /// </summary>
+      public IEnumerable<string> AllPropertyNames
+      {
+         get
+         {
+            List<string> result = AllAttributes.Select(a => a.Name).ToList();
+
+            result.AddRange(Association.GetLinksToSources(this)
+                                       .Where(a => a.Target.Name == Name && a.TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(a.FKPropertyName))
+                                       .Select(a => a.FKPropertyName));
+
+            result.AddRange(Association.GetLinksToTargets(this)
+                                       .Where(a => a.Source.Name == Name && a.SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(a.FKPropertyName))
+                                       .Select(a => a.FKPropertyName));
+
+            result.AddRange(AllNavigationProperties().Select(np => np.PropertyName));
+
+            if (Superclass != null)
+               result.AddRange(Superclass.AllPropertyNames);
+
+            return result;
+         }
+      }
+
+      /// <summary>
       /// All required attributes defined in this class
       /// </summary>
       public IEnumerable<ModelAttribute> RequiredAttributes

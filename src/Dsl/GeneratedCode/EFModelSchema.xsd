@@ -300,6 +300,12 @@
             <xsd:documentation>Default output folders for generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: ExposeForeignKeys -->
+        <xsd:attribute name="exposeForeignKeys" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Allow foreign key properties to be available in the POCO entities (recommended: false)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1144,6 +1150,12 @@
         </xsd:attribute>
         <!-- Property: IsTargetImplementNotifyTracking -->
         <xsd:attribute name="isTargetImplementNotifyTracking" type="xsd:boolean" />
+        <!-- Property: FKPropertyName -->
+        <xsd:attribute name="fKPropertyName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of property holding foreign key value for this association</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

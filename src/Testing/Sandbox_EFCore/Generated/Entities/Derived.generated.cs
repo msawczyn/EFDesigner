@@ -39,7 +39,8 @@ namespace Sandbox_EFCore
       /// <param name="name"></param>
       /// <param name="symbol"></param>
       /// <param name="id"></param>
-      public Derived(string name, string symbol, int id)
+      /// <param name="entity1"></param>
+      public Derived(string name, string symbol, int id, global::Sandbox_EFCore.Entity1 entity1)
       {
          if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
          this.Name = name;
@@ -48,6 +49,9 @@ namespace Sandbox_EFCore
          this.Symbol = symbol;
 
          this.Id = id;
+
+         if (entity1 == null) throw new ArgumentNullException(nameof(entity1));
+         this.Entity1 = entity1;
 
 
          Init();
@@ -59,9 +63,10 @@ namespace Sandbox_EFCore
       /// <param name="name"></param>
       /// <param name="symbol"></param>
       /// <param name="id"></param>
-      public static Derived Create(string name, string symbol, int id)
+      /// <param name="entity1"></param>
+      public static Derived Create(string name, string symbol, int id, global::Sandbox_EFCore.Entity1 entity1)
       {
-         return new Derived(name, symbol, id);
+         return new Derived(name, symbol, id, entity1);
       }
 
       /*************************************************************************
@@ -119,6 +124,15 @@ namespace Sandbox_EFCore
       [Key]
       [Required]
       public int Id { get; set; }
+
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Sandbox_EFCore.Entity1 Entity1 { get; set; }
 
       public virtual event PropertyChangedEventHandler PropertyChanged;
 

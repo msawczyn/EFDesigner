@@ -23,6 +23,7 @@ namespace Sandbox_EFCore
    {
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Derived> Deriveds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore.Entity1> Entity1 { get; set; }
       #endregion DbSets
 
       /// <summary>
@@ -60,6 +61,10 @@ namespace Sandbox_EFCore
          modelBuilder.Entity<global::Sandbox_EFCore.Derived>().Property(t => t.Symbol).HasMaxLength(255).IsRequired().HasField("_Symbol").UsePropertyAccessMode(PropertyAccessMode.Field);
          modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasIndex(t => t.Symbol).IsUnique();
          modelBuilder.Entity<global::Sandbox_EFCore.Derived>().Property(t => t.Id).IsRequired().ValueGeneratedNever();
+         modelBuilder.Entity<global::Sandbox_EFCore.Derived>().HasOne(x => x.Entity1).WithMany(x => x.Deriveds).HasForeignKey("Foo");
+
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox_EFCore.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
 
          OnModelCreatedImpl(modelBuilder);
       }

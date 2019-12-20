@@ -72,6 +72,24 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
+            case "FKPropertyName":
+               {
+                  string fkPropertyName = e.NewValue?.ToString();
+
+                  if (!string.IsNullOrEmpty(fkPropertyName))
+                  {
+                     string tag = $"({element.Source.Name}:{element.Target.Name})";
+
+                     if (!CodeGenerator.IsValidLanguageIndependentIdentifier(fkPropertyName))
+                        errorMessages.Add($"{tag} FK property name '{fkPropertyName}' isn't a valid .NET identifier");
+                     else if (element.SourceRole == EndpointRole.Dependent && element.Source.AllPropertyNames.Count(a => a == fkPropertyName) > 1)
+                        errorMessages.Add($"{tag} FK property name '{element.Source.Name}.{fkPropertyName}' already in use");
+                     else if (element.TargetRole == EndpointRole.Dependent && element.Target.AllPropertyNames.Count(a => a == fkPropertyName) > 1)
+                        errorMessages.Add($"{tag} FK property name '{element.Target.Name}.{fkPropertyName}' already in use");
+                  }
+               }
+
+               break;
             case "SourceCustomAttributes":
 
                if (bidirectionalAssociation != null && !string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceCustomAttributes))
@@ -313,7 +331,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
             return $"{identifier} isn't a valid .NET identifier";
 
-         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass ?? 
+         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass ??
                                           targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
 
          return offendingModelClass != null

@@ -49,6 +49,7 @@
     </Compile>
     <Compile Include="Generated\Context\EFModel.generated.cs" />
     <Compile Include="Generated\Entities\Derived.generated.cs" />
+    <Compile Include="Generated\Entities\Entity1.generated.cs" />
     <Compile Include="Generated\Enums\Enum1.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3445,6 +3445,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ExposeForeignKeys domain property code
+		
+		/// <summary>
+		/// ExposeForeignKeys domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ExposeForeignKeysDomainPropertyId = new global::System.Guid(0x6f74414d, 0x8d1d, 0x4776, 0x9e, 0x5e, 0x76, 0x08, 0x7d, 0x2b, 0xe9, 0x37);
+		
+		/// <summary>
+		/// Storage for ExposeForeignKeys
+		/// </summary>
+		private global::System.Boolean exposeForeignKeysPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of ExposeForeignKeys domain property.
+		/// Allow foreign key properties to be available in the POCO entities (recommended:
+		/// false)
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6f74414d-8d1d-4776-9e5e-76087d2be937")]
+		public global::System.Boolean ExposeForeignKeys
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return exposeForeignKeysPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ExposeForeignKeysPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.ExposeForeignKeys domain property.
+		/// </summary>
+		internal sealed partial class ExposeForeignKeysPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private ExposeForeignKeysPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.ExposeForeignKeys domain property value handler.
+			/// </summary>
+			public static readonly ExposeForeignKeysPropertyHandler Instance = new ExposeForeignKeysPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.ExposeForeignKeys domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ExposeForeignKeysDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.exposeForeignKeysPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.exposeForeignKeysPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

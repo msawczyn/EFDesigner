@@ -632,16 +632,22 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          else
             return null;
 
-         string columnName = $"{nameBase}_Id";
-
-         if (foreignKeyColumns.Contains(columnName))
+         string columnName;
+         if (!string.IsNullOrWhiteSpace(association.FKPropertyName))
+            columnName = association.FKPropertyName;
+         else
          {
-            int index = 0;
+            columnName = $"{nameBase}_Id";
 
-            do
+            if (foreignKeyColumns.Contains(columnName))
             {
-               columnName = $"{nameBase}{++index}_Id";
-            } while (foreignKeyColumns.Contains(columnName));
+               int index = 0;
+
+               do
+               {
+                  columnName = $"{nameBase}{++index}_Id";
+               } while (foreignKeyColumns.Contains(columnName));
+            }
          }
 
          foreignKeyColumns.Add(columnName);

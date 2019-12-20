@@ -27,6 +27,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
             EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, association);
 
+            // show FKPropertyName only when possible and required
+            if (!association.Source.ModelRoot.ExposeForeignKeys
+             || (association.SourceRole != EndpointRole.Dependent && association.TargetRole != EndpointRole.Dependent))
+               propertyDescriptors.Remove("FKPropertyName");
+
             // only display roles for 1..1 and 0-1..0-1 associations
             if ((association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One)
              && (association.SourceMultiplicity != Multiplicity.ZeroOne || association.TargetMultiplicity != Multiplicity.ZeroOne))

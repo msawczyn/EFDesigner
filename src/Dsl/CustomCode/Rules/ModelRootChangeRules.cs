@@ -67,6 +67,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "ExposeForeignKeys":
+               if (!element.ExposeForeignKeys)
+               {
+                  foreach (Association association in element.Store.ElementDirectory.AllElements.OfType<Association>()
+                                                             .Where(a => (a.SourceRole == EndpointRole.Dependent || a.TargetRole == EndpointRole.Dependent)
+                                                                      && !string.IsNullOrWhiteSpace(a.FKPropertyName)))
+                     association.FKPropertyName = null;
+               }
+
+               break;
+
             case "StructOutputDirectory":
 
                if (string.IsNullOrEmpty((string)e.NewValue) && !string.IsNullOrEmpty(element.EntityOutputDirectory))

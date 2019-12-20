@@ -447,9 +447,9 @@ private void WriteModelCreateEF6(ModelRoot modelRoot, ModelClass[] classesWithTa
 
                   break;
 
-               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-               //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-               //   break;
+                  //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                  //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+                  //   break;
             }
 
             switch (association.SourceMultiplicity) // realized by property on target, but no property on target
@@ -495,9 +495,9 @@ private void WriteModelCreateEF6(ModelRoot modelRoot, ModelClass[] classesWithTa
 
                   break;
 
-               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-               //   segments.Add("HasMany()");
-               //   break;
+                  //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                  //   segments.Add("HasMany()");
+                  //   break;
             }
 
             string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
@@ -552,10 +552,10 @@ private void WriteModelCreateEF6(ModelRoot modelRoot, ModelClass[] classesWithTa
 
                   break;
 
-               //one or more constraint not supported in EF. TODO: make this possible ... later
-               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-               //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
-               //   break;
+                  //one or more constraint not supported in EF. TODO: make this possible ... later
+                  //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                  //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
+                  //   break;
             }
 
             switch (association.TargetMultiplicity) // realized by property on source
@@ -601,10 +601,10 @@ private void WriteModelCreateEF6(ModelRoot modelRoot, ModelClass[] classesWithTa
 
                   break;
 
-               //one or more constraint not supported in EF. TODO: make this possible ... later
-               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-               //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-               //   break;
+                  //one or more constraint not supported in EF. TODO: make this possible ... later
+                  //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                  //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+                  //   break;
             }
 
             string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
@@ -677,16 +677,23 @@ string CreateForeignKeyColumnSegmentEF6(Association association, List<string> fo
    else
       return null;
 
-   string columnName = $"{nameBase}_Id";
+   string columnName;
 
-   if (foreignKeyColumns.Contains(columnName))
+   if (!string.IsNullOrWhiteSpace(association.FKPropertyName))
+      columnName = association.FKPropertyName;
+   else
    {
-      int index = 0;
+      columnName = $"{nameBase}_Id";
 
-      do
+      if (foreignKeyColumns.Contains(columnName))
       {
-         columnName = $"{nameBase}{++index}_Id";
-      } while (foreignKeyColumns.Contains(columnName));
+         int index = 0;
+
+         do
+         {
+            columnName = $"{nameBase}{++index}_Id";
+         } while (foreignKeyColumns.Contains(columnName));
+      }
    }
 
    foreignKeyColumns.Add(columnName);

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="3" Revision="12" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MinorVersion="3" Build="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -288,6 +288,11 @@
           </Attributes>
           <Type>
             <ExternalTypeMoniker Name="OutputLocations" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="6f74414d-8d1d-4776-9e5e-76087d2be937" Description="Allow foreign key properties to be available in the POCO entities (recommended: false)" Name="ExposeForeignKeys" DisplayName="Expose Foreign Keys" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1000,6 +1005,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="1d5c6e0b-4942-4504-971d-9301be5e07f1" Description="Name of property holding foreign key value for this association" Name="FKPropertyName" DisplayName="Foreign Key Property" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1695,6 +1705,9 @@
           <XmlPropertyData XmlName="isTargetImplementNotifyTracking">
             <DomainPropertyMoniker Name="Association/IsTargetImplementNotifyTracking" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="fKPropertyName">
+            <DomainPropertyMoniker Name="Association/FKPropertyName" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -1831,6 +1844,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="outputLocations">
             <DomainPropertyMoniker Name="ModelRoot/OutputLocations" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="exposeForeignKeys">
+            <DomainPropertyMoniker Name="ModelRoot/ExposeForeignKeys" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

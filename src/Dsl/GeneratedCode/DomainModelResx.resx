@@ -585,6 +585,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;OutputLocations&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.Description" xml:space="preserve">
+    <value>Allow foreign key properties to be available in the POCO entities (recommended: false)</value>
+    <comment>Description for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.DisplayName" xml:space="preserve">
+    <value>Expose Foreign Keys</value>
+    <comment>DisplayName for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1644,6 +1656,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.Association/IsTargetImplementNotifyTracking.DisplayName" xml:space="preserve">
     <value>Is Target Implement Notify Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsTargetImplementNotifyTracking&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/FKPropertyName.Description" xml:space="preserve">
+    <value>Name of property holding foreign key value for this association</value>
+    <comment>Description for DomainProperty &apos;FKPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/FKPropertyName.DisplayName" xml:space="preserve">
+    <value>Foreign Key Property</value>
+    <comment>DisplayName for DomainProperty &apos;FKPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/FKPropertyName.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;FKPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>

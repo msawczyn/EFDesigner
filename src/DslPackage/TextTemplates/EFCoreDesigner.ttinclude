@@ -36,7 +36,7 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
    // DatabaseInitializer not yet supported in EF Core
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
    // WriteDatabaseInitializerEFCore(modelRoot);
-         
+
    // MigrationConfiguration not yet supported in EF Core
    // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
    // WriteMigrationConfigurationEFCore(modelRoot);
@@ -410,9 +410,9 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
 
                break;
 
-            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-            //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-            //   break;
+               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+               //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+               //   break;
          }
 
          string columnPrefix = association.SourceRole == EndpointRole.Dependent
@@ -453,9 +453,9 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
 
                break;
 
-            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-            //   segments.Add("HasMany()");
-            //   break;
+               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+               //   segments.Add("HasMany()");
+               //   break;
          }
 
          if (required)
@@ -534,9 +534,9 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
 
                break;
 
-            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-            //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
-            //   break;
+               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+               //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
+               //   break;
          }
 
          switch (association.TargetMultiplicity) // realized by property on source
@@ -561,9 +561,9 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
 
                break;
 
-            //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-            //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-            //   break;
+               //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+               //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+               //   break;
          }
 
          string foreignKeySegment = CreateForeignKeyColumnSegmentEFCore(association
@@ -632,16 +632,22 @@ string CreateForeignKeyColumnSegmentEFCore(Association association, List<string>
    else
       return null;
 
-   string columnName = $"{nameBase}_Id";
-
-   if (foreignKeyColumns.Contains(columnName))
+   string columnName;
+   if (!string.IsNullOrWhiteSpace(association.FKPropertyName))
+      columnName = association.FKPropertyName;
+   else
    {
-      int index = 0;
+      columnName = $"{nameBase}_Id";
 
-      do
+      if (foreignKeyColumns.Contains(columnName))
       {
-         columnName = $"{nameBase}{++index}_Id";
-      } while (foreignKeyColumns.Contains(columnName));
+         int index = 0;
+
+         do
+         {
+            columnName = $"{nameBase}{++index}_Id";
+         } while (foreignKeyColumns.Contains(columnName));
+      }
    }
 
    foreignKeyColumns.Add(columnName);
