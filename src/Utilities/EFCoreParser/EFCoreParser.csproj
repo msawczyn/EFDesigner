@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
      <RuntimeFrameworkVersion>2.2.0</RuntimeFrameworkVersion>
      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

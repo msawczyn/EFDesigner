@@ -315,8 +315,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
 
             outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
-                                  || value == ModelRoot.OutputLocations.Enumeration
-                                  || (string.IsNullOrWhiteSpace(ModelRoot.OutputLocations.Enumeration) && value == ModelRoot.OutputLocations.DbContext)
+                                  || value == ModelRoot?.OutputLocations.Enumeration
+                                  || (string.IsNullOrWhiteSpace(ModelRoot?.OutputLocations.Enumeration) && value == ModelRoot?.OutputLocations.DbContext)
                                         ? null
                                         : value;
 

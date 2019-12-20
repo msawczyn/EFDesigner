@@ -10,5 +10,11 @@
         <elementListCompartment Id="9473984b-1d05-4fbf-a33c-744cffdf2e26" absoluteBounds="3.89, 3.28068359375, 4.8450000000000006, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <enumShape Id="31692230-a241-403d-998f-b9ec7287745f" absoluteBounds="2, 3.625, 1.5, 1.2362939453125001" fillColor="Gray" textColor="White" outlineColor="Black" visible="true" outlineThickness="0.01" outlineDashStyle="Solid">
+      <modelEnumMoniker Id="2d815e95-0879-4555-9fc2-95dcff3277fe" />
+      <nestedChildShapes>
+        <elementListCompartment Id="aa267a3f-2ccd-4ccd-aa09-3050da605c95" absoluteBounds="2.015, 3.935, 1.4700000000000002, 0.8262939453125" name="ValuesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </enumShape>
   </nestedChildShapes>
 </eFModelDiagram>

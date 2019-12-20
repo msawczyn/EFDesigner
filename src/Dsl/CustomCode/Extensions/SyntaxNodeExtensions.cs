@@ -10,7 +10,9 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 {
    public static class SyntaxNodeExtensions
    {
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
       public static bool HasAttribute([NotNull] this SyntaxNode node, string attributeName)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
          string fullname = attributeName.EndsWith("Attribute") ? attributeName : $"{attributeName}Attribute";
          string shortName = attributeName.EndsWith("Attribute") ? attributeName.Substring(0, attributeName.Length - 9) : attributeName;
@@ -20,7 +22,9 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
                     .Any(x => x.Name.ToString() == shortName || x.Name.ToString() == fullname);
       }
 
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
       public static AttributeSyntax GetAttribute([NotNull] this SyntaxNode node, string attributeName)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
          string longName = attributeName.EndsWith("Attribute") ? attributeName : $"{attributeName}Attribute";
          string shortName = attributeName.EndsWith("Attribute") ? attributeName.Substring(0, attributeName.Length - 9) : attributeName;
@@ -30,12 +34,16 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
                     .FirstOrDefault(x => x.Name.ToString() == shortName || x.Name.ToString() == longName);
       }
 
-      public static IEnumerable<AttributeArgumentSyntax> GetAttributeArguments(this AttributeSyntax node)
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
+      public static IEnumerable<AttributeArgumentSyntax> GetAttributeArguments([NotNull] this AttributeSyntax node)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
          return node.DescendantNodes().OfType<AttributeArgumentSyntax>();
       }
 
-      public static string GetNamedArgumentValue(this AttributeSyntax node, string argumentName)
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
+      public static string GetNamedArgumentValue([NotNull] this AttributeSyntax node, string argumentName)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
          AttributeArgumentSyntax namedArgument =
             node.DescendantNodes()

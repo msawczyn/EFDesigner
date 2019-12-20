@@ -10,21 +10,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity.Migrations;
+using System;
 
-namespace Sandbox_EF61
+namespace Sandbox_EFCore
 {
-   /// <inheritdoc/>
-   public sealed partial class EFModelDbMigrationConfiguration : DbMigrationsConfiguration<EFModel>
+   public enum Enum1 : Int32
    {
-      partial void Init();
-
-      /// <inheritdoc/>
-      public EFModelDbMigrationConfiguration()
-      {
-         AutomaticMigrationsEnabled = false;
-         AutomaticMigrationDataLossAllowed = false;
-         Init();
-      }
+      A,
+      B,
+      C
    }
 }

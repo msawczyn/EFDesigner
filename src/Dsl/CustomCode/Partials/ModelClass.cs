@@ -674,16 +674,16 @@ namespace Sawczyn.EFDesigner.EFModel
             if (IsDependentType)
             {
                outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
-                                     || value == ModelRoot.OutputLocations.Struct
-                                     || (string.IsNullOrWhiteSpace(ModelRoot.OutputLocations.Struct) && value == ModelRoot.OutputLocations.DbContext)
+                                     || value == ModelRoot?.OutputLocations.Struct
+                                     || (string.IsNullOrWhiteSpace(ModelRoot?.OutputLocations.Struct) && value == ModelRoot?.OutputLocations.DbContext)
                                            ? null
                                            : value;
             }
             else
             {
                outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
-                                     || value == ModelRoot.OutputLocations.Entity
-                                     || (string.IsNullOrWhiteSpace(ModelRoot.OutputLocations.Entity) && value == ModelRoot.OutputLocations.DbContext)
+                                     || value == ModelRoot?.OutputLocations.Entity
+                                     || (string.IsNullOrWhiteSpace(ModelRoot?.OutputLocations.Entity) && value == ModelRoot?.OutputLocations.DbContext)
                                            ? null
                                            : value;
             }

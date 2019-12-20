@@ -47,8 +47,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Generated\Derived.generated.cs" />
-    <Compile Include="Generated\EFModel.generated.cs" />
+    <Compile Include="Generated\Context\EFModel.generated.cs" />
+    <Compile Include="Generated\Entities\Derived.generated.cs" />
+    <Compile Include="Generated\Enums\Enum1.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +89,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Generated\Structs\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
