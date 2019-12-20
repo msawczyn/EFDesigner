@@ -651,14 +651,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default;
+               return default(string);
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default;
+               return default(string);
             }
          }
 
