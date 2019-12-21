@@ -121,8 +121,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 			base.InitializeDecorators(shapeFields, decorators);
 			
-			DslDiagrams::TextField field1 = new DslDiagrams::TextField("TargetPropertyName");
-			field1.DefaultText = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("AssociationConnectorTargetPropertyNameDefaultText");
+			DslDiagrams::TextField field1 = new DslDiagrams::TextField("TargetPropertyNameDisplay");
+			field1.DefaultText = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("AssociationConnectorTargetPropertyNameDisplayDefaultText");
 			field1.DefaultFocusable = true;
 			field1.DefaultAutoSize = true;
 			field1.AnchoringBehavior.MinimumHeightInLines = 1;
@@ -679,8 +679,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 			base.InitializeDecorators(shapeFields, decorators);
 			
-			DslDiagrams::TextField field1 = new DslDiagrams::TextField("SourcePropertyName");
-			field1.DefaultText = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("BidirectionalConnectorSourcePropertyNameDefaultText");
+			DslDiagrams::TextField field1 = new DslDiagrams::TextField("SourcePropertyNameDisplay");
+			field1.DefaultText = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("BidirectionalConnectorSourcePropertyNameDisplayDefaultText");
 			field1.DefaultFocusable = true;
 			field1.DefaultAutoSize = true;
 			field1.AnchoringBehavior.MinimumHeightInLines = 1;

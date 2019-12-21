@@ -540,6 +540,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of TargetMultiplicityDisplay domain property.
+		/// Decorator text
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetMultiplicityDisplay.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetMultiplicityDisplay.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -1937,6 +1938,73 @@ namespace Sawczyn.EFDesigner.EFModel
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
+		}
+		
+		#endregion
+		#region TargetPropertyNameDisplay domain property code
+		
+		/// <summary>
+		/// TargetPropertyNameDisplay domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TargetPropertyNameDisplayDomainPropertyId = new global::System.Guid(0x0b56420b, 0x5f48, 0x4e04, 0x92, 0x88, 0x6d, 0x6a, 0x6f, 0x12, 0xce, 0x9f);
+		
+		/// <summary>
+		/// Gets or sets the value of TargetPropertyNameDisplay domain property.
+		/// Decorator text
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyNameDisplay.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyNameDisplay.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyNameDisplay.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
+		[DslModeling::DomainObjectId("0b56420b-5f48-4e04-9288-6d6a6f12ce9f")]
+		public global::System.String TargetPropertyNameDisplay
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return TargetPropertyNameDisplayPropertyHandler.Instance.GetValue(this);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.TargetPropertyNameDisplay domain property.
+		/// </summary>
+		internal sealed partial class TargetPropertyNameDisplayPropertyHandler : DslModeling::CalculatedPropertyValueHandler<Association, global::System.String>
+		{
+			private TargetPropertyNameDisplayPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.TargetPropertyNameDisplay domain property value handler.
+			/// </summary>
+			public static readonly TargetPropertyNameDisplayPropertyHandler Instance = new TargetPropertyNameDisplayPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.TargetPropertyNameDisplay domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TargetPropertyNameDisplayDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for TargetPropertyNameDisplay because its Kind is
+				// set to Calculated. Please provide the GetTargetPropertyNameDisplayValue()
+				// method on the domain class.
+				return element.GetTargetPropertyNameDisplayValue();
+			}
+		
 		}
 		
 		#endregion
@@ -3752,6 +3820,73 @@ namespace Sawczyn.EFDesigner.EFModel
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
+		}
+		
+		#endregion
+		#region SourcePropertyNameDisplay domain property code
+		
+		/// <summary>
+		/// SourcePropertyNameDisplay domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SourcePropertyNameDisplayDomainPropertyId = new global::System.Guid(0x0f8bd2a8, 0x4b1c, 0x429d, 0x96, 0xdb, 0xaf, 0xbe, 0x59, 0x25, 0x3d, 0xc6);
+		
+		/// <summary>
+		/// Gets or sets the value of SourcePropertyNameDisplay domain property.
+		/// Decorator text
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyNameDisplay.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyNameDisplay.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyNameDisplay.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
+		[DslModeling::DomainObjectId("0f8bd2a8-4b1c-429d-96db-afbe59253dc6")]
+		public global::System.String SourcePropertyNameDisplay
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return SourcePropertyNameDisplayPropertyHandler.Instance.GetValue(this);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.SourcePropertyNameDisplay domain property.
+		/// </summary>
+		internal sealed partial class SourcePropertyNameDisplayPropertyHandler : DslModeling::CalculatedPropertyValueHandler<BidirectionalAssociation, global::System.String>
+		{
+			private SourcePropertyNameDisplayPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.SourcePropertyNameDisplay domain property value handler.
+			/// </summary>
+			public static readonly SourcePropertyNameDisplayPropertyHandler Instance = new SourcePropertyNameDisplayPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.SourcePropertyNameDisplay domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SourcePropertyNameDisplayDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for SourcePropertyNameDisplay because its Kind is
+				// set to Calculated. Please provide the GetSourcePropertyNameDisplayValue()
+				// method on the domain class.
+				return element.GetSourcePropertyNameDisplayValue();
+			}
+		
 		}
 		
 		#endregion

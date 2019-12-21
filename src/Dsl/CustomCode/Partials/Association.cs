@@ -33,6 +33,13 @@ namespace Sawczyn.EFDesigner.EFModel
          return "?";
       }
 
+      private string GetTargetPropertyNameDisplayValue()
+      {
+         return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
+                   ? $"{TargetPropertyName}\n[{Source.Name}.{FKPropertyName}]"
+                   : TargetPropertyName;
+      }
+
       //internal static (EndpointRole sourceRole, EndpointRole targetRole)? GetEndpointRoles(Multiplicity sourceMultiplicity, Multiplicity targetMultiplicity)
       //{
       //   switch (targetMultiplicity)

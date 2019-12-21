@@ -450,8 +450,8 @@ namespace Sawczyn.EFDesigner.EFModel
 				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
 				DslDiagrams::AssociatedPropertyInfo propertyInfo;
 				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyName").AssociateValueWith(shape.Store, propertyInfo);
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId);
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
 				
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId);
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
@@ -476,11 +476,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
 				DslDiagrams::AssociatedPropertyInfo propertyInfo;
 				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyName").AssociateValueWith(shape.Store, propertyInfo);
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId);
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
 				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourcePropertyName").AssociateValueWith(shape.Store, propertyInfo);
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId);
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourcePropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
 				
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId);
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
@@ -1384,22 +1384,22 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				if(e == null) throw new global::System.ArgumentNullException("e");
 				
-				if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDomainPropertyId)
+				if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId)
 				{
-					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("TargetPropertyName");
+					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("TargetPropertyNameDisplay");
 					if(decorator != null)
 					{
 						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
 					}
-					decorator = global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("TargetPropertyName");
+					decorator = global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("TargetPropertyNameDisplay");
 					if(decorator != null)
 					{
 						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId);
 					}
 				}
-				else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDomainPropertyId)
+				else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId)
 				{
-					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("SourcePropertyName");
+					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("SourcePropertyNameDisplay");
 					if(decorator != null)
 					{
 						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);

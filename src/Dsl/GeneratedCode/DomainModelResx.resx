@@ -594,7 +594,7 @@
     <comment>DisplayName for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.Category" xml:space="preserve">
-    <value>Database</value>
+    <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
@@ -1490,7 +1490,7 @@
     <comment>Category for DomainProperty &apos;SourceMultiplicityDisplay&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/TargetMultiplicityDisplay.Description" xml:space="preserve">
-    <value></value>
+    <value>Decorator text</value>
     <comment>Description for DomainProperty &apos;TargetMultiplicityDisplay&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/TargetMultiplicityDisplay.DisplayName" xml:space="preserve">
@@ -1666,8 +1666,20 @@
     <comment>DisplayName for DomainProperty &apos;FKPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/FKPropertyName.Category" xml:space="preserve">
-    <value>Database</value>
+    <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;FKPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetPropertyNameDisplay.Description" xml:space="preserve">
+    <value>Decorator text</value>
+    <comment>Description for DomainProperty &apos;TargetPropertyNameDisplay&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetPropertyNameDisplay.DisplayName" xml:space="preserve">
+    <value>Target Property Name Display</value>
+    <comment>DisplayName for DomainProperty &apos;TargetPropertyNameDisplay&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetPropertyNameDisplay.Category" xml:space="preserve">
+    <value>End2</value>
+    <comment>Category for DomainProperty &apos;TargetPropertyNameDisplay&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
@@ -1908,6 +1920,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceImplementNotifyTracking.DisplayName" xml:space="preserve">
     <value>Is Source Implement Notify Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsSourceImplementNotifyTracking&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyNameDisplay.Description" xml:space="preserve">
+    <value>Decorator text</value>
+    <comment>Description for DomainProperty &apos;SourcePropertyNameDisplay&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyNameDisplay.DisplayName" xml:space="preserve">
+    <value>Source Property Name Display</value>
+    <comment>DisplayName for DomainProperty &apos;SourcePropertyNameDisplay&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyNameDisplay.Category" xml:space="preserve">
+    <value>End2</value>
+    <comment>Category for DomainProperty &apos;SourcePropertyNameDisplay&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/BidirectionalSource.Description" xml:space="preserve">
     <value></value>
@@ -3149,8 +3173,8 @@
     <value>Dash Style</value>
     <comment>DisplayName for DomainProperty &apos;DashStyle&apos; on DomainClass &apos;AssociationConnector&apos;</comment>
   </data>
-  <data name="AssociationConnectorTargetPropertyNameDefaultText" xml:space="preserve">
-    <value>TargetPropertyName</value>
+  <data name="AssociationConnectorTargetPropertyNameDisplayDefaultText" xml:space="preserve">
+    <value>TargetPropertyNameDisplay</value>
     <comment>Text decorator default text</comment>
   </data>
   <data name="AssociationConnectorSourceMultiplicityDisplayDefaultText" xml:space="preserve">
@@ -3177,8 +3201,8 @@
     <value>Bidirectional Connector</value>
     <comment>DisplayName for DomainClass &apos;BidirectionalConnector&apos;</comment>
   </data>
-  <data name="BidirectionalConnectorSourcePropertyNameDefaultText" xml:space="preserve">
-    <value>SourcePropertyName</value>
+  <data name="BidirectionalConnectorSourcePropertyNameDisplayDefaultText" xml:space="preserve">
+    <value>SourcePropertyNameDisplay</value>
     <comment>Text decorator default text</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.GeneralizationConnector.Description" xml:space="preserve">

@@ -9,6 +9,13 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class BidirectionalAssociation
    {
+      private string GetSourcePropertyNameDisplayValue()
+      {
+         return TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
+                   ? $"{SourcePropertyName}\n[{Target.Name}.{FKPropertyName}]"
+                   : SourcePropertyName;
+      }
+
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)

@@ -899,7 +899,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="450de663-cfb6-48e3-888a-4fbcee3ac778" Description="" Name="TargetMultiplicityDisplay" DisplayName="Target Multiplicity Display" Kind="Calculated" Category="End 2" IsBrowsable="false">
+        <DomainProperty Id="450de663-cfb6-48e3-888a-4fbcee3ac778" Description="Decorator text" Name="TargetMultiplicityDisplay" DisplayName="Target Multiplicity Display" Kind="Calculated" Category="End 2" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1006,6 +1006,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="1d5c6e0b-4942-4504-971d-9301be5e07f1" Description="Name of property holding foreign key value for this association" Name="FKPropertyName" DisplayName="Foreign Key Property" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="0b56420b-5f48-4e04-9288-6d6a6f12ce9f" Description="Decorator text" Name="TargetPropertyNameDisplay" DisplayName="Target Property Name Display" Kind="Calculated" Category="End2" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1149,6 +1154,11 @@
         <DomainProperty Id="4b2acec5-2746-43a0-b4be-176e3cfa533f" Description="Description for Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.Is Source Implement Notify Tracking" Name="IsSourceImplementNotifyTracking" DisplayName="Is Source Implement Notify Tracking" DefaultValue="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="0f8bd2a8-4b1c-429d-96db-afbe59253dc6" Description="Decorator text" Name="SourcePropertyNameDisplay" DisplayName="Source Property Name Display" Kind="Calculated" Category="End2" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1615,7 +1625,7 @@
         </DomainProperty>
       </Properties>
       <ConnectorHasDecorators Position="TargetBottom" OffsetFromShape="0" OffsetFromLine="0">
-        <TextDecorator Name="TargetPropertyName" DisplayName="Target Property Name" DefaultText="TargetPropertyName" />
+        <TextDecorator Name="TargetPropertyNameDisplay" DisplayName="Target Property Name Display" DefaultText="TargetPropertyNameDisplay" />
       </ConnectorHasDecorators>
       <ConnectorHasDecorators Position="SourceBottom" OffsetFromShape="0" OffsetFromLine="0">
         <TextDecorator Name="SourceMultiplicityDisplay" DisplayName="Source Multiplicity Display" DefaultText="SourceMultiplicityDisplay" />
@@ -1634,7 +1644,7 @@
         <ConnectorMoniker Name="AssociationConnector" />
       </BaseConnector>
       <ConnectorHasDecorators Position="SourceTop" OffsetFromShape="0" OffsetFromLine="0">
-        <TextDecorator Name="SourcePropertyName" DisplayName="Source Property Name" DefaultText="SourcePropertyName" />
+        <TextDecorator Name="SourcePropertyNameDisplay" DisplayName="Source Property Name Display" DefaultText="SourcePropertyNameDisplay" />
       </ConnectorHasDecorators>
     </Connector>
     <Connector Id="6c2b3d5f-a15e-4480-913f-b1dac8612868" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Sawczyn.EFDesigner.EFModel" TooltipType="Variable" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
@@ -1707,6 +1717,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="fKPropertyName">
             <DomainPropertyMoniker Name="Association/FKPropertyName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="targetPropertyNameDisplay" Representation="Ignore">
+            <DomainPropertyMoniker Name="Association/TargetPropertyNameDisplay" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -2071,6 +2084,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isSourceImplementNotifyTracking">
             <DomainPropertyMoniker Name="BidirectionalAssociation/IsSourceImplementNotifyTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="sourcePropertyNameDisplay" Representation="Ignore">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourcePropertyNameDisplay" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -2527,18 +2543,18 @@
         <ConnectorMoniker Name="BidirectionalConnector" />
         <DomainRelationshipMoniker Name="BidirectionalAssociation" />
         <DecoratorMap>
-          <TextDecoratorMoniker Name="AssociationConnector/TargetPropertyName" />
+          <TextDecoratorMoniker Name="AssociationConnector/TargetPropertyNameDisplay" />
           <PropertyDisplayed>
             <PropertyPath>
-              <DomainPropertyMoniker Name="Association/TargetPropertyName" />
+              <DomainPropertyMoniker Name="Association/TargetPropertyNameDisplay" />
             </PropertyPath>
           </PropertyDisplayed>
         </DecoratorMap>
         <DecoratorMap>
-          <TextDecoratorMoniker Name="BidirectionalConnector/SourcePropertyName" />
+          <TextDecoratorMoniker Name="BidirectionalConnector/SourcePropertyNameDisplay" />
           <PropertyDisplayed>
             <PropertyPath>
-              <DomainPropertyMoniker Name="BidirectionalAssociation/SourcePropertyName" />
+              <DomainPropertyMoniker Name="BidirectionalAssociation/SourcePropertyNameDisplay" />
             </PropertyPath>
           </PropertyDisplayed>
         </DecoratorMap>
@@ -2563,10 +2579,10 @@
         <ConnectorMoniker Name="UnidirectionalConnector" />
         <DomainRelationshipMoniker Name="UnidirectionalAssociation" />
         <DecoratorMap>
-          <TextDecoratorMoniker Name="AssociationConnector/TargetPropertyName" />
+          <TextDecoratorMoniker Name="AssociationConnector/TargetPropertyNameDisplay" />
           <PropertyDisplayed>
             <PropertyPath>
-              <DomainPropertyMoniker Name="Association/TargetPropertyName" />
+              <DomainPropertyMoniker Name="Association/TargetPropertyNameDisplay" />
             </PropertyPath>
           </PropertyDisplayed>
         </DecoratorMap>
