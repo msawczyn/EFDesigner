@@ -88,9 +88,7 @@ namespace Sawczyn.EFDesigner.EFModel
                         break;
                      }
 
-                     ModelClass principalClass = element.SourceRole == EndpointRole.Principal
-                                                    ? element.Source
-                                                    : element.Target;
+                     ModelClass principalClass = element.Principal;
                      string[] fkPropertyNames = fkPropertyName.Split(',').Select(n => n.Trim()).ToArray();
 
                      int propertyCount = fkPropertyNames.Length;

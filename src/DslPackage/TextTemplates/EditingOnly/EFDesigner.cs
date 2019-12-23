@@ -864,9 +864,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output("/// <summary>");
                Output($"/// Foreign key for {navigationProperty.PropertyName}");
                Output("/// </summary>");
-               ModelClass principal = navigationProperty.AssociationObject.SourceRole == EndpointRole.Principal 
-                                         ? navigationProperty.AssociationObject.Source 
-                                         : navigationProperty.AssociationObject.Target;
+               ModelClass principal = navigationProperty.AssociationObject.Principal;
 
                string[] fkPropertyNames = navigationProperty.FKPropertyName.Split(',').ToArray();
                ModelAttribute[] identityAttributes = principal.AllIdentityAttributes.ToArray();
