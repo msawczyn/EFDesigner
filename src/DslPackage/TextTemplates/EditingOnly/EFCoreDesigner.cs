@@ -4,6 +4,7 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+// ReSharper disable RedundantNameQualifier
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 {
@@ -302,8 +303,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             {
                segments.Clear();
 
-               if (modelAttribute.MaxLength > 0)
-                  segments.Add($"HasMaxLength({((int?)modelAttribute.MaxLength).Value})");
+               if ((modelAttribute.MaxLength ?? 0) > 0)
+                  segments.Add($"HasMaxLength({modelAttribute.MaxLength.Value})");
 
                if (modelAttribute.Required)
                   segments.Add("IsRequired()");
@@ -566,9 +567,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      //   break;
                }
 
-               string foreignKeySegment = CreateForeignKeyColumnSegmentEFCore(association
-                                                                              , foreignKeyColumns
-                                                                              , association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany);
+               string foreignKeySegment = CreateForeignKeySegmentEFCore(association, foreignKeyColumns);
 
                if (foreignKeySegment != null)
                   segments.Add(foreignKeySegment);
@@ -609,52 +608,47 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("}");
       }
 
-      string CreateForeignKeyColumnSegmentEFCore(Association association, List<string> foreignKeyColumns, bool useGeneric)
+      string CreateForeignKeySegmentEFCore(Association association, List<string> foreignKeyColumns)
       {
          // foreign key definitions always go in the table representing the Dependent end of the association
          // if there is no dependent end (i.e., many-to-many), there are no foreign keys
-         string nameBase;
-         string dependentType;
+         ModelClass principal;
+         ModelClass dependent;
 
          if (association.SourceRole == EndpointRole.Dependent)
          {
-            nameBase = association.TargetPropertyName;
-            dependentType = association.Source.FullName;
+            dependent = association.Source;
+            principal = association.Target;
          }
          else if (association.TargetRole == EndpointRole.Dependent)
          {
-            nameBase = association is BidirectionalAssociation b
-                           ? b.SourcePropertyName
-                           : $"{association.Source.Name}.{association.TargetPropertyName}";
-
-            dependentType = association.Target.FullName;
+            dependent = association.Target;
+            principal = association.Source;
          }
          else
             return null;
 
          string columnName;
-         if (!string.IsNullOrWhiteSpace(association.FKPropertyName))
-            columnName = association.FKPropertyName;
+
+         if (string.IsNullOrWhiteSpace(association.FKPropertyName))
+         {
+            // shadow properties
+            columnName = string.Join(", "
+                                   , principal.IdentityAttributes
+                                              .Select(a => CreateShadowPropertyName(association, foreignKeyColumns, a))
+                                              .Select(s => $@"""{s.Trim()}"""));
+         }
          else
          {
-            columnName = $"{nameBase}_Id";
-
-            if (foreignKeyColumns.Contains(columnName))
-            {
-               int index = 0;
-
-               do
-               {
-                  columnName = $"{nameBase}{++index}_Id";
-               } while (foreignKeyColumns.Contains(columnName));
-            }
+            // defined properties
+            foreignKeyColumns.AddRange(association.FKPropertyName.Split(','));
+            columnName = string.Join(", ", association.FKPropertyName.Split(',').Select(s => $@"""{s.Trim()}"""));
          }
 
-         foreignKeyColumns.Add(columnName);
-
-         return useGeneric
-                     ? $"HasForeignKey<{dependentType}>(\"{columnName}\")"
-                     : $"HasForeignKey(\"{columnName}\")";
+         return association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+             && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                   ? $"HasForeignKey<{dependent.FullName}>({columnName})"
+                   : $"HasForeignKey({columnName})";
       }
    }
 }

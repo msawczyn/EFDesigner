@@ -83,11 +83,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
             result.AddRange(Association.GetLinksToSources(this)
                                        .Where(a => a.Target.Name == Name && a.TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(a.FKPropertyName))
-                                       .Select(a => a.FKPropertyName));
+                                       .SelectMany(a => a.FKPropertyName.Split(',')));
 
             result.AddRange(Association.GetLinksToTargets(this)
                                        .Where(a => a.Source.Name == Name && a.SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(a.FKPropertyName))
-                                       .Select(a => a.FKPropertyName));
+                                       .SelectMany(a => a.FKPropertyName.Split(',')));
 
             result.AddRange(AllNavigationProperties().Select(np => np.PropertyName));
 
@@ -297,6 +297,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                               , DisplayText = x.TargetDisplayText
                                                                               , IsAutoProperty = true
                                                                               , ImplementNotify = x.TargetImplementNotify
+                                                                              , FKPropertyName = x.TargetRole == EndpointRole.Principal ? x.FKPropertyName : null
                                                                              })
                                                                 .ToList();
 
@@ -315,6 +316,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                               , DisplayText = x.SourceDisplayText
                                                                               , IsAutoProperty = true
                                                                               , ImplementNotify = x.SourceImplementNotify
+                                                                              , FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
                                                                              })
                                                                 .ToList();
 
@@ -327,6 +329,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                             , ClassType = x.Source
                                                             , AssociationObject = x
                                                             , PropertyName = null
+                                                            , FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
                                                            }));
          int index = 0;
          foreach (NavigationProperty navigationProperty in targetProperties.Where(x => x.PropertyName == null))

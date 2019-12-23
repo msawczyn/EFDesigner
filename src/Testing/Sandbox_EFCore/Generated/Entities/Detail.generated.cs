@@ -19,45 +19,64 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Sandbox_EFCore
+namespace Sandbox
 {
-   public partial class Entity1
+   public partial class Detail: global::Sandbox.BaseClass
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public Entity1()
+      protected Detail(): base()
       {
-         Deriveds = new System.Collections.Generic.HashSet<global::Sandbox_EFCore.Derived>();
+         Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="id"></param>
+      /// <param name="master"></param>
+      public Detail(long id, global::Sandbox.Master master)
+      {
+         this.Id = id;
+
+         if (master == null) throw new ArgumentNullException(nameof(master));
+         this.Master = master;
+
 
          Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="id"></param>
+      /// <param name="master"></param>
+      public static Detail Create(long id, global::Sandbox.Master master)
+      {
+         return new Detail(id, master);
       }
 
       /*************************************************************************
        * Properties
        *************************************************************************/
 
-      /// <summary>
-      /// Identity, Indexed, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id { get; protected set; }
+      public string StringMax { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Sandbox_EFCore.Derived> Deriveds { get; protected set; }
-
-      public virtual event PropertyChangedEventHandler PropertyChanged;
-
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-      {
-         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Sandbox.Master Master { get; set; }
+      /// <summary>
+      /// Foreign key for Master
+      /// </summary>
+      public long Bob { get; set; }
 
    }
 }

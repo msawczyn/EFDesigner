@@ -19,26 +19,26 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          get
          {
             return new[]
-                     {
-                 "Binary"
-               , "Geography"
-               , "GeographyCollection"
-               , "GeographyLineString"
-               , "GeographyMultiLineString"
-               , "GeographyMultiPoint"
-               , "GeographyMultiPolygon"
-               , "GeographyPoint"
-               , "GeographyPolygon"
-               , "Geometry"
-               , "GeometryCollection"
-               , "GeometryLineString"
-               , "GeometryMultiLineString"
-               , "GeometryMultiPoint"
-               , "GeometryMultiPolygon"
-               , "GeometryPoint"
-               , "GeometryPolygon"
-               , "String"
-               };
+                   {
+                      "Binary"
+                    , "Geography"
+                    , "GeographyCollection"
+                    , "GeographyLineString"
+                    , "GeographyMultiLineString"
+                    , "GeographyMultiPoint"
+                    , "GeographyMultiPolygon"
+                    , "GeographyPoint"
+                    , "GeographyPolygon"
+                    , "Geometry"
+                    , "GeometryCollection"
+                    , "GeometryLineString"
+                    , "GeometryMultiLineString"
+                    , "GeometryMultiPoint"
+                    , "GeometryMultiPolygon"
+                    , "GeometryPoint"
+                    , "GeometryPolygon"
+                    , "String"
+                   };
          }
       }
 
@@ -47,25 +47,43 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          get
          {
             return new[]
-                     {
-                 "Geography"
-               , "GeographyCollection"
-               , "GeographyLineString"
-               , "GeographyMultiLineString"
-               , "GeographyMultiPoint"
-               , "GeographyMultiPolygon"
-               , "GeographyPoint"
-               , "GeographyPolygon"
-               , "Geometry"
-               , "GeometryCollection"
-               , "GeometryLineString"
-               , "GeometryMultiLineString"
-               , "GeometryMultiPoint"
-               , "GeometryMultiPolygon"
-               , "GeometryPoint"
-               , "GeometryPolygon"
-               };
+                   {
+                      "Geography"
+                    , "GeographyCollection"
+                    , "GeographyLineString"
+                    , "GeographyMultiLineString"
+                    , "GeographyMultiPoint"
+                    , "GeographyMultiPolygon"
+                    , "GeographyPoint"
+                    , "GeographyPolygon"
+                    , "Geometry"
+                    , "GeometryCollection"
+                    , "GeometryLineString"
+                    , "GeometryMultiLineString"
+                    , "GeometryMultiPoint"
+                    , "GeometryMultiPolygon"
+                    , "GeometryPoint"
+                    , "GeometryPolygon"
+                   };
          }
+      }
+
+      private static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
+      {
+         string shadowNameBase = association.SourceRole == EndpointRole.Dependent
+                                    ? association.TargetPropertyName
+                                    : association is BidirectionalAssociation b
+                                       ? b.SourcePropertyName
+                                       : $"{association.Source.Name}.{association.TargetPropertyName}";
+
+         string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
+
+         int index = 0;
+
+         while (foreignKeyColumns.Contains(shadowPropertyName))
+            shadowPropertyName = $"{shadowNameBase}{++index}_{identityAttribute.Name}";
+
+         return shadowPropertyName;
       }
 
       bool AllSuperclassesAreNullOrAbstract(ModelClass modelClass)
@@ -841,6 +859,27 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output("}");
             }
 
+            if (navigationProperty.FKPropertyName != null)
+            {
+               Output("/// <summary>");
+               Output($"/// Foreign key for {navigationProperty.PropertyName}");
+               Output("/// </summary>");
+               ModelClass principal = navigationProperty.AssociationObject.SourceRole == EndpointRole.Principal 
+                                         ? navigationProperty.AssociationObject.Source 
+                                         : navigationProperty.AssociationObject.Target;
+
+               string[] fkPropertyNames = navigationProperty.FKPropertyName.Split(',').ToArray();
+               ModelAttribute[] identityAttributes = principal.AllIdentityAttributes.ToArray();
+
+               for (int index  = 0; index < identityAttributes.Length; index++)
+               {
+                  ModelAttribute identityAttribute = identityAttributes[index];
+                  string propertyName = fkPropertyNames[index];
+                  string nullable = identityAttribute.Required ? "" : "?";
+
+                  Output($"public {identityAttribute.FQPrimitiveType}{nullable} {propertyName} {{ get; set; }}");
+               }
+            }
             NL();
          }
       }

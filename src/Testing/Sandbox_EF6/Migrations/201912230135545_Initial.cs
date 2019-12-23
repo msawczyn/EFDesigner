@@ -1,9 +1,9 @@
-namespace Sandbox_EF6
+namespace Sandbox
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -11,26 +11,23 @@ namespace Sandbox_EF6
                 "dbo.BaseClasses",
                 c => new
                     {
-                        Id = c.Long(nullable: false, identity: true),
-                        DetailBaseClasses_Id = c.Long(name: "Detail.BaseClasses_Id", nullable: false),
+                        Id = c.Long(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Details", t => t.DetailBaseClasses_Id)
-                .Index(t => t.DetailBaseClasses_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Details",
                 c => new
                     {
                         Id = c.Long(nullable: false),
-                        MasterDetails_Id = c.Long(name: "Master.Details_Id"),
                         StringMax = c.String(),
+                        Bob = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.BaseClasses", t => t.Id)
-                .ForeignKey("dbo.Masters", t => t.MasterDetails_Id)
+                .ForeignKey("dbo.Masters", t => t.Bob)
                 .Index(t => t.Id)
-                .Index(t => t.MasterDetails_Id);
+                .Index(t => t.Bob);
             
             CreateTable(
                 "dbo.Masters",
@@ -42,20 +39,20 @@ namespace Sandbox_EF6
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.BaseClasses", t => t.Id)
-                .Index(t => t.Id);
+                .Index(t => t.Id)
+                .Index(t => t.StringMax);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Masters", "Id", "dbo.BaseClasses");
-            DropForeignKey("dbo.Details", "Master.Details_Id", "dbo.Masters");
+            DropForeignKey("dbo.Details", "Bob", "dbo.Masters");
             DropForeignKey("dbo.Details", "Id", "dbo.BaseClasses");
-            DropForeignKey("dbo.BaseClasses", "Detail.BaseClasses_Id", "dbo.Details");
+            DropIndex("dbo.Masters", new[] { "StringMax" });
             DropIndex("dbo.Masters", new[] { "Id" });
-            DropIndex("dbo.Details", new[] { "Master.Details_Id" });
+            DropIndex("dbo.Details", new[] { "Bob" });
             DropIndex("dbo.Details", new[] { "Id" });
-            DropIndex("dbo.BaseClasses", new[] { "Detail.BaseClasses_Id" });
             DropTable("dbo.Masters");
             DropTable("dbo.Details");
             DropTable("dbo.BaseClasses");

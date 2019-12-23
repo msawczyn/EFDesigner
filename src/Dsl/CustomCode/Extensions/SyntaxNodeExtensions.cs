@@ -23,8 +23,8 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
       }
 
 #pragma warning disable CS3001 // Argument type is not CLS-compliant
+#pragma warning disable CS3002 // Return type is not CLS-compliant
       public static AttributeSyntax GetAttribute([NotNull] this SyntaxNode node, string attributeName)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
          string longName = attributeName.EndsWith("Attribute") ? attributeName : $"{attributeName}Attribute";
          string shortName = attributeName.EndsWith("Attribute") ? attributeName.Substring(0, attributeName.Length - 9) : attributeName;
@@ -34,16 +34,12 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
                     .FirstOrDefault(x => x.Name.ToString() == shortName || x.Name.ToString() == longName);
       }
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
       public static IEnumerable<AttributeArgumentSyntax> GetAttributeArguments([NotNull] this AttributeSyntax node)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
          return node.DescendantNodes().OfType<AttributeArgumentSyntax>();
       }
 
-#pragma warning disable CS3001 // Argument type is not CLS-compliant
       public static string GetNamedArgumentValue([NotNull] this AttributeSyntax node, string argumentName)
-#pragma warning restore CS3001 // Argument type is not CLS-compliant
       {
          AttributeArgumentSyntax namedArgument =
             node.DescendantNodes()
@@ -55,5 +51,7 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
          SyntaxToken? valueToken = namedArgument.DescendantNodes().OfType<LiteralExpressionSyntax>().FirstOrDefault()?.Token;
          return valueToken?.Text.Trim('"');
       }
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
+#pragma warning restore CS3002 // Return type is not CLS-compliant
    }
 }

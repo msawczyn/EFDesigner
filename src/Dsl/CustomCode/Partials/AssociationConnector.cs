@@ -36,6 +36,10 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          switch (e.PropertyName)
          {
+            case "FKPropertyName":
+               PresentationHelper.UpdateAssociationDisplay(this);
+               break;
+
             case "Persistent":
                PresentationHelper.UpdateAssociationDisplay(this);
                break;

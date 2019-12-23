@@ -105,7 +105,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                         new PropertyAssignment(ModelClass.BaseClassDomainPropertyId, data.BaseClass),
                                         new PropertyAssignment(ModelClass.TableNameDomainPropertyId, data.TableName),
                                         new PropertyAssignment(ModelClass.IsDependentTypeDomainPropertyId, data.IsDependentType));
-               
+
                modelRoot.Classes.Add(element);
             }
             else
@@ -121,6 +121,11 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             ProcessProperties(element, data.Properties);
+         }
+
+         // classes are all created, so we can work the associations
+         foreach (ParsingModels.ModelClass data in classDataList)
+         {
             ProcessUnidirectionalAssociations(data.UnidirectionalAssociations);
             ProcessBidirectionalAssociations(data.BidirectionalAssociations);
          }
@@ -163,11 +168,17 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          foreach (ModelUnidirectionalAssociation data in unidirectionalAssociations)
          {
-            if (Store.Get<UnidirectionalAssociation>()
-                     .Any(x => x.Target.FullName == data.TargetClassFullName &&
-                               x.Source.FullName == data.SourceClassFullName &&
-                               x.TargetPropertyName == data.TargetPropertyName))
+            UnidirectionalAssociation existing = Store.Get<UnidirectionalAssociation>()
+                                                      .FirstOrDefault(x => x.Target.FullName == data.TargetClassFullName
+                                                                        && x.Source.FullName == data.SourceClassFullName
+                                                                        && x.TargetPropertyName == data.TargetPropertyName);
+
+            if (existing != null && string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
+            {
+               existing.FKPropertyName = data.ForeignKey;
+               existing.Source.ModelRoot.ExposeForeignKeys = true;
                continue;
+            }
 
             ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
 
@@ -183,17 +194,21 @@ namespace Sawczyn.EFDesigner.EFModel
             UnidirectionalAssociation element = new UnidirectionalAssociation(Store,
                                                     new[]
                                                     {
-                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source), 
+                                                       new RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source),
                                                        new RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)
                                                     },
                                                     new[]
                                                     {
-                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
-                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
-                                                       new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
-                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
-                                                       new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription)
+                                                       new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)),
+                                                       new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)),
+                                                       new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName),
+                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
+                                                       new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
+                                                       new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
                                                     });
+
+            if (!string.IsNullOrWhiteSpace(data.ForeignKey))
+               target.ModelRoot.ExposeForeignKeys = true;
          }
       }
 
@@ -201,20 +216,31 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          foreach (ModelBidirectionalAssociation data in bidirectionalAssociations)
          {
-            if (Store.Get<BidirectionalAssociation>()
-                     .Any(x => x.Target.FullName == data.TargetClassFullName &&
-                               x.Source.FullName == data.SourceClassFullName &&
-                               x.TargetPropertyName == data.TargetPropertyName &&
-                               x.SourcePropertyName == data.SourcePropertyName))
-               continue;
+            BidirectionalAssociation existing = Store.Get<BidirectionalAssociation>()
+                                                     .FirstOrDefault(x => x.Target.FullName == data.TargetClassFullName
+                                                                       && x.Source.FullName == data.SourceClassFullName
+                                                                       && x.TargetPropertyName == data.TargetPropertyName
+                                                                       && x.SourcePropertyName == data.SourcePropertyName);
 
-            if (Store.Get<BidirectionalAssociation>()
-                     .Any(x => x.Source.FullName == data.TargetClassFullName &&
-                               x.Target.FullName == data.SourceClassFullName &&
-                               x.SourcePropertyName == data.TargetPropertyName &&
-                               x.TargetPropertyName == data.SourcePropertyName))
+            if (existing != null && string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
+            {
+               existing.FKPropertyName = data.ForeignKey;
+               existing.Source.ModelRoot.ExposeForeignKeys = true;
                continue;
+            }
 
+            existing = Store.Get<BidirectionalAssociation>()
+                            .FirstOrDefault(x => x.Source.FullName == data.TargetClassFullName
+                                   && x.Target.FullName == data.SourceClassFullName
+                                   && x.SourcePropertyName == data.TargetPropertyName
+                                   && x.TargetPropertyName == data.SourcePropertyName);
+
+            if (existing != null && string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
+            {
+               existing.FKPropertyName = data.ForeignKey;
+               existing.Source.ModelRoot.ExposeForeignKeys = true;
+               continue;
+            }
 
             ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
 
@@ -235,15 +261,19 @@ namespace Sawczyn.EFDesigner.EFModel
                                                    },
                                                    new[]
                                                    {
-                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)), 
-                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)), 
-                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName), 
-                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary), 
-                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription), 
-                                                      new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName), 
-                                                      new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary), 
+                                                      new PropertyAssignment(Association.SourceMultiplicityDomainPropertyId, ConvertMultiplicity(data.SourceMultiplicity)),
+                                                      new PropertyAssignment(Association.TargetMultiplicityDomainPropertyId, ConvertMultiplicity(data.TargetMultiplicity)),
+                                                      new PropertyAssignment(Association.TargetPropertyNameDomainPropertyId, data.TargetPropertyName),
+                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
+                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
+                                                      new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
+                                                      new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName),
+                                                      new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary),
                                                       new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
                                                    });
+
+            if (!string.IsNullOrWhiteSpace(data.ForeignKey))
+               target.ModelRoot.ExposeForeignKeys = true;
          }
       }
 
@@ -313,12 +343,12 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), parserAssembly);
          ProcessStartInfo processStartInfo = new ProcessStartInfo(path)
-                                             {
-                                                Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"", 
-                                                CreateNoWindow = true, 
-                                                ErrorDialog = true, 
-                                                UseShellExecute = true
-                                             };
+         {
+            Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"",
+            CreateNoWindow = true,
+            ErrorDialog = true,
+            UseShellExecute = true
+         };
 
          using (Process process = System.Diagnostics.Process.Start(processStartInfo))
          {

@@ -10,6 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
+using log4net;
+
 using Newtonsoft.Json;
 
 using ParsingModels;
@@ -18,7 +20,7 @@ namespace EF6Parser
 {
    public class Parser
    {
-      private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+      private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
       private readonly Assembly assembly;
       private readonly DbContext dbContext;
@@ -43,12 +45,14 @@ namespace EF6Parser
             if (types.Count == 0)
             {
                log.Error($"No DBContext found in {assembly.Location}");
+
                throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
             }
-            
+
             if (types.Count > 1)
             {
                log.Error($"Found more than one class derived from DbContext: {string.Join(", ", types.Select(t => t.FullName))}");
+
                throw new AmbiguousMatchException("Found more than one class derived from DbContext");
             }
 
@@ -62,10 +66,14 @@ namespace EF6Parser
          if (constructor == null)
          {
             log.Error("Can't find constructor with one string parameter (connection string or connection name)");
+
             throw new MissingMethodException("Can't find constructor with one string parameter (connection string or connection name)");
          }
 
-         dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] {"App=EntityFramework"}, null, null) as DbContext;
+         DbContextInfo dbContextInfo = new DbContextInfo(contextType, new DbProviderInfo("System.Data.SqlClient", "2008"));
+         dbContext = dbContextInfo.CreateInstance() ?? throw new Exception($"Failed to create an instance of {contextType.FullName}. Does it have a default constructor?");
+
+         //dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] { "App=EntityFramework" }, null, null) as DbContext;
          metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;
       }
 
@@ -94,51 +102,6 @@ namespace EF6Parser
          return multiplicity;
       }
 
-      private NavigationProperty Inverse(NavigationProperty navProperty)
-      {
-         // ReSharper disable once UseNullPropagation
-         if (navProperty == null)
-            return null;
-
-         EntityType toEntity = navProperty.ToEndMember.GetEntityType();
-         return toEntity.NavigationProperties
-                        .SingleOrDefault(n => ReferenceEquals(n.RelationshipType, navProperty.RelationshipType) && !ReferenceEquals(n, navProperty));
-      }
-
-      private List<ModelUnidirectionalAssociation> GetUnidirectionalAssociations(EntityType entityType)
-      {
-         List<ModelUnidirectionalAssociation> result = new List<ModelUnidirectionalAssociation>();
-
-         foreach (NavigationProperty navigationProperty in entityType.DeclaredNavigationProperties.Where(np => Inverse(np) == null))
-         {
-            // ReSharper disable UseObjectOrCollectionInitializer
-            ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
-
-            association.SourceClassName = navigationProperty.DeclaringType.Name;
-            association.SourceClassNamespace = navigationProperty.DeclaringType.NamespaceName;
-            association.TargetClassName = navigationProperty.ToEndMember.GetEntityType().Name;
-            association.TargetClassNamespace = navigationProperty.ToEndMember.GetEntityType().NamespaceName;
-
-            // the property in the source class (referencing the target class)
-            association.TargetPropertyTypeName = navigationProperty.ToEndMember.GetEntityType().Name;
-            association.TargetPropertyName = navigationProperty.Name;
-            association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.ToEndMember.RelationshipMultiplicity);
-            association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
-            association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
-
-            // the property in the target class (referencing the source class)
-            association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.FromEndMember.RelationshipMultiplicity);
-            // ReSharper restore UseObjectOrCollectionInitializer
-
-            log.Info($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
-            log.Info("\n   " + JsonConvert.SerializeObject(association));
-
-            result.Add(association);
-         }
-
-         return result;
-      }
-
       private List<ModelBidirectionalAssociation> GetBidirectionalAssociations(EntityType entityType)
       {
          List<ModelBidirectionalAssociation> result = new List<ModelBidirectionalAssociation>();
@@ -148,15 +111,18 @@ namespace EF6Parser
             // ReSharper disable UseObjectOrCollectionInitializer
             ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
 
-            association.SourceClassName = navigationProperty.DeclaringType.Name;
-            association.SourceClassNamespace = navigationProperty.DeclaringType.NamespaceName;
-            association.TargetClassName = navigationProperty.ToEndMember.GetEntityType().Name;
-            association.TargetClassNamespace = navigationProperty.ToEndMember.GetEntityType().NamespaceName;
+            StructuralType sourceType = navigationProperty.DeclaringType;
+            EntityType targetType = navigationProperty.ToEndMember.GetEntityType();
+
+            association.SourceClassName = sourceType.Name;
+            association.SourceClassNamespace = sourceType.NamespaceName;
+            association.TargetClassName = targetType.Name;
+            association.TargetClassNamespace = targetType.NamespaceName;
 
             NavigationProperty inverse = Inverse(navigationProperty);
 
             // the property in the source class (referencing the target class)
-            association.TargetPropertyTypeName = navigationProperty.ToEndMember.GetEntityType().Name;
+            association.TargetPropertyTypeName = targetType.Name;
             association.TargetPropertyName = navigationProperty.Name;
             association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.ToEndMember.RelationshipMultiplicity);
             association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
@@ -168,7 +134,13 @@ namespace EF6Parser
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.FromEndMember.RelationshipMultiplicity);
             association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
             association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
+
             // ReSharper restore UseObjectOrCollectionInitializer
+
+            // look for declared foreign keys
+            List<EdmProperty> dependentProperties = navigationProperty.GetDependentProperties().ToList();
+            if (dependentProperties.Any())
+               association.ForeignKey = string.Join(",", dependentProperties.Select(p => p.Name));
 
             log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
             log.Info("\n   " + JsonConvert.SerializeObject(association));
@@ -177,7 +149,6 @@ namespace EF6Parser
          }
 
          return result;
-
       }
 
       private static string GetCustomAttributes(Type type)
@@ -196,18 +167,8 @@ namespace EF6Parser
          customAttributes.Remove("[System.Reflection.DefaultMemberAttribute(\"Chars\")]");
          customAttributes.Remove("[System.Runtime.Versioning.NonVersionableAttribute()]");
          customAttributes.Remove("[System.FlagsAttribute()]");
+
          return string.Join("", customAttributes);
-      }
-
-      private static string GetTableName(Type type, DbContext context)
-      {
-         EntitySet table = GetTable(type, context);
-
-         if (table == null) 
-            return null;
-
-         // Return the table name from the storage entity set
-         return (string)table.MetadataProperties["Table"].Value ?? table.Name;
       }
 
       private static EntitySet GetTable(Type type, DbContext context)
@@ -232,7 +193,6 @@ namespace EF6Parser
 
             if (entitySet == null)
             {
-
                // Find the mapping between conceptual and storage model for this entity set
                EntitySetMapping mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
                                                   .SingleOrDefault()
@@ -247,11 +207,76 @@ namespace EF6Parser
          return table;
       }
 
+      private static string GetTableName(Type type, DbContext context)
+      {
+         EntitySet table = GetTable(type, context);
+
+         if (table == null)
+            return null;
+
+         // Return the table name from the storage entity set
+         return (string)table.MetadataProperties["Table"].Value ?? table.Name;
+      }
+
+      private List<ModelUnidirectionalAssociation> GetUnidirectionalAssociations(EntityType entityType)
+      {
+         List<ModelUnidirectionalAssociation> result = new List<ModelUnidirectionalAssociation>();
+
+         foreach (NavigationProperty navigationProperty in entityType.NavigationProperties.Where(np => Inverse(np) == null))
+         {
+            ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
+
+            //StructuralType sourceType = navigationProperty.DeclaringType;
+            EntityType sourceType = navigationProperty.FromEndMember.GetEntityType();
+            EntityType targetType = navigationProperty.ToEndMember.GetEntityType();
+
+            association.SourceClassName = sourceType.Name;
+            association.SourceClassNamespace = sourceType.NamespaceName;
+            association.TargetClassName = targetType.Name;
+            association.TargetClassNamespace = targetType.NamespaceName;
+
+            // the property in the source class (referencing the target class)
+            association.TargetPropertyTypeName = targetType.Name;
+            association.TargetPropertyName = navigationProperty.Name;
+            association.TargetMultiplicity = ConvertMultiplicity(navigationProperty.ToEndMember.RelationshipMultiplicity);
+            association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
+            association.TargetDescription = navigationProperty.ToEndMember.Documentation?.LongDescription;
+
+            // the property in the target class (referencing the source class)
+            association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.FromEndMember.RelationshipMultiplicity);
+
+            // look for declared foreign keys
+            List<EdmProperty> dependentProperties = navigationProperty.GetDependentProperties().ToList();
+            if (dependentProperties.Any())
+               association.ForeignKey = string.Join(",", dependentProperties.Select(p => p.Name));
+
+            log.Info("\n   " + JsonConvert.SerializeObject(association));
+
+            result.Add(association);
+         }
+
+         return result;
+      }
+
+      private NavigationProperty Inverse(NavigationProperty navProperty)
+      {
+         // ReSharper disable once UseNullPropagation
+         if (navProperty == null)
+            return null;
+
+         EntityType toEntity = navProperty.ToEndMember.GetEntityType();
+
+         return toEntity.NavigationProperties
+                        .SingleOrDefault(n => ReferenceEquals(n.RelationshipType, navProperty.RelationshipType) && !ReferenceEquals(n, navProperty));
+      }
+
       public string Process()
       {
          if (dbContext == null)
          {
             log.Error("Process: dbContext is null");
+
+            // ReSharper disable once NotResolvedInText
             throw new ArgumentNullException("dbContext");
          }
 
@@ -261,6 +286,9 @@ namespace EF6Parser
          ReadOnlyCollection<GlobalItem> sSpace = metadata.GetItems(DataSpace.SSpace);
          log.Info($"Found {sSpace.Count} SSpace items");
 
+         ReadOnlyCollection<GlobalItem> cSpace = metadata.GetItems(DataSpace.CSpace);
+         log.Info($"Found {cSpace.Count} CSpace items");
+
          // Context
          ///////////////////////////////////////////
          ModelRoot modelRoot = ProcessRoot();
@@ -268,19 +296,26 @@ namespace EF6Parser
          // Entities
          ///////////////////////////////////////////
          List<ModelClass> modelClasses = oSpace.OfType<EntityType>()
-                                               .Select(e => ProcessEntity(e.FullName, oSpace.OfType<EntityType>().SingleOrDefault(o => o.FullName == e.FullName), sSpace.OfType<EntityType>().SingleOrDefault(s => s.FullName == "CodeFirstDatabaseSchema." + e.FullName.Split('.').Last())))
+                                               .Select(e => ProcessEntity(e.FullName
+                                                                        , oSpace.OfType<EntityType>().SingleOrDefault(o => o.FullName == e.FullName)
+                                                                        , sSpace?.OfType<EntityType>().SingleOrDefault(s => s.FullName == "CodeFirstDatabaseSchema." + e.FullName.Split('.').Last())
+                                                                        , cSpace.OfType<EntityType>().SingleOrDefault(c => c.FullName == e.FullName)))
                                                .Where(x => x != null)
                                                .ToList();
+
          log.Info($"Adding {modelClasses.Count} classes");
          modelRoot.Classes.AddRange(modelClasses);
 
          // Complex types
          ///////////////////////////////////////////
          modelClasses = oSpace.OfType<ComplexType>()
-                              .Select(e => ProcessComplexType(e.FullName, oSpace.OfType<EntityType>().SingleOrDefault(s => s.FullName == e.FullName), 
-                                                              sSpace.OfType<EntityType>().SingleOrDefault(s => s.FullName == "CodeFirstDatabaseSchema." + e.FullName.Split('.').Last())))
+                              .Select(e => ProcessComplexType(e.FullName
+                                                            , oSpace.OfType<EntityType>().SingleOrDefault(s => s.FullName == e.FullName)
+                                                            , sSpace?.OfType<EntityType>().SingleOrDefault(s => s.FullName == "CodeFirstDatabaseSchema." + e.FullName.Split('.').Last())
+                                                            , cSpace.OfType<EntityType>().SingleOrDefault(c => c.FullName == e.FullName)))
                               .Where(x => x != null)
                               .ToList();
+
          log.Info($"Adding {modelClasses.Count} complex types");
          modelRoot.Classes.AddRange(modelClasses);
 
@@ -293,58 +328,18 @@ namespace EF6Parser
          // Put it all together
          ///////////////////////////////////////////
          log.Info("Serializing to JSON string");
+
          return JsonConvert.SerializeObject(modelRoot);
       }
 
-      private ModelClass ProcessEntity(string entityFullName, EntityType oSpaceType, EntityType sSpaceType)
-      {
-         Type type = assembly.GetType(entityFullName);
-       
-         if (type == null)
-         {
-            log.Warn($"Could not find type for entity {entityFullName}");
-            return null;
-         }
-         
-         log.Info($"Found entity {entityFullName}");
-         string customAttributes = GetCustomAttributes(type);
-
-         ModelClass result = new ModelClass
-                             {
-                                Name = oSpaceType.Name
-                              , Namespace = oSpaceType.NamespaceName
-                              , IsAbstract = oSpaceType.Abstract
-                              , BaseClass = oSpaceType.BaseType?.Name
-                              , CustomInterfaces = type.GetInterfaces().Any() 
-                                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
-                                                      : null
-                              , IsDependentType = false
-                              , CustomAttributes = customAttributes.Length > 2
-                                                      ? customAttributes
-                                                      : null
-                              , Properties = oSpaceType.DeclaredProperties
-                                                       .Select(x => x.Name)
-                                                       .Select(propertyName => ProcessProperty(oSpaceType, 
-                                                                                               oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName), 
-                                                                                               sSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)))
-                                                       .Where(x => x != null)
-                                                       .ToList()
-                              , UnidirectionalAssociations = GetUnidirectionalAssociations(oSpaceType)
-                              , BidirectionalAssociations = GetBidirectionalAssociations(oSpaceType)
-                              , TableName = GetTableName(type, dbContext)
-                             };
-
-         log.Info("\n   " + JsonConvert.SerializeObject(result));
-         return result;
-      }
-
-      private ModelClass ProcessComplexType(string entityFullName, EntityType oSpaceType, EntityType sSpaceType)
+      private ModelClass ProcessComplexType(string entityFullName, EntityType oSpaceType, EntityType sSpaceType, EntityType cSpaceType)
       {
          Type type = assembly.GetType(entityFullName);
 
          if (type == null)
          {
             log.Warn($"Could not find type for complex type {entityFullName}");
+
             return null;
          }
 
@@ -361,21 +356,68 @@ namespace EF6Parser
                               , CustomAttributes = customAttributes.Length > 2
                                                       ? customAttributes
                                                       : null
-                              , CustomInterfaces = type.GetInterfaces().Any() 
+                              , CustomInterfaces = type.GetInterfaces().Any()
                                                       ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
                                                       : null
                               , Properties = oSpaceType.DeclaredProperties
                                                        .Select(x => x.Name)
-                                                       .Select(propertyName => ProcessProperty(oSpaceType, 
-                                                                                               oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName), 
-                                                                                               sSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName),
-                                                                                               true))
+                                                       .Select(propertyName => ProcessProperty(oSpaceType
+                                                                                             , oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
+                                                                                             , sSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
+                                                                                             , cSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
+                                                                                             , true))
                                                        .Where(x => x != null)
                                                        .ToList()
                               , TableName = null
                              };
 
          log.Info("\n   " + JsonConvert.SerializeObject(result));
+
+         return result;
+      }
+
+      private ModelClass ProcessEntity(string entityFullName, EntityType oSpaceType, EntityType sSpaceType, EntityType cSpaceType)
+      {
+         Type type = assembly.GetType(entityFullName);
+
+         if (type == null)
+         {
+            log.Warn($"Could not find type for entity {entityFullName}");
+
+            return null;
+         }
+
+         log.Info($"Found entity {entityFullName}");
+         string customAttributes = GetCustomAttributes(type);
+
+         ModelClass result = new ModelClass
+                             {
+                                Name = oSpaceType.Name
+                              , Namespace = oSpaceType.NamespaceName
+                              , IsAbstract = oSpaceType.Abstract
+                              , BaseClass = oSpaceType.BaseType?.Name
+                              , CustomInterfaces = type.GetInterfaces().Any()
+                                                      ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
+                                                      : null
+                              , IsDependentType = false
+                              , CustomAttributes = customAttributes.Length > 2
+                                                      ? customAttributes
+                                                      : null
+                              , Properties = oSpaceType.DeclaredProperties
+                                                       .Select(x => x.Name)
+                                                       .Select(propertyName => ProcessProperty(oSpaceType
+                                                                                             , oSpaceType.DeclaredProperties.FirstOrDefault(q => q.Name == propertyName)
+                                                                                             , sSpaceType?.DeclaredProperties?.FirstOrDefault(q => q.Name == propertyName)
+                                                                                             , cSpaceType?.DeclaredProperties?.FirstOrDefault(q => q.Name == propertyName)))
+                                                       .Where(x => x != null)
+                                                       .ToList()
+                              , UnidirectionalAssociations = GetUnidirectionalAssociations(cSpaceType)
+                              , BidirectionalAssociations = GetBidirectionalAssociations(cSpaceType)
+                              , TableName = GetTableName(type, dbContext)
+                             };
+
+         log.Info("\n   " + JsonConvert.SerializeObject(result));
+
          return result;
       }
 
@@ -386,6 +428,7 @@ namespace EF6Parser
          if (type == null)
          {
             log.Warn($"Could not find type for complex type {enumType.FullName}");
+
             return null;
          }
 
@@ -402,51 +445,49 @@ namespace EF6Parser
                                                      ? customAttributes
                                                      : null
                              , Values = enumType.Members
-                                                .Select(enumMember => new ModelEnumValue
-                                                                      {
-                                                                         Name = enumMember.Name
-                                                                       , Value = enumMember.Value?.ToString()
-                                                                      })
+                                                .Select(enumMember => new ModelEnumValue {Name = enumMember.Name, Value = enumMember.Value?.ToString()})
                                                 .ToList()
                             };
 
-
-
          log.Info("\n   " + JsonConvert.SerializeObject(result));
+
          return result;
       }
 
-      private ModelProperty ProcessProperty(EntityType parent, 
-                                            EdmProperty oSpaceProperty, 
-                                            EdmProperty sSpaceProperty,
-                                            bool isComplexType = false)
+      // ReSharper disable once UnusedParameter.Local
+      private ModelProperty ProcessProperty(EntityType parent, EdmProperty oSpaceProperty, EdmProperty sSpaceProperty, EdmProperty cSpaceProperty, bool isComplexType = false)
       {
          if (oSpaceProperty == null || sSpaceProperty == null)
             return null;
 
          log.Info($"Found property {parent.Name}.{oSpaceProperty.Name}");
+
          try
          {
             ModelProperty result = new ModelProperty
                                    {
-                                      TypeName = oSpaceProperty.TypeUsage.EdmType.BuiltInTypeKind == BuiltInTypeKind.EnumType 
-                                                    ? oSpaceProperty.TypeUsage.EdmType.FullName 
+                                      TypeName = oSpaceProperty.TypeUsage.EdmType.BuiltInTypeKind == BuiltInTypeKind.EnumType
+                                                    ? oSpaceProperty.TypeUsage.EdmType.FullName
                                                     : oSpaceProperty.TypeUsage.EdmType.Name
                                     , Name = oSpaceProperty.Name
                                     , IsIdentity = !isComplexType && parent.KeyProperties.Any(p => p.Name == oSpaceProperty.Name)
                                     , IsIdentityGenerated = sSpaceProperty.IsStoreGeneratedIdentity
                                     , Required = !(bool)sSpaceProperty.TypeUsage.Facets.First(facet => facet.Name == "Nullable").Value
                                     , Indexed = bool.TryParse(oSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "Indexed")?.Value?.ToString(), out bool indexed) && indexed
-                                    , MaxStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MaxLength")?.Value?.ToString(), out int maxLength) && maxLength < int.MaxValue/2 ? maxLength : 0
-                                    , MinStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MinLength")?.Value?.ToString(), out int minLength) ? minLength : 0
+                                    , MaxStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MaxLength")?.Value?.ToString(), out int maxLength)
+                                                     && maxLength < int.MaxValue / 2
+                                                           ? maxLength
+                                                           : 0
+                                    , MinStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MinLength")?.Value?.ToString(), out int minLength)
+                                                           ? minLength
+                                                           : 0
                                    };
 
             log.Info("\n   " + JsonConvert.SerializeObject(result));
+
             return result;
          }
-         catch (InvalidOperationException)
-         {
-         }
+         catch (InvalidOperationException) { }
 
          return null;
       }
@@ -455,6 +496,7 @@ namespace EF6Parser
       {
          ModelRoot result = new ModelRoot();
          Type contextType = dbContext.GetType();
+
          if (contextType == null)
             throw new InvalidDataException();
 

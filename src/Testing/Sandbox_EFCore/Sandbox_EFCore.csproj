@@ -48,9 +48,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Generated\Context\EFModel.generated.cs" />
-    <Compile Include="Generated\Entities\Derived.generated.cs" />
-    <Compile Include="Generated\Entities\Entity1.generated.cs" />
-    <Compile Include="Generated\Enums\Enum1.generated.cs" />
+    <Compile Include="Generated\Entities\BaseClass.generated.cs" />
+    <Compile Include="Generated\Entities\Detail.generated.cs" />
+    <Compile Include="Generated\Entities\Master.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +90,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Generated\Enums\" />
     <Folder Include="Generated\Structs\" />
     <Folder Include="Migrations\" />
   </ItemGroup>

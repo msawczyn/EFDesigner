@@ -7,7 +7,7 @@
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" #><#+
 
-// EFDesigner v1.3.0.12
+// EFDesigner v1.4.0.0
 // Copyright (c) 2017-2019 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
 
@@ -21,7 +21,7 @@ string[] NonNullableTypes
    {
       return new[]
                {
-                 "Binary"
+                  "Binary"
                , "Geography"
                , "GeographyCollection"
                , "GeographyLineString"
@@ -49,7 +49,7 @@ string[] SpatialTypes
    {
       return new[]
                {
-                 "Geography"
+                  "Geography"
                , "GeographyCollection"
                , "GeographyLineString"
                , "GeographyMultiLineString"
@@ -67,6 +67,24 @@ string[] SpatialTypes
                , "GeometryPolygon"
                };
    }
+}
+
+private static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
+{
+   string shadowNameBase = association.SourceRole == EndpointRole.Dependent
+                              ? association.TargetPropertyName
+                              : association is BidirectionalAssociation b
+                                 ? b.SourcePropertyName
+                                 : $"{association.Source.Name}.{association.TargetPropertyName}";
+
+   string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
+
+   int index = 0;
+
+   while (foreignKeyColumns.Contains(shadowPropertyName))
+      shadowPropertyName = $"{shadowNameBase}{++index}_{identityAttribute.Name}";
+
+   return shadowPropertyName;
 }
 
 bool AllSuperclassesAreNullOrAbstract(ModelClass modelClass)
@@ -210,7 +228,7 @@ List<string> GetRequiredParameterNames(ModelClass modelClass, bool? publicOnly =
                                                    .ToList();
 
    requiredParameterNames.AddRange(modelClass.AllRequiredNavigationProperties()
-                                             .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                             .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                          || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                              .Select(x => x.PropertyName.ToLower()));
 
@@ -239,7 +257,7 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bo
 
       // don't use 1..1 associations in constructor parameters. Becomes a Catch-22 scenario.
       requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
-                                             .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                             .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                       || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                              .Select(x => $"{x.ClassType.FullName} {x.PropertyName.ToLower()}"));
    }
@@ -353,7 +371,7 @@ void WriteClass(ModelClass modelClass)
       bases.Add(modelClass.Superclass.FullName);
 
    if (!string.IsNullOrEmpty(modelClass.CustomInterfaces))
-      bases.AddRange(modelClass.CustomInterfaces.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
+      bases.AddRange(modelClass.CustomInterfaces.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
 
    if (modelClass.ImplementNotify)
       bases.Add("INotifyPropertyChanged");
@@ -397,7 +415,7 @@ void WriteClass(ModelClass modelClass)
 void WriteCommentBody(string comment)
 {
    int chunkSize = 80;
-   string[] parts = comment.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+   string[] parts = comment.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
    foreach (string value in parts)
    {
@@ -435,7 +453,7 @@ void WriteConstructor(ModelClass modelClass)
    bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
 
    bool hasOneToOneAssociations = modelClass.AllRequiredNavigationProperties()
-                                             .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                             .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                       && np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One);
 
    string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
@@ -466,7 +484,7 @@ void WriteConstructor(ModelClass modelClass)
    if (hasOneToOneAssociations)
    {
       List<Association> oneToOneAssociations = modelClass.AllRequiredNavigationProperties()
-                                                         .Where(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                                                         .Where(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                                      && np.AssociationObject.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                          .Select(np => np.AssociationObject)
                                                          .ToList();
@@ -842,6 +860,27 @@ void WriteNavigationProperties(ModelClass modelClass)
          Output("}");
       }
 
+      if (navigationProperty.FKPropertyName != null)
+      {
+         Output("/// <summary>");
+         Output($"/// Foreign key for {navigationProperty.PropertyName}");
+         Output("/// </summary>");
+         ModelClass principal = navigationProperty.AssociationObject.SourceRole == EndpointRole.Principal 
+                                    ? navigationProperty.AssociationObject.Source 
+                                    : navigationProperty.AssociationObject.Target;
+
+         string[] fkPropertyNames = navigationProperty.FKPropertyName.Split(',').ToArray();
+         ModelAttribute[] identityAttributes = principal.AllIdentityAttributes.ToArray();
+
+         for (int index  = 0; index < identityAttributes.Length; index++)
+         {
+            ModelAttribute identityAttribute = identityAttributes[index];
+            string propertyName = fkPropertyNames[index];
+            string nullable = identityAttribute.Required ? "" : "?";
+
+            Output($"public {identityAttribute.FQPrimitiveType}{nullable} {propertyName} {{ get; set; }}");
+         }
+      }
       NL();
    }
 }

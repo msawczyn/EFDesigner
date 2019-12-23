@@ -1,12 +1,9 @@
 ﻿using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -78,14 +75,40 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (!string.IsNullOrEmpty(fkPropertyName))
                   {
+                     ModelClass dependentClass;
                      string tag = $"({element.Source.Name}:{element.Target.Name})";
 
-                     if (!CodeGenerator.IsValidLanguageIndependentIdentifier(fkPropertyName))
-                        errorMessages.Add($"{tag} FK property name '{fkPropertyName}' isn't a valid .NET identifier");
-                     else if (element.SourceRole == EndpointRole.Dependent && element.Source.AllPropertyNames.Count(a => a == fkPropertyName) > 1)
-                        errorMessages.Add($"{tag} FK property name '{element.Source.Name}.{fkPropertyName}' already in use");
-                     else if (element.TargetRole == EndpointRole.Dependent && element.Target.AllPropertyNames.Count(a => a == fkPropertyName) > 1)
-                        errorMessages.Add($"{tag} FK property name '{element.Target.Name}.{fkPropertyName}' already in use");
+                     if (element.SourceRole == EndpointRole.Dependent)
+                        dependentClass = element.Source;
+                     else if (element.TargetRole == EndpointRole.Dependent)
+                        dependentClass = element.Target;
+                     else
+                     {
+                        errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
+                        break;
+                     }
+
+                     ModelClass principalClass = element.SourceRole == EndpointRole.Principal
+                                                    ? element.Source
+                                                    : element.Target;
+                     string[] fkPropertyNames = fkPropertyName.Split(',').Select(n => n.Trim()).ToArray();
+
+                     int propertyCount = fkPropertyNames.Length;
+                     int identityCount = dependentClass.AllIdentityAttributes.Count();
+
+                     if (propertyCount != identityCount)
+                     {
+                        errorMessages.Add($"{tag} must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
+                                        + $"{principalClass.Name} has {identityCount} identity properties; found {propertyCount} instead");
+                     }
+
+                     foreach (string propertyName in fkPropertyNames)
+                     {
+                        if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
+                           errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
+                        else if (dependentClass.AllPropertyNames.Count(a => a == propertyName) > 1)
+                           errorMessages.Add($"{tag} FK property name '{dependentClass.Name}.{propertyName}' already in use");
+                     }
                   }
                }
 

@@ -41,29 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Db\DbModel.dgen.cs" />
-    <Compile Include="Data\Db\DbModelDatabaseInitializer.dgen.cs" />
-    <Compile Include="Data\Db\DbModelDbMigrationConfiguration.dgen.cs" />
-    <Compile Include="Data\Db\Entity\Keyword.dgen.cs" />
-    <Compile Include="Data\Db\DbModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EFModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Generated\BaseClass.generated.cs" />
-    <Compile Include="Generated\Detail.generated.cs" />
-    <Compile Include="Generated\EFModel.generated.cs" />
-    <Compile Include="Generated\EFModelDatabaseInitializer.generated.cs" />
-    <Compile Include="Generated\EFModelDbMigrationConfiguration.generated.cs" />
-    <Compile Include="Generated\Master.generated.cs" />
-    <Compile Include="Migrations\201910262342057_initial.cs" />
-    <Compile Include="Migrations\201910262342057_initial.Designer.cs">
-      <DependentUpon>201910262342057_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201912230135545_Initial.cs" />
+    <Compile Include="Migrations\201912230135545_Initial.Designer.cs">
+      <DependentUpon>201912230135545_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,18 +61,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Data\Db\DbModel.efmodel" />
-    <None Include="Data\Db\DbModel.efmodel.diagram" />
     <None Include="EFModel.efmodel" />
     <None Include="EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Db\DbModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DbModel.cs</LastGenOutput>
-    </Content>
     <Content Include="EFModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel.cs</LastGenOutput>
@@ -96,10 +75,15 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910262342057_initial.resx">
-      <DependentUpon>201910262342057_initial.cs</DependentUpon>
+    <Folder Include="Generated\Context\" />
+    <Folder Include="Generated\Entities\" />
+    <Folder Include="Generated\Enums\" />
+    <Folder Include="Generated\Structs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201912230135545_Initial.resx">
+      <DependentUpon>201912230135545_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

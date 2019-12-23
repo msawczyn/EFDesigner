@@ -107,6 +107,18 @@ namespace EFCoreParser
             // the property in the target class (referencing the source class)
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.GetSourceMultiplicity());
 
+            if (navigationProperty.ForeignKey != null)
+            {
+               List<string> fkPropertyDeclarations = navigationProperty.ForeignKey.Properties
+                                                                       .Where(p => !p.IsShadowProperty)
+                                                                       .Select(p => p.Name)
+                                                                       .ToList();
+
+               association.ForeignKey = fkPropertyDeclarations.Any()
+                                           ? string.Join(",", fkPropertyDeclarations)
+                                           : null;
+            }
+
             // unfortunately, EFCore doesn't serialize documentation like EF6 did
 
             //association.TargetSummary = navigationProperty.ToEndMember.Documentation?.Summary;
@@ -153,6 +165,18 @@ namespace EFCoreParser
 
             //association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
             //association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
+
+            if (navigationProperty.ForeignKey != null)
+            {
+               List<string> fkPropertyDeclarations = navigationProperty.ForeignKey.Properties
+                                                                       .Where(p => !p.IsShadowProperty)
+                                                                       .Select(p => $"{p.DeclaringEntityType.Name}/{p.ClrType.Name}{(p.IsNullable ? "?" : "")} {p.Name}")
+                                                                       .ToList();
+
+               association.ForeignKey = fkPropertyDeclarations.Any()
+                                           ? string.Join(",", fkPropertyDeclarations)
+                                           : null;
+            }
 
             result.Add(association);
          }

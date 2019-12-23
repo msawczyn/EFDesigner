@@ -36,7 +36,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private string GetTargetPropertyNameDisplayValue()
       {
          return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
-                   ? $"{TargetPropertyName}\n[{Source.Name}.{FKPropertyName}]"
+                   ? $"{TargetPropertyName}\n[{string.Join(", ", FKPropertyName.Split(',').Select(n => $"{Source.Name}.{n}"))}]"
                    : TargetPropertyName;
       }
 

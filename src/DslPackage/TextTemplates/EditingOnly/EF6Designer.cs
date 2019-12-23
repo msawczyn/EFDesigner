@@ -4,6 +4,7 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+// ReSharper disable RedundantNameQualifier
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 {
@@ -352,7 +353,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             {
                segments.Clear();
 
-               if (modelAttribute.MaxLength > 0)
+               if ((modelAttribute.MaxLength ?? 0) > 0)
                   segments.Add($"HasMaxLength({modelAttribute.MaxLength})");
 
                if (modelAttribute.Required)
@@ -459,14 +460,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                         if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
-                           if (modelClass == association.Source)
-                           {
-                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
-                           }
-                           else
-                           {
-                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.Source.Name}_x_{association.TargetPropertyName}""); " + $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
-                           }
+                           string tableMap = $"{association.Source.Name}_x_{association.TargetPropertyName}";
+                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
+                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
+
+                           segments.Add(modelClass == association.Source
+                                           ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{sourceMap}""); x.MapRightKey(""{targetMap}""); }})"
+                                           : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{targetMap}""); x.MapRightKey(""{sourceMap}""); }})");
                         }
 
                         break;
@@ -500,7 +500,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         //   break;
                   }
 
-                  string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
+                  string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
 
                   if (foreignKeySegment != null)
                      segments.Add(foreignKeySegment);
@@ -552,7 +552,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                         break;
 
-                        //one or more constraint not supported in EF. TODO: make this possible ... later
+                        //one or more constraint not supported in EF.
+                        // TODO: make this possible ... later
                         //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
                         //   segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
                         //   break;
@@ -565,14 +566,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                         if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
-                           if (modelClass == association.Source)
-                           {
-                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + $@"x.MapLeftKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapRightKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
-                           }
-                           else
-                           {
-                              segments.Add("Map(x => { " + $@"x.ToTable(""{association.SourcePropertyName}_x_{association.TargetPropertyName}""); " + $@"x.MapRightKey(""{association.Source.Name}_{association.Source.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + $@"x.MapLeftKey(""{association.Target.Name}_{association.Target.AllAttributes.FirstOrDefault(a => a.IsIdentity)?.Name}""); " + "})");
-                           }
+                           string tableMap = $"{association.SourcePropertyName}_x_{association.TargetPropertyName}";
+                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
+                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
+
+                           segments.Add(modelClass == association.Source
+                                           ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{sourceMap}""); x.MapRightKey(""{targetMap}""); }})"
+                                           : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{targetMap}""); x.MapRightKey(""{sourceMap}""); }})");
                         }
 
                         break;
@@ -607,7 +607,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         //   break;
                   }
 
-                  string foreignKeySegment = CreateForeignKeyColumnSegmentEF6(association, foreignKeyColumns);
+                  string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
 
                   if (foreignKeySegment != null)
                      segments.Add(foreignKeySegment);
@@ -660,46 +660,37 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          EndNamespace(modelRoot.Namespace);
       }
 
-      string CreateForeignKeyColumnSegmentEF6(Association association, List<string> foreignKeyColumns)
+      string CreateForeignKeySegmentEF6(Association association, List<string> foreignKeyColumns)
       {
          // foreign key definitions always go in the table representing the Dependent end of the association
          // if there is no dependent end (i.e., many-to-many), there are no foreign keys
-         string nameBase;
+         ModelClass principal;
 
          if (association.SourceRole == EndpointRole.Dependent)
-            nameBase = association.TargetPropertyName;
+            principal = association.Target;
          else if (association.TargetRole == EndpointRole.Dependent)
-         {
-            nameBase = association is BidirectionalAssociation b
-                           ? b.SourcePropertyName
-                           : $"{association.Source.Name}.{association.TargetPropertyName}";
-         }
+            principal = association.Source;
          else
             return null;
 
-         string columnName;
+         string columnNames;
 
-         if (!string.IsNullOrWhiteSpace(association.FKPropertyName))
-            columnName = association.FKPropertyName;
-         else
+         // shadow properties
+         if (string.IsNullOrWhiteSpace(association.FKPropertyName))
          {
-            columnName = $"{nameBase}_Id";
+            columnNames = string.Join(", "
+                                    , principal.IdentityAttributes
+                                               .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
 
-            if (foreignKeyColumns.Contains(columnName))
-            {
-               int index = 0;
-
-               do
-               {
-                  columnName = $"{nameBase}{++index}_Id";
-               } while (foreignKeyColumns.Contains(columnName));
-            }
+            return $@"Map(x => x.MapKey(""{columnNames}""))";
          }
 
-         foreignKeyColumns.Add(columnName);
+         // defined properties
+         columnNames = association.FKPropertyName.Contains(",")
+                          ? $"new {{ {string.Join(", ", association.FKPropertyName.Split(',').Select(n => $"p.{n.Trim()}"))} }}"
+                          : $"p.{association.FKPropertyName.Trim()}";
 
-         return $@"Map(x => x.MapKey(""{columnName}""))";
+         return $"HasForeignKey(p => {columnNames})";
       }
-
    }
 }
