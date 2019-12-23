@@ -24,6 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class ModelRoot: IHasStore
    {
       public static readonly PluralizationService PluralizationService;
+      internal static bool BatchUpdating = false;
 
       public static Action ExecuteValidator { get; set; }
 

@@ -299,6 +299,8 @@ namespace EFCoreParser
          result.TypeName = type.IsEnum ? type.FullName : type.Name;
          result.Name = propertyData.Name;
          result.IsIdentity = propertyData.IsKey();
+         result.IsIdentityGenerated = result.IsIdentity && propertyData.BeforeSaveBehavior == PropertySaveBehavior.Ignore;
+
          result.Required = !propertyData.IsNullable;
          result.Indexed = propertyData.IsIndex();
 

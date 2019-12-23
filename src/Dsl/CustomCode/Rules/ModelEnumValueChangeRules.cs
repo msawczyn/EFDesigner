@@ -24,7 +24,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
 
-         if (current.IsSerializing)
+         if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
          if (Equals(e.NewValue, e.OldValue))

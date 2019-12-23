@@ -81,18 +81,10 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             List<string> result = AllAttributes.Select(a => a.Name).ToList();
 
-            result.AddRange(Association.GetLinksToSources(this)
-                                       .Where(a => a.Target.Name == Name && a.TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(a.FKPropertyName))
-                                       .SelectMany(a => a.FKPropertyName.Split(',')));
-
-            result.AddRange(Association.GetLinksToTargets(this)
-                                       .Where(a => a.Source.Name == Name && a.SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(a.FKPropertyName))
-                                       .SelectMany(a => a.FKPropertyName.Split(',')));
-
             result.AddRange(AllNavigationProperties().Select(np => np.PropertyName));
 
-            if (Superclass != null)
-               result.AddRange(Superclass.AllPropertyNames);
+            //if (Superclass != null)
+            //   result.AddRange(Superclass.AllPropertyNames);
 
             return result;
          }

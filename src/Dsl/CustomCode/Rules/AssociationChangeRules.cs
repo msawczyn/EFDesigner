@@ -58,7 +58,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
 
-         if (current.IsSerializing)
+         if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
          if (Equals(e.NewValue, e.OldValue))
@@ -96,7 +96,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      if (propertyCount != identityCount)
                      {
-                        errorMessages.Add($"{tag} must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
+                        errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
                                         + $"{principalClass.Name} has {identityCount} identity properties; found {propertyCount} instead");
                      }
 
@@ -104,8 +104,19 @@ namespace Sawczyn.EFDesigner.EFModel
                      {
                         if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
                            errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
-                        else if (dependentClass.AllPropertyNames.Count(a => a == propertyName) > 1)
-                           errorMessages.Add($"{tag} FK property name '{dependentClass.Name}.{propertyName}' already in use");
+
+                        // if a foreign key property is added to the association and there is already a property with that name, 
+                        // we'll assume the user was confused and thought they needed to do that (otherwise, it's an error since we're going to generate that
+                        // property later).
+                        // So we'll have the foreign key take precedence and remove the existing property unless that property is in a
+                        // base class. That's too far removed, so we'll throw an error
+                        if (dependentClass.AllAttributes.Except(dependentClass.Attributes).Any(a => a.Name == propertyName))
+                           errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {dependentClass.Name}");
+                        else
+                        {
+                           foreach (ModelAttribute t in dependentClass.Attributes.Where(a => a.Name == propertyName).ToArray())
+                              dependentClass.Attributes.Remove(t);
+                        }
                      }
                   }
                }

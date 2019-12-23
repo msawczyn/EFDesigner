@@ -16,7 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Transaction current = store.TransactionManager.CurrentTransaction;
          PluralizationService pluralizationService = ModelRoot.PluralizationService;
 
-         if (current.IsSerializing)
+         if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
          // add unidirectional

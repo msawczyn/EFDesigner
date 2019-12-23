@@ -100,6 +100,7 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             Cursor.Current = Cursors.WaitCursor;
+            ModelRoot.BatchUpdating = true;
 
             if (IsAssembly(filename))
             {
@@ -129,6 +130,8 @@ namespace Sawczyn.EFDesigner.EFModel
          finally
          {
             Cursor.Current = Cursors.Default;
+            ModelRoot.BatchUpdating = false;
+
             StatusDisplay.Show("");
          }
       }

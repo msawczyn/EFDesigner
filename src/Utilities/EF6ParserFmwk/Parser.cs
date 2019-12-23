@@ -70,10 +70,19 @@ namespace EF6Parser
             throw new MissingMethodException("Can't find constructor with one string parameter (connection string or connection name)");
          }
 
-         DbContextInfo dbContextInfo = new DbContextInfo(contextType, new DbProviderInfo("System.Data.SqlClient", "2008"));
-         dbContext = dbContextInfo.CreateInstance() ?? throw new Exception($"Failed to create an instance of {contextType.FullName}. Does it have a default constructor?");
+         try
+         {
+            DbContextInfo dbContextInfo = new DbContextInfo(contextType, new DbProviderInfo("System.Data.SqlClient", "2008"));
+            dbContext = dbContextInfo.CreateInstance(); 
+         }
+         catch (InvalidOperationException e)
+         {
+            dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] { "App=EntityFramework" }, null, null) as DbContext
+                     ?? throw new Exception($"Failed to create an instance of {contextType.FullName}. "
+                                          + "Please ensure it has either a default constructor or a constructor with one string parameter (connection string or connection name)"
+                                          , e);
+         }
 
-         //dbContext = assembly.CreateInstance(contextType.FullName, false, BindingFlags.Default, null, new object[] { "App=EntityFramework" }, null, null) as DbContext;
          metadata = ((IObjectContextAdapter)dbContext).ObjectContext.MetadataWorkspace;
       }
 
@@ -105,6 +114,9 @@ namespace EF6Parser
       private List<ModelBidirectionalAssociation> GetBidirectionalAssociations(EntityType entityType)
       {
          List<ModelBidirectionalAssociation> result = new List<ModelBidirectionalAssociation>();
+
+         if (entityType == null)
+            return result;
 
          foreach (NavigationProperty navigationProperty in entityType.DeclaredNavigationProperties.Where(np => Inverse(np) != null))
          {
@@ -139,13 +151,17 @@ namespace EF6Parser
 
             // look for declared foreign keys
             List<EdmProperty> dependentProperties = navigationProperty.GetDependentProperties().ToList();
+
             if (dependentProperties.Any())
                association.ForeignKey = string.Join(",", dependentProperties.Select(p => p.Name));
 
-            log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
-            log.Info("\n   " + JsonConvert.SerializeObject(association));
-
-            result.Add(association);
+            // duplicate check
+            if (result.All(a => a != association && a.Inverse() != association))
+            {
+               log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
+               log.Info("\n   " + JsonConvert.SerializeObject(association));
+               result.Add(association);
+            }
          }
 
          return result;
@@ -222,6 +238,9 @@ namespace EF6Parser
       {
          List<ModelUnidirectionalAssociation> result = new List<ModelUnidirectionalAssociation>();
 
+         if (entityType == null)
+            return result;
+
          foreach (NavigationProperty navigationProperty in entityType.NavigationProperties.Where(np => Inverse(np) == null))
          {
             ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
@@ -250,9 +269,16 @@ namespace EF6Parser
             if (dependentProperties.Any())
                association.ForeignKey = string.Join(",", dependentProperties.Select(p => p.Name));
 
-            log.Info("\n   " + JsonConvert.SerializeObject(association));
+            string json = JsonConvert.SerializeObject(association);
 
-            result.Add(association);
+            // duplicate check
+            if (result.All(a => a != association))
+            {
+               log.Info($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
+               log.Info("\n   " + json);
+               result.Add(association);
+            }
+
          }
 
          return result;

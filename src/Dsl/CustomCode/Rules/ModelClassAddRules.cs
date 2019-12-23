@@ -18,7 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
          Transaction current = store.TransactionManager.CurrentTransaction;
          ModelRoot modelRoot = store.ModelRoot();
 
-         if (current.IsSerializing)
+         if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
          // there could already be an identity property if this class was created via Paste or import
