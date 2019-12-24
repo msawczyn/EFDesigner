@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Immutability;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
@@ -20,6 +21,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
+
+         foreach (ModelAttribute attribute in element.Attributes)
+            attribute.SetLocks(Locks.None);
 
          List<Generalization> generalizations = store.Get<Generalization>().Where(g => g.Superclass == element).ToList();
 

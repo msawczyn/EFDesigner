@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
@@ -12,7 +14,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private string GetSourcePropertyNameDisplayValue()
       {
          return TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
-                   ? $"{SourcePropertyName}\n[{string.Join(", ", FKPropertyName.Split(',').Select(n => $"{Target.Name}.{n}"))}]"
+                   ? $"{SourcePropertyName}\n[{string.Join(", ", ForeignKeyPropertyNames.Select(n => $"{Target.Name}.{n.Trim()}"))}]"
                    : SourcePropertyName;
       }
 
@@ -27,10 +29,13 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             context.LogWarning($"{Target.Name}.{SourcePropertyName}: Association end should be documented", "AWMissingSummary", this);
             hasWarning = true;
-            RedrawItem();
-            Source.RedrawItem();
-            Target.RedrawItem();
+            this.Redraw();
          }
+      }
+
+      public string GetDisplayText()
+      {
+         return $"{Source.Name}.{TargetPropertyName} <-> {Target.Name}.{SourcePropertyName}";
       }
 
       #region SourceImplementNotify tracking property

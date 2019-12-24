@@ -15,7 +15,12 @@ namespace Sawczyn.EFDesigner.EFModel
       public IModelElementWithCompartments ParentModelElement => Enum;
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
-      #region Warning display
+      public string GetDisplayText()
+      {
+         return $"{Enum.Name}.{Name}";
+      }
+
+#region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -27,7 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public void RedrawItem()
       {
-         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().ToList();
+         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().Distinct().ToList();
          foreach (ShapeElement shapeElement in shapeElements)
             shapeElement.Invalidate();
       }

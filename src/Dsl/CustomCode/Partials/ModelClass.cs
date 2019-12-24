@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using System;
 using System.Collections.Generic;
@@ -56,6 +55,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
             return ModelRoot?.ContextOutputDirectory;
          }
+      }
+
+      public string GetDisplayText()
+      {
+         return Name;
       }
 
       /// <summary>
@@ -191,9 +195,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void RedrawItem()
       {
-         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
-         foreach (ShapeElement shapeElement in shapeElements)
-            shapeElement.Invalidate();
+         this.Redraw();
       }
 
       /// <summary>
@@ -323,10 +325,10 @@ namespace Sawczyn.EFDesigner.EFModel
                                                             , PropertyName = null
                                                             , FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
                                                            }));
-         int index = 0;
+         int suffix = 0;
          foreach (NavigationProperty navigationProperty in targetProperties.Where(x => x.PropertyName == null))
          {
-            navigationProperty.PropertyName = $"_{navigationProperty.ClassType.Name.ToLower()}{index++}";
+            navigationProperty.PropertyName = $"_{navigationProperty.ClassType.Name.ToLower()}{suffix++}";
             navigationProperty.ConstructorParameterOnly = true;
          }
 
@@ -803,5 +805,20 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion IsImplementNotify tracking property
+
+      internal void EnsureForeignKeyAttribute(string fkPropertyName, string type, bool required)
+      {
+         ModelAttribute fkProperty = Attributes.FirstOrDefault(a => a.Name == fkPropertyName);
+
+         if (fkProperty == null)
+         {
+            fkProperty = new ModelAttribute(Store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, fkPropertyName));
+            Attributes.Add(fkProperty);
+         }
+
+         fkProperty.Type = type;
+         fkProperty.Indexed = true;
+         fkProperty.Required = required;
+      }
    }
 }

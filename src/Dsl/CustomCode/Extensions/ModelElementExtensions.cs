@@ -15,6 +15,11 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
          return element?.GetFirstShapeElement() ?? element?.GetCompartmentElementFirstParentElement()?.GetFirstShapeElement();
       }
 
+      public static string GetDisplayText(this ModelElement element)
+      {
+         return element.ToString();
+      }
+
       private static ModelElement GetCompartmentElementFirstParentElement(this ModelElement modelElement)
       {
          // Get the domain class associated with model element.
@@ -88,6 +93,12 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
             foreach (EFModelDiagram diagram in diagrams)
                diagram.Invalidate();
          }
+      }
+
+      public static void Redraw(this ModelElement element)
+      {
+         foreach (ShapeElement shapeElement in PresentationViewsSubject.GetPresentation(element).OfType<ShapeElement>().Distinct().ToList())
+            shapeElement.Invalidate();
       }
 
       //public static DiagramView GetActiveDiagramView(this ModelElement element)

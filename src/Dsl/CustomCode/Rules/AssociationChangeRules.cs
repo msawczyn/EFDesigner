@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Immutability;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -72,51 +73,57 @@ namespace Sawczyn.EFDesigner.EFModel
             case "FKPropertyName":
                {
                   string fkPropertyName = e.NewValue?.ToString();
+                  bool fkPropertyError = false;
 
                   if (!string.IsNullOrEmpty(fkPropertyName))
                   {
-                     ModelClass dependentClass;
                      string tag = $"({element.Source.Name}:{element.Target.Name})";
 
-                     if (element.SourceRole == EndpointRole.Dependent)
-                        dependentClass = element.Source;
-                     else if (element.TargetRole == EndpointRole.Dependent)
-                        dependentClass = element.Target;
-                     else
+                     if (element.Dependent == null)
                      {
                         errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
                         break;
                      }
 
-                     ModelClass principalClass = element.Principal;
-                     string[] fkPropertyNames = fkPropertyName.Split(',').Select(n => n.Trim()).ToArray();
-
-                     int propertyCount = fkPropertyNames.Length;
-                     int identityCount = dependentClass.AllIdentityAttributes.Count();
+                     int propertyCount = element.ForeignKeyPropertyNames.Length;
+                     int identityCount = element.Principal.AllIdentityAttributes.Count();
 
                      if (propertyCount != identityCount)
                      {
                         errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
-                                        + $"{principalClass.Name} has {identityCount} identity properties; found {propertyCount} instead");
+                                        + $"{element.Principal.Name} has {identityCount} identity properties; found {propertyCount} instead");
+                        fkPropertyError = true;
                      }
 
-                     foreach (string propertyName in fkPropertyNames)
+                     foreach (string propertyName in element.ForeignKeyPropertyNames)
                      {
                         if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
-                           errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
-
-                        // if a foreign key property is added to the association and there is already a property with that name, 
-                        // we'll assume the user was confused and thought they needed to do that (otherwise, it's an error since we're going to generate that
-                        // property later).
-                        // So we'll have the foreign key take precedence and remove the existing property unless that property is in a
-                        // base class. That's too far removed, so we'll throw an error
-                        if (dependentClass.AllAttributes.Except(dependentClass.Attributes).Any(a => a.Name == propertyName))
-                           errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {dependentClass.Name}");
-                        else
                         {
-                           foreach (ModelAttribute t in dependentClass.Attributes.Where(a => a.Name == propertyName).ToArray())
-                              dependentClass.Attributes.Remove(t);
+                           errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
+                           fkPropertyError = true;
                         }
+
+                        if (element.Dependent.AllAttributes.Except(element.Dependent.Attributes).Any(a => a.Name == propertyName))
+                        {
+                           errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {element.Dependent.Name}");
+                           fkPropertyError = true;
+                        }
+                     }
+
+
+                     if (!fkPropertyError)
+                     {
+                        // remove any locks on the attributes that were foreign keys
+                        string[] oldValues = e.OldValue?.ToString()?.Split(',') ?? new string[0];
+
+                        foreach (string oldValue in oldValues)
+                           element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue)?.SetLocks(Locks.None);
+
+                        element.EnsureForeignKeyAttributes();
+
+                        // add delete locks to the attributes that are now foreign keys
+                        foreach (string propertyName in element.ForeignKeyPropertyNames)
+                           element.Dependent.Attributes.FirstOrDefault(a => a.Name == propertyName)?.SetLocks(Locks.Delete);
                      }
                   }
                }

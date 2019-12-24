@@ -18,7 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                 , Multiplicity? sourceMultiplicity = null
                                                 , Multiplicity? targetMultiplicity = null)
       {
-         foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>())
+         foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>().Distinct())
             UpdateAssociationDisplay(connector, sourceDeleteAction, targetDeleteAction);
       }
 

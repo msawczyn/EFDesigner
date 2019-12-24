@@ -17,5 +17,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return false;
       }
+
+      public string GetDisplayText()
+      {
+         return $"{Subclass.Name} inherits from {Superclass.Name}";
+      }
+
    }
 }

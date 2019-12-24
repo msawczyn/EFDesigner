@@ -25,7 +25,12 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <value>The name of the compartment holding this model element.</value>
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
-      #region Warning display
+      public string GetDisplayText()
+      {
+         return $"{ModelClass.Name}.{Name}";
+      }
+
+#region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -46,7 +51,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (ParentModelElement != null)
          {
-            List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().ToList();
+            List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().Distinct().ToList();
             foreach (ShapeElement shapeElement in shapeElements)
                shapeElement.Invalidate();
          }
@@ -192,7 +197,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <value>Name of primitive type</value>
       public string PrimitiveType => ToPrimitiveType(Type);
 
-      // ReSharper disable once UnusedMember.Global
       /// <summary>Converts the attribute's CLR type to a C# primitive type.</summary>
       ///
       /// <value>Name of primitive type, or the fully qualified name if the attribute is an enumeration</value>
@@ -209,7 +213,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      // ReSharper disable once UnusedMember.Global
       /// <summary>Converts a C# primitive type to a CLR type.</summary>
       ///
       /// <value>The type of the colour.</value>
@@ -320,6 +323,8 @@ namespace Sawczyn.EFDesigner.EFModel
          return typeName;
       }
 
+      #region ColumnName
+
       /// <summary>Storage for the ColumnName property.</summary>  
       private string columnNameStorage;
 
@@ -362,6 +367,10 @@ namespace Sawczyn.EFDesigner.EFModel
             // ReSharper disable once ArrangeRedundantParentheses
             IsColumnNameTracking = (columnNameStorage == null);
       }
+
+      #endregion
+
+      #region ImplementNotify
 
       /// <summary>Storage for the ImplementNotify property.</summary>  
       private bool implementNotifyStorage;
@@ -406,6 +415,10 @@ namespace Sawczyn.EFDesigner.EFModel
             IsImplementNotifyTracking = (implementNotifyStorage == (ModelClass?.ImplementNotify ?? false));
       }
 
+      #endregion
+
+      #region AutoProperty
+
       /// <summary>Storage for the AutoProperty property.</summary>  
       private bool autoPropertyStorage;
 
@@ -447,6 +460,10 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!Store.InUndoRedoOrRollback && !loading)
             IsAutoPropertyTracking = (autoPropertyStorage == (ModelClass?.AutoPropertyDefault ?? true));
       }
+
+      #endregion
+
+      #region ColumnType
 
       /// <summary>Storage for the ColumnType property.</summary>  
       private string columnTypeStorage;
@@ -490,6 +507,8 @@ namespace Sawczyn.EFDesigner.EFModel
             // ReSharper disable once ArrangeRedundantParentheses
             IsColumnTypeTracking = (columnTypeStorage == null);
       }
+
+      #endregion
 
       #region Tracking Properties
 

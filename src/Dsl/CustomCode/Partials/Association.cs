@@ -33,6 +33,9 @@ namespace Sawczyn.EFDesigner.EFModel
          return "?";
       }
 
+      /// <summary>
+      /// Gets the principal ModelClass of this association, if any
+      /// </summary>
       public ModelClass Principal
       {
          get
@@ -44,6 +47,10 @@ namespace Sawczyn.EFDesigner.EFModel
                          : null;
          }
       }
+
+      /// <summary>
+      /// Gets the dependent ModelClass of this association, if any
+      /// </summary>
       public ModelClass Dependent
       {
          get
@@ -56,10 +63,52 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Gets the individual foreign key property names defined in the FKPropertyName property
+      /// </summary>
+      public string[] ForeignKeyPropertyNames
+      {
+         get
+         {
+            return FKPropertyName?.Split(',')?.Select(n => n.Trim())?.ToArray() ?? new string[0];
+         }
+      }
+
+      internal void EnsureForeignKeyAttributes()
+      {
+         if (string.IsNullOrWhiteSpace(FKPropertyName))
+            return;
+
+         ModelClass fkParent = Dependent;
+
+         if (fkParent != null)
+         {
+            Target.ModelRoot.ExposeForeignKeys = true;
+            ModelAttribute[] principalIdentityAttributes = Principal.AllIdentityAttributes.ToArray();
+
+            for (int index = 0; index < ForeignKeyPropertyNames.Length; index++)
+            {
+               string fkPropertyName = ForeignKeyPropertyNames[index];
+
+               // shouldn't need bounds check ... by now, fkPropertyNames.Length and principalIdentityAttributes.Length should always match
+               fkParent.EnsureForeignKeyAttribute(fkPropertyName
+                                                , principalIdentityAttributes[index].Type
+                                                , Dependent == Source
+                                                     ? TargetMultiplicity == Multiplicity.One
+                                                     : SourceMultiplicity == Multiplicity.One);
+            }
+         }
+         else
+         {
+            FKPropertyName = null;
+         }
+
+      }
+
       private string GetTargetPropertyNameDisplayValue()
       {
          return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
-                   ? $"{TargetPropertyName}\n[{string.Join(", ", FKPropertyName.Split(',').Select(n => $"{Source.Name}.{n}"))}]"
+                   ? $"{TargetPropertyName}\n[{string.Join(", ", ForeignKeyPropertyNames.Select(n => $"{Source.Name}.{n.Trim()}"))}]"
                    : TargetPropertyName;
       }
 
@@ -77,10 +126,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelElement[] modelElements = { this, Source, Target };
 
-         List<ShapeElement> shapeElements =
-            modelElements.SelectMany(modelElement => PresentationViewsSubject.GetPresentation(modelElement)
-                                                                             .OfType<ShapeElement>())
-                         .ToList();
+         List<ShapeElement> shapeElements = modelElements.SelectMany(modelElement => PresentationViewsSubject.GetPresentation(modelElement).OfType<ShapeElement>())
+                                                         .ToList();
 
          foreach (ShapeElement shapeElement in shapeElements)
             shapeElement.Invalidate();
@@ -100,7 +147,6 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogWarning($"{Source.Name}.{TargetPropertyName}: Association end should be documented", "AWMissingSummary", this);
             hasWarning = true;
             RedrawItem();
-            Source.RedrawItem();
          }
       }
 

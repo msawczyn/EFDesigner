@@ -46,10 +46,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912230135545_Initial.cs" />
-    <Compile Include="Migrations\201912230135545_Initial.Designer.cs">
-      <DependentUpon>201912230135545_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +76,7 @@
     <Folder Include="Generated\Entities\" />
     <Folder Include="Generated\Enums\" />
     <Folder Include="Generated\Structs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912230135545_Initial.resx">
-      <DependentUpon>201912230135545_Initial.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

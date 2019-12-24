@@ -216,8 +216,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                        new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
                                                     });
 
-            if (!string.IsNullOrWhiteSpace(data.ForeignKey))
-               target.ModelRoot.ExposeForeignKeys = true;
+            AssociationChangeRules.SetEndpointRoles(element);
+            element.EnsureForeignKeyAttributes();
          }
       }
 
@@ -281,8 +281,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                       new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
                                                    });
 
-            if (!string.IsNullOrWhiteSpace(data.ForeignKey))
-               target.ModelRoot.ExposeForeignKeys = true;
+            AssociationChangeRules.SetEndpointRoles(element);
+            element.EnsureForeignKeyAttributes();
          }
       }
 

@@ -19,7 +19,12 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </value>
       public string FullName => string.IsNullOrWhiteSpace(EffectiveNamespace) ? $"global::{Name}" : $"global::{EffectiveNamespace}.{Name}";
 
-      #region Warning display
+      public string GetDisplayText()
+      {
+         return Name;
+      }
+
+#region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -41,7 +46,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void RedrawItem()
       {
-         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().ToList();
+         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(this).OfType<ShapeElement>().Distinct().ToList();
          foreach (ShapeElement shapeElement in shapeElements)
             shapeElement.Invalidate();
       }
