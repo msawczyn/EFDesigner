@@ -123,6 +123,23 @@ namespace Sawczyn.EFDesigner.EFModel
             ProcessProperties(element, data.Properties);
          }
 
+         // Bidirectional associations can get duplicates creeping in, and it's better to clean them here than to rely on each parser version
+         foreach (ParsingModels.ModelClass modelClass in classDataList)
+         {
+            foreach (ModelBidirectionalAssociation association in modelClass.BidirectionalAssociations)
+            {
+               ModelBidirectionalAssociation[] duplicates = modelClass.BidirectionalAssociations
+                                                                      .Where(a => a.SourcePropertyTypeName == association.TargetPropertyTypeName
+                                                                               && a.SourcePropertyName == association.TargetPropertyName
+                                                                               && a.TargetPropertyTypeName == association.SourcePropertyTypeName
+                                                                               && a.TargetPropertyName == association.SourcePropertyName)
+                                                                      .ToArray();
+
+               foreach (ModelBidirectionalAssociation duplicate in duplicates)
+                  modelClass.BidirectionalAssociations.Remove(duplicate);
+            }
+         }
+
          // classes are all created, so we can work the associations
          foreach (ParsingModels.ModelClass data in classDataList)
          {

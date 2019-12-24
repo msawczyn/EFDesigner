@@ -483,7 +483,7 @@ namespace EF6Parser
       // ReSharper disable once UnusedParameter.Local
       private ModelProperty ProcessProperty(EntityType parent, EdmProperty oSpaceProperty, EdmProperty sSpaceProperty, EdmProperty cSpaceProperty, bool isComplexType = false)
       {
-         if (oSpaceProperty == null || sSpaceProperty == null)
+         if (oSpaceProperty == null)
             return null;
 
          log.Info($"Found property {parent.Name}.{oSpaceProperty.Name}");
@@ -497,14 +497,13 @@ namespace EF6Parser
                                                     : oSpaceProperty.TypeUsage.EdmType.Name
                                     , Name = oSpaceProperty.Name
                                     , IsIdentity = !isComplexType && parent.KeyProperties.Any(p => p.Name == oSpaceProperty.Name)
-                                    , IsIdentityGenerated = sSpaceProperty.IsStoreGeneratedIdentity
-                                    , Required = !(bool)sSpaceProperty.TypeUsage.Facets.First(facet => facet.Name == "Nullable").Value
+                                    , IsIdentityGenerated = sSpaceProperty?.IsStoreGeneratedIdentity == true
+                                    , Required = !(bool)oSpaceProperty.TypeUsage.Facets.First(facet => facet.Name == "Nullable").Value
                                     , Indexed = bool.TryParse(oSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "Indexed")?.Value?.ToString(), out bool indexed) && indexed
-                                    , MaxStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MaxLength")?.Value?.ToString(), out int maxLength)
-                                                     && maxLength < int.MaxValue / 2
+                                    , MaxStringLength = sSpaceProperty != null && int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MaxLength")?.Value?.ToString(), out int maxLength) && maxLength < int.MaxValue / 2
                                                            ? maxLength
                                                            : 0
-                                    , MinStringLength = int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MinLength")?.Value?.ToString(), out int minLength)
+                                    , MinStringLength = sSpaceProperty != null && int.TryParse(sSpaceProperty.TypeUsage.Facets.FirstOrDefault(facet => facet.Name == "MinLength")?.Value?.ToString(), out int minLength)
                                                            ? minLength
                                                            : 0
                                    };

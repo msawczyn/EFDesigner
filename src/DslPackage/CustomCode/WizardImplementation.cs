@@ -8,6 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private static string modelPath;
       private static string diagramPath;
+      private static string xsdPath;
       private static DTE dte;
 
       public void RunStarted(object automationObject,
@@ -30,6 +31,8 @@ namespace Sawczyn.EFDesigner.EFModel
             modelPath = path;
          else if (path.EndsWith(".diagram"))
             diagramPath = path;
+         else if (path.EndsWith(".xsd"))
+            xsdPath = path;
       }
 
       public bool ShouldAddProjectItem(string filePath)
@@ -48,19 +51,34 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelPath != null && dte != null)
          {
             ProjectItem modelItem = dte.Solution.FindProjectItem(modelPath);
-            if (modelItem != null && diagramPath != null)
+
+            if (modelItem != null)
             {
-               ProjectItem diagramItem = dte.Solution.FindProjectItem(diagramPath);
-               if (diagramItem != null)
+               if (diagramPath != null)
                {
-                  diagramItem.Remove();
-                  modelItem.ProjectItems.AddFromFile(diagramPath);
+                  ProjectItem diagramItem = dte.Solution.FindProjectItem(diagramPath);
+                  if (diagramItem != null)
+                  {
+                     diagramItem.Remove();
+                     modelItem.ProjectItems.AddFromFile(diagramPath);
+                  }
+               }
+
+               if (xsdPath != null)
+               {
+                  ProjectItem xsdItem = dte.Solution.FindProjectItem(xsdPath);
+                  if (xsdItem != null)
+                  {
+                     xsdItem.Remove();
+                     modelItem.ProjectItems.AddFromFile(xsdPath);
+                  }
                }
             }
          }
 
          diagramPath = null;
          modelPath = null;
+         xsdPath = null;
          dte = null;
       }
    }

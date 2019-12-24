@@ -272,15 +272,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void ValidateModelElement(ModelElement modelElement)
       {
-         if (modelElement is IDisplaysWarning displaysWarningElement)
+         if (!ModelRoot.BatchUpdating && modelElement is IDisplaysWarning displaysWarningElement)
          {
             StatusDisplay.Show($"Validating {modelElement}");
             displaysWarningElement.ResetWarning();
 
             ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;
             ValidationController.Validate(modelElement, allCategories);
-            if (!ModelRoot.BatchUpdating)
-               displaysWarningElement.RedrawItem();
+            
+            displaysWarningElement.RedrawItem();
          }
       }
 
