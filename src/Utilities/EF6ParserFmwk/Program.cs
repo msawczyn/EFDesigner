@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
+using log4net;
 using log4net.Config;
 
 namespace EF6Parser
 {
    internal class Program
    {
-      private static log4net.ILog log;
+      private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
       public const int SUCCESS = 0;
       public const int BAD_ARGUMENT_COUNT = 1;
@@ -21,26 +21,29 @@ namespace EF6Parser
 
       private static int Main(string[] args)
       {
-         log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
          if (args.Length < 2 || args.Length > 3)
+         {
+            log.Error($"Expecting 2 or 3 arguments - found {args.Length}");
             Exit(BAD_ARGUMENT_COUNT);
+         }
 
          try
          {
             string inputPath = args[0];
             string outputPath = args[1];
-            log4net.GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
+
+            GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
             XmlConfigurator.Configure();
-
-            log.Info("Starting EF6ParserFmwk");
-
+            log.Info($"Starting {typeof(Program).Assembly.GetName().Name}");
+            log.Info($"Log file at {GlobalContext.Properties["LogPath"]}");
+        
             string contextClassName = args.Length == 3 ? args[2] : null;
 
             using (StreamWriter output = new StreamWriter(outputPath))
             {
                try
                {
+                  log.Info($"Loading {inputPath}");
                   Assembly assembly = Assembly.LoadFrom(inputPath);
                   Parser parser = null;
 
@@ -52,51 +55,53 @@ namespace EF6Parser
                   catch (MissingMethodException ex)
                   {
                      log.Error(ex.Message);
-                     Exit(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR);
+                     Exit(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR, ex);
                   }
                   catch (AmbiguousMatchException ex)
                   {
                      log.Error(ex.Message);
-                     Exit(AMBIGUOUS_REQUEST);
+                     Exit(AMBIGUOUS_REQUEST, ex);
                   }
                   catch (Exception ex)
                   {
                      log.Error(ex.Message);
-                     Exit(CANNOT_CREATE_DBCONTEXT);
+                     Exit(CANNOT_CREATE_DBCONTEXT, ex);
                   }
 
                   output.Write(parser?.Process());
-
+                  output.Flush();
                   output.Close();
                }
                catch (Exception ex)
                {
                   log.Error(ex.Message);
-                  Exit(CANNOT_LOAD_ASSEMBLY);
+                  Exit(CANNOT_LOAD_ASSEMBLY, ex);
                }
             }
          }
          catch (Exception ex)
          {
             log.Error(ex.Message);
-            Exit(CANNOT_WRITE_OUTPUTFILE);
+            Exit(CANNOT_WRITE_OUTPUTFILE, ex);
          }
 
          log.Info("Success");
          return SUCCESS;
       }
 
-      private static void Exit(int returnCode)
+      private static void Exit(int returnCode, Exception ex = null)
       {
-         Console.Error.WriteLine("Usage: EF6Parser InputFileName OutputFileName [FullyQualifiedClassName]");
-         Console.Error.WriteLine("where");
-         Console.Error.WriteLine("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
-         Console.Error.WriteLine("   (required) OutputFileName          - path to create JSON file of results");
-         Console.Error.WriteLine("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
-         Console.Error.WriteLine("                                        DbContext class must have a constructor that takes a connection string name or value");
-         Console.Error.WriteLine();
+         log.Error($"Usage: {typeof(Program).Assembly.GetName().Name} InputFileName OutputFileName [FullyQualifiedClassName]");
+         log.Error("where");
+         log.Error("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
+         log.Error("   (required) OutputFileName          - path to create JSON file of results");
+         log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
+         log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
+         log.Error("");
 
-         log.Info($"Exiting with return code {returnCode}");
+         if (ex != null)
+            log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
+         log.Error($"Exiting with return code {returnCode}");
          Environment.Exit(returnCode);
       }
    }

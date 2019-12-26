@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using log4net;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -17,6 +19,7 @@ namespace EFCoreParser
 {
    public class Parser
    {
+      private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
       private readonly DbContext dbContext;
 
       private IModel model;
@@ -26,19 +29,31 @@ namespace EFCoreParser
          Type contextType;
 
          if (dbContextTypeName != null)
+         {
+            log.Info($"dbContextTypeName parameter is {dbContextTypeName}");
             contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
+            log.Info($"Using contextType = {contextType.FullName}");
+         }
          else
          {
+            log.Info("dbContextTypeName parameter is null");
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
 
             // ReSharper disable once UnthrowableException
             if (types.Count == 0)
+            {
+               log.Error($"No DBContext found in {assembly.Location}");
                throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
+            }
             
             if (types.Count > 1)
+            {
+               log.Error($"Found more than one class derived from DbContext: {string.Join(", ", types.Select(t => t.FullName))}");
                throw new AmbiguousMatchException("Found more than one class derived from DbContext");
+            }
 
             contextType = types[0];
+            log.Info($"Using contextType = {contextType.FullName}");
          }
 
          Type optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(contextType);
@@ -51,7 +66,7 @@ namespace EFCoreParser
 
          // ReSharper disable once UnthrowableException
          if (constructor == null)
-            throw new MissingMethodException("Can't find appropriate constructor");
+            throw new MissingMethodException($"Can't find appropriate constructor - {contextType.Name}.{contextType.Name}(DbContextOptions<{contextType.Name}>)");
 
          dbContext = assembly.CreateInstance(contextType.FullName, true, BindingFlags.Default, null, new object[] { options }, null, null) as DbContext;
          model = dbContext.Model;
