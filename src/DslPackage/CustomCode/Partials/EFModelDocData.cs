@@ -274,7 +274,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (!ModelRoot.BatchUpdating && modelElement is IDisplaysWarning displaysWarningElement)
          {
-            StatusDisplay.Show($"Validating {modelElement}");
+            StatusDisplay.Show($"Validating {modelElement.GetDisplayText()}");
             displaysWarningElement.ResetWarning();
 
             ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;

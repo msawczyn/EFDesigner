@@ -123,20 +123,25 @@ namespace Sawczyn.EFDesigner.EFModel
             ProcessProperties(element, data.Properties);
          }
 
-         // Bidirectional associations can get duplicates creeping in, and it's better to clean them here than to rely on each parser version
-         foreach (ParsingModels.ModelClass modelClass in classDataList)
-         {
-            foreach (ModelBidirectionalAssociation association in modelClass.BidirectionalAssociations)
-            {
-               ModelBidirectionalAssociation[] duplicates = modelClass.BidirectionalAssociations
-                                                                      .Where(a => a.SourcePropertyTypeName == association.TargetPropertyTypeName
-                                                                               && a.SourcePropertyName == association.TargetPropertyName
-                                                                               && a.TargetPropertyTypeName == association.SourcePropertyTypeName
-                                                                               && a.TargetPropertyName == association.SourcePropertyName)
-                                                                      .ToArray();
+         // Bidirectional associations get duplicates, and it's better to clean them here than to rely on each parser version
+         List<ModelBidirectionalAssociation> allBidirectionalAssociations = classDataList.SelectMany(cls => cls.BidirectionalAssociations).ToList();
 
-               foreach (ModelBidirectionalAssociation duplicate in duplicates)
-                  modelClass.BidirectionalAssociations.Remove(duplicate);
+         for (int index = 0; index < allBidirectionalAssociations.Count; index++)
+         {
+            ModelBidirectionalAssociation keeper = allBidirectionalAssociations[index];
+
+            ModelBidirectionalAssociation duplicate =
+               allBidirectionalAssociations.Skip(index)
+                                           .FirstOrDefault(a => a.SourcePropertyTypeName == keeper.TargetPropertyTypeName
+                                                             && a.SourcePropertyName == keeper.TargetPropertyName
+                                                             && a.TargetPropertyTypeName == keeper.SourcePropertyTypeName
+                                                             && a.TargetPropertyName == keeper.SourcePropertyName);
+
+            if (duplicate != null)
+            {
+               ParsingModels.ModelClass duplicateOwner = classDataList.First(c=>c.FullName==duplicate.SourceClassFullName);
+               duplicateOwner.BidirectionalAssociations.Remove(duplicate);
+               allBidirectionalAssociations.Remove(duplicate);
             }
          }
 

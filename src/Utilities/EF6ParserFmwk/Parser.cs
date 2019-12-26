@@ -155,13 +155,9 @@ namespace EF6Parser
             if (dependentProperties.Any())
                association.ForeignKey = string.Join(",", dependentProperties.Select(p => p.Name));
 
-            // duplicate check
-            if (result.All(a => a != association && a.Inverse() != association))
-            {
-               log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
-               log.Info("\n   " + JsonConvert.SerializeObject(association));
-               result.Add(association);
-            }
+            log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
+            log.Info("\n   " + JsonConvert.SerializeObject(association));
+            result.Add(association);
          }
 
          return result;
@@ -266,19 +262,15 @@ namespace EF6Parser
 
             // look for declared foreign keys
             List<EdmProperty> dependentProperties = navigationProperty.GetDependentProperties().ToList();
+
             if (dependentProperties.Any())
                association.ForeignKey = string.Join(",", dependentProperties.Select(p => p.Name));
 
             string json = JsonConvert.SerializeObject(association);
 
-            // duplicate check
-            if (result.All(a => a != association))
-            {
-               log.Info($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
-               log.Info("\n   " + json);
-               result.Add(association);
-            }
-
+            log.Info($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
+            log.Info("\n   " + json);
+            result.Add(association);
          }
 
          return result;
