@@ -7,7 +7,6 @@ using log4net;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 
 using ParsingModels;
@@ -17,7 +16,7 @@ using ParsingModels;
 
 namespace EFCoreParser
 {
-   public partial class Parser
+   public class Parser
    {
       private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
       private readonly DbContext dbContext;
@@ -255,7 +254,7 @@ namespace EFCoreParser
                                ? null
                                : type.BaseType.Name;
 
-         result.TableName = entityType.Relational().TableName;
+         result.TableName = entityType.GetTableName();
          result.IsDependentType = entityType.IsOwned();
          result.CustomAttributes = GetCustomAttributes(type.CustomAttributes);
 

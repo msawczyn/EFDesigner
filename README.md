@@ -57,7 +57,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**1.4.0.0** (next version)
+**2.0.0.0** (next version)
+   - **Dropped support for Visual Studio 2017 due to the changes in .NET Core 3.0 and above**
    - Added ability to specify foreign key properties
 
 <details>

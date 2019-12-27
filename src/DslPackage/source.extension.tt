@@ -28,12 +28,12 @@ output extension=".vsixmanifest" #><#
     <Icon>Logo.ico</Icon>
  </Metadata>
   <Installation InstalledByMsi="false" AllUsers="true">
-    <InstallationTarget Version="[15.0,17.0)" Id="Microsoft.VisualStudio.Community" />
+    <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Community" />
   </Installation>
   <Dependencies>
   </Dependencies>
   <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
   </Prerequisites>
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />

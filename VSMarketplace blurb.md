@@ -32,7 +32,8 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
 
 **ChangeLog**
 
-**1.4.0.0** (next version)
+**2.0.0.0** (next version)
+   - **Dropped support for Visual Studio 2017 due to the changes in .NET Core 3.0 and above**
    - **[NEW]** Added ability to specify foreign key properties
 
 **1.3.0.12** 
