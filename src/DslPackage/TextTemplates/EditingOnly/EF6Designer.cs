@@ -465,8 +465,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                            string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
 
                            segments.Add(modelClass == association.Source
-                                           ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{sourceMap}""); x.MapRightKey(""{targetMap}""); }})"
-                                           : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{targetMap}""); x.MapRightKey(""{sourceMap}""); }})");
+                                             ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
+                                             : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({targetMap}); x.MapRightKey({sourceMap}); }})");
                         }
 
                         break;
@@ -571,8 +571,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                            string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
 
                            segments.Add(modelClass == association.Source
-                                           ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{sourceMap}""); x.MapRightKey(""{targetMap}""); }})"
-                                           : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{targetMap}""); x.MapRightKey(""{sourceMap}""); }})");
+                                             ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
+                                             : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({targetMap}); x.MapRightKey({sourceMap}); }})");
                         }
 
                         break;
@@ -680,15 +680,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          {
             columnNames = string.Join(", "
                                     , principal.IdentityAttributes
-                                               .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
+                                                .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
 
-            return $@"Map(x => x.MapKey(""{columnNames}""))";
+            return $"Map(x => x.MapKey({columnNames}))";
          }
 
          // defined properties
          columnNames = association.FKPropertyName.Contains(",")
-                          ? $"new {{ {string.Join(", ", association.FKPropertyName.Split(',').Select(n => $"p.{n.Trim()}"))} }}"
-                          : $"p.{association.FKPropertyName.Trim()}";
+                           ? $"new {{ {string.Join(", ", association.FKPropertyName.Split(',').Select(n => $"p.{n.Trim()}"))} }}"
+                           : $"p.{association.FKPropertyName.Trim()}";
 
          return $"HasForeignKey(p => {columnNames})";
       }

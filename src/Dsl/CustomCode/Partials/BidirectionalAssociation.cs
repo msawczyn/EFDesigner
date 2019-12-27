@@ -33,7 +33,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      public string GetDisplayText()
+      public override string GetDisplayText()
       {
          return $"{Source.Name}.{TargetPropertyName} <-> {Target.Name}.{SourcePropertyName}";
       }

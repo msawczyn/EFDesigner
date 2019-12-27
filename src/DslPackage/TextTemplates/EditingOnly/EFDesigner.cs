@@ -13,32 +13,31 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       /**************************************************
        * Code generation methods and data common to EF6 and EFCore
        */
-
       string[] NonNullableTypes
       {
          get
          {
             return new[]
-                   {
-                      "Binary"
-                    , "Geography"
-                    , "GeographyCollection"
-                    , "GeographyLineString"
-                    , "GeographyMultiLineString"
-                    , "GeographyMultiPoint"
-                    , "GeographyMultiPolygon"
-                    , "GeographyPoint"
-                    , "GeographyPolygon"
-                    , "Geometry"
-                    , "GeometryCollection"
-                    , "GeometryLineString"
-                    , "GeometryMultiLineString"
-                    , "GeometryMultiPoint"
-                    , "GeometryMultiPolygon"
-                    , "GeometryPoint"
-                    , "GeometryPolygon"
-                    , "String"
-                   };
+                     {
+                 "Binary"
+               , "Geography"
+               , "GeographyCollection"
+               , "GeographyLineString"
+               , "GeographyMultiLineString"
+               , "GeographyMultiPoint"
+               , "GeographyMultiPolygon"
+               , "GeographyPoint"
+               , "GeographyPolygon"
+               , "Geometry"
+               , "GeometryCollection"
+               , "GeometryLineString"
+               , "GeometryMultiLineString"
+               , "GeometryMultiPoint"
+               , "GeometryMultiPolygon"
+               , "GeometryPoint"
+               , "GeometryPolygon"
+               , "String"
+               };
          }
       }
 
@@ -47,24 +46,24 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          get
          {
             return new[]
-                   {
-                      "Geography"
-                    , "GeographyCollection"
-                    , "GeographyLineString"
-                    , "GeographyMultiLineString"
-                    , "GeographyMultiPoint"
-                    , "GeographyMultiPolygon"
-                    , "GeographyPoint"
-                    , "GeographyPolygon"
-                    , "Geometry"
-                    , "GeometryCollection"
-                    , "GeometryLineString"
-                    , "GeometryMultiLineString"
-                    , "GeometryMultiPoint"
-                    , "GeometryMultiPolygon"
-                    , "GeometryPoint"
-                    , "GeometryPolygon"
-                   };
+                     {
+                 "Geography"
+               , "GeographyCollection"
+               , "GeographyLineString"
+               , "GeographyMultiLineString"
+               , "GeographyMultiPoint"
+               , "GeographyMultiPolygon"
+               , "GeographyPoint"
+               , "GeographyPolygon"
+               , "Geometry"
+               , "GeometryCollection"
+               , "GeometryLineString"
+               , "GeometryMultiLineString"
+               , "GeometryMultiPoint"
+               , "GeometryMultiPolygon"
+               , "GeometryPoint"
+               , "GeometryPolygon"
+               };
          }
       }
 
@@ -859,25 +858,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output("}");
             }
 
-            if (navigationProperty.FKPropertyName != null)
-            {
-               Output("/// <summary>");
-               Output($"/// Foreign key for {navigationProperty.PropertyName}");
-               Output("/// </summary>");
-               ModelClass principal = navigationProperty.AssociationObject.Principal;
-
-               string[] fkPropertyNames = navigationProperty.FKPropertyName.Split(',').ToArray();
-               ModelAttribute[] identityAttributes = principal.AllIdentityAttributes.ToArray();
-
-               for (int index  = 0; index < identityAttributes.Length; index++)
-               {
-                  ModelAttribute identityAttribute = identityAttributes[index];
-                  string propertyName = fkPropertyNames[index];
-                  string nullable = identityAttribute.Required ? "" : "?";
-
-                  Output($"public {identityAttribute.FQPrimitiveType}{nullable} {propertyName} {{ get; set; }}");
-               }
-            }
             NL();
          }
       }

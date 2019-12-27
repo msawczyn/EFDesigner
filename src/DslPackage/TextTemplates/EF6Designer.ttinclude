@@ -464,8 +464,8 @@ private void WriteModelCreateEF6(ModelRoot modelRoot, ModelClass[] classesWithTa
                      string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
 
                      segments.Add(modelClass == association.Source
-                                       ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{sourceMap}""); x.MapRightKey(""{targetMap}""); }})"
-                                       : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{targetMap}""); x.MapRightKey(""{sourceMap}""); }})");
+                                       ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
+                                       : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({targetMap}); x.MapRightKey({sourceMap}); }})");
                   }
 
                   break;
@@ -570,8 +570,8 @@ private void WriteModelCreateEF6(ModelRoot modelRoot, ModelClass[] classesWithTa
                      string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
 
                      segments.Add(modelClass == association.Source
-                                       ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{sourceMap}""); x.MapRightKey(""{targetMap}""); }})"
-                                       : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey(""{targetMap}""); x.MapRightKey(""{sourceMap}""); }})");
+                                       ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
+                                       : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({targetMap}); x.MapRightKey({sourceMap}); }})");
                   }
 
                   break;
@@ -681,7 +681,7 @@ string CreateForeignKeySegmentEF6(Association association, List<string> foreignK
                               , principal.IdentityAttributes
                                           .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
 
-      return $@"Map(x => x.MapKey(""{columnNames}""))";
+      return $"Map(x => x.MapKey({columnNames}))";
    }
 
    // defined properties

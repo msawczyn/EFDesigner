@@ -123,7 +123,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
                         // add delete locks to the attributes that are now foreign keys
                         foreach (string propertyName in element.ForeignKeyPropertyNames)
-                           element.Dependent.Attributes.FirstOrDefault(a => a.Name == propertyName)?.SetLocks(Locks.Delete);
+                        {
+                           ModelAttribute fkAttribute = element.Dependent.Attributes.FirstOrDefault(a => a.Name == propertyName);
+                           if (fkAttribute != null)
+                           {
+                              fkAttribute.SetLocks(Locks.None);
+                              fkAttribute.Summary = $"Foreign key for {element.GetDisplayText()}";
+                              fkAttribute.SetLocks(Locks.Delete | Locks.Properties);
+                           }
+                        }
                      }
                   }
                }

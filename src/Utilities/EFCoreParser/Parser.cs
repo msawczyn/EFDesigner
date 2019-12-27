@@ -17,7 +17,7 @@ using ParsingModels;
 
 namespace EFCoreParser
 {
-   public class Parser
+   public partial class Parser
    {
       private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
       private readonly DbContext dbContext;
@@ -125,7 +125,7 @@ namespace EFCoreParser
             if (navigationProperty.ForeignKey != null)
             {
                List<string> fkPropertyDeclarations = navigationProperty.ForeignKey.Properties
-                                                                       .Where(p => !p.IsShadowProperty)
+                                                                       .Where(p => !p.IsShadowProperty())
                                                                        .Select(p => p.Name)
                                                                        .ToList();
 
@@ -184,7 +184,7 @@ namespace EFCoreParser
             if (navigationProperty.ForeignKey != null)
             {
                List<string> fkPropertyDeclarations = navigationProperty.ForeignKey.Properties
-                                                                       .Where(p => !p.IsShadowProperty)
+                                                                       .Where(p => !p.IsShadowProperty())
                                                                        .Select(p => $"{p.DeclaringEntityType.Name}/{p.ClrType.Name}{(p.IsNullable ? "?" : "")} {p.Name}")
                                                                        .ToList();
 
@@ -264,7 +264,11 @@ namespace EFCoreParser
                                       : null;
 
          // TODO continue here
-         result.Properties = entityType.GetDeclaredProperties().Where(p => !p.IsShadowProperty).Select(p => ProcessProperty(p, modelRoot)).Where(x => x != null).ToList();
+         result.Properties = entityType.GetDeclaredProperties()
+                                       .Where(p => !p.IsShadowProperty())
+                                       .Select(p => ProcessProperty(p, modelRoot))
+                                       .Where(x => x != null)
+                                       .ToList();
          result.UnidirectionalAssociations = GetUnidirectionalAssociations(entityType);
          result.BidirectionalAssociations = GetBidirectionalAssociations(entityType);
 
@@ -314,7 +318,7 @@ namespace EFCoreParser
          result.TypeName = type.IsEnum ? type.FullName : type.Name;
          result.Name = propertyData.Name;
          result.IsIdentity = propertyData.IsKey();
-         result.IsIdentityGenerated = result.IsIdentity && propertyData.BeforeSaveBehavior == PropertySaveBehavior.Ignore;
+         result.IsIdentityGenerated = result.IsIdentity && propertyData.ValueGenerated == ValueGenerated.OnAdd;
 
          result.Required = !propertyData.IsNullable;
          result.Indexed = propertyData.IsIndex();

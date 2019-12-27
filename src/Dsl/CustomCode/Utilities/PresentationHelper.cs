@@ -93,6 +93,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
          using (Transaction trans = element.Store.TransactionManager.BeginTransaction("Display associations"))
          {
+            SetConnectorWidth(connector);
+
             if (connector.Color != lineColor)
             {
                connector.Color = lineColor;
@@ -107,6 +109,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
             trans.Commit();
          }
+      }
+
+      private static void SetConnectorWidth(AssociationConnector connector)
+      {
+         PenSettings settings = connector.StyleSet.GetOverriddenPenSettings(DiagramPens.ConnectionLine) ?? new PenSettings();
+
+         settings.Width = connector.ManuallyRouted
+                             ? 0.02f
+                             : 0.01f;
+
+         connector.StyleSet.OverridePen(DiagramPens.ConnectionLine, settings);
       }
 
       public static void UpdateClassDisplay(ModelClass element)

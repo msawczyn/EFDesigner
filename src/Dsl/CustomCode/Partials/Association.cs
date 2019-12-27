@@ -74,6 +74,11 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public virtual string GetDisplayText()
+      {
+         return $"{Source.Name}.{TargetPropertyName} -> {Target.Name}";
+      }
+
       internal void EnsureForeignKeyAttributes()
       {
          if (string.IsNullOrWhiteSpace(FKPropertyName))

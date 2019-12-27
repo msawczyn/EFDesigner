@@ -21,7 +21,7 @@ string[] NonNullableTypes
    {
       return new[]
                {
-                  "Binary"
+                 "Binary"
                , "Geography"
                , "GeographyCollection"
                , "GeographyLineString"
@@ -49,7 +49,7 @@ string[] SpatialTypes
    {
       return new[]
                {
-                  "Geography"
+                 "Geography"
                , "GeographyCollection"
                , "GeographyLineString"
                , "GeographyMultiLineString"
@@ -860,25 +860,6 @@ void WriteNavigationProperties(ModelClass modelClass)
          Output("}");
       }
 
-      if (navigationProperty.FKPropertyName != null)
-      {
-         Output("/// <summary>");
-         Output($"/// Foreign key for {navigationProperty.PropertyName}");
-         Output("/// </summary>");
-         ModelClass principal = navigationProperty.AssociationObject.Principal;
-
-         string[] fkPropertyNames = navigationProperty.FKPropertyName.Split(',').ToArray();
-         ModelAttribute[] identityAttributes = principal.AllIdentityAttributes.ToArray();
-
-         for (int index  = 0; index < identityAttributes.Length; index++)
-         {
-            ModelAttribute identityAttribute = identityAttributes[index];
-            string propertyName = fkPropertyNames[index];
-            string nullable = identityAttribute.Required ? "" : "?";
-
-            Output($"public {identityAttribute.FQPrimitiveType}{nullable} {propertyName} {{ get; set; }}");
-         }
-      }
       NL();
    }
 }
