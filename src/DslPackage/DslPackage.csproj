@@ -307,6 +307,7 @@
     <Content Include="Parsers\System.Runtime.CompilerServices.Unsafe.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="QuickGraph.dll" />
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -553,6 +554,9 @@ copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFMode
     </PackageReference>
     <PackageReference Include="NuGet.VisualStudio">
       <Version>5.5.0-preview.1.6319</Version>
+    </PackageReference>
+    <PackageReference Include="QuickGraph">
+      <Version>3.6.61119.7</Version>
     </PackageReference>
     <PackageReference Include="stdole">
       <Version>7.0.3303</Version>

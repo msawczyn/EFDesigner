@@ -19,6 +19,8 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </param>
       protected override void CheckVersion(SerializationContext serializationContext, XmlReader reader)
       {
+         return;
+
          #region Check Parameters
 
          Debug.Assert(serializationContext != null);

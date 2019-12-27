@@ -41,11 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IncludeContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IncludeContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +52,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="IncludeContext.efmodel" />
-    <None Include="IncludeContext.efmodel.diagram">
-      <DependentUpon>IncludeContext.efmodel</DependentUpon>
-    </None>
-    <None Include="IncludeContext.xsd">
-      <SubType>Designer</SubType>
-      <DependentUpon>IncludeContext.efmodel</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -75,12 +62,6 @@
     <Folder Include="Generated\Enums\" />
     <Folder Include="Generated\Structs\" />
     <Folder Include="Migrations\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="IncludeContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IncludeContext.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

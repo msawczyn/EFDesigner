@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,12 +16,34 @@ using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 using Microsoft.VisualStudio.Modeling.Extensibility;
 
+using QuickGraph;
+using QuickGraph.Graphviz;
+using QuickGraph.Graphviz.Dot;
+
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
 using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+
+   public class QGEdge : IEdge<NodeShape>
+   {
+      public NodeShape Source { get; set; }
+      public NodeShape Target { get; set; }
+   }
+   public class FileDotEngine : IDotEngine
+   {    
+      public string Run(GraphvizImageType imageType, string dot, string outputFileName)
+      {
+         using (StreamWriter writer = new StreamWriter(outputFileName))
+         {
+            writer.Write(dot);    
+         }
+
+         return System.IO.Path.GetFileName(outputFileName);
+      }
+   }
    internal class Commands
    {
       internal static void LayoutDiagram(EFModelDiagram diagram)
@@ -39,7 +62,21 @@ namespace Sawczyn.EFDesigner.EFModel
                // The standard DSL layout method was selected. Just do the deed and be done with it.
                // otherwise, we need to run an MSAGL layout
                if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
+               {
+                  QGEdge[] edges = linkShapes.Select(s => new QGEdge { Source = s.FromShape, Target = s.ToShape }).ToArray();
+                  BidirectionalGraph<NodeShape, QGEdge> graph = new BidirectionalGraph<NodeShape, QGEdge>(true);
+                  GraphvizAlgorithm<NodeShape, QGEdge> graphviz = new GraphvizAlgorithm<NodeShape, QGEdge>(graph);
+
+                  graphviz.FormatVertex += (sender, args) => args.VertexFormatter.Label = args.Vertex is ClassShape classShape
+                                                                                             ? classShape.ShapeFields.FirstOrDefault(sf => sf.Name == "Name")?.Name
+                                                                                             : args.Vertex is EnumShape enumShape
+                                                                                                ? enumShape.ShapeFields.FirstOrDefault(sf => sf.Name == "Name")?.Name
+                                                                                                : Guid.NewGuid().ToString();
+
+                  graphviz.Generate(new FileDotEngine(), @"C:\Temp\GraphML.dot");
+
                   DoStandardLayout(linkShapes, diagram);
+               }
                else
                   DoCustomLayout(nodeShapes, linkShapes, modelRoot);
 
@@ -150,7 +187,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (connector != null)
          {
-            connector.ManuallyRouted = !connector.ManuallyRouted;
+            connector.ManuallyRouted = false;
             connector.FixedFrom = VGFixedCode.NotFixed;
             connector.FixedTo = VGFixedCode.NotFixed;
 
@@ -164,7 +201,6 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             connector.RecalculateRoute();
-            connector.ManuallyRouted = !connector.ManuallyRouted;
          }
       }
 
