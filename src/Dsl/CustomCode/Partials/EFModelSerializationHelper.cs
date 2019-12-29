@@ -21,6 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          return;
 
+/*
          #region Check Parameters
 
          Debug.Assert(serializationContext != null);
@@ -57,6 +58,7 @@ namespace Sawczyn.EFDesigner.EFModel
                EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, "dslVersion", typeof(Version), dslVersionStr);
             }
          }
+*/
       }
 
       /// <summary>

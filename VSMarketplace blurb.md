@@ -1,4 +1,4 @@
-This Visual Studio 2017/2019 extension is an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
+This Visual Studio 2019 extension is an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
 of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in 
 the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design.
 

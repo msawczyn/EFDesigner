@@ -2,7 +2,7 @@
 
 ## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 
-Model and generate code for Entity Framework v6, Entity Framework Core 2.0 through 2.2
+Model and generate code for both Entity Framework v6.x and Entity Framework Core >= 2.0
 
 **[Install with NuGet](https://docs.microsoft.com/en-us/visualstudio/ide/finding-and-using-visual-studio-extensions) from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
 
@@ -12,7 +12,7 @@ Model and generate code for Entity Framework v6, Entity Framework Core 2.0 throu
 <img src="https://msawczyn.github.io/EFDesigner/images/Designer.jpg">
 </td></tr></tbody></table>
 
-This Visual Studio 2017/2019 extension is an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most
+This Visual Studio 2019 extension is an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most
 importantly, **visual** design of persistent classes. Inheritance, unidirectional and bidirectional 
 associations are all supported. Enumerations are also included in the visual model, as is the 
 ability to add text blocks to explain potentially arcane parts of your design.

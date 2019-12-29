@@ -34,8 +34,8 @@ namespace EFCoreParser
           
             GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
             XmlConfigurator.Configure(LogManager.GetRepository(Assembly.GetCallingAssembly()), new FileInfo("log4net.config"));
-            log.Info($"Starting {typeof(Program).Assembly.GetName().Name}");
-            log.Info($"Log file at {GlobalContext.Properties["LogPath"]}");
+            log.Debug($"Starting {typeof(Program).Assembly.GetName().Name}");
+            log.Info($"Log file at {GlobalContext.Properties["LogPath"]}.log");
 
             string contextClassName = args.Length == 3 ? args[2] : null;
 

@@ -34,8 +34,8 @@ namespace EF6Parser
 
             GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
             XmlConfigurator.Configure();
-            log.Info($"Starting {typeof(Program).Assembly.GetName().Name}");
-            log.Info($"Log file at {GlobalContext.Properties["LogPath"]}");
+            log.Debug($"Starting {typeof(Program).Assembly.GetName().Name}");
+            log.Info($"Log file at {GlobalContext.Properties["LogPath"]}.log");
         
             string contextClassName = args.Length == 3 ? args[2] : null;
 

@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 #endif
 [assembly: AssemblyCompany("Michael Sawczyn")]
 [assembly: AssemblyProduct("EFDesigner")]
-[assembly: AssemblyCopyright("Copyright © Michael Sawczyn 2017-2019")]
+[assembly: AssemblyCopyright("Copyright © Michael Sawczyn 2017-2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.4.0.0")]
-[assembly: AssemblyFileVersion("1.4.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]

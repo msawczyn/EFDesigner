@@ -29,13 +29,13 @@ namespace EFCoreParser
 
          if (dbContextTypeName != null)
          {
-            log.Info($"dbContextTypeName parameter is {dbContextTypeName}");
+            log.Debug($"dbContextTypeName parameter is {dbContextTypeName}");
             contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
             log.Info($"Using contextType = {contextType.FullName}");
          }
          else
          {
-            log.Info("dbContextTypeName parameter is null");
+            log.Debug("dbContextTypeName parameter is null");
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
 
             // ReSharper disable once UnthrowableException

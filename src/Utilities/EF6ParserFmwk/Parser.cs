@@ -33,13 +33,13 @@ namespace EF6Parser
 
          if (dbContextTypeName != null)
          {
-            log.Info($"dbContextTypeName parameter is {dbContextTypeName}");
+            log.Debug($"dbContextTypeName parameter is {dbContextTypeName}");
             contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
             log.Info($"Using contextType = {contextType.FullName}");
          }
          else
          {
-            log.Info("dbContextTypeName parameter is null");
+            log.Debug("dbContextTypeName parameter is null");
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
 
             if (types.Count == 0)
@@ -153,8 +153,8 @@ namespace EF6Parser
             if (dependentProperties.Any())
                association.ForeignKey = string.Join(",", dependentProperties.Select(p => p.Name));
 
-            log.Info($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
-            log.Info("\n   " + JsonConvert.SerializeObject(association));
+            log.Debug($"Found bidirectional association {association.SourceClassName}.{association.TargetPropertyName} <-> {association.TargetClassName}.{association.SourcePropertyTypeName}");
+            log.Debug("\n   " + JsonConvert.SerializeObject(association));
             result.Add(association);
          }
 
@@ -266,8 +266,8 @@ namespace EF6Parser
 
             string json = JsonConvert.SerializeObject(association);
 
-            log.Info($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
-            log.Info("\n   " + json);
+            log.Debug($"Found unidirectional association {association.SourceClassName}.{association.TargetPropertyName} -> {association.TargetClassName}");
+            log.Debug("\n   " + json);
             result.Add(association);
          }
 
@@ -297,13 +297,13 @@ namespace EF6Parser
          }
 
          ReadOnlyCollection<GlobalItem> oSpace = metadata.GetItems(DataSpace.OSpace);
-         log.Info($"Found {oSpace.Count} OSpace items");
+         log.Debug($"Found {oSpace.Count} OSpace items");
 
          ReadOnlyCollection<GlobalItem> sSpace = metadata.GetItems(DataSpace.SSpace);
-         log.Info($"Found {sSpace.Count} SSpace items");
+         log.Debug($"Found {sSpace.Count} SSpace items");
 
          ReadOnlyCollection<GlobalItem> cSpace = metadata.GetItems(DataSpace.CSpace);
-         log.Info($"Found {cSpace.Count} CSpace items");
+         log.Debug($"Found {cSpace.Count} CSpace items");
 
          // Context
          ///////////////////////////////////////////
@@ -319,7 +319,7 @@ namespace EF6Parser
                                                .Where(x => x != null)
                                                .ToList();
 
-         log.Info($"Adding {modelClasses.Count} classes");
+         log.Debug($"Adding {modelClasses.Count} classes");
          modelRoot.Classes.AddRange(modelClasses);
 
          // Complex types
@@ -332,18 +332,18 @@ namespace EF6Parser
                               .Where(x => x != null)
                               .ToList();
 
-         log.Info($"Adding {modelClasses.Count} complex types");
+         log.Debug($"Adding {modelClasses.Count} complex types");
          modelRoot.Classes.AddRange(modelClasses);
 
          // Enums
          ///////////////////////////////////////////
          List<ModelEnum> modelEnums = oSpace.OfType<EnumType>().Select(ProcessEnum).Where(x => x != null).ToList();
-         log.Info($"Adding {modelEnums.Count} enumerations");
+         log.Debug($"Adding {modelEnums.Count} enumerations");
          modelRoot.Enumerations.AddRange(modelEnums);
 
          // Put it all together
          ///////////////////////////////////////////
-         log.Info("Serializing to JSON string");
+         log.Debug("Serializing to JSON string");
 
          return JsonConvert.SerializeObject(modelRoot);
       }
@@ -359,7 +359,7 @@ namespace EF6Parser
             return null;
          }
 
-         log.Info($"Found complex type {entityFullName}");
+         log.Debug($"Found complex type {entityFullName}");
          string customAttributes = GetCustomAttributes(type);
 
          ModelClass result = new ModelClass
@@ -387,7 +387,7 @@ namespace EF6Parser
                               , TableName = null
                              };
 
-         log.Info("\n   " + JsonConvert.SerializeObject(result));
+         log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
          return result;
       }
@@ -403,7 +403,7 @@ namespace EF6Parser
             return null;
          }
 
-         log.Info($"Found entity {entityFullName}");
+         log.Debug($"Found entity {entityFullName}");
          string customAttributes = GetCustomAttributes(type);
 
          ModelClass result = new ModelClass
@@ -432,7 +432,7 @@ namespace EF6Parser
                               , TableName = GetTableName(type, dbContext)
                              };
 
-         log.Info("\n   " + JsonConvert.SerializeObject(result));
+         log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
          return result;
       }
@@ -448,7 +448,7 @@ namespace EF6Parser
             return null;
          }
 
-         log.Info($"Found enum {enumType.FullName}");
+         log.Debug($"Found enum {enumType.FullName}");
          string customAttributes = GetCustomAttributes(type);
 
          ModelEnum result = new ModelEnum
@@ -465,7 +465,7 @@ namespace EF6Parser
                                                 .ToList()
                             };
 
-         log.Info("\n   " + JsonConvert.SerializeObject(result));
+         log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
          return result;
       }
@@ -476,7 +476,7 @@ namespace EF6Parser
          if (oSpaceProperty == null)
             return null;
 
-         log.Info($"Found property {parent.Name}.{oSpaceProperty.Name}");
+         log.Debug($"Found property {parent.Name}.{oSpaceProperty.Name}");
 
          try
          {
@@ -498,7 +498,7 @@ namespace EF6Parser
                                                            : 0
                                    };
 
-            log.Info("\n   " + JsonConvert.SerializeObject(result));
+            log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
             return result;
          }
@@ -515,12 +515,12 @@ namespace EF6Parser
          if (contextType == null)
             throw new InvalidDataException();
 
-         log.Info($"Found DbContext {contextType.Name}");
+         log.Debug($"Found DbContext {contextType.Name}");
 
          result.EntityContainerName = contextType.Name;
          result.Namespace = contextType.Namespace;
 
-         log.Info("\n   " + JsonConvert.SerializeObject(result));
+         log.Debug("\n   " + JsonConvert.SerializeObject(result));
 
          return result;
       }

@@ -540,6 +540,11 @@ copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFMode
     <PackageReference Include="EnvDTE80">
       <Version>8.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Graphviz">
+      <Version>2.38.0.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes">
       <Version>15.0.27</Version>
     </PackageReference>

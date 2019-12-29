@@ -26,12 +26,6 @@ using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-
-   public class QGEdge : IEdge<NodeShape>
-   {
-      public NodeShape Source { get; set; }
-      public NodeShape Target { get; set; }
-   }
    public class FileDotEngine : IDotEngine
    {    
       public string Run(GraphvizImageType imageType, string dot, string outputFileName)
@@ -41,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
             writer.Write(dot);    
          }
 
-         return System.IO.Path.GetFileName(outputFileName);
+         return Path.GetFileName(outputFileName);
       }
    }
    internal class Commands
@@ -63,18 +57,7 @@ namespace Sawczyn.EFDesigner.EFModel
                // otherwise, we need to run an MSAGL layout
                if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
                {
-                  QGEdge[] edges = linkShapes.Select(s => new QGEdge { Source = s.FromShape, Target = s.ToShape }).ToArray();
-                  BidirectionalGraph<NodeShape, QGEdge> graph = new BidirectionalGraph<NodeShape, QGEdge>(true);
-                  GraphvizAlgorithm<NodeShape, QGEdge> graphviz = new GraphvizAlgorithm<NodeShape, QGEdge>(graph);
-
-                  graphviz.FormatVertex += (sender, args) => args.VertexFormatter.Label = args.Vertex is ClassShape classShape
-                                                                                             ? classShape.ShapeFields.FirstOrDefault(sf => sf.Name == "Name")?.Name
-                                                                                             : args.Vertex is EnumShape enumShape
-                                                                                                ? enumShape.ShapeFields.FirstOrDefault(sf => sf.Name == "Name")?.Name
-                                                                                                : Guid.NewGuid().ToString();
-
-                  graphviz.Generate(new FileDotEngine(), @"C:\Temp\GraphML.dot");
-
+                  DoGraphvizLayout(nodeShapes, linkShapes, diagram);
                   DoStandardLayout(linkShapes, diagram);
                }
                else
@@ -87,6 +70,31 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Cursor.Current = Cursors.Default;
          }
+      }
+
+      private static void DoGraphvizLayout(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
+      {
+         SEdge<NodeShape>[] edges = linkShapes.Select(s => new SEdge<NodeShape>(s.FromShape, s.ToShape)).ToArray();
+         BidirectionalGraph<NodeShape, SEdge<NodeShape>> graph = edges.ToBidirectionalGraph<NodeShape, SEdge<NodeShape>>(true);
+         graph.AddVertexRange(nodeShapes.Except(edges.Select(e => e.Source).Union(edges.Select(e => e.Target))));
+         graph.RemoveVertexIf(n => n is CommentBoxShape);
+
+         GraphvizAlgorithm<NodeShape, SEdge<NodeShape>> graphviz = new GraphvizAlgorithm<NodeShape, SEdge<NodeShape>>(graph);
+
+         graphviz.FormatVertex += (sender, args) =>
+                                  {
+                                     if (args.Vertex is ClassShape classShape)
+                                        args.VertexFormatter.Label = ((ModelClass)classShape.ModelElement).Name;
+                                     else if (args.Vertex is EnumShape enumShape)
+                                        args.VertexFormatter.Label = ((ModelEnum)enumShape.ModelElement).Name;
+                                     else
+                                        args.VertexFormatter.Label = Guid.NewGuid().ToString();
+
+                                     args.VertexFormatter.FixedSize = true;
+                                     args.VertexFormatter.Size = new GraphvizSizeF((float)args.Vertex.Size.Width, (float)args.Vertex.Size.Height);
+                                  };
+
+         graphviz.Generate(new FileDotEngine(), @"C:\Temp\GraphML.dot");
       }
 
       private static void DoCustomLayout(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
@@ -146,13 +154,8 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Sugiyama)
                {
-                  int upperNodeIndex = linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement
-                                          ? 0
-                                          : 1;
-
-                  int lowerNodeIndex = upperNodeIndex == 0
-                                          ? 1
-                                          : 0;
+                  int upperNodeIndex = linkShape.Nodes[1].ModelElement.GetBaseElement() == linkShape.Nodes[0].ModelElement ? 0 : 1;
+                  int lowerNodeIndex = upperNodeIndex == 0 ? 1 : 0;
 
                   sugiyamaSettings.AddUpDownConstraint(graph.FindNodeByUserData(linkShape.Nodes[upperNodeIndex]),
                                                        graph.FindNodeByUserData(linkShape.Nodes[lowerNodeIndex]));
@@ -183,26 +186,26 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static void AutoRouteConnector(BinaryLinkShape connector)
-      {
-         if (connector != null)
-         {
-            connector.ManuallyRouted = false;
-            connector.FixedFrom = VGFixedCode.NotFixed;
-            connector.FixedTo = VGFixedCode.NotFixed;
+      //private static void AutoRouteConnector(BinaryLinkShape connector)
+      //{
+      //   if (connector != null)
+      //   {
+      //      connector.ManuallyRouted = false;
+      //      connector.FixedFrom = VGFixedCode.NotFixed;
+      //      connector.FixedTo = VGFixedCode.NotFixed;
 
-            foreach (ShapeElement element in connector.RelativeChildShapes)
-            {
-               if (element is LineLabelShape lineLabelShape)
-               {
-                  lineLabelShape.ManuallySized = false;
-                  lineLabelShape.ManuallyPlaced = false;
-               }
-            }
+      //      foreach (ShapeElement element in connector.RelativeChildShapes)
+      //      {
+      //         if (element is LineLabelShape lineLabelShape)
+      //         {
+      //            lineLabelShape.ManuallySized = false;
+      //            lineLabelShape.ManuallyPlaced = false;
+      //         }
+      //      }
 
-            connector.RecalculateRoute();
-         }
-      }
+      //      connector.RecalculateRoute();
+      //   }
+      //}
 
       private static void UpdateConnectors(GeometryGraph graph)
       {
@@ -238,7 +241,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             else if (edge.Curve is Curve curve)
             {
-               //// When curve is a complex segment.
+               // When curve is a complex segment.
                EdgePoint lastPoint = null;
 
                foreach (ICurve segment in curve.Segments)
