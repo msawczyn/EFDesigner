@@ -427,8 +427,8 @@ namespace EF6Parser
                                                                                              , cSpaceType?.DeclaredProperties?.FirstOrDefault(q => q.Name == propertyName)))
                                                        .Where(x => x != null)
                                                        .ToList()
-                              , UnidirectionalAssociations = GetUnidirectionalAssociations(cSpaceType)
-                              , BidirectionalAssociations = GetBidirectionalAssociations(cSpaceType)
+                              , UnidirectionalAssociations = GetUnidirectionalAssociations(cSpaceType ?? oSpaceType)
+                              , BidirectionalAssociations = GetBidirectionalAssociations(cSpaceType ?? oSpaceType)
                               , TableName = GetTableName(type, dbContext)
                              };
 
