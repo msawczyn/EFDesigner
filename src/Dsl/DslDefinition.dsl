@@ -2614,14 +2614,14 @@
       </ConnectorMap>
     </ConnectorMaps>
   </Diagram>
-  <Designer CopyPasteGeneration="CopyPasteOnly" FileExtension="efmodel" EditorGuid="4e135186-c9c4-4b55-8959-217a3e025622" usesStickyToolboxItems="true">
+  <Designer CopyPasteGeneration="CopyPasteOnly" FileExtension="efmodel" Icon="Resources\File.ico" EditorGuid="4e135186-c9c4-4b55-8959-217a3e025622" usesStickyToolboxItems="true">
     <RootClass>
       <DomainClassMoniker Name="ModelRoot" />
     </RootClass>
     <XmlSerializationDefinition CustomPostLoad="true">
       <XmlSerializationBehaviorMoniker Name="EFModelSerializationBehavior" />
     </XmlSerializationDefinition>
-    <ToolboxTab TabText="Class Diagrams">
+    <ToolboxTab TabText="EF Model Diagrams">
       <ElementTool Name="ModelClass" ToolboxIcon="Resources\EntityGlyph.bmp" Caption="Entity" Tooltip="Create a persistent entity" HelpKeyword="ModelClassF1Keyword">
         <DomainClassMoniker Name="ModelClass" />
       </ElementTool>

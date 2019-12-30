@@ -27,8 +27,8 @@ namespace Sawczyn.EFDesigner.EFModel
 	[VSShell::PackageRegistration(RegisterUsing = VSShell::RegistrationMethod.Assembly, UseManagedResourcesOnly = true)]
 	[VSShell::ProvideToolWindow(typeof(EFModelExplorerToolWindow), MultiInstances = false, Style = VSShell::VsDockStyle.Tabbed, Orientation = VSShell::ToolWindowOrientation.Right, Window = "{3AE79031-E1BC-11D0-8F78-00A0C9110057}")]
 	[VSShell::ProvideToolWindowVisibility(typeof(EFModelExplorerToolWindow), Constants.EFModelEditorFactoryId)]
-	[VSShell::ProvideStaticToolboxGroup("@Class DiagramsToolboxTab;Sawczyn.EFDesigner.EFModel.Dsl.dll", "Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab")]
-	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
+	[VSShell::ProvideStaticToolboxGroup("@EF Model DiagramsToolboxTab;Sawczyn.EFDesigner.EFModel.Dsl.dll", "Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab")]
+	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
 					"@ModelClassToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					"Sawczyn.EFDesigner.EFModel.ModelClassToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
@@ -36,7 +36,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					"@ModelClassToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 0)]
-	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
+	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
 					"@UnidirectionalAssociationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					"Sawczyn.EFDesigner.EFModel.UnidirectionalAssociationToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
@@ -44,7 +44,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					"@UnidirectionalAssociationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 1)]
-	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
+	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
 					"@BidirectionalAssociationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					"Sawczyn.EFDesigner.EFModel.BidirectionalAssociationToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
@@ -52,7 +52,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					"@BidirectionalAssociationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 2)]
-	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
+	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
 					"@GeneralizationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					"Sawczyn.EFDesigner.EFModel.GeneralizationToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
@@ -60,7 +60,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					"@GeneralizationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 3)]
-	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
+	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
 					"@CommentToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					"Sawczyn.EFDesigner.EFModel.CommentToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
@@ -68,7 +68,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					"@CommentToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 4)]
-	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
+	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
 					"@CommentLinkToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					"Sawczyn.EFDesigner.EFModel.CommentLinkToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
@@ -76,7 +76,7 @@ namespace Sawczyn.EFDesigner.EFModel
 					"@CommentLinkToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 5)]
-	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab",
+	[VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
 					"@EnumerationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					"Sawczyn.EFDesigner.EFModel.EnumerationToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
@@ -174,7 +174,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	}
 
 }
-
 //
 // Package attributes which may need to change are placed on the partial class below, rather than in the main include file.
 //

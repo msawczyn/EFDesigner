@@ -540,11 +540,6 @@ copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFMode
     <PackageReference Include="EnvDTE80">
       <Version>8.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Graphviz">
-      <Version>2.38.0.2</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK.EmbedInteropTypes">
       <Version>15.0.27</Version>
     </PackageReference>
@@ -562,6 +557,9 @@ copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFMode
     </PackageReference>
     <PackageReference Include="QuickGraph">
       <Version>3.6.61119.7</Version>
+    </PackageReference>
+    <PackageReference Include="Shields.GraphViz">
+      <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="stdole">
       <Version>7.0.3303</Version>

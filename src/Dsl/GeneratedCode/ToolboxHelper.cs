@@ -110,7 +110,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 			get
 			{
-				return global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("Class DiagramsToolboxTab", global::System.Globalization.CultureInfo.CurrentUICulture);
+				return global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("EF Model DiagramsToolboxTab", global::System.Globalization.CultureInfo.CurrentUICulture);
 			}
 		}
 		
@@ -178,8 +178,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						1, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("ModelClassToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModelClassToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
-						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("EF Model DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
 						"ModelClassF1Keyword", // F1 help keyword for the toolbox item.
 						resourceManager.GetString("ModelClassToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						CreateElementToolPrototype(store, global::Sawczyn.EFDesigner.EFModel.ModelClass.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
@@ -196,8 +196,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						2, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("UnidirectionalAssociationToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("UnidirectionalAssociationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("EF Model DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
 						"ConnectUnidirectionalAssociationF1Keyword", // F1 help keyword for the toolbox item.
 						resourceManager.GetString("UnidirectionalAssociationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						null, // Connector toolbox items do not have an underlying data object.
@@ -214,8 +214,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						3, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("BidirectionalAssociationToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("BidirectionalAssociationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("EF Model DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
 						"ConnectBidirectionalAssociationF1Keyword", // F1 help keyword for the toolbox item.
 						resourceManager.GetString("BidirectionalAssociationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						null, // Connector toolbox items do not have an underlying data object.
@@ -232,8 +232,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						4, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("GeneralizationToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("GeneralizationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("EF Model DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
 						"GeneralizationF1Keyword", // F1 help keyword for the toolbox item.
 						resourceManager.GetString("GeneralizationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						null, // Connector toolbox items do not have an underlying data object.
@@ -249,8 +249,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						5, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("CommentToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
-						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("EF Model DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
 						"CommentF1Keyword", // F1 help keyword for the toolbox item.
 						resourceManager.GetString("CommentToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						CreateElementToolPrototype(store, global::Sawczyn.EFDesigner.EFModel.Comment.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
@@ -267,8 +267,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						6, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("CommentLinkToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentLinkToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("EF Model DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
 						"CommentsReferenceDesignElementsF1Keyword", // F1 help keyword for the toolbox item.
 						resourceManager.GetString("CommentLinkToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						null, // Connector toolbox items do not have an underlying data object.
@@ -284,8 +284,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						7, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("EnumerationToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("EnumerationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
-						"Sawczyn.EFDesigner.EFModel.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("EF Model DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
 						"ModelEnumF1Keyword", // F1 help keyword for the toolbox item.
 						resourceManager.GetString("EnumerationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						CreateElementToolPrototype(store, global::Sawczyn.EFDesigner.EFModel.ModelEnum.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.

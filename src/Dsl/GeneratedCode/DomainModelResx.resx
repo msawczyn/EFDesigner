@@ -3237,8 +3237,8 @@
     <value>Class Diagram</value>
     <comment>DisplayName for DomainClass &apos;EFModelDiagram&apos;</comment>
   </data>
-  <data name="Class DiagramsToolboxTab" xml:space="preserve">
-    <value>Class Diagrams</value>
+  <data name="EF Model DiagramsToolboxTab" xml:space="preserve">
+    <value>EF Model Diagrams</value>
     <comment>Toolbox item tab name</comment>
   </data>
   <data name="ModelClassToolboxItem" xml:space="preserve">

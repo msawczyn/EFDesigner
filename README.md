@@ -60,6 +60,10 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 **2.0.0.0** (next version)
    - **Dropped support for Visual Studio 2017 due to the changes in .NET Core 3.0 and above**
    - Added ability to specify foreign key properties
+   - Modified assembly parsers to find declared foreign keys and add them to the model appropriately
+   - Renamed toolbox category to "EF Model Diagrams"
+   - Added options dialog (Tools/Options/EF Designer)
+   - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/EF Designer")
 
 <details>
 <summary><b>1.3.0.12</b></summary>
