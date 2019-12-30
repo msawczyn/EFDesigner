@@ -106,6 +106,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IO.Compression" />
@@ -141,6 +142,9 @@
     <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelEnumExtensions.cs" />
+    <Compile Include="CustomCode\OptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomCode\Partials\Constants.cs" />
     <Compile Include="CustomCode\Partials\EFModelCommandSet.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocData.cs" />

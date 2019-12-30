@@ -62,8 +62,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Added ability to specify foreign key properties
    - Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - Renamed toolbox category to "EF Model Diagrams"
-   - Added options dialog (Tools/Options/EF Designer)
-   - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/EF Designer")
+   - Added options dialog (Tools/Options/Entity Framework Visual Editor)
+   - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
 
 <details>
 <summary><b>1.3.0.12</b></summary>

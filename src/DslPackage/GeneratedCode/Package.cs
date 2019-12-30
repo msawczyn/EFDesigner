@@ -174,6 +174,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	}
 
 }
+
 //
 // Package attributes which may need to change are placed on the partial class below, rather than in the main include file.
 //

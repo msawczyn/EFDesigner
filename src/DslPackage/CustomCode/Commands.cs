@@ -98,11 +98,14 @@ namespace Sawczyn.EFDesigner.EFModel
                // otherwise, we need to run an MSAGL layout
                if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default || modelRoot.LayoutAlgorithmSettings == null)
                {
-                  DoGraphvizLayout(vertices, edges, diagram);
-                  //DoStandardLayout(edges.Select(edge => edge.Shape).ToList(), diagram);
+                  // use graphviz as the default if available
+                  if (File.Exists(EFModelPackage.Options.DotExePath))
+                     DoGraphvizLayout(vertices, edges, diagram);
+                  else
+                     DoStandardLayout(edges.Select(edge => edge.Shape).ToList(), diagram);
                }
                else
-                  DoCustomLayout(vertices.Select(node => node.Shape).ToList(), edges.Select(edge => edge.Shape).ToList(), modelRoot);
+                  DoMSAGLLayout(vertices.Select(node => node.Shape).ToList(), edges.Select(edge => edge.Shape).ToList(), modelRoot);
 
                tx.Commit();
             }
@@ -111,6 +114,22 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Cursor.Current = Cursors.Default;
          }
+      }
+
+      private static void DoStandardLayout(List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
+      {
+         // first we need to mark all the connectors as dirty so they'll route. Easiest way is to flip their 'ManuallyRouted' flag
+         foreach (BinaryLinkShape linkShape in linkShapes)
+            linkShape.ManuallyRouted = !linkShape.ManuallyRouted;
+
+         // now let the layout mechanism route the connectors by setting 'ManuallyRouted' to false, regardless of what it was before
+         foreach (BinaryLinkShape linkShape in linkShapes)
+            linkShape.ManuallyRouted = false;
+
+         diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
+                                         VGRoutingStyle.VGRouteStraight,
+                                         PlacementValueStyle.VGPlaceSN,
+                                         true);
       }
 
       private static void DoGraphvizLayout(List<DotNode> vertices, List<DotEdge> edges, EFModelDiagram diagram)
@@ -150,10 +169,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // splines doesn't appear to be available in the QuickGraph implementation for GraphViz
          dotCommands = dotCommands.Replace("nodesep=1", "graph [splines=ortho, nodesep=1] ");
+         Debug.WriteLine(dotCommands);
 
-         ProcessStartInfo dotStartInfo = new ProcessStartInfo(@"C:\Program Files (x86)\Graphviz2.38\bin\dot.exe", "-T plain")
+         ProcessStartInfo dotStartInfo = new ProcessStartInfo(EFModelPackage.Options.DotExePath, "-T plain")
                                          {
-                                            RedirectStandardInput = true, RedirectStandardOutput = true, UseShellExecute = false
+                                            RedirectStandardInput = true, 
+                                            RedirectStandardOutput = true, 
+                                            UseShellExecute = false,
+                                            CreateNoWindow = true
                                          };
          string graphOutput;
 
@@ -167,6 +190,7 @@ namespace Sawczyn.EFDesigner.EFModel
             graphOutput = dotProcess.StandardOutput.ReadToEnd();
             dotProcess.WaitForExit();
          }
+         Debug.WriteLine(graphOutput);
 
          // break it up into lines of text for processing
          string[] outputLines = graphOutput.Split(new []{'\r','\n'}, StringSplitOptions.RemoveEmptyEntries);
@@ -245,7 +269,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static void DoCustomLayout(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
+      private static void DoMSAGLLayout(List<NodeShape> nodeShapes, List<BinaryLinkShape> linkShapes, ModelRoot modelRoot)
       {
          GeometryGraph graph = new GeometryGraph();
 
@@ -263,6 +287,8 @@ namespace Sawczyn.EFDesigner.EFModel
          UpdateNodePositions(graph);
          UpdateConnectors(graph);
       }
+
+      #region MSAGL support
 
       private static void CreateDiagramNodes(List<NodeShape> nodeShapes, GeometryGraph graph)
       {
@@ -333,27 +359,6 @@ namespace Sawczyn.EFDesigner.EFModel
             nodeShape.Bounds = new RectangleD(node.BoundingBox.Left, node.BoundingBox.Top, node.BoundingBox.Width, node.BoundingBox.Height);
          }
       }
-
-      //private static void AutoRouteConnector(BinaryLinkShape connector)
-      //{
-      //   if (connector != null)
-      //   {
-      //      connector.ManuallyRouted = false;
-      //      connector.FixedFrom = VGFixedCode.NotFixed;
-      //      connector.FixedTo = VGFixedCode.NotFixed;
-
-      //      foreach (ShapeElement element in connector.RelativeChildShapes)
-      //      {
-      //         if (element is LineLabelShape lineLabelShape)
-      //         {
-      //            lineLabelShape.ManuallySized = false;
-      //            lineLabelShape.ManuallyPlaced = false;
-      //         }
-      //      }
-
-      //      connector.RecalculateRoute();
-      //   }
-      //}
 
       private static void UpdateConnectors(GeometryGraph graph)
       {
@@ -452,20 +457,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static void DoStandardLayout(List<BinaryLinkShape> linkShapes, EFModelDiagram diagram)
-      {
-         // first we need to mark all the connectors as dirty so they'll route. Easiest way is to flip their 'ManuallyRouted' flag
-         foreach (BinaryLinkShape linkShape in linkShapes)
-            linkShape.ManuallyRouted = !linkShape.ManuallyRouted;
+      #endregion
 
-         // now let the layout mechanism route the connectors by setting 'ManuallyRouted' to false, regardless of what it was before
-         foreach (BinaryLinkShape linkShape in linkShapes)
-            linkShape.ManuallyRouted = false;
-
-         diagram.AutoLayoutShapeElements(diagram.NestedChildShapes.Where(s => s.IsVisible).ToList(),
-                                         VGRoutingStyle.VGRouteStraight,
-                                         PlacementValueStyle.VGPlaceSN,
-                                         true);
-      }
    }
 }

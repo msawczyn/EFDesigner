@@ -377,7 +377,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"",
             CreateNoWindow = true,
-            ErrorDialog = true,
+            ErrorDialog = false,
+            WindowStyle = ProcessWindowStyle.Hidden,
             UseShellExecute = true
          };
 
