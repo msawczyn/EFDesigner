@@ -418,6 +418,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                // Source and Target are accidents of where the user started drawing the association.
 
                // navigation properties
+
+               int noHasForeignKeyIfValueIs2;
+
                // ReSharper disable once LoopCanBePartlyConvertedToQuery
                foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
                                                                               .OfType<UnidirectionalAssociation>()
@@ -430,6 +433,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                   segments.Clear();
                   segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
+                  noHasForeignKeyIfValueIs2 = 0;
 
                   switch (association.TargetMultiplicity) // realized by property on source
                   {
@@ -440,7 +444,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                         segments.Add($"HasRequired(x => x.{association.TargetPropertyName})");
-
+                        ++noHasForeignKeyIfValueIs2;
                         break;
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
@@ -493,6 +497,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         else
                            segments.Add("WithOptional()");
 
+                        ++noHasForeignKeyIfValueIs2;
+
                         break;
 
                         //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
@@ -500,10 +506,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         //   break;
                   }
 
-                  string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
+                  // means prior commands were HasRequired/WithOptional. No FK in this circumstance.
+                  // Hokey? Absolutely! But efficient.
+                  if (noHasForeignKeyIfValueIs2 != 2)
+                  {
+                     string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
 
-                  if (foreignKeySegment != null)
-                     segments.Add(foreignKeySegment);
+                     if (foreignKeySegment != null)
+                        segments.Add(foreignKeySegment);
+                  }
 
                   // Certain associations cascade delete automatically. Also, the user may ask for it.
                   // We only generate a cascade delete call if the user asks for it. 
@@ -534,6 +545,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                   segments.Clear();
                   segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
+                  noHasForeignKeyIfValueIs2 = 0;
 
                   switch (association.SourceMultiplicity) // realized by property on target
                   {
@@ -544,6 +556,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                         segments.Add($"HasRequired(x => x.{association.SourcePropertyName})");
+                        ++noHasForeignKeyIfValueIs2;
 
                         break;
 
@@ -599,6 +612,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         else
                            segments.Add($"WithOptional(x => x.{association.TargetPropertyName})");
 
+                        ++noHasForeignKeyIfValueIs2;
                         break;
 
                         //one or more constraint not supported in EF. TODO: make this possible ... later
@@ -607,10 +621,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         //   break;
                   }
 
-                  string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
+                  // means prior commands were HasRequired/WithOptional. No FK in this circumstance.
+                  // Hokey? Absolutely! But efficient.
+                  if (noHasForeignKeyIfValueIs2 != 2)
+                  {
+                     string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
 
-                  if (foreignKeySegment != null)
-                     segments.Add(foreignKeySegment);
+                     if (foreignKeySegment != null)
+                        segments.Add(foreignKeySegment);
+                  }
 
                   if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
                   {

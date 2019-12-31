@@ -4,6 +4,7 @@
    {
       NotSet,
       Principal,
-      Dependent
+      Dependent,
+      NotApplicable
    }
 }

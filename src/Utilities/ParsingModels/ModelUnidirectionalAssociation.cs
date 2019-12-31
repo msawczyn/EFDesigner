@@ -6,6 +6,7 @@
       public string SourceClassNamespace { get; set; }
       public string SourceClassFullName => string.IsNullOrWhiteSpace(SourceClassNamespace) ? $"global::{SourceClassName}" : $"global::{SourceClassNamespace}.{SourceClassName}";
       public Multiplicity SourceMultiplicity { get; set; }
+      public AssociationRole SourceRole { get; set; } = AssociationRole.NotSet;
 
       public string TargetClassName { get; set; }
       public string TargetClassNamespace { get; set; }
@@ -16,6 +17,7 @@
       public string TargetSummary { get; set; }
       public string TargetDescription { get; set; }
       public string ForeignKey { get; set; }
+      public AssociationRole TargetRole { get; set; } = AssociationRole.NotSet;
 
       /// <summary>Determines whether the specified object is equal to the current object.</summary>
       /// <param name="obj">The object to compare with the current object.</param>
@@ -38,11 +40,13 @@
          return SourceClassName == other.SourceClassName
              && SourceClassNamespace == other.SourceClassNamespace
              && SourceMultiplicity == other.SourceMultiplicity
+             && SourceRole == other.SourceRole
              && TargetClassName == other.TargetClassName
              && TargetClassNamespace == other.TargetClassNamespace
              && TargetMultiplicity == other.TargetMultiplicity
              && TargetPropertyTypeName == other.TargetPropertyTypeName
-             && TargetPropertyName == other.TargetPropertyName;
+             && TargetPropertyName == other.TargetPropertyName
+             && TargetRole == other.TargetRole;
       }
 
       /// <summary>Serves as the default hash function.</summary>
@@ -54,11 +58,13 @@
             int hashCode = SourceClassName.GetHashCode();
             hashCode = (hashCode * 397) ^ SourceClassNamespace.GetHashCode();
             hashCode = (hashCode * 397) ^ (int)SourceMultiplicity;
+            hashCode = (hashCode * 397) ^ (int)SourceRole;
             hashCode = (hashCode * 397) ^ TargetClassName.GetHashCode();
             hashCode = (hashCode * 397) ^ TargetClassNamespace.GetHashCode();
             hashCode = (hashCode * 397) ^ (int)TargetMultiplicity;
             hashCode = (hashCode * 397) ^ TargetPropertyTypeName.GetHashCode();
             hashCode = (hashCode * 397) ^ TargetPropertyName.GetHashCode();
+            hashCode = (hashCode * 397) ^ (int)TargetRole;
 
             return hashCode;
          }

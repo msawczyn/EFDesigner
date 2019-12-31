@@ -118,8 +118,6 @@ namespace EF6Parser
 
          foreach (NavigationProperty navigationProperty in entityType.DeclaredNavigationProperties.Where(np => Inverse(np) != null))
          {
-            // ReSharper disable UseObjectOrCollectionInitializer
-
             StructuralType sourceType = navigationProperty.DeclaringType;
 
             if (sourceType.Name != entityType.Name)
@@ -127,6 +125,30 @@ namespace EF6Parser
 
             ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
             EntityType targetType = navigationProperty.ToEndMember.GetEntityType();
+
+            AssociationType associationType = navigationProperty.RelationshipType as AssociationType;
+            ReferentialConstraint constraint = associationType?.Constraint;
+            AssociationEndMember principalEnd = constraint?.FromRole as AssociationEndMember;
+            EntityType principalType = principalEnd?.GetEntityType();
+
+            AssociationEndMember dependentEnd = constraint?.ToRole as AssociationEndMember;
+            EntityType dependentType = dependentEnd?.GetEntityType();
+
+            if (principalType?.Name == sourceType.Name)
+            {
+               association.SourceRole = AssociationRole.Principal;
+               association.TargetRole = AssociationRole.Dependent;
+            }
+            else if (principalType?.Name == targetType.Name)
+            {
+               association.TargetRole = AssociationRole.Principal;
+               association.SourceRole = AssociationRole.Dependent;
+            }
+            else if (principalType == null && dependentType == null)
+            {
+               association.SourceRole = AssociationRole.NotApplicable;
+               association.TargetRole = AssociationRole.NotApplicable;
+            }
 
             association.SourceClassName = sourceType.Name;
             association.SourceClassNamespace = sourceType.NamespaceName;
@@ -148,8 +170,6 @@ namespace EF6Parser
             association.SourceMultiplicity = ConvertMultiplicity(navigationProperty.FromEndMember.RelationshipMultiplicity);
             association.SourceSummary = navigationProperty.FromEndMember.Documentation?.Summary;
             association.SourceDescription = navigationProperty.FromEndMember.Documentation?.LongDescription;
-
-            // ReSharper restore UseObjectOrCollectionInitializer
 
             // look for declared foreign keys
             List<EdmProperty> dependentProperties = navigationProperty.GetDependentProperties().ToList();
@@ -205,7 +225,7 @@ namespace EF6Parser
                                          ?.EntitySets
                                          ?.SingleOrDefault(s => s.ElementType.Name == entityType.Name);
 
-            if (entitySet == null)
+            if (entitySet != null)
             {
                // Find the mapping between conceptual and storage model for this entity set
                EntitySetMapping mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
@@ -225,11 +245,11 @@ namespace EF6Parser
       {
          EntitySet table = GetTable(type, context);
 
-         if (table == null)
-            return null;
+         return table == null
+                   ? null
+                   : (string)table.MetadataProperties["Table"].Value ?? table.Name;
 
          // Return the table name from the storage entity set
-         return (string)table.MetadataProperties["Table"].Value ?? table.Name;
       }
 
       private List<ModelUnidirectionalAssociation> GetUnidirectionalAssociations(EntityType entityType)
@@ -239,7 +259,7 @@ namespace EF6Parser
          if (entityType == null)
             return result;
 
-         foreach (NavigationProperty navigationProperty in entityType.NavigationProperties.Where(np => Inverse(np) == null))
+         foreach (NavigationProperty navigationProperty in entityType.DeclaredNavigationProperties.Where(np => Inverse(np) == null))
          {
             ModelUnidirectionalAssociation association = new ModelUnidirectionalAssociation();
 

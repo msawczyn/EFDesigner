@@ -88,6 +88,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void ProcessClasses(ModelRoot modelRoot, List<ParsingModels.ModelClass> classDataList)
       {
+         RemoveDuplicateBidirectionalAssociations(classDataList);
+
          foreach (ParsingModels.ModelClass data in classDataList)
          {
             StatusDisplay.Show($"Processing {data.FullName}");
@@ -123,6 +125,17 @@ namespace Sawczyn.EFDesigner.EFModel
             ProcessProperties(element, data.Properties);
          }
 
+
+         // classes are all created, so we can work the associations
+         foreach (ParsingModels.ModelClass data in classDataList)
+         {
+            ProcessUnidirectionalAssociations(data);
+            ProcessBidirectionalAssociations(data);
+         }
+      }
+
+      private static void RemoveDuplicateBidirectionalAssociations(List<ParsingModels.ModelClass> classDataList)
+      { 
          // Bidirectional associations get duplicates, and it's better to clean them here than to rely on each parser version
          List<ModelBidirectionalAssociation> allBidirectionalAssociations = classDataList.SelectMany(cls => cls.BidirectionalAssociations).ToList();
 
@@ -139,19 +152,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (duplicate != null)
             {
-               // which to discard?
-               // by fiat, discard the one on the target
-               ParsingModels.ModelClass duplicateOwner = classDataList.Single(c=>c.FullName==duplicate.TargetClassFullName);
+               // discard the one on the target
+               ParsingModels.ModelClass duplicateOwner = classDataList.Single(c => c.FullName == duplicate.TargetClassFullName);
                duplicateOwner.BidirectionalAssociations.Remove(duplicate);
                allBidirectionalAssociations.Remove(duplicate);
             }
-         }
-
-         // classes are all created, so we can work the associations
-         foreach (ParsingModels.ModelClass data in classDataList)
-         {
-            ProcessUnidirectionalAssociations(data);
-            ProcessBidirectionalAssociations(data);
          }
       }
 
@@ -241,6 +246,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                        new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
                                                        new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
                                                        new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
+                                                       new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole)), 
+                                                       new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole)), 
                                                     });
 
             AssociationChangeRules.SetEndpointRoles(element);
@@ -299,6 +306,8 @@ namespace Sawczyn.EFDesigner.EFModel
                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, data.TargetSummary),
                                                       new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, data.TargetDescription),
                                                       new PropertyAssignment(Association.FKPropertyNameDomainPropertyId, data.ForeignKey),
+                                                      new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole)), 
+                                                      new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole)), 
                                                       new PropertyAssignment(BidirectionalAssociation.SourcePropertyNameDomainPropertyId, data.SourcePropertyName),
                                                       new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary),
                                                       new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
@@ -406,5 +415,23 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return Multiplicity.ZeroOne;
       }
+
+      private EndpointRole ConvertRole(AssociationRole data)
+      {
+         switch (data)
+         {
+            case AssociationRole.Dependent:
+               return EndpointRole.Dependent;
+
+            case AssociationRole.Principal:
+               return EndpointRole.Principal;
+
+            case AssociationRole.NotApplicable:
+               return EndpointRole.NotApplicable;
+         }
+
+         return EndpointRole.NotSet;
+      }
+
    }
 }
