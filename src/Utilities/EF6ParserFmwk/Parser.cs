@@ -112,16 +112,20 @@ namespace EF6Parser
       private List<ModelBidirectionalAssociation> GetBidirectionalAssociations(EntityType entityType)
       {
          List<ModelBidirectionalAssociation> result = new List<ModelBidirectionalAssociation>();
-
+         
          if (entityType == null)
             return result;
 
          foreach (NavigationProperty navigationProperty in entityType.DeclaredNavigationProperties.Where(np => Inverse(np) != null))
          {
             // ReSharper disable UseObjectOrCollectionInitializer
-            ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
 
             StructuralType sourceType = navigationProperty.DeclaringType;
+
+            if (sourceType.Name != entityType.Name)
+               continue;
+
+            ModelBidirectionalAssociation association = new ModelBidirectionalAssociation();
             EntityType targetType = navigationProperty.ToEndMember.GetEntityType();
 
             association.SourceClassName = sourceType.Name;

@@ -139,7 +139,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (duplicate != null)
             {
-               ParsingModels.ModelClass duplicateOwner = classDataList.First(c=>c.FullName==duplicate.SourceClassFullName);
+               // which to discard?
+               // by fiat, discard the one on the target
+               ParsingModels.ModelClass duplicateOwner = classDataList.Single(c=>c.FullName==duplicate.TargetClassFullName);
                duplicateOwner.BidirectionalAssociations.Remove(duplicate);
                allBidirectionalAssociations.Remove(duplicate);
             }
@@ -148,8 +150,8 @@ namespace Sawczyn.EFDesigner.EFModel
          // classes are all created, so we can work the associations
          foreach (ParsingModels.ModelClass data in classDataList)
          {
-            ProcessUnidirectionalAssociations(data.UnidirectionalAssociations);
-            ProcessBidirectionalAssociations(data.BidirectionalAssociations);
+            ProcessUnidirectionalAssociations(data);
+            ProcessBidirectionalAssociations(data);
          }
       }
 
@@ -195,30 +197,33 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private void ProcessUnidirectionalAssociations(List<ModelUnidirectionalAssociation> unidirectionalAssociations)
+      private void ProcessUnidirectionalAssociations(ParsingModels.ModelClass modelClass)
       {
+         List<ModelUnidirectionalAssociation> unidirectionalAssociations = modelClass.UnidirectionalAssociations;
+
          foreach (ModelUnidirectionalAssociation data in unidirectionalAssociations)
          {
             UnidirectionalAssociation existing = Store.Get<UnidirectionalAssociation>()
-                                                      .FirstOrDefault(x => x.Target.FullName == data.TargetClassFullName
-                                                                        && x.Source.FullName == data.SourceClassFullName
+                                                      .FirstOrDefault(x => x.Target.Name == data.TargetClassName
+                                                                        && x.Source.Name == data.SourceClassName
+                                                                        && x.Source.Name == modelClass.Name // just to be sure
                                                                         && x.TargetPropertyName == data.TargetPropertyName);
 
-            if (existing != null && string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
+            if (existing != null)
             {
-               existing.FKPropertyName = data.ForeignKey;
-               existing.Source.ModelRoot.ExposeForeignKeys = true;
+               if (string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
+               {
+                  existing.FKPropertyName = data.ForeignKey;
+                  existing.Source.ModelRoot.ExposeForeignKeys = true;
+               }
+
                continue;
             }
 
             ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
-
-            if (source == null)
-               continue;
-
             ModelClass target = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.TargetClassFullName);
 
-            if (target == null)
+            if (source == null || target == null || source.FullName != modelClass.FullName)
                continue;
 
             // ReSharper disable once UnusedVariable
@@ -243,44 +248,40 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private void ProcessBidirectionalAssociations(List<ModelBidirectionalAssociation> bidirectionalAssociations)
+      private void ProcessBidirectionalAssociations(ParsingModels.ModelClass modelClass)
       {
+         List<ModelBidirectionalAssociation> bidirectionalAssociations = modelClass.BidirectionalAssociations;
+
          foreach (ModelBidirectionalAssociation data in bidirectionalAssociations)
          {
             BidirectionalAssociation existing = Store.Get<BidirectionalAssociation>()
-                                                     .FirstOrDefault(x => x.Target.FullName == data.TargetClassFullName
-                                                                       && x.Source.FullName == data.SourceClassFullName
+                                                     .FirstOrDefault(x => x.Target.Name == data.TargetClassName
+                                                                       && x.Source.Name == data.SourceClassName
+                                                                       && x.Source.Name == modelClass.Name // just to be sure
                                                                        && x.TargetPropertyName == data.TargetPropertyName
-                                                                       && x.SourcePropertyName == data.SourcePropertyName);
+                                                                       && x.SourcePropertyName == data.SourcePropertyName)
+                                             ?? Store.Get<BidirectionalAssociation>()
+                                                     .FirstOrDefault(x => x.Source.Name == data.TargetClassName
+                                                                       && x.Target.Name == data.SourceClassName
+                                                                       && x.Target.Name == modelClass.Name // just to be sure
+                                                                       && x.SourcePropertyName == data.TargetPropertyName
+                                                                       && x.TargetPropertyName == data.SourcePropertyName);
 
-            if (existing != null && string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
+            if (existing != null)
             {
-               existing.FKPropertyName = data.ForeignKey;
-               existing.Source.ModelRoot.ExposeForeignKeys = true;
+               if (string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
+               {
+                  existing.FKPropertyName = data.ForeignKey;
+                  existing.Source.ModelRoot.ExposeForeignKeys = true;
+               }
+
                continue;
             }
 
-            existing = Store.Get<BidirectionalAssociation>()
-                            .FirstOrDefault(x => x.Source.FullName == data.TargetClassFullName
-                                   && x.Target.FullName == data.SourceClassFullName
-                                   && x.SourcePropertyName == data.TargetPropertyName
-                                   && x.TargetPropertyName == data.SourcePropertyName);
+            ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == data.SourceClassName);
+            ModelClass target = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName);
 
-            if (existing != null && string.IsNullOrWhiteSpace(existing.FKPropertyName) && !string.IsNullOrWhiteSpace(data.ForeignKey))
-            {
-               existing.FKPropertyName = data.ForeignKey;
-               existing.Source.ModelRoot.ExposeForeignKeys = true;
-               continue;
-            }
-
-            ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
-
-            if (source == null)
-               continue;
-
-            ModelClass target = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName && c.Namespace == data.TargetClassNamespace);
-
-            if (target == null)
+            if (source == null || target == null || source.FullName != modelClass.FullName)
                continue;
 
             // ReSharper disable once UnusedVariable
