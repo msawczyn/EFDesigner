@@ -304,11 +304,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          List<Association> visited = new List<Association>();
          List<string> foreignKeyColumns = new List<string>();
+         List<string> declaredShadowProperties = new List<string>();
 
          foreach (ModelClass modelClass in modelRoot.Classes.OrderBy(x => x.Name))
          {
             segments.Clear();
             foreignKeyColumns.Clear();
+            declaredShadowProperties.Clear();
             NL();
 
             // class level
@@ -419,8 +421,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                // navigation properties
 
-               int noHasForeignKeyIfValueIs2;
-
                // ReSharper disable once LoopCanBePartlyConvertedToQuery
                foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
                                                                               .OfType<UnidirectionalAssociation>()
@@ -433,7 +433,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                   segments.Clear();
                   segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
-                  noHasForeignKeyIfValueIs2 = 0;
 
                   switch (association.TargetMultiplicity) // realized by property on source
                   {
@@ -444,7 +443,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                         segments.Add($"HasRequired(x => x.{association.TargetPropertyName})");
-                        ++noHasForeignKeyIfValueIs2;
                         break;
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
@@ -497,8 +495,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         else
                            segments.Add("WithOptional()");
 
-                        ++noHasForeignKeyIfValueIs2;
-
                         break;
 
                         //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
@@ -506,14 +502,18 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         //   break;
                   }
 
-                  // means prior commands were HasRequired/WithOptional. No FK in this circumstance.
-                  // Hokey? Absolutely! But efficient.
-                  if (noHasForeignKeyIfValueIs2 != 2)
-                  {
-                     string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
+                  string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
 
-                     if (foreignKeySegment != null)
+                  // can't shadow properties twice
+                  if (foreignKeySegment != null)
+                  {
+                     if (!foreignKeySegment.Contains("MapKey"))
                         segments.Add(foreignKeySegment);
+                     else if (!declaredShadowProperties.Contains(foreignKeySegment))
+                     {
+                        declaredShadowProperties.Add(foreignKeySegment);
+                        segments.Add(foreignKeySegment);
+                     }
                   }
 
                   // Certain associations cascade delete automatically. Also, the user may ask for it.
@@ -545,7 +545,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                   segments.Clear();
                   segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
-                  noHasForeignKeyIfValueIs2 = 0;
 
                   switch (association.SourceMultiplicity) // realized by property on target
                   {
@@ -556,8 +555,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                         segments.Add($"HasRequired(x => x.{association.SourcePropertyName})");
-                        ++noHasForeignKeyIfValueIs2;
-
                         break;
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
@@ -612,7 +609,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         else
                            segments.Add($"WithOptional(x => x.{association.TargetPropertyName})");
 
-                        ++noHasForeignKeyIfValueIs2;
                         break;
 
                         //one or more constraint not supported in EF. TODO: make this possible ... later
@@ -621,14 +617,18 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         //   break;
                   }
 
-                  // means prior commands were HasRequired/WithOptional. No FK in this circumstance.
-                  // Hokey? Absolutely! But efficient.
-                  if (noHasForeignKeyIfValueIs2 != 2)
-                  {
-                     string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
+                  string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
 
-                     if (foreignKeySegment != null)
+                  // can't shadow properties twice
+                  if (foreignKeySegment != null)
+                  {
+                     if (!foreignKeySegment.Contains("MapKey"))
                         segments.Add(foreignKeySegment);
+                     else if (!declaredShadowProperties.Contains(foreignKeySegment))
+                     {
+                        declaredShadowProperties.Add(foreignKeySegment);
+                        segments.Add(foreignKeySegment);
+                     }
                   }
 
                   if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
@@ -684,11 +684,23 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          // foreign key definitions always go in the table representing the Dependent end of the association
          // if there is no dependent end (i.e., many-to-many), there are no foreign keys
          ModelClass principal;
+         ModelClass dependent;
+
+         // declaring foreign keys can only happen on ..n multiplicities
+         // otherwise, primary keys are required to be used, and the framework takes care of that
+         if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+            return null;
 
          if (association.SourceRole == EndpointRole.Dependent)
+         {
+            dependent = association.Source;
             principal = association.Target;
+         }
          else if (association.TargetRole == EndpointRole.Dependent)
+         {
+            dependent = association.Target;
             principal = association.Source;
+         }
          else
             return null;
 
@@ -701,7 +713,19 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                                     , principal.IdentityAttributes
                                                 .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
 
-            return $"Map(x => x.MapKey({columnNames}))";
+            string[] columnNameList = columnNames.Split(',').Select(n => n.Trim()).ToArray();
+            string[] dependentPropertyNames = dependent.AllPropertyNames.ToArray();
+
+            int existingPropertyCount = columnNameList.Intersect(dependentPropertyNames).Count();
+
+            if (existingPropertyCount > 0)
+            {
+               return existingPropertyCount == 1
+                         ? $"HasForeignKey(p => {columnNames})"
+                         : $"HasForeignKey(p => new {{ {string.Join(", ", columnNameList.Select(n => $"p.{n}"))} }}";
+            }
+            else
+               return $"Map(x => x.MapKey({columnNames}))";
          }
 
          // defined properties
