@@ -370,6 +370,7 @@
   <HelpKINode Title="IsFlags property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_IsFlags.htm" />
   <HelpKINode Title="IsIdentity property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsIdentity.htm" />
   <HelpKINode Title="IsInCircularInheritance method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_IsInCircularInheritance.htm" />
+  <HelpKINode Title="IsLoading method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_IsLoading.htm" />
   <HelpKINode Title="IsSourceImplementNotifyTracking property" Url="html/P_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_IsSourceImplementNotifyTracking.htm" />
   <HelpKINode Title="IsSourceImplementNotifyTrackingDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_IsSourceImplementNotifyTrackingDomainPropertyId.htm" />
   <HelpKINode Title="IsTargetImplementNotifyTracking property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTracking.htm" />
@@ -501,6 +502,7 @@
   <HelpKINode Title="ModelElementExtensions.GetDisplayText method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetDisplayText.htm" />
   <HelpKINode Title="ModelElementExtensions.GetFirstShapeElement method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetFirstShapeElement.htm" />
   <HelpKINode Title="ModelElementExtensions.InvalidateDiagrams method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_InvalidateDiagrams.htm" />
+  <HelpKINode Title="ModelElementExtensions.IsLoading method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_IsLoading.htm" />
   <HelpKINode Title="ModelElementExtensions.LocateInDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_LocateInDiagram.htm" />
   <HelpKINode Title="ModelElementExtensions.ModelRoot method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_ModelRoot.htm" />
   <HelpKINode Title="ModelElementExtensions.Redraw method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Redraw.htm" />
