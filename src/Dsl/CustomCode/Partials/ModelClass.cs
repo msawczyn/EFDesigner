@@ -485,9 +485,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetDatabaseSchemaValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsDatabaseSchemaTracking)
+         if (!this.IsLoading() && IsDatabaseSchemaTracking)
          {
             try
             {
@@ -513,9 +511,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          databaseSchemaStorage = value;
 
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsDatabaseSchemaTracking = false;
       }
 
@@ -581,9 +577,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetNamespaceValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsNamespaceTracking)
+         if (!this.IsLoading() && IsNamespaceTracking)
          {
             try
             {
@@ -611,9 +605,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                ? null
                                : value;
 
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsNamespaceTracking = namespaceStorage == null;
       }
 
@@ -664,9 +656,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetOutputDirectoryValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsOutputDirectoryTracking)
+         if (!this.IsLoading() && IsOutputDirectoryTracking)
          {
             try
             {
@@ -690,9 +680,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
          {
             if (IsDependentType)
             {

@@ -332,9 +332,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The ColumnName value.</returns>
       public string GetColumnNameValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsColumnNameTracking)
+         if (!this.IsLoading() && IsColumnNameTracking)
          {
             try
             {
@@ -361,9 +359,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public void SetColumnNameValue(string value)
       {
          columnNameStorage = value == Name ? null : value;
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             // ReSharper disable once ArrangeRedundantParentheses
             IsColumnNameTracking = (columnNameStorage == null);
       }
@@ -379,9 +376,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The ImplementNotify value.</returns>
       public bool GetImplementNotifyValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsImplementNotifyTracking)
+         if (!this.IsLoading() && IsImplementNotifyTracking)
          {
             try
             {
@@ -408,9 +403,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public void SetImplementNotifyValue(bool value)
       {
          implementNotifyStorage = value;
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             // ReSharper disable once ArrangeRedundantParentheses
             IsImplementNotifyTracking = (implementNotifyStorage == (ModelClass?.ImplementNotify ?? false));
       }
@@ -426,9 +420,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The AutoProperty value.</returns>
       public bool GetAutoPropertyValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsAutoPropertyTracking)
+         if (!this.IsLoading() && IsAutoPropertyTracking)
          {
             try
             {
@@ -455,9 +447,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public void SetAutoPropertyValue(bool value)
       {
          autoPropertyStorage = value;
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsAutoPropertyTracking = (autoPropertyStorage == (ModelClass?.AutoPropertyDefault ?? true));
       }
 
@@ -472,9 +463,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The ColumnType value.</returns>
       public string GetColumnTypeValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsColumnTypeTracking)
+         if (!this.IsLoading() && IsColumnTypeTracking)
          {
             try
             {
@@ -501,9 +490,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public void SetColumnTypeValue(string value)
       {
          columnTypeStorage = value.ToLowerInvariant() == "default" ? null : value;
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             // ReSharper disable once ArrangeRedundantParentheses
             IsColumnTypeTracking = (columnTypeStorage == null);
       }

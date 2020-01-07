@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
@@ -204,9 +206,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetNamespaceValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsNamespaceTracking)
+         if (!this.IsLoading() && IsNamespaceTracking)
          {
             try
             {
@@ -234,9 +234,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                ? null
                                : value;
 
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsNamespaceTracking = namespaceStorage == null;
       }
 
@@ -287,9 +285,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetOutputDirectoryValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsOutputDirectoryTracking)
+         if (!this.IsLoading() && IsOutputDirectoryTracking)
          {
             try
             {
@@ -313,10 +309,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
-
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
          {
 
             outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
