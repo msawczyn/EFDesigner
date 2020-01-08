@@ -47,9 +47,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The SourceImplementNotify value.</returns>
       public bool GetSourceImplementNotifyValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsCollectionClassTracking)
+         if (!this.IsLoading() && IsCollectionClassTracking)
          {
             try
             {
@@ -76,9 +74,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public void SetSourceImplementNotifyValue(bool value)
       {
          sourceImplementNotifyStorage = value;
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsSourceImplementNotifyTracking = (sourceImplementNotifyStorage == Source.ImplementNotify);
       }
 

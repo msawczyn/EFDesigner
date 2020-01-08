@@ -186,9 +186,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The TargetImplementNotify value.</returns>
       public bool GetTargetImplementNotifyValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsTargetImplementNotifyTracking)
+         if (!this.IsLoading() && IsTargetImplementNotifyTracking)
          {
             try
             {
@@ -215,9 +213,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public void SetTargetImplementNotifyValue(bool value)
       {
          targetImplementNotifyStorage = value;
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
 
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             // ReSharper disable once ArrangeRedundantParentheses
             IsTargetImplementNotifyTracking = (targetImplementNotifyStorage == Target.ImplementNotify);
       }
@@ -284,9 +281,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetCollectionClassValue()
       {
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!loading && IsCollectionClassTracking)
+         if (!this.IsLoading() && IsCollectionClassTracking)
          {
             try
             {
@@ -312,9 +307,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          collectionClassStorage = value;
 
-         bool loading = Store.TransactionManager.InTransaction && Store.TransactionManager.CurrentTransaction.IsSerializing;
-
-         if (!Store.InUndoRedoOrRollback && !loading)
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsCollectionClassTracking = (value == Source.ModelRoot.DefaultCollectionClass);
       }
 

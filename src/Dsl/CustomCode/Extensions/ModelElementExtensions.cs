@@ -40,6 +40,18 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
          return null;
       }
 
+      public static bool IsLoading(this ModelElement element)
+      {
+         TransactionManager transactionManager = element.Store.TransactionManager;
+
+         Transaction currentTransaction = transactionManager.CurrentTransaction;
+
+         return transactionManager.InTransaction
+             && (currentTransaction.IsSerializing
+              || currentTransaction.Name.ToLowerInvariant() == "paste"
+              || currentTransaction.Name.ToLowerInvariant() == "local merge transaction");
+      }
+
       public static ModelRoot ModelRoot(this Store store)
       {
          return store.Get<ModelRoot>().FirstOrDefault();
