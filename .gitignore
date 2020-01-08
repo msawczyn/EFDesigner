@@ -8,3 +8,4 @@ docs/_site
 /src/.sonarqube
 /c-o-s-space differences.txt
 /docs/api/Working
+*.bak
