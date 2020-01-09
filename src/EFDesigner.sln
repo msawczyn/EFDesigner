@@ -6,6 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsl", "Dsl\Dsl.csproj", "{B77C0323-1B94-4CE4-A416-6316EBCBA81C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DslPackage", "DslPackage\DslPackage.csproj", "{AA22BCBD-2B02-4AD1-B8DC-19DFEBFB4436}"
+	ProjectSection(ProjectDependencies) = postProject
+		{337B292E-B265-4492-B6EC-BD9DEA288376} = {337B292E-B265-4492-B6EC-BD9DEA288376}
+		{9E5A7A3A-E350-49A0-9A93-B8F04D847B01} = {9E5A7A3A-E350-49A0-9A93-B8F04D847B01}
+		{991D50E2-8A89-47EF-ADF5-EFDE0A5B01A3} = {991D50E2-8A89-47EF-ADF5-EFDE0A5B01A3}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{0AD324C9-3616-47A1-8A44-8A609C803C31}"
 	ProjectSection(SolutionItems) = preProject
@@ -90,11 +95,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsingModels", "Utilities\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msagl", "Utilities\MSAGL\Msagl.csproj", "{415D3E3F-7105-46C1-84D2-7ECB34213D92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore3Parser", "Utilities\EFCore3Parser\EFCore3Parser.csproj", "{991D50E2-8A89-47EF-ADF5-EFDE0A5B01A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore3Parser", "Utilities\EFCore3Parser\EFCore3Parser.csproj", "{991D50E2-8A89-47EF-ADF5-EFDE0A5B01A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF6Parser", "Utilities\EF6Parser\EF6Parser.csproj", "{9E5A7A3A-E350-49A0-9A93-B8F04D847B01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF6Parser", "Utilities\EF6Parser\EF6Parser.csproj", "{9E5A7A3A-E350-49A0-9A93-B8F04D847B01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore2Parser", "Utilities\EFCore2Parser\EFCore2Parser.csproj", "{337B292E-B265-4492-B6EC-BD9DEA288376}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore2Parser", "Utilities\EFCore2Parser\EFCore2Parser.csproj", "{337B292E-B265-4492-B6EC-BD9DEA288376}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
