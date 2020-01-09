@@ -60,16 +60,35 @@ namespace Sawczyn.EFDesigner.EFModel
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
          StatusDisplay.Show("Detecting .NET and EF versions");
 
-         if (TryParseAssembly(filename, @"Parsers\EF6ParserFmwk.exe", outputFilename) == 0 ||
-             TryParseAssembly(filename, @"Parsers\EFCoreParserFmwk.exe", outputFilename) == 0 ||
-             TryParseAssembly(filename, @"Parsers\EFCoreParser.exe", outputFilename) == 0)
-            return DoProcessing(outputFilename);
+         string[] paths =
+         {
+            @"Parsers\net472\EF6Parser.exe"
+          , @"Parsers\netcoreapp3.1\EF6Parser.exe"
+          , @"Parsers\net472\EFCore2Parser.exe"
+          , @"Parsers\netcoreapp2.1\EFCore2Parser.exe"
+          , @"Parsers\netcoreapp3.1\EFCore2Parser.exe"
+          , @"Parsers\net472\EFCore3Parser.exe"
+          , @"Parsers\netcoreapp2.1\EFCore3Parser.exe"
+          , @"Parsers\netcoreapp3.1\EFCore3Parser.exe"
+         };
 
-         ErrorDisplay.Show("Error procesing assembly");
+         foreach (string path in paths)
+         {
+            if (TryParseAssembly(filename, path, outputFilename) == 0)
+               return DoProcessing(outputFilename);
+         }
+
+         ErrorDisplay.Show(@"Error processing assembly. 
+
+Input assembly requirements:
+   EF6: must be .NET Framework 4.72 (or above) or .NETCore 3.1 (or above)
+   EFCore2 and EFCore3: must be .NET Framework 4.72 (or above) or .NETCore 2.1 (or above)
+");
+
          return false;
       }
 
-      #region ModelRoot
+#region ModelRoot
 
       private void ProcessRootData(ParsingModels.ModelRoot rootData)
       {

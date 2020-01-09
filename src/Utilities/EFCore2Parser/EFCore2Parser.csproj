@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+   <PropertyGroup>
+      <OutputType>Exe</OutputType>
+      <TargetFrameworks>net472;netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
+      <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+      <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+   </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+     <DefineConstants>DEBUG;TRACE</DefineConstants>
+   </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+     <DefineConstants />
+   </PropertyGroup>
+
+   <ItemGroup>
+     <PackageReference Include="log4net" Version="2.0.8" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.0" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\ParsingModels\ParsingModels.csproj" />
+   </ItemGroup>
+
+</Project>

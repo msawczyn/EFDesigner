@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "EFCoreParser": {
-      "commandName": "Project",
-      "commandLineArgs": "\"C:\\Code\\ClientProjects\\AWH\\HearingForward\\HearingForwardMVP\\Source\\HearingForwardMvp.Data\\bin\\Debug\\netcoreapp2.2\\HearingForwardMvp.Data.dll\" \"c:\\temp\\EFCoreParser.json\""
-    }
-  }
-}
