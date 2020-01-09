@@ -8,7 +8,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace EFCoreParser
+namespace EFCore3Parser
 {
    public static class IModelExtensions
    {

@@ -5,7 +5,7 @@ using System.Reflection;
 using log4net;
 using log4net.Config;
 
-namespace EFCoreParser
+namespace EFCore3Parser
 {
    internal class Program
    {

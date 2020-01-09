@@ -527,9 +527,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>dotnet tool install -g dotnet-warp
-dotnet-warp "$(SolutionDir)Utilities\EFCoreParser\EFCoreParser.csproj" -o "$(ProjectDir)Parsers\EFCoreParser.exe"
+dotnet-warp "$(SolutionDir)Utilities\EFCoreParserNetCore2\EFCoreParserNetCore2.csproj" -o "$(ProjectDir)Parsers\EFCoreParserNetCore2.exe"
 mkdir "$(TargetDir)Parsers"
 copy /y "$(ProjectDir)Parsers\*.*" "$(TargetDir)Parsers"
+
 copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFModel.xsd"
 
 </PreBuildEvent>
