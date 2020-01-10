@@ -203,11 +203,40 @@
     <Content Include="Microsoft.Data.ConnectionUI.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Parsers\EF6\net472\EF6Parser.exe" />
+    <Content Include="Parsers\EF6\net472\EF6Parser.pdb" />
+    <Content Include="Parsers\EF6\net472\EntityFramework.dll" />
+    <Content Include="Parsers\EF6\net472\EntityFramework.SqlServer.dll" />
+    <Content Include="Parsers\EF6\net472\log4net.dll" />
+    <Content Include="Parsers\EF6\net472\Newtonsoft.Json.dll" />
+    <Content Include="Parsers\EF6\net472\ParsingModels.dll" />
+    <Content Include="Parsers\EF6\net472\ParsingModels.pdb" />
+    <Content Include="Parsers\EF6\net472\placeholder.txt" />
+    <Content Include="Parsers\EF6\net472\System.Configuration.ConfigurationManager.dll" />
+    <Content Include="Parsers\EF6\net472\System.Security.AccessControl.dll" />
+    <Content Include="Parsers\EF6\net472\System.Security.Permissions.dll" />
+    <Content Include="Parsers\EF6\net472\System.Security.Principal.Windows.dll" />
+    <Content Include="Parsers\EF6\netcoreapp3.1\EF6Parser.exe" />
+    <Content Include="Parsers\EF6\netcoreapp3.1\placeholder.txt" />
+    <Content Include="Parsers\EFCore2\net472\placeholder.txt" />
+    <Content Include="Parsers\EFCore2\netcoreapp2.1\EFCore2Parser.exe" />
+    <Content Include="Parsers\EFCore2\netcoreapp2.1\placeholder.txt" />
+    <Content Include="Parsers\EFCore2\netcoreapp3.1\EFCore2Parser.exe" />
+    <Content Include="Parsers\EFCore2\netcoreapp3.1\placeholder.txt" />
+    <Content Include="Parsers\EFCore3\net472\placeholder.txt" />
+    <Content Include="Parsers\EFCore3\netcoreapp2.1\EFCore3Parser.exe" />
+    <Content Include="Parsers\EFCore3\netcoreapp2.1\placeholder.txt" />
+    <Content Include="Parsers\EFCore3\netcoreapp3.1\EFCore3Parser.exe" />
+    <Content Include="Parsers\EFCore3\netcoreapp3.1\placeholder.txt" />
     <Content Include="ProjectItemTemplates\EFModel.xsd">
       <SubType>Designer</SubType>
       <IncludeInVSIX>true</IncludeInVSIX>
       <InstallRoot>Schemas</InstallRoot>
     </Content>
+    <None Include="EFModel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Parsers\EF6\net472\EF6Parser.exe.config" />
     <None Include="ReadMe - Build Events.txt" />
     <Content Include="QuickGraph.dll" />
     <Content Include="System.Spatial.dll">
@@ -418,14 +447,37 @@
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>mkdir "$(TargetDir)Parsers"
-dotnet tool install -g dotnet-warp
+    <PreBuildEvent>dotnet tool install -g dotnet-warp
 
-dotnet-warp "$(SolutionDir)Utilities\EF6Parser\EF6Parser.csproj" -o "$(TargetDir)Parsers\EF6Parser.exe"
-dotnet-warp "$(SolutionDir)Utilities\EF6Parser\EF6Parser.csproj" -o "$(TargetDir)Parsers\EF6Parser.exe"
+mkdir "$(ProjectDir)Parsers\EF6\net472"
+mkdir "$(ProjectDir)Parsers\EF6\netcoreapp3.1"
+
+mkdir "$(ProjectDir)Parsers\EFCore2\net472"
+mkdir "$(ProjectDir)Parsers\EFCore2\netcoreapp2.1
+mkdir "$(ProjectDir)Parsers\EFCore2\netcoreapp3.1
+
+mkdir "$(ProjectDir)Parsers\EFCore3\net472"
+mkdir "$(ProjectDir)Parsers\EFCore3\netcoreapp2.1
+mkdir "$(ProjectDir)Parsers\EFCore3\netcoreapp3.1
+
+rem dotnet-warp "$(SolutionDir)Utilities\EF6Parser\EF6Parser.csproj" -p:TargetFramework=net472 -o "$(ProjectDir)Parsers\EF6\net472\EF6Parser.exe" 
+copy /y "$(SolutionDir)Utilities\EF6Parser\$(OutDir)net472\*.*" "$(ProjectDir)Parsers\EF6\net472"
+
+dotnet-warp "$(SolutionDir)Utilities\EF6Parser\EF6Parser.csproj" -p:TargetFramework=netcoreapp3.1 -o "$(ProjectDir)Parsers\EF6\netcoreapp3.1\EF6Parser.exe" 
+
+rem dotnet-warp "$(SolutionDir)Utilities\EFCore2Parser\EFCore2Parser.csproj" -p:TargetFramework=net472 -o "$(ProjectDir)Parsers\EFCore2\net472\EFCore2Parser.exe" 
+copy /y "$(SolutionDir)Utilities\EFCore2Parser\$(OutDir)net472\*.*" "$(ProjectDir)Parsers\EFCore2\net472"
+
+dotnet-warp "$(SolutionDir)Utilities\EFCore2Parser\EFCore2Parser.csproj" -p:TargetFramework=netcoreapp2.1 -o "$(ProjectDir)Parsers\EFCore2\netcoreapp2.1\EFCore2Parser.exe" 
+dotnet-warp "$(SolutionDir)Utilities\EFCore2Parser\EFCore2Parser.csproj" -p:TargetFramework=netcoreapp3.1 -o "$(ProjectDir)Parsers\EFCore2\netcoreapp3.1\EFCore2Parser.exe" 
+
+rem dotnet-warp "$(SolutionDir)Utilities\EFCore3Parser\EFCore3Parser.csproj" -p:TargetFramework=net472 -o "$(ProjectDir)Parsers\EFCore3\net472\EFCore3Parser.exe" 
+copy /y "$(SolutionDir)Utilities\EFCore3Parser\$(OutDir)net472\*.*" "$(ProjectDir)Parsers\EFCore3\net472"
+
+dotnet-warp "$(SolutionDir)Utilities\EFCore3Parser\EFCore3Parser.csproj" -p:TargetFramework=netcoreapp2.1 -o "$(ProjectDir)Parsers\EFCore3\netcoreapp2.1\EFCore3Parser.exe" 
+dotnet-warp "$(SolutionDir)Utilities\EFCore3Parser\EFCore3Parser.csproj" -p:TargetFramework=netcoreapp3.1 -o "$(ProjectDir)Parsers\EFCore3\netcoreapp3.1\EFCore3Parser.exe" 
 
 copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFModel.xsd"
-
 </PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>
@@ -472,9 +524,5 @@ copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFMode
       <Version>4.3.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Parsers\EF6\" />
-    <Folder Include="Parsers\EFCore2\" />
-    <Folder Include="Parsers\EFCore3\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
