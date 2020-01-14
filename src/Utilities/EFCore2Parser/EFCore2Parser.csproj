@@ -16,6 +16,10 @@
    </PropertyGroup>
 
    <ItemGroup>
+     <None Remove="log4net.config" />
+   </ItemGroup>
+
+   <ItemGroup>
      <PackageReference Include="log4net" Version="2.0.8" />
      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
      <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.0" />
@@ -28,6 +32,27 @@
 
    <ItemGroup>
      <ProjectReference Include="..\ParsingModels\ParsingModels.csproj" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <Resource Include="log4net.config">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </Resource>
+   </ItemGroup>
+
+   <ItemGroup>
+     <Compile Update="Resources.Designer.cs">
+       <DependentUpon>Resources.resx</DependentUpon>
+       <DesignTime>True</DesignTime>
+       <AutoGen>True</AutoGen>
+     </Compile>
+   </ItemGroup>
+
+   <ItemGroup>
+     <EmbeddedResource Update="Resources.resx">
+       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+       <Generator>ResXFileCodeGenerator</Generator>
+     </EmbeddedResource>
    </ItemGroup>
 
 </Project>

@@ -1,0 +1,15 @@
+<Project>
+  <Target Name="PublishProjectIfFrameworkSet"
+          DependsOnTargets="Publish"
+          Condition=" '$(TargetFramework)' != '' " />
+
+  <Target Name="PublishProjectForAllFrameworksIfFrameworkUnset" Condition=" '$(TargetFramework)' == '' ">
+    <ItemGroup>
+      <_PublishFramework Include="$(TargetFrameworks)" />
+    </ItemGroup>
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="Publish" Properties="TargetFramework=%(_PublishFramework.Identity)" />
+  </Target>
+
+  <Target Name="PublishAll"
+          DependsOnTargets="PublishProjectIfFrameworkSet;PublishProjectForAllFrameworksIfFrameworkUnset" />
+</Project>

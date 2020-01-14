@@ -35,9 +35,9 @@ namespace EF6Parser
 
             GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
             ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+            XmlConfigurator.Configure(logRepository, GetLogStream());
 
-            log.Debug($"Starting {typeof(Program).Assembly.GetName().Name}");
+            log.Info($"Starting {Assembly.GetEntryAssembly().Location}");
             log.Info($"Log file at {GlobalContext.Properties["LogPath"]}.log");
         
             string contextClassName = args.Length == 3 ? args[2] : null;
@@ -106,6 +106,16 @@ namespace EF6Parser
             log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
          log.Error($"Exiting with return code {returnCode}");
          Environment.Exit(returnCode);
+      }
+
+      private static Stream GetLogStream()
+      {
+         MemoryStream stream = new MemoryStream();
+         StreamWriter writer = new StreamWriter(stream);
+         writer.Write(Resources.Log4netConfig);
+         writer.Flush();
+         stream.Position = 0;
+         return stream;
       }
    }
 }

@@ -2,8 +2,11 @@
 using System.IO;
 using System.Reflection;
 
+using EFCore2Parser;
+
 using log4net;
 using log4net.Config;
+using log4net.Repository;
 
 namespace EFCore3Parser
 {
@@ -33,8 +36,10 @@ namespace EFCore3Parser
             string outputPath = args[1];
           
             GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
-            XmlConfigurator.Configure(LogManager.GetRepository(Assembly.GetCallingAssembly()), new FileInfo("log4net.config"));
-            log.Debug($"Starting {typeof(Program).Assembly.GetName().Name}");
+            ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, GetLogStream());
+
+            log.Info($"Starting {Assembly.GetEntryAssembly().Location}");
             log.Info($"Log file at {GlobalContext.Properties["LogPath"]}.log");
 
             string contextClassName = args.Length == 3 ? args[2] : null;
@@ -103,6 +108,16 @@ namespace EFCore3Parser
             log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
          log.Error($"Exiting with return code {returnCode}");
          Environment.Exit(returnCode);
+      }
+
+      private static Stream GetLogStream()
+      {
+         MemoryStream stream = new MemoryStream();
+         StreamWriter writer = new StreamWriter(stream);
+         writer.Write(Resources.Log4netConfig);
+         writer.Flush();
+         stream.Position = 0;
+         return stream;
       }
    }
 }

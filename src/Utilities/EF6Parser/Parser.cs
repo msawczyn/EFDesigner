@@ -234,7 +234,8 @@ namespace EF6Parser
                                                  ?.SingleOrDefault(s => s.EntitySet == entitySet);
 
                // Find the storage entity set (table) that the entity is mapped
-               table = mapping?.EntityTypeMappings.SingleOrDefault()?.Fragments?.SingleOrDefault()?.StoreEntitySet;
+               table = mapping?.EntityTypeMappings?.SelectMany(m => m.Fragments.Select(f => f.StoreEntitySet))?.Distinct().FirstOrDefault();
+               //table = mapping?.EntityTypeMappings.SingleOrDefault()?.Fragments?.SingleOrDefault()?.StoreEntitySet;
             }
          }
 
