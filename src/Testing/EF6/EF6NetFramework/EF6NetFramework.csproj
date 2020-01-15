@@ -72,6 +72,10 @@
     <Compile Include="Generated\Entities\UParentRequired.generated.cs" />
     <Compile Include="Generated\Enums\Enum1.generated.cs" />
     <Compile Include="Generated\Enums\FlagEnum.generated.cs" />
+    <Compile Include="Migrations\202001151156248_Initial.cs" />
+    <Compile Include="Migrations\202001151156248_Initial.designer.cs">
+      <DependentUpon>202001151156248_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -116,8 +120,11 @@
       <Version>6.4.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <EmbeddedResource Include="Migrations\202001151156248_Initial.resx">
+      <DependentUpon>202001151156248_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

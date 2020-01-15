@@ -48,6 +48,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Custom\Context\AllFeatureModel.cs" />
     <Compile Include="Generated\Context\AllFeatureModel.generated.cs" />
     <Compile Include="Generated\Entities\AbstractBaseClass.generated.cs" />
     <Compile Include="Generated\Entities\AllPropertyTypesOptional.generated.cs" />
@@ -72,6 +73,11 @@
     <Compile Include="Generated\Entities\UParentOptional.generated.cs" />
     <Compile Include="Generated\Entities\UParentRequired.generated.cs" />
     <Compile Include="Generated\Enums\Enum1.generated.cs" />
+    <Compile Include="Migrations\20200115122131_Initial.cs" />
+    <Compile Include="Migrations\20200115122131_Initial.designer.cs">
+      <DependentUpon>20200115122131_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AllFeatureModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,19 +112,25 @@
     <None Include="Custom\Entities\Placeholder.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Custom\Context\Placeholder.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore">
       <Version>2.2.6</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <Version>2.2.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory">
+      <Version>2.2.6</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies">
       <Version>2.2.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational">
+      <Version>2.2.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
       <Version>2.2.6</Version>
     </PackageReference>
   </ItemGroup>
