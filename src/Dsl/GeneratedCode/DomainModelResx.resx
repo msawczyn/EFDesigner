@@ -597,6 +597,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Description" xml:space="preserve">
+    <value>Base class for DbContext in generated code. Should be fully qualified if not in a standard namespace.</value>
+    <comment>Description for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.DisplayName" xml:space="preserve">
+    <value>Context Base Class</value>
+    <comment>DisplayName for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;BaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1332,6 +1344,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/CustomAttributes.Category" xml:space="preserve">
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;CustomAttributes&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/GenerateCode.Description" xml:space="preserve">
+    <value>If true (the default), code will be generated for this enum. If false, it is assumed to be referenced from another assembly.</value>
+    <comment>Description for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/GenerateCode.DisplayName" xml:space="preserve">
+    <value>Generate Code</value>
+    <comment>DisplayName for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelEnum&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelEnum/GenerateCode.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelEnum&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnumValue.Description" xml:space="preserve">
     <value>Represents a value in a C# enumeration</value>

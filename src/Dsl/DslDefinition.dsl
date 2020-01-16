@@ -295,6 +295,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="7b3fbfb0-9b8c-4ea6-af94-198df57f15e6" Description="Base class for DbContext in generated code. Should be fully qualified if not in a standard namespace." Name="BaseClass" DisplayName="Context Base Class" DefaultValue="DbContext" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -777,6 +782,11 @@
         <DomainProperty Id="d4b2ab6e-54f5-4b70-94b0-403025b01541" Description="Any custom attributes to be generated for this element. Will be passed through as entered." Name="CustomAttributes" DisplayName="Custom Attributes" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8ebaa1e0-1528-478d-aa32-0a2cedd89254" Description="If true (the default), code will be generated for this enum. If false, it is assumed to be referenced from another assembly." Name="GenerateCode" DisplayName="Generate Code" DefaultValue="true" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1584,12 +1594,12 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="22d0c259-c2d2-4bd5-a6c8-5eb78701ead0" Description="Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Thickness" Name="OutlineThickness" DisplayName="Outline Thickness" Kind="CustomStorage">
+        <DomainProperty Id="22d0c259-c2d2-4bd5-a6c8-5eb78701ead0" Description="Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Thickness" Name="OutlineThickness" DisplayName="Outline Thickness" Kind="CustomStorage" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Single" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="06df5a34-08ff-4a03-bea5-444f2bef9454" Description="Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Dash Style" Name="OutlineDashStyle" DisplayName="Outline Dash Style" Kind="CustomStorage">
+        <DomainProperty Id="06df5a34-08ff-4a03-bea5-444f2bef9454" Description="Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Dash Style" Name="OutlineDashStyle" DisplayName="Outline Dash Style" Kind="CustomStorage" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing.Drawing2D/DashStyle" />
           </Type>
@@ -1860,6 +1870,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="exposeForeignKeys">
             <DomainPropertyMoniker Name="ModelRoot/ExposeForeignKeys" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="baseClass">
+            <DomainPropertyMoniker Name="ModelRoot/BaseClass" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -2180,6 +2193,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="customAttributes">
             <DomainPropertyMoniker Name="ModelEnum/CustomAttributes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="generateCode">
+            <DomainPropertyMoniker Name="ModelEnum/GenerateCode" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

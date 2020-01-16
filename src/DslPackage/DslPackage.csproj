@@ -278,11 +278,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ProjectItemTemplates\EFModel.xsd">
+    <None Include="ProjectItemTemplates\EFModel.xsd">
       <SubType>Designer</SubType>
       <IncludeInVSIX>true</IncludeInVSIX>
       <InstallRoot>Schemas</InstallRoot>
-    </Content>
+    </None>
     <None Include="ReadMe - Build Events.txt" />
     <Content Include="Parsers\Remotion.Linq.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -530,7 +530,7 @@
 dotnet-warp "$(SolutionDir)Utilities\EFCoreParser\EFCoreParser.csproj" -o "$(ProjectDir)Parsers\EFCoreParser.exe"
 mkdir "$(TargetDir)Parsers"
 copy /y "$(ProjectDir)Parsers\*.*" "$(TargetDir)Parsers"
-copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)EFModel.xsd"
+copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)ProjectItemTemplates\EFModel.xsd"
 
 </PreBuildEvent>
   </PropertyGroup>

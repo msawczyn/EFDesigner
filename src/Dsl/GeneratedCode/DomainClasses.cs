@@ -3534,6 +3534,96 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region BaseClass domain property code
+		
+		/// <summary>
+		/// BaseClass domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid BaseClassDomainPropertyId = new global::System.Guid(0x7b3fbfb0, 0x9b8c, 0x4ea6, 0xaf, 0x94, 0x19, 0x8d, 0xf5, 0x7f, 0x15, 0xe6);
+		
+		/// <summary>
+		/// Storage for BaseClass
+		/// </summary>
+		private global::System.String baseClassPropertyStorage = "DbContext";
+		
+		/// <summary>
+		/// Gets or sets the value of BaseClass domain property.
+		/// Base class for DbContext in generated code. Should be fully qualified if not in
+		/// a standard namespace.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/BaseClass.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("DbContext")]
+		[DslModeling::DomainObjectId("7b3fbfb0-9b8c-4ea6-af94-198df57f15e6")]
+		public global::System.String BaseClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return baseClassPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				BaseClassPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.BaseClass domain property.
+		/// </summary>
+		internal sealed partial class BaseClassPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private BaseClassPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.BaseClass domain property value handler.
+			/// </summary>
+			public static readonly BaseClassPropertyHandler Instance = new BaseClassPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.BaseClass domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return BaseClassDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.baseClassPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.baseClassPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -9827,6 +9917,96 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.customAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region GenerateCode domain property code
+		
+		/// <summary>
+		/// GenerateCode domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid GenerateCodeDomainPropertyId = new global::System.Guid(0x8ebaa1e0, 0x1528, 0x478d, 0xaa, 0x32, 0x0a, 0x2c, 0xed, 0xd8, 0x92, 0x54);
+		
+		/// <summary>
+		/// Storage for GenerateCode
+		/// </summary>
+		private global::System.Boolean generateCodePropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of GenerateCode domain property.
+		/// If true (the default), code will be generated for this enum. If false, it is
+		/// assumed to be referenced from another assembly.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelEnum/GenerateCode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelEnum/GenerateCode.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelEnum/GenerateCode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("8ebaa1e0-1528-478d-aa32-0a2cedd89254")]
+		public global::System.Boolean GenerateCode
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return generateCodePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GenerateCodePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelEnum.GenerateCode domain property.
+		/// </summary>
+		internal sealed partial class GenerateCodePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelEnum, global::System.Boolean>
+		{
+			private GenerateCodePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelEnum.GenerateCode domain property value handler.
+			/// </summary>
+			public static readonly GenerateCodePropertyHandler Instance = new GenerateCodePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelEnum.GenerateCode domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return GenerateCodeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelEnum element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.generateCodePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelEnum element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.generateCodePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
