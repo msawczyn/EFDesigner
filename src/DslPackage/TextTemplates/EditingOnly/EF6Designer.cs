@@ -28,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          // Enums
 
-         foreach (ModelEnum modelEnum in modelRoot.Enums)
+         foreach (ModelEnum modelEnum in modelRoot.Enums.Where(e => e.GenerateCode))
          {
             manager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
             WriteEnum(modelEnum);
@@ -112,7 +112,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          WriteDbContextComments(modelRoot);
 
-         Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : System.Data.Entity.DbContext");
+         string baseClass = string.IsNullOrWhiteSpace(modelRoot.BaseClass) ? "System.Data.Entity.DbContext" : modelRoot.BaseClass;
+
+         Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : {baseClass}");
          Output("{");
 
 

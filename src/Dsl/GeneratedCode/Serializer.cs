@@ -817,6 +817,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// BaseClass
+			if (!serializationContext.Result.Failed)
+			{
+				string attribBaseClass = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "baseClass");
+				if (attribBaseClass != null)
+				{
+					global::System.String valueOfBaseClass;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribBaseClass, out valueOfBaseClass))
+					{
+						instanceOfModelRoot.BaseClass = valueOfBaseClass;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "baseClass", typeof(global::System.String), attribBaseClass);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1907,6 +1924,18 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (!serializationContext.Result.Failed)
 				{
 					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "exposeForeignKeys", serializedPropValue);
+				}
+			}
+			// BaseClass
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.BaseClass;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "DbContext") != 0))
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "baseClass", propValue);
+					}
 				}
 			}
 		}
@@ -6299,6 +6328,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
+			// GenerateCode
+			if (!serializationContext.Result.Failed)
+			{
+				string attribGenerateCode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "generateCode");
+				if (attribGenerateCode != null)
+				{
+					global::System.Boolean valueOfGenerateCode;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenerateCode, out valueOfGenerateCode))
+					{
+						instanceOfModelEnum.GenerateCode = valueOfGenerateCode;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "generateCode", typeof(global::System.Boolean), attribGenerateCode);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -6927,6 +6973,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "customAttributes", propValue);
 	
+				}
+			}
+			// GenerateCode
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelEnum.GenerateCode;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateCode", serializedPropValue);
+					}
 				}
 			}
 		}

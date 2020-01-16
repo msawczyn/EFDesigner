@@ -306,6 +306,12 @@
             <xsd:documentation>Allow foreign key properties to be available in the POCO entities (recommended: false)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: BaseClass -->
+        <xsd:attribute name="baseClass" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Base class for DbContext in generated code. Should be fully qualified if not in a standard namespace.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -907,6 +913,12 @@
         <xsd:attribute name="customAttributes" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Any custom attributes to be generated for this element. Will be passed through as entered.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: GenerateCode -->
+        <xsd:attribute name="generateCode" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true (the default), code will be generated for this enum. If false, it is assumed to be referenced from another assembly.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
