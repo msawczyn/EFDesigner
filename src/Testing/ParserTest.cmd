@@ -22,12 +22,9 @@ set input[8]=.\EFCoreV3\EFCore3NetCore3\bin\Debug\netcoreapp3.1\EFCore3NetCore3.
 set input[9]=.\EFCoreV3\EFCore3NetFramework\bin\Debug\EFCore3NetFramework.dll
 set input[10]=.\EFCoreV3\EFCore3NetStandard\bin\Debug\netstandard2.1\EFCore3NetStandard.dll
 
-for %%p in (0,1,2,3,4,5,6,7) do (
-   for %%i in (0,1,2,3,4,5,6,7,8,9,10) do (
+for /L %%p in (0,1,7) do (
+   for /L %%i in (0,1,10) do (
       "!parser[%%p]!" "!input[%%i]!" parsertest.txt
       echo %ERRORLEVEL% - "!parser[%%p]!" "!input[%%i]!" 
-
-      REM echo !parser[%%p]!
-      REM echo !input[%%i]!
    )
 )

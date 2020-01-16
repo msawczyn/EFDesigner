@@ -9,3 +9,4 @@ docs/_site
 /c-o-s-space differences.txt
 /docs/api/Working
 *.bak
+/dist/Sawczyn.EFDesigner.EFModel.DslPackage.vsix

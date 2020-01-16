@@ -445,7 +445,9 @@
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>dotnet tool install -g dotnet-warp
+    <PreBuildEvent>copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)ProjectItemTemplates\EFModel.xsd"
+
+dotnet tool install -g dotnet-warp
 del /S /Q "$(ProjectDir)Parsers\*.*"
 
 set EFVER=EF6
