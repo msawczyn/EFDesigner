@@ -7,6 +7,8 @@ using log4net;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 using Newtonsoft.Json;
 
 using ParsingModels;
@@ -44,7 +46,7 @@ namespace EFCore3Parser
                log.Error($"No DBContext found in {assembly.Location}");
                throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
             }
-            
+
             if (types.Count > 1)
             {
                log.Error($"Found more than one class derived from DbContext: {string.Join(", ", types.Select(t => t.FullName))}");
@@ -124,9 +126,9 @@ namespace EFCore3Parser
             if (navigationProperty.ForeignKey != null)
             {
                List<string> fkPropertyDeclarations = navigationProperty.ForeignKey.Properties
-                                                                       .Where(p => !p.IsShadowProperty())
-                                                                       .Select(p => p.Name)
-                                                                       .ToList();
+                                                           .Where(p => !p.IsShadowProperty)
+                                                           .Select(p => p.Name)
+                                                           .ToList();
 
                association.ForeignKey = fkPropertyDeclarations.Any()
                                            ? string.Join(",", fkPropertyDeclarations)
@@ -157,7 +159,7 @@ namespace EFCore3Parser
             Type sourceType = navigationProperty.GetSourceType().ClrType.Unwrap();
             association.SourceClassName = sourceType.Name;
             association.SourceClassNamespace = sourceType.Namespace;
-         
+
             Type targetType = navigationProperty.GetTargetType().ClrType.Unwrap();
             association.TargetClassName = targetType.Name;
             association.TargetClassNamespace = targetType.Namespace;
@@ -183,7 +185,7 @@ namespace EFCore3Parser
             if (navigationProperty.ForeignKey != null)
             {
                List<string> fkPropertyDeclarations = navigationProperty.ForeignKey.Properties
-                                                                       .Where(p => !p.IsShadowProperty())
+                                                                       .Where(p => !p.IsShadowProperty)
                                                                        .Select(p => $"{p.DeclaringEntityType.Name}/{p.ClrType.Name}{(p.IsNullable ? "?" : "")} {p.Name}")
                                                                        .ToList();
 
@@ -246,6 +248,9 @@ namespace EFCore3Parser
          ModelClass result = new ModelClass();
          Type type = entityType.ClrType;
 
+         if (type == null)
+            return null;
+
          result.Name = type.Name;
          result.Namespace = type.Namespace;
          result.IsAbstract = type.IsAbstract;
@@ -254,7 +259,7 @@ namespace EFCore3Parser
                                ? null
                                : type.BaseType.Name;
 
-         result.TableName = entityType.GetTableName();
+         result.TableName = entityType.Relational().TableName;
          result.IsDependentType = entityType.IsOwned();
          result.CustomAttributes = GetCustomAttributes(type.CustomAttributes);
 
@@ -262,12 +267,12 @@ namespace EFCore3Parser
                                       ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
                                       : null;
 
-         // TODO continue here
          result.Properties = entityType.GetDeclaredProperties()
-                                       .Where(p => !p.IsShadowProperty())
+                                       .Where(p => !p.IsShadowProperty)
                                        .Select(p => ProcessProperty(p, modelRoot))
                                        .Where(x => x != null)
                                        .ToList();
+
          result.UnidirectionalAssociations = GetUnidirectionalAssociations(entityType);
          result.BidirectionalAssociations = GetBidirectionalAssociations(entityType);
 
@@ -284,7 +289,7 @@ namespace EFCore3Parser
 
          if (modelRoot.Enumerations.All(e => e.FullName != result.FullName))
          {
-            result.IsFlags = enumType.GetTypeInfo().GetCustomAttribute(typeof(FlagsAttribute)) is FlagsAttribute ;
+            result.IsFlags = enumType.GetTypeInfo().GetCustomAttribute(typeof(FlagsAttribute)) is FlagsAttribute;
             result.ValueType = Enum.GetUnderlyingType(enumType).Name;
 
             result.CustomAttributes = customAttributes.Length > 2
@@ -354,4 +359,6 @@ namespace EFCore3Parser
          return result;
       }
    }
+
+
 }

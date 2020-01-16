@@ -262,7 +262,6 @@ namespace EFCore3Parser
                                       ? string.Join(",", type.GetInterfaces().Select(t => t.FullName))
                                       : null;
 
-         // TODO continue here
          result.Properties = entityType.GetDeclaredProperties()
                                        .Where(p => !p.IsShadowProperty())
                                        .Select(p => ProcessProperty(p, modelRoot))
