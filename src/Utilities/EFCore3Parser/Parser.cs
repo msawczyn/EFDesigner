@@ -7,6 +7,8 @@ using log4net;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.DependencyInjection;
+
 using Newtonsoft.Json;
 
 using ParsingModels;
@@ -36,6 +38,7 @@ namespace EFCore3Parser
          else
          {
             log.Debug("dbContextTypeName parameter is null");
+
             List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
 
             // ReSharper disable once UnthrowableException
@@ -57,9 +60,15 @@ namespace EFCore3Parser
 
          Type optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(contextType);
          DbContextOptionsBuilder optionsBuilder = Activator.CreateInstance(optionsBuilderType) as DbContextOptionsBuilder;
-
          Type optionsType = typeof(DbContextOptions<>).MakeGenericType(contextType);
-         DbContextOptions options = optionsBuilder.UseInMemoryDatabase("Parser").Options;
+
+         // TODO: Won't work because of https://github.com/dotnet/efcore/issues/15532
+         DbContextOptions options = optionsBuilder.UseLazyLoadingProxies()
+                                                  .UseInMemoryDatabase("Parser")
+                                                  .UseInternalServiceProvider(new ServiceCollection().AddEntityFrameworkInMemoryDatabase()
+                                                                                                     .AddEntityFrameworkProxies()
+                                                                                                     .BuildServiceProvider())
+                                                  .Options;
 
          ConstructorInfo constructor = contextType.GetConstructor(new[] { optionsType });
 

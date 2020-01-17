@@ -8,6 +8,7 @@ using log4net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json;
 
@@ -61,7 +62,14 @@ namespace EFCore3Parser
          DbContextOptionsBuilder optionsBuilder = Activator.CreateInstance(optionsBuilderType) as DbContextOptionsBuilder;
 
          Type optionsType = typeof(DbContextOptions<>).MakeGenericType(contextType);
-         DbContextOptions options = optionsBuilder.UseInMemoryDatabase("Parser").Options;
+
+         //DbContextOptions options = optionsBuilder.UseInMemoryDatabase("Parser").Options;
+         DbContextOptions options = optionsBuilder.UseInMemoryDatabase("Parser")
+                                                  .UseLazyLoadingProxies()
+                                                  .UseInternalServiceProvider(new ServiceCollection().AddEntityFrameworkInMemoryDatabase()
+                                                                                                     .AddEntityFrameworkProxies()
+                                                                                                     .BuildServiceProvider())
+                                                  .Options;
 
          ConstructorInfo constructor = contextType.GetConstructor(new[] { optionsType });
 

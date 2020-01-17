@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EFCore2Parser": {
+      "commandName": "Project",
+      "commandLineArgs": "\".\\EFCoreV2\\EFCore2NetFramework\\bin\\Debug\\EFCore2NetFramework.dll\" c:\\temp\\parsertest.txt"
+    }
+  }
+}
