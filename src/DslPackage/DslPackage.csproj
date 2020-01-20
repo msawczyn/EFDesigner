@@ -203,30 +203,14 @@
     <Content Include="Microsoft.Data.ConnectionUI.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\net472\EF6Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\net472\EFCore2Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\net472\EFCore3Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.1\EFCore2Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp2.1\EFCore3Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp3.1\EF6Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp3.1\EFCore2Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\netcoreapp3.1\EFCore3Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
+    <Content Include="Parsers\net472\EF6Parser.exe" />
+    <Content Include="Parsers\net472\EFCore2Parser.exe" />
+    <Content Include="Parsers\net472\EFCore3Parser.exe" />
+    <Content Include="Parsers\netcoreapp2.2\EFCore2Parser.exe" />
+    <Content Include="Parsers\netcoreapp2.2\EFCore3Parser.exe" />
+    <Content Include="Parsers\netcoreapp3.1\EF6Parser.exe" />
+    <Content Include="Parsers\netcoreapp3.1\EFCore2Parser.exe" />
+    <Content Include="Parsers\netcoreapp3.1\EFCore3Parser.exe" />
     <Content Include="ProjectItemTemplates\EFModel.xsd">
       <SubType>Designer</SubType>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -461,7 +445,7 @@ set EFVER=EFCore2
 set NETVER=net472
 call :framework
 
-set NETVER=netcoreapp2.1
+set NETVER=netcoreapp2.2
 call :netcore
 
 set NETVER=netcoreapp3.1
@@ -471,7 +455,7 @@ set EFVER=EFCore3
 set NETVER=net472
 call :framework
 
-set NETVER=netcoreapp2.1
+set NETVER=netcoreapp2.2
 call :netcore
 
 set NETVER=netcoreapp3.1

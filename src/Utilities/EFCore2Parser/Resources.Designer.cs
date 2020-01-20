@@ -65,7 +65,7 @@ namespace EFCore2Parser {
         ///&lt;log4net&gt;
         ///   &lt;root&gt;
         ///      &lt;level value=&quot;ALL&quot; /&gt;
-        ///      &lt;appender-ref ref=&quot;console&quot; /&gt;
+        ///      &lt;!--&lt;appender-ref ref=&quot;console&quot; /&gt;--&gt;
         ///      &lt;appender-ref ref=&quot;file&quot; /&gt;
         ///      &lt;appender-ref ref=&quot;OutputDebugStringAppender&quot; /&gt;
         ///   &lt;/root&gt;
@@ -77,7 +77,7 @@ namespace EFCore2Parser {
         ///      &lt;/mapping&gt;
         ///      &lt;mapping&gt;
         ///         &lt;level value=&quot;WARN&quot; /&gt;
-        ///         &lt;foreColor value=&quot;Yellow&quot; [rest of string was truncated]&quot;;.
+        ///         &lt;foreColor value=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Log4netConfig {
             get {

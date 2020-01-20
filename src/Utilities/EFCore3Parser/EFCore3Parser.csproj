@@ -2,17 +2,17 @@
 
    <PropertyGroup>
       <OutputType>Exe</OutputType>
-      <TargetFrameworks>net472;netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
+      <TargetFrameworks>net472;netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
       <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
       <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
-     <DefineConstants>DEBUG;TRACE</DefineConstants>
+      <DefineConstants>DEBUG;TRACE</DefineConstants>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
-     <DefineConstants />
+      <DefineConstants />
    </PropertyGroup>
 
    <ItemGroup>
@@ -38,18 +38,18 @@
    </ItemGroup>
 
    <ItemGroup>
-     <Compile Update="Resources.Designer.cs">
-       <DependentUpon>Resources.resx</DependentUpon>
-       <DesignTime>True</DesignTime>
-       <AutoGen>True</AutoGen>
-     </Compile>
+      <Compile Update="Resources.Designer.cs">
+         <DependentUpon>Resources.resx</DependentUpon>
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+      </Compile>
    </ItemGroup>
 
    <ItemGroup>
-     <EmbeddedResource Update="Resources.resx">
-       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-       <Generator>ResXFileCodeGenerator</Generator>
-     </EmbeddedResource>
+      <EmbeddedResource Update="Resources.resx">
+         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+         <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
    </ItemGroup>
 
 </Project>

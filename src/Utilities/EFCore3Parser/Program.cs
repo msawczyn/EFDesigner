@@ -33,7 +33,7 @@ namespace EFCore3Parser
             string inputPath = args[0];
             string outputPath = args[1];
           
-            GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "");
+            GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "").TrimEnd('.');
             ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, GetLogStream());
 
