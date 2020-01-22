@@ -65,10 +65,10 @@ namespace Sawczyn.EFDesigner.EFModel
             @"Parsers\net472\EF6Parser.exe"
           , @"Parsers\netcoreapp3.1\EF6Parser.exe"
           , @"Parsers\net472\EFCore2Parser.exe"
-          , @"Parsers\netcoreapp2.1\EFCore2Parser.exe"
+          , @"Parsers\netcoreapp2.2\EFCore2Parser.exe"
           , @"Parsers\netcoreapp3.1\EFCore2Parser.exe"
           , @"Parsers\net472\EFCore3Parser.exe"
-          , @"Parsers\netcoreapp2.1\EFCore3Parser.exe"
+          , @"Parsers\netcoreapp2.2\EFCore3Parser.exe"
           , @"Parsers\netcoreapp3.1\EFCore3Parser.exe"
          };
 

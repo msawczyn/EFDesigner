@@ -2,7 +2,7 @@
   "profiles": {
     "EF6Parser": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Code\\EFDesigner\\src\\Testing\\EF6\\EF6NetCore3\\bin\\Debug\\netcoreapp3.1\\EF6NetCore3.dll c:\\temp\\test.txt"
+      "commandLineArgs": "\"C:\\Code\\Clients\\IH\\Include\\Include.Domain\\bin\\Debug\\Microsoft.AspNet.Identity.EntityFramework.dll\" c:\\temp\\identity.txt "
     }
   }
 }
