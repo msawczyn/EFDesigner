@@ -700,6 +700,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="35baaadc-91c0-496a-9249-bb18163fd2c3" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="9c7f55aa-1cc9-4841-b671-0cab31164a24" Description="Represents an enumeration in C#" Name="ModelEnum" DisplayName="Enum" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -1025,6 +1030,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="21f7d7e2-e0bc-4d59-b776-55a567c16cb0" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1095,6 +1105,13 @@
       </Target>
     </DomainRelationship>
     <DomainRelationship Id="c6eff342-0a73-4d2f-aa0e-b2811663fb60" Description="Inheritance between Classes." Name="Generalization" DisplayName="Inheritance" Namespace="Sawczyn.EFDesigner.EFModel">
+      <Properties>
+        <DomainProperty Id="76e2afe8-4124-448f-83e1-b6bef1d1e9d7" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
       <Source>
         <DomainRole Id="6df2e060-abe4-4aae-a9e7-ae6fb38ca1c3" Description="" Name="Superclass" DisplayName="Base Type" PropertyName="Subclasses" PropertyDisplayName="Subclasses">
           <RolePlayer>
@@ -1731,6 +1748,9 @@
           <XmlPropertyData XmlName="targetPropertyNameDisplay" Representation="Ignore">
             <DomainPropertyMoniker Name="Association/TargetPropertyNameDisplay" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="name" Representation="Ignore">
+            <DomainPropertyMoniker Name="Association/Name" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -1741,6 +1761,11 @@
       </XmlClassData>
       <XmlClassData TypeName="Generalization" MonikerAttributeName="" SerializeId="true" MonikerElementName="generalizationMoniker" ElementName="generalization" MonikerTypeName="GeneralizationMoniker">
         <DomainRelationshipMoniker Name="Generalization" />
+        <ElementData>
+          <XmlPropertyData XmlName="name" Representation="Ignore">
+            <DomainPropertyMoniker Name="Generalization/Name" />
+          </XmlPropertyData>
+        </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelRoot" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootMoniker" ElementName="modelRoot" MonikerTypeName="ModelRootMoniker">
         <DomainClassMoniker Name="ModelRoot" />
@@ -2068,6 +2093,9 @@
           </XmlRelationshipData>
           <XmlPropertyData XmlName="shortText" Representation="Ignore">
             <DomainPropertyMoniker Name="Comment/ShortText" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="name" Representation="Ignore">
+            <DomainPropertyMoniker Name="Comment/Name" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

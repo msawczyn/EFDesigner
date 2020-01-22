@@ -1217,6 +1217,14 @@
     <value>Short Text</value>
     <comment>DisplayName for DomainProperty &apos;ShortText&apos; on DomainClass &apos;Comment&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Comment/Name.Description" xml:space="preserve">
+    <value>Solely for display in the object list of the VStudio property window</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;Comment&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Comment/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;Comment&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum.Description" xml:space="preserve">
     <value>Represents an enumeration in C#</value>
     <comment>Description for DomainClass &apos;ModelEnum&apos;</comment>
@@ -1705,6 +1713,14 @@
     <value>End2</value>
     <comment>Category for DomainProperty &apos;TargetPropertyNameDisplay&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/Name.Description" xml:space="preserve">
+    <value>Solely for display in the object list of the VStudio property window</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainRole &apos;Source&apos; on DomainRelationship &apos;Association&apos;</comment>
@@ -1832,6 +1848,14 @@
   <data name="Sawczyn.EFDesigner.EFModel.Generalization.DisplayName" xml:space="preserve">
     <value>Inheritance</value>
     <comment>DisplayName for DomainClass &apos;Generalization&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Generalization/Name.Description" xml:space="preserve">
+    <value>Solely for display in the object list of the VStudio property window</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;Generalization&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Generalization/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;Generalization&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Generalization/Superclass.Description" xml:space="preserve">
     <value></value>
