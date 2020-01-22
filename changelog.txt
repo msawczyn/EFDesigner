@@ -6,6 +6,7 @@
    - Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
    - Added switch to disable generation of enumerations for those cases where the enums are coming from different assemblies but need to be in the model to avoid errors
+   - Enhanced display of model elements in the Visual Studio property window's object list
 
 1.3.0.12
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)

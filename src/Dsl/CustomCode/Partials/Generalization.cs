@@ -23,5 +23,10 @@ namespace Sawczyn.EFDesigner.EFModel
          return $"{Subclass.Name} inherits from {Superclass.Name}";
       }
 
+      private string GetNameValue()
+      {
+         return GetDisplayText();
+      }
+
    }
 }
