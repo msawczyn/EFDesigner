@@ -523,6 +523,12 @@
             <xsd:documentation>Default value for this class&apos;s attribute AutoProperty setting</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: GenerateCode -->
+        <xsd:attribute name="generateCode" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
