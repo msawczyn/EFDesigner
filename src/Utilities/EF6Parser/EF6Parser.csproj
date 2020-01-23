@@ -1,61 +1,65 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
-     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-  </PropertyGroup>
+   <PropertyGroup>
+      <OutputType>Exe</OutputType>
+      <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+      <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+      <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+      <PublishTrimmed>true</PublishTrimmed>
+      <PublishReadyToRun>true</PublishReadyToRun>
+      <PublishSingleFile>true</PublishSingleFile>
+      <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
-    <DefineConstants />
-  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+      <DefineConstants>DEBUG;TRACE</DefineConstants>
+   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)'=='Release'">
+      <DefineConstants />
+   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="log4net.config" />
-  </ItemGroup>
+   <ItemGroup>
+      <None Remove="log4net.config" />
+   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.0" />
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
-    <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
-    <PackageReference Include="System.Net.Primitives" Version="4.3.1" />
-    <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
-    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
-    <PackageReference Include="System.Threading" Version="4.3.0" />
-  </ItemGroup>
+   <ItemGroup>
+      <PackageReference Include="EntityFramework" Version="6.4.0" />
+      <PackageReference Include="log4net" Version="2.0.8" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+      <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
+      <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+      <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
+      <PackageReference Include="System.Net.Primitives" Version="4.3.1" />
+      <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
+      <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+      <PackageReference Include="System.Threading" Version="4.3.0" />
+   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ParsingModels\ParsingModels.csproj" />
-  </ItemGroup>
+   <ItemGroup>
+      <ProjectReference Include="..\ParsingModels\ParsingModels.csproj" />
+   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+   <ItemGroup>
+      <Resource Include="log4net.config">
+         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+   <ItemGroup>
+      <Compile Update="Resources.Designer.cs">
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+         <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+   <ItemGroup>
+      <EmbeddedResource Update="Resources.resx">
+         <Generator>ResXFileCodeGenerator</Generator>
+         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+   </ItemGroup>
 
 </Project>

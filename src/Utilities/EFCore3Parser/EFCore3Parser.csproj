@@ -2,16 +2,20 @@
 
    <PropertyGroup>
       <OutputType>Exe</OutputType>
-      <TargetFrameworks>net472;netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
+      <TargetFrameworks>netcoreapp2.2;netcoreapp3.1;net472</TargetFrameworks>
       <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
       <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+      <PublishTrimmed>true</PublishTrimmed>
+      <PublishReadyToRun>true</PublishReadyToRun>
+      <PublishSingleFile>true</PublishSingleFile>
+      <RuntimeIdentifier>win-x64</RuntimeIdentifier>
    </PropertyGroup>
 
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
       <DefineConstants>DEBUG;TRACE</DefineConstants>
    </PropertyGroup>
 
-   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+   <PropertyGroup Condition="'$(Configuration)'=='Release'">
       <DefineConstants />
    </PropertyGroup>
 

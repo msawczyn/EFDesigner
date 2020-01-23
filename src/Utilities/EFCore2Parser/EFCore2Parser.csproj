@@ -5,6 +5,10 @@
       <TargetFrameworks>netcoreapp2.2;netcoreapp3.1;net472</TargetFrameworks>
       <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
       <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+      <PublishTrimmed>true</PublishTrimmed>
+      <PublishReadyToRun>true</PublishReadyToRun>
+      <PublishSingleFile>true</PublishSingleFile>
+      <RuntimeIdentifier>win-x64</RuntimeIdentifier>
    </PropertyGroup>
 
    <PropertyGroup Condition="'$(Configuration)'=='Debug'">

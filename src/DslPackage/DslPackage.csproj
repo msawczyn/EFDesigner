@@ -486,7 +486,7 @@ exit /b
 
 :netcore
 mkdir "$(ProjectDir)Parsers\%25NETVER%25"
-dotnet-warp "$(SolutionDir)Utilities\%25EFVER%25Parser\%25EFVER%25Parser.csproj" -p:TargetFramework=%25NETVER%25 -o $(ProjectDir)Parsers\%25NETVER%25\%25EFVER%25Parser.exe -v
+dotnet-warp "$(SolutionDir)Utilities\%25EFVER%25Parser\%25EFVER%25Parser.csproj" -l aggressive -p:TargetFramework=%25NETVER%25 -o $(ProjectDir)Parsers\%25NETVER%25\%25EFVER%25Parser.exe -v
 exit /b
 
 </PreBuildEvent>
