@@ -33,6 +33,8 @@
   <HelpKINode Title="Association.GetTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetTargets.htm" />
   <HelpKINode Title="Association.IsTargetImplementNotifyTracking property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTracking.htm" />
   <HelpKINode Title="Association.IsTargetImplementNotifyTrackingDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTrackingDomainPropertyId.htm" />
+  <HelpKINode Title="Association.Name property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Name.htm" />
+  <HelpKINode Title="Association.NameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_NameDomainPropertyId.htm" />
   <HelpKINode Title="Association.Persistent property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Persistent.htm" />
   <HelpKINode Title="Association.Principal property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Principal.htm" />
   <HelpKINode Title="Association.SetTargetImplementNotifyValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_SetTargetImplementNotifyValue.htm" />
@@ -64,7 +66,11 @@
   <HelpKINode Title="AutoProperty property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_AutoProperty.htm" />
   <HelpKINode Title="AutoPropertyDefault property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AutoPropertyDefault.htm" />
   <HelpKINode Title="AutoPropertyDefaultDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_AutoPropertyDefaultDomainPropertyId.htm" />
-  <HelpKINode Title="BaseClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_BaseClass.htm" />
+  <HelpKINode Title="BaseClass property">
+    <HelpKINode Title="ModelClass.BaseClass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_BaseClass.htm" />
+    <HelpKINode Title="ModelRoot.BaseClass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClass.htm" />
+  </HelpKINode>
+  <HelpKINode Title="BaseClassDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClassDomainPropertyId.htm" />
   <HelpKINode Title="BidirectionalAssociation class">
     <HelpKINode Title="BidirectionalAssociation Class" Url="html/T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation.htm" />
@@ -128,12 +134,15 @@
   <HelpKINode Title="ColumnType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnType.htm" />
   <HelpKINode Title="Comment class">
     <HelpKINode Title="Comment Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
   </HelpKINode>
   <HelpKINode Title="Comment.Classes property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Classes.htm" />
   <HelpKINode Title="Comment.Enums property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Enums.htm" />
   <HelpKINode Title="Comment.ModelRoot property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ModelRoot.htm" />
+  <HelpKINode Title="Comment.Name property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Name.htm" />
+  <HelpKINode Title="Comment.NameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Comment_NameDomainPropertyId.htm" />
   <HelpKINode Title="Comment.ShortText property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ShortText.htm" />
   <HelpKINode Title="Comment.Subjects property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Subjects.htm" />
   <HelpKINode Title="Comment.Text property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Text.htm" />
@@ -272,6 +281,7 @@
   </HelpKINode>
   <HelpKINode Title="Generalization class">
     <HelpKINode Title="Generalization Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Generalization.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Generalization.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Generalization.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Generalization.htm" />
   </HelpKINode>
@@ -283,6 +293,8 @@
   <HelpKINode Title="Generalization.GetSubclasses method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetSubclasses.htm" />
   <HelpKINode Title="Generalization.GetSuperclass method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetSuperclass.htm" />
   <HelpKINode Title="Generalization.IsInCircularInheritance method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_IsInCircularInheritance.htm" />
+  <HelpKINode Title="Generalization.Name property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Name.htm" />
+  <HelpKINode Title="Generalization.NameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Generalization_NameDomainPropertyId.htm" />
   <HelpKINode Title="Generalization.SetSuperclass method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_SetSuperclass.htm" />
   <HelpKINode Title="Generalization.Subclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Subclass.htm" />
   <HelpKINode Title="Generalization.Superclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Superclass.htm" />
@@ -549,6 +561,8 @@
     <HelpKINode Title="ModelEnum.ModelRoot Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_ModelRoot.htm" />
   </HelpKINode>
   <HelpKINode Title="ModelRoot.AutomaticMigrationsEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_AutomaticMigrationsEnabled.htm" />
+  <HelpKINode Title="ModelRoot.BaseClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClass.htm" />
+  <HelpKINode Title="ModelRoot.BaseClassDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClassDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.CanLoadNugetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_CanLoadNugetPackages.htm" />
   <HelpKINode Title="ModelRoot.ChopMethodChains property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ChopMethodChains.htm" />
   <HelpKINode Title="ModelRoot.Classes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Classes.htm" />
@@ -619,10 +633,18 @@
   </HelpKINode>
   <HelpKINode Title="MultiplicityExtensions.Display method" Url="html/M_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions_Display.htm" />
   <HelpKINode Title="Name property">
+    <HelpKINode Title="Association.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Name.htm" />
+    <HelpKINode Title="Comment.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Name.htm" />
+    <HelpKINode Title="Generalization.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Name.htm" />
     <HelpKINode Title="ModelAttribute.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Name.htm" />
     <HelpKINode Title="ModelClass.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Name.htm" />
     <HelpKINode Title="ModelEnum.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Name.htm" />
     <HelpKINode Title="ModelEnumValue.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnumValue_Name.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NameDomainPropertyId field">
+    <HelpKINode Title="Association.NameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_NameDomainPropertyId.htm" />
+    <HelpKINode Title="Comment.NameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Comment_NameDomainPropertyId.htm" />
+    <HelpKINode Title="Generalization.NameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Generalization_NameDomainPropertyId.htm" />
   </HelpKINode>
   <HelpKINode Title="Namespace property">
     <HelpKINode Title="ModelClass.Namespace Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Namespace.htm" />

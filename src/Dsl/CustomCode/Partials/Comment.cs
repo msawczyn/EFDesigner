@@ -6,5 +6,11 @@
       {
          return Text.Truncate(50);
       }
+
+      private string GetNameValue()
+      {
+         return GetShortTextValue();
+      }
+
    }
 }

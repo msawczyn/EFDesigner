@@ -203,14 +203,30 @@
     <Content Include="Microsoft.Data.ConnectionUI.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\net472\EF6Parser.exe" />
-    <Content Include="Parsers\net472\EFCore2Parser.exe" />
-    <Content Include="Parsers\net472\EFCore3Parser.exe" />
-    <Content Include="Parsers\netcoreapp2.2\EFCore2Parser.exe" />
-    <Content Include="Parsers\netcoreapp2.2\EFCore3Parser.exe" />
-    <Content Include="Parsers\netcoreapp3.1\EF6Parser.exe" />
-    <Content Include="Parsers\netcoreapp3.1\EFCore2Parser.exe" />
-    <Content Include="Parsers\netcoreapp3.1\EFCore3Parser.exe" />
+    <Content Include="Parsers\net472\EF6Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\net472\EFCore2Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\net472\EFCore3Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp2.2\EFCore2Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp2.2\EFCore3Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp3.1\EF6Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp3.1\EFCore2Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Parsers\netcoreapp3.1\EFCore3Parser.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="ProjectItemTemplates\EFModel.xsd">
       <SubType>Designer</SubType>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -432,7 +448,7 @@
     <PreBuildEvent>copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)ProjectItemTemplates\EFModel.xsd"
 
 dotnet tool install -g dotnet-warp
-del /S /Q "$(ProjectDir)Parsers\*.*"
+rem del /S /Q "$(ProjectDir)Parsers\*.*"
 
 set EFVER=EF6
 set NETVER=net472

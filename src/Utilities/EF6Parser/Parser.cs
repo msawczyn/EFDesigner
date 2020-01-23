@@ -40,11 +40,11 @@ namespace EF6Parser
          else
          {
             log.Debug("dbContextTypeName parameter is null");
-            List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t)).ToList();
+            List<Type> types = assembly.GetExportedTypes().Where(t => typeof(DbContext).IsAssignableFrom(t) && !t.FullName.Contains("`")).ToList();
 
             if (types.Count == 0)
             {
-               log.Error($"No DBContext found in {assembly.Location}");
+               log.Error($"No usable DBContext found in {assembly.Location}");
                throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
             }
 
