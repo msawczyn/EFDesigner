@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -24,6 +25,10 @@ namespace EFCore3Parser
 
       private static int Main(string[] args)
       {
+         #if DEBUG
+         //Debugger.Launch();
+         #endif
+
          if (args.Length < 2 || args.Length > 3)
          {
             log.Error($"Expecting 2 or 3 arguments - found {args.Length}");
