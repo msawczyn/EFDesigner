@@ -1,13 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
    <PropertyGroup>
       <OutputType>Exe</OutputType>
-      <TargetFrameworks>netcoreapp2.2;netcoreapp3.1;net472</TargetFrameworks>
+      <TargetFrameworks>netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
       <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
       <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-      <PublishTrimmed>true</PublishTrimmed>
-      <PublishReadyToRun>true</PublishReadyToRun>
-      <PublishSingleFile>true</PublishSingleFile>
       <RuntimeIdentifier>win-x64</RuntimeIdentifier>
    </PropertyGroup>
 

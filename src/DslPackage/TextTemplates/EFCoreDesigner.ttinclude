@@ -19,7 +19,7 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
 {
    // Entities
 
-   foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
+   foreach (ModelClass modelClass in modelRoot.Classes)
    {
       manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
       WriteClass(modelClass);

@@ -841,18 +841,6 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GenerateCode.Description" xml:space="preserve">
-    <value>If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly.</value>
-    <comment>Description for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GenerateCode.DisplayName" xml:space="preserve">
-    <value>Generate Code</value>
-    <comment>DisplayName for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GenerateCode.Category" xml:space="preserve">
-    <value>Code Generation</value>
-    <comment>Category for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelClass&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>

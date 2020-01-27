@@ -25,10 +25,6 @@ namespace EFCore3Parser
 
       private static int Main(string[] args)
       {
-         #if DEBUG
-         //Debugger.Launch();
-         #endif
-
          if (args.Length < 2 || args.Length > 3)
          {
             log.Error($"Expecting 2 or 3 arguments - found {args.Length}");
@@ -101,17 +97,26 @@ namespace EFCore3Parser
 
       private static void Exit(int returnCode, Exception ex = null)
       {
-         log.Error($"Usage: {typeof(Program).Assembly.GetName().Name} InputFileName OutputFileName [FullyQualifiedClassName]");
-         log.Error("where");
-         log.Error("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
-         log.Error("   (required) OutputFileName          - path to create JSON file of results");
-         log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
-         log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
-         log.Error("");
+         if (returnCode != 0)
+         {
+            log.Error($"Usage: {typeof(Program).Assembly.GetName().Name} InputFileName OutputFileName [FullyQualifiedClassName]");
+            log.Error("where");
+            log.Error("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
+            log.Error("   (required) OutputFileName          - path to create JSON file of results");
+            log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
+            log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
+            log.Error("");
 
-         if (ex != null)
-            log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
-         log.Error($"Exiting with return code {returnCode}");
+            if (ex != null)
+            {
+               log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
+
+               //Console.Error.WriteLine($"\n{ex.Message}");
+            }
+
+            log.Error($"Exiting with return code {returnCode}");
+         }         
+         
          Environment.Exit(returnCode);
       }
 
