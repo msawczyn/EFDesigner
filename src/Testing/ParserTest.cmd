@@ -1,5 +1,6 @@
-@echo off 
+@echo off
 cls
+
 setlocal EnableDelayedExpansion 
 set initialdir=!cd!
 
@@ -43,7 +44,7 @@ exit /b
 
 :script
 
-for %%p in (0,1,2,3,4,5) (
+for %%p in (0,1,2,3,4,5) do (
    for %%i in (0,1,3,4,5,7,8,9) do (
       echo "!package[%%p]!" "!input[%%i]!" !temp!\parsertest.json
    )
