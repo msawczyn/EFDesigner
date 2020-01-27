@@ -5,9 +5,6 @@
       <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
       <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
       <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-      <PublishTrimmed>true</PublishTrimmed>
-      <PublishReadyToRun>true</PublishReadyToRun>
-      <PublishSingleFile>true</PublishSingleFile>
       <RuntimeIdentifier>win-x64</RuntimeIdentifier>
    </PropertyGroup>
 
