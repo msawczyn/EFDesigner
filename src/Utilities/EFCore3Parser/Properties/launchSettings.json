@@ -2,7 +2,7 @@
   "profiles": {
     "EFCore3Parser": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Code\\EFDesigner\\src\\Testing\\EFCoreV3\\EFCore3NetFramework\\bin\\Debug\\EFCore3NetFramework.dll\" c:\\temp\\parsertest.txt"
+      "commandLineArgs": "C:\\Code\\EFDesigner\\src\\testing\\EFCoreV3\\EFCore3NetFramework\\bin\\Debug\\EFCore3NetFramework.dll c:\\temp\\parsertest.txt"
     }
   }
 }

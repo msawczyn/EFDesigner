@@ -2,7 +2,7 @@
   "profiles": {
     "EF6Parser": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Code\\Clients\\IH\\Include\\Include.Domain\\bin\\Debug\\Microsoft.AspNet.Identity.EntityFramework.dll\" c:\\temp\\identity.txt "
+      "commandLineArgs": "\"C:\\Code\\EFDesigner\\src\\testing\\EF6\\EF6NetStandard\\bin\\Debug\\netstandard2.1\\EF6NetStandard.dll\" c:\\temp\\parsertest.json"
     }
   }
 }

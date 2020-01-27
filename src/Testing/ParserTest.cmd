@@ -4,95 +4,49 @@ setlocal EnableDelayedExpansion
 set initialdir=!cd!
 
 REM ================================================================
-set pgm[0]=EF6Parser.exe
-set pgm[1]=EF6Parser.exe
-set pgm[2]=EFCore2Parser.exe
-set pgm[3]=EFCore2Parser.exe
-set pgm[4]=EFCore2Parser.exe
-set pgm[5]=EFCore3Parser.exe
-set pgm[6]=EFCore3Parser.exe
-set pgm[7]=EFCore3Parser.exe
+set srcRoot=C:\Code\EFDesigner\src
+set inputRoot=C:\Code\EFDesigner\src\testing
 
-set package[0]=..\DslPackage\Parsers\net472
-set package[1]=..\DslPackage\Parsers\netcoreapp3.1
-set package[2]=..\DslPackage\Parsers\net472
-set package[3]=..\DslPackage\Parsers\netcoreapp2.2
-set package[4]=..\DslPackage\Parsers\netcoreapp3.1
-set package[5]=..\DslPackage\Parsers\net472
-set package[6]=..\DslPackage\Parsers\netcoreapp2.2
-set package[7]=..\DslPackage\Parsers\netcoreapp3.1
+set package[0]=!srcRoot!\DslPackage\Parsers\EF6_net472_Parser.exe
+set package[1]=!srcRoot!\DslPackage\Parsers\EF6_netcoreapp3.1_Parser.exe
+set package[2]=!srcRoot!\DslPackage\Parsers\EFCore2_netcoreapp2.2_Parser.exe
+set package[3]=!srcRoot!\DslPackage\Parsers\EFCore2_netcoreapp3.1_Parser.exe
+set package[4]=!srcRoot!\DslPackage\Parsers\EFCore3_net472_Parser.exe
+set package[5]=!srcRoot!\DslPackage\Parsers\EFCore3_netcoreapp3.1_Parser.exe
 
-set publish[0]=..\Utilities\EF6Parser\bin\Debug\net472\publish
-set publish[1]=..\Utilities\EF6Parser\bin\Debug\netcoreapp3.1\publish
-set publish[2]=..\Utilities\EFCore2Parser\bin\Debug\net472\publish
-set publish[3]=..\Utilities\EFCore2Parser\bin\Debug\netcoreapp2.2\publish
-set publish[4]=..\Utilities\EFCore2Parser\bin\Debug\netcoreapp3.1\publish
-set publish[5]=..\Utilities\EFCore3Parser\bin\Debug\net472\publish
-set publish[6]=..\Utilities\EFCore3Parser\bin\Debug\netcoreapp2.2\publish
-set publish[7]=..\Utilities\EFCore3Parser\bin\Debug\netcoreapp3.1\publish
+set input[0]=!inputRoot!\EF6\EF6NetCore3\bin\Debug\netcoreapp3.1\EF6NetCore3.dll
+set input[1]=!inputRoot!\EF6\EF6NetFramework\bin\Debug\EF6NetFramework.dll
+rem set input[2]=!inputRoot!\EF6\EF6NetStandard\bin\Debug\netstandard2.1\EF6NetStandard.dll
+set input[3]=!inputRoot!\EFCoreV2\EFCore2NetCore2\bin\Debug\netcoreapp2.2\EFCore2NetCore2.dll
+set input[4]=!inputRoot!\EFCoreV2\EFCore2NetCore3\bin\Debug\netcoreapp3.1\EFCore2NetCore3.dll
+set input[5]=!inputRoot!\EFCoreV2\EFCore2NetFramework\bin\Debug\EFCore2NetFramework.dll
+rem set input[6]=!inputRoot!\EFCoreV2\EFCore2NetStandard\bin\Debug\netstandard2.1\EFCore2NetStandard.dll
+set input[7]=!inputRoot!\EFCoreV3\EFCore3NetCore2\bin\Debug\netcoreapp2.2\EFCore3NetCore2.dll
+set input[8]=!inputRoot!\EFCoreV3\EFCore3NetCore3\bin\Debug\netcoreapp3.1\EFCore3NetCore3.dll
+set input[9]=!inputRoot!\EFCoreV3\EFCore3NetFramework\bin\Debug\EFCore3NetFramework.dll
+rem set input[10]=!inputRoot!\EFCoreV3\EFCore3NetStandard\bin\Debug\netstandard2.1\EFCore3NetStandard.dll
 
-set build[0]=..\Utilities\EF6Parser\bin\Debug\net472\win7-x86
-set build[1]=..\Utilities\EF6Parser\bin\Debug\netcoreapp3.1\win7-x86
-set build[2]=..\Utilities\EFCore2Parser\bin\Debug\net472\win7-x86
-set build[3]=..\Utilities\EFCore2Parser\bin\Debug\netcoreapp2.2\win7-x86
-set build[4]=..\Utilities\EFCore2Parser\bin\Debug\netcoreapp3.1\win7-x86
-set build[5]=..\Utilities\EFCore3Parser\bin\Debug\net472\win7-x86
-set build[6]=..\Utilities\EFCore3Parser\bin\Debug\netcoreapp2.2\win7-x86
-set build[7]=..\Utilities\EFCore3Parser\bin\Debug\netcoreapp3.1\win7-x86
+if "%1"=="script" goto script
 
-set input[0]=.\EF6\EF6NetFramework\bin\Debug\EF6NetFramework.dll
-set input[1]=.\EF6\EF6NetCore3\bin\Debug\netcoreapp3.1\EF6NetCore3.dll
-set input[2]=.\EF6\EF6NetStandard\bin\Debug\netstandard2.1\EF6NetStandard.dll
-set input[3]=.\EFCoreV2\EFCore2NetCore2\bin\Debug\netcoreapp2.2\EFCore2NetCore2.dll
-set input[4]=.\EFCoreV2\EFCore2NetCore3\bin\Debug\netcoreapp3.1\EFCore2NetCore3.dll
-set input[5]=.\EFCoreV2\EFCore2NetStandard\bin\Debug\netstandard2.1\EFCore2NetStandard.dll
-set input[6]=.\EFCoreV3\EFCore3NetFramework\bin\Debug\EFCore3NetFramework.dll
-set input[7]=.\EFCoreV3\EFCore3NetCore2\bin\Debug\netcoreapp2.2\EFCore3NetCore2.dll
-set input[8]=.\EFCoreV3\EFCore3NetCore3\bin\Debug\netcoreapp3.1\EFCore3NetCore3.dll
-set input[9]=.\EFCoreV3\EFCore3NetStandard\bin\Debug\netstandard2.1\EFCore3NetStandard.dll
+for %%p in (0,1,2,3,4,5) do (
+   echo\
+   echo [%%p] !package[%%p]!
 
-rem goto script
-
-for %%t in (package,publish,build) do (
-   echo ==================================================================
-   echo %%t
-   echo ==================================================================
-
-   for %%p in (0,1,2,3,4,5,6,7) do (
-      set fldr=!%%t[%%p]!
-
-      echo\
-      echo [%%p] !fldr!\!pgm[%%p]!
-
-      for %%i in (0,1,2,3,4,5,6,7,8,9) do (
-         cd "!fldr!"
-         "!pgm[%%p]!" "!input[%%i]!" c:\temp\parsertest.log
-         echo       !ERRORLEVEL! -  [%%i] !input[%%i]!
-         cd "!initialdir!"
-      )
+   for %%i in (0,1,3,4,5,7,8,9) do (
+      "!package[%%p]!" "!input[%%i]!" !temp!\parsertest.json
+      echo       !ERRORLEVEL! -  [%%i] !input[%%i]!
    )
-   echo\
-   echo\
 )
 
+echo\
 exit /b
 
 :script
 
-for %%t in (package,publish,build) do (
-   echo ==================================================================
-   echo %%t
-   echo ==================================================================
-
-   for %%p in (0,1,2,3,4,5,6,7) do (
-      set fldr=!%%t[%%p]!
-
-      for %%i in (0,1,2,3,4,5,6,7,8,9) do (
-         echo "!fldr!\!pgm[%%p]!" "!input[%%i]!" c:\temp\parsertest.log
-      )
+for %%p in (0,1,2,3,4,5) (
+   for %%i in (0,1,3,4,5,7,8,9) do (
+      echo "!package[%%p]!" "!input[%%i]!" !temp!\parsertest.json
    )
-   echo\
-   echo\
 )
 
 exit /b

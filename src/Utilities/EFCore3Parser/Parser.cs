@@ -63,12 +63,13 @@ namespace EFCore3Parser
          Type optionsType = typeof(DbContextOptions<>).MakeGenericType(contextType);
 
          // TODO: Won't work because of https://github.com/dotnet/efcore/issues/15532
-         DbContextOptions options = optionsBuilder.UseLazyLoadingProxies()
-                                                  .UseInMemoryDatabase("Parser")
-                                                  .UseInternalServiceProvider(new ServiceCollection().AddEntityFrameworkInMemoryDatabase()
-                                                                                                     .AddEntityFrameworkProxies()
-                                                                                                     .BuildServiceProvider())
-                                                  .Options;
+         //DbContextOptions options = optionsBuilder.UseLazyLoadingProxies()
+         //                                         .UseInMemoryDatabase("Parser")
+         //                                         .UseInternalServiceProvider(new ServiceCollection().AddEntityFrameworkInMemoryDatabase()
+         //                                                                                            //.AddEntityFrameworkProxies()
+         //                                                                                            .BuildServiceProvider())
+         //                                         .Options;
+         DbContextOptions options = optionsBuilder.Options;
 
          ConstructorInfo constructor = contextType.GetConstructor(new[] { optionsType });
 
