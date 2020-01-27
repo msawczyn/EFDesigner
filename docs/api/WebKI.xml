@@ -298,6 +298,8 @@
   <HelpKINode Title="Generalization.SetSuperclass method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_SetSuperclass.htm" />
   <HelpKINode Title="Generalization.Subclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Subclass.htm" />
   <HelpKINode Title="Generalization.Superclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Superclass.htm" />
+  <HelpKINode Title="GenerateCode property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_GenerateCode.htm" />
+  <HelpKINode Title="GenerateCodeDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_GenerateCodeDomainPropertyId.htm" />
   <HelpKINode Title="Get(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
   <HelpKINode Title="Get&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
   <HelpKINode Title="GetActiveDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetActiveDiagram.htm" />
@@ -474,6 +476,8 @@
   <HelpKINode Title="ModelClass.FindAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FindAssociationNamed.htm" />
   <HelpKINode Title="ModelClass.FindAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_FindAttributeNamed.htm" />
   <HelpKINode Title="ModelClass.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_FullName.htm" />
+  <HelpKINode Title="ModelClass.GenerateCode property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_GenerateCode.htm" />
+  <HelpKINode Title="ModelClass.GenerateCodeDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_GenerateCodeDomainPropertyId.htm" />
   <HelpKINode Title="ModelClass.GetDisplayText method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_GetDisplayText.htm" />
   <HelpKINode Title="ModelClass.HasAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAssociationNamed.htm" />
   <HelpKINode Title="ModelClass.HasAttributeNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAttributeNamed.htm" />
