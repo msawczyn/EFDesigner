@@ -189,7 +189,7 @@
         <!-- Property: TransformOnSave -->
         <xsd:attribute name="transformOnSave" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, will run Transform All Templates when this model is saved</xsd:documentation>
+            <xsd:documentation>If true, will generate DbContext and entity code when this model is saved</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: DefaultIdentityType -->
@@ -256,18 +256,6 @@
         <xsd:attribute name="showWarningsInDesigner" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>If true, will display warning glyphs with tooltips when model elements have non-fatal issues detected</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: LayoutAlgorithm -->
-        <xsd:attribute name="layoutAlgorithm" type="LayoutAlgorithm" >
-          <xsd:annotation>
-            <xsd:documentation>Strategy for auto-layout operations</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: LayoutAlgorithmSettings -->
-        <xsd:attribute name="layoutAlgorithmSettings" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Tunable parameters for auto-layout of the designer</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: EntityNamespace -->
@@ -2120,37 +2108,6 @@
       <xsd:enumeration value="Ask">
         <xsd:annotation>
           <xsd:documentation>Ask each time if should perform the action automatically</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-    </xsd:restriction>
-  </xsd:simpleType>
-  
-  <!-- Enum LayoutAlgorithm -->
-  <xsd:simpleType name="LayoutAlgorithm">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="MDS">
-        <xsd:annotation>
-          <xsd:documentation>MDS</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Sugiyama">
-        <xsd:annotation>
-          <xsd:documentation>Sugiyama</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="FastIncremental">
-        <xsd:annotation>
-          <xsd:documentation>FastIncremental</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Ranking">
-        <xsd:annotation>
-          <xsd:documentation>Ranking</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Default">
-        <xsd:annotation>
-          <xsd:documentation>Default</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

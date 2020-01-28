@@ -4,17 +4,10 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
 
-using Microsoft.Msagl.Core.Layout;
-using Microsoft.Msagl.Core.Routing;
-using Microsoft.Msagl.Layout.Incremental;
-using Microsoft.Msagl.Layout.MDS;
-using Microsoft.Msagl.Prototype.Ranking;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Validation;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
-
-using SugiyamaLayoutSettings = Microsoft.Msagl.Layout.Layered.SugiyamaLayoutSettings;
 
 #pragma warning disable 1591
 
@@ -81,85 +74,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Namespaces
-
-      #region LayoutAlgorithmPropertyHandler
-
-      internal sealed partial class LayoutAlgorithmPropertyHandler
-      {
-         private static readonly Dictionary<LayoutAlgorithm, LayoutAlgorithmSettings> settingsCache = new Dictionary<LayoutAlgorithm, LayoutAlgorithmSettings>();
-
-         protected override void OnValueChanged(ModelRoot element, LayoutAlgorithm oldValue, LayoutAlgorithm newValue)
-         {
-            base.OnValueChanged(element, oldValue, newValue);
-
-            if (!element.Store.InUndoRedoOrRollback)
-            {
-               // if this is the first time we've been here, cache what's alread there
-               if (oldValue != LayoutAlgorithm.Default && !settingsCache.ContainsKey(oldValue) && element.LayoutAlgorithmSettings != null)
-                  settingsCache[oldValue] = element.LayoutAlgorithmSettings;
-
-               // use the prior settings for this layout type if available
-               if (newValue != LayoutAlgorithm.Default && settingsCache.ContainsKey(newValue))
-                  element.LayoutAlgorithmSettings = settingsCache[newValue];
-               else
-               {
-                  // if not, set some defaults that make sense in our context
-                  switch (newValue)
-                  {
-                     case LayoutAlgorithm.Default:
-                        element.LayoutAlgorithmSettings = null;
-                        return;
-
-                     case LayoutAlgorithm.FastIncremental:
-                        FastIncrementalLayoutSettings fastIncrementalLayoutSettings = new FastIncrementalLayoutSettings();
-                        element.LayoutAlgorithmSettings = fastIncrementalLayoutSettings;
-
-                        break;
-
-                     case LayoutAlgorithm.MDS:
-                        MdsLayoutSettings mdsLayoutSettings = new MdsLayoutSettings();
-                        mdsLayoutSettings.ScaleX = 1;
-                        mdsLayoutSettings.ScaleY = 1;
-                        mdsLayoutSettings.AdjustScale = true;
-                        mdsLayoutSettings.RemoveOverlaps = true;
-                        element.LayoutAlgorithmSettings = mdsLayoutSettings;
-
-                        break;
-
-                     case LayoutAlgorithm.Ranking:
-                        RankingLayoutSettings rankingLayoutSettings = new RankingLayoutSettings();
-                        rankingLayoutSettings.ScaleX = 1;
-                        rankingLayoutSettings.ScaleY = 1;
-                        element.LayoutAlgorithmSettings = rankingLayoutSettings;
-
-                        break;
-
-                     case LayoutAlgorithm.Sugiyama:
-                        SugiyamaLayoutSettings sugiyamaLayoutSettings = new SugiyamaLayoutSettings
-                        {
-                           LayerSeparation = 1,
-                           MinNodeHeight = 1,
-                           MinNodeWidth = 1
-                        };
-
-                        element.LayoutAlgorithmSettings = sugiyamaLayoutSettings;
-
-                        break;
-                  }
-
-                  element.LayoutAlgorithmSettings.ClusterMargin = 1;
-                  element.LayoutAlgorithmSettings.NodeSeparation = 1;
-                  element.LayoutAlgorithmSettings.EdgeRoutingSettings.Padding = .3;
-                  element.LayoutAlgorithmSettings.EdgeRoutingSettings.PolylinePadding = 1.5;
-                  element.LayoutAlgorithmSettings.EdgeRoutingSettings.EdgeRoutingMode = EdgeRoutingMode.StraightLine;
-
-                  settingsCache[newValue] = element.LayoutAlgorithmSettings;
-               }
-            }
-         }
-      }
-
-      #endregion
 
       #region Valid types based on EF version
 

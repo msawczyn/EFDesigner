@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 
-using Sawczyn.EFDesigner.EFModel.Annotations;
-
 namespace Sawczyn.EFDesigner.EFModel
 {
 
@@ -18,10 +16,6 @@ namespace Sawczyn.EFDesigner.EFModel
          if (ModelElement is ModelRoot modelRoot)
          {
             EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelRoot);
-
-            // default layout algorithm doesn't have configuration properties
-            if (modelRoot.LayoutAlgorithm == LayoutAlgorithm.Default)
-               propertyDescriptors.Remove("LayoutAlgorithmSettings");
 
             //Add in extra custom properties here...
          }

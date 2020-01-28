@@ -681,40 +681,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// LayoutAlgorithm
-			if (!serializationContext.Result.Failed)
-			{
-				string attribLayoutAlgorithm = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "layoutAlgorithm");
-				if (attribLayoutAlgorithm != null)
-				{
-					LayoutAlgorithm valueOfLayoutAlgorithm;
-					if (DslModeling::SerializationUtilities.TryGetValue<LayoutAlgorithm>(serializationContext, attribLayoutAlgorithm, out valueOfLayoutAlgorithm))
-					{
-						instanceOfModelRoot.LayoutAlgorithm = valueOfLayoutAlgorithm;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "layoutAlgorithm", typeof(LayoutAlgorithm), attribLayoutAlgorithm);
-					}
-				}
-			}
-			// LayoutAlgorithmSettings
-			if (!serializationContext.Result.Failed)
-			{
-				string attribLayoutAlgorithmSettings = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "layoutAlgorithmSettings");
-				if (attribLayoutAlgorithmSettings != null)
-				{
-					global::Microsoft.Msagl.Core.Layout.LayoutAlgorithmSettings valueOfLayoutAlgorithmSettings;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::Microsoft.Msagl.Core.Layout.LayoutAlgorithmSettings>(serializationContext, attribLayoutAlgorithmSettings, out valueOfLayoutAlgorithmSettings))
-					{
-						instanceOfModelRoot.LayoutAlgorithmSettings = valueOfLayoutAlgorithmSettings;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "layoutAlgorithmSettings", typeof(global::Microsoft.Msagl.Core.Layout.LayoutAlgorithmSettings), attribLayoutAlgorithmSettings);
-					}
-				}
-			}
 			// EntityNamespace
 			if (!serializationContext.Result.Failed)
 			{
@@ -1838,29 +1804,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showWarningsInDesigner", serializedPropValue);
 					}
-				}
-			}
-			// LayoutAlgorithm
-			if (!serializationContext.Result.Failed)
-			{
-				LayoutAlgorithm propValue = instanceOfModelRoot.LayoutAlgorithm;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<LayoutAlgorithm>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Default") != 0)
-					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "layoutAlgorithm", serializedPropValue);
-					}
-				}
-			}
-			// LayoutAlgorithmSettings
-			if (!serializationContext.Result.Failed)
-			{
-				global::Microsoft.Msagl.Core.Layout.LayoutAlgorithmSettings propValue = instanceOfModelRoot.LayoutAlgorithmSettings;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::Microsoft.Msagl.Core.Layout.LayoutAlgorithmSettings>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "layoutAlgorithmSettings", serializedPropValue);
 				}
 			}
 			// EntityNamespace

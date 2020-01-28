@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
@@ -6,6 +7,7 @@ using Microsoft.VisualStudio.Modeling.Design;
 namespace Sawczyn.EFDesigner.EFModel
 {
    //[TypeConverter(typeof(ExpandableObjectConverter))]
+   [Serializable]
    public class OutputLocations: IHasStore
    {
       private readonly ModelRoot modelRoot;

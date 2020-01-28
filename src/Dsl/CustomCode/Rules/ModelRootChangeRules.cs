@@ -112,11 +112,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
-            //case "LayoutAlgorithm":
-            //   ModelDisplay.LayoutDiagram(element.Classes.FirstOrDefault()?.GetActiveDiagram() as EFModelDiagram);
-
-            //   break;
-
             case "Namespace":
                errorMessages.Add(CommonRules.ValidateNamespace((string)e.NewValue, CodeGenerator.IsValidLanguageIndependentIdentifier));
 

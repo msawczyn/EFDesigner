@@ -144,7 +144,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="0b0ccc1d-e8ea-4dab-9517-b7412cda307e" Description="If true, will run Transform All Templates when this model is saved" Name="TransformOnSave" DisplayName="Transform On Save" DefaultValue="true" Category="Designer">
+        <DomainProperty Id="0b0ccc1d-e8ea-4dab-9517-b7412cda307e" Description="If true, will generate DbContext and entity code when this model is saved" Name="TransformOnSave" DisplayName="Generate code on save" DefaultValue="true" Category="Designer">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -239,16 +239,6 @@
         <DomainProperty Id="b79884bd-572a-444c-b64e-24d66c8efc29" Description="If true, will display warning glyphs with tooltips when model elements have non-fatal issues detected" Name="ShowWarningsInDesigner" DisplayName="Show Warnings In Designer" DefaultValue="true" Category="Designer">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="e4381ece-36ab-40e4-869e-789499e9a886" Description="Strategy for auto-layout operations" Name="LayoutAlgorithm" DisplayName="Layout Algorithm" DefaultValue="Default" Category="Designer">
-          <Type>
-            <DomainEnumerationMoniker Name="LayoutAlgorithm" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="879483d1-6f57-4fc2-b501-4c62e9ff2a5d" Description="Tunable parameters for auto-layout of the designer" Name="LayoutAlgorithmSettings" DisplayName="Layout Algorithm Settings" Category="Designer">
-          <Type>
-            <ExternalTypeMoniker Name="/Microsoft.Msagl.Core.Layout/LayoutAlgorithmSettings" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="f11b0472-3a86-497c-b8a7-cd90350fe289" Description="Namespace for entities" Name="EntityNamespace" DisplayName="Entity Namespace" Category="Code Generation" IsBrowsable="false">
@@ -1508,16 +1498,6 @@
         <EnumerationLiteral Description="Ask each time if should perform the action automatically" Name="Ask" Value="2" />
       </Literals>
     </DomainEnumeration>
-    <DomainEnumeration Name="LayoutAlgorithm" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.LayoutAlgorithm">
-      <Literals>
-        <EnumerationLiteral Description="MDS" Name="MDS" Value="4" />
-        <EnumerationLiteral Description="Sugiyama" Name="Sugiyama" Value="2" />
-        <EnumerationLiteral Description="FastIncremental" Name="FastIncremental" Value="3" />
-        <EnumerationLiteral Description="Ranking" Name="Ranking" Value="1" />
-        <EnumerationLiteral Description="Default" Name="Default" Value="0" />
-      </Literals>
-    </DomainEnumeration>
-    <ExternalType Name="LayoutAlgorithmSettings" Namespace="Microsoft.Msagl.Core.Layout" />
     <DomainEnumeration Name="PersistencePointType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Used to define whether the property or its backing field is persisted">
       <Literals>
         <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property" Name="Property" Value="" />
@@ -1872,12 +1852,6 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="classes">
             <DomainRelationshipMoniker Name="ModelRootHasClasses" />
           </XmlRelationshipData>
-          <XmlPropertyData XmlName="layoutAlgorithm">
-            <DomainPropertyMoniker Name="ModelRoot/LayoutAlgorithm" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="layoutAlgorithmSettings">
-            <DomainPropertyMoniker Name="ModelRoot/LayoutAlgorithmSettings" />
-          </XmlPropertyData>
           <XmlPropertyData XmlName="entityNamespace">
             <DomainPropertyMoniker Name="ModelRoot/EntityNamespace" />
           </XmlPropertyData>

@@ -362,11 +362,11 @@
     <comment>Category for DomainProperty &apos;ProxyGenerationEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.Description" xml:space="preserve">
-    <value>If true, will run Transform All Templates when this model is saved</value>
+    <value>If true, will generate DbContext and entity code when this model is saved</value>
     <comment>Description for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.DisplayName" xml:space="preserve">
-    <value>Transform On Save</value>
+    <value>Generate code on save</value>
     <comment>DisplayName for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.Category" xml:space="preserve">
@@ -500,30 +500,6 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowWarningsInDesigner.Category" xml:space="preserve">
     <value>Designer</value>
     <comment>Category for DomainProperty &apos;ShowWarningsInDesigner&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/LayoutAlgorithm.Description" xml:space="preserve">
-    <value>Strategy for auto-layout operations</value>
-    <comment>Description for DomainProperty &apos;LayoutAlgorithm&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/LayoutAlgorithm.DisplayName" xml:space="preserve">
-    <value>Layout Algorithm</value>
-    <comment>DisplayName for DomainProperty &apos;LayoutAlgorithm&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/LayoutAlgorithm.Category" xml:space="preserve">
-    <value>Designer</value>
-    <comment>Category for DomainProperty &apos;LayoutAlgorithm&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/LayoutAlgorithmSettings.Description" xml:space="preserve">
-    <value>Tunable parameters for auto-layout of the designer</value>
-    <comment>Description for DomainProperty &apos;LayoutAlgorithmSettings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/LayoutAlgorithmSettings.DisplayName" xml:space="preserve">
-    <value>Layout Algorithm Settings</value>
-    <comment>DisplayName for DomainProperty &apos;LayoutAlgorithmSettings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/LayoutAlgorithmSettings.Category" xml:space="preserve">
-    <value>Designer</value>
-    <comment>Category for DomainProperty &apos;LayoutAlgorithmSettings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/EntityNamespace.Description" xml:space="preserve">
     <value>Namespace for entities</value>
@@ -2956,46 +2932,6 @@
   <data name="Sawczyn.EFDesigner.EFModel.AutomaticAction/Ask.Description" xml:space="preserve">
     <value>Ask each time if should perform the action automatically</value>
     <comment>Description for EnumerationLiteral &apos;Ask&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/MDS.DisplayName" xml:space="preserve">
-    <value>MDS</value>
-    <comment>Display name for EnumerationLiteral &apos;MDS&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/MDS.Description" xml:space="preserve">
-    <value>MDS</value>
-    <comment>Description for EnumerationLiteral &apos;MDS&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Sugiyama.DisplayName" xml:space="preserve">
-    <value>Sugiyama</value>
-    <comment>Display name for EnumerationLiteral &apos;Sugiyama&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Sugiyama.Description" xml:space="preserve">
-    <value>Sugiyama</value>
-    <comment>Description for EnumerationLiteral &apos;Sugiyama&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/FastIncremental.DisplayName" xml:space="preserve">
-    <value>FastIncremental</value>
-    <comment>Display name for EnumerationLiteral &apos;FastIncremental&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/FastIncremental.Description" xml:space="preserve">
-    <value>FastIncremental</value>
-    <comment>Description for EnumerationLiteral &apos;FastIncremental&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Ranking.DisplayName" xml:space="preserve">
-    <value>Ranking</value>
-    <comment>Display name for EnumerationLiteral &apos;Ranking&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Ranking.Description" xml:space="preserve">
-    <value>Ranking</value>
-    <comment>Description for EnumerationLiteral &apos;Ranking&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Default.DisplayName" xml:space="preserve">
-    <value>Default</value>
-    <comment>Display name for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.LayoutAlgorithm/Default.Description" xml:space="preserve">
-    <value>Default</value>
-    <comment>Description for EnumerationLiteral &apos;Default&apos; on DomainEnumeration &apos;LayoutAlgorithm&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Property.DisplayName" xml:space="preserve">
     <value>Property</value>
