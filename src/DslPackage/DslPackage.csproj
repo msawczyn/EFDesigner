@@ -485,7 +485,7 @@ exit /b
 
 :netcore3
 cd "$(SolutionDir)Utilities\%25EFVER%25Parser"
-dotnet publish -c $(ConfigurationName) -r win-x64 -f %25NETVER%25 --self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true /p:PublishTrimmed=true
+dotnet publish -c $(ConfigurationName) -r win-x64 -f %25NETVER%25 --self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true 
 del "$(ProjectDir)Parsers\%25EFVER%25_%25NETVER%25_Parser.exe" 
 rename "$(ProjectDir)Parsers\%25EFVER%25Parser.exe" "%25EFVER%25_%25NETVER%25_Parser.exe"
 exit /b

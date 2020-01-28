@@ -122,6 +122,7 @@ namespace Sawczyn.EFDesigner.EFModel
                         element.EnsureForeignKeyAttributes();
 
                         // add delete locks to the attributes that are now foreign keys
+                        // ReSharper disable once LoopCanBePartlyConvertedToQuery
                         foreach (string propertyName in element.ForeignKeyPropertyNames)
                         {
                            ModelAttribute fkAttribute = element.Dependent.Attributes.FirstOrDefault(a => a.Name == propertyName);
@@ -129,8 +130,25 @@ namespace Sawczyn.EFDesigner.EFModel
                            {
                               fkAttribute.SetLocks(Locks.None);
                               fkAttribute.Summary = $"Foreign key for {element.GetDisplayText()}";
-                              fkAttribute.SetLocks(Locks.Delete | Locks.Properties);
+                              fkAttribute.SetLocks(Locks.Delete);
                            }
+                        }
+                     }
+                  }
+                  else
+                  {
+                     // foreign key was removed
+                     // remove locks
+                     string[] oldValues = e.OldValue?.ToString()?.Split(',') ?? new string[0];
+
+                     // ReSharper disable once LoopCanBePartlyConvertedToQuery
+                     foreach (string oldValue in oldValues)
+                     {
+                        ModelAttribute attribute = element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue);
+                        if (attribute != null)
+                        {
+                           attribute.Summary = null;
+                           attribute.SetLocks(Locks.None);
                         }
                      }
                   }
