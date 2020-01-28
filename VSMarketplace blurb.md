@@ -33,12 +33,15 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
 **ChangeLog**
 
 **2.0.0.0** (next version)
-   - **Dropped support for Visual Studio 2017 due to the changes in .NET Core 3.0 and above**
+   - **Dropped support for Visual Studio 2017**; was getting to be too much work to keep the tool viable for that Visual Studio version.
    - **[NEW]** Added ability to specify foreign key properties
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
-   - Renamed toolbox category to "EF Model Diagrams"
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - **[NEW]** Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
+   - **[NEW]** Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors
+   - Renamed toolbox category to "EF Model Diagrams"
+   - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
+   - Enhanced display of model elements in the Visual Studio property window's object list
 
 **1.3.0.12** 
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)

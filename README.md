@@ -42,13 +42,6 @@ ASP.Net Core in addition to any other project type, so you'll have flexibility i
 
 You can read more about how to use the designer in the [Documentation site](https://msawczyn.github.io/EFDesigner/).
 
-### Known Issues
-
-**Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
-classes, enums, structs and comment blocks. [It was reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html), 
-and has since been **fixed as of v16.2.5**, so if you're using a version between 16.2.0 and 16.2.4, you'll want 
-to upgrade to 16.2.5 in order to use not just this extension, but any extension based on the Microsoft Modeling SDK.
-
 ### Shout out and a big thanks
 <!-- <table border="0" cellspacing="0" cellpadding="0" style="border:none">
 <tr vstyle="center" style="border:none"><td>to</td><td><a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawczyn.github.io/EFDesigner/images/jetbrains-variant-2a.png"></a></td><td>for providing free development tools to support this project.</td></tr>
@@ -58,12 +51,15 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 ### Change Log
 
 **2.0.0.0** (next version)
-   - **Dropped support for Visual Studio 2017 due to the changes in .NET Core 3.0 and above**
+   - **Dropped support for Visual Studio 2017**; was getting to be too much work to keep the tool viable for that Visual Studio version.
    - Added ability to specify foreign key properties
+   - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - Renamed toolbox category to "EF Model Diagrams"
    - Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
+   - Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors
+   - Enhanced display of model elements in the Visual Studio property window's object list
 
 <details>
 <summary><b>1.3.0.12</b></summary>
