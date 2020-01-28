@@ -62,14 +62,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string[] paths =
          {
-            @"Parsers\net472\EF6Parser.exe"
-          , @"Parsers\netcoreapp3.1\EF6Parser.exe"
-          , @"Parsers\net472\EFCore2Parser.exe"
-          , @"Parsers\netcoreapp2.2\EFCore2Parser.exe"
-          , @"Parsers\netcoreapp3.1\EFCore2Parser.exe"
-          , @"Parsers\net472\EFCore3Parser.exe"
-          , @"Parsers\netcoreapp2.2\EFCore3Parser.exe"
-          , @"Parsers\netcoreapp3.1\EFCore3Parser.exe"
+            @"Parsers\EF6Parser.exe"
+          , @"Parsers\EFCore2Parser.exe"
+          , @"Parsers\EFCore3Parser.exe"
          };
 
          foreach (string path in paths)
@@ -78,12 +73,7 @@ namespace Sawczyn.EFDesigner.EFModel
                return DoProcessing(outputFilename);
          }
 
-         ErrorDisplay.Show(@"Error processing assembly. 
-
-Input assembly requirements:
-   EF6: must be .NET Framework 4.72 (or above) or .NETCore 3.1 (or above)
-   EFCore2 and EFCore3: must be .NET Framework 4.72 (or above) or .NETCore 2.1 (or above)
-");
+         ErrorDisplay.Show($@"Error processing assembly. See {Path.ChangeExtension(outputFilename, "log")} for further information");
 
          return false;
       }

@@ -203,22 +203,13 @@
     <Content Include="Microsoft.Data.ConnectionUI.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\EF6_net472_Parser.exe">
+    <Content Include="Parsers\EF6Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\EF6_netcoreapp3.1_Parser.exe">
+    <Content Include="Parsers\EFCore2Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Parsers\EFCore2_netcoreapp2.2_Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\EFCore2_netcoreapp3.1_Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\EFCore3_net472_Parser.exe">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Parsers\EFCore3_netcoreapp3.1_Parser.exe">
+    <Content Include="Parsers\EFCore3Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="ProjectItemTemplates\EFModel.xsd">
@@ -441,53 +432,23 @@
   <PropertyGroup>
     <PreBuildEvent>copy /y "$(SolutionDir)Dsl\GeneratedCode\EFModelSchema.xsd" "$(ProjectDir)ProjectItemTemplates\EFModel.xsd"
 
-dotnet tool update -g dotnet-warp
-
-rem =================================
-set EFVER=EF6
-set NETVER=net472
-call :framework
-
-set EFVER=EF6
 set NETVER=netcoreapp3.1
+set EFVER=EF6
 call :netcore3
 
-rem =================================
 set EFVER=EFCore2
-set NETVER=netcoreapp2.2
-call :netcore2
-
-set EFVER=EFCore2
-set NETVER=netcoreapp3.1
 call :netcore3
 
-rem =================================
 set EFVER=EFCore3
-set NETVER=net472
-call :framework
-
-set EFVER=EFCore3
-set NETVER=netcoreapp3.1
 call :netcore3
 
 if "$(ConfigurationName)"=="Release" del "$(ProjectDir)Parsers\*.pdb
 
 exit /b
 
-:framework
-"%25UserProfile%25\.dotnet\tools\.store\dotnet-warp\1.1.0\dotnet-warp\1.1.0\tools\netcoreapp2.1\any\warp\windows-x64.warp-packer.exe" --arch windows-x64 --input_dir "$(SolutionDir)Utilities\%25EFVER%25Parser\bin\$(ConfigurationName)\%25NETVER%25\win-x64" --exec %25EFVER%25Parser.exe --output $(ProjectDir)Parsers\%25EFVER%25_%25NETVER%25_Parser.exe
-exit /b
-
-:netcore2
-cd "$(SolutionDir)Utilities\%25EFVER%25Parser"
-dotnet-warp "$(SolutionDir)Utilities\%25EFVER%25Parser\%25EFVER%25Parser.csproj" -p:TargetFramework=%25NETVER%25 -o $(ProjectDir)Parsers\%25EFVER%25_%25NETVER%25_Parser.exe -v
-exit /b
-
 :netcore3
-cd "$(SolutionDir)Utilities\%25EFVER%25Parser"
-dotnet publish -c $(ConfigurationName) -r win-x64 -f %25NETVER%25 --self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true 
-del "$(ProjectDir)Parsers\%25EFVER%25_%25NETVER%25_Parser.exe" 
-rename "$(ProjectDir)Parsers\%25EFVER%25Parser.exe" "%25EFVER%25_%25NETVER%25_Parser.exe"
+rem cd "$(SolutionDir)Utilities\%25EFVER%25Parser"
+dotnet publish -c $(ConfigurationName) -r win-x64 -f %25NETVER%25 --no-build --nologo --self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true "$(SolutionDir)Utilities\%25EFVER%25Parser\%25EFVER%25Parser.csproj"
 exit /b
 </PreBuildEvent>
   </PropertyGroup>

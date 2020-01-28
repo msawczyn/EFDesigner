@@ -2,7 +2,7 @@
 
    <PropertyGroup>
       <OutputType>Exe</OutputType>
-      <TargetFrameworks>netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
+      <TargetFramework>netcoreapp3.1</TargetFramework>
       <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
       <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
       <RuntimeIdentifier>win-x64</RuntimeIdentifier>
