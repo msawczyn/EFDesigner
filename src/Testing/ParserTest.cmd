@@ -8,12 +8,16 @@ REM ================================================================
 set srcRoot=C:\Code\EFDesigner\src
 set inputRoot=C:\Code\EFDesigner\src\testing
 
-set package[0]=!srcRoot!\DslPackage\Parsers\EF6_netcoreapp3.1_Parser.exe
-set package[1]=!srcRoot!\DslPackage\Parsers\EF6_net472_Parser.exe
-set package[2]=!srcRoot!\DslPackage\Parsers\EFCore2_netcoreapp2.2_Parser.exe
-set package[3]=!srcRoot!\DslPackage\Parsers\EFCore2_netcoreapp3.1_Parser.exe
-set package[4]=!srcRoot!\DslPackage\Parsers\EFCore3_netcoreapp3.1_Parser.exe
-set package[5]=!srcRoot!\DslPackage\Parsers\EFCore3_net472_Parser.exe
+REM set package[0]=!srcRoot!\DslPackage\Parsers\EF6_netcoreapp3.1_Parser.exe
+REM set package[1]=!srcRoot!\DslPackage\Parsers\EF6_net472_Parser.exe
+REM set package[2]=!srcRoot!\DslPackage\Parsers\EFCore2_netcoreapp2.2_Parser.exe
+REM set package[3]=!srcRoot!\DslPackage\Parsers\EFCore2_netcoreapp3.1_Parser.exe
+REM set package[4]=!srcRoot!\DslPackage\Parsers\EFCore3_netcoreapp3.1_Parser.exe
+REM set package[5]=!srcRoot!\DslPackage\Parsers\EFCore3_net472_Parser.exe
+
+set package[0]=!srcRoot!\DslPackage\Parsers\EF6Parser.exe
+set package[1]=!srcRoot!\DslPackage\Parsers\EFCore2Parser.exe
+set package[2]=!srcRoot!\DslPackage\Parsers\EFCore3Parser.exe
 
 set input[0]=!inputRoot!\EF6\EF6NetCore3\bin\Debug\netcoreapp3.1\EF6NetCore3.dll
 set input[1]=!inputRoot!\EF6\EF6NetFramework\bin\Debug\EF6NetFramework.dll
@@ -29,11 +33,11 @@ set input[10]=!inputRoot!\EFCoreV3\EFCore3NetStandard\bin\Debug\netstandard2.1\E
 
 if "%1"=="script" goto script
 
-for %%p in (0,3,4) do (
+for %%p in (0,1,2) do (
    echo\
    echo [%%p] !package[%%p]!
 
-   for %%i in (0,1,3,4,5,7,8,9) do (
+   for %%i in (0,1,2,3,4,5,6,7,8,9,10) do (
       "!package[%%p]!" "!input[%%i]!" !temp!\parsertest.json
       echo       !ERRORLEVEL! -  [%%i] !input[%%i]!
    )

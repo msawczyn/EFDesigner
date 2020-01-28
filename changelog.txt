@@ -1,6 +1,7 @@
 2.0.0.0
-   - Dropped support for Visual Studio 2017 due to the changes in .NET Core 3.0 and above
+   - Dropped support for Visual Studio 2017; was getting to be too much work to keep the tool viable for that Visual Studio version.
    - Added ability to specify foreign key properties
+   - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - Renamed toolbox category to "EF Model Diagrams"
    - Added options dialog (Tools/Options/Entity Framework Visual Editor)
