@@ -362,15 +362,15 @@
     <comment>Category for DomainProperty &apos;ProxyGenerationEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.Description" xml:space="preserve">
-    <value>If true, will generate DbContext and entity code when this model is saved</value>
+    <value>If true, will trigger code generation when the file is saved. If false, code generation will have to be triggered manually.</value>
     <comment>Description for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.DisplayName" xml:space="preserve">
-    <value>Generate code on save</value>
+    <value>Genereate Code on Save</value>
     <comment>DisplayName for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.Category" xml:space="preserve">
-    <value>Designer</value>
+    <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.Description" xml:space="preserve">
@@ -816,6 +816,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass/AutoPropertyDefault.Category" xml:space="preserve">
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;AutoPropertyDefault&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GenerateCode.Description" xml:space="preserve">
+    <value>If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly.</value>
+    <comment>Description for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GenerateCode.DisplayName" xml:space="preserve">
+    <value>Generate Code</value>
+    <comment>DisplayName for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/GenerateCode.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>

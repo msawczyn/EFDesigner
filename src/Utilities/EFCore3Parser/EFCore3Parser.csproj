@@ -35,7 +35,7 @@
 
    <ItemGroup>
       <Resource Include="log4net.config">
-         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
    </ItemGroup>
 

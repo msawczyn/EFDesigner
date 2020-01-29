@@ -144,7 +144,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="0b0ccc1d-e8ea-4dab-9517-b7412cda307e" Description="If true, will generate DbContext and entity code when this model is saved" Name="TransformOnSave" DisplayName="Generate code on save" DefaultValue="true" Category="Designer">
+        <DomainProperty Id="0b0ccc1d-e8ea-4dab-9517-b7412cda307e" Description="If true, will trigger code generation when the file is saved. If false, code generation will have to be triggered manually." Name="TransformOnSave" DisplayName="Genereate Code on Save" DefaultValue="true" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -448,6 +448,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="aae9a58c-df8c-4557-826a-f0a66bb75d66" Description="Default value for this class's attribute AutoProperty setting" Name="AutoPropertyDefault" DisplayName="AutoProperty Default" DefaultValue="true" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="84329360-6f27-42ec-99fe-3b5bff1dc54c" Description="If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly." Name="GenerateCode" DisplayName="Generate Code" DefaultValue="true" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1861,10 +1866,10 @@
           <XmlPropertyData XmlName="structNamespace">
             <DomainPropertyMoniker Name="ModelRoot/StructNamespace" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="namespaces">
+          <XmlPropertyData XmlName="namespaces" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelRoot/Namespaces" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="outputLocations">
+          <XmlPropertyData XmlName="outputLocations" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelRoot/OutputLocations" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="exposeForeignKeys">
@@ -1952,6 +1957,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="autoPropertyDefault">
             <DomainPropertyMoniker Name="ModelClass/AutoPropertyDefault" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="generateCode">
+            <DomainPropertyMoniker Name="ModelClass/GenerateCode" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

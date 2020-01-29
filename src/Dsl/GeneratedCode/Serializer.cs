@@ -732,40 +732,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// Namespaces
-			if (!serializationContext.Result.Failed)
-			{
-				string attribNamespaces = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "namespaces");
-				if (attribNamespaces != null)
-				{
-					Namespaces valueOfNamespaces;
-					if (DslModeling::SerializationUtilities.TryGetValue<Namespaces>(serializationContext, attribNamespaces, out valueOfNamespaces))
-					{
-						instanceOfModelRoot.Namespaces = valueOfNamespaces;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "namespaces", typeof(Namespaces), attribNamespaces);
-					}
-				}
-			}
-			// OutputLocations
-			if (!serializationContext.Result.Failed)
-			{
-				string attribOutputLocations = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outputLocations");
-				if (attribOutputLocations != null)
-				{
-					OutputLocations valueOfOutputLocations;
-					if (DslModeling::SerializationUtilities.TryGetValue<OutputLocations>(serializationContext, attribOutputLocations, out valueOfOutputLocations))
-					{
-						instanceOfModelRoot.OutputLocations = valueOfOutputLocations;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outputLocations", typeof(OutputLocations), attribOutputLocations);
-					}
-				}
-			}
 			// ExposeForeignKeys
 			if (!serializationContext.Result.Failed)
 			{
@@ -1839,26 +1805,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 				}
 			}
-			// Namespaces
-			if (!serializationContext.Result.Failed)
-			{
-				Namespaces propValue = instanceOfModelRoot.Namespaces;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<Namespaces>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "namespaces", serializedPropValue);
-				}
-			}
-			// OutputLocations
-			if (!serializationContext.Result.Failed)
-			{
-				OutputLocations propValue = instanceOfModelRoot.OutputLocations;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<OutputLocations>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outputLocations", serializedPropValue);
-				}
-			}
 			// ExposeForeignKeys
 			if (!serializationContext.Result.Failed)
 			{
@@ -2494,6 +2440,23 @@ namespace Sawczyn.EFDesigner.EFModel
 					else
 					{	// Invalid property value, ignored.
 						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "autoPropertyDefault", typeof(global::System.Boolean), attribAutoPropertyDefault);
+					}
+				}
+			}
+			// GenerateCode
+			if (!serializationContext.Result.Failed)
+			{
+				string attribGenerateCode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "generateCode");
+				if (attribGenerateCode != null)
+				{
+					global::System.Boolean valueOfGenerateCode;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenerateCode, out valueOfGenerateCode))
+					{
+						instanceOfModelClass.GenerateCode = valueOfGenerateCode;
+					}
+					else
+					{	// Invalid property value, ignored.
+						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "generateCode", typeof(global::System.Boolean), attribGenerateCode);
 					}
 				}
 			}
@@ -3411,6 +3374,19 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "autoPropertyDefault", serializedPropValue);
+					}
+				}
+			}
+			// GenerateCode
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelClass.GenerateCode;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateCode", serializedPropValue);
 					}
 				}
 			}

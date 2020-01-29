@@ -172,6 +172,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelClass), "BaseClass", ModelClass.BaseClassDomainPropertyId, typeof(ModelClass.BaseClassPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "CustomAttributes", ModelClass.CustomAttributesDomainPropertyId, typeof(ModelClass.CustomAttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelClass), "AutoPropertyDefault", ModelClass.AutoPropertyDefaultDomainPropertyId, typeof(ModelClass.AutoPropertyDefaultPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelClass), "GenerateCode", ModelClass.GenerateCodeDomainPropertyId, typeof(ModelClass.GenerateCodePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),

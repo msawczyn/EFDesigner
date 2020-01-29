@@ -35,6 +35,7 @@
     <DocumentationFile>
     </DocumentationFile>
     <LangVersion>7.3</LangVersion>
+    <NoWarn>CS3001</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
