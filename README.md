@@ -59,9 +59,11 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
    - Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors
+   - Added visual indicator on classes and enumerations where code generation is disabled
    - Added ability to override the base class of the generated DbContext to be something other than "DbContext"
    - Enhanced display of model elements in the Visual Studio property window's object list
    - Removed MSAGL layouts. No one understood them anyway.
+   - Removed tool automatically installing NuGet packages. Too volatile.
 
 <details>
 <summary><b>1.3.0.12</b></summary>
