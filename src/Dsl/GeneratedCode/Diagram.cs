@@ -375,6 +375,10 @@ namespace Sawczyn.EFDesigner.EFModel
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
 				propertyInfo.FilteringValues.Add("TransientGlyph");
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TransientGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GenerateCodeDomainPropertyId);
+				propertyInfo.FilteringValues.Add("False");
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "NoGenGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 			}
 		}
 		
@@ -419,6 +423,10 @@ namespace Sawczyn.EFDesigner.EFModel
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GlyphTypeDomainPropertyId);
 				propertyInfo.FilteringValues.Add("WarningGlyph");
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "WarningGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GenerateCodeDomainPropertyId);
+				propertyInfo.FilteringValues.Add("False");
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "NoGenGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 			}
 		}
 		

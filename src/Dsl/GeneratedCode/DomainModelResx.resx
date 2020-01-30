@@ -3434,12 +3434,20 @@ A DomainClass can be serialized as a moniker only if
     <value>..\Resources\TransientClass.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Icon decorator default image</comment>
   </data>
+  <data name="ClassShapeNoGenGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\No.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Icon decorator default image</comment>
+  </data>
   <data name="EnumShapeEnumGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\EnumTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Icon decorator default image</comment>
   </data>
   <data name="EnumShapeWarningGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\Warning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Icon decorator default image</comment>
+  </data>
+  <data name="EnumShapeNoGenGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\No.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Icon decorator default image</comment>
   </data>
   <data name="ModelClassExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

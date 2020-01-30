@@ -2392,23 +2392,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// BaseClass
-			if (!serializationContext.Result.Failed)
-			{
-				string attribBaseClass = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "baseClass");
-				if (attribBaseClass != null)
-				{
-					global::System.String valueOfBaseClass;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribBaseClass, out valueOfBaseClass))
-					{
-						instanceOfModelClass.BaseClass = valueOfBaseClass;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "baseClass", typeof(global::System.String), attribBaseClass);
-					}
-				}
-			}
 			// CustomAttributes
 			if (!serializationContext.Result.Failed)
 			{
@@ -3341,16 +3324,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "summary", propValue);
 	
-				}
-			}
-			// BaseClass
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.String propValue = instanceOfModelClass.BaseClass;
-				if (!serializationContext.Result.Failed)
-				{
-					if (propValue != null)
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "baseClass", propValue);
 				}
 			}
 			// CustomAttributes

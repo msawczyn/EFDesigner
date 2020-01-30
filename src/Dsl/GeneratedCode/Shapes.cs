@@ -326,6 +326,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			field6.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeTransientGlyphDefaultImage"));
 			shapeFields.Add(field6);
 			
+			DslDiagrams::ImageField field7 = new DslDiagrams::ImageField("NoGenGlyph");
+			field7.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeNoGenGlyphDefaultImage"));
+			shapeFields.Add(field7);
+			
 		}
 		
 		/// <summary>
@@ -360,6 +364,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslDiagrams::ShapeField field6 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "TransientGlyph");
 			DslDiagrams::Decorator decorator6 = new DslDiagrams::ShapeDecorator(field6, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator6);
+				
+			DslDiagrams::ShapeField field7 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "NoGenGlyph");
+			DslDiagrams::Decorator decorator7 = new DslDiagrams::ShapeDecorator(field7, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, new DslDiagrams::PointD(16, 0));
+			decorators.Add(decorator7);
 				
 		}
 		
@@ -1764,6 +1772,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			field4.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("EnumShapeWarningGlyphDefaultImage"));
 			shapeFields.Add(field4);
 			
+			DslDiagrams::ImageField field5 = new DslDiagrams::ImageField("NoGenGlyph");
+			field5.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("EnumShapeNoGenGlyphDefaultImage"));
+			shapeFields.Add(field5);
+			
 		}
 		
 		/// <summary>
@@ -1790,6 +1802,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslDiagrams::ShapeField field4 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "WarningGlyph");
 			DslDiagrams::Decorator decorator4 = new DslDiagrams::ShapeDecorator(field4, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator4);
+				
+			DslDiagrams::ShapeField field5 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "NoGenGlyph");
+			DslDiagrams::Decorator decorator5 = new DslDiagrams::ShapeDecorator(field5, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, new DslDiagrams::PointD(16, 0));
+			decorators.Add(decorator5);
 				
 		}
 		

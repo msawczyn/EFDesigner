@@ -1565,6 +1565,9 @@
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="TransientGlyph" DisplayName="Transient Glyph" DefaultIcon="Resources\TransientClass.png" />
       </ShapeHasDecorators>
+      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="16" VerticalOffset="0">
+        <IconDecorator Name="NoGenGlyph" DisplayName="No Code Generation" DefaultIcon="Resources\No.png" />
+      </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
       <Compartment Name="AssociationsCompartment" Title="Association Targets" />
       <Compartment Name="SourcesCompartment" Title="Association Sources" />
@@ -1611,13 +1614,16 @@
         <TextDecorator Name="Name" DisplayName="Name" DefaultText="Name" />
       </ShapeHasDecorators>
       <ShapeHasDecorators Position="InnerTopRight" HorizontalOffset="0" VerticalOffset="0">
-        <ExpandCollapseDecorator Name="ExpandCollapse" DisplayName="Expand Collapse" />
+        <ExpandCollapseDecorator Name="ExpandCollapse" DisplayName="Expand/Collapse" />
       </ShapeHasDecorators>
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
-        <IconDecorator Name="EnumGlyph" DisplayName="Enum Glyph" DefaultIcon="Resources\EnumTool.bmp" />
+        <IconDecorator Name="EnumGlyph" DisplayName="Enumeration" DefaultIcon="Resources\EnumTool.bmp" />
       </ShapeHasDecorators>
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
-        <IconDecorator Name="WarningGlyph" DisplayName="Warning Glyph" DefaultIcon="Resources\Warning.png" />
+        <IconDecorator Name="WarningGlyph" DisplayName="Warning" DefaultIcon="Resources\Warning.png" />
+      </ShapeHasDecorators>
+      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="16" VerticalOffset="0">
+        <IconDecorator Name="NoGenGlyph" DisplayName="No Code Generation" DefaultIcon="Resources\No.png" />
       </ShapeHasDecorators>
       <Compartment Name="ValuesCompartment" Title="Values" />
     </CompartmentShape>
@@ -1949,7 +1955,7 @@
           <XmlPropertyData XmlName="summary">
             <DomainPropertyMoniker Name="ModelClass/Summary" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="baseClass">
+          <XmlPropertyData XmlName="baseClass" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelClass/BaseClass" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="customAttributes">
@@ -2467,6 +2473,15 @@
             </PropertyFilters>
           </VisibilityPropertyPath>
         </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="ClassShape/NoGenGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelClass/GenerateCode" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="False" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
         <CompartmentShapeMoniker Name="ClassShape" />
         <CompartmentMap DisplaysCustomString="true">
           <CompartmentMoniker Name="ClassShape/AttributesCompartment" />
@@ -2547,6 +2562,15 @@
             <DomainPropertyMoniker Name="ModelEnum/GlyphType" />
             <PropertyFilters>
               <PropertyFilter FilteringValue="WarningGlyph" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="EnumShape/NoGenGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelEnum/GenerateCode" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="False" />
             </PropertyFilters>
           </VisibilityPropertyPath>
         </DecoratorMap>

@@ -354,6 +354,7 @@
     <Content Include="Resources\cardinality-many-many.png" />
     <Content Include="Resources\EnumValue.png" />
     <None Include="Resources\Move.cur" />
+    <Content Include="Resources\No.png" />
     <Content Include="Resources\TransientClass.png" />
     <Content Include="Resources\Warning.png" />
     <None Include="DslDefinition.dsl.diagram">
