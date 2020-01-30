@@ -140,7 +140,6 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkPackageVersion", ModelRoot.EntityFrameworkPackageVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkPackageVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "StructOutputDirectory", ModelRoot.StructOutputDirectoryDomainPropertyId, typeof(ModelRoot.StructOutputDirectoryPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "InstallNuGetPackages", ModelRoot.InstallNuGetPackagesDomainPropertyId, typeof(ModelRoot.InstallNuGetPackagesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbSetAccess", ModelRoot.DbSetAccessDomainPropertyId, typeof(ModelRoot.DbSetAccessPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Description", ModelRoot.DescriptionDomainPropertyId, typeof(ModelRoot.DescriptionPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Summary", ModelRoot.SummaryDomainPropertyId, typeof(ModelRoot.SummaryPropertyHandler)),

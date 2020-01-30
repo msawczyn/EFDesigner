@@ -70,7 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return FKPropertyName?.Split(',')?.Select(n => n.Trim())?.ToArray() ?? new string[0];
+            return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
          }
       }
 
@@ -294,14 +294,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default(string);
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default(string);
+               return default;
             }
          }
 

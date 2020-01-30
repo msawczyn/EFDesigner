@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+
+using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Validation;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
@@ -57,10 +58,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      public string GetDisplayText()
-      {
-         return Name;
-      }
+      public string GetDisplayText() => Name;
 
       /// <summary>
       /// All attributes in the class, including those inherited from base classes
@@ -667,14 +665,14 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             catch (NullReferenceException)
             {
-               return default(string);
+               return default;
             }
             catch (Exception e)
             {
                if (CriticalException.IsCriticalException(e))
                   throw;
 
-               return default(string);
+               return default;
             }
          }
 

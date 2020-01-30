@@ -1,6 +1,10 @@
 ﻿using System;
 using System.IO;
 using GOLD;
+// ReSharper disable RedundantVerbatimPrefix
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedMember.Global
+#pragma warning disable 1591
 
 namespace Sawczyn.EFDesigner.EFModel
 {

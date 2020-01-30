@@ -73,7 +73,7 @@ namespace Sawczyn.EFDesigner.EFModel
                return DoProcessing(outputFilename);
          }
 
-         ErrorDisplay.Show($@"Error processing assembly. See {Path.ChangeExtension(outputFilename, "log")} for further information");
+         ErrorDisplay.Show($"Error processing assembly. See {Path.ChangeExtension(outputFilename, "log")} for further information");
 
          return false;
       }

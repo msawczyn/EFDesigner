@@ -441,18 +441,6 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;StructOutputDirectory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNuGetPackages.Description" xml:space="preserve">
-    <value>On save, should the editor install/remove Entity Framework Nuget packages to match the model&apos;s EF version settings?</value>
-    <comment>Description for DomainProperty &apos;InstallNuGetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNuGetPackages.DisplayName" xml:space="preserve">
-    <value>Install Nuget Packages On Save</value>
-    <comment>DisplayName for DomainProperty &apos;InstallNuGetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InstallNuGetPackages.Category" xml:space="preserve">
-    <value>Misc</value>
-    <comment>Category for DomainProperty &apos;InstallNuGetPackages&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DbSetAccess.Description" xml:space="preserve">
     <value>Code visibility for DbSets</value>
     <comment>Description for DomainProperty &apos;DbSetAccess&apos; on DomainClass &apos;ModelRoot&apos;</comment>

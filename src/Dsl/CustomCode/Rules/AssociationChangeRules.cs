@@ -114,7 +114,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      if (!fkPropertyError)
                      {
                         // remove any locks on the attributes that were foreign keys
-                        string[] oldValues = e.OldValue?.ToString()?.Split(',') ?? new string[0];
+                        string[] oldValues = e.OldValue?.ToString().Split(',') ?? new string[0];
 
                         foreach (string oldValue in oldValues)
                            element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue)?.SetLocks(Locks.None);
@@ -139,7 +139,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   {
                      // foreign key was removed
                      // remove locks
-                     string[] oldValues = e.OldValue?.ToString()?.Split(',') ?? new string[0];
+                     string[] oldValues = e.OldValue?.ToString().Split(',') ?? new string[0];
 
                      // ReSharper disable once LoopCanBePartlyConvertedToQuery
                      foreach (string oldValue in oldValues)
