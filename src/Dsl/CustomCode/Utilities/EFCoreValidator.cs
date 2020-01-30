@@ -78,8 +78,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
                   break;
 
-               default:
-                  break;
+               // add more as needed
             }
 
             if (shouldRemove)
@@ -158,16 +157,12 @@ namespace Sawczyn.EFDesigner.EFModel
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
       {
          ModelRoot modelRoot = element;
-
+         
          for (int index = 0; index < propertyDescriptors.Count; index++)
          {
             bool shouldRemove = false;
             switch (propertyDescriptors[index].Name)
             {
-               case "InstallNugetPackages":
-                  shouldRemove = !ModelRoot.CanLoadNugetPackages;
-                  break;
-
                case "DatabaseInitializerType":
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
                   break;

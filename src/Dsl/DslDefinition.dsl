@@ -200,11 +200,6 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="77fab320-8888-42b8-9a70-23c5b7a9610e" Description="On save, should the editor install/remove Entity Framework Nuget packages to match the model's EF version settings?" Name="InstallNuGetPackages" DisplayName="Install Nuget Packages On Save" DefaultValue="False" Category="Misc">
-          <Type>
-            <DomainEnumerationMoniker Name="AutomaticAction" />
-          </Type>
-        </DomainProperty>
         <DomainProperty Id="950f6c9e-3977-4968-aa8f-697ffb49ac4a" Description="Code visibility for DbSets" Name="DbSetAccess" DisplayName="DbSet Access" DefaultValue="Public" Category="Entity Context">
           <Type>
             <DomainEnumerationMoniker Name="ContainerAccess" />
@@ -1833,9 +1828,6 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="structOutputDirectory">
             <DomainPropertyMoniker Name="ModelRoot/StructOutputDirectory" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="installNuGetPackages">
-            <DomainPropertyMoniker Name="ModelRoot/InstallNuGetPackages" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="dbSetAccess">
             <DomainPropertyMoniker Name="ModelRoot/DbSetAccess" />

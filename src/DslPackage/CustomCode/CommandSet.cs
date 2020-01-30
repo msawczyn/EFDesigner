@@ -591,17 +591,17 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Store store = CurrentDocData.Store;
             ModelRoot modelRoot = store.ModelRoot();
-            command.Visible = modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected();
-            command.Enabled = IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
+            command.Visible = false; // modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected();
+            command.Enabled = false; // IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
          }
       }
 
       private void OnMenuLoadNuGet(object sender, EventArgs e)
       {
-         Store store = CurrentDocData.Store;
-         ModelRoot modelRoot = store.ModelRoot();
+         //Store store = CurrentDocData.Store;
+         //ModelRoot modelRoot = store.ModelRoot();
 
-         ((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
+         //((EFModelDocData)CurrentDocData).EnsureCorrectNuGetPackages(modelRoot);
       }
 
       #endregion Load NuGet

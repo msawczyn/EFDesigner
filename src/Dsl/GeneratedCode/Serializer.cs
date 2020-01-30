@@ -596,23 +596,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					}
 				}
 			}
-			// InstallNuGetPackages
-			if (!serializationContext.Result.Failed)
-			{
-				string attribInstallNuGetPackages = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "installNuGetPackages");
-				if (attribInstallNuGetPackages != null)
-				{
-					AutomaticAction valueOfInstallNuGetPackages;
-					if (DslModeling::SerializationUtilities.TryGetValue<AutomaticAction>(serializationContext, attribInstallNuGetPackages, out valueOfInstallNuGetPackages))
-					{
-						instanceOfModelRoot.InstallNuGetPackages = valueOfInstallNuGetPackages;
-					}
-					else
-					{	// Invalid property value, ignored.
-						EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "installNuGetPackages", typeof(AutomaticAction), attribInstallNuGetPackages);
-					}
-				}
-			}
 			// DbSetAccess
 			if (!serializationContext.Result.Failed)
 			{
@@ -1742,19 +1725,6 @@ namespace Sawczyn.EFDesigner.EFModel
 					if (!string.IsNullOrEmpty(propValue))
 						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "structOutputDirectory", propValue);
 	
-				}
-			}
-			// InstallNuGetPackages
-			if (!serializationContext.Result.Failed)
-			{
-				AutomaticAction propValue = instanceOfModelRoot.InstallNuGetPackages;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<AutomaticAction>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "False") != 0)
-					{	// No need to write the value out if it's the same as default value.
-						EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "installNuGetPackages", serializedPropValue);
-					}
 				}
 			}
 			// DbSetAccess

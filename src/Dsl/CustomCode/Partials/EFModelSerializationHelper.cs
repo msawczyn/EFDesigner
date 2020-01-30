@@ -19,46 +19,6 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </param>
       protected override void CheckVersion(SerializationContext serializationContext, XmlReader reader)
       {
-         return;
-
-/*
-         #region Check Parameters
-
-         Debug.Assert(serializationContext != null);
-         if (serializationContext == null)
-            throw new ArgumentNullException(nameof(serializationContext));
-
-         Debug.Assert(reader != null);
-         if (reader == null)
-            throw new ArgumentNullException(nameof(reader));
-
-         #endregion
-
-         string dslVersionStr = reader.GetAttribute("dslVersion");
-         if (dslVersionStr != null)
-         {
-            ModelRoot.DSLVersion = dslVersionStr;
-
-            try
-            {
-               Version actualVersion = new Version(dslVersionStr);
-               if (actualVersion.Major != 1)
-                  EFModelSerializationBehaviorSerializationMessages.VersionMismatch(serializationContext, reader, new Version(1, 0), actualVersion);
-            }
-            catch (ArgumentException)
-            {
-               EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, "dslVersion", typeof(Version), dslVersionStr);
-            }
-            catch (FormatException)
-            {
-               EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, "dslVersion", typeof(Version), dslVersionStr);
-            }
-            catch (OverflowException)
-            {
-               EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, "dslVersion", typeof(Version), dslVersionStr);
-            }
-         }
-*/
       }
 
       /// <summary>

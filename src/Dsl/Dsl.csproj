@@ -216,7 +216,6 @@
     <Compile Include="CustomCode\Utilities\Nuget\Models\Converter.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\NuGetPackages.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\PackageData.cs" />
-    <Compile Include="CustomCode\Utilities\Nuget\Models\Serialize.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnum.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\TypeEnumConverter.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\Models\Version.cs" />

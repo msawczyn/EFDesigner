@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -55,10 +56,11 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
       /// <exception cref="T:System.ArgumentNullException">The <paramref name="destinationType" /> parameter is <see langword="null" />. </exception>
       /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
+      [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
       public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
       {
 
-         if (value?.ToString()?.ToLowerInvariant() == "max")
+         if (value?.ToString().ToLowerInvariant() == "max")
             return "max";
 
          if (value is int i)
