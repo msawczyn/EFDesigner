@@ -451,15 +451,6 @@ if "$(ConfigurationName)"=="Release" del "$(ProjectDir)Parsers\*.pdb
     <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.12.0">
       <Version>12.0.30111</Version>
     </PackageReference>
-    <PackageReference Include="NuGet.Packaging.Core">
-      <Version>5.5.0-preview.1.6319</Version>
-    </PackageReference>
-    <PackageReference Include="NuGet.Packaging.Core.Types">
-      <Version>4.3.0-beta1-2418</Version>
-    </PackageReference>
-    <PackageReference Include="NuGet.VisualStudio">
-      <Version>5.5.0-preview.1.6319</Version>
-    </PackageReference>
     <PackageReference Include="QuickGraph">
       <Version>3.6.61119.7</Version>
     </PackageReference>
