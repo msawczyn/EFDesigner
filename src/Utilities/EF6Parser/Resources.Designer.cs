@@ -65,17 +65,19 @@ namespace EF6Parser {
         ///&lt;log4net&gt;
         ///   &lt;root&gt;
         ///      &lt;level value=&quot;ALL&quot; /&gt;
-        ///      &lt;appender-ref ref=&quot;console&quot; /&gt;
+        ///      &lt;!--&lt;appender-ref ref=&quot;console&quot; /&gt;--&gt;
         ///      &lt;appender-ref ref=&quot;file&quot; /&gt;
         ///      &lt;appender-ref ref=&quot;OutputDebugStringAppender&quot; /&gt;
         ///   &lt;/root&gt;
-        ///   &lt;appender name=&quot;console&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-        ///      &lt;filter type=&quot;log4net.Filter.LevelRangeFilter&quot;&gt;
-        ///         &lt;levelMin value=&quot;ERROR&quot; /&gt;
-        ///         &lt;levelMax value=&quot;FATAL&quot; /&gt;
-        ///      &lt;/filter&gt;
-        ///      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        ///         &lt;c [rest of string was truncated]&quot;;.
+        ///
+        ///   &lt;appender name=&quot;console&quot; type=&quot;log4net.Appender.ManagedColoredConsoleAppender&quot;&gt;
+        ///      &lt;mapping&gt;
+        ///         &lt;level value=&quot;ERROR&quot; /&gt;
+        ///         &lt;foreColor value=&quot;DarkRed&quot; /&gt;
+        ///      &lt;/mapping&gt;
+        ///      &lt;mapping&gt;
+        ///         &lt;level value=&quot;WARN&quot; /&gt;
+        ///         &lt;foreColor value=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Log4netConfig {
             get {

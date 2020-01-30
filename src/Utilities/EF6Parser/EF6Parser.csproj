@@ -17,7 +17,7 @@
    </PropertyGroup>
 
    <ItemGroup>
-      <None Remove="log4net.config" />
+     <None Remove="log4net.config" />
    </ItemGroup>
 
    <ItemGroup>
@@ -39,8 +39,11 @@
    </ItemGroup>
 
    <ItemGroup>
+      <Resource Include="C:\Code\EFDesigner\src\Utilities\log4net.config" Link="log4net.config">
+         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="log4net.config">
-         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
    </ItemGroup>
 

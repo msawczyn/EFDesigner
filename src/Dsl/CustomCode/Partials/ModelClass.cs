@@ -403,7 +403,10 @@ namespace Sawczyn.EFDesigner.EFModel
       private void SetBaseClassValue(string newValue)
       {
          ModelClass baseClass = Store.ElementDirectory.FindElements<ModelClass>().FirstOrDefault(x => x.Name == newValue);
-         Superclass = baseClass;
+         Superclass?.Subclasses?.Remove(this);
+         baseClass?.Subclasses?.Add(this);
+         //Superclass = null;
+         //Superclass = baseClass;
       }
 
       #region Validations

@@ -189,7 +189,7 @@
         <!-- Property: TransformOnSave -->
         <xsd:attribute name="transformOnSave" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, will generate DbContext and entity code when this model is saved</xsd:documentation>
+            <xsd:documentation>If true, will trigger code generation when the file is saved. If false, code generation will have to be triggered manually.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: DefaultIdentityType -->
@@ -274,18 +274,6 @@
         <xsd:attribute name="structNamespace" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Namespace for owned entities</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: Namespaces -->
-        <xsd:attribute name="namespaces" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Default namespaces for generated code</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: OutputLocations -->
-        <xsd:attribute name="outputLocations" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Default output folders for generated code</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: ExposeForeignKeys -->
@@ -493,12 +481,6 @@
             <xsd:documentation>Brief code documentation</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: BaseClass -->
-        <xsd:attribute name="baseClass" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Exposes Superclass property in property editor</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
         <!-- Property: CustomAttributes -->
         <xsd:attribute name="customAttributes" type="xsd:string" >
           <xsd:annotation>
@@ -509,6 +491,12 @@
         <xsd:attribute name="autoPropertyDefault" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>Default value for this class&apos;s attribute AutoProperty setting</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: GenerateCode -->
+        <xsd:attribute name="generateCode" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
