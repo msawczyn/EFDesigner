@@ -366,7 +366,6 @@
   <HelpKINode Title="InheritanceModifier enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_InheritanceModifier.htm" />
   <HelpKINode Title="InheritanceStrategy property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InheritanceStrategy.htm" />
   <HelpKINode Title="InitialValue property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_InitialValue.htm" />
-  <HelpKINode Title="InstallNuGetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InstallNuGetPackages.htm" />
   <HelpKINode Title="Int16 enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
   <HelpKINode Title="Int32 enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
   <HelpKINode Title="Int64 enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
@@ -391,10 +390,6 @@
   <HelpKINode Title="IsTargetImplementNotifyTrackingDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTrackingDomainPropertyId.htm" />
   <HelpKINode Title="IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_IsValidCLRType.htm" />
   <HelpKINode Title="IsValidInitialValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsValidInitialValue.htm" />
-  <HelpKINode Title="LayoutAlgorithm property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithm.htm" />
-  <HelpKINode Title="LayoutAlgorithmDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmDomainPropertyId.htm" />
-  <HelpKINode Title="LayoutAlgorithmSettings property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettings.htm" />
-  <HelpKINode Title="LayoutAlgorithmSettingsDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettingsDomainPropertyId.htm" />
   <HelpKINode Title="LayoutDiagram method" Url="html/M_Sawczyn_EFDesigner_ModelDisplay_LayoutDiagram.htm" />
   <HelpKINode Title="LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
   <HelpKINode Title="List enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_CollectionType.htm" />
@@ -601,12 +596,7 @@
   <HelpKINode Title="ModelRoot.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FullName.htm" />
   <HelpKINode Title="ModelRoot.GetEntityFrameworkPackageVersionNum method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetEntityFrameworkPackageVersionNum.htm" />
   <HelpKINode Title="ModelRoot.InheritanceStrategy property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InheritanceStrategy.htm" />
-  <HelpKINode Title="ModelRoot.InstallNuGetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InstallNuGetPackages.htm" />
   <HelpKINode Title="ModelRoot.IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_IsValidCLRType.htm" />
-  <HelpKINode Title="ModelRoot.LayoutAlgorithm property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithm.htm" />
-  <HelpKINode Title="ModelRoot.LayoutAlgorithmDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmDomainPropertyId.htm" />
-  <HelpKINode Title="ModelRoot.LayoutAlgorithmSettings property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettings.htm" />
-  <HelpKINode Title="ModelRoot.LayoutAlgorithmSettingsDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_LayoutAlgorithmSettingsDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
   <HelpKINode Title="ModelRoot.Namespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Namespace.htm" />
   <HelpKINode Title="ModelRoot.Namespaces property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Namespaces.htm" />
