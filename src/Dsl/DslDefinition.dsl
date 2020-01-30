@@ -1936,7 +1936,7 @@
           <XmlPropertyData XmlName="summary">
             <DomainPropertyMoniker Name="ModelClass/Summary" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="baseClass">
+          <XmlPropertyData XmlName="baseClass" Representation="Ignore">
             <DomainPropertyMoniker Name="ModelClass/BaseClass" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="customAttributes">

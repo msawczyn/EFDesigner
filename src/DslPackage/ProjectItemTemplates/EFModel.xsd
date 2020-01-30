@@ -487,12 +487,6 @@
             <xsd:documentation>Brief code documentation</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: BaseClass -->
-        <xsd:attribute name="baseClass" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Exposes Superclass property in property editor</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
         <!-- Property: CustomAttributes -->
         <xsd:attribute name="customAttributes" type="xsd:string" >
           <xsd:annotation>
