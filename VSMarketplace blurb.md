@@ -39,9 +39,11 @@ to upgrade to 16.2.5 or later in order to use not just this extension, but any e
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - **[NEW]** Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
    - **[NEW]** Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors
+   - **[NEW]** Added ability to override the base class of the generated DbContext to be something other than "DbContext"
    - Renamed toolbox category to "EF Model Diagrams"
    - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - Enhanced display of model elements in the Visual Studio property window's object list
+   - Removed MSAGL layouts. No one understood them anyway.
 
 **1.3.0.12** 
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)
