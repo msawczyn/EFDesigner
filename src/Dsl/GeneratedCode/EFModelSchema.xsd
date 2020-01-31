@@ -276,12 +276,6 @@
             <xsd:documentation>Allow foreign key properties to be available in the POCO entities (recommended: false)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: BaseClass -->
-        <xsd:attribute name="baseClass" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Base class for DbContext in generated code. Should be fully qualified if not in a standard namespace.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
