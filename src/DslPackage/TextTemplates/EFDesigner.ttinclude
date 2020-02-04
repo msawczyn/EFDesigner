@@ -545,7 +545,7 @@ void WriteConstructor(ModelClass modelClass)
       Output("/// </summary>");
 
       WriteConstructorComments(modelClass);
-      Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, null))})");
+      Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, true))})");
       Output("{");
 
       if (remarks.Count > 0)

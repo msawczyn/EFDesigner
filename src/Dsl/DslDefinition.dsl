@@ -1873,7 +1873,7 @@
           <XmlPropertyData XmlName="exposeForeignKeys">
             <DomainPropertyMoniker Name="ModelRoot/ExposeForeignKeys" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="baseClass" Representation="Ignore">
+          <XmlPropertyData XmlName="baseClass">
             <DomainPropertyMoniker Name="ModelRoot/BaseClass" />
           </XmlPropertyData>
         </ElementData>
