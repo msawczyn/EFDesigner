@@ -8495,6 +8495,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
+	[global::System.Diagnostics.DebuggerDisplay("{GetType().Name,nq} (Name = {Name})")]
 	[DslModeling::DomainObjectId("e2c13b26-0944-4b6c-89b5-bb95c500f515")]
 	public partial class Comment : DslModeling::ModelElement
 	{
@@ -8694,6 +8695,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Comment/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::ElementName]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
 		[DslModeling::DomainObjectId("35baaadc-91c0-496a-9249-bb18163fd2c3")]
 		public global::System.String Name

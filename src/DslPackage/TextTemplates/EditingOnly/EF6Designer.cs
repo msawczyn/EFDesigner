@@ -20,7 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       {
          // Entities
 
-         foreach (ModelClass modelClass in modelRoot.Classes)
+         foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
          {
             manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
             WriteClass(modelClass);
@@ -85,17 +85,17 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          switch (modelRoot.InheritanceStrategy)
          {
             case CodeStrategy.TablePerType:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType).OrderBy(x => x.Name).ToArray();
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.GenerateCode).OrderBy(x => x.Name).ToArray();
 
                break;
 
             case CodeStrategy.TablePerConcreteType:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name).ToArray();
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract && mc.GenerateCode).OrderBy(x => x.Name).ToArray();
 
                break;
 
             case CodeStrategy.TablePerHierarchy:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name).ToArray();
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null && mc.GenerateCode).OrderBy(x => x.Name).ToArray();
 
                break;
          }
@@ -172,8 +172,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
          {
             string connectionString = string.IsNullOrEmpty(modelRoot.ConnectionString)
-                                          ? $"Name={modelRoot.ConnectionStringName}"
-                                          : modelRoot.ConnectionString;
+                                    ? $"Name={modelRoot.ConnectionStringName}"
+                                    : modelRoot.ConnectionString;
 
             Output("/// <summary>");
             Output("/// Default connection string");
@@ -523,8 +523,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
                   {
                      string willCascadeOnDelete = association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal
-                                                      ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
-                                                      : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+                                                ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
+                                                : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
 
                      segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
                   }
@@ -636,8 +636,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   if ((association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal) || (association.SourceDeleteAction != DeleteAction.Default && association.SourceRole == EndpointRole.Principal))
                   {
                      string willCascadeOnDelete = association.TargetDeleteAction != DeleteAction.Default && association.TargetRole == EndpointRole.Principal
-                                                      ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
-                                                      : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
+                                                ? (association.TargetDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant()
+                                                : (association.SourceDeleteAction == DeleteAction.Cascade).ToString().ToLowerInvariant();
 
                      segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
                   }
@@ -723,8 +723,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             if (existingPropertyCount > 0)
             {
                return existingPropertyCount == 1
-                         ? $"HasForeignKey(p => {columnNames})"
-                         : $"HasForeignKey(p => new {{ {string.Join(", ", columnNameList.Select(n => $"p.{n}"))} }}";
+                           ? $"HasForeignKey(p => {columnNames})"
+                           : $"HasForeignKey(p => new {{ {string.Join(", ", columnNameList.Select(n => $"p.{n}"))} }}";
             }
             else
                return $"Map(x => x.MapKey({columnNames}))";

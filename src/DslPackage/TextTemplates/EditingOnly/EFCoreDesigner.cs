@@ -20,7 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       {
          // Entities
 
-         foreach (ModelClass modelClass in modelRoot.Classes)
+         foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
          {
             manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
             WriteClass(modelClass);
@@ -188,8 +188,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          if (!string.IsNullOrEmpty(modelRoot.ConnectionString) || !string.IsNullOrEmpty(modelRoot.ConnectionStringName))
          {
             string connectionString = string.IsNullOrEmpty(modelRoot.ConnectionString)
-                                          ? $"Name={modelRoot.ConnectionStringName}"
-                                          : modelRoot.ConnectionString;
+                                    ? $"Name={modelRoot.ConnectionStringName}"
+                                    : modelRoot.ConnectionString;
 
             Output("/// <summary>");
             Output("/// Default connection string");
@@ -418,8 +418,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                }
 
                string columnPrefix = association.SourceRole == EndpointRole.Dependent
-                                          ? ""
-                                          : association.Target.Name + "_";
+                                    ? ""
+                                    : association.Target.Name + "_";
 
                switch (association.SourceMultiplicity) // realized by shadow property on target
                {
@@ -466,8 +466,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                if (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal)
                {
                   DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                                   ? association.SourceDeleteAction
-                                                   : association.TargetDeleteAction;
+                                             ? association.SourceDeleteAction
+                                             : association.TargetDeleteAction;
 
                   switch (deleteAction)
                   {
@@ -579,8 +579,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                if (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal)
                {
                   DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                                   ? association.SourceDeleteAction
-                                                   : association.TargetDeleteAction;
+                                             ? association.SourceDeleteAction
+                                             : association.TargetDeleteAction;
 
                   switch (deleteAction)
                   {
@@ -635,9 +635,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          {
             // shadow properties
             columnName = string.Join(", "
-                                   , principal.IdentityAttributes
-                                              .Select(a => CreateShadowPropertyName(association, foreignKeyColumns, a))
-                                              .Select(s => $@"""{s.Trim()}"""));
+                                    , principal.IdentityAttributes
+                                                .Select(a => CreateShadowPropertyName(association, foreignKeyColumns, a))
+                                                .Select(s => $@"""{s.Trim()}"""));
          }
          else
          {
@@ -647,9 +647,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          }
 
          return association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-             && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                   ? $"HasForeignKey<{dependent.FullName}>({columnName})"
-                   : $"HasForeignKey({columnName})";
+               && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                     ? $"HasForeignKey<{dependent.FullName}>({columnName})"
+                     : $"HasForeignKey({columnName})";
       }
    }
 }

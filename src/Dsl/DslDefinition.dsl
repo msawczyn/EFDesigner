@@ -690,7 +690,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="35baaadc-91c0-496a-9249-bb18163fd2c3" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="35baaadc-91c0-496a-9249-bb18163fd2c3" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsElementName="true" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1020,7 +1020,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="21f7d7e2-e0bc-4d59-b776-55a567c16cb0" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="21f7d7e2-e0bc-4d59-b776-55a567c16cb0" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsElementName="true" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1096,7 +1096,7 @@
     </DomainRelationship>
     <DomainRelationship Id="c6eff342-0a73-4d2f-aa0e-b2811663fb60" Description="Inheritance between Classes." Name="Generalization" DisplayName="Inheritance" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
-        <DomainProperty Id="76e2afe8-4124-448f-83e1-b6bef1d1e9d7" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="76e2afe8-4124-448f-83e1-b6bef1d1e9d7" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsElementName="true" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

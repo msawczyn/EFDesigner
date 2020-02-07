@@ -23,17 +23,10 @@ and many other nice-to-have bits.
 
 For comprehensive documentation, please visit [the project's documentation site](https://msawczyn.github.io/EFDesigner/).
 
-**Known Issues**
-
-**Visual Studio 2019 v16.2.0 currently breaks the designer** -- you're not able to draw connections between
-classes, enums, structs and comment blocks. [It was reported to Microsoft](https://developercommunity.visualstudio.com/content/problem/660095/dsl-tools-broken-in-1620-preview-4.html), 
-and has since been **fixed as of v16.2.5**, so if you're using a version between 16.2.0 and 16.2.4, you'll want 
-to upgrade to 16.2.5 or later in order to use not just this extension, but any extension based on the Microsoft Modeling SDK.
-
 **ChangeLog**
 
 **2.0.0.0** (next version)
-   - **Dropped support for Visual Studio 2017**; was getting to be too much work to keep the tool viable for that Visual Studio version.
+   - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - **[NEW]** Added ability to specify foreign key properties
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)

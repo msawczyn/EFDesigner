@@ -20,6 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
+	[global::System.Diagnostics.DebuggerDisplay("{GetType().Name,nq} (Name = {Name})")]
 	[DslModeling::DomainRelationship(AllowsDuplicates = true)]
 	[DslModeling::DomainObjectId("ce77f831-a92d-4274-823a-3a8441a65f3a")]
 	public abstract partial class Association : DslModeling::ElementLink
@@ -2023,6 +2024,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::ElementName]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
 		[DslModeling::DomainObjectId("21f7d7e2-e0bc-4d59-b776-55a567c16cb0")]
 		public global::System.String Name
@@ -2840,6 +2842,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Generalization.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
+	[global::System.Diagnostics.DebuggerDisplay("{GetType().Name,nq} (Name = {Name})")]
 	[DslModeling::DomainRelationship()]
 	[DslModeling::DomainObjectId("c6eff342-0a73-4d2f-aa0e-b2811663fb60")]
 	public partial class Generalization : DslModeling::ElementLink
@@ -3011,6 +3014,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Generalization/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::ElementName]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
 		[DslModeling::DomainObjectId("76e2afe8-4124-448f-83e1-b6bef1d1e9d7")]
 		public global::System.String Name
