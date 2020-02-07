@@ -204,7 +204,6 @@ namespace Sawczyn.EFDesigner.EFModel
 				new DomainMemberInfo(typeof(ModelAttribute), "IsAutoPropertyTracking", ModelAttribute.IsAutoPropertyTrackingDomainPropertyId, typeof(ModelAttribute.IsAutoPropertyTrackingPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
-				new DomainMemberInfo(typeof(Comment), "Name", Comment.NameDomainPropertyId, typeof(Comment.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "Namespace", ModelEnum.NamespaceDomainPropertyId, typeof(ModelEnum.NamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelEnum), "IsNamespaceTracking", ModelEnum.IsNamespaceTrackingDomainPropertyId, typeof(ModelEnum.IsNamespaceTrackingPropertyHandler)),

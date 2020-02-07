@@ -685,12 +685,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a17c8f41-4a5b-40a1-9f77-71346c428207" Description="Truncated Text property for Explorer display" Name="ShortText" DisplayName="Short Text" Kind="Calculated" IsBrowsable="false">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="35baaadc-91c0-496a-9249-bb18163fd2c3" Description="Solely for display in the object list of the VStudio property window" Name="Name" DisplayName="Name" Kind="Calculated" SetterAccessModifier="Private" IsElementName="true" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="a17c8f41-4a5b-40a1-9f77-71346c428207" Description="Truncated Text property for Explorer display" Name="ShortText" DisplayName="Short Text" Kind="Calculated" IsElementName="true" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1560,7 +1555,7 @@
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="TransientGlyph" DisplayName="Transient Glyph" DefaultIcon="Resources\TransientClass.png" />
       </ShapeHasDecorators>
-      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="16" VerticalOffset="0">
+      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="NoGenGlyph" DisplayName="No Code Generation" DefaultIcon="Resources\No.png" />
       </ShapeHasDecorators>
       <Compartment Name="AttributesCompartment" Title="Properties" />
@@ -2073,9 +2068,6 @@
           </XmlRelationshipData>
           <XmlPropertyData XmlName="shortText" Representation="Ignore">
             <DomainPropertyMoniker Name="Comment/ShortText" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="name" Representation="Ignore">
-            <DomainPropertyMoniker Name="Comment/Name" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

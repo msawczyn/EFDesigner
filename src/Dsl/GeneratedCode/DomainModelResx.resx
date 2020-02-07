@@ -1193,14 +1193,6 @@
     <value>Short Text</value>
     <comment>DisplayName for DomainProperty &apos;ShortText&apos; on DomainClass &apos;Comment&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Comment/Name.Description" xml:space="preserve">
-    <value>Solely for display in the object list of the VStudio property window</value>
-    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;Comment&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Comment/Name.DisplayName" xml:space="preserve">
-    <value>Name</value>
-    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;Comment&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelEnum.Description" xml:space="preserve">
     <value>Represents an enumeration in C#</value>
     <comment>Description for DomainClass &apos;ModelEnum&apos;</comment>

@@ -226,10 +226,10 @@
         <classShapeMoniker Id="2c8f374e-0a9c-4688-8b22-8d8ad0737340" />
       </nodes>
     </bidirectionalConnector>
-    <enumShape Id="e6582c70-309b-4ff3-8e43-d93db4e607a3" absoluteBounds="93.625, 2.5, 1.5, 1.2362939453125001" fillColor="Gray" textColor="White" outlineColor="Black" visible="true" outlineThickness="0.01" outlineDashStyle="Solid">
+    <enumShape Id="e6582c70-309b-4ff3-8e43-d93db4e607a3" absoluteBounds="94.625, 2.5, 1.5, 1.2362939453125001" fillColor="Gray" textColor="White" outlineColor="Black" visible="true" outlineThickness="0.01" outlineDashStyle="Solid">
       <modelEnumMoniker Id="d999f148-5d0f-4b8d-a3fc-5abf12f0242b" />
       <nestedChildShapes>
-        <elementListCompartment Id="dce2fca1-deda-41cf-95c9-9478ec8b606b" absoluteBounds="93.64, 2.8100000000000005, 1.4700000000000002, 0.8262939453125" name="ValuesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dce2fca1-deda-41cf-95c9-9478ec8b606b" absoluteBounds="94.64, 2.8100000000000005, 1.4700000000000002, 0.8262939453125" name="ValuesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </enumShape>
     <classShape Id="00b4a70f-db76-4654-bd04-e718262ec948" absoluteBounds="96.625, 2.5, 2.5, 5.0241975911458354" fillColor="0, 122, 204" textColor="White" outlineColor="Black" outlineDashStyle="Solid" visible="true" outlineThickness="0.01">

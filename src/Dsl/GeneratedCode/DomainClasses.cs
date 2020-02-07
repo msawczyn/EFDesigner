@@ -8495,7 +8495,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Comment.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[global::System.Diagnostics.DebuggerDisplay("{GetType().Name,nq} (Name = {Name})")]
+	[global::System.Diagnostics.DebuggerDisplay("{GetType().Name,nq} (ShortText = {ShortText})")]
 	[DslModeling::DomainObjectId("e2c13b26-0944-4b6c-89b5-bb95c500f515")]
 	public partial class Comment : DslModeling::ModelElement
 	{
@@ -8629,6 +8629,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Comment/ShortText.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::ElementName]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
 		[DslModeling::DomainObjectId("a17c8f41-4a5b-40a1-9f77-71346c428207")]
 		public global::System.String ShortText
@@ -8675,73 +8676,6 @@ namespace Sawczyn.EFDesigner.EFModel
 				// set to Calculated. Please provide the GetShortTextValue()
 				// method on the domain class.
 				return element.GetShortTextValue();
-			}
-		
-		}
-		
-		#endregion
-		#region Name domain property code
-		
-		/// <summary>
-		/// Name domain property Id.
-		/// </summary>
-		public static readonly global::System.Guid NameDomainPropertyId = new global::System.Guid(0x35baaadc, 0x91c0, 0x496a, 0x92, 0x49, 0xbb, 0x18, 0x16, 0x3f, 0xd2, 0xc3);
-		
-		/// <summary>
-		/// Gets or sets the value of Name domain property.
-		/// Solely for display in the object list of the VStudio property window
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Comment/Name.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Comment/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.Browsable(false)]
-		[global::System.ComponentModel.ReadOnly(true)]
-		[DslModeling::ElementName]
-		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
-		[DslModeling::DomainObjectId("35baaadc-91c0-496a-9249-bb18163fd2c3")]
-		public global::System.String Name
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return NamePropertyHandler.Instance.GetValue(this);
-			}
-		}
-		/// <summary>
-		/// Value handler for the Comment.Name domain property.
-		/// </summary>
-		internal sealed partial class NamePropertyHandler : DslModeling::CalculatedPropertyValueHandler<Comment, global::System.String>
-		{
-			private NamePropertyHandler() { }
-		
-			/// <summary>
-			/// Gets the singleton instance of the Comment.Name domain property value handler.
-			/// </summary>
-			public static readonly NamePropertyHandler Instance = new NamePropertyHandler();
-		
-			/// <summary>
-			/// Gets the Id of the Comment.Name domain property.
-			/// </summary>
-			public sealed override global::System.Guid DomainPropertyId
-			{
-				[global::System.Diagnostics.DebuggerStepThrough]
-				get
-				{
-					return NameDomainPropertyId;
-				}
-			}
-			
-			/// <summary>
-			/// Gets a strongly-typed value of the property on specified element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(Comment element)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-				// There is no storage for Name because its Kind is
-				// set to Calculated. Please provide the GetNameValue()
-				// method on the domain class.
-				return element.GetNameValue();
 			}
 		
 		}
