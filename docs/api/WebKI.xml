@@ -134,15 +134,12 @@
   <HelpKINode Title="ColumnType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ColumnType.htm" />
   <HelpKINode Title="Comment class">
     <HelpKINode Title="Comment Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_Comment.htm" />
   </HelpKINode>
   <HelpKINode Title="Comment.Classes property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Classes.htm" />
   <HelpKINode Title="Comment.Enums property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Enums.htm" />
   <HelpKINode Title="Comment.ModelRoot property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ModelRoot.htm" />
-  <HelpKINode Title="Comment.Name property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Name.htm" />
-  <HelpKINode Title="Comment.NameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Comment_NameDomainPropertyId.htm" />
   <HelpKINode Title="Comment.ShortText property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ShortText.htm" />
   <HelpKINode Title="Comment.Subjects property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Subjects.htm" />
   <HelpKINode Title="Comment.Text property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Text.htm" />
@@ -628,7 +625,6 @@
   <HelpKINode Title="MultiplicityExtensions.Display method" Url="html/M_Sawczyn_EFDesigner_EFModel_MultiplicityExtensions_Display.htm" />
   <HelpKINode Title="Name property">
     <HelpKINode Title="Association.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Name.htm" />
-    <HelpKINode Title="Comment.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_Name.htm" />
     <HelpKINode Title="Generalization.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Name.htm" />
     <HelpKINode Title="ModelAttribute.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Name.htm" />
     <HelpKINode Title="ModelClass.Name Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Name.htm" />
@@ -637,7 +633,6 @@
   </HelpKINode>
   <HelpKINode Title="NameDomainPropertyId field">
     <HelpKINode Title="Association.NameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_NameDomainPropertyId.htm" />
-    <HelpKINode Title="Comment.NameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Comment_NameDomainPropertyId.htm" />
     <HelpKINode Title="Generalization.NameDomainPropertyId Field" Url="html/F_Sawczyn_EFDesigner_EFModel_Generalization_NameDomainPropertyId.htm" />
   </HelpKINode>
   <HelpKINode Title="Namespace property">
