@@ -25,7 +25,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**2.0.0.0** (next version)
+**2.0.0.0** (next version, [RC1 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/V2.0.0-RC1))
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - **[NEW]** Added ability to specify foreign key properties
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately

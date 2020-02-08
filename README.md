@@ -159,6 +159,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 <details>
 <summary><b>Earlier</b></summary>
+
 **1.2.7.2**
    - Added additional types of UInt16, UInt32, UInt64 and SByte to property type list
    - Added the ability to use a modeled enumeration, if it has a proper backing type, as an entity identifier
