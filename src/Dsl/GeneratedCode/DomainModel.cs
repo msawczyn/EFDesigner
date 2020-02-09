@@ -95,7 +95,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				typeof(CommentBoxShape),
 				typeof(ClassShape),
 				typeof(EnumShape),
-				typeof(global::Sawczyn.EFDesigner.EFModel.FixUpDiagram),
+				typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams),
 				typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged),
 				typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged),
 				typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule),
@@ -541,7 +541,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			if(store == null) throw new global::System.ArgumentNullException("store");
 			
 			DslModeling::RuleManager ruleManager = store.RuleManager;
-			ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpDiagram));
+			ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams));
 			ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged));
 			ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged));
 			ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule));
@@ -559,7 +559,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			if(store == null) throw new global::System.ArgumentNullException("store");
 			
 			DslModeling::RuleManager ruleManager = store.RuleManager;
-			ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpDiagram));
+			ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams));
 			ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged));
 			ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged));
 			ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule));

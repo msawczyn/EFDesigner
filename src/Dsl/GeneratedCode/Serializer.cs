@@ -1352,9 +1352,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -3071,9 +3069,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -4545,9 +4541,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -5710,9 +5704,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -6686,9 +6678,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -7592,9 +7582,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -12272,9 +12260,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -13187,9 +13173,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -14131,9 +14115,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -14916,9 +14898,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -15701,9 +15681,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -18719,9 +18697,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -20154,9 +20130,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
 			WritePropertiesAsAttributes(serializationContext, element, writer);
-	
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
 			{
@@ -23318,7 +23292,20 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					id = new global::System.Guid (idStr);
 				}
-				return new EFModelDiagram(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
+	            string typeStr = reader.GetAttribute("type"); // HACK : MEXEDGE
+	            if (!string.IsNullOrEmpty(typeStr))
+		        {
+	                global::System.Type type = global::System.Type.GetType(typeStr);
+	                if (type != typeof(EFModelDiagram) && !type.IsSubclassOf(typeof(EFModelDiagram)))
+		            {
+		                throw new global::System.NotSupportedException();
+		            }
+	                return (DslModeling::ModelElement)global::System.Activator.CreateInstance(type, partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
+	            } 
+	            else
+	            {
+				    return new EFModelDiagram(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
+	            }
 			}
 			catch (global::System.ArgumentNullException /* anEx */)
 			{	
@@ -23604,6 +23591,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 			// Write out element Id.
 			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
+	                writer.WriteAttributeString("type", element.GetType().FullName);
 	
 			base.WritePropertiesAsAttributes(serializationContext, element, writer);
 	

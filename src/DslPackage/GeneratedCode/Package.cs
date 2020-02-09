@@ -12,6 +12,7 @@ using VSShell = global::Microsoft.VisualStudio.Shell;
 using DslShell = global::Microsoft.VisualStudio.Modeling.Shell;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
+using VSTextTemplatingHost = global::Microsoft.VisualStudio.TextTemplating.VSHost;
 using System;
 using System.Diagnostics;
 using System.Drawing.Design;
@@ -84,9 +85,9 @@ namespace Sawczyn.EFDesigner.EFModel
 					"@EnumerationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
 					0xff00ff,
 					Index = 6)]
+	[VSShell::ProvideEditorLogicalView(typeof(EFModelEditorFactory), Constants.LogicalViewId, IsTrusted = true)]
 	[VSShell::ProvideEditorFactory(typeof(EFModelEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
 	[VSShell::ProvideEditorExtension(typeof(EFModelEditorFactory), "." + Constants.DesignerFileExtension, 50)]
-	[VSShell::ProvideEditorLogicalView(typeof(EFModelEditorFactory), "{7651A702-06E5-11D1-8EBD-00A0C90F26EA}")] // Designer logical view GUID i.e. VSConstants.LOGVIEWID_Designer
 	[DslShell::ProvideRelatedFile("." + Constants.DesignerFileExtension, Constants.DefaultDiagramExtension,
 		ProjectSystem = DslShell::ProvideRelatedFileAttribute.CSharpProjectGuid,
 		FileOptions = DslShell::RelatedFileType.FileName)]
@@ -97,7 +98,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	[global::System.Runtime.InteropServices.ComVisible(true)]
 	[DslShell::ProvideBindingPath]
 	[DslShell::ProvideXmlEditorChooserBlockSxSWithXmlEditor(@"EFModel", typeof(EFModelEditorFactory))]
-
 	internal abstract partial class EFModelPackageBase : DslShell::ModelingPackage
 	{
 		protected global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper toolboxHelper;	

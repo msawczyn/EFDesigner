@@ -9,6 +9,7 @@
 
 using VSShellInterop = global::Microsoft.VisualStudio.Shell.Interop;
 using DslShell = global::Microsoft.VisualStudio.Modeling.Shell;
+using MexModeling = global::Mexedge.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -41,6 +42,20 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 
 		/// <summary>
+		/// Called by the shell to ask the editor to map a logical view to a physical one.
+		/// </summary>
+		protected override string MapLogicalView(global::System.Guid logicalView, object viewContext)
+		{
+			var l_viewContext = viewContext as MexModeling::ViewContext;
+			//if (Constants.LogicalViewId != logicalView || null == viewContext) // TODO
+			if (null == l_viewContext)
+            {
+				return base.MapLogicalView(logicalView, viewContext);    
+            }
+			return l_viewContext.ToString();			
+		}
+
+		/// <summary>
 		/// Called by the shell to ask the editor to create a new document object.
 		/// </summary>
 		public override DslShell::ModelingDocData CreateDocData(string fileName, VSShellInterop::IVsHierarchy hierarchy, uint itemId)
@@ -55,8 +70,14 @@ namespace Sawczyn.EFDesigner.EFModel
 		protected override DslShell::ModelingDocView CreateDocView(DslShell::ModelingDocData docData, string physicalView, out string editorCaption)
 		{
 			// Create the view type supported by this editor.
-			editorCaption = string.Empty;
-			return new EFModelDocView(docData, this.ServiceProvider);
+			editorCaption = " [Default]";
+			MexModeling::ViewContext viewContext;
+			if (MexModeling::ViewContext.TryParse(physicalView, out viewContext))
+			{
+				editorCaption = string.Format(" [{0}]", viewContext.DiagramName);
+				return new EFModelDocView(docData, this.ServiceProvider, viewContext.DiagramName);
+			}
+			return new EFModelDocView(docData, this.ServiceProvider, string.Empty);
 		}
 	}
 }

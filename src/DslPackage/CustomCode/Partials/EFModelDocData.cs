@@ -465,5 +465,17 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
       }
+
+      protected override void CleanupOldDiagramFiles()
+      {
+         string diagramsFileName = FileName + this.DiagramExtension;
+         if (diagramsFileName.EndsWith("x"))
+         {
+            string oldDiagramFileName = diagramsFileName.TrimEnd('x');
+
+            if (File.Exists(oldDiagramFileName))
+               Dte2.Solution.FindProjectItem(oldDiagramFileName)?.Delete();
+         }
+      }
    }
 }

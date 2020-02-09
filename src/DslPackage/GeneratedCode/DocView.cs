@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Linq;
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 using DslShell = global::Microsoft.VisualStudio.Modeling.Shell;
@@ -21,8 +22,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Constructs a new EFModelDocView.
 		/// </summary>
-		public EFModelDocView(DslShell::ModelingDocData docData, global::System.IServiceProvider serviceProvider)
-			: base(docData, serviceProvider)
+		public EFModelDocView(DslShell::ModelingDocData docData, global::System.IServiceProvider serviceProvider, string diagramName)
+			: base(docData, serviceProvider, diagramName)
 		{
 		}
 	}
@@ -32,11 +33,14 @@ namespace Sawczyn.EFDesigner.EFModel
 	/// </summary>
 	internal abstract class EFModelDocViewBase : DslShell::SingleDiagramDocView
 	{
+		private string diagramName;
+	
 		/// <summary>
 		/// Constructs a new EFModelDocView.
 		/// </summary>
-		protected EFModelDocViewBase(DslShell::ModelingDocData docData, global::System.IServiceProvider serviceProvider) : base(docData, serviceProvider)
+		protected EFModelDocViewBase(DslShell::ModelingDocData docData, global::System.IServiceProvider serviceProvider, string diagramName) : base(docData, serviceProvider)
 		{
+			this.diagramName = diagramName;
 		}
 
 		/// <summary>
@@ -55,14 +59,19 @@ namespace Sawczyn.EFDesigner.EFModel
 			// The diagram should exist in the diagram partition by now, just need to find it and connect it to this view.
 			EFModelDocDataBase docData = this.DocData as EFModelDocDataBase;
 			global::System.Diagnostics.Debug.Assert(docData != null, "DocData for EFModelDocViewBase should be an EFModelDocDataBase!");
+			var l_diagramName = string.IsNullOrEmpty(this.diagramName) ? global::System.IO.Path.GetFileNameWithoutExtension(docData.FileName) : this.diagramName;
 			DslModeling::Partition diagramPartition = docData.GetDiagramPartition();
 			if (diagramPartition != null)
 			{
 				global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram> diagrams = docData.GetDiagramPartition().ElementDirectory.FindElements<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram>();
 				if (diagrams.Count > 0)
 				{
-					global::System.Diagnostics.Debug.Assert(diagrams.Count == 1, "Found more than one diagram, using the first one found.");
-					this.Diagram = (DslDiagrams::Diagram)diagrams[0];
+					var l_diagram = diagrams.FirstOrDefault(diagram => diagram.Name.Equals(l_diagramName, global::System.StringComparison.Ordinal));
+                    if (null == l_diagram && !string.IsNullOrEmpty(this.diagramName))
+                    {
+                        return false;
+                    }
+                    this.Diagram = l_diagram ?? diagrams[0];
 				}
 				else
 				{

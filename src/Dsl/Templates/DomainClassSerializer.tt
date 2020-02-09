@@ -1,0 +1,3917 @@
+<#+
+/// <summary>
+/// Generates a serializer for the given DomainClass.
+/// If serializer is generated, return the name of the generated serializer;
+/// otherwise return empty string.
+/// </summary>
+private string GenerateDomainClassSerializer(XmlSerializationBehavior behavior, DomainClass domainClass, UniqueSerializerNameGenerator uniqueSerializerNameGenerator)
+{
+	string namespaceString = behavior.Namespace;
+	string currentXmlNamespace = CodeGenerationUtilities.GetXmlSchemaNamespace(domainClass.DslLibrary);
+	string classTypeString = domainClass.GetRelativeName (namespaceString, true);
+	bool isRelationship = (domainClass is DomainRelationship);
+	bool isAbstract = (domainClass.InheritanceModifier == InheritanceModifier.Abstract);
+    bool isDiagram= ((domainClass.DslLibrary is Dsl) && domainClass == ((Dsl)domainClass.DslLibrary).Diagram); // HACK : MEXEDGE
+
+	bool isSealed = (domainClass.InheritanceModifier == InheritanceModifier.Sealed);
+	bool monikerizationSupportOnly = false;
+	bool readSupportOnly = false;
+
+	if (isRelationship && isSealed && !CodeGenerationUtilities.UseFullForm(domainClass as DomainRelationship))
+	{
+		bool omitElement = CodeGenerationUtilities.OmitElement(domainClass as DomainRelationship);
+		if (((DomainRelationship)domainClass).IsEmbedding)
+		{	
+			if (omitElement)
+			{	// This relationship will not participate in Read/Write actions directly,
+				// no need to generate serializer for it.
+				return string.Empty;
+			}
+			else
+			{	// Need to handle the case where the relationship is serialized in full-form, but should be in short-form, or vice versa.
+				readSupportOnly = true;
+			}
+		}
+		else
+		{
+			DomainRole targetRole = (domainClass as DomainRelationship).Target;
+			DomainClass targetRolePlayer = targetRole.RolePlayer;
+			MonikerData monikerData = MonikerDataCache[targetRolePlayer];
+			if (monikerData.CanBeMonikerized)
+			{
+				// This relationship will not participate in Read/Write actions directly,
+				// but we need to generate monikerization support.
+				monikerizationSupportOnly = true;
+				if (!omitElement)
+				{	// Need to handle the case where the relationship is serialized in full-form, but should be in short-form, or vice versa.
+					readSupportOnly = true;
+				}
+			}
+			else
+			{	// There's something wrong with this relationship. It's a reference relationship, but pointing to elements
+				// that cannot be monikerized.
+				return string.Empty;
+			}
+		}
+	}
+
+	string serializerGenerationClassName = uniqueSerializerNameGenerator.GetGenerationSerializerName (domainClass);
+	string serializerClassName = uniqueSerializerNameGenerator.GetSerializerName (domainClass);
+	string baseSerializerClassName = string.Empty;
+	if (domainClass.BaseClass == null || BaseClassHelper.IsModelElement(domainClass.BaseClass))
+		baseSerializerClassName = BaseClassHelper.Instance[domainClass.GetType()];
+	else
+	{
+		DomainClass baseClass = domainClass.BaseClass;
+		DslLibrary baseDsl = baseClass.DslLibrary;
+		System.Diagnostics.Debug.Assert (baseDsl != null);
+		if (baseDsl != null)
+		{
+			if (baseDsl.Id == domainClass.DslLibrary.Id)
+			{	// Same DslLibrary, use the same UniqueSerializerNameGenerator.
+				baseSerializerClassName = uniqueSerializerNameGenerator.GetSerializerName (baseClass);
+			}
+			else
+			{	// Different Dsl, need to use a new UniqueSerializerNameGenerator.
+				baseSerializerClassName = (new UniqueSerializerNameGenerator(baseDsl)).GetSerializerName (baseClass);
+				// Also need to get base serializer namespace name;
+				XmlSerializationBehavior baseBehavior = baseDsl.XmlSerializationBehavior;
+				if (baseBehavior != null)
+				{
+					string baseNamespaceString = baseBehavior.Namespace;
+					if (!string.IsNullOrEmpty(baseNamespaceString))
+					{
+						if (string.IsNullOrEmpty(namespaceString) || !string.Equals(namespaceString, baseNamespaceString, System.StringComparison.Ordinal))
+							baseSerializerClassName = (baseNamespaceString + "." + baseSerializerClassName);
+					}
+				}
+			}
+		}
+	}
+
+	if(!string.IsNullOrEmpty(namespaceString))
+	{
+#>
+namespace <#= namespaceString #>
+{
+<#+
+		PushIndent("\t");
+	}
+	bool isRootClass = BaseClassHelper.Instance.IsRootClass (domainClass);
+	int inheritanceDepth = CodeGenerationUtilities.CalculateInheritanceDepth (domainClass);
+#>
+/// <summary>
+/// Serializer <#= serializerGenerationClassName #> for DomainClass <#= domainClass.GetRelativeName(namespaceString, false) #>.
+/// </summary>
+<#+
+	if (domainClass.GeneratesDoubleDerived)
+	{
+		if (inheritanceDepth > 6)
+		{
+#>
+[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1501:AvoidExcessiveInheritance", Justification = "Generated code.")]
+<#+
+		}
+	}
+	else if (inheritanceDepth > 5)
+	{
+#>
+[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1501:AvoidExcessiveInheritance", Justification = "Generated code.")]
+<#+
+	}
+#>
+<#= CodeGenerationUtilities.GetTypeAccessModifier(domainClass.AccessModifier) #><#= domainClass.GeneratesDoubleDerived ? " abstract" : (domainClass.InheritanceModifier == InheritanceModifier.Sealed ? " sealed" : string.Empty) #> partial class <#= serializerGenerationClassName #> : <#= baseSerializerClassName #>
+{
+<#+
+	// Properties of this domain class that will be serialized as XML attributes.
+	int calculatedAttribPropCount;
+	List<DomainProperty> attribProps = CodeGenerationUtilities.GetAttributeProperties (domainClass, out calculatedAttribPropCount);
+	bool generateAttributePropertiesReadMethods = false;
+	bool generateAttributePropertiesWriteMethods = false;
+	// Sort the properties if necessary. Also note that because the local variable "attribProps" here is used by both ReadPropertiesFromAttributes() and 
+	// WritePropertiesAsAttributes(), sorting it here will affect both methods at the same time.
+	CodeGenerationUtilities.SortProperties (attribProps);
+	
+	// Properties of this domain class that will be serialized as nested XML elements.
+	int calculatedElementPropCount;
+	List<DomainProperty> elementProps = CodeGenerationUtilities.GetElementProperties (domainClass, out calculatedElementPropCount);
+	bool generateElementPropertiesReadMethods = false;
+	bool generateElementPropertiesWriteMethods = false;
+	// Sort the properties by order (if specified).
+	// Note that because the local variable "elementProps" here is used by both ReadPropertiesFromElements() and 
+	// WritePropertiesAsElements(), sorting it here will affect both methods at the same time.
+	CodeGenerationUtilities.SortProperties (elementProps);
+	
+	// All relationships that will be serialized inside this class	
+	List<DomainRole> roles = GetSerializedRelationships (domainClass);
+	bool generateChildElementsMethods = false;
+	bool generateElementsMethods = false;
+	// Note, similar as the local variable "elementProps" used above, the "roles" here will be used in generating
+	// both ReadElements() and WriteElements().
+	CodeGenerationUtilities.SortRoles (roles);
+
+	// XmlCustom attribute
+	bool isCustom = false;
+	if(domainClass.ClassData!=null)
+	{
+		isCustom = domainClass.ClassData.IsCustom;
+	}
+	
+	// See if this class can be serialized as moniker. If so, generate helper methods for that.
+	MonikerData monikerDataDC = MonikerDataCache[domainClass];
+	bool generateMonikerHelpers = false;
+	if( monikerDataDC.CanBeMonikerized )
+	{
+		generateMonikerHelpers = true;
+	}
+#>
+	#region Constructor
+	/// <summary>
+	/// <#= serializerGenerationClassName #> Constructor
+	/// </summary>
+	<#= domainClass.GeneratesDoubleDerived ? "protected" : "public" #> <#= serializerGenerationClassName #> ()
+		: base ()
+	{
+<#+
+	if (isCustom)
+	{
+#>
+		// IsCustom == true, calling CustomConstruction().
+		// Provide your custom constructor implementation with following signature:
+		//   private void CustomConstructor();
+		// You can call DefaultConstructor() for the default implementation.
+		this.CustomConstructor();
+	}
+	
+	/// <summary>
+	/// Default implementation of constructor, which does nothing.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMethodsAsStatic", Justification = "Matching the signature of constructor.")]
+	private void DefaultConstructor()
+	{	// Do nothing.
+<#+
+	}
+#>
+	}
+	#endregion
+
+<#+
+
+	this.GenerateResetMethod(isSealed);
+
+
+	if ((monikerizationSupportOnly && !readSupportOnly) || isAbstract)
+	{
+#>
+	#region Public Properties
+	/// <summary>
+	/// Cannot be serialized.
+	/// </summary>
+	public override string XmlTagName
+	{
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return string.Empty; }
+	}
+
+	/// <summary>
+	/// Cannot be monikerized.
+	/// </summary>
+	public override string MonikerTagName
+	{
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return string.Empty; }
+	}
+	
+	/// <summary>
+	/// Cannot be monikerized.
+	/// </summary>
+	public override string MonikerAttributeName
+	{
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return string.Empty; }
+	}
+	#endregion
+
+<#+
+	}
+	else
+	{
+#>
+	#region Public Properties
+	/// <summary>
+	/// This is the XML tag name used to serialize an instance of <#= domainClass.Name #>.
+	/// </summary>
+	public override string XmlTagName
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		get 
+		{	// IsCustom == true, calling CustomXmlTagName.
+			// Provide your custom implementation with following signature:
+			//   private string CustomXmlTagName { get; }
+			// You can call DefaultXmlTagName for the default implementation.
+			return this.CustomXmlTagName;
+		}
+	}
+	
+	/// <summary>
+	/// Default implementation of XmlTagName.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMethodsAsStatic", Justification = "Matching the signature of CustomXmlTagName.")]
+	private string DefaultXmlTagName
+	{
+<#+
+		}
+#>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return @"<#= CodeGenerationUtilities.GetDomainClassXmlTagName (domainClass, currentXmlNamespace) #>"; }
+	}
+<#+
+		if (generateMonikerHelpers)
+		{
+#>
+
+	/// <summary>
+	/// This is the XML tag name used to serialize a monikerized instance of <#= domainClass.Name #>.
+	/// </summary>
+	public override string MonikerTagName
+	{
+<#+
+			if (isCustom)
+			{
+#>
+		get 
+		{	// IsCustom == true, calling CustomMonikerTagName.
+			// Provide your custom implementation with following signature:
+			//   private string CustomMonikerTagName { get; }
+			// You can call DefaultMonikerTagName for the default implementation.
+			return this.CustomMonikerTagName;
+		}
+	}
+	
+	/// <summary>
+	/// Default implementation of MonikerTagName.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMethodsAsStatic", Justification = "Matching the signature of CustomMonikerTagName.")]
+	private string DefaultMonikerTagName
+	{
+<#+
+			}
+#>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return @"<#= CodeGenerationUtilities.GetDomainClassMonikerTagName (domainClass, currentXmlNamespace) #>"; }
+	}
+	
+	/// <summary>
+	/// This is the name of the XML attribute that stores the moniker of <#= domainClass.Name #> in a serialized monikerized instance.
+	/// </summary>
+	public override string MonikerAttributeName
+	{
+<#+
+			if (isCustom)
+			{
+#>
+		get 
+		{	// IsCustom == true, calling CustomMonikerAttributeName.
+			// Provide your custom implementation with following signature:
+			//   private string CustomMonikerAttributeName { get; }
+			// You can call DefaultMonikerAttributeName for the default implementation.
+			return this.CustomMonikerAttributeName;
+		}
+	}
+	
+	/// <summary>
+	/// Default implementation of MonikerAttributeName.
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMethodsAsStatic", Justification = "Matching the signature of CustomMonikerAttributeName.")]
+	private string DefaultMonikerAttributeName
+	{
+<#+
+			}
+#>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return @"<#= monikerDataDC.MonikerXmlAttribute #>"; }
+	}
+<#+
+		}
+		else
+		{
+#>
+
+	/// <summary>
+	/// Cannot be monikerized.
+	/// </summary>
+	public override string MonikerTagName
+	{
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return string.Empty; }
+	}
+	
+	/// <summary>
+	/// Cannot be monikerized.
+	/// </summary>
+	public override string MonikerAttributeName
+	{
+		[global::System.Diagnostics.DebuggerStepThrough]
+		get { return string.Empty; }
+	}
+<#+
+		}
+#>
+	#endregion
+
+<#+
+	}
+
+	bool generateReadTargetRolePlayer = false;	// True if the domainClass is a relationship and defines a new target role player.
+	if (monikerizationSupportOnly && !readSupportOnly)
+	{
+#>
+	#region Not-supported Base Methods
+	/// <summary>
+	/// Not Supported.
+	/// </summary>
+	public override void Read(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+		throw new global::System.NotSupportedException();
+	}
+
+<#+
+	}
+	else if (isAbstract)
+	{
+#>
+	#region Read Methods
+	/// <summary>
+	/// <#= domainClass.Name #> is abstract and cannot be instantiated, so this method throws NotSupportedException.
+	/// </summary>
+	/// <remarks>
+	/// When this method is called, caller guarantees that the passed-in XML reader is positioned at the open XML tag
+	/// of the <#= domainClass.Name #> element that is about to be deserialized. 
+	/// The method needs to ensure that when it returns, the reader is positioned at the open XML tag of the next sibling element,
+	/// or the close tag of the parent element (or EOF).
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	public override void Read(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+		throw new global::System.NotSupportedException();
+	}
+<#+
+
+		// Determine whether we need to generate methods for ReadAttributes() and/or ReadElements().
+		if (isRootClass)
+		{
+			generateAttributePropertiesReadMethods = true;
+			generateAttributePropertiesWriteMethods = true;
+			if (isRelationship)
+				generateReadTargetRolePlayer = true;
+		}
+		else if (attribProps.Count > calculatedAttribPropCount)
+		{
+			generateAttributePropertiesReadMethods = true;
+			generateAttributePropertiesWriteMethods = true;
+		}
+		else if (attribProps.Count > 0)
+		{	// No need to generate read method because all properties are calculated (read-only).
+			generateAttributePropertiesWriteMethods = true;
+		}
+		
+		if (elementProps.Count > 0 || roles.Count > 0)
+		{
+			generateElementsMethods = true;
+		}
+	}
+	else
+	{
+#>
+	#region Read Methods
+	/// <summary>
+	/// Public Read() method that deserializes one <#= domainClass.Name #> instance from XML.
+	/// </summary>
+	/// <remarks>
+	/// When this method is called, caller guarantees that the passed-in XML reader is positioned at the open XML tag
+	/// of the <#= domainClass.Name #> element that is about to be deserialized. 
+	/// The method needs to ensure that when it returns, the reader is positioned at the open XML tag of the next sibling element,
+	/// or the close tag of the parent element (or EOF).
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	public override void Read(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomRead().
+		// Provide your custom implementation with following signature:
+		//   private void CustomRead(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader);
+		// You can call DefaultRead() for the default implementation.
+		this.CustomRead(serializationContext, element, reader);
+	}
+	
+	/// <summary>
+	/// Default implementation of Read().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private void DefaultRead(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		}
+#>
+		#region Check Parameters
+		global::System.Diagnostics.Debug.Assert (serializationContext != null);
+		if (serializationContext == null)
+			throw new global::System.ArgumentNullException ("serializationContext");
+		global::System.Diagnostics.Debug.Assert (element != null);
+		if (element == null)
+			throw new global::System.ArgumentNullException ("element");
+		global::System.Diagnostics.Debug.Assert (reader != null);
+		if (reader == null)
+			throw new global::System.ArgumentNullException ("reader");
+		#endregion
+		
+<#+
+		if (attribProps.Count == calculatedAttribPropCount) // No non-calculated properties
+		{
+			if (isRootClass)
+			{
+				if (!isSealed)
+				{	// Even though this class has no properties deserialized from XML attributes by itself, derived
+					// classes can still define some, so need to generate a virtual stub.
+					generateAttributePropertiesReadMethods = true;
+					generateAttributePropertiesWriteMethods = true;
+#>
+		// Read properties serialized as XML attributes.
+		ReadPropertiesFromAttributes(serializationContext, element, reader);
+			
+<#+
+				}
+				else
+				{	// This is a root class and it is sealed, so there's no need to generate anything for read.
+					if (calculatedAttribPropCount > 0)
+						generateAttributePropertiesWriteMethods = true; // Still need to serialized the calculated properties.
+				}
+			}
+			else
+			{	// This class doesn't define any properties that needs to be deserialized from XML attributes, so 
+				// only need to call base class.
+#>
+		// Read properties serialized as XML attributes.
+		base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+
+<#+
+				if (calculatedAttribPropCount > 0)
+					generateAttributePropertiesWriteMethods = true; // Still need to serialized the calculated properties.
+			}
+		}
+		else
+		{	// Read properties serialized as XML attributes.
+			generateAttributePropertiesReadMethods = true;
+			generateAttributePropertiesWriteMethods = true;
+#>
+		// Read properties serialized as XML attributes.
+		ReadPropertiesFromAttributes(serializationContext, element, reader);
+
+<#+
+		}
+		
+		if (elementProps.Count == 0 && roles.Count == 0 && isRootClass && isSealed)
+		{	// This class is root and sealed, which means it can't contain any nested XML elements in it, so skip
+			// the whole XML element if it's not a relationship, read only the non-anchor role-player otherwise.
+			if (isRelationship)
+			{
+				bool isEmbedding = ((DomainRelationship)domainClass).IsEmbedding;
+				DomainRole targetRole = (domainClass as DomainRelationship).Target;
+				generateReadTargetRolePlayer = true;
+#>
+		// Read target role-player.
+		if (!serializationContext.Result.Failed)
+		{
+			if (!reader.IsEmptyElement)
+			{
+				// Read to the start of the first child element.
+				DslModeling::SerializationUtilities.SkipToFirstChild(reader);
+					
+				// Read any extension element data under this XML element
+				<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.ReadExtensions(serializationContext, element, reader);
+
+				// Read target role-player <#= targetRole.Name #>.
+				ReadTargetRolePlayer(serializationContext, element, reader);
+
+				// Skip all nested child elements.
+				while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+				{
+					// Encountered one unknown XML element, skip it and keep reading.
+					<#= behavior.Name #>SerializationMessages.UnexpectedXmlElement(serializationContext, reader);
+					DslModeling::SerializationUtilities.Skip(reader);
+				}
+			}
+			else
+			{
+				<#= behavior.Name #>SerializationMessages.DanglingRelationship(serializationContext, reader, <#= CodeGenerationUtilities.WrapAsCSharpString(domainClass.Name) #>);
+			}
+		}
+
+		// Advance the reader to the next element (open tag of the next sibling, end tag of the parent, or EOF)
+		DslModeling::SerializationUtilities.Skip(reader);
+<#+
+			}
+			else
+			{
+#>
+		// Skip over this element and its children
+		if ( !reader.IsEmptyElement )
+		{
+			bool reportInvalidFirstChildError = false;
+			// advance to its first children
+			DslModeling::SerializationUtilities.SkipToFirstChild(reader);
+			while (!reader.EOF && reader.NodeType != global::System.Xml.XmlNodeType.EndElement)
+			{
+				if (!reportInvalidFirstChildError)
+				{
+					reportInvalidFirstChildError = true;
+					<#= behavior.Name #>SerializationMessages.UnexpectedXmlElement(serializationContext, reader);
+				}
+				// skip the rest of the children if there's any.
+				DslModeling::SerializationUtilities.Skip(reader);
+			}
+		}
+
+		DslModeling::SerializationUtilities.Skip(reader);
+<#+
+			}
+		}
+		else
+		{
+			DomainRole targetRole = null;
+			if (isRelationship)
+			{
+				targetRole = (domainClass as DomainRelationship).Target;
+				if (((DomainRelationship)domainClass).IsEmbedding)
+				{
+#>
+		// Read nested XML elements, which include at least the instance of target role-player <#= targetRole.Name #>
+<#+
+				}
+				else
+				{
+#>
+		// Read nested XML elements, which include at least the monikerized instance of target role-player <#= targetRole.Name #>
+<#+
+				}
+			}
+			else
+			{
+#>
+		// Read nested XML elements.
+<#+
+			}
+#>
+		if (!serializationContext.Result.Failed)
+		{
+			if (!reader.IsEmptyElement)
+			{
+				// Read to the start of the first child element.
+				DslModeling::SerializationUtilities.SkipToFirstChild(reader);
+				
+				// Read any extension element data under this XML element
+				<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.ReadExtensions(serializationContext, element, reader);
+				
+<#+
+			if (isRelationship)
+			{
+				if (CodeGenerationUtilities.DefinesNewTargetRole (domainClass as DomainRelationship))
+				{	// This relationship defined a new target role player, read it.
+					generateReadTargetRolePlayer = true;
+#>
+				// Read target role-player <#= targetRole.Name #>.
+				ReadTargetRolePlayer(serializationContext, element, reader);
+
+<#+
+				}
+				else
+				{	// Call base implementation to read the target role.
+#>
+				// Read target role-player <#= targetRole.Name #>.
+				base.ReadTargetRolePlayer(serializationContext, element, reader);
+
+<#+
+				}
+			}
+#>
+				// Read nested XML elements, they can be either properties serialized as XML elements, or child 
+				// model elements.
+				while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+				{
+<#+
+			if (elementProps.Count == 0 && roles.Count == 0 && !isRootClass && !domainClass.GeneratesDoubleDerived)
+			{	// This class doesn't define anything that can appear as nested XML elements, so only need to 
+				// call base class implementation directly.
+#>
+					base.ReadElements(serializationContext, element, reader);
+<#+
+			}
+			else
+			{
+				generateElementsMethods = true;
+#>
+					ReadElements(serializationContext, element, reader);
+<#+
+			}
+#>
+					if (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+					{
+						// Encountered one unknown XML element, skip it and keep reading.
+						<#= behavior.Name #>SerializationMessages.UnexpectedXmlElement(serializationContext, reader);
+						DslModeling::SerializationUtilities.Skip(reader);
+					}
+				}
+			}
+<#+
+			if (isRelationship)
+			{
+#>
+			else
+			{
+				<#= behavior.Name #>SerializationMessages.DanglingRelationship(serializationContext, reader, <#= CodeGenerationUtilities.WrapAsCSharpString(domainClass.Name) #>);
+			}
+<#+
+			}
+#>
+		}
+
+		// Advance the reader to the next element (open tag of the next sibling, end tag of the parent, or EOF)
+		DslModeling::SerializationUtilities.Skip(reader);
+<#+
+		}
+#>
+	}
+	
+<#+
+	}
+	
+	if (generateReadTargetRolePlayer)
+	{
+		bool isEmbedding = ((DomainRelationship)domainClass).IsEmbedding;
+		DomainRole targetRole = (domainClass as DomainRelationship).Target;
+		DomainClass targetRolePlayer = targetRole.RolePlayer;
+		string targetRoleType = targetRolePlayer.GetRelativeName(namespaceString, true);
+#>
+
+	/// <summary>
+	/// This method reads the target role player <#= targetRole.Name #>.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the reader is positioned at the open tag of the first child XML element.
+	/// This method will read only one target role player instance. The method will skip any child XML element it encounters until it reaches:
+	/// 1) The open tag of the target role player.
+	/// 2) The end tag of the parent element (dangling relationship).
+	/// 3) EOF (dangling relationship).
+	/// After the call, the reader is positioned at:
+	/// 1) The open tag of the next child element after the target role player.
+	/// 2) The end tag of the parent element.
+	/// 3) EOF.
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will link to the target <#= targetRolePlayer.Name #> instance.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	<#= (isSealed && isRootClass) ? "private static" : "protected" #> <#= isRootClass ? (isSealed ? string.Empty : "virtual ") : "override " #>void ReadTargetRolePlayer(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomReadTargetRolePlayer();
+		// Provide your custom implementation with following signature:
+		//   private <#= isSealed ? "static " : string.Empty #>void CustomReadTargetRolePlayer(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader);
+		// You can call DefaultReadTargetRolePlayer() for the default implementation.
+		CustomReadTargetRolePlayer(serializationContext, element, reader);
+	}
+	
+	/// <summary>
+	/// Default implementation of ReadTargetRolePlayer().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private <#= isSealed ? "static " : string.Empty #>void DefaultReadTargetRolePlayer(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		}
+#>
+		#region Check Parameters
+		global::System.Diagnostics.Debug.Assert (serializationContext != null);
+		if (serializationContext == null)
+			throw new global::System.ArgumentNullException ("serializationContext");
+		global::System.Diagnostics.Debug.Assert (element != null);
+		if (element == null)
+			throw new global::System.ArgumentNullException ("element");
+		global::System.Diagnostics.Debug.Assert (reader != null);
+		if (reader == null)
+			throw new global::System.ArgumentNullException ("reader");
+		#endregion
+
+<#+
+		string targetRoleInstanceName = string.Empty;
+		if (isEmbedding)
+		{
+			targetRoleInstanceName = "targetRolePlayer";
+#>
+		// Read the instance of target role-player <#= targetRole.Name #>
+		DslModeling::ModelElement <#= targetRoleInstanceName #> = null;
+<#+
+		}
+		else
+		{
+			targetRoleInstanceName = "targetRoleMoniker";
+#>
+		// Read the monikerized instance of target role-player <#= targetRole.Name #>
+		DslModeling::Moniker <#= targetRoleInstanceName #> = null;
+<#+
+		}
+#>
+		DslModeling::DomainClassXmlSerializer targetRoleSerializer = serializationContext.Directory.GetSerializer(<#= targetRoleType #>.DomainClassId);
+		global::System.Diagnostics.Debug.Assert(targetRoleSerializer != null, "Cannot find serializer for <#= targetRolePlayer.Name #>!");
+
+		while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+		{
+<#+
+		// If target end is a mel, read it directly. Otherwise read the moniker.
+		if (isEmbedding)
+		{
+#>
+			<#= targetRoleInstanceName #> = targetRoleSerializer.TryCreateInstance(serializationContext, reader, element.Partition);
+			if (<#= targetRoleInstanceName #> != null)
+			{
+				// Attach the target role-player.
+				DslModeling::DomainRoleInfo.SetRolePlayer(element as DslModeling::ElementLink, <#= classTypeString #>.<#= targetRole.Name #>DomainRoleId, <#= targetRoleInstanceName #>);
+				// Read target role-player.
+				DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= targetRoleInstanceName #>.GetDomainClass().Id);	
+				global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= targetRoleInstanceName #>.GetDomainClass().Name + "!");
+				targetSerializer.Read(serializationContext, <#= targetRoleInstanceName #>, reader);
+				break;
+			}
+<#+
+		}
+		else
+		{
+#>
+			<#= targetRoleInstanceName #> = targetRoleSerializer.TryCreateMonikerInstance(serializationContext, reader, ((<#= classTypeString #>)element).<#= targetRole.Opposite.Name #>, <#= classTypeString #>.DomainClassId, element.Partition);
+			if (<#= targetRoleInstanceName #> != null)
+			{
+				// Attach the target role-player moniker.
+				DslModeling::DomainRoleInfo.SetRolePlayerMoniker (element as DslModeling::ElementLink, <#= classTypeString #>.<#= targetRole.Name #>DomainRoleId, <#= targetRoleInstanceName #>);
+				// Moniker tag has no child XML elements in it, so just skip to the next element.
+				DslModeling::SerializationUtilities.Skip(reader);
+				break;
+			}
+<#+					
+		}
+#>
+			// Encountered one unknown XML element, skip it and keep reading.
+			<#= behavior.Name #>SerializationMessages.UnexpectedXmlElement(serializationContext, reader);
+			DslModeling::SerializationUtilities.Skip(reader);
+		}
+		if (<#= targetRoleInstanceName #> == null)
+		{
+			<#= behavior.Name #>SerializationMessages.DanglingRelationship(serializationContext, reader, <#= CodeGenerationUtilities.WrapAsCSharpString(domainClass.Name) #>);
+		}
+	}
+<#+
+	}
+	
+	if (generateAttributePropertiesReadMethods)
+	{
+#>
+
+	/// <summary>
+	/// This method deserializes all properties that are serialized as XML attributes.
+	/// </summary>
+	/// <remarks>
+	/// Because this method only handles properties serialized as XML attributes, the passed-in reader shouldn't be moved inside this method.
+	/// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+<#+
+		if (isCustom)
+		{	
+			// This gen'ed might not be used. It only be used if user invokes the DefaultRead
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+
+<#+
+		}
+		else
+		{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+<#+
+		}
+#>
+	protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomReadPropertiesFromAttributes();
+		// Provide your custom implementation with following signature:
+		//   private void CustomReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader);
+		// You can call DefaultReadPropertiesFromAttributes() for the default implementation.
+		CustomReadPropertiesFromAttributes(serializationContext, element, reader);
+	}
+	
+	/// <summary>
+	/// Default implementation of ReadPropertiesFromAttributes().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	private void DefaultReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		}
+		
+#>
+		// Always call the base class so any extensions are deserialized
+		base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+
+<#+
+		
+		if (attribProps.Count == calculatedAttribPropCount)
+		{
+#>
+		// There is no property to read; do nothing
+<#+
+		}
+		else
+		{
+			string instanceName = "instanceOf" + domainClass.Name.TrimStart('@');
+#>
+		<#= classTypeString #> <#= instanceName #> = element as <#= classTypeString #>;
+		global::System.Diagnostics.Debug.Assert(<#= instanceName #> != null, "Expecting an instance of <#= domainClass.Name #>");
+
+<#+
+			foreach(DomainProperty attribProp in attribProps)
+			{
+				if (attribProp.Kind == PropertyKind.Calculated)
+					continue; // Ignore calculated properties, as they're read-only.
+				string attribInstanceName = "attrib" + attribProp.Name.TrimStart('@');
+				string attribTagName = CodeGenerationUtilities.GetPropertyTagName (attribProp);
+				string propertyType = attribProp.Type.GetRelativeName(namespaceString, true);
+#>
+		// <#= attribProp.Name #>
+		if (!serializationContext.Result.Failed)
+		{
+			string <#= attribInstanceName #> = <#= behavior.DslLibrary.Name #>SerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "<#= attribTagName #>");
+			if (<#= attribInstanceName #> != null)
+			{
+				<#= propertyType #> valueOf<#= attribProp.Name.TrimStart('@') #>;
+				if (DslModeling::SerializationUtilities.TryGetValue<<#= propertyType #>>(serializationContext, <#= attribInstanceName #>, out valueOf<#= attribProp.Name.TrimStart('@') #>))
+				{
+<#+
+				if (attribProp.SetterAccessModifier == AccessModifier.Public)
+				{
+#>
+					<#= instanceName #>.<#= attribProp.Name #> = valueOf<#= attribProp.Name.TrimStart('@') #>;
+<#+
+				}
+				else
+				{
+#>
+					// Non-public setter, use DomainPropertyInfo method.
+					DslModeling::DomainPropertyInfo propInfo = <#= instanceName #>.Partition.DomainDataDirectory.GetDomainProperty (<#= classTypeString #>.<#= attribProp.Name #>DomainPropertyId);
+					global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for <#= classTypeString #>.<#= attribProp.Name #>!");
+					propInfo.SetValue(<#= instanceName #>, valueOf<#= attribProp.Name.TrimStart('@') #>);
+<#+
+				}
+#>
+				}
+				else
+				{	// Invalid property value, ignored.
+					<#= behavior.Name #>SerializationMessages.IgnoredPropertyValue(serializationContext, reader, "<#= attribTagName #>", typeof(<#= propertyType #>), <#= attribInstanceName #>);
+				}
+			}
+		}
+<#+
+			}
+		}
+#>
+	}
+<#+
+	}
+
+	if (generateElementsMethods)
+	{
+	
+#>
+
+	/// <summary>
+	/// This methods deserializes nested XML elements inside the passed-in element.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the current element does have nested XML elements, and the call will position the 
+	/// reader at the open tag of the first child XML element.
+	/// This method will read as many child XML elements as it can. It returns under three circumstances:
+	/// 1) When an unknown child XML element is encountered. In this case, this method will position the reader at the open 
+	///    tag of the unknown element. This implies that if the first child XML element is unknown, this method should return 
+	///    immediately and do nothing.
+	/// 2) When all child XML elemnets are read. In this case, the reader will be positioned at the end tag of the parent element.
+	/// 3) EOF.
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+<#+
+		if (isCustom)
+		{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+<#+
+		}
+#>
+	protected override void ReadElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomReadElements();
+		// Provide your custom implementation with following signature:
+		//   private void CustomReadElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader);
+		// You can call DefaultReadElements() for the default implementation.
+		CustomReadElements(serializationContext, element, reader);
+	}
+
+	/// <summary>
+	/// Default implementation of ReadElements().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private void DefaultReadElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		}
+
+#>
+		// Always call the base class so any extensions are deserialized
+		base.ReadElements(serializationContext, element, reader);
+
+<#+
+
+		string instanceName = "instanceOf" + domainClass.Name.TrimStart('@');
+		if (elementProps.Count > 0 || roles.Count > 0)
+		{
+#>
+		<#= classTypeString #> <#= instanceName #> = element as <#= classTypeString #>;
+		global::System.Diagnostics.Debug.Assert(<#= instanceName #> != null, "Expecting an instance of <#= domainClass.Name #>!");
+
+<#+
+		}
+		if (elementProps.Count > 0)
+		{
+			generateElementPropertiesReadMethods = true;
+			generateElementPropertiesWriteMethods = true;
+#>
+		// Read properties serialized as nested XML elements.
+		if (!serializationContext.Result.Failed)
+			ReadPropertiesFromElements(serializationContext, <#= instanceName #>, reader);
+<#+
+		}
+		if (roles.Count > 0)
+		{
+			generateChildElementsMethods = true;
+#>
+		// Read child model elements (which are always serialized as nested XML elements).
+		if (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+			ReadChildElements(serializationContext, <#= instanceName #>, reader);
+<#+
+		}
+#>
+	}
+<#+
+	}
+
+	if (generateElementPropertiesReadMethods)
+	{
+#>
+
+	/// <summary>
+	/// This method deserializes all properties that are serialized as nested XML elements.
+	/// </summary>
+	/// <remarks>
+	/// The caller will position the reader at the open tag of the first child XML element, but it can be either a property 
+	/// or a child element. 
+	/// This method will read as many properties as it can. It returns under three circumstances:
+	/// 1) When an unknown child XML element is encountered ("unknown" means it's not a property. It can be either a bogus tag, or
+	///    a child model element). In this case, this method will position the reader at the open tag of the unknown element. This
+	///    implies the if the first child XML element is unknown, this method should return immediately and do nothing.
+	/// 2) When all properties are read. In this case, the reader will be positioned at the next tag, which is either the open tag
+	///    of the next sibling (which can be the open tag of a child model element), or the end tag of the parent element.
+	/// 3) EOF.
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+<#+
+		if (isCustom)
+		{
+#>		
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+<#+
+		}
+		else
+		{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+<#+
+		}
+#>
+	private static void ReadPropertiesFromElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomReadPropertiesFromElements();
+		// Provide your custom implementation with following signature:
+		//   private static void CustomReadPropertiesFromElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlReader reader)
+		// You can call DefaultReadPropertiesFromElements() for the default implementation.
+		CustomReadPropertiesFromElements(serializationContext, element, reader);
+	}
+	
+	/// <summary>
+	/// Default implementation of DefaultReadPropertiesFromElements().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	private static void DefaultReadPropertiesFromElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		}
+#>
+		while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+		{
+			switch (reader.LocalName)
+			{
+<#+
+		foreach(DomainProperty elementProp in elementProps)
+		{
+			string strValueName = "str" + elementProp.Name.TrimStart('@');
+			string propertyType = elementProp.Type.GetRelativeName(namespaceString, true);
+#>
+				case "<#= CodeGenerationUtilities.GetPropertyTagName (elementProp) #>":	// <#= elementProp.Name #>
+<#+
+			if (elementProp.Kind == PropertyKind.Calculated)
+			{
+#>
+					// Calculated properties are saved, but not read back, so ignore.
+					DslModeling::SerializationUtilities.Skip(reader);  // Skip this tag.
+<#+
+			}
+			else
+			{
+#>
+					if (reader.IsEmptyElement)
+					{	// No serialized value, must be default one.
+						DslModeling::SerializationUtilities.Skip(reader);  // Skip this tag.
+					}
+					else
+					{
+						string <#= strValueName #> = <#= behavior.DslLibrary.Name #>SerializationHelper.Instance.ReadElementContentAsString(serializationContext, element, reader);
+						<#= propertyType #> valueOf<#= elementProp.Name.TrimStart('@') #>;
+						if (DslModeling::SerializationUtilities.TryGetValue<<#= propertyType #>>(serializationContext, <#= strValueName #>, out valueOf<#= elementProp.Name.TrimStart('@') #>))
+						{
+<#+
+				if (elementProp.SetterAccessModifier == AccessModifier.Public)
+				{
+#>
+							element.<#= elementProp.Name #> = valueOf<#= elementProp.Name.TrimStart('@') #>;
+<#+
+				}
+				else
+				{
+#>
+							// Non-public setter, use DomainPropertyInfo method.
+							DslModeling::DomainPropertyInfo propInfo = element.Partition.DomainDataDirectory.GetDomainProperty (<#= classTypeString #>.<#= elementProp.Name #>DomainPropertyId);
+							global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for <#= classTypeString #>.<#= elementProp.Name #>!");
+							propInfo.SetValue(element, valueOf<#= elementProp.Name.TrimStart('@') #>);
+<#+
+				}
+#>
+						}
+						else
+						{	// Invalid property value, ignored.
+							<#= behavior.Name #>SerializationMessages.IgnoredPropertyValue(serializationContext, reader, "<#= CodeGenerationUtilities.GetPropertyTagName (elementProp) #>", typeof(<#= propertyType #>), <#= strValueName #>);
+						}
+
+						DslModeling::SerializationUtilities.SkipToNextElement(reader);
+					}
+<#+
+			}
+#>
+					break;
+<#+
+		}
+#>
+				default:
+					return;  // Don't know this element.
+			}
+		}
+	}
+<#+
+	}
+
+
+
+
+	if (generateChildElementsMethods)
+	{
+		List<DomainRole> nonOmittedRoles = new List<DomainRole> ();
+		List<DomainRole> omittedRoles = new List<DomainRole> ();
+		foreach (DomainRole role in roles)
+		{
+			DomainRelationship rel = role.Relationship;
+			if (CodeGenerationUtilities.OmitElement(rel))
+				omittedRoles.Add (role);
+			else
+				nonOmittedRoles.Add (role);
+		}
+#>
+
+	/// <summary>
+	/// This method deserializes all child model elements.
+	/// </summary>
+	/// <remarks>
+	/// The caller will position the reader at the open tag of the first child XML element to deserialized.
+	/// This method will read as many child elements as it can. It returns under three circumstances:
+	/// 1) When an unknown child XML element is encountered. In this case, this method will position the reader at the 
+	///    open tag of the unknown element. This implies that if the first child XML element is unknown, this method 
+	///    should return immediately and do nothing.
+	/// 2) When all child XML elemnets are read. In this case, the reader will be positioned at the end tag of the parent element.
+	/// 3) EOF.
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+<#+
+		// Go through all the omitted roles to see if any of them needs SuppressMessage attribute.
+		// We sometimes create relationship by calling its constructor directly, which will link up the two role-players. So calling the constructor
+		// will do all the work and the result doesn't need to be assigned to anything.
+		foreach (DomainRole omittedRole in omittedRoles)
+		{
+			DomainRelationship rel = omittedRole.Relationship;
+			if (!CodeGenerationUtilities.UseFullForm(rel))
+			{
+				if (!rel.IsEmbedding || !omittedRole.IsPropertyGenerator)
+				{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId="<#= rel.GetFullName(false) #>", Justification = "Creating a relationship has the side-effect of connecting up the role-players.")]
+<#+
+				}
+			}
+		}
+#>
+	private static void ReadChildElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlReader reader)
+	{
+<#+
+		// If there's only one role, and it's not omit-element or its multiplicity is one, we don't need to generate a while loop to go through all possibilities;
+		// we'll generate an if-statement in this case for cleaner generated code.
+		bool useWhileLoop = ((roles.Count > 1) || (CodeGenerationUtilities.OmitElement (roles[0].Relationship) && CodeGenerationUtilities.AllowMultiple (roles[0])));
+		if (useWhileLoop)
+		{
+#>
+		while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+		{
+<#+
+			string indentation = string.Empty;
+			if (nonOmittedRoles.Count == 0)
+			{	// If all roles' relationships are omitted, there's no need to generate a switch-statement.
+			}
+			else 
+			{	
+				if (nonOmittedRoles.Count == 1)
+				{	// Only one relationship not omitted, still no need to generate switch-statemnt.
+					DomainRole role = nonOmittedRoles[0];
+					DomainRelationship rel = role.Relationship;
+					string relName = rel.Name;
+					string relTagName = CodeGenerationUtilities.GetRelationshipTagName (role);
+#>
+			if (string.Compare(reader.LocalName, "<#= relTagName #>", global::System.StringComparison.CurrentCulture) == 0)
+			{
+				if (reader.IsEmptyElement)
+				{	// No instance of this relationship, just skip
+					DslModeling::SerializationUtilities.Skip(reader);
+				}
+				else
+				{
+					DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <<#= relTagName #>>
+<#+
+					if (CodeGenerationUtilities.AllowMultiple (role))
+					{
+#>
+					Read<#= relName.TrimStart('@') #>Instances(serializationContext, element, reader);
+<#+
+					}
+					else
+					{
+#>
+					Read<#= relName.TrimStart('@') #>Instance(serializationContext, element, reader);
+<#+
+					}
+#>
+					DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </<#= relTagName #>>
+				}
+			}
+			else
+			{
+<#+
+					indentation = "\t";
+				}
+				else
+				{	// Check all possiblilities.
+#>
+			switch (reader.LocalName)
+			{
+<#+
+					foreach(DomainRole role in nonOmittedRoles)
+					{
+						DomainRelationship rel = role.Relationship;
+						string relName = rel.Name;
+						string relTagName = CodeGenerationUtilities.GetRelationshipTagName (role);
+#>
+				case "<#= relTagName #>":	// Relationship "<#= relName #>"
+					if (reader.IsEmptyElement)
+					{	// No instance of this relationship, just skip
+						DslModeling::SerializationUtilities.Skip(reader);
+					}
+					else
+					{
+						DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <<#= relTagName #>>
+<#+
+						if (CodeGenerationUtilities.AllowMultiple (role))
+						{
+#>
+						Read<#= relName.TrimStart('@') #>Instances(serializationContext, element, reader);
+<#+
+						}
+						else
+						{
+#>
+						Read<#= relName.TrimStart('@') #>Instance(serializationContext, element, reader);
+<#+
+						}
+#>
+						DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </<#= relTagName #>>
+					}
+					break;
+<#+
+					}
+#>
+				default:
+<#+
+					indentation = "\t\t";
+				}
+			}
+			
+			PushIndent (indentation);
+			
+			// Check for each omit-element relationships.
+			foreach (DomainRole omittedRole in omittedRoles)
+			{
+				DomainRelationship rel = omittedRole.Relationship;
+				string relName = rel.Name;
+				string relType = rel.GetRelativeName(namespaceString, true);	
+				DomainRole nonAnchorRole = omittedRole.Opposite;
+				bool allowMultiple = CodeGenerationUtilities.AllowMultiple (omittedRole);
+				string instanceName = string.Empty;
+				string serializerName = string.Empty;
+#>
+			// Check if it's an instance of omit-element relationship "<#= relName #>"
+<#+
+				if (!allowMultiple)
+				{	// Need to check if the link has already been created.
+#>
+			if (DslModeling::DomainRoleInfo.GetElementLinks<<#= relType #>> (element, <#= relType #>.<#= omittedRole.Name #>DomainRoleId).Count == 0)
+			{
+<#+
+					PushIndent("\t");
+				}
+				
+				if (CodeGenerationUtilities.UseFullForm (rel))
+				{	// If a relationship is serialized in full-form, then we will read the tag for the relationship itself, instead of
+					// the non-anchor role-player.
+					instanceName = "new" + relName.TrimStart('@');
+					serializerName = instanceName + "Serializer";
+#>
+			DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId);
+			global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= relType #>!");
+			<#= relType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance (serializationContext, reader, element.Partition) as <#= relType #>;
+			if (<#= instanceName #> != null)
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer (<#= instanceName #>, <#= relType #>.<#= omittedRole.Name #>DomainRoleId, element);
+				DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+				global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+				targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+				continue;
+			}
+<#+
+					if (!allowMultiple)
+					{	// Need to check if the link has already been created.
+						PopIndent();
+#>
+			}
+<#+
+					}
+#>
+
+<#+
+				}
+				else
+				{
+					string nonAnchorRoleType = nonAnchorRole.RolePlayer.GetRelativeName(namespaceString, true);
+					if (rel.IsEmbedding)
+					{
+						instanceName = "new" + nonAnchorRole.RolePlayer.Name.TrimStart('@') + "Of" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+			DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= nonAnchorRoleType #>.DomainClassId);
+			global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= nonAnchorRole.RolePlayer.Name #>!");
+			<#= nonAnchorRoleType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance(serializationContext, reader, element.Partition) as <#= nonAnchorRoleType #>;
+			if (<#= instanceName #> != null)
+			{
+<#+
+						if (omittedRole.IsPropertyGenerator && omittedRole.PropertySetterAccessModifier == AccessModifier.Public)
+						{
+							if (allowMultiple)
+							{
+#>
+				element.<#= omittedRole.PropertyName #>.Add(<#= instanceName #>);
+<#+
+							}
+							else
+							{
+#>
+				element.<#= omittedRole.PropertyName #> = <#=  instanceName#>;
+<#+
+							}
+						}
+						else
+						{	// Need to create the relationship instance explicitly.
+#>
+				new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= omittedRole.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= nonAnchorRole.Name #>DomainRoleId, <#= instanceName #>));
+<#+
+						}
+#>
+				DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+				global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+				targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+				continue;
+			}
+<#+
+					}
+					else
+					{
+						instanceName = "new" + nonAnchorRole.RolePlayer.Name.TrimStart('@') + "MonikerOf" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+			DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= nonAnchorRoleType #>.DomainClassId);
+			global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= nonAnchorRole.RolePlayer.Name #>!");
+			DslModeling::Moniker <#= instanceName #> = <#= serializerName #>.TryCreateMonikerInstance(serializationContext, reader, element, <#= relType #>.DomainClassId, element.Partition);
+			if (<#= instanceName #> != null)
+			{
+				new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= omittedRole.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= nonAnchorRole.Name #>DomainRoleId, <#= instanceName #>));
+				DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+				continue;
+			}
+<#+
+					}
+					
+					// If the relationship is not sealed, there can be relationships deriving it. All derived relationships will 
+					// be serialized in full-form, so need to check if that's the case.
+					if (rel.InheritanceModifier != InheritanceModifier.Sealed)
+					{
+						instanceName = "new" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+			else
+			{
+				DslModeling::DomainRelationshipXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= relType #>!");
+				<#= relType #> <#= instanceName #> = <#= serializerName #>.TryCreateDerivedInstance (serializationContext, reader, element.Partition) as <#= relType #>;
+				if (<#= instanceName #> != null)
+				{
+					DslModeling::DomainRoleInfo.SetRolePlayer (<#= instanceName #>, <#= relType #>.<#= omittedRole.Name #>DomainRoleId, element);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+					continue;
+				}
+			}
+<#+
+					}
+					
+					if (!allowMultiple)
+					{	// Need to check if the link has already been created.
+						PopIndent();
+#>
+			}
+<#+
+					}
+#>
+
+<#+
+				}
+			}
+#>
+			return;  // Don't know this element.
+<#+
+			PopIndent();
+			if (nonOmittedRoles.Count > 0)
+			{	// Close the else/switch clause.
+#>
+			}
+<#+
+			}
+			
+			// End of while-loop
+#>
+		}
+<#+
+		}
+		else if (roles.Count == 1)
+		{	// There's only one possiblity, so generate if-statement instead.
+			DomainRole role = roles[0];
+			DomainRelationship rel = role.Relationship;
+			string relName = rel.Name;
+			string relType = role.Relationship.GetRelativeName(namespaceString, true);				
+			DomainRole nonAnchorRole = role.Opposite;
+			bool allowMultiple = CodeGenerationUtilities.AllowMultiple (role);
+			string instanceName = string.Empty;
+			string serializerName = string.Empty;
+#>
+		if (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+		{
+<#+
+			if (!CodeGenerationUtilities.OmitElement (rel))
+			{
+				string relTagName = CodeGenerationUtilities.GetRelationshipTagName (role);
+#>
+			if (string.Compare(reader.LocalName, "<#= relTagName #>", global::System.StringComparison.CurrentCulture) == 0)
+			{
+				if (reader.IsEmptyElement)
+				{	// No instance of this relationship, just skip
+					DslModeling::SerializationUtilities.Skip(reader);
+				}
+				else
+				{
+					DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <<#= relTagName #>>
+<#+
+					if (allowMultiple)
+					{
+#>
+					Read<#= relName.TrimStart('@') #>Instances(serializationContext, element, reader);
+<#+
+					}
+					else
+					{
+#>
+					Read<#= relName.TrimStart('@') #>Instance(serializationContext, element, reader);
+<#+
+					}
+#>
+					DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </<#= relTagName #>>
+				}
+			}
+<#+
+			}
+			else
+			{	// Need to check if the link has already been created.
+#>
+			if (DslModeling::DomainRoleInfo.GetElementLinks<<#= relType #>> (element, <#= relType #>.<#= role.Name #>DomainRoleId).Count == 0)
+			{
+<#+
+				if (CodeGenerationUtilities.UseFullForm (rel))
+				{	// If a relationship is serialized in full-form, then we will read the tag for the relationship itself, instead of
+					// the non-anchor role-player.
+					instanceName = "new" + relName.TrimStart('@');
+					serializerName = instanceName + "Serializer";
+#>
+				DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= relType #>!");
+				<#= relType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance (serializationContext, reader, element.Partition) as <#= relType #>;
+				if (<#= instanceName #> != null)
+				{
+					DslModeling::DomainRoleInfo.SetRolePlayer (<#= instanceName #>, <#= relType #>.<#= role.Name #>DomainRoleId, element);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+				}
+<#+
+				}
+				else
+				{
+					string nonAnchorRoleType = nonAnchorRole.RolePlayer.GetRelativeName(namespaceString, true);
+					if (rel.IsEmbedding)
+					{
+						instanceName = "new" + nonAnchorRole.RolePlayer.Name.TrimStart('@') + "Of" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+				DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= nonAnchorRoleType #>.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= nonAnchorRole.RolePlayer.Name #>!");
+				<#= nonAnchorRoleType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance(serializationContext, reader, element.Partition) as <#= nonAnchorRoleType #>;
+				if (<#= instanceName #> != null)
+				{
+<#+
+						if (role.IsPropertyGenerator)
+						{
+#>
+					element.<#= role.PropertyName #> = <#= instanceName #>;
+<#+
+						}
+						else
+						{	// Need to create the relationship instance explicitly.
+#>
+					new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= role.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= nonAnchorRole.Name #>DomainRoleId, <#= instanceName #>));
+<#+
+						}
+#>						
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+				}
+<#+
+					}
+					else 
+					{
+						instanceName = "new" + nonAnchorRole.RolePlayer.Name.TrimStart('@') + "MonikerOf" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+				DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= nonAnchorRoleType #>.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= nonAnchorRole.RolePlayer.Name #>!");
+				DslModeling::Moniker <#= instanceName #> = <#= serializerName #>.TryCreateMonikerInstance(serializationContext, reader, element, <#= relType #>.DomainClassId, element.Partition);
+				if (<#= instanceName #> != null)
+				{
+					new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= role.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= nonAnchorRole.Name #>DomainRoleId, <#= instanceName #>));
+					DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+				}
+<#+
+					}
+					
+					// If the relationship is not sealed, there can be relationships deriving it. All derived relationships will 
+					// be serialized in full-form, so need to check if that's the case.
+					if (rel.InheritanceModifier != InheritanceModifier.Sealed)
+					{
+						instanceName = "new" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+				else
+				{
+					DslModeling::DomainRelationshipXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+					global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= relType #>!");
+					<#= relType #> <#= instanceName #> = <#= serializerName #>.TryCreateDerivedInstance (serializationContext, reader, element.Partition) as <#= relType #>;
+					if (<#= instanceName #> != null)
+					{
+						DslModeling::DomainRoleInfo.SetRolePlayer (<#= instanceName #>, <#= relType #>.<#= role.Name #>DomainRoleId, element);
+						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+						targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+					}
+				}
+<#+
+					}
+				}
+#>
+			}
+<#+
+			}
+#>
+		}
+<#+
+		}
+#>
+	}
+<#+
+		if (nonOmittedRoles.Count > 0)
+		{	// Generate methods to read each relationship roles
+			foreach(DomainRole role in nonOmittedRoles)
+			{
+				DomainRelationship rel = role.Relationship;
+				string relName = rel.Name;
+				string relType = role.Relationship.GetRelativeName(namespaceString, true);
+				DomainRole childRole = role.Opposite;
+				bool allowMultiple = CodeGenerationUtilities.AllowMultiple (role);
+				string instanceName = string.Empty;
+				string serializerName = string.Empty;
+				bool suppressFxCopViolation = (!rel.IsEmbedding || !role.IsPropertyGenerator || role.PropertySetterAccessModifier != AccessModifier.Public);
+				if (allowMultiple)
+				{
+#>
+
+	/// <summary>
+	/// Reads all instances of relationship <#= relName #>.
+	/// </summary>
+	/// <remarks>
+	/// The caller will position the reader at the open tag of the first XML element inside the relationship tag, so it can be
+	/// either the first instance, or a bogus tag. This method will deserialize all instances and ignore all bogus tags. When the
+	/// method returns, the reader will be positioned at the end tag of the relationship (or EOF if somehow that happens).
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+<#+
+					if (suppressFxCopViolation)
+					{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
+<#+
+					}
+#>
+	private static void Read<#= relName.TrimStart('@') #>Instances(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlReader reader)
+<#+
+				}
+				else
+				{
+#>
+
+	/// <summary>
+	/// Reads instance of relationship <#= relName #>.
+	/// </summary>
+	/// <remarks>
+	/// The caller will position the reader at the open tag of the first XML element inside the relationship tag, so it can be
+	/// either the first instance, or a bogus tag. This method will deserialize only the first valid instance and ignore all the
+	/// rest tags (because the multiplicity allows only one instance). When the method returns, the reader will be positioned at 
+	/// the end tag of the relationship (or EOF if somehow that happens).
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element">In-memory <#= domainClass.Name #> instance that will get the deserialized data.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+<#+
+					if (suppressFxCopViolation)
+					{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
+<#+
+					}
+#>
+	private static void Read<#= relName.TrimStart('@') #>Instance(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlReader reader)
+<#+
+				}
+#>
+	{
+<#+
+				if (!allowMultiple)
+				{
+#>
+		if (DslModeling::DomainRoleInfo.GetElementLinks<<#= relType #>> (element, <#= relType #>.<#= role.Name #>DomainRoleId).Count > 0)
+		{	// Only allow one instance, which already exists, so skip everything
+			DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+			return;
+		}
+
+<#+
+				}
+#>
+		while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+		{
+<#+
+				string childRoleType = childRole.RolePlayer.GetRelativeName(namespaceString, true);
+				if (CodeGenerationUtilities.UseFullForm (rel))
+				{	// If a relationship is serializaed in full-form, then we will read the tag for the relationship itself, instead of
+					// the non-anchor role-player.
+					instanceName = "new" + relName.TrimStart('@');
+					serializerName = instanceName + "Serializer";
+
+#>
+			DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId);
+			global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= relType #>!");
+			<#= relType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance (serializationContext, reader, element.Partition) as <#= relType #>;
+			if (<#= instanceName #> != null)
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer (<#= instanceName #>, <#= relType #>.<#= role.Name #>DomainRoleId, element);
+				DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+				global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+				targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+<#+
+					if (!allowMultiple)
+					{
+#>
+				break;	// Only allow one instance.
+<#+
+					}
+#>
+			}
+			else
+			{	// Maybe the relationship is serialized in short-form by mistake.
+<#+
+					if(rel.IsEmbedding)
+					{					
+						instanceName = "new" + childRole.RolePlayer.Name.TrimStart('@') + "Of" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+				DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= childRoleType #>.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= childRoleType #>!");
+				<#= childRoleType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance(serializationContext, reader, element.Partition) as <#= childRoleType #>;
+				if (<#= instanceName #> != null)
+				{
+					<#= behavior.Name #>SerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(<#= relType #>));
+<#+
+						if (role.IsPropertyGenerator && role.PropertySetterAccessModifier == AccessModifier.Public)
+						{
+							if (allowMultiple)
+							{
+#>
+					element.<#= role.PropertyName #>.Add(<#= instanceName #>);
+<#+
+							}
+							else
+							{
+#>
+					element.<#= role.PropertyName #> = <#= instanceName #>;
+<#+
+							}
+						}
+						else
+						{	// Need to create the relationship instance explicitly.
+#>
+					new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= role.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= childRole.Name #>DomainRoleId, <#= instanceName #>));
+<#+
+						}
+#>
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+<#+
+						if (!allowMultiple)
+						{
+#>
+					break;	// Only allow one instance.
+<#+
+						}
+#>
+				}
+<#+
+					}	// if (rel.IsEmbedding)
+					else
+					{
+						instanceName = "new" + childRole.RolePlayer.Name.TrimStart('@') + "MonikerOf" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+				DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= childRoleType #>.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= childRoleType #>!");
+				DslModeling::Moniker <#= instanceName #> = <#= serializerName #>.TryCreateMonikerInstance(serializationContext, reader, element, <#= relType #>.DomainClassId, element.Partition);
+				if (<#= instanceName #> != null)
+				{
+					<#= behavior.Name #>SerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(<#= relType #>));
+					new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= role.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= childRole.Name #>DomainRoleId, <#= instanceName #>));
+					DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+<#+
+						if (!allowMultiple)
+						{
+#>
+					break;	// Only allow one instance.
+<#+
+						}
+#>
+				}
+<#+
+					}
+#>
+				else
+				{	// Unknown element, skip.
+					DslModeling::SerializationUtilities.Skip(reader);
+				}
+			}
+<#+
+				}
+				else
+				{
+					if(rel.IsEmbedding)
+					{					
+						instanceName = "new" + childRole.RolePlayer.Name.TrimStart('@') + "Of" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+			DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= childRoleType #>.DomainClassId);
+			global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= childRoleType #>!");
+			<#= childRoleType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance(serializationContext, reader, element.Partition) as <#= childRoleType #>;
+			if (<#= instanceName #> != null)
+			{
+<#+
+						if (role.IsPropertyGenerator && role.PropertySetterAccessModifier == AccessModifier.Public)
+						{
+							if (allowMultiple)
+							{
+#>
+				element.<#= role.PropertyName #>.Add(<#= instanceName #>);
+<#+
+							}
+							else
+							{
+#>
+				element.<#= role.PropertyName #> = <#= instanceName #>;
+<#+
+							}
+						}
+						else
+						{	// Need to create the relationship instance explicitly.
+#>
+				new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= role.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= childRole.Name #>DomainRoleId, <#= instanceName #>));
+<#+
+						}
+#>
+				DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+				global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+				targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+<#+
+						if (!allowMultiple)
+						{
+#>
+				break;	// Only allow one instance.
+<#+
+						}
+#>
+			}
+<#+
+					}	// if (rel.IsEmbedding)
+					else
+					{
+						instanceName = "new" + childRole.RolePlayer.Name.TrimStart('@') + "MonikerOf" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+			DslModeling::DomainClassXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= childRoleType #>.DomainClassId);
+			global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= childRoleType #>!");
+			DslModeling::Moniker <#= instanceName #> = <#= serializerName #>.TryCreateMonikerInstance(serializationContext, reader, element, <#= relType #>.DomainClassId, element.Partition);
+			if (<#= instanceName #> != null)
+			{
+				new <#= relType #>(element.Partition, new DslModeling::RoleAssignment(<#= relType #>.<#= role.Name #>DomainRoleId, element), new DslModeling::RoleAssignment(<#= relType #>.<#= childRole.Name #>DomainRoleId, <#= instanceName #>));
+				DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+<#+
+						if (!allowMultiple)
+						{
+#>
+				break;	// Only allow one instance.
+<#+
+						}
+#>
+			}
+<#+
+					}
+
+					// If the relationship is not sealed, there can be relationships deriving it. All derived relationships will 
+					// be serialized in full-form, so need to check if that's the case.
+					if (rel.InheritanceModifier != InheritanceModifier.Sealed)
+					{
+						instanceName = "new" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+			else
+			{
+				global::System.Type typeof<#= relName.TrimStart('@') #> = typeof(<#= relType #>);
+				DslModeling::DomainRelationshipXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= relType #>!");
+				<#= relType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance (serializationContext, reader, element.Partition) as <#= relType #>;
+				if (<#= instanceName #> != null)
+				{
+					if (<#= instanceName #>.GetType() == typeof<#= relName.TrimStart('@') #>)
+					{	// The relationship should be serialized in short-form.
+						<#= behavior.Name #>SerializationMessages.ExpectingShortFormRelationship(serializationContext, reader, typeof(<#= relType #>));
+					}
+					DslModeling::DomainRoleInfo.SetRolePlayer (<#= instanceName #>, <#= relType #>.<#= role.Name #>DomainRoleId, element);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (<#= instanceName #>.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, <#= instanceName #>, reader);
+<#+
+						if (!allowMultiple)
+						{
+#>
+					break;	// Only allow one instance.
+<#+
+						}
+#>
+				}
+				else
+				{	// Unknown element, skip
+					DslModeling::SerializationUtilities.Skip(reader);
+				}
+			}
+<#+
+					}
+					else
+					{
+						instanceName = "new" + relName.TrimStart('@');
+						serializerName = instanceName + "Serializer";
+#>
+			else
+			{	// Maybe the relationship is serialized in full-form by mistake.
+				DslModeling::DomainRelationshipXmlSerializer <#= serializerName #> = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+				global::System.Diagnostics.Debug.Assert(<#= serializerName #> != null, "Cannot find serializer for <#= relType #>!");
+				<#= relType #> <#= instanceName #> = <#= serializerName #>.TryCreateInstance (serializationContext, reader, element.Partition) as <#= relType #>;
+				if (<#= instanceName #> != null)
+				{
+					<#= behavior.Name #>SerializationMessages.ExpectingShortFormRelationship(serializationContext, reader, typeof(<#= relType #>));
+					DslModeling::DomainRoleInfo.SetRolePlayer (<#= instanceName #>, <#= relType #>.<#= role.Name #>DomainRoleId, element);
+					<#= serializerName #>.Read(serializationContext, <#= instanceName #>, reader);
+<#+
+						if (!allowMultiple)
+						{
+#>
+					break;	// Only allow one instance.
+<#+
+						}
+#>
+				}
+				else
+				{	// Unknown element, skip
+					DslModeling::SerializationUtilities.Skip(reader);
+				}
+			}
+<#+
+					}
+				}
+#>
+		}
+	}
+<#+
+			}
+		}
+	}
+	
+	bool isBaseRelationship = (isRelationship && !isSealed && !CodeGenerationUtilities.HasNonAbstractBaseClass (domainClass));
+	if (monikerizationSupportOnly && !readSupportOnly)
+	{
+#>
+	/// <summary>
+	/// Not Supported.
+	/// </summary>
+	public override DslModeling::ModelElement TryCreateInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+	{
+		throw new global::System.NotSupportedException();
+	}
+
+	/// <summary>
+	/// Not Supported.
+	/// </summary>
+	public override DslModeling::Moniker TryCreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition)
+	{
+		throw new global::System.NotSupportedException();
+	}
+
+	/// <summary>
+	/// Not Supported.
+	/// </summary>
+	public override DslModeling::ElementLink TryCreateDerivedInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+	{
+		throw new global::System.NotSupportedException();
+	}
+
+<#+
+	} 
+	else
+	{
+		bool privateHelper = false;
+#>
+
+	#region TryCreateInstance<#= isRelationship ? " & TryCreateDerivedInstance" : string.Empty #>
+	/// <summary>
+	/// This method creates a correct instance of <#= domainClass.Name #> based on the tag currently pointed by the reader. If the reader
+	/// is positioned at a serialized <#= domainClass.Name #>, a new <#= domainClass.Name #> instance will be created in the given partition, otherwise 
+	/// null is returned.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
+	/// not move the reader; the reader should remain at the same position when this method returns.
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="partition">Partition in which new elements should be created.</param>	
+	/// <returns>Created <#= domainClass.Name #> instance, or null if the reader is not pointing to a serialized <#= domainClass.Name #> instance.</returns>
+	public override DslModeling::ModelElement TryCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomTryCreateInstance().
+		// Provide your custom implementation with following signature:
+		//   private DslModeling::ModelElement CustomTryCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition);
+		// You can call DefaultTryCreateInstance() for the default implementation.
+		return this.CustomTryCreateInstance(serializationContext, reader, partition);
+	}
+	
+	/// <summary>
+	/// Default implementation of TryCreateInstance().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private DslModeling::ModelElement DefaultTryCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+	{
+<#+
+		}
+#>
+		#region Check Parameters
+		global::System.Diagnostics.Debug.Assert (serializationContext != null);
+		if (serializationContext == null)
+			throw new global::System.ArgumentNullException ("serializationContext");
+		global::System.Diagnostics.Debug.Assert (reader != null);
+		if (reader == null)
+			throw new global::System.ArgumentNullException ("reader");
+		global::System.Diagnostics.Debug.Assert (partition != null);
+		if (partition == null)
+			throw new global::System.ArgumentNullException ("partition");
+		#endregion
+
+<#+
+		if (isRelationship && !isSealed && !isAbstract)
+		{	// For a non-abstract non-sealed relationship, the implementation of TryCreateDerivedInstance() is almost the same as 
+			// TryCreateInstance(). So we generate the actual implementation into a private helper method to re-use
+			// some code.
+			privateHelper = true;
+#>
+		return this.InternalTryCreateInstance(serializationContext, reader, partition, false /* include the type itself */);
+	}
+
+	/// <summary>
+	/// This method creates a correct derived instance of <#= domainClass.Name #> based on the tag currently pointed by the reader.
+	/// Note that the difference between this method and the above one is that this method will never create an instance of the
+	/// <#= domainClass.Name #> type itself, only derived types are checked.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
+	/// not move the reader; the reader should remain at the same position when this method returns.
+	/// </remarks>		
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="partition">Partition in which new elements should be created.</param>
+	/// <returns>Created instance that derives from <#= domainClass.Name #>, or null if the reader is not pointing to such a serialized instance.</returns>
+	public override DslModeling::ElementLink TryCreateDerivedInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+	{
+		#region Check Parameters
+		global::System.Diagnostics.Debug.Assert (serializationContext != null);
+		if (serializationContext == null)
+			throw new global::System.ArgumentNullException ("serializationContext");
+		global::System.Diagnostics.Debug.Assert (reader != null);
+		if (reader == null)
+			throw new global::System.ArgumentNullException ("reader");
+		global::System.Diagnostics.Debug.Assert (partition != null);
+		if (partition == null)
+			throw new global::System.ArgumentNullException ("partition");
+		#endregion
+
+		return this.InternalTryCreateInstance(serializationContext, reader, partition, true /* derived types only */) as DslModeling::ElementLink;
+	}
+
+	/// <summary>
+	/// Internal helper method for TryCreateInstance() and TryCreateDerivedInstance().
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="partition">Partition in which new elements should be created.</param>
+	/// <param name="derivedTypesOnly">If true, this method will only check derived types, but not the domain class iitself.</param>
+	private DslModeling::ModelElement InternalTryCreateInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition, bool derivedTypesOnly)
+	{
+<#+
+		}
+#>
+		DslModeling::ModelElement result = null;
+		if (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+		{
+			string localName = reader.LocalName;
+<#+
+		if (!isAbstract)
+		{
+#>
+			if (<#= privateHelper ? "!derivedTypesOnly && " : string.Empty #>string.Compare (localName, this.XmlTagName, global::System.StringComparison.CurrentCulture) == 0)
+			{	// New "<#= domainClass.Name #>" instance.
+				result = this.CreateInstance(serializationContext, reader, partition);
+			}
+<#+
+			if (!isSealed)
+			{
+#>
+			else
+			{	// Check for derived classes of "<#= domainClass.Name #>".
+				if (this.derivedClasses == null)
+					this.ConstructDerivedClassesLookupTable(serializationContext, partition.DomainDataDirectory);
+				global::System.Diagnostics.Debug.Assert (this.derivedClasses != null);
+				DslModeling::DomainClassInfo derivedClass = null;
+				if (this.derivedClasses.TryGetValue (localName, out derivedClass) && derivedClass != null)
+				{	// New derived <#= isRelationship ? "relationship" : "class" #> instance.
+					<#= serializerGenerationClassName #> derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as <#= serializerGenerationClassName #>;
+					global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
+					result = derivedSerializer.CreateInstance(serializationContext, reader, partition);
+				}
+			}
+<#+
+			}
+		}
+		else
+		{
+#>
+			// Check for derived classes of "<#= domainClass.Name #>".
+			if (this.derivedClasses == null)
+				this.ConstructDerivedClassesLookupTable(serializationContext, partition.DomainDataDirectory);
+			global::System.Diagnostics.Debug.Assert (this.derivedClasses != null);
+			DslModeling::DomainClassInfo derivedClass = null;
+			if (this.derivedClasses.TryGetValue (localName, out derivedClass) && derivedClass != null)
+			{	// New derived <#= isRelationship ? "relationship" : "class" #> instance.
+				<#= serializerGenerationClassName #> derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as <#= serializerGenerationClassName #>;
+				global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
+				result = derivedSerializer.CreateInstance(serializationContext, reader, partition);
+			}
+<#+
+		}
+#>
+		}
+
+		return result;
+	}
+
+	/// <summary>
+	/// This method creates an instance of <#= domainClass.Name #> based on the tag currently pointed by the reader. The reader is guaranteed (by the caller)
+	/// to be pointed at a serialized instance of <#= domainClass.Name #>.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the reader is positioned at open XML tag of the ModelRoot instance being read. This method should
+	/// not move the reader; the reader should remain at the same position when this method returns.
+	/// </remarks>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="partition">Partition in which new <#= domainClass.Name #> instance should be created.</param>	
+	/// <returns>Created <#= domainClass.Name #> instance.</returns>
+	protected override DslModeling::ModelElement CreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomCreateInstance().
+		// Provide your custom implementation with following signature:
+		//   private DslModeling::ModelElement CustomCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition);
+		// You can call DefaultTryCreateInstance() for the default implementation.
+		return this.CustomCreateInstance(serializationContext, reader, partition);
+	}
+	
+	/// <summary>
+	/// Default implementation of CreateInstance().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="serializationContext", Justification = "Matching the signature of CustomCreateInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="reader", Justification = "Matching the signature of CustomCreateInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="partition", Justification = "Matching the signature of CustomCreateInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMethodsAsStatic", Justification = "Matching the signature of CustomCreateInstance.")]
+	private DslModeling::ModelElement DefaultCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+	{
+<#+
+		}
+
+		if (isAbstract)
+		{
+#>
+		// Abstract class, cannot be serialized.
+		throw new global::System.NotSupportedException();
+<#+
+		}
+		else
+		{
+			if (monikerDataDC.SerializeId)
+			{
+#>
+		string idStr = reader.GetAttribute ("Id");
+		try
+		{
+			global::System.Guid id;
+			if (string.IsNullOrEmpty(idStr))
+			{	// Create a default Id.
+				id = global::System.Guid.NewGuid();
+				<#= behavior.Name #>SerializationMessages.MissingId(serializationContext, reader, id);
+			}
+			else
+			{
+				id = new global::System.Guid (idStr);
+			}
+<#+
+				if (!isRelationship)
+				{
+                        if(!isDiagram) // HACK : MEXEDGE
+                        {
+#>
+			return new <#=classTypeString #>(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
+<#+
+                        }
+                        else
+                        {
+#>
+            string typeStr = reader.GetAttribute("type"); // HACK : MEXEDGE
+            if (!string.IsNullOrEmpty(typeStr))
+	        {
+                global::System.Type type = global::System.Type.GetType(typeStr);
+                if (type != typeof(<#=classTypeString #>) && !type.IsSubclassOf(typeof(<#=classTypeString #>)))
+	            {
+	                throw new global::System.NotSupportedException();
+	            }
+                return (DslModeling::ModelElement)global::System.Activator.CreateInstance(type, partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
+            } 
+            else
+            {
+			    return new <#=classTypeString #>(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
+            }
+<#+
+                        }
+				}
+				else
+				{
+					DomainRole nonAnchorRole = (domainClass as DomainRelationship).Target;
+					DomainRole anchorRole = nonAnchorRole.Opposite;
+#>
+			// Create the link with place-holder role-players.
+			return new <#= classTypeString #>(
+				partition,
+				new DslModeling::RoleAssignment[] {
+					DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (<#= classTypeString #>.<#= anchorRole.Name #>DomainRoleId), 
+					DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (<#= classTypeString #>.<#= nonAnchorRole.Name #>DomainRoleId)
+				},
+				new DslModeling::PropertyAssignment[] {
+					new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id)
+				}
+			);
+<#+
+				}
+#>
+		}
+		catch (global::System.ArgumentNullException /* anEx */)
+		{	
+			<#= behavior.Name #>SerializationMessages.InvalidPropertyValue(serializationContext, reader, "Id", typeof(global::System.Guid), idStr);
+		}
+		catch (global::System.FormatException /* fEx */)
+		{
+			<#= behavior.Name #>SerializationMessages.InvalidPropertyValue(serializationContext, reader, "Id", typeof(global::System.Guid), idStr);
+		}
+		catch (global::System.OverflowException /* ofEx */)
+		{
+			<#= behavior.Name #>SerializationMessages.InvalidPropertyValue(serializationContext, reader, "Id", typeof(global::System.Guid), idStr);
+		}
+		return null;
+<#+
+			}
+			else
+			{
+				if (!isRelationship)
+				{
+                        if(!isDiagram) // HACK : MEXEDGE  
+                        {
+#>
+		return new <#= classTypeString #>(partition);
+<#+
+                        }
+                        else
+                        {
+#>
+        string typeStr = reader.GetAttribute("type"); // HACK : MEXEDGE
+        if (!string.IsNullOrEmpty(typeStr))
+	    {
+            global::System.Type type = global::System.Type.GetType(typeStr);
+            if (type != typeof(<#=classTypeString #>) && !type.IsSubclassOf(typeof(<#=classTypeString #>)))
+	        {
+	            throw new global:System.NotSupportedException();
+	        }
+            return (DslModeling::ModelElement)global::System.Activator.CreateInstance(type, partition);
+        } 
+        else
+        {
+			return new <#= classTypeString #>(partition);
+        }
+<#+
+                        }
+				}
+				else
+				{
+					DomainRole nonAnchorRole = (domainClass as DomainRelationship).Target;
+					DomainRole anchorRole = nonAnchorRole.Opposite;
+#>
+		// Create the link with place-holder role-players.
+		return new <#= classTypeString #>(
+			partition,
+			DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (<#= classTypeString #>.<#= anchorRole.Name #>DomainRoleId), 
+			DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (<#= classTypeString #>.<#= nonAnchorRole.Name #>DomainRoleId)
+		);
+<#+
+				}
+			}
+		}
+#>
+	}
+<#+
+		if (isRelationship && !privateHelper)
+		{
+#>
+
+	/// <summary>
+	/// This method creates a correct derived instance of <#= domainClass.Name #> based on the tag currently pointed by the reader.
+	/// Note that the difference between this method and the above one is that this method will never create an instance of the
+	/// <#= domainClass.Name #> type itself, only derived types are checked.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
+	/// not move the reader; the reader should remain at the same position when this method returns.
+	/// </remarks>		
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="partition">Partition in which new elements should be created.</param>
+	/// <returns>Created instance that derives from <#= domainClass.Name #>, or null if the reader is not pointing to such a serialized instance.</returns>
+	public override DslModeling::ElementLink TryCreateDerivedInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+<#+
+			if (isCustom)
+			{
+#>
+	{	// IsCustom == true, calling CustomTryCreateDerivedInstance().
+		// Provide your custom implementation with following signature:
+		//   private DslModeling::ElementLink CustomTryCreateDerivedInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition);
+		// You can call DefaultTryCreateDerivedInstance() for the default implementation.
+		return this.CustomTryCreateDerivedInstance(serializationContext, reader, partition);
+	}
+	
+	/// <summary>
+	/// Default implementation of TryCreateDerivedInstance().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private DslModeling::ElementLink DefaultTryCreateDerivedInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
+<#+
+			}
+			
+			if (isAbstract)
+			{	// For abstract relationship, TryCreateDerivedInstance() and TryCreateInstance() will be the same
+#>
+	{	// Abstract relationship, so it's the same as TryCreateInstance().
+		return this.TryCreateInstance(serializationContext, reader, partition) as DslModeling::ElementLink;
+<#+
+			}
+			else // Must be sealed.
+			{	// Sealed relationship won't have derived instances.		
+#>
+	{	// Sealed relationship, won't have any derived instances.
+		return null;
+<#+
+			}
+#>
+	}
+<#+
+		}
+
+		if (!isSealed)
+		{	
+#>
+
+	/// <summary>
+	/// Stores a mapping from XmlTagName to DomainClassInfo that derives from <#= domainClass.Name #>, created on demand.
+	/// </summary>
+	private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClasses;
+
+	/// <summary>
+	/// Construct the apping from XmlTagName to DomainClassInfo that derives from <#= domainClass.Name #>.
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
+	private void ConstructDerivedClassesLookupTable(DslModeling::SerializationContext serializationContext, DslModeling::DomainDataDirectory domainDataDirectory)
+	{
+		global::System.Diagnostics.Debug.Assert(this.derivedClasses == null); // Shouldn't construct the table more than once.
+		this.derivedClasses = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
+
+		DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(<#= classTypeString #>.DomainClassId);
+		global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
+
+		global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
+		if (descendents != null)
+		{
+			foreach (DslModeling::DomainClassInfo descendent in descendents)
+			{
+				global::System.Type descendentType = descendent.ImplementationClass;
+				if (!descendentType.IsAbstract)
+				{
+					DslModeling::DomainClassXmlSerializer descendentSerializer = serializationContext.Directory.GetSerializer(descendent.Id);
+					if (descendentSerializer != null)
+					{
+						string descendentXmlTagName = descendentSerializer.XmlTagName;
+						if (!string.IsNullOrEmpty (descendentXmlTagName))
+						{
+							global::System.Diagnostics.Debug.Assert(!this.derivedClasses.ContainsKey (descendentXmlTagName));
+							this.derivedClasses.Add (descendentXmlTagName, descendent);
+						}
+					}
+				}
+				else
+				{   // Ignore abstract derived classes because they cannot be instantiated directly.
+				}
+			}
+		}
+	}
+<#+
+		}
+#>
+	#endregion
+
+	#region TryCreateMonikerInstance
+	/// <summary>
+	/// This method creates a Moniker of the correct derived (including <#= domainClass.Name #> itself) instance of <#= domainClass.Name #> based on the tag currently pointed by the reader.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
+	/// not move the reader; the reader should remain at the same position when this method returns.
+	/// </remarks>		
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="sourceRolePlayer">The source role-player instance from which the moniker being created is referenced.</param>
+	/// <param name="relDomainClassId">The DomainClass Id of the relationship that connects the sourceRolePlayer to the moniker being created.</param>
+	/// <param name="partition">The new Moniker should be created in the Store associated with this partition.</param>			
+	/// <returns>Created ModelRoot instance, or null if the reader is not pointing to a correct monikerized instance.</returns>
+	public override DslModeling::Moniker TryCreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomTryCreateMonikerInstance().
+		// Provide your custom implementation with following signature:
+		//   private DslModeling::Moniker CustomTryCreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition);
+		// You can call DefaultTryCreateMonikerInstance() for the default implementation.
+		return this.CustomTryCreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
+	}
+	
+	/// <summary>
+	/// Default implementation of TryCreateMonikerInstance().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private DslModeling::Moniker DefaultTryCreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition)
+	{
+<#+
+		}
+#>
+		#region Check Parameters
+		global::System.Diagnostics.Debug.Assert (serializationContext != null);
+		if (serializationContext == null)
+			throw new global::System.ArgumentNullException ("serializationContext");
+		global::System.Diagnostics.Debug.Assert (reader != null);
+		if (reader == null)
+			throw new global::System.ArgumentNullException ("reader");
+		global::System.Diagnostics.Debug.Assert (sourceRolePlayer != null);
+		if (sourceRolePlayer == null)
+			throw new global::System.ArgumentNullException ("sourceRolePlayer");
+		global::System.Diagnostics.Debug.Assert (partition != null);
+		if (partition == null)
+			throw new global::System.ArgumentNullException ("partition");
+		#endregion
+
+		DslModeling::Moniker result = null;
+		if (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
+		{
+			string localName = reader.LocalName;
+<#+
+		if (!isAbstract)
+		{
+#>
+			if (string.Compare (localName, this.MonikerTagName, global::System.StringComparison.CurrentCulture) == 0)
+			{	// New "<#= domainClass.Name #>" moniker instance.
+				result = this.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
+			}
+<#+
+			if (!isSealed)
+			{
+#>
+			else
+			{	// Check for derived classes of "<#= domainClass.Name #>".
+				if (this.derivedClassMonikers == null)
+					this.ConstructDerivedClassMonikersLookupTable(serializationContext, partition.DomainDataDirectory);
+				global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers != null);
+				DslModeling::DomainClassInfo derivedClass = null;
+				if (this.derivedClassMonikers.TryGetValue (localName, out derivedClass) && derivedClass != null)
+				{	// New derived class moniker instance.
+					<#= serializerGenerationClassName #> derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as <#= serializerGenerationClassName #>;
+					global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
+					result = derivedSerializer.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
+				}
+			}
+<#+
+			}
+		}
+		else
+		{
+#>
+			// Check for derived classes of "<#= domainClass.Name #>".
+			if (this.derivedClassMonikers == null)
+				this.ConstructDerivedClassMonikersLookupTable(serializationContext, partition.DomainDataDirectory);
+			global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers != null);
+			DslModeling::DomainClassInfo derivedClass = null;
+			if (this.derivedClassMonikers.TryGetValue (localName, out derivedClass) && derivedClass != null)
+			{	// New derived class moniker instance.
+				<#= serializerGenerationClassName #> derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as <#= serializerGenerationClassName #>;
+				global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
+				result = derivedSerializer.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
+			}
+<#+
+		}
+#>
+		}
+
+		return result;
+	}
+	
+	/// <summary>
+	/// This method creates a Moniker of <#= domainClass.Name #> based on the tag currently pointed by the reader.
+	/// </summary>
+	/// <remarks>
+	/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
+	/// not move the reader; the reader should remain at the same position when this method returns.
+	/// </remarks>		
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="reader">XmlReader to read serialized data from.</param>
+	/// <param name="sourceRolePlayer">The source role-player instance from which the moniker being created is referenced.</param>
+	/// <param name="relDomainClassId">The DomainClass Id of the relationship that connects the sourceRolePlayer to the moniker being created.</param>
+	/// <param name="partition">The new Moniker should be created in the Store associated with this partition.</param>			
+	/// <returns>Created ModelRoot instance, or null if the reader is not pointing to a correct monikerized instance.</returns>
+	protected override DslModeling::Moniker CreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomCreateMonikerInstance().
+		// Provide your custom implementation with following signature:
+		//   private DslModeling::Moniker CustomCreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition);
+		// You can call DefaultCreateMonikerInstance() for the default implementation.
+		return this.CustomCreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
+	}
+	
+	/// <summary>
+	/// Default implementation of CreateMonikerInstance().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="serializationContext", Justification = "Matching the signature of CustomCreateMonikerInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="reader", Justification = "Matching the signature of CustomCreateMonikerInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="sourceRolePlayer", Justification = "Matching the signature of CustomCreateMonikerInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="relDomainClassId", Justification = "Matching the signature of CustomCreateMonikerInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="partition", Justification = "Matching the signature of CustomCreateMonikerInstance.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMethodsAsStatic", Justification = "Matching the signature of CustomCreateMonikerInstance.")]
+	private DslModeling::Moniker DefaultCreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition)
+	{
+<#+
+		}
+		if (monikerDataDC.MonikerKind == MonikerKind.None)
+		{
+#>
+		// Cannot be monikerized.
+		throw new global::System.NotSupportedException();
+<#+
+		}
+		else
+		{
+#>
+		string monikerString = <#= behavior.DslLibrary.Name #>SerializationHelper.Instance.ReadAttribute(serializationContext, sourceRolePlayer, reader, this.MonikerAttributeName);
+
+		if (string.IsNullOrEmpty(monikerString))
+		{	
+			<#= behavior.Name #>SerializationMessages.MissingMoniker(serializationContext, reader, this.MonikerAttributeName);
+			return null;
+		}
+<#+
+			switch (monikerDataDC.MonikerKind)
+			{
+				case MonikerKind.Normal:
+#>
+		DslModeling::DomainRelationshipXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(relDomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+		global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for DomainRelationship with Id " + relDomainClassId + "!");
+		DslModeling::Moniker result = relSerializer.MonikerizeReference(serializationContext, sourceRolePlayer, <#= classTypeString #>.DomainClassId, monikerString, partition.Store);
+		// Set location info if possible.
+		result.Location = serializationContext.Location;
+		global::System.Xml.IXmlLineInfo xmlLineInfo = reader as global::System.Xml.IXmlLineInfo;
+		if (xmlLineInfo != null)
+		{
+			result.Line = xmlLineInfo.LineNumber;
+			result.Column = xmlLineInfo.LinePosition;
+		}
+		return result;
+<#+
+					break;
+				case MonikerKind.Id:
+#>
+		try
+		{	// Normalize the Id.
+			global::System.Guid id = new global::System.Guid(monikerString);
+			monikerString = id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture);
+			DslModeling::Moniker result = new DslModeling::Moniker(new DslModeling::MonikerKey(monikerString, relDomainClassId, <#= classTypeString #>.DomainClassId, partition.Store), partition.Store);
+			// Set location info if possible.
+			result.Location = serializationContext.Location;
+			global::System.Xml.IXmlLineInfo xmlLineInfo = reader as global::System.Xml.IXmlLineInfo;
+			if (xmlLineInfo != null)
+			{
+				result.Line = xmlLineInfo.LineNumber;
+				result.Column = xmlLineInfo.LinePosition;
+			}
+			return result;
+		}
+		catch (global::System.FormatException /* fEx */)
+		{
+			<#= behavior.Name #>SerializationMessages.InvalidPropertyValue(serializationContext, reader, this.MonikerAttributeName, typeof(global::System.Guid), monikerString);
+			return null;
+		}
+		catch (global::System.OverflowException /* oEx */)
+		{	
+			<#= behavior.Name #>SerializationMessages.InvalidPropertyValue(serializationContext, reader, this.MonikerAttributeName, typeof(global::System.Guid), monikerString);
+			return null;
+		}
+<#+
+					break;
+				case MonikerKind.Custom:
+				default:
+#>
+		DslModeling::Moniker result = new DslModeling::Moniker(new DslModeling::MonikerKey(monikerString, relDomainClassId, <#= classTypeString #>.DomainClassId, partition.Store), partition.Store);
+		// Set location info if possible.
+		result.Location = serializationContext.Location;
+		global::System.Xml.IXmlLineInfo xmlLineInfo = reader as global::System.Xml.IXmlLineInfo;
+		if (xmlLineInfo != null)
+		{
+			result.Line = xmlLineInfo.LineNumber;
+			result.Column = xmlLineInfo.LinePosition;
+		}
+		return result;
+<#+
+					break;
+			}
+		}
+#>
+	}
+<#+
+		if (!isSealed)
+		{	
+#>
+
+	/// <summary>
+	/// Stores a mapping from Moniker Xml tag name to DomainClassInfo that derives from <#= domainClass.Name #>, created on demand.
+	/// </summary>
+	private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClassMonikers;
+
+	/// <summary>
+	/// Construct the mapping from Moniker Xml tag name to DomainClassInfo that derives from <#= domainClass.Name #>.
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
+	private void ConstructDerivedClassMonikersLookupTable(DslModeling::SerializationContext serializationContext, DslModeling::DomainDataDirectory domainDataDirectory)
+	{
+		global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers == null); // Shouldn't construct the table more than once.
+		this.derivedClassMonikers = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
+
+		DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(<#= classTypeString #>.DomainClassId);
+		global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
+
+		global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
+		if (descendents != null)
+		{
+			foreach (DslModeling::DomainClassInfo descendent in descendents)
+			{
+				DslModeling::DomainClassXmlSerializer descendentSerializer = serializationContext.Directory.GetSerializer(descendent.Id);
+				if (descendentSerializer != null)
+				{
+					string descendentMonikerTagName = descendentSerializer.MonikerTagName;
+					if (!string.IsNullOrEmpty (descendentMonikerTagName))
+					{
+						global::System.Diagnostics.Debug.Assert(!this.derivedClassMonikers.ContainsKey (descendentMonikerTagName));
+						this.derivedClassMonikers.Add (descendentMonikerTagName, descendent);
+					}
+				}
+			}
+		}
+	}
+<#+
+		}
+#>
+	#endregion
+	#endregion
+<#+
+	} 
+	if (readSupportOnly)
+	{
+#>
+
+	#region Not-supported Base Methods
+<#+
+	}
+	
+	if (monikerizationSupportOnly || readSupportOnly)
+	{
+#>
+	/// <summary>
+	/// Not Supported.
+	/// </summary>
+	public override void WriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer)
+	{
+		throw new global::System.NotSupportedException ();
+	}
+	
+<#+
+	}
+	else
+	{
+#>
+
+	#region Write Methods
+	/// <summary>
+	/// Public WriteMoniker() method that writes a monikerized <#= domainClass.Name #> instance into XML.
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element"><#= domainClass.Name #> instance to be monikerized.</param>
+	/// <param name="writer">XmlWriter to write serialized data to.</param>
+	/// <param name="sourceRolePlayer">Source element that references the <#= domainClass.Name #> instance being monikerized.</param>
+	/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the <#= domainClass.Name #> instance being monikerized.</param>
+	public override void WriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer)
+	{
+<#+
+		if (!generateMonikerHelpers || isAbstract)
+		{
+#>
+		// Instance of <#= domainClass.Name #> cannot be monikerized.
+		<#= behavior.Name #>SerializationMessages.CannotMonikerizeElement(serializationContext, "<#= domainClass.Name #>");
+<#+
+		}
+		else
+		{
+			if (isCustom)
+			{
+#>
+		// IsCustom == true, calling CustomWriteMoniker().
+		// Provide your custom implementation with following signature:
+		//   private void CustomWriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer);
+		// You can call DefaultWriteMoniker() for the default implementation.
+		this.CustomWriteMoniker(serializationContext, element, writer, sourceRolePlayer, relSerializer);
+	}
+	
+	/// <summary>
+	/// Default implementation of WriteMoniker().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private void DefaultWriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer)
+	{
+<#+
+			}
+#>
+		#region Check Parameters
+		global::System.Diagnostics.Debug.Assert (serializationContext != null);
+		if (serializationContext == null)
+			throw new global::System.ArgumentNullException ("serializationContext");
+		global::System.Diagnostics.Debug.Assert (element != null);
+		if (element == null)
+			throw new global::System.ArgumentNullException ("element");
+		global::System.Diagnostics.Debug.Assert (writer != null);
+		if (writer == null)
+			throw new global::System.ArgumentNullException ("writer");
+		global::System.Diagnostics.Debug.Assert (sourceRolePlayer != null);
+		if (sourceRolePlayer == null)
+			throw new global::System.ArgumentNullException ("sourceRolePlayer");
+		global::System.Diagnostics.Debug.Assert (relSerializer != null);
+		if (relSerializer == null)
+			throw new global::System.ArgumentNullException ("relSerializer");
+		#endregion
+		
+<#+
+			if (monikerDataDC.MonikerKind == MonikerKind.Normal)
+			{
+#>
+		string monikerString = relSerializer.SerializeReference(serializationContext, sourceRolePlayer, element);
+<#+
+			}
+			else
+			{
+#>
+		string monikerString = this.CalculateQualifiedName(serializationContext.Directory, element);
+<#+
+			}
+#>
+		global::System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(monikerString));
+		writer.WriteStartElement(this.MonikerTagName);
+		<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, this.MonikerAttributeName, monikerString);
+		writer.WriteEndElement();
+<#+
+		}
+#>
+	}
+	
+<#+
+	}
+
+	bool isShortFormRelationship = (isRelationship && !CodeGenerationUtilities.UseFullForm((DomainRelationship)domainClass));
+	if (monikerizationSupportOnly || readSupportOnly)
+	{
+#>
+	/// <summary>
+	/// Not Supported.
+	/// </summary>
+	public override void Write(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
+	{
+		throw new global::System.NotSupportedException();
+	}
+<#+
+	} 
+	else
+	{
+#>
+	/// <summary>
+	/// Public Write() method that serializes one <#= domainClass.Name #> instance into XML.
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element"><#= domainClass.Name #> instance to be serialized.</param>
+	/// <param name="writer">XmlWriter to write serialized data to.</param>
+	/// <param name="rootElementSettings">
+	/// The root element settings if the passed in element is serialized as a root element in the XML. The root element contains additional
+	/// information like schema target namespace, version, etc.
+	/// This should only be passed for root-level elements. Null should be passed for rest elements (and ideally call the Write() method 
+	/// without this parameter).
+	/// </param>
+<#+
+		if (isAbstract || isShortFormRelationship)
+		{
+#>
+	public override void Write(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
+	{
+		throw new global::System.NotSupportedException();
+	}
+<#+
+		}
+		else
+		{
+#>
+	public override void Write(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
+	{
+<#+
+			if (isCustom)
+			{
+#>
+		// IsCustom == true, calling CustomWrite().
+		// Provide your custom implementation with following signature:
+		//   private void CustomWrite(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings);
+		// You can call DefaultWrite() for the default implementation.
+		this.CustomWrite(serializationContext, element, writer, rootElementSettings);
+	}
+	
+	/// <summary>
+	/// Default implementation of Write().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private void DefaultWrite(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
+	{
+<#+
+			}
+#>
+		#region Check Parameters
+		global::System.Diagnostics.Debug.Assert (serializationContext != null);
+		if (serializationContext == null)
+			throw new global::System.ArgumentNullException ("serializationContext");
+		global::System.Diagnostics.Debug.Assert (element != null);
+		if (element == null)
+			throw new global::System.ArgumentNullException ("element");
+		global::System.Diagnostics.Debug.Assert (writer != null);
+		if (writer == null)
+			throw new global::System.ArgumentNullException ("writer");
+		#endregion
+
+		// Write start of element, including schema target namespace if specified.
+		if (rootElementSettings != null && !string.IsNullOrEmpty(rootElementSettings.SchemaTargetNamespace))
+		{
+			writer.WriteStartElement(this.XmlTagName, rootElementSettings.SchemaTargetNamespace);
+			DslModeling::SerializationUtilities.WriteDomainModelNamespaces(serializationContext.Directory, writer, rootElementSettings.SchemaTargetNamespace);
+		}
+		else
+		{
+			writer.WriteStartElement(this.XmlTagName);
+		}
+			
+		// Write version info (in the format 1.2.3.4), if necessary
+		if (rootElementSettings != null && rootElementSettings.Version != null)
+			writer.WriteAttributeString("dslVersion", rootElementSettings.Version.ToString(4));
+<#+
+			if (monikerDataDC.SerializeId)
+			{
+#>
+
+		// Write out element Id.
+		writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
+<#+
+			}
+			
+			bool assertInstanceType = true;
+
+            if(isDiagram)
+            {
+#>
+                writer.WriteAttributeString("type", element.GetType().FullName);
+<#+
+            }
+
+			if (generateAttributePropertiesWriteMethods)
+			{
+#>
+		WritePropertiesAsAttributes(serializationContext, element, writer);
+<#+
+			}
+			else if (!isRootClass && attribProps.Count == 0)
+			{	// This class defines no additional properties that will be serialized as XML attributes.
+#>
+
+		base.WritePropertiesAsAttributes(serializationContext, element, writer);
+
+<#+
+			}
+#>
+		// Write out any extension data if this is the root element
+		if (rootElementSettings != null && !serializationContext.Result.Failed)
+		{
+			<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteExtensions(serializationContext, element, writer);
+		}
+
+<#+
+			if (isRelationship)
+			{	
+#>
+		// Write the target role-player instance.
+<#+
+				// If target end is monikerized, write a reference it, otherwise write it directly.
+				DomainRole targetRole = (domainClass as DomainRelationship).Target;
+				DomainClass targetRolePlayer = targetRole.RolePlayer;
+				if (assertInstanceType)
+				{
+#>
+		<#= classTypeString #> instance = element as <#= classTypeString #>;
+		global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of <#= classTypeString #>!");
+
+<#+
+					assertInstanceType = false;
+				}
+#>
+		DslModeling::ModelElement targetElement = instance.<#= targetRole.Name #>;
+<#+
+				if (!((DomainRelationship)domainClass).IsEmbedding)
+				{
+#>
+		DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
+		global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
+		targetSerializer.WriteMoniker(serializationContext, targetElement, writer, instance.<#= targetRole.Opposite.Name #>, this);
+
+<#+
+				}
+				else
+				{
+#>
+		DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
+		global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
+		targetSerializer.Write(serializationContext, targetElement, writer);
+
+<#+
+				}			
+			}
+
+			if (elementProps.Count == calculatedElementPropCount && roles.Count == 0 && isRootClass && isSealed)
+			{	// This class is root and sealed, which means it can't contain any nested XML elements in it.
+				// So no need to write anything, except for calculated properties (read-only ones).
+				if (calculatedElementPropCount > 0)
+				{
+					if (assertInstanceType)
+					{
+#>
+		<#= classTypeString #> instance = element as <#= classTypeString #>;
+		global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of <#= classTypeString #>!");
+<#+
+						assertInstanceType = false;
+					}
+#>
+		WritePropertiesAsElements(serializationContext, instance, writer);
+
+<#+
+				}
+			}
+			else
+			{
+#>
+		if (!serializationContext.Result.Failed)
+		{
+			// Write 1) properties serialized as nested XML elements and 2) child model elements into XML.
+<#+
+				if (generateElementsMethods)
+				{
+#>
+			WriteElements(serializationContext, element, writer);
+<#+
+				}
+				else
+				{
+#>
+			base.WriteElements(serializationContext, element, writer);
+<#+
+				}
+#>
+		}
+
+<#+
+			}
+#>
+		writer.WriteEndElement();
+	}
+<#+
+		}
+	}
+	
+	// For a sealed relationship serialized in short-form, there's no point to generate WritePropertiesAsAttributes() method,
+	// because it will never be called.
+	if (isShortFormRelationship && isSealed && attribProps.Count == 0)
+		generateAttributePropertiesWriteMethods = false;
+		
+	if (generateAttributePropertiesWriteMethods)
+	{
+			
+#>
+
+	/// <summary>
+	/// Write all properties that need to be serialized as XML attributes.
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element"><#= domainClass.Name #> instance to be serialized.</param>
+	/// <param name="writer">XmlWriter to write serialized data to.</param> 
+<#+
+		if (isCustom)
+		{	
+			// This gen'ed might not be used. It only be used if user invokes the DefaultRead
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+
+<#+
+		}
+		else
+		{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+<#+
+		}
+#>
+	protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomWritePropertiesAsAttributes().
+		// Provide your custom implementation with following signature:
+		//   private void CustomWritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer);
+		// You can call DefaultWritePropertiesAsAttributes() for the default implementation.
+		CustomWritePropertiesAsAttributes(serializationContext, element, writer);
+	}
+	
+	/// <summary>
+	/// Default implementation of WritePropertiesAsAttributes().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	private void DefaultWritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	{
+<#+
+		}
+		
+#>
+		// Always call the base class so any extensions are serialized
+		base.WritePropertiesAsAttributes(serializationContext, element, writer);
+
+<#+
+		
+		if (attribProps.Count == 0)
+		{
+#>
+		// There are no properties; do nothing
+<#+
+		}
+		else
+		{
+			string instanceName = "instanceOf" + domainClass.Name.TrimStart('@');
+#>
+		<#= classTypeString #> <#= instanceName #> = element as <#= classTypeString #>;
+		global::System.Diagnostics.Debug.Assert(<#= instanceName #> != null, "Expecting an instance of <#= domainClass.Name #>");
+
+<#+
+			// Note: no need to sort the properties here, because they should have already been sorted when generating ReadAttributes() method.
+			foreach(DomainProperty attribProp in attribProps)
+			{
+				if (attribProp.Kind == PropertyKind.Calculated)
+				{
+#>
+		// <#= attribProp.Name #>, calculated property, will be ignored on deserialization.
+<#+
+				}
+				else
+				{
+#>
+		// <#= attribProp.Name #>
+<#+
+				}
+#>
+		if (!serializationContext.Result.Failed)
+		{
+<#+
+				string propValueInstance = "propValue";
+				if (attribProp.GetterAccessModifier == AccessModifier.Public)
+				{
+#>
+			<#= attribProp.Type.GetRelativeName(namespaceString, true) #> propValue = <#= instanceName #>.<#= attribProp.Name #>;
+<#+
+				}
+				else
+				{
+#>
+			// Non-public getter, use DomainPropertyInfo method.
+			DslModeling::DomainPropertyInfo propInfo = <#= instanceName #>.Partition.DomainDataDirectory.GetDomainProperty (<#= classTypeString #>.<#= attribProp.Name #>DomainPropertyId);
+			global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for <#= classTypeString #>.<#= attribProp.Name #>!");
+			<#= attribProp.Type.GetRelativeName(namespaceString, true) #> propValue = ((<#= attribProp.Type.GetRelativeName(namespaceString, true) #>)propInfo.GetValue(<#= instanceName #>));
+<#+
+				}
+				bool stringProp = CodeGenerationUtilities.IsStringProperty(attribProp);
+				if (!stringProp)
+				{
+#>
+			string serializedPropValue = DslModeling::SerializationUtilities.GetString<<#= attribProp.Type.GetRelativeName(namespaceString, true) #>>(serializationContext, propValue);
+<#+
+					propValueInstance = "serializedPropValue";
+				}
+#>
+			if (!serializationContext.Result.Failed)
+			{
+<#+
+				string attribPropTagName = CodeGenerationUtilities.GetPropertyTagName (attribProp);
+
+				if ((monikerDataDC.KeyProperty != null && monikerDataDC.KeyProperty.Id == attribProp.Id) ||
+					(monikerDataDC.QualifierProperty != null && monikerDataDC.QualifierProperty.Id == attribProp.Id))
+				{
+#>
+				<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "<#= attribPropTagName #>", <#= propValueInstance #>);
+<#+
+				}
+				else if (attribProp.DefaultValue == null)
+				{
+					if (!stringProp)
+					{
+#>
+				<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "<#= attribPropTagName #>", <#= propValueInstance #>);
+<#+
+					}
+					else if (attribProp.Kind == PropertyKind.Normal)
+					{
+#>
+				if (!string.IsNullOrEmpty(<#= propValueInstance #>))
+					<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "<#= attribPropTagName #>", <#= propValueInstance #>);
+
+<#+
+					}
+					else
+					{
+#>
+				if (<#= propValueInstance #> != null)
+					<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "<#= attribPropTagName #>", <#= propValueInstance #>);
+<#+
+					}
+				}
+				else
+				{	// Generate code to check if the property is the same as default value, if so, there's no need to write the value out.
+					if (stringProp)
+					{
+#>
+				if (<#= propValueInstance #> != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(<#= propValueInstance #>, <#= CodeGenerationUtilities.WrapAsCSharpString(attribProp.DefaultValue) #>) != 0))
+				{	// No need to write the value out if it's the same as default value.
+					<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "<#= attribPropTagName #>", <#= propValueInstance #>);
+				}
+<#+
+					}
+					else
+					{
+#>
+				if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(<#= propValueInstance #>, <#= CodeGenerationUtilities.WrapAsCSharpString(attribProp.DefaultValue) #>) != 0)
+				{	// No need to write the value out if it's the same as default value.
+					<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "<#= attribPropTagName #>", <#= propValueInstance #>);
+				}
+<#+
+					}
+				}
+#>
+			}
+		}
+<#+
+			}
+		}
+#>
+	}
+<#+
+	}
+
+	// For a sealed relationship serialized in short-form, there's no point to generate WriteElements() method,
+	// because it will never be called.
+	if (isShortFormRelationship && isSealed && !(generateElementPropertiesWriteMethods || generateChildElementsMethods))
+		generateElementsMethods = false;
+	if (generateElementsMethods)
+	{
+		
+#>
+
+	/// <summary>
+	/// This methods serializes 1) properties serialized as nested XML elements and 2) child model elements into XML. 
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element"><#= domainClass.Name #> instance to be serialized.</param>
+	/// <param name="writer">XmlWriter to write serialized data to.</param>        
+<#+
+		if (isCustom)
+		{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+<#+
+		}
+#>
+	protected override void WriteElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomWriteElements().
+		// Provide your custom implementation with following signature:
+		//   private void CustomWriteElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer);
+		// You can call DefaultWriteElements() for the default implementation.
+		CustomWriteElements(serializationContext, element, writer);
+	}
+	
+	/// <summary>
+	/// Default implementation of WriteElements().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	private void DefaultWriteElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	{
+<#+
+		}
+		
+#>
+		// Always call the base class so any extensions are serialized
+		base.WriteElements(serializationContext, element, writer);
+
+<#+
+		
+		string instanceName = "instance";
+		if (generateElementPropertiesWriteMethods || generateChildElementsMethods)
+		{
+#>
+		<#= classTypeString #> <#= instanceName #> = element as <#= classTypeString #>;
+		global::System.Diagnostics.Debug.Assert(<#= instanceName #> != null, "Expecting an instance of <#= domainClass.Name #>!");
+
+<#+
+		}
+		if (generateElementPropertiesWriteMethods)
+		{
+#>
+		// Write properties serialized as nested XML elements.
+		if (!serializationContext.Result.Failed)
+			WritePropertiesAsElements(serializationContext, <#= instanceName #>, writer);
+<#+
+		}
+		if (generateChildElementsMethods)
+		{
+#>
+		// Write child model elements (which are always serialized as nested XML elements).
+		if (!serializationContext.Result.Failed)
+			WriteChildElements(serializationContext, <#= instanceName #>, writer);
+<#+
+		}
+#>
+	}
+	
+<#+
+	}
+
+	if (generateElementPropertiesWriteMethods)
+	{
+#>
+
+	/// <summary>
+	/// Serialize all properties that need to be stored as nested XML elements.
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element"><#= domainClass.Name #> instance to be serialized.</param>
+	/// <param name="writer">XmlWriter to write serialized data to.</param>
+<#+
+		if (isCustom)
+		{
+#>		
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+<#+
+		}
+		else
+		{
+#>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+<#+
+		}
+#>
+	private static void WritePropertiesAsElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlWriter writer)
+	{
+<#+
+		if (isCustom)
+		{
+#>
+		// IsCustom == true, calling CustomWritePropertiesAsElements().
+		// Provide your custom implementation with following signature:
+		//   private static void CustomWritePropertiesAsElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlWriter writer);
+		// You can call DefaultWritePropertiesAsElements() for the default implementation.
+		CustomWritePropertiesAsElements(serializationContext, element, writer);
+	}
+	
+	/// <summary>
+	/// Default implementation of WritePropertiesAsElements().
+	/// </summary>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Provided to help custom implementation")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	private static void DefaultWritePropertiesAsElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlWriter writer)
+	{
+<#+
+		}
+		// Note: no need to sort the properties here, because they should have already been sorted when generating ReadPropertiesFromElements() method.
+		foreach(DomainProperty elementProp in elementProps)
+		{
+			if (elementProp.Kind == PropertyKind.Calculated)
+			{
+#>
+		// <#= elementProp.Name #>, calculated property, will be ignored on deserialization.
+<#+
+			}
+			else
+			{
+#>
+		// <#= elementProp.Name #>
+<#+
+			}
+
+#>
+		if (!serializationContext.Result.Failed)
+		{
+<#+
+			string propValueInstance = "propValue";
+			if (elementProp.GetterAccessModifier == AccessModifier.Public)
+			{
+#>
+			<#= elementProp.Type.GetRelativeName(namespaceString, true) #> propValue = element.<#= elementProp.Name #>;
+<#+
+			}
+			else
+			{
+#>
+			// Non-public getter, use DomainPropertyInfo method.
+			DslModeling::DomainPropertyInfo propInfo = element.Partition.DomainDataDirectory.GetDomainProperty (<#= classTypeString #>.<#= elementProp.Name #>DomainPropertyId);
+			global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for <#= classTypeString #>.<#= elementProp.Name #>!");
+			<#= elementProp.Type.GetRelativeName(namespaceString, true) #> propValue = ((<#= elementProp.Type.GetRelativeName(namespaceString, true) #>)propInfo.GetValue(element));
+<#+
+			}
+
+			bool stringProp = CodeGenerationUtilities.IsStringProperty(elementProp);
+			if (!stringProp)
+			{
+#>
+			string serializedPropValue = DslModeling::SerializationUtilities.GetString<<#= elementProp.Type.GetRelativeName(namespaceString, true) #>>(serializationContext, propValue);
+<#+
+				propValueInstance = "serializedPropValue";
+			}
+#>
+			if (!serializationContext.Result.Failed)
+			{
+<#+
+			string elementPropTagName = CodeGenerationUtilities.GetPropertyTagName (elementProp);
+			if ((monikerDataDC.KeyProperty != null && monikerDataDC.KeyProperty.Id == elementProp.Id) ||
+				(monikerDataDC.QualifierProperty != null && monikerDataDC.QualifierProperty.Id == elementProp.Id))
+			{
+#>
+				<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteElementString(serializationContext, element, writer, "<#= elementPropTagName #>", <#= propValueInstance #>);
+
+<#+
+			}
+			else if (elementProp.DefaultValue == null)
+			{
+				if (!stringProp)
+				{
+#>
+			<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteElementString(serializationContext, element, writer, "<#= elementPropTagName #>", <#= propValueInstance #>);
+<#+
+				}
+				else if (elementProp.Kind == PropertyKind.Normal)
+				{
+#>
+				if (!string.IsNullOrEmpty(<#= propValueInstance #>))
+				<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteElementString(serializationContext, element, writer, "<#= elementPropTagName #>", <#= propValueInstance #>);
+
+<#+
+				}
+				else
+				{
+#>
+				if (<#= propValueInstance #> != null)
+					<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteElementString(serializationContext, element, writer, "<#= elementPropTagName #>", <#= propValueInstance #>);
+<#+
+				}
+			}
+			else
+			{	// Generate code to check if the property is the same as default value, if so, there's no need to write the value out.
+				if (stringProp)
+				{
+#>
+				if (<#= propValueInstance #> != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(<#= propValueInstance #>, <#= CodeGenerationUtilities.WrapAsCSharpString(elementProp.DefaultValue) #>) != 0))
+				{	// No need to write the value out if it's the same as default value.
+					<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteElementString(serializationContext, element, writer, "<#= elementPropTagName #>", <#= propValueInstance #>);
+
+				}
+<#+
+				}
+				else
+				{
+#>
+				if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(<#= propValueInstance #>, <#= CodeGenerationUtilities.WrapAsCSharpString(elementProp.DefaultValue) #>) != 0)
+				{	// No need to write the value out if it's the same as default value.
+					<#= behavior.DslLibrary.Name #>SerializationHelper.Instance.WriteElementString(serializationContext, element, writer, "<#= elementPropTagName #>", <#= propValueInstance #>);
+				}
+<#+
+				}
+			}
+#>
+			}
+		}
+<#+
+		}
+#>
+	} 
+<#+
+	}
+
+	if (generateChildElementsMethods)
+	{
+#>
+
+	/// <summary>
+	/// Serialize all child model elements.
+	/// </summary>
+	/// <param name="serializationContext">Serialization context.</param>
+	/// <param name="element"><#= domainClass.Name #> instance to be serialized.</param>
+	/// <param name="writer">XmlWriter to write serialized data to.</param>
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]		
+	private static void WriteChildElements(DslModeling::SerializationContext serializationContext, <#= classTypeString #> element, global::System.Xml.XmlWriter writer)
+	{
+<#+
+		// The "roles" are already sorted here, after generating the ReadElements() method above.
+		uint count = 0;
+		foreach(DomainRole role in roles)
+		{
+			if (count++ > 0)
+			{	// Print an empty line between each relationship.
+#>
+
+<#+
+			}
+			
+			DomainRelationship rel = role.Relationship;
+			string relName = rel.Name;
+			string relType = role.Relationship.GetRelativeName(namespaceString, true);
+			string relTagName = CodeGenerationUtilities.GetRelationshipTagName (role);
+			DomainRole childRole = role.Opposite;
+			string childRoleType = childRole.RolePlayer.GetRelativeName(namespaceString, true);
+			bool omitElement = CodeGenerationUtilities.OmitElement (rel);
+			bool useFullForm = CodeGenerationUtilities.UseFullForm (rel);
+			bool sealedRel = (rel.InheritanceModifier == InheritanceModifier.Sealed);
+
+			if (!sealedRel || useFullForm)
+			{	// If a relationship is not sealed, it can be derived from. The derived ones will be serialized 
+				// using full-form, even though the relationship itself won't (unless UseFullForm is set to true). 	
+				string instanceName = ("each" + relName.TrimStart('@') + "Instance");
+				string allInstancesName = ("all" + relName.TrimStart('@') + "Instances");
+				bool allowMultiple = CodeGenerationUtilities.AllowMultiple(role);
+#>
+		// <#= relName #>
+<#+
+				if (role.PropertyGetterAccessModifier != AccessModifier.Public)
+				{
+#>
+		// Non-public getter, use DomainRoleInfo methods.
+		global::System.Collections.ObjectModel.ReadOnlyCollection<<#= relType #>> <#= allInstancesName #> = DslModeling::DomainRoleInfo.GetElementLinks<<#= relType #>>(element, <#= relType #>.<#= role.Name #>DomainRoleId);
+<#+
+					if (allowMultiple)
+					{	
+#>
+		if (!serializationContext.Result.Failed && <#= allInstancesName #>.Count > 0)
+<#+
+					}
+					else
+					{
+						instanceName = ("the" + relName.TrimStart('@') + "Instance");
+#>
+		<#= relType #> <#= instanceName #> = null;
+		if (<#= allInstancesName #>.Count > 0)
+		{
+			<#= instanceName #> = <#= allInstancesName #>[0];
+		}
+		if (!serializationContext.Result.Failed && <#= instanceName #> != null)
+<#+
+					}
+				}
+				else if (allowMultiple)
+				{	
+#>
+		global::System.Collections.ObjectModel.ReadOnlyCollection<<#= relType #>> <#= allInstancesName #> = <#= relType #>.GetLinksTo<#= role.PropertyName.TrimStart('@') #>(element);
+		if (!serializationContext.Result.Failed && <#= allInstancesName #>.Count > 0)
+<#+
+				}
+				else
+				{
+					instanceName = ("the" + relName.TrimStart('@') + "Instance");
+#>
+		<#= relType #> <#= instanceName #> = <#= relType #>.GetLinkTo<#= role.PropertyName.TrimStart('@') #>(element);
+		if (!serializationContext.Result.Failed && <#= instanceName #> != null)
+<#+
+				}
+#>
+		{
+<#+
+				if (!useFullForm && !rel.IsEmbedding)
+				{	// The serializer for the base relationship itself will be used in these cases.
+#>
+			DslModeling::DomainRelationshipXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+			global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for <#= relName #>!");
+
+<#+
+				}
+				if (!omitElement)
+				{
+#>
+			writer.WriteStartElement("<#= relTagName #>");
+<#+
+				}
+				if (!useFullForm && !sealedRel)
+				{
+#>
+			global::System.Type typeof<#= relName.TrimStart('@') #> = typeof(<#= relType #>);
+<#+
+				}
+				if (allowMultiple)
+				{
+#>
+			foreach (<#= relType #> <#= instanceName #> in <#= allInstancesName #>)
+			{
+				if (serializationContext.Result.Failed)
+					break;
+
+<#+
+					PushIndent("\t");
+				}			
+				if (useFullForm)
+				{	// If the relationship is set to use full-form, all instances will be in full-form.
+#>
+			DslModeling::DomainClassXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(<#= instanceName #>.GetDomainClass().Id);
+			global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");
+			relSerializer.Write(serializationContext, <#= instanceName #>, writer);
+<#+
+				}
+				else
+				{	// Otherwise only derived ones will be in full-form.
+					if (!sealedRel)
+					{
+#>
+			if (<#= instanceName #>.GetType() != typeof<#= relName.TrimStart('@') #>)
+			{	// Derived relationships will be serialized in full-form.
+				DslModeling::DomainClassXmlSerializer derivedRelSerializer = serializationContext.Directory.GetSerializer(<#= instanceName #>.GetDomainClass().Id);
+				global::System.Diagnostics.Debug.Assert(derivedRelSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");			
+				derivedRelSerializer.Write(serializationContext, <#= instanceName #>, writer);
+			}
+			else
+			{	// No need to serialize the relationship itself, just serialize the role-player directly.
+<#+
+						PushIndent("\t");
+					}
+#>
+			DslModeling::ModelElement targetElement = <#= instanceName #>.<#= childRole.Name #>;
+			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
+			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");			
+<#+
+					if(!rel.IsEmbedding)
+					{
+#>
+			targetSerializer.WriteMoniker(serializationContext, targetElement, writer, element, relSerializer);
+<#+
+					}
+					else
+					{
+#>
+			targetSerializer.Write(serializationContext, targetElement, writer);
+<#+
+					}
+					if (!sealedRel)
+					{
+						PopIndent();
+#>
+			}
+<#+
+					}
+				}
+				if (allowMultiple)
+				{
+					PopIndent();
+#>
+			}
+<#+
+				}
+				if (!omitElement)
+				{
+#>
+			writer.WriteEndElement();
+<#+
+				}
+#>
+		}
+
+<#+
+			}
+			else
+			{	// The relationship itself doesn't need to be serialized explicitly, just serialize the target roles.
+				if (CodeGenerationUtilities.AllowMultiple (role))
+				{	// Serialize each instance
+					string instanceName = ("each" + childRole.RolePlayer.Name.TrimStart('@') + "Of" + relName.TrimStart('@'));
+					string allInstancesName = ("all" + childRole.RolePlayer.Name.TrimStart('@') + "InstancesOf" + relName.TrimStart('@'));
+					
+#>
+		// <#= relName #>
+		DslModeling::LinkedElementCollection<<#= childRoleType #>> <#= allInstancesName #> = <#= relType #>.Get<#= role.PropertyName.TrimStart('@') #>(element);
+		if (!serializationContext.Result.Failed && <#= allInstancesName #>.Count > 0)
+		{
+<#+
+					if (!rel.IsEmbedding)
+					{	// The serializer for the relationship will be used for referenced relationship.
+#>
+			DslModeling::DomainRelationshipXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+			global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for <#= relName #>!");
+
+<#+
+					}
+					if (!omitElement)
+					{
+#>
+			writer.WriteStartElement("<#= relTagName #>");
+<#+
+					}
+#>
+			foreach (<#= childRoleType #> <#= instanceName #> in <#= allInstancesName #>)
+			{
+				if (serializationContext.Result.Failed)
+					break;
+
+				DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(<#= instanceName #>.GetDomainClass().Id);
+				global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");			
+<#+
+						if(!rel.IsEmbedding)
+						{
+#>
+				targetSerializer.WriteMoniker(serializationContext, <#= instanceName #>, writer, element, relSerializer);
+<#+
+						}
+						else
+						{
+#>
+				targetSerializer.Write(serializationContext, <#= instanceName #>, writer);
+<#+
+						}
+#>
+			}
+<#+
+					if (!omitElement)
+					{
+#>
+			writer.WriteEndElement();
+<#+
+					}
+#>
+		}
+			
+<#+
+				}
+				else
+				{	// Single child instance
+					string instanceName = ("single" + childRole.RolePlayer.Name.TrimStart('@') + "InstanceOf" + relName.TrimStart('@'));
+#>
+		// <#= relName #>
+		<#= childRoleType #> <#= instanceName #> = <#= relType #>.Get<#= role.PropertyName.TrimStart('@') #>(element);
+		if (!serializationContext.Result.Failed && <#= instanceName #> != null)
+		{
+<#+
+					if (!rel.IsEmbedding)
+					{	// The serializer for the relationship will be used for reference relationship.
+#>
+			DslModeling::DomainRelationshipXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(<#= relType #>.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+			global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for <#= relName #>!");
+
+<#+
+					}
+					if (!omitElement)
+					{
+#>
+			writer.WriteStartElement("<#= relTagName #>");
+<#+
+					}
+#>
+			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(<#= instanceName #>.GetDomainClass().Id);
+			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + <#= instanceName #>.GetDomainClass().Name + "!");			
+
+<#+
+					if(!rel.IsEmbedding)
+					{
+#>
+			targetSerializer.WriteMoniker(serializationContext, <#= instanceName #>, writer, element, relSerializer);
+<#+
+					}
+					else
+					{
+#>
+			targetSerializer.Write(serializationContext, <#= instanceName #>, writer);
+<#+
+					}
+
+					if (!omitElement)
+					{
+#>
+			writer.WriteEndElement();
+<#+
+					}
+#>
+		}
+
+<#+
+				}
+			}
+		}
+#>
+	}
+<#+
+	}
+#>
+	#endregion
+<#+	
+	if (!monikerizationSupportOnly && !readSupportOnly)
+	{
+		GenerateMonikerOverrides(behavior, domainClass, isCustom);
+	}
+
+	if (isRelationship && (monikerizationSupportOnly || !readSupportOnly))
+	{
+		GenerateRelationshipMonikerSupport(behavior, domainClass as DomainRelationship);
+	}
+	if (isRelationship)
+	{
+	  // Relationship serializers flag metadata for whether they are doing SerializeId, UseFullForm
+#>	
+	#region Overrides to provide metadata at runtime
+	/// <summary>
+	/// Exposes whether serializers derived from this class are serializing Id.
+	/// </summary>
+	public override bool SerializesId
+	{
+		get
+		{
+			return <#= monikerDataDC.SerializeId.ToString().ToLowerInvariant() #>;
+		}
+	}
+
+	/// <summary>
+	/// Exposes whether serializers derived from this class are serializing this relationship in full form.
+	/// </summary>
+	public override bool UsesFullForm
+	{
+		get
+		{
+			return <#= CodeGenerationUtilities.UseFullForm(domainClass as DomainRelationship).ToString().ToLowerInvariant() #>;
+		}
+	}
+	#endregion
+<#+
+	}
+	// Close class declaration:
+#>
+}
+<#+
+	if (domainClass.GeneratesDoubleDerived)
+	{
+#>
+
+/// <summary>
+/// Serializer <#= serializerClassName #> for DomainClass <#= domainClass.GetRelativeName(namespaceString, false) #>.
+/// </summary>
+<#+
+		if (inheritanceDepth > 5)
+		{
+#>
+[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1501:AvoidExcessiveInheritance", Justification = "Generated code.")]
+<#+
+		}
+#>
+<#= CodeGenerationUtilities.GetTypeAccessModifier(domainClass.AccessModifier) #><#= domainClass.InheritanceModifier == InheritanceModifier.Sealed ? " sealed" : string.Empty #> partial class <#= serializerClassName #> : <#= serializerGenerationClassName #>
+{
+	#region Constructor
+	/// <summary>
+	/// <#= serializerClassName #> Constructor
+	/// </summary>
+	public <#= serializerClassName #> ()
+		: base ()
+	{
+	}
+	#endregion
+}
+<#+
+	}
+
+	if(!string.IsNullOrEmpty(namespaceString))
+	{ // close namespace declaration:
+		PopIndent();
+#>
+}
+
+<#+
+	}
+
+	return serializerClassName;
+}
+
+
+
+private void GenerateResetMethod(bool isSealed)
+{
+	// Override the Reset method if this class could have derived classes.
+	if (!isSealed)
+	{
+
+#>
+	
+	#region Miscellaneous methods
+
+	/// <summary>
+	/// Reset the serializer
+	/// </summary>
+	/// <remarks>
+	/// Clear the cached information about any derived classes so that it is recalculated.
+	/// </remarks>
+	public override void Reset()
+	{
+		base.Reset();
+		this.derivedClasses = null;
+		this.derivedClassMonikers = null;
+	}
+
+	#endregion
+
+<#+
+
+	}
+} // GenerateResetMethod()
+#>
+

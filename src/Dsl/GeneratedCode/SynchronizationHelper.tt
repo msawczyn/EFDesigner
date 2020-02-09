@@ -1,0 +1,333 @@
+﻿<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\DslDefinition.dsl'" #>
+<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ output extension=".cs" #>
+<#
+Diagram diagram = this.Dsl.Diagram;
+var l_domainClasses = new List<DomainClass>(new SynchronizationWalker(this.Dsl).Run());
+var l_domainClassesByPriority = new SynchronizationWalker(this.Dsl).Leverage();
+#>
+using System;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
+using MexModeling = global::Mexedge.VisualStudio.Modeling;
+
+<#
+        string namespaceString = diagram.Namespace;
+		if(!string.IsNullOrEmpty(namespaceString))
+		{
+#>
+namespace <#= namespaceString #>
+{
+<#
+			PushIndent("\t");
+		}
+        if(diagram.ShapeMaps.Count != 0)
+        {
+#>
+// Provides mechanism to synchronize a new diagram with current elements available from the IMS.
+internal static class <#= this.DslLibrary.Name #>SynchronizationHelper // HACK : MEXEDGE
+{
+    internal static void FixUp(<#= diagram.GetFullName(true) #> diagram)
+    {
+<#
+            foreach(var priority in l_domainClassesByPriority.Keys)
+            {
+
+            #>
+        // <#= priority #>
+        var l_<#= priority #>_domainClassesIds = new Guid[] {
+			    <#	
+                foreach(var domainClass in l_domainClassesByPriority[priority])
+                {	
+			    #>
+    <#= domainClass.GetFullName(true) #>.DomainClassId,
+			    <#	
+                }#> };<#
+
+                switch(priority)
+                {
+                    case Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeRulePriority :
+                    case Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority :
+                    case Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority + 1:
+                        #>
+
+        using(var transaction = diagram.Store.TransactionManager.BeginTransaction("FixUp:AddShapeRulePriority:Core"))
+        {
+            foreach(var l_domainClassId in l_<#= priority #>_domainClassesIds)
+            {
+                var l_modelElements = diagram.Store.ElementDirectory.FindElements(l_domainClassId);
+				foreach (var modelElement in l_modelElements)
+	            {
+                    if(diagram.ShouldSupport(modelElement))
+                    {
+                        FixUpAllDiagrams.FixUp(diagram, modelElement);    
+                    }					
+	            }
+            }
+            transaction.Commit();
+        }
+<#                      
+                        break;
+                    case Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddConnectionRulePriority :
+#>
+
+        using (var transaction = diagram.Store.TransactionManager.BeginTransaction("FixUp:AddConnectionRulePriority:AutoLayout"))
+        {
+            diagram.AutoLayoutShapeElements(diagram.NestedChildShapes,
+            Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteTreeNS,
+                Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN, true);
+            transaction.Commit();
+        }
+
+        using(var transaction = diagram.Store.TransactionManager.BeginTransaction("FixUp:AddConnectionRulePriority:Core"))
+        {
+            foreach(var l_domainClassId in l_<#= priority #>_domainClassesIds)
+            {
+                var l_modelElements = diagram.Store.ElementDirectory.FindElements(l_domainClassId);
+
+                foreach (var modelElement in l_modelElements)
+	            {
+                    if(diagram.ShouldSupport(modelElement))
+                    {
+                        FixUpAllDiagrams.FixUp(diagram, modelElement);    
+                    }					
+	            }
+            }
+            transaction.Commit();
+        }
+
+        diagram.OnSynchronized();
+<#
+
+                        break;
+                }
+            }
+#>
+    }
+<#    } #>
+}
+<#
+			PopIndent();
+    #>
+}
+<#+ 
+
+	internal sealed class RulePriorityDictionary
+    {
+        #region fields
+
+        private Microsoft.VisualStudio.Modeling.DslDefinition.Diagram m_diagram;
+        private readonly Dictionary<int, List<DomainClass>> m_data = new Dictionary<int, List<DomainClass>>();
+
+        #endregion
+
+        #region ctors
+
+        public RulePriorityDictionary(Microsoft.VisualStudio.Modeling.DslDefinition.Diagram diagram)
+        {
+            m_data.Add(Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeRulePriority, new List<DomainClass>());
+            m_data.Add(Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority, new List<DomainClass>());
+            m_data.Add(Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority + 1, new List<DomainClass>());
+            m_data.Add(Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddConnectionRulePriority, new List<DomainClass>());
+
+            m_diagram = diagram;
+        }
+
+        #endregion
+
+        #region methods
+
+        internal Dictionary<int, List<DomainClass>> Leverage(IEnumerable<DomainClass> domainClasses)
+        {
+            foreach (var domainClass in domainClasses)
+            {
+                if (domainClass is DomainRelationship)
+                {
+                    m_data[Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddConnectionRulePriority].Add(domainClass);
+                }
+                else
+                {
+                    var l_shapeMaps = m_diagram.ShapeMaps.FindAll(shapeMap => shapeMap.Class == domainClass);
+                    var l_shapeRulePriority = Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority;
+                    foreach (var shapeMap in l_shapeMaps)
+                    {
+                        var l_baseShape = shapeMap.BaseShape;
+                        if (l_baseShape != null)
+                        {
+                            if (l_baseShape is SwimLane)
+                            {
+                                l_shapeRulePriority = Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeRulePriority;
+                                break;
+                            }
+                            else if (l_baseShape is Port)
+                            {
+                                l_shapeRulePriority = Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority + 1;
+                                break;
+                            }
+                        }
+
+                    }
+                    m_data[l_shapeRulePriority].Add(domainClass);
+                }
+            }
+            return m_data;
+        }
+
+        internal IEnumerable<DomainClass> Sort(IEnumerable<DomainClass> domainClasses)
+        {
+            foreach (var domainClass in domainClasses)
+            {
+                if (domainClass is DomainRelationship)
+                {
+                    m_data[Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddConnectionRulePriority].Add(domainClass);
+                }
+                else
+                {
+                    var l_shapeMaps = m_diagram.ShapeMaps.FindAll(shapeMap => shapeMap.Class == domainClass);
+                    var l_shapeRulePriority = Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority;
+                    foreach (var shapeMap in l_shapeMaps)
+                    {
+                        var l_baseShape = shapeMap.BaseShape;
+                        if (l_baseShape != null)
+                        {
+                            if (l_baseShape is SwimLane)
+                            {
+                                l_shapeRulePriority = Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeRulePriority;
+                                break;
+                            }
+                            else if (l_baseShape is Port)
+                            {
+                                l_shapeRulePriority = Microsoft.VisualStudio.Modeling.Diagrams.DiagramFixupConstants.AddShapeParentExistRulePriority + 1;
+                                break;
+                            }
+                        }
+
+                    }
+                    m_data[l_shapeRulePriority].Add(domainClass);
+                }
+            }
+
+            var l_sortedRulePriorityList = m_data.Keys.ToList();
+            l_sortedRulePriorityList.Sort();
+
+            var l_domainClassList = new List<DomainClass>();
+
+            foreach (var rulePriority in l_sortedRulePriorityList)
+            {
+                l_domainClassList.AddRange(m_data[rulePriority]);
+            }
+
+            return l_domainClassList;
+        }
+
+        #endregion
+    }
+
+
+    internal sealed class SynchronizationWalker
+    {
+        #region fields
+
+        private Dsl m_dsl;
+        private readonly List<DomainClass> m_domainClasses = new List<DomainClass>();
+		private readonly List<DomainClass> m_parsedDomainClasses = new List<DomainClass>();
+
+        #endregion
+
+        #region ctors
+
+        public SynchronizationWalker(Dsl dsl)
+        {
+            m_dsl = dsl;
+        }
+
+        #endregion
+
+        #region methods
+
+        public IEnumerable<DomainClass> Run()
+        {
+            if (this.m_dsl.Diagram == null || this.m_dsl.Editor == null || this.m_dsl.Editor.RootClass == null)
+            {
+                throw new NotSupportedException();
+            }
+
+			m_domainClasses.Clear();
+			m_parsedDomainClasses.Clear();
+
+            Parse(this.m_dsl.Editor.RootClass);
+
+
+            var l_o = new RulePriorityDictionary(this.m_dsl.Diagram);
+            var l_p = l_o.Sort(m_domainClasses);
+
+            return l_p;
+        }      
+
+        public Dictionary<int, List<DomainClass>> Leverage()
+        {
+            if (this.m_dsl.Diagram == null || this.m_dsl.Editor == null || this.m_dsl.Editor.RootClass == null)
+            {
+                throw new NotSupportedException();
+            }
+
+            m_domainClasses.Clear();
+            m_parsedDomainClasses.Clear();
+
+            Parse(this.m_dsl.Editor.RootClass);
+
+
+            var l_rulePriorityDictionary = new RulePriorityDictionary(this.m_dsl.Diagram);
+            return l_rulePriorityDictionary.Leverage(m_domainClasses);
+        }
+
+        public void Parse(DomainRelationship domainRelationship)
+        {
+            if (m_dsl.Diagram.ConnectorMaps.Exists(connectorMap => connectorMap.Relationship == domainRelationship))
+            {
+                m_domainClasses.Add(domainRelationship);
+            }
+        }
+
+        public void Parse(DomainClass domainClass)
+        {
+			if(m_parsedDomainClasses.Contains(domainClass))
+			{
+                return;
+			}
+			m_parsedDomainClasses.Add(domainClass);
+
+            if (m_dsl.Diagram.ShapeMaps.Exists(shapeMap => shapeMap.Class == domainClass))
+            {
+                m_domainClasses.Add(domainClass);
+            }
+
+            foreach (var domainRole in domainClass.RolesPlayed)
+            {
+                if (!domainRole.IsSource)
+                {
+                    continue;
+                }
+                Parse(domainRole.Relationship);
+                if (domainRole.IsEmbedding)
+                {
+                    Parse(domainRole.Opposite.RolePlayer);
+                }
+            }
+        }
+
+        #endregion
+    }
+			
+#>

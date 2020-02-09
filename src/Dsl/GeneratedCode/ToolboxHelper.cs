@@ -184,6 +184,7 @@ namespace Sawczyn.EFDesigner.EFModel
 						resourceManager.GetString("ModelClassToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						CreateElementToolPrototype(store, global::Sawczyn.EFDesigner.EFModel.ModelClass.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
+                        new global::System.ComponentModel.ToolboxItemFilterAttribute("ModelClass"), // HACK : MEXEDGE
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require),
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ModelClassFilterString)
 						});
@@ -203,7 +204,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						null, // Connector toolbox items do not have an underlying data object.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(UnidirectionalAssociationFilterString)
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(UnidirectionalAssociationFilterString),
+                            new global::System.ComponentModel.ToolboxItemFilterAttribute("UnidirectionalAssociation"), // HACK : MEXEDGE
 						});
 					break;
 				case "Sawczyn.EFDesigner.EFModel.BidirectionalAssociationToolboxItem":
@@ -221,7 +223,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						null, // Connector toolbox items do not have an underlying data object.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(BidirectionalAssociationFilterString)
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(BidirectionalAssociationFilterString),
+                            new global::System.ComponentModel.ToolboxItemFilterAttribute("BidirectionalAssociation"), // HACK : MEXEDGE
 						});
 					break;
 				case "Sawczyn.EFDesigner.EFModel.GeneralizationToolboxItem":
@@ -239,7 +242,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						null, // Connector toolbox items do not have an underlying data object.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(GeneralizationFilterString)
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(GeneralizationFilterString),
+                            new global::System.ComponentModel.ToolboxItemFilterAttribute("Generalization"), // HACK : MEXEDGE
 						});
 					break;
 				case "Sawczyn.EFDesigner.EFModel.CommentToolboxItem":
@@ -255,6 +259,7 @@ namespace Sawczyn.EFDesigner.EFModel
 						resourceManager.GetString("CommentToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						CreateElementToolPrototype(store, global::Sawczyn.EFDesigner.EFModel.Comment.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
+                        new global::System.ComponentModel.ToolboxItemFilterAttribute("Comment"), // HACK : MEXEDGE
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require),
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(CommentFilterString)
 						});
@@ -274,7 +279,8 @@ namespace Sawczyn.EFDesigner.EFModel
 						null, // Connector toolbox items do not have an underlying data object.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(CommentLinkFilterString)
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(CommentLinkFilterString),
+                            new global::System.ComponentModel.ToolboxItemFilterAttribute("CommentLink"), // HACK : MEXEDGE
 						});
 					break;
 				case "Sawczyn.EFDesigner.EFModel.EnumerationToolboxItem":
@@ -290,6 +296,7 @@ namespace Sawczyn.EFDesigner.EFModel
 						resourceManager.GetString("EnumerationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						CreateElementToolPrototype(store, global::Sawczyn.EFDesigner.EFModel.ModelEnum.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
+                        new global::System.ComponentModel.ToolboxItemFilterAttribute("Enumeration"), // HACK : MEXEDGE
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require),
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(EnumerationFilterString)
 						});
@@ -392,6 +399,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
 			string errorFormatString = resourceManager.GetString("UnresolvedToolboxItem", resourceCulture);
 			throw new InvalidOperationException(string.Format(resourceCulture, errorFormatString, itemId));
-		}		
-	}
+		}
+
+        internal static string[] GetToolboxNames()
+        {
+            return new string[]
+            {		
+                  "ModelClass","UnidirectionalAssociation","BidirectionalAssociation","Generalization","Comment","CommentLink","Enumeration",	
+            };
+        }
+    }
 }

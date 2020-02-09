@@ -1,2 +1,2 @@
-<#@ include file="Dsl\DomainModelCodeGenerator.tt" #>
+<#@ include file="..\Templates\DomainModelCodeGenerator.tt" #>
 <#@ Dsl processor="DslDirectiveProcessor"  requires="fileName='..\DslDefinition.dsl'" #>

@@ -11,7 +11,7 @@
    //If you update the DSL Assembly name, please update the following string value to the new name.
    //Failure to do so may result in your Toolbox items not appearing correctly.
    string dslAssembly = "Sawczyn.EFDesigner.EFModel.Dsl.dll";
-#><#@ include file="DslPackage\Package.tt" #><#
+#><#@ include file="..\Templates\Package.tt" #><#
    string directiveName = this.Dsl.Name;
 #>
 //

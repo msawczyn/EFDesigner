@@ -12,7 +12,7 @@
 	</TemplateData>
 	<TemplateContent>
 		<ProjectItem TargetFileName="$fileinputname$.efmodel" ReplaceParameters="true">efmodel.efmodel</ProjectItem>
-		<ProjectItem TargetFileName="$fileinputname$.efmodel.diagram">efmodel.diagram</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.efmodel.diagramx">efmodel.diagramx</ProjectItem>
 		<ProjectItem TargetFileName="$fileinputname$.tt" ReplaceParameters="true">efmodel.tt</ProjectItem>
 	</TemplateContent>
    <WizardExtension>
