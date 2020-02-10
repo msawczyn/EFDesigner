@@ -54,6 +54,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="EFModel.efmodel" />
+    <None Include="EFModel.efmodel.diagramx">
+      <DependentUpon>EFModel.efmodel</DependentUpon>
+    </None>
     <None Include="Properties\EFModel.efmodel" />
     <None Include="Properties\EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>

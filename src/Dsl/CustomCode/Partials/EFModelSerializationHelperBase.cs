@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+
 using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -70,5 +74,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // Tracking properties need to be set up according to whether the serialization matches the calculated values.  
          ResetTrackingProperties(modelPartition.Store);
       }
+
+
    }
 }

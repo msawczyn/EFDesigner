@@ -421,22 +421,27 @@ namespace Sawczyn.EFDesigner.EFModel
 				}
 			}
 			
-			using (var pkgOutputDoc = global::System.IO.Packaging.Package.Open(diagramsFileName, global::System.IO.FileMode.Create, global::System.IO.FileAccess.ReadWrite))
-	        {
-				foreach (var memoryStream in memoryStreamDictionary.Keys)
-	            {
-	                var bytes = memoryStream.ToArray();
-	                var uri =  global::System.IO.Packaging.PackUriHelper.CreatePartUri(
-	                        new Uri(string.Format("/diagrams/{0}", memoryStreamDictionary[memoryStream]), UriKind.Relative));
-	                var part = pkgOutputDoc.CreatePart(uri, global::System.Net.Mime.MediaTypeNames.Text.Xml, global::System.IO.Packaging.CompressionOption.Maximum);
-	                using (var partStream = part.GetStream(global::System.IO.FileMode.Create, global::System.IO.FileAccess.Write))
-	                {
-	                    partStream.Write(bytes, 0, bytes.Length);
-	                }
-	            }
-			}
+			WriteDiagramFile(diagramsFileName, memoryStreamDictionary);
 		}
 		
+	   private static void WriteDiagramFile(string diagramsFileName, Dictionary<global::System.IO.MemoryStream, string> memoryStreamDictionary)
+	   {
+	      using (var pkgOutputDoc = global::System.IO.Packaging.Package.Open(diagramsFileName, global::System.IO.FileMode.Create, global::System.IO.FileAccess.ReadWrite))
+	      {
+	         foreach (var memoryStream in memoryStreamDictionary.Keys)
+	         {
+	            var bytes = memoryStream.ToArray();
+	            var uri = global::System.IO.Packaging.PackUriHelper.CreatePartUri(new Uri(string.Format("/diagrams/{0}", memoryStreamDictionary[memoryStream]), UriKind.Relative));
+	            var part = pkgOutputDoc.CreatePart(uri, global::System.Net.Mime.MediaTypeNames.Text.Xml, global::System.IO.Packaging.CompressionOption.Maximum);
+	
+	            using (var partStream = part.GetStream(global::System.IO.FileMode.Create, global::System.IO.FileAccess.Write))
+	            {
+	               partStream.Write(bytes, 0, bytes.Length);
+	            }
+	         }
+	      }
+	   }
+			
 		internal virtual void SaveDiagrams(DslModeling::SerializationResult serializationResult, DslDiagrams::Diagram[] diagrams, string diagramsFileName, global::System.Text.Encoding encoding, bool writeOptionalPropertiesWithDefaultValue)
 		{
 			#region Check Parameters
@@ -466,20 +471,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	                return;
 	            }
 	        }
-			
-			using (var pkgOutputDoc = global::System.IO.Packaging.Package.Open(diagramsFileName, global::System.IO.FileMode.Create, global::System.IO.FileAccess.ReadWrite))
-	        {
-				foreach (var memoryStream in memoryStreamDictionary.Keys)
-	            {
-	                var bytes = memoryStream.ToArray();
-	                var uri = new Uri(string.Format("/diagrams/{0}", memoryStreamDictionary[memoryStream]), UriKind.Relative);
-	                var part = pkgOutputDoc.CreatePart(uri, global::System.Net.Mime.MediaTypeNames.Text.Xml, global::System.IO.Packaging.CompressionOption.Maximum);
-	                using (var partStream = part.GetStream(global::System.IO.FileMode.Create, global::System.IO.FileAccess.Write))
-	                {
-	                    partStream.Write(bytes, 0, bytes.Length);
-	                }
-	            }
-			}
+			WriteDiagramFile(diagramsFileName, memoryStreamDictionary);
 		}
 	}
 	
