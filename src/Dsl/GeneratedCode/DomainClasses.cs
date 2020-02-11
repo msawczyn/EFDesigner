@@ -3402,6 +3402,20 @@ namespace Sawczyn.EFDesigner.EFModel
 			}
 		}
 		#endregion
+		#region Diagrams opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of Diagrams.
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<ModelDiagram> Diagrams
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelDiagram>, ModelDiagram>(global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelRootDomainRoleId);
+			}
+		}
+		#endregion
 		#region ElementGroupPrototype Merge methods
 		/// <summary>
 		/// Returns a value indicating whether the source element represented by the
@@ -3433,6 +3447,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				}
 				
 				if (rootElementDomainInfo.IsDerivedFrom(global::Sawczyn.EFDesigner.EFModel.Comment.DomainClassId)) 
+				{
+					return true;
+				}
+				
+				if (rootElementDomainInfo.IsDerivedFrom(global::Sawczyn.EFDesigner.EFModel.ModelDiagram.DomainClassId)) 
 				{
 					return true;
 				}
@@ -3484,6 +3503,15 @@ namespace Sawczyn.EFDesigner.EFModel
 			{
 				// Create link for path ModelRootHasComments.Comments
 				this.Comments.Add(sourceComment3);
+
+				return;
+			}
+				
+			global::Sawczyn.EFDesigner.EFModel.ModelDiagram sourceModelDiagram4 = sourceElement as global::Sawczyn.EFDesigner.EFModel.ModelDiagram;
+			if (sourceModelDiagram4 != null)
+			{
+				// Create link for path ModelRootHasModelDiagrams.Diagrams
+				this.Diagrams.Add(sourceModelDiagram4);
 
 				return;
 			}
@@ -3547,6 +3575,20 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
 					link.Delete(global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.ModelRootDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ModelRootHasComments.CommentDomainRoleId);
+				}
+
+				return;
+			}
+				
+			global::Sawczyn.EFDesigner.EFModel.ModelDiagram sourceModelDiagram4 = sourceElement as global::Sawczyn.EFDesigner.EFModel.ModelDiagram;
+			if (sourceModelDiagram4 != null)
+			{
+				// Delete link for path ModelRootHasModelDiagrams.Diagrams
+				
+				foreach (DslModeling::ElementLink link in global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.GetLinks((global::Sawczyn.EFDesigner.EFModel.ModelRoot)this, sourceModelDiagram4))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelRootDomainRoleId, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramDomainRoleId);
 				}
 
 				return;
@@ -10654,6 +10696,156 @@ namespace Sawczyn.EFDesigner.EFModel
 			get
 			{
 				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<Comment>, Comment>(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects.DesignElementDomainRoleId);
+			}
+		}
+		#endregion
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainClass ModelDiagram
+	/// Description for Sawczyn.EFDesigner.EFModel.ModelDiagram
+	/// </summary>
+	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelDiagram.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelDiagram.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[global::System.Diagnostics.DebuggerDisplay("{GetType().Name,nq} (Name = {namePropertyStorage})")]
+	[DslModeling::DomainObjectId("9698525f-c2b0-4283-99f4-6660e10fa082")]
+	public partial class ModelDiagram : DslModeling::ModelElement
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// ModelDiagram domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x9698525f, 0xc2b0, 0x4283, 0x99, 0xf4, 0x66, 0x60, 0xe1, 0x0f, 0xa0, 0x82);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public ModelDiagram(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public ModelDiagram(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region Name domain property code
+		
+		/// <summary>
+		/// Name domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid NameDomainPropertyId = new global::System.Guid(0x202e04fe, 0xde2a, 0x4030, 0x9e, 0x96, 0x0a, 0x7e, 0x9d, 0xf6, 0x13, 0xab);
+		
+		/// <summary>
+		/// Storage for Name
+		/// </summary>
+		private global::System.String namePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Name domain property.
+		/// Description for Sawczyn.EFDesigner.EFModel.ModelDiagram.Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelDiagram/Name.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelDiagram/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::ElementName]
+		[DslModeling::DomainObjectId("202e04fe-de2a-4030-9e96-0a7e9df613ab")]
+		public global::System.String Name
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return namePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				NamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelDiagram.Name domain property.
+		/// </summary>
+		internal sealed partial class NamePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelDiagram, global::System.String>
+		{
+			private NamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelDiagram.Name domain property value handler.
+			/// </summary>
+			public static readonly NamePropertyHandler Instance = new NamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelDiagram.Name domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return NameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelDiagram element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.namePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelDiagram element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.namePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ModelRoot opposite domain role accessor
+		/// <summary>
+		/// Gets or sets ModelRoot.
+		/// Description for
+		/// Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagram
+		/// </summary>
+		public virtual ModelRoot ModelRoot
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramDomainRoleId) as ModelRoot;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramDomainRoleId, value);
 			}
 		}
 		#endregion

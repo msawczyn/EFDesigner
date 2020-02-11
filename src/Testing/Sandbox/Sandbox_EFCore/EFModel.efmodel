@@ -17,4 +17,9 @@
       <modelClass Id="2773b18f-d4a5-43da-a5da-ebd95092a219" tableName="Entity2" databaseSchema="dbo" namespace="Sandbox" dbSetName="Entity2" name="Entity2" isOutputDirectoryTracking="false" />
     </modelRootHasClasses>
   </classes>
+  <diagrams>
+    <modelRootHasModelDiagrams Id="0439d54b-b174-4e6f-8679-553d7da3558f">
+      <modelDiagram Id="afd705c6-a7c7-48dd-8a1e-d2bff9cf2de4" name="EFModel" />
+    </modelRootHasModelDiagrams>
+  </diagrams>
 </modelRoot>

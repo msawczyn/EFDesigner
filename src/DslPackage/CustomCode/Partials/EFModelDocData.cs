@@ -239,6 +239,21 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
 
+         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("Diagrams"))
+         {
+            List<EFModelDiagram> diagrams = Store.ElementDirectory.FindElements<EFModelDiagram>().ToList();
+            modelRoot.Diagrams.Clear();
+
+            foreach (EFModelDiagram efModelDiagram in diagrams)
+            {
+               ModelDiagram modelDiagram = new ModelDiagram(Store, new PropertyAssignment(ModelDiagram.NameDomainPropertyId, efModelDiagram.Name));
+               modelDiagram.SetDiagram(efModelDiagram);
+               modelRoot.Diagrams.Add(modelDiagram);
+            }
+
+            tx.Commit();
+         }
+
          SetDocDataDirty(0);
       }
 

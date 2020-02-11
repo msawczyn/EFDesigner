@@ -1421,6 +1421,22 @@
     <value>Design Element</value>
     <comment>DisplayName for DomainClass &apos;DesignElement&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelDiagram</value>
+    <comment>Description for DomainClass &apos;ModelDiagram&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram.DisplayName" xml:space="preserve">
+    <value>Model Diagram</value>
+    <comment>DisplayName for DomainClass &apos;ModelDiagram&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram/Name.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelDiagram.Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelDiagram&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelDiagram&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>
@@ -2164,6 +2180,38 @@
   <data name="Sawczyn.EFDesigner.EFModel.CommentReferencesEnums/ModelEnum.PropertyDisplayName" xml:space="preserve">
     <value>Comments</value>
     <comment>PropertyDisplayName for DomainRole &apos;ModelEnum&apos; on DomainRelationship &apos;CommentReferencesEnums&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams</value>
+    <comment>Description for DomainClass &apos;ModelRootHasModelDiagrams&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.DisplayName" xml:space="preserve">
+    <value>Model Root Has Model Diagrams</value>
+    <comment>DisplayName for DomainClass &apos;ModelRootHasModelDiagrams&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelRoot.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelRoot.DisplayName" xml:space="preserve">
+    <value>Model Root</value>
+    <comment>DisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelRoot.PropertyDisplayName" xml:space="preserve">
+    <value>Diagrams</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagram</value>
+    <comment>Description for DomainRole &apos;ModelDiagram&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.DisplayName" xml:space="preserve">
+    <value>Model Diagram</value>
+    <comment>DisplayName for DomainRole &apos;ModelDiagram&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.PropertyDisplayName" xml:space="preserve">
+    <value>Model Root</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelDiagram&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifier/Public.DisplayName" xml:space="preserve">
     <value>Public</value>
