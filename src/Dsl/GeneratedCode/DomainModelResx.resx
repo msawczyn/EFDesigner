@@ -1422,11 +1422,11 @@
     <comment>DisplayName for DomainClass &apos;DesignElement&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.ModelDiagram</value>
+    <value>Represents a viewable model diagram</value>
     <comment>Description for DomainClass &apos;ModelDiagram&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram.DisplayName" xml:space="preserve">
-    <value>Model Diagram</value>
+    <value>Diagram</value>
     <comment>DisplayName for DomainClass &apos;ModelDiagram&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram/Name.Description" xml:space="preserve">
@@ -3089,10 +3089,6 @@
     <value>Comment Box Shape</value>
     <comment>DisplayName for DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
-  <data name="CommentBoxShapeCommentDefaultText" xml:space="preserve">
-    <value>BusinessRulesShapeNameDecorator</value>
-    <comment>Text decorator default text</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EnumShape&apos;</comment>
@@ -3467,7 +3463,7 @@ A DomainClass can be serialized as a moniker only if
     <comment>Icon decorator default image</comment>
   </data>
   <data name="EnumShapeEnumGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\EnumTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Enumerator_16x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Icon decorator default image</comment>
   </data>
   <data name="EnumShapeWarningGlyphDefaultImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
@@ -3483,7 +3479,7 @@ A DomainClass can be serialized as a moniker only if
     <comment>Toolbox item image</comment>
   </data>
   <data name="ModelEnumExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\EnumTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Enumerator_16x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="ModelAttributeExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
@@ -3491,11 +3487,15 @@ A DomainClass can be serialized as a moniker only if
     <comment>Toolbox item image</comment>
   </data>
   <data name="ModelEnumValueExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\EnumValue.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\EnumItem_16x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="CommentExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\CommentTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="ModelDiagramExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ShowDiagramPane_16x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="ModelClassToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

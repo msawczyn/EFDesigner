@@ -10705,7 +10705,7 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
 	/// DomainClass ModelDiagram
-	/// Description for Sawczyn.EFDesigner.EFModel.ModelDiagram
+	/// Represents a viewable model diagram
 	/// </summary>
 	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelDiagram.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelDiagram.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]

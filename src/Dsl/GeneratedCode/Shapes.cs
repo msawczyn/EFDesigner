@@ -1373,7 +1373,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		{
 			base.InitializeShapeFields(shapeFields);
 			DslDiagrams::TextField field1 = new DslDiagrams::TextField("Comment");
-			field1.DefaultText = global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("CommentBoxShapeCommentDefaultText");
+			field1.DefaultText = string.Empty;
 			field1.DefaultFocusable = true;
 			field1.DefaultAutoSize = true;
 			field1.AnchoringBehavior.MinimumHeightInLines = 1;

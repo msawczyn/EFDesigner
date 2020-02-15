@@ -397,9 +397,11 @@
     <Content Include="Resources\cardinality-many-0.png" />
     <Content Include="Resources\cardinality-many-1.png" />
     <Content Include="Resources\cardinality-many-many.png" />
-    <Content Include="Resources\EnumValue.png" />
+    <Content Include="Resources\Enumerator_16x.png" />
+    <Content Include="Resources\EnumItem_16x.png" />
     <None Include="Resources\Move.cur" />
     <Content Include="Resources\No.png" />
+    <Content Include="Resources\ShowDiagramPane_16x.png" />
     <Content Include="Resources\TransientClass.png" />
     <Content Include="Resources\Warning.png" />
     <None Include="DslDefinition.dsl.diagram">
@@ -491,7 +493,6 @@
     <Content Include="Resources\CommentTool.bmp" />
     <Content Include="Resources\EntityGlyph.bmp" />
     <Content Include="Resources\EnumTool.bmp" />
-    <Content Include="Resources\EnumValue.bmp" />
     <Content Include="Resources\File.ico" />
     <Content Include="Resources\GeneralizationTool.bmp" />
     <Content Include="Resources\Internal.png" />

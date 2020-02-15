@@ -859,7 +859,7 @@
       </Properties>
     </DomainClass>
     <DomainClass Id="460f3d41-02c2-41dd-8fd3-8286e400e6f1" Description="Description for Sawczyn.EFDesigner.EFModel.DesignElement" Name="DesignElement" DisplayName="Design Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" />
-    <DomainClass Id="9698525f-c2b0-4283-99f4-6660e10fa082" Description="Description for Sawczyn.EFDesigner.EFModel.ModelDiagram" Name="ModelDiagram" DisplayName="Model Diagram" Namespace="Sawczyn.EFDesigner.EFModel">
+    <DomainClass Id="9698525f-c2b0-4283-99f4-6660e10fa082" Description="Represents a viewable model diagram" Name="ModelDiagram" DisplayName="Diagram" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
         <DomainProperty Id="202e04fe-de2a-4030-9e96-0a7e9df613ab" Description="Description for Sawczyn.EFDesigner.EFModel.ModelDiagram.Name" Name="Name" DisplayName="Name" IsElementName="true">
           <Type>
@@ -1597,7 +1597,7 @@
     </CompartmentShape>
     <GeometryShape Id="ac82cb66-4d3d-46ac-a7e2-b7f0cd67a73f" Description="" Name="CommentBoxShape" DisplayName="Comment Box Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Comment Box Shape" FillColor="255, 255, 204" OutlineColor="204, 204, 102" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="ForwardDiagonal" Geometry="RoundedRectangle">
       <ShapeHasDecorators Position="Center" HorizontalOffset="0" VerticalOffset="0">
-        <TextDecorator Name="Comment" DisplayName="Comment" DefaultText="BusinessRulesShapeNameDecorator" />
+        <TextDecorator Name="Comment" DisplayName="Comment" DefaultText="" />
       </ShapeHasDecorators>
     </GeometryShape>
     <CompartmentShape Id="de514c36-0966-422a-9511-997b89ac7a56" Description="" Name="EnumShape" DisplayName="Enum Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Enum Shape" TextColor="White" ExposesTextColor="true" FillColor="Gray" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1640,7 +1640,7 @@
         <ExpandCollapseDecorator Name="ExpandCollapse" DisplayName="Expand/Collapse" />
       </ShapeHasDecorators>
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
-        <IconDecorator Name="EnumGlyph" DisplayName="Enumeration" DefaultIcon="Resources\EnumTool.bmp" />
+        <IconDecorator Name="EnumGlyph" DisplayName="Enumeration" DefaultIcon="Resources\Enumerator_16x.png" />
       </ShapeHasDecorators>
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="WarningGlyph" DisplayName="Warning" DefaultIcon="Resources\Warning.png" />
@@ -2302,7 +2302,7 @@
       <XmlClassData TypeName="CommentReferencesEnums" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesEnumsMoniker" ElementName="commentReferencesEnums" MonikerTypeName="CommentReferencesEnumsMoniker">
         <DomainRelationshipMoniker Name="CommentReferencesEnums" />
       </XmlClassData>
-      <XmlClassData TypeName="ModelDiagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelDiagramMoniker" ElementName="modelDiagram" MonikerTypeName="ModelDiagramMoniker">
+      <XmlClassData TypeName="ModelDiagram" MonikerAttributeName="" MonikerElementName="modelDiagramMoniker" ElementName="modelDiagram" MonikerTypeName="ModelDiagramMoniker">
         <DomainClassMoniker Name="ModelDiagram" />
         <ElementData>
           <XmlPropertyData XmlName="name">
@@ -2322,7 +2322,7 @@
           <DomainClassMoniker Name="ModelClass" />
         </Class>
       </ExplorerNodeSettings>
-      <ExplorerNodeSettings IconToDisplay="Resources\EnumTool.bmp">
+      <ExplorerNodeSettings IconToDisplay="Resources\Enumerator_16x.png">
         <Class>
           <DomainClassMoniker Name="ModelEnum" />
         </Class>
@@ -2332,7 +2332,7 @@
           <DomainClassMoniker Name="ModelAttribute" />
         </Class>
       </ExplorerNodeSettings>
-      <ExplorerNodeSettings IconToDisplay="Resources\EnumValue.bmp">
+      <ExplorerNodeSettings IconToDisplay="Resources\EnumItem_16x.png">
         <Class>
           <DomainClassMoniker Name="ModelEnumValue" />
         </Class>
@@ -2347,6 +2347,11 @@
             <DomainPath />
           </PropertyPath>
         </PropertyDisplayed>
+      </ExplorerNodeSettings>
+      <ExplorerNodeSettings IconToDisplay="Resources\ShowDiagramPane_16x.png">
+        <Class>
+          <DomainClassMoniker Name="ModelDiagram" />
+        </Class>
       </ExplorerNodeSettings>
     </CustomNodeSettings>
     <HiddenNodes>

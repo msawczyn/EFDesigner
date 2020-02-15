@@ -1024,14 +1024,11 @@
   <!-- ModelDiagram -->
   <xsd:element name="modelDiagram" type="ModelDiagram" substitutionGroup="core:modelElement" />
   <xsd:complexType name="ModelDiagram">
+    <xsd:annotation>
+      <xsd:documentation>Represents a viewable model diagram</xsd:documentation>
+    </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
         <!-- Property: Name -->
         <xsd:attribute name="name" type="xsd:string" />
       </xsd:extension>
@@ -1039,18 +1036,13 @@
   </xsd:complexType>
   
   <!-- ModelDiagram Moniker -->
-  <xsd:element name="modelDiagramMoniker" type="ModelDiagramMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:element name="modelDiagramMoniker" abstract="true" type="ModelDiagramMoniker" substitutionGroup="core:modelElementMoniker" />
   <xsd:complexType name="ModelDiagramMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for ModelDiagram instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">
-        <xsd:attribute name="Id" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

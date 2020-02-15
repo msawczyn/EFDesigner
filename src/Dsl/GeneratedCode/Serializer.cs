@@ -8322,21 +8322,21 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 	
 		/// <summary>
-		/// This is the XML tag name used to serialize a monikerized instance of ModelDiagram.
+		/// Cannot be monikerized.
 		/// </summary>
 		public override string MonikerTagName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"modelDiagramMoniker"; }
+			get { return string.Empty; }
 		}
 		
 		/// <summary>
-		/// This is the name of the XML attribute that stores the moniker of ModelDiagram in a serialized monikerized instance.
+		/// Cannot be monikerized.
 		/// </summary>
 		public override string MonikerAttributeName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"Id"; }
+			get { return string.Empty; }
 		}
 		#endregion
 	
@@ -8530,34 +8530,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <returns>Created ModelDiagram instance.</returns>
 		protected override DslModeling::ModelElement CreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
-			string idStr = reader.GetAttribute ("Id");
-			try
-			{
-				global::System.Guid id;
-				if (string.IsNullOrEmpty(idStr))
-				{	// Create a default Id.
-					id = global::System.Guid.NewGuid();
-					EFModelSerializationBehaviorSerializationMessages.MissingId(serializationContext, reader, id);
-				}
-				else
-				{
-					id = new global::System.Guid (idStr);
-				}
-				return new ModelDiagram(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
-			}
-			catch (global::System.ArgumentNullException /* anEx */)
-			{	
-				EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, "Id", typeof(global::System.Guid), idStr);
-			}
-			catch (global::System.FormatException /* fEx */)
-			{
-				EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, "Id", typeof(global::System.Guid), idStr);
-			}
-			catch (global::System.OverflowException /* ofEx */)
-			{
-				EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, "Id", typeof(global::System.Guid), idStr);
-			}
-			return null;
+			return new ModelDiagram(partition);
 		}
 	
 		/// <summary>
@@ -8677,38 +8650,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <returns>Created ModelRoot instance, or null if the reader is not pointing to a correct monikerized instance.</returns>
 		protected override DslModeling::Moniker CreateMonikerInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::ModelElement sourceRolePlayer, global::System.Guid relDomainClassId, DslModeling::Partition partition)
 		{
-			string monikerString = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, sourceRolePlayer, reader, this.MonikerAttributeName);
-	
-			if (string.IsNullOrEmpty(monikerString))
-			{	
-				EFModelSerializationBehaviorSerializationMessages.MissingMoniker(serializationContext, reader, this.MonikerAttributeName);
-				return null;
-			}
-			try
-			{	// Normalize the Id.
-				global::System.Guid id = new global::System.Guid(monikerString);
-				monikerString = id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture);
-				DslModeling::Moniker result = new DslModeling::Moniker(new DslModeling::MonikerKey(monikerString, relDomainClassId, ModelDiagram.DomainClassId, partition.Store), partition.Store);
-				// Set location info if possible.
-				result.Location = serializationContext.Location;
-				global::System.Xml.IXmlLineInfo xmlLineInfo = reader as global::System.Xml.IXmlLineInfo;
-				if (xmlLineInfo != null)
-				{
-					result.Line = xmlLineInfo.LineNumber;
-					result.Column = xmlLineInfo.LinePosition;
-				}
-				return result;
-			}
-			catch (global::System.FormatException /* fEx */)
-			{
-				EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, this.MonikerAttributeName, typeof(global::System.Guid), monikerString);
-				return null;
-			}
-			catch (global::System.OverflowException /* oEx */)
-			{	
-				EFModelSerializationBehaviorSerializationMessages.InvalidPropertyValue(serializationContext, reader, this.MonikerAttributeName, typeof(global::System.Guid), monikerString);
-				return null;
-			}
+			// Cannot be monikerized.
+			throw new global::System.NotSupportedException();
 		}
 	
 		/// <summary>
@@ -8761,29 +8704,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the ModelDiagram instance being monikerized.</param>
 		public override void WriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer)
 		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert (serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException ("serializationContext");
-			global::System.Diagnostics.Debug.Assert (element != null);
-			if (element == null)
-				throw new global::System.ArgumentNullException ("element");
-			global::System.Diagnostics.Debug.Assert (writer != null);
-			if (writer == null)
-				throw new global::System.ArgumentNullException ("writer");
-			global::System.Diagnostics.Debug.Assert (sourceRolePlayer != null);
-			if (sourceRolePlayer == null)
-				throw new global::System.ArgumentNullException ("sourceRolePlayer");
-			global::System.Diagnostics.Debug.Assert (relSerializer != null);
-			if (relSerializer == null)
-				throw new global::System.ArgumentNullException ("relSerializer");
-			#endregion
-			
-			string monikerString = this.CalculateQualifiedName(serializationContext.Directory, element);
-			global::System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(monikerString));
-			writer.WriteStartElement(this.MonikerTagName);
-			EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, this.MonikerAttributeName, monikerString);
-			writer.WriteEndElement();
+			// Instance of ModelDiagram cannot be monikerized.
+			EFModelSerializationBehaviorSerializationMessages.CannotMonikerizeElement(serializationContext, "ModelDiagram");
 		}
 		
 		/// <summary>
@@ -8826,9 +8748,6 @@ namespace Sawczyn.EFDesigner.EFModel
 			// Write version info (in the format 1.2.3.4), if necessary
 			if (rootElementSettings != null && rootElementSettings.Version != null)
 				writer.WriteAttributeString("dslVersion", rootElementSettings.Version.ToString(4));
-	
-			// Write out element Id.
-			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
 			WritePropertiesAsAttributes(serializationContext, element, writer);
 			// Write out any extension data if this is the root element
 			if (rootElementSettings != null && !serializationContext.Result.Failed)
@@ -8909,7 +8828,17 @@ namespace Sawczyn.EFDesigner.EFModel
 			ModelDiagram instance = element as ModelDiagram;
 			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of ModelDiagram!");
 	
-			return instance.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture);
+			DslModeling::ModelElement container = instance.ModelRoot;
+			if(container != null)
+			{
+				DslModeling::DomainClassXmlSerializer containerSerializer = directory.GetSerializer(container.GetDomainClass().Id);
+				global::System.Diagnostics.Debug.Assert(containerSerializer != null, "Cannot find serializer for " + container.GetDomainClass().Name + "!");
+				return containerSerializer.CalculateQualifiedName(directory, container);
+			}
+			else
+			{
+				return string.Empty;
+			}
 		}
 	
 		/// <summary>
@@ -8934,7 +8863,19 @@ namespace Sawczyn.EFDesigner.EFModel
 				throw new global::System.ArgumentNullException("element");
 			#endregion	
 			
-			return string.Empty;
+			ModelDiagram instance = element as ModelDiagram;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of ModelDiagram!");
+			DslModeling::ModelElement container = instance.ModelRoot;
+			if(container != null)
+			{
+				DslModeling::DomainClassXmlSerializer containerSerializer = directory.GetSerializer(container.GetDomainClass().Id);
+				global::System.Diagnostics.Debug.Assert(containerSerializer != null, "Cannot find serializer for " + container.GetDomainClass().Name + "!");
+				return containerSerializer.GetMonikerQualifier(directory, container);
+			}
+			else
+			{
+				return string.Empty;
+			}
 		}
 		#endregion
 	}
