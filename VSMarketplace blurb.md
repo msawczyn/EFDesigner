@@ -27,7 +27,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **2.0.0.0** (next version, [RC1 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/V2.0.0-RC1))
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
-   - **[NEW]** It's now possible to have ***multiple diagrams*** for the same model, each showing a different view. Perfect for helping to understand large models.
+   - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - **[NEW]** Added ability to specify foreign key properties
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
