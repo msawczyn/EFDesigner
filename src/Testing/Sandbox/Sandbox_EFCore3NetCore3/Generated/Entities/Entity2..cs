@@ -21,38 +21,16 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity1
+   public partial class Entity2
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// Default constructor
       /// </summary>
-      protected Entity1()
+      public Entity2()
       {
          Init();
-      }
-
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="entity2"></param>
-      public Entity1(global::Sandbox.Entity2 entity2)
-      {
-         if (entity2 == null) throw new ArgumentNullException(nameof(entity2));
-         this.Entity2 = entity2;
-
-
-         Init();
-      }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="entity2"></param>
-      public static Entity1 Create(global::Sandbox.Entity2 entity2)
-      {
-         return new Entity1(entity2);
       }
 
       /*************************************************************************
@@ -69,11 +47,6 @@ namespace Sandbox
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Sandbox.Entity2 Entity2 { get; set; }
 
    }
 }

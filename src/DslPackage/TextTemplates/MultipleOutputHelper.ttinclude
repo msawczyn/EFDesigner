@@ -297,7 +297,8 @@ class Manager
          Dictionary<ProjectItem, List<string>> result = new Dictionary<ProjectItem, List<string>>();
          Project currentProject = templateProjectItem.ContainingProject;
          string projectDirectory = Path.GetDirectoryName(currentProject.FullName);
-         string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, $"*.{FileNameMarker}.cs", SearchOption.AllDirectories);
+         string fileNameMarker = string.IsNullOrEmpty(modelRoot.FileNameMarker) ? string.Empty : $".{modelRoot.FileNameMarker}";
+         string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, $"*{fileNameMarker}.cs", SearchOption.AllDirectories);
 
          foreach (string fileName in existingGeneratedFiles)
          {

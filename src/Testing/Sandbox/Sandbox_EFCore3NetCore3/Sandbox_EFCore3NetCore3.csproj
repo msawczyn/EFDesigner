@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Testing</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Custom\Context\Placeholder.txt" />
+    <None Remove="Custom\Entities\Placeholder.txt" />
+    <None Remove="Custom\Enums\Placeholder.txt" />
+    <None Remove="Custom\Structs\Placeholder.txt" />
+    <None Remove="EFModel.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Custom\Context\Placeholder.txt" />
+    <Content Include="Custom\Entities\Placeholder.txt" />
+    <Content Include="Custom\Enums\Placeholder.txt" />
+    <Content Include="Custom\Structs\Placeholder.txt" />
+    <Content Include="EFModel.tt">
+      <LastGenOutput>EFModel.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="EFModel.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EFModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

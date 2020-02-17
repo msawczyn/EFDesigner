@@ -37,7 +37,7 @@ namespace Sandbox
       /// Public constructor with required data
       /// </summary>
       /// <param name="entity2"></param>
-      public Entity1(global::Sandbox.Entity2 entity2)
+      public Entity1()
       {
          if (entity2 == null) throw new ArgumentNullException(nameof(entity2));
          this.Entity2 = entity2;
