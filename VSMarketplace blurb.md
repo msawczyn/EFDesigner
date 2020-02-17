@@ -27,6 +27,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **2.0.0.0** (next version, [RC1 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/V2.0.0-RC1))
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
+   - **[NEW]** It's now possible to have ***multiple diagrams*** for the same model, each showing a different view. Perfect for helping to understand large models.
    - **[NEW]** Added ability to specify foreign key properties
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
@@ -39,6 +40,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Enhanced display of model elements in the Visual Studio property window's object list
    - Removed MSAGL layouts. No one understood them anyway.
    - Removed tool automatically installing NuGet packages. Too volatile.
+   - Fix: Support for Empty / blank "File Name Marker" (See https://github.com/msawczyn/EFDesigner/issues/149)
 
 **1.3.0.12** 
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)

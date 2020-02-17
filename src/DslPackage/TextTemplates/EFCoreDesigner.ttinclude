@@ -18,10 +18,11 @@
 void GenerateEFCore(Manager manager, ModelRoot modelRoot)
 {
    // Entities
+   string fileNameMarker = string.IsNullOrEmpty(modelRoot.FileNameMarker) ? string.Empty : $".{modelRoot.FileNameMarker}";
 
    foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
    {
-      manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
+      manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}{fileNameMarker}.cs"));
       WriteClass(modelClass);
    }
 
@@ -29,19 +30,19 @@ void GenerateEFCore(Manager manager, ModelRoot modelRoot)
 
    foreach (ModelEnum modelEnum in modelRoot.Enums.Where(e => e.GenerateCode))
    {
-      manager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
+      manager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}{fileNameMarker}.cs"));
       WriteEnum(modelEnum);
    }
 
    // DatabaseInitializer not yet supported in EF Core
-   // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
+   // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer{fileNameMarker}.cs"));
    // WriteDatabaseInitializerEFCore(modelRoot);
 
    // MigrationConfiguration not yet supported in EF Core
-   // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
+   // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration{fileNameMarker}.cs"));
    // WriteMigrationConfigurationEFCore(modelRoot);
 
-   manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}.{modelRoot.FileNameMarker}.cs"));
+   manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}{fileNameMarker}.cs"));
    WriteDbContextEFCore(modelRoot);
 }
 
