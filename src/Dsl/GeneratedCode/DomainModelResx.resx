@@ -1421,21 +1421,21 @@
     <value>Design Element</value>
     <comment>DisplayName for DomainClass &apos;DesignElement&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagramData.Description" xml:space="preserve">
     <value>Represents a viewable model diagram</value>
-    <comment>Description for DomainClass &apos;ModelDiagram&apos;</comment>
+    <comment>Description for DomainClass &apos;ModelDiagramData&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagramData.DisplayName" xml:space="preserve">
     <value>Diagram</value>
-    <comment>DisplayName for DomainClass &apos;ModelDiagram&apos;</comment>
+    <comment>DisplayName for DomainClass &apos;ModelDiagramData&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram/Name.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.ModelDiagram.Name</value>
-    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelDiagram&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagramData/Name.Description" xml:space="preserve">
+    <value>Diagram name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelDiagramData&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagram/Name.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelDiagramData/Name.DisplayName" xml:space="preserve">
     <value>Name</value>
-    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelDiagram&apos;</comment>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;ModelDiagramData&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
@@ -2201,17 +2201,17 @@
     <value>Diagrams</value>
     <comment>PropertyDisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagram</value>
-    <comment>Description for DomainRole &apos;ModelDiagram&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagramData.Description" xml:space="preserve">
+    <value>Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramData</value>
+    <comment>Description for DomainRole &apos;ModelDiagramData&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.DisplayName" xml:space="preserve">
-    <value>Model Diagram</value>
-    <comment>DisplayName for DomainRole &apos;ModelDiagram&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagramData.DisplayName" xml:space="preserve">
+    <value>Model Diagram Data</value>
+    <comment>DisplayName for DomainRole &apos;ModelDiagramData&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.PropertyDisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagramData.PropertyDisplayName" xml:space="preserve">
     <value>Model Root</value>
-    <comment>PropertyDisplayName for DomainRole &apos;ModelDiagram&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelDiagramData&apos; on DomainRelationship &apos;ModelRootHasModelDiagrams&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.TypeAccessModifier/Public.DisplayName" xml:space="preserve">
     <value>Public</value>
@@ -3494,7 +3494,7 @@ A DomainClass can be serialized as a moniker only if
     <value>..\Resources\CommentTool.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
-  <data name="ModelDiagramExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+  <data name="ModelDiagramDataExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\ShowDiagramPane_16x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>

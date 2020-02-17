@@ -139,7 +139,7 @@
     <Compile Include="CustomCode\ChooseForm.Designer.cs">
       <DependentUpon>ChooseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomCode\Commands.cs" />
+    <Compile Include="CustomCode\LayoutCommands.cs" />
     <Compile Include="CustomCode\CommandSet.cs" />
     <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
@@ -167,6 +167,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Constants.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\ModelExplorerToolWindow.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelExplorerToolWindow.tt</DependentUpon>
     </Compile>
     <Compile Include="GeneratedCode\Package.cs">
       <AutoGen>True</AutoGen>
@@ -296,11 +301,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelExplorer.tt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GeneratedCode\ModelExplorerToolWindow.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelExplorerToolWindow.tt</DependentUpon>
     </Compile>
     <None Include="GeneratedCode\ModelExplorer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

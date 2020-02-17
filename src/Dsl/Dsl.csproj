@@ -136,9 +136,10 @@
     <Compile Include="CustomCode\Modeling\ViewContext.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Domain Types\Namespaces.cs" />
-    <Compile Include="CustomCode\Partials\ModelDiagram.cs" />
+    <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\BidirectionalAssociationAddRules.cs" />
+    <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
     <Compile Include="CustomCode\Rules\UnidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IHasStore.cs" />
     <Compile Include="CustomCode\Type Converters\MaxLengthTypeConverter.cs" />
@@ -262,11 +263,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SynchronizationHelper.tt</DependentUpon>
     </Compile>
-    <Compile Include="MefExtension\GestureExtensionEnablement.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GestureExtensionEnablement.tt</DependentUpon>
-    </Compile>
     <Compile Include="MefExtension\GestureExtensionController.cs">
       <DependentUpon>GestureExtensionController.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -276,6 +272,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DesignerExtensionMetaDataAttribute.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MefExtension\GestureExtensionEnablement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestureExtensionEnablement.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources.Designer.cs">

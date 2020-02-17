@@ -23,16 +23,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 <#
-	if(!this.IsDsl || this.Dsl.Diagram == null)
-	{
+   if(!this.IsDsl || this.Dsl.Diagram == null)
+   {
 #>
 //
 // This file is empty because the DSL definition does not define a Diagram.
 //
 <#
-	}
-	else
-	{
+   }
+   else
+   {
 #>
 
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
@@ -40,1226 +40,1226 @@ using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 
 <#
-		Diagram diagram = this.Dsl.Diagram;
-		
-		// keep a list of classes in the shape maps, so we can detect the case
-		// where a single class is mapped to multiple shapes.  Users will need
-		// to write custom code for this case, to choose between the shapes.
-		List<DomainClass> mappedClasses = new List<DomainClass>();
-		// tables so we can easily look up from sorted list of classes back to the corresponding map.
-		Dictionary<DomainClass, List<BaseShapeMap>> shapeMaps = new Dictionary<DomainClass, List<BaseShapeMap>>();
-		Dictionary<DomainClass, List<ConnectorMap>> connectorMaps = new Dictionary<DomainClass, List<ConnectorMap>>();
-		
-		// List of decorator maps organized by decorator.
-		Dictionary<Decorator, List<DecoratorMap>> decoratorMaps = new Dictionary<Decorator, List<DecoratorMap>>();	
-		// List of shapes with mapped decorators
-		List<DiagramElement> mappedDiagramElements = new List<DiagramElement>();
-		
-		foreach(BaseShapeMap baseMap in diagram.ShapeMaps)
-		{
-			DomainClass mappedDomainClass = baseMap.Class;
-			List<BaseShapeMap> mapList;
-			if(!shapeMaps.TryGetValue(mappedDomainClass, out mapList))
-			{
-				mappedClasses.Add(mappedDomainClass);
-				mapList = new List<BaseShapeMap>();
-				shapeMaps[mappedDomainClass] = mapList;
-			}
-			mapList.Add(baseMap);
-			
-			foreach(DecoratorMap decoratorMap in baseMap.DecoratorMaps)
-			{
-				List<DecoratorMap> decoratorMapList;
-				if(!decoratorMaps.ContainsKey(decoratorMap.Decorator))
-				{
-					decoratorMapList = new List<DecoratorMap>();
-					decoratorMaps[decoratorMap.Decorator] = decoratorMapList;
-				}
-				else
-				{
-					decoratorMapList = decoratorMaps[decoratorMap.Decorator];
-				}
-				
-				decoratorMapList.Add(decoratorMap);
-				DiagramElement mappedShape = decoratorMap.Decorator.DiagramElement;
-				if(!mappedDiagramElements.Contains(mappedShape))
-				{
-					mappedDiagramElements.Add(mappedShape);
-				}
-			}
-		}
-		
-		foreach(ConnectorMap connectorMap in diagram.ConnectorMaps)
-		{
-			DomainClass mappedDomainRelationship = connectorMap.Relationship;
-			List<ConnectorMap> mapList;
-			if(!connectorMaps.TryGetValue(mappedDomainRelationship, out mapList))
-			{
-				mappedClasses.Add(mappedDomainRelationship);
-				mapList = new List<ConnectorMap>();
-				connectorMaps[mappedDomainRelationship] = mapList;
-			}
-			mapList.Add(connectorMap);
-			
-			foreach(DecoratorMap decoratorMap in connectorMap.DecoratorMaps)
-			{
-				List<DecoratorMap> decoratorMapList;
-				if(!decoratorMaps.ContainsKey(decoratorMap.Decorator))
-				{
-					decoratorMapList = new List<DecoratorMap>();
-					decoratorMaps[decoratorMap.Decorator] = decoratorMapList;
-				}
-				else
-				{
-					decoratorMapList = decoratorMaps[decoratorMap.Decorator];
-				}
-				
-				decoratorMapList.Add(decoratorMap);
-				Connector mappedConnector = ConnectorHasDecorators.GetConnector(decoratorMap.Decorator);
-				if(!mappedDiagramElements.Contains(mappedConnector))
-				{
-					mappedDiagramElements.Add(mappedConnector);
-				}
-			}
-		}
-		
-		// sort the domain classes based on inheritance, so we check leaves first.
-		mappedClasses.Sort(new DomainClassInheritanceComparer());
-		
-		object context = null;
-		if(mappedClasses.Count > 0)
-		{
-			context = new object[] { mappedClasses, mappedDiagramElements, shapeMaps, connectorMaps, decoratorMaps };
-		}
-		// The Diagram class is likely to be referencing a lot of classes by its pivotal nature in the design so suppress class coupling warning
+      Diagram diagram = this.Dsl.Diagram;
+      
+      // keep a list of classes in the shape maps, so we can detect the case
+      // where a single class is mapped to multiple shapes.  Users will need
+      // to write custom code for this case, to choose between the shapes.
+      List<DomainClass> mappedClasses = new List<DomainClass>();
+      // tables so we can easily look up from sorted list of classes back to the corresponding map.
+      Dictionary<DomainClass, List<BaseShapeMap>> shapeMaps = new Dictionary<DomainClass, List<BaseShapeMap>>();
+      Dictionary<DomainClass, List<ConnectorMap>> connectorMaps = new Dictionary<DomainClass, List<ConnectorMap>>();
+      
+      // List of decorator maps organized by decorator.
+      Dictionary<Decorator, List<DecoratorMap>> decoratorMaps = new Dictionary<Decorator, List<DecoratorMap>>();   
+      // List of shapes with mapped decorators
+      List<DiagramElement> mappedDiagramElements = new List<DiagramElement>();
+      
+      foreach(BaseShapeMap baseMap in diagram.ShapeMaps)
+      {
+         DomainClass mappedDomainClass = baseMap.Class;
+         List<BaseShapeMap> mapList;
+         if(!shapeMaps.TryGetValue(mappedDomainClass, out mapList))
+         {
+            mappedClasses.Add(mappedDomainClass);
+            mapList = new List<BaseShapeMap>();
+            shapeMaps[mappedDomainClass] = mapList;
+         }
+         mapList.Add(baseMap);
+         
+         foreach(DecoratorMap decoratorMap in baseMap.DecoratorMaps)
+         {
+            List<DecoratorMap> decoratorMapList;
+            if(!decoratorMaps.ContainsKey(decoratorMap.Decorator))
+            {
+               decoratorMapList = new List<DecoratorMap>();
+               decoratorMaps[decoratorMap.Decorator] = decoratorMapList;
+            }
+            else
+            {
+               decoratorMapList = decoratorMaps[decoratorMap.Decorator];
+            }
+            
+            decoratorMapList.Add(decoratorMap);
+            DiagramElement mappedShape = decoratorMap.Decorator.DiagramElement;
+            if(!mappedDiagramElements.Contains(mappedShape))
+            {
+               mappedDiagramElements.Add(mappedShape);
+            }
+         }
+      }
+      
+      foreach(ConnectorMap connectorMap in diagram.ConnectorMaps)
+      {
+         DomainClass mappedDomainRelationship = connectorMap.Relationship;
+         List<ConnectorMap> mapList;
+         if(!connectorMaps.TryGetValue(mappedDomainRelationship, out mapList))
+         {
+            mappedClasses.Add(mappedDomainRelationship);
+            mapList = new List<ConnectorMap>();
+            connectorMaps[mappedDomainRelationship] = mapList;
+         }
+         mapList.Add(connectorMap);
+         
+         foreach(DecoratorMap decoratorMap in connectorMap.DecoratorMaps)
+         {
+            List<DecoratorMap> decoratorMapList;
+            if(!decoratorMaps.ContainsKey(decoratorMap.Decorator))
+            {
+               decoratorMapList = new List<DecoratorMap>();
+               decoratorMaps[decoratorMap.Decorator] = decoratorMapList;
+            }
+            else
+            {
+               decoratorMapList = decoratorMaps[decoratorMap.Decorator];
+            }
+            
+            decoratorMapList.Add(decoratorMap);
+            Connector mappedConnector = ConnectorHasDecorators.GetConnector(decoratorMap.Decorator);
+            if(!mappedDiagramElements.Contains(mappedConnector))
+            {
+               mappedDiagramElements.Add(mappedConnector);
+            }
+         }
+      }
+      
+      // sort the domain classes based on inheritance, so we check leaves first.
+      mappedClasses.Sort(new DomainClassInheritanceComparer());
+      
+      object context = null;
+      if(mappedClasses.Count > 0)
+      {
+         context = new object[] { mappedClasses, mappedDiagramElements, shapeMaps, connectorMaps, decoratorMaps };
+      }
+      // The Diagram class is likely to be referencing a lot of classes by its pivotal nature in the design so suppress class coupling warning
 #>
 [module: global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Scope = "type", Target = "<#= diagram.GetFullName(false) #>")]
 
 <#
-		GenerateDomainClass(diagram, "DslDiagrams::Diagram", new DomainClassCodeGenerator(this.GenerateDiagram), null, context);
-		string namespaceString = diagram.Namespace;
-		if(!string.IsNullOrEmpty(namespaceString))
-		{
+      GenerateDomainClass(diagram, "DslDiagrams::Diagram", new DomainClassCodeGenerator(this.GenerateDiagram), null, context);
+      string namespaceString = diagram.Namespace;
+      if(!string.IsNullOrEmpty(namespaceString))
+      {
 #>
 namespace <#= namespaceString #>
 {
 <#
-			PushIndent("\t");
-		}
-		//
-		// View-fixup rule
-		//
-		if(mappedClasses.Count > 0)
-		{
+         PushIndent("\t");
+      }
+      //
+      // View-fixup rule
+      //
+      if(mappedClasses.Count > 0)
+      {
 #>
 
-	/// <summary>
-	/// Double derived implementation for the rule that initiates view fixup when an element that has an associated shape is added to the model.
-	/// This now enables the DSL author to everride the SkipFixUp() method 
-	/// </summary>
-	internal partial class FixUpDiagramBase : DslModeling::AddRule
-	{
-		protected virtual bool SkipFixup(DslModeling::ModelElement childElement)
-		{
-			return childElement.IsDeleted;
-		}
-	}
+   /// <summary>
+   /// Double derived implementation for the rule that initiates view fixup when an element that has an associated shape is added to the model.
+   /// This now enables the DSL author to everride the SkipFixUp() method 
+   /// </summary>
+   internal partial class FixUpDiagramBase : DslModeling::AddRule
+   {
+      protected virtual bool SkipFixup(DslModeling::ModelElement childElement)
+      {
+         return childElement.IsDeleted;
+      }
+   }
 
-	/// <summary>
-	/// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
-	/// </summary>
+   /// <summary>
+   /// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
+   /// </summary>
 <#
-			foreach(DomainClass mappedDomainClass in mappedClasses)
-			{
-				// establish correct rule priorities for mapped shapes.  Swimlanes need to be created first, then
-				// regular shapes, then ports.  This is so that parent shapes are created before child shapes.
-				string shapeRulePriority = "DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority";
-				List<BaseShapeMap> shapeMapList;
-				if(shapeMaps.TryGetValue(mappedDomainClass, out shapeMapList))
-				{
-					foreach(BaseShapeMap baseMap in shapeMapList)
-					{
-						BaseShape baseShape = baseMap.BaseShape;
-						if(baseShape != null)
-						{
-							if(baseShape is SwimLane)
-							{
-								shapeRulePriority = "DslDiagrams::DiagramFixupConstants.AddShapeRulePriority";
-								break;
-							}
-							else if(baseShape is Port)
-							{
-								shapeRulePriority = "DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority + 1";
-								break;
-							}
-						}
-						
-					}
-				}
+         foreach(DomainClass mappedDomainClass in mappedClasses)
+         {
+            // establish correct rule priorities for mapped shapes.  Swimlanes need to be created first, then
+            // regular shapes, then ports.  This is so that parent shapes are created before child shapes.
+            string shapeRulePriority = "DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority";
+            List<BaseShapeMap> shapeMapList;
+            if(shapeMaps.TryGetValue(mappedDomainClass, out shapeMapList))
+            {
+               foreach(BaseShapeMap baseMap in shapeMapList)
+               {
+                  BaseShape baseShape = baseMap.BaseShape;
+                  if(baseShape != null)
+                  {
+                     if(baseShape is SwimLane)
+                     {
+                        shapeRulePriority = "DslDiagrams::DiagramFixupConstants.AddShapeRulePriority";
+                        break;
+                     }
+                     else if(baseShape is Port)
+                     {
+                        shapeRulePriority = "DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority + 1";
+                        break;
+                     }
+                  }
+                  
+               }
+            }
 #>
-	[DslModeling::RuleOn(typeof(<#= mappedDomainClass.GetFullName(true) #>), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = <#= mappedDomainClass is DomainRelationship ? "DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority" : shapeRulePriority #>, InitiallyDisabled=true)]
+   [DslModeling::RuleOn(typeof(<#= mappedDomainClass.GetFullName(true) #>), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = <#= mappedDomainClass is DomainRelationship ? "DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority" : shapeRulePriority #>, InitiallyDisabled=true)]
 <#
-			}
+         }
 #>
-	internal sealed partial class FixUpDiagram : FixUpDiagramBase
-	{
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
-		{
-			if(e == null) throw new global::System.ArgumentNullException("e");
-		
-			DslModeling::ModelElement childElement = e.ModelElement;
-			if (this.SkipFixup(childElement))
-				return;
-			DslModeling::ModelElement parentElement;
+   internal sealed partial class FixUpDiagram : FixUpDiagramBase
+   {
+      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+      public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
+      {
+         if(e == null) throw new global::System.ArgumentNullException("e");
+      
+         DslModeling::ModelElement childElement = e.ModelElement;
+         if (this.SkipFixup(childElement))
+            return;
+         DslModeling::ModelElement parentElement;
 <#
-			bool hasNonCustomConnector = false;
-			if(connectorMaps.Count > 0)
-			{
-				// Check for custom flags specified for a particular connector map.
-				// If no flags are specified, the generic GetParentForRelationship method is used (parent paths are ignored).
-				foreach(DomainClass mappedDomainClass in mappedClasses)
-				{
-					List<ConnectorMap> mapList;
-					
-					if(connectorMaps.TryGetValue(mappedDomainClass, out mapList))
-					{
-						foreach(ConnectorMap connectorMap in mapList)
-						{
-							// If connecting to custom source/target shapes, there's no way to tell what the parent should be, so generate a custom code callout to get it.
-							if(connectorMap.ConnectsCustomSource || connectorMap.ConnectsCustomTarget)
-							{
+         bool hasNonCustomConnector = false;
+         if(connectorMaps.Count > 0)
+         {
+            // Check for custom flags specified for a particular connector map.
+            // If no flags are specified, the generic GetParentForRelationship method is used (parent paths are ignored).
+            foreach(DomainClass mappedDomainClass in mappedClasses)
+            {
+               List<ConnectorMap> mapList;
+               
+               if(connectorMaps.TryGetValue(mappedDomainClass, out mapList))
+               {
+                  foreach(ConnectorMap connectorMap in mapList)
+                  {
+                     // If connecting to custom source/target shapes, there's no way to tell what the parent should be, so generate a custom code callout to get it.
+                     if(connectorMap.ConnectsCustomSource || connectorMap.ConnectsCustomTarget)
+                     {
 #>
-			if(childElement is <#= mappedDomainClass.GetFullName(true) #>)
-			{
-				// Method:
-				// private Microsoft.VisualStudio.Modeling.ModelElement GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>(<#= mappedDomainClass.Name #> childLink)
-				// {
-				// }
-				// must be implemented in a partial class of <#= diagram.Namespace #>.FixUpDiagram.  Given a child element link,
-				// this method should return the parent model element that is associated with the shape or diagram that will be the parent 
-				// of the connector created for this child.  If no connector should be created, the method should return null.
-				parentElement = GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>((<#= mappedDomainClass.GetFullName(true) #>)childElement);
-			} else
+         if(childElement is <#= mappedDomainClass.GetFullName(true) #>)
+         {
+            // Method:
+            // private Microsoft.VisualStudio.Modeling.ModelElement GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>(<#= mappedDomainClass.Name #> childLink)
+            // {
+            // }
+            // must be implemented in a partial class of <#= diagram.Namespace #>.FixUpDiagram.  Given a child element link,
+            // this method should return the parent model element that is associated with the shape or diagram that will be the parent 
+            // of the connector created for this child.  If no connector should be created, the method should return null.
+            parentElement = GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>((<#= mappedDomainClass.GetFullName(true) #>)childElement);
+         } else
 <#
-								break;
-							}
-							else
-							{
-								hasNonCustomConnector = true;
-							}
-						}
-					}
-				}
-				if(hasNonCustomConnector)
-				{
+                        break;
+                     }
+                     else
+                     {
+                        hasNonCustomConnector = true;
+                     }
+                  }
+               }
+            }
+            if(hasNonCustomConnector)
+            {
 #>
-			if(childElement is DslModeling::ElementLink)
-			{
-				parentElement = GetParentForRelationship((DslModeling::ElementLink)childElement);
-			} else
+         if(childElement is DslModeling::ElementLink)
+         {
+            parentElement = GetParentForRelationship((DslModeling::ElementLink)childElement);
+         } else
 <#
-				}
-			}
-			foreach(DomainClass mappedDomainClass in mappedClasses)
-			{
-				List<BaseShapeMap> mapList;
-				
-				if(shapeMaps.TryGetValue(mappedDomainClass, out mapList))
-				{
-					bool customParent = false;
-					bool hasParentElementPath = false;
-					foreach(BaseShapeMap baseMap in mapList)
-					{
-						if(baseMap.HasCustomParentElement)
-						{
-							customParent = true;
-							break;
-						}
-						else if(baseMap.ParentElementPath != null)
-						{
-							hasParentElementPath = true;
-						}
-					}
-					
-					// no parent path or custom path specified, nothing to do (this may be a derived map).
-					if(!customParent && !hasParentElementPath)
-					{
-						continue;
-					}
+            }
+         }
+         foreach(DomainClass mappedDomainClass in mappedClasses)
+         {
+            List<BaseShapeMap> mapList;
+            
+            if(shapeMaps.TryGetValue(mappedDomainClass, out mapList))
+            {
+               bool customParent = false;
+               bool hasParentElementPath = false;
+               foreach(BaseShapeMap baseMap in mapList)
+               {
+                  if(baseMap.HasCustomParentElement)
+                  {
+                     customParent = true;
+                     break;
+                  }
+                  else if(baseMap.ParentElementPath != null)
+                  {
+                     hasParentElementPath = true;
+                  }
+               }
+               
+               // no parent path or custom path specified, nothing to do (this may be a derived map).
+               if(!customParent && !hasParentElementPath)
+               {
+                  continue;
+               }
 #>
-			if(childElement is <#= mappedDomainClass.GetFullName(true) #>)
-			{
+         if(childElement is <#= mappedDomainClass.GetFullName(true) #>)
+         {
 <#
-					if(customParent)
-					{
+               if(customParent)
+               {
 #>
-				// Method:
-				// private Microsoft.VisualStudio.Modeling.ModelElement GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>(<#= mappedDomainClass.Name #> childElement)
-				// {
-				// }
-				// must be implemented in a partial class of <#= diagram.Namespace #>.FixUpDiagram.  Given a child element,
-				// this method should return the parent model element that is associated with the shape or diagram that will be the parent 
-				// of the shape created for this child.  If no shape should be created, the method should return null.
+            // Method:
+            // private Microsoft.VisualStudio.Modeling.ModelElement GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>(<#= mappedDomainClass.Name #> childElement)
+            // {
+            // }
+            // must be implemented in a partial class of <#= diagram.Namespace #>.FixUpDiagram.  Given a child element,
+            // this method should return the parent model element that is associated with the shape or diagram that will be the parent 
+            // of the shape created for this child.  If no shape should be created, the method should return null.
 <#
-					}
+               }
 #>
-				parentElement = GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>((<#= mappedDomainClass.GetFullName(true) #>)childElement);
-			} else
+            parentElement = GetParentFor<#= mappedDomainClass.Name.Replace('@','_') #>((<#= mappedDomainClass.GetFullName(true) #>)childElement);
+         } else
 <#
-				}
-			}
+            }
+         }
 #>
-			{
-				parentElement = null;
-			}
-			
-			if(parentElement != null)
-			{
-				DslDiagrams::Diagram.FixUpDiagram(parentElement, childElement);
-			}
-		}
+         {
+            parentElement = null;
+         }
+         
+         if(parentElement != null)
+         {
+            DslDiagrams::Diagram.FixUpDiagram(parentElement, childElement);
+         }
+      }
 <#
-			foreach(List<BaseShapeMap> mapList in shapeMaps.Values)
-			{
-				bool customParent = false;
-				foreach(BaseShapeMap baseMap in mapList)
-				{
-					if(baseMap.HasCustomParentElement)
-					{
-						customParent = true;
-						break;
-					}
-				}
-				
-				if(!customParent && mapList[0].ParentElementPath != null)
-				{
-					GeneratePathMethod(mapList[0].ParentElementPath, "GetParentFor"+mapList[0].Class.Name.Replace('@','_'));
-				}
-			}
-			
-			if(hasNonCustomConnector)
-			{
+         foreach(List<BaseShapeMap> mapList in shapeMaps.Values)
+         {
+            bool customParent = false;
+            foreach(BaseShapeMap baseMap in mapList)
+            {
+               if(baseMap.HasCustomParentElement)
+               {
+                  customParent = true;
+                  break;
+               }
+            }
+            
+            if(!customParent && mapList[0].ParentElementPath != null)
+            {
+               GeneratePathMethod(mapList[0].ParentElementPath, "GetParentFor"+mapList[0].Class.Name.Replace('@','_'));
+            }
+         }
+         
+         if(hasNonCustomConnector)
+         {
 #>
-		private static DslModeling::ModelElement GetParentForRelationship(DslModeling::ElementLink elementLink)
-		{
-			global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = elementLink.LinkedElements;
+      private static DslModeling::ModelElement GetParentForRelationship(DslModeling::ElementLink elementLink)
+      {
+         global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = elementLink.LinkedElements;
 
-			if (linkedElements.Count == 2)
-			{
-				DslDiagrams::ShapeElement sourceShape = linkedElements[0] as DslDiagrams::ShapeElement;
-				DslDiagrams::ShapeElement targetShape = linkedElements[1] as DslDiagrams::ShapeElement;
+         if (linkedElements.Count == 2)
+         {
+            DslDiagrams::ShapeElement sourceShape = linkedElements[0] as DslDiagrams::ShapeElement;
+            DslDiagrams::ShapeElement targetShape = linkedElements[1] as DslDiagrams::ShapeElement;
 
-				if(sourceShape == null)
-				{
-					DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
-					foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-					{
-						DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
-						if (shape != null)
-						{
-							sourceShape = shape;
-							break;
-						}
-					}
-				}
-				
-				if(targetShape == null)
-				{
-					DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
-					foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-					{
-						DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
-						if (shape != null)
-						{
-							targetShape = shape;
-							break;
-						}
-					}
-				}
-				
-				if(sourceShape == null || targetShape == null)
-				{
-					global::System.Diagnostics.Debug.Fail("Unable to find source and/or target shape for view fixup.");
-					return null;
-				}
+            if(sourceShape == null)
+            {
+               DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
+               foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+               {
+                  DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
+                  if (shape != null)
+                  {
+                     sourceShape = shape;
+                     break;
+                  }
+               }
+            }
+            
+            if(targetShape == null)
+            {
+               DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
+               foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+               {
+                  DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
+                  if (shape != null)
+                  {
+                     targetShape = shape;
+                     break;
+                  }
+               }
+            }
+            
+            if(sourceShape == null || targetShape == null)
+            {
+               global::System.Diagnostics.Debug.Fail("Unable to find source and/or target shape for view fixup.");
+               return null;
+            }
 
-				DslDiagrams::ShapeElement sourceParent = sourceShape.ParentShape;
-				DslDiagrams::ShapeElement targetParent = targetShape.ParentShape;
+            DslDiagrams::ShapeElement sourceParent = sourceShape.ParentShape;
+            DslDiagrams::ShapeElement targetParent = targetShape.ParentShape;
 
-				while (sourceParent != targetParent && sourceParent != null)
-				{
-					DslDiagrams::ShapeElement curParent = targetParent;
-					while (sourceParent != curParent && curParent != null)
-					{
-						curParent = curParent.ParentShape;
-					}
+            while (sourceParent != targetParent && sourceParent != null)
+            {
+               DslDiagrams::ShapeElement curParent = targetParent;
+               while (sourceParent != curParent && curParent != null)
+               {
+                  curParent = curParent.ParentShape;
+               }
 
-					if(sourceParent == curParent)
-					{
-						break;
-					}
-					else
-					{
-						sourceParent = sourceParent.ParentShape;
-					}
-				}
+               if(sourceParent == curParent)
+               {
+                  break;
+               }
+               else
+               {
+                  sourceParent = sourceParent.ParentShape;
+               }
+            }
 
-				while (sourceParent != null)
-				{
-					// ensure that the parent can parent connectors (i.e., a diagram or a swimlane).
-					if(sourceParent is DslDiagrams::Diagram || sourceParent is DslDiagrams::SwimlaneShape)
-					{
-						break;
-					}
-					else
-					{
-						sourceParent = sourceParent.ParentShape;
-					}
-				}
+            while (sourceParent != null)
+            {
+               // ensure that the parent can parent connectors (i.e., a diagram or a swimlane).
+               if(sourceParent is DslDiagrams::Diagram || sourceParent is DslDiagrams::SwimlaneShape)
+               {
+                  break;
+               }
+               else
+               {
+                  sourceParent = sourceParent.ParentShape;
+               }
+            }
 
-				global::System.Diagnostics.Debug.Assert(sourceParent != null && sourceParent.ModelElement != null, "Unable to find common parent for view fixup.");
-				return sourceParent.ModelElement;
-			}
+            global::System.Diagnostics.Debug.Assert(sourceParent != null && sourceParent.ModelElement != null, "Unable to find common parent for view fixup.");
+            return sourceParent.ModelElement;
+         }
 
-			return null;
-		}
+         return null;
+      }
 <#
-			}
+         }
 #>
-	}
-
-<#
-		List<CompartmentMapRuleData> ruleData = new List<CompartmentMapRuleData>();
-		foreach(BaseShapeMap shapeMap in diagram.ShapeMaps)
-		{
-			if(shapeMap is CompartmentShapeMap)
-			{
-				foreach(CompartmentMap compartmentMap in ((CompartmentShapeMap)shapeMap).CompartmentMaps)
-				{
-					ruleData.Add(new CompartmentMapRuleData(compartmentMap));
-				}
-			}
-		}
-#>
-<#
-		if(ruleData.Count>0)
-		{
-#>
-	/// <summary>
-	/// Rule to update compartments when an item is added to the list
-	/// </summary>
-<#
-			Dictionary<string, bool> ruleOnAttributes = new Dictionary<string, bool>();
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-				if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
-				{
-#>
-	[DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-<#
-					ruleOnAttributes.Add(data.RelationshipName, true);
-				}
-			}
-			ruleOnAttributes.Clear();
-#>
-	internal sealed class CompartmentItemAddRule : DslModeling::AddRule
-	{
-		/// <summary>
-		/// Called when an element is added. 
-		/// </summary>
-		/// <param name="e"></param>
-		public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
-		{
-			ElementAdded(e, false);
-		}
-
-		internal static void ElementAdded(DslModeling::ElementAddedEventArgs e, bool repaintOnly)
-		{
-			if(e==null) throw new global::System.ArgumentNullException("e");
-			if (e.ModelElement.IsDeleted)
-				return;
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-#>
-			if(e.ModelElement is <#= data.RelationshipName #>)
-			{
-<#
-				if(data.LastSegmentIsElement)
-				{
-#>
-				global::System.Collections.IEnumerable elements = Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.RelationshipName #>)e.ModelElement);
-<#
-				}
-				else
-				{
-#>
-				global::System.Collections.IEnumerable elements = Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.RelationshipName #>)e.ModelElement);
-<#
-				}
-#>
-				UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
-			}
-<#
-			}
-#>
-		}
-		
-		#region static DomainPath traversal methods to get the list of compartments to update
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-				if(data.LastSegmentIsElement)
-				{
-#>
-		internal static global::System.Collections.ICollection Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink(<#= data.RelationshipName #> root)
-		{
-<#
-					GenerateReversePathMethodBody(data.Map.ElementsDisplayed, "root", "result", null, data.Map.ElementsDisplayed.Segments.Count-1, EnumerableNullTraverseActionGenerator);
-					if(data.IsCollectionPartialReversePath)
-					{
-#>
-			return result;
-<#
-					}
-					else
-					{
-#>
-			return new DslModeling::ModelElement[] {result};
-<#
-					}
-#>
-		}
-<#
-				}
-#>
-		internal static global::System.Collections.ICollection Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>(<#= data.DisplayedElementName #> root)
-		{
-<#
-				GenerateReversePathMethodBody(data.Map.ElementsDisplayed, "root", "result", null, data.Map.ElementsDisplayed.Segments.Count, EnumerableNullTraverseActionGenerator);
-				if(data.IsCollectionReversePath)
-				{
-#>
-			return result;
-<#
-				}
-				else
-				{
-#>
-			return new DslModeling::ModelElement[] {result};
-<#
-			}
-#>
-		}
-<#
-				if(data.Map.PropertyDisplayed!=null && data.Map.PropertyDisplayed.PathToProperty!=null && data.Map.PropertyDisplayed.PathToProperty.Segments.Count>0)
-				{
-#>
-		internal static global::System.Collections.ICollection Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromPropertyElement(<#= data.PropertyElementName #> root)
-		{
-<#
-					GenerateReversePathMethodBody(data.Map.PropertyDisplayed.PathToProperty, "root", "result", null, data.Map.ElementsDisplayed.Segments.Count, EnumerableNullTraverseActionGenerator);
-					if(data.IsCollectionReversePropertyPath)
-					{
-#>
-			return result;
-<#
-					}
-					else
-					{
-#>
-			return new DslModeling::ModelElement[] {result};
-<#
-					}
-#>
-		}
-<#
-				}
-			}
-#>
-		#endregion
-
-		#region helper method to update compartments 
-		/// <summary>
-		/// Updates the compartments for the shapes associated to the given list of model elements
-		/// </summary>
-		/// <param name="elements">List of model elements</param>
-		/// <param name="shapeType">The type of shape that needs updating</param>
-		/// <param name="compartmentName">The name of the compartment to update</param>
-		/// <param name="repaintOnly">If true, the method will only invalidate the shape for a repaint, without re-initializing the shape.</param>
-		internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly)
-		{
-			foreach (DslModeling::ModelElement element in elements)
-			{
-				DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-				foreach (DslDiagrams::PresentationElement pel in pels)
-				{
-					DslDiagrams::CompartmentShape compartmentShape = pel as DslDiagrams::CompartmentShape;
-					if (compartmentShape != null && shapeType.IsAssignableFrom(compartmentShape.GetType()))
-					{
-						if (repaintOnly)
-						{
-							compartmentShape.Invalidate();
-						}
-						else
-						{
-							foreach(DslDiagrams::CompartmentMapping mapping in compartmentShape.GetCompartmentMappings())
-							{
-								if(mapping.CompartmentId==compartmentName)
-								{
-									mapping.InitializeCompartmentShape(compartmentShape);
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		#endregion
-	}
-	
-	/// <summary>
-	/// Rule to update compartments when an items is removed from the list
-	/// </summary>
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-				if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
-				{
-#>
-	[DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-<#
-					ruleOnAttributes.Add(data.RelationshipName, true);
-				}
-			}
-			ruleOnAttributes.Clear();
-#>
-	internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
-	{
-		/// <summary>
-		/// Called when an element is deleted
-		/// </summary>
-		/// <param name="e"></param>
-		public override void ElementDeleted(DslModeling::ElementDeletedEventArgs e)
-		{
-			ElementDeleted(e, false);
-		}
-		
-		internal static void ElementDeleted(DslModeling::ElementDeletedEventArgs e, bool repaintOnly)
-		{
-			if(e==null) throw new global::System.ArgumentNullException("e");
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-#>
-			if(e.ModelElement is <#= data.RelationshipName #>)
-			{
-<#
-				if(data.LastSegmentIsElement)
-				{
-#>
-				global::System.Collections.ICollection elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.RelationshipName #>)e.ModelElement);
-<#
-				}
-				else
-				{
-#>
-				global::System.Collections.ICollection elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.RelationshipName #>)e.ModelElement);
-<#
-				}
-#>
-				CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
-			}
-<#
-			}
-#>
-		}
-	}
-	
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-				if(data.Map.PropertyDisplayed!=null && data.Map.PropertyDisplayed.Property!=null && !ruleOnAttributes.ContainsKey(data.PropertyElementName))
-				{
-					ruleOnAttributes.Add(data.PropertyElementName, true);
-				}
-			}
-			if(ruleOnAttributes.Count>0)
-			{
-#>
-	/// <summary>
-	/// Rule to update compartments when the property on an item being displayed changes.
-	/// </summary>
-<#
-				foreach(string propertyElementName in ruleOnAttributes.Keys)
-				{
-#>
-	[DslModeling::RuleOn(typeof(<#= propertyElementName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-<#
-				}
-				ruleOnAttributes.Clear();
-#>
-	internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
-	{
-		/// <summary>
-		/// Called when an element is changed
-		/// </summary>
-		/// <param name="e"></param>
-		public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
-		{
-			ElementPropertyChanged(e, false);
-		}
-		
-		internal static void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e, bool repaintOnly)
-		{
-			if(e==null) throw new global::System.ArgumentNullException("e");
-<#
-				foreach(CompartmentMapRuleData data in ruleData)
-				{
-					if(data.Map.PropertyDisplayed!=null && data.Map.PropertyDisplayed.Property!=null)
-					{
-#>
-			if(e.ModelElement is <#= data.PropertyElementName #> && e.DomainProperty.Id == <#= data.PropertyElementName #>.<#= data.Map.PropertyDisplayed.Property.Name #>DomainPropertyId)
-			{
-<#
-						if(data.Map.PropertyDisplayed.PathToProperty!=null && data.Map.PropertyDisplayed.PathToProperty.Segments.Count>0)
-						{
-#>
-				global::System.Collections.ICollection elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromPropertyElement((<#= data.PropertyElementName #>)e.ModelElement);
-				global::System.Collections.ArrayList list = new global::System.Collections.ArrayList(elements.Count);
-				foreach(DslModeling::ModelElement element in elements)
-				{
-					global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name.Replace('@','_') #>((<#= data.DisplayedElementName #>)element);
-					list.AddRange(rootElements);
-				}
-				CompartmentItemAddRule.UpdateCompartments(list, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
-<#
-						}
-						else
-						{
-#>
-				global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.ModelElement);
-				CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
-<#
-						}
-#>
-			}
-<#
-					}
-				}
-#>
-		}
-	}
-<#
-			}
-#>
-	
-	/// <summary>
-	/// Rule to update compartments when a roleplayer change happens
-	/// </summary>
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-				if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
-				{
-#>
-	[DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-<#
-					ruleOnAttributes.Add(data.RelationshipName, true);
-				}
-			}
-			ruleOnAttributes.Clear();
-#>
-	internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
-	{
-		/// <summary>
-		/// Called when the roleplayer on a link changes.
-		/// </summary>
-		/// <param name="e"></param>
-		public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
-		{
-			RolePlayerChanged(e, false);
-		}
-		
-		internal static void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e, bool repaintOnly)
-		{
-			if(e==null) throw new global::System.ArgumentNullException("e");
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-#>
-			if(typeof(<#= data.RelationshipName #>).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-			{
-<#
-				if((data.LastSegmentIsElement && !data.LastSegment.Role.IsSource) || (!data.LastSegmentIsElement && data.LastSegment.Role.IsSource))
-				{
-#>
-				if(e.DomainRole.IsSource)
-<#
-				}
-				else
-				{
-#>
-				if(!e.DomainRole.IsSource)
-<#
-				}
-#>
-				{
-					//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.DisplayedElementName #>)e.OldRolePlayer);
-					//foreach(DslModeling::ModelElement element in oldElements)
-					//{
-					//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-					//	foreach(DslDiagrams::PresentationElement pel in pels)
-					//	{
-					//		<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #> compartmentShape = pel as <#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>;
-					//		if(compartmentShape != null)
-					//		{
-					//			compartmentShape.GetCompartmentMappings()[<#= data.Map.ShapeMap.CompartmentMaps.IndexOf(data.Map) #>].InitializeCompartmentShape(compartmentShape);
-					//		}
-					//	}
-					//}
-					
-<#
-				if(data.LastSegmentIsElement)
-				{
-#>
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.RelationshipName #>)e.ElementLink);
-<#
-				}
-				else
-				{
-#>
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.RelationshipName #>)e.ElementLink);
-<#
-				}
-#>
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
-				}
-<#
-				if(data.LastSegmentIsElement)
-				{
-#>
-				else 
-				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.NewRolePlayer);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
-				}
-<#
-				}
-#>
-			}
-<#
-			}
-#>
-		}
-	}
-
-	/// <summary>
-	/// Rule to update compartments when the order of items in the list changes.
-	/// </summary>
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-				if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
-				{
-#>
-	[DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-<#
-					ruleOnAttributes.Add(data.RelationshipName, true);
-				}
-			}
-			ruleOnAttributes.Clear();
-#>
-	internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
-	{
-		/// <summary>
-		/// Called when the order of a roleplayer in a relationship changes
-		/// </summary>
-		/// <param name="e"></param>
-		public override void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e)
-		{
-			RolePlayerPositionChanged(e, false);
-		}
-		
-		internal static void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e, bool repaintOnly)
-		{
-			if(e==null) throw new global::System.ArgumentNullException("e");
-<#
-			foreach(CompartmentMapRuleData data in ruleData)
-			{
-#>
-			if(typeof(<#= data.RelationshipName #>).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-			{
-<#
-				if((data.LastSegmentIsElement && data.LastSegment.Role.IsSource) || (!data.LastSegmentIsElement && !data.LastSegment.Role.IsSource))
-				{
-#>
-				if(e.CounterpartDomainRole.IsSource)
-				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.SourceElement);
-<#
-				}
-				else
-				{
-#>
-				if(!e.CounterpartDomainRole.IsSource)
-				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.CounterpartRolePlayer);
-<#
-				}
-#>
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
-				}
-			}
-<#
-			}
-#>
-		}
-	}
-<#	
-			}
-		}
-		
-		//
-		// Outer decorator update rule.
-		//
-		List<DomainClass> classesForDecoratorUpdateRule = new List<DomainClass>();
-		Dictionary<string, List<DecoratorMap>> decoratorMapsForDecoratorUpdateRule = new Dictionary<string, List<DecoratorMap>>();
-		foreach(Decorator decorator in decoratorMaps.Keys)
-		{
-			IList<DiagramElementHasDecorators> links = DomainRoleInfo.GetElementLinks<DiagramElementHasDecorators>(decorator, DiagramElementHasDecorators.DecoratorDomainRoleId);
-			if(links.Count == 0) continue;
-			if(CodeGenerationUtilities.IsOuterDecorator(links[0]))
-			{
-				List<DecoratorMap> decoratorMapList;
-				if(decoratorMaps.TryGetValue(decorator, out decoratorMapList))
-				{
-					foreach(DecoratorMap decoratorMap in decoratorMapList)
-					{
-						DomainClass displayClass = null;
-						if(decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.Property != null)
-						{
-							// decorator maps using a property path
-							DomainProperty displayProperty = decoratorMap.PropertyDisplayed.Property;
-							displayClass = displayProperty.Class;
-
-							string displayPropertyName = displayProperty.Class.GetFullName(true) + "." + displayProperty.Name;
-							
-							List<DecoratorMap> mapList = null;
-							if(!decoratorMapsForDecoratorUpdateRule.TryGetValue(displayPropertyName, out mapList))
-							{
-								mapList = new List<DecoratorMap>();
-								decoratorMapsForDecoratorUpdateRule[displayPropertyName] = mapList;
-							}
-							
-							mapList.Add(decoratorMap);
-						}
-					
-						if(displayClass != null && !classesForDecoratorUpdateRule.Contains(displayClass))
-						{
-							classesForDecoratorUpdateRule.Add(displayClass);
-						}
-					}
-				}
-			}
-		}
-	
-		if(classesForDecoratorUpdateRule.Count > 0)
-		{
-#>
-
-	/// <summary>
-	/// A rule which fires when data mapped to outer text decorators has changed,
-	/// so we can update the decorator host's bounds.
-	/// </summary>
-<#
-			foreach(DomainClass displayClass in classesForDecoratorUpdateRule)
-			{
-#>
-	[DslModeling::RuleOn(typeof(<#= displayClass.GetFullName(true) #>), InitiallyDisabled=true)]
-<#
-			}
-#>
-	internal sealed class DecoratorPropertyChanged : DslModeling::ChangeRule
-	{
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
-		public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
-		{
-			if(e == null) throw new global::System.ArgumentNullException("e");
-			
-<#
-			int i=0;
-			foreach(string displayPropertyName in decoratorMapsForDecoratorUpdateRule.Keys)
-			{
-#>
-			<#= i > 0 ? "else " : "" #>if (e.DomainProperty.Id == <#= displayPropertyName #>DomainPropertyId)
-			{
-<#
-				List<DecoratorMap> mapList = decoratorMapsForDecoratorUpdateRule[displayPropertyName];
-				
-				bool decoratorGenerated = true;
-				foreach(DecoratorMap decoratorMap in mapList)
-				{
-					DiagramElementMap elementMap = decoratorMap.DiagramElementMap;
-					DiagramElement element = CodeGenerationUtilities.GetDiagramElementForDecoratorMap(decoratorMap);
-					DomainClass domainClass;
-				
-					if(elementMap is BaseShapeMap)
-					{
-						domainClass = ((BaseShapeMap)elementMap).Class;
-					}
-					else
-					{
-						domainClass = ((ConnectorMap)elementMap).Relationship;
-					}
-				
-					if(domainClass != null && element != null)
-					{
-						PushIndent("\t\t\t\t");
-						GenerateDecoratorHostUpdateCode(element, domainClass, decoratorMap.Decorator.Name, ref decoratorGenerated);
-						PopIndent();
-					}
-				}
-#>
-			}
-<#
-				i++;
-			}
-#>
-		}
-	}
-<#
-		}
-#>
+   }
 
 <#
-		if(connectorMaps.Keys.Count > 0)
-		{
+      List<CompartmentMapRuleData> ruleData = new List<CompartmentMapRuleData>();
+      foreach(BaseShapeMap shapeMap in diagram.ShapeMaps)
+      {
+         if(shapeMap is CompartmentShapeMap)
+         {
+            foreach(CompartmentMap compartmentMap in ((CompartmentShapeMap)shapeMap).CompartmentMaps)
+            {
+               ruleData.Add(new CompartmentMapRuleData(compartmentMap));
+            }
+         }
+      }
 #>
-	/// <summary>
-	/// Reroute a connector when the role players of its underlying relationship change
-	/// </summary>
 <#
-			foreach(DomainRelationship rel in connectorMaps.Keys)
-			{
+      if(ruleData.Count>0)
+      {
 #>
-	[DslModeling::RuleOn(typeof(<#=rel.GetFullName(true)#>), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+   /// <summary>
+   /// Rule to update compartments when an item is added to the list
+   /// </summary>
 <#
-			}
+         Dictionary<string, bool> ruleOnAttributes = new Dictionary<string, bool>();
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+            if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
+            {
 #>
-	internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
-	{
-		/// <summary>
-		/// Reroute a connector when the role players of its underlying relationship change
-		/// </summary>
-		public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
-		{
-			if (e == null) throw new global::System.ArgumentNullException("e");
+   [DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+<#
+               ruleOnAttributes.Add(data.RelationshipName, true);
+            }
+         }
+         ruleOnAttributes.Clear();
+#>
+   internal sealed class CompartmentItemAddRule : DslModeling::AddRule
+   {
+      /// <summary>
+      /// Called when an element is added. 
+      /// </summary>
+      /// <param name="e"></param>
+      public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
+      {
+         ElementAdded(e, false);
+      }
 
-			global::System.Collections.ObjectModel.ReadOnlyCollection<DslDiagrams::PresentationViewsSubject> connectorLinks = DslDiagrams::PresentationViewsSubject.GetLinksToPresentation(e.ElementLink);
-			foreach (DslDiagrams::PresentationViewsSubject connectorLink in connectorLinks)
-			{
-				// Fix up any binary link shapes attached to the element link.
-				DslDiagrams::BinaryLinkShape linkShape = connectorLink.Presentation as DslDiagrams::BinaryLinkShape;
-				if (linkShape != null)
-				{
-					<#= diagram.GetFullName(true) #> diagram = linkShape.Diagram as <#= diagram.GetFullName(true) #>;
-					if (diagram != null)
-					{
-						if (e.NewRolePlayer != null)
-						{
-							DslDiagrams::NodeShape fromShape;
-							DslDiagrams::NodeShape toShape;
-							diagram.GetSourceAndTargetForConnector(linkShape, out fromShape, out toShape);
-							if (fromShape != null && toShape != null)
-							{
-								if (!object.Equals(fromShape, linkShape.FromShape))
-								{
-									linkShape.FromShape = fromShape;
-								}
-								if (!object.Equals(linkShape.ToShape, toShape))
-								{
-									linkShape.ToShape = toShape;
-								}
-							}
-							else
-							{
-								// delete the connector if we cannot find an appropriate target shape.
-								linkShape.Delete();
-							}
-						}
-						else
-						{
-							// delete the connector if the new role player is null.
-							linkShape.Delete();
-						}
-					}
-				}
-			}
-		}
-	}
+      internal static void ElementAdded(DslModeling::ElementAddedEventArgs e, bool repaintOnly)
+      {
+         if(e==null) throw new global::System.ArgumentNullException("e");
+         if (e.ModelElement.IsDeleted)
+            return;
 <#
-		}
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+#>
+         if(e.ModelElement is <#= data.RelationshipName #>)
+         {
+<#
+            if(data.LastSegmentIsElement)
+            {
+#>
+            global::System.Collections.IEnumerable elements = Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.RelationshipName #>)e.ModelElement);
+<#
+            }
+            else
+            {
+#>
+            global::System.Collections.IEnumerable elements = Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.RelationshipName #>)e.ModelElement);
+<#
+            }
+#>
+            UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+         }
+<#
+         }
+#>
+      }
+      
+      #region static DomainPath traversal methods to get the list of compartments to update
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+            if(data.LastSegmentIsElement)
+            {
+#>
+      internal static global::System.Collections.ICollection Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink(<#= data.RelationshipName #> root)
+      {
+<#
+               GenerateReversePathMethodBody(data.Map.ElementsDisplayed, "root", "result", null, data.Map.ElementsDisplayed.Segments.Count-1, EnumerableNullTraverseActionGenerator);
+               if(data.IsCollectionPartialReversePath)
+               {
+#>
+         return result;
+<#
+               }
+               else
+               {
+#>
+         return new DslModeling::ModelElement[] {result};
+<#
+               }
+#>
+      }
+<#
+            }
+#>
+      internal static global::System.Collections.ICollection Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>(<#= data.DisplayedElementName #> root)
+      {
+<#
+            GenerateReversePathMethodBody(data.Map.ElementsDisplayed, "root", "result", null, data.Map.ElementsDisplayed.Segments.Count, EnumerableNullTraverseActionGenerator);
+            if(data.IsCollectionReversePath)
+            {
+#>
+         return result;
+<#
+            }
+            else
+            {
+#>
+         return new DslModeling::ModelElement[] {result};
+<#
+         }
+#>
+      }
+<#
+            if(data.Map.PropertyDisplayed!=null && data.Map.PropertyDisplayed.PathToProperty!=null && data.Map.PropertyDisplayed.PathToProperty.Segments.Count>0)
+            {
+#>
+      internal static global::System.Collections.ICollection Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromPropertyElement(<#= data.PropertyElementName #> root)
+      {
+<#
+               GenerateReversePathMethodBody(data.Map.PropertyDisplayed.PathToProperty, "root", "result", null, data.Map.ElementsDisplayed.Segments.Count, EnumerableNullTraverseActionGenerator);
+               if(data.IsCollectionReversePropertyPath)
+               {
+#>
+         return result;
+<#
+               }
+               else
+               {
+#>
+         return new DslModeling::ModelElement[] {result};
+<#
+               }
+#>
+      }
+<#
+            }
+         }
+#>
+      #endregion
+
+      #region helper method to update compartments 
+      /// <summary>
+      /// Updates the compartments for the shapes associated to the given list of model elements
+      /// </summary>
+      /// <param name="elements">List of model elements</param>
+      /// <param name="shapeType">The type of shape that needs updating</param>
+      /// <param name="compartmentName">The name of the compartment to update</param>
+      /// <param name="repaintOnly">If true, the method will only invalidate the shape for a repaint, without re-initializing the shape.</param>
+      internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly)
+      {
+         foreach (DslModeling::ModelElement element in elements)
+         {
+            DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+            foreach (DslDiagrams::PresentationElement pel in pels)
+            {
+               DslDiagrams::CompartmentShape compartmentShape = pel as DslDiagrams::CompartmentShape;
+               if (compartmentShape != null && shapeType.IsAssignableFrom(compartmentShape.GetType()))
+               {
+                  if (repaintOnly)
+                  {
+                     compartmentShape.Invalidate();
+                  }
+                  else
+                  {
+                     foreach(DslDiagrams::CompartmentMapping mapping in compartmentShape.GetCompartmentMappings())
+                     {
+                        if(mapping.CompartmentId==compartmentName)
+                        {
+                           mapping.InitializeCompartmentShape(compartmentShape);
+                           break;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      #endregion
+   }
+   
+   /// <summary>
+   /// Rule to update compartments when an items is removed from the list
+   /// </summary>
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+            if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
+            {
+#>
+   [DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+<#
+               ruleOnAttributes.Add(data.RelationshipName, true);
+            }
+         }
+         ruleOnAttributes.Clear();
+#>
+   internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
+   {
+      /// <summary>
+      /// Called when an element is deleted
+      /// </summary>
+      /// <param name="e"></param>
+      public override void ElementDeleted(DslModeling::ElementDeletedEventArgs e)
+      {
+         ElementDeleted(e, false);
+      }
+      
+      internal static void ElementDeleted(DslModeling::ElementDeletedEventArgs e, bool repaintOnly)
+      {
+         if(e==null) throw new global::System.ArgumentNullException("e");
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+#>
+         if(e.ModelElement is <#= data.RelationshipName #>)
+         {
+<#
+            if(data.LastSegmentIsElement)
+            {
+#>
+            global::System.Collections.ICollection elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.RelationshipName #>)e.ModelElement);
+<#
+            }
+            else
+            {
+#>
+            global::System.Collections.ICollection elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.RelationshipName #>)e.ModelElement);
+<#
+            }
+#>
+            CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+         }
+<#
+         }
+#>
+      }
+   }
+   
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+            if(data.Map.PropertyDisplayed!=null && data.Map.PropertyDisplayed.Property!=null && !ruleOnAttributes.ContainsKey(data.PropertyElementName))
+            {
+               ruleOnAttributes.Add(data.PropertyElementName, true);
+            }
+         }
+         if(ruleOnAttributes.Count>0)
+         {
+#>
+   /// <summary>
+   /// Rule to update compartments when the property on an item being displayed changes.
+   /// </summary>
+<#
+            foreach(string propertyElementName in ruleOnAttributes.Keys)
+            {
+#>
+   [DslModeling::RuleOn(typeof(<#= propertyElementName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+<#
+            }
+            ruleOnAttributes.Clear();
+#>
+   internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
+   {
+      /// <summary>
+      /// Called when an element is changed
+      /// </summary>
+      /// <param name="e"></param>
+      public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
+      {
+         ElementPropertyChanged(e, false);
+      }
+      
+      internal static void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e, bool repaintOnly)
+      {
+         if(e==null) throw new global::System.ArgumentNullException("e");
+<#
+            foreach(CompartmentMapRuleData data in ruleData)
+            {
+               if(data.Map.PropertyDisplayed!=null && data.Map.PropertyDisplayed.Property!=null)
+               {
+#>
+         if(e.ModelElement is <#= data.PropertyElementName #> && e.DomainProperty.Id == <#= data.PropertyElementName #>.<#= data.Map.PropertyDisplayed.Property.Name #>DomainPropertyId)
+         {
+<#
+                  if(data.Map.PropertyDisplayed.PathToProperty!=null && data.Map.PropertyDisplayed.PathToProperty.Segments.Count>0)
+                  {
+#>
+            global::System.Collections.ICollection elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromPropertyElement((<#= data.PropertyElementName #>)e.ModelElement);
+            global::System.Collections.ArrayList list = new global::System.Collections.ArrayList(elements.Count);
+            foreach(DslModeling::ModelElement element in elements)
+            {
+               global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name.Replace('@','_') #>((<#= data.DisplayedElementName #>)element);
+               list.AddRange(rootElements);
+            }
+            CompartmentItemAddRule.UpdateCompartments(list, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+<#
+                  }
+                  else
+                  {
+#>
+            global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.ModelElement);
+            CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+<#
+                  }
+#>
+         }
+<#
+               }
+            }
+#>
+      }
+   }
+<#
+         }
+#>
+   
+   /// <summary>
+   /// Rule to update compartments when a roleplayer change happens
+   /// </summary>
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+            if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
+            {
+#>
+   [DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+<#
+               ruleOnAttributes.Add(data.RelationshipName, true);
+            }
+         }
+         ruleOnAttributes.Clear();
+#>
+   internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
+   {
+      /// <summary>
+      /// Called when the roleplayer on a link changes.
+      /// </summary>
+      /// <param name="e"></param>
+      public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
+      {
+         RolePlayerChanged(e, false);
+      }
+      
+      internal static void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e, bool repaintOnly)
+      {
+         if(e==null) throw new global::System.ArgumentNullException("e");
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+#>
+         if(typeof(<#= data.RelationshipName #>).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+         {
+<#
+            if((data.LastSegmentIsElement && !data.LastSegment.Role.IsSource) || (!data.LastSegmentIsElement && data.LastSegment.Role.IsSource))
+            {
+#>
+            if(e.DomainRole.IsSource)
+<#
+            }
+            else
+            {
+#>
+            if(!e.DomainRole.IsSource)
+<#
+            }
+#>
+            {
+               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.DisplayedElementName #>)e.OldRolePlayer);
+               //foreach(DslModeling::ModelElement element in oldElements)
+               //{
+               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+               //   foreach(DslDiagrams::PresentationElement pel in pels)
+               //   {
+               //      <#= data.Map.ShapeMap.BaseShape.GetFullName(true) #> compartmentShape = pel as <#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>;
+               //      if(compartmentShape != null)
+               //      {
+               //         compartmentShape.GetCompartmentMappings()[<#= data.Map.ShapeMap.CompartmentMaps.IndexOf(data.Map) #>].InitializeCompartmentShape(compartmentShape);
+               //      }
+               //   }
+               //}
+               
+<#
+            if(data.LastSegmentIsElement)
+            {
+#>
+               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.RelationshipName #>)e.ElementLink);
+<#
+            }
+            else
+            {
+#>
+               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.RelationshipName #>)e.ElementLink);
+<#
+            }
+#>
+               CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+            }
+<#
+            if(data.LastSegmentIsElement)
+            {
+#>
+            else 
+            {
+               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.NewRolePlayer);
+               CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+            }
+<#
+            }
+#>
+         }
+<#
+         }
+#>
+      }
+   }
+
+   /// <summary>
+   /// Rule to update compartments when the order of items in the list changes.
+   /// </summary>
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+            if(!ruleOnAttributes.ContainsKey(data.RelationshipName))
+            {
+#>
+   [DslModeling::RuleOn(typeof(<#= data.RelationshipName #>), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+<#
+               ruleOnAttributes.Add(data.RelationshipName, true);
+            }
+         }
+         ruleOnAttributes.Clear();
+#>
+   internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
+   {
+      /// <summary>
+      /// Called when the order of a roleplayer in a relationship changes
+      /// </summary>
+      /// <param name="e"></param>
+      public override void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e)
+      {
+         RolePlayerPositionChanged(e, false);
+      }
+      
+      internal static void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e, bool repaintOnly)
+      {
+         if(e==null) throw new global::System.ArgumentNullException("e");
+<#
+         foreach(CompartmentMapRuleData data in ruleData)
+         {
+#>
+         if(typeof(<#= data.RelationshipName #>).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+         {
+<#
+            if((data.LastSegmentIsElement && data.LastSegment.Role.IsSource) || (!data.LastSegmentIsElement && !data.LastSegment.Role.IsSource))
+            {
+#>
+            if(e.CounterpartDomainRole.IsSource)
+            {
+               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.SourceElement);
+<#
+            }
+            else
+            {
+#>
+            if(!e.CounterpartDomainRole.IsSource)
+            {
+               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.CounterpartRolePlayer);
+<#
+            }
+#>
+               CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+            }
+         }
+<#
+         }
+#>
+      }
+   }
+<#   
+         }
+      }
+      
+      //
+      // Outer decorator update rule.
+      //
+      List<DomainClass> classesForDecoratorUpdateRule = new List<DomainClass>();
+      Dictionary<string, List<DecoratorMap>> decoratorMapsForDecoratorUpdateRule = new Dictionary<string, List<DecoratorMap>>();
+      foreach(Decorator decorator in decoratorMaps.Keys)
+      {
+         IList<DiagramElementHasDecorators> links = DomainRoleInfo.GetElementLinks<DiagramElementHasDecorators>(decorator, DiagramElementHasDecorators.DecoratorDomainRoleId);
+         if(links.Count == 0) continue;
+         if(CodeGenerationUtilities.IsOuterDecorator(links[0]))
+         {
+            List<DecoratorMap> decoratorMapList;
+            if(decoratorMaps.TryGetValue(decorator, out decoratorMapList))
+            {
+               foreach(DecoratorMap decoratorMap in decoratorMapList)
+               {
+                  DomainClass displayClass = null;
+                  if(decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.Property != null)
+                  {
+                     // decorator maps using a property path
+                     DomainProperty displayProperty = decoratorMap.PropertyDisplayed.Property;
+                     displayClass = displayProperty.Class;
+
+                     string displayPropertyName = displayProperty.Class.GetFullName(true) + "." + displayProperty.Name;
+                     
+                     List<DecoratorMap> mapList = null;
+                     if(!decoratorMapsForDecoratorUpdateRule.TryGetValue(displayPropertyName, out mapList))
+                     {
+                        mapList = new List<DecoratorMap>();
+                        decoratorMapsForDecoratorUpdateRule[displayPropertyName] = mapList;
+                     }
+                     
+                     mapList.Add(decoratorMap);
+                  }
+               
+                  if(displayClass != null && !classesForDecoratorUpdateRule.Contains(displayClass))
+                  {
+                     classesForDecoratorUpdateRule.Add(displayClass);
+                  }
+               }
+            }
+         }
+      }
+   
+      if(classesForDecoratorUpdateRule.Count > 0)
+      {
+#>
+
+   /// <summary>
+   /// A rule which fires when data mapped to outer text decorators has changed,
+   /// so we can update the decorator host's bounds.
+   /// </summary>
+<#
+         foreach(DomainClass displayClass in classesForDecoratorUpdateRule)
+         {
+#>
+   [DslModeling::RuleOn(typeof(<#= displayClass.GetFullName(true) #>), InitiallyDisabled=true)]
+<#
+         }
+#>
+   internal sealed class DecoratorPropertyChanged : DslModeling::ChangeRule
+   {
+      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+      public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
+      {
+         if(e == null) throw new global::System.ArgumentNullException("e");
+         
+<#
+         int i=0;
+         foreach(string displayPropertyName in decoratorMapsForDecoratorUpdateRule.Keys)
+         {
+#>
+         <#= i > 0 ? "else " : "" #>if (e.DomainProperty.Id == <#= displayPropertyName #>DomainPropertyId)
+         {
+<#
+            List<DecoratorMap> mapList = decoratorMapsForDecoratorUpdateRule[displayPropertyName];
+            
+            bool decoratorGenerated = true;
+            foreach(DecoratorMap decoratorMap in mapList)
+            {
+               DiagramElementMap elementMap = decoratorMap.DiagramElementMap;
+               DiagramElement element = CodeGenerationUtilities.GetDiagramElementForDecoratorMap(decoratorMap);
+               DomainClass domainClass;
+            
+               if(elementMap is BaseShapeMap)
+               {
+                  domainClass = ((BaseShapeMap)elementMap).Class;
+               }
+               else
+               {
+                  domainClass = ((ConnectorMap)elementMap).Relationship;
+               }
+            
+               if(domainClass != null && element != null)
+               {
+                  PushIndent("\t\t\t\t");
+                  GenerateDecoratorHostUpdateCode(element, domainClass, decoratorMap.Decorator.Name, ref decoratorGenerated);
+                  PopIndent();
+               }
+            }
+#>
+         }
+<#
+            i++;
+         }
+#>
+      }
+   }
+<#
+      }
+#>
+
+<#
+      if(connectorMaps.Keys.Count > 0)
+      {
+#>
+   /// <summary>
+   /// Reroute a connector when the role players of its underlying relationship change
+   /// </summary>
+<#
+         foreach(DomainRelationship rel in connectorMaps.Keys)
+         {
+#>
+   [DslModeling::RuleOn(typeof(<#=rel.GetFullName(true)#>), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+<#
+         }
+#>
+   internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
+   {
+      /// <summary>
+      /// Reroute a connector when the role players of its underlying relationship change
+      /// </summary>
+      public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
+      {
+         if (e == null) throw new global::System.ArgumentNullException("e");
+
+         global::System.Collections.ObjectModel.ReadOnlyCollection<DslDiagrams::PresentationViewsSubject> connectorLinks = DslDiagrams::PresentationViewsSubject.GetLinksToPresentation(e.ElementLink);
+         foreach (DslDiagrams::PresentationViewsSubject connectorLink in connectorLinks)
+         {
+            // Fix up any binary link shapes attached to the element link.
+            DslDiagrams::BinaryLinkShape linkShape = connectorLink.Presentation as DslDiagrams::BinaryLinkShape;
+            if (linkShape != null)
+            {
+               <#= diagram.GetFullName(true) #> diagram = linkShape.Diagram as <#= diagram.GetFullName(true) #>;
+               if (diagram != null)
+               {
+                  if (e.NewRolePlayer != null)
+                  {
+                     DslDiagrams::NodeShape fromShape;
+                     DslDiagrams::NodeShape toShape;
+                     diagram.GetSourceAndTargetForConnector(linkShape, out fromShape, out toShape);
+                     if (fromShape != null && toShape != null)
+                     {
+                        if (!object.Equals(fromShape, linkShape.FromShape))
+                        {
+                           linkShape.FromShape = fromShape;
+                        }
+                        if (!object.Equals(linkShape.ToShape, toShape))
+                        {
+                           linkShape.ToShape = toShape;
+                        }
+                     }
+                     else
+                     {
+                        // delete the connector if we cannot find an appropriate target shape.
+                        linkShape.Delete();
+                     }
+                  }
+                  else
+                  {
+                     // delete the connector if the new role player is null.
+                     linkShape.Delete();
+                  }
+               }
+            }
+         }
+      }
+   }
+<#
+      }
 #>
 }
 <#
-	}
+   }
 #>
 <#+
 // Generates code to update decorator host shapes when the property mapped to a decorator changes.  Called during
 // generation of the DecoratorPropertyChanged rule.
 private void GenerateDecoratorHostUpdateCode(DomainClass diagramElementClass, DomainClass mappedClass, string decoratorName, ref bool generateDeclaration)
 {
-	// update decorators on the shape itself
-	if(diagramElementClass.InheritanceModifier != InheritanceModifier.Abstract)
-	{
+   // update decorators on the shape itself
+   if(diagramElementClass.InheritanceModifier != InheritanceModifier.Abstract)
+   {
 #>
 <#= generateDeclaration ? "DslDiagrams::Decorator " : string.Empty #>decorator = <#= diagramElementClass.GetFullName(true) #>.Find<#= diagramElementClass.Name.Replace('@','_') #>Decorator("<#= decoratorName #>");
 <#+
-		generateDeclaration = false;
+      generateDeclaration = false;
 #>
 if(decorator != null)
 {
-	decorator.UpdateDecoratorHostShapes(e.ModelElement, <#= mappedClass.GetFullName(true) #>.DomainClassId);
+   decorator.UpdateDecoratorHostShapes(e.ModelElement, <#= mappedClass.GetFullName(true) #>.DomainClassId);
 }
 <#+
-	}
-	
-	// also update derived classes, since they have a different set of decorators
-	foreach(DomainClass elementSubClass in ClassHasBaseClass.GetSubClasses(diagramElementClass))
-	{
-		GenerateDecoratorHostUpdateCode(elementSubClass, mappedClass, decoratorName, ref generateDeclaration);
-	}
+   }
+   
+   // also update derived classes, since they have a different set of decorators
+   foreach(DomainClass elementSubClass in ClassHasBaseClass.GetSubClasses(diagramElementClass))
+   {
+      GenerateDecoratorHostUpdateCode(elementSubClass, mappedClass, decoratorName, ref generateDeclaration);
+   }
 }
 
 private string EnumerableNullTraverseActionGenerator(PathSegment segment)
 {
-	return "return new DslModeling::ModelElement[0];";
+   return "return new DslModeling::ModelElement[0];";
 }
 
 private struct CompartmentMapRuleData 
 {
-	public string RelationshipName;
-	public string RoleName;
-	public string DisplayedElementName;
-	public string PropertyElementName;
-	public CompartmentMap Map;
-	public bool IsCollectionReversePath;
-	public bool IsCollectionPartialReversePath;
-	public bool IsCollectionReversePropertyPath;
-	public bool LastSegmentIsElement;
-	public PathSegment LastSegment;
-	
-	public CompartmentMapRuleData(CompartmentMap map)
-	{
-		this.Map = map;
-		LastSegment = map.ElementsDisplayed.Segments[map.ElementsDisplayed.Segments.Count-1];
-		RelationshipName = LastSegment.Role.Relationship.GetFullName(true);
-		LastSegmentIsElement = LastSegment.Interpretation==PathSegmentInterpretation.Elements;
-		DomainRole role = LastSegmentIsElement ? LastSegment.Role.Opposite : LastSegment.Role;
-		RoleName = role.Name;
-		DisplayedElementName = CodeGenerationUtilities.GetSegmentOutputType(LastSegment);
-		IsCollectionReversePropertyPath=false;
-		if(Map.PropertyDisplayed!=null && Map.PropertyDisplayed.PathToProperty!=null && Map.PropertyDisplayed.PathToProperty.Segments.Count>0)
-		{
-			PropertyElementName = CodeGenerationUtilities.GetSegmentOutputType(Map.PropertyDisplayed.PathToProperty.Segments[Map.PropertyDisplayed.PathToProperty.Segments.Count-1]);
-			foreach(PathSegment segment in map.PropertyDisplayed.PathToProperty.Segments)
-			{
-				if(segment.Interpretation==PathSegmentInterpretation.Elements && segment.Role.IsMany)
-				{
-					IsCollectionReversePropertyPath=true;
-					break;
-				}
-			}
-		}
-		else
-		{
-			PropertyElementName = DisplayedElementName;
-		}
-		IsCollectionPartialReversePath=false;
-		for(int i=0; i<map.ElementsDisplayed.Segments.Count-1; i++)
-		{
-			PathSegment segment = map.ElementsDisplayed.Segments[i];
-			if(segment.Interpretation==PathSegmentInterpretation.Elements && segment.Role.IsMany)
-			{
-				IsCollectionPartialReversePath = true;
-				break;
-			}
-		}
-		IsCollectionReversePath = IsCollectionPartialReversePath | (LastSegment.Interpretation==PathSegmentInterpretation.Elements && LastSegment.Role.IsMany);
-	}
+   public string RelationshipName;
+   public string RoleName;
+   public string DisplayedElementName;
+   public string PropertyElementName;
+   public CompartmentMap Map;
+   public bool IsCollectionReversePath;
+   public bool IsCollectionPartialReversePath;
+   public bool IsCollectionReversePropertyPath;
+   public bool LastSegmentIsElement;
+   public PathSegment LastSegment;
+   
+   public CompartmentMapRuleData(CompartmentMap map)
+   {
+      this.Map = map;
+      LastSegment = map.ElementsDisplayed.Segments[map.ElementsDisplayed.Segments.Count-1];
+      RelationshipName = LastSegment.Role.Relationship.GetFullName(true);
+      LastSegmentIsElement = LastSegment.Interpretation==PathSegmentInterpretation.Elements;
+      DomainRole role = LastSegmentIsElement ? LastSegment.Role.Opposite : LastSegment.Role;
+      RoleName = role.Name;
+      DisplayedElementName = CodeGenerationUtilities.GetSegmentOutputType(LastSegment);
+      IsCollectionReversePropertyPath=false;
+      if(Map.PropertyDisplayed!=null && Map.PropertyDisplayed.PathToProperty!=null && Map.PropertyDisplayed.PathToProperty.Segments.Count>0)
+      {
+         PropertyElementName = CodeGenerationUtilities.GetSegmentOutputType(Map.PropertyDisplayed.PathToProperty.Segments[Map.PropertyDisplayed.PathToProperty.Segments.Count-1]);
+         foreach(PathSegment segment in map.PropertyDisplayed.PathToProperty.Segments)
+         {
+            if(segment.Interpretation==PathSegmentInterpretation.Elements && segment.Role.IsMany)
+            {
+               IsCollectionReversePropertyPath=true;
+               break;
+            }
+         }
+      }
+      else
+      {
+         PropertyElementName = DisplayedElementName;
+      }
+      IsCollectionPartialReversePath=false;
+      for(int i=0; i<map.ElementsDisplayed.Segments.Count-1; i++)
+      {
+         PathSegment segment = map.ElementsDisplayed.Segments[i];
+         if(segment.Interpretation==PathSegmentInterpretation.Elements && segment.Role.IsMany)
+         {
+            IsCollectionPartialReversePath = true;
+            break;
+         }
+      }
+      IsCollectionReversePath = IsCollectionPartialReversePath | (LastSegment.Interpretation==PathSegmentInterpretation.Elements && LastSegment.Role.IsMany);
+   }
 }
 #>
 <#+
 private bool HasSwimlanes()
 {
-	foreach (DslLibrary dslLibrary in this.DslLibrary.AllLibraries)
-	{
-		foreach (DiagramElement element in dslLibrary.DiagramElements)
-		{
-			if (element is SwimLane)
-			{
-				return true;
-			}
-		}
-	}
-	return false;
+   foreach (DslLibrary dslLibrary in this.DslLibrary.AllLibraries)
+   {
+      foreach (DiagramElement element in dslLibrary.DiagramElements)
+      {
+         if (element is SwimLane)
+         {
+            return true;
+         }
+      }
+   }
+   return false;
 }
 
 private bool HasPorts()
 {
-	foreach (DslLibrary dslLibrary in this.DslLibrary.AllLibraries)
-	{
-		foreach (DiagramElement element in dslLibrary.DiagramElements )
-		{
-			if (element is Port)
-			{
-				return true;
-			}
-		}
-	}
-	return false;
+   foreach (DslLibrary dslLibrary in this.DslLibrary.AllLibraries)
+   {
+      foreach (DiagramElement element in dslLibrary.DiagramElements )
+      {
+         if (element is Port)
+         {
+            return true;
+         }
+      }
+   }
+   return false;
 }
 
 private void CollectSwimLaneSubjects(DomainClass domainClass, List<DomainClass> subjects)
 {
-	if (domainClass.InheritanceModifier != InheritanceModifier.Abstract && !subjects.Contains(domainClass))
-		subjects.Add(domainClass);
-	foreach (DomainClass descendant in domainClass.SubClasses)
-		CollectSwimLaneSubjects(descendant, subjects);
+   if (domainClass.InheritanceModifier != InheritanceModifier.Abstract && !subjects.Contains(domainClass))
+      subjects.Add(domainClass);
+   foreach (DomainClass descendant in domainClass.SubClasses)
+      CollectSwimLaneSubjects(descendant, subjects);
 }
 
 private void GenerateDiagram(DomainClass domainClass, object context)
 {
-	Diagram diagram = domainClass as Diagram;
-	if(diagram==null)
-	{
-		return;
-	}
-	
-	Designer designer = CodeGenerationUtilities.GetDesigner(this.DslLibrary);
-	bool stickyToolbox = (designer != null ? designer.UsesStickyToolboxItems : false);
-	
-	// first unpack the context
-	List<DomainClass> mappedClasses = null;
-	List<DiagramElement> mappedDiagramElements = null;
-	Dictionary<DomainClass, List<BaseShapeMap>> shapeMaps = null;
-	Dictionary<DomainClass, List<ConnectorMap>> connectorMaps = null;
-	Dictionary<Decorator, List<DecoratorMap>> decoratorMaps = null;
-	
-	bool hasMappingInfo = false;
-	if(context != null)
-	{
-		object[] contextArray = (object[])context;
-		mappedClasses = (List<DomainClass>)contextArray[0];
-		mappedDiagramElements = (List<DiagramElement>)contextArray[1];
-		shapeMaps = (Dictionary<DomainClass, List<BaseShapeMap>>)contextArray[2];
-		connectorMaps = (Dictionary<DomainClass, List<ConnectorMap>>)contextArray[3];
-		decoratorMaps = (Dictionary<Decorator, List<DecoratorMap>>)contextArray[4];
-		hasMappingInfo = true;
-	}
+   Diagram diagram = domainClass as Diagram;
+   if(diagram==null)
+   {
+      return;
+   }
+   
+   Designer designer = CodeGenerationUtilities.GetDesigner(this.DslLibrary);
+   bool stickyToolbox = (designer != null ? designer.UsesStickyToolboxItems : false);
+   
+   // first unpack the context
+   List<DomainClass> mappedClasses = null;
+   List<DiagramElement> mappedDiagramElements = null;
+   Dictionary<DomainClass, List<BaseShapeMap>> shapeMaps = null;
+   Dictionary<DomainClass, List<ConnectorMap>> connectorMaps = null;
+   Dictionary<Decorator, List<DecoratorMap>> decoratorMaps = null;
+   
+   bool hasMappingInfo = false;
+   if(context != null)
+   {
+      object[] contextArray = (object[])context;
+      mappedClasses = (List<DomainClass>)contextArray[0];
+      mappedDiagramElements = (List<DiagramElement>)contextArray[1];
+      shapeMaps = (Dictionary<DomainClass, List<BaseShapeMap>>)contextArray[2];
+      connectorMaps = (Dictionary<DomainClass, List<ConnectorMap>>)contextArray[3];
+      decoratorMaps = (Dictionary<Decorator, List<DecoratorMap>>)contextArray[4];
+      hasMappingInfo = true;
+   }
 #>
 #region Fixup
 
@@ -1277,14 +1277,14 @@ private static global::System.Collections.Generic.IList<DslDiagrams::ShapeField>
 /// </summary>
 protected override DslDiagrams::StyleSet ClassStyleSet
 {
-	get
-	{
-		if (classStyleSet == null)
-		{
-			classStyleSet = CreateClassStyleSet();
-		}
-		return classStyleSet;
-	}
+   get
+   {
+      if (classStyleSet == null)
+      {
+         classStyleSet = CreateClassStyleSet();
+      }
+      return classStyleSet;
+   }
 }
 
 /// <summary>
@@ -1292,19 +1292,19 @@ protected override DslDiagrams::StyleSet ClassStyleSet
 /// </summary>
 public override global::System.Collections.Generic.IList<DslDiagrams::ShapeField> ShapeFields
 {
-	get
-	{
-		if (shapeFields == null)
-		{
-			shapeFields = CreateShapeFields();
-		}
-		return shapeFields;
-	}
+   get
+   {
+      if (shapeFields == null)
+      {
+         shapeFields = CreateShapeFields();
+      }
+      return shapeFields;
+   }
 }
 #endregion
 #region Toolbox filters
 private static global::System.ComponentModel.ToolboxItemFilterAttribute[] toolboxFilters = new global::System.ComponentModel.ToolboxItemFilterAttribute[] {
-			new global::System.ComponentModel.ToolboxItemFilterAttribute(<#= this.DslLibrary.GetFullName(true) #>ToolboxHelperBase.ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) };
+         new global::System.ComponentModel.ToolboxItemFilterAttribute(<#= this.DslLibrary.GetFullName(true) #>ToolboxHelperBase.ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) };
 
 private readonly global::System.Collections.Generic.List<global::System.ComponentModel.ToolboxItemFilterAttribute> targetToolboxItemFilterAttributes = new global::System.Collections.Generic.List<global::System.ComponentModel.ToolboxItemFilterAttribute>(); // HACK : MEXEDGE
 
@@ -1318,8 +1318,8 @@ protected virtual bool GetToolSupported(string toolName) // HACK : MEXEDGE
 /// </summary>
 public override global::System.Collections.ICollection TargetToolboxItemFilterAttributes
 {
-	get
-	{
+   get
+   {
         if (0 == targetToolboxItemFilterAttributes.Count) // HACK : MEXEDGE
         {
             targetToolboxItemFilterAttributes.AddRange(toolboxFilters);
@@ -1329,17 +1329,17 @@ public override global::System.Collections.ICollection TargetToolboxItemFilterAt
             }
         }
         return targetToolboxItemFilterAttributes;
-	}
+   }
 }
 #endregion
 <#+
-	// defaults here match those in StyleSetApplication.cs
-	bool customFillColor = (diagram.FillColor != System.Drawing.Color.White);
-	bool customTextColor = (diagram.TextColor != System.Drawing.Color.Black);
-	
-	if(customFillColor ||
-		customTextColor)
-	{
+   // defaults here match those in StyleSetApplication.cs
+   bool customFillColor = (diagram.FillColor != System.Drawing.Color.White);
+   bool customTextColor = (diagram.TextColor != System.Drawing.Color.Black);
+   
+   if(customFillColor ||
+      customTextColor)
+   {
 #>
 #region Diagram styles
 /// <summary>
@@ -1348,57 +1348,57 @@ public override global::System.Collections.ICollection TargetToolboxItemFilterAt
 /// <param name="classStyleSet">The style set for this shape class</param>
 protected override void InitializeResources(DslDiagrams::StyleSet classStyleSet)
 {
-	base.InitializeResources(classStyleSet);
-	
+   base.InitializeResources(classStyleSet);
+   
 <#+
-		if(customFillColor)
-		{
+      if(customFillColor)
+      {
 #>
-	// Fill brush settings for this shape.
-	DslDiagrams::BrushSettings backgroundBrush = new DslDiagrams::BrushSettings();
-	backgroundBrush.Color = <#= MakeColorInitializer(diagram.FillColor) #>;
-	classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramBackground, backgroundBrush);
+   // Fill brush settings for this shape.
+   DslDiagrams::BrushSettings backgroundBrush = new DslDiagrams::BrushSettings();
+   backgroundBrush.Color = <#= MakeColorInitializer(diagram.FillColor) #>;
+   classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramBackground, backgroundBrush);
 
 <#+
-		}
+      }
 
-		if(customTextColor)
-		{
+      if(customTextColor)
+      {
 #>
-	// Text brush settings for this shape.
-	DslDiagrams::BrushSettings textBrush = new DslDiagrams::BrushSettings();
-	textBrush.Color = <#= MakeColorInitializer(diagram.TextColor) #>;
-	classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramText, textBrush);
+   // Text brush settings for this shape.
+   DslDiagrams::BrushSettings textBrush = new DslDiagrams::BrushSettings();
+   textBrush.Color = <#= MakeColorInitializer(diagram.TextColor) #>;
+   classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramText, textBrush);
 
 <#+
-		}
+      }
 #>
 }
 #endregion
 <#+
-	}
-	
-	bool hasCustomStoredProperties = (diagram.ExposesFillColor || diagram.ExposesTextColor);
-	if(hasCustomStoredProperties)
-	{
+   }
+   
+   bool hasCustomStoredProperties = (diagram.ExposesFillColor || diagram.ExposesTextColor);
+   if(hasCustomStoredProperties)
+   {
 #>
 #region Custom storage for shape properties that appear in the property grid
 <#+
-		if(diagram.ExposesFillColor)
-		{
-			// custom-stored domain property to represent fill color should exist as part of shape definition, just generate getter/setter here
+      if(diagram.ExposesFillColor)
+      {
+         // custom-stored domain property to represent fill color should exist as part of shape definition, just generate getter/setter here
 #>
 /// <summary>
 /// Custom storage for domain property FillColor.
 /// </summary>
 private global::System.Drawing.Color GetFillColorValue()
 {
-	DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramBackground);
-	if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
-	{
-		return settings.Color;
-	}
-	return <#= MakeColorInitializer(diagram.FillColor) #>;
+   DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramBackground);
+   if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
+   {
+      return settings.Color;
+   }
+   return <#= MakeColorInitializer(diagram.FillColor) #>;
 }
 
 /// <summary>
@@ -1406,31 +1406,31 @@ private global::System.Drawing.Color GetFillColorValue()
 /// </summary>
 private void SetFillColorValue(global::System.Drawing.Color newValue)
 {
-	DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramBackground);
-	if(settings == null) settings = new DslDiagrams::BrushSettings();
-	settings.Color = newValue;
-	this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramBackground, settings);
-	this.Invalidate();
+   DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramBackground);
+   if(settings == null) settings = new DslDiagrams::BrushSettings();
+   settings.Color = newValue;
+   this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramBackground, settings);
+   this.Invalidate();
 }
 
 <#+
-		}
-		
-		if(diagram.ExposesTextColor)
-		{
-			// custom-stored domain property to represent text color should exist as part of shape definition, just generate getter/setter here
+      }
+      
+      if(diagram.ExposesTextColor)
+      {
+         // custom-stored domain property to represent text color should exist as part of shape definition, just generate getter/setter here
 #>
 /// <summary>
 /// Custom storage for domain property FillColor.
 /// </summary>
 private global::System.Drawing.Color GetTextColorValue()
 {
-	DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramText);
-	if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
-	{
-		return settings.Color;
-	}
-	return <#= MakeColorInitializer(diagram.TextColor) #>;
+   DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramText);
+   if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
+   {
+      return settings.Color;
+   }
+   return <#= MakeColorInitializer(diagram.TextColor) #>;
 }
 
 /// <summary>
@@ -1438,22 +1438,22 @@ private global::System.Drawing.Color GetTextColorValue()
 /// </summary>
 private void SetTextColorValue(global::System.Drawing.Color newValue)
 {
-	DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramText);
-	if(settings == null) settings = new DslDiagrams::BrushSettings();
-	settings.Color = newValue;
-	this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramText, settings);
-	this.Invalidate();
+   DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.DiagramText);
+   if(settings == null) settings = new DslDiagrams::BrushSettings();
+   settings.Color = newValue;
+   this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.DiagramText, settings);
+   this.Invalidate();
 }
 
 <#+
-		}
+      }
 #>
 #endregion
 <#+
-	}
-	
-	if (HasSwimlanes())
-	{
+   }
+   
+   if (HasSwimlanes())
+   {
 #>
 #region Swimlane support
 
@@ -1462,7 +1462,7 @@ private void SetTextColorValue(global::System.Drawing.Color newValue)
 /// </summary>
 public override bool HasSwimlanes
 {
-	get { return true; }
+   get { return true; }
 }
 
 /// <summary>
@@ -1478,83 +1478,83 @@ public override bool HasSwimlanes
 internal virtual void InitializeSwimlanes()
 {
 <#+
-		if(hasMappingInfo)
-		{
-			int i=1;
-			List<DomainClass> swimlaneMappedElements = new List<DomainClass>();
-			foreach (DiagramElement element in this.DslLibrary.DiagramElements)
-			{
-				SwimLane lane = element as SwimLane;
-				if (lane != null)
-				{
-					BaseShapeMap laneMap = null;
-					foreach(BaseShapeMap baseMap in diagram.ShapeMaps)
-					{
-						if(baseMap.BaseShape == lane)
-						{
-							laneMap = baseMap;
-							break;
-						}
-					}
-					if (laneMap != null)
-					{
-					}
-					else if (lane.InheritanceModifier != InheritanceModifier.Abstract)
-					{
+      if(hasMappingInfo)
+      {
+         int i=1;
+         List<DomainClass> swimlaneMappedElements = new List<DomainClass>();
+         foreach (DiagramElement element in this.DslLibrary.DiagramElements)
+         {
+            SwimLane lane = element as SwimLane;
+            if (lane != null)
+            {
+               BaseShapeMap laneMap = null;
+               foreach(BaseShapeMap baseMap in diagram.ShapeMaps)
+               {
+                  if(baseMap.BaseShape == lane)
+                  {
+                     laneMap = baseMap;
+                     break;
+                  }
+               }
+               if (laneMap != null)
+               {
+               }
+               else if (lane.InheritanceModifier != InheritanceModifier.Abstract)
+               {
 #>
-	DslDiagrams::SwimlaneShape lane<#= i #> = new <#= lane.GetFullName(true) #>(this.Partition);
-	this.NestedChildShapes.Add(lane<#= i++ #>);
+   DslDiagrams::SwimlaneShape lane<#= i #> = new <#= lane.GetFullName(true) #>(this.Partition);
+   this.NestedChildShapes.Add(lane<#= i++ #>);
 <#+
-					}
-				}
-			}
-		}
+               }
+            }
+         }
+      }
 #>
 }
 
 <#+
-		List<DomainClass> swimLaneSubjects = new List<DomainClass>();
-		if (hasMappingInfo)
-		{
-			foreach (DiagramElement element in this.DslLibrary.DiagramElements)
-			{
-				SwimLane swimLane = element as SwimLane;
-				if (swimLane != null)
-				{
-					foreach (SwimLaneMap map in SwimLaneMapReferencesSwimLane.GetSwimLaneMaps(swimLane))
-						CollectSwimLaneSubjects(map.Class, swimLaneSubjects);
-				}
-			}
-		}
-		if (swimLaneSubjects.Count > 0)
-		{
+      List<DomainClass> swimLaneSubjects = new List<DomainClass>();
+      if (hasMappingInfo)
+      {
+         foreach (DiagramElement element in this.DslLibrary.DiagramElements)
+         {
+            SwimLane swimLane = element as SwimLane;
+            if (swimLane != null)
+            {
+               foreach (SwimLaneMap map in SwimLaneMapReferencesSwimLane.GetSwimLaneMaps(swimLane))
+                  CollectSwimLaneSubjects(map.Class, swimLaneSubjects);
+            }
+         }
+      }
+      if (swimLaneSubjects.Count > 0)
+      {
 #>
 /// <summary>
 /// Gets a collection of domain classes which are mapped to swimlane shapes.
 /// </summary>
 public override sealed global::System.Collections.Generic.IEnumerable<DslModeling::DomainClassInfo> CreatableSwimLaneSubjects
 {
-	get
-	{
+   get
+   {
 <#+
-			foreach (DomainClass swimLaneSubject in swimLaneSubjects)
-			{
+         foreach (DomainClass swimLaneSubject in swimLaneSubjects)
+         {
 #>
-		yield return this.Store.DomainDataDirectory.GetDomainClass(typeof(<#= swimLaneSubject.GetFullName(true) #>));
+      yield return this.Store.DomainDataDirectory.GetDomainClass(typeof(<#= swimLaneSubject.GetFullName(true) #>));
 <#+
-			}
+         }
 #>
-	}
+   }
 }
 <#+
-		}
+      }
 #>
 
 #endregion
 <#+
-	}
-	else // !HasSwimlanes()
-	{
+   }
+   else // !HasSwimlanes()
+   {
 #>
 #region Auto-placement
 /// <summary>
@@ -1562,16 +1562,16 @@ public override sealed global::System.Collections.Generic.IEnumerable<DslModelin
 /// </summary>
 public override bool ShouldAutoPlaceChildShapes
 {
-	get
-	{
-		return true;
-	}
+   get
+   {
+      return true;
+   }
 }
 #endregion
 <#+
-	}
-	if(HasPorts())
-	{
+   }
+   if(HasPorts())
+   {
 #>
 #region Port shape support
 /// <summary>
@@ -1580,28 +1580,28 @@ public override bool ShouldAutoPlaceChildShapes
 /// </summary>
 public override bool SupportsPorts
 {
-	get
-	{
-		return true;
-	}
+   get
+   {
+      return true;
+   }
 }
 #endregion
 <#+
-	}
-	
-	if (CodeGenerationUtilities.HasCompartmentMaps(diagram))
-	{
-		List<CompartmentMapRuleData> ruleData = new List<CompartmentMapRuleData>();
-		foreach(BaseShapeMap shapeMap in diagram.ShapeMaps)
-		{
-			if(shapeMap is CompartmentShapeMap)
-			{
-				foreach(CompartmentMap compartmentMap in ((CompartmentShapeMap)shapeMap).CompartmentMaps)
-				{
-					ruleData.Add(new CompartmentMapRuleData(compartmentMap));
-				}
-			}
-		}
+   }
+   
+   if (CodeGenerationUtilities.HasCompartmentMaps(diagram))
+   {
+      List<CompartmentMapRuleData> ruleData = new List<CompartmentMapRuleData>();
+      foreach(BaseShapeMap shapeMap in diagram.ShapeMaps)
+      {
+         if(shapeMap is CompartmentShapeMap)
+         {
+            foreach(CompartmentMap compartmentMap in ((CompartmentShapeMap)shapeMap).CompartmentMaps)
+            {
+               ruleData.Add(new CompartmentMapRuleData(compartmentMap));
+            }
+         }
+      }
 #>
 #region Compartment support
 /// <summary>
@@ -1614,15 +1614,15 @@ private bool subscribedCompartmentItemsEvents;
 /// </summary>
 public <#= diagram.BaseClass != null ? "new " : string.Empty #>void SubscribeCompartmentItemsEvents()
 {
-	if (!subscribedCompartmentItemsEvents && this.Store != null)
-	{
-		subscribedCompartmentItemsEvents = true;
-		this.Store.EventManagerDirectory.ElementAdded.Add(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
-		this.Store.EventManagerDirectory.ElementDeleted.Add(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
-		this.Store.EventManagerDirectory.ElementPropertyChanged.Add(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
-		this.Store.EventManagerDirectory.RolePlayerChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
-		this.Store.EventManagerDirectory.RolePlayerOrderChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
-	}
+   if (!subscribedCompartmentItemsEvents && this.Store != null)
+   {
+      subscribedCompartmentItemsEvents = true;
+      this.Store.EventManagerDirectory.ElementAdded.Add(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
+      this.Store.EventManagerDirectory.ElementDeleted.Add(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
+      this.Store.EventManagerDirectory.ElementPropertyChanged.Add(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
+      this.Store.EventManagerDirectory.RolePlayerChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
+      this.Store.EventManagerDirectory.RolePlayerOrderChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
+   }
 }
 
 /// <summary>
@@ -1630,15 +1630,15 @@ public <#= diagram.BaseClass != null ? "new " : string.Empty #>void SubscribeCom
 /// </summary>
 public <#= diagram.BaseClass != null ? "new " : string.Empty #>void UnsubscribeCompartmentItemsEvents()
 {
-	if (subscribedCompartmentItemsEvents)
-	{
-		this.Store.EventManagerDirectory.ElementAdded.Remove(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
-		this.Store.EventManagerDirectory.ElementDeleted.Remove(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
-		this.Store.EventManagerDirectory.ElementPropertyChanged.Remove(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
-		this.Store.EventManagerDirectory.RolePlayerChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
-		this.Store.EventManagerDirectory.RolePlayerOrderChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
-		subscribedCompartmentItemsEvents = false;
-	}
+   if (subscribedCompartmentItemsEvents)
+   {
+      this.Store.EventManagerDirectory.ElementAdded.Remove(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
+      this.Store.EventManagerDirectory.ElementDeleted.Remove(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
+      this.Store.EventManagerDirectory.ElementPropertyChanged.Remove(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
+      this.Store.EventManagerDirectory.RolePlayerChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
+      this.Store.EventManagerDirectory.RolePlayerOrderChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
+      subscribedCompartmentItemsEvents = false;
+   }
 }
 
 #region Event handlers
@@ -1647,64 +1647,64 @@ public <#= diagram.BaseClass != null ? "new " : string.Empty #>void UnsubscribeC
 /// </summary>
 private void CompartmentItemAdded(object sender, DslModeling::ElementAddedEventArgs e)
 {
-	CompartmentItemAddRule.ElementAdded(e, true /* repaint only */);
+   CompartmentItemAddRule.ElementAdded(e, true /* repaint only */);
 }
 /// <summary>
 /// Event for element deleted.
 /// </summary>
 private void CompartmentItemDeleted(object sender, DslModeling::ElementDeletedEventArgs e)
 {
-	CompartmentItemDeleteRule.ElementDeleted(e, true /* repaint only */);
+   CompartmentItemDeleteRule.ElementDeleted(e, true /* repaint only */);
 }
 /// <summary>
 /// Event for element property changed.
 /// </summary>
 private void CompartmentItemPropertyChanged(object sender, DslModeling::ElementPropertyChangedEventArgs e)
 {
-	CompartmentItemChangeRule.ElementPropertyChanged(e, true /* repaint only */);
+   CompartmentItemChangeRule.ElementPropertyChanged(e, true /* repaint only */);
 }
 /// <summary>
 /// Event for role-player changed.
 /// </summary>
 private void CompartmentItemRolePlayerChanged(object sender, DslModeling::RolePlayerChangedEventArgs e)
 {
-	CompartmentItemRolePlayerChangeRule.RolePlayerChanged(e, true /* repaint only */);
+   CompartmentItemRolePlayerChangeRule.RolePlayerChanged(e, true /* repaint only */);
 }
 /// <summary>
 /// Event for role-player order changed.
 /// </summary>
 private void CompartmentItemRolePlayerOrderChanged(object sender, DslModeling::RolePlayerOrderChangedEventArgs e)
 {
-	CompartmentItemRolePlayerPositionChangeRule.RolePlayerPositionChanged(e, true /* repaint only */);
+   CompartmentItemRolePlayerPositionChangeRule.RolePlayerPositionChanged(e, true /* repaint only */);
 }
 #endregion
 #endregion
 <#+
-	}
+   }
 #>
 <#+
-	// 
-	// Shape mapping-related
-	//	
-	
-	if(hasMappingInfo)
-	{
-		// collect the custom connector maps
-		Dictionary<Connector, List<ConnectorMap>> customMappedConnectors = new Dictionary<Connector, List<ConnectorMap>>();
-		foreach(List<ConnectorMap> mapList in connectorMaps.Values)
-		{
-			foreach(ConnectorMap connectorMap in mapList)
-			{
-				if((connectorMap.ConnectsCustomSource || connectorMap.ConnectsCustomTarget) )
-				{
-					if (!customMappedConnectors.ContainsKey(connectorMap.Connector))
-					{
-						customMappedConnectors[connectorMap.Connector] = new List<ConnectorMap>();
-					}
-					customMappedConnectors[connectorMap.Connector].Add(connectorMap);
-				}
-			}
-		}
+   // 
+   // Shape mapping-related
+   //   
+   
+   if(hasMappingInfo)
+   {
+      // collect the custom connector maps
+      Dictionary<Connector, List<ConnectorMap>> customMappedConnectors = new Dictionary<Connector, List<ConnectorMap>>();
+      foreach(List<ConnectorMap> mapList in connectorMaps.Values)
+      {
+         foreach(ConnectorMap connectorMap in mapList)
+         {
+            if((connectorMap.ConnectsCustomSource || connectorMap.ConnectsCustomTarget) )
+            {
+               if (!customMappedConnectors.ContainsKey(connectorMap.Connector))
+               {
+                  customMappedConnectors[connectorMap.Connector] = new List<ConnectorMap>();
+               }
+               customMappedConnectors[connectorMap.Connector].Add(connectorMap);
+            }
+         }
+      }
 #>
 #region Shape mapping
 /// <summary>
@@ -1715,7 +1715,7 @@ private void CompartmentItemRolePlayerOrderChanged(object sender, DslModeling::R
 /// </remarks>
 protected override bool ShouldAddShapeForElement(DslModeling::ModelElement element)
 {
-	return true;
+   return true;
 }
 
 internal bool ShouldSupport(DslModeling::ModelElement element) // HACK : MEXEDGE
@@ -1724,8 +1724,8 @@ internal bool ShouldSupport(DslModeling::ModelElement element) // HACK : MEXEDGE
 }
 
 <#+
-		if(connectorMaps.Count > 0)
-		{
+      if(connectorMaps.Count > 0)
+      {
 #>
 /// <summary>
 /// Called during view fixup to configure the given child element, after it has been created.
@@ -1735,18 +1735,18 @@ internal bool ShouldSupport(DslModeling::ModelElement element) // HACK : MEXEDGE
 /// </remarks>
 protected override void OnChildConfiguring(DslDiagrams::ShapeElement child, bool createdDuringViewFixup)
 {
-	DslDiagrams::NodeShape sourceShape;
-	DslDiagrams::NodeShape targetShape;
-	DslDiagrams::BinaryLinkShape connector = child as DslDiagrams::BinaryLinkShape;
-	if(connector == null)
-	{
-		base.OnChildConfiguring(child, createdDuringViewFixup);
-		return;
-	}
-	this.GetSourceAndTargetForConnector(connector, out sourceShape, out targetShape);
-	
-	global::System.Diagnostics.Debug.Assert(sourceShape != null && targetShape != null, "Unable to find source and target shapes for connector.");
-	connector.Connect(sourceShape, targetShape);
+   DslDiagrams::NodeShape sourceShape;
+   DslDiagrams::NodeShape targetShape;
+   DslDiagrams::BinaryLinkShape connector = child as DslDiagrams::BinaryLinkShape;
+   if(connector == null)
+   {
+      base.OnChildConfiguring(child, createdDuringViewFixup);
+      return;
+   }
+   this.GetSourceAndTargetForConnector(connector, out sourceShape, out targetShape);
+   
+   global::System.Diagnostics.Debug.Assert(sourceShape != null && targetShape != null, "Unable to find source and target shapes for connector.");
+   connector.Connect(sourceShape, targetShape);
 }
 
 /// <summary>
@@ -1755,56 +1755,56 @@ protected override void OnChildConfiguring(DslDiagrams::ShapeElement child, bool
 [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 internal void GetSourceAndTargetForConnector(DslDiagrams::BinaryLinkShape connector, out DslDiagrams::NodeShape sourceShape, out DslDiagrams::NodeShape targetShape)
 {
-	sourceShape = null;
-	targetShape = null;
+   sourceShape = null;
+   targetShape = null;
 <#+
-			foreach(Connector connector in customMappedConnectors.Keys)
-			{
+         foreach(Connector connector in customMappedConnectors.Keys)
+         {
 #>
-	if(connector is <#= connector.GetFullName(true) #>)
-	{
+   if(connector is <#= connector.GetFullName(true) #>)
+   {
 <#+
-				if(customMappedConnectors[connector][0].ConnectsCustomSource)
-				{
+            if(customMappedConnectors[connector][0].ConnectsCustomSource)
+            {
 #>
-		// Method:
-		// private DslDiagrams::NodeShape GetSourceShapeFor<#= connector.Name #>(<#= connector.Name #> connector)
-		// {
-		// }
-		// must be implemented in a partial class of <#= CodeGenerationUtilities.GetGenerationClassName(diagram) #>.  Given an instance of <#= connector.Name #>,
-		// the method should return the source shape for the connector.  This method should not return null.
-		sourceShape = GetSourceShapeFor<#= connector.Name #>((<#= connector.GetFullName(true) #>)connector);
+      // Method:
+      // private DslDiagrams::NodeShape GetSourceShapeFor<#= connector.Name #>(<#= connector.Name #> connector)
+      // {
+      // }
+      // must be implemented in a partial class of <#= CodeGenerationUtilities.GetGenerationClassName(diagram) #>.  Given an instance of <#= connector.Name #>,
+      // the method should return the source shape for the connector.  This method should not return null.
+      sourceShape = GetSourceShapeFor<#= connector.Name #>((<#= connector.GetFullName(true) #>)connector);
 <#+
-				}
-				if(customMappedConnectors[connector][0].ConnectsCustomTarget)
-				{
+            }
+            if(customMappedConnectors[connector][0].ConnectsCustomTarget)
+            {
 #>
-		// Method:
-		// private DslDiagrams::NodeShape GetTargetShapeFor<#= connector.Name #>(<#= connector.Name #> connector)
-		// {
-		// }
-		// must be implemented in a partial class of <#= CodeGenerationUtilities.GetGenerationClassName(diagram) #>.  Given an instance of <#= connector.Name #>,
-		// the method should return the source shape for the connector.  This method should not return null.
-		targetShape = GetTargetShapeFor<#= connector.Name #>((<#= connector.GetFullName(true) #>)connector);
+      // Method:
+      // private DslDiagrams::NodeShape GetTargetShapeFor<#= connector.Name #>(<#= connector.Name #> connector)
+      // {
+      // }
+      // must be implemented in a partial class of <#= CodeGenerationUtilities.GetGenerationClassName(diagram) #>.  Given an instance of <#= connector.Name #>,
+      // the method should return the source shape for the connector.  This method should not return null.
+      targetShape = GetTargetShapeFor<#= connector.Name #>((<#= connector.GetFullName(true) #>)connector);
 <#+
-				}
+            }
 #>
-	}
+   }
 <#+
-			}
-#>	
-	if (sourceShape == null || targetShape == null)
-	{
-		DslDiagrams::NodeShape[] endShapes = GetEndShapesForConnector(connector);
-		if(sourceShape == null)
-		{
-			sourceShape = endShapes[0];
-		}
-		if(targetShape == null)
-		{
-			targetShape = endShapes[1];
-		}
-	}
+         }
+#>   
+   if (sourceShape == null || targetShape == null)
+   {
+      DslDiagrams::NodeShape[] endShapes = GetEndShapesForConnector(connector);
+      if(sourceShape == null)
+      {
+         sourceShape = endShapes[0];
+      }
+      if(targetShape == null)
+      {
+         targetShape = endShapes[1];
+      }
+   }
 }
 
 /// <summary>
@@ -1812,45 +1812,45 @@ internal void GetSourceAndTargetForConnector(DslDiagrams::BinaryLinkShape connec
 /// </summary>
 private DslDiagrams::NodeShape[] GetEndShapesForConnector(DslDiagrams::BinaryLinkShape connector)
 {
-	DslModeling::ElementLink link = connector.ModelElement as DslModeling::ElementLink;
-	DslDiagrams::NodeShape sourceShape = null, targetShape = null;
-	if (link != null)
-	{
-		global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = link.LinkedElements;
-		if (linkedElements.Count == 2)
-		{
-			DslDiagrams::Diagram currentDiagram = this.Diagram;
-			DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
-			foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-			{
-				DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
-				if (shape != null && shape.Diagram == currentDiagram)
-				{
-					sourceShape = shape;
-					break;
-				}
-			}
-			
-			presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
-			foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-			{
-				DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
-				if (shape != null && shape.Diagram == currentDiagram)
-				{
-					targetShape = shape;
-					break;
-				}
-			}
+   DslModeling::ElementLink link = connector.ModelElement as DslModeling::ElementLink;
+   DslDiagrams::NodeShape sourceShape = null, targetShape = null;
+   if (link != null)
+   {
+      global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = link.LinkedElements;
+      if (linkedElements.Count == 2)
+      {
+         DslDiagrams::Diagram currentDiagram = this.Diagram;
+         DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
+         foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+         {
+            DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
+            if (shape != null && shape.Diagram == currentDiagram)
+            {
+               sourceShape = shape;
+               break;
+            }
+         }
+         
+         presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
+         foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+         {
+            DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
+            if (shape != null && shape.Diagram == currentDiagram)
+            {
+               targetShape = shape;
+               break;
+            }
+         }
 
-		}
-	}
-	
-	return new DslDiagrams::NodeShape[] { sourceShape, targetShape };
+      }
+   }
+   
+   return new DslDiagrams::NodeShape[] { sourceShape, targetShape };
 }
 <#+
-			if (customMappedConnectors.Keys.Count > 0)
-			{
-				IEnumerable<Connector> sortedConnectors = CodeGenerationUtilities.SortDomainClassesByInheritance<Connector>(customMappedConnectors.Keys);
+         if (customMappedConnectors.Keys.Count > 0)
+         {
+            IEnumerable<Connector> sortedConnectors = CodeGenerationUtilities.SortDomainClassesByInheritance<Connector>(customMappedConnectors.Keys);
 #>
 
 /// <summary>
@@ -1861,31 +1861,31 @@ private DslDiagrams::NodeShape[] GetEndShapesForConnector(DslDiagrams::BinaryLin
 protected override DslModeling::ModelElement GetSourceRolePlayerForLinkMappedByConnector(DslDiagrams::BinaryLinkShape connector)
 {
 <#+
-				foreach(Connector connector in sortedConnectors)
-				{
-					foreach ( ConnectorMap customMap in customMappedConnectors[connector] )
-					{
-						if(customMap.ConnectsCustomSource)
-						{
-							string connectorType = connector.GetRelativeName(diagram.Namespace, true);
-							string connectorName = "instanceOf" + connector.Name.Replace("@", "_");
+            foreach(Connector connector in sortedConnectors)
+            {
+               foreach ( ConnectorMap customMap in customMappedConnectors[connector] )
+               {
+                  if(customMap.ConnectsCustomSource)
+                  {
+                     string connectorType = connector.GetRelativeName(diagram.Namespace, true);
+                     string connectorName = "instanceOf" + connector.Name.Replace("@", "_");
 #>
-	<#= connectorType #> <#= connectorName #> = connector as <#= connectorType #>;
-	if (<#= connectorName #> != null)
-	{
-		// The following method needs to be added in a partial class
-		//   private DslModeling::ModelElement GetSourceRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorType #> connector);
-		return this.GetSourceRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorName #>);
-	}
+   <#= connectorType #> <#= connectorName #> = connector as <#= connectorType #>;
+   if (<#= connectorName #> != null)
+   {
+      // The following method needs to be added in a partial class
+      //   private DslModeling::ModelElement GetSourceRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorType #> connector);
+      return this.GetSourceRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorName #>);
+   }
 
 <#+
-							break;
-						}
-					}
-				}
+                     break;
+                  }
+               }
+            }
 #>
-	// Fallthrough to base behavior
-	return base.GetSourceRolePlayerForLinkMappedByConnector(connector);
+   // Fallthrough to base behavior
+   return base.GetSourceRolePlayerForLinkMappedByConnector(connector);
 }
 
 /// <summary>
@@ -1896,51 +1896,51 @@ protected override DslModeling::ModelElement GetSourceRolePlayerForLinkMappedByC
 protected override DslModeling::ModelElement GetTargetRolePlayerForLinkMappedByConnector(DslDiagrams::BinaryLinkShape connector)
 {
 <#+
-				foreach(Connector connector in sortedConnectors)
-				{
-					foreach ( ConnectorMap customMap in customMappedConnectors[connector] )
-					{
-						if(customMap.ConnectsCustomTarget)
-						{
-							string connectorType = connector.GetRelativeName(diagram.Namespace, true);
-							string connectorName = "instanceOf" + connector.Name.Replace("@", "_");
+            foreach(Connector connector in sortedConnectors)
+            {
+               foreach ( ConnectorMap customMap in customMappedConnectors[connector] )
+               {
+                  if(customMap.ConnectsCustomTarget)
+                  {
+                     string connectorType = connector.GetRelativeName(diagram.Namespace, true);
+                     string connectorName = "instanceOf" + connector.Name.Replace("@", "_");
 #>
-	<#= connectorType #> <#= connectorName #> = connector as <#= connectorType #>;
-	if (<#= connectorName #> != null)
-	{
-		// The following method needs to be added in a partial class
-		//   private DslModeling::ModelElement GetTargetRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorType #> connector);
-		return this.GetTargetRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorName #>);
-	}
+   <#= connectorType #> <#= connectorName #> = connector as <#= connectorType #>;
+   if (<#= connectorName #> != null)
+   {
+      // The following method needs to be added in a partial class
+      //   private DslModeling::ModelElement GetTargetRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorType #> connector);
+      return this.GetTargetRolePlayerForLinkMappedBy<#= connector.Name.Replace("@", "_") #>(<#= connectorName #>);
+   }
 
 <#+
-							break;
-						}
-					}
-				}
+                     break;
+                  }
+               }
+            }
 #>
-	// Fallthrough to base behavior
-	return base.GetTargetRolePlayerForLinkMappedByConnector(connector);
+   // Fallthrough to base behavior
+   return base.GetTargetRolePlayerForLinkMappedByConnector(connector);
 }
 <#+
-			} // CustomMappedConnectors exist
+         } // CustomMappedConnectors exist
 #>
 <#+
-		}
-		
-		// See if we have any Connectors that are not mapped to anything (i.e. PELs without MELs).
-		Dictionary<Guid, Connector> connectors = new Dictionary<Guid, Connector>();
-		foreach (Connector connector in diagram.DslLibrary.Connectors)
-		{
-			connectors[connector.Id] = connector;
-		}
-		foreach (ConnectorMap connectorMap in diagram.ConnectorMaps)
-		{
-			connectors.Remove(connectorMap.Connector.Id);
-		}
-		if (connectors.Count > 0)
-		{	// Some connectors are not mapped.
-			IEnumerable<Connector> sortedConnectors = CodeGenerationUtilities.SortDomainClassesByInheritance<Connector>(connectors.Values);
+      }
+      
+      // See if we have any Connectors that are not mapped to anything (i.e. PELs without MELs).
+      Dictionary<Guid, Connector> connectors = new Dictionary<Guid, Connector>();
+      foreach (Connector connector in diagram.DslLibrary.Connectors)
+      {
+         connectors[connector.Id] = connector;
+      }
+      foreach (ConnectorMap connectorMap in diagram.ConnectorMaps)
+      {
+         connectors.Remove(connectorMap.Connector.Id);
+      }
+      if (connectors.Count > 0)
+      {   // Some connectors are not mapped.
+         IEnumerable<Connector> sortedConnectors = CodeGenerationUtilities.SortDomainClassesByInheritance<Connector>(connectors.Values);
 #>
 
 /// <summary>
@@ -1949,24 +1949,24 @@ protected override DslModeling::ModelElement GetTargetRolePlayerForLinkMappedByC
 /// </summary>
 public override bool IsConnectorMappedToLink(DslDiagrams::BinaryLinkShape connector)
 {
-	#region Check Parameters
-	global::System.Diagnostics.Debug.Assert(connector != null);
-	if (connector == null)
-		throw new global::System.ArgumentNullException("connector");
-	#endregion
+   #region Check Parameters
+   global::System.Diagnostics.Debug.Assert(connector != null);
+   if (connector == null)
+      throw new global::System.ArgumentNullException("connector");
+   #endregion
 <#+
-			foreach (Connector sortedConnector in sortedConnectors)
-			{
+         foreach (Connector sortedConnector in sortedConnectors)
+         {
 #>
-	if (connector.GetType() == typeof(<#= sortedConnector.GetFullName(true) #>))
-		return false;
+   if (connector.GetType() == typeof(<#= sortedConnector.GetFullName(true) #>))
+      return false;
 <#+
-			}
+         }
 #>
-	return base.IsConnectorMappedToLink(connector);
+   return base.IsConnectorMappedToLink(connector);
 }
 <#+
-		}
+      }
 #>
 
 /// <summary>
@@ -1977,94 +1977,94 @@ public override bool IsConnectorMappedToLink(DslDiagrams::BinaryLinkShape connec
 protected override DslDiagrams::ShapeElement CreateChildShape(DslModeling::ModelElement element)
 {
 <#+
-		IEnumerable<DomainClass> sortedMappedClasses = CodeGenerationUtilities.SortDomainClassesByInheritance<DomainClass>(mappedClasses);
-		foreach(DomainClass mappedDomainClass in sortedMappedClasses)
-		{
-			bool hasMultipleMappings = false;
-			bool hasCustomParentShape = false;
-			bool isShape = false;
-			string shapeTypeName = null;
-			List<BaseShapeMap> shapeMapList;
-			bool isAbstractShape = false;
-			if(shapeMaps.TryGetValue(mappedDomainClass, out shapeMapList))
-			{
-				isShape = true;
-				hasMultipleMappings = shapeMapList.Count > 1;
-				if(!hasMultipleMappings)
-				{
-					foreach(BaseShapeMap baseMap in shapeMapList)
-					{
-						if(baseMap.HasCustomParentShape)
-						{
-							hasCustomParentShape = true;
-							break;
-						}
-					}
-				}
-				if(!hasCustomParentShape && !hasMultipleMappings)
-				{
-					shapeTypeName = shapeMapList[0].BaseShape.GetFullName(true);
-					isAbstractShape = (shapeMapList[0].BaseShape.InheritanceModifier == InheritanceModifier.Abstract);
-				}
-			}
-			else
-			{
-				List<ConnectorMap> connectorMapList = connectorMaps[mappedDomainClass];
-				hasMultipleMappings = connectorMapList.Count > 1;
-				if(!hasMultipleMappings)
-				{
-					shapeTypeName = connectorMapList[0].Connector.GetFullName(true);
-					isAbstractShape = (connectorMapList[0].Connector.InheritanceModifier == InheritanceModifier.Abstract);
-				}
-			}
+      IEnumerable<DomainClass> sortedMappedClasses = CodeGenerationUtilities.SortDomainClassesByInheritance<DomainClass>(mappedClasses);
+      foreach(DomainClass mappedDomainClass in sortedMappedClasses)
+      {
+         bool hasMultipleMappings = false;
+         bool hasCustomParentShape = false;
+         bool isShape = false;
+         string shapeTypeName = null;
+         List<BaseShapeMap> shapeMapList;
+         bool isAbstractShape = false;
+         if(shapeMaps.TryGetValue(mappedDomainClass, out shapeMapList))
+         {
+            isShape = true;
+            hasMultipleMappings = shapeMapList.Count > 1;
+            if(!hasMultipleMappings)
+            {
+               foreach(BaseShapeMap baseMap in shapeMapList)
+               {
+                  if(baseMap.HasCustomParentShape)
+                  {
+                     hasCustomParentShape = true;
+                     break;
+                  }
+               }
+            }
+            if(!hasCustomParentShape && !hasMultipleMappings)
+            {
+               shapeTypeName = shapeMapList[0].BaseShape.GetFullName(true);
+               isAbstractShape = (shapeMapList[0].BaseShape.InheritanceModifier == InheritanceModifier.Abstract);
+            }
+         }
+         else
+         {
+            List<ConnectorMap> connectorMapList = connectorMaps[mappedDomainClass];
+            hasMultipleMappings = connectorMapList.Count > 1;
+            if(!hasMultipleMappings)
+            {
+               shapeTypeName = connectorMapList[0].Connector.GetFullName(true);
+               isAbstractShape = (connectorMapList[0].Connector.InheritanceModifier == InheritanceModifier.Abstract);
+            }
+         }
 #>
-	if(element is <#= mappedDomainClass.GetFullName(true) #>)
-	{
+   if(element is <#= mappedDomainClass.GetFullName(true) #>)
+   {
 <#+
-			if(hasCustomParentShape || hasMultipleMappings || isAbstractShape)
-			{
-				string shapeOrConnector = isShape ? "Shape" : "Connector";
-				if (!isAbstractShape)
-				{
-					shapeTypeName = isShape ? "DslDiagrams::NodeShape" : "DslDiagrams::LinkShape";
-				}
-				if(hasMultipleMappings)
-				{
+         if(hasCustomParentShape || hasMultipleMappings || isAbstractShape)
+         {
+            string shapeOrConnector = isShape ? "Shape" : "Connector";
+            if (!isAbstractShape)
+            {
+               shapeTypeName = isShape ? "DslDiagrams::NodeShape" : "DslDiagrams::LinkShape";
+            }
+            if(hasMultipleMappings)
+            {
 #>
-		// Multiple mappings have been defined for the class <#= mappedDomainClass.Name #>.
-		// Either implement a method as described below, or remove the multiple mappings from the DSL definition.
-		//
+      // Multiple mappings have been defined for the class <#= mappedDomainClass.Name #>.
+      // Either implement a method as described below, or remove the multiple mappings from the DSL definition.
+      //
 <#+
-				}
+            }
 #>
-		// Method:
-		// private <#= shapeTypeName #> Create<#= shapeOrConnector #>For<#= mappedDomainClass.Name #>(<#= mappedDomainClass.Name #> newElement)
-		// {
-		// }
-		// must be implemented in a partial class of <#= CodeGenerationUtilities.GetGenerationClassName(diagram) #>.  Given an instance of <#= mappedDomainClass.Name #>,
-		// the method should return a new shape or connector instance that should be associated with this element.  If no shape or connector should be created, the method should return null.
-		<#= shapeTypeName #> newShape = Create<#= shapeOrConnector #>For<#= mappedDomainClass.Name #>((<#= mappedDomainClass.GetFullName(true) #>)element);
+      // Method:
+      // private <#= shapeTypeName #> Create<#= shapeOrConnector #>For<#= mappedDomainClass.Name #>(<#= mappedDomainClass.Name #> newElement)
+      // {
+      // }
+      // must be implemented in a partial class of <#= CodeGenerationUtilities.GetGenerationClassName(diagram) #>.  Given an instance of <#= mappedDomainClass.Name #>,
+      // the method should return a new shape or connector instance that should be associated with this element.  If no shape or connector should be created, the method should return null.
+      <#= shapeTypeName #> newShape = Create<#= shapeOrConnector #>For<#= mappedDomainClass.Name #>((<#= mappedDomainClass.GetFullName(true) #>)element);
 <#+
-			}
-			else
-			{
+         }
+         else
+         {
 #>
-		<#= shapeTypeName #> newShape = new <#= shapeTypeName #>(this.Partition);
+      <#= shapeTypeName #> newShape = new <#= shapeTypeName #>(this.Partition);
 <#+
-			}
-			if(isShape)
-			{
+         }
+         if(isShape)
+         {
 #>
-		if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+      if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 <#+
-			}
+         }
 #>
-		return newShape;
-	}
+      return newShape;
+   }
 <#+
-		}
+      }
 #>
-	return base.CreateChildShape(element);
+   return base.CreateChildShape(element);
 }
 #endregion
 #region Decorator mapping
@@ -2074,413 +2074,413 @@ protected override DslDiagrams::ShapeElement CreateChildShape(DslModeling::Model
 /// </summary>
 protected override void InitializeShapeFields(global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields)
 {
-	base.InitializeShapeFields(shapeFields);
-<#+		
-		List<DiagramElement> mappedDiagramElementsAndDescendants = new List<DiagramElement>();
-		
-		// build a list of shapes with mapped decorators and descendants.  We need to generate map classes
-		// for descendants as well because they will have different decorator instances than the parent class.
-		foreach(DiagramElement element in mappedDiagramElements)
-		{
-			if(!mappedDiagramElementsAndDescendants.Contains(element))
-			{
-				mappedDiagramElementsAndDescendants.Add(element);
-				foreach(DomainClass derivedClass in element.AllDescendants)
-				{
-					DiagramElement derivedElement = (DiagramElement)derivedClass;
-					if(!mappedDiagramElementsAndDescendants.Contains(derivedElement))
-					{
-						mappedDiagramElementsAndDescendants.Add(derivedElement);
-					}
-				}
-			}
-		}
-		
-		// Diagram elements can have same names, so we need to generate some unique name for the generated code.
-		Dictionary<string, List<Guid>> diagramElementNames = new Dictionary<string, List<Guid>>();
-		foreach(DiagramElement element in mappedDiagramElementsAndDescendants)
-		{
-			string elementName = element.Name;
-			if (diagramElementNames.ContainsKey(elementName))
-			{
-				diagramElementNames[elementName].Add(element.Id);
-			}
-			else
-			{
-				List<Guid> elementIds = new List<Guid>();
-				elementIds.Add(element.Id);
-				diagramElementNames.Add(elementName, elementIds);
-			}
-		}
-		
-		foreach(DiagramElement element in mappedDiagramElementsAndDescendants)
-		{
-			string elementName = element.Name;
-			if (diagramElementNames[elementName].Count > 1)
-			{
-				int index = 1;
-				foreach (Guid id in diagramElementNames[elementName])
-				{
-					if (id == element.Id)
-					{
-						break;
-					}
-					
-					index++;
-				}
-				
-				elementName = elementName + index;
-			}
-		
-			// abstract classes do not define this event.
-			if(element.InheritanceModifier != InheritanceModifier.Abstract)
-			{
+   base.InitializeShapeFields(shapeFields);
+<#+      
+      List<DiagramElement> mappedDiagramElementsAndDescendants = new List<DiagramElement>();
+      
+      // build a list of shapes with mapped decorators and descendants.  We need to generate map classes
+      // for descendants as well because they will have different decorator instances than the parent class.
+      foreach(DiagramElement element in mappedDiagramElements)
+      {
+         if(!mappedDiagramElementsAndDescendants.Contains(element))
+         {
+            mappedDiagramElementsAndDescendants.Add(element);
+            foreach(DomainClass derivedClass in element.AllDescendants)
+            {
+               DiagramElement derivedElement = (DiagramElement)derivedClass;
+               if(!mappedDiagramElementsAndDescendants.Contains(derivedElement))
+               {
+                  mappedDiagramElementsAndDescendants.Add(derivedElement);
+               }
+            }
+         }
+      }
+      
+      // Diagram elements can have same names, so we need to generate some unique name for the generated code.
+      Dictionary<string, List<Guid>> diagramElementNames = new Dictionary<string, List<Guid>>();
+      foreach(DiagramElement element in mappedDiagramElementsAndDescendants)
+      {
+         string elementName = element.Name;
+         if (diagramElementNames.ContainsKey(elementName))
+         {
+            diagramElementNames[elementName].Add(element.Id);
+         }
+         else
+         {
+            List<Guid> elementIds = new List<Guid>();
+            elementIds.Add(element.Id);
+            diagramElementNames.Add(elementName, elementIds);
+         }
+      }
+      
+      foreach(DiagramElement element in mappedDiagramElementsAndDescendants)
+      {
+         string elementName = element.Name;
+         if (diagramElementNames[elementName].Count > 1)
+         {
+            int index = 1;
+            foreach (Guid id in diagramElementNames[elementName])
+            {
+               if (id == element.Id)
+               {
+                  break;
+               }
+               
+               index++;
+            }
+            
+            elementName = elementName + index;
+         }
+      
+         // abstract classes do not define this event.
+         if(element.InheritanceModifier != InheritanceModifier.Abstract)
+         {
 #>
-	<#= element.GetFullName(true) #>.DecoratorsInitialized += <#= elementName #>DecoratorMap.OnDecoratorsInitialized;
+   <#= element.GetFullName(true) #>.DecoratorsInitialized += <#= elementName #>DecoratorMap.OnDecoratorsInitialized;
 <#+
-			}
-		}
+         }
+      }
 #>
 }
 
-<#+		
-		foreach(DiagramElement element in mappedDiagramElementsAndDescendants)
-		{
-			string elementName = element.Name;
-			if (diagramElementNames[elementName].Count > 1)
-			{
-				int index = 1;
-				foreach (Guid id in diagramElementNames[elementName])
-				{
-					if (id == element.Id)
-					{
-						break;
-					}
-					
-					index++;
-				}
-				
-				elementName = elementName + index;
-			}
+<#+      
+      foreach(DiagramElement element in mappedDiagramElementsAndDescendants)
+      {
+         string elementName = element.Name;
+         if (diagramElementNames[elementName].Count > 1)
+         {
+            int index = 1;
+            foreach (Guid id in diagramElementNames[elementName])
+            {
+               if (id == element.Id)
+               {
+                  break;
+               }
+               
+               index++;
+            }
+            
+            elementName = elementName + index;
+         }
 #>
 /// <summary>
 /// Class containing decorator path traversal methods for <#= element.Name #>.
 /// </summary>
 internal static partial class <#= elementName #>DecoratorMap
 {
-	/// <summary>
-	/// Event handler called when decorator initialization is complete for <#= element.Name #>.  Adds decorator mappings for this shape or connector.
-	/// </summary>
-	public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-	{
+   /// <summary>
+   /// Event handler called when decorator initialization is complete for <#= element.Name #>.  Adds decorator mappings for this shape or connector.
+   /// </summary>
+   public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+   {
 <#+
-			DiagramElement baseElement = element.BaseClass as DiagramElement;
-			while(baseElement != null)
-			{
-				if (mappedDiagramElementsAndDescendants.Contains(baseElement))
-				{
+         DiagramElement baseElement = element.BaseClass as DiagramElement;
+         while(baseElement != null)
+         {
+            if (mappedDiagramElementsAndDescendants.Contains(baseElement))
+            {
 #>
-		<#= baseElement.Name #>DecoratorMap.OnDecoratorsInitialized(sender, e);
-		
+      <#= baseElement.Name #>DecoratorMap.OnDecoratorsInitialized(sender, e);
+      
 <#+
-					break;
-				}
-				baseElement = baseElement.BaseClass as DiagramElement;
-			}
+               break;
+            }
+            baseElement = baseElement.BaseClass as DiagramElement;
+         }
 
-			bool initialMapping = true;
-			foreach(Decorator decorator in decoratorMaps.Keys)
-			{
-				List<DecoratorMap> decoratorMapList;
-				if(decoratorMaps.TryGetValue(decorator, out decoratorMapList))
-				{
-					// Set up value mapping.
-					int i=0;
-					foreach(DecoratorMap decoratorMap in decoratorMapList)
-					{
-						// make sure we only map decorators from this class
-						if(CodeGenerationUtilities.GetDiagramElementForDecoratorMap(decoratorMap) != element) continue;
-						
-						if(initialMapping)
-						{
-							initialMapping = false;
-							// generate declarations first time through the loop
+         bool initialMapping = true;
+         foreach(Decorator decorator in decoratorMaps.Keys)
+         {
+            List<DecoratorMap> decoratorMapList;
+            if(decoratorMaps.TryGetValue(decorator, out decoratorMapList))
+            {
+               // Set up value mapping.
+               int i=0;
+               foreach(DecoratorMap decoratorMap in decoratorMapList)
+               {
+                  // make sure we only map decorators from this class
+                  if(CodeGenerationUtilities.GetDiagramElementForDecoratorMap(decoratorMap) != element) continue;
+                  
+                  if(initialMapping)
+                  {
+                     initialMapping = false;
+                     // generate declarations first time through the loop
 #>
-		DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-		DslDiagrams::AssociatedPropertyInfo propertyInfo;
+      DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+      DslDiagrams::AssociatedPropertyInfo propertyInfo;
 <#+
-						}
-						
-						string delegatePostfix = String.Empty;
-						DiagramElementMap elementMap = decoratorMap.DiagramElementMap;
-						DomainClass mappedClass;
-						DomainClass mappedShape;
-						if(elementMap is BaseShapeMap)
-						{
-							mappedClass = ((BaseShapeMap)elementMap).Class;
-							mappedShape = ((BaseShapeMap)elementMap).BaseShape;
-						}
-						else
-						{
-							mappedClass = ((ConnectorMap)elementMap).Relationship;
-							mappedShape = ((ConnectorMap)elementMap).Connector;
-						}
-						string mappedClassFullName = String.Empty;
-						if(i > 0) 
-						{
-							delegatePostfix = i.ToString();
-							mappedClassFullName = mappedClass.GetFullName(true) + ".DomainClassId, ";
-						}
-						i++;
-						
-						if(decoratorMap.PropertyDisplayed != null)
-						{
-							DomainProperty displayProperty = decoratorMap.PropertyDisplayed.Property;
-							DomainClass displayClass = displayProperty.Class;
+                  }
+                  
+                  string delegatePostfix = String.Empty;
+                  DiagramElementMap elementMap = decoratorMap.DiagramElementMap;
+                  DomainClass mappedClass;
+                  DomainClass mappedShape;
+                  if(elementMap is BaseShapeMap)
+                  {
+                     mappedClass = ((BaseShapeMap)elementMap).Class;
+                     mappedShape = ((BaseShapeMap)elementMap).BaseShape;
+                  }
+                  else
+                  {
+                     mappedClass = ((ConnectorMap)elementMap).Relationship;
+                     mappedShape = ((ConnectorMap)elementMap).Connector;
+                  }
+                  string mappedClassFullName = String.Empty;
+                  if(i > 0) 
+                  {
+                     delegatePostfix = i.ToString();
+                     mappedClassFullName = mappedClass.GetFullName(true) + ".DomainClassId, ";
+                  }
+                  i++;
+                  
+                  if(decoratorMap.PropertyDisplayed != null)
+                  {
+                     DomainProperty displayProperty = decoratorMap.PropertyDisplayed.Property;
+                     DomainClass displayClass = displayProperty.Class;
 #>
-		
-		propertyInfo = new DslDiagrams::AssociatedPropertyInfo(<#= displayClass.GetFullName(true) #>.<#= displayProperty.Name #>DomainPropertyId);
+      
+      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(<#= displayClass.GetFullName(true) #>.<#= displayProperty.Name #>DomainPropertyId);
 <#+
-							if(decoratorMap.PropertyDisplayed.PathToProperty != null && decoratorMap.PropertyDisplayed.PathToProperty.Segments.Count > 0)
-							{
+                     if(decoratorMap.PropertyDisplayed.PathToProperty != null && decoratorMap.PropertyDisplayed.PathToProperty.Segments.Count > 0)
+                     {
 #>
-		propertyInfo.PresentationDomainNavigator = new DslDiagrams::PresentationDomainNavigator(<#= decoratorMap.Decorator.Name #>PresentationToDomain<#= delegatePostfix #>);
-		propertyInfo.DomainPresentationNavigator = new DslDiagrams::DomainPresentationNavigator(<#= decoratorMap.Decorator.Name #>DomainToPresentation<#= delegatePostfix #>);
+      propertyInfo.PresentationDomainNavigator = new DslDiagrams::PresentationDomainNavigator(<#= decoratorMap.Decorator.Name #>PresentationToDomain<#= delegatePostfix #>);
+      propertyInfo.DomainPresentationNavigator = new DslDiagrams::DomainPresentationNavigator(<#= decoratorMap.Decorator.Name #>DomainToPresentation<#= delegatePostfix #>);
 <#+
-							}
-							else if(displayProperty.Class is DiagramElement)
-							{
-								// property exists on the shape, rather than the MEL
+                     }
+                     else if(displayProperty.Class is DiagramElement)
+                     {
+                        // property exists on the shape, rather than the MEL
 #>
-		propertyInfo.IsShapeProperty = true;
+      propertyInfo.IsShapeProperty = true;
 <#+
-							}
+                     }
 #>
-		DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "<#= decoratorMap.Decorator.Name #>").AssociateValueWith(shape.Store, <#= mappedClassFullName #>propertyInfo);
+      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "<#= decoratorMap.Decorator.Name #>").AssociateValueWith(shape.Store, <#= mappedClassFullName #>propertyInfo);
 <#+
-						}
-					
-						// Set up visibility mapping.
-						VisibilityPropertyPath visibilityPropertyPath = decoratorMap.VisibilityPropertyPath;
-						string filteringValues = String.Empty;
-						if(visibilityPropertyPath != null)
-						{
-							DomainProperty visibilityProperty = visibilityPropertyPath.Property;
-							DomainClass visibilityClass = visibilityProperty.Class;
+                  }
+               
+                  // Set up visibility mapping.
+                  VisibilityPropertyPath visibilityPropertyPath = decoratorMap.VisibilityPropertyPath;
+                  string filteringValues = String.Empty;
+                  if(visibilityPropertyPath != null)
+                  {
+                     DomainProperty visibilityProperty = visibilityPropertyPath.Property;
+                     DomainClass visibilityClass = visibilityProperty.Class;
 #>
 
-		propertyInfo = new DslDiagrams::AssociatedPropertyInfo(<#= visibilityClass.GetFullName(true) #>.<#= visibilityProperty.Name #>DomainPropertyId);
+      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(<#= visibilityClass.GetFullName(true) #>.<#= visibilityProperty.Name #>DomainPropertyId);
 <#+
-							if(visibilityPropertyPath.PathToProperty != null && visibilityPropertyPath.PathToProperty.Segments.Count > 0)
-							{
+                     if(visibilityPropertyPath.PathToProperty != null && visibilityPropertyPath.PathToProperty.Segments.Count > 0)
+                     {
 #>
-		propertyInfo.PresentationDomainNavigator = new DslDiagrams::PresentationDomainNavigator(<#= decoratorMap.Decorator.Name #>VisibilityPresentationToDomain<#= delegatePostfix #>);
-		propertyInfo.DomainPresentationNavigator = new DslDiagrams::DomainPresentationNavigator(<#= decoratorMap.Decorator.Name #>VisibilityDomainToPresentation<#= delegatePostfix #>);
+      propertyInfo.PresentationDomainNavigator = new DslDiagrams::PresentationDomainNavigator(<#= decoratorMap.Decorator.Name #>VisibilityPresentationToDomain<#= delegatePostfix #>);
+      propertyInfo.DomainPresentationNavigator = new DslDiagrams::DomainPresentationNavigator(<#= decoratorMap.Decorator.Name #>VisibilityDomainToPresentation<#= delegatePostfix #>);
 <#+
-							}
-							else if (visibilityProperty.Class is DiagramElement)
-							{
+                     }
+                     else if (visibilityProperty.Class is DiagramElement)
+                     {
 #>
-		propertyInfo.IsShapeProperty = true;
+      propertyInfo.IsShapeProperty = true;
 <#+
-							}
-							foreach(PropertyFilter filter in visibilityPropertyPath.PropertyFilters)
-							{
+                     }
+                     foreach(PropertyFilter filter in visibilityPropertyPath.PropertyFilters)
+                     {
 #>
-		propertyInfo.FilteringValues.Add("<#= filter.FilteringValue #>");
+      propertyInfo.FilteringValues.Add("<#= filter.FilteringValue #>");
 <#+
-							}
+                     }
 #>
-		DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "<#= decoratorMap.Decorator.Name #>").AssociateVisibilityWith(shape.Store, <#= mappedClassFullName #>propertyInfo);
+      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "<#= decoratorMap.Decorator.Name #>").AssociateVisibilityWith(shape.Store, <#= mappedClassFullName #>propertyInfo);
 <#+
-						} 
-					} // foreach DecoratorMap
-				} // if (TryGetValue(decorator))
-			} // foreach Decorator
+                  } 
+               } // foreach DecoratorMap
+            } // if (TryGetValue(decorator))
+         } // foreach Decorator
 #>
-	}
+   }
 <#+
-			foreach(Decorator decorator in decoratorMaps.Keys)
-			{
-				List<DecoratorMap> decoratorMapList;
-				if(decoratorMaps.TryGetValue(decorator, out decoratorMapList))
-				{
-					int i=0;
-					foreach(DecoratorMap decoratorMap in decoratorMapList)
-					{
-						// make sure we only map decorators from this class
-						if(CodeGenerationUtilities.GetDiagramElementForDecoratorMap(decoratorMap) != element) continue;
-						
-						string delegatePostfix = String.Empty;
-						if(i > 0) delegatePostfix = i.ToString();
-						i++;
-						
-						if(decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.PathToProperty != null && decoratorMap.PropertyDisplayed.PathToProperty.Segments.Count > 0)
-						{
-							DomainPath path = decoratorMap.PropertyDisplayed.PathToProperty;
+         foreach(Decorator decorator in decoratorMaps.Keys)
+         {
+            List<DecoratorMap> decoratorMapList;
+            if(decoratorMaps.TryGetValue(decorator, out decoratorMapList))
+            {
+               int i=0;
+               foreach(DecoratorMap decoratorMap in decoratorMapList)
+               {
+                  // make sure we only map decorators from this class
+                  if(CodeGenerationUtilities.GetDiagramElementForDecoratorMap(decoratorMap) != element) continue;
+                  
+                  string delegatePostfix = String.Empty;
+                  if(i > 0) delegatePostfix = i.ToString();
+                  i++;
+                  
+                  if(decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.PathToProperty != null && decoratorMap.PropertyDisplayed.PathToProperty.Segments.Count > 0)
+                  {
+                     DomainPath path = decoratorMap.PropertyDisplayed.PathToProperty;
 #>
-	public static DslModeling::ModelElement <#= decoratorMap.Decorator.Name #>PresentationToDomain<#= delegatePostfix #>(DslDiagrams::PresentationElement presentation)
-	{
+   public static DslModeling::ModelElement <#= decoratorMap.Decorator.Name #>PresentationToDomain<#= delegatePostfix #>(DslDiagrams::PresentationElement presentation)
+   {
 <#+
-							string inputType = CodeGenerationUtilities.GetSegmentInputType(path.Segments[0]);
+                     string inputType = CodeGenerationUtilities.GetSegmentInputType(path.Segments[0]);
 #>
-		<#= inputType #> modelElement = presentation.ModelElement as <#= inputType #>;
-		if(modelElement != null)
-		{
+      <#= inputType #> modelElement = presentation.ModelElement as <#= inputType #>;
+      if(modelElement != null)
+      {
 <#+
-							GeneratePathMethodBody(path, "modelElement", "mappedElement");
+                     GeneratePathMethodBody(path, "modelElement", "mappedElement");
 #>
-			return mappedElement;
-		}
-		return null;
-	}
-	public static global::System.Collections.Generic.ICollection<DslDiagrams::PresentationElement> <#= decoratorMap.Decorator.Name #>DomainToPresentation<#= delegatePostfix #>(DslModeling::ModelElement modelElement)
-	{
+         return mappedElement;
+      }
+      return null;
+   }
+   public static global::System.Collections.Generic.ICollection<DslDiagrams::PresentationElement> <#= decoratorMap.Decorator.Name #>DomainToPresentation<#= delegatePostfix #>(DslModeling::ModelElement modelElement)
+   {
 <#+
-							inputType = CodeGenerationUtilities.GetSegmentOutputType(path.Segments[path.Segments.Count-1]);
+                     inputType = CodeGenerationUtilities.GetSegmentOutputType(path.Segments[path.Segments.Count-1]);
 #>
-		<#= inputType #> typedElement = modelElement as <#= inputType #>;
-		if(typedElement != null)
-		{
-			if(typedElement.IsDeleted)
-			{
-				// We cannot navigate back along a path containing deleted elements, best we can do is return the diagram
-				// to ensure all visible shapes are invalidated.
-				global::System.Collections.ObjectModel.ReadOnlyCollection<<#= diagram.GetFullName(true) #>> diagramCollection = modelElement.Store.ElementDirectory.FindElements<<#= diagram.GetFullName(true) #>>(true);
-				<#= diagram.GetFullName(true) #>[] diagramArray = new <#= diagram.GetFullName(true) #>[diagramCollection.Count];
-				diagramCollection.CopyTo(diagramArray, 0);
-				return diagramArray;
-			}
+      <#= inputType #> typedElement = modelElement as <#= inputType #>;
+      if(typedElement != null)
+      {
+         if(typedElement.IsDeleted)
+         {
+            // We cannot navigate back along a path containing deleted elements, best we can do is return the diagram
+            // to ensure all visible shapes are invalidated.
+            global::System.Collections.ObjectModel.ReadOnlyCollection<<#= diagram.GetFullName(true) #>> diagramCollection = modelElement.Store.ElementDirectory.FindElements<<#= diagram.GetFullName(true) #>>(true);
+            <#= diagram.GetFullName(true) #>[] diagramArray = new <#= diagram.GetFullName(true) #>[diagramCollection.Count];
+            diagramCollection.CopyTo(diagramArray, 0);
+            return diagramArray;
+         }
 <#+
-							bool isCollection = GenerateReversePathMethodBody(path, "typedElement", "mappedElements");
-							if(!isCollection)
-							{
+                     bool isCollection = GenerateReversePathMethodBody(path, "typedElement", "mappedElements");
+                     if(!isCollection)
+                     {
 #>
-			return DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElements);
+         return DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElements);
 <#+
-							}
-							else
-							{
+                     }
+                     else
+                     {
 #>
-			global::System.Collections.Generic.List<DslDiagrams::PresentationElement> presentationList = new global::System.Collections.Generic.List<DslDiagrams::PresentationElement>();
-			foreach(DslModeling::ModelElement mappedElement in mappedElements)
-			{
-				presentationList.AddRange(DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElement));
-			}
-			return presentationList;
+         global::System.Collections.Generic.List<DslDiagrams::PresentationElement> presentationList = new global::System.Collections.Generic.List<DslDiagrams::PresentationElement>();
+         foreach(DslModeling::ModelElement mappedElement in mappedElements)
+         {
+            presentationList.AddRange(DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElement));
+         }
+         return presentationList;
 <#+
-							}
+                     }
 #>
-		}
-		return null;
-	}
+      }
+      return null;
+   }
 <#+
-						}  // if (PropertyDisplayed)
-			
-						if(decoratorMap.VisibilityPropertyPath != null && decoratorMap.VisibilityPropertyPath.PathToProperty != null && decoratorMap.VisibilityPropertyPath.PathToProperty.Segments.Count > 0)
-						{
-							DomainPath path = decoratorMap.VisibilityPropertyPath.PathToProperty;
+                  }  // if (PropertyDisplayed)
+         
+                  if(decoratorMap.VisibilityPropertyPath != null && decoratorMap.VisibilityPropertyPath.PathToProperty != null && decoratorMap.VisibilityPropertyPath.PathToProperty.Segments.Count > 0)
+                  {
+                     DomainPath path = decoratorMap.VisibilityPropertyPath.PathToProperty;
 #>
-	public static DslModeling::ModelElement <#= decoratorMap.Decorator.Name #>VisibilityPresentationToDomain(DslDiagrams::PresentationElement presentation)
-	{
+   public static DslModeling::ModelElement <#= decoratorMap.Decorator.Name #>VisibilityPresentationToDomain(DslDiagrams::PresentationElement presentation)
+   {
 <#+
-							string inputType = CodeGenerationUtilities.GetSegmentInputType(path.Segments[0]);
+                     string inputType = CodeGenerationUtilities.GetSegmentInputType(path.Segments[0]);
 #>
-		<#= inputType #> modelElement = presentation.ModelElement as <#= inputType #>;
-		if(modelElement != null)
-		{
+      <#= inputType #> modelElement = presentation.ModelElement as <#= inputType #>;
+      if(modelElement != null)
+      {
 <#+
-							GeneratePathMethodBody(path, "modelElement", "mappedElement");
+                     GeneratePathMethodBody(path, "modelElement", "mappedElement");
 #>
-			return mappedElement;
-		}
-		return null;
-	}
-	public static global::System.Collections.Generic.ICollection<DslDiagrams::PresentationElement> <#= decoratorMap.Decorator.Name #>VisibilityDomainToPresentation(DslModeling::ModelElement modelElement)
-	{
+         return mappedElement;
+      }
+      return null;
+   }
+   public static global::System.Collections.Generic.ICollection<DslDiagrams::PresentationElement> <#= decoratorMap.Decorator.Name #>VisibilityDomainToPresentation(DslModeling::ModelElement modelElement)
+   {
 <#+
-							inputType = CodeGenerationUtilities.GetSegmentOutputType(path.Segments[path.Segments.Count-1]);
+                     inputType = CodeGenerationUtilities.GetSegmentOutputType(path.Segments[path.Segments.Count-1]);
 #>
-		<#= inputType #> typedElement = modelElement as <#= inputType #>;
-		if(typedElement != null)
-		{
-			if(typedElement.IsDeleted)
-			{
-				// We cannot navigate back along a path containing deleted elements, best we can do is return the diagram
-				// to ensure all visible shapes are invalidated.
-				global::System.Collections.ObjectModel.ReadOnlyCollection<<#= diagram.GetFullName(true) #>> diagramCollection = modelElement.Store.ElementDirectory.FindElements<<#= diagram.GetFullName(true) #>>(true);
-				<#= diagram.GetFullName(true) #>[] diagramArray = new <#= diagram.GetFullName(true) #>[diagramCollection.Count];
-				diagramCollection.CopyTo(diagramArray, 0);
-				return diagramArray;
-			}
+      <#= inputType #> typedElement = modelElement as <#= inputType #>;
+      if(typedElement != null)
+      {
+         if(typedElement.IsDeleted)
+         {
+            // We cannot navigate back along a path containing deleted elements, best we can do is return the diagram
+            // to ensure all visible shapes are invalidated.
+            global::System.Collections.ObjectModel.ReadOnlyCollection<<#= diagram.GetFullName(true) #>> diagramCollection = modelElement.Store.ElementDirectory.FindElements<<#= diagram.GetFullName(true) #>>(true);
+            <#= diagram.GetFullName(true) #>[] diagramArray = new <#= diagram.GetFullName(true) #>[diagramCollection.Count];
+            diagramCollection.CopyTo(diagramArray, 0);
+            return diagramArray;
+         }
 <#+
-							bool isCollection = GenerateReversePathMethodBody(path, "typedElement", "mappedElements");
-							if(!isCollection)
-							{
+                     bool isCollection = GenerateReversePathMethodBody(path, "typedElement", "mappedElements");
+                     if(!isCollection)
+                     {
 #>
-			return DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElements);
+         return DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElements);
 <#+
-							}
-							else
-							{
+                     }
+                     else
+                     {
 #>
-			global::System.Collections.Generic.List<DslDiagrams::PresentationElement> presentationList = new global::System.Collections.Generic.List<DslDiagrams::PresentationElement>();
-			foreach(DslModeling::ModelElement mappedElement in mappedElements)
-			{
-				presentationList.AddRange(DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElement));
-			}
-			return presentationList;
+         global::System.Collections.Generic.List<DslDiagrams::PresentationElement> presentationList = new global::System.Collections.Generic.List<DslDiagrams::PresentationElement>();
+         foreach(DslModeling::ModelElement mappedElement in mappedElements)
+         {
+            presentationList.AddRange(DslDiagrams::PresentationViewsSubject.GetPresentation(mappedElement));
+         }
+         return presentationList;
 <#+
-							}
+                     }
 #>
-		}
-		return null;
-	}
+      }
+      return null;
+   }
 <#+
-						} // if (VisibilityPropertyPath)
-					} // foreach DecoratorMap
-				} // if (TryGetValue(decorator))
-			} // foreach Decorator
+                  } // if (VisibilityPropertyPath)
+               } // foreach DecoratorMap
+            } // if (TryGetValue(decorator))
+         } // foreach Decorator
 #>
 }
 
 <#+
-		}
+      }
 #>
 #endregion
 <#+
-		//
-		// Generate ConnectAction/CreateAction code for each toolbox Tool.
-		// 
-		List<ElementTool> elementTools = new List<ElementTool>();
-		List<ConnectionTool> connectTools = new List<ConnectionTool>();
-			
-		// collect all the ConnectionTools
-		if(designer != null)
-		{
-			foreach(ToolboxTab tab in designer.ToolboxTabs)
-			{
-				foreach(Tool tool in tab.Tools)
-				{
-					ConnectionTool connectTool = tool as ConnectionTool;
-					if(connectTool != null && connectTool.ConnectionBuilder != null)
-					{
-						connectTools.Add(connectTool);
-					}
-					else if (stickyToolbox)
-					{
-						ElementTool elementTool = tool as ElementTool;
-						if (elementTool != null)
-						{
-							elementTools.Add(elementTool);
-						}
-					}
-				}
-			}
-			if(connectTools.Count > 0 || elementTools.Count > 0)
-			{
-				if (stickyToolbox)
-				{
+      //
+      // Generate ConnectAction/CreateAction code for each toolbox Tool.
+      // 
+      List<ElementTool> elementTools = new List<ElementTool>();
+      List<ConnectionTool> connectTools = new List<ConnectionTool>();
+         
+      // collect all the ConnectionTools
+      if(designer != null)
+      {
+         foreach(ToolboxTab tab in designer.ToolboxTabs)
+         {
+            foreach(Tool tool in tab.Tools)
+            {
+               ConnectionTool connectTool = tool as ConnectionTool;
+               if(connectTool != null && connectTool.ConnectionBuilder != null)
+               {
+                  connectTools.Add(connectTool);
+               }
+               else if (stickyToolbox)
+               {
+                  ElementTool elementTool = tool as ElementTool;
+                  if (elementTool != null)
+                  {
+                     elementTools.Add(elementTool);
+                  }
+               }
+            }
+         }
+         if(connectTools.Count > 0 || elementTools.Count > 0)
+         {
+            if (stickyToolbox)
+            {
 #>
 
 #region Sticky Toolbox Support
@@ -2495,26 +2495,26 @@ private string stickyToolboxItemId = null; // Id of the last-selected sticky too
 /// <param name="toolboxItem">New toolbox item with selection. This can be null, if "Pointer" mode is selected.</param>
 public override void OnToolboxSelectionChanged(DslDesign::ModelingToolboxItem toolboxItem)
 {
-	base.OnToolboxSelectionChanged(toolboxItem);
+   base.OnToolboxSelectionChanged(toolboxItem);
 
-	// When a toolbox item is single-clicked, we need to turn off the sticky mode.
-	this.stickyToolboxItemId = null;
-	if (this.ActiveDiagramView != null)
-	{
-		DslDiagrams::CreateAction createAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::CreateAction;
-		if (createAction != null)
-		{
-			createAction.StickyMode = false;
-		}
-		else
-		{
-			DslDiagrams::ConnectAction connectAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::ConnectAction;
-			if (connectAction != null)
-			{
-				connectAction.StickyMode = false;
-			}
-		}
-	}
+   // When a toolbox item is single-clicked, we need to turn off the sticky mode.
+   this.stickyToolboxItemId = null;
+   if (this.ActiveDiagramView != null)
+   {
+      DslDiagrams::CreateAction createAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::CreateAction;
+      if (createAction != null)
+      {
+         createAction.StickyMode = false;
+      }
+      else
+      {
+         DslDiagrams::ConnectAction connectAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::ConnectAction;
+         if (connectAction != null)
+         {
+            connectAction.StickyMode = false;
+         }
+      }
+   }
 }
 
 /// <summary>
@@ -2526,38 +2526,38 @@ public override void OnToolboxSelectionChanged(DslDesign::ModelingToolboxItem to
 /// <param name="toolboxItem">Selected toolbox item.</param>
 public override bool OnToolboxItemSelected(DslDesign::ModelingToolboxItem toolboxItem)
 {
-	// Save the current sticky item choice.
-	this.stickyToolboxItemId = toolboxItem.Id;
-	
-	// Return true to indicate that the toolbox selection action is handled. Otherwise the old
-	// behavior of creating new element on double-click will be carried out.
-	return true;
+   // Save the current sticky item choice.
+   this.stickyToolboxItemId = toolboxItem.Id;
+   
+   // Return true to indicate that the toolbox selection action is handled. Otherwise the old
+   // behavior of creating new element on double-click will be carried out.
+   return true;
 }
 #endregion
 
 <#+
-				}
+            }
 #>
 
-<#+				
-				string deactivationMethodName = (stickyToolbox ? "OnToolboxActionDeactivated" : "OnConnectActionDeactivated");
+<#+            
+            string deactivationMethodName = (stickyToolbox ? "OnToolboxActionDeactivated" : "OnConnectActionDeactivated");
 #>
 
 #region <#= stickyToolbox ? "Toolbox" : "Connect" #> actions
 private bool changingMouseAction;
 <#+
-				foreach(ElementTool elementTool in elementTools)
-				{
+            foreach(ElementTool elementTool in elementTools)
+            {
 #>
 private global::<#= this.DslLibrary.Namespace #>.<#=elementTool.Name#>CreateAction <#= CodeGenerationUtilities.GetCamelCase(elementTool.Name) #>CreateAction;
 <#+
-				}
-				foreach(ConnectionTool connectTool in connectTools)
-				{
+            }
+            foreach(ConnectionTool connectTool in connectTools)
+            {
 #>
 private global::<#= this.DslLibrary.Namespace #>.<#=connectTool.Name#>ConnectAction <#= CodeGenerationUtilities.GetCamelCase(connectTool.Name) #>ConnectAction;
 <#+
-				}
+            }
 #>
 /// <summary>
 /// Virtual method to provide a filter when to select the mouse action
@@ -2566,7 +2566,7 @@ private global::<#= this.DslLibrary.Namespace #>.<#=connectTool.Name#>ConnectAct
 /// <param name="filter">filter string used to filter the toolbox items</param>
 protected virtual bool SelectedToolboxItemSupportsFilterString(DslDiagrams::DiagramView activeView, string filter)
 {
-	return activeView.SelectedToolboxItemSupportsFilterString(filter);
+   return activeView.SelectedToolboxItemSupportsFilterString(filter);
 }
 /// <summary>
 /// Override to provide the right mouse action when trying
@@ -2575,100 +2575,100 @@ protected virtual bool SelectedToolboxItemSupportsFilterString(DslDiagrams::Diag
 /// <param name="pointArgs"></param>
 public override void OnViewMouseEnter(DslDiagrams::DiagramPointEventArgs pointArgs)
 {
-	if (pointArgs  == null) throw new global::System.ArgumentNullException("pointArgs");
+   if (pointArgs  == null) throw new global::System.ArgumentNullException("pointArgs");
 
-	DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
-	if(activeView != null)
-	{
+   DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
+   if(activeView != null)
+   {
 <#+
-				if (stickyToolbox)
-				{
+            if (stickyToolbox)
+            {
 #>
-		bool stickyMode = false;
-		DslDesign::ModelingToolboxItem selectedToolboxItem = activeView.Toolbox.GetSelectedToolboxItem() as DslDesign::ModelingToolboxItem;
-		if (selectedToolboxItem != null && selectedToolboxItem.Id == this.stickyToolboxItemId)
-		{
-			stickyMode = true;
-		}
-		else
-		{
-			stickyMode = false;
-			this.stickyToolboxItemId = null;
-		}
+      bool stickyMode = false;
+      DslDesign::ModelingToolboxItem selectedToolboxItem = activeView.Toolbox.GetSelectedToolboxItem() as DslDesign::ModelingToolboxItem;
+      if (selectedToolboxItem != null && selectedToolboxItem.Id == this.stickyToolboxItemId)
+      {
+         stickyMode = true;
+      }
+      else
+      {
+         stickyMode = false;
+         this.stickyToolboxItemId = null;
+      }
 
 <#+
-				}
+            }
 #>
-		DslDiagrams::MouseAction action = null;
+      DslDiagrams::MouseAction action = null;
 <#+
-				int _index = 0;
-				foreach(ElementTool elementTool in elementTools)
-				{
-					string fieldName = CodeGenerationUtilities.GetCamelCase(elementTool.Name) + "CreateAction";
+            int _index = 0;
+            foreach(ElementTool elementTool in elementTools)
+            {
+               string fieldName = CodeGenerationUtilities.GetCamelCase(elementTool.Name) + "CreateAction";
 #>
-		<#= _index > 0 ? "else " : string.Empty #>if (SelectedToolboxItemSupportsFilterString(activeView, <#= this.DslLibrary.GetFullName(true) #>ToolboxHelper.<#= elementTool.Name #>FilterString))
-		{
-			if (this.<#=fieldName#> == null)
-			{
-				this.<#=fieldName#> = new global::<#= this.DslLibrary.Namespace #>.<#=elementTool.Name#>CreateAction(this);
-				this.<#=fieldName#>.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(<#= deactivationMethodName #>);
-			}
+      <#= _index > 0 ? "else " : string.Empty #>if (SelectedToolboxItemSupportsFilterString(activeView, <#= this.DslLibrary.GetFullName(true) #>ToolboxHelper.<#= elementTool.Name #>FilterString))
+      {
+         if (this.<#=fieldName#> == null)
+         {
+            this.<#=fieldName#> = new global::<#= this.DslLibrary.Namespace #>.<#=elementTool.Name#>CreateAction(this);
+            this.<#=fieldName#>.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(<#= deactivationMethodName #>);
+         }
 <#+
-				if (stickyToolbox)
-				{
+            if (stickyToolbox)
+            {
 #>
-			this.<#= fieldName #>.StickyMode = stickyMode;
+         this.<#= fieldName #>.StickyMode = stickyMode;
 <#+
-				}
+            }
 #>
-			action = this.<#= fieldName #>;
-		}
+         action = this.<#= fieldName #>;
+      }
 <#+
-					_index++;
-				}
-				foreach(ConnectionTool connectTool in connectTools)
-				{
-					string fieldName = CodeGenerationUtilities.GetCamelCase(connectTool.Name) + "ConnectAction";
+               _index++;
+            }
+            foreach(ConnectionTool connectTool in connectTools)
+            {
+               string fieldName = CodeGenerationUtilities.GetCamelCase(connectTool.Name) + "ConnectAction";
 #>
-		<#= _index > 0 ? "else " : string.Empty #>if (SelectedToolboxItemSupportsFilterString(activeView, <#= this.DslLibrary.GetFullName(true) #>ToolboxHelper.<#= connectTool.Name #>FilterString))
-		{
-			if (this.<#=fieldName#> == null)
-			{
-				this.<#=fieldName#> = new global::<#= this.DslLibrary.Namespace #>.<#=connectTool.Name#>ConnectAction(this);
-				this.<#=fieldName#>.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(<#= deactivationMethodName #>);
-			}
+      <#= _index > 0 ? "else " : string.Empty #>if (SelectedToolboxItemSupportsFilterString(activeView, <#= this.DslLibrary.GetFullName(true) #>ToolboxHelper.<#= connectTool.Name #>FilterString))
+      {
+         if (this.<#=fieldName#> == null)
+         {
+            this.<#=fieldName#> = new global::<#= this.DslLibrary.Namespace #>.<#=connectTool.Name#>ConnectAction(this);
+            this.<#=fieldName#>.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(<#= deactivationMethodName #>);
+         }
 <#+
-				if (stickyToolbox)
-				{
+            if (stickyToolbox)
+            {
 #>
-			this.<#= fieldName #>.StickyMode = stickyMode;
+         this.<#= fieldName #>.StickyMode = stickyMode;
 <#+
-				}
+            }
 #>
-			action = this.<#= fieldName #>;
-		} 
+         action = this.<#= fieldName #>;
+      } 
 <#+
-					_index++;
-				}
+               _index++;
+            }
 #>
-		else
-		{
-			action = null;
-		}
-		
-		if (pointArgs.DiagramClientView.ActiveMouseAction != action)
-		{
-			try
-			{
-				this.changingMouseAction = true;
-				pointArgs.DiagramClientView.ActiveMouseAction = action;
-			}
-			finally
-			{
-				this.changingMouseAction = false;
-			}
-		}
-	}
+      else
+      {
+         action = null;
+      }
+      
+      if (pointArgs.DiagramClientView.ActiveMouseAction != action)
+      {
+         try
+         {
+            this.changingMouseAction = true;
+            pointArgs.DiagramClientView.ActiveMouseAction = action;
+         }
+         finally
+         {
+            this.changingMouseAction = false;
+         }
+      }
+   }
 }
 
 /// <summary>
@@ -2676,7 +2676,7 @@ public override void OnViewMouseEnter(DslDiagrams::DiagramPointEventArgs pointAr
 /// </summary>
 private void <#= deactivationMethodName #>(object sender, DslDiagrams::DiagramEventArgs e)
 {
-	OnMouseActionDeactivated();
+   OnMouseActionDeactivated();
 }
 
 /// <summary>
@@ -2685,25 +2685,25 @@ private void <#= deactivationMethodName #>(object sender, DslDiagrams::DiagramEv
 /// </summary>
 protected virtual void OnMouseActionDeactivated()
 {
-	DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
+   DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
 
-	if (activeView != null && activeView.Toolbox != null)
-	{
-		// If we're not changing mouse action due to changing toolbox selection change,
-		// reset toolbox selection.
-		if (!this.changingMouseAction)
-		{
-			activeView.Toolbox.SelectedToolboxItemUsed();
-		}
-	}
+   if (activeView != null && activeView.Toolbox != null)
+   {
+      // If we're not changing mouse action due to changing toolbox selection change,
+      // reset toolbox selection.
+      if (!this.changingMouseAction)
+      {
+         activeView.Toolbox.SelectedToolboxItemUsed();
+      }
+   }
 }
 #endregion
 <#+
-			}
-		}
-	
-		if (elementTools.Count > 0 || connectTools.Count > 0 || CodeGenerationUtilities.HasCompartmentMaps(diagram))
-		{
+         }
+      }
+   
+      if (elementTools.Count > 0 || connectTools.Count > 0 || CodeGenerationUtilities.HasCompartmentMaps(diagram))
+      {
 #>
 
 /// <summary>
@@ -2711,50 +2711,50 @@ protected virtual void OnMouseActionDeactivated()
 /// </summary>
 protected override void Dispose(bool disposing)
 {
-	try
-	{
-		if(disposing)
-		{
+   try
+   {
+      if(disposing)
+      {
 <#+
-			foreach(ElementTool elementTool in elementTools)
-			{
-				string fieldName = CodeGenerationUtilities.GetCamelCase(elementTool.Name) + "CreateAction";
+         foreach(ElementTool elementTool in elementTools)
+         {
+            string fieldName = CodeGenerationUtilities.GetCamelCase(elementTool.Name) + "CreateAction";
 #>
-			if(this.<#= fieldName #> != null)
-			{
-				this.<#= fieldName #>.Dispose();
-				this.<#= fieldName #> = null;
-			}
+         if(this.<#= fieldName #> != null)
+         {
+            this.<#= fieldName #>.Dispose();
+            this.<#= fieldName #> = null;
+         }
 <#+
-			}
-				
-			foreach(ConnectionTool connectTool in connectTools)
-			{
-				string fieldName = CodeGenerationUtilities.GetCamelCase(connectTool.Name) + "ConnectAction";
+         }
+            
+         foreach(ConnectionTool connectTool in connectTools)
+         {
+            string fieldName = CodeGenerationUtilities.GetCamelCase(connectTool.Name) + "ConnectAction";
 #>
-			if(this.<#= fieldName #> != null)
-			{
-				this.<#= fieldName #>.Dispose();
-				this.<#= fieldName #> = null;
-			}
+         if(this.<#= fieldName #> != null)
+         {
+            this.<#= fieldName #>.Dispose();
+            this.<#= fieldName #> = null;
+         }
 <#+
-			}
-			if (CodeGenerationUtilities.HasCompartmentMaps(diagram))
-			{
+         }
+         if (CodeGenerationUtilities.HasCompartmentMaps(diagram))
+         {
 #>
-			this.UnsubscribeCompartmentItemsEvents();
+         this.UnsubscribeCompartmentItemsEvents();
 <#+
-			}
+         }
 #>
-		}
-	}
-	finally
-	{
-		base.Dispose(disposing);
-	}
+      }
+   }
+   finally
+   {
+      base.Dispose(disposing);
+   }
 }
 <#+
-		}
-	}
+      }
+   }
 }
 #>

@@ -13,72 +13,72 @@ using MexModeling = global::Mexedge.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-	/// <summary>
-	/// Double-derived class to allow easier code customization.
-	/// </summary>
-	[global::System.Runtime.InteropServices.Guid(Constants.EFModelEditorFactoryId)]
-	internal partial class EFModelEditorFactory : EFModelEditorFactoryBase
-	{
-		/// <summary>
-		/// Constructs a new EFModelEditorFactory.
-		/// </summary>
-		public EFModelEditorFactory(global::System.IServiceProvider serviceProvider)
-			: base(serviceProvider)
-		{
-		}
-	}
+   /// <summary>
+   /// Double-derived class to allow easier code customization.
+   /// </summary>
+   [global::System.Runtime.InteropServices.Guid(Constants.EFModelEditorFactoryId)]
+   internal partial class EFModelEditorFactory : EFModelEditorFactoryBase
+   {
+      /// <summary>
+      /// Constructs a new EFModelEditorFactory.
+      /// </summary>
+      public EFModelEditorFactory(global::System.IServiceProvider serviceProvider)
+         : base(serviceProvider)
+      {
+      }
+   }
 
-	/// <summary>
-	/// Factory for creating our editors
-	/// </summary>
-	internal abstract class EFModelEditorFactoryBase : DslShell::ModelingEditorFactory
-	{
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="serviceProvider">Service provider used to access VS services.</param>
-		protected EFModelEditorFactoryBase(global::System.IServiceProvider serviceProvider) : base(serviceProvider)
-		{
-		}
+   /// <summary>
+   /// Factory for creating our editors
+   /// </summary>
+   internal abstract class EFModelEditorFactoryBase : DslShell::ModelingEditorFactory
+   {
+      /// <summary>
+      /// Constructor.
+      /// </summary>
+      /// <param name="serviceProvider">Service provider used to access VS services.</param>
+      protected EFModelEditorFactoryBase(global::System.IServiceProvider serviceProvider) : base(serviceProvider)
+      {
+      }
 
-		/// <summary>
-		/// Called by the shell to ask the editor to map a logical view to a physical one.
-		/// </summary>
-		protected override string MapLogicalView(global::System.Guid logicalView, object viewContext)
-		{
-			var l_viewContext = viewContext as MexModeling::ViewContext;
-			//if (Constants.LogicalViewId != logicalView || null == viewContext) // TODO
-			if (null == l_viewContext)
-            {
-				return base.MapLogicalView(logicalView, viewContext);    
-            }
-			return l_viewContext.ToString();			
-		}
+      /// <summary>
+      /// Called by the shell to ask the editor to map a logical view to a physical one.
+      /// </summary>
+      protected override string MapLogicalView(global::System.Guid logicalView, object viewContext)
+      {
+         var l_viewContext = viewContext as MexModeling::ViewContext;
 
-		/// <summary>
-		/// Called by the shell to ask the editor to create a new document object.
-		/// </summary>
-		public override DslShell::ModelingDocData CreateDocData(string fileName, VSShellInterop::IVsHierarchy hierarchy, uint itemId)
-		{
-			// Create the document type supported by this editor.
-			return new EFModelDocData(this.ServiceProvider, typeof(EFModelEditorFactory).GUID);
-		}
+         //if (Constants.LogicalViewId != logicalView || null == viewContext) // TODO
+         if (null == l_viewContext)
+            return base.MapLogicalView(logicalView, viewContext);    
 
-		/// <summary>
-		/// Called by the shell to ask the editor to create a new view object.
-		/// </summary>
-		protected override DslShell::ModelingDocView CreateDocView(DslShell::ModelingDocData docData, string physicalView, out string editorCaption)
-		{
-			// Create the view type supported by this editor.
-			editorCaption = " [Default]";
-			MexModeling::ViewContext viewContext;
-			if (MexModeling::ViewContext.TryParse(physicalView, out viewContext))
-			{
-				editorCaption = string.Format(" [{0}]", viewContext.DiagramName);
-				return new EFModelDocView(docData, this.ServiceProvider, viewContext.DiagramName);
-			}
-			return new EFModelDocView(docData, this.ServiceProvider, string.Empty);
-		}
-	}
+         return l_viewContext.ToString();
+      }
+
+      /// <summary>
+      /// Called by the shell to ask the editor to create a new document object.
+      /// </summary>
+      public override DslShell::ModelingDocData CreateDocData(string fileName, VSShellInterop::IVsHierarchy hierarchy, uint itemId)
+      {
+         // Create the document type supported by this editor.
+         return new EFModelDocData(this.ServiceProvider, typeof(EFModelEditorFactory).GUID);
+      }
+
+      /// <summary>
+      /// Called by the shell to ask the editor to create a new view object.
+      /// </summary>
+      protected override DslShell::ModelingDocView CreateDocView(DslShell::ModelingDocData docData, string physicalView, out string editorCaption)
+      {
+         // Create the view type supported by this editor.
+         editorCaption = " [Default]";
+         MexModeling::ViewContext viewContext;
+         if (MexModeling::ViewContext.TryParse(physicalView, out viewContext))
+         {
+            editorCaption = string.Format(" [{0}]", viewContext.DiagramName);
+            return new EFModelDocView(docData, this.ServiceProvider, viewContext.DiagramName);
+         }
+         return new EFModelDocView(docData, this.ServiceProvider, string.Empty);
+      }
+   }
 }
 

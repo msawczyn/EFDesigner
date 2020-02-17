@@ -24,48 +24,48 @@
 
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 <#
-	if (CodeGenerationUtilities.DefinesDiagramElements(this.DslLibrary))
-	{
+   if (CodeGenerationUtilities.DefinesDiagramElements(this.DslLibrary))
+   {
 #>
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 <#
-	}
-	
-	// Add an empty line after using statements
+   }
+   
+   // Add an empty line after using statements
 #>
 
 <#
-	if (this.DslLibrary != null)
-		GenerateDomainModelSerializer(this.DslLibrary);
+   if (this.DslLibrary != null)
+      GenerateDomainModelSerializer(this.DslLibrary);
 #>
 
 <#+
 private void GenerateDomainModelSerializer(Microsoft.VisualStudio.Modeling.DslDefinition.DslLibrary dm)
 {
-	XmlSerializationBehavior behavior = dm.XmlSerializationBehavior;
-	IList<DomainClass> serializedClasses = CodeGenerationUtilities.GetSerializedDomainClasses(dm);
-	
-	// Stores the mapping from DomainClass to generated serializers. The mapping will be written into the generated XmlSerializationBehavior 
-	// class at the end.
-	List<KeyValuePair<DomainClass, string>> generatedSerializers = new List<KeyValuePair<DomainClass, string>> ();
-	// A dictionary to store all serializer names that have been used, so that we always generate unique serializer names.
-	UniqueSerializerNameGenerator uniqueSerializerNameGenerator = new UniqueSerializerNameGenerator (serializedClasses);
-	
-	foreach(DomainClass serializedClass in serializedClasses)
-	{
-		string serializerTypeName = GenerateDomainClassSerializer(behavior, serializedClass, uniqueSerializerNameGenerator);
-		if (!string.IsNullOrEmpty (serializerTypeName))
-		{
-			generatedSerializers.Add (new KeyValuePair<DomainClass, string> (serializedClass, serializerTypeName));
-		}
-	}
-	
-	GenerateXmlSerializationBehavior (dm, behavior, generatedSerializers);
-	
-	GenerateXmlMonikerResolver (dm, behavior);
-	
-	GenerateSerializationMessages (dm);
+   XmlSerializationBehavior behavior = dm.XmlSerializationBehavior;
+   IList<DomainClass> serializedClasses = CodeGenerationUtilities.GetSerializedDomainClasses(dm);
+   
+   // Stores the mapping from DomainClass to generated serializers. The mapping will be written into the generated XmlSerializationBehavior 
+   // class at the end.
+   List<KeyValuePair<DomainClass, string>> generatedSerializers = new List<KeyValuePair<DomainClass, string>> ();
+   // A dictionary to store all serializer names that have been used, so that we always generate unique serializer names.
+   UniqueSerializerNameGenerator uniqueSerializerNameGenerator = new UniqueSerializerNameGenerator (serializedClasses);
+   
+   foreach(DomainClass serializedClass in serializedClasses)
+   {
+      string serializerTypeName = GenerateDomainClassSerializer(behavior, serializedClass, uniqueSerializerNameGenerator);
+      if (!string.IsNullOrEmpty (serializerTypeName))
+      {
+         generatedSerializers.Add (new KeyValuePair<DomainClass, string> (serializedClass, serializerTypeName));
+      }
+   }
+   
+   GenerateXmlSerializationBehavior (dm, behavior, generatedSerializers);
+   
+   GenerateXmlMonikerResolver (dm, behavior);
+   
+   GenerateSerializationMessages (dm);
 
-	GenerateSerializerInterfaceImplementation (dm);
+   GenerateSerializerInterfaceImplementation (dm);
 }
 #>

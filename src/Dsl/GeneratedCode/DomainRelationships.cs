@@ -5464,9 +5464,9 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// Creates a ModelRootHasModelDiagrams link in the same Partition as the given ModelRoot
 		/// </summary>
 		/// <param name="source">ModelRoot to use as the source of the relationship.</param>
-		/// <param name="target">ModelDiagram to use as the target of the relationship.</param>
-		public ModelRootHasModelDiagrams(ModelRoot source, ModelDiagram target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ModelRootHasModelDiagrams.ModelRootDomainRoleId, source), new DslModeling::RoleAssignment(ModelRootHasModelDiagrams.ModelDiagramDomainRoleId, target)}, null)
+		/// <param name="target">ModelDiagramData to use as the target of the relationship.</param>
+		public ModelRootHasModelDiagrams(ModelRoot source, ModelDiagramData target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ModelRootHasModelDiagrams.ModelRootDomainRoleId, source), new DslModeling::RoleAssignment(ModelRootHasModelDiagrams.ModelDiagramDataDomainRoleId, target)}, null)
 		{
 		}
 		
@@ -5541,15 +5541,15 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 				
 		#endregion
-		#region Static methods to access ModelRoot of a ModelDiagram
+		#region Static methods to access ModelRoot of a ModelDiagramData
 		/// <summary>
 		/// Gets ModelRoot.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static ModelRoot GetModelRoot(ModelDiagram element)
+		public static ModelRoot GetModelRoot(ModelDiagramData element)
 		{
-			return DslModeling::DomainRoleInfo.GetLinkedElement(element, ModelDiagramDomainRoleId) as ModelRoot;
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, ModelDiagramDataDomainRoleId) as ModelRoot;
 		}
 		
 		/// <summary>
@@ -5557,38 +5557,38 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static void SetModelRoot(ModelDiagram element, ModelRoot newModelRoot)
+		public static void SetModelRoot(ModelDiagramData element, ModelRoot newModelRoot)
 		{
-			DslModeling::DomainRoleInfo.SetLinkedElement(element, ModelDiagramDomainRoleId, newModelRoot);
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, ModelDiagramDataDomainRoleId, newModelRoot);
 		}
 		#endregion
-		#region ModelDiagram domain role code
+		#region ModelDiagramData domain role code
 		
 		/// <summary>
-		/// ModelDiagram domain role Id.
+		/// ModelDiagramData domain role Id.
 		/// </summary>
-		public static readonly global::System.Guid ModelDiagramDomainRoleId = new global::System.Guid(0x669f90c2, 0x5bc9, 0x475d, 0xb0, 0x7b, 0x1a, 0xe3, 0x58, 0xcb, 0xb6, 0x71);
+		public static readonly global::System.Guid ModelDiagramDataDomainRoleId = new global::System.Guid(0x669f90c2, 0x5bc9, 0x475d, 0xb0, 0x7b, 0x1a, 0xe3, 0x58, 0xcb, 0xb6, 0x71);
 		
 		/// <summary>
-		/// DomainRole ModelDiagram
+		/// DomainRole ModelDiagramData
 		/// Description for
-		/// Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagram
+		/// Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramData
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ModelRoot", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagram.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagramData.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagramData.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ModelRoot", PropertyDisplayNameKey="Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams/ModelDiagramData.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
 		[DslModeling::DomainObjectId("669f90c2-5bc9-475d-b07b-1ae358cbb671")]
-		public virtual ModelDiagram ModelDiagram
+		public virtual ModelDiagramData ModelDiagramData
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return (ModelDiagram)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelDiagramDomainRoleId);
+				return (ModelDiagramData)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelDiagramDataDomainRoleId);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelDiagramDomainRoleId, value);
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelDiagramDataDomainRoleId, value);
 			}
 		}
 				
@@ -5599,9 +5599,9 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ModelDiagram> GetDiagrams(ModelRoot element)
+		public static DslModeling::LinkedElementCollection<ModelDiagramData> GetDiagrams(ModelRoot element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelDiagram>, ModelDiagram>(element, ModelRootDomainRoleId);
+			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelDiagramData>, ModelDiagramData>(element, ModelRootDomainRoleId);
 		}
 		#endregion
 		#region ModelRoot link accessor
@@ -5615,16 +5615,16 @@ namespace Sawczyn.EFDesigner.EFModel
 			return DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams>(modelRootInstance, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelRootDomainRoleId);
 		}
 		#endregion
-		#region ModelDiagram link accessor
+		#region ModelDiagramData link accessor
 		/// <summary>
-		/// Get the ModelRootHasModelDiagrams link to a ModelDiagram.
+		/// Get the ModelRootHasModelDiagrams link to a ModelDiagramData.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams GetLinkToModelRoot (global::Sawczyn.EFDesigner.EFModel.ModelDiagram modelDiagramInstance)
+		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams GetLinkToModelRoot (global::Sawczyn.EFDesigner.EFModel.ModelDiagramData modelDiagramDataInstance)
 		{
-			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams>(modelDiagramInstance, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramDomainRoleId);
-			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of ModelDiagram not obeyed.");
+			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams>(modelDiagramDataInstance, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramDataDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of ModelDiagramData not obeyed.");
 			if ( links.Count == 0 )
 			{
 				return null;
@@ -5638,17 +5638,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		#region ModelRootHasModelDiagrams instance accessors
 		
 		/// <summary>
-		/// Get any ModelRootHasModelDiagrams links between a given ModelRoot and a ModelDiagram.
+		/// Get any ModelRootHasModelDiagrams links between a given ModelRoot and a ModelDiagramData.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams> GetLinks( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelDiagram target )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams> GetLinks( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelDiagramData target )
 		{
 			global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams> outLinks = new global::System.Collections.Generic.List<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams>();
 			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams>(source, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelRootDomainRoleId);
 			foreach ( global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams link in links )
 			{
-				if ( target.Equals(link.ModelDiagram) )
+				if ( target.Equals(link.ModelDiagramData) )
 				{
 					outLinks.Add(link);
 				}
@@ -5656,16 +5656,16 @@ namespace Sawczyn.EFDesigner.EFModel
 			return outLinks.AsReadOnly();
 		}
 		/// <summary>
-		/// Get the one ModelRootHasModelDiagrams link between a given ModelRootand a ModelDiagram.
+		/// Get the one ModelRootHasModelDiagrams link between a given ModelRootand a ModelDiagramData.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams GetLink( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelDiagram target )
+		public static global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams GetLink( global::Sawczyn.EFDesigner.EFModel.ModelRoot source, global::Sawczyn.EFDesigner.EFModel.ModelDiagramData target )
 		{
 			global::System.Collections.Generic.IList<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams>(source, global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelRootDomainRoleId);
 			foreach ( global::Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams link in links )
 			{
-				if ( target.Equals(link.ModelDiagram) )
+				if ( target.Equals(link.ModelDiagramData) )
 				{
 					return link;
 				}

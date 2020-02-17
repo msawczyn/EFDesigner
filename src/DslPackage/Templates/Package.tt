@@ -1,7 +1,7 @@
 ﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
 <#@ output extension=".cs" #>
 <#
-	string dslName = this.Dsl.Name;
+   string dslName = this.Dsl.Name;
 
 #>
 //------------------------------------------------------------------------------
@@ -24,169 +24,169 @@ using System.Diagnostics;
 using System.Drawing.Design;
 using System.Linq;
 using System.Windows.Forms;
-	
+   
 namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 {
-	/// <summary>
-	/// This class implements the VS package that integrates this DSL into Visual Studio.
-	/// </summary>
-	[VSShell::DefaultRegistryRoot("Software\\Microsoft\\VisualStudio\\15.0")]
-	[VSShell::PackageRegistration(RegisterUsing = VSShell::RegistrationMethod.Assembly, UseManagedResourcesOnly = true)]
+   /// <summary>
+   /// This class implements the VS package that integrates this DSL into Visual Studio.
+   /// </summary>
+   [VSShell::DefaultRegistryRoot("Software\\Microsoft\\VisualStudio\\15.0")]
+   [VSShell::PackageRegistration(RegisterUsing = VSShell::RegistrationMethod.Assembly, UseManagedResourcesOnly = true)]
 <#
-	if(this.Dsl.Explorer != null)
-	{
+   if(this.Dsl.Explorer != null)
+   {
 #>
-	[VSShell::ProvideToolWindow(typeof(<#= dslName #>ExplorerToolWindow), MultiInstances = false, Style = VSShell::VsDockStyle.Tabbed, Orientation = VSShell::ToolWindowOrientation.Right, Window = "{3AE79031-E1BC-11D0-8F78-00A0C9110057}")]
-	[VSShell::ProvideToolWindowVisibility(typeof(<#= dslName #>ExplorerToolWindow), Constants.<#= dslName #>EditorFactoryId)]
+   [VSShell::ProvideToolWindow(typeof(<#= dslName #>ExplorerToolWindow), MultiInstances = false, Style = VSShell::VsDockStyle.Tabbed, Orientation = VSShell::ToolWindowOrientation.Right, Window = "{3AE79031-E1BC-11D0-8F78-00A0C9110057}")]
+   [VSShell::ProvideToolWindowVisibility(typeof(<#= dslName #>ExplorerToolWindow), Constants.<#= dslName #>EditorFactoryId)]
 <#
-	}
+   }
 #>
 <#
-	Func<string,string> GetResourceString = (resourceName)=>"@" + resourceName + ";" + dslAssembly;
-	if (this.IsDsl)
-	{
-		int i = 0;
-		foreach(ToolboxTab tab in this.Dsl.Editor.ToolboxTabs)
-		{
-			string toolTabResourceId = tab.TabText + "ToolboxTab";
-			string toolTabId = CodeGenerationUtilities.GetPackageNamespace(this.Dsl) + "." + toolTabResourceId;
+   Func<string,string> GetResourceString = (resourceName)=>"@" + resourceName + ";" + dslAssembly;
+   if (this.IsDsl)
+   {
+      int i = 0;
+      foreach(ToolboxTab tab in this.Dsl.Editor.ToolboxTabs)
+      {
+         string toolTabResourceId = tab.TabText + "ToolboxTab";
+         string toolTabId = CodeGenerationUtilities.GetPackageNamespace(this.Dsl) + "." + toolTabResourceId;
 
 #>
-	[VSShell::ProvideStaticToolboxGroup("<#= GetResourceString(toolTabResourceId ) #>", "<#= toolTabId #>")]
+   [VSShell::ProvideStaticToolboxGroup("<#= GetResourceString(toolTabResourceId ) #>", "<#= toolTabId #>")]
 <#
-			foreach(Tool tool in tab.Tools)
-			{
-				string toolResourceId = tool.Name + "ToolboxItem";
-				string toolId = CodeGenerationUtilities.GetPackageNamespace(this.Dsl) +"." + toolResourceId;
-				string toolBitmapId = tool.Name + "ToolboxBitmap";
-				string helpKeyword = tool.HelpKeyword != null ? tool.HelpKeyword : String.Empty;
-																			// dslAssembly should be defined on the exposed Package.tt
+         foreach(Tool tool in tab.Tools)
+         {
+            string toolResourceId = tool.Name + "ToolboxItem";
+            string toolId = CodeGenerationUtilities.GetPackageNamespace(this.Dsl) +"." + toolResourceId;
+            string toolBitmapId = tool.Name + "ToolboxBitmap";
+            string helpKeyword = tool.HelpKeyword != null ? tool.HelpKeyword : String.Empty;
+                                                         // dslAssembly should be defined on the exposed Package.tt
 #>
-	[VSShell::ProvideStaticToolboxItem("<#= toolTabId #>",
-					"<#= GetResourceString(toolResourceId) #>", 
-					"<#= toolId #>", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"<#= helpKeyword #>", 
-					"<#= GetResourceString(toolBitmapId) #>", 
-					0xff00ff,
-					Index = <#= i #>)]
+   [VSShell::ProvideStaticToolboxItem("<#= toolTabId #>",
+               "<#= GetResourceString(toolResourceId) #>", 
+               "<#= toolId #>", 
+               "CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
+               "<#= helpKeyword #>", 
+               "<#= GetResourceString(toolBitmapId) #>", 
+               0xff00ff,
+               Index = <#= i #>)]
 <#
-				i++;
-			}
-		
-		}
+            i++;
+         }
+      
+      }
 
-	}
+   }
 #>
-	[VSShell::ProvideEditorLogicalView(typeof(<#= dslName #>EditorFactory), Constants.LogicalViewId, IsTrusted = true)]
-	[VSShell::ProvideEditorFactory(typeof(<#= dslName #>EditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
-	[VSShell::ProvideEditorExtension(typeof(<#= dslName #>EditorFactory), "." + Constants.DesignerFileExtension, 50)]
-	[DslShell::ProvideRelatedFile("." + Constants.DesignerFileExtension, Constants.DefaultDiagramExtension,
-		ProjectSystem = DslShell::ProvideRelatedFileAttribute.CSharpProjectGuid,
-		FileOptions = DslShell::RelatedFileType.FileName)]
-	[DslShell::ProvideRelatedFile("." + Constants.DesignerFileExtension, Constants.DefaultDiagramExtension,
-		ProjectSystem = DslShell::ProvideRelatedFileAttribute.VisualBasicProjectGuid,
-		FileOptions = DslShell::RelatedFileType.FileName)]
-	[DslShell::RegisterAsDslToolsEditor]
-	[global::System.Runtime.InteropServices.ComVisible(true)]
-	[DslShell::ProvideBindingPath]
-	[DslShell::ProvideXmlEditorChooserBlockSxSWithXmlEditor(@"<#= dslName #>", typeof(<#= dslName #>EditorFactory))]
-	internal abstract partial class <#= dslName #>PackageBase : DslShell::ModelingPackage
-	{
-		protected <#= this.Dsl.GetFullName(true) #>ToolboxHelper toolboxHelper;	
-		
-		/// <summary>
-		/// Initialization method called by the package base class when this package is loaded.
-		/// </summary>
-		protected override void Initialize()
-		{
-			base.Initialize();
+   [VSShell::ProvideEditorLogicalView(typeof(<#= dslName #>EditorFactory), Constants.LogicalViewId, IsTrusted = true)]
+   [VSShell::ProvideEditorFactory(typeof(<#= dslName #>EditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
+   [VSShell::ProvideEditorExtension(typeof(<#= dslName #>EditorFactory), "." + Constants.DesignerFileExtension, 50)]
+   [DslShell::ProvideRelatedFile("." + Constants.DesignerFileExtension, Constants.DefaultDiagramExtension,
+      ProjectSystem = DslShell::ProvideRelatedFileAttribute.CSharpProjectGuid,
+      FileOptions = DslShell::RelatedFileType.FileName)]
+   [DslShell::ProvideRelatedFile("." + Constants.DesignerFileExtension, Constants.DefaultDiagramExtension,
+      ProjectSystem = DslShell::ProvideRelatedFileAttribute.VisualBasicProjectGuid,
+      FileOptions = DslShell::RelatedFileType.FileName)]
+   [DslShell::RegisterAsDslToolsEditor]
+   [global::System.Runtime.InteropServices.ComVisible(true)]
+   [DslShell::ProvideBindingPath]
+   [DslShell::ProvideXmlEditorChooserBlockSxSWithXmlEditor(@"<#= dslName #>", typeof(<#= dslName #>EditorFactory))]
+   internal abstract partial class <#= dslName #>PackageBase : DslShell::ModelingPackage
+   {
+      protected <#= this.Dsl.GetFullName(true) #>ToolboxHelper toolboxHelper;
+      
+      /// <summary>
+      /// Initialization method called by the package base class when this package is loaded.
+      /// </summary>
+      protected override void Initialize()
+      {
+         base.Initialize();
 
-			// Register the editor factory used to create the DSL editor.
-			this.RegisterEditorFactory(new <#= dslName #>EditorFactory(this));
-			
-			// Initialize the toolbox helper
-			toolboxHelper = new <#= this.Dsl.GetFullName(true) #>ToolboxHelper(this);
+         // Register the editor factory used to create the DSL editor.
+         this.RegisterEditorFactory(new <#= dslName #>EditorFactory(this));
+         
+         // Initialize the toolbox helper
+         toolboxHelper = new <#= this.Dsl.GetFullName(true) #>ToolboxHelper(this);
 
-			// Create the command set that handles menu commands provided by this package.
-			<#= dslName #>CommandSet commandSet = new <#= dslName #>CommandSet(this);
-			commandSet.Initialize();
-			
+         // Create the command set that handles menu commands provided by this package.
+         <#= dslName #>CommandSet commandSet = new <#= dslName #>CommandSet(this);
+         commandSet.Initialize();
+         
 <#
-	
-	if(this.Dsl.Editor != null && this.Dsl.Editor.CopyPasteGeneration != CopyPasteEnabling.NoGeneratedCopyPaste)
-	{
+   
+   if(this.Dsl.Editor != null && this.Dsl.Editor.CopyPasteGeneration != CopyPasteEnabling.NoGeneratedCopyPaste)
+   {
 #>
-			// Create the command set that handles cut/copy/paste commands provided by this package.
-			<#= dslName #>ClipboardCommandSet clipboardCommandSet = new <#= dslName #>ClipboardCommandSet(this);
-			clipboardCommandSet.Initialize();
-			
+         // Create the command set that handles cut/copy/paste commands provided by this package.
+         <#= dslName #>ClipboardCommandSet clipboardCommandSet = new <#= dslName #>ClipboardCommandSet(this);
+         clipboardCommandSet.Initialize();
+         
 <#
-	}
-	
-	if(this.Dsl.Explorer != null)
-	{
+   }
+   
+   if(this.Dsl.Explorer != null)
+   {
 #>
-			// Register the model explorer tool window for this DSL.
-			this.AddToolWindow(typeof(<#= dslName #>ExplorerToolWindow));
+         // Register the model explorer tool window for this DSL.
+         this.AddToolWindow(typeof(<#= dslName #>ExplorerToolWindow));
 
 <#
-	}
+   }
 #>
-			// Initialize Extension Registars
-			// this is a partial method call
-			this.InitializeExtensions();
+         // Initialize Extension Registars
+         // this is a partial method call
+         this.InitializeExtensions();
 
-			// Add dynamic toolbox items
-			this.SetupDynamicToolbox();
-		}
+         // Add dynamic toolbox items
+         this.SetupDynamicToolbox();
+      }
 
-		/// <summary>
-		/// Partial method to initialize ExtensionRegistrars (if any) in the DslPackage
-		/// </summary>
-		partial void InitializeExtensions();
-		
-		/// <summary>
-		/// Returns any dynamic tool items for the designer
-		/// </summary>
-		/// <remarks>The default implementation is to return the list of items from the generated toolbox helper.</remarks>
-		protected override global::System.Collections.Generic.IList<DslDesign::ModelingToolboxItem> CreateToolboxItems()
-		{
-			try
-			{
-				Debug.Assert(toolboxHelper != null, "Toolbox helper is not initialized");
-				return toolboxHelper.CreateToolboxItems();
-			}
-			catch(global::System.Exception e)
-			{
-				global::System.Diagnostics.Debug.Fail("Exception thrown during toolbox item creation.  This may result in Package Load Failure:\r\n\r\n" + e);
-				throw;
-			}
-		}
-		
+      /// <summary>
+      /// Partial method to initialize ExtensionRegistrars (if any) in the DslPackage
+      /// </summary>
+      partial void InitializeExtensions();
+      
+      /// <summary>
+      /// Returns any dynamic tool items for the designer
+      /// </summary>
+      /// <remarks>The default implementation is to return the list of items from the generated toolbox helper.</remarks>
+      protected override global::System.Collections.Generic.IList<DslDesign::ModelingToolboxItem> CreateToolboxItems()
+      {
+         try
+         {
+            Debug.Assert(toolboxHelper != null, "Toolbox helper is not initialized");
+            return toolboxHelper.CreateToolboxItems();
+         }
+         catch(global::System.Exception e)
+         {
+            global::System.Diagnostics.Debug.Fail("Exception thrown during toolbox item creation.  This may result in Package Load Failure:\r\n\r\n" + e);
+            throw;
+         }
+      }
+      
 <#
-	if (this.IsDsl)
-	{
-		if(this.Dsl.Editor.ToolboxTabs.Count > 0)
-		{
-#>		
-		/// <summary>
-		/// Given a toolbox item "unique ID" and a data format identifier, returns the content of
-		/// the data format. 
-		/// </summary>
-		/// <param name="itemId">The unique ToolboxItem to retrieve data for</param>
-		/// <param name="format">The desired format of the resulting data</param>
-		protected override object GetToolboxItemData(string itemId, DataFormats.Format format)
-		{
-			Debug.Assert(toolboxHelper != null, "Toolbox helper is not initialized");
-		
-			// Retrieve the specified ToolboxItem from the DSL
-			return toolboxHelper.GetToolboxItemData(itemId, format);
-		}
+   if (this.IsDsl)
+   {
+      if(this.Dsl.Editor.ToolboxTabs.Count > 0)
+      {
+#>      
+      /// <summary>
+      /// Given a toolbox item "unique ID" and a data format identifier, returns the content of
+      /// the data format. 
+      /// </summary>
+      /// <param name="itemId">The unique ToolboxItem to retrieve data for</param>
+      /// <param name="format">The desired format of the resulting data</param>
+      protected override object GetToolboxItemData(string itemId, DataFormats.Format format)
+      {
+         Debug.Assert(toolboxHelper != null, "Toolbox helper is not initialized");
+      
+         // Retrieve the specified ToolboxItem from the DSL
+         return toolboxHelper.GetToolboxItemData(itemId, format);
+      }
 <#
-		}
-	}
+      }
+   }
 #>
-	}
+   }
 
 }

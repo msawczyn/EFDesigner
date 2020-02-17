@@ -2,517 +2,517 @@
 // Generate the DomainModel class
 private void GenerateDomainModel(Microsoft.VisualStudio.Modeling.DslDefinition.DslLibrary dm)
 {
-	OpenNamespace(dm.Namespace);
+   OpenNamespace(dm.Namespace);
 #>
 /// <summary>
 /// DomainModel <#= dm.Name #>DomainModel
 <#+
-	GenerateComments(dm.Description);
+   GenerateComments(dm.Description);
 #>
 /// </summary>
 <#+
-	GenerateClrAttributes(dm.Attributes);
-	GenerateResourceAttributes(dm);
-	GenerateClsCompliantAttribute(dm.AccessModifier);
-	GenerateExtendsAttributes(dm);
+   GenerateClrAttributes(dm.Attributes);
+   GenerateResourceAttributes(dm);
+   GenerateClsCompliantAttribute(dm.AccessModifier);
+   GenerateExtendsAttributes(dm);
 #>
 [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
 [DslModeling::DomainObjectId("<#= dm.Id.ToString("D") #>")]
 <#= CodeGenerationUtilities.GetTypeAccessModifier(dm.AccessModifier) #> partial class <#= dm.Name #>DomainModel : DslModeling::DomainModel
 {
-	#region Constructor, domain model Id
+   #region Constructor, domain model Id
 
-	/// <summary>
-	/// <#= dm.Name #>DomainModel domain model Id.
-	/// </summary>
-	public static readonly global::System.Guid DomainModelId = <#= CodeGenerationUtilities.GetGuid(dm.Id) #>;
+   /// <summary>
+   /// <#= dm.Name #>DomainModel domain model Id.
+   /// </summary>
+   public static readonly global::System.Guid DomainModelId = <#= CodeGenerationUtilities.GetGuid(dm.Id) #>;
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="store">Store containing the domain model.</param>
-	public <#= dm.Name #>DomainModel(DslModeling::Store store)
-		: base(store, DomainModelId)
-	{
-		// Call the partial method to allow any required serialization setup to be done.
-		this.InitializeSerialization(store);		
-	}
-	
-
-	///<Summary>
-	/// Defines a partial method that will be called from the constructor to
-	/// allow any necessary serialization setup to be done.
-	///</Summary>
-	///<remarks>
-	/// For a DSL created with the DSL Designer wizard, an implementation of this 
-	/// method will be generated in the GeneratedCode\SerializationHelper.cs class.
-	///</remarks>
-	partial void InitializeSerialization(DslModeling::Store store);
+   /// <summary>
+   /// Constructor.
+   /// </summary>
+   /// <param name="store">Store containing the domain model.</param>
+   public <#= dm.Name #>DomainModel(DslModeling::Store store)
+      : base(store, DomainModelId)
+   {
+      // Call the partial method to allow any required serialization setup to be done.
+      this.InitializeSerialization(store);
+   }
 
 
-	#endregion
-	#region Domain model reflection
-		
-<#+
-	List<DomainClass> classes = new List<DomainClass>();
-	List<DomainProperty> properties = new List<DomainProperty>();
-	List<DomainRole> roles = new List<DomainRole>();
-	IList<DomainClass> allClasses = this.DslLibrary.Store.ElementDirectory.FindElements<DomainClass>(true);
-	int relationshipCount = 0;
-	int classCount = 0;
-	foreach(DomainClass c in allClasses)
-	{
-		if(c.DslLibrary==this.DslLibrary)
-		{
-			classes.Add(c);
-			properties.AddRange(c.Properties);
-			if(c is DomainRelationship)
-			{
-				roles.AddRange(((DomainRelationship)c).Roles);
-				relationshipCount++;
-			}
-			else 
-			{
-				classCount++;
-			}
-		}
-	}
-	
-	List<string> viewFixupTypes = new List<string>();
-	// add in view-fixup rule if necessary.
-	if(this.IsDsl)
-	{
-		Diagram diagram = this.Dsl.Diagram;
-		if(diagram != null && (diagram.ShapeMaps.Count > 0 || diagram.ConnectorMaps.Count > 0))
-		{
-			// View fixup rule
-			//viewFixupTypes.Add("global::" + diagram.Namespace + ".FixUpDiagram"); 
-			viewFixupTypes.Add("global::" + diagram.Namespace + ".FixUpAllDiagrams"); // HACK : MEXEDGE
-			
-			bool hasOuterDecoratorsWithDisplayProperty = false;
-			foreach(ConnectorMap map in diagram.ConnectorMaps)
-			{
-				if(map.DecoratorMaps.Count > 0)
-				{
-					foreach(DecoratorMap decoratorMap in map.DecoratorMaps)
-					{
-						if(decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.Property != null)
-						{
-							hasOuterDecoratorsWithDisplayProperty = true;
-							break;
-						}
-					}
-					if (hasOuterDecoratorsWithDisplayProperty)
-						break;
-				}
-			}
-			
-			// Outer decorator position update rule
-			if(!hasOuterDecoratorsWithDisplayProperty)
-			{
-				foreach(BaseShapeMap baseShapeMap in diagram.ShapeMaps)
-				{
-					foreach(DecoratorMap decoratorMap in baseShapeMap.DecoratorMaps)
-					{
-						IList<ShapeHasDecorators> links = DomainRoleInfo.GetElementLinks<ShapeHasDecorators>(decoratorMap.Decorator, ShapeHasDecorators.DecoratorDomainRoleId);
-						if (links.Count == 0) continue;
-						if (CodeGenerationUtilities.IsOuterDecorator(links[0].Position) &&
-							decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.Property != null)
-						{
-							hasOuterDecoratorsWithDisplayProperty = true;
-							break;
-						}
-					}
-					
-					if(hasOuterDecoratorsWithDisplayProperty)
-					{
-						break;
-					}
-				}
-			}
-			
-			if(hasOuterDecoratorsWithDisplayProperty)
-			{
-				viewFixupTypes.Add("global::" + diagram.Namespace + ".DecoratorPropertyChanged");
-			}
-			
-			// Connector role player change rule
-			if(diagram.ConnectorMaps.Count > 0)
-			{
-				viewFixupTypes.Add("global::" + diagram.Namespace + ".ConnectorRolePlayerChanged");
-			}
-		}
-	}
-	if(this.IsDsl && this.Dsl.Diagram!=null)
-	{
-		Diagram diagram = this.Dsl.Diagram;
-		foreach(BaseShapeMap shapeMap in diagram.ShapeMaps)
-		{
-			if(shapeMap is CompartmentShapeMap && ((CompartmentShapeMap)shapeMap).CompartmentMaps.Count>0)
-			{
-				viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemAddRule");
-				viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemDeleteRule");
-				viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemRolePlayerChangeRule");
-				viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemRolePlayerPositionChangeRule");
-				foreach(CompartmentMap compartmentMap in ((CompartmentShapeMap)shapeMap).CompartmentMaps)
-				{
-					if(compartmentMap.PropertyDisplayed!=null && compartmentMap.PropertyDisplayed.Property!=null)
-					{
-						viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemChangeRule");
-						break;
-					}
-				}
-				break;
-			}
-		}
-	}
+   ///<Summary>
+   /// Defines a partial method that will be called from the constructor to
+   /// allow any necessary serialization setup to be done.
+   ///</Summary>
+   ///<remarks>
+   /// For a DSL created with the DSL Designer wizard, an implementation of this 
+   /// method will be generated in the GeneratedCode\SerializationHelper.cs class.
+   ///</remarks>
+   partial void InitializeSerialization(DslModeling::Store store);
 
-	// If we have classes or relationships, override methods to return 
-	// the list of generated classes, relationships, properties and roles.
-	if(classes.Count>0 || viewFixupTypes.Count>0)
-	{
-#>
-	/// <summary>
-	/// Gets the list of generated domain model types (classes, rules, relationships).
-	/// </summary>
-	/// <returns>List of types.</returns>
-	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]	
-	protected sealed override global::System.Type[] GetGeneratedDomainModelTypes()
-	{
-		return new global::System.Type[]
-		{
-<#+
-		foreach(DomainClass c in classes)
-		{
-#>
-			typeof(<#= c.GetRelativeName(dm.Namespace, true) #>),
-<#+
-		}
-		foreach(string s in viewFixupTypes)
-		{
-#>
-			typeof(<#= s #>),
-<#+
-		}
-#>
-		};
-	}
-	/// <summary>
-	/// Gets the list of generated domain properties.
-	/// </summary>
-	/// <returns>List of property data.</returns>
-	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]	
-	protected sealed override DomainMemberInfo[] GetGeneratedDomainProperties()
-	{
-		return new DomainMemberInfo[]
-		{
-<#+
-		foreach(DomainProperty p in properties)
-		{
-#>
-			new DomainMemberInfo(typeof(<#= p.Class.GetRelativeName(dm.Namespace, true) #>), "<#= p.Name #>", <#= p.Class.GetRelativeName(dm.Namespace, true) #>.<#= p.Name #>DomainPropertyId, typeof(<#= p.Class.GetRelativeName(dm.Namespace, true) #>.<#= CodeGenerationUtilities.GetPropertyHandlerName(p) #>)),
-<#+
-		}
-#>
-		};
-	}
-<#+
-	}
-#>
+
+   #endregion
+   #region Domain model reflection
 
 <#+
-	if(roles.Count > 0)
-	{
-#>
-	/// <summary>
-	/// Gets the list of generated domain roles.
-	/// </summary>
-	/// <returns>List of role data.</returns>
-	protected sealed override DomainRolePlayerInfo[] GetGeneratedDomainRoles()
-	{
-		return new DomainRolePlayerInfo[]
-		{
-<#+
-		foreach(DomainRole role in roles)
-		{
-#>
-			new DomainRolePlayerInfo(typeof(<#= role.Relationship.GetRelativeName(dm.Namespace, true) #>), "<#= role.Name #>", <#= role.Relationship.GetRelativeName(dm.Namespace, true) #>.<#= role.Name #>DomainRoleId),
-<#+
-		}
-#>
-		};
-	}
-<#+
-	}
-#>
-	#endregion
-<#+
-	// Generate code that is used to create the classes and relationships
-	// by reflective means.
-	if(classes.Count > 0)
-	{
-#>
-	#region Factory methods
-	private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementMap;
+   List<DomainClass> classes = new List<DomainClass>();
+   List<DomainProperty> properties = new List<DomainProperty>();
+   List<DomainRole> roles = new List<DomainRole>();
+   IList<DomainClass> allClasses = this.DslLibrary.Store.ElementDirectory.FindElements<DomainClass>(true);
+   int relationshipCount = 0;
+   int classCount = 0;
+   foreach(DomainClass c in allClasses)
+   {
+      if(c.DslLibrary==this.DslLibrary)
+      {
+         classes.Add(c);
+         properties.AddRange(c.Properties);
+         if(c is DomainRelationship)
+         {
+            roles.AddRange(((DomainRelationship)c).Roles);
+            relationshipCount++;
+         }
+         else 
+         {
+            classCount++;
+         }
+      }
+   }
 
-	/// <summary>
-	/// Creates an element of specified type.
-	/// </summary>
-	/// <param name="partition">Partition where element is to be created.</param>
-	/// <param name="elementType">Element type which belongs to this domain model.</param>
-	/// <param name="propertyAssignments">New element property assignments.</param>
-	/// <returns>Created element.</returns>
-	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]	
-	public sealed override DslModeling::ModelElement CreateElement(DslModeling::Partition partition, global::System.Type elementType, DslModeling::PropertyAssignment[] propertyAssignments)
-	{
-		if (elementType == null) throw new global::System.ArgumentNullException("elementType");
+   List<string> viewFixupTypes = new List<string>();
+   // add in view-fixup rule if necessary.
+   if(this.IsDsl)
+   {
+      Diagram diagram = this.Dsl.Diagram;
+      if(diagram != null && (diagram.ShapeMaps.Count > 0 || diagram.ConnectorMaps.Count > 0))
+      {
+         // View fixup rule
+         //viewFixupTypes.Add("global::" + diagram.Namespace + ".FixUpDiagram"); 
+         viewFixupTypes.Add("global::" + diagram.Namespace + ".FixUpAllDiagrams"); // HACK : MEXEDGE
 
-		if (createElementMap == null)
-		{
-			createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(<#= classCount #>);
-<#+
-			int count = 0;
-			foreach(DomainClass c in classes)
-			{
-				if((!(c is DomainRelationship)) && c.InheritanceModifier != InheritanceModifier.Abstract)
-				{
-#>
-			createElementMap.Add(typeof(<#= c.GetRelativeName(dm.Namespace, true) #>), <#= count #>);
-<#+
-					count++;
-				}
-			}
-#>
-		}
-		int index;
-		if (!createElementMap.TryGetValue(elementType, out index))
-		{
-			// construct exception error message		
-			string exceptionError = string.Format(
-							global::System.Globalization.CultureInfo.CurrentCulture,
-							<#= this.DslLibrary.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("UnrecognizedElementType"),
-							elementType.Name);
-			throw new global::System.ArgumentException(exceptionError, "elementType");
-		}
-		switch (index)
-		{
-<#+
-			count = 0;
-			foreach(DomainClass c in classes)
-			{
-				if((!(c is DomainRelationship)) && c.InheritanceModifier != InheritanceModifier.Abstract)
-				{
-					if(c.HasCustomConstructor)
-					{
-#>
-			// A constructor was not generated for <#= c.Name #> because it had HasCustomConstructor
-			// set to true. Please provide the constructor below.
-<#+
-					}
-#>
-			case <#= count #>: return new <#= c.GetRelativeName(dm.Namespace, true) #>(partition, propertyAssignments);
-<#+
-					count++;
-				}
-			}
-#>
-			default: return null;
-		}
-	}
+         bool hasOuterDecoratorsWithDisplayProperty = false;
+         foreach(ConnectorMap map in diagram.ConnectorMaps)
+         {
+            if(map.DecoratorMaps.Count > 0)
+            {
+               foreach(DecoratorMap decoratorMap in map.DecoratorMaps)
+               {
+                  if(decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.Property != null)
+                  {
+                     hasOuterDecoratorsWithDisplayProperty = true;
+                     break;
+                  }
+               }
+               if (hasOuterDecoratorsWithDisplayProperty)
+                  break;
+            }
+         }
 
-	private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementLinkMap;
+         // Outer decorator position update rule
+         if(!hasOuterDecoratorsWithDisplayProperty)
+         {
+            foreach(BaseShapeMap baseShapeMap in diagram.ShapeMaps)
+            {
+               foreach(DecoratorMap decoratorMap in baseShapeMap.DecoratorMaps)
+               {
+                  IList<ShapeHasDecorators> links = DomainRoleInfo.GetElementLinks<ShapeHasDecorators>(decoratorMap.Decorator, ShapeHasDecorators.DecoratorDomainRoleId);
+                  if (links.Count == 0) continue;
+                  if (CodeGenerationUtilities.IsOuterDecorator(links[0].Position) &&
+                     decoratorMap.PropertyDisplayed != null && decoratorMap.PropertyDisplayed.Property != null)
+                  {
+                     hasOuterDecoratorsWithDisplayProperty = true;
+                     break;
+                  }
+               }
 
-	/// <summary>
-	/// Creates an element link of specified type.
-	/// </summary>
-	/// <param name="partition">Partition where element is to be created.</param>
-	/// <param name="elementLinkType">Element link type which belongs to this domain model.</param>
-	/// <param name="roleAssignments">List of relationship role assignments for the new link.</param>
-	/// <param name="propertyAssignments">New element property assignments.</param>
-	/// <returns>Created element link.</returns>
-	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-	public sealed override DslModeling::ElementLink CreateElementLink(DslModeling::Partition partition, global::System.Type elementLinkType, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-	{
-		if (elementLinkType == null) throw new global::System.ArgumentNullException("elementLinkType");
-		if (roleAssignments == null) throw new global::System.ArgumentNullException("roleAssignments");
+               if(hasOuterDecoratorsWithDisplayProperty)
+               {
+                  break;
+               }
+            }
+         }
 
-		if (createElementLinkMap == null)
-		{
-			createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(<#= relationshipCount #>);
-<#+
-			count = 0;
-			foreach(DomainClass r in classes)
-			{
-				if(r is DomainRelationship && r.InheritanceModifier != InheritanceModifier.Abstract)
-				{
-#>
-			createElementLinkMap.Add(typeof(<#= r.GetRelativeName(dm.Namespace, true) #>), <#= count #>);
-<#+
-					count++;
-				}
-			}
-#>
-		}
-		int index;
-		if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
-		{
-			// construct exception error message
-			string exceptionError = string.Format(
-							global::System.Globalization.CultureInfo.CurrentCulture,
-							<#= this.DslLibrary.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("UnrecognizedElementLinkType"),
-							elementLinkType.Name);
-			throw new global::System.ArgumentException(exceptionError, "elementLinkType");
-		
-		}
-		switch (index)
-		{
-<#+
-			count = 0;
-			foreach(DomainClass r in classes)
-			{
-				if(r is DomainRelationship && r.InheritanceModifier != InheritanceModifier.Abstract)
-				{
-					if(r.HasCustomConstructor)
-					{
-#>
-			// A constructor was not generated for <#= r.Name #> because it had HasCustomConstructor
-			// set to true. Please provide the constructor below.
-<#+
-					}
-#>
-			case <#= count #>: return new <#= r.GetRelativeName(dm.Namespace, true) #>(partition, roleAssignments, propertyAssignments);
-<#+
-					count++;
-				}
-			}
-#>
-			default: return null;
-		}
-	}
-	#endregion
-<#+
-	}
-	
-	if(!String.IsNullOrEmpty(GeneratedResourceName))
-	{
-#>
-	#region Resource manager
-	
-	private static global::System.Resources.ResourceManager resourceManager;
-	
-	/// <summary>
-	/// The base name of this model's resources.
-	/// </summary>
-	public const string ResourceBaseName = "<#= GeneratedResourceName #>";
-	
-	/// <summary>
-	/// Gets the DomainModel's ResourceManager. If the ResourceManager does not already exist, then it is created.
-	/// </summary>
-	public override global::System.Resources.ResourceManager ResourceManager
-	{
-		[global::System.Diagnostics.DebuggerStepThrough]
-		get
-		{
-			return <#= dm.Name #>DomainModel.SingletonResourceManager;
-		}
-	}
+         if(hasOuterDecoratorsWithDisplayProperty)
+         {
+            viewFixupTypes.Add("global::" + diagram.Namespace + ".DecoratorPropertyChanged");
+         }
 
-	/// <summary>
-	/// Gets the Singleton ResourceManager for this domain model.
-	/// </summary>
-	public static global::System.Resources.ResourceManager SingletonResourceManager
-	{
-		[global::System.Diagnostics.DebuggerStepThrough]
-		get
-		{
-			if (<#= dm.Name #>DomainModel.resourceManager == null)
-			{
-				<#= dm.Name #>DomainModel.resourceManager = new global::System.Resources.ResourceManager(ResourceBaseName, typeof(<#= dm.Name #>DomainModel).Assembly);
-			}
-			return <#= dm.Name #>DomainModel.resourceManager;
-		}
-	}
-	#endregion
-<#+
-	}
+         // Connector role player change rule
+         if(diagram.ConnectorMaps.Count > 0)
+         {
+            viewFixupTypes.Add("global::" + diagram.Namespace + ".ConnectorRolePlayerChanged");
+         }
+      }
+   }
+   if(this.IsDsl && this.Dsl.Diagram!=null)
+   {
+      Diagram diagram = this.Dsl.Diagram;
+      foreach(BaseShapeMap shapeMap in diagram.ShapeMaps)
+      {
+         if(shapeMap is CompartmentShapeMap && ((CompartmentShapeMap)shapeMap).CompartmentMaps.Count>0)
+         {
+            viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemAddRule");
+            viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemDeleteRule");
+            viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemRolePlayerChangeRule");
+            viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemRolePlayerPositionChangeRule");
+            foreach(CompartmentMap compartmentMap in ((CompartmentShapeMap)shapeMap).CompartmentMaps)
+            {
+               if(compartmentMap.PropertyDisplayed!=null && compartmentMap.PropertyDisplayed.Property!=null)
+               {
+                  viewFixupTypes.Add("global::"+diagram.Namespace+".CompartmentItemChangeRule");
+                  break;
+               }
+            }
+            break;
+         }
+      }
+   }
+
+   // If we have classes or relationships, override methods to return 
+   // the list of generated classes, relationships, properties and roles.
+   if(classes.Count>0 || viewFixupTypes.Count>0)
+   {
 #>
-	#region Copy/Remove closures
+   /// <summary>
+   /// Gets the list of generated domain model types (classes, rules, relationships).
+   /// </summary>
+   /// <returns>List of types.</returns>
+   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
+   protected sealed override global::System.Type[] GetGeneratedDomainModelTypes()
+   {
+      return new global::System.Type[]
+      {
 <#+
-	PushIndent("\t");
-	// Generate properties to get the copy and delete closures for this
-	// domain model.
-	GenerateClosureProperties(dm);
-	PopIndent();
+      foreach(DomainClass c in classes)
+      {
 #>
-	#endregion
+         typeof(<#= c.GetRelativeName(dm.Namespace, true) #>),
 <#+
-	if(this.IsDsl && this.Dsl.Diagram != null)
-	{
+      }
+      foreach(string s in viewFixupTypes)
+      {
 #>
-	#region Diagram rule helpers
-	/// <summary>
-	/// Enables rules in this domain model related to diagram fixup for the given store.
-	/// If diagram data will be loaded into the store, this method should be called first to ensure
-	/// that the diagram behaves properly.
-	/// </summary>
-	public static void EnableDiagramRules(DslModeling::Store store)
-	{
-		if(store == null) throw new global::System.ArgumentNullException("store");
-		
-		DslModeling::RuleManager ruleManager = store.RuleManager;
+         typeof(<#= s #>),
 <#+
-		foreach(string type in viewFixupTypes)
-		{
+      }
 #>
-		ruleManager.EnableRule(typeof(<#= type #>));
+      };
+   }
+   /// <summary>
+   /// Gets the list of generated domain properties.
+   /// </summary>
+   /// <returns>List of property data.</returns>
+   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
+   protected sealed override DomainMemberInfo[] GetGeneratedDomainProperties()
+   {
+      return new DomainMemberInfo[]
+      {
 <#+
-		}
+      foreach(DomainProperty p in properties)
+      {
 #>
-	}
-	
-	/// <summary>
-	/// Disables rules in this domain model related to diagram fixup for the given store.
-	/// </summary>
-	public static void DisableDiagramRules(DslModeling::Store store)
-	{
-		if(store == null) throw new global::System.ArgumentNullException("store");
-		
-		DslModeling::RuleManager ruleManager = store.RuleManager;
+         new DomainMemberInfo(typeof(<#= p.Class.GetRelativeName(dm.Namespace, true) #>), "<#= p.Name #>", <#= p.Class.GetRelativeName(dm.Namespace, true) #>.<#= p.Name #>DomainPropertyId, typeof(<#= p.Class.GetRelativeName(dm.Namespace, true) #>.<#= CodeGenerationUtilities.GetPropertyHandlerName(p) #>)),
 <#+
-		foreach(string type in viewFixupTypes)
-		{
+      }
 #>
-		ruleManager.DisableRule(typeof(<#= type #>));
+      };
+   }
 <#+
-		}
+   }
 #>
-	}
-	#endregion
+
 <#+
-	}
+   if(roles.Count > 0)
+   {
+#>
+   /// <summary>
+   /// Gets the list of generated domain roles.
+   /// </summary>
+   /// <returns>List of role data.</returns>
+   protected sealed override DomainRolePlayerInfo[] GetGeneratedDomainRoles()
+   {
+      return new DomainRolePlayerInfo[]
+      {
+<#+
+      foreach(DomainRole role in roles)
+      {
+#>
+         new DomainRolePlayerInfo(typeof(<#= role.Relationship.GetRelativeName(dm.Namespace, true) #>), "<#= role.Name #>", <#= role.Relationship.GetRelativeName(dm.Namespace, true) #>.<#= role.Name #>DomainRoleId),
+<#+
+      }
+#>
+      };
+   }
+<#+
+   }
+#>
+   #endregion
+<#+
+   // Generate code that is used to create the classes and relationships
+   // by reflective means.
+   if(classes.Count > 0)
+   {
+#>
+   #region Factory methods
+   private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementMap;
+
+   /// <summary>
+   /// Creates an element of specified type.
+   /// </summary>
+   /// <param name="partition">Partition where element is to be created.</param>
+   /// <param name="elementType">Element type which belongs to this domain model.</param>
+   /// <param name="propertyAssignments">New element property assignments.</param>
+   /// <returns>Created element.</returns>
+   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
+   public sealed override DslModeling::ModelElement CreateElement(DslModeling::Partition partition, global::System.Type elementType, DslModeling::PropertyAssignment[] propertyAssignments)
+   {
+      if (elementType == null) throw new global::System.ArgumentNullException("elementType");
+
+      if (createElementMap == null)
+      {
+         createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(<#= classCount #>);
+<#+
+         int count = 0;
+         foreach(DomainClass c in classes)
+         {
+            if((!(c is DomainRelationship)) && c.InheritanceModifier != InheritanceModifier.Abstract)
+            {
+#>
+         createElementMap.Add(typeof(<#= c.GetRelativeName(dm.Namespace, true) #>), <#= count #>);
+<#+
+               count++;
+            }
+         }
+#>
+      }
+      int index;
+      if (!createElementMap.TryGetValue(elementType, out index))
+      {
+         // construct exception error message
+         string exceptionError = string.Format(
+                     global::System.Globalization.CultureInfo.CurrentCulture,
+                     <#= this.DslLibrary.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("UnrecognizedElementType"),
+                     elementType.Name);
+         throw new global::System.ArgumentException(exceptionError, "elementType");
+      }
+      switch (index)
+      {
+<#+
+         count = 0;
+         foreach(DomainClass c in classes)
+         {
+            if((!(c is DomainRelationship)) && c.InheritanceModifier != InheritanceModifier.Abstract)
+            {
+               if(c.HasCustomConstructor)
+               {
+#>
+         // A constructor was not generated for <#= c.Name #> because it had HasCustomConstructor
+         // set to true. Please provide the constructor below.
+<#+
+               }
+#>
+         case <#= count #>: return new <#= c.GetRelativeName(dm.Namespace, true) #>(partition, propertyAssignments);
+<#+
+               count++;
+            }
+         }
+#>
+         default: return null;
+      }
+   }
+
+   private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementLinkMap;
+
+   /// <summary>
+   /// Creates an element link of specified type.
+   /// </summary>
+   /// <param name="partition">Partition where element is to be created.</param>
+   /// <param name="elementLinkType">Element link type which belongs to this domain model.</param>
+   /// <param name="roleAssignments">List of relationship role assignments for the new link.</param>
+   /// <param name="propertyAssignments">New element property assignments.</param>
+   /// <returns>Created element link.</returns>
+   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+   public sealed override DslModeling::ElementLink CreateElementLink(DslModeling::Partition partition, global::System.Type elementLinkType, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+   {
+      if (elementLinkType == null) throw new global::System.ArgumentNullException("elementLinkType");
+      if (roleAssignments == null) throw new global::System.ArgumentNullException("roleAssignments");
+
+      if (createElementLinkMap == null)
+      {
+         createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(<#= relationshipCount #>);
+<#+
+         count = 0;
+         foreach(DomainClass r in classes)
+         {
+            if(r is DomainRelationship && r.InheritanceModifier != InheritanceModifier.Abstract)
+            {
+#>
+         createElementLinkMap.Add(typeof(<#= r.GetRelativeName(dm.Namespace, true) #>), <#= count #>);
+<#+
+               count++;
+            }
+         }
+#>
+      }
+      int index;
+      if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
+      {
+         // construct exception error message
+         string exceptionError = string.Format(
+                     global::System.Globalization.CultureInfo.CurrentCulture,
+                     <#= this.DslLibrary.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("UnrecognizedElementLinkType"),
+                     elementLinkType.Name);
+         throw new global::System.ArgumentException(exceptionError, "elementLinkType");
+
+      }
+      switch (index)
+      {
+<#+
+         count = 0;
+         foreach(DomainClass r in classes)
+         {
+            if(r is DomainRelationship && r.InheritanceModifier != InheritanceModifier.Abstract)
+            {
+               if(r.HasCustomConstructor)
+               {
+#>
+         // A constructor was not generated for <#= r.Name #> because it had HasCustomConstructor
+         // set to true. Please provide the constructor below.
+<#+
+               }
+#>
+         case <#= count #>: return new <#= r.GetRelativeName(dm.Namespace, true) #>(partition, roleAssignments, propertyAssignments);
+<#+
+               count++;
+            }
+         }
+#>
+         default: return null;
+      }
+   }
+   #endregion
+<#+
+   }
+
+   if(!String.IsNullOrEmpty(GeneratedResourceName))
+   {
+#>
+   #region Resource manager
+
+   private static global::System.Resources.ResourceManager resourceManager;
+
+   /// <summary>
+   /// The base name of this model's resources.
+   /// </summary>
+   public const string ResourceBaseName = "<#= GeneratedResourceName #>";
+
+   /// <summary>
+   /// Gets the DomainModel's ResourceManager. If the ResourceManager does not already exist, then it is created.
+   /// </summary>
+   public override global::System.Resources.ResourceManager ResourceManager
+   {
+      [global::System.Diagnostics.DebuggerStepThrough]
+      get
+      {
+         return <#= dm.Name #>DomainModel.SingletonResourceManager;
+      }
+   }
+
+   /// <summary>
+   /// Gets the Singleton ResourceManager for this domain model.
+   /// </summary>
+   public static global::System.Resources.ResourceManager SingletonResourceManager
+   {
+      [global::System.Diagnostics.DebuggerStepThrough]
+      get
+      {
+         if (<#= dm.Name #>DomainModel.resourceManager == null)
+         {
+            <#= dm.Name #>DomainModel.resourceManager = new global::System.Resources.ResourceManager(ResourceBaseName, typeof(<#= dm.Name #>DomainModel).Assembly);
+         }
+         return <#= dm.Name #>DomainModel.resourceManager;
+      }
+   }
+   #endregion
+<#+
+   }
+#>
+   #region Copy/Remove closures
+<#+
+   PushIndent("\t");
+   // Generate properties to get the copy and delete closures for this
+   // domain model.
+   GenerateClosureProperties(dm);
+   PopIndent();
+#>
+   #endregion
+<#+
+   if(this.IsDsl && this.Dsl.Diagram != null)
+   {
+#>
+   #region Diagram rule helpers
+   /// <summary>
+   /// Enables rules in this domain model related to diagram fixup for the given store.
+   /// If diagram data will be loaded into the store, this method should be called first to ensure
+   /// that the diagram behaves properly.
+   /// </summary>
+   public static void EnableDiagramRules(DslModeling::Store store)
+   {
+      if(store == null) throw new global::System.ArgumentNullException("store");
+
+      DslModeling::RuleManager ruleManager = store.RuleManager;
+<#+
+      foreach(string type in viewFixupTypes)
+      {
+#>
+      ruleManager.EnableRule(typeof(<#= type #>));
+<#+
+      }
+#>
+   }
+
+   /// <summary>
+   /// Disables rules in this domain model related to diagram fixup for the given store.
+   /// </summary>
+   public static void DisableDiagramRules(DslModeling::Store store)
+   {
+      if(store == null) throw new global::System.ArgumentNullException("store");
+
+      DslModeling::RuleManager ruleManager = store.RuleManager;
+<#+
+      foreach(string type in viewFixupTypes)
+      {
+#>
+      ruleManager.DisableRule(typeof(<#= type #>));
+<#+
+      }
+#>
+   }
+   #endregion
+<#+
+   }
 #>
 }
-	
+
 #region Copy/Remove closure classes
 <#+
-	// Generate the delete and copy closures for this domain model.
-	GenerateDeleteClosure(dm);
-	GenerateCopyClosure(dm);
+   // Generate the delete and copy closures for this domain model.
+   GenerateDeleteClosure(dm);
+   GenerateCopyClosure(dm);
 #>
 #endregion
-	
-<#+
-	CloseNamespace(dm.Namespace);
 
-	// Generate code for enumerations in this domain model
-	foreach(DomainType domainType in dm.Types)
-	{
-		if(domainType is DomainEnumeration)
-		{
-			GenerateDomainEnumeration((DomainEnumeration)domainType);
-		}
-	}
+<#+
+   CloseNamespace(dm.Namespace);
+
+   // Generate code for enumerations in this domain model
+   foreach(DomainType domainType in dm.Types)
+   {
+      if(domainType is DomainEnumeration)
+      {
+         GenerateDomainEnumeration((DomainEnumeration)domainType);
+      }
+   }
 
 }
 #>

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Shell;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -11,8 +13,17 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnSelectionChanged(e);
 
          // select element on active diagram
-         if (PrimarySelection != null && PrimarySelection is ModelElement modelElement)
-            modelElement.LocateInDiagram(true);
+         if (PrimarySelection != null)
+         {
+            if (PrimarySelection is ModelDiagramData modelDiagramData)
+            {
+               EFModelDocData docData = (EFModelDocData)TreeContainer.ModelingDocData;
+               docData.OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
+            }
+
+            if (PrimarySelection is ModelElement modelElement)
+               modelElement.LocateInDiagram(true);
+         }
       }
    }
 }

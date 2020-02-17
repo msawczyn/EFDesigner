@@ -41,14 +41,14 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		protected override DslDiagrams::StyleSet ClassStyleSet
 		{
-			get
-			{
-				if (classStyleSet == null)
-				{
-					classStyleSet = CreateClassStyleSet();
-				}
-				return classStyleSet;
-			}
+		   get
+		   {
+		      if (classStyleSet == null)
+		      {
+		         classStyleSet = CreateClassStyleSet();
+		      }
+		      return classStyleSet;
+		   }
 		}
 		
 		/// <summary>
@@ -56,19 +56,19 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public override global::System.Collections.Generic.IList<DslDiagrams::ShapeField> ShapeFields
 		{
-			get
-			{
-				if (shapeFields == null)
-				{
-					shapeFields = CreateShapeFields();
-				}
-				return shapeFields;
-			}
+		   get
+		   {
+		      if (shapeFields == null)
+		      {
+		         shapeFields = CreateShapeFields();
+		      }
+		      return shapeFields;
+		   }
 		}
 		#endregion
 		#region Toolbox filters
 		private static global::System.ComponentModel.ToolboxItemFilterAttribute[] toolboxFilters = new global::System.ComponentModel.ToolboxItemFilterAttribute[] {
-					new global::System.ComponentModel.ToolboxItemFilterAttribute(global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelperBase.ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) };
+		         new global::System.ComponentModel.ToolboxItemFilterAttribute(global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelperBase.ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) };
 		
 		private readonly global::System.Collections.Generic.List<global::System.ComponentModel.ToolboxItemFilterAttribute> targetToolboxItemFilterAttributes = new global::System.Collections.Generic.List<global::System.ComponentModel.ToolboxItemFilterAttribute>(); // HACK : MEXEDGE
 		
@@ -82,8 +82,8 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public override global::System.Collections.ICollection TargetToolboxItemFilterAttributes
 		{
-			get
-			{
+		   get
+		   {
 		        if (0 == targetToolboxItemFilterAttributes.Count) // HACK : MEXEDGE
 		        {
 		            targetToolboxItemFilterAttributes.AddRange(toolboxFilters);
@@ -93,7 +93,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		            }
 		        }
 		        return targetToolboxItemFilterAttributes;
-			}
+		   }
 		}
 		#endregion
 		#region Auto-placement
@@ -102,10 +102,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public override bool ShouldAutoPlaceChildShapes
 		{
-			get
-			{
-				return true;
-			}
+		   get
+		   {
+		      return true;
+		   }
 		}
 		#endregion
 		#region Compartment support
@@ -119,15 +119,15 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public void SubscribeCompartmentItemsEvents()
 		{
-			if (!subscribedCompartmentItemsEvents && this.Store != null)
-			{
-				subscribedCompartmentItemsEvents = true;
-				this.Store.EventManagerDirectory.ElementAdded.Add(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
-				this.Store.EventManagerDirectory.ElementDeleted.Add(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
-				this.Store.EventManagerDirectory.ElementPropertyChanged.Add(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
-				this.Store.EventManagerDirectory.RolePlayerChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
-				this.Store.EventManagerDirectory.RolePlayerOrderChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
-			}
+		   if (!subscribedCompartmentItemsEvents && this.Store != null)
+		   {
+		      subscribedCompartmentItemsEvents = true;
+		      this.Store.EventManagerDirectory.ElementAdded.Add(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
+		      this.Store.EventManagerDirectory.ElementDeleted.Add(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
+		      this.Store.EventManagerDirectory.ElementPropertyChanged.Add(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
+		      this.Store.EventManagerDirectory.RolePlayerChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
+		      this.Store.EventManagerDirectory.RolePlayerOrderChanged.Add(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
+		   }
 		}
 		
 		/// <summary>
@@ -135,15 +135,15 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public void UnsubscribeCompartmentItemsEvents()
 		{
-			if (subscribedCompartmentItemsEvents)
-			{
-				this.Store.EventManagerDirectory.ElementAdded.Remove(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
-				this.Store.EventManagerDirectory.ElementDeleted.Remove(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
-				this.Store.EventManagerDirectory.ElementPropertyChanged.Remove(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
-				this.Store.EventManagerDirectory.RolePlayerChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
-				this.Store.EventManagerDirectory.RolePlayerOrderChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
-				subscribedCompartmentItemsEvents = false;
-			}
+		   if (subscribedCompartmentItemsEvents)
+		   {
+		      this.Store.EventManagerDirectory.ElementAdded.Remove(new global::System.EventHandler<DslModeling::ElementAddedEventArgs>(this.CompartmentItemAdded));
+		      this.Store.EventManagerDirectory.ElementDeleted.Remove(new global::System.EventHandler<DslModeling::ElementDeletedEventArgs>(this.CompartmentItemDeleted));
+		      this.Store.EventManagerDirectory.ElementPropertyChanged.Remove(new global::System.EventHandler<DslModeling::ElementPropertyChangedEventArgs>(this.CompartmentItemPropertyChanged));
+		      this.Store.EventManagerDirectory.RolePlayerChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerChangedEventArgs>(this.CompartmentItemRolePlayerChanged));
+		      this.Store.EventManagerDirectory.RolePlayerOrderChanged.Remove(new global::System.EventHandler<DslModeling::RolePlayerOrderChangedEventArgs>(this.CompartmentItemRolePlayerOrderChanged));
+		      subscribedCompartmentItemsEvents = false;
+		   }
 		}
 		
 		#region Event handlers
@@ -152,35 +152,35 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		private void CompartmentItemAdded(object sender, DslModeling::ElementAddedEventArgs e)
 		{
-			CompartmentItemAddRule.ElementAdded(e, true /* repaint only */);
+		   CompartmentItemAddRule.ElementAdded(e, true /* repaint only */);
 		}
 		/// <summary>
 		/// Event for element deleted.
 		/// </summary>
 		private void CompartmentItemDeleted(object sender, DslModeling::ElementDeletedEventArgs e)
 		{
-			CompartmentItemDeleteRule.ElementDeleted(e, true /* repaint only */);
+		   CompartmentItemDeleteRule.ElementDeleted(e, true /* repaint only */);
 		}
 		/// <summary>
 		/// Event for element property changed.
 		/// </summary>
 		private void CompartmentItemPropertyChanged(object sender, DslModeling::ElementPropertyChangedEventArgs e)
 		{
-			CompartmentItemChangeRule.ElementPropertyChanged(e, true /* repaint only */);
+		   CompartmentItemChangeRule.ElementPropertyChanged(e, true /* repaint only */);
 		}
 		/// <summary>
 		/// Event for role-player changed.
 		/// </summary>
 		private void CompartmentItemRolePlayerChanged(object sender, DslModeling::RolePlayerChangedEventArgs e)
 		{
-			CompartmentItemRolePlayerChangeRule.RolePlayerChanged(e, true /* repaint only */);
+		   CompartmentItemRolePlayerChangeRule.RolePlayerChanged(e, true /* repaint only */);
 		}
 		/// <summary>
 		/// Event for role-player order changed.
 		/// </summary>
 		private void CompartmentItemRolePlayerOrderChanged(object sender, DslModeling::RolePlayerOrderChangedEventArgs e)
 		{
-			CompartmentItemRolePlayerPositionChangeRule.RolePlayerPositionChanged(e, true /* repaint only */);
+		   CompartmentItemRolePlayerPositionChangeRule.RolePlayerPositionChanged(e, true /* repaint only */);
 		}
 		#endregion
 		#endregion
@@ -193,7 +193,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </remarks>
 		protected override bool ShouldAddShapeForElement(DslModeling::ModelElement element)
 		{
-			return true;
+		   return true;
 		}
 		
 		internal bool ShouldSupport(DslModeling::ModelElement element) // HACK : MEXEDGE
@@ -209,18 +209,18 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </remarks>
 		protected override void OnChildConfiguring(DslDiagrams::ShapeElement child, bool createdDuringViewFixup)
 		{
-			DslDiagrams::NodeShape sourceShape;
-			DslDiagrams::NodeShape targetShape;
-			DslDiagrams::BinaryLinkShape connector = child as DslDiagrams::BinaryLinkShape;
-			if(connector == null)
-			{
-				base.OnChildConfiguring(child, createdDuringViewFixup);
-				return;
-			}
-			this.GetSourceAndTargetForConnector(connector, out sourceShape, out targetShape);
-			
-			global::System.Diagnostics.Debug.Assert(sourceShape != null && targetShape != null, "Unable to find source and target shapes for connector.");
-			connector.Connect(sourceShape, targetShape);
+		   DslDiagrams::NodeShape sourceShape;
+		   DslDiagrams::NodeShape targetShape;
+		   DslDiagrams::BinaryLinkShape connector = child as DslDiagrams::BinaryLinkShape;
+		   if(connector == null)
+		   {
+		      base.OnChildConfiguring(child, createdDuringViewFixup);
+		      return;
+		   }
+		   this.GetSourceAndTargetForConnector(connector, out sourceShape, out targetShape);
+		   
+		   global::System.Diagnostics.Debug.Assert(sourceShape != null && targetShape != null, "Unable to find source and target shapes for connector.");
+		   connector.Connect(sourceShape, targetShape);
 		}
 		
 		/// <summary>
@@ -229,21 +229,21 @@ namespace Sawczyn.EFDesigner.EFModel
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		internal void GetSourceAndTargetForConnector(DslDiagrams::BinaryLinkShape connector, out DslDiagrams::NodeShape sourceShape, out DslDiagrams::NodeShape targetShape)
 		{
-			sourceShape = null;
-			targetShape = null;
-			
-			if (sourceShape == null || targetShape == null)
-			{
-				DslDiagrams::NodeShape[] endShapes = GetEndShapesForConnector(connector);
-				if(sourceShape == null)
-				{
-					sourceShape = endShapes[0];
-				}
-				if(targetShape == null)
-				{
-					targetShape = endShapes[1];
-				}
-			}
+		   sourceShape = null;
+		   targetShape = null;
+		   
+		   if (sourceShape == null || targetShape == null)
+		   {
+		      DslDiagrams::NodeShape[] endShapes = GetEndShapesForConnector(connector);
+		      if(sourceShape == null)
+		      {
+		         sourceShape = endShapes[0];
+		      }
+		      if(targetShape == null)
+		      {
+		         targetShape = endShapes[1];
+		      }
+		   }
 		}
 		
 		/// <summary>
@@ -251,40 +251,40 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		private DslDiagrams::NodeShape[] GetEndShapesForConnector(DslDiagrams::BinaryLinkShape connector)
 		{
-			DslModeling::ElementLink link = connector.ModelElement as DslModeling::ElementLink;
-			DslDiagrams::NodeShape sourceShape = null, targetShape = null;
-			if (link != null)
-			{
-				global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = link.LinkedElements;
-				if (linkedElements.Count == 2)
-				{
-					DslDiagrams::Diagram currentDiagram = this.Diagram;
-					DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
-					foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-					{
-						DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
-						if (shape != null && shape.Diagram == currentDiagram)
-						{
-							sourceShape = shape;
-							break;
-						}
-					}
-					
-					presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
-					foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-					{
-						DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
-						if (shape != null && shape.Diagram == currentDiagram)
-						{
-							targetShape = shape;
-							break;
-						}
-					}
+		   DslModeling::ElementLink link = connector.ModelElement as DslModeling::ElementLink;
+		   DslDiagrams::NodeShape sourceShape = null, targetShape = null;
+		   if (link != null)
+		   {
+		      global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = link.LinkedElements;
+		      if (linkedElements.Count == 2)
+		      {
+		         DslDiagrams::Diagram currentDiagram = this.Diagram;
+		         DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
+		         foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+		         {
+		            DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
+		            if (shape != null && shape.Diagram == currentDiagram)
+		            {
+		               sourceShape = shape;
+		               break;
+		            }
+		         }
+		         
+		         presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
+		         foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+		         {
+		            DslDiagrams::NodeShape shape = presentationElement as DslDiagrams::NodeShape;
+		            if (shape != null && shape.Diagram == currentDiagram)
+		            {
+		               targetShape = shape;
+		               break;
+		            }
+		         }
 		
-				}
-			}
-			
-			return new DslDiagrams::NodeShape[] { sourceShape, targetShape };
+		      }
+		   }
+		   
+		   return new DslDiagrams::NodeShape[] { sourceShape, targetShape };
 		}
 		
 		/// <summary>
@@ -293,14 +293,14 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		public override bool IsConnectorMappedToLink(DslDiagrams::BinaryLinkShape connector)
 		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(connector != null);
-			if (connector == null)
-				throw new global::System.ArgumentNullException("connector");
-			#endregion
-			if (connector.GetType() == typeof(global::Sawczyn.EFDesigner.EFModel.AssociationConnector))
-				return false;
-			return base.IsConnectorMappedToLink(connector);
+		   #region Check Parameters
+		   global::System.Diagnostics.Debug.Assert(connector != null);
+		   if (connector == null)
+		      throw new global::System.ArgumentNullException("connector");
+		   #endregion
+		   if (connector.GetType() == typeof(global::Sawczyn.EFDesigner.EFModel.AssociationConnector))
+		      return false;
+		   return base.IsConnectorMappedToLink(connector);
 		}
 		
 		/// <summary>
@@ -310,45 +310,45 @@ namespace Sawczyn.EFDesigner.EFModel
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
 		protected override DslDiagrams::ShapeElement CreateChildShape(DslModeling::ModelElement element)
 		{
-			if(element is global::Sawczyn.EFDesigner.EFModel.ModelClass)
-			{
-				global::Sawczyn.EFDesigner.EFModel.ClassShape newShape = new global::Sawczyn.EFDesigner.EFModel.ClassShape(this.Partition);
-				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
-			if(element is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
-			{
-				global::Sawczyn.EFDesigner.EFModel.EnumShape newShape = new global::Sawczyn.EFDesigner.EFModel.EnumShape(this.Partition);
-				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
-			if(element is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
-			{
-				global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector newShape = new global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation)
-			{
-				global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector newShape = new global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Sawczyn.EFDesigner.EFModel.Comment)
-			{
-				global::Sawczyn.EFDesigner.EFModel.CommentBoxShape newShape = new global::Sawczyn.EFDesigner.EFModel.CommentBoxShape(this.Partition);
-				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
-			if(element is global::Sawczyn.EFDesigner.EFModel.Generalization)
-			{
-				global::Sawczyn.EFDesigner.EFModel.GeneralizationConnector newShape = new global::Sawczyn.EFDesigner.EFModel.GeneralizationConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects)
-			{
-				global::Sawczyn.EFDesigner.EFModel.CommentConnector newShape = new global::Sawczyn.EFDesigner.EFModel.CommentConnector(this.Partition);
-				return newShape;
-			}
-			return base.CreateChildShape(element);
+		   if(element is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+		   {
+		      global::Sawczyn.EFDesigner.EFModel.ClassShape newShape = new global::Sawczyn.EFDesigner.EFModel.ClassShape(this.Partition);
+		      if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+		      return newShape;
+		   }
+		   if(element is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
+		   {
+		      global::Sawczyn.EFDesigner.EFModel.EnumShape newShape = new global::Sawczyn.EFDesigner.EFModel.EnumShape(this.Partition);
+		      if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+		      return newShape;
+		   }
+		   if(element is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
+		   {
+		      global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector newShape = new global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector(this.Partition);
+		      return newShape;
+		   }
+		   if(element is global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation)
+		   {
+		      global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector newShape = new global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector(this.Partition);
+		      return newShape;
+		   }
+		   if(element is global::Sawczyn.EFDesigner.EFModel.Comment)
+		   {
+		      global::Sawczyn.EFDesigner.EFModel.CommentBoxShape newShape = new global::Sawczyn.EFDesigner.EFModel.CommentBoxShape(this.Partition);
+		      if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+		      return newShape;
+		   }
+		   if(element is global::Sawczyn.EFDesigner.EFModel.Generalization)
+		   {
+		      global::Sawczyn.EFDesigner.EFModel.GeneralizationConnector newShape = new global::Sawczyn.EFDesigner.EFModel.GeneralizationConnector(this.Partition);
+		      return newShape;
+		   }
+		   if(element is global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects)
+		   {
+		      global::Sawczyn.EFDesigner.EFModel.CommentConnector newShape = new global::Sawczyn.EFDesigner.EFModel.CommentConnector(this.Partition);
+		      return newShape;
+		   }
+		   return base.CreateChildShape(element);
 		}
 		#endregion
 		#region Decorator mapping
@@ -358,12 +358,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		protected override void InitializeShapeFields(global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields)
 		{
-			base.InitializeShapeFields(shapeFields);
-			global::Sawczyn.EFDesigner.EFModel.ClassShape.DecoratorsInitialized += ClassShapeDecoratorMap.OnDecoratorsInitialized;
-			global::Sawczyn.EFDesigner.EFModel.CommentBoxShape.DecoratorsInitialized += CommentBoxShapeDecoratorMap.OnDecoratorsInitialized;
-			global::Sawczyn.EFDesigner.EFModel.EnumShape.DecoratorsInitialized += EnumShapeDecoratorMap.OnDecoratorsInitialized;
-			global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector.DecoratorsInitialized += UnidirectionalConnectorDecoratorMap.OnDecoratorsInitialized;
-			global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.DecoratorsInitialized += BidirectionalConnectorDecoratorMap.OnDecoratorsInitialized;
+		   base.InitializeShapeFields(shapeFields);
+		   global::Sawczyn.EFDesigner.EFModel.ClassShape.DecoratorsInitialized += ClassShapeDecoratorMap.OnDecoratorsInitialized;
+		   global::Sawczyn.EFDesigner.EFModel.CommentBoxShape.DecoratorsInitialized += CommentBoxShapeDecoratorMap.OnDecoratorsInitialized;
+		   global::Sawczyn.EFDesigner.EFModel.EnumShape.DecoratorsInitialized += EnumShapeDecoratorMap.OnDecoratorsInitialized;
+		   global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector.DecoratorsInitialized += UnidirectionalConnectorDecoratorMap.OnDecoratorsInitialized;
+		   global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.DecoratorsInitialized += BidirectionalConnectorDecoratorMap.OnDecoratorsInitialized;
 		}
 		
 		/// <summary>
@@ -371,37 +371,37 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		internal static partial class ClassShapeDecoratorMap
 		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for ClassShape.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
+		   /// <summary>
+		   /// Event handler called when decorator initialization is complete for ClassShape.  Adds decorator mappings for this shape or connector.
+		   /// </summary>
+		   public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+		   {
+		      DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+		      DslDiagrams::AssociatedPropertyInfo propertyInfo;
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("EntityGlyph");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "EntityGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("EntityGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "EntityGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("AbstractEntityGlyph");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "AbstractEntityGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("AbstractEntityGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "AbstractEntityGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("WarningGlyph");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "WarningGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("WarningGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "WarningGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("TransientGlyph");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TransientGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("TransientGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TransientGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GenerateCodeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("False");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "NoGenGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
-			}
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GenerateCodeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("False");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "NoGenGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		   }
 		}
 		
 		/// <summary>
@@ -409,17 +409,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		internal static partial class CommentBoxShapeDecoratorMap
 		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for CommentBoxShape.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Comment.TextDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Comment").AssociateValueWith(shape.Store, propertyInfo);
-			}
+		   /// <summary>
+		   /// Event handler called when decorator initialization is complete for CommentBoxShape.  Adds decorator mappings for this shape or connector.
+		   /// </summary>
+		   public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+		   {
+		      DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+		      DslDiagrams::AssociatedPropertyInfo propertyInfo;
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Comment.TextDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Comment").AssociateValueWith(shape.Store, propertyInfo);
+		   }
 		}
 		
 		/// <summary>
@@ -427,29 +427,29 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		internal static partial class EnumShapeDecoratorMap
 		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for EnumShape.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.NameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
+		   /// <summary>
+		   /// Event handler called when decorator initialization is complete for EnumShape.  Adds decorator mappings for this shape or connector.
+		   /// </summary>
+		   public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+		   {
+		      DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+		      DslDiagrams::AssociatedPropertyInfo propertyInfo;
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.NameDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GlyphTypeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("EnumGlyph");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "EnumGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("EnumGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "EnumGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GlyphTypeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("WarningGlyph");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "WarningGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("WarningGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "WarningGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GenerateCodeDomainPropertyId);
-				propertyInfo.FilteringValues.Add("False");
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "NoGenGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
-			}
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelEnum.GenerateCodeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("False");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "NoGenGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		   }
 		}
 		
 		/// <summary>
@@ -457,12 +457,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		internal static partial class AssociationConnectorDecoratorMap
 		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for AssociationConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-			}
+		   /// <summary>
+		   /// Event handler called when decorator initialization is complete for AssociationConnector.  Adds decorator mappings for this shape or connector.
+		   /// </summary>
+		   public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+		   {
+		   }
 		}
 		
 		/// <summary>
@@ -470,25 +470,25 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		internal static partial class UnidirectionalConnectorDecoratorMap
 		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for UnidirectionalConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
-				
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDisplayDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
-			}
+		   /// <summary>
+		   /// Event handler called when decorator initialization is complete for UnidirectionalConnector.  Adds decorator mappings for this shape or connector.
+		   /// </summary>
+		   public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+		   {
+		      AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
+		      
+		      DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+		      DslDiagrams::AssociatedPropertyInfo propertyInfo;
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDisplayDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
+		   }
 		}
 		
 		/// <summary>
@@ -496,28 +496,28 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		internal static partial class BidirectionalConnectorDecoratorMap
 		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for BidirectionalConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
-				
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourcePropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDisplayDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
-			}
+		   /// <summary>
+		   /// Event handler called when decorator initialization is complete for BidirectionalConnector.  Adds decorator mappings for this shape or connector.
+		   /// </summary>
+		   public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+		   {
+		      AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
+		      
+		      DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+		      DslDiagrams::AssociatedPropertyInfo propertyInfo;
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetPropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourcePropertyNameDisplay").AssociateValueWith(shape.Store, propertyInfo);
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
+		      
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDisplayDomainPropertyId);
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicityDisplay").AssociateValueWith(shape.Store, propertyInfo);
+		   }
 		}
 		
 		#endregion
@@ -534,26 +534,26 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="toolboxItem">New toolbox item with selection. This can be null, if "Pointer" mode is selected.</param>
 		public override void OnToolboxSelectionChanged(DslDesign::ModelingToolboxItem toolboxItem)
 		{
-			base.OnToolboxSelectionChanged(toolboxItem);
+		   base.OnToolboxSelectionChanged(toolboxItem);
 		
-			// When a toolbox item is single-clicked, we need to turn off the sticky mode.
-			this.stickyToolboxItemId = null;
-			if (this.ActiveDiagramView != null)
-			{
-				DslDiagrams::CreateAction createAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::CreateAction;
-				if (createAction != null)
-				{
-					createAction.StickyMode = false;
-				}
-				else
-				{
-					DslDiagrams::ConnectAction connectAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::ConnectAction;
-					if (connectAction != null)
-					{
-						connectAction.StickyMode = false;
-					}
-				}
-			}
+		   // When a toolbox item is single-clicked, we need to turn off the sticky mode.
+		   this.stickyToolboxItemId = null;
+		   if (this.ActiveDiagramView != null)
+		   {
+		      DslDiagrams::CreateAction createAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::CreateAction;
+		      if (createAction != null)
+		      {
+		         createAction.StickyMode = false;
+		      }
+		      else
+		      {
+		         DslDiagrams::ConnectAction connectAction = this.ActiveDiagramView.ActiveMouseAction as DslDiagrams::ConnectAction;
+		         if (connectAction != null)
+		         {
+		            connectAction.StickyMode = false;
+		         }
+		      }
+		   }
 		}
 		
 		/// <summary>
@@ -565,12 +565,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="toolboxItem">Selected toolbox item.</param>
 		public override bool OnToolboxItemSelected(DslDesign::ModelingToolboxItem toolboxItem)
 		{
-			// Save the current sticky item choice.
-			this.stickyToolboxItemId = toolboxItem.Id;
-			
-			// Return true to indicate that the toolbox selection action is handled. Otherwise the old
-			// behavior of creating new element on double-click will be carried out.
-			return true;
+		   // Save the current sticky item choice.
+		   this.stickyToolboxItemId = toolboxItem.Id;
+		   
+		   // Return true to indicate that the toolbox selection action is handled. Otherwise the old
+		   // behavior of creating new element on double-click will be carried out.
+		   return true;
 		}
 		#endregion
 		
@@ -591,7 +591,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="filter">filter string used to filter the toolbox items</param>
 		protected virtual bool SelectedToolboxItemSupportsFilterString(DslDiagrams::DiagramView activeView, string filter)
 		{
-			return activeView.SelectedToolboxItemSupportsFilterString(filter);
+		   return activeView.SelectedToolboxItemSupportsFilterString(filter);
 		}
 		/// <summary>
 		/// Override to provide the right mouse action when trying
@@ -600,112 +600,112 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <param name="pointArgs"></param>
 		public override void OnViewMouseEnter(DslDiagrams::DiagramPointEventArgs pointArgs)
 		{
-			if (pointArgs  == null) throw new global::System.ArgumentNullException("pointArgs");
+		   if (pointArgs  == null) throw new global::System.ArgumentNullException("pointArgs");
 		
-			DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
-			if(activeView != null)
-			{
-				bool stickyMode = false;
-				DslDesign::ModelingToolboxItem selectedToolboxItem = activeView.Toolbox.GetSelectedToolboxItem() as DslDesign::ModelingToolboxItem;
-				if (selectedToolboxItem != null && selectedToolboxItem.Id == this.stickyToolboxItemId)
-				{
-					stickyMode = true;
-				}
-				else
-				{
-					stickyMode = false;
-					this.stickyToolboxItemId = null;
-				}
+		   DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
+		   if(activeView != null)
+		   {
+		      bool stickyMode = false;
+		      DslDesign::ModelingToolboxItem selectedToolboxItem = activeView.Toolbox.GetSelectedToolboxItem() as DslDesign::ModelingToolboxItem;
+		      if (selectedToolboxItem != null && selectedToolboxItem.Id == this.stickyToolboxItemId)
+		      {
+		         stickyMode = true;
+		      }
+		      else
+		      {
+		         stickyMode = false;
+		         this.stickyToolboxItemId = null;
+		      }
 		
-				DslDiagrams::MouseAction action = null;
-				if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.ModelClassFilterString))
-				{
-					if (this.modelClassCreateAction == null)
-					{
-						this.modelClassCreateAction = new global::Sawczyn.EFDesigner.EFModel.ModelClassCreateAction(this);
-						this.modelClassCreateAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
-					}
-					this.modelClassCreateAction.StickyMode = stickyMode;
-					action = this.modelClassCreateAction;
-				}
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.CommentFilterString))
-				{
-					if (this.commentCreateAction == null)
-					{
-						this.commentCreateAction = new global::Sawczyn.EFDesigner.EFModel.CommentCreateAction(this);
-						this.commentCreateAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
-					}
-					this.commentCreateAction.StickyMode = stickyMode;
-					action = this.commentCreateAction;
-				}
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.EnumerationFilterString))
-				{
-					if (this.enumerationCreateAction == null)
-					{
-						this.enumerationCreateAction = new global::Sawczyn.EFDesigner.EFModel.EnumerationCreateAction(this);
-						this.enumerationCreateAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
-					}
-					this.enumerationCreateAction.StickyMode = stickyMode;
-					action = this.enumerationCreateAction;
-				}
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.UnidirectionalAssociationFilterString))
-				{
-					if (this.unidirectionalAssociationConnectAction == null)
-					{
-						this.unidirectionalAssociationConnectAction = new global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociationConnectAction(this);
-						this.unidirectionalAssociationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
-					}
-					this.unidirectionalAssociationConnectAction.StickyMode = stickyMode;
-					action = this.unidirectionalAssociationConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.BidirectionalAssociationFilterString))
-				{
-					if (this.bidirectionalAssociationConnectAction == null)
-					{
-						this.bidirectionalAssociationConnectAction = new global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociationConnectAction(this);
-						this.bidirectionalAssociationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
-					}
-					this.bidirectionalAssociationConnectAction.StickyMode = stickyMode;
-					action = this.bidirectionalAssociationConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.GeneralizationFilterString))
-				{
-					if (this.generalizationConnectAction == null)
-					{
-						this.generalizationConnectAction = new global::Sawczyn.EFDesigner.EFModel.GeneralizationConnectAction(this);
-						this.generalizationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
-					}
-					this.generalizationConnectAction.StickyMode = stickyMode;
-					action = this.generalizationConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.CommentLinkFilterString))
-				{
-					if (this.commentLinkConnectAction == null)
-					{
-						this.commentLinkConnectAction = new global::Sawczyn.EFDesigner.EFModel.CommentLinkConnectAction(this);
-						this.commentLinkConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
-					}
-					this.commentLinkConnectAction.StickyMode = stickyMode;
-					action = this.commentLinkConnectAction;
-				} 
-				else
-				{
-					action = null;
-				}
-				
-				if (pointArgs.DiagramClientView.ActiveMouseAction != action)
-				{
-					try
-					{
-						this.changingMouseAction = true;
-						pointArgs.DiagramClientView.ActiveMouseAction = action;
-					}
-					finally
-					{
-						this.changingMouseAction = false;
-					}
-				}
-			}
+		      DslDiagrams::MouseAction action = null;
+		      if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.ModelClassFilterString))
+		      {
+		         if (this.modelClassCreateAction == null)
+		         {
+		            this.modelClassCreateAction = new global::Sawczyn.EFDesigner.EFModel.ModelClassCreateAction(this);
+		            this.modelClassCreateAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+		         }
+		         this.modelClassCreateAction.StickyMode = stickyMode;
+		         action = this.modelClassCreateAction;
+		      }
+		      else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.CommentFilterString))
+		      {
+		         if (this.commentCreateAction == null)
+		         {
+		            this.commentCreateAction = new global::Sawczyn.EFDesigner.EFModel.CommentCreateAction(this);
+		            this.commentCreateAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+		         }
+		         this.commentCreateAction.StickyMode = stickyMode;
+		         action = this.commentCreateAction;
+		      }
+		      else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.EnumerationFilterString))
+		      {
+		         if (this.enumerationCreateAction == null)
+		         {
+		            this.enumerationCreateAction = new global::Sawczyn.EFDesigner.EFModel.EnumerationCreateAction(this);
+		            this.enumerationCreateAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+		         }
+		         this.enumerationCreateAction.StickyMode = stickyMode;
+		         action = this.enumerationCreateAction;
+		      }
+		      else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.UnidirectionalAssociationFilterString))
+		      {
+		         if (this.unidirectionalAssociationConnectAction == null)
+		         {
+		            this.unidirectionalAssociationConnectAction = new global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociationConnectAction(this);
+		            this.unidirectionalAssociationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+		         }
+		         this.unidirectionalAssociationConnectAction.StickyMode = stickyMode;
+		         action = this.unidirectionalAssociationConnectAction;
+		      } 
+		      else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.BidirectionalAssociationFilterString))
+		      {
+		         if (this.bidirectionalAssociationConnectAction == null)
+		         {
+		            this.bidirectionalAssociationConnectAction = new global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociationConnectAction(this);
+		            this.bidirectionalAssociationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+		         }
+		         this.bidirectionalAssociationConnectAction.StickyMode = stickyMode;
+		         action = this.bidirectionalAssociationConnectAction;
+		      } 
+		      else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.GeneralizationFilterString))
+		      {
+		         if (this.generalizationConnectAction == null)
+		         {
+		            this.generalizationConnectAction = new global::Sawczyn.EFDesigner.EFModel.GeneralizationConnectAction(this);
+		            this.generalizationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+		         }
+		         this.generalizationConnectAction.StickyMode = stickyMode;
+		         action = this.generalizationConnectAction;
+		      } 
+		      else if (SelectedToolboxItemSupportsFilterString(activeView, global::Sawczyn.EFDesigner.EFModel.EFModelToolboxHelper.CommentLinkFilterString))
+		      {
+		         if (this.commentLinkConnectAction == null)
+		         {
+		            this.commentLinkConnectAction = new global::Sawczyn.EFDesigner.EFModel.CommentLinkConnectAction(this);
+		            this.commentLinkConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnToolboxActionDeactivated);
+		         }
+		         this.commentLinkConnectAction.StickyMode = stickyMode;
+		         action = this.commentLinkConnectAction;
+		      } 
+		      else
+		      {
+		         action = null;
+		      }
+		      
+		      if (pointArgs.DiagramClientView.ActiveMouseAction != action)
+		      {
+		         try
+		         {
+		            this.changingMouseAction = true;
+		            pointArgs.DiagramClientView.ActiveMouseAction = action;
+		         }
+		         finally
+		         {
+		            this.changingMouseAction = false;
+		         }
+		      }
+		   }
 		}
 		
 		/// <summary>
@@ -713,7 +713,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		private void OnToolboxActionDeactivated(object sender, DslDiagrams::DiagramEventArgs e)
 		{
-			OnMouseActionDeactivated();
+		   OnMouseActionDeactivated();
 		}
 		
 		/// <summary>
@@ -722,17 +722,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		protected virtual void OnMouseActionDeactivated()
 		{
-			DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
+		   DslDiagrams::DiagramView activeView = this.ActiveDiagramView;
 		
-			if (activeView != null && activeView.Toolbox != null)
-			{
-				// If we're not changing mouse action due to changing toolbox selection change,
-				// reset toolbox selection.
-				if (!this.changingMouseAction)
-				{
-					activeView.Toolbox.SelectedToolboxItemUsed();
-				}
-			}
+		   if (activeView != null && activeView.Toolbox != null)
+		   {
+		      // If we're not changing mouse action due to changing toolbox selection change,
+		      // reset toolbox selection.
+		      if (!this.changingMouseAction)
+		      {
+		         activeView.Toolbox.SelectedToolboxItemUsed();
+		      }
+		   }
 		}
 		#endregion
 		
@@ -741,52 +741,52 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		protected override void Dispose(bool disposing)
 		{
-			try
-			{
-				if(disposing)
-				{
-					if(this.modelClassCreateAction != null)
-					{
-						this.modelClassCreateAction.Dispose();
-						this.modelClassCreateAction = null;
-					}
-					if(this.commentCreateAction != null)
-					{
-						this.commentCreateAction.Dispose();
-						this.commentCreateAction = null;
-					}
-					if(this.enumerationCreateAction != null)
-					{
-						this.enumerationCreateAction.Dispose();
-						this.enumerationCreateAction = null;
-					}
-					if(this.unidirectionalAssociationConnectAction != null)
-					{
-						this.unidirectionalAssociationConnectAction.Dispose();
-						this.unidirectionalAssociationConnectAction = null;
-					}
-					if(this.bidirectionalAssociationConnectAction != null)
-					{
-						this.bidirectionalAssociationConnectAction.Dispose();
-						this.bidirectionalAssociationConnectAction = null;
-					}
-					if(this.generalizationConnectAction != null)
-					{
-						this.generalizationConnectAction.Dispose();
-						this.generalizationConnectAction = null;
-					}
-					if(this.commentLinkConnectAction != null)
-					{
-						this.commentLinkConnectAction.Dispose();
-						this.commentLinkConnectAction = null;
-					}
-					this.UnsubscribeCompartmentItemsEvents();
-				}
-			}
-			finally
-			{
-				base.Dispose(disposing);
-			}
+		   try
+		   {
+		      if(disposing)
+		      {
+		         if(this.modelClassCreateAction != null)
+		         {
+		            this.modelClassCreateAction.Dispose();
+		            this.modelClassCreateAction = null;
+		         }
+		         if(this.commentCreateAction != null)
+		         {
+		            this.commentCreateAction.Dispose();
+		            this.commentCreateAction = null;
+		         }
+		         if(this.enumerationCreateAction != null)
+		         {
+		            this.enumerationCreateAction.Dispose();
+		            this.enumerationCreateAction = null;
+		         }
+		         if(this.unidirectionalAssociationConnectAction != null)
+		         {
+		            this.unidirectionalAssociationConnectAction.Dispose();
+		            this.unidirectionalAssociationConnectAction = null;
+		         }
+		         if(this.bidirectionalAssociationConnectAction != null)
+		         {
+		            this.bidirectionalAssociationConnectAction.Dispose();
+		            this.bidirectionalAssociationConnectAction = null;
+		         }
+		         if(this.generalizationConnectAction != null)
+		         {
+		            this.generalizationConnectAction.Dispose();
+		            this.generalizationConnectAction = null;
+		         }
+		         if(this.commentLinkConnectAction != null)
+		         {
+		            this.commentLinkConnectAction.Dispose();
+		            this.commentLinkConnectAction = null;
+		         }
+		         this.UnsubscribeCompartmentItemsEvents();
+		      }
+		   }
+		   finally
+		   {
+		      base.Dispose(disposing);
+		   }
 		}
 		#region Constructors, domain class Id
 	
@@ -819,64 +819,64 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	
-		/// <summary>
-		/// Double derived implementation for the rule that initiates view fixup when an element that has an associated shape is added to the model.
-		/// This now enables the DSL author to everride the SkipFixUp() method 
-		/// </summary>
-		internal partial class FixUpDiagramBase : DslModeling::AddRule
-		{
-			protected virtual bool SkipFixup(DslModeling::ModelElement childElement)
-			{
-				return childElement.IsDeleted;
-			}
-		}
+	   /// <summary>
+	   /// Double derived implementation for the rule that initiates view fixup when an element that has an associated shape is added to the model.
+	   /// This now enables the DSL author to everride the SkipFixUp() method 
+	   /// </summary>
+	   internal partial class FixUpDiagramBase : DslModeling::AddRule
+	   {
+	      protected virtual bool SkipFixup(DslModeling::ModelElement childElement)
+	      {
+	         return childElement.IsDeleted;
+	      }
+	   }
 	
-		/// <summary>
-		/// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnum), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		internal sealed partial class FixUpDiagram : FixUpDiagramBase
-		{
-			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-			public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
-			{
-				if(e == null) throw new global::System.ArgumentNullException("e");
-			
-				DslModeling::ModelElement childElement = e.ModelElement;
-				if (this.SkipFixup(childElement))
-					return;
-				DslModeling::ModelElement parentElement;
-				if(childElement is DslModeling::ElementLink)
-				{
-					parentElement = GetParentForRelationship((DslModeling::ElementLink)childElement);
-				} else
-				if(childElement is global::Sawczyn.EFDesigner.EFModel.ModelClass)
-				{
-					parentElement = GetParentForModelClass((global::Sawczyn.EFDesigner.EFModel.ModelClass)childElement);
-				} else
-				if(childElement is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
-				{
-					parentElement = GetParentForModelEnum((global::Sawczyn.EFDesigner.EFModel.ModelEnum)childElement);
-				} else
-				if(childElement is global::Sawczyn.EFDesigner.EFModel.Comment)
-				{
-					parentElement = GetParentForComment((global::Sawczyn.EFDesigner.EFModel.Comment)childElement);
-				} else
-				{
-					parentElement = null;
-				}
-				
-				if(parentElement != null)
-				{
-					DslDiagrams::Diagram.FixUpDiagram(parentElement, childElement);
-				}
-			}
+	   /// <summary>
+	   /// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnum), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   internal sealed partial class FixUpDiagram : FixUpDiagramBase
+	   {
+	      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+	      public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
+	      {
+	         if(e == null) throw new global::System.ArgumentNullException("e");
+	      
+	         DslModeling::ModelElement childElement = e.ModelElement;
+	         if (this.SkipFixup(childElement))
+	            return;
+	         DslModeling::ModelElement parentElement;
+	         if(childElement is DslModeling::ElementLink)
+	         {
+	            parentElement = GetParentForRelationship((DslModeling::ElementLink)childElement);
+	         } else
+	         if(childElement is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+	         {
+	            parentElement = GetParentForModelClass((global::Sawczyn.EFDesigner.EFModel.ModelClass)childElement);
+	         } else
+	         if(childElement is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
+	         {
+	            parentElement = GetParentForModelEnum((global::Sawczyn.EFDesigner.EFModel.ModelEnum)childElement);
+	         } else
+	         if(childElement is global::Sawczyn.EFDesigner.EFModel.Comment)
+	         {
+	            parentElement = GetParentForComment((global::Sawczyn.EFDesigner.EFModel.Comment)childElement);
+	         } else
+	         {
+	            parentElement = null;
+	         }
+	         
+	         if(parentElement != null)
+	         {
+	            DslDiagrams::Diagram.FixUpDiagram(parentElement, childElement);
+	         }
+	      }
 			public static global::Sawczyn.EFDesigner.EFModel.ModelRoot GetParentForModelClass( global::Sawczyn.EFDesigner.EFModel.ModelClass root )
 			{
 				// Segments 0 and 1
@@ -898,629 +898,629 @@ namespace Sawczyn.EFDesigner.EFModel
 				if ( result == null ) return null;
 				return result;
 			}
-			private static DslModeling::ModelElement GetParentForRelationship(DslModeling::ElementLink elementLink)
-			{
-				global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = elementLink.LinkedElements;
+	      private static DslModeling::ModelElement GetParentForRelationship(DslModeling::ElementLink elementLink)
+	      {
+	         global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = elementLink.LinkedElements;
 	
-				if (linkedElements.Count == 2)
-				{
-					DslDiagrams::ShapeElement sourceShape = linkedElements[0] as DslDiagrams::ShapeElement;
-					DslDiagrams::ShapeElement targetShape = linkedElements[1] as DslDiagrams::ShapeElement;
+	         if (linkedElements.Count == 2)
+	         {
+	            DslDiagrams::ShapeElement sourceShape = linkedElements[0] as DslDiagrams::ShapeElement;
+	            DslDiagrams::ShapeElement targetShape = linkedElements[1] as DslDiagrams::ShapeElement;
 	
-					if(sourceShape == null)
-					{
-						DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
-						foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-						{
-							DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
-							if (shape != null)
-							{
-								sourceShape = shape;
-								break;
-							}
-						}
-					}
-					
-					if(targetShape == null)
-					{
-						DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
-						foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
-						{
-							DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
-							if (shape != null)
-							{
-								targetShape = shape;
-								break;
-							}
-						}
-					}
-					
-					if(sourceShape == null || targetShape == null)
-					{
-						global::System.Diagnostics.Debug.Fail("Unable to find source and/or target shape for view fixup.");
-						return null;
-					}
+	            if(sourceShape == null)
+	            {
+	               DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[0]);
+	               foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+	               {
+	                  DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
+	                  if (shape != null)
+	                  {
+	                     sourceShape = shape;
+	                     break;
+	                  }
+	               }
+	            }
+	            
+	            if(targetShape == null)
+	            {
+	               DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> presentationElements = DslDiagrams::PresentationViewsSubject.GetPresentation(linkedElements[1]);
+	               foreach (DslDiagrams::PresentationElement presentationElement in presentationElements)
+	               {
+	                  DslDiagrams::ShapeElement shape = presentationElement as DslDiagrams::ShapeElement;
+	                  if (shape != null)
+	                  {
+	                     targetShape = shape;
+	                     break;
+	                  }
+	               }
+	            }
+	            
+	            if(sourceShape == null || targetShape == null)
+	            {
+	               global::System.Diagnostics.Debug.Fail("Unable to find source and/or target shape for view fixup.");
+	               return null;
+	            }
 	
-					DslDiagrams::ShapeElement sourceParent = sourceShape.ParentShape;
-					DslDiagrams::ShapeElement targetParent = targetShape.ParentShape;
+	            DslDiagrams::ShapeElement sourceParent = sourceShape.ParentShape;
+	            DslDiagrams::ShapeElement targetParent = targetShape.ParentShape;
 	
-					while (sourceParent != targetParent && sourceParent != null)
-					{
-						DslDiagrams::ShapeElement curParent = targetParent;
-						while (sourceParent != curParent && curParent != null)
-						{
-							curParent = curParent.ParentShape;
-						}
+	            while (sourceParent != targetParent && sourceParent != null)
+	            {
+	               DslDiagrams::ShapeElement curParent = targetParent;
+	               while (sourceParent != curParent && curParent != null)
+	               {
+	                  curParent = curParent.ParentShape;
+	               }
 	
-						if(sourceParent == curParent)
-						{
-							break;
-						}
-						else
-						{
-							sourceParent = sourceParent.ParentShape;
-						}
-					}
+	               if(sourceParent == curParent)
+	               {
+	                  break;
+	               }
+	               else
+	               {
+	                  sourceParent = sourceParent.ParentShape;
+	               }
+	            }
 	
-					while (sourceParent != null)
-					{
-						// ensure that the parent can parent connectors (i.e., a diagram or a swimlane).
-						if(sourceParent is DslDiagrams::Diagram || sourceParent is DslDiagrams::SwimlaneShape)
-						{
-							break;
-						}
-						else
-						{
-							sourceParent = sourceParent.ParentShape;
-						}
-					}
+	            while (sourceParent != null)
+	            {
+	               // ensure that the parent can parent connectors (i.e., a diagram or a swimlane).
+	               if(sourceParent is DslDiagrams::Diagram || sourceParent is DslDiagrams::SwimlaneShape)
+	               {
+	                  break;
+	               }
+	               else
+	               {
+	                  sourceParent = sourceParent.ParentShape;
+	               }
+	            }
 	
-					global::System.Diagnostics.Debug.Assert(sourceParent != null && sourceParent.ModelElement != null, "Unable to find common parent for view fixup.");
-					return sourceParent.ModelElement;
-				}
+	            global::System.Diagnostics.Debug.Assert(sourceParent != null && sourceParent.ModelElement != null, "Unable to find common parent for view fixup.");
+	            return sourceParent.ModelElement;
+	         }
 	
-				return null;
-			}
-		}
+	         return null;
+	      }
+	   }
 	
-		/// <summary>
-		/// Rule to update compartments when an item is added to the list
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		internal sealed class CompartmentItemAddRule : DslModeling::AddRule
-		{
-			/// <summary>
-			/// Called when an element is added. 
-			/// </summary>
-			/// <param name="e"></param>
-			public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
-			{
-				ElementAdded(e, false);
-			}
+	   /// <summary>
+	   /// Rule to update compartments when an item is added to the list
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   internal sealed class CompartmentItemAddRule : DslModeling::AddRule
+	   {
+	      /// <summary>
+	      /// Called when an element is added. 
+	      /// </summary>
+	      /// <param name="e"></param>
+	      public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
+	      {
+	         ElementAdded(e, false);
+	      }
 	
-			internal static void ElementAdded(DslModeling::ElementAddedEventArgs e, bool repaintOnly)
-			{
-				if(e==null) throw new global::System.ArgumentNullException("e");
-				if (e.ModelElement.IsDeleted)
-					return;
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)
-				{
-					global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
-					UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
-				{
-					global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
-					UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
-				{
-					global::System.Collections.IEnumerable elements = GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ModelElement);
-					UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
-				{
-					global::System.Collections.IEnumerable elements = GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
-					UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
-				}
-			}
-			
-			#region static DomainPath traversal methods to get the list of compartments to update
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeAttributesCompartmentFromLastLink(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes root)
-			{
+	      internal static void ElementAdded(DslModeling::ElementAddedEventArgs e, bool repaintOnly)
+	      {
+	         if(e==null) throw new global::System.ArgumentNullException("e");
+	         if (e.ModelElement.IsDeleted)
+	            return;
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)
+	         {
+	            global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
+	         {
+	            global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
+	         {
+	            global::System.Collections.IEnumerable elements = GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ModelElement);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
+	         {
+	            global::System.Collections.IEnumerable elements = GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	         }
+	      }
+	      
+	      #region static DomainPath traversal methods to get the list of compartments to update
+	      internal static global::System.Collections.ICollection GetModelClassForClassShapeAttributesCompartmentFromLastLink(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes root)
+	      {
 				// Segment 0
 				global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.ModelClass;
 				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeAttributesCompartment(global::Sawczyn.EFDesigner.EFModel.ModelAttribute root)
-			{
+	         return new DslModeling::ModelElement[] {result};
+	      }
+	      internal static global::System.Collections.ICollection GetModelClassForClassShapeAttributesCompartment(global::Sawczyn.EFDesigner.EFModel.ModelAttribute root)
+	      {
 				// Segments 1 and 0
 				global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.ModelClass;
 				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeAssociationsCompartment(global::Sawczyn.EFDesigner.EFModel.Association root)
-			{
+	         return new DslModeling::ModelElement[] {result};
+	      }
+	      internal static global::System.Collections.ICollection GetModelClassForClassShapeAssociationsCompartment(global::Sawczyn.EFDesigner.EFModel.Association root)
+	      {
 				// Segment 0
 				global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.Source;
 				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeAssociationsCompartmentFromPropertyElement(global::Sawczyn.EFDesigner.EFModel.ModelClass root)
-			{
+	         return new DslModeling::ModelElement[] {result};
+	      }
+	      internal static global::System.Collections.ICollection GetModelClassForClassShapeAssociationsCompartmentFromPropertyElement(global::Sawczyn.EFDesigner.EFModel.ModelClass root)
+	      {
 				// Segment 0
 					global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.Association> result = global::Sawczyn.EFDesigner.EFModel.Association.GetLinksToSources(root);
-				return result;
-			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeSourcesCompartment(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation root)
-			{
+	         return result;
+	      }
+	      internal static global::System.Collections.ICollection GetModelClassForClassShapeSourcesCompartment(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation root)
+	      {
 				// Segment 0
 				global::Sawczyn.EFDesigner.EFModel.ModelClass result = root.BidirectionalTarget;
 				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeSourcesCompartmentFromPropertyElement(global::Sawczyn.EFDesigner.EFModel.ModelClass root)
-			{
+	         return new DslModeling::ModelElement[] {result};
+	      }
+	      internal static global::System.Collections.ICollection GetModelClassForClassShapeSourcesCompartmentFromPropertyElement(global::Sawczyn.EFDesigner.EFModel.ModelClass root)
+	      {
 				// Segment 0
 					global::System.Collections.ObjectModel.ReadOnlyCollection<global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation> result = global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.GetLinksToBidirectionalTargets(root);
-				return result;
-			}
-			internal static global::System.Collections.ICollection GetModelEnumForEnumShapeValuesCompartmentFromLastLink(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues root)
-			{
+	         return result;
+	      }
+	      internal static global::System.Collections.ICollection GetModelEnumForEnumShapeValuesCompartmentFromLastLink(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues root)
+	      {
 				// Segment 0
 				global::Sawczyn.EFDesigner.EFModel.ModelEnum result = root.Enum;
 				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			internal static global::System.Collections.ICollection GetModelEnumForEnumShapeValuesCompartment(global::Sawczyn.EFDesigner.EFModel.ModelEnumValue root)
-			{
+	         return new DslModeling::ModelElement[] {result};
+	      }
+	      internal static global::System.Collections.ICollection GetModelEnumForEnumShapeValuesCompartment(global::Sawczyn.EFDesigner.EFModel.ModelEnumValue root)
+	      {
 				// Segments 1 and 0
 				global::Sawczyn.EFDesigner.EFModel.ModelEnum result = root.Enum;
 				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			#endregion
+	         return new DslModeling::ModelElement[] {result};
+	      }
+	      #endregion
 	
-			#region helper method to update compartments 
-			/// <summary>
-			/// Updates the compartments for the shapes associated to the given list of model elements
-			/// </summary>
-			/// <param name="elements">List of model elements</param>
-			/// <param name="shapeType">The type of shape that needs updating</param>
-			/// <param name="compartmentName">The name of the compartment to update</param>
-			/// <param name="repaintOnly">If true, the method will only invalidate the shape for a repaint, without re-initializing the shape.</param>
-			internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly)
-			{
-				foreach (DslModeling::ModelElement element in elements)
-				{
-					DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-					foreach (DslDiagrams::PresentationElement pel in pels)
-					{
-						DslDiagrams::CompartmentShape compartmentShape = pel as DslDiagrams::CompartmentShape;
-						if (compartmentShape != null && shapeType.IsAssignableFrom(compartmentShape.GetType()))
-						{
-							if (repaintOnly)
-							{
-								compartmentShape.Invalidate();
-							}
-							else
-							{
-								foreach(DslDiagrams::CompartmentMapping mapping in compartmentShape.GetCompartmentMappings())
-								{
-									if(mapping.CompartmentId==compartmentName)
-									{
-										mapping.InitializeCompartmentShape(compartmentShape);
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			#endregion
-		}
-		
-		/// <summary>
-		/// Rule to update compartments when an items is removed from the list
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
-		{
-			/// <summary>
-			/// Called when an element is deleted
-			/// </summary>
-			/// <param name="e"></param>
-			public override void ElementDeleted(DslModeling::ElementDeletedEventArgs e)
-			{
-				ElementDeleted(e, false);
-			}
-			
-			internal static void ElementDeleted(DslModeling::ElementDeletedEventArgs e, bool repaintOnly)
-			{
-				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)
-				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
-				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
-				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
-				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Rule to update compartments when the property on an item being displayed changes.
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelAttribute), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumValue), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
-		{
-			/// <summary>
-			/// Called when an element is changed
-			/// </summary>
-			/// <param name="e"></param>
-			public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
-			{
-				ElementPropertyChanged(e, false);
-			}
-			
-			internal static void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e, bool repaintOnly)
-			{
-				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelAttribute && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelAttribute.NameDomainPropertyId)
-				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelClass && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId)
-				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartmentFromPropertyElement((global::Sawczyn.EFDesigner.EFModel.ModelClass)e.ModelElement);
-					global::System.Collections.ArrayList list = new global::System.Collections.ArrayList(elements.Count);
-					foreach(DslModeling::ModelElement element in elements)
-					{
-						global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)element);
-						list.AddRange(rootElements);
-					}
-					CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelClass && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId)
-				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartmentFromPropertyElement((global::Sawczyn.EFDesigner.EFModel.ModelClass)e.ModelElement);
-					global::System.Collections.ArrayList list = new global::System.Collections.ArrayList(elements.Count);
-					foreach(DslModeling::ModelElement element in elements)
-					{
-						global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)element);
-						list.AddRange(rootElements);
-					}
-					CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumValue && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.NameDomainPropertyId)
-				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
-				}
-			}
-		}
-		
-		/// <summary>
-		/// Rule to update compartments when a roleplayer change happens
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
-		{
-			/// <summary>
-			/// Called when the roleplayer on a link changes.
-			/// </summary>
-			/// <param name="e"></param>
-			public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
-			{
-				RolePlayerChanged(e, false);
-			}
-			
-			internal static void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e, bool repaintOnly)
-			{
-				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(e.DomainRole.IsSource)
-					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.OldRolePlayer);
-						//foreach(DslModeling::ModelElement element in oldElements)
-						//{
-						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-						//	foreach(DslDiagrams::PresentationElement pel in pels)
-						//	{
-						//		global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
-						//		if(compartmentShape != null)
-						//		{
-						//			compartmentShape.GetCompartmentMappings()[0].InitializeCompartmentShape(compartmentShape);
-						//		}
-						//	}
-						//}
-						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ElementLink);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
-					}
-					else 
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.NewRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
-					}
-				}
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.Association).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(e.DomainRole.IsSource)
-					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.Association)e.OldRolePlayer);
-						//foreach(DslModeling::ModelElement element in oldElements)
-						//{
-						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-						//	foreach(DslDiagrams::PresentationElement pel in pels)
-						//	{
-						//		global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
-						//		if(compartmentShape != null)
-						//		{
-						//			compartmentShape.GetCompartmentMappings()[1].InitializeCompartmentShape(compartmentShape);
-						//		}
-						//	}
-						//}
-						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ElementLink);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
-					}
-				}
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(!e.DomainRole.IsSource)
-					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.OldRolePlayer);
-						//foreach(DslModeling::ModelElement element in oldElements)
-						//{
-						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-						//	foreach(DslDiagrams::PresentationElement pel in pels)
-						//	{
-						//		global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
-						//		if(compartmentShape != null)
-						//		{
-						//			compartmentShape.GetCompartmentMappings()[2].InitializeCompartmentShape(compartmentShape);
-						//		}
-						//	}
-						//}
-						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ElementLink);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
-					}
-				}
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(e.DomainRole.IsSource)
-					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.OldRolePlayer);
-						//foreach(DslModeling::ModelElement element in oldElements)
-						//{
-						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-						//	foreach(DslDiagrams::PresentationElement pel in pels)
-						//	{
-						//		global::Sawczyn.EFDesigner.EFModel.EnumShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.EnumShape;
-						//		if(compartmentShape != null)
-						//		{
-						//			compartmentShape.GetCompartmentMappings()[0].InitializeCompartmentShape(compartmentShape);
-						//		}
-						//	}
-						//}
-						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ElementLink);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
-					}
-					else 
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.NewRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
-					}
-				}
-			}
-		}
+	      #region helper method to update compartments 
+	      /// <summary>
+	      /// Updates the compartments for the shapes associated to the given list of model elements
+	      /// </summary>
+	      /// <param name="elements">List of model elements</param>
+	      /// <param name="shapeType">The type of shape that needs updating</param>
+	      /// <param name="compartmentName">The name of the compartment to update</param>
+	      /// <param name="repaintOnly">If true, the method will only invalidate the shape for a repaint, without re-initializing the shape.</param>
+	      internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly)
+	      {
+	         foreach (DslModeling::ModelElement element in elements)
+	         {
+	            DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+	            foreach (DslDiagrams::PresentationElement pel in pels)
+	            {
+	               DslDiagrams::CompartmentShape compartmentShape = pel as DslDiagrams::CompartmentShape;
+	               if (compartmentShape != null && shapeType.IsAssignableFrom(compartmentShape.GetType()))
+	               {
+	                  if (repaintOnly)
+	                  {
+	                     compartmentShape.Invalidate();
+	                  }
+	                  else
+	                  {
+	                     foreach(DslDiagrams::CompartmentMapping mapping in compartmentShape.GetCompartmentMappings())
+	                     {
+	                        if(mapping.CompartmentId==compartmentName)
+	                        {
+	                           mapping.InitializeCompartmentShape(compartmentShape);
+	                           break;
+	                        }
+	                     }
+	                  }
+	               }
+	            }
+	         }
+	      }
+	      #endregion
+	   }
+	   
+	   /// <summary>
+	   /// Rule to update compartments when an items is removed from the list
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
+	   {
+	      /// <summary>
+	      /// Called when an element is deleted
+	      /// </summary>
+	      /// <param name="e"></param>
+	      public override void ElementDeleted(DslModeling::ElementDeletedEventArgs e)
+	      {
+	         ElementDeleted(e, false);
+	      }
+	      
+	      internal static void ElementDeleted(DslModeling::ElementDeletedEventArgs e, bool repaintOnly)
+	      {
+	         if(e==null) throw new global::System.ArgumentNullException("e");
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)
+	         {
+	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
+	         {
+	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
+	         {
+	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ModelElement);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
+	         {
+	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	         }
+	      }
+	   }
+	   
+	   /// <summary>
+	   /// Rule to update compartments when the property on an item being displayed changes.
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelAttribute), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumValue), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
+	   {
+	      /// <summary>
+	      /// Called when an element is changed
+	      /// </summary>
+	      /// <param name="e"></param>
+	      public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
+	      {
+	         ElementPropertyChanged(e, false);
+	      }
+	      
+	      internal static void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e, bool repaintOnly)
+	      {
+	         if(e==null) throw new global::System.ArgumentNullException("e");
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelAttribute && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelAttribute.NameDomainPropertyId)
+	         {
+	            global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.ModelElement);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelClass && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId)
+	         {
+	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartmentFromPropertyElement((global::Sawczyn.EFDesigner.EFModel.ModelClass)e.ModelElement);
+	            global::System.Collections.ArrayList list = new global::System.Collections.ArrayList(elements.Count);
+	            foreach(DslModeling::ModelElement element in elements)
+	            {
+	               global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)element);
+	               list.AddRange(rootElements);
+	            }
+	            CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelClass && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId)
+	         {
+	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartmentFromPropertyElement((global::Sawczyn.EFDesigner.EFModel.ModelClass)e.ModelElement);
+	            global::System.Collections.ArrayList list = new global::System.Collections.ArrayList(elements.Count);
+	            foreach(DslModeling::ModelElement element in elements)
+	            {
+	               global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)element);
+	               list.AddRange(rootElements);
+	            }
+	            CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	         }
+	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumValue && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.NameDomainPropertyId)
+	         {
+	            global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.ModelElement);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	         }
+	      }
+	   }
+	   
+	   /// <summary>
+	   /// Rule to update compartments when a roleplayer change happens
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
+	   {
+	      /// <summary>
+	      /// Called when the roleplayer on a link changes.
+	      /// </summary>
+	      /// <param name="e"></param>
+	      public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
+	      {
+	         RolePlayerChanged(e, false);
+	      }
+	      
+	      internal static void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e, bool repaintOnly)
+	      {
+	         if(e==null) throw new global::System.ArgumentNullException("e");
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(e.DomainRole.IsSource)
+	            {
+	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.OldRolePlayer);
+	               //foreach(DslModeling::ModelElement element in oldElements)
+	               //{
+	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+	               //   foreach(DslDiagrams::PresentationElement pel in pels)
+	               //   {
+	               //      global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
+	               //      if(compartmentShape != null)
+	               //      {
+	               //         compartmentShape.GetCompartmentMappings()[0].InitializeCompartmentShape(compartmentShape);
+	               //      }
+	               //   }
+	               //}
+	               
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ElementLink);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	            }
+	            else 
+	            {
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.NewRolePlayer);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	            }
+	         }
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.Association).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(e.DomainRole.IsSource)
+	            {
+	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.Association)e.OldRolePlayer);
+	               //foreach(DslModeling::ModelElement element in oldElements)
+	               //{
+	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+	               //   foreach(DslDiagrams::PresentationElement pel in pels)
+	               //   {
+	               //      global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
+	               //      if(compartmentShape != null)
+	               //      {
+	               //         compartmentShape.GetCompartmentMappings()[1].InitializeCompartmentShape(compartmentShape);
+	               //      }
+	               //   }
+	               //}
+	               
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ElementLink);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	            }
+	         }
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(!e.DomainRole.IsSource)
+	            {
+	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.OldRolePlayer);
+	               //foreach(DslModeling::ModelElement element in oldElements)
+	               //{
+	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+	               //   foreach(DslDiagrams::PresentationElement pel in pels)
+	               //   {
+	               //      global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
+	               //      if(compartmentShape != null)
+	               //      {
+	               //         compartmentShape.GetCompartmentMappings()[2].InitializeCompartmentShape(compartmentShape);
+	               //      }
+	               //   }
+	               //}
+	               
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ElementLink);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	            }
+	         }
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(e.DomainRole.IsSource)
+	            {
+	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.OldRolePlayer);
+	               //foreach(DslModeling::ModelElement element in oldElements)
+	               //{
+	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+	               //   foreach(DslDiagrams::PresentationElement pel in pels)
+	               //   {
+	               //      global::Sawczyn.EFDesigner.EFModel.EnumShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.EnumShape;
+	               //      if(compartmentShape != null)
+	               //      {
+	               //         compartmentShape.GetCompartmentMappings()[0].InitializeCompartmentShape(compartmentShape);
+	               //      }
+	               //   }
+	               //}
+	               
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ElementLink);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	            }
+	            else 
+	            {
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.NewRolePlayer);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	            }
+	         }
+	      }
+	   }
 	
-		/// <summary>
-		/// Rule to update compartments when the order of items in the list changes.
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
-		{
-			/// <summary>
-			/// Called when the order of a roleplayer in a relationship changes
-			/// </summary>
-			/// <param name="e"></param>
-			public override void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e)
-			{
-				RolePlayerPositionChanged(e, false);
-			}
-			
-			internal static void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e, bool repaintOnly)
-			{
-				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(!e.CounterpartDomainRole.IsSource)
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.CounterpartRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
-					}
-				}
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.Association).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(!e.CounterpartDomainRole.IsSource)
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.CounterpartRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
-					}
-				}
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(e.CounterpartDomainRole.IsSource)
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.SourceElement);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
-					}
-				}
-				if(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(!e.CounterpartDomainRole.IsSource)
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.CounterpartRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
-					}
-				}
-			}
-		}
+	   /// <summary>
+	   /// Rule to update compartments when the order of items in the list changes.
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+	   internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
+	   {
+	      /// <summary>
+	      /// Called when the order of a roleplayer in a relationship changes
+	      /// </summary>
+	      /// <param name="e"></param>
+	      public override void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e)
+	      {
+	         RolePlayerPositionChanged(e, false);
+	      }
+	      
+	      internal static void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e, bool repaintOnly)
+	      {
+	         if(e==null) throw new global::System.ArgumentNullException("e");
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(!e.CounterpartDomainRole.IsSource)
+	            {
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.CounterpartRolePlayer);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	            }
+	         }
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.Association).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(!e.CounterpartDomainRole.IsSource)
+	            {
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.CounterpartRolePlayer);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	            }
+	         }
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(e.CounterpartDomainRole.IsSource)
+	            {
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.SourceElement);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	            }
+	         }
+	         if(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+	         {
+	            if(!e.CounterpartDomainRole.IsSource)
+	            {
+	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.CounterpartRolePlayer);
+	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	            }
+	         }
+	      }
+	   }
 	
-		/// <summary>
-		/// A rule which fires when data mapped to outer text decorators has changed,
-		/// so we can update the decorator host's bounds.
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), InitiallyDisabled=true)]
-		internal sealed class DecoratorPropertyChanged : DslModeling::ChangeRule
-		{
-			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
-			public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
-			{
-				if(e == null) throw new global::System.ArgumentNullException("e");
-				
-				if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId)
-				{
+	   /// <summary>
+	   /// A rule which fires when data mapped to outer text decorators has changed,
+	   /// so we can update the decorator host's bounds.
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Association), InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), InitiallyDisabled=true)]
+	   internal sealed class DecoratorPropertyChanged : DslModeling::ChangeRule
+	   {
+	      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	      public override void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e)
+	      {
+	         if(e == null) throw new global::System.ArgumentNullException("e");
+	         
+	         if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.TargetPropertyNameDisplayDomainPropertyId)
+	         {
 					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("TargetPropertyNameDisplay");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
+					   decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
 					}
 					decorator = global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("TargetPropertyNameDisplay");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId);
+					   decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId);
 					}
-				}
-				else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId)
-				{
+	         }
+	         else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId)
+	         {
 					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("SourcePropertyNameDisplay");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
+					   decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
 					}
-				}
-				else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId)
-				{
+	         }
+	         else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.SourceMultiplicityDisplayDomainPropertyId)
+	         {
 					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("SourceMultiplicityDisplay");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
+					   decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
 					}
 					decorator = global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("SourceMultiplicityDisplay");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId);
+					   decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId);
 					}
-				}
-				else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDisplayDomainPropertyId)
-				{
+	         }
+	         else if (e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.Association.TargetMultiplicityDisplayDomainPropertyId)
+	         {
 					DslDiagrams::Decorator decorator = global::Sawczyn.EFDesigner.EFModel.BidirectionalConnector.FindBidirectionalConnectorDecorator("TargetMultiplicityDisplay");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
+					   decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation.DomainClassId);
 					}
 					decorator = global::Sawczyn.EFDesigner.EFModel.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("TargetMultiplicityDisplay");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId);
+					   decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation.DomainClassId);
 					}
-				}
-			}
-		}
+	         }
+	      }
+	   }
 	
-		/// <summary>
-		/// Reroute a connector when the role players of its underlying relationship change
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
-		{
-			/// <summary>
-			/// Reroute a connector when the role players of its underlying relationship change
-			/// </summary>
-			public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
-			{
-				if (e == null) throw new global::System.ArgumentNullException("e");
+	   /// <summary>
+	   /// Reroute a connector when the role players of its underlying relationship change
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
+	   {
+	      /// <summary>
+	      /// Reroute a connector when the role players of its underlying relationship change
+	      /// </summary>
+	      public override void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e)
+	      {
+	         if (e == null) throw new global::System.ArgumentNullException("e");
 	
-				global::System.Collections.ObjectModel.ReadOnlyCollection<DslDiagrams::PresentationViewsSubject> connectorLinks = DslDiagrams::PresentationViewsSubject.GetLinksToPresentation(e.ElementLink);
-				foreach (DslDiagrams::PresentationViewsSubject connectorLink in connectorLinks)
-				{
-					// Fix up any binary link shapes attached to the element link.
-					DslDiagrams::BinaryLinkShape linkShape = connectorLink.Presentation as DslDiagrams::BinaryLinkShape;
-					if (linkShape != null)
-					{
-						global::Sawczyn.EFDesigner.EFModel.EFModelDiagram diagram = linkShape.Diagram as global::Sawczyn.EFDesigner.EFModel.EFModelDiagram;
-						if (diagram != null)
-						{
-							if (e.NewRolePlayer != null)
-							{
-								DslDiagrams::NodeShape fromShape;
-								DslDiagrams::NodeShape toShape;
-								diagram.GetSourceAndTargetForConnector(linkShape, out fromShape, out toShape);
-								if (fromShape != null && toShape != null)
-								{
-									if (!object.Equals(fromShape, linkShape.FromShape))
-									{
-										linkShape.FromShape = fromShape;
-									}
-									if (!object.Equals(linkShape.ToShape, toShape))
-									{
-										linkShape.ToShape = toShape;
-									}
-								}
-								else
-								{
-									// delete the connector if we cannot find an appropriate target shape.
-									linkShape.Delete();
-								}
-							}
-							else
-							{
-								// delete the connector if the new role player is null.
-								linkShape.Delete();
-							}
-						}
-					}
-				}
-			}
-		}
+	         global::System.Collections.ObjectModel.ReadOnlyCollection<DslDiagrams::PresentationViewsSubject> connectorLinks = DslDiagrams::PresentationViewsSubject.GetLinksToPresentation(e.ElementLink);
+	         foreach (DslDiagrams::PresentationViewsSubject connectorLink in connectorLinks)
+	         {
+	            // Fix up any binary link shapes attached to the element link.
+	            DslDiagrams::BinaryLinkShape linkShape = connectorLink.Presentation as DslDiagrams::BinaryLinkShape;
+	            if (linkShape != null)
+	            {
+	               global::Sawczyn.EFDesigner.EFModel.EFModelDiagram diagram = linkShape.Diagram as global::Sawczyn.EFDesigner.EFModel.EFModelDiagram;
+	               if (diagram != null)
+	               {
+	                  if (e.NewRolePlayer != null)
+	                  {
+	                     DslDiagrams::NodeShape fromShape;
+	                     DslDiagrams::NodeShape toShape;
+	                     diagram.GetSourceAndTargetForConnector(linkShape, out fromShape, out toShape);
+	                     if (fromShape != null && toShape != null)
+	                     {
+	                        if (!object.Equals(fromShape, linkShape.FromShape))
+	                        {
+	                           linkShape.FromShape = fromShape;
+	                        }
+	                        if (!object.Equals(linkShape.ToShape, toShape))
+	                        {
+	                           linkShape.ToShape = toShape;
+	                        }
+	                     }
+	                     else
+	                     {
+	                        // delete the connector if we cannot find an appropriate target shape.
+	                        linkShape.Delete();
+	                     }
+	                  }
+	                  else
+	                  {
+	                     // delete the connector if the new role player is null.
+	                     linkShape.Delete();
+	                  }
+	               }
+	            }
+	         }
+	      }
+	   }
 	}

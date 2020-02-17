@@ -133,17 +133,18 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          get
          {
             return DslShell::ModelingCompositionContainer.ExportProvider;
-         }		
+         }
       }
 
       /// <summary>
       /// Satisfy Imports in DocData object
-      /// </summary>		
+      /// </summary>
       protected virtual void InitializeComposition()
       {
          global::System.ComponentModel.Composition.ICompositionService compositionService = this.CompositionService;
+
          if (compositionService != null)
-         {		
+         {
             try
             {
                compositionService.SatisfyImportsOnce(global::System.ComponentModel.Composition.AttributedModelServices.CreatePart(this));
@@ -152,9 +153,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
             {
                // Handle binding failures
                if (!HandleBindingFailure(ex))
-               {
                   throw;
-               }
             }
          }
       }
@@ -195,9 +194,8 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          get
          {
             if (this.serializerLocator == null)
-            {
                this.serializerLocator = CreateSerializerLocator();
-            }
+            
             return this.serializerLocator;
          }
       }
@@ -207,12 +205,9 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       /// </summary>
       protected virtual DslModeling::ISerializerLocator CreateSerializerLocator()
       {
-         // If we don't have a MEF ExportProvider, we won't be able to resolve
-         // any namespaces.
+         // If we don't have a MEF ExportProvider, we won't be able to resolve any namespaces.
          if (this.ExportProvider == null)
-         {
             return null;
-         }
 
          return new DslModeling::StandardSerializerLocator(this.ExportProvider);
       }
@@ -237,6 +232,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
             {
                this.extensionLocator = CreateExtensionLocator();
             }
+
             return this.extensionLocator;
          }
       }
@@ -275,6 +271,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
                // register the observer so we can show the error/warning/msg in the VS output window.
                this.validationController.AddObserver(this.errorListObserver);
             }
+
             return this.validationController;
          }
       }
@@ -299,6 +296,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          }
 #>
       }
+
       /// <summary>
       /// Add ValidationExtensionRegistrar to the ValidationController and handle related MEF Initialization operations
       /// </summary>
@@ -326,6 +324,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
                // un-register our observer with the controller.
                this.validationController.RemoveObserver(this.errorListObserver);
                this.validationController = null;
+
                if ( this.errorListObserver != null )
                {
                   this.errorListObserver.Dispose();
@@ -344,6 +343,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       if (designer != null)
       {
 #>
+
             this.diagramPartitionId = global::System.Guid.Empty;
 <#
       }
@@ -368,10 +368,9 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 
          // Add in any extension domain models
          global::System.Collections.Generic.IEnumerable<global::System.Type> extensionTypes = this.GetExtensionDomainModels();
+
          if (extensionTypes != null && extensionTypes.Count() > 0)
-         {
             allTypes.AddRange(extensionTypes);
-         }
 
          return allTypes;
       }
@@ -384,28 +383,25 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       protected virtual global::System.Collections.Generic.IEnumerable<global::System.Type> GetExtensionDomainModels()
       {
          if (this.ExtensionLocator == null)
-         {
             return null;
-         }
 
          global::System.Collections.Generic.IEnumerable<global::System.Type> extensionDomainModels = this.ExtensionLocator.GetExtendingDomainModels(typeof(<#= this.Dsl.GetFullName(true) #>DomainModel));
 
          return extensionDomainModels;
       }
 
-        protected virtual <#= designer.Diagram.GetFullName(true) #> GetDiagram(MexModeling::ViewContext viewConext)
-        {
-            return this.GetDiagrams().SingleOrDefault(item => item.Name.Equals(viewConext.DiagramName, global::System.StringComparison.Ordinal));
-        }
+      protected virtual <#= designer.Diagram.GetFullName(true) #> GetDiagram(MexModeling::ViewContext viewContext)
+      {
+         return this.GetDiagrams().SingleOrDefault(item => item.Name.Equals(viewContext.DiagramName, global::System.StringComparison.Ordinal));
+      }
 
       private IEnumerable<<#= designer.Diagram.GetFullName(true) #>> GetDiagrams()
-        {
+      {
          if(null == this.RootElement)
-         {
             return null;
-         }
-            return this.Store.ElementDirectory.FindElements<<#= designer.Diagram.GetFullName(true) #>>();
-        }
+
+         return this.Store.ElementDirectory.FindElements<<#= designer.Diagram.GetFullName(true) #>>();
+      }
 
       /// <summary>
       /// Loads the given file.
@@ -415,6 +411,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          DslModeling::SerializationResult serializationResult = new DslModeling::SerializationResult();
          <#= this.Dsl.Editor.RootClass.GetFullName(true) #> modelRoot = null;
          DslModeling::ISchemaResolver schemaResolver = new DslShell::ModelingSchemaResolver(this.ServiceProvider);
+
          //clear the current root element
          this.SetRootElement(null);
 <#
@@ -424,6 +421,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
    {
       // load diagram data if we have a designer
 #>
+
          // Enable diagram fixup rules in our store, because we will load diagram data.
          <#= this.Dsl.GetFullName(true) #>DomainModel.EnableDiagramRules(this.Store);
          string diagramFileName = fileName + this.DiagramExtension;
@@ -455,9 +453,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          try
          {
             foreach (DslModeling::SerializationMessage serializationMessage in serializationResult)
-            {
                this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
-            }
          }
          finally
          {
@@ -465,7 +461,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          }
 
          if (serializationResult.Failed)
-         {	
+         {
             // Load failed, can't open the file.
             throw new global::System.InvalidOperationException(<#= this.Dsl.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("CannotOpenDocument"));
          }
@@ -490,9 +486,11 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
                if (this.diagramDocumentLockHolder == null)
                {
                   uint itemId = DslShell::SubordinateFileHelper.GetChildProjectItemId(this.Hierarchy, this.ItemId, this.DiagramExtension);
+
                   if (itemId != global::Microsoft.VisualStudio.VSConstants.VSITEMID_NIL)
                   {
                      this.diagramDocumentLockHolder = DslShell::SubordinateFileHelper.LockSubordinateDocument(this.ServiceProvider, this, diagramFileName, itemId);
+
                      if (this.diagramDocumentLockHolder == null)
                      {
                         throw new global::System.InvalidOperationException(string.Format(global::System.Globalization.CultureInfo.CurrentCulture,
@@ -603,7 +601,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
    }
    if(designer != null)
    {
-#>			
+#>
       /// <summary>
       /// Handle when document has been saved
       /// </summary>
@@ -654,7 +652,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 <#
    if(designer != null)
    {
-#>			
+#>
          // Only save the diagrams if
          // a) There are any to save
          // b) This is NOT a SaveAs operation.  SaveAs should allow the subordinate document to control the save of its data as it is writing a new file.
@@ -704,7 +702,8 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          }
 
          if (serializationResult.Failed)
-         {	// Save failed.
+         {
+            // Save failed.
             throw new global::System.InvalidOperationException(<#= this.Dsl.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("CannotSaveDocument"));
          }
 
@@ -712,54 +711,61 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       }
       
       public override void OpenView(global::System.Guid logicalView, object viewContext)
-        {
+      {
          var modelingViewContext = viewContext as MexModeling::ViewContext;
+         
          if (modelingViewContext == null)
-            {
-                base.OpenView(logicalView, viewContext);
-                return;
-            }
+         {
+            base.OpenView(logicalView, viewContext);
+            return;
+         }
+
          if (string.IsNullOrEmpty(modelingViewContext.DiagramName))
-            {
-                throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
-            }
+         {
+            throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
+         }
+
          DslDiagrams::Diagram diagram = this.GetDiagram(modelingViewContext);
-            if (diagram == null)
+
+         if (diagram == null)
          {
             if (modelingViewContext.DiagramType == null)
-                {
-                    throw new global::System.ArgumentException("the type of the diagram to open must be specified.");
-                }
-                if (!(modelingViewContext.DiagramType.IsSubclassOf(typeof(DslDiagrams::Diagram))))
-                {
-                    throw new global::System.ArgumentException("the type of the diagram to open must inherit from Microsoft.VisualStudio.Modeling.Diagrams.Diagram class.");
-                }
+            {
+               throw new global::System.ArgumentException("the type of the diagram to open must be specified.");
+            }
+
+            if (!(modelingViewContext.DiagramType.IsSubclassOf(typeof(DslDiagrams::Diagram))))
+            {
+               throw new global::System.ArgumentException("the type of the diagram to open must inherit from Microsoft.VisualStudio.Modeling.Diagrams.Diagram class.");
+            }
          
             // No diagram associated with specified name
-                // Create a new diagram by using specified type
-                // Set automatically the name of the new diagram
-                var rootElement = modelingViewContext.RootElement ?? this.RootElement;
+            // Create a new diagram by using specified type
+            // Set automatically the name of the new diagram
+            var rootElement = modelingViewContext.RootElement ?? this.RootElement;
             
             using (var transaction = this.Store.TransactionManager.BeginTransaction("DocData:OpenView", true))
-                {
-                    diagram = (DslDiagrams::Diagram)global::System.Activator.CreateInstance(modelingViewContext.DiagramType,
-                        this.PartitionMapper.PartitionForClass(this.Store.DefaultPartition, DslDiagrams::Diagram.DomainClassId),
-                        new DslModeling::PropertyAssignment(DslDiagrams::Diagram.NameDomainPropertyId, modelingViewContext.DiagramName));
+            {
+               diagram = (DslDiagrams::Diagram)global::System.Activator.CreateInstance(modelingViewContext.DiagramType,
+               this.PartitionMapper.PartitionForClass(this.Store.DefaultPartition, DslDiagrams::Diagram.DomainClassId),
+                  new DslModeling::PropertyAssignment(DslDiagrams::Diagram.NameDomainPropertyId, modelingViewContext.DiagramName));
                   
-                    // Set the ModelElement associated with the newly created diagram.
-                    diagram.ModelElement = rootElement;
+               // Set the ModelElement associated with the newly created diagram.
+               diagram.ModelElement = rootElement;
 
-                    transaction.Commit();
-                }
+               transaction.Commit();
+            }
 <#
     var l_diagramVariable = string.Concat(designer.Diagram.Name.Substring(0,1).ToLower(), designer.Diagram.Name.Substring(1));
 #>
-                var <#= l_diagramVariable #> = diagram as <#= designer.Diagram.GetFullName(true) #>;
-                if(null != <#= l_diagramVariable #>)
-                {
-                    <#= this.DslLibrary.Name #>SynchronizationHelper.FixUp(<#= l_diagramVariable #>);
-                }                
+
+            var <#= l_diagramVariable #> = diagram as <#= designer.Diagram.GetFullName(true) #>;
+            if(null != <#= l_diagramVariable #>)
+            {
+               <#= this.DslLibrary.Name #>SynchronizationHelper.FixUp(<#= l_diagramVariable #>);
+            }                
          }
+
          base.OpenView(logicalView, viewContext);
       }
 <#
@@ -815,7 +821,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
             {
                this.ResumeFileChangeNotification(fileName);
             }
-         }			
+         }
          
          // Report serialization messages.
          this.SuspendErrorListRefresh();
@@ -836,10 +842,10 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
             this.NotifySubordinateDocumentSaved(subordinateDocument.FileName, fileName);
          }
          else
-         {	
+         {
             // Save failed.
             throw new global::System.InvalidOperationException(<#= this.Dsl.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("CannotSaveDocument"));
-         }						
+         }
 
          CleanupOldDiagramFiles();
       }

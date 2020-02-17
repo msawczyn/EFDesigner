@@ -313,7 +313,7 @@
         </ElementMergeDirective>
         <ElementMergeDirective>
           <Index>
-            <DomainClassMoniker Name="ModelDiagram" />
+            <DomainClassMoniker Name="ModelDiagramData" />
           </Index>
           <LinkCreationPaths>
             <DomainPath>ModelRootHasModelDiagrams.Diagrams</DomainPath>
@@ -859,9 +859,9 @@
       </Properties>
     </DomainClass>
     <DomainClass Id="460f3d41-02c2-41dd-8fd3-8286e400e6f1" Description="Description for Sawczyn.EFDesigner.EFModel.DesignElement" Name="DesignElement" DisplayName="Design Element" InheritanceModifier="Abstract" Namespace="Sawczyn.EFDesigner.EFModel" />
-    <DomainClass Id="9698525f-c2b0-4283-99f4-6660e10fa082" Description="Represents a viewable model diagram" Name="ModelDiagram" DisplayName="Diagram" Namespace="Sawczyn.EFDesigner.EFModel">
+    <DomainClass Id="9698525f-c2b0-4283-99f4-6660e10fa082" Description="Represents a viewable model diagram" Name="ModelDiagramData" DisplayName="Diagram" Namespace="Sawczyn.EFDesigner.EFModel">
       <Properties>
-        <DomainProperty Id="202e04fe-de2a-4030-9e96-0a7e9df613ab" Description="Description for Sawczyn.EFDesigner.EFModel.ModelDiagram.Name" Name="Name" DisplayName="Name" IsElementName="true">
+        <DomainProperty Id="202e04fe-de2a-4030-9e96-0a7e9df613ab" Description="Diagram name" Name="Name" DisplayName="Name" IsElementName="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1317,9 +1317,9 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="669f90c2-5bc9-475d-b07b-1ae358cbb671" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagram" Name="ModelDiagram" DisplayName="Model Diagram" PropertyName="ModelRoot" Multiplicity="One" PropagatesDelete="true" PropertyDisplayName="Model Root">
+        <DomainRole Id="669f90c2-5bc9-475d-b07b-1ae358cbb671" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams.ModelDiagramData" Name="ModelDiagramData" DisplayName="Model Diagram Data" PropertyName="ModelRoot" Multiplicity="One" PropagatesDelete="true" PropertyDisplayName="Model Root">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelDiagram" />
+            <DomainClassMoniker Name="ModelDiagramData" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -2302,11 +2302,11 @@
       <XmlClassData TypeName="CommentReferencesEnums" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesEnumsMoniker" ElementName="commentReferencesEnums" MonikerTypeName="CommentReferencesEnumsMoniker">
         <DomainRelationshipMoniker Name="CommentReferencesEnums" />
       </XmlClassData>
-      <XmlClassData TypeName="ModelDiagram" MonikerAttributeName="" MonikerElementName="modelDiagramMoniker" ElementName="modelDiagram" MonikerTypeName="ModelDiagramMoniker">
-        <DomainClassMoniker Name="ModelDiagram" />
+      <XmlClassData TypeName="ModelDiagramData" MonikerAttributeName="" MonikerElementName="modelDiagramDataMoniker" ElementName="modelDiagramData" MonikerTypeName="ModelDiagramDataMoniker">
+        <DomainClassMoniker Name="ModelDiagramData" />
         <ElementData>
           <XmlPropertyData XmlName="name">
-            <DomainPropertyMoniker Name="ModelDiagram/Name" />
+            <DomainPropertyMoniker Name="ModelDiagramData/Name" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -2350,7 +2350,7 @@
       </ExplorerNodeSettings>
       <ExplorerNodeSettings IconToDisplay="Resources\ShowDiagramPane_16x.png">
         <Class>
-          <DomainClassMoniker Name="ModelDiagram" />
+          <DomainClassMoniker Name="ModelDiagramData" />
         </Class>
       </ExplorerNodeSettings>
     </CustomNodeSettings>

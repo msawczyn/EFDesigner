@@ -152,6 +152,7 @@ namespace Sawczyn.EFDesigner.EFModel
          EnumShape.OpenCodeFile = OpenFileFor;
          EnumShape.ExecCodeGeneration = GenerateCode;
          ModelRoot.ExecuteValidator = ValidateAll;
+         ModelDiagramData.DisplayDiagram = DisplayDiagram;
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -243,18 +244,39 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             List<EFModelDiagram> diagrams = Store.ElementDirectory.FindElements<EFModelDiagram>().ToList();
             modelRoot.Diagrams.Clear();
+            List<ModelDiagramData> matched = new List<ModelDiagramData>();
 
             foreach (EFModelDiagram efModelDiagram in diagrams)
             {
-               ModelDiagram modelDiagram = new ModelDiagram(Store, new PropertyAssignment(ModelDiagram.NameDomainPropertyId, efModelDiagram.Name));
-               modelDiagram.SetDiagram(efModelDiagram);
-               modelRoot.Diagrams.Add(modelDiagram);
+               ModelDiagramData diagramDataObject = modelRoot.Diagrams.FirstOrDefault(d => d.Name == efModelDiagram.Name);
+
+               if (diagramDataObject == null)
+               {
+                  diagramDataObject = new ModelDiagramData(Store, new PropertyAssignment(ModelDiagramData.NameDomainPropertyId, efModelDiagram.Name));
+                  modelRoot.Diagrams.Add(diagramDataObject);
+               }
+
+               matched.Add(diagramDataObject);
+               diagramDataObject.SetDiagram(efModelDiagram);
+            }
+
+            for (int index  = 0; index < modelRoot.Diagrams.Count; index++)
+            {
+               ModelDiagramData diagramDataObject = modelRoot.Diagrams[index];
+
+               if (matched.All(d => d.Name != diagramDataObject.Name))
+                  modelRoot.Diagrams.RemoveAt(index--);
             }
 
             tx.Commit();
          }
 
          SetDocDataDirty(0);
+      }
+
+      private void DisplayDiagram(string diagramName)
+      {
+         OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(diagramName, typeof(EFModelDiagram), RootElement));
       }
 
       private void ValidateAll()

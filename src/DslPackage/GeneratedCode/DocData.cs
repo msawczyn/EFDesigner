@@ -120,17 +120,18 @@ namespace Sawczyn.EFDesigner.EFModel
          get
          {
             return DslShell::ModelingCompositionContainer.ExportProvider;
-         }		
+         }
       }
 
       /// <summary>
       /// Satisfy Imports in DocData object
-      /// </summary>		
+      /// </summary>
       protected virtual void InitializeComposition()
       {
          global::System.ComponentModel.Composition.ICompositionService compositionService = this.CompositionService;
+
          if (compositionService != null)
-         {		
+         {
             try
             {
                compositionService.SatisfyImportsOnce(global::System.ComponentModel.Composition.AttributedModelServices.CreatePart(this));
@@ -139,9 +140,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                // Handle binding failures
                if (!HandleBindingFailure(ex))
-               {
                   throw;
-               }
             }
          }
       }
@@ -182,9 +181,8 @@ namespace Sawczyn.EFDesigner.EFModel
          get
          {
             if (this.serializerLocator == null)
-            {
                this.serializerLocator = CreateSerializerLocator();
-            }
+            
             return this.serializerLocator;
          }
       }
@@ -194,12 +192,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       protected virtual DslModeling::ISerializerLocator CreateSerializerLocator()
       {
-         // If we don't have a MEF ExportProvider, we won't be able to resolve
-         // any namespaces.
+         // If we don't have a MEF ExportProvider, we won't be able to resolve any namespaces.
          if (this.ExportProvider == null)
-         {
             return null;
-         }
 
          return new DslModeling::StandardSerializerLocator(this.ExportProvider);
       }
@@ -224,6 +219,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                this.extensionLocator = CreateExtensionLocator();
             }
+
             return this.extensionLocator;
          }
       }
@@ -261,6 +257,7 @@ namespace Sawczyn.EFDesigner.EFModel
                // register the observer so we can show the error/warning/msg in the VS output window.
                this.validationController.AddObserver(this.errorListObserver);
             }
+
             return this.validationController;
          }
       }
@@ -272,6 +269,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          return new DslShell::VsValidationController(this.ServiceProvider, typeof(EFModelExplorerToolWindow));
       }
+
       /// <summary>
       /// Add ValidationExtensionRegistrar to the ValidationController and handle related MEF Initialization operations
       /// </summary>
@@ -293,6 +291,7 @@ namespace Sawczyn.EFDesigner.EFModel
                // un-register our observer with the controller.
                this.validationController.RemoveObserver(this.errorListObserver);
                this.validationController = null;
+
                if ( this.errorListObserver != null )
                {
                   this.errorListObserver.Dispose();
@@ -304,6 +303,7 @@ namespace Sawczyn.EFDesigner.EFModel
                this.diagramDocumentLockHolder.Dispose();
                this.diagramDocumentLockHolder = null;
             }
+
             this.diagramPartitionId = global::System.Guid.Empty;
          }
          finally
@@ -325,10 +325,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // Add in any extension domain models
          global::System.Collections.Generic.IEnumerable<global::System.Type> extensionTypes = this.GetExtensionDomainModels();
+
          if (extensionTypes != null && extensionTypes.Count() > 0)
-         {
             allTypes.AddRange(extensionTypes);
-         }
 
          return allTypes;
       }
@@ -341,28 +340,25 @@ namespace Sawczyn.EFDesigner.EFModel
       protected virtual global::System.Collections.Generic.IEnumerable<global::System.Type> GetExtensionDomainModels()
       {
          if (this.ExtensionLocator == null)
-         {
             return null;
-         }
 
          global::System.Collections.Generic.IEnumerable<global::System.Type> extensionDomainModels = this.ExtensionLocator.GetExtendingDomainModels(typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel));
 
          return extensionDomainModels;
       }
 
-        protected virtual global::Sawczyn.EFDesigner.EFModel.EFModelDiagram GetDiagram(MexModeling::ViewContext viewConext)
-        {
-            return this.GetDiagrams().SingleOrDefault(item => item.Name.Equals(viewConext.DiagramName, global::System.StringComparison.Ordinal));
-        }
+      protected virtual global::Sawczyn.EFDesigner.EFModel.EFModelDiagram GetDiagram(MexModeling::ViewContext viewContext)
+      {
+         return this.GetDiagrams().SingleOrDefault(item => item.Name.Equals(viewContext.DiagramName, global::System.StringComparison.Ordinal));
+      }
 
       private IEnumerable<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram> GetDiagrams()
-        {
+      {
          if(null == this.RootElement)
-         {
             return null;
-         }
-            return this.Store.ElementDirectory.FindElements<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram>();
-        }
+
+         return this.Store.ElementDirectory.FindElements<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram>();
+      }
 
       /// <summary>
       /// Loads the given file.
@@ -372,8 +368,10 @@ namespace Sawczyn.EFDesigner.EFModel
          DslModeling::SerializationResult serializationResult = new DslModeling::SerializationResult();
          global::Sawczyn.EFDesigner.EFModel.ModelRoot modelRoot = null;
          DslModeling::ISchemaResolver schemaResolver = new DslShell::ModelingSchemaResolver(this.ServiceProvider);
+
          //clear the current root element
          this.SetRootElement(null);
+
          // Enable diagram fixup rules in our store, because we will load diagram data.
          global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.EnableDiagramRules(this.Store);
          string diagramFileName = fileName + this.DiagramExtension;
@@ -395,9 +393,7 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             foreach (DslModeling::SerializationMessage serializationMessage in serializationResult)
-            {
                this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
-            }
          }
          finally
          {
@@ -405,7 +401,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          if (serializationResult.Failed)
-         {	
+         {
             // Load failed, can't open the file.
             throw new global::System.InvalidOperationException(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("CannotOpenDocument"));
          }
@@ -426,9 +422,11 @@ namespace Sawczyn.EFDesigner.EFModel
                if (this.diagramDocumentLockHolder == null)
                {
                   uint itemId = DslShell::SubordinateFileHelper.GetChildProjectItemId(this.Hierarchy, this.ItemId, this.DiagramExtension);
+
                   if (itemId != global::Microsoft.VisualStudio.VSConstants.VSITEMID_NIL)
                   {
                      this.diagramDocumentLockHolder = DslShell::SubordinateFileHelper.LockSubordinateDocument(this.ServiceProvider, this, diagramFileName, itemId);
+
                      if (this.diagramDocumentLockHolder == null)
                      {
                         throw new global::System.InvalidOperationException(string.Format(global::System.Globalization.CultureInfo.CurrentCulture,
@@ -511,7 +509,6 @@ namespace Sawczyn.EFDesigner.EFModel
          return !unloadableError;
       }
 
-			
       /// <summary>
       /// Handle when document has been saved
       /// </summary>
@@ -556,7 +553,6 @@ namespace Sawczyn.EFDesigner.EFModel
          DslModeling::SerializationResult serializationResult = new DslModeling::SerializationResult();
          global::Sawczyn.EFDesigner.EFModel.ModelRoot modelRoot = (global::Sawczyn.EFDesigner.EFModel.ModelRoot)this.RootElement;
 
-			
          // Only save the diagrams if
          // a) There are any to save
          // b) This is NOT a SaveAs operation.  SaveAs should allow the subordinate document to control the save of its data as it is writing a new file.
@@ -597,7 +593,8 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          if (serializationResult.Failed)
-         {	// Save failed.
+         {
+            // Save failed.
             throw new global::System.InvalidOperationException(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("CannotSaveDocument"));
          }
 
@@ -605,51 +602,58 @@ namespace Sawczyn.EFDesigner.EFModel
       }
       
       public override void OpenView(global::System.Guid logicalView, object viewContext)
-        {
+      {
          var modelingViewContext = viewContext as MexModeling::ViewContext;
+         
          if (modelingViewContext == null)
-            {
-                base.OpenView(logicalView, viewContext);
-                return;
-            }
+         {
+            base.OpenView(logicalView, viewContext);
+            return;
+         }
+
          if (string.IsNullOrEmpty(modelingViewContext.DiagramName))
-            {
-                throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
-            }
+         {
+            throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
+         }
+
          DslDiagrams::Diagram diagram = this.GetDiagram(modelingViewContext);
-            if (diagram == null)
+
+         if (diagram == null)
          {
             if (modelingViewContext.DiagramType == null)
-                {
-                    throw new global::System.ArgumentException("the type of the diagram to open must be specified.");
-                }
-                if (!(modelingViewContext.DiagramType.IsSubclassOf(typeof(DslDiagrams::Diagram))))
-                {
-                    throw new global::System.ArgumentException("the type of the diagram to open must inherit from Microsoft.VisualStudio.Modeling.Diagrams.Diagram class.");
-                }
+            {
+               throw new global::System.ArgumentException("the type of the diagram to open must be specified.");
+            }
+
+            if (!(modelingViewContext.DiagramType.IsSubclassOf(typeof(DslDiagrams::Diagram))))
+            {
+               throw new global::System.ArgumentException("the type of the diagram to open must inherit from Microsoft.VisualStudio.Modeling.Diagrams.Diagram class.");
+            }
          
             // No diagram associated with specified name
-                // Create a new diagram by using specified type
-                // Set automatically the name of the new diagram
-                var rootElement = modelingViewContext.RootElement ?? this.RootElement;
+            // Create a new diagram by using specified type
+            // Set automatically the name of the new diagram
+            var rootElement = modelingViewContext.RootElement ?? this.RootElement;
             
             using (var transaction = this.Store.TransactionManager.BeginTransaction("DocData:OpenView", true))
-                {
-                    diagram = (DslDiagrams::Diagram)global::System.Activator.CreateInstance(modelingViewContext.DiagramType,
-                        this.PartitionMapper.PartitionForClass(this.Store.DefaultPartition, DslDiagrams::Diagram.DomainClassId),
-                        new DslModeling::PropertyAssignment(DslDiagrams::Diagram.NameDomainPropertyId, modelingViewContext.DiagramName));
+            {
+               diagram = (DslDiagrams::Diagram)global::System.Activator.CreateInstance(modelingViewContext.DiagramType,
+               this.PartitionMapper.PartitionForClass(this.Store.DefaultPartition, DslDiagrams::Diagram.DomainClassId),
+                  new DslModeling::PropertyAssignment(DslDiagrams::Diagram.NameDomainPropertyId, modelingViewContext.DiagramName));
                   
-                    // Set the ModelElement associated with the newly created diagram.
-                    diagram.ModelElement = rootElement;
+               // Set the ModelElement associated with the newly created diagram.
+               diagram.ModelElement = rootElement;
 
-                    transaction.Commit();
-                }
-                var eFModelDiagram = diagram as global::Sawczyn.EFDesigner.EFModel.EFModelDiagram;
-                if(null != eFModelDiagram)
-                {
-                    EFModelSynchronizationHelper.FixUp(eFModelDiagram);
-                }                
+               transaction.Commit();
+            }
+
+            var eFModelDiagram = diagram as global::Sawczyn.EFDesigner.EFModel.EFModelDiagram;
+            if(null != eFModelDiagram)
+            {
+               EFModelSynchronizationHelper.FixUp(eFModelDiagram);
+            }                
          }
+
          base.OpenView(logicalView, viewContext);
       }
       /// <summary>
@@ -701,7 +705,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                this.ResumeFileChangeNotification(fileName);
             }
-         }			
+         }
          
          // Report serialization messages.
          this.SuspendErrorListRefresh();
@@ -722,10 +726,10 @@ namespace Sawczyn.EFDesigner.EFModel
             this.NotifySubordinateDocumentSaved(subordinateDocument.FileName, fileName);
          }
          else
-         {	
+         {
             // Save failed.
             throw new global::System.InvalidOperationException(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("CannotSaveDocument"));
-         }						
+         }
 
          CleanupOldDiagramFiles();
       }

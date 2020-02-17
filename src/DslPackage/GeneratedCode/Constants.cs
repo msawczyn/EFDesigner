@@ -9,37 +9,37 @@
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-	internal static partial class Constants
-	{
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-		public const string DesignerFileExtension = "efmodel";
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-		public const string ProductName = @"EFDesigner";
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-		public const string CompanyName = @"Michael Sawczyn";
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-		public const string ProductVersion = "2.0.0.0";
+   internal static partial class Constants
+   {
+      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+      public const string DesignerFileExtension = "efmodel";
+      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+      public const string ProductName = @"EFDesigner";
+      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+      public const string CompanyName = @"Michael Sawczyn";
+      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+      public const string ProductVersion = "2.0.0.0";
 
-		// Menu definitions
-		public static readonly global::System.ComponentModel.Design.CommandID EFModelDiagramMenu = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x10000);
-		public static readonly global::System.ComponentModel.Design.CommandID EFModelExplorerMenu = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x10001);
+      // Menu definitions
+      public static readonly global::System.ComponentModel.Design.CommandID EFModelDiagramMenu = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x10000);
+      public static readonly global::System.ComponentModel.Design.CommandID EFModelExplorerMenu = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x10001);
 
-		// Command definitions
-		public static readonly global::System.ComponentModel.Design.CommandID ViewEFModelExplorerCommand = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x0001);
-	
-		// Package identifier
-		public const string EFModelPackageId = "56bbe1ba-aaee-4883-848f-e3c8656f8db2";
-		
-		// Editor factory identifier
-		public const string EFModelEditorFactoryId = "4e135186-c9c4-4b55-8959-217a3e025622";
-		
-		public const string DefaultDiagramExtension = ".diagramx"; // HACK:MEXEDGE
-		public const string LogicalViewId = "c86937e2-22a4-4cac-afec-f0001c5751d8"; // HACK:MEXEDGE
-		public static readonly global::System.Guid LogicalView = new global::System.Guid(LogicalViewId); // HACK:MEXEDGE
-		
-		// Model explorer tool window identifier
-		public const string EFModelModelExplorerToolWindowId = "860f0cbe-0c84-4abe-8062-fa681f8038db";
-	}
+      // Command definitions
+      public static readonly global::System.ComponentModel.Design.CommandID ViewEFModelExplorerCommand = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x0001);
+   
+      // Package identifier
+      public const string EFModelPackageId = "56bbe1ba-aaee-4883-848f-e3c8656f8db2";
+      
+      // Editor factory identifier
+      public const string EFModelEditorFactoryId = "4e135186-c9c4-4b55-8959-217a3e025622";
+      
+      public const string DefaultDiagramExtension = ".diagramx"; // HACK:MEXEDGE
+      public const string LogicalViewId = "740bdab1-73aa-469b-a416-542140f3126a"; // HACK:MEXEDGE
+      public static readonly global::System.Guid LogicalView = new global::System.Guid(LogicalViewId); // HACK:MEXEDGE
+      
+      // Model explorer tool window identifier
+      public const string EFModelModelExplorerToolWindowId = "860f0cbe-0c84-4abe-8062-fa681f8038db";
+   }
 }
 //
 // Constants not generated from values in DesignerDefinition.dsl are defined below

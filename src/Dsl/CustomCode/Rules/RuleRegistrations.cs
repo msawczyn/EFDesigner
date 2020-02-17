@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-
-using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -23,6 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(ModelClassAddRules),
          typeof(ModelClassChangeRules),
          typeof(ModelClassDeletingRules),
+         typeof(ModelDiagramDataAddRules),
          typeof(ModelEnumChangeRules),
          typeof(ModelEnumValueAddRules),
          typeof(ModelEnumValueChangeRules),

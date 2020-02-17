@@ -1021,25 +1021,29 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ModelDiagram -->
-  <xsd:element name="modelDiagram" type="ModelDiagram" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="ModelDiagram">
+  <!-- ModelDiagramData -->
+  <xsd:element name="modelDiagramData" type="ModelDiagramData" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="ModelDiagramData">
     <xsd:annotation>
       <xsd:documentation>Represents a viewable model diagram</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <!-- Property: Name -->
-        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Diagram name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ModelDiagram Moniker -->
-  <xsd:element name="modelDiagramMoniker" abstract="true" type="ModelDiagramMoniker" substitutionGroup="core:modelElementMoniker" />
-  <xsd:complexType name="ModelDiagramMoniker">
+  <!-- ModelDiagramData Moniker -->
+  <xsd:element name="modelDiagramDataMoniker" abstract="true" type="ModelDiagramDataMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="ModelDiagramDataMoniker">
     <xsd:annotation>
-      <xsd:documentation>Moniker for ModelDiagram instance.</xsd:documentation>
+      <xsd:documentation>Moniker for ModelDiagramData instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">
@@ -1645,8 +1649,8 @@
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end ModelDiagram -->
-          <xsd:element ref="modelDiagram" minOccurs="1" maxOccurs="1">
+          <!-- Target end ModelDiagramData -->
+          <xsd:element ref="modelDiagramData" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>

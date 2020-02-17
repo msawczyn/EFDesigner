@@ -28,11 +28,11 @@
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 <#
-	if (CodeGenerationUtilities.DefinesDiagramElements(this.DslLibrary))
-	{
+   if (CodeGenerationUtilities.DefinesDiagramElements(this.DslLibrary))
+   {
 #>
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 <#
-	}
-	GenerateDomainModel(this.DslLibrary);
+   }
+   GenerateDomainModel(this.DslLibrary);
 #>
