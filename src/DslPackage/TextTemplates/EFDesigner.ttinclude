@@ -277,7 +277,11 @@ List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bo
                                                                               ? "'"
                                                                               : string.Empty;
 
-                                                         string value = FullyQualified(modelClass.ModelRoot, x.InitialValue.Trim('"', '\''));
+                                                         string value;
+                                                         if (quote.Length > 0)
+                                                            value = FullyQualified(modelClass.ModelRoot, x.InitialValue.Trim(quote[0]));
+                                                         else
+                                                            value = FullyQualified(modelClass.ModelRoot, x.InitialValue);
 
                                                          return $"{x.FQPrimitiveType} {x.Name.ToLower()} = {quote}{value}{quote}";
                                                       }));
@@ -545,7 +549,7 @@ void WriteConstructor(ModelClass modelClass)
       Output("/// </summary>");
 
       WriteConstructorComments(modelClass);
-      Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, true))})");
+      Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, false))})");
       Output("{");
 
       if (remarks.Count > 0)
@@ -581,7 +585,10 @@ void WriteConstructor(ModelClass modelClass)
                               ? "'"
                               : string.Empty;
 
-         Output($"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
+         if (quote.Length > 0)
+            Output($"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue.Trim(quote[0]))}{quote};");
+         else
+            Output($"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
       }
 
       foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
@@ -679,7 +686,10 @@ void WriteDefaultConstructorBody(ModelClass modelClass)
                            ? "'"
                            : string.Empty;
 
-      Output($"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
+      if (quote.Length == 1)
+         Output($"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue.Trim(quote[0]))}{quote};");
+      else
+         Output($"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
       ++lineCount;
    }
 
