@@ -21,6 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(ModelClassDeletingRules),
          typeof(ModelDiagramDataAddRules),
          typeof(ModelDiagramDataChangeRules),
+         typeof(ModelDiagramDataDeletingRules),
          typeof(ModelEnumChangeRules),
          typeof(ModelEnumValueAddRules),
          typeof(ModelEnumValueChangeRules),
