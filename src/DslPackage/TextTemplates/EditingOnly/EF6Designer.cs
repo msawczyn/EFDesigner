@@ -12,6 +12,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      // EFDesigner v2.0.0.0
+      // Copyright (c) 2017-2020 Michael Sawczyn
+      // https://github.com/msawczyn/EFDesigner
+
       /**************************************************
        * EF6-specific code generation methods
        */
@@ -19,10 +23,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       void GenerateEF6(Manager manager, ModelRoot modelRoot)
       {
          // Entities
+         string fileNameMarker = string.IsNullOrEmpty(modelRoot.FileNameMarker) ? string.Empty : $".{modelRoot.FileNameMarker}";
 
          foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
          {
-            manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}.{modelRoot.FileNameMarker}.cs"));
+            manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}{fileNameMarker}.cs"));
             WriteClass(modelClass);
          }
 
@@ -30,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          foreach (ModelEnum modelEnum in modelRoot.Enums.Where(e => e.GenerateCode))
          {
-            manager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}.{modelRoot.FileNameMarker}.cs"));
+            manager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}{fileNameMarker}.cs"));
             WriteEnum(modelEnum);
          }
 
@@ -38,14 +43,14 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.None)
          {
-            manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer.{modelRoot.FileNameMarker}.cs"));
+            manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer{fileNameMarker}.cs"));
             WriteDatabaseInitializerEF6(modelRoot);
          }
 
-         manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration.{modelRoot.FileNameMarker}.cs"));
+         manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration{fileNameMarker}.cs"));
          WriteMigrationConfigurationEF6(modelRoot);
 
-         manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}.{modelRoot.FileNameMarker}.cs"));
+         manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}{fileNameMarker}.cs"));
          WriteDbContextEF6(modelRoot);
       }
 

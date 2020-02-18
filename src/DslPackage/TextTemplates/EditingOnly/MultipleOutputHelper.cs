@@ -34,10 +34,27 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          {
             this.host = host;
             this.template = template;
-            this.FileNameMarker = "generated";
+            this.fileNameMarker = ".generated";
          }
 
-         private string FileNameMarker { get; }
+         private string fileNameMarker;
+
+         private string FileNameMarker
+         {
+            get
+            {
+               return fileNameMarker;
+            }
+            set
+            {
+               if (string.IsNullOrEmpty(value))
+                  fileNameMarker = string.Empty;
+               else if (!value.StartsWith("."))
+                  fileNameMarker = $".{value}";
+               else
+                  fileNameMarker = value;
+            }
+         }
 
          public virtual string OutputPath
          {
@@ -208,7 +225,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Dictionary<ProjectItem, List<string>> result = new Dictionary<ProjectItem, List<string>>();
                Project currentProject = templateProjectItem.ContainingProject;
                string projectDirectory = Path.GetDirectoryName(currentProject.FullName);
-               string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, $"*.{FileNameMarker}.cs", SearchOption.AllDirectories);
+               string[] existingGeneratedFiles = Directory.GetFiles(projectDirectory, $"*{FileNameMarker}.cs", SearchOption.AllDirectories);
 
                foreach (string fileName in existingGeneratedFiles)
                {
