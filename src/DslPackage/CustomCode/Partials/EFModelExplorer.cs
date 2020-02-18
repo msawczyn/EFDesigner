@@ -12,41 +12,40 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    internal partial class EFModelExplorer
    {
-      /// <summary>Raises the <see cref="E:System.Windows.Forms.Control.DoubleClick" /> event.</summary>
-      /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data. </param>
-      protected override void OnDoubleClick(EventArgs e)
-      {
-         base.OnDoubleClick(e);
+      ///// <summary>Not doing anything?</summary>
+      //protected override void OnDoubleClick(EventArgs e)
+      //{
+      //   base.OnDoubleClick(e);
 
-         // let's make this a switch so we can more easily extend it to different element types later
-         switch (SelectedElement)
-         {
-            case ModelClass modelClass:
-               EFModelDocData.OpenFileFor(modelClass);
+      //   // let's make this a switch so we can more easily extend it to different element types later
+      //   switch (SelectedElement)
+      //   {
+      //      case ModelClass modelClass:
+      //         EFModelDocData.OpenFileFor(modelClass);
 
-               break;
+      //         break;
 
-            case ModelAttribute modelAttribute:
-               EFModelDocData.OpenFileFor(modelAttribute.ModelClass);
+      //      case ModelAttribute modelAttribute:
+      //         EFModelDocData.OpenFileFor(modelAttribute.ModelClass);
 
-               break;
+      //         break;
 
-            case ModelEnum modelEnum:
-               EFModelDocData.OpenFileFor(modelEnum);
+      //      case ModelEnum modelEnum:
+      //         EFModelDocData.OpenFileFor(modelEnum);
 
-               break;
+      //         break;
 
-            case ModelEnumValue modelEnumValue:
-               EFModelDocData.OpenFileFor(modelEnumValue.Enum);
+      //      case ModelEnumValue modelEnumValue:
+      //         EFModelDocData.OpenFileFor(modelEnumValue.Enum);
 
-               break;
+      //         break;
 
-            case ModelDiagramData modelDiagram:
-               ((EFModelDocData)ModelingDocData).OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagram.Name, typeof(EFModelDiagram), ModelingDocData.RootElement));
+      //      //case ModelDiagramData modelDiagram:
+      //      //   ((EFModelDocData)ModelingDocData).OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagram.Name, typeof(EFModelDiagram), ModelingDocData.RootElement));
 
-               break;
-         }
-      }
+      //      //   break;
+      //   }
+      //}
 
       /// <summary>
       /// Method to insert the incoming node into the TreeNodeCollection. This allows the derived class to change the sorting behavior.

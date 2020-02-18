@@ -491,14 +491,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // We check Load category first, because any violation in this category will cause the saved file to be unloadable justifying a special 
          // error message. If the Load category passes, we then check the normal Save category, and give the normal warning message if necessary.
-         bool unloadableError = !vc.Validate(this.GetAllElementsForValidation(), DslValidation::ValidationCategories.Load) && vc.ErrorMessages.Count != 0;
+         bool unloadableError = !vc.Validate(this.GetAllElementsForValidation(), DslValidation::ValidationCategories.Load) && vc.ErrorMessages.Where(m=>m.Code != "AmbiguousMoniker" && m.Code != "MVE0103").Count() != 0;
          
          // Prompt user for confirmation if there are validation errors and this is not a silent save
          if (allowUserInterface)
          {
             vc.Validate(this.GetAllElementsForValidation(), DslValidation::ValidationCategories.Save);
 
-            if (vc.ErrorMessages.Count != 0)
+            if (vc.ErrorMessages.Where(m=>m.Code != "AmbiguousMoniker" && m.Code != "MVE0103").Count() != 0)
             {
                string errorMsg = (unloadableError ? "UnloadableSaveValidationFailed" : "SaveValidationFailed");
                global::System.Windows.Forms.DialogResult result = DslShell::PackageUtility.ShowMessageBox(this.ServiceProvider, global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString(errorMsg), VSShellInterop::OLEMSGBUTTON.OLEMSGBUTTON_YESNO, VSShellInterop::OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, VSShellInterop::OLEMSGICON.OLEMSGICON_WARNING);
@@ -644,14 +644,18 @@ namespace Sawczyn.EFDesigner.EFModel
                // Set the ModelElement associated with the newly created diagram.
                diagram.ModelElement = rootElement;
 
+               // new diagrams appear empty to start
+               foreach (ClassShape shape in diagram.GetChildElements(diagram).OfType<ClassShape>())
+                  shape.Visible = false;
+               foreach (EnumShape shape in diagram.GetChildElements(diagram).OfType<EnumShape>())
+                  shape.Visible = false;
+
                transaction.Commit();
             }
 
             var eFModelDiagram = diagram as global::Sawczyn.EFDesigner.EFModel.EFModelDiagram;
-            if(null != eFModelDiagram)
-            {
+            if(eFModelDiagram != null)
                EFModelSynchronizationHelper.FixUp(eFModelDiagram);
-            }                
          }
 
          base.OpenView(logicalView, viewContext);
@@ -679,7 +683,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected virtual void CleanupOldDiagramFiles()
       {
          // sloppy. implemented in derived class.
-         // TODO: fix this
+         // TODO: fix this so it's implemented here
       }
 
       /// <summary>

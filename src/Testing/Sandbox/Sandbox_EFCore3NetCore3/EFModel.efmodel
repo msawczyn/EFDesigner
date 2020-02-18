@@ -21,4 +21,9 @@
       </modelClass>
     </modelRootHasClasses>
   </classes>
+  <diagrams>
+    <modelRootHasModelDiagrams Id="a2ddc094-270e-4aaa-ac94-2ea6584b5e69">
+      <modelDiagramData name="EFModel" />
+    </modelRootHasModelDiagrams>
+  </diagrams>
 </modelRoot>

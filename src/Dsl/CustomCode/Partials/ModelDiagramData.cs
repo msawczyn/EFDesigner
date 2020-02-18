@@ -11,5 +11,6 @@ namespace Sawczyn.EFDesigner.EFModel
       public void SetDiagram(EFModelDiagram d) { diagram = d; }
 
       public static Action<string> DisplayDiagram { get; set; }
+      public static Action<EFModelDiagram> CloseDiagram { get; set; }
    }
 }

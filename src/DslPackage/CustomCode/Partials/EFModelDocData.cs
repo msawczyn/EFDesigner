@@ -140,6 +140,9 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override void OnDocumentLoaded()
       {
          base.OnDocumentLoaded();
+
+         // TODO: This is getting out of hand. Consolidate into an interface and load it up all at once
+
          ErrorDisplay.RegisterDisplayHandler(ShowError);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
          QuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
@@ -153,6 +156,7 @@ namespace Sawczyn.EFDesigner.EFModel
          EnumShape.ExecCodeGeneration = GenerateCode;
          ModelRoot.ExecuteValidator = ValidateAll;
          ModelDiagramData.DisplayDiagram = DisplayDiagram;
+         ModelDiagramData.CloseDiagram = CloseDiagram;
 
          if (!(RootElement is ModelRoot modelRoot)) return;
 
@@ -246,29 +250,41 @@ namespace Sawczyn.EFDesigner.EFModel
             modelRoot.Diagrams.Clear();
             List<ModelDiagramData> matched = new List<ModelDiagramData>();
 
-            foreach (EFModelDiagram efModelDiagram in diagrams)
+            try
             {
-               ModelDiagramData diagramDataObject = modelRoot.Diagrams.FirstOrDefault(d => d.Name == efModelDiagram.Name);
+               // stop the add rule from displaying all the diagrams when we add a node in fixup
+               ModelDiagramDataAddRules.DisableLoad = true;
+               string defaultDiagramName = Path.GetFileNameWithoutExtension(FileName).ToLower();
 
-               if (diagramDataObject == null)
+               // don't show the default diagram - it's hands-off for the user
+               foreach (EFModelDiagram efModelDiagram in diagrams.Where(d => d.Name.ToLower() != defaultDiagramName))
                {
-                  diagramDataObject = new ModelDiagramData(Store, new PropertyAssignment(ModelDiagramData.NameDomainPropertyId, efModelDiagram.Name));
-                  modelRoot.Diagrams.Add(diagramDataObject);
+                  ModelDiagramData diagramDataObject = modelRoot.Diagrams.FirstOrDefault(d => d.Name == efModelDiagram.Name);
+
+                  if (diagramDataObject == null)
+                  {
+                     diagramDataObject = new ModelDiagramData(Store, new PropertyAssignment(ModelDiagramData.NameDomainPropertyId, efModelDiagram.Name));
+                     modelRoot.Diagrams.Add(diagramDataObject);
+                  }
+
+                  matched.Add(diagramDataObject);
+                  diagramDataObject.SetDiagram(efModelDiagram);
                }
 
-               matched.Add(diagramDataObject);
-               diagramDataObject.SetDiagram(efModelDiagram);
-            }
+               for (int index = 0; index < modelRoot.Diagrams.Count; index++)
+               {
+                  ModelDiagramData diagramDataObject = modelRoot.Diagrams[index];
 
-            for (int index  = 0; index < modelRoot.Diagrams.Count; index++)
+                  if (matched.All(d => d.Name != diagramDataObject.Name))
+                     modelRoot.Diagrams.RemoveAt(index--);
+               }
+
+               tx.Commit();
+            }
+            finally
             {
-               ModelDiagramData diagramDataObject = modelRoot.Diagrams[index];
-
-               if (matched.All(d => d.Name != diagramDataObject.Name))
-                  modelRoot.Diagrams.RemoveAt(index--);
+               ModelDiagramDataAddRules.DisableLoad = false;
             }
-
-            tx.Commit();
          }
 
          SetDocDataDirty(0);
@@ -277,6 +293,11 @@ namespace Sawczyn.EFDesigner.EFModel
       private void DisplayDiagram(string diagramName)
       {
          OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(diagramName, typeof(EFModelDiagram), RootElement));
+      }
+
+      private void CloseDiagram(EFModelDiagram diagram)
+      {
+         DocViews.OfType<EFModelDocView>().FirstOrDefault(d => d.Diagram == diagram)?.Frame?.CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_SaveIfDirty);
       }
 
       private void ValidateAll()

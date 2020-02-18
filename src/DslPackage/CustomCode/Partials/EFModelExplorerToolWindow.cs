@@ -12,13 +12,15 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.OnSelectionChanged(e);
 
-         // select element on active diagram
+         // select element in tree
          if (PrimarySelection != null)
          {
             if (PrimarySelection is ModelDiagramData modelDiagramData)
             {
                EFModelDocData docData = (EFModelDocData)TreeContainer.ModelingDocData;
                docData.OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
+
+               return;
             }
 
             if (PrimarySelection is ModelElement modelElement)
