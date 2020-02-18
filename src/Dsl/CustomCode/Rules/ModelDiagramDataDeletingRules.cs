@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         if (QuestionDisplay.Show($"About to permanently delete diagram named {element.Name} - are you sure?") != true)
+         if (BooleanQuestionDisplay.Show($"About to permanently delete diagram named {element.Name} - are you sure?") != true)
          {
             current.Rollback();
 

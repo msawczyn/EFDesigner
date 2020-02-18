@@ -203,7 +203,7 @@
     <Compile Include="CustomCode\Rules\RuleRegistrations.cs" />
     <Compile Include="CustomCode\ModelAttribute Parser\AttributeParser.cs" />
     <Compile Include="CustomCode\Utilities\PresentationHelper.cs" />
-    <Compile Include="CustomCode\Utilities\UIProxies\QuestionDisplay.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\BooleanQuestionDisplay.cs" />
     <Compile Include="CustomCode\Type Converters\BaseClassTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\CollectionTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Type Descriptors\ModelClassTypeDescriptor.cs" />

@@ -220,7 +220,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (OpenCodeFile(modelEnum))
                return;
 
-            if (ExecCodeGeneration != null && QuestionDisplay.Show($"Can't open generated file for {modelEnum.Name}. It may not have been generated yet. Do you want to generate the code now?") == true)
+            if (ExecCodeGeneration != null && BooleanQuestionDisplay.Show($"Can't open generated file for {modelEnum.Name}. It may not have been generated yet. Do you want to generate the code now?") == true)
             {
                ExecCodeGeneration();
 

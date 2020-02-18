@@ -656,7 +656,7 @@ namespace Sawczyn.EFDesigner.EFModel
                superClass = modelRoot.Classes.FirstOrDefault(c => c.Name == baseName);
 
                // if it's not in the model, we just don't know. Ask the user
-               if (superClass == null && (KnownClasses.Contains(baseName) || QuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true))
+               if (superClass == null && (KnownClasses.Contains(baseName) || BooleanQuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true))
                {
                   string[] nameparts = baseName.Split('.');
 

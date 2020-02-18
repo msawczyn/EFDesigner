@@ -4,7 +4,7 @@
    /// This helps keep UI interaction out of our DSL project proper. DslPackage calls RegisterDisplayHandler with a method that shows the MessageBox
    /// (or other UI-related method) properly using the Visual Studio service provider.
    /// </summary>
-   public static class QuestionDisplay
+   public static class BooleanQuestionDisplay
    {
       public delegate bool QuestionVisualizer(string message);
       private static QuestionVisualizer QuestionVisualizerMethod;
