@@ -66,6 +66,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+      [Browsable(false)]
+      public string DefaultNamespace
+      {
+         get
+         {
+            return string.IsNullOrWhiteSpace(ModelRoot?.EnumNamespace)
+                         ? ModelRoot?.Namespace
+                         : ModelRoot.EnumNamespace;
+         }
+      }
+
       /// <summary>
       /// Namespace for generated code. Takes overrides into account.
       /// </summary>
@@ -74,14 +85,18 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            if (!string.IsNullOrWhiteSpace(namespaceStorage))
-               return namespaceStorage;
+            return namespaceStorage ?? DefaultNamespace;
+         }
+      }
 
-            // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (!string.IsNullOrWhiteSpace(ModelRoot?.EnumNamespace))
-               return ModelRoot.EnumNamespace;
-
-            return ModelRoot?.Namespace;
+      [Browsable(false)]
+      public string DefaultOutputDirectory
+      {
+         get
+         {
+            return string.IsNullOrWhiteSpace(ModelRoot?.EnumOutputDirectory)
+                         ? ModelRoot?.ContextOutputDirectory
+                         : ModelRoot.EnumOutputDirectory;
          }
       }
 
@@ -93,14 +108,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
-               return outputDirectoryStorage;
-
-            // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (!string.IsNullOrWhiteSpace(ModelRoot?.EnumOutputDirectory))
-               return ModelRoot.EnumOutputDirectory;
-
-            return ModelRoot?.ContextOutputDirectory;
+            return outputDirectoryStorage ?? DefaultOutputDirectory;
          }
       }
 
@@ -210,7 +218,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return EffectiveNamespace;
+               return DefaultNamespace;
             }
             catch (NullReferenceException)
             {
@@ -230,9 +238,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetNamespaceValue(string value)
       {
-         namespaceStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveNamespace
-                               ? null
-                               : value;
+         namespaceStorage = string.IsNullOrWhiteSpace(value) || value == DefaultNamespace ? null : value;
 
          if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsNamespaceTracking = namespaceStorage == null;
@@ -289,7 +295,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return EffectiveOutputDirectory;
+               return DefaultOutputDirectory;
             }
             catch (NullReferenceException)
             {
@@ -309,17 +315,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
+         outputDirectoryStorage = string.IsNullOrWhiteSpace(value) || value == DefaultOutputDirectory ? null : value;
+
          if (!Store.InUndoRedoOrRollback && !this.IsLoading())
-         {
-
-            outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
-                                  || value == ModelRoot?.OutputLocations.Enumeration
-                                  || (string.IsNullOrWhiteSpace(ModelRoot?.OutputLocations.Enumeration) && value == ModelRoot?.OutputLocations.DbContext)
-                                        ? null
-                                        : value;
-
             IsOutputDirectoryTracking = outputDirectoryStorage == null;
-         }
       }
 
       internal sealed partial class IsOutputDirectoryTrackingPropertyHandler

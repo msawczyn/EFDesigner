@@ -46,7 +46,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
-               ModelDiagramData.CloseDiagram(element.GetDiagram());
+               ModelDiagramData.CloseDiagram?.Invoke(element.GetDiagram());
                element.GetDiagram().Name = element.Name = e.NewValue.ToString();
                break;
          }

@@ -616,6 +616,7 @@ namespace Sawczyn.EFDesigner.EFModel
             throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
          }
 
+         //TODO: don't fetch the default diagram. It's already showing
          DslDiagrams::Diagram diagram = this.GetDiagram(modelingViewContext);
 
          if (diagram == null)
@@ -654,8 +655,10 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             var eFModelDiagram = diagram as global::Sawczyn.EFDesigner.EFModel.EFModelDiagram;
-            if(eFModelDiagram != null)
+            if(null != eFModelDiagram)
+            {
                EFModelSynchronizationHelper.FixUp(eFModelDiagram);
+            }                
          }
 
          base.OpenView(logicalView, viewContext);
@@ -683,7 +686,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected virtual void CleanupOldDiagramFiles()
       {
          // sloppy. implemented in derived class.
-         // TODO: fix this so it's implemented here
+         // TODO: fix this
       }
 
       /// <summary>

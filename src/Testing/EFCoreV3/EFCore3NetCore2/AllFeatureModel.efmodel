@@ -40,7 +40,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="0f6f5d25-28df-4f7c-a31a-2615b0180064">
-      <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" concurrency="Optimistic" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional" isOutputDirectoryTracking="false">
+      <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" concurrency="Optimistic" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional" outputDirectory="Custom" isOutputDirectoryTracking="false">
         <unidirectionalTargets>
           <unidirectionalAssociation Id="360cfcbe-12d2-46d5-ace2-7a329ce9548b" targetMultiplicity="ZeroOne" targetPropertyName="OwnedType" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
             <modelClassMoniker Id="f9b35807-ab8c-4623-a371-2f4da65ae300" />
@@ -320,7 +320,7 @@
     </modelRootHasClasses>
   </classes>
   <diagrams>
-    <modelRootHasModelDiagrams Id="57c02559-a6df-4a3f-ba2d-d4bc03fc2874">
+    <modelRootHasModelDiagrams Id="6f11e8c3-ab35-41f4-b71c-2b39976da394">
       <modelDiagramData name="ModelDiagramData1a" />
     </modelRootHasModelDiagrams>
   </diagrams>

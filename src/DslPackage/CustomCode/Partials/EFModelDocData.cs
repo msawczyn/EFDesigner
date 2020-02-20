@@ -21,6 +21,8 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 using VSLangProj;
 
+using RuleManager = Microsoft.VisualStudio.Modeling.RuleManager;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [SuppressMessage("ReSharper", "RemoveRedundantBraces")]
@@ -155,7 +157,7 @@ namespace Sawczyn.EFDesigner.EFModel
          EnumShape.OpenCodeFile = OpenFileFor;
          EnumShape.ExecCodeGeneration = GenerateCode;
          ModelRoot.ExecuteValidator = ValidateAll;
-         ModelDiagramData.DisplayDiagram = DisplayDiagram;
+         ModelDiagramData.OpenDiagram = DisplayDiagram;
          ModelDiagramData.CloseDiagram = CloseDiagram;
 
          if (!(RootElement is ModelRoot modelRoot)) return;
@@ -247,13 +249,19 @@ namespace Sawczyn.EFDesigner.EFModel
          using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("Diagrams"))
          {
             List<EFModelDiagram> diagrams = Store.ElementDirectory.FindElements<EFModelDiagram>().ToList();
-            modelRoot.Diagrams.Clear();
-            List<ModelDiagramData> matched = new List<ModelDiagramData>();
+
+            RuleManager ruleManager = Store.RuleManager;
 
             try
             {
-               // stop the add rule from displaying all the diagrams when we add a node in fixup
-               ModelDiagramDataAddRules.DisableLoad = true;
+               ruleManager.DisableRule(typeof(ModelDiagramDataAddRules));
+               ruleManager.DisableRule(typeof(ModelDiagramDataDeletingRules));
+               ruleManager.DisableRule(typeof(ModelDiagramDataChangeRules));
+
+               // don't forget that the next step is drag/drop from tree to diagram
+               modelRoot.Diagrams.Clear();
+               List<ModelDiagramData> matched = new List<ModelDiagramData>();
+
                string defaultDiagramName = Path.GetFileNameWithoutExtension(FileName).ToLower();
 
                // don't show the default diagram - it's hands-off for the user
@@ -283,7 +291,9 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             finally
             {
-               ModelDiagramDataAddRules.DisableLoad = false;
+               ruleManager.EnableRule(typeof(ModelDiagramDataAddRules));
+               ruleManager.EnableRule(typeof(ModelDiagramDataDeletingRules));
+               ruleManager.EnableRule(typeof(ModelDiagramDataChangeRules));
             }
          }
 

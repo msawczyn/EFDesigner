@@ -15,8 +15,6 @@ namespace Sawczyn.EFDesigner.EFModel
    [RuleOn(typeof(ModelDiagramData), FireTime = TimeToFire.TopLevelCommit)]
    public class ModelDiagramDataAddRules : AddRule
    {
-      public static bool DisableLoad { get; set; }
-
       public override void ElementAdded(ElementAddedEventArgs e)
       {
          base.ElementAdded(e);
@@ -28,8 +26,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         if (ModelDiagramData.DisplayDiagram != null && !DisableLoad)
-            ModelDiagramData.DisplayDiagram(element.Name);
+         ModelDiagramData.OpenDiagram?.Invoke(element.Name);
       }
    }
 }

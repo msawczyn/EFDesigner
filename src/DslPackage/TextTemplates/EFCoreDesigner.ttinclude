@@ -404,6 +404,7 @@ private void WriteOnModelCreateEFCore(ModelRoot modelRoot, List<string> segments
 
             case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
+               required = true;
 
                break;
 

@@ -30,7 +30,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          EFModelDiagram diagram = element.GetDiagram();
-         ModelDiagramData.CloseDiagram(diagram);
+         ModelDiagramData.CloseDiagram?.Invoke(diagram);
          diagram.Delete();
       }
    }

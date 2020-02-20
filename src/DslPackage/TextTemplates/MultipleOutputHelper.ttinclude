@@ -41,7 +41,7 @@ class Manager
 
    private string fileNameMarker;
 
-   private string FileNameMarker
+   public string FileNameMarker
    {
       get
       {

@@ -16,17 +16,11 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning, IHasStore
    {
-      /// <summary>
-      /// Namespace for generated code. Takes overrides into account.
-      /// </summary>
       [Browsable(false)]
-      public string EffectiveNamespace
+      public string DefaultNamespace
       {
          get
          {
-            if (!string.IsNullOrWhiteSpace(namespaceStorage))
-               return namespaceStorage;
-
             if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot?.StructNamespace))
                return ModelRoot.StructNamespace;
 
@@ -38,16 +32,22 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      /// Output directory for generated code. Takes overrides into account.
+      /// Namespace for generated code. Takes overrides into account.
       /// </summary>
       [Browsable(false)]
-      public string EffectiveOutputDirectory
+      public string EffectiveNamespace
       {
          get
          {
-            if (!string.IsNullOrWhiteSpace(outputDirectoryStorage))
-               return outputDirectoryStorage;
+            return namespaceStorage ?? DefaultNamespace;
+         }
+      }
 
+      [Browsable(false)]
+      public string DefaultOutputDirectory
+      {
+         get
+         {
             if (IsDependentType && !string.IsNullOrWhiteSpace(ModelRoot?.StructOutputDirectory))
                return ModelRoot.StructOutputDirectory;
 
@@ -55,6 +55,18 @@ namespace Sawczyn.EFDesigner.EFModel
                return ModelRoot.EntityOutputDirectory;
 
             return ModelRoot?.ContextOutputDirectory;
+         }
+      }
+
+      /// <summary>
+      /// Output directory for generated code. Takes overrides into account.
+      /// </summary>
+      [Browsable(false)]
+      public string EffectiveOutputDirectory
+      {
+         get
+         {
+            return outputDirectoryStorage ?? DefaultOutputDirectory;
          }
       }
 
@@ -582,7 +594,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return EffectiveNamespace;
+               return DefaultNamespace;
             }
             catch (NullReferenceException)
             {
@@ -602,9 +614,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetNamespaceValue(string value)
       {
-         namespaceStorage = string.IsNullOrWhiteSpace(value) || value == EffectiveNamespace
-                               ? null
-                               : value;
+         namespaceStorage = string.IsNullOrWhiteSpace(value) || value == DefaultNamespace ? null : value;
 
          if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             IsNamespaceTracking = namespaceStorage == null;
@@ -661,7 +671,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             try
             {
-               return EffectiveOutputDirectory;
+               return DefaultOutputDirectory;
             }
             catch (NullReferenceException)
             {
@@ -681,27 +691,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void SetOutputDirectoryValue(string value)
       {
-         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
-         {
-            if (IsDependentType)
-            {
-               outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
-                                     || value == ModelRoot?.OutputLocations.Struct
-                                     || (string.IsNullOrWhiteSpace(ModelRoot?.OutputLocations.Struct) && value == ModelRoot?.OutputLocations.DbContext)
-                                           ? null
-                                           : value;
-            }
-            else
-            {
-               outputDirectoryStorage = string.IsNullOrWhiteSpace(value)
-                                     || value == ModelRoot?.OutputLocations.Entity
-                                     || (string.IsNullOrWhiteSpace(ModelRoot?.OutputLocations.Entity) && value == ModelRoot?.OutputLocations.DbContext)
-                                           ? null
-                                           : value;
-            }
+         outputDirectoryStorage = string.IsNullOrWhiteSpace(value) || value == DefaultOutputDirectory ? null : value;
 
-            IsOutputDirectoryTracking = outputDirectoryStorage == null;
-         }
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
+            IsOutputDirectoryTracking = (outputDirectoryStorage == null);
       }
 
       internal sealed partial class IsOutputDirectoryTrackingPropertyHandler
