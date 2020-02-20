@@ -51,8 +51,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (ParentModelElement != null)
          {
-            List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().Distinct().ToList();
-            foreach (ShapeElement shapeElement in shapeElements)
+            foreach (ShapeElement shapeElement in 
+                  PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().Distinct())
                shapeElement.Invalidate();
          }
       }

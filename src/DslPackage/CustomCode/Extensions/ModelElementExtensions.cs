@@ -7,6 +7,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+   // ReSharper disable once UnusedMember.Global
    public static class ModelElementExtensions
    {
       public static DiagramView GetActiveDiagramView(this ModelElement element)
@@ -56,7 +57,9 @@ namespace Sawczyn.EFDesigner.EFModel
       public static ShapeElement GetShapeElement(this ModelElement element)
       {
          // If the model element is in a compartment the result will be null
-         ShapeElement shape = PresentationViewsSubject.GetPresentation(element).OfType<ShapeElement>().FirstOrDefault();
+         ShapeElement shape = PresentationViewsSubject.GetPresentation(element)
+                                                      .OfType<ShapeElement>()
+                                                      .FirstOrDefault(s => s.Diagram == ModelRoot.GetCurrentDiagram());
 
          if (shape == null)
          {
@@ -64,7 +67,11 @@ namespace Sawczyn.EFDesigner.EFModel
             ModelElement parentElement = element.GetCompartmentElementFirstParentElement();
 
             if (parentElement != null)
-               shape = PresentationViewsSubject.GetPresentation(parentElement).OfType<ShapeElement>().FirstOrDefault();
+            {
+               shape = PresentationViewsSubject.GetPresentation(parentElement)
+                                               .OfType<ShapeElement>()
+                                               .FirstOrDefault(s => s.Diagram == ModelRoot.GetCurrentDiagram());
+            }
          }
 
          return shape;
@@ -82,7 +89,9 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          // Get the shape element that corresponds to the model element
 
-         ShapeElement shapeElement = PresentationViewsSubject.GetPresentation(modelElement).OfType<ShapeElement>().FirstOrDefault();
+         ShapeElement shapeElement = PresentationViewsSubject.GetPresentation(modelElement)
+                                                             .OfType<ShapeElement>()
+                                                             .FirstOrDefault(s => s.Diagram == diagramView.Diagram);
 
          if (shapeElement != null)
          {
@@ -99,6 +108,7 @@ namespace Sawczyn.EFDesigner.EFModel
                diagramView.ZoomAtViewCenter(1);
             }
 
+            shapeElement.Invalidate();
             return true;
          }
 
@@ -112,8 +122,11 @@ namespace Sawczyn.EFDesigner.EFModel
             if (parentModelElement != null)
             {
                // Get the compartment that stores the model element
-               CompartmentShape parentShapeElement = PresentationViewsSubject.GetPresentation((ModelElement)parentModelElement).OfType<CompartmentShape>().FirstOrDefault();
-               ElementListCompartment compartment = parentShapeElement.GetCompartment(compartmentedModelElement.CompartmentName);
+               CompartmentShape parentShapeElement = PresentationViewsSubject.GetPresentation((ModelElement)parentModelElement)
+                                                                             .OfType<CompartmentShape>()
+                                                                             .FirstOrDefault(s => s.Diagram == diagramView.Diagram);
+
+               ElementListCompartment compartment = parentShapeElement?.GetCompartment(compartmentedModelElement.CompartmentName);
 
                if (compartment != null)
                {
@@ -140,6 +153,8 @@ namespace Sawczyn.EFDesigner.EFModel
                         diagramView.Selection.EnsureVisible(DiagramClientView.EnsureVisiblePreferences.ScrollIntoViewCenter);
                         diagramView.ZoomAtViewCenter(1);
                      }
+
+                     compartment.Invalidate();
                      return true;
                   }
                }

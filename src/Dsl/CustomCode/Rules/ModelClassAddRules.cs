@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 

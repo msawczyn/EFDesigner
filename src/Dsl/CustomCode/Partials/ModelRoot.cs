@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
@@ -23,6 +24,8 @@ namespace Sawczyn.EFDesigner.EFModel
       public static Action ExecuteValidator { get; set; }
 
       public static string DSLVersion { get; set; }
+
+      public static Func<Diagram> GetCurrentDiagram;
 
       static ModelRoot()
       {
@@ -218,11 +221,6 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                            x.DisplayVersion == EntityFrameworkPackageVersion);
          }
       }
-
-      /// <summary>
-      /// DslPackage might set this to false depending on whether or not it can find the resources needed to load Nuget packages
-      /// </summary>
-      public static bool CanLoadNugetPackages { get; set; } = true;
 
       // ReSharper disable once UnusedMember.Global
       public double GetEntityFrameworkPackageVersionNum()

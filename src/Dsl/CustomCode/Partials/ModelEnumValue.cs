@@ -32,8 +32,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public void RedrawItem()
       {
-         List<ShapeElement> shapeElements = PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().Distinct().ToList();
-         foreach (ShapeElement shapeElement in shapeElements)
+         // redraw on every diagram
+         foreach (ShapeElement shapeElement in 
+               PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().Distinct())
             shapeElement.Invalidate();
       }
 

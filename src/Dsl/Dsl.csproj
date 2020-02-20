@@ -139,6 +139,7 @@
     <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\BidirectionalAssociationAddRules.cs" />
+    <Compile Include="CustomCode\Rules\ClassShapeAddRule.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataDeletingRules.cs" />

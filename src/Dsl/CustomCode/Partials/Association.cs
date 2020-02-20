@@ -136,10 +136,11 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelElement[] modelElements = { this, Source, Target };
 
-         List<ShapeElement> shapeElements = modelElements.SelectMany(modelElement => PresentationViewsSubject.GetPresentation(modelElement).OfType<ShapeElement>())
-                                                         .ToList();
-
-         foreach (ShapeElement shapeElement in shapeElements)
+         // redraw on every diagram
+         foreach (ShapeElement shapeElement in 
+               modelElements.SelectMany(modelElement => PresentationViewsSubject.GetPresentation(modelElement)
+                                                                                .OfType<ShapeElement>()
+                                                                                .Distinct()))
             shapeElement.Invalidate();
       }
 

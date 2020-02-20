@@ -18,6 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                 , Multiplicity? sourceMultiplicity = null
                                                 , Multiplicity? targetMultiplicity = null)
       {
+         // redraw on every diagram
          foreach (AssociationConnector connector in PresentationViewsSubject.GetPresentation(element).OfType<AssociationConnector>().Distinct())
             UpdateAssociationDisplay(connector, sourceDeleteAction, targetDeleteAction);
       }
@@ -127,6 +128,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (element == null)
             return;
 
+         // update on every diagram
          foreach (ClassShape classShape in PresentationViewsSubject
                                           .GetPresentation(element)
                                           .OfType<ClassShape>())

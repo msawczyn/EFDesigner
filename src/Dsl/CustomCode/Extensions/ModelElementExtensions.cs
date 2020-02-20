@@ -70,7 +70,9 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 
       public static ShapeElement GetFirstShapeElement(this ModelElement element)
       {
-         return PresentationViewsSubject.GetPresentation(element).OfType<ShapeElement>().FirstOrDefault();
+         return PresentationViewsSubject.GetPresentation(element)
+                                        .OfType<ShapeElement>()
+                                        .FirstOrDefault(s => s.Diagram == EFModel.ModelRoot.GetCurrentDiagram());
       }
 
       /// <summary>
@@ -109,16 +111,10 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 
       public static void Redraw(this ModelElement element)
       {
+         // redraw on every diagram
          foreach (ShapeElement shapeElement in PresentationViewsSubject.GetPresentation(element).OfType<ShapeElement>().Distinct().ToList())
             shapeElement.Invalidate();
       }
-
-      //public static DiagramView GetActiveDiagramView(this ModelElement element)
-      //{
-      //   // Get the shape that corresponds to this model element
-      //   ShapeElement shapeElement = element.GetShapeElement();
-      //   return shapeElement?.Vi
-      //}
 
       public static Diagram GetActiveDiagram(this ModelElement element)
       {

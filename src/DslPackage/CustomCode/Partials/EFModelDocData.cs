@@ -12,6 +12,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Microsoft.VisualStudio.Shell;
@@ -136,12 +137,46 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 
+      private IMonitorSelectionService monitorSelection;
+
+      protected IMonitorSelectionService MonitorSelection
+      {
+         get
+         {
+            return monitorSelection 
+                ?? (monitorSelection = (IMonitorSelectionService)GetService(typeof(IMonitorSelectionService)));
+         }
+      }
+
+      protected ModelingDocView CurrentModelingDocView
+      {
+         get
+         {
+            return MonitorSelection.CurrentDocumentView as ModelingDocView;
+         }
+      }
+
+      /// <summary>Currently focused document view</summary>
+      protected DiagramDocView CurrentDocView
+      {
+         get
+         {
+            return CurrentModelingDocView as DiagramDocView;
+         }
+      }
+
+      protected Diagram GetCurrentDiagram()
+      {
+         return CurrentDocView.CurrentDiagram;
+      }
+
       /// <summary>
       /// Called on both document load and reload.
       /// </summary>
       protected override void OnDocumentLoaded()
       {
          base.OnDocumentLoaded();
+         if (!(RootElement is ModelRoot modelRoot)) return;
 
          // TODO: This is getting out of hand. Consolidate into an interface and load it up all at once
 
@@ -157,12 +192,9 @@ namespace Sawczyn.EFDesigner.EFModel
          EnumShape.OpenCodeFile = OpenFileFor;
          EnumShape.ExecCodeGeneration = GenerateCode;
          ModelRoot.ExecuteValidator = ValidateAll;
+         ModelRoot.GetCurrentDiagram = GetCurrentDiagram;
          ModelDiagramData.OpenDiagram = DisplayDiagram;
          ModelDiagramData.CloseDiagram = CloseDiagram;
-
-         if (!(RootElement is ModelRoot modelRoot)) return;
-
-         ModelRoot.CanLoadNugetPackages = false;
 
          // set to the project's namespace if no namespace set
          if (string.IsNullOrEmpty(modelRoot.Namespace))
