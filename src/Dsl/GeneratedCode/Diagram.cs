@@ -10,6 +10,7 @@
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
+using System.Linq;
 
 [module: global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Scope = "type", Target = "Sawczyn.EFDesigner.EFModel.EFModelDiagram")]
 
@@ -1098,7 +1099,9 @@ namespace Sawczyn.EFDesigner.EFModel
 	         foreach (DslModeling::ModelElement element in elements)
 	         {
 	            DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-	            foreach (DslDiagrams::PresentationElement pel in pels)
+	            Microsoft.VisualStudio.Modeling.Diagrams.Diagram currentDiagram = ModelRoot.GetCurrentDiagram();
+	
+	            foreach (DslDiagrams::PresentationElement pel in pels.Where(p => p.Diagram == currentDiagram))
 	            {
 	               DslDiagrams::CompartmentShape compartmentShape = pel as DslDiagrams::CompartmentShape;
 	               if (compartmentShape != null && shapeType.IsAssignableFrom(compartmentShape.GetType()))
@@ -1524,3 +1527,4 @@ namespace Sawczyn.EFDesigner.EFModel
 	      }
 	   }
 	}
+	 
