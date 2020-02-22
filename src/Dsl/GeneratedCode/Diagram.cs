@@ -11,6 +11,7 @@ using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 using System.Linq;
+using System.Collections.Generic;
 
 [module: global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Scope = "type", Target = "Sawczyn.EFDesigner.EFModel.EFModelDiagram")]
 
@@ -1096,33 +1097,33 @@ namespace Sawczyn.EFDesigner.EFModel
 	      /// <param name="repaintOnly">If true, the method will only invalidate the shape for a repaint, without re-initializing the shape.</param>
 	      internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly)
 	      {
-	         foreach (DslModeling::ModelElement element in elements)
-	         {
-	            DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-	            Microsoft.VisualStudio.Modeling.Diagrams.Diagram currentDiagram = ModelRoot.GetCurrentDiagram();
+	         DslModeling.Transaction transaction = null;
 	
-	            foreach (DslDiagrams::PresentationElement pel in pels.Where(p => p.Diagram == currentDiagram))
+	         try
+	         {
+	            foreach (DslModeling::ModelElement element in elements)
 	            {
-	               DslDiagrams::CompartmentShape compartmentShape = pel as DslDiagrams::CompartmentShape;
-	               if (compartmentShape != null && shapeType.IsAssignableFrom(compartmentShape.GetType()))
+	               transaction = transaction ?? element.Store.TransactionManager.BeginTransaction("UpdateCompartments");
+	
+	               IEnumerable<DslDiagrams::CompartmentShape> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element).OfType<DslDiagrams::CompartmentShape>();
+	               Microsoft.VisualStudio.Modeling.Diagrams.Diagram currentDiagram = ModelRoot.GetCurrentDiagram?.Invoke();
+	               if (currentDiagram == null) continue;
+	
+	               foreach (DslDiagrams::CompartmentShape compartmentShape in pels.Where(p => p.Diagram == currentDiagram))
 	               {
 	                  if (repaintOnly)
-	                  {
 	                     compartmentShape.Invalidate();
-	                  }
 	                  else
-	                  {
-	                     foreach(DslDiagrams::CompartmentMapping mapping in compartmentShape.GetCompartmentMappings())
-	                     {
-	                        if(mapping.CompartmentId==compartmentName)
-	                        {
-	                           mapping.InitializeCompartmentShape(compartmentShape);
-	                           break;
-	                        }
-	                     }
-	                  }
+	                     compartmentShape.GetCompartmentMappings().FirstOrDefault(m => m.CompartmentId==compartmentName)?.InitializeCompartmentShape(compartmentShape);
 	               }
 	            }
+	
+	            transaction?.Commit();
+	            transaction = null;
+	         }
+	         finally
+	         {
+	            transaction?.Rollback();
 	         }
 	      }
 	      #endregion

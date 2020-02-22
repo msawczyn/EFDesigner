@@ -152,7 +152,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return MonitorSelection.CurrentDocumentView as ModelingDocView;
+            return MonitorSelection?.CurrentDocumentView as ModelingDocView;
          }
       }
 
@@ -167,7 +167,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected Diagram GetCurrentDiagram()
       {
-         return CurrentDocView.CurrentDiagram;
+         return CurrentDocView?.CurrentDiagram;
       }
 
       /// <summary>
