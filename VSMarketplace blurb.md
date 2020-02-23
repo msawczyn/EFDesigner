@@ -25,21 +25,26 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**2.0.0.0** (next version, [RC1 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/V2.0.0-RC1))
+**2.0.0.0** (next version, [RC2 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/V2.0.0-RC2))
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
-   - **[NEW]** Added ability to specify foreign key properties
+   - **[NEW]** Added ability to specify foreign key properties  (See https://github.com/msawczyn/EFDesigner/issues/55)
+   - **[NEW]** Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - **[NEW]** Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
-   - **[NEW]** Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors
+   - **[NEW]** Added a default string max length to the options page for the designer 
+   - **[NEW]** Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors.
    - **[NEW]** Added visual indicator on classes and enumerations where code generation is disabled
    - **[NEW]** Added ability to override the base class of the generated DbContext to be something other than "DbContext"
+   - **[NEW]** Attributes can now be flagged as abstract in the same way classes can.
    - Renamed toolbox category to "EF Model Diagrams"
-   - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - Enhanced display of model elements in the Visual Studio property window's object list
    - Removed MSAGL layouts. No one understood them anyway.
    - Removed tool automatically installing NuGet packages. Too volatile.
+   - Fix: OutputDirectory lost on reload (See https://github.com/msawczyn/EFDesigner/issues/144)
+   - Fix: Unidirectional Many-to-One Association missing Required (See https://github.com/msawczyn/EFDesigner/issues/145)
+   - Fix: Can't delete property initial value for Enum values (See https://github.com/msawczyn/EFDesigner/issues/148)
    - Fix: Support for Empty / blank "File Name Marker" (See https://github.com/msawczyn/EFDesigner/issues/149)
 
 **1.3.0.12** 
