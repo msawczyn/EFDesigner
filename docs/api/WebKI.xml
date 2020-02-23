@@ -109,7 +109,6 @@
   <HelpKINode Title="BoolToZeroOneConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="Byte enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
   <HelpKINode Title="BytesToStringConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
-  <HelpKINode Title="CanLoadNugetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_CanLoadNugetPackages.htm" />
   <HelpKINode Title="Cardinality property" Url="html/P_Sawczyn_EFDesigner_EFModel_NavigationProperty_Cardinality.htm" />
   <HelpKINode Title="Cascade enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_DeleteAction.htm" />
   <HelpKINode Title="CastingConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
@@ -190,6 +189,8 @@
   </HelpKINode>
   <HelpKINode Title="DefaultCollectionClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DefaultCollectionClass.htm" />
   <HelpKINode Title="DefaultIdentityType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DefaultIdentityType.htm" />
+  <HelpKINode Title="DefaultNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_DefaultNamespace.htm" />
+  <HelpKINode Title="DefaultOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_DefaultOutputDirectory.htm" />
   <HelpKINode Title="DeleteAction enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_DeleteAction.htm" />
   <HelpKINode Title="Dependent enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EndpointRole.htm" />
   <HelpKINode Title="Dependent property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Dependent.htm" />
@@ -207,6 +208,9 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Sawczyn_EFDesigner_EFModel_DesignElement.htm" />
   </HelpKINode>
   <HelpKINode Title="DesignElement.Comments property" Url="html/P_Sawczyn_EFDesigner_EFModel_DesignElement_Comments.htm" />
+  <HelpKINode Title="DiagramName property" Url="html/P_Mexedge_VisualStudio_Modeling_ViewContext_DiagramName.htm" />
+  <HelpKINode Title="Diagrams property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Diagrams.htm" />
+  <HelpKINode Title="DiagramType property" Url="html/P_Mexedge_VisualStudio_Modeling_ViewContext_DiagramType.htm" />
   <HelpKINode Title="DiagramViewExtensions class">
     <HelpKINode Title="DiagramViewExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions.htm" />
@@ -306,6 +310,7 @@
   <HelpKINode Title="GetBidirectionalTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetBidirectionalTargets.htm" />
   <HelpKINode Title="GetChoice method" Url="html/M_Sawczyn_EFDesigner_ChoiceDisplay_GetChoice.htm" />
   <HelpKINode Title="GetCompartment method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetCompartment.htm" />
+  <HelpKINode Title="GetCurrentDiagram field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GetCurrentDiagram.htm" />
   <HelpKINode Title="GetDisplayText method">
     <HelpKINode Title="Association.GetDisplayText Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetDisplayText.htm" />
     <HelpKINode Title="BidirectionalAssociation.GetDisplayText Method " Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetDisplayText.htm" />
@@ -331,6 +336,7 @@
   <HelpKINode Title="GetLinksToUnidirectionalTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetLinksToUnidirectionalTargets.htm" />
   <HelpKINode Title="GetLinkToSuperclass method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetLinkToSuperclass.htm" />
   <HelpKINode Title="GetNamedArgumentValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_GetNamedArgumentValue.htm" />
+  <HelpKINode Title="GetSchema method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_GetSchema.htm" />
   <HelpKINode Title="GetSourceImplementNotifyValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetSourceImplementNotifyValue.htm" />
   <HelpKINode Title="GetSourceMultiplicityDisplayValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetSourceMultiplicityDisplayValue.htm" />
   <HelpKINode Title="GetSources method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetSources.htm" />
@@ -396,6 +402,8 @@
   <HelpKINode Title="MajorMinorVersionNum property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetDisplay_MajorMinorVersionNum.htm" />
   <HelpKINode Title="Manual enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_IdentityType.htm" />
   <HelpKINode Title="MaxLength property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_MaxLength.htm" />
+  <HelpKINode Title="Mexedge.VisualStudio.Modeling namespace" Url="html/N_Mexedge_VisualStudio_Modeling.htm" />
+  <HelpKINode Title="Mexedge.VisualStudio.Modeling.ViewContext class" Url="html/T_Mexedge_VisualStudio_Modeling_ViewContext.htm" />
   <HelpKINode Title="MigrateDatabaseToLatestVersion enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_DatabaseInitializerKind.htm" />
   <HelpKINode Title="MinLength property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_MinLength.htm" />
   <HelpKINode Title="ModelAttribute class">
@@ -461,6 +469,8 @@
   <HelpKINode Title="ModelClass.CustomInterfaces property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_CustomInterfaces.htm" />
   <HelpKINode Title="ModelClass.DatabaseSchema property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_DatabaseSchema.htm" />
   <HelpKINode Title="ModelClass.DbSetName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_DbSetName.htm" />
+  <HelpKINode Title="ModelClass.DefaultNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_DefaultNamespace.htm" />
+  <HelpKINode Title="ModelClass.DefaultOutputDirectory property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_DefaultOutputDirectory.htm" />
   <HelpKINode Title="ModelClass.Description property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Description.htm" />
   <HelpKINode Title="ModelClass.EffectiveConcurrency property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveConcurrency.htm" />
   <HelpKINode Title="ModelClass.EffectiveNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_EffectiveNamespace.htm" />
@@ -559,7 +569,6 @@
   <HelpKINode Title="ModelRoot.AutomaticMigrationsEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_AutomaticMigrationsEnabled.htm" />
   <HelpKINode Title="ModelRoot.BaseClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClass.htm" />
   <HelpKINode Title="ModelRoot.BaseClassDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_BaseClassDomainPropertyId.htm" />
-  <HelpKINode Title="ModelRoot.CanLoadNugetPackages property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_CanLoadNugetPackages.htm" />
   <HelpKINode Title="ModelRoot.ChopMethodChains property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ChopMethodChains.htm" />
   <HelpKINode Title="ModelRoot.Classes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Classes.htm" />
   <HelpKINode Title="ModelRoot.Comments property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Comments.htm" />
@@ -574,6 +583,7 @@
   <HelpKINode Title="ModelRoot.DefaultCollectionClass property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DefaultCollectionClass.htm" />
   <HelpKINode Title="ModelRoot.DefaultIdentityType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DefaultIdentityType.htm" />
   <HelpKINode Title="ModelRoot.Description property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Description.htm" />
+  <HelpKINode Title="ModelRoot.Diagrams property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Diagrams.htm" />
   <HelpKINode Title="ModelRoot.DSLVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_DSLVersion.htm" />
   <HelpKINode Title="ModelRoot.EntityContainerAccess property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityContainerAccess.htm" />
   <HelpKINode Title="ModelRoot.EntityContainerName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_EntityContainerName.htm" />
@@ -591,6 +601,7 @@
   <HelpKINode Title="ModelRoot.ExposeForeignKeysDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_ExposeForeignKeysDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.FileNameMarker property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FileNameMarker.htm" />
   <HelpKINode Title="ModelRoot.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FullName.htm" />
+  <HelpKINode Title="ModelRoot.GetCurrentDiagram field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GetCurrentDiagram.htm" />
   <HelpKINode Title="ModelRoot.GetEntityFrameworkPackageVersionNum method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetEntityFrameworkPackageVersionNum.htm" />
   <HelpKINode Title="ModelRoot.InheritanceStrategy property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InheritanceStrategy.htm" />
   <HelpKINode Title="ModelRoot.IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_IsValidCLRType.htm" />
@@ -739,13 +750,9 @@
     <HelpKINode Title="SetterAccessModifier Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_SetterAccessModifier.htm" />
     <HelpKINode Title="TypeAccessModifier Enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_TypeAccessModifier.htm" />
   </HelpKINode>
-  <HelpKINode Title="QuestionDisplay class">
-    <HelpKINode Title="QuestionDisplay Class" Url="html/T_Sawczyn_EFDesigner_QuestionDisplay.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_QuestionDisplay.htm" />
-  </HelpKINode>
-  <HelpKINode Title="QuestionDisplay.Show method" Url="html/M_Sawczyn_EFDesigner_QuestionDisplay_Show.htm" />
   <HelpKINode Title="Range enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
   <HelpKINode Title="ReadOnly property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_ReadOnly.htm" />
+  <HelpKINode Title="ReadXml method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_ReadXml.htm" />
   <HelpKINode Title="Redraw method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Redraw.htm" />
   <HelpKINode Title="Required property">
     <HelpKINode Title="ModelAttribute.Required Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Required.htm" />
@@ -753,6 +760,7 @@
   </HelpKINode>
   <HelpKINode Title="RequiredAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_RequiredAttributes.htm" />
   <HelpKINode Title="RequiredNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_RequiredNavigationProperties.htm" />
+  <HelpKINode Title="RootElement property" Url="html/P_Mexedge_VisualStudio_Modeling_ViewContext_RootElement.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner namespace" Url="html/N_Sawczyn_EFDesigner.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.ChoiceDisplay class" Url="html/T_Sawczyn_EFDesigner_ChoiceDisplay.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel namespace" Url="html/N_Sawczyn_EFDesigner_EFModel.htm" />
@@ -799,7 +807,6 @@
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ValueConverter enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.ErrorDisplay class" Url="html/T_Sawczyn_EFDesigner_ErrorDisplay.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.ModelDisplay class" Url="html/T_Sawczyn_EFDesigner_ModelDisplay.htm" />
-  <HelpKINode Title="Sawczyn.EFDesigner.QuestionDisplay class" Url="html/T_Sawczyn_EFDesigner_QuestionDisplay.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.StatusDisplay class" Url="html/T_Sawczyn_EFDesigner_StatusDisplay.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.WarningDisplay class" Url="html/T_Sawczyn_EFDesigner_WarningDisplay.htm" />
   <HelpKINode Title="SByte enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
@@ -814,7 +821,6 @@
   <HelpKINode Title="ShortText property" Url="html/P_Sawczyn_EFDesigner_EFModel_Comment_ShortText.htm" />
   <HelpKINode Title="Show method">
     <HelpKINode Title="ErrorDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_ErrorDisplay_Show.htm" />
-    <HelpKINode Title="QuestionDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_QuestionDisplay_Show.htm" />
     <HelpKINode Title="StatusDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_StatusDisplay_Show.htm" />
     <HelpKINode Title="WarningDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_WarningDisplay_Show.htm" />
   </HelpKINode>
@@ -918,10 +924,12 @@
   <HelpKINode Title="ToString method">
     <HelpKINode Title="ModelAttribute.ToString Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_ToString.htm" />
     <HelpKINode Title="ModelEnumValue.ToString Method " Url="html/M_Sawczyn_EFDesigner_EFModel_ModelEnumValue_ToString.htm" />
+    <HelpKINode Title="ViewContext.ToString Method " Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_ToString.htm" />
   </HelpKINode>
   <HelpKINode Title="TransformOnSave property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_TransformOnSave.htm" />
   <HelpKINode Title="True enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_AutomaticAction.htm" />
   <HelpKINode Title="Truncate method" Url="html/M_Sawczyn_EFDesigner_EFModel_StringExtensions_Truncate.htm" />
+  <HelpKINode Title="TryParse method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_TryParse.htm" />
   <HelpKINode Title="Type property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Type.htm" />
   <HelpKINode Title="TypeAccessModifier enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_TypeAccessModifier.htm" />
   <HelpKINode Title="Types property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_Types.htm" />
@@ -954,6 +962,21 @@
   <HelpKINode Title="ValueConverter enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="Values property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_Values.htm" />
   <HelpKINode Title="ValueType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelEnum_ValueType.htm" />
+  <HelpKINode Title="ViewContext class">
+    <HelpKINode Title="ViewContext Class" Url="html/T_Mexedge_VisualStudio_Modeling_ViewContext.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Mexedge_VisualStudio_Modeling_ViewContext__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Mexedge_VisualStudio_Modeling_ViewContext.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Mexedge_VisualStudio_Modeling_ViewContext.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ViewContext.DiagramName property" Url="html/P_Mexedge_VisualStudio_Modeling_ViewContext_DiagramName.htm" />
+  <HelpKINode Title="ViewContext.DiagramType property" Url="html/P_Mexedge_VisualStudio_Modeling_ViewContext_DiagramType.htm" />
+  <HelpKINode Title="ViewContext.GetSchema method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_GetSchema.htm" />
+  <HelpKINode Title="ViewContext.ReadXml method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_ReadXml.htm" />
+  <HelpKINode Title="ViewContext.RootElement property" Url="html/P_Mexedge_VisualStudio_Modeling_ViewContext_RootElement.htm" />
+  <HelpKINode Title="ViewContext.ToString method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_ToString.htm" />
+  <HelpKINode Title="ViewContext.TryParse method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_TryParse.htm" />
+  <HelpKINode Title="ViewContext.ViewContext constructor" Url="html/Overload_Mexedge_VisualStudio_Modeling_ViewContext__ctor.htm" />
+  <HelpKINode Title="ViewContext.WriteXml method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_WriteXml.htm" />
   <HelpKINode Title="Virtual property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_Virtual.htm" />
   <HelpKINode Title="WarningDisplay class">
     <HelpKINode Title="WarningDisplay Class" Url="html/T_Sawczyn_EFDesigner_WarningDisplay.htm" />
@@ -962,6 +985,7 @@
   <HelpKINode Title="WarningDisplay.Show method" Url="html/M_Sawczyn_EFDesigner_WarningDisplay_Show.htm" />
   <HelpKINode Title="WarnOnMissingDocumentation property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_WarnOnMissingDocumentation.htm" />
   <HelpKINode Title="Week enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_HTML5Type.htm" />
+  <HelpKINode Title="WriteXml method" Url="html/M_Mexedge_VisualStudio_Modeling_ViewContext_WriteXml.htm" />
   <HelpKINode Title="ZeroMany enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_Multiplicity.htm" />
   <HelpKINode Title="ZeroOne enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_Multiplicity.htm" />
 </HelpKI>
