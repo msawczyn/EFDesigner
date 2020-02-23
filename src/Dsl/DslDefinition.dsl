@@ -676,6 +676,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c336b1f5-b35f-4846-b303-f71257927268" Description="If true, this will be generated as an abstract property" Name="IsAbstract" DisplayName="Abstract" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -2084,6 +2089,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isAutoPropertyTracking">
             <DomainPropertyMoniker Name="ModelAttribute/IsAutoPropertyTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isAbstract">
+            <DomainPropertyMoniker Name="ModelAttribute/IsAbstract" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -1169,6 +1169,18 @@
     <value>Is Auto Property Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsAutoPropertyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.Description" xml:space="preserve">
+    <value>If true, this will be generated as an abstract property</value>
+    <comment>Description for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.DisplayName" xml:space="preserve">
+    <value>Abstract</value>
+    <comment>DisplayName for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>

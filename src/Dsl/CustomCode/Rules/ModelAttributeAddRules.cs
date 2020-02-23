@@ -15,6 +15,8 @@ namespace Sawczyn.EFDesigner.EFModel
          // set a new default value if we want to implement notify, to reduce the chance of forgetting to change it
          if (element.ImplementNotify)
             element.AutoProperty = false;
+
+         element.MaxLength = ModelAttribute.GetDefaultStringLength?.Invoke();
       }
    }
 }

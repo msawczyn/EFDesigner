@@ -718,6 +718,12 @@
             <xsd:documentation>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsAbstract -->
+        <xsd:attribute name="isAbstract" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this will be generated as an abstract property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

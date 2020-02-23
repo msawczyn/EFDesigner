@@ -4224,6 +4224,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // IsAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsAbstract = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isAbstract");
+	         if (attribIsAbstract != null)
+	         {
+	            global::System.Boolean valueOfIsAbstract;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsAbstract, out valueOfIsAbstract))
+	            {
+	               instanceOfModelAttribute.IsAbstract = valueOfIsAbstract;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAbstract", typeof(global::System.Boolean), attribIsAbstract);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -5007,6 +5024,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAutoPropertyTracking", serializedPropValue);
+	            }
+	         }
+	      }
+	      // IsAbstract
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelAttribute.IsAbstract;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAbstract", serializedPropValue);
 	            }
 	         }
 	      }
