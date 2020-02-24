@@ -38,9 +38,9 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       // Editor factory identifier
       public const string <#= dslName #>EditorFactoryId = "<#= this.Dsl.Editor.EditorGuid #>";
       
-      public const string DefaultDiagramExtension = ".diagramx"; // HACK:MEXEDGE
-      public const string LogicalViewId = "<#= Guid.NewGuid() #>"; // HACK:MEXEDGE
-      public static readonly global::System.Guid LogicalView = new global::System.Guid(LogicalViewId); // HACK:MEXEDGE
+      public const string DefaultDiagramExtension = ".diagramx";
+      public const string LogicalViewId = "0c44ed3a-d191-4258-949b-db9fae528907"; 
+      public static readonly global::System.Guid LogicalView = new global::System.Guid(LogicalViewId); 
       
 <#
    if(this.Dsl.Explorer != null)

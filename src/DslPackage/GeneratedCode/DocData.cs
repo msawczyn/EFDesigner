@@ -467,7 +467,7 @@ namespace Sawczyn.EFDesigner.EFModel
          this.ValidationController.Validate(this.GetAllElementsForValidation(), DslValidation::ValidationCategories.Open);
 
          // Enable CompartmentItems events.
-         if (this.Store != null) // HACK:MEXEDGE
+         if (this.Store != null) 
          {
             foreach (var diagram in this.GetDiagrams())
                {

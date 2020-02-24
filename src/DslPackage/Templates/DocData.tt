@@ -548,7 +548,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       {
 #>
          // Enable CompartmentItems events.
-         if (this.Store != null) // HACK:MEXEDGE
+         if (this.Store != null) 
          {
             foreach (var diagram in this.GetDiagrams())
                {

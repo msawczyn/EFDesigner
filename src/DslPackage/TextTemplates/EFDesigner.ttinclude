@@ -549,7 +549,7 @@ void WriteConstructor(ModelClass modelClass)
       Output("/// </summary>");
 
       WriteConstructorComments(modelClass);
-      Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, false))})");
+      Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, null))})");
       Output("{");
 
       if (remarks.Count > 0)
@@ -678,7 +678,7 @@ void WriteDefaultConstructorBody(ModelClass modelClass)
 
    foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public
                                                                            && !string.IsNullOrEmpty(x.InitialValue)
-                                                                           && x.InitialValue != "null"))
+                                                                           && x.InitialValue.Trim('"') != "null"))
    {
       string quote = modelAttribute.Type == "String"
                         ? "\""
