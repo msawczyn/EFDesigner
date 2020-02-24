@@ -86,8 +86,7 @@ private void GenerateDomainModel(Microsoft.VisualStudio.Modeling.DslDefinition.D
       if(diagram != null && (diagram.ShapeMaps.Count > 0 || diagram.ConnectorMaps.Count > 0))
       {
          // View fixup rule
-         //viewFixupTypes.Add("global::" + diagram.Namespace + ".FixUpDiagram"); 
-         viewFixupTypes.Add("global::" + diagram.Namespace + ".FixUpAllDiagrams"); // HACK : MEXEDGE
+         viewFixupTypes.Add("global::" + diagram.Namespace + ".FixUpAllDiagrams"); 
 
          bool hasOuterDecoratorsWithDisplayProperty = false;
          foreach(ConnectorMap map in diagram.ConnectorMaps)
