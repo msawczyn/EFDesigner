@@ -75,7 +75,9 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   string fkPropertyName = e.NewValue?.ToString();
                   bool fkPropertyError = false;
-                  string[] priorForeignKeyPropertyNames = e.OldValue?.ToString().Split(',') ?? new string[0];
+
+                  // these can be multiples, separated by a comma
+                  string[] priorForeignKeyPropertyNames = e.OldValue?.ToString().Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
 
                   IEnumerable<ModelAttribute> priorForeignKeyModelAttributes = string.IsNullOrEmpty(e.OldValue?.ToString())
                                                                                   ? Array.Empty<ModelAttribute>() 

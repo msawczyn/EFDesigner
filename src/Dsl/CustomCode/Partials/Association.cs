@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
@@ -73,7 +72,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public virtual string GetDisplayText()
       {
-         return $"{Source.Name}.{TargetPropertyName} -> {Target.Name}";
+         return $"{Source.Name}.{TargetPropertyName} --> {Target.Name}";
       }
 
       private string GetNameValue()
@@ -134,7 +133,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelElement[] modelElements = { this, Source, Target };
 
          // redraw on every diagram
-         foreach (ShapeElement shapeElement in 
+         foreach (ShapeElement shapeElement in
                modelElements.SelectMany(modelElement => PresentationViewsSubject.GetPresentation(modelElement)
                                                                                 .OfType<ShapeElement>()
                                                                                 .Distinct()))
@@ -165,7 +164,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Source?.ModelRoot == null) return;
 
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType && 
+         if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType &&
              (Target?.Subclasses.Any() == true || Source?.Subclasses.Any() == true))
             context.LogError($"{Source.Name} <=> {Target.Name}: Association endpoints can only be to most-derived classes in TPC inheritance strategy", "AEWrongEndpoints", this);
       }

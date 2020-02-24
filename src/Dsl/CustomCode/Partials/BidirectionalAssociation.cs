@@ -35,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override string GetDisplayText()
       {
-         return $"{Source.Name}.{TargetPropertyName} <-> {Target.Name}.{SourcePropertyName}";
+         return $"{Source.Name}.{TargetPropertyName} <--> {Target.Name}.{SourcePropertyName}";
       }
 
       #region SourceImplementNotify tracking property
