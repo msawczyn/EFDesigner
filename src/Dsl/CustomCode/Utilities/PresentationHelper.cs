@@ -158,6 +158,21 @@ namespace Sawczyn.EFDesigner.EFModel
                classShape.OutlineDashStyle = DashStyle.Solid;
             }
          }
+
+         // ensure foreign key attributes have the proper setting to surface the right glyph
+         foreach (ModelAttribute modelAttribute in element.Attributes)
+            modelAttribute.IsForeignKey = false;
+
+         foreach (ModelAttribute modelAttribute in element.Store.ElementDirectory.AllElements
+                                                          .OfType<Association>()
+                                                          .Where(a => a.Dependent == element && 
+                                                                      !string.IsNullOrEmpty(a.FKPropertyName))
+                                                          .SelectMany(association => association.FKPropertyName.Split(',')
+                                                                                                .Select(propertyName => element.Attributes.FirstOrDefault(attr => attr.Name == propertyName))
+                                                                                                .Where(modelAttribute => modelAttribute != null)))
+         {
+            modelAttribute.IsForeignKey = true;
+         }
       }
    }
 }

@@ -338,6 +338,8 @@ public partial class EFModelDomainModel : DslModeling::DomainModel
 
          new DomainMemberInfo(typeof(ModelAttribute), "IsAbstract", ModelAttribute.IsAbstractDomainPropertyId, typeof(ModelAttribute.IsAbstractPropertyHandler)),
 
+         new DomainMemberInfo(typeof(ModelAttribute), "IsForeignKey", ModelAttribute.IsForeignKeyDomainPropertyId, typeof(ModelAttribute.IsForeignKeyPropertyHandler)),
+
          new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 
          new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),

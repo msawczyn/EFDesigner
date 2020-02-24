@@ -38,7 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public const string EFModelEditorFactoryId = "4e135186-c9c4-4b55-8959-217a3e025622";
       
       public const string DefaultDiagramExtension = ".diagramx"; // HACK:MEXEDGE
-      public const string LogicalViewId = "3db7fce6-0a12-4c2c-a6f0-b162eb1fa6e1"; // HACK:MEXEDGE
+      public const string LogicalViewId = "0eaf13f0-00db-4408-b3a4-47e1d569731a"; // HACK:MEXEDGE
       public static readonly global::System.Guid LogicalView = new global::System.Guid(LogicalViewId); // HACK:MEXEDGE
       
 

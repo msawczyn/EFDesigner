@@ -54,6 +54,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - Added ability to specify foreign key properties (See https://github.com/msawczyn/EFDesigner/issues/55)
+   - Foreign key properties have a unique glyph so they can be easily picked out of the crowd
    - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - Added options dialog (Tools/Options/Entity Framework Visual Editor)

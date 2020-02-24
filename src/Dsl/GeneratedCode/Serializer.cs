@@ -5289,6 +5289,29 @@ public partial class ModelAttributeSerializer : DslModeling::DomainClassXmlSeria
          }
       }
 
+      // IsForeignKey
+      if (!serializationContext.Result.Failed)
+      {
+         string attribIsForeignKey = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isForeignKey");
+         if (attribIsForeignKey != null)
+         {
+            global::System.Boolean valueOfIsForeignKey;
+            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsForeignKey, out valueOfIsForeignKey))
+            {
+
+               // Non-public setter, use DomainPropertyInfo method.
+               DslModeling::DomainPropertyInfo propInfo = instanceOfModelAttribute.Partition.DomainDataDirectory.GetDomainProperty (ModelAttribute.IsForeignKeyDomainPropertyId);
+               global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelAttribute.IsForeignKey!");
+               propInfo.SetValue(instanceOfModelAttribute, valueOfIsForeignKey);
+
+            }
+            else
+            {   // Invalid property value, ignored.
+               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isForeignKey", typeof(global::System.Boolean), attribIsForeignKey);
+            }
+         }
+      }
+
    }
 
 
@@ -6337,6 +6360,23 @@ public partial class ModelAttributeSerializer : DslModeling::DomainClassXmlSeria
             {   // No need to write the value out if it's the same as default value.
                EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAbstract", serializedPropValue);
             }
+
+         }
+      }
+
+      // IsForeignKey
+
+      if (!serializationContext.Result.Failed)
+      {
+
+         global::System.Boolean propValue = instanceOfModelAttribute.IsForeignKey;
+
+         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+
+         if (!serializationContext.Result.Failed)
+         {
+
+            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isForeignKey", serializedPropValue);
 
          }
       }

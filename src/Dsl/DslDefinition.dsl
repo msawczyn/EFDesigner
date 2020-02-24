@@ -681,6 +681,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="8282d835-2c0e-4d59-a638-6d3c6e494260" Description="If true, this attribute is a user-defined foreign key." Name="IsForeignKey" DisplayName="Is Foreign Key" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -2092,6 +2097,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isAbstract">
             <DomainPropertyMoniker Name="ModelAttribute/IsAbstract" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isForeignKey">
+            <DomainPropertyMoniker Name="ModelAttribute/IsForeignKey" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

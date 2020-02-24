@@ -20,7 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         foreach (ModelAttribute fkAttribute in element.ForeignKeyPropertyNames
+         foreach (ModelAttribute fkAttribute in element.GetForeignKeyPropertyNames()
                                                        .Select(propertyName => element.Dependent?.Attributes?.FirstOrDefault(a => a.Name == propertyName))
                                                        .Where(x => x != null))
             fkAttribute.SetLocks(Locks.None);

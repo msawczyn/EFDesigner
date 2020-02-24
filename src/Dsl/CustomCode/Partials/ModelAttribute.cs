@@ -32,7 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return $"{ModelClass.Name}.{Name}";
       }
 
-#region Warning display
+      #region Warning display
 
       // set as methods to avoid issues around serialization
 
@@ -53,7 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (ParentModelElement != null)
          {
-            foreach (ShapeElement shapeElement in 
+            foreach (ShapeElement shapeElement in
                   PresentationViewsSubject.GetPresentation(ParentModelElement as ModelElement).OfType<ShapeElement>().Distinct())
                shapeElement.Invalidate();
          }

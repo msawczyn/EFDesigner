@@ -70,6 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void ExpandShape() => SetIsExpandedValue(true);
 
+      /// <inheritdoc />
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)
       {
          CompartmentMapping[] mappings = base.GetCompartmentMappings(melType);
@@ -122,9 +123,12 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
                return Resources.Warning;
 
-            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (attribute.IsIdentity)
                return Resources.Identity;
+
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            if (attribute.IsForeignKey)
+               return Resources.ForeignKey;
 
             return AttributeGlyphs[attribute.Persistent][attribute.SetterVisibility];
          }

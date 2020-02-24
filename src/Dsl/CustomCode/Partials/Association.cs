@@ -66,12 +66,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Gets the individual foreign key property names defined in the FKPropertyName property
       /// </summary>
-      public string[] ForeignKeyPropertyNames
+      public string[] GetForeignKeyPropertyNames()
       {
-         get
-         {
-            return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
-         }
+         return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
       }
 
       public virtual string GetDisplayText()
@@ -96,9 +93,9 @@ namespace Sawczyn.EFDesigner.EFModel
             Target.ModelRoot.ExposeForeignKeys = true;
             ModelAttribute[] principalIdentityAttributes = Principal.AllIdentityAttributes.ToArray();
 
-            for (int index = 0; index < ForeignKeyPropertyNames.Length; index++)
+            for (int index = 0; index < GetForeignKeyPropertyNames().Length; index++)
             {
-               string fkPropertyName = ForeignKeyPropertyNames[index];
+               string fkPropertyName = GetForeignKeyPropertyNames()[index];
 
                // shouldn't need bounds check ... by now, fkPropertyNames.Length and principalIdentityAttributes.Length should always match
                fkParent.EnsureForeignKeyAttribute(fkPropertyName
@@ -118,7 +115,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private string GetTargetPropertyNameDisplayValue()
       {
          return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
-                   ? $"{TargetPropertyName}\n[{string.Join(", ", ForeignKeyPropertyNames.Select(n => $"{Source.Name}.{n.Trim()}"))}]"
+                   ? $"{TargetPropertyName}\n[{string.Join(", ", GetForeignKeyPropertyNames().Select(n => $"{Source.Name}.{n.Trim()}"))}]"
                    : TargetPropertyName;
       }
 

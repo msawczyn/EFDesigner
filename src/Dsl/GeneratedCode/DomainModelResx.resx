@@ -1181,6 +1181,14 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKey.Description" xml:space="preserve">
+    <value>If true, this attribute is a user-defined foreign key.</value>
+    <comment>Description for DomainProperty &apos;IsForeignKey&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKey.DisplayName" xml:space="preserve">
+    <value>Is Foreign Key</value>
+    <comment>DisplayName for DomainProperty &apos;IsForeignKey&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>
