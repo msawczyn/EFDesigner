@@ -1,4 +1,5 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -75,6 +76,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   string fkPropertyName = e.NewValue?.ToString();
                   bool fkPropertyError = false;
 
+                  // these can be multiples, separated by a comma
+                  string[] priorForeignKeyPropertyNames = e.OldValue?.ToString().Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
+
+                  IEnumerable<ModelAttribute> priorForeignKeyModelAttributes = string.IsNullOrEmpty(e.OldValue?.ToString())
+                                                                                  ? Array.Empty<ModelAttribute>() 
+                                                                                  : priorForeignKeyPropertyNames.Select(oldValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue))
+                                                                                                                .ToArray();
+
                   if (!string.IsNullOrEmpty(fkPropertyName))
                   {
                      string tag = $"({element.Source.Name}:{element.Target.Name})";
@@ -85,7 +94,8 @@ namespace Sawczyn.EFDesigner.EFModel
                         break;
                      }
 
-                     int propertyCount = element.ForeignKeyPropertyNames.Length;
+                     string[] foreignKeyPropertyNames = element.GetForeignKeyPropertyNames();
+                     int propertyCount = foreignKeyPropertyNames.Length;
                      int identityCount = element.Principal.AllIdentityAttributes.Count();
 
                      if (propertyCount != identityCount)
@@ -95,7 +105,8 @@ namespace Sawczyn.EFDesigner.EFModel
                         fkPropertyError = true;
                      }
 
-                     foreach (string propertyName in element.ForeignKeyPropertyNames)
+                     // validate names
+                     foreach (string propertyName in foreignKeyPropertyNames)
                      {
                         if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
                         {
@@ -110,28 +121,29 @@ namespace Sawczyn.EFDesigner.EFModel
                         }
                      }
 
-
                      if (!fkPropertyError)
                      {
-                        // remove any locks on the attributes that were foreign keys
-                        string[] oldValues = e.OldValue?.ToString().Split(',') ?? new string[0];
-
-                        foreach (string oldValue in oldValues)
-                           element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue)?.SetLocks(Locks.None);
+                        // remove any flags and locks on the attributes that were foreign keys
+                        foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
+                        {
+                           modelAttribute.SetLocks(Locks.None);
+                           modelAttribute.Summary = null;
+                           modelAttribute.IsForeignKey = false;
+                           modelAttribute.RedrawItem();
+                        }
 
                         element.EnsureForeignKeyAttributes();
 
-                        // add delete locks to the attributes that are now foreign keys
-                        // ReSharper disable once LoopCanBePartlyConvertedToQuery
-                        foreach (string propertyName in element.ForeignKeyPropertyNames)
+                        IEnumerable<ModelAttribute> currentForeignKeyModelAttributes = foreignKeyPropertyNames.Select(newValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == newValue));
+
+                        // add delete flags and locks to the attributes that are now foreign keys
+                        foreach (ModelAttribute modelAttribute in currentForeignKeyModelAttributes)
                         {
-                           ModelAttribute fkAttribute = element.Dependent.Attributes.FirstOrDefault(a => a.Name == propertyName);
-                           if (fkAttribute != null)
-                           {
-                              fkAttribute.SetLocks(Locks.None);
-                              fkAttribute.Summary = $"Foreign key for {element.GetDisplayText()}";
-                              fkAttribute.SetLocks(Locks.Delete);
-                           }
+                           modelAttribute.SetLocks(Locks.None);
+                           modelAttribute.Summary = $"Foreign key for {element.GetDisplayText()}";
+                           modelAttribute.SetLocks(Locks.Delete);
+                           modelAttribute.IsForeignKey = true;
+                           modelAttribute.RedrawItem();
                         }
                      }
                   }
@@ -139,17 +151,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   {
                      // foreign key was removed
                      // remove locks
-                     string[] oldValues = e.OldValue?.ToString().Split(',') ?? new string[0];
-
-                     // ReSharper disable once LoopCanBePartlyConvertedToQuery
-                     foreach (string oldValue in oldValues)
+                     foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
                      {
-                        ModelAttribute attribute = element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue);
-                        if (attribute != null)
-                        {
-                           attribute.Summary = null;
-                           attribute.SetLocks(Locks.None);
-                        }
+                        modelAttribute.SetLocks(Locks.None);
+                        modelAttribute.Summary = null;
+                        modelAttribute.IsForeignKey = false;
                      }
                   }
                }

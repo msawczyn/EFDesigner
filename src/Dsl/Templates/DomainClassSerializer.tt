@@ -11,7 +11,7 @@ private string GenerateDomainClassSerializer(XmlSerializationBehavior behavior, 
    string classTypeString = domainClass.GetRelativeName (namespaceString, true);
    bool isRelationship = (domainClass is DomainRelationship);
    bool isAbstract = (domainClass.InheritanceModifier == InheritanceModifier.Abstract);
-    bool isDiagram= ((domainClass.DslLibrary is Dsl) && domainClass == ((Dsl)domainClass.DslLibrary).Diagram); // HACK : MEXEDGE
+   bool isDiagram = ((domainClass.DslLibrary is Dsl) && domainClass == ((Dsl)domainClass.DslLibrary).Diagram); // HACK : MEXEDGE
 
    bool isSealed = (domainClass.InheritanceModifier == InheritanceModifier.Sealed);
    bool monikerizationSupportOnly = false;
@@ -23,12 +23,14 @@ private string GenerateDomainClassSerializer(XmlSerializationBehavior behavior, 
       if (((DomainRelationship)domainClass).IsEmbedding)
       {
          if (omitElement)
-         {   // This relationship will not participate in Read/Write actions directly,
+         {   
+            // This relationship will not participate in Read/Write actions directly,
             // no need to generate serializer for it.
             return string.Empty;
          }
          else
-         {   // Need to handle the case where the relationship is serialized in full-form, but should be in short-form, or vice versa.
+         {   
+            // Need to handle the case where the relationship is serialized in full-form, but should be in short-form, or vice versa.
             readSupportOnly = true;
          }
       }
@@ -48,7 +50,8 @@ private string GenerateDomainClassSerializer(XmlSerializationBehavior behavior, 
             }
          }
          else
-         {   // There's something wrong with this relationship. It's a reference relationship, but pointing to elements
+         {   
+            // There's something wrong with this relationship. It's a reference relationship, but pointing to elements
             // that cannot be monikerized.
             return string.Empty;
          }
@@ -2237,7 +2240,7 @@ namespace <#= namespaceString #>
 <#+
             if (!isRelationship)
             {
-                        if(!isDiagram) // HACK : MEXEDGE
+                        if(!isDiagram)
                         {
 #>
          return new <#=classTypeString #>(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
@@ -2246,7 +2249,7 @@ namespace <#= namespaceString #>
                         else
                         {
 #>
-            string typeStr = reader.GetAttribute("type"); // HACK : MEXEDGE
+            string typeStr = reader.GetAttribute("type"); 
             if (!string.IsNullOrEmpty(typeStr))
            {
                 global::System.Type type = global::System.Type.GetType(typeStr);
@@ -2311,7 +2314,7 @@ namespace <#= namespaceString #>
                         else
                         {
 #>
-        string typeStr = reader.GetAttribute("type"); // HACK : MEXEDGE
+        string typeStr = reader.GetAttribute("type"); 
         if (!string.IsNullOrEmpty(typeStr))
        {
             global::System.Type type = global::System.Type.GetType(typeStr);
@@ -3914,4 +3917,3 @@ private void GenerateResetMethod(bool isSealed)
    }
 } // GenerateResetMethod()
 #>
-

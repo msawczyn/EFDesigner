@@ -724,6 +724,12 @@
             <xsd:documentation>If true, this will be generated as an abstract property</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsForeignKey -->
+        <xsd:attribute name="isForeignKey" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this attribute is a user-defined foreign key.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -2198,4 +2204,5 @@
   </xsd:simpleType>
   
 </xsd:schema>
+
 

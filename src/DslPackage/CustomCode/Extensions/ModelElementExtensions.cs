@@ -112,7 +112,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return true;
          }
 
-         // If the model element does not have a shape, try to cast it IModelElementCompartmented
+         // If the model element does not have a shape, try to cast it IModelElementCompartment
 
          if (modelElement is IModelElementInCompartment compartmentedModelElement)
          {

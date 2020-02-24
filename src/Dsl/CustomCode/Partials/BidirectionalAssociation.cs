@@ -14,7 +14,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private string GetSourcePropertyNameDisplayValue()
       {
          return TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
-                   ? $"{SourcePropertyName}\n[{string.Join(", ", ForeignKeyPropertyNames.Select(n => $"{Target.Name}.{n.Trim()}"))}]"
+                   ? $"{SourcePropertyName}\n[{string.Join(", ", GetForeignKeyPropertyNames().Select(n => $"{Target.Name}.{n.Trim()}"))}]"
                    : SourcePropertyName;
       }
 
@@ -35,7 +35,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override string GetDisplayText()
       {
-         return $"{Source.Name}.{TargetPropertyName} <-> {Target.Name}.{SourcePropertyName}";
+         return $"{Source.Name}.{TargetPropertyName} <--> {Target.Name}.{SourcePropertyName}";
       }
 
       #region SourceImplementNotify tracking property

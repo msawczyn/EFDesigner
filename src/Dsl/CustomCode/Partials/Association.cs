@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Validation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
@@ -66,17 +65,14 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Gets the individual foreign key property names defined in the FKPropertyName property
       /// </summary>
-      public string[] ForeignKeyPropertyNames
+      public string[] GetForeignKeyPropertyNames()
       {
-         get
-         {
-            return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
-         }
+         return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
       }
 
       public virtual string GetDisplayText()
       {
-         return $"{Source.Name}.{TargetPropertyName} -> {Target.Name}";
+         return $"{Source.Name}.{TargetPropertyName} --> {Target.Name}";
       }
 
       private string GetNameValue()
@@ -96,9 +92,9 @@ namespace Sawczyn.EFDesigner.EFModel
             Target.ModelRoot.ExposeForeignKeys = true;
             ModelAttribute[] principalIdentityAttributes = Principal.AllIdentityAttributes.ToArray();
 
-            for (int index = 0; index < ForeignKeyPropertyNames.Length; index++)
+            for (int index = 0; index < GetForeignKeyPropertyNames().Length; index++)
             {
-               string fkPropertyName = ForeignKeyPropertyNames[index];
+               string fkPropertyName = GetForeignKeyPropertyNames()[index];
 
                // shouldn't need bounds check ... by now, fkPropertyNames.Length and principalIdentityAttributes.Length should always match
                fkParent.EnsureForeignKeyAttribute(fkPropertyName
@@ -118,7 +114,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private string GetTargetPropertyNameDisplayValue()
       {
          return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
-                   ? $"{TargetPropertyName}\n[{string.Join(", ", ForeignKeyPropertyNames.Select(n => $"{Source.Name}.{n.Trim()}"))}]"
+                   ? $"{TargetPropertyName}\n[{string.Join(", ", GetForeignKeyPropertyNames().Select(n => $"{Source.Name}.{n.Trim()}"))}]"
                    : TargetPropertyName;
       }
 
@@ -137,7 +133,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelElement[] modelElements = { this, Source, Target };
 
          // redraw on every diagram
-         foreach (ShapeElement shapeElement in 
+         foreach (ShapeElement shapeElement in
                modelElements.SelectMany(modelElement => PresentationViewsSubject.GetPresentation(modelElement)
                                                                                 .OfType<ShapeElement>()
                                                                                 .Distinct()))
@@ -168,7 +164,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Source?.ModelRoot == null) return;
 
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType && 
+         if (modelRoot?.InheritanceStrategy == CodeStrategy.TablePerConcreteType &&
              (Target?.Subclasses.Any() == true || Source?.Subclasses.Any() == true))
             context.LogError($"{Source.Name} <=> {Target.Name}: Association endpoints can only be to most-derived classes in TPC inheritance strategy", "AEWrongEndpoints", this);
       }

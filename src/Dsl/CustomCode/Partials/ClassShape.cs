@@ -60,6 +60,53 @@ namespace Sawczyn.EFDesigner.EFModel
                                     }},
          };
 
+      /// <summary>  
+      /// Override to indicate that this shape has tool tips  
+      /// </summary>  
+      public override bool HasToolTip
+      {
+         get
+         {
+            return true;
+         }
+      }
+
+      /// <summary>  
+      /// Return the tooltip text for the specified item  
+      /// </summary>  
+      /// <param name="item">A DiagramItem for the selected shape. This could be the shape, or a nested child shape or field.</param>  
+      public override string GetToolTipText(DiagramItem item)  
+      {  
+    
+         // Work out which shape is selected - is it this ClassShape, or  
+         // is it one of the comparment shapes it contains?  
+         if (item.Shape is ElementListCompartment compartment)
+         {
+            // It's a compartment shape.  
+            // Get a list of the elements that are represented by diagram item (should be only one)  
+            ModelAttribute modelAttribute = compartment.GetSubFieldRepresentedElements(item.Field, item.SubField)
+                                                       .OfType<ModelAttribute>()
+                                                       .FirstOrDefault(a => a.IsForeignKey);
+
+            if (modelAttribute != null)
+            {
+               // Find the association this belongs with
+               ModelClass modelClass = modelAttribute.ModelClass;
+
+               Association association = modelClass.Store.ElementDirectory
+                                                   .AllElements
+                                                   .OfType<Association>()
+                                                   .FirstOrDefault(a => (a.Source == modelClass || a.Target == modelClass)
+                                                                     && a.GetForeignKeyPropertyNames().Contains(modelAttribute.Name));
+
+               if (association != null)
+                  return $"FK for [{association.GetDisplayText()}]";
+            }
+         }
+
+         return base.GetToolTipText(item);  
+      }  
+
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu
       /// </summary>
@@ -70,6 +117,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void ExpandShape() => SetIsExpandedValue(true);
 
+      /// <inheritdoc />
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)
       {
          CompartmentMapping[] mappings = base.GetCompartmentMappings(melType);
@@ -122,9 +170,12 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
                return Resources.Warning;
 
-            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (attribute.IsIdentity)
                return Resources.Identity;
+
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            if (attribute.IsForeignKey)
+               return Resources.ForeignKey;
 
             return AttributeGlyphs[attribute.Persistent][attribute.SetterVisibility];
          }
@@ -230,8 +281,6 @@ namespace Sawczyn.EFDesigner.EFModel
                      using (Transaction t = parentFrom.Store.TransactionManager.BeginTransaction("Move list item"))
                      {
                         parentFromLink.MoveToIndex(parentFromRole, newIndex);
-                        // HACK
-                        //parentTo.SetFlagValues();
                         t.Commit();
                      }
                   }
@@ -241,7 +290,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      ///    Attach mouse listeners to the compartments for the shape.
+      ///    Attach mouse listeners to the compartments for the shape amd register that they may have tool tips as well
       ///    This is called once per compartment shape.
       ///    The base method creates the compartments for this shape.
       /// </summary>
@@ -249,8 +298,10 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.EnsureCompartments();
 
-         foreach (Compartment compartment in NestedChildShapes.OfType<Compartment>())
+         foreach (ElementListCompartment compartment in NestedChildShapes.OfType<ElementListCompartment>())
          {
+            compartment.HasItemToolTips = true;
+         
             compartment.MouseDown += Compartment_MouseDown;
             compartment.MouseUp += Compartment_MouseUp;
             compartment.MouseMove += Compartment_MouseMove;

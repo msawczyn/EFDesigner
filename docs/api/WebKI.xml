@@ -21,8 +21,8 @@
   <HelpKINode Title="Association.FKPropertyName property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_FKPropertyName.htm" />
   <HelpKINode Title="Association.FKPropertyNameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_FKPropertyNameDomainPropertyId.htm" />
   <HelpKINode Title="Association.ForeignKeyLocation property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_ForeignKeyLocation.htm" />
-  <HelpKINode Title="Association.ForeignKeyPropertyNames property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_ForeignKeyPropertyNames.htm" />
   <HelpKINode Title="Association.GetDisplayText method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetDisplayText.htm" />
+  <HelpKINode Title="Association.GetForeignKeyPropertyNames method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetForeignKeyPropertyNames.htm" />
   <HelpKINode Title="Association.GetLinks method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinks.htm" />
   <HelpKINode Title="Association.GetLinksToSources method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinksToSources.htm" />
   <HelpKINode Title="Association.GetLinksToTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinksToTargets.htm" />
@@ -273,7 +273,6 @@
   <HelpKINode Title="FKPropertyNameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_FKPropertyNameDomainPropertyId.htm" />
   <HelpKINode Title="ForeignKeyLocation property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_ForeignKeyLocation.htm" />
   <HelpKINode Title="ForeignKeyOwner enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ForeignKeyOwner.htm" />
-  <HelpKINode Title="ForeignKeyPropertyNames property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_ForeignKeyPropertyNames.htm" />
   <HelpKINode Title="FQPrimitiveType property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelAttribute_FQPrimitiveType.htm" />
   <HelpKINode Title="FullName property">
     <HelpKINode Title="ModelClass.FullName Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_FullName.htm" />
@@ -320,6 +319,7 @@
   </HelpKINode>
   <HelpKINode Title="GetEntityFrameworkPackageVersionNum method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetEntityFrameworkPackageVersionNum.htm" />
   <HelpKINode Title="GetFirstShapeElement method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetFirstShapeElement.htm" />
+  <HelpKINode Title="GetForeignKeyPropertyNames method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetForeignKeyPropertyNames.htm" />
   <HelpKINode Title="GetLink method" Url="html/M_Sawczyn_EFDesigner_EFModel_Generalization_GetLink.htm" />
   <HelpKINode Title="GetLinks method">
     <HelpKINode Title="Association.GetLinks Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetLinks.htm" />

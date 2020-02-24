@@ -406,6 +406,7 @@
     <None Include="Resources\Move.cur" />
     <Content Include="Resources\EnumValue.bmp" />
     <Content Include="Resources\EnumValue.png" />
+    <Content Include="Resources\ForeignKey.png" />
     <Content Include="Resources\KeyRight_left_16x.png" />
     <Content Include="Resources\No.png" />
     <Content Include="Resources\ShowDiagramPane_16x.png" />

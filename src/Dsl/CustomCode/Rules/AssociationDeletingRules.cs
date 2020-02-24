@@ -1,5 +1,4 @@
-﻿using System.Data.Entity.Design.PluralizationServices;
-using System.Linq;
+﻿using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Immutability;
@@ -20,10 +19,14 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         foreach (ModelAttribute fkAttribute in element.ForeignKeyPropertyNames
+         foreach (ModelAttribute fkAttribute in element.GetForeignKeyPropertyNames()
                                                        .Select(propertyName => element.Dependent?.Attributes?.FirstOrDefault(a => a.Name == propertyName))
                                                        .Where(x => x != null))
+         {
             fkAttribute.SetLocks(Locks.None);
+            fkAttribute.IsForeignKey = false;
+            fkAttribute.RedrawItem();
+         }
       }
    }
 }
