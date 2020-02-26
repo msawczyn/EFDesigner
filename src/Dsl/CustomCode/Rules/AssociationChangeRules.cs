@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Immutability;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
@@ -140,7 +142,7 @@ namespace Sawczyn.EFDesigner.EFModel
                         foreach (ModelAttribute modelAttribute in currentForeignKeyModelAttributes)
                         {
                            modelAttribute.SetLocks(Locks.None);
-                           modelAttribute.Summary = $"Foreign key for {element.GetDisplayText()}";
+                           modelAttribute.Summary = $"Foreign key for {element.GetDisplayText()}. {modelAttribute.Summary}";
                            modelAttribute.SetLocks(Locks.Delete);
                            modelAttribute.IsForeignKey = true;
                            modelAttribute.RedrawItem();
@@ -154,10 +156,19 @@ namespace Sawczyn.EFDesigner.EFModel
                      foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
                      {
                         modelAttribute.SetLocks(Locks.None);
-                        modelAttribute.Summary = null;
                         modelAttribute.IsForeignKey = false;
+
+                        string addedSummaryText = $"Foreign key for {element.GetDisplayText()}. ";
+
+                        modelAttribute.Summary = modelAttribute.Summary.Length >= addedSummaryText.Length
+                                                    ? modelAttribute.Summary.Substring(addedSummaryText.Length)
+                                                    : null;
+
+                        modelAttribute.RedrawItem();
                      }
                   }
+
+                  element.RedrawItem();
                }
 
                break;
@@ -206,6 +217,7 @@ namespace Sawczyn.EFDesigner.EFModel
                // cascade delete behavior could now be illegal. Reset to default
                element.SourceDeleteAction = DeleteAction.Default;
                element.TargetDeleteAction = DeleteAction.Default;
+               element.RedrawItem();
 
                break;
 
@@ -217,6 +229,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   errorMessages.Add(sourcePropertyNameErrorMessage);
 
+               element.RedrawItem();
                break;
 
             case "SourceRole":
@@ -234,6 +247,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TargetRole = EndpointRole.Dependent;
                }
 
+               element.RedrawItem();
                break;
 
             case "TargetCustomAttributes":
@@ -250,6 +264,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                CheckTargetForDisplayText(element);
 
+               element.RedrawItem();
                break;
 
             case "TargetMultiplicity":
@@ -281,6 +296,7 @@ namespace Sawczyn.EFDesigner.EFModel
                element.SourceDeleteAction = DeleteAction.Default;
                element.TargetDeleteAction = DeleteAction.Default;
 
+               element.RedrawItem();
                break;
 
             case "TargetPropertyName":
@@ -297,6 +313,7 @@ namespace Sawczyn.EFDesigner.EFModel
                else
                   errorMessages.Add(targetPropertyNameErrorMessage);
 
+               element.RedrawItem();
                break;
 
             case "TargetRole":
@@ -314,6 +331,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.SourceRole = EndpointRole.Dependent;
                }
 
+               element.RedrawItem();
                break;
          }
 
