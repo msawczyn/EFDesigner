@@ -311,7 +311,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (!element.IsValidInitialValue(newType))
                      element.InitialValue = null;
 
-                  if (!element.MaxLength.HasValue)
+                  if (!modelClass.Store.InSerializationTransaction && !element.MaxLength.HasValue)
                      element.MaxLength = ModelAttribute.GetDefaultStringLength?.Invoke();
                }
 
