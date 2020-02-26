@@ -202,7 +202,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot.GetCurrentDiagram = GetCurrentDiagram;
          ModelDiagramData.OpenDiagram = DisplayDiagram;
          ModelDiagramData.CloseDiagram = CloseDiagram;
-         ModelAttribute.GetDefaultStringLength = GetDefaultStringLength;
+         //ModelAttribute.GetDefaultStringLength = GetDefaultStringLength;
 
          // set to the project's namespace if no namespace set
          if (string.IsNullOrEmpty(modelRoot.Namespace))
@@ -342,10 +342,10 @@ namespace Sawczyn.EFDesigner.EFModel
          SetDocDataDirty(0);
       }
 
-      private int? GetDefaultStringLength()
-      {
-         return EFModelPackage.Options.DefaultStringLength;
-      }
+      //private int? GetDefaultStringLength()
+      //{
+      //   return EFModelPackage.Options.DefaultStringLength;
+      //}
 
       private void DisplayDiagram(string diagramName)
       {

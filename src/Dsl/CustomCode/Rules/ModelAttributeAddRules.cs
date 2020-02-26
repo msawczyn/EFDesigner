@@ -16,8 +16,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (element.ImplementNotify)
             element.AutoProperty = false;
 
-         if (!modelClass.Store.InSerializationTransaction)
-            element.MaxLength = ModelAttribute.GetDefaultStringLength?.Invoke();
+         //if (!modelClass.Store.InSerializationTransaction && element.Type == "String" && !element.MaxLength.HasValue)
+         //   element.MaxLength = ModelAttribute.GetDefaultStringLength?.Invoke();
       }
    }
 }

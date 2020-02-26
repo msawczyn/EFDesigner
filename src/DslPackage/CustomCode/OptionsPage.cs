@@ -15,9 +15,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage
       [Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
       public string DotExePath { get; set; }
 
-      [Category("Code Generation")]
-      [DisplayName("Default string length")]
-      [Description("Initial length of all string properties. Can be blank for no default")]
-      public int? DefaultStringLength { get; set; }
+      //[Category("Code Generation")]
+      //[DisplayName("Default string length")]
+      //[Description("Initial length of all string properties. Can be blank for no default")]
+      //public int? DefaultStringLength { get; set; }
    }
 }

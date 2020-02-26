@@ -17,7 +17,7 @@ namespace Sawczyn.EFDesigner.EFModel
       internal const int MAXLENGTH_MAX = -1;
       internal const int MAXLENGTH_UNDEFINED = 0;
 
-      public static Func<int?> GetDefaultStringLength { get; set; }
+      //public static Func<int?> GetDefaultStringLength { get; set; }
 
       /// <summary>Gets the parent model element (ModelClass).</summary>
       /// <value>The parent model element.</value>
