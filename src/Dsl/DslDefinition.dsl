@@ -1047,6 +1047,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="37a67510-4e09-4d8b-a0b1-a3401b2a5f15" Description="Optional name of the database table used to join the two end classes for many-to-many associations. If empty, a reasonable default name will be used." Name="JoinTableName" DisplayName="Join Table Name" DefaultValue="" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="d2edf927-64c2-4fe3-8d4e-c44e87142c4c" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -1774,6 +1779,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="name" Representation="Ignore">
             <DomainPropertyMoniker Name="Association/Name" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="joinTableName">
+            <DomainPropertyMoniker Name="Association/JoinTableName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

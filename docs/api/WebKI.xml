@@ -33,6 +33,8 @@
   <HelpKINode Title="Association.GetTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetTargets.htm" />
   <HelpKINode Title="Association.IsTargetImplementNotifyTracking property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTracking.htm" />
   <HelpKINode Title="Association.IsTargetImplementNotifyTrackingDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTrackingDomainPropertyId.htm" />
+  <HelpKINode Title="Association.JoinTableName property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_JoinTableName.htm" />
+  <HelpKINode Title="Association.JoinTableNameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_JoinTableNameDomainPropertyId.htm" />
   <HelpKINode Title="Association.Name property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Name.htm" />
   <HelpKINode Title="Association.NameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_NameDomainPropertyId.htm" />
   <HelpKINode Title="Association.Persistent property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Persistent.htm" />
@@ -393,6 +395,8 @@
   <HelpKINode Title="IsTargetImplementNotifyTrackingDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_IsTargetImplementNotifyTrackingDomainPropertyId.htm" />
   <HelpKINode Title="IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_IsValidCLRType.htm" />
   <HelpKINode Title="IsValidInitialValue method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelAttribute_IsValidInitialValue.htm" />
+  <HelpKINode Title="JoinTableName property" Url="html/P_Sawczyn_EFDesigner_EFModel_Association_JoinTableName.htm" />
+  <HelpKINode Title="JoinTableNameDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_Association_JoinTableNameDomainPropertyId.htm" />
   <HelpKINode Title="LayoutDiagram method" Url="html/M_Sawczyn_EFDesigner_ModelDisplay_LayoutDiagram.htm" />
   <HelpKINode Title="LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
   <HelpKINode Title="List enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_CollectionType.htm" />

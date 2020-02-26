@@ -170,6 +170,9 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
                return Resources.Warning;
 
+            if (attribute.IsIdentity && attribute.IsForeignKey)
+               return Resources.ForeignKeyIdentity;
+
             if (attribute.IsIdentity)
                return Resources.Identity;
 

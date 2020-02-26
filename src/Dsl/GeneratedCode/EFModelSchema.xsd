@@ -1195,6 +1195,12 @@
             <xsd:documentation>Name of property holding foreign key value for this association</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: JoinTableName -->
+        <xsd:attribute name="joinTableName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Optional name of the database table used to join the two end classes for many-to-many associations. If empty, a reasonable default name will be used.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -2204,5 +2210,4 @@
   </xsd:simpleType>
   
 </xsd:schema>
-
 

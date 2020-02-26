@@ -2076,6 +2076,96 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region JoinTableName domain property code
+		
+		/// <summary>
+		/// JoinTableName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid JoinTableNameDomainPropertyId = new global::System.Guid(0x37a67510, 0x4e09, 0x4d8b, 0xa0, 0xb1, 0xa3, 0x40, 0x1b, 0x2a, 0x5f, 0x15);
+		
+		/// <summary>
+		/// Storage for JoinTableName
+		/// </summary>
+		private global::System.String joinTableNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of JoinTableName domain property.
+		/// Optional name of the database table used to join the two end classes for
+		/// many-to-many associations. If empty, a reasonable default name will be used.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/JoinTableName.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/JoinTableName.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/JoinTableName.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("")]
+		[DslModeling::DomainObjectId("37a67510-4e09-4d8b-a0b1-a3401b2a5f15")]
+		public global::System.String JoinTableName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return joinTableNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				JoinTableNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.JoinTableName domain property.
+		/// </summary>
+		internal sealed partial class JoinTableNamePropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.String>
+		{
+			private JoinTableNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.JoinTableName domain property value handler.
+			/// </summary>
+			public static readonly JoinTableNamePropertyHandler Instance = new JoinTableNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.JoinTableName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return JoinTableNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.joinTableNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.joinTableNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a ModelClass.
@@ -5676,4 +5766,3 @@ namespace Sawczyn.EFDesigner.EFModel
 		#endregion
 	}
 }
-

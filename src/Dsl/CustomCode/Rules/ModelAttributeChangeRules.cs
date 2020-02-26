@@ -311,7 +311,8 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (!element.IsValidInitialValue(newType))
                      element.InitialValue = null;
 
-                  element.MaxLength = ModelAttribute.GetDefaultStringLength?.Invoke();
+                  if (!element.MaxLength.HasValue)
+                     element.MaxLength = ModelAttribute.GetDefaultStringLength?.Invoke();
                }
 
                if (element.IsConcurrencyToken)

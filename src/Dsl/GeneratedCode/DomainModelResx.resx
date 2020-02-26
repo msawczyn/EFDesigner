@@ -1725,6 +1725,18 @@
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/JoinTableName.Description" xml:space="preserve">
+    <value>Optional name of the database table used to join the two end classes for many-to-many associations. If empty, a reasonable default name will be used.</value>
+    <comment>Description for DomainProperty &apos;JoinTableName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/JoinTableName.DisplayName" xml:space="preserve">
+    <value>Join Table Name</value>
+    <comment>DisplayName for DomainProperty &apos;JoinTableName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/JoinTableName.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;JoinTableName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainRole &apos;Source&apos; on DomainRelationship &apos;Association&apos;</comment>

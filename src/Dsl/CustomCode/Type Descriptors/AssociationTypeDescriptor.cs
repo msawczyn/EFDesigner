@@ -47,6 +47,10 @@ namespace Sawczyn.EFDesigner.EFModel
             if (association.TargetRole != EndpointRole.Principal)
                propertyDescriptors.Remove("TargetDeleteAction");
 
+            // only show JoinTableName if is *..* association
+            if (association.SourceMultiplicity != Multiplicity.ZeroMany || association.TargetMultiplicity != Multiplicity.ZeroMany)
+               propertyDescriptors.Remove("JoinTableName");
+
             /********************************************************************************/
 
             //Add the descriptors for the tracking properties 

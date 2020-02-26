@@ -39,9 +39,10 @@ namespace Sawczyn.EFDesigner.EFModel
       internal IComponentModel ComponentModel => _componentModel ?? (_componentModel = (IComponentModel)GetService(typeof(SComponentModel)));
       internal IVsOutputWindowPane OutputWindow => _outputWindow ?? (_outputWindow = (IVsOutputWindowPane)GetService(typeof(SVsGeneralOutputWindowPane)));
 
-      internal static Project ActiveProject => Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
-                                                 ? activeSolutionProjects.GetValue(0) as Project
-                                                 : null;
+      internal static Project ActiveProject =>
+            Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
+                  ? activeSolutionProjects.GetValue(0) as Project
+                  : null;
 
       internal static void GenerateCode()
       {
@@ -104,9 +105,11 @@ namespace Sawczyn.EFDesigner.EFModel
             string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
             Debug.Assert(projectDirectory != null, nameof(projectDirectory) + " != null");
             string filename = Path.Combine(projectDirectory, modelClass.GetRelativeFileName());
+
             if (File.Exists(filename))
             {
                Dte.ItemOperations.OpenFile(filename);
+
                return true;
             }
          }
@@ -127,9 +130,11 @@ namespace Sawczyn.EFDesigner.EFModel
             string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
             Debug.Assert(projectDirectory != null, nameof(projectDirectory) + " != null");
             string filename = Path.Combine(projectDirectory, modelEnum.GetRelativeFileName());
+
             if (File.Exists(filename))
             {
                Dte.ItemOperations.OpenFile(filename);
+
                return true;
             }
          }
@@ -143,7 +148,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return monitorSelection 
+            return monitorSelection
                 ?? (monitorSelection = (IMonitorSelectionService)GetService(typeof(IMonitorSelectionService)));
          }
       }
@@ -176,7 +181,9 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override void OnDocumentLoaded()
       {
          base.OnDocumentLoaded();
-         if (!(RootElement is ModelRoot modelRoot)) return;
+
+         if (!(RootElement is ModelRoot modelRoot))
+            return;
 
          // TODO: This is getting out of hand. Consolidate into an interface and load it up all at once
 
@@ -230,6 +237,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                            .ElementDirectory
                                                                            .FindElements<GeneralizationConnector>()
                                                                            .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
+
          List<AssociationConnector> associationConnectors = modelRoot.Store
                                                                      .ElementDirectory
                                                                      .FindElements<AssociationConnector>()
@@ -254,6 +262,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             foreach (ModelClass modelClass in modelRoot.Store.ElementDirectory.FindElements<ModelClass>())
                PresentationHelper.UpdateClassDisplay(modelClass);
+
             tx.Commit();
          }
 
@@ -273,7 +282,7 @@ namespace Sawczyn.EFDesigner.EFModel
             foreach (DomainClassInfo classInfo in classesWithWarnings)
             {
                events.ElementPropertyChanged.Add(classInfo, new EventHandler<ElementPropertyChangedEventArgs>(ValidateModelElement));
-               events.ElementAdded.Add(classInfo, new EventHandler<ElementAddedEventArgs>(ValidateModelElement));   
+               events.ElementAdded.Add(classInfo, new EventHandler<ElementAddedEventArgs>(ValidateModelElement));
             }
 
             tx.Commit();

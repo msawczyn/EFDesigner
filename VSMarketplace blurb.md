@@ -30,6 +30,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - **[NEW]** Added ability to specify foreign key properties  (See https://github.com/msawczyn/EFDesigner/issues/55)
    - **[NEW]** Foreign key properties have a unique glyph so they can be easily picked out of the crowd
+   - **[NEW]** Foreign key properties that are primary keys also have a unique but different glyph
    - **[NEW]** Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
@@ -39,6 +40,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - **[NEW]** Added visual indicator on classes and enumerations where code generation is disabled
    - **[NEW]** Added ability to override the base class of the generated DbContext to be something other than "DbContext"
    - **[NEW]** Attributes can now be flagged as abstract in the same way classes can.
+   - **[NEW]** Join tables in many-to-many associations can now have custom names (EF6 only, until EFCore supports many-to-many cardinalities)
    - Renamed toolbox category to "EF Model Diagrams"
    - Enhanced display of model elements in the Visual Studio property window's object list
    - Removed MSAGL layouts. No one understood them anyway.
