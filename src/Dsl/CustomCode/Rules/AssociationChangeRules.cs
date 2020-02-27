@@ -7,10 +7,9 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Immutability;
 
-using Sawczyn.EFDesigner.EFModel.Extensions;
-
 namespace Sawczyn.EFDesigner.EFModel
 {
+   /// <inheritdoc />
    [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
    public class AssociationChangeRules : ChangeRule
    {
@@ -51,6 +50,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <inheritdoc />
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
          base.ElementPropertyChanged(e);
@@ -71,9 +71,11 @@ namespace Sawczyn.EFDesigner.EFModel
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
          BidirectionalAssociation bidirectionalAssociation = element as BidirectionalAssociation;
 
-         switch (e.DomainProperty.Name)
+         using (Transaction inner = store.TransactionManager.BeginTransaction("Redraw Association"))
          {
-            case "FKPropertyName":
+            switch (e.DomainProperty.Name)
+            {
+               case "FKPropertyName":
                {
                   string fkPropertyName = e.NewValue?.ToString();
                   bool fkPropertyError = false;
@@ -82,9 +84,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   string[] priorForeignKeyPropertyNames = e.OldValue?.ToString().Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
 
                   IEnumerable<ModelAttribute> priorForeignKeyModelAttributes = string.IsNullOrEmpty(e.OldValue?.ToString())
-                                                                                  ? Array.Empty<ModelAttribute>() 
-                                                                                  : priorForeignKeyPropertyNames.Select(oldValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue))
-                                                                                                                .ToArray();
+                                                                                     ? Array.Empty<ModelAttribute>()
+                                                                                     : priorForeignKeyPropertyNames
+                                                                                      .Select(oldValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue))
+                                                                                      .ToArray();
 
                   if (!string.IsNullOrEmpty(fkPropertyName))
                   {
@@ -93,6 +96,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      if (element.Dependent == null)
                      {
                         errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
+
                         break;
                      }
 
@@ -102,8 +106,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      if (propertyCount != identityCount)
                      {
-                        errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
+                        errorMessages.Add(
+                                          $"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
                                         + $"{element.Principal.Name} has {identityCount} identity properties; found {propertyCount} instead");
+
                         fkPropertyError = true;
                      }
 
@@ -161,178 +167,176 @@ namespace Sawczyn.EFDesigner.EFModel
                         string addedSummaryText = $"Foreign key for {element.GetDisplayText()}. ";
 
                         modelAttribute.Summary = modelAttribute.Summary.Length >= addedSummaryText.Length
-                                                    ? modelAttribute.Summary.Substring(addedSummaryText.Length)
-                                                    : null;
+                                                       ? modelAttribute.Summary.Substring(addedSummaryText.Length)
+                                                       : null;
 
                         modelAttribute.RedrawItem();
                      }
                   }
 
-                  element.RedrawItem();
                }
-
-               break;
-            case "SourceCustomAttributes":
-
-               if (bidirectionalAssociation != null && !string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceCustomAttributes))
-               {
-                  bidirectionalAssociation.SourceCustomAttributes = $"[{bidirectionalAssociation.SourceCustomAttributes.Trim('[', ']')}]";
-                  CheckSourceForDisplayText(bidirectionalAssociation);
-               }
-
-               break;
-
-            case "SourceDisplayText":
-
-               if (bidirectionalAssociation != null)
-                  CheckSourceForDisplayText(bidirectionalAssociation);
-
-               break;
-
-            case "SourceMultiplicity":
-               Multiplicity sourceMultiplicity = (Multiplicity)e.NewValue;
-
-               // change unidirectional source cardinality
-               // if target is dependent
-               //    source cardinality is 0..1 or 1
-               if (element.Target.IsDependentType && sourceMultiplicity == Multiplicity.ZeroMany)
-               {
-                  errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
 
                   break;
-               }
 
-               if ((sourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One) ||
-                   (sourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
-               {
-                  if (element.SourceRole != EndpointRole.NotSet)
-                     element.SourceRole = EndpointRole.NotSet;
+               case "SourceCustomAttributes":
 
-                  if (element.TargetRole != EndpointRole.NotSet)
-                     element.TargetRole = EndpointRole.NotSet;
-               }
-               else
-                  SetEndpointRoles(element);
-
-               // cascade delete behavior could now be illegal. Reset to default
-               element.SourceDeleteAction = DeleteAction.Default;
-               element.TargetDeleteAction = DeleteAction.Default;
-               element.RedrawItem();
-
-               break;
-
-            case "SourcePropertyName":
-               string sourcePropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
-
-               if (EFModelDiagram.IsDropping && sourcePropertyNameErrorMessage != null)
-                  element.Delete();
-               else
-                  errorMessages.Add(sourcePropertyNameErrorMessage);
-
-               element.RedrawItem();
-               break;
-
-            case "SourceRole":
-
-               if (element.Source.IsDependentType)
-               {
-                  element.SourceRole = EndpointRole.Dependent;
-                  element.TargetRole = EndpointRole.Principal;
-               }
-               else if (!SetEndpointRoles(element))
-               {
-                  if (element.SourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
-                     element.TargetRole = EndpointRole.Principal;
-                  else if (element.SourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
-                     element.TargetRole = EndpointRole.Dependent;
-               }
-
-               element.RedrawItem();
-               break;
-
-            case "TargetCustomAttributes":
-
-               if (!string.IsNullOrWhiteSpace(element.TargetCustomAttributes))
-               {
-                  element.TargetCustomAttributes = $"[{element.TargetCustomAttributes.Trim('[', ']')}]";
-                  CheckTargetForDisplayText(element);
-               }
-
-               break;
-
-            case "TargetDisplayText":
-
-               CheckTargetForDisplayText(element);
-
-               element.RedrawItem();
-               break;
-
-            case "TargetMultiplicity":
-               Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
-
-               // change unidirectional target cardinality
-               // if target is dependent
-               //    target cardinality must be 0..1 or 1
-               if (element.Target.IsDependentType && newTargetMultiplicity == Multiplicity.ZeroMany)
-               {
-                  errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+                  if (bidirectionalAssociation != null && !string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceCustomAttributes))
+                  {
+                     bidirectionalAssociation.SourceCustomAttributes = $"[{bidirectionalAssociation.SourceCustomAttributes.Trim('[', ']')}]";
+                     CheckSourceForDisplayText(bidirectionalAssociation);
+                  }
 
                   break;
-               }
 
-               if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One) ||
-                   (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
-               {
-                  if (element.SourceRole != EndpointRole.NotSet)
-                     element.SourceRole = EndpointRole.NotSet;
+               case "SourceDisplayText":
 
-                  if (element.TargetRole != EndpointRole.NotSet)
-                     element.TargetRole = EndpointRole.NotSet;
-               }
-               else
-                  SetEndpointRoles(element);
+                  if (bidirectionalAssociation != null)
+                     CheckSourceForDisplayText(bidirectionalAssociation);
 
-               // cascade delete behavior could now be illegal. Reset to default
-               element.SourceDeleteAction = DeleteAction.Default;
-               element.TargetDeleteAction = DeleteAction.Default;
+                  break;
 
-               element.RedrawItem();
-               break;
+               case "SourceMultiplicity":
+                  Multiplicity sourceMultiplicity = (Multiplicity)e.NewValue;
 
-            case "TargetPropertyName":
+                  // change unidirectional source cardinality
+                  // if target is dependent
+                  //    source cardinality is 0..1 or 1
+                  if (element.Target.IsDependentType && sourceMultiplicity == Multiplicity.ZeroMany)
+                  {
+                     errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
 
-               // if we're creating an association via drag/drop, it's possible the existing property name
-               // is the same as the default property name. The default doesn't get created until the transaction is 
-               // committed, so the drop's action will cause a name clash. Remove the clashing property, but
-               // only if drag/drop.
+                     break;
+                  }
 
-               string targetPropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
+                  if ((sourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One)
+                   || (sourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
+                  {
+                     if (element.SourceRole != EndpointRole.NotSet)
+                        element.SourceRole = EndpointRole.NotSet;
 
-               if (EFModelDiagram.IsDropping && targetPropertyNameErrorMessage != null)
-                  element.Delete();
-               else
-                  errorMessages.Add(targetPropertyNameErrorMessage);
+                     if (element.TargetRole != EndpointRole.NotSet)
+                        element.TargetRole = EndpointRole.NotSet;
+                  }
+                  else
+                     SetEndpointRoles(element);
 
-               element.RedrawItem();
-               break;
+                  // cascade delete behavior could now be illegal. Reset to default
+                  element.SourceDeleteAction = DeleteAction.Default;
+                  element.TargetDeleteAction = DeleteAction.Default;
 
-            case "TargetRole":
+                  break;
 
-               if (element.Target.IsDependentType)
-               {
-                  element.SourceRole = EndpointRole.Principal;
-                  element.TargetRole = EndpointRole.Dependent;
-               }
-               else if (!SetEndpointRoles(element))
-               {
-                  if (element.TargetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
-                     element.SourceRole = EndpointRole.Principal;
-                  else if (element.TargetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
+               case "SourcePropertyName":
+                  string sourcePropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
+
+                  if (EFModelDiagram.IsDropping && sourcePropertyNameErrorMessage != null)
+                     element.Delete();
+                  else
+                     errorMessages.Add(sourcePropertyNameErrorMessage);
+
+                  break;
+
+               case "SourceRole":
+
+                  if (element.Source.IsDependentType)
+                  {
                      element.SourceRole = EndpointRole.Dependent;
-               }
+                     element.TargetRole = EndpointRole.Principal;
+                  }
+                  else if (!SetEndpointRoles(element))
+                  {
+                     if (element.SourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
+                        element.TargetRole = EndpointRole.Principal;
+                     else if (element.SourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
+                        element.TargetRole = EndpointRole.Dependent;
+                  }
 
-               element.RedrawItem();
-               break;
+                  break;
+
+               case "TargetCustomAttributes":
+
+                  if (!string.IsNullOrWhiteSpace(element.TargetCustomAttributes))
+                  {
+                     element.TargetCustomAttributes = $"[{element.TargetCustomAttributes.Trim('[', ']')}]";
+                     CheckTargetForDisplayText(element);
+                  }
+
+                  break;
+
+               case "TargetDisplayText":
+
+                  CheckTargetForDisplayText(element);
+
+                  break;
+
+               case "TargetMultiplicity":
+                  Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
+
+                  // change unidirectional target cardinality
+                  // if target is dependent
+                  //    target cardinality must be 0..1 or 1
+                  if (element.Target.IsDependentType && newTargetMultiplicity == Multiplicity.ZeroMany)
+                  {
+                     errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+
+                     break;
+                  }
+
+                  if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One)
+                   || (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
+                  {
+                     if (element.SourceRole != EndpointRole.NotSet)
+                        element.SourceRole = EndpointRole.NotSet;
+
+                     if (element.TargetRole != EndpointRole.NotSet)
+                        element.TargetRole = EndpointRole.NotSet;
+                  }
+                  else
+                     SetEndpointRoles(element);
+
+                  // cascade delete behavior could now be illegal. Reset to default
+                  element.SourceDeleteAction = DeleteAction.Default;
+                  element.TargetDeleteAction = DeleteAction.Default;
+
+                  break;
+
+               case "TargetPropertyName":
+
+                  // if we're creating an association via drag/drop, it's possible the existing property name
+                  // is the same as the default property name. The default doesn't get created until the transaction is 
+                  // committed, so the drop's action will cause a name clash. Remove the clashing property, but
+                  // only if drag/drop.
+
+                  string targetPropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
+
+                  if (EFModelDiagram.IsDropping && targetPropertyNameErrorMessage != null)
+                     element.Delete();
+                  else
+                     errorMessages.Add(targetPropertyNameErrorMessage);
+
+                  break;
+
+               case "TargetRole":
+
+                  if (element.Target.IsDependentType)
+                  {
+                     element.SourceRole = EndpointRole.Principal;
+                     element.TargetRole = EndpointRole.Dependent;
+                  }
+                  else if (!SetEndpointRoles(element))
+                  {
+                     if (element.TargetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
+                        element.SourceRole = EndpointRole.Principal;
+                     else if (element.TargetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
+                        element.SourceRole = EndpointRole.Dependent;
+                  }
+
+                  break;
+            }
+
+
+            element.RedrawItem();
+            inner.Commit();
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();
