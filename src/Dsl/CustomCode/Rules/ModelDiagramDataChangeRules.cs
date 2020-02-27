@@ -46,8 +46,12 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
-               ModelDiagramData.CloseDiagram?.Invoke(element.GetDiagram());
-               element.GetDiagram().Name = element.Name = e.NewValue.ToString();
+               EFModelDiagram diagram = element.GetDiagram();
+               if (diagram != null)
+               {
+                  ModelDiagramData.CloseDiagram?.Invoke(diagram);
+                  diagram.Name = element.Name = e.NewValue.ToString();
+               }
                break;
          }
 

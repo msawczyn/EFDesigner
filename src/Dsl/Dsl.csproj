@@ -142,6 +142,7 @@
     <Compile Include="CustomCode\Rules\ClassShapeAddRule.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataChangeRules.cs" />
+    <Compile Include="CustomCode\Rules\ModelDiagramDataDeleteRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\UnidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IHasStore.cs" />

@@ -297,7 +297,7 @@ namespace Sawczyn.EFDesigner.EFModel
             try
             {
                ruleManager.DisableRule(typeof(ModelDiagramDataAddRules));
-               ruleManager.DisableRule(typeof(ModelDiagramDataDeletingRules));
+               ruleManager.DisableRule(typeof(ModelDiagramDataDeleteRules));
                ruleManager.DisableRule(typeof(ModelDiagramDataChangeRules));
 
                // don't forget that the next step is drag/drop from tree to diagram
@@ -334,7 +334,7 @@ namespace Sawczyn.EFDesigner.EFModel
             finally
             {
                ruleManager.EnableRule(typeof(ModelDiagramDataAddRules));
-               ruleManager.EnableRule(typeof(ModelDiagramDataDeletingRules));
+               ruleManager.EnableRule(typeof(ModelDiagramDataDeleteRules));
                ruleManager.EnableRule(typeof(ModelDiagramDataChangeRules));
             }
          }
