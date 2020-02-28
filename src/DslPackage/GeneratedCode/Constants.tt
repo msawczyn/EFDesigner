@@ -1,6 +1,5 @@
-<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #>
-<#@ include file="..\Templates\Constants.tt" #>
-//
+<#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\..\Dsl\DslDefinition.dsl'" #><#@ 
+include file="..\Templates\Constants.tt" #>//
 // Constants not generated from values in DesignerDefinition.dsl are defined below
 //
 namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>

@@ -10,43 +10,9 @@ using Microsoft.VisualStudio.Modeling.Shell;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
+
    internal partial class EFModelExplorer
    {
-      ///// <summary>Not doing anything?</summary>
-      //protected override void OnDoubleClick(EventArgs e)
-      //{
-      //   base.OnDoubleClick(e);
-
-      //   // let's make this a switch so we can more easily extend it to different element types later
-      //   switch (SelectedElement)
-      //   {
-      //      case ModelClass modelClass:
-      //         EFModelDocData.OpenFileFor(modelClass);
-
-      //         break;
-
-      //      case ModelAttribute modelAttribute:
-      //         EFModelDocData.OpenFileFor(modelAttribute.ModelClass);
-
-      //         break;
-
-      //      case ModelEnum modelEnum:
-      //         EFModelDocData.OpenFileFor(modelEnum);
-
-      //         break;
-
-      //      case ModelEnumValue modelEnumValue:
-      //         EFModelDocData.OpenFileFor(modelEnumValue.Enum);
-
-      //         break;
-
-      //      //case ModelDiagramData modelDiagram:
-      //      //   ((EFModelDocData)ModelingDocData).OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagram.Name, typeof(EFModelDiagram), ModelingDocData.RootElement));
-
-      //      //   break;
-      //   }
-      //}
-
       /// <summary>
       /// Method to insert the incoming node into the TreeNodeCollection. This allows the derived class to change the sorting behavior.
       /// N.B. This should really be protected, and is only intended as an override point. Do not call it directly, but rather call
@@ -61,5 +27,14 @@ namespace Sawczyn.EFDesigner.EFModel
          else
             base.InsertTreeNode(siblingNodes, node);
       }
+
+      /// <summary>Virtual method to process the menu Delete operation</summary>
+      protected override void ProcessOnMenuDeleteCommand()
+      {
+         if (SelectedElement is ModelDiagramData diagramData 
+          && BooleanQuestionDisplay.Show($"About to permanently delete diagram named {diagramData.Name} - are you sure?") == true)
+            base.ProcessOnMenuDeleteCommand();
+      }
    }
+
 }

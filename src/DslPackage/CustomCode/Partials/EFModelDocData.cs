@@ -32,12 +32,12 @@ namespace Sawczyn.EFDesigner.EFModel
       private static DTE _dte;
       private static DTE2 _dte2;
       private IComponentModel _componentModel;
-      private IVsOutputWindowPane _outputWindow;
+      //private IVsOutputWindowPane _outputWindow;
 
       internal static DTE Dte => _dte ?? (_dte = Package.GetGlobalService(typeof(DTE)) as DTE);
       internal static DTE2 Dte2 => _dte2 ?? (_dte2 = Package.GetGlobalService(typeof(SDTE)) as DTE2);
       internal IComponentModel ComponentModel => _componentModel ?? (_componentModel = (IComponentModel)GetService(typeof(SComponentModel)));
-      internal IVsOutputWindowPane OutputWindow => _outputWindow ?? (_outputWindow = (IVsOutputWindowPane)GetService(typeof(SVsGeneralOutputWindowPane)));
+      //internal IVsOutputWindowPane OutputWindow => _outputWindow ?? (_outputWindow = (IVsOutputWindowPane)GetService(typeof(SVsGeneralOutputWindowPane)));
 
       internal static Project ActiveProject =>
             Dte.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0
@@ -300,7 +300,6 @@ namespace Sawczyn.EFDesigner.EFModel
                ruleManager.DisableRule(typeof(ModelDiagramDataDeleteRules));
                ruleManager.DisableRule(typeof(ModelDiagramDataChangeRules));
 
-               // don't forget that the next step is drag/drop from tree to diagram
                modelRoot.Diagrams.Clear();
                List<ModelDiagramData> matched = new List<ModelDiagramData>();
 
@@ -347,9 +346,9 @@ namespace Sawczyn.EFDesigner.EFModel
       //   return EFModelPackage.Options.DefaultStringLength;
       //}
 
-      private void DisplayDiagram(string diagramName)
+      private void DisplayDiagram(ModelDiagramData diagramData)
       {
-         OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(diagramName, typeof(EFModelDiagram), RootElement));
+         OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(diagramData.Name, typeof(EFModelDiagram), RootElement));
       }
 
       private void CloseDiagram(EFModelDiagram diagram)

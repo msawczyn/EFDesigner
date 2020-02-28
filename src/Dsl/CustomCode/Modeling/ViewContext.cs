@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Mexedge.VisualStudio.Modeling
 {
+
    public sealed class ViewContext : IXmlSerializable
    {
       public ViewContext(string diagramName)
@@ -20,7 +21,7 @@ namespace Mexedge.VisualStudio.Modeling
       }
 
       public ViewContext(string diagramName, Type diagramType)
-            : this(diagramName)
+         : this(diagramName)
       {
          if (null == diagramType)
             throw new ArgumentNullException(nameof(diagramType));
@@ -29,7 +30,7 @@ namespace Mexedge.VisualStudio.Modeling
       }
 
       public ViewContext(string diagramName, Type diagramType, ModelElement rootElement)
-            : this(diagramName)
+         : this(diagramName)
       {
          DiagramType = diagramType;
          RootElement = rootElement;
@@ -51,10 +52,12 @@ namespace Mexedge.VisualStudio.Modeling
       public void ReadXml(XmlReader reader)
       {
          reader.MoveToContent();
-         string l_diagramNameValue = reader.GetAttribute("diagramName");
-         DiagramName = l_diagramNameValue;
-         string l_diagramTypeValue = reader.GetAttribute("diagramType");
-         DiagramType = Type.GetType(l_diagramTypeValue);
+
+         string diagramNameValue = reader.GetAttribute("diagramName");
+         DiagramName = diagramNameValue;
+
+         string diagramTypeValue = reader.GetAttribute("diagramType");
+         DiagramType = Type.GetType(diagramTypeValue);
       }
 
       public void WriteXml(XmlWriter writer)
@@ -63,11 +66,7 @@ namespace Mexedge.VisualStudio.Modeling
          writer.WriteAttributeString("diagramName", DiagramName);
 
          if (DiagramType != null)
-         {
             writer.WriteAttributeString("diagramType", DiagramType.AssemblyQualifiedName);
-
-            //writer.WriteAttributeString("ui", m_diagramType.IsSubclassOf());
-         }
 
          writer.WriteEndElement();
       }
@@ -78,7 +77,7 @@ namespace Mexedge.VisualStudio.Modeling
          {
             using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter))
             {
-               this.WriteXml(xmlWriter);
+               WriteXml(xmlWriter);
             }
 
             return stringWriter.ToString();

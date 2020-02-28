@@ -26,7 +26,8 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         ModelDiagramData.OpenDiagram?.Invoke(element.Name);
+         ModelDiagramData.OpenDiagram?.Invoke(element);
+         element.SetDiagram(store.ElementDirectory.AllElements.OfType<EFModelDiagram>().FirstOrDefault(d => d.Name == element.Name));
       }
    }
 }

@@ -17,6 +17,7 @@ namespace Sawczyn.EFDesigner.EFModel
    /// <summary>
    /// Double-derived class to allow easier code customization.
    /// </summary>
+
    internal partial class EFModelDocView : EFModelDocViewBase
    {
       /// <summary>
@@ -26,6 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
          : base(docData, serviceProvider, diagramName)
       {
       }
+
    }
 
    /// <summary>
@@ -56,6 +58,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return false;
          }
 
+
          // The diagram should exist in the diagram partition by now, just need to find it and connect it to this view.
          EFModelDocDataBase docData = this.DocData as EFModelDocDataBase;
          global::System.Diagnostics.Debug.Assert(docData != null, "DocData for EFModelDocViewBase should be an EFModelDocDataBase!");
@@ -83,8 +86,10 @@ namespace Sawczyn.EFDesigner.EFModel
             return false;
          }
 
+
          return true;
       }
+
 
       /// <summary>
       /// Name of the toolbox tab that should be displayed when the diagram is opened.
@@ -109,6 +114,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
       
       
+
       /// <summary>
       /// Context menu displayed when the user right-clicks on the design surface.
       /// </summary>
@@ -120,6 +126,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
          
+
       /// <summary>
       /// Called when selection changes in this window.
       /// </summary>
@@ -169,3 +176,4 @@ namespace Sawczyn.EFDesigner.EFModel
    }
 }
 
+ 
