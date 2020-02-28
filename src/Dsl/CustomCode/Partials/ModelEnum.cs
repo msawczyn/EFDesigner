@@ -14,6 +14,16 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class ModelEnum : IModelElementWithCompartments, IDisplaysWarning, IHasStore
    {
       /// <summary>
+      /// Checks if the enumeration is used as an attribute anywhere in the model
+      /// </summary>
+      /// <param name="modelEnum"></param>
+      /// <returns>true if used, false otherwise</returns>
+      public static bool IsUsed(ModelEnum modelEnum)
+      {
+         return modelEnum.ModelRoot.Store.ElementDirectory.AllElements.OfType<ModelAttribute>().Any(a => a.Type == modelEnum.Name);
+      }
+
+      /// <summary>
       /// Gets the full name.
       /// </summary>
       /// <value>

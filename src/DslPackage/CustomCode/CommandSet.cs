@@ -149,6 +149,20 @@ namespace Sawczyn.EFDesigner.EFModel
          return commands;
       }
 
+      /// <summary>Virtual method to process the menu Delete operation</summary>
+      protected override void ProcessOnMenuDeleteCommand()
+      {
+         foreach (EnumShape enumShape in CurrentSelection.OfType<EnumShape>())
+         {
+            if (enumShape.ModelElement is ModelEnum modelEnum 
+             && ModelEnum.IsUsed(modelEnum) 
+             && BooleanQuestionDisplay.Show($"{modelEnum.FullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") != true)
+               return;
+         }
+
+         base.ProcessOnMenuDeleteCommand();
+      }
+
       #region Find
 
       private void OnStatusFind(object sender, EventArgs e)

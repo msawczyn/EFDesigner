@@ -13,6 +13,7 @@
    - Added ability to override the base class of the generated DbContext to be something other than "DbContext"
    - Attributes can now be flagged as abstract in the same way classes can.
    - Join tables in many-to-many associations can now have custom names (EF6 only, until EFCore supports many-to-many cardinalities)
+   - Removing an enumeration removes all entity properties that use that enumeration, after displaying a warning.
    - Renamed toolbox category to "EF Model Diagrams"
    - Enhanced display of model elements in the Visual Studio property window's object list
    - Removed MSAGL layouts. No one understood them anyway.
