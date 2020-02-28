@@ -51,13 +51,9 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       /// </summary>
       protected override string MapLogicalView(global::System.Guid logicalView, object viewContext)
       {
-         var l_viewContext = viewContext as MexModeling::ViewContext;
-
-         //if (Constants.LogicalViewId != logicalView || null == viewContext) // TODO
-         if (null == l_viewContext)
-            return base.MapLogicalView(logicalView, viewContext);    
-
-         return l_viewContext.ToString();
+         if (viewContext is MexModeling::ViewContext context)
+            return context.ToString();
+         return base.MapLogicalView(logicalView, viewContext);    
       }
 
       /// <summary>

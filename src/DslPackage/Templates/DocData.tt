@@ -712,7 +712,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       
       public override void OpenView(global::System.Guid logicalView, object viewContext)
       {
-         var modelingViewContext = viewContext as MexModeling::ViewContext;
+         MexModeling::ViewContext modelingViewContext = viewContext as MexModeling::ViewContext;
          
          if (modelingViewContext == null)
          {
@@ -740,25 +740,33 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
                throw new global::System.ArgumentException("the type of the diagram to open must inherit from Microsoft.VisualStudio.Modeling.Diagrams.Diagram class.");
             }
          
-            // No diagram associated with specified name
-            // Create a new diagram by using specified type
-            // Set automatically the name of the new diagram
-            var rootElement = modelingViewContext.RootElement ?? this.RootElement;
+            // No diagram associated with specified name, so create and set the name
+            DslModeling::ModelElement rootElement = modelingViewContext.RootElement ?? this.RootElement;
             
-            using (var transaction = this.Store.TransactionManager.BeginTransaction("DocData:OpenView", true))
+            // nest transactions to trigger the rules in the needed sequence
+            using (DslModeling::Transaction transaction = this.Store.TransactionManager.BeginTransaction("DocData:OpenView", true))
             {
-               diagram = (DslDiagrams::Diagram)global::System.Activator.CreateInstance(modelingViewContext.DiagramType,
-               this.PartitionMapper.PartitionForClass(this.Store.DefaultPartition, DslDiagrams::Diagram.DomainClassId),
-                  new DslModeling::PropertyAssignment(DslDiagrams::Diagram.NameDomainPropertyId, modelingViewContext.DiagramName));
+               using (DslModeling::Transaction t1 = this.Store.TransactionManager.BeginTransaction("DocData:OpenView:CreateDiagram", true))
+               {
+                  diagram = (DslDiagrams::Diagram)global::System.Activator.CreateInstance(modelingViewContext.DiagramType,
+                  this.PartitionMapper.PartitionForClass(this.Store.DefaultPartition, DslDiagrams::Diagram.DomainClassId),
+                     new DslModeling::PropertyAssignment(DslDiagrams::Diagram.NameDomainPropertyId, modelingViewContext.DiagramName));
                   
-               // Set the ModelElement associated with the newly created diagram.
-               diagram.ModelElement = rootElement;
+                  // Set the ModelElement associated with the newly created diagram.
+                  diagram.ModelElement = rootElement;
+                  t1.Commit();
+               }
 
-               // new diagrams appear empty to start
-               foreach (ClassShape shape in diagram.GetChildElements(diagram).OfType<ClassShape>())
-                  shape.Visible = false;
-               foreach (EnumShape shape in diagram.GetChildElements(diagram).OfType<EnumShape>())
-                  shape.Visible = false;
+               using (DslModeling::Transaction t2 = this.Store.TransactionManager.BeginTransaction("DocData:OpenView:ClearDiagram", true))
+               {
+                  // new diagrams appear empty to start
+                  foreach (ClassShape shape in diagram.GetChildElements(diagram).OfType<ClassShape>())
+                     shape.Visible = false;
+                  foreach (EnumShape shape in diagram.GetChildElements(diagram).OfType<EnumShape>())
+                     shape.Visible = false;
+
+                  t2.Commit();
+               }
 
                transaction.Commit();
             }
@@ -766,8 +774,8 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
     var l_diagramVariable = string.Concat(designer.Diagram.Name.Substring(0,1).ToLower(), designer.Diagram.Name.Substring(1));
 #>
 
-            var <#= l_diagramVariable #> = diagram as <#= designer.Diagram.GetFullName(true) #>;
-            if(null != <#= l_diagramVariable #>)
+            //<#= designer.Diagram.GetFullName(true) #> <#= l_diagramVariable #> = diagram as <#= designer.Diagram.GetFullName(true) #>;
+            if(diagram is <#= designer.Diagram.GetFullName(true) #> <#= l_diagramVariable #>)
             {
                <#= this.DslLibrary.Name #>SynchronizationHelper.FixUp(<#= l_diagramVariable #>);
             }                

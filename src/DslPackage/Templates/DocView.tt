@@ -66,7 +66,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
    /// </summary>
    internal abstract class <#= dslName #>DocViewBase : <#= designer != null ? "DslShell::SingleDiagramDocView" : "DslShell::ModelingDocView" #>
    {
-      private string diagramName;
+      private readonly string diagramName;
    
       /// <summary>
       /// Constructs a new <#= dslName #>DocView.
@@ -96,19 +96,19 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          // The diagram should exist in the diagram partition by now, just need to find it and connect it to this view.
          <#= dslName #>DocDataBase docData = this.DocData as <#= dslName #>DocDataBase;
          global::System.Diagnostics.Debug.Assert(docData != null, "DocData for <#= dslName #>DocViewBase should be an <#= dslName #>DocDataBase!");
-         var l_diagramName = string.IsNullOrEmpty(this.diagramName) ? global::System.IO.Path.GetFileNameWithoutExtension(docData.FileName) : this.diagramName;
+         string dgmName = string.IsNullOrEmpty(this.diagramName) ? global::System.IO.Path.GetFileNameWithoutExtension(docData.FileName) : this.diagramName;
          DslModeling::Partition diagramPartition = docData.GetDiagramPartition();
          if (diagramPartition != null)
          {
             global::System.Collections.ObjectModel.ReadOnlyCollection<<#= designer.Diagram.GetFullName(true) #>> diagrams = docData.GetDiagramPartition().ElementDirectory.FindElements<<#= designer.Diagram.GetFullName(true) #>>();
-            if (diagrams.Count > 0)
+            if (diagrams.Any())
             {
-               var l_diagram = diagrams.FirstOrDefault(diagram => diagram.Name.Equals(l_diagramName, global::System.StringComparison.Ordinal));
-                    if (null == l_diagram && !string.IsNullOrEmpty(this.diagramName))
+               <#= designer.Diagram.GetFullName(true) #> dgm = diagrams.FirstOrDefault(diagram => diagram.Name.Equals(dgmName, global::System.StringComparison.Ordinal));
+                    if (null == dgm && !string.IsNullOrEmpty(this.diagramName))
                     {
                         return false;
                     }
-                    this.Diagram = l_diagram ?? diagrams[0];
+                    this.Diagram = dgm ?? diagrams[0];
             }
             else
             {
