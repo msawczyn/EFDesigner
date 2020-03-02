@@ -2,12 +2,12 @@
 
 ### Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 -->
-This Visual Studio 2017/2019 IDE extension adds a new file type (.efmodel) that allows for visual 
+This Visual Studio 2019 IDE extension adds a new file type (.efmodel) that allows for visual 
 design of persistent classes. Inheritance, unidirectional and bidirectional associations are all 
 supported. Enumerations are also included in the visual model, as is the ability to add text 
 blocks to explain potentially arcane parts of your design. 
 
-T4 files are used to generate code-first DBContext and POCO class files for both **EF6 _and_ EFCore**, 
+[T4 files](https://docs.microsoft.com/en-us/visualstudio/modeling/writing-a-t4-text-template?view=vs-2019) are used to generate code-first DBContext and POCO class files for both **EF6 _and_ EFCore**, 
 and these can be modified to generate your own particular style.
 
 <table width="100%"><tr><td align="center" width="100%">
@@ -28,7 +28,7 @@ and, in addition, all the things that should have been there. Things like
 
 You should think of this extension as two parts: first the design surface and, separately, the 
 T4 templates that generate the code. The template(s) can be changed without modifying, compiling 
-and reinstalling the extension -- it's designed this way so that developers can easily make 
+and reinstalling the extension - it's designed this way so that developers can easily make 
 whatever changes suit their fancy to how the code is generated, since everybody's got their own 
 personal quirks on how their code should look.
 

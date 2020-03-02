@@ -1,6 +1,6 @@
 # Persistent Entities
 
-Modeling your persistent entities (classes) is the same experience as any other modeling tool -- you drag the class onto the design surface from the toolbox, name it, and start adding properties. You won't model operations (methods), though, since our focus is on creating code for Entity Framework. If you want to add operations, you'll do that in partial classes.
+Modeling your persistent entities (classes) is the same experience as most any other modeling tool -- you drag the class onto the design surface from the toolbox, name it, and start adding properties. You won't model operations (methods), though, since our focus is on creating code for Entity Framework. If you want to add operations, you'll do that in partial classes.
 
 ## Adding an Entity
 
