@@ -1,6 +1,7 @@
 # Persistent Entities
 
-Modeling your persistent entities (classes) is the same experience as most any other modeling tool -- you drag the class onto the design surface from the toolbox, name it, and start adding properties. You won't model operations (methods), though, since our focus is on creating code for Entity Framework. If you want to add operations, you'll do that in partial classes.
+Modeling your persistent entities (classes) is the same experience as most any other modeling tool -- you drag the class onto the design surface from the toolbox, name it, and start adding properties. You won't model operations (methods), though, since our focus is on creating code for Entity Framework. 
+If you want to add operations, you'll do that in partial classes.
 
 ## Adding an Entity
 
@@ -22,16 +23,23 @@ collapsed, it may be expanded back to its original size by clicking the chevron 
 You can collapse and expand the `Properties` and `Associations` compartments by clicking the small `+` (or `-`) icon to the
 left of their gray title bars.
 
+A quick note about the `Associations` compartments. You'll note that they're divided into `Association Sources` and 
+`Association Targets`. This really isn't a big distinction ... it has to do with how you started drawing the association and is
+an artifact of the Microsoft Modeling SDK. One day (hopefully) they'll be combined into just `Associations`, but that will take
+a refactoring of the inner structure of the designer and is a Big Deal. There's [more about Associations](Associations) later.
+
 ## Removing an Entity
 
-To remove an entity, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
+To remove an entity, simply select it (from either the design surface or the model explorer) and hit the Delete key. 
+It will be removed from the model completely without confirmation, as will its associations with other classes. 
+If you do this by accident, you can undo it (Ctrl-Z or Edit/Undo from the menu).
 
 If that entity is the superclass (base class) for other entities, you'll be asked if you want to push its
 attributes and associations down to those other entities prior to its removal.
 
 ## Entity Properties
 
-Selecting the entity allows you to edit its various properties:
+Selecting the entity from either the design surface or the model explorer allows you to edit its various properties:
 
 <table>
 <thead>
@@ -40,10 +48,13 @@ Selecting the entity allows you to edit its various properties:
 <tbody>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b></td></tr>
 <tr><td valign="top"> Abstract                           </td><td valign="top"> <i>Boolean</i>. If true, an abstract class will be generated for this entity.</td></tr>
+<tr><td valign="top"> Auto Property Default              </td><td valign="top"> <i>Boolean</i>. If true, Properties for this class will be created as AutoProperties with just bare getters and setters. Otherwise, they'll have a backing field and code in the getters and setters to move the `value` parameters. In this case, you'll also have partial methods available to modify the results. </td></tr>
+<tr><td valign="top"> Base Class                         </td><td valign="top"> <i>String</i>. The name of the class pointed to by the `Inheritance` link in the designer. You can change it here and the link will change in the designer.</a>.</td></tr>
 <tr><td valign="top"> Concurrency                        </td><td valign="top"> <i>String</i>. Overrides the default concurrency handling strategy. Values are 'Optimistic' and 'None'. See <a href="https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application">Handling Concurrency with the Entity Framework 6 in an ASP.NET MVC 5 Application</a>.</td></tr>
 <tr><td valign="top"> Custom Attributes                  </td><td valign="top"> <i>String</i>. Attributes generated in the code for this element - anything here will be generated verbatim into the code in the class definition.</td></tr>
 <tr><td valign="top"> Custom Interfaces                  </td><td valign="top"> <i>String</i>. Any custom interface(s) this entity should implement. If more than one, separate them with commas - anything here will be generated verbatim into the code in the class definition.</td></tr>
 <tr><td valign="top"> DbSet Name                         </td><td valign="top"> <i>String</i>. The name of the DbSet property in the DbContext for this class.</td></tr>
+<tr><td valign="top"> Generate Code                      </td><td valign="top"> <i>Boolean</i>. If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly.</td></tr>
 <tr><td valign="top"> Implement INotifyPropertyChanged   </td><td valign="top"> <i>Boolean</i>. If true, will generate code for easy implementation of property change notifications.</td></tr>
 <tr><td valign="top"> Name                               </td><td valign="top"> <i>String</i>. The name of this class.</td></tr>
 <tr><td valign="top"> Namespace                          </td><td valign="top"> <i>String</i>. The namespace for this class.</td></tr>
@@ -79,9 +90,14 @@ Right-clicking on an entity displays a Visual Studio context menu with some new 
 <tr><td valign="top"> Cut, Copy, Paste, Delete                 </td><td valign="top">You can cut or copy, then paste, classes and enums. The pasted elements will be adjusted so that they don't violate any rules (such as two elements not having the same name), but otherwise the properties will stay the same. If no classes or enums are selected in the designer, the cut and copy options will be disabled. If no classes or enums are in the clipboard, the paste option will be disabled.</td></tr>
 <tr><td valign="top"> Validate                                 </td><td valign="top">Checks the currently selected entity against the validation rules built into the designer. Errors or warnings are displayed in Visual Studio's Error List window. If no element is selected, this validates the design surface itself.</td></tr>
 <tr><td valign="top"> Validate All                             </td><td valign="top">Checks all model elements against the afore mentioned validation rules. Errors or warnings are displayed in Visual Studio's Error List window.</td></tr>
-<tr><td valign="top"> Hide Element                             </td><td valign="top">Hides the currently selected entity on the diagram. Any lines to or from that entity will be hidden as well. This does not remove the entity from the model, only makes it invisible in the diagram. Useful for tidying up a diagram that would otherwise be unreadable due to, for example, a common base class that all other classes inherit from. If no entity is selected, this option will be disabled.</td></tr>
+<tr><td valign="top"> Hide Selected Elements                   </td><td valign="top">Hides the currently selected elements on the diagram. Any lines to or from those elements will be hidden as well. This does not remove the entity from the model, only makes it invisible in the diagram. Useful for tidying up a diagram that would otherwise be unreadable due to, for example, a common base class that all other classes inherit from. If no entity is selected, this option will be disabled.</td></tr>
 <tr><td valign="top"> Show Hidden Elements                     </td><td valign="top">Unhides any elements that were previously hidden, along with their association or inheritance lines. If no elements are hidden, this option will be disabled.</td></tr>
 <tr><td valign="top"> Add properties via Code                  </td><td valign="top">Displays a dialog that lets you add multiple properties using the designer's custom property syntax. See "<a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a>" for more details.</td></tr>
+<tr><td valign="top"> Save as Image                            </td><td valign="top">Will save the entire diagram as an image. Format choices are BMP, GIF, JPG, PNG, TIFF and WMF.</td></tr>
+<tr><td valign="top"> Expand Selected Elements                 </td><td valign="top">Expands any selected elements that are collapsed to their headers.</td></tr>
+<tr><td valign="top"> Collapse Selected Elements               </td><td valign="top">Collapses any elements down to their headers.</td></tr>
+<tr><td valign="top"> Merge Unidirectional Associations        </td><td valign="top">Available when you have two Unidirectional Associations selected that both connect the same classes. Turns them into one Bidirectional Association (the inverse of <i>Split Bidirectional Association</i>, below).</td></tr>
+<tr><td valign="top"> Split Bidirectional Association          </td><td valign="top">Available when you have a Bidirectional Association selected. Turns it into two Unidirectional Associations (the inverse of <i>Merge Unidirectional Associations</i>, above.).</td></tr>
 <tr><td valign="top"> Select                                   </td><td valign="top">One of the features of the Visual Studio property editor is the ability to edit properties of multiple items if they share that property. This submenu gives you the ability to select model elements by type so that you can conveniently edit properties of those elements together (e.g., setting the color of multiple classes all at once). If the pertinent element type isn't present in the designer, that option will be disabled.<br/>
    <table>
    <tr><td valign="top"> Select all classes...                    </td><td valign="top">Select all class elements in the designer</td></tr>
@@ -97,7 +113,7 @@ Right-clicking on an entity displays a Visual Studio context menu with some new 
 ### INotifyPropertyChanged
 
 You can optionally implement the standard `INotifyPropertyChanged` interface, especially useful for data binding in WinForms applications. By changing that property to `True` (by
-default it's `False`),. the standard T4 templates will generate code you can customize by implementing a partial method.
+default it's `False`), the standard T4 templates will generate code you can customize by implementing a partial method.
 
 The shape on the diagram will change to have a dashed blue border, helping you immediately see which classes will generate 
 change notification code. Since `INotifyPropertyChanged` requires a bit of logic, the properties of that class won't be 

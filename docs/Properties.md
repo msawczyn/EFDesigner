@@ -10,10 +10,11 @@ suit your use cases.
 
 There are a few ways to add a property to an entity:
 
-- Right click the _Properties_ category heading right below the name of the entity on the diagram and choose _Add new Property_ .
-- Right click the name of the entity and select _Add_, then _Property_ from its context menu.
-- With the _Properties_ category heading selected, hit the _Insert_ key
-- With any property selected in the entity, hit _Enter_.
+- Right click the _Properties_ category heading right below the name of the entity on the designer and choose _Add new Property_ .
+- Right click the name of the entity on the designer and select _Add_, then _Property_ from its context menu.
+- With the _Properties_ category heading selected on the designer, hit the _Insert_ key
+- With any property selected in the entity on the designer, hit _Enter_.
+- Right click the entity in the Model Explorer and select _Add New Property_.
 
 A new property will be added to the entity and you'll have the opportunity to change its name from the default generated name. An advanced feature
 of the designer also gives you the opportunity to change its type, whether or not it's an identity field, and whether or not its value is required to be
@@ -21,7 +22,7 @@ other than the type's default value at runtime (i.e., a _required_ property). Se
 
 ## Removing a Property
 
-To remove a property, simply select it and hit the Delete key. It will be removed from the model completely without confirmation.
+To remove a property, simply select it (on the designer or the Model Explorer) and hit the Delete key. It will be removed from the model completely without confirmation.
 
 ## Property Properties
 
@@ -33,15 +34,17 @@ Selecting a property gives you access to **its** properties in the Property wind
 </thead>
 <tbody>
 <tr><td valign="top" colspan="2" style="background-color: gainsboro"><b>Code Generation</b>  </td></tr>
+<tr><td valign="top">Abstract                                                                </td><td valign="top"><i>Boolean.</i> If false, this is a normal property. If true, it will be generated as an abstract property and the entity will be marked as abstract as well. Note that setting it from true to false does <b>not</b> reset the entity's <i>Abstract</i> property back to <i>false</i>. </td></tr>
 <tr><td valign="top">Auto Property                                                           </td><td valign="top"><i>Boolean.</i> If false, generates a backing store field with a partial method to hook getting and setting the property. If true, generates a simple auto property.</td></tr>
 <tr><td valign="top">Custom Attributes                                                       </td><td valign="top"> <i>String</i>. Attributes generated in the code for this element - anything here will be generated verbatim into the code in the class definition.</td></tr>
 <tr><td valign="top">Display Text                                                            </td><td valign="top"> <i>String</i>. Will cause the generation of a [Display(Name="&lt;text&gt;")] attribute tag in the code.</td></tr>
+<tr><td valign="top">Implement INotifyPropertyChanged                                        </td><td valign="top"><i>Boolean.</i> If true, will cause this property to not be an autoproperty and will add code to implement INotifyPropertyChanged to the setter. If false, that code won't be generated, and the <i>AutoProperty</i> value can be set back to true (setting this value to <i>false</i> won't change <i>AutoProperty</i> back).</td></tr>
 <tr><td valign="top">Initial Value                                                           </td><td valign="top"><i>String</i>. Value for attribute when first created. Will be validated to ensure entry is appropriate for the property's type</td></tr>
 <tr><td valign="top">Name                                                                    </td><td valign="top">The name of the property. Must be a valid C# symbol.</td></tr>
 <tr><td valign="top">Persistent                                                              </td><td valign="top"><i>Boolean.</i> If true, Attribute will be stored in persistent storage</td></tr>
 <tr><td valign="top">Read Only                                                               </td><td valign="top"><i>Boolean.</i> If true, no setter will be generated. Only valid for transient public properties.</td></tr>
 <tr><td valign="top">Required                                                                </td><td valign="top"><i>Boolean.</i> If true, cannot be null (or the default value for the property type, if not nullable)</td></tr>
-<tr><td valign="top">Setter Visibility                                                       </td><td valign="top"><i>String</i>. Visibility for property setter; getter is public. Valid entries are public and protected.</td></tr>
+<tr><td valign="top">Setter Visibility                                                       </td><td valign="top"><i>String</i>. Visibility for property setter; getter is public. Valid entries are public and protected. This setting is unavailable if the property is an <i>Identity</i> and autogenerated. </td></tr>
 <tr><td valign="top">Type                                                                    </td><td valign="top"><i>String</i>. Type of this attribute. Select from list of valid types. If you pick a type that can't be used as an identity, the <i>Is Identity</i> and <i>Identity Type</i> properties will be removed.</td></tr>
 <tr><td valign="top">Virtual                                                                 </td><td valign="top"><i>Boolean.</i> If true, property will be generated with the 'virtual' keyword</td></tr>
 

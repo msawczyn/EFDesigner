@@ -1,9 +1,11 @@
 # Using the Designer 
 Let's add a design surface to our new project.
 
-<img src="images/AddNewItem.jpg">
+<img src="images/AddNewItem.jpg" vspace="10">
 
-<img align="right" src="images/Solution2.jpg" hspace="10">
+&nbsp;
+
+<img align="right" src="images/Solution2.jpg" hspace="10" vspace="10">
 
 - Right-click the project root and select _Add/New Item..._ from the dropdown menu.
 - Find the _Data_ folder under _Visual C# Items_ in the tree to the left and select _Entity Framework Visual Editor_ from the list.
@@ -19,29 +21,28 @@ Three files will be added to your project: MyModel.efmodel, MyModel.efmodel.diag
 
 Should you decide to rename these files later, **it's important that the file names stay in sync**. In fact, if you do rename them, you'll need to make a manual edit to the .tt to let it know the name of the .efmodel file, since it needs to find that when you want to generate code. That's in line 17 of the .tt file, but we'll talk more about that later.
 
+&nbsp;
+
+&nbsp;
+
 <img align="right" src="images/Toolbox.jpg" hspace="10" vspace="10">
 
 Open the .efmodel file and -- so exciting! -- you're presented with a blank screen. No worries -- this is where you'll model your classes. In your toolbox, you'll see various items that can be added to model.
 
-<table>
-<thead>
-<tr><th valign="top"><b>Tool</b></th><th valign="top"><b>Description</b></th></tr>
-</thead>
-<tbody>
-<tr><td valign="top"> Entity                     </td><td valign="top"> A persistent class </td></tr>
-<tr><td valign="top"> Unidirectional Association </td><td valign="top"> A navigation property that only goes one way. The starting class will have a property of the type of the ending class (or a collection of them, depending on cardinality), but not the other way around. </td></tr>
-<tr><td valign="top"> Bidirectional Association  </td><td valign="top"> A navigation property that will create properties in classes on both ends. </td></tr>
-<tr><td valign="top"> Inheritance                </td><td valign="top"> Standard .NET inheritance (and its associated constraints). Start the line at the derived class and point to the base class </td></tr>
-<tr><td valign="top"> Comment                    </td><td valign="top"> Add a comment box anywhere on the model </td></tr>
-<tr><td valign="top"> Comment Link               </td><td valign="top"> Link an existing comment to an Entity or Enum. Not required since comments can be free-floating, but nice to have if the comment refers to something specific on the diagram. </td></tr>
-<tr><td valign="top"> Enum                       </td><td valign="top"> An enumeration </td></tr>
-</tbody>
-</table>
+- **Entity** : A persistent class 
+- **Unidirectional Association** :  A navigation property that only goes one way. The starting class will have a property of the type of the ending class (or a collection of them, depending on cardinality), but not the other way around. 
+- **Bidirectional Association** :  A navigation property that will create properties in classes on both ends. 
+- **Inheritance** :  Standard .NET inheritance (and its associated constraints). Start the line at the derived class and point to the base class 
+- **Comment** :  Add a comment box anywhere on the model 
+- **Comment Link** :  Link an existing comment to an Entity or Enum. Not required since comments can be free-floating, but nice to have if the comment refers to something specific on the diagram. 
+- **Enum** :  An enumeration 
+
 
 ## Design Surface Properties
 
 A peek at the Property page when you have the design surface selected (the background, rather than anything on it), shows the properties pertinent to the model itself and the DbContext class you'll generate. These are as follows:
 
+<div style="font-size:11px;">Depending on context, not all choices may be visible at any given time</div>
 <table>
 <thead>
 <tr><th valign="top"><b>Property</b></th><th valign="top"><b>Description</b></th></tr>
@@ -114,6 +115,7 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 
 <img src="images/DesignerMenu.jpg" hspace="10" vspace="10">
 
+<div style="font-size:11px;">Depending on context, not all choices may be visible at any given time</div>
 <table>
 <thead>
 <tr><th valign="top"><b>Menu choice</b></th><th valign="top"><b>Description</b></th></tr>
@@ -128,7 +130,6 @@ Right-clicking on the design surface displays a Visual Studio context menu with 
 <tr><td valign="top">Generate Code                            </td><td valign="top">Generates code for the elements modeled in the designer. If no elements are in the designer, this option will be disabled.</td></tr>
 <tr><td valign="top">Add properties via Code                  </td><td valign="top">Displays a dialog that lets you add multiple properties using the designer's custom property syntax. See "<a href="Properties.html#adding-properties-via-code-custom-property-syntax">Adding properties via code</a>" for more details.</td></tr>
 <tr><td valign="top">Save as Image                            </td><td valign="top">Creates an image (bmp/gif/jpg/png/tiff/wmf) file of the designer and lets you save it as a file. If no elements are in the designer, this option will be disabled.</td></tr>
-<tr><td valign="top">Load NuGet Packages                      </td><td valign="top">Will reset the references in the designer's project to load NuGet packages for the Entity Framework version selected in the designer.</td></tr>
 <tr><td valign="top">Expand Selected Elements                 </td><td valign="top">Will expand any selected classes or enums that are collapsed back to their full height. If none selected or none of the selected items are collapsed, this option will be disabled.</td></tr>
 <tr><td valign="top">Collapse Selected Elements               </td><td valign="top">Will collapse down to the title bar any selected classes or enums that are full height. If none selected or all of the selected items are collapsed, this option will be disabled.</td></tr>
 <tr><td valign="top">Select                                   </td><td valign="top">One of the features of the Visual Studio property editor is the ability to edit properties of multiple items if they share that property. This submenu gives you the ability to select model elements by type so that you can conveniently edit properties of those elements together (e.g., setting the color of multiple classes all at once). If the pertinent element type isn't present in the designer, that option will be disabled.<br/>
@@ -170,11 +171,13 @@ You can add elements here as well by right-clicking the top tree node (with the 
 
 ### Diagrams
 
-On the topic of too big models, a feature introduced in version 2.0 of the designer is the ability to add multiple diagram views
-to your model. 
+On the topic of too-big models, you can now add multiple diagrams to your model (as of version 2.0). The diagrams are views on the model data, and 
+can display any subset of your model to help create a laser focus on those things you want to see without the clutter of the rest of the elements.
 
 Add a diagram by right-clicking the model explorer and selecting (oddly enough) "Add New Diagram". You'll get an empty design surface
-with a default name that you can change in the Property window. We'll go into the details of multiple diagrams later. 
+with a default name that you can change in the Property window. 
+
+We'll go into more details of multiple diagrams later. 
 
 ### Generating Code
 
