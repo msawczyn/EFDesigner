@@ -12,763 +12,471 @@ using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 namespace Sawczyn.EFDesigner.EFModel
 {
-	
-/// <summary>
-/// DomainModel EFModelDomainModel
-/// Entity Framework visual editor for EF6, EFCore and beyond.
-	
-/// </summary>
-[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EFModelDomainModel.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+	/// <summary>
+	/// DomainModel EFModelDomainModel
+	/// Entity Framework visual editor for EF6, EFCore and beyond.
+	/// </summary>
+	[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EFModelDomainModel.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EFModelDomainModel.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DependsOnDomainModel(typeof(global::Microsoft.VisualStudio.Modeling.CoreDomainModel))]
 	[DslModeling::DependsOnDomainModel(typeof(global::Microsoft.VisualStudio.Modeling.Diagrams.CoreDesignSurfaceDomainModel))]
+	[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
+	[DslModeling::DomainObjectId("9987f227-3d05-49b7-b151-857879f5dfb8")]
+	public partial class EFModelDomainModel : DslModeling::DomainModel
+	{
+	   #region Constructor, domain model Id
 	
-[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
-[DslModeling::DomainObjectId("9987f227-3d05-49b7-b151-857879f5dfb8")]
-public partial class EFModelDomainModel : DslModeling::DomainModel
-{
-   #region Constructor, domain model Id
-
-   /// <summary>
-   /// EFModelDomainModel domain model Id.
-   /// </summary>
-   public static readonly global::System.Guid DomainModelId = new global::System.Guid(0x9987f227, 0x3d05, 0x49b7, 0xb1, 0x51, 0x85, 0x78, 0x79, 0xf5, 0xdf, 0xb8);
-
-   /// <summary>
-   /// Constructor.
-   /// </summary>
-   /// <param name="store">Store containing the domain model.</param>
-   public EFModelDomainModel(DslModeling::Store store)
-      : base(store, DomainModelId)
-   {
-      // Call the partial method to allow any required serialization setup to be done.
-      this.InitializeSerialization(store);
-   }
-
-
-   ///<Summary>
-   /// Defines a partial method that will be called from the constructor to
-   /// allow any necessary serialization setup to be done.
-   ///</Summary>
-   ///<remarks>
-   /// For a DSL created with the DSL Designer wizard, an implementation of this 
-   /// method will be generated in the GeneratedCode\SerializationHelper.cs class.
-   ///</remarks>
-   partial void InitializeSerialization(DslModeling::Store store);
-
-
-   #endregion
-   #region Domain model reflection
-
-
-   /// <summary>
-   /// Gets the list of generated domain model types (classes, rules, relationships).
-   /// </summary>
-   /// <returns>List of types.</returns>
-   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
-   protected sealed override global::System.Type[] GetGeneratedDomainModelTypes()
-   {
-      return new global::System.Type[]
-      {
-
-         typeof(ModelRoot),
-
-         typeof(ModelClass),
-
-         typeof(ModelAttribute),
-
-         typeof(Comment),
-
-         typeof(ModelEnum),
-
-         typeof(ModelEnumValue),
-
-         typeof(DesignElement),
-
-         typeof(ModelDiagramData),
-
-         typeof(Association),
-
-         typeof(UnidirectionalAssociation),
-
-         typeof(ClassHasAttributes),
-
-         typeof(ModelRootHasComments),
-
-         typeof(Generalization),
-
-         typeof(BidirectionalAssociation),
-
-         typeof(ModelRootHasEnums),
-
-         typeof(ModelEnumHasValues),
-
-         typeof(ModelRootHasClasses),
-
-         typeof(CommentReferencesSubjects),
-
-         typeof(CommentReferencesClasses),
-
-         typeof(CommentReferencesEnums),
-
-         typeof(ModelRootHasModelDiagrams),
-
-         typeof(EFModelDiagram),
-
-         typeof(AssociationConnector),
-
-         typeof(UnidirectionalConnector),
-
-         typeof(BidirectionalConnector),
-
-         typeof(GeneralizationConnector),
-
-         typeof(CommentConnector),
-
-         typeof(CommentBoxShape),
-
-         typeof(ClassShape),
-
-         typeof(EnumShape),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemDeleteRule),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerChangeRule),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerPositionChangeRule),
-
-         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemChangeRule),
-
-      };
-   }
-   /// <summary>
-   /// Gets the list of generated domain properties.
-   /// </summary>
-   /// <returns>List of property data.</returns>
-   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
-   protected sealed override DomainMemberInfo[] GetGeneratedDomainProperties()
-   {
-      return new DomainMemberInfo[]
-      {
-
-         new DomainMemberInfo(typeof(ModelRoot), "LazyLoadingEnabled", ModelRoot.LazyLoadingEnabledDomainPropertyId, typeof(ModelRoot.LazyLoadingEnabledPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EntityContainerAccess", ModelRoot.EntityContainerAccessDomainPropertyId, typeof(ModelRoot.EntityContainerAccessPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EntityContainerName", ModelRoot.EntityContainerNameDomainPropertyId, typeof(ModelRoot.EntityContainerNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "Namespace", ModelRoot.NamespaceDomainPropertyId, typeof(ModelRoot.NamespacePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "DatabaseInitializerType", ModelRoot.DatabaseInitializerTypeDomainPropertyId, typeof(ModelRoot.DatabaseInitializerTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ConnectionString", ModelRoot.ConnectionStringDomainPropertyId, typeof(ModelRoot.ConnectionStringPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "AutomaticMigrationsEnabled", ModelRoot.AutomaticMigrationsEnabledDomainPropertyId, typeof(ModelRoot.AutomaticMigrationsEnabledPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EntityOutputDirectory", ModelRoot.EntityOutputDirectoryDomainPropertyId, typeof(ModelRoot.EntityOutputDirectoryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ContextOutputDirectory", ModelRoot.ContextOutputDirectoryDomainPropertyId, typeof(ModelRoot.ContextOutputDirectoryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EnumOutputDirectory", ModelRoot.EnumOutputDirectoryDomainPropertyId, typeof(ModelRoot.EnumOutputDirectoryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "DatabaseSchema", ModelRoot.DatabaseSchemaDomainPropertyId, typeof(ModelRoot.DatabaseSchemaPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ConcurrencyDefault", ModelRoot.ConcurrencyDefaultDomainPropertyId, typeof(ModelRoot.ConcurrencyDefaultPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "FileNameMarker", ModelRoot.FileNameMarkerDomainPropertyId, typeof(ModelRoot.FileNameMarkerPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkVersion", ModelRoot.EntityFrameworkVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkVersionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ConnectionStringName", ModelRoot.ConnectionStringNameDomainPropertyId, typeof(ModelRoot.ConnectionStringNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ChopMethodChains", ModelRoot.ChopMethodChainsDomainPropertyId, typeof(ModelRoot.ChopMethodChainsPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "InheritanceStrategy", ModelRoot.InheritanceStrategyDomainPropertyId, typeof(ModelRoot.InheritanceStrategyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "DefaultCollectionClass", ModelRoot.DefaultCollectionClassDomainPropertyId, typeof(ModelRoot.DefaultCollectionClassPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ProxyGenerationEnabled", ModelRoot.ProxyGenerationEnabledDomainPropertyId, typeof(ModelRoot.ProxyGenerationEnabledPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "TransformOnSave", ModelRoot.TransformOnSaveDomainPropertyId, typeof(ModelRoot.TransformOnSavePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "DefaultIdentityType", ModelRoot.DefaultIdentityTypeDomainPropertyId, typeof(ModelRoot.DefaultIdentityTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ShowCascadeDeletes", ModelRoot.ShowCascadeDeletesDomainPropertyId, typeof(ModelRoot.ShowCascadeDeletesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "DatabaseType", ModelRoot.DatabaseTypeDomainPropertyId, typeof(ModelRoot.DatabaseTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkPackageVersion", ModelRoot.EntityFrameworkPackageVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkPackageVersionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "StructOutputDirectory", ModelRoot.StructOutputDirectoryDomainPropertyId, typeof(ModelRoot.StructOutputDirectoryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "DbSetAccess", ModelRoot.DbSetAccessDomainPropertyId, typeof(ModelRoot.DbSetAccessPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "Description", ModelRoot.DescriptionDomainPropertyId, typeof(ModelRoot.DescriptionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "Summary", ModelRoot.SummaryDomainPropertyId, typeof(ModelRoot.SummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ShowWarningsInDesigner", ModelRoot.ShowWarningsInDesignerDomainPropertyId, typeof(ModelRoot.ShowWarningsInDesignerPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EntityNamespace", ModelRoot.EntityNamespaceDomainPropertyId, typeof(ModelRoot.EntityNamespacePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "EnumNamespace", ModelRoot.EnumNamespaceDomainPropertyId, typeof(ModelRoot.EnumNamespacePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "StructNamespace", ModelRoot.StructNamespaceDomainPropertyId, typeof(ModelRoot.StructNamespacePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "Namespaces", ModelRoot.NamespacesDomainPropertyId, typeof(ModelRoot.NamespacesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "OutputLocations", ModelRoot.OutputLocationsDomainPropertyId, typeof(ModelRoot.OutputLocationsPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "ExposeForeignKeys", ModelRoot.ExposeForeignKeysDomainPropertyId, typeof(ModelRoot.ExposeForeignKeysPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelRoot), "BaseClass", ModelRoot.BaseClassDomainPropertyId, typeof(ModelRoot.BaseClassPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "Concurrency", ModelClass.ConcurrencyDomainPropertyId, typeof(ModelClass.ConcurrencyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "IsDatabaseSchemaTracking", ModelClass.IsDatabaseSchemaTrackingDomainPropertyId, typeof(ModelClass.IsDatabaseSchemaTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "Namespace", ModelClass.NamespaceDomainPropertyId, typeof(ModelClass.NamespacePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "IsNamespaceTracking", ModelClass.IsNamespaceTrackingDomainPropertyId, typeof(ModelClass.IsNamespaceTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "DbSetName", ModelClass.DbSetNameDomainPropertyId, typeof(ModelClass.DbSetNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "Name", ModelClass.NameDomainPropertyId, typeof(ModelClass.NamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "ImplementNotify", ModelClass.ImplementNotifyDomainPropertyId, typeof(ModelClass.ImplementNotifyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "CustomInterfaces", ModelClass.CustomInterfacesDomainPropertyId, typeof(ModelClass.CustomInterfacesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "IsDependentType", ModelClass.IsDependentTypeDomainPropertyId, typeof(ModelClass.IsDependentTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "OutputDirectory", ModelClass.OutputDirectoryDomainPropertyId, typeof(ModelClass.OutputDirectoryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "IsOutputDirectoryTracking", ModelClass.IsOutputDirectoryTrackingDomainPropertyId, typeof(ModelClass.IsOutputDirectoryTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "GlyphType", ModelClass.GlyphTypeDomainPropertyId, typeof(ModelClass.GlyphTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "Description", ModelClass.DescriptionDomainPropertyId, typeof(ModelClass.DescriptionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "Summary", ModelClass.SummaryDomainPropertyId, typeof(ModelClass.SummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "BaseClass", ModelClass.BaseClassDomainPropertyId, typeof(ModelClass.BaseClassPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "CustomAttributes", ModelClass.CustomAttributesDomainPropertyId, typeof(ModelClass.CustomAttributesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "AutoPropertyDefault", ModelClass.AutoPropertyDefaultDomainPropertyId, typeof(ModelClass.AutoPropertyDefaultPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelClass), "GenerateCode", ModelClass.GenerateCodeDomainPropertyId, typeof(ModelClass.GenerateCodePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Required", ModelAttribute.RequiredDomainPropertyId, typeof(ModelAttribute.RequiredPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Persistent", ModelAttribute.PersistentDomainPropertyId, typeof(ModelAttribute.PersistentPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "MaxLength", ModelAttribute.MaxLengthDomainPropertyId, typeof(ModelAttribute.MaxLengthPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Indexed", ModelAttribute.IndexedDomainPropertyId, typeof(ModelAttribute.IndexedPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IndexedUnique", ModelAttribute.IndexedUniqueDomainPropertyId, typeof(ModelAttribute.IndexedUniquePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "StringType", ModelAttribute.StringTypeDomainPropertyId, typeof(ModelAttribute.StringTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "TableOverride", ModelAttribute.TableOverrideDomainPropertyId, typeof(ModelAttribute.TableOverridePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsConcurrencyToken", ModelAttribute.IsConcurrencyTokenDomainPropertyId, typeof(ModelAttribute.IsConcurrencyTokenPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IdentityType", ModelAttribute.IdentityTypeDomainPropertyId, typeof(ModelAttribute.IdentityTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Description", ModelAttribute.DescriptionDomainPropertyId, typeof(ModelAttribute.DescriptionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Summary", ModelAttribute.SummaryDomainPropertyId, typeof(ModelAttribute.SummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Name", ModelAttribute.NameDomainPropertyId, typeof(ModelAttribute.NamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "SetterVisibility", ModelAttribute.SetterVisibilityDomainPropertyId, typeof(ModelAttribute.SetterVisibilityPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "Virtual", ModelAttribute.VirtualDomainPropertyId, typeof(ModelAttribute.VirtualPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "ReadOnly", ModelAttribute.ReadOnlyDomainPropertyId, typeof(ModelAttribute.ReadOnlyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "AutoProperty", ModelAttribute.AutoPropertyDomainPropertyId, typeof(ModelAttribute.AutoPropertyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "MinLength", ModelAttribute.MinLengthDomainPropertyId, typeof(ModelAttribute.MinLengthPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "ColumnName", ModelAttribute.ColumnNameDomainPropertyId, typeof(ModelAttribute.ColumnNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsColumnNameTracking", ModelAttribute.IsColumnNameTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnNameTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "ColumnType", ModelAttribute.ColumnTypeDomainPropertyId, typeof(ModelAttribute.ColumnTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsColumnTypeTracking", ModelAttribute.IsColumnTypeTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnTypeTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "CustomAttributes", ModelAttribute.CustomAttributesDomainPropertyId, typeof(ModelAttribute.CustomAttributesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "DisplayText", ModelAttribute.DisplayTextDomainPropertyId, typeof(ModelAttribute.DisplayTextPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "PersistencePoint", ModelAttribute.PersistencePointDomainPropertyId, typeof(ModelAttribute.PersistencePointPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "ImplementNotify", ModelAttribute.ImplementNotifyDomainPropertyId, typeof(ModelAttribute.ImplementNotifyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsImplementNotifyTracking", ModelAttribute.IsImplementNotifyTrackingDomainPropertyId, typeof(ModelAttribute.IsImplementNotifyTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsAutoPropertyTracking", ModelAttribute.IsAutoPropertyTrackingDomainPropertyId, typeof(ModelAttribute.IsAutoPropertyTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsAbstract", ModelAttribute.IsAbstractDomainPropertyId, typeof(ModelAttribute.IsAbstractPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelAttribute), "IsForeignKey", ModelAttribute.IsForeignKeyDomainPropertyId, typeof(ModelAttribute.IsForeignKeyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "Namespace", ModelEnum.NamespaceDomainPropertyId, typeof(ModelEnum.NamespacePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "IsNamespaceTracking", ModelEnum.IsNamespaceTrackingDomainPropertyId, typeof(ModelEnum.IsNamespaceTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "Name", ModelEnum.NameDomainPropertyId, typeof(ModelEnum.NamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "IsFlags", ModelEnum.IsFlagsDomainPropertyId, typeof(ModelEnum.IsFlagsPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "OutputDirectory", ModelEnum.OutputDirectoryDomainPropertyId, typeof(ModelEnum.OutputDirectoryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "IsOutputDirectoryTracking", ModelEnum.IsOutputDirectoryTrackingDomainPropertyId, typeof(ModelEnum.IsOutputDirectoryTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "GlyphType", ModelEnum.GlyphTypeDomainPropertyId, typeof(ModelEnum.GlyphTypePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "Description", ModelEnum.DescriptionDomainPropertyId, typeof(ModelEnum.DescriptionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "Summary", ModelEnum.SummaryDomainPropertyId, typeof(ModelEnum.SummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "CustomAttributes", ModelEnum.CustomAttributesDomainPropertyId, typeof(ModelEnum.CustomAttributesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnum), "GenerateCode", ModelEnum.GenerateCodeDomainPropertyId, typeof(ModelEnum.GenerateCodePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnumValue), "Name", ModelEnumValue.NameDomainPropertyId, typeof(ModelEnumValue.NamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnumValue), "Value", ModelEnumValue.ValueDomainPropertyId, typeof(ModelEnumValue.ValuePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnumValue), "Description", ModelEnumValue.DescriptionDomainPropertyId, typeof(ModelEnumValue.DescriptionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnumValue), "Summary", ModelEnumValue.SummaryDomainPropertyId, typeof(ModelEnumValue.SummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnumValue), "CustomAttributes", ModelEnumValue.CustomAttributesDomainPropertyId, typeof(ModelEnumValue.CustomAttributesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelEnumValue), "DisplayText", ModelEnumValue.DisplayTextDomainPropertyId, typeof(ModelEnumValue.DisplayTextPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ModelDiagramData), "Name", ModelDiagramData.NameDomainPropertyId, typeof(ModelDiagramData.NamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetMultiplicity", Association.TargetMultiplicityDomainPropertyId, typeof(Association.TargetMultiplicityPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetPropertyName", Association.TargetPropertyNameDomainPropertyId, typeof(Association.TargetPropertyNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "Persistent", Association.PersistentDomainPropertyId, typeof(Association.PersistentPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "SourceMultiplicityDisplay", Association.SourceMultiplicityDisplayDomainPropertyId, typeof(Association.SourceMultiplicityDisplayPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetMultiplicityDisplay", Association.TargetMultiplicityDisplayDomainPropertyId, typeof(Association.TargetMultiplicityDisplayPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "SourceDeleteAction", Association.SourceDeleteActionDomainPropertyId, typeof(Association.SourceDeleteActionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetDeleteAction", Association.TargetDeleteActionDomainPropertyId, typeof(Association.TargetDeleteActionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "CollectionClass", Association.CollectionClassDomainPropertyId, typeof(Association.CollectionClassPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetDescription", Association.TargetDescriptionDomainPropertyId, typeof(Association.TargetDescriptionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetSummary", Association.TargetSummaryDomainPropertyId, typeof(Association.TargetSummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "Summary", Association.SummaryDomainPropertyId, typeof(Association.SummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "IsCollectionClassTracking", Association.IsCollectionClassTrackingDomainPropertyId, typeof(Association.IsCollectionClassTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "SourceRole", Association.SourceRoleDomainPropertyId, typeof(Association.SourceRolePropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetRole", Association.TargetRoleDomainPropertyId, typeof(Association.TargetRolePropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "ForeignKeyLocation", Association.ForeignKeyLocationDomainPropertyId, typeof(Association.ForeignKeyLocationPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetCustomAttributes", Association.TargetCustomAttributesDomainPropertyId, typeof(Association.TargetCustomAttributesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetDisplayText", Association.TargetDisplayTextDomainPropertyId, typeof(Association.TargetDisplayTextPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetImplementNotify", Association.TargetImplementNotifyDomainPropertyId, typeof(Association.TargetImplementNotifyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "IsTargetImplementNotifyTracking", Association.IsTargetImplementNotifyTrackingDomainPropertyId, typeof(Association.IsTargetImplementNotifyTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "FKPropertyName", Association.FKPropertyNameDomainPropertyId, typeof(Association.FKPropertyNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "TargetPropertyNameDisplay", Association.TargetPropertyNameDisplayDomainPropertyId, typeof(Association.TargetPropertyNameDisplayPropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "Name", Association.NameDomainPropertyId, typeof(Association.NamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(Association), "JoinTableName", Association.JoinTableNameDomainPropertyId, typeof(Association.JoinTableNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(Generalization), "Name", Generalization.NameDomainPropertyId, typeof(Generalization.NamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourcePropertyName", BidirectionalAssociation.SourcePropertyNameDomainPropertyId, typeof(BidirectionalAssociation.SourcePropertyNamePropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceDescription", BidirectionalAssociation.SourceDescriptionDomainPropertyId, typeof(BidirectionalAssociation.SourceDescriptionPropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceSummary", BidirectionalAssociation.SourceSummaryDomainPropertyId, typeof(BidirectionalAssociation.SourceSummaryPropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceCustomAttributes", BidirectionalAssociation.SourceCustomAttributesDomainPropertyId, typeof(BidirectionalAssociation.SourceCustomAttributesPropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceDisplayText", BidirectionalAssociation.SourceDisplayTextDomainPropertyId, typeof(BidirectionalAssociation.SourceDisplayTextPropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceImplementNotify", BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, typeof(BidirectionalAssociation.SourceImplementNotifyPropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "IsSourceImplementNotifyTracking", BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId, typeof(BidirectionalAssociation.IsSourceImplementNotifyTrackingPropertyHandler)),
-
-         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourcePropertyNameDisplay", BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId, typeof(BidirectionalAssociation.SourcePropertyNameDisplayPropertyHandler)),
-
-         new DomainMemberInfo(typeof(AssociationConnector), "Color", AssociationConnector.ColorDomainPropertyId, typeof(AssociationConnector.ColorPropertyHandler)),
-
-         new DomainMemberInfo(typeof(AssociationConnector), "DashStyle", AssociationConnector.DashStyleDomainPropertyId, typeof(AssociationConnector.DashStylePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ClassShape), "FillColor", ClassShape.FillColorDomainPropertyId, typeof(ClassShape.FillColorPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ClassShape), "TextColor", ClassShape.TextColorDomainPropertyId, typeof(ClassShape.TextColorPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ClassShape), "OutlineColor", ClassShape.OutlineColorDomainPropertyId, typeof(ClassShape.OutlineColorPropertyHandler)),
-
-         new DomainMemberInfo(typeof(ClassShape), "OutlineDashStyle", ClassShape.OutlineDashStyleDomainPropertyId, typeof(ClassShape.OutlineDashStylePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ClassShape), "Visible", ClassShape.VisibleDomainPropertyId, typeof(ClassShape.VisiblePropertyHandler)),
-
-         new DomainMemberInfo(typeof(ClassShape), "OutlineThickness", ClassShape.OutlineThicknessDomainPropertyId, typeof(ClassShape.OutlineThicknessPropertyHandler)),
-
-         new DomainMemberInfo(typeof(EnumShape), "FillColor", EnumShape.FillColorDomainPropertyId, typeof(EnumShape.FillColorPropertyHandler)),
-
-         new DomainMemberInfo(typeof(EnumShape), "TextColor", EnumShape.TextColorDomainPropertyId, typeof(EnumShape.TextColorPropertyHandler)),
-
-         new DomainMemberInfo(typeof(EnumShape), "OutlineColor", EnumShape.OutlineColorDomainPropertyId, typeof(EnumShape.OutlineColorPropertyHandler)),
-
-         new DomainMemberInfo(typeof(EnumShape), "Visible", EnumShape.VisibleDomainPropertyId, typeof(EnumShape.VisiblePropertyHandler)),
-
-         new DomainMemberInfo(typeof(EnumShape), "OutlineThickness", EnumShape.OutlineThicknessDomainPropertyId, typeof(EnumShape.OutlineThicknessPropertyHandler)),
-
-         new DomainMemberInfo(typeof(EnumShape), "OutlineDashStyle", EnumShape.OutlineDashStyleDomainPropertyId, typeof(EnumShape.OutlineDashStylePropertyHandler)),
-
-      };
-   }
-
-
-
-   /// <summary>
-   /// Gets the list of generated domain roles.
-   /// </summary>
-   /// <returns>List of role data.</returns>
-   protected sealed override DomainRolePlayerInfo[] GetGeneratedDomainRoles()
-   {
-      return new DomainRolePlayerInfo[]
-      {
-
-         new DomainRolePlayerInfo(typeof(Association), "Source", Association.SourceDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(Association), "Target", Association.TargetDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalSource", UnidirectionalAssociation.UnidirectionalSourceDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalTarget", UnidirectionalAssociation.UnidirectionalTargetDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ClassHasAttributes), "ModelClass", ClassHasAttributes.ModelClassDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ClassHasAttributes), "Attribute", ClassHasAttributes.AttributeDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasComments), "ModelRoot", ModelRootHasComments.ModelRootDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasComments), "Comment", ModelRootHasComments.CommentDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(Generalization), "Superclass", Generalization.SuperclassDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(Generalization), "Subclass", Generalization.SubclassDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(BidirectionalAssociation), "BidirectionalSource", BidirectionalAssociation.BidirectionalSourceDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(BidirectionalAssociation), "BidirectionalTarget", BidirectionalAssociation.BidirectionalTargetDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasEnums), "ModelRoot", ModelRootHasEnums.ModelRootDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasEnums), "ModelEnum", ModelRootHasEnums.ModelEnumDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelEnumHasValues), "Enum", ModelEnumHasValues.EnumDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelEnumHasValues), "Value", ModelEnumHasValues.ValueDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasClasses), "ModelRoot", ModelRootHasClasses.ModelRootDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasClasses), "ModelClass", ModelRootHasClasses.ModelClassDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(CommentReferencesSubjects), "Comment", CommentReferencesSubjects.CommentDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(CommentReferencesSubjects), "DesignElement", CommentReferencesSubjects.DesignElementDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(CommentReferencesClasses), "Comment", CommentReferencesClasses.CommentDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(CommentReferencesClasses), "ModelClass", CommentReferencesClasses.ModelClassDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(CommentReferencesEnums), "Comment", CommentReferencesEnums.CommentDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(CommentReferencesEnums), "ModelEnum", CommentReferencesEnums.ModelEnumDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasModelDiagrams), "ModelRoot", ModelRootHasModelDiagrams.ModelRootDomainRoleId),
-
-         new DomainRolePlayerInfo(typeof(ModelRootHasModelDiagrams), "ModelDiagramData", ModelRootHasModelDiagrams.ModelDiagramDataDomainRoleId),
-
-      };
-   }
-
-   #endregion
-
-   #region Factory methods
-   private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementMap;
-
-   /// <summary>
-   /// Creates an element of specified type.
-   /// </summary>
-   /// <param name="partition">Partition where element is to be created.</param>
-   /// <param name="elementType">Element type which belongs to this domain model.</param>
-   /// <param name="propertyAssignments">New element property assignments.</param>
-   /// <returns>Created element.</returns>
-   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
-   public sealed override DslModeling::ModelElement CreateElement(DslModeling::Partition partition, global::System.Type elementType, DslModeling::PropertyAssignment[] propertyAssignments)
-   {
-      if (elementType == null) throw new global::System.ArgumentNullException("elementType");
-
-      if (createElementMap == null)
-      {
-         createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(17);
-
-         createElementMap.Add(typeof(ModelRoot), 0);
-
-         createElementMap.Add(typeof(ModelClass), 1);
-
-         createElementMap.Add(typeof(ModelAttribute), 2);
-
-         createElementMap.Add(typeof(Comment), 3);
-
-         createElementMap.Add(typeof(ModelEnum), 4);
-
-         createElementMap.Add(typeof(ModelEnumValue), 5);
-
-         createElementMap.Add(typeof(ModelDiagramData), 6);
-
-         createElementMap.Add(typeof(EFModelDiagram), 7);
-
-         createElementMap.Add(typeof(UnidirectionalConnector), 8);
-
-         createElementMap.Add(typeof(BidirectionalConnector), 9);
-
-         createElementMap.Add(typeof(GeneralizationConnector), 10);
-
-         createElementMap.Add(typeof(CommentConnector), 11);
-
-         createElementMap.Add(typeof(CommentBoxShape), 12);
-
-         createElementMap.Add(typeof(ClassShape), 13);
-
-         createElementMap.Add(typeof(EnumShape), 14);
-
-      }
-      int index;
-      if (!createElementMap.TryGetValue(elementType, out index))
-      {
-         // construct exception error message
-         string exceptionError = string.Format(
-                     global::System.Globalization.CultureInfo.CurrentCulture,
-                     global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("UnrecognizedElementType"),
-                     elementType.Name);
-         throw new global::System.ArgumentException(exceptionError, "elementType");
-      }
-      switch (index)
-      {
-
-         case 0: return new ModelRoot(partition, propertyAssignments);
-
-         case 1: return new ModelClass(partition, propertyAssignments);
-
-         case 2: return new ModelAttribute(partition, propertyAssignments);
-
-         case 3: return new Comment(partition, propertyAssignments);
-
-         case 4: return new ModelEnum(partition, propertyAssignments);
-
-         case 5: return new ModelEnumValue(partition, propertyAssignments);
-
-         case 6: return new ModelDiagramData(partition, propertyAssignments);
-
-         case 7: return new EFModelDiagram(partition, propertyAssignments);
-
-         case 8: return new UnidirectionalConnector(partition, propertyAssignments);
-
-         case 9: return new BidirectionalConnector(partition, propertyAssignments);
-
-         case 10: return new GeneralizationConnector(partition, propertyAssignments);
-
-         case 11: return new CommentConnector(partition, propertyAssignments);
-
-         case 12: return new CommentBoxShape(partition, propertyAssignments);
-
-         case 13: return new ClassShape(partition, propertyAssignments);
-
-         case 14: return new EnumShape(partition, propertyAssignments);
-
-         default: return null;
-      }
-   }
-
-   private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementLinkMap;
-
-   /// <summary>
-   /// Creates an element link of specified type.
-   /// </summary>
-   /// <param name="partition">Partition where element is to be created.</param>
-   /// <param name="elementLinkType">Element link type which belongs to this domain model.</param>
-   /// <param name="roleAssignments">List of relationship role assignments for the new link.</param>
-   /// <param name="propertyAssignments">New element property assignments.</param>
-   /// <returns>Created element link.</returns>
-   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-   public sealed override DslModeling::ElementLink CreateElementLink(DslModeling::Partition partition, global::System.Type elementLinkType, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-   {
-      if (elementLinkType == null) throw new global::System.ArgumentNullException("elementLinkType");
-      if (roleAssignments == null) throw new global::System.ArgumentNullException("roleAssignments");
-
-      if (createElementLinkMap == null)
-      {
-         createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(13);
-
-         createElementLinkMap.Add(typeof(UnidirectionalAssociation), 0);
-
-         createElementLinkMap.Add(typeof(ClassHasAttributes), 1);
-
-         createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
-
-         createElementLinkMap.Add(typeof(Generalization), 3);
-
-         createElementLinkMap.Add(typeof(BidirectionalAssociation), 4);
-
-         createElementLinkMap.Add(typeof(ModelRootHasEnums), 5);
-
-         createElementLinkMap.Add(typeof(ModelEnumHasValues), 6);
-
-         createElementLinkMap.Add(typeof(ModelRootHasClasses), 7);
-
-         createElementLinkMap.Add(typeof(CommentReferencesClasses), 8);
-
-         createElementLinkMap.Add(typeof(CommentReferencesEnums), 9);
-
-         createElementLinkMap.Add(typeof(ModelRootHasModelDiagrams), 10);
-
-      }
-      int index;
-      if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
-      {
-         // construct exception error message
-         string exceptionError = string.Format(
-                     global::System.Globalization.CultureInfo.CurrentCulture,
-                     global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("UnrecognizedElementLinkType"),
-                     elementLinkType.Name);
-         throw new global::System.ArgumentException(exceptionError, "elementLinkType");
-
-      }
-      switch (index)
-      {
-
-         case 0: return new UnidirectionalAssociation(partition, roleAssignments, propertyAssignments);
-
-         case 1: return new ClassHasAttributes(partition, roleAssignments, propertyAssignments);
-
-         case 2: return new ModelRootHasComments(partition, roleAssignments, propertyAssignments);
-
-         case 3: return new Generalization(partition, roleAssignments, propertyAssignments);
-
-         case 4: return new BidirectionalAssociation(partition, roleAssignments, propertyAssignments);
-
-         case 5: return new ModelRootHasEnums(partition, roleAssignments, propertyAssignments);
-
-         case 6: return new ModelEnumHasValues(partition, roleAssignments, propertyAssignments);
-
-         case 7: return new ModelRootHasClasses(partition, roleAssignments, propertyAssignments);
-
-         case 8: return new CommentReferencesClasses(partition, roleAssignments, propertyAssignments);
-
-         case 9: return new CommentReferencesEnums(partition, roleAssignments, propertyAssignments);
-
-         case 10: return new ModelRootHasModelDiagrams(partition, roleAssignments, propertyAssignments);
-
-         default: return null;
-      }
-   }
-   #endregion
-
-   #region Resource manager
-
-   private static global::System.Resources.ResourceManager resourceManager;
-
-   /// <summary>
-   /// The base name of this model's resources.
-   /// </summary>
-   public const string ResourceBaseName = "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx";
-
-   /// <summary>
-   /// Gets the DomainModel's ResourceManager. If the ResourceManager does not already exist, then it is created.
-   /// </summary>
-   public override global::System.Resources.ResourceManager ResourceManager
-   {
-      [global::System.Diagnostics.DebuggerStepThrough]
-      get
-      {
-         return EFModelDomainModel.SingletonResourceManager;
-      }
-   }
-
-   /// <summary>
-   /// Gets the Singleton ResourceManager for this domain model.
-   /// </summary>
-   public static global::System.Resources.ResourceManager SingletonResourceManager
-   {
-      [global::System.Diagnostics.DebuggerStepThrough]
-      get
-      {
-         if (EFModelDomainModel.resourceManager == null)
-         {
-            EFModelDomainModel.resourceManager = new global::System.Resources.ResourceManager(ResourceBaseName, typeof(EFModelDomainModel).Assembly);
-         }
-         return EFModelDomainModel.resourceManager;
-      }
-   }
-   #endregion
-
-   #region Copy/Remove closures
-/// <summary>
+	   /// <summary>
+	   /// EFModelDomainModel domain model Id.
+	   /// </summary>
+	   public static readonly global::System.Guid DomainModelId = new global::System.Guid(0x9987f227, 0x3d05, 0x49b7, 0xb1, 0x51, 0x85, 0x78, 0x79, 0xf5, 0xdf, 0xb8);
+	
+	   /// <summary>
+	   /// Constructor.
+	   /// </summary>
+	   /// <param name="store">Store containing the domain model.</param>
+	   public EFModelDomainModel(DslModeling::Store store)
+	      : base(store, DomainModelId)
+	   {
+	      // Call the partial method to allow any required serialization setup to be done.
+	      this.InitializeSerialization(store);
+	   }
+	
+	
+	   ///<Summary>
+	   /// Defines a partial method that will be called from the constructor to
+	   /// allow any necessary serialization setup to be done.
+	   ///</Summary>
+	   ///<remarks>
+	   /// For a DSL created with the DSL Designer wizard, an implementation of this 
+	   /// method will be generated in the GeneratedCode\SerializationHelper.cs class.
+	   ///</remarks>
+	   partial void InitializeSerialization(DslModeling::Store store);
+	
+	
+	   #endregion
+	   #region Domain model reflection
+	
+	   /// <summary>
+	   /// Gets the list of generated domain model types (classes, rules, relationships).
+	   /// </summary>
+	   /// <returns>List of types.</returns>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
+	   protected sealed override global::System.Type[] GetGeneratedDomainModelTypes()
+	   {
+	      return new global::System.Type[]
+	      {
+	         typeof(ModelRoot),
+	         typeof(ModelClass),
+	         typeof(ModelAttribute),
+	         typeof(Comment),
+	         typeof(ModelEnum),
+	         typeof(ModelEnumValue),
+	         typeof(DesignElement),
+	         typeof(ModelDiagramData),
+	         typeof(Association),
+	         typeof(UnidirectionalAssociation),
+	         typeof(ClassHasAttributes),
+	         typeof(ModelRootHasComments),
+	         typeof(Generalization),
+	         typeof(BidirectionalAssociation),
+	         typeof(ModelRootHasEnums),
+	         typeof(ModelEnumHasValues),
+	         typeof(ModelRootHasClasses),
+	         typeof(CommentReferencesSubjects),
+	         typeof(CommentReferencesClasses),
+	         typeof(CommentReferencesEnums),
+	         typeof(ModelRootHasModelDiagrams),
+	         typeof(EFModelDiagram),
+	         typeof(AssociationConnector),
+	         typeof(UnidirectionalConnector),
+	         typeof(BidirectionalConnector),
+	         typeof(GeneralizationConnector),
+	         typeof(CommentConnector),
+	         typeof(CommentBoxShape),
+	         typeof(ClassShape),
+	         typeof(EnumShape),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemDeleteRule),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerChangeRule),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerPositionChangeRule),
+	         typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemChangeRule),
+	      };
+	   }
+	   /// <summary>
+	   /// Gets the list of generated domain properties.
+	   /// </summary>
+	   /// <returns>List of property data.</returns>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
+	   protected sealed override DomainMemberInfo[] GetGeneratedDomainProperties()
+	   {
+	      return new DomainMemberInfo[]
+	      {
+	         new DomainMemberInfo(typeof(ModelRoot), "LazyLoadingEnabled", ModelRoot.LazyLoadingEnabledDomainPropertyId, typeof(ModelRoot.LazyLoadingEnabledPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EntityContainerAccess", ModelRoot.EntityContainerAccessDomainPropertyId, typeof(ModelRoot.EntityContainerAccessPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EntityContainerName", ModelRoot.EntityContainerNameDomainPropertyId, typeof(ModelRoot.EntityContainerNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "Namespace", ModelRoot.NamespaceDomainPropertyId, typeof(ModelRoot.NamespacePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "DatabaseInitializerType", ModelRoot.DatabaseInitializerTypeDomainPropertyId, typeof(ModelRoot.DatabaseInitializerTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ConnectionString", ModelRoot.ConnectionStringDomainPropertyId, typeof(ModelRoot.ConnectionStringPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "AutomaticMigrationsEnabled", ModelRoot.AutomaticMigrationsEnabledDomainPropertyId, typeof(ModelRoot.AutomaticMigrationsEnabledPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EntityOutputDirectory", ModelRoot.EntityOutputDirectoryDomainPropertyId, typeof(ModelRoot.EntityOutputDirectoryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ContextOutputDirectory", ModelRoot.ContextOutputDirectoryDomainPropertyId, typeof(ModelRoot.ContextOutputDirectoryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EnumOutputDirectory", ModelRoot.EnumOutputDirectoryDomainPropertyId, typeof(ModelRoot.EnumOutputDirectoryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "DatabaseSchema", ModelRoot.DatabaseSchemaDomainPropertyId, typeof(ModelRoot.DatabaseSchemaPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ConcurrencyDefault", ModelRoot.ConcurrencyDefaultDomainPropertyId, typeof(ModelRoot.ConcurrencyDefaultPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "FileNameMarker", ModelRoot.FileNameMarkerDomainPropertyId, typeof(ModelRoot.FileNameMarkerPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkVersion", ModelRoot.EntityFrameworkVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkVersionPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ConnectionStringName", ModelRoot.ConnectionStringNameDomainPropertyId, typeof(ModelRoot.ConnectionStringNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ChopMethodChains", ModelRoot.ChopMethodChainsDomainPropertyId, typeof(ModelRoot.ChopMethodChainsPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "InheritanceStrategy", ModelRoot.InheritanceStrategyDomainPropertyId, typeof(ModelRoot.InheritanceStrategyPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "DefaultCollectionClass", ModelRoot.DefaultCollectionClassDomainPropertyId, typeof(ModelRoot.DefaultCollectionClassPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ProxyGenerationEnabled", ModelRoot.ProxyGenerationEnabledDomainPropertyId, typeof(ModelRoot.ProxyGenerationEnabledPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "TransformOnSave", ModelRoot.TransformOnSaveDomainPropertyId, typeof(ModelRoot.TransformOnSavePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "DefaultIdentityType", ModelRoot.DefaultIdentityTypeDomainPropertyId, typeof(ModelRoot.DefaultIdentityTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ShowCascadeDeletes", ModelRoot.ShowCascadeDeletesDomainPropertyId, typeof(ModelRoot.ShowCascadeDeletesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "DatabaseType", ModelRoot.DatabaseTypeDomainPropertyId, typeof(ModelRoot.DatabaseTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "WarnOnMissingDocumentation", ModelRoot.WarnOnMissingDocumentationDomainPropertyId, typeof(ModelRoot.WarnOnMissingDocumentationPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EntityFrameworkPackageVersion", ModelRoot.EntityFrameworkPackageVersionDomainPropertyId, typeof(ModelRoot.EntityFrameworkPackageVersionPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "StructOutputDirectory", ModelRoot.StructOutputDirectoryDomainPropertyId, typeof(ModelRoot.StructOutputDirectoryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "DbSetAccess", ModelRoot.DbSetAccessDomainPropertyId, typeof(ModelRoot.DbSetAccessPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "Description", ModelRoot.DescriptionDomainPropertyId, typeof(ModelRoot.DescriptionPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "Summary", ModelRoot.SummaryDomainPropertyId, typeof(ModelRoot.SummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ShowWarningsInDesigner", ModelRoot.ShowWarningsInDesignerDomainPropertyId, typeof(ModelRoot.ShowWarningsInDesignerPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EntityNamespace", ModelRoot.EntityNamespaceDomainPropertyId, typeof(ModelRoot.EntityNamespacePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "EnumNamespace", ModelRoot.EnumNamespaceDomainPropertyId, typeof(ModelRoot.EnumNamespacePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "StructNamespace", ModelRoot.StructNamespaceDomainPropertyId, typeof(ModelRoot.StructNamespacePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "Namespaces", ModelRoot.NamespacesDomainPropertyId, typeof(ModelRoot.NamespacesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "OutputLocations", ModelRoot.OutputLocationsDomainPropertyId, typeof(ModelRoot.OutputLocationsPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "ExposeForeignKeys", ModelRoot.ExposeForeignKeysDomainPropertyId, typeof(ModelRoot.ExposeForeignKeysPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "BaseClass", ModelRoot.BaseClassDomainPropertyId, typeof(ModelRoot.BaseClassPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "Concurrency", ModelClass.ConcurrencyDomainPropertyId, typeof(ModelClass.ConcurrencyPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsDatabaseSchemaTracking", ModelClass.IsDatabaseSchemaTrackingDomainPropertyId, typeof(ModelClass.IsDatabaseSchemaTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "Namespace", ModelClass.NamespaceDomainPropertyId, typeof(ModelClass.NamespacePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsNamespaceTracking", ModelClass.IsNamespaceTrackingDomainPropertyId, typeof(ModelClass.IsNamespaceTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "DbSetName", ModelClass.DbSetNameDomainPropertyId, typeof(ModelClass.DbSetNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "Name", ModelClass.NameDomainPropertyId, typeof(ModelClass.NamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "ImplementNotify", ModelClass.ImplementNotifyDomainPropertyId, typeof(ModelClass.ImplementNotifyPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "CustomInterfaces", ModelClass.CustomInterfacesDomainPropertyId, typeof(ModelClass.CustomInterfacesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsDependentType", ModelClass.IsDependentTypeDomainPropertyId, typeof(ModelClass.IsDependentTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "OutputDirectory", ModelClass.OutputDirectoryDomainPropertyId, typeof(ModelClass.OutputDirectoryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsOutputDirectoryTracking", ModelClass.IsOutputDirectoryTrackingDomainPropertyId, typeof(ModelClass.IsOutputDirectoryTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "GlyphType", ModelClass.GlyphTypeDomainPropertyId, typeof(ModelClass.GlyphTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "Description", ModelClass.DescriptionDomainPropertyId, typeof(ModelClass.DescriptionPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "Summary", ModelClass.SummaryDomainPropertyId, typeof(ModelClass.SummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "BaseClass", ModelClass.BaseClassDomainPropertyId, typeof(ModelClass.BaseClassPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "CustomAttributes", ModelClass.CustomAttributesDomainPropertyId, typeof(ModelClass.CustomAttributesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "AutoPropertyDefault", ModelClass.AutoPropertyDefaultDomainPropertyId, typeof(ModelClass.AutoPropertyDefaultPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "GenerateCode", ModelClass.GenerateCodeDomainPropertyId, typeof(ModelClass.GenerateCodePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Required", ModelAttribute.RequiredDomainPropertyId, typeof(ModelAttribute.RequiredPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Persistent", ModelAttribute.PersistentDomainPropertyId, typeof(ModelAttribute.PersistentPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "MaxLength", ModelAttribute.MaxLengthDomainPropertyId, typeof(ModelAttribute.MaxLengthPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Indexed", ModelAttribute.IndexedDomainPropertyId, typeof(ModelAttribute.IndexedPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IndexedUnique", ModelAttribute.IndexedUniqueDomainPropertyId, typeof(ModelAttribute.IndexedUniquePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "StringType", ModelAttribute.StringTypeDomainPropertyId, typeof(ModelAttribute.StringTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "TableOverride", ModelAttribute.TableOverrideDomainPropertyId, typeof(ModelAttribute.TableOverridePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsConcurrencyToken", ModelAttribute.IsConcurrencyTokenDomainPropertyId, typeof(ModelAttribute.IsConcurrencyTokenPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IdentityType", ModelAttribute.IdentityTypeDomainPropertyId, typeof(ModelAttribute.IdentityTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Description", ModelAttribute.DescriptionDomainPropertyId, typeof(ModelAttribute.DescriptionPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Summary", ModelAttribute.SummaryDomainPropertyId, typeof(ModelAttribute.SummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Name", ModelAttribute.NameDomainPropertyId, typeof(ModelAttribute.NamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "SetterVisibility", ModelAttribute.SetterVisibilityDomainPropertyId, typeof(ModelAttribute.SetterVisibilityPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "Virtual", ModelAttribute.VirtualDomainPropertyId, typeof(ModelAttribute.VirtualPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "ReadOnly", ModelAttribute.ReadOnlyDomainPropertyId, typeof(ModelAttribute.ReadOnlyPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "AutoProperty", ModelAttribute.AutoPropertyDomainPropertyId, typeof(ModelAttribute.AutoPropertyPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "MinLength", ModelAttribute.MinLengthDomainPropertyId, typeof(ModelAttribute.MinLengthPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "ColumnName", ModelAttribute.ColumnNameDomainPropertyId, typeof(ModelAttribute.ColumnNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsColumnNameTracking", ModelAttribute.IsColumnNameTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnNameTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "ColumnType", ModelAttribute.ColumnTypeDomainPropertyId, typeof(ModelAttribute.ColumnTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsColumnTypeTracking", ModelAttribute.IsColumnTypeTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnTypeTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "CustomAttributes", ModelAttribute.CustomAttributesDomainPropertyId, typeof(ModelAttribute.CustomAttributesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "DisplayText", ModelAttribute.DisplayTextDomainPropertyId, typeof(ModelAttribute.DisplayTextPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "PersistencePoint", ModelAttribute.PersistencePointDomainPropertyId, typeof(ModelAttribute.PersistencePointPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "ImplementNotify", ModelAttribute.ImplementNotifyDomainPropertyId, typeof(ModelAttribute.ImplementNotifyPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsImplementNotifyTracking", ModelAttribute.IsImplementNotifyTrackingDomainPropertyId, typeof(ModelAttribute.IsImplementNotifyTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsAutoPropertyTracking", ModelAttribute.IsAutoPropertyTrackingDomainPropertyId, typeof(ModelAttribute.IsAutoPropertyTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsAbstract", ModelAttribute.IsAbstractDomainPropertyId, typeof(ModelAttribute.IsAbstractPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsForeignKey", ModelAttribute.IsForeignKeyDomainPropertyId, typeof(ModelAttribute.IsForeignKeyPropertyHandler)),
+	         new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
+	         new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "Namespace", ModelEnum.NamespaceDomainPropertyId, typeof(ModelEnum.NamespacePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "IsNamespaceTracking", ModelEnum.IsNamespaceTrackingDomainPropertyId, typeof(ModelEnum.IsNamespaceTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "Name", ModelEnum.NameDomainPropertyId, typeof(ModelEnum.NamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "IsFlags", ModelEnum.IsFlagsDomainPropertyId, typeof(ModelEnum.IsFlagsPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "OutputDirectory", ModelEnum.OutputDirectoryDomainPropertyId, typeof(ModelEnum.OutputDirectoryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "IsOutputDirectoryTracking", ModelEnum.IsOutputDirectoryTrackingDomainPropertyId, typeof(ModelEnum.IsOutputDirectoryTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "GlyphType", ModelEnum.GlyphTypeDomainPropertyId, typeof(ModelEnum.GlyphTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "Description", ModelEnum.DescriptionDomainPropertyId, typeof(ModelEnum.DescriptionPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "Summary", ModelEnum.SummaryDomainPropertyId, typeof(ModelEnum.SummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "CustomAttributes", ModelEnum.CustomAttributesDomainPropertyId, typeof(ModelEnum.CustomAttributesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnum), "GenerateCode", ModelEnum.GenerateCodeDomainPropertyId, typeof(ModelEnum.GenerateCodePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnumValue), "Name", ModelEnumValue.NameDomainPropertyId, typeof(ModelEnumValue.NamePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnumValue), "Value", ModelEnumValue.ValueDomainPropertyId, typeof(ModelEnumValue.ValuePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnumValue), "Description", ModelEnumValue.DescriptionDomainPropertyId, typeof(ModelEnumValue.DescriptionPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnumValue), "Summary", ModelEnumValue.SummaryDomainPropertyId, typeof(ModelEnumValue.SummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnumValue), "CustomAttributes", ModelEnumValue.CustomAttributesDomainPropertyId, typeof(ModelEnumValue.CustomAttributesPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelEnumValue), "DisplayText", ModelEnumValue.DisplayTextDomainPropertyId, typeof(ModelEnumValue.DisplayTextPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelDiagramData), "Name", ModelDiagramData.NameDomainPropertyId, typeof(ModelDiagramData.NamePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetMultiplicity", Association.TargetMultiplicityDomainPropertyId, typeof(Association.TargetMultiplicityPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetPropertyName", Association.TargetPropertyNameDomainPropertyId, typeof(Association.TargetPropertyNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "Persistent", Association.PersistentDomainPropertyId, typeof(Association.PersistentPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "SourceMultiplicityDisplay", Association.SourceMultiplicityDisplayDomainPropertyId, typeof(Association.SourceMultiplicityDisplayPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetMultiplicityDisplay", Association.TargetMultiplicityDisplayDomainPropertyId, typeof(Association.TargetMultiplicityDisplayPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "SourceDeleteAction", Association.SourceDeleteActionDomainPropertyId, typeof(Association.SourceDeleteActionPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetDeleteAction", Association.TargetDeleteActionDomainPropertyId, typeof(Association.TargetDeleteActionPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "CollectionClass", Association.CollectionClassDomainPropertyId, typeof(Association.CollectionClassPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetDescription", Association.TargetDescriptionDomainPropertyId, typeof(Association.TargetDescriptionPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetSummary", Association.TargetSummaryDomainPropertyId, typeof(Association.TargetSummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "Summary", Association.SummaryDomainPropertyId, typeof(Association.SummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "IsCollectionClassTracking", Association.IsCollectionClassTrackingDomainPropertyId, typeof(Association.IsCollectionClassTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "SourceRole", Association.SourceRoleDomainPropertyId, typeof(Association.SourceRolePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetRole", Association.TargetRoleDomainPropertyId, typeof(Association.TargetRolePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "ForeignKeyLocation", Association.ForeignKeyLocationDomainPropertyId, typeof(Association.ForeignKeyLocationPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetCustomAttributes", Association.TargetCustomAttributesDomainPropertyId, typeof(Association.TargetCustomAttributesPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetDisplayText", Association.TargetDisplayTextDomainPropertyId, typeof(Association.TargetDisplayTextPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetImplementNotify", Association.TargetImplementNotifyDomainPropertyId, typeof(Association.TargetImplementNotifyPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "IsTargetImplementNotifyTracking", Association.IsTargetImplementNotifyTrackingDomainPropertyId, typeof(Association.IsTargetImplementNotifyTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "FKPropertyName", Association.FKPropertyNameDomainPropertyId, typeof(Association.FKPropertyNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetPropertyNameDisplay", Association.TargetPropertyNameDisplayDomainPropertyId, typeof(Association.TargetPropertyNameDisplayPropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "Name", Association.NameDomainPropertyId, typeof(Association.NamePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "JoinTableName", Association.JoinTableNameDomainPropertyId, typeof(Association.JoinTableNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(Generalization), "Name", Generalization.NameDomainPropertyId, typeof(Generalization.NamePropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourcePropertyName", BidirectionalAssociation.SourcePropertyNameDomainPropertyId, typeof(BidirectionalAssociation.SourcePropertyNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceDescription", BidirectionalAssociation.SourceDescriptionDomainPropertyId, typeof(BidirectionalAssociation.SourceDescriptionPropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceSummary", BidirectionalAssociation.SourceSummaryDomainPropertyId, typeof(BidirectionalAssociation.SourceSummaryPropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceCustomAttributes", BidirectionalAssociation.SourceCustomAttributesDomainPropertyId, typeof(BidirectionalAssociation.SourceCustomAttributesPropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceDisplayText", BidirectionalAssociation.SourceDisplayTextDomainPropertyId, typeof(BidirectionalAssociation.SourceDisplayTextPropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceImplementNotify", BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, typeof(BidirectionalAssociation.SourceImplementNotifyPropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "IsSourceImplementNotifyTracking", BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId, typeof(BidirectionalAssociation.IsSourceImplementNotifyTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourcePropertyNameDisplay", BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId, typeof(BidirectionalAssociation.SourcePropertyNameDisplayPropertyHandler)),
+	         new DomainMemberInfo(typeof(AssociationConnector), "Color", AssociationConnector.ColorDomainPropertyId, typeof(AssociationConnector.ColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(AssociationConnector), "DashStyle", AssociationConnector.DashStyleDomainPropertyId, typeof(AssociationConnector.DashStylePropertyHandler)),
+	         new DomainMemberInfo(typeof(ClassShape), "FillColor", ClassShape.FillColorDomainPropertyId, typeof(ClassShape.FillColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(ClassShape), "TextColor", ClassShape.TextColorDomainPropertyId, typeof(ClassShape.TextColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(ClassShape), "OutlineColor", ClassShape.OutlineColorDomainPropertyId, typeof(ClassShape.OutlineColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(ClassShape), "OutlineDashStyle", ClassShape.OutlineDashStyleDomainPropertyId, typeof(ClassShape.OutlineDashStylePropertyHandler)),
+	         new DomainMemberInfo(typeof(ClassShape), "Visible", ClassShape.VisibleDomainPropertyId, typeof(ClassShape.VisiblePropertyHandler)),
+	         new DomainMemberInfo(typeof(ClassShape), "OutlineThickness", ClassShape.OutlineThicknessDomainPropertyId, typeof(ClassShape.OutlineThicknessPropertyHandler)),
+	         new DomainMemberInfo(typeof(EnumShape), "FillColor", EnumShape.FillColorDomainPropertyId, typeof(EnumShape.FillColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(EnumShape), "TextColor", EnumShape.TextColorDomainPropertyId, typeof(EnumShape.TextColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(EnumShape), "OutlineColor", EnumShape.OutlineColorDomainPropertyId, typeof(EnumShape.OutlineColorPropertyHandler)),
+	         new DomainMemberInfo(typeof(EnumShape), "Visible", EnumShape.VisibleDomainPropertyId, typeof(EnumShape.VisiblePropertyHandler)),
+	         new DomainMemberInfo(typeof(EnumShape), "OutlineThickness", EnumShape.OutlineThicknessDomainPropertyId, typeof(EnumShape.OutlineThicknessPropertyHandler)),
+	         new DomainMemberInfo(typeof(EnumShape), "OutlineDashStyle", EnumShape.OutlineDashStyleDomainPropertyId, typeof(EnumShape.OutlineDashStylePropertyHandler)),
+	      };
+	   }
+	   /// <summary>
+	   /// Gets the list of generated domain roles.
+	   /// </summary>
+	   /// <returns>List of role data.</returns>
+	   protected sealed override DomainRolePlayerInfo[] GetGeneratedDomainRoles()
+	   {
+	      return new DomainRolePlayerInfo[]
+	      {
+	         new DomainRolePlayerInfo(typeof(Association), "Source", Association.SourceDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(Association), "Target", Association.TargetDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalSource", UnidirectionalAssociation.UnidirectionalSourceDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalTarget", UnidirectionalAssociation.UnidirectionalTargetDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ClassHasAttributes), "ModelClass", ClassHasAttributes.ModelClassDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ClassHasAttributes), "Attribute", ClassHasAttributes.AttributeDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasComments), "ModelRoot", ModelRootHasComments.ModelRootDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasComments), "Comment", ModelRootHasComments.CommentDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(Generalization), "Superclass", Generalization.SuperclassDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(Generalization), "Subclass", Generalization.SubclassDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(BidirectionalAssociation), "BidirectionalSource", BidirectionalAssociation.BidirectionalSourceDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(BidirectionalAssociation), "BidirectionalTarget", BidirectionalAssociation.BidirectionalTargetDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasEnums), "ModelRoot", ModelRootHasEnums.ModelRootDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasEnums), "ModelEnum", ModelRootHasEnums.ModelEnumDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelEnumHasValues), "Enum", ModelEnumHasValues.EnumDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelEnumHasValues), "Value", ModelEnumHasValues.ValueDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasClasses), "ModelRoot", ModelRootHasClasses.ModelRootDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasClasses), "ModelClass", ModelRootHasClasses.ModelClassDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(CommentReferencesSubjects), "Comment", CommentReferencesSubjects.CommentDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(CommentReferencesSubjects), "DesignElement", CommentReferencesSubjects.DesignElementDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(CommentReferencesClasses), "Comment", CommentReferencesClasses.CommentDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(CommentReferencesClasses), "ModelClass", CommentReferencesClasses.ModelClassDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(CommentReferencesEnums), "Comment", CommentReferencesEnums.CommentDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(CommentReferencesEnums), "ModelEnum", CommentReferencesEnums.ModelEnumDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasModelDiagrams), "ModelRoot", ModelRootHasModelDiagrams.ModelRootDomainRoleId),
+	         new DomainRolePlayerInfo(typeof(ModelRootHasModelDiagrams), "ModelDiagramData", ModelRootHasModelDiagrams.ModelDiagramDataDomainRoleId),
+	      };
+	   }
+	   #endregion
+	   #region Factory methods
+	   private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementMap;
+	
+	   /// <summary>
+	   /// Creates an element of specified type.
+	   /// </summary>
+	   /// <param name="partition">Partition where element is to be created.</param>
+	   /// <param name="elementType">Element type which belongs to this domain model.</param>
+	   /// <param name="propertyAssignments">New element property assignments.</param>
+	   /// <returns>Created element.</returns>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
+	   public sealed override DslModeling::ModelElement CreateElement(DslModeling::Partition partition, global::System.Type elementType, DslModeling::PropertyAssignment[] propertyAssignments)
+	   {
+	      if (elementType == null) throw new global::System.ArgumentNullException("elementType");
+	
+	      if (createElementMap == null)
+	      {
+	         createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(17);
+	         createElementMap.Add(typeof(ModelRoot), 0);
+	         createElementMap.Add(typeof(ModelClass), 1);
+	         createElementMap.Add(typeof(ModelAttribute), 2);
+	         createElementMap.Add(typeof(Comment), 3);
+	         createElementMap.Add(typeof(ModelEnum), 4);
+	         createElementMap.Add(typeof(ModelEnumValue), 5);
+	         createElementMap.Add(typeof(ModelDiagramData), 6);
+	         createElementMap.Add(typeof(EFModelDiagram), 7);
+	         createElementMap.Add(typeof(UnidirectionalConnector), 8);
+	         createElementMap.Add(typeof(BidirectionalConnector), 9);
+	         createElementMap.Add(typeof(GeneralizationConnector), 10);
+	         createElementMap.Add(typeof(CommentConnector), 11);
+	         createElementMap.Add(typeof(CommentBoxShape), 12);
+	         createElementMap.Add(typeof(ClassShape), 13);
+	         createElementMap.Add(typeof(EnumShape), 14);
+	      }
+	      int index;
+	      if (!createElementMap.TryGetValue(elementType, out index))
+	      {
+	         // construct exception error message
+	         string exceptionError = string.Format(
+	                     global::System.Globalization.CultureInfo.CurrentCulture,
+	                     global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("UnrecognizedElementType"),
+	                     elementType.Name);
+	         throw new global::System.ArgumentException(exceptionError, "elementType");
+	      }
+	      switch (index)
+	      {
+	         case 0: return new ModelRoot(partition, propertyAssignments);
+	         case 1: return new ModelClass(partition, propertyAssignments);
+	         case 2: return new ModelAttribute(partition, propertyAssignments);
+	         case 3: return new Comment(partition, propertyAssignments);
+	         case 4: return new ModelEnum(partition, propertyAssignments);
+	         case 5: return new ModelEnumValue(partition, propertyAssignments);
+	         case 6: return new ModelDiagramData(partition, propertyAssignments);
+	         case 7: return new EFModelDiagram(partition, propertyAssignments);
+	         case 8: return new UnidirectionalConnector(partition, propertyAssignments);
+	         case 9: return new BidirectionalConnector(partition, propertyAssignments);
+	         case 10: return new GeneralizationConnector(partition, propertyAssignments);
+	         case 11: return new CommentConnector(partition, propertyAssignments);
+	         case 12: return new CommentBoxShape(partition, propertyAssignments);
+	         case 13: return new ClassShape(partition, propertyAssignments);
+	         case 14: return new EnumShape(partition, propertyAssignments);
+	         default: return null;
+	      }
+	   }
+	
+	   private static global::System.Collections.Generic.Dictionary<global::System.Type, int> createElementLinkMap;
+	
+	   /// <summary>
+	   /// Creates an element link of specified type.
+	   /// </summary>
+	   /// <param name="partition">Partition where element is to be created.</param>
+	   /// <param name="elementLinkType">Element link type which belongs to this domain model.</param>
+	   /// <param name="roleAssignments">List of relationship role assignments for the new link.</param>
+	   /// <param name="propertyAssignments">New element property assignments.</param>
+	   /// <returns>Created element link.</returns>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+	   public sealed override DslModeling::ElementLink CreateElementLink(DslModeling::Partition partition, global::System.Type elementLinkType, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+	   {
+	      if (elementLinkType == null) throw new global::System.ArgumentNullException("elementLinkType");
+	      if (roleAssignments == null) throw new global::System.ArgumentNullException("roleAssignments");
+	
+	      if (createElementLinkMap == null)
+	      {
+	         createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(13);
+	         createElementLinkMap.Add(typeof(UnidirectionalAssociation), 0);
+	         createElementLinkMap.Add(typeof(ClassHasAttributes), 1);
+	         createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
+	         createElementLinkMap.Add(typeof(Generalization), 3);
+	         createElementLinkMap.Add(typeof(BidirectionalAssociation), 4);
+	         createElementLinkMap.Add(typeof(ModelRootHasEnums), 5);
+	         createElementLinkMap.Add(typeof(ModelEnumHasValues), 6);
+	         createElementLinkMap.Add(typeof(ModelRootHasClasses), 7);
+	         createElementLinkMap.Add(typeof(CommentReferencesClasses), 8);
+	         createElementLinkMap.Add(typeof(CommentReferencesEnums), 9);
+	         createElementLinkMap.Add(typeof(ModelRootHasModelDiagrams), 10);
+	      }
+	      int index;
+	      if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
+	      {
+	         // construct exception error message
+	         string exceptionError = string.Format(
+	                     global::System.Globalization.CultureInfo.CurrentCulture,
+	                     global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("UnrecognizedElementLinkType"),
+	                     elementLinkType.Name);
+	         throw new global::System.ArgumentException(exceptionError, "elementLinkType");
+	
+	      }
+	      switch (index)
+	      {
+	         case 0: return new UnidirectionalAssociation(partition, roleAssignments, propertyAssignments);
+	         case 1: return new ClassHasAttributes(partition, roleAssignments, propertyAssignments);
+	         case 2: return new ModelRootHasComments(partition, roleAssignments, propertyAssignments);
+	         case 3: return new Generalization(partition, roleAssignments, propertyAssignments);
+	         case 4: return new BidirectionalAssociation(partition, roleAssignments, propertyAssignments);
+	         case 5: return new ModelRootHasEnums(partition, roleAssignments, propertyAssignments);
+	         case 6: return new ModelEnumHasValues(partition, roleAssignments, propertyAssignments);
+	         case 7: return new ModelRootHasClasses(partition, roleAssignments, propertyAssignments);
+	         case 8: return new CommentReferencesClasses(partition, roleAssignments, propertyAssignments);
+	         case 9: return new CommentReferencesEnums(partition, roleAssignments, propertyAssignments);
+	         case 10: return new ModelRootHasModelDiagrams(partition, roleAssignments, propertyAssignments);
+	         default: return null;
+	      }
+	   }
+	   #endregion
+	   #region Resource manager
+	
+	   private static global::System.Resources.ResourceManager resourceManager;
+	
+	   /// <summary>
+	   /// The base name of this model's resources.
+	   /// </summary>
+	   public const string ResourceBaseName = "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx";
+	
+	   /// <summary>
+	   /// Gets the DomainModel's ResourceManager. If the ResourceManager does not already exist, then it is created.
+	   /// </summary>
+	   public override global::System.Resources.ResourceManager ResourceManager
+	   {
+	      [global::System.Diagnostics.DebuggerStepThrough]
+	      get
+	      {
+	         return EFModelDomainModel.SingletonResourceManager;
+	      }
+	   }
+	
+	   /// <summary>
+	   /// Gets the Singleton ResourceManager for this domain model.
+	   /// </summary>
+	   public static global::System.Resources.ResourceManager SingletonResourceManager
+	   {
+	      [global::System.Diagnostics.DebuggerStepThrough]
+	      get
+	      {
+	         if (EFModelDomainModel.resourceManager == null)
+	         {
+	            EFModelDomainModel.resourceManager = new global::System.Resources.ResourceManager(ResourceBaseName, typeof(EFModelDomainModel).Assembly);
+	         }
+	         return EFModelDomainModel.resourceManager;
+	      }
+	   }
+	   #endregion
+	   #region Copy/Remove closures
+		/// <summary>
 		/// CopyClosure cache
 		/// </summary>
 		private static DslModeling::IElementVisitorFilter copyClosure;
@@ -833,71 +541,50 @@ public partial class EFModelDomainModel : DslModeling::DomainModel
 				return EFModelDomainModel.removeClosure;
 			}
 		}
+	   #endregion
+	   #region Diagram rule helpers
+	   /// <summary>
+	   /// Enables rules in this domain model related to diagram fixup for the given store.
+	   /// If diagram data will be loaded into the store, this method should be called first to ensure
+	   /// that the diagram behaves properly.
+	   /// </summary>
+	   public static void EnableDiagramRules(DslModeling::Store store)
+	   {
+	      if(store == null) throw new global::System.ArgumentNullException("store");
 	
-   #endregion
-
-   #region Diagram rule helpers
-   /// <summary>
-   /// Enables rules in this domain model related to diagram fixup for the given store.
-   /// If diagram data will be loaded into the store, this method should be called first to ensure
-   /// that the diagram behaves properly.
-   /// </summary>
-   public static void EnableDiagramRules(DslModeling::Store store)
-   {
-      if(store == null) throw new global::System.ArgumentNullException("store");
-
-      DslModeling::RuleManager ruleManager = store.RuleManager;
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams));
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged));
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged));
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule));
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemDeleteRule));
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerChangeRule));
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerPositionChangeRule));
-
-      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemChangeRule));
-
-   }
-
-   /// <summary>
-   /// Disables rules in this domain model related to diagram fixup for the given store.
-   /// </summary>
-   public static void DisableDiagramRules(DslModeling::Store store)
-   {
-      if(store == null) throw new global::System.ArgumentNullException("store");
-
-      DslModeling::RuleManager ruleManager = store.RuleManager;
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams));
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged));
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged));
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule));
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemDeleteRule));
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerChangeRule));
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerPositionChangeRule));
-
-      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemChangeRule));
-
-   }
-   #endregion
-
-}
-
-#region Copy/Remove closure classes
-/// <summary>
+	      DslModeling::RuleManager ruleManager = store.RuleManager;
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams));
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged));
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged));
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule));
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemDeleteRule));
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerChangeRule));
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerPositionChangeRule));
+	      ruleManager.EnableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemChangeRule));
+	   }
+	
+	   /// <summary>
+	   /// Disables rules in this domain model related to diagram fixup for the given store.
+	   /// </summary>
+	   public static void DisableDiagramRules(DslModeling::Store store)
+	   {
+	      if(store == null) throw new global::System.ArgumentNullException("store");
+	
+	      DslModeling::RuleManager ruleManager = store.RuleManager;
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.FixUpAllDiagrams));
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.DecoratorPropertyChanged));
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.ConnectorRolePlayerChanged));
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemAddRule));
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemDeleteRule));
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerChangeRule));
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemRolePlayerPositionChangeRule));
+	      ruleManager.DisableRule(typeof(global::Sawczyn.EFDesigner.EFModel.CompartmentItemChangeRule));
+	   }
+	   #endregion
+	}
+	
+	#region Copy/Remove closure classes
+	/// <summary>
 	/// Remove closure visitor filter
 	/// </summary>
 	[global::System.CLSCompliant(true)]
@@ -1004,9 +691,8 @@ public partial class EFModelDomainModel : DslModeling::DomainModel
 		{
 		}
 	}
+	#endregion
 	
-#endregion
-
 }
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -1833,4 +1519,3 @@ namespace Sawczyn.EFDesigner.EFModel
 		Field,
 	}
 }
-

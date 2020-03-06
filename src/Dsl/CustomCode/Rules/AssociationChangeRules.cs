@@ -129,6 +129,8 @@ namespace Sawczyn.EFDesigner.EFModel
                         }
                      }
 
+                     fkPropertyError &= CheckFkAutoIdentityErrors(element, errorMessages);
+
                      if (!fkPropertyError)
                      {
                         // remove any flags and locks on the attributes that were foreign keys
@@ -346,6 +348,24 @@ namespace Sawczyn.EFDesigner.EFModel
             current.Rollback();
             ErrorDisplay.Show(string.Join("\n", errorMessages));
          }
+      }
+
+      private static bool CheckFkAutoIdentityErrors(Association element, List<string> errorMessages)
+      {
+         bool fkPropertyError = false;
+
+         // no FK property can be an auto-generated identity
+         List<ModelAttribute> autoIdentityErrors = element.CheckFKAutoIdentityErrors().ToList();
+
+         if (autoIdentityErrors.Any())
+         {
+            foreach (ModelAttribute attribute in autoIdentityErrors)
+               errorMessages.Add($"{attribute.Name} in {element.Dependent.FullName} is an auto-generated identity. Migration will fail.");
+
+            fkPropertyError = true;
+         }
+
+         return fkPropertyError;
       }
 
       internal static bool SetEndpointRoles(Association element)
