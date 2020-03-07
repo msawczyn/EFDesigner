@@ -29,11 +29,36 @@ namespace Sandbox
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public Entity2()
+      protected Entity2()
       {
+         Entity4 = new System.Collections.Generic.HashSet<global::Sandbox.Entity4>();
+
          Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="entity5"></param>
+      public Entity2(global::Sandbox.Entity5 entity5)
+      {
+         if (entity5 == null) throw new ArgumentNullException(nameof(entity5));
+         this.Entity5 = entity5;
+
+         this.Entity4 = new System.Collections.Generic.HashSet<global::Sandbox.Entity4>();
+
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="entity5"></param>
+      public static Entity2 Create(global::Sandbox.Entity5 entity5)
+      {
+         return new Entity2(entity5);
       }
 
       /*************************************************************************
@@ -50,6 +75,13 @@ namespace Sandbox
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      public virtual ICollection<global::Sandbox.Entity4> Entity4 { get; protected set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Sandbox.Entity5 Entity5 { get; set; }
 
    }
 }

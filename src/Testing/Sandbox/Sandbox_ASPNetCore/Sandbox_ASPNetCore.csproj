@@ -10,13 +10,21 @@
 
   <ItemGroup>
     <Content Include="EFModel1.tt">
-      <LastGenOutput>EFModel11.cs</LastGenOutput>
+      <LastGenOutput>EFModel1.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="EFModel1.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 

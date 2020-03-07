@@ -875,6 +875,9 @@
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
+          <ElementNameProvider>
+            <ExternalTypeMoniker Name="ModelDiagramDataNameProvider" />
+          </ElementNameProvider>
         </DomainProperty>
       </Properties>
     </DomainClass>
@@ -1550,6 +1553,7 @@
     <ExternalType Name="Namespaces" Namespace="Sawczyn.EFDesigner.EFModel" />
     <ExternalType Name="OutputLocations" Namespace="Sawczyn.EFDesigner.EFModel" />
     <ExternalType Name="Nullable&lt;System.Int32&gt;" Namespace="System" />
+    <ExternalType Name="ModelDiagramDataNameProvider" Namespace="Sawczyn.EFDesigner.EFModel" />
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">

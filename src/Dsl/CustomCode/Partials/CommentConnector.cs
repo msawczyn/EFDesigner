@@ -15,5 +15,10 @@ namespace Sawczyn.EFDesigner.EFModel
          // so if it's black we're highlighting, return 130, since that looks ok.
          return baseCalculation == 40 ? 130 : baseCalculation;
       }
+
+      /// <summary>
+      /// Gets a value indicating whether the user is allowed to select the ShapeElement.
+      /// </summary>
+      public override bool CanSelect => base.CanSelect && IsVisible; 
    }
 }

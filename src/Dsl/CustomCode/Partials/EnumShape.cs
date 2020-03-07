@@ -17,12 +17,25 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// Exposes NodeShape Collapse() function to DSL's context menu
       /// </summary>
-      public void CollapseShape() => SetIsExpandedValue(false);
+      public void CollapseShape()
+      {
+         if (CanSelect)
+            SetIsExpandedValue(false);
+      }
 
       /// <summary>
       /// Exposes NodeShape Expand() function to DSL's context menu
       /// </summary>
-      public void ExpandShape() => SetIsExpandedValue(true);
+      public void ExpandShape()
+      {
+         if (CanSelect)
+            SetIsExpandedValue(true);
+      }
+
+      /// <summary>
+      /// Gets a value indicating whether the user is allowed to select the ShapeElement.
+      /// </summary>
+      public override bool CanSelect => base.CanSelect && IsVisible; 
 
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)
       {

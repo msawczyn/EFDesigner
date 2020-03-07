@@ -217,16 +217,16 @@ namespace <#= namespaceString #>
             {
                 foreach (var subject in DslModeling::DomainRoleInfo.GetElementLinks<DslDiagrams::PresentationViewsSubject>(existingParent, DslDiagrams::PresentationViewsSubject.SubjectDomainRoleId))
                 {
-                    var l_presentation = subject.Presentation as DslDiagrams::ShapeElement;
-                    if (l_presentation != null && l_presentation.Diagram == diagram)
+                    var presentation = subject.Presentation as DslDiagrams::ShapeElement;
+                    if (presentation != null && presentation.Diagram == diagram)
                     {
-                        var newChildShape = l_presentation.FixUpChildShapes(newChild);
+                        var newChildShape = presentation.FixUpChildShapes(newChild);
                         if (newChildShape != null)
                         {
-                            var l_diagram = newChildShape.Diagram;
-                            if (l_diagram != null && l_diagram == diagram)
+                            var dgm = newChildShape.Diagram;
+                            if (dgm != null && dgm == diagram)
                             {
-                                l_diagram.FixUpDiagramSelection(newChildShape);
+                                dgm.FixUpDiagramSelection(newChildShape);
                             }
                         }
                     }

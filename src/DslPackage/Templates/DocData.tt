@@ -434,7 +434,6 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 
          if (modelRoot == null)
             modelRoot = <#= this.Dsl.GetFullName(true) #>SerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, <#= needLoadValidation ? "this.ValidationController" : "null /* no load-time validation */" #>, this.SerializerLocator); // HACK: MEXEDGE
-         
 <#
    }
    else
@@ -549,9 +548,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          if (this.Store != null) 
          {
             foreach (var diagram in this.GetDiagrams())
-               {
                diagram.SubscribeCompartmentItemsEvents();
-            }
          }
 <#
       }

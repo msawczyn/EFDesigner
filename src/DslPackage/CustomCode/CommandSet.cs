@@ -696,7 +696,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<ClassShape>().Any();
+            command.Enabled = childShapes.OfType<ClassShape>().Any(x => x.CanSelect);
          }
       }
 
@@ -719,7 +719,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<EnumShape>().Any();
+            command.Enabled = childShapes.OfType<EnumShape>().Any(x => x.CanSelect);
          }
       }
 
@@ -742,7 +742,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<AssociationConnector>().Any();
+            command.Enabled = childShapes.OfType<AssociationConnector>().Any(x => x.CanSelect);
          }
       }
 

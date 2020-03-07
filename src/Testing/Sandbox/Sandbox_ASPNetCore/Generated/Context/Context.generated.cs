@@ -28,6 +28,9 @@ namespace Sandbox
       #region DbSets
       public virtual System.Data.Entity.DbSet<global::Sandbox.Entity1> Entity1 { get; set; }
       public virtual System.Data.Entity.DbSet<global::Sandbox.Entity2> Entity2 { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox.Entity3> Entity3 { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox.Entity4> Entity4 { get; set; }
+      public virtual System.Data.Entity.DbSet<global::Sandbox.Entity5> Entity5 { get; set; }
       #endregion DbSets
 
       #region Constructors
@@ -119,6 +122,42 @@ namespace Sandbox
                      .ToTable("Entity2")
                      .HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox.Entity2>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Sandbox.Entity2>()
+                     .HasMany(x => x.Entity4)
+                     .WithRequired()
+                     .Map(x => x.MapKey("Entity2.Entity4_Id"));
+         modelBuilder.Entity<global::Sandbox.Entity2>()
+                     .HasRequired(x => x.Entity5)
+                     .WithMany(x => x.Entity2)
+                     .Map(x => x.MapKey("Entity5_Id"));
+
+         modelBuilder.Entity<global::Sandbox.Entity3>()
+                     .ToTable("Entity3")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox.Entity3>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+         modelBuilder.Entity<global::Sandbox.Entity4>()
+                     .ToTable("Entity4")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox.Entity4>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Sandbox.Entity4>()
+                     .HasRequired(x => x.Entity3)
+                     .WithMany(x => x.Entity4)
+                     .Map(x => x.MapKey("Entity3_Id"));
+
+         modelBuilder.Entity<global::Sandbox.Entity5>()
+                     .ToTable("Entity5")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox.Entity5>()
                      .Property(t => t.Id)
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

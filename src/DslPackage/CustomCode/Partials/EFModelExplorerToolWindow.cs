@@ -14,37 +14,47 @@ namespace Sawczyn.EFDesigner.EFModel
          base.OnSelectionChanged(e);
 
          // select element in tree
-         if (PrimarySelection != null)
+         if (PrimarySelection != null && PrimarySelection is ModelElement element)
          {
-            switch (PrimarySelection)
+            using (Transaction t = element.Store.TransactionManager.BeginTransaction("TreeSelectionChanged"))
             {
-               case ModelDiagramData modelDiagramData:
-                  // user selected a diagram. Open it.
-                  EFModelDocData docData = (EFModelDocData)TreeContainer.ModelingDocData;
-                  docData.OpenView(Constants.LogicalView, 
-                                   new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
+               Diagram diagram = element.GetActiveDiagramView()?.Diagram;
 
-                  break;
+               switch (PrimarySelection)
+               {
+                  case ModelDiagramData modelDiagramData:
+                     // user selected a diagram. Open it.
+                     EFModelDocData docData = (EFModelDocData)TreeContainer.ModelingDocData;
+                     docData.OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
 
-               case ModelClass modelClass:
-                  // user selected a class. Find it in the current diagram, center it and make it visible
-                  modelClass.LocateInDiagram(true);
-                  // then fix up the compartments since they might need it
-                  ModelElement[] classElements = {modelClass};
-                  CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "AttributesCompartment", false);
-                  CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "AssociationsCompartment", false);
-                  CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "SourcesCompartment", false);
+                     break;
 
-                  break;
+                  case ModelClass modelClass:
+                     // user selected a class. Find it in the current diagram, center it and make it visible
+                     modelClass.LocateInDiagram(true);
 
-               case ModelEnum modelEnum:
-                  // user selected an enum. Find it in the current diagram, center it and make it visible
-                  modelEnum.LocateInDiagram(true);
-                  // then fix up the compartment since it might need it
-                  ModelElement[] enumElements = {modelEnum};
-                  CompartmentItemAddRule.UpdateCompartments(enumElements, typeof(EnumShape), "ValuesCompartment", false);
+                     // then fix up the compartments since they might need it
+                     ModelElement[] classElements = {modelClass};
+                     CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "AttributesCompartment", false);
+                     CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "AssociationsCompartment", false);
+                     CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "SourcesCompartment", false);
+                     FixUpAllDiagrams.FixUp(diagram, modelClass.ModelRoot, modelClass);
 
-                  break;
+                     break;
+
+                  case ModelEnum modelEnum:
+                     // user selected an enum. Find it in the current diagram, center it and make it visible
+                     modelEnum.LocateInDiagram(true);
+
+                     // then fix up the compartment since it might need it
+                     ModelElement[] enumElements = {modelEnum};
+                     CompartmentItemAddRule.UpdateCompartments(enumElements, typeof(EnumShape), "ValuesCompartment", false);
+                     FixUpAllDiagrams.FixUp(diagram, modelEnum.ModelRoot, modelEnum);
+
+                     break;
+               }
+
+               t.Commit();
             }
          }
       }

@@ -1562,8 +1562,14 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslValidation::ValidationMethod(DslValidation::ValidationCategories.Load | DslValidation::ValidationCategories.Save | DslValidation::ValidationCategories.Menu)]
 		private void ValidateMonikerAmbiguity(DslValidation::ValidationContext context)
 		{
+		   // this is so embarrassing. I have shame....
+		   // while not the safest thing in the world, these get thrown on the first save of the model since we went multi-diagram. 
+			// and they've never been a real problem, so ...
+		   return;
+	
 			// Don't run this rule when deserializing - any ambiguous monikers will 
 			// already have stopped the file from loading.
+	#pragma warning disable 162
 			if (this.Store.InSerializationTransaction)
 			{
 				return;

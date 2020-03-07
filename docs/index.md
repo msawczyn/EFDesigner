@@ -2,6 +2,13 @@
 
 ### Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 -->
+
+<table width="100%"><tr><td align="left" width="100%" style="background-color: lightyellow">
+Please be aware that this document is currently being updated for v2.0. 
+Information here is a mix between 2.0 (unreleased) features and the current 1.3x version.<br/>
+Everything will be updated before the official 2.0 release and this message will be removed.
+</td></tr></table>
+
 This Visual Studio 2019 IDE extension adds a new file type (.efmodel) that allows for visual 
 design of persistent classes. Inheritance, unidirectional and bidirectional associations are all 
 supported. Enumerations are also included in the visual model, as is the ability to add text 

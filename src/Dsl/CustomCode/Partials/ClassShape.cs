@@ -71,6 +71,29 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Exposes NodeShape Collapse() function to DSL's context menu
+      /// </summary>
+      public void CollapseShape()
+      {
+         if (CanSelect)
+            SetIsExpandedValue(false);
+      }
+
+      /// <summary>
+      /// Exposes NodeShape Expand() function to DSL's context menu
+      /// </summary>
+      public void ExpandShape()
+      {
+         if (CanSelect)
+            SetIsExpandedValue(true);
+      }
+
+      /// <summary>
+      /// Gets a value indicating whether the user is allowed to select the ShapeElement.
+      /// </summary>
+      public override bool CanSelect => base.CanSelect && IsVisible; 
+
       /// <summary>  
       /// Return the tooltip text for the specified item  
       /// </summary>  
@@ -106,16 +129,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          return base.GetToolTipText(item);  
       }  
-
-      /// <summary>
-      /// Exposes NodeShape Collapse() function to DSL's context menu
-      /// </summary>
-      public void CollapseShape() => SetIsExpandedValue(false);
-
-      /// <summary>
-      /// Exposes NodeShape Expand() function to DSL's context menu
-      /// </summary>
-      public void ExpandShape() => SetIsExpandedValue(true);
 
       /// <inheritdoc />
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)

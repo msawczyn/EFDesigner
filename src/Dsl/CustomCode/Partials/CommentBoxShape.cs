@@ -24,5 +24,9 @@ namespace Sawczyn.EFDesigner.EFModel
          commentField.AnchoringBehavior.SetBottomAnchor(AnchoringBehavior.Edge.Bottom, 0.01);
       }
 
+      /// <summary>
+      /// Gets a value indicating whether the user is allowed to select the ShapeElement.
+      /// </summary>
+      public override bool CanSelect => base.CanSelect && IsVisible; 
    }
 }

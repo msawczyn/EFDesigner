@@ -386,7 +386,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (modelRoot == null)
             modelRoot = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, this.ValidationController, this.SerializerLocator); // HACK: MEXEDGE
-         
 
          // Report serialization messages.
          this.SuspendErrorListRefresh();
@@ -470,9 +469,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (this.Store != null) 
          {
             foreach (var diagram in this.GetDiagrams())
-               {
                diagram.SubscribeCompartmentItemsEvents();
-            }
          }
       }
 

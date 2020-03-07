@@ -10936,7 +10936,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelDiagramData/Name.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelDiagramData/Name.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::ElementName]
+		[DslModeling::ElementName(typeof(ModelDiagramDataNameProvider))]
 		[DslModeling::DomainObjectId("202e04fe-de2a-4030-9e96-0a7e9df613ab")]
 		public global::System.String Name
 		{
