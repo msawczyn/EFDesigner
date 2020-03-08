@@ -47,7 +47,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Removed tool automatically installing NuGet packages. Too volatile.
    - Fix: OutputDirectory lost on reload (See https://github.com/msawczyn/EFDesigner/issues/144)
    - Fix: Unidirectional Many-to-One Association missing Required (See https://github.com/msawczyn/EFDesigner/issues/145)
-   - Fix: Can't delete property initial value for Enum values (See https://github.com/msawczyn/EFDesigner/issues/148)
+   - Fix: Couldn't delete property initial value for Enum values (See https://github.com/msawczyn/EFDesigner/issues/148)
    - Fix: Support for Empty / blank "File Name Marker" (See https://github.com/msawczyn/EFDesigner/issues/149)
    - Fix: Now escaping XML comment text properly
 
