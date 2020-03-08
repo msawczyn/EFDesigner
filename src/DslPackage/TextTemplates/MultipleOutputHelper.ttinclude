@@ -8,7 +8,6 @@
 #><#@ import namespace="System.Text"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-
 // EFDesigner v2.0.0.0
 // Copyright (c) 2017-2020 Michael Sawczyn
 // https://github.com/msawczyn/EFDesigner
@@ -17,7 +16,7 @@
 // https://raw.github.com/damieng/DamienGKit
 // http://damieng.com/blog/2009/11/06/multiple-outputs-from-t4-made-easy-revisited
 
-/**************************************************
+   /**************************************************
    * Support for creating multiple output files from a single T4
    */
 

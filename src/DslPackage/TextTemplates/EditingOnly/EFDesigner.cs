@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Security;
+
 // ReSharper disable RedundantNameQualifier
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
@@ -10,6 +12,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      // EFDesigner v2.0.0.0
+      // Copyright (c) 2017-2020 Michael Sawczyn
+      // https://github.com/msawczyn/EFDesigner
+
       /**************************************************
        * Code generation methods and data common to EF6 and EFCore
        */
@@ -276,7 +282,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                                                                               ? "'"
                                                                               : string.Empty;
 
-                                                               string value = FullyQualified(modelClass.ModelRoot, x.InitialValue.Trim('"', '\''));
+                                                               string value = FullyQualified(modelClass.ModelRoot, quote.Length > 0
+                                                                                                                         ? x.InitialValue.Trim(quote[0])
+                                                                                                                         : x.InitialValue);
 
                                                                return $"{x.FQPrimitiveType} {x.Name.ToLower()} = {quote}{value}{quote}";
                                                             }));
@@ -435,7 +443,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                else
                   text = string.Empty;
 
-               Output("/// " + outputText.Replace("<", "{").Replace(">", "}"));
+               //Output("/// " + outputText.Replace("<", "{").Replace(">", "}"));
+               Output("/// " + SecurityElement.Escape(outputText));
             }
          }
       }
@@ -544,7 +553,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             Output("/// </summary>");
 
             WriteConstructorComments(modelClass);
-            Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, true))})");
+            Output($"{visibility} {modelClass.Name}({string.Join(", ", GetRequiredParameters(modelClass, null))})");
             Output("{");
 
             if (remarks.Count > 0)
@@ -575,12 +584,14 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                                                                                     && x.InitialValue != "null"))
             {
                string quote = modelAttribute.Type == "String"
-                           ? "\""
-                           : modelAttribute.Type == "Char"
-                              ? "'"
-                              : string.Empty;
+                                    ? "\""
+                                    : modelAttribute.Type == "Char"
+                                          ? "'"
+                                          : string.Empty;
 
-               Output($"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
+               Output(quote.Length > 0
+                            ? $"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue.Trim(quote[0]))}{quote};"
+                            : $"this.{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
             }
 
             foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
@@ -655,7 +666,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          foreach (ModelAttribute requiredAttribute in modelClass.AllRequiredAttributes.Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
                                                                                                 && !x.IsConcurrencyToken
                                                                                                 && x.SetterVisibility == SetterAccessModifier.Public))
-            Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{requiredAttribute.Summary}</param>");
+            Output($@"/// <param name=""{requiredAttribute.Name.ToLower()}"">{SecurityElement.Escape(requiredAttribute.Summary)}</param>");
 
          // TODO: Add comment if available
          foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
@@ -670,7 +681,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.SetterVisibility == SetterAccessModifier.Public
                                                                                  && !string.IsNullOrEmpty(x.InitialValue)
-                                                                                 && x.InitialValue != "null"))
+                                                                                 && x.InitialValue.Trim('"') != "null"))
          {
             string quote = modelAttribute.Type == "String"
                         ? "\""
@@ -678,7 +689,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                            ? "'"
                            : string.Empty;
 
-            Output($"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
+            Output(quote.Length == 1
+                         ? $"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue.Trim(quote[0]))}{quote};"
+                         : $"{modelAttribute.Name} = {quote}{FullyQualified(modelClass.ModelRoot, modelAttribute.InitialValue)}{quote};");
+
             ++lineCount;
          }
 
@@ -974,33 +988,39 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             if (!string.IsNullOrWhiteSpace(modelAttribute.CustomAttributes))
                Output($"[{modelAttribute.CustomAttributes.Trim('[', ']')}]");
 
-            if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
-               Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
+            if (modelAttribute.IsAbstract)
+               Output($"public abstract {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
             else
             {
-               Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name}");
-               Output("{");
-               Output("get");
-               Output("{");
-               Output($"{modelAttribute.FQPrimitiveType}{nullable} value = _{modelAttribute.Name};");
-               Output($"Get{modelAttribute.Name}(ref value);");
-               Output($"return (_{modelAttribute.Name} = value);");
-               Output("}");
-               Output($"{setterVisibility}set");
-               Output("{");
-               Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = _{modelAttribute.Name};");
-               Output($"Set{modelAttribute.Name}(oldValue, ref value);");
-               Output("if (oldValue != value)");
-               Output("{");
-               Output($"_{modelAttribute.Name} = value;");
+               if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
+                  Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
+               else
+               {
+                  Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name}");
+                  Output("{");
+                  Output("get");
+                  Output("{");
+                  Output($"{modelAttribute.FQPrimitiveType}{nullable} value = _{modelAttribute.Name};");
+                  Output($"Get{modelAttribute.Name}(ref value);");
+                  Output($"return (_{modelAttribute.Name} = value);");
+                  Output("}");
+                  Output($"{setterVisibility}set");
+                  Output("{");
+                  Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = _{modelAttribute.Name};");
+                  Output($"Set{modelAttribute.Name}(oldValue, ref value);");
+                  Output("if (oldValue != value)");
+                  Output("{");
+                  Output($"_{modelAttribute.Name} = value;");
 
-               if (modelAttribute.ImplementNotify)
-                  Output("OnPropertyChanged();");
+                  if (modelAttribute.ImplementNotify)
+                     Output("OnPropertyChanged();");
 
-               Output("}");
-               Output("}");
-               Output("}");
+                  Output("}");
+                  Output("}");
+                  Output("}");
+               }
             }
+
 
             NL();
          }

@@ -4,6 +4,7 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Security;
 // ReSharper disable RedundantNameQualifier
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
@@ -12,6 +13,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      // EFDesigner v2.0.0.0
+      // Copyright (c) 2017-2020 Michael Sawczyn
+      // https://github.com/msawczyn/EFDesigner
+
       /**************************************************
        * EFCore-specific code generation methods
        */

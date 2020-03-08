@@ -74,6 +74,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix: Unidirectional Many-to-One Association missing Required (See https://github.com/msawczyn/EFDesigner/issues/145)
    - Fix: Can't delete property initial value for Enum values (See https://github.com/msawczyn/EFDesigner/issues/148)
    - Fix: Support for Empty / blank "File Name Marker" (See https://github.com/msawczyn/EFDesigner/issues/149)
+   - Fix: Now escaping XML comment text properly
 
 <details>
 <summary><b>1.3.0.12</b></summary>

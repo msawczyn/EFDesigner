@@ -4,7 +4,18 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Security;
 // ReSharper disable RedundantNameQualifier
+
+namespace System.Data.Entity.Design.PluralizationServices
+{
+   internal class PluralizationService
+   {
+      internal bool IsSingular(string _) { return true; }
+
+      internal string Pluralize(string _) { return string.Empty; }
+   }
+}
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 {
@@ -75,8 +86,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("/// <inheritdoc/>");
 
          Output(modelRoot.DatabaseInitializerType == DatabaseInitializerKind.MigrateDatabaseToLatestVersion
-                     ? $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>"
-                     : $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.EntityContainerName}>");
+                     ? $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.Namespace}.{modelRoot.EntityContainerName}, {GetMigrationNamespace(modelRoot)}.{modelRoot.EntityContainerName}DbMigrationConfiguration>"
+                     : $"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.Namespace}.{modelRoot.EntityContainerName}>");
 
          Output("{");
          Output("}");
@@ -469,7 +480,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                         if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
-                           string tableMap = $"{association.Source.Name}_x_{association.TargetPropertyName}";
+                           string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.Source.Name}_x_{association.TargetPropertyName}" : association.JoinTableName;
                            string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
                            string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
 
@@ -511,7 +522,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                   string foreignKeySegment = CreateForeignKeySegmentEF6(association, foreignKeyColumns);
 
-                  // can't shadow properties twice
+                  // can't include shadow properties twice
                   if (foreignKeySegment != null)
                   {
                      if (!foreignKeySegment.Contains("MapKey"))
@@ -583,7 +594,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                         if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
-                           string tableMap = $"{association.SourcePropertyName}_x_{association.TargetPropertyName}";
+                           string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.SourcePropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
                            string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
                            string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
 
@@ -661,14 +672,22 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("}");
       }
 
+      string GetMigrationNamespace(ModelRoot modelRoot)
+      {
+         List<string> nsParts = modelRoot.Namespace.Split('.').ToList();
+         nsParts = nsParts.Take(nsParts.Count - 1).ToList();
+         nsParts.Add("Migrations");
+         return string.Join(".", nsParts);
+      }
+
       void WriteMigrationConfigurationEF6(ModelRoot modelRoot)
       {
          Output("using System.Data.Entity.Migrations;");
          NL();
 
-         BeginNamespace(modelRoot.Namespace);
+         BeginNamespace(GetMigrationNamespace(modelRoot));
          Output("/// <inheritdoc/>");
-         Output($"public sealed partial class {modelRoot.EntityContainerName}DbMigrationConfiguration : DbMigrationsConfiguration<{modelRoot.EntityContainerName}>");
+         Output($"public sealed partial class {modelRoot.EntityContainerName}DbMigrationConfiguration : DbMigrationsConfiguration<{modelRoot.Namespace}.{modelRoot.EntityContainerName}>");
 
          Output("{");
          Output("partial void Init();");
