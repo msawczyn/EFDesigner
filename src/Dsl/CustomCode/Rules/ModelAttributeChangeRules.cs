@@ -242,6 +242,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
                            if (fragment.IsIdentity)
                               element.IsIdentity = true; // don't reset to false if not entered as part of name
+
+                           // if a foreign key, need to change the value in the association as well
+                           if (element.IsForeignKey)
+                           {
+                              NavigationProperty navigationProperty = modelClass.LocalNavigationProperties()
+                                                                                .FirstOrDefault(np => np.AssociationObject.Dependent == modelClass 
+                                                                                                   && np.AssociationObject.FKPropertyName == (string)e.OldValue);
+
+                              if (navigationProperty != null)
+                              {
+                                 List<string> fkNames = navigationProperty.AssociationObject.FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                 fkNames.Remove((string)e.OldValue);
+                                 fkNames.Add(element.Name);
+                                 navigationProperty.AssociationObject.FKPropertyName = string.Join(",", fkNames);
+                              }
+                           }
                         }
                      }
                   }
@@ -347,6 +363,18 @@ namespace Sawczyn.EFDesigner.EFModel
             current.Rollback();
             ErrorDisplay.Show(string.Join("\n", errorMessages));
          }
+      }
+
+      private void FixForeignKeyValue(ModelAttribute element, string oldValue)
+      {
+         ModelClass modelClass = element.ModelClass;
+
+         NavigationProperty navigationProperty = modelClass.LocalNavigationProperties()
+                                                           .FirstOrDefault(np => np.AssociationObject.Dependent == modelClass 
+                                                                              && np.AssociationObject.FKPropertyName == oldValue);
+
+         if (navigationProperty != null)
+            navigationProperty.AssociationObject.FKPropertyName = element.Name;
       }
    }
 }

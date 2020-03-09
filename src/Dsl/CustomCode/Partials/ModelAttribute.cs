@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using Microsoft.VisualStudio.Modeling.Immutability;
 using Microsoft.VisualStudio.Modeling.Validation;
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
@@ -16,8 +17,6 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       internal const int MAXLENGTH_MAX = -1;
       internal const int MAXLENGTH_UNDEFINED = 0;
-
-      //public static Func<int?> GetDefaultStringLength { get; set; }
 
       /// <summary>Gets the parent model element (ModelClass).</summary>
       /// <value>The parent model element.</value>
@@ -323,6 +322,29 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          return typeName;
+      }
+
+      internal void ClearFKData(string summaryBoilerplate)
+      {
+         int boilerplateLength = summaryBoilerplate?.Length ?? 0;
+         this.SetLocks(Locks.None);
+         IsForeignKey = false;
+
+         Summary = Summary != null && Summary.Length >= boilerplateLength
+                                      ? Summary.Substring(boilerplateLength).TrimStart('.', ' ')
+                                      : null;
+
+         RedrawItem();
+      }
+
+      internal void SetFKData(string summaryBoilerplate)
+      {
+         this.SetLocks(Locks.None);
+         if (!Summary.StartsWith(summaryBoilerplate))
+            Summary = $"{summaryBoilerplate}. {Summary}";
+         this.SetLocks(Locks.Delete);
+         IsForeignKey = true;
+         RedrawItem();
       }
 
       #region ColumnName

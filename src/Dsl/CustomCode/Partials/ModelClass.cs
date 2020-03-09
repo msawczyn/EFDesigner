@@ -788,7 +788,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion IsImplementNotify tracking property
 
-      internal void EnsureForeignKeyAttribute(string fkPropertyName, string type, bool required)
+      internal void EnsureForeignKeyAttribute(string fkPropertyName, string type, bool required, string summary)
       {
          ModelAttribute fkProperty = Attributes.FirstOrDefault(a => a.Name == fkPropertyName);
 

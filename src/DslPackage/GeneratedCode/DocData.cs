@@ -38,6 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
    internal abstract partial class EFModelDocDataBase : DslShell::ModelingDocData
    {
 
+
       #region Constraint ValidationController
       /// <summary>
       /// The controller for all validation that goes on in the package.
@@ -45,6 +46,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private DslShell::VsValidationController validationController;
       private DslShell::ErrorListObserver errorListObserver;
       #endregion
+
       /// <summary>
       /// Document lock holder registered for the subordinate .diagram file.
       /// </summary>
@@ -241,6 +243,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion // ExtensionLocator
 
+
       /// <summary>
       /// The controller for all validation that goes on in the package.
       /// </summary>
@@ -267,7 +270,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       protected virtual DslShell::VsValidationController CreateValidationController()
       {
+
          return new DslShell::VsValidationController(this.ServiceProvider, typeof(EFModelExplorerToolWindow));
+
       }
 
       /// <summary>
@@ -275,6 +280,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       /// <param name="validationController"></param>
       partial void SetValidationExtensionRegistrar(DslValidation::ValidationController validationController);
+
 
       /// <summary>
       /// When the doc data is closed, make sure we reset the valiation messages 
@@ -285,6 +291,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          try
          {
+
             if (this.validationController != null)
             {
                this.validationController.ClearMessages();
@@ -298,13 +305,16 @@ namespace Sawczyn.EFDesigner.EFModel
                   this.errorListObserver = null;
                }
             }
+
             if (this.diagramDocumentLockHolder != null)
             {
                this.diagramDocumentLockHolder.Dispose();
                this.diagramDocumentLockHolder = null;
             }
 
+
             this.diagramPartitionId = global::System.Guid.Empty;
+
          }
          finally
          {
@@ -372,6 +382,7 @@ namespace Sawczyn.EFDesigner.EFModel
          //clear the current root element
          this.SetRootElement(null);
 
+
          // Enable diagram fixup rules in our store, because we will load diagram data.
          global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.EnableDiagramRules(this.Store);
          string diagramFileName = fileName + this.DiagramExtension;
@@ -386,6 +397,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (modelRoot == null)
             modelRoot = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, this.ValidationController, this.SerializerLocator); // HACK: MEXEDGE
+
 
          // Report serialization messages.
          this.SuspendErrorListRefresh();
@@ -415,6 +427,7 @@ namespace Sawczyn.EFDesigner.EFModel
                global::Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(this.SetDocDataDirty(0)); // Setting the encoding will mark the document as dirty, so clear the dirty flag.
             }
             
+
             if (this.Hierarchy != null && global::System.IO.File.Exists(diagramFileName))
             {
                // Add a lock to the subordinate diagram file.
@@ -435,8 +448,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                }
             }
+
          }
       }
+
 
       /// <summary>
       /// Called after the document is opened.
@@ -462,8 +477,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       protected virtual void OnDocumentLoaded()
       {
+
          // Validate the document
          this.ValidationController.Validate(this.GetAllElementsForValidation(), DslValidation::ValidationCategories.Open);
+
 
          // Enable CompartmentItems events.
          if (this.Store != null) 
@@ -471,7 +488,10 @@ namespace Sawczyn.EFDesigner.EFModel
             foreach (var diagram in this.GetDiagrams())
                diagram.SubscribeCompartmentItemsEvents();
          }
+
       }
+
+
 
 
       /// <summary>
@@ -505,6 +525,7 @@ namespace Sawczyn.EFDesigner.EFModel
          
          return !unloadableError;
       }
+
 
       /// <summary>
       /// Handle when document has been saved
@@ -542,6 +563,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+
       /// <summary>
       /// Saves the given file.
       /// </summary>
@@ -549,6 +571,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          DslModeling::SerializationResult serializationResult = new DslModeling::SerializationResult();
          global::Sawczyn.EFDesigner.EFModel.ModelRoot modelRoot = (global::Sawczyn.EFDesigner.EFModel.ModelRoot)this.RootElement;
+
 
          // Only save the diagrams if
          // a) There are any to save
@@ -575,6 +598,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.SaveModel(serializationResult, modelRoot, fileName, this.Encoding, false);
          }
+
          // Report serialization messages.
          this.SuspendErrorListRefresh();
          try
@@ -639,6 +663,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   
                // Set the ModelElement associated with the newly created diagram.
                diagram.ModelElement = rootElement;
+
                if(diagram is global::Sawczyn.EFDesigner.EFModel.EFModelDiagram eFModelDiagram)
                {
                   EFModelSynchronizationHelper.FixUp(eFModelDiagram);
@@ -652,6 +677,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          base.OpenView(logicalView, viewContext);
       }
+
       /// <summary>
       /// Mark that the document has changed and thus a new backup should be created
       /// </summary>
@@ -741,6 +767,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
       #endregion
+
       
       #region Base virtual overrides
       
@@ -777,6 +804,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return null;
       }
 
+
       /// <summary>
       /// Id of the partition that contains diagram elements.
       /// </summary>
@@ -800,6 +828,7 @@ namespace Sawczyn.EFDesigner.EFModel
          
          return result;
       }
+
       #endregion
    }
 }

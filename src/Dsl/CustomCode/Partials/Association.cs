@@ -81,8 +81,15 @@ namespace Sawczyn.EFDesigner.EFModel
          return GetDisplayText();
       }
 
+      internal string GetSummaryBoilerplate()
+      {
+         return $"Foreign key for {GetDisplayText()}";
+      }
+
       internal void EnsureForeignKeyAttributes()
       {
+         string summary = GetSummaryBoilerplate();
+
          if (string.IsNullOrWhiteSpace(FKPropertyName))
             return;
 
@@ -92,17 +99,19 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             Target.ModelRoot.ExposeForeignKeys = true;
             ModelAttribute[] principalIdentityAttributes = Principal.AllIdentityAttributes.ToArray();
+            string[] foreignKeyPropertyNames = GetForeignKeyPropertyNames();
 
-            for (int index = 0; index < GetForeignKeyPropertyNames().Length; index++)
+            for (int index = 0; index < foreignKeyPropertyNames.Length; index++)
             {
-               string fkPropertyName = GetForeignKeyPropertyNames()[index];
+               string fkPropertyName = foreignKeyPropertyNames[index];
 
                // shouldn't need bounds check ... by now, fkPropertyNames.Length and principalIdentityAttributes.Length should always match
                fkParent.EnsureForeignKeyAttribute(fkPropertyName
                                                 , principalIdentityAttributes[index].Type
                                                 , Dependent == Source
                                                      ? TargetMultiplicity == Multiplicity.One
-                                                     : SourceMultiplicity == Multiplicity.One);
+                                                     : SourceMultiplicity == Multiplicity.One
+                                                , summary);
             }
          }
          else

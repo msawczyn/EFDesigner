@@ -76,107 +76,86 @@ namespace Sawczyn.EFDesigner.EFModel
             switch (e.DomainProperty.Name)
             {
                case "FKPropertyName":
-               {
-                  string fkPropertyName = e.NewValue?.ToString();
-                  bool fkPropertyError = false;
-
-                  // these can be multiples, separated by a comma
-                  string[] priorForeignKeyPropertyNames = e.OldValue?.ToString().Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
-
-                  IEnumerable<ModelAttribute> priorForeignKeyModelAttributes = string.IsNullOrEmpty(e.OldValue?.ToString())
-                                                                                     ? Array.Empty<ModelAttribute>()
-                                                                                     : priorForeignKeyPropertyNames
-                                                                                      .Select(oldValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue))
-                                                                                      .ToArray();
-
-                  if (!string.IsNullOrEmpty(fkPropertyName))
                   {
-                     string tag = $"({element.Source.Name}:{element.Target.Name})";
+                     string fkPropertyName = e.NewValue?.ToString();
+                     bool fkPropertyError = false;
 
-                     if (element.Dependent == null)
+                     // these can be multiples, separated by a comma
+                     string[] priorForeignKeyPropertyNames = e.OldValue?.ToString().Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
+
+                     IEnumerable<ModelAttribute> priorForeignKeyModelAttributes = string.IsNullOrEmpty(e.OldValue?.ToString())
+                                                                                        ? Array.Empty<ModelAttribute>()
+                                                                                        : priorForeignKeyPropertyNames
+                                                                                         .Select(oldValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue))
+                                                                                         .Where(x => x != null)
+                                                                                         .ToArray();
+
+                     string summaryBoilerplate = element.GetSummaryBoilerplate();
+
+                     if (!string.IsNullOrEmpty(fkPropertyName))
                      {
-                        errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
+                        string tag = $"({element.Source.Name}:{element.Target.Name})";
 
-                        break;
-                     }
-
-                     string[] foreignKeyPropertyNames = element.GetForeignKeyPropertyNames();
-                     int propertyCount = foreignKeyPropertyNames.Length;
-                     int identityCount = element.Principal.AllIdentityAttributes.Count();
-
-                     if (propertyCount != identityCount)
-                     {
-                        errorMessages.Add(
-                                          $"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
-                                        + $"{element.Principal.Name} has {identityCount} identity properties; found {propertyCount} instead");
-
-                        fkPropertyError = true;
-                     }
-
-                     // validate names
-                     foreach (string propertyName in foreignKeyPropertyNames)
-                     {
-                        if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
+                        if (element.Dependent == null)
                         {
-                           errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
+                           errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
+
+                           break;
+                        }
+
+                        string[] foreignKeyPropertyNames = element.GetForeignKeyPropertyNames();
+                        int propertyCount = foreignKeyPropertyNames.Length;
+                        int identityCount = element.Principal.AllIdentityAttributes.Count();
+
+                        if (propertyCount != identityCount)
+                        {
+                           errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
+                                           + $"{element.Principal.Name} has {identityCount} identity properties; found {propertyCount} instead");
+
                            fkPropertyError = true;
                         }
 
-                        if (element.Dependent.AllAttributes.Except(element.Dependent.Attributes).Any(a => a.Name == propertyName))
+                        // validate names
+                        foreach (string propertyName in foreignKeyPropertyNames)
                         {
-                           errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {element.Dependent.Name}");
-                           fkPropertyError = true;
+                           if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
+                           {
+                              errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
+                              fkPropertyError = true;
+                           }
+
+                           if (element.Dependent.AllAttributes.Except(element.Dependent.Attributes).Any(a => a.Name == propertyName))
+                           {
+                              errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {element.Dependent.Name}");
+                              fkPropertyError = true;
+                           }
+                        }
+
+                        fkPropertyError &= CheckFkAutoIdentityErrors(element, errorMessages);
+
+                        if (!fkPropertyError)
+                        {
+                           // remove any flags and locks on the attributes that were foreign keys
+                           foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
+                              modelAttribute.ClearFKData(summaryBoilerplate);
+
+                           element.EnsureForeignKeyAttributes();
+
+                           IEnumerable<ModelAttribute> currentForeignKeyModelAttributes = foreignKeyPropertyNames.Select(newValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == newValue));
+
+                           foreach (ModelAttribute modelAttribute in currentForeignKeyModelAttributes)
+                              modelAttribute.SetFKData(summaryBoilerplate);
                         }
                      }
-
-                     fkPropertyError &= CheckFkAutoIdentityErrors(element, errorMessages);
-
-                     if (!fkPropertyError)
+                     else
                      {
-                        // remove any flags and locks on the attributes that were foreign keys
+                        // foreign key was removed
+                        // remove locks
                         foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
-                        {
-                           modelAttribute.SetLocks(Locks.None);
-                           modelAttribute.Summary = null;
-                           modelAttribute.IsForeignKey = false;
-                           modelAttribute.RedrawItem();
-                        }
-
-                        element.EnsureForeignKeyAttributes();
-
-                        IEnumerable<ModelAttribute> currentForeignKeyModelAttributes = foreignKeyPropertyNames.Select(newValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == newValue));
-
-                        // add delete flags and locks to the attributes that are now foreign keys
-                        foreach (ModelAttribute modelAttribute in currentForeignKeyModelAttributes)
-                        {
-                           modelAttribute.SetLocks(Locks.None);
-                           modelAttribute.Summary = $"Foreign key for {element.GetDisplayText()}. {modelAttribute.Summary}";
-                           modelAttribute.SetLocks(Locks.Delete);
-                           modelAttribute.IsForeignKey = true;
-                           modelAttribute.RedrawItem();
-                        }
+                           modelAttribute.ClearFKData(summaryBoilerplate);
                      }
+
                   }
-                  else
-                  {
-                     // foreign key was removed
-                     // remove locks
-                     foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
-                     {
-                        modelAttribute.SetLocks(Locks.None);
-                        modelAttribute.IsForeignKey = false;
-
-                        string addedSummaryText = $"Foreign key for {element.GetDisplayText()}. ";
-
-                        modelAttribute.Summary = modelAttribute.Summary.Length >= addedSummaryText.Length
-                                                       ? modelAttribute.Summary.Substring(addedSummaryText.Length)
-                                                       : null;
-
-                        modelAttribute.RedrawItem();
-                     }
-                  }
-
-               }
 
                   break;
 
