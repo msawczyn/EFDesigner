@@ -148,6 +148,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomCode\Partials\Constants.cs" />
+    <Compile Include="CustomCode\Partials\EFModelClipboardCommandSet.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocData.cs" />
     <Compile Include="CustomCode\Extensions\ProjectExtensions.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocView.cs" />
@@ -338,6 +339,7 @@
     <None Include="Templates\DocView.tt" />
     <None Include="Templates\EditorFactory.tt" />
     <None Include="Templates\Package.tt" />
+    <Content Include="Templates\CommandSet.tt" />
     <Content Include="TextTemplates\EF6Designer.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
