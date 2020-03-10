@@ -8508,94 +8508,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region IsAbstract domain property code
-		
-		/// <summary>
-		/// IsAbstract domain property Id.
-		/// </summary>
-		public static readonly global::System.Guid IsAbstractDomainPropertyId = new global::System.Guid(0xc336b1f5, 0xb35f, 0x4846, 0xb3, 0x03, 0xf7, 0x12, 0x57, 0x92, 0x72, 0x68);
-		
-		/// <summary>
-		/// Storage for IsAbstract
-		/// </summary>
-		private global::System.Boolean isAbstractPropertyStorage;
-		
-		/// <summary>
-		/// Gets or sets the value of IsAbstract domain property.
-		/// If true, this will be generated as an abstract property
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsAbstract.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainObjectId("c336b1f5-b35f-4846-b303-f71257927268")]
-		public global::System.Boolean IsAbstract
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return isAbstractPropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				IsAbstractPropertyHandler.Instance.SetValue(this, value);
-			}
-		}
-		/// <summary>
-		/// Value handler for the ModelAttribute.IsAbstract domain property.
-		/// </summary>
-		internal sealed partial class IsAbstractPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Boolean>
-		{
-			private IsAbstractPropertyHandler() { }
-		
-			/// <summary>
-			/// Gets the singleton instance of the ModelAttribute.IsAbstract domain property value handler.
-			/// </summary>
-			public static readonly IsAbstractPropertyHandler Instance = new IsAbstractPropertyHandler();
-		
-			/// <summary>
-			/// Gets the Id of the ModelAttribute.IsAbstract domain property.
-			/// </summary>
-			public sealed override global::System.Guid DomainPropertyId
-			{
-				[global::System.Diagnostics.DebuggerStepThrough]
-				get
-				{
-					return IsAbstractDomainPropertyId;
-				}
-			}
-			
-			/// <summary>
-			/// Gets a strongly-typed value of the property on specified element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <returns>Property value.</returns>
-			public override sealed global::System.Boolean GetValue(ModelAttribute element)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.isAbstractPropertyStorage;
-			}
-		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, global::System.Boolean newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				global::System.Boolean oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.isAbstractPropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
-		}
-		
-		#endregion
 		#region IsForeignKey domain property code
 		
 		/// <summary>
@@ -11028,4 +10940,3 @@ namespace Sawczyn.EFDesigner.EFModel
 		#endregion
 	}
 }
-

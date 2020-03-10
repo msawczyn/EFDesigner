@@ -4,7 +4,6 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Security;
 // ReSharper disable RedundantNameQualifier
 
 namespace System.Data.Entity.Design.PluralizationServices
@@ -344,9 +343,12 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             if (classesWithTables.Contains(modelClass))
             {
-               segments.Add(modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
-                                 ? $"ToTable(\"{modelClass.TableName}\")"
-                                 : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+               if (modelRoot.InheritanceStrategy != CodeStrategy.TablePerConcreteType || !modelClass.IsAbstract)
+               {
+                  segments.Add(modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
+                                     ? $"ToTable(\"{modelClass.TableName}\")"
+                                     : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+               }
 
                // primary key code segments must be output last, since HasKey returns a different type
                List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();

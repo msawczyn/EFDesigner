@@ -26,13 +26,9 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
    [VSShell::DefaultRegistryRoot("Software\\Microsoft\\VisualStudio\\15.0")]
    [VSShell::PackageRegistration(RegisterUsing = VSShell::RegistrationMethod.Assembly, UseManagedResourcesOnly = true)]
-
    [VSShell::ProvideToolWindow(typeof(EFModelExplorerToolWindow), MultiInstances = false, Style = VSShell::VsDockStyle.Tabbed, Orientation = VSShell::ToolWindowOrientation.Right, Window = "{3AE79031-E1BC-11D0-8F78-00A0C9110057}")]
    [VSShell::ProvideToolWindowVisibility(typeof(EFModelExplorerToolWindow), Constants.EFModelEditorFactoryId)]
-
-
    [VSShell::ProvideStaticToolboxGroup("@EF Model DiagramsToolboxTab;Sawczyn.EFDesigner.EFModel.Dsl.dll", "Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab")]
-
    [VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
                "@ModelClassToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                "Sawczyn.EFDesigner.EFModel.ModelClassToolboxItem", 
@@ -41,7 +37,6 @@ namespace Sawczyn.EFDesigner.EFModel
                "@ModelClassToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                0xff00ff,
                Index = 0)]
-
    [VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
                "@UnidirectionalAssociationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                "Sawczyn.EFDesigner.EFModel.UnidirectionalAssociationToolboxItem", 
@@ -50,7 +45,6 @@ namespace Sawczyn.EFDesigner.EFModel
                "@UnidirectionalAssociationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                0xff00ff,
                Index = 1)]
-
    [VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
                "@BidirectionalAssociationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                "Sawczyn.EFDesigner.EFModel.BidirectionalAssociationToolboxItem", 
@@ -59,7 +53,6 @@ namespace Sawczyn.EFDesigner.EFModel
                "@BidirectionalAssociationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                0xff00ff,
                Index = 2)]
-
    [VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
                "@GeneralizationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                "Sawczyn.EFDesigner.EFModel.GeneralizationToolboxItem", 
@@ -68,7 +61,6 @@ namespace Sawczyn.EFDesigner.EFModel
                "@GeneralizationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                0xff00ff,
                Index = 3)]
-
    [VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
                "@CommentToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                "Sawczyn.EFDesigner.EFModel.CommentToolboxItem", 
@@ -77,7 +69,6 @@ namespace Sawczyn.EFDesigner.EFModel
                "@CommentToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                0xff00ff,
                Index = 4)]
-
    [VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
                "@CommentLinkToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                "Sawczyn.EFDesigner.EFModel.CommentLinkToolboxItem", 
@@ -86,7 +77,6 @@ namespace Sawczyn.EFDesigner.EFModel
                "@CommentLinkToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                0xff00ff,
                Index = 5)]
-
    [VSShell::ProvideStaticToolboxItem("Sawczyn.EFDesigner.EFModel.EF Model DiagramsToolboxTab",
                "@EnumerationToolboxItem;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                "Sawczyn.EFDesigner.EFModel.EnumerationToolboxItem", 
@@ -95,7 +85,6 @@ namespace Sawczyn.EFDesigner.EFModel
                "@EnumerationToolboxBitmap;Sawczyn.EFDesigner.EFModel.Dsl.dll", 
                0xff00ff,
                Index = 6)]
-
    [VSShell::ProvideEditorLogicalView(typeof(EFModelEditorFactory), Constants.LogicalViewId, IsTrusted = true)]
    [VSShell::ProvideEditorFactory(typeof(EFModelEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
    [VSShell::ProvideEditorExtension(typeof(EFModelEditorFactory), "." + Constants.DesignerFileExtension, 50)]
@@ -130,15 +119,12 @@ namespace Sawczyn.EFDesigner.EFModel
          EFModelCommandSet commandSet = new EFModelCommandSet(this);
          commandSet.Initialize();
          
-
          // Create the command set that handles cut/copy/paste commands provided by this package.
          EFModelClipboardCommandSet clipboardCommandSet = new EFModelClipboardCommandSet(this);
          clipboardCommandSet.Initialize();
          
-
          // Register the model explorer tool window for this DSL.
          this.AddToolWindow(typeof(EFModelExplorerToolWindow));
-
 
          // Initialize Extension Registars
          // this is a partial method call
@@ -185,11 +171,9 @@ namespace Sawczyn.EFDesigner.EFModel
          // Retrieve the specified ToolboxItem from the DSL
          return toolboxHelper.GetToolboxItemData(itemId, format);
       }
-
    }
 
 }
-
 //
 // Package attributes which may need to change are placed on the partial class below, rather than in the main include file.
 //

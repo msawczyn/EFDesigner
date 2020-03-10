@@ -676,11 +676,6 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="c336b1f5-b35f-4846-b303-f71257927268" Description="If true, this will be generated as an abstract property" Name="IsAbstract" DisplayName="Abstract" DefaultValue="false" Category="Code Generation">
-          <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
-          </Type>
-        </DomainProperty>
         <DomainProperty Id="8282d835-2c0e-4d59-a638-6d3c6e494260" Description="If true, this attribute is a user-defined foreign key." Name="IsForeignKey" DisplayName="Is Foreign Key" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
@@ -2106,9 +2101,6 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isAutoPropertyTracking">
             <DomainPropertyMoniker Name="ModelAttribute/IsAutoPropertyTracking" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="isAbstract">
-            <DomainPropertyMoniker Name="ModelAttribute/IsAbstract" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="isForeignKey">
             <DomainPropertyMoniker Name="ModelAttribute/IsForeignKey" />

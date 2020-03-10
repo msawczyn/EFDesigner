@@ -63,7 +63,6 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Added switch to disable generation of classes and enumerations for those cases where they are coming from different assemblies but need to be in the model to avoid errors
    - Added visual indicator on classes and enumerations where code generation is disabled
    - Added ability to override the base class of the generated DbContext to be something other than "DbContext"
-   - Attributes can now be flagged as abstract in the same way classes can.
    - Join tables in many-to-many associations can now have custom names (EF6 only, until EFCore supports many-to-many cardinalities)
    - Removing an enumeration removes all entity properties that use that enumeration, after displaying a warning.
    - Renamed toolbox category to "EF Model Diagrams"

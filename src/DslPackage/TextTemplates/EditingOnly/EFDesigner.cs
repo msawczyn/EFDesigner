@@ -988,39 +988,33 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             if (!string.IsNullOrWhiteSpace(modelAttribute.CustomAttributes))
                Output($"[{modelAttribute.CustomAttributes.Trim('[', ']')}]");
 
-            if (modelAttribute.IsAbstract)
-               Output($"public abstract {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
+            if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
+               Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
             else
             {
-               if (modelAttribute.IsConcurrencyToken || modelAttribute.AutoProperty)
-                  Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name} {{ get; {setterVisibility}set; }}");
-               else
-               {
-                  Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name}");
-                  Output("{");
-                  Output("get");
-                  Output("{");
-                  Output($"{modelAttribute.FQPrimitiveType}{nullable} value = _{modelAttribute.Name};");
-                  Output($"Get{modelAttribute.Name}(ref value);");
-                  Output($"return (_{modelAttribute.Name} = value);");
-                  Output("}");
-                  Output($"{setterVisibility}set");
-                  Output("{");
-                  Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = _{modelAttribute.Name};");
-                  Output($"Set{modelAttribute.Name}(oldValue, ref value);");
-                  Output("if (oldValue != value)");
-                  Output("{");
-                  Output($"_{modelAttribute.Name} = value;");
+               Output($"public {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.Name}");
+               Output("{");
+               Output("get");
+               Output("{");
+               Output($"{modelAttribute.FQPrimitiveType}{nullable} value = _{modelAttribute.Name};");
+               Output($"Get{modelAttribute.Name}(ref value);");
+               Output($"return (_{modelAttribute.Name} = value);");
+               Output("}");
+               Output($"{setterVisibility}set");
+               Output("{");
+               Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = _{modelAttribute.Name};");
+               Output($"Set{modelAttribute.Name}(oldValue, ref value);");
+               Output("if (oldValue != value)");
+               Output("{");
+               Output($"_{modelAttribute.Name} = value;");
 
-                  if (modelAttribute.ImplementNotify)
-                     Output("OnPropertyChanged();");
+               if (modelAttribute.ImplementNotify)
+                  Output("OnPropertyChanged();");
 
-                  Output("}");
-                  Output("}");
-                  Output("}");
-               }
+               Output("}");
+               Output("}");
+               Output("}");
             }
-
 
             NL();
          }
