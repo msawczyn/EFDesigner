@@ -24,7 +24,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		public EFModelExplorer(global::System.IServiceProvider serviceProvider)
 			: base(serviceProvider)
 		{
+			Init();
 		}
+	
+		partial void Init();
 	}
 	
 	/// <summary>

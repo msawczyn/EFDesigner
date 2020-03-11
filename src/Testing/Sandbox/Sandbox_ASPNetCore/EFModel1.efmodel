@@ -57,4 +57,9 @@
       </modelClass>
     </modelRootHasClasses>
   </classes>
+  <diagrams>
+    <modelRootHasModelDiagrams Id="ece48906-df04-4947-ab85-24e60e493005">
+      <modelDiagramData name="Diagram1" />
+    </modelRootHasModelDiagrams>
+  </diagrams>
 </modelRoot>

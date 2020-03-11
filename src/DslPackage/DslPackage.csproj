@@ -340,6 +340,7 @@
     <None Include="Templates\EditorFactory.tt" />
     <None Include="Templates\Package.tt" />
     <Content Include="Templates\CommandSet.tt" />
+    <None Include="Templates\ModelExplorer.tt" />
     <Content Include="TextTemplates\EF6Designer.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

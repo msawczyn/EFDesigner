@@ -3,7 +3,6 @@ using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
-using Microsoft.VisualStudio.Modeling.Shell;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -30,7 +29,14 @@ namespace Sawczyn.EFDesigner.EFModel
                      break;
 
                   case ModelClass modelClass:
-                     // user selected a class. Find it in the current diagram, center it and make it visible
+                     // user selected a class. If it's in the current diagram, find it, center it and make it visible
+                     ShapeElement primaryShapeElement = PresentationViewsSubject.GetPresentation(modelClass)
+                                                                                .OfType<ShapeElement>()
+                                                                                .FirstOrDefault(s => s.Diagram == diagram);
+
+                     //if (primaryShapeElement == null || !primaryShapeElement.IsVisible)
+                     //   break;
+
                      modelClass.LocateInDiagram(true);
 
                      // then fix up the compartments since they might need it
@@ -38,6 +44,27 @@ namespace Sawczyn.EFDesigner.EFModel
                      CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "AttributesCompartment", false);
                      CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "AssociationsCompartment", false);
                      CompartmentItemAddRule.UpdateCompartments(classElements, typeof(ClassShape), "SourcesCompartment", false);
+
+                     // any associations to visible classes on this diagram need to be visible as well
+                     foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties())
+                     {
+                        ModelClass other = navigationProperty.AssociationObject.Dependent == modelClass
+                                                 ? navigationProperty.AssociationObject.Principal
+                                                 : navigationProperty.AssociationObject.Dependent;
+                        
+                        ShapeElement shapeElement = PresentationViewsSubject.GetPresentation(other)
+                                                                            .OfType<ShapeElement>()
+                                                                            .FirstOrDefault(s => s.Diagram == diagram);
+                        
+                        if (shapeElement != null && shapeElement.IsVisible)
+                        {
+                           ShapeElement connectorElement = PresentationViewsSubject.GetPresentation(navigationProperty.AssociationObject)
+                                                                                   .OfType<AssociationConnector>()
+                                                                                   .FirstOrDefault(s => s.Diagram == diagram);
+                           connectorElement?.Show();
+                        }
+                     }
+
                      FixUpAllDiagrams.FixUp(diagram, modelClass.ModelRoot, modelClass);
 
                      break;
