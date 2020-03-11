@@ -48,10 +48,14 @@ namespace Sawczyn.EFDesigner.EFModel
                      // any associations to visible classes on this diagram need to be visible as well
                      foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties())
                      {
-                        ModelClass other = navigationProperty.AssociationObject.Dependent == modelClass
-                                                 ? navigationProperty.AssociationObject.Principal
-                                                 : navigationProperty.AssociationObject.Dependent;
-                        
+                        ModelClass other = navigationProperty.AssociationObject.Source == modelClass
+                                                 ? navigationProperty.AssociationObject.Target
+                                                 : navigationProperty.AssociationObject.Source;
+
+                        // should never happen
+                        if (other == null)
+                           continue;
+
                         ShapeElement shapeElement = PresentationViewsSubject.GetPresentation(other)
                                                                             .OfType<ShapeElement>()
                                                                             .FirstOrDefault(s => s.Diagram == diagram);
@@ -60,6 +64,30 @@ namespace Sawczyn.EFDesigner.EFModel
                         {
                            ShapeElement connectorElement = PresentationViewsSubject.GetPresentation(navigationProperty.AssociationObject)
                                                                                    .OfType<AssociationConnector>()
+                                                                                   .FirstOrDefault(s => s.Diagram == diagram);
+                           connectorElement?.Show();
+                        }
+                     }
+
+                     // so do generalizations, as long as both classes are available
+                     foreach (Generalization generalization in modelClass.Store.ElementDirectory.AllElements.OfType<Generalization>().Where(g => g.Superclass == modelClass || g.Subclass == modelClass))
+                     {
+                        ModelClass other = generalization.Superclass == modelClass
+                                              ? generalization.Subclass
+                                              : generalization.Superclass;
+
+                        // should never happen
+                        if (other == null)
+                           continue;
+
+                        ShapeElement shapeElement = PresentationViewsSubject.GetPresentation(other)
+                                                                            .OfType<ShapeElement>()
+                                                                            .FirstOrDefault(s => s.Diagram == diagram);
+                        
+                        if (shapeElement != null && shapeElement.IsVisible)
+                        {
+                           ShapeElement connectorElement = PresentationViewsSubject.GetPresentation(generalization)
+                                                                                   .OfType<GeneralizationConnector>()
                                                                                    .FirstOrDefault(s => s.Diagram == diagram);
                            connectorElement?.Show();
                         }
