@@ -10940,3 +10940,4 @@ namespace Sawczyn.EFDesigner.EFModel
 		#endregion
 	}
 }
+
