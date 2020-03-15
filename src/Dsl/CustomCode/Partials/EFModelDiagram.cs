@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -40,7 +41,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public override void OnDragDrop(DiagramDragEventArgs diagramDragEventArgs)
       {
-         base.OnDragDrop(diagramDragEventArgs);
+         try
+         {
+            base.OnDragDrop(diagramDragEventArgs);
+         }
+         catch (ArgumentException e)
+         {
+            // ignore. byproduct of multiple diagrams
+         }
 
          if (IsDropping)
          {
@@ -60,7 +68,16 @@ namespace Sawczyn.EFDesigner.EFModel
                missingFiles = filenames.Except(existingFiles).ToArray();
             }
             else
-               base.OnDragDrop(diagramDragEventArgs);
+            {
+               try
+               {
+                  base.OnDragDrop(diagramDragEventArgs);
+               }
+               catch (ArgumentException e)
+               {
+                  // ignore. byproduct of multiple diagrams
+               }
+            }
 
             if (missingFiles != null && missingFiles.Any())
             {

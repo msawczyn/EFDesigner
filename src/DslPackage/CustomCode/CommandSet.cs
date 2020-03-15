@@ -154,10 +154,13 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          foreach (EnumShape enumShape in CurrentSelection.OfType<EnumShape>())
          {
-            if (enumShape.ModelElement is ModelEnum modelEnum 
-             && ModelEnum.IsUsed(modelEnum) 
-             && BooleanQuestionDisplay.Show($"{modelEnum.FullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") != true)
-               return;
+            if (enumShape.ModelElement is ModelEnum modelEnum && ModelEnum.IsUsed(modelEnum))
+            {
+               string fullName = modelEnum.FullName.Split('.').Last();
+
+               if (BooleanQuestionDisplay.Show($"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") != true)
+                  return;
+            }
          }
 
          base.ProcessOnMenuDeleteCommand();

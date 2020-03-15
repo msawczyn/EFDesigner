@@ -122,8 +122,10 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          else if (SelectedElement is ModelEnum modelEnum)
          {
+            string fullName = modelEnum.FullName.Split('.').Last();
+
             if (!ModelEnum.IsUsed(modelEnum)
-             || BooleanQuestionDisplay.Show($"{modelEnum.FullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") == true)
+             || BooleanQuestionDisplay.Show($"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") == true)
 
             {
                base.ProcessOnMenuDeleteCommand();

@@ -27,7 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         string fullName = element.FullName;
+         string fullName = element.FullName.Split('.').Last();
 
          using (Transaction t1 = store.TransactionManager.BeginTransaction("Remove enum properties"))
          {
