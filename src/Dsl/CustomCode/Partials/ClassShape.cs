@@ -109,18 +109,11 @@ namespace Sawczyn.EFDesigner.EFModel
             // Get a list of the elements that are represented by diagram item (should be only one)  
             ModelAttribute modelAttribute = compartment.GetSubFieldRepresentedElements(item.Field, item.SubField)
                                                        .OfType<ModelAttribute>()
-                                                       .FirstOrDefault(a => a.IsForeignKey);
+                                                       .FirstOrDefault();
 
-            if (modelAttribute != null)
+            if (modelAttribute != null && modelAttribute.IsForeignKeyFor != Guid.Empty)
             {
-               // Find the association this belongs with
-               ModelClass modelClass = modelAttribute.ModelClass;
-
-               Association association = modelClass.Store.ElementDirectory
-                                                   .AllElements
-                                                   .OfType<Association>()
-                                                   .FirstOrDefault(a => (a.Source == modelClass || a.Target == modelClass)
-                                                                     && a.GetForeignKeyPropertyNames().Contains(modelAttribute.Name));
+               Association association = modelAttribute.Store.ElementDirectory.AllElements.OfType<Association>().FirstOrDefault(x => x.Id == modelAttribute.IsForeignKeyFor);
 
                if (association != null)
                   return $"FK for [{association.GetDisplayText()}]";
@@ -183,14 +176,14 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
                return Resources.Warning;
 
-            if (attribute.IsIdentity && attribute.IsForeignKey)
+            if (attribute.IsIdentity && attribute.IsForeignKeyFor != Guid.Empty)
                return Resources.ForeignKeyIdentity;
 
             if (attribute.IsIdentity)
                return Resources.Identity;
 
             // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (attribute.IsForeignKey)
+            if (attribute.IsForeignKeyFor != Guid.Empty)
                return Resources.ForeignKey;
 
             return AttributeGlyphs[attribute.Persistent][attribute.SetterVisibility];

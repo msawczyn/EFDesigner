@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -26,6 +25,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <value>The name of the compartment holding this model element.</value>
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
+      // ReSharper disable once UnusedMember.Global
       public string GetDisplayText()
       {
          return $"{ModelClass.Name}.{Name}";
@@ -201,6 +201,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Converts the attribute's CLR type to a C# primitive type.</summary>
       ///
       /// <value>Name of primitive type, or the fully qualified name if the attribute is an enumeration</value>
+      // ReSharper disable once UnusedMember.Global
       public string FQPrimitiveType
       {
          get
@@ -217,6 +218,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Converts a C# primitive type to a CLR type.</summary>
       ///
       /// <value>The type of the colour.</value>
+      // ReSharper disable once UnusedMember.Global
       public string CLRType => ToCLRType(Type);
 
       /// <summary>
@@ -324,30 +326,43 @@ namespace Sawczyn.EFDesigner.EFModel
          return typeName;
       }
 
-      internal void ClearFKData(string summaryBoilerplate)
+      internal void ClearFKMods(string summaryBoilerplate = null)
       {
-         int boilerplateLength = summaryBoilerplate?.Length ?? 0;
          this.SetLocks(Locks.None);
-         IsForeignKey = false;
+         IsForeignKeyFor = Guid.Empty;
 
-         Summary = Summary != null && Summary.Length >= boilerplateLength
-                                      ? Summary.Substring(boilerplateLength).TrimStart('.', ' ')
-                                      : null;
+         if (!string.IsNullOrWhiteSpace(summaryBoilerplate))
+         {
+            int boilerplateLength = summaryBoilerplate?.Length ?? 0;
+            Summary = !string.IsNullOrWhiteSpace(Summary) && Summary.Length >= boilerplateLength
+                            ? Summary.Substring(boilerplateLength).TrimStart('.', ' ')
+                            : null;
+         }
 
          RedrawItem();
       }
 
-      internal void SetFKData(string summaryBoilerplate)
+      internal void SetFKMods(Association association, string summaryBoilerplate = null, bool? required = null, string type = null)
       {
          this.SetLocks(Locks.None);
-         if (!Summary.StartsWith(summaryBoilerplate))
+
+         if (!string.IsNullOrWhiteSpace(summaryBoilerplate) && !Summary.StartsWith(summaryBoilerplate))
             Summary = $"{summaryBoilerplate}. {Summary}";
+
+         if (type != null)
+            Type = type;
+
+         if (required != null)
+            Required = required.Value;
+
+         Indexed = true;
+         IsForeignKeyFor = association.Id;
+
          this.SetLocks(Locks.Delete);
-         IsForeignKey = true;
          RedrawItem();
       }
 
-      #region ColumnName
+#region ColumnName
 
       /// <summary>Storage for the ColumnName property.</summary>  
       private string columnNameStorage;

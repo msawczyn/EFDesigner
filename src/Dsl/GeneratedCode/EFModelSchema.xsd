@@ -718,10 +718,10 @@
             <xsd:documentation>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: IsForeignKey -->
-        <xsd:attribute name="isForeignKey" type="xsd:boolean" >
+        <!-- Property: IsForeignKeyFor -->
+        <xsd:attribute name="isForeignKeyFor" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>If true, this attribute is a user-defined foreign key.</xsd:documentation>
+            <xsd:documentation>If present, this attribute is a foreign key for the association named by this Guid</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -2204,5 +2204,4 @@
   </xsd:simpleType>
   
 </xsd:schema>
-
 

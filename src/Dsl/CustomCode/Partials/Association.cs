@@ -86,41 +86,6 @@ namespace Sawczyn.EFDesigner.EFModel
          return $"Foreign key for {GetDisplayText()}";
       }
 
-      internal void EnsureForeignKeyAttributes()
-      {
-         string summary = GetSummaryBoilerplate();
-
-         if (string.IsNullOrWhiteSpace(FKPropertyName))
-            return;
-
-         ModelClass fkParent = Dependent;
-
-         if (fkParent != null)
-         {
-            Target.ModelRoot.ExposeForeignKeys = true;
-            ModelAttribute[] principalIdentityAttributes = Principal.AllIdentityAttributes.ToArray();
-            string[] foreignKeyPropertyNames = GetForeignKeyPropertyNames();
-
-            for (int index = 0; index < foreignKeyPropertyNames.Length; index++)
-            {
-               string fkPropertyName = foreignKeyPropertyNames[index];
-
-               // shouldn't need bounds check ... by now, fkPropertyNames.Length and principalIdentityAttributes.Length should always match
-               fkParent.EnsureForeignKeyAttribute(fkPropertyName
-                                                , principalIdentityAttributes[index].Type
-                                                , Dependent == Source
-                                                     ? TargetMultiplicity == Multiplicity.One
-                                                     : SourceMultiplicity == Multiplicity.One
-                                                , summary);
-            }
-         }
-         else
-         {
-            FKPropertyName = null;
-         }
-
-      }
-
       private string GetTargetPropertyNameDisplayValue()
       {
          return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
@@ -179,7 +144,7 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"{Source.Name} <=> {Target.Name}: Association endpoints can only be to most-derived classes in TPC inheritance strategy", "AEWrongEndpoints", this);
       }
 
-      [ValidationMethod(ValidationCategories.Save | ValidationCategories.Menu)]
+      [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void MustDetermineEndpointRoles(ValidationContext context)
       {
@@ -189,7 +154,7 @@ namespace Sawczyn.EFDesigner.EFModel
             context.LogError($"{Source.Name} <=> {Target.Name}: Principal/dependent designations must be manually set for 1..1 and 0-1..0-1 associations.", "AEEndpointRoles", this);
       }
 
-      [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load)]
+      [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
       private void FKPropertiesCannotBeStoreGeneratedIdentifiers(ValidationContext context)
       {
 
@@ -212,6 +177,36 @@ namespace Sawczyn.EFDesigner.EFModel
                               .ToList();
       }
 
+      [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
+      private void FKPropertiesInvalidWithoutDependentEnd(ValidationContext context)
+      {
+         if (string.IsNullOrWhiteSpace(FKPropertyName))
+            return;
+
+         if (Dependent == null)
+         {
+            context.LogError($"{Source.Name} <=> {Target.Name}: FK property set without association having a Dependent end."
+                           , "AEFKWithNoDependent"
+                           , this);
+         }
+      }
+
+      [ValidationMethod(ValidationCategories.Save | ValidationCategories.Load | ValidationCategories.Menu)]
+      private void FKPropertiesMatchIdentityProperties(ValidationContext context)
+      {
+         if (string.IsNullOrWhiteSpace(FKPropertyName) || Principal == null)
+            return;
+
+         int identityCount = Principal.AllIdentityAttributes.Count();
+         int fkCount = GetForeignKeyPropertyNames().Length;
+
+         if (fkCount != identityCount)
+         {
+            context.LogError($"{Source.Name} <=> {Target.Name}: Wrong number of FK properties. Should be {identityCount} to match identity count in {Principal.Name} - currently is {fkCount}."
+                           , "AEFKWrongCount"
+                           , this);
+         }
+      }
 
       #region TargetImplementNotify tracking property
 

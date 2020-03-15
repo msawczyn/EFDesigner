@@ -89,6 +89,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ProcessClasses(modelRoot, rootData.Classes);
          ProcessEnumerations(modelRoot, rootData.Enumerations);
+
+         foreach (Association association in modelRoot.Store.ElementDirectory.AllElements.OfType<Association>())
+         {
+            AssociationChangedRules.SetEndpointRoles(association);
+            AssociationChangedRules.FixupForeignKeys(association);
+         }
       }
 
       #endregion
@@ -258,9 +264,6 @@ namespace Sawczyn.EFDesigner.EFModel
                                                        new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole)), 
                                                        new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole)), 
                                                     });
-
-            AssociationChangeRules.SetEndpointRoles(element);
-            element.EnsureForeignKeyAttributes();
          }
       }
 
@@ -321,9 +324,6 @@ namespace Sawczyn.EFDesigner.EFModel
                                                       new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary),
                                                       new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
                                                    });
-
-            AssociationChangeRules.SetEndpointRoles(element);
-            element.EnsureForeignKeyAttributes();
          }
       }
 

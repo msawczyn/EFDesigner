@@ -30,13 +30,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   case ModelClass modelClass:
                      // user selected a class. If it's in the current diagram, find it, center it and make it visible
-                     ShapeElement primaryShapeElement = PresentationViewsSubject.GetPresentation(modelClass)
-                                                                                .OfType<ShapeElement>()
-                                                                                .FirstOrDefault(s => s.Diagram == diagram);
-
-                     //if (primaryShapeElement == null || !primaryShapeElement.IsVisible)
-                     //   break;
-
                      modelClass.LocateInDiagram(true);
 
                      // then fix up the compartments since they might need it
@@ -70,7 +63,10 @@ namespace Sawczyn.EFDesigner.EFModel
                      }
 
                      // so do generalizations, as long as both classes are available
-                     foreach (Generalization generalization in modelClass.Store.ElementDirectory.AllElements.OfType<Generalization>().Where(g => g.Superclass == modelClass || g.Subclass == modelClass))
+                     foreach (Generalization generalization in modelClass.Store.ElementDirectory.AllElements
+                                                                         .OfType<Generalization>()
+                                                                         .Where(g => g.Superclass == modelClass 
+                                                                                  || g.Subclass == modelClass))
                      {
                         ModelClass other = generalization.Superclass == modelClass
                                               ? generalization.Subclass

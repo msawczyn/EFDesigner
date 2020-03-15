@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Immutability;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -19,13 +18,14 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         foreach (ModelAttribute fkAttribute in element.GetForeignKeyPropertyNames()
-                                                       .Select(propertyName => element.Dependent?.Attributes?.FirstOrDefault(a => a.Name == propertyName))
-                                                       .Where(x => x != null))
+         ModelAttribute[] fkProperties = element.Dependent.AllAttributes.Where(x => x.IsForeignKeyFor == element.Id).ToArray();
+         WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
+
+         foreach (ModelAttribute fkProperty in fkProperties)
          {
-            fkAttribute.SetLocks(Locks.None);
-            fkAttribute.IsForeignKey = false;
-            fkAttribute.RedrawItem();
+            fkProperty.ClearFKMods();
+            fkProperty.ModelClass.Attributes.Remove(fkProperty);
+            fkProperty.Delete();
          }
       }
    }

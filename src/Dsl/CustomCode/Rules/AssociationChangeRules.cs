@@ -1,17 +1,17 @@
-﻿using System;
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.Modeling;
-using Microsoft.VisualStudio.Modeling.Immutability;
+
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
    /// <inheritdoc />
    [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
-   public class AssociationChangeRules : ChangeRule
+   public class AssociationChangedRules : ChangeRule
    {
       // matches [Display(Name="*")] and [System.ComponentModel.DataAnnotations.Display(Name="*")]
       private static readonly Regex DisplayAttributeRegex = new Regex("^(.*)\\[(System\\.ComponentModel\\.DataAnnotations\\.)?Display\\(Name=\"([^\"]+)\"\\)\\](.*)$", RegexOptions.Compiled);
@@ -50,12 +50,20 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      //internal static bool IsProcessingChange => ProcessingChangeCount > 0;
+
+      ///// <summary>
+      ///// Number of times the ElementPropertyChanged method has been recursed into
+      ///// </summary>
+      //private static int ProcessingChangeCount { get; set; }
+
       /// <inheritdoc />
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
          base.ElementPropertyChanged(e);
 
          Association element = (Association)e.ModelElement;
+
          if (element.IsDeleted)
             return;
 
@@ -71,93 +79,21 @@ namespace Sawczyn.EFDesigner.EFModel
          List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
          BidirectionalAssociation bidirectionalAssociation = element as BidirectionalAssociation;
 
-         using (Transaction inner = store.TransactionManager.BeginTransaction("Redraw Association"))
+         using (Transaction inner = store.TransactionManager.BeginTransaction("Association ElementPropertyChanged"))
          {
+            bool doForeignKeyFixup = false;
+
             switch (e.DomainProperty.Name)
             {
                case "FKPropertyName":
-                  {
-                     string fkPropertyName = e.NewValue?.ToString();
-                     bool fkPropertyError = false;
+               {
+                  ValidateForeignKeyNames(element, errorMessages);
 
-                     // these can be multiples, separated by a comma
-                     string[] priorForeignKeyPropertyNames = e.OldValue?.ToString().Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
+                  if (!errorMessages.Any())
+                     doForeignKeyFixup = true;
+               }
 
-                     IEnumerable<ModelAttribute> priorForeignKeyModelAttributes = string.IsNullOrEmpty(e.OldValue?.ToString())
-                                                                                        ? Array.Empty<ModelAttribute>()
-                                                                                        : priorForeignKeyPropertyNames
-                                                                                         .Select(oldValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == oldValue))
-                                                                                         .Where(x => x != null)
-                                                                                         .ToArray();
-
-                     string summaryBoilerplate = element.GetSummaryBoilerplate();
-
-                     if (!string.IsNullOrEmpty(fkPropertyName))
-                     {
-                        string tag = $"({element.Source.Name}:{element.Target.Name})";
-
-                        if (element.Dependent == null)
-                        {
-                           errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
-
-                           break;
-                        }
-
-                        string[] foreignKeyPropertyNames = element.GetForeignKeyPropertyNames();
-                        int propertyCount = foreignKeyPropertyNames.Length;
-                        int identityCount = element.Principal.AllIdentityAttributes.Count();
-
-                        if (propertyCount != identityCount)
-                        {
-                           errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, since "
-                                           + $"{element.Principal.Name} has {identityCount} identity properties; found {propertyCount} instead");
-
-                           fkPropertyError = true;
-                        }
-
-                        // validate names
-                        foreach (string propertyName in foreignKeyPropertyNames)
-                        {
-                           if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
-                           {
-                              errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
-                              fkPropertyError = true;
-                           }
-
-                           if (element.Dependent.AllAttributes.Except(element.Dependent.Attributes).Any(a => a.Name == propertyName))
-                           {
-                              errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {element.Dependent.Name}");
-                              fkPropertyError = true;
-                           }
-                        }
-
-                        fkPropertyError &= CheckFkAutoIdentityErrors(element, errorMessages);
-
-                        if (!fkPropertyError)
-                        {
-                           // remove any flags and locks on the attributes that were foreign keys
-                           foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
-                              modelAttribute.ClearFKData(summaryBoilerplate);
-
-                           element.EnsureForeignKeyAttributes();
-
-                           IEnumerable<ModelAttribute> currentForeignKeyModelAttributes = foreignKeyPropertyNames.Select(newValue => element.Dependent.Attributes.FirstOrDefault(a => a.Name == newValue));
-
-                           foreach (ModelAttribute modelAttribute in currentForeignKeyModelAttributes)
-                              modelAttribute.SetFKData(summaryBoilerplate);
-                        }
-                     }
-                     else
-                     {
-                        // foreign key was removed
-                        // remove locks
-                        foreach (ModelAttribute modelAttribute in priorForeignKeyModelAttributes)
-                           modelAttribute.ClearFKData(summaryBoilerplate);
-                     }
-
-                  }
-
-                  break;
+               break;
 
                case "SourceCustomAttributes":
 
@@ -205,6 +141,9 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.SourceDeleteAction = DeleteAction.Default;
                   element.TargetDeleteAction = DeleteAction.Default;
 
+                  if (element.Dependent == null)
+                     element.FKPropertyName = null;
+
                   break;
 
                case "SourcePropertyName":
@@ -231,6 +170,8 @@ namespace Sawczyn.EFDesigner.EFModel
                      else if (element.SourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
                         element.TargetRole = EndpointRole.Dependent;
                   }
+
+                  doForeignKeyFixup = true;
 
                   break;
 
@@ -279,6 +220,9 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.SourceDeleteAction = DeleteAction.Default;
                   element.TargetDeleteAction = DeleteAction.Default;
 
+                  if (element.Dependent == null)
+                     element.FKPropertyName = null;
+
                   break;
 
                case "TargetPropertyName":
@@ -299,25 +243,34 @@ namespace Sawczyn.EFDesigner.EFModel
 
                case "TargetRole":
 
-                  if (element.Target.IsDependentType)
+                  if (element.Target.IsDependentType && (element.SourceRole != EndpointRole.Principal || element.TargetRole != EndpointRole.Dependent))
                   {
                      element.SourceRole = EndpointRole.Principal;
                      element.TargetRole = EndpointRole.Dependent;
+                     doForeignKeyFixup = true;
                   }
                   else if (!SetEndpointRoles(element))
                   {
                      if (element.TargetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
+                     {
                         element.SourceRole = EndpointRole.Principal;
+                        doForeignKeyFixup = true;
+                     }
                      else if (element.TargetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
+                     {
                         element.SourceRole = EndpointRole.Dependent;
+                        doForeignKeyFixup = true;
+                     }
                   }
 
                   break;
             }
 
+            if (doForeignKeyFixup)
+               FixupForeignKeys(element);
 
-            element.RedrawItem();
             inner.Commit();
+            element.RedrawItem();
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();
@@ -329,22 +282,113 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static bool CheckFkAutoIdentityErrors(Association element, List<string> errorMessages)
+      private static void ValidateForeignKeyNames(Association element, List<string> errorMessages)
       {
-         bool fkPropertyError = false;
-
-         // no FK property can be an auto-generated identity
-         List<ModelAttribute> autoIdentityErrors = element.CheckFKAutoIdentityErrors().ToList();
-
-         if (autoIdentityErrors.Any())
+         if (!string.IsNullOrWhiteSpace(element.FKPropertyName))
          {
-            foreach (ModelAttribute attribute in autoIdentityErrors)
-               errorMessages.Add($"{attribute.Name} in {element.Dependent.FullName} is an auto-generated identity. Migration will fail.");
+            string[] foreignKeyPropertyNames = element.GetForeignKeyPropertyNames();
+            string tag = $"({element.Source.Name}:{element.Target.Name})";
 
-            fkPropertyError = true;
+            if (element.Dependent == null)
+            {
+               errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
+               return;
+            }
+
+            int propertyCount = foreignKeyPropertyNames.Length;
+            int identityCount = element.Principal.AllIdentityAttributes.Count();
+
+            if (propertyCount != identityCount)
+            {
+               errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, "
+                               + $"since {element.Principal.Name} has {identityCount} identity properties. Found {propertyCount} instead");
+            }
+
+            // validate names
+            foreach (string propertyName in foreignKeyPropertyNames)
+            {
+               if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
+                  errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
+
+               if (element.Dependent.AllAttributes.Except(element.Dependent.Attributes).Any(a => a.Name == propertyName))
+                  errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {element.Dependent.Name}");
+            }
+
+            // ensure no FKs are autogenerated identities
+            errorMessages.AddRange(element.CheckFKAutoIdentityErrors()
+                                          .Select(attribute => $"{attribute.Name} in {element.Dependent.FullName} is an auto-generated identity. Migration will fail."));
+         }
+      }
+
+      public static void FixupForeignKeys(Association element)
+      {
+         List<ModelAttribute> fkProperties = element.Source.Attributes.Where(x => x.IsForeignKeyFor == element.Id)
+                                                                      .Union(element.Target.Attributes.Where(x => x.IsForeignKeyFor == element.Id))
+                                                                      .ToList();
+
+         // if no FKs, remove all the attributes for this element
+         if (string.IsNullOrEmpty(element.FKPropertyName) || element.Dependent == null)
+         {
+            WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
+            foreach (ModelAttribute attribute in fkProperties)
+            {
+               attribute.ClearFKMods(string.Empty);
+               attribute.Delete();
+            }
+
+            return;
          }
 
-         return fkPropertyError;
+         // synchronize what's there to what should be there
+         string[] currentForeignKeyPropertyNames = element.GetForeignKeyPropertyNames();
+
+         (IEnumerable<string> add, IEnumerable<ModelAttribute> remove) = fkProperties.Synchronize(currentForeignKeyPropertyNames, (attribute, name) => attribute.Name == name);
+
+         List<ModelAttribute> removeList = remove.ToList();
+         fkProperties = fkProperties.Except(removeList).ToList();
+
+         // remove extras
+         if (removeList.Any())
+            WarningDisplay.Show($"Removing unnecessary foreign key attribute(s) {string.Join(", ", removeList.Select(x => x.GetDisplayText()))}");
+
+         for (int index = 0; index < removeList.Count; index++)
+         {
+            ModelAttribute attribute = removeList[index];
+            attribute.ClearFKMods(string.Empty);
+            attribute.Delete();
+            removeList.RemoveAt(index--);
+         }
+
+         // reparent existing properties if needed
+         foreach (ModelAttribute existing in fkProperties.Where(x => x.ModelClass != element.Dependent))
+         {
+            existing.ClearFKMods();
+            existing.ModelClass.MoveAttribute(existing, element.Dependent);
+            existing.SetFKMods(element);
+         }
+
+         // create new properties
+         foreach (string propertyName in add)
+            element.Dependent.Attributes.Add(new ModelAttribute(element.Store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName)));
+
+         // make a pass through and fixup the types, summaries, etc. based on the principal's identity attributes
+         ModelAttribute[] principalIdentityAttributes = element.Principal.AllIdentityAttributes.ToArray();
+         string summaryBoilerplate = element.GetSummaryBoilerplate();
+
+         for (int index = 0; index < currentForeignKeyPropertyNames.Length; index++)
+         {
+            ModelAttribute fkProperty = element.Dependent.Attributes.First(x=>x.Name == currentForeignKeyPropertyNames[index]);
+            ModelAttribute idProperty = principalIdentityAttributes[index];
+
+            bool required = element.Dependent == element.Source
+                                    ? element.TargetMultiplicity == Multiplicity.One
+                                    : element.SourceMultiplicity == Multiplicity.One;
+
+            fkProperty.SetFKMods(element
+                               , summaryBoilerplate
+                               , required
+                               , idProperty.Type);
+         }
       }
 
       internal static bool SetEndpointRoles(Association element)

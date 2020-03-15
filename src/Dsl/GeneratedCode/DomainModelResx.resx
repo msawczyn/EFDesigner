@@ -1169,13 +1169,13 @@
     <value>Is Auto Property Tracking</value>
     <comment>DisplayName for DomainProperty &apos;IsAutoPropertyTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKey.Description" xml:space="preserve">
-    <value>If true, this attribute is a user-defined foreign key.</value>
-    <comment>Description for DomainProperty &apos;IsForeignKey&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKeyFor.Description" xml:space="preserve">
+    <value>If present, this attribute is a foreign key for the association named by this Guid</value>
+    <comment>Description for DomainProperty &apos;IsForeignKeyFor&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKey.DisplayName" xml:space="preserve">
-    <value>Is Foreign Key</value>
-    <comment>DisplayName for DomainProperty &apos;IsForeignKey&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKeyFor.DisplayName" xml:space="preserve">
+    <value>Is Foreign Key For</value>
+    <comment>DisplayName for DomainProperty &apos;IsForeignKeyFor&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>

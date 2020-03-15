@@ -68,7 +68,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         AssociationChangeRules.SetEndpointRoles(element);
+         AssociationChangedRules.SetEndpointRoles(element);
       }
    }
 }

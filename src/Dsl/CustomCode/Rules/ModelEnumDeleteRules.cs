@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    [RuleOn(typeof(ModelEnum), FireTime = TimeToFire.TopLevelCommit)]
-   internal class ModelEnumDeleteRules : DeleteRule
+   internal class ModelEnumDeleteRules : DeletingRule
    {
-      public override void ElementDeleted(ElementDeletedEventArgs e)
+      /// <summary>
+      /// public virtual method for the client to have his own user-defined delete rule class
+      /// </summary>
+      /// <param name="e"></param>
+      public override void ElementDeleting(ElementDeletingEventArgs e)
       {
-         base.ElementDeleted(e);
+         base.ElementDeleting(e);
          ModelEnum element = (ModelEnum)e.ModelElement;
          Store store = element.Store;
          Transaction current = store.TransactionManager.CurrentTransaction;
@@ -25,7 +31,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          using (Transaction t1 = store.TransactionManager.BeginTransaction("Remove enum properties"))
          {
-            foreach (ModelAttribute modelAttribute in element.ModelRoot.Store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == fullName))
+            foreach (ModelAttribute modelAttribute in store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == fullName))
                modelAttribute.Delete();
 
             t1.Commit();

@@ -676,9 +676,9 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8282d835-2c0e-4d59-a638-6d3c6e494260" Description="If true, this attribute is a user-defined foreign key." Name="IsForeignKey" DisplayName="Is Foreign Key" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="8282d835-2c0e-4d59-a638-6d3c6e494260" Description="If present, this attribute is a foreign key for the association named by this Guid" Name="IsForeignKeyFor" DisplayName="Is Foreign Key For" GetterAccessModifier="Assembly" SetterAccessModifier="Assembly" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
+            <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -2102,8 +2102,8 @@
           <XmlPropertyData XmlName="isAutoPropertyTracking">
             <DomainPropertyMoniker Name="ModelAttribute/IsAutoPropertyTracking" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="isForeignKey">
-            <DomainPropertyMoniker Name="ModelAttribute/IsForeignKey" />
+          <XmlPropertyData XmlName="isForeignKeyFor">
+            <DomainPropertyMoniker Name="ModelAttribute/IsForeignKeyFor" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

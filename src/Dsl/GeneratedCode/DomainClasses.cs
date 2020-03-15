@@ -8508,61 +8508,62 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region IsForeignKey domain property code
+		#region IsForeignKeyFor domain property code
 		
 		/// <summary>
-		/// IsForeignKey domain property Id.
+		/// IsForeignKeyFor domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid IsForeignKeyDomainPropertyId = new global::System.Guid(0x8282d835, 0x2c0e, 0x4d59, 0xa6, 0x38, 0x6d, 0x3c, 0x6e, 0x49, 0x42, 0x60);
+		public static readonly global::System.Guid IsForeignKeyForDomainPropertyId = new global::System.Guid(0x8282d835, 0x2c0e, 0x4d59, 0xa6, 0x38, 0x6d, 0x3c, 0x6e, 0x49, 0x42, 0x60);
 		
 		/// <summary>
-		/// Storage for IsForeignKey
+		/// Storage for IsForeignKeyFor
 		/// </summary>
-		private global::System.Boolean isForeignKeyPropertyStorage;
+		private global::System.Guid isForeignKeyForPropertyStorage;
 		
 		/// <summary>
-		/// Gets or sets the value of IsForeignKey domain property.
-		/// If true, this attribute is a user-defined foreign key.
+		/// Gets or sets the value of IsForeignKeyFor domain property.
+		/// If present, this attribute is a foreign key for the association named by this
+		/// Guid
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKey.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKey.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKeyFor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/IsForeignKeyFor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[global::System.ComponentModel.ReadOnly(true)]
 		[DslModeling::DomainObjectId("8282d835-2c0e-4d59-a638-6d3c6e494260")]
-		public global::System.Boolean IsForeignKey
+		internal global::System.Guid IsForeignKeyFor
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return isForeignKeyPropertyStorage;
+				return isForeignKeyForPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
-			internal set
+			set
 			{
-				IsForeignKeyPropertyHandler.Instance.SetValue(this, value);
+				IsForeignKeyForPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelAttribute.IsForeignKey domain property.
+		/// Value handler for the ModelAttribute.IsForeignKeyFor domain property.
 		/// </summary>
-		internal sealed partial class IsForeignKeyPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Boolean>
+		internal sealed partial class IsForeignKeyForPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.Guid>
 		{
-			private IsForeignKeyPropertyHandler() { }
+			private IsForeignKeyForPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelAttribute.IsForeignKey domain property value handler.
+			/// Gets the singleton instance of the ModelAttribute.IsForeignKeyFor domain property value handler.
 			/// </summary>
-			public static readonly IsForeignKeyPropertyHandler Instance = new IsForeignKeyPropertyHandler();
+			public static readonly IsForeignKeyForPropertyHandler Instance = new IsForeignKeyForPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelAttribute.IsForeignKey domain property.
+			/// Gets the Id of the ModelAttribute.IsForeignKeyFor domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return IsForeignKeyDomainPropertyId;
+					return IsForeignKeyForDomainPropertyId;
 				}
 			}
 			
@@ -8571,10 +8572,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.Boolean GetValue(ModelAttribute element)
+			public override sealed global::System.Guid GetValue(ModelAttribute element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.isForeignKeyPropertyStorage;
+				return element.isForeignKeyForPropertyStorage;
 			}
 		
 			/// <summary>
@@ -8582,15 +8583,15 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, global::System.Boolean newValue)
+			public override sealed void SetValue(ModelAttribute element, global::System.Guid newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				global::System.Boolean oldValue = GetValue(element);
+				global::System.Guid oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.isForeignKeyPropertyStorage = newValue;
+					element.isForeignKeyForPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -10940,4 +10941,3 @@ namespace Sawczyn.EFDesigner.EFModel
 		#endregion
 	}
 }
-

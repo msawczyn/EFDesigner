@@ -226,7 +226,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   PresentationHelper.UpdateAssociationDisplay(association);
 
                   // for older diagrams that didn't calculate this initially
-                  AssociationChangeRules.SetEndpointRoles(association);
+                  AssociationChangedRules.SetEndpointRoles(association);
                }
 
                tx.Commit();

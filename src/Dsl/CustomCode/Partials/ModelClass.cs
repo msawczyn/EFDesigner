@@ -419,6 +419,12 @@ namespace Sawczyn.EFDesigner.EFModel
          //Superclass = baseClass;
       }
 
+      internal void MoveAttribute(ModelAttribute attribute, ModelClass destination)
+      {
+         MergeDisconnect(attribute);
+         destination.MergeRelate(attribute, null);
+      }
+
       #region Validations
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
@@ -788,19 +794,5 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion IsImplementNotify tracking property
 
-      internal void EnsureForeignKeyAttribute(string fkPropertyName, string type, bool required, string summary)
-      {
-         ModelAttribute fkProperty = Attributes.FirstOrDefault(a => a.Name == fkPropertyName);
-
-         if (fkProperty == null)
-         {
-            fkProperty = new ModelAttribute(Store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, fkPropertyName));
-            Attributes.Add(fkProperty);
-         }
-
-         fkProperty.Type = type;
-         fkProperty.Indexed = true;
-         fkProperty.Required = required;
-      }
    }
 }

@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="CustomCode\Extensions\ColorExtensions.cs" />
     <Compile Include="CustomCode\Extensions\DiagramViewExtensions.cs" />
+    <Compile Include="CustomCode\Extensions\ListExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />
     <Compile Include="CustomCode\Extensions\ModelElementExtensions.cs" />
     <Compile Include="CustomCode\Extensions\MultiplicityExtensions.cs" />
