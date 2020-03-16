@@ -35,7 +35,7 @@ The trick (thanks Microsoft!) is finding them.
 The designer is installed in the all-user extension location, typically
 
 ```
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\Extensions
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions
 ```
 
 (Note that my installation has the `Enterprise` folder in its path; that's because I happen to be using
