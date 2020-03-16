@@ -16,6 +16,8 @@ namespace Sawczyn.EFDesigner.EFModel
          AssociateValueWith(Store, Association.TargetDeleteActionDomainPropertyId);
          AssociateValueWith(Store, Association.SourceMultiplicityDomainPropertyId);
          AssociateValueWith(Store, Association.TargetMultiplicityDomainPropertyId);
+         AssociateValueWith(Store, Association.NameDomainPropertyId);
+         AssociateValueWith(Store, Association.FKPropertyNameDomainPropertyId);
          AssociateValueWith(Store, Association.PersistentDomainPropertyId);
       }
 

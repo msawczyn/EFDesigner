@@ -19,13 +19,17 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          ModelAttribute[] fkProperties = element.Dependent.AllAttributes.Where(x => x.IsForeignKeyFor == element.Id).ToArray();
-         WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
-
-         foreach (ModelAttribute fkProperty in fkProperties)
+         
+         if (fkProperties.Any())
          {
-            fkProperty.ClearFKMods();
-            fkProperty.ModelClass.Attributes.Remove(fkProperty);
-            fkProperty.Delete();
+            WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
+
+            foreach (ModelAttribute fkProperty in fkProperties)
+            {
+               fkProperty.ClearFKMods();
+               fkProperty.ModelClass.Attributes.Remove(fkProperty);
+               fkProperty.Delete();
+            }
          }
       }
    }
