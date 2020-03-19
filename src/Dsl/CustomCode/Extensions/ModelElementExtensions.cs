@@ -8,11 +8,37 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 {
    public static class ModelElementExtensions
    {
-      private static ShapeElement GetShapeElement(this ModelElement element)
+      internal static bool IsVisible(this ModelElement modelElement, Diagram diagram = null)
       {
-         // Get the first shape
-         // If the model element is in a compartment the result will be null
-         return element?.GetFirstShapeElement() ?? element?.GetCompartmentElementFirstParentElement()?.GetFirstShapeElement();
+         return modelElement.GetShapeElement(diagram).IsVisible(diagram);
+      }
+
+      internal static bool IsVisible(this ShapeElement shapeElement, Diagram diagram = null)
+      {
+         return shapeElement.Diagram == (diagram ?? EFModel.ModelRoot.GetCurrentDiagram()) && shapeElement.IsVisible;
+      }
+
+      private static ShapeElement GetShapeElement(this ModelElement element, Diagram diagram = null)
+      {
+         ShapeElement result = null;
+
+         // Get the shape on the diagram. If not specified, pick the current one
+         if (diagram == null)
+            diagram = EFModel.ModelRoot.GetCurrentDiagram();
+
+         if (diagram != null)
+         {
+            result = diagram.Store.ElementDirectory.AllElements.OfType<ShapeElement>().FirstOrDefault(x => x.ModelElement == element && x.Diagram == diagram);
+
+            // If the model element is in a compartment the result should be null? Check for Compartment type just in case
+            if (result == null || result is Compartment)
+            {
+               ModelElement parentElement = element.GetCompartmentElementFirstParentElement();
+               result = parentElement?.GetShapeElement(diagram);
+            }
+         }
+
+         return result;
       }
 
       public static string GetDisplayText(this ModelElement element)

@@ -749,6 +749,74 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // ShowGrid
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribShowGrid = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "showGrid");
+	         if (attribShowGrid != null)
+	         {
+	            global::System.Boolean valueOfShowGrid;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribShowGrid, out valueOfShowGrid))
+	            {
+	               instanceOfModelRoot.ShowGrid = valueOfShowGrid;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "showGrid", typeof(global::System.Boolean), attribShowGrid);
+	            }
+	         }
+	      }
+	      // SnapToGrid
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribSnapToGrid = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "snapToGrid");
+	         if (attribSnapToGrid != null)
+	         {
+	            global::System.Boolean valueOfSnapToGrid;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribSnapToGrid, out valueOfSnapToGrid))
+	            {
+	               instanceOfModelRoot.SnapToGrid = valueOfSnapToGrid;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "snapToGrid", typeof(global::System.Boolean), attribSnapToGrid);
+	            }
+	         }
+	      }
+	      // GridColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribGridColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "gridColor");
+	         if (attribGridColor != null)
+	         {
+	            global::System.Drawing.Color valueOfGridColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribGridColor, out valueOfGridColor))
+	            {
+	               instanceOfModelRoot.GridColor = valueOfGridColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "gridColor", typeof(global::System.Drawing.Color), attribGridColor);
+	            }
+	         }
+	      }
+	      // GridSize
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribGridSize = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "gridSize");
+	         if (attribGridSize != null)
+	         {
+	            global::System.Double valueOfGridSize;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Double>(serializationContext, attribGridSize, out valueOfGridSize))
+	            {
+	               instanceOfModelRoot.GridSize = valueOfGridSize;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "gridSize", typeof(global::System.Double), attribGridSize);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -1851,6 +1919,52 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "baseClass", propValue);
 	            }
+	         }
+	      }
+	      // ShowGrid
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.ShowGrid;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showGrid", serializedPropValue);
+	            }
+	         }
+	      }
+	      // SnapToGrid
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.SnapToGrid;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "snapToGrid", serializedPropValue);
+	            }
+	         }
+	      }
+	      // GridColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfModelRoot.GridColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridColor", serializedPropValue);
+	         }
+	      }
+	      // GridSize
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Double propValue = instanceOfModelRoot.GridSize;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Double>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridSize", serializedPropValue);
 	         }
 	      }
 	   }

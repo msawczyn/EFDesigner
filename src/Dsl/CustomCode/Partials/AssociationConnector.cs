@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.Modeling.Diagrams;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -21,14 +22,6 @@ namespace Sawczyn.EFDesigner.EFModel
          AssociateValueWith(Store, Association.PersistentDomainPropertyId);
       }
 
-      /// <summary>
-      /// Gets a value indicating whether the user is allowed to select the ShapeElement.
-      /// </summary>
-      public override bool CanSelect => base.CanSelect && IsVisible; 
-
-      /// <summary>
-      /// Get/Set whether or not the Shape shows a mouse hover tooltip by default
-      /// </summary>
       public override bool HasToolTip => true;
 
       /// <summary>

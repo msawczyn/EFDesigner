@@ -102,7 +102,7 @@
          this.txtCode.Name = "txtCode";
          this.txtCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
          this.txtCode.Size = new System.Drawing.Size(379, 197);
-         this.txtCode.TabIndex = 8;
+         this.txtCode.TabIndex = 3;
          this.txtCode.WordWrap = false;
          // 
          // statusStrip1
@@ -110,7 +110,7 @@
          this.statusStrip1.Location = new System.Drawing.Point(0, 286);
          this.statusStrip1.Name = "statusStrip1";
          this.statusStrip1.Size = new System.Drawing.Size(403, 22);
-         this.statusStrip1.TabIndex = 9;
+         this.statusStrip1.TabIndex = 6;
          this.statusStrip1.Text = "statusStrip1";
          // 
          // AddCodeForm

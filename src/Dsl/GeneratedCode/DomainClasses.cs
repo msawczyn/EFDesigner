@@ -3358,6 +3358,360 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ShowGrid domain property code
+		
+		/// <summary>
+		/// ShowGrid domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShowGridDomainPropertyId = new global::System.Guid(0xe822ea02, 0xb26c, 0x4105, 0xad, 0xf4, 0xbf, 0x80, 0x41, 0x06, 0x8f, 0x35);
+		
+		/// <summary>
+		/// Storage for ShowGrid
+		/// </summary>
+		private global::System.Boolean showGridPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of ShowGrid domain property.
+		/// If true, displays a grid for aligning shapes
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowGrid.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowGrid.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowGrid.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("e822ea02-b26c-4105-adf4-bf8041068f35")]
+		public global::System.Boolean ShowGrid
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return showGridPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ShowGridPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.ShowGrid domain property.
+		/// </summary>
+		internal sealed partial class ShowGridPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private ShowGridPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.ShowGrid domain property value handler.
+			/// </summary>
+			public static readonly ShowGridPropertyHandler Instance = new ShowGridPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.ShowGrid domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShowGridDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.showGridPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.showGridPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region SnapToGrid domain property code
+		
+		/// <summary>
+		/// SnapToGrid domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SnapToGridDomainPropertyId = new global::System.Guid(0x6d82895b, 0x7648, 0x4c95, 0xa0, 0xb8, 0xf9, 0xf7, 0x96, 0xe3, 0x40, 0x03);
+		
+		/// <summary>
+		/// Storage for SnapToGrid
+		/// </summary>
+		private global::System.Boolean snapToGridPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of SnapToGrid domain property.
+		/// If true, shapes snap to the designer's grid
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/SnapToGrid.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/SnapToGrid.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/SnapToGrid.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("6d82895b-7648-4c95-a0b8-f9f796e34003")]
+		public global::System.Boolean SnapToGrid
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return snapToGridPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				SnapToGridPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.SnapToGrid domain property.
+		/// </summary>
+		internal sealed partial class SnapToGridPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private SnapToGridPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.SnapToGrid domain property value handler.
+			/// </summary>
+			public static readonly SnapToGridPropertyHandler Instance = new SnapToGridPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.SnapToGrid domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SnapToGridDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.snapToGridPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.snapToGridPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region GridColor domain property code
+		
+		/// <summary>
+		/// GridColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid GridColorDomainPropertyId = new global::System.Guid(0x274ed266, 0x5104, 0x4319, 0xb3, 0xde, 0x00, 0x70, 0x50, 0x8c, 0xc3, 0x83);
+		
+		/// <summary>
+		/// Storage for GridColor
+		/// </summary>
+		private global::System.Drawing.Color gridColorPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of GridColor domain property.
+		/// Color for designer grid
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridColor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("274ed266-5104-4319-b3de-0070508cc383")]
+		public global::System.Drawing.Color GridColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return gridColorPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GridColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.GridColor domain property.
+		/// </summary>
+		internal sealed partial class GridColorPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Drawing.Color>
+		{
+			private GridColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.GridColor domain property value handler.
+			/// </summary>
+			public static readonly GridColorPropertyHandler Instance = new GridColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.GridColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return GridColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.gridColorPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.gridColorPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region GridSize domain property code
+		
+		/// <summary>
+		/// GridSize domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid GridSizeDomainPropertyId = new global::System.Guid(0xe4121eca, 0x2a99, 0x4d3c, 0x81, 0x59, 0x17, 0x84, 0xfd, 0xb7, 0x2d, 0x28);
+		
+		/// <summary>
+		/// Storage for GridSize
+		/// </summary>
+		private global::System.Double gridSizePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of GridSize domain property.
+		/// Size of display grid units, in inches
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("e4121eca-2a99-4d3c-8159-1784fdb72d28")]
+		public global::System.Double GridSize
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return gridSizePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GridSizePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.GridSize domain property.
+		/// </summary>
+		internal sealed partial class GridSizePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Double>
+		{
+			private GridSizePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.GridSize domain property value handler.
+			/// </summary>
+			public static readonly GridSizePropertyHandler Instance = new GridSizePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.GridSize domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return GridSizeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Double GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.gridSizePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Double newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Double oldValue = GetValue(element);
+				// double type precision is guaranteed only to 15th digit.
+				if (global::System.Math.Abs(newValue - oldValue) > 1e-15)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.gridSizePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

@@ -285,6 +285,26 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e822ea02-b26c-4105-adf4-bf8041068f35" Description="If true, displays a grid for aligning shapes" Name="ShowGrid" DisplayName="Show Grid" DefaultValue="false" Category="Designer">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="6d82895b-7648-4c95-a0b8-f9f796e34003" Description="If true, shapes snap to the designer's grid" Name="SnapToGrid" DisplayName="Snap To Grid" DefaultValue="true" Category="Designer">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="274ed266-5104-4319-b3de-0070508cc383" Description="Color for designer grid" Name="GridColor" DisplayName="Grid Color" Category="Designer">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="e4121eca-2a99-4d3c-8159-1784fdb72d28" Description="Size of display grid units, in inches" Name="GridSize" DisplayName="Grid Size" Category="Designer">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Double" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1924,6 +1944,18 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="diagrams">
             <DomainRelationshipMoniker Name="ModelRootHasModelDiagrams" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="showGrid">
+            <DomainPropertyMoniker Name="ModelRoot/ShowGrid" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="snapToGrid">
+            <DomainPropertyMoniker Name="ModelRoot/SnapToGrid" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="gridColor">
+            <DomainPropertyMoniker Name="ModelRoot/GridColor" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="gridSize">
+            <DomainPropertyMoniker Name="ModelRoot/GridSize" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">

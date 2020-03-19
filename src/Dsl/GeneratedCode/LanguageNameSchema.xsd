@@ -297,6 +297,30 @@
             <xsd:documentation>Base class for DbContext in generated code. Should be fully qualified if not in a standard namespace.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: ShowGrid -->
+        <xsd:attribute name="showGrid" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, displays a grid for aligning shapes</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SnapToGrid -->
+        <xsd:attribute name="snapToGrid" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, shapes snap to the designer&apos;s grid</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: GridColor -->
+        <xsd:attribute name="gridColor" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Color for designer grid</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: GridSize -->
+        <xsd:attribute name="gridSize" type="xsd:double" >
+          <xsd:annotation>
+            <xsd:documentation>Size of display grid units, in inches</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

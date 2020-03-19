@@ -40,6 +40,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - **[NEW]** Added ability to override the base class of the generated DbContext to be something other than "DbContext"
    - **[NEW]** Join tables in many-to-many associations can now have custom names (EF6 only, until EFCore supports many-to-many cardinalities)
    - **[NEW]** Removing an enumeration removes all entity properties that use that enumeration, after displaying a warning.
+   - **[NEW]** Designer has optional visual grid with color, size and snap-to-grid options available
    - Renamed toolbox category to "EF Model Diagrams"
    - Enhanced display of model elements in the Visual Studio property window's object list
    - Removed MSAGL layouts. No one understood them anyway.

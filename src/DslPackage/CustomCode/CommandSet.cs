@@ -536,39 +536,46 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          Diagram currentDiagram = CurrentDocView?.CurrentDiagram;
 
-         if (currentDiagram != null)
+         if (currentDiagram == null)
+            return;
+
+         //bool oldShowGrid = currentDiagram.ShowGrid;
+         //currentDiagram.ShowGrid = false;
+         //currentDiagram.Invalidate();
+
+         Bitmap bitmap = currentDiagram.CreateBitmap(currentDiagram.NestedChildShapes,
+                                                     Diagram.CreateBitmapPreference.FavorClarityOverSmallSize);
+
+         using (SaveFileDialog dlg = new SaveFileDialog())
          {
-            Bitmap bitmap = currentDiagram.CreateBitmap(currentDiagram.NestedChildShapes,
-                                                        Diagram.CreateBitmapPreference.FavorClarityOverSmallSize);
+            dlg.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|TIFF files (*.tiff)|*.tiff|WMF files (*.wmf)|*.wmf";
+            dlg.FilterIndex = 4;
+            dlg.OverwritePrompt = true;
+            dlg.AddExtension = true;
+            dlg.CheckPathExists = true;
+            dlg.DefaultExt = "png";
 
-            using (SaveFileDialog dlg = new SaveFileDialog())
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-               dlg.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|TIFF files (*.tiff)|*.tiff|WMF files (*.wmf)|*.wmf";
-               dlg.FilterIndex = 4;
-               dlg.OverwritePrompt = true;
-               dlg.AddExtension = true;
-               dlg.CheckPathExists = true;
-               dlg.DefaultExt = "png";
-
-               if (dlg.ShowDialog() == DialogResult.OK)
+               try
                {
-                  try
-                  {
-                     bitmap.Save(dlg.FileName, GetFormat(dlg.FileName));
-                  }
-                  catch (ArgumentException)
-                  {
-                     string errorMessage = $"Can't create a {Path.GetExtension(dlg.FileName)} image";
-                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
-                  }
-                  catch
-                  {
-                     string errorMessage = $"Error saving {dlg.FileName}";
-                     PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
-                  }
+                  bitmap.Save(dlg.FileName, GetFormat(dlg.FileName));
+               }
+               catch (ArgumentException)
+               {
+                  string errorMessage = $"Can't create a {Path.GetExtension(dlg.FileName)} image";
+                  PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
+               }
+               catch
+               {
+                  string errorMessage = $"Error saving {dlg.FileName}";
+                  PackageUtility.ShowMessageBox(ServiceProvider, errorMessage, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, OLEMSGICON.OLEMSGICON_CRITICAL);
                }
             }
          }
+
+         //currentDiagram.ShowGrid = oldShowGrid;
+         //currentDiagram.Invalidate();
       }
 
       private ImageFormat GetFormat(string fileName)
@@ -602,6 +609,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Load NuGet
 
+      [Obsolete]
       private void OnStatusLoadNuGet(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
@@ -613,6 +621,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      [Obsolete]
       private void OnMenuLoadNuGet(object sender, EventArgs e)
       {
          //Store store = CurrentDocData.Store;
@@ -699,7 +708,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<ClassShape>().Any(x => x.CanSelect);
+            command.Enabled = childShapes.OfType<ClassShape>().Any(x => x.IsVisible());
          }
       }
 
@@ -707,7 +716,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
 
-         foreach (ClassShape shape in childShapes.OfType<ClassShape>().Where(x => x.CanSelect))
+         foreach (ClassShape shape in childShapes.OfType<ClassShape>().Where(x => x.IsVisible()))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
@@ -722,7 +731,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<EnumShape>().Any(x => x.CanSelect);
+            command.Enabled = childShapes.OfType<EnumShape>().Any(x => x.IsVisible());
          }
       }
 
@@ -730,7 +739,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
 
-         foreach (EnumShape shape in childShapes.OfType<EnumShape>().Where(x => x.CanSelect))
+         foreach (EnumShape shape in childShapes.OfType<EnumShape>().Where(x => x.IsVisible()))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
@@ -745,7 +754,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<AssociationConnector>().Any(x => x.CanSelect);
+            command.Enabled = childShapes.OfType<AssociationConnector>().Any(x => x.IsVisible());
          }
       }
 
@@ -753,7 +762,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
 
-         foreach (AssociationConnector shape in childShapes.OfType<AssociationConnector>().Where(x => x.CanSelect))
+         foreach (AssociationConnector shape in childShapes.OfType<AssociationConnector>().Where(x => x.IsVisible()))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
@@ -768,7 +777,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<UnidirectionalConnector>().Any();
+            command.Enabled = childShapes.OfType<UnidirectionalConnector>().Any(x => x.IsVisible());
          }
       }
 
@@ -776,7 +785,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
 
-         foreach (UnidirectionalConnector shape in childShapes.OfType<UnidirectionalConnector>().Where(x => x.CanSelect))
+         foreach (UnidirectionalConnector shape in childShapes.OfType<UnidirectionalConnector>().Where(x => x.IsVisible()))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 
@@ -791,7 +800,7 @@ namespace Sawczyn.EFDesigner.EFModel
             command.Visible = true;
 
             LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
-            command.Enabled = childShapes.OfType<BidirectionalConnector>().Any();
+            command.Enabled = childShapes.OfType<BidirectionalConnector>().Any(x => x.IsVisible());
          }
       }
 
@@ -799,7 +808,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          LinkedElementCollection<ShapeElement> childShapes = CurrentDocView.CurrentDiagram.NavigationRoot.NestedChildShapes;
 
-         foreach (BidirectionalConnector shape in childShapes.OfType<BidirectionalConnector>().Where(x => x.CanSelect))
+         foreach (BidirectionalConnector shape in childShapes.OfType<BidirectionalConnector>().Where(x => x.IsVisible()))
             shape.Diagram.ActiveDiagramView.Selection.Add(new DiagramItem(shape));
       }
 

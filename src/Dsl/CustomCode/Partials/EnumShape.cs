@@ -19,7 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void CollapseShape()
       {
-         if (CanSelect)
+         if (this.IsVisible())
             SetIsExpandedValue(false);
       }
 
@@ -28,14 +28,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       public void ExpandShape()
       {
-         if (CanSelect)
+         if (this.IsVisible())
             SetIsExpandedValue(true);
       }
-
-      /// <summary>
-      /// Gets a value indicating whether the user is allowed to select the ShapeElement.
-      /// </summary>
-      public override bool CanSelect => base.CanSelect && IsVisible; 
 
       protected override CompartmentMapping[] GetCompartmentMappings(Type melType)
       {

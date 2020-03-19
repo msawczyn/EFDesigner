@@ -46,6 +46,16 @@ namespace Sawczyn.EFDesigner.EFModel
       [Obsolete("Use ModelRoot.Classes instead")]
       public LinkedElementCollection<ModelClass> Types => Classes;
 
+      public EFModelDiagram[] GetDiagrams()
+      {
+         return Store
+               .DefaultPartitionForClass(EFModelDiagram.DomainClassId)
+               .ElementDirectory
+               .AllElements
+               .OfType<EFModelDiagram>()
+               .ToArray();
+      }
+
       #region OutputLocations
 
       private OutputLocations outputLocationsStorage;

@@ -60,6 +60,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "EntityOutputDirectory":
+
+               if (string.IsNullOrEmpty(element.EnumOutputDirectory) || element.EnumOutputDirectory == (string)e.OldValue)
+                  element.EnumOutputDirectory = (string)e.NewValue;
+
+               if (string.IsNullOrEmpty(element.StructOutputDirectory) || element.StructOutputDirectory == (string)e.OldValue)
+                  element.StructOutputDirectory = (string)e.NewValue;
+
+               break;
+
             case "EnumOutputDirectory":
 
                if (string.IsNullOrEmpty((string)e.NewValue) && !string.IsNullOrEmpty(element.EntityOutputDirectory))
@@ -78,23 +88,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
-            case "StructOutputDirectory":
-
-               if (string.IsNullOrEmpty((string)e.NewValue) && !string.IsNullOrEmpty(element.EntityOutputDirectory))
-                  element.StructOutputDirectory = element.EntityOutputDirectory;
-
-               break;
-
-            case "EntityOutputDirectory":
-
-               if (string.IsNullOrEmpty(element.EnumOutputDirectory) || element.EnumOutputDirectory == (string)e.OldValue)
-                  element.EnumOutputDirectory = (string)e.NewValue;
-
-               if (string.IsNullOrEmpty(element.StructOutputDirectory) || element.StructOutputDirectory == (string)e.OldValue)
-                  element.StructOutputDirectory = (string)e.NewValue;
-
-               break;
-
             case "FileNameMarker":
                string newFileNameMarker = (string)e.NewValue;
 
@@ -102,6 +95,20 @@ namespace Sawczyn.EFDesigner.EFModel
                                 @"^(?!^(PRN|AUX|CLOCK\$|NUL|CON|COM\d|LPT\d|\..*)(\..+)?$)[^\x00-\x1f\\?*:\"";|/]+$")
                          .Success)
                   errorMessages.Add("Invalid value to make part of file name");
+
+               break;
+
+            case "GridColor":
+               foreach (EFModelDiagram diagram in element.GetDiagrams())
+                  diagram.GridColor = element.GridColor;
+               redraw = true; 
+
+               break;
+
+            case "GridSize":
+               foreach (EFModelDiagram diagram in element.GetDiagrams())
+                  diagram.GridSize = element.GridSize;
+               redraw = true;
 
                break;
 
@@ -127,8 +134,22 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "ShowGrid":
+               foreach (EFModelDiagram diagram in element.GetDiagrams())
+                  diagram.ShowGrid = element.ShowGrid;
+               redraw = true;
+
+               break;
+
             case "ShowWarningsInDesigner":
                redraw = true;
+
+               break;
+
+            case "StructOutputDirectory":
+
+               if (string.IsNullOrEmpty((string)e.NewValue) && !string.IsNullOrEmpty(element.EntityOutputDirectory))
+                  element.StructOutputDirectory = element.EntityOutputDirectory;
 
                break;
 
@@ -151,7 +172,10 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          if (redraw)
-            element.InvalidateDiagrams();
+         {
+            foreach (EFModelDiagram diagram in element.GetDiagrams().Where(d => d.ActiveDiagramView != null))
+               diagram.Invalidate(true);
+         }
       }
    }
 }

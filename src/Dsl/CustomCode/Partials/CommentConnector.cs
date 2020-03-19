@@ -16,9 +16,5 @@ namespace Sawczyn.EFDesigner.EFModel
          return baseCalculation == 40 ? 130 : baseCalculation;
       }
 
-      /// <summary>
-      /// Gets a value indicating whether the user is allowed to select the ShapeElement.
-      /// </summary>
-      public override bool CanSelect => base.CanSelect && IsVisible; 
    }
 }

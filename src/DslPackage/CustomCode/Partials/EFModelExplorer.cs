@@ -31,10 +31,10 @@ namespace Sawczyn.EFDesigner.EFModel
          else
             base.InsertTreeNode(siblingNodes, node);
       }
-      
+
       //private void ObjectModelBrowser_OnNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
       //{
-      //            // select element in tree
+      //   // select element in tree
       //   if (PrimarySelection != null && PrimarySelection is ModelElement element)
       //   {
       //      using (Transaction t = element.Store.TransactionManager.BeginTransaction("TreeSelectionChanged"))
@@ -73,11 +73,11 @@ namespace Sawczyn.EFDesigner.EFModel
       //                  ModelClass other = navigationProperty.AssociationObject.Dependent == modelClass
       //                                           ? navigationProperty.AssociationObject.Principal
       //                                           : navigationProperty.AssociationObject.Dependent;
-                        
+
       //                  ShapeElement shapeElement = PresentationViewsSubject.GetPresentation(other)
       //                                                                      .OfType<ShapeElement>()
       //                                                                      .FirstOrDefault(s => s.Diagram == diagram);
-                        
+
       //                  if (shapeElement != null && shapeElement.IsVisible)
       //                  {
       //                     ShapeElement connectorElement = PresentationViewsSubject.GetPresentation(navigationProperty.AssociationObject)
