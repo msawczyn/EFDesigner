@@ -1,5 +1,6 @@
 ﻿using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -100,14 +101,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "GridColor":
                foreach (EFModelDiagram diagram in element.GetDiagrams())
-                  diagram.GridColor = element.GridColor;
+                  diagram.GridColor = (Color)e.NewValue;
+
                redraw = true; 
 
                break;
 
             case "GridSize":
                foreach (EFModelDiagram diagram in element.GetDiagrams())
-                  diagram.GridSize = element.GridSize;
+                  diagram.GridSize = (float)e.NewValue;
+
                redraw = true;
 
                break;
@@ -136,12 +139,24 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "ShowGrid":
                foreach (EFModelDiagram diagram in element.GetDiagrams())
-                  diagram.ShowGrid = element.ShowGrid;
+                  diagram.ShowGrid = (bool)e.NewValue;
+
                redraw = true;
 
                break;
 
             case "ShowWarningsInDesigner":
+               redraw = true;
+
+               if ((bool)e.NewValue)
+                  ModelRoot.ExecuteValidator?.Invoke();
+
+               break;
+
+            case "SnapToGrid":
+               foreach (EFModelDiagram diagram in element.GetDiagrams())
+                  diagram.SnapToGrid = (bool)e.NewValue;
+
                redraw = true;
 
                break;

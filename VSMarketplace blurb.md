@@ -25,7 +25,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**2.0.0.0** (next version, [RC2 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/V2.0.0-RC2))
+**2.0.0.1** (next version, [RC3 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/v2.0.0.0-rc3))
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - **[NEW]** Added ability to specify foreign key properties  (See https://github.com/msawczyn/EFDesigner/issues/55)
