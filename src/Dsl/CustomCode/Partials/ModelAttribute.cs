@@ -85,6 +85,12 @@ namespace Sawczyn.EFDesigner.EFModel
                case "GeometryMultiPolygon":
                case "GeometryPoint":
                case "GeometryPolygon":
+               case "LineString":
+               case "MultiLineString":
+               case "MultiPoint":
+               case "MultiPolygon":
+               case "Point":
+               case "Polygon": 
                   return false;
             }
 
@@ -128,6 +134,12 @@ namespace Sawczyn.EFDesigner.EFModel
             case "GeometryMultiPolygon":
             case "GeometryPoint":
             case "GeometryPolygon":
+            case "LineString":
+            case "MultiLineString":
+            case "MultiPoint":
+            case "MultiPolygon":
+            case "Point":
+            case "Polygon":
                return false; //string.IsNullOrEmpty(initialValue);
             case "Boolean":
                return bool.TryParse(initialValue, out bool _bool);
@@ -196,7 +208,22 @@ namespace Sawczyn.EFDesigner.EFModel
       /// From internal class System.Data.Metadata.Edm.PrimitiveType in System.Data.Entity. Converts the attribute's CLR type to a C# primitive type.
       /// </summary>
       /// <value>Name of primitive type</value>
-      public string PrimitiveType => ToPrimitiveType(Type);
+      public string PrimitiveType
+      {
+         get
+         {
+            if (ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EF6)
+            {
+               if (Type.StartsWith("Geography"))
+                  return "DbGeography";
+
+               if (Type.StartsWith("Geometry"))
+                  return "DbGeometry";
+            }
+
+            return ToPrimitiveType(Type);
+         }
+      }
 
       /// <summary>Converts the attribute's CLR type to a C# primitive type.</summary>
       ///
@@ -216,8 +243,6 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>Converts a C# primitive type to a CLR type.</summary>
-      ///
-      /// <value>The type of the colour.</value>
       // ReSharper disable once UnusedMember.Global
       public string CLRType => ToCLRType(Type);
 
@@ -243,24 +268,24 @@ namespace Sawczyn.EFDesigner.EFModel
                return "decimal";
             case "Double":
                return "double";
-            case "Geography":
-            case "GeographyPoint":
-            case "GeographyLineString":
-            case "GeographyPolygon":
-            case "GeographyMultiPoint":
-            case "GeographyMultiLineString":
-            case "GeographyMultiPolygon":
-            case "GeographyCollection":
-               return "DbGeography";
-            case "Geometry":
-            case "GeometryPoint":
-            case "GeometryLineString":
-            case "GeometryPolygon":
-            case "GeometryMultiPoint":
-            case "GeometryMultiLineString":
-            case "GeometryMultiPolygon":
-            case "GeometryCollection":
-               return "DbGeometry";
+            //case "Geography":
+            //case "GeographyPoint":
+            //case "GeographyLineString":
+            //case "GeographyPolygon":
+            //case "GeographyMultiPoint":
+            //case "GeographyMultiLineString":
+            //case "GeographyMultiPolygon":
+            //case "GeographyCollection":
+            //   return "DbGeography";
+            //case "Geometry":
+            //case "GeometryPoint":
+            //case "GeometryLineString":
+            //case "GeometryPolygon":
+            //case "GeometryMultiPoint":
+            //case "GeometryMultiLineString":
+            //case "GeometryMultiPolygon":
+            //case "GeometryCollection":
+            //   return "DbGeometry";
             case "Int16":
                return "short";
             case "UInt16":
@@ -786,6 +811,48 @@ namespace Sawczyn.EFDesigner.EFModel
       #endregion Tracking Properties
 
       #region Validation methods
+
+      internal static (string ef6Version, string efCoreVersion)[] GeometryTypes = {
+                                                                                        (ef6Version : "Geometry", efCoreVersion : "Geometry")
+                                                                                      , (ef6Version : "GeometryPoint", efCoreVersion : "Point")
+                                                                                      , (ef6Version : "GeometryLineString", efCoreVersion : "LineString")
+                                                                                      , (ef6Version : "GeometryPolygon", efCoreVersion : "Polygon")
+                                                                                      , (ef6Version : "GeometryCollection", efCoreVersion : "GeometryCollection")
+                                                                                      , (ef6Version : "GeometryMultiPoint", efCoreVersion : "MultiPoint")
+                                                                                      , (ef6Version : "GeometryMultiLineString", efCoreVersion : "MultiLineString")
+                                                                                      , (ef6Version : "GeometryMultiPolygon", efCoreVersion : "MultiPolygon")
+                                                                                  };
+
+
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      private void GeographyTypeDoesNotMatchEFVersion(ValidationContext context)
+      {
+         if (ModelClass?.ModelRoot == null) return;
+
+         if (ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+         {
+            if (Type.StartsWith("Geography")) {
+               context.LogError($"{ModelClass.Name}.{Name}: Geography type invalid for EF Core. Use Geometry instead.", "AEInvalidGeography", this);
+               hasWarning = true;
+               RedrawItem();
+            }
+            else if (GeometryTypes.Any(g => g.efCoreVersion != g.ef6Version && g.ef6Version == Type))
+            {
+               context.LogError($"{ModelClass.Name}.{Name}: {Type} type invalid for EF Core.", "AEInvalidGeometry", this);
+               hasWarning = true;
+               RedrawItem();
+            }
+         }
+         else
+         {
+            if (GeometryTypes.Any(g => g.efCoreVersion != g.ef6Version && g.efCoreVersion == Type))
+            {
+               context.LogError($"{ModelClass.Name}.{Name}: {Type} type invalid for EF6.", "AEInvalidGeometry", this);
+               hasWarning = true;
+               RedrawItem();
+            }
+         }
+      }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local

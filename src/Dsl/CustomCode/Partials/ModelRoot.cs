@@ -94,27 +94,37 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return EntityFrameworkVersion == EFVersion.EF6 || GetEntityFrameworkPackageVersionNum() > 2.1
-                      ? new[]
-                        {
-                           "Geography",
-                           "GeographyCollection",
-                           "GeographyLineString",
-                           "GeographyMultiLineString",
-                           "GeographyMultiPoint",
-                           "GeographyMultiPolygon",
-                           "GeographyPoint",
-                           "GeographyPolygon",
-                           "Geometry",
-                           "GeometryCollection",
-                           "GeometryLineString",
-                           "GeometryMultiLineString",
-                           "GeometryMultiPoint",
-                           "GeometryMultiPolygon",
-                           "GeometryPoint",
-                           "GeometryPolygon"
-                        }
-                      : new string[0];
+            return EntityFrameworkVersion == EFVersion.EF6 
+                         ? new[]
+                           {
+                                 "Geography"
+                               , "GeographyCollection"
+                               , "GeographyLineString"
+                               , "GeographyMultiLineString"
+                               , "GeographyMultiPoint"
+                               , "GeographyMultiPolygon"
+                               , "GeographyPoint"
+                               , "GeographyPolygon"
+                               , "Geometry"
+                               , "GeometryCollection"
+                               , "GeometryLineString"
+                               , "GeometryMultiLineString"
+                               , "GeometryMultiPoint"
+                               , "GeometryMultiPolygon"
+                               , "GeometryPoint"
+                               , "GeometryPolygon"
+                           }
+                         : new[]
+                           {
+                                 "Geometry"
+                               , "GeometryCollection"
+                               , "LineString"
+                               , "MultiLineString"
+                               , "MultiPoint"
+                               , "MultiPolygon"
+                               , "Point"
+                               , "Polygon"
+                           };
          }
       }
 

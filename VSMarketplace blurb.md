@@ -25,7 +25,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**2.0.0.1** (next version, [RC3 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/v2.0.0.0-rc3))
+**2.0.0** (next version, [RC3 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/v2.0.0.0-rc3))
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - **[NEW]** Added ability to specify foreign key properties  (See https://github.com/msawczyn/EFDesigner/issues/55)
@@ -50,6 +50,8 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fix: Couldn't delete property initial value for Enum values (See https://github.com/msawczyn/EFDesigner/issues/148)
    - Fix: Support for Empty / blank "File Name Marker" (See https://github.com/msawczyn/EFDesigner/issues/149)
    - Fix: Now escaping XML comment text properly
+   - Fix: Issue with GeographyPoint: System.Data.Entities.Spatial not found for .Net Core 3.1 (See https://github.com/msawczyn/EFDesigner/issues/159)
+   - Fix: HasDefaultSchema doesn't work with MySql (See https://github.com/msawczyn/EFDesigner/issues/160)
 
 **1.3.0.12** 
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)

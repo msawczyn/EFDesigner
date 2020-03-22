@@ -46,18 +46,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
-            case "DatabaseSchema":
-
-               if (string.IsNullOrEmpty((string)e.NewValue))
-                  element.DatabaseSchema = "dbo";
-
-               break;
-
             case "EntityFrameworkVersion":
                element.EntityFrameworkPackageVersion = "Latest";
 
                if (element.EntityFrameworkVersion == EFVersion.EFCore)
                   element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+
+               ModelRoot.ExecuteValidator?.Invoke();
 
                break;
 

@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.0.0
+      // EFDesigner v2.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -64,12 +64,38 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          WriteDbContextEF6(modelRoot);
       }
 
+      string[] SpatialTypesEF6
+      {
+         get
+         {
+            return new[]
+                     {
+                 "Geography"
+               , "GeographyCollection"
+               , "GeographyLineString"
+               , "GeographyMultiLineString"
+               , "GeographyMultiPoint"
+               , "GeographyMultiPolygon"
+               , "GeographyPoint"
+               , "GeographyPolygon"
+               , "Geometry"
+               , "GeometryCollection"
+               , "GeometryLineString"
+               , "GeometryMultiLineString"
+               , "GeometryMultiPoint"
+               , "GeometryMultiPolygon"
+               , "GeometryPoint"
+               , "GeometryPolygon"
+               };
+         }
+      }
+
       List<string> GetAdditionalUsingStatementsEF6(ModelRoot modelRoot)
       {
          List<string> result = new List<string>();
          List<string> attributeTypes = modelRoot.Classes.SelectMany(c => c.Attributes).Select(a => a.Type).Distinct().ToList();
 
-         if (attributeTypes.Any(t => t.IndexOf("Geometry", StringComparison.Ordinal) > -1 || t.IndexOf("Geography", StringComparison.Ordinal) > -1))
+         if (attributeTypes.Intersect(modelRoot.SpatialTypes).Any())
             result.Add("using System.Data.Entity.Spatial;");
 
          return result;
@@ -131,7 +157,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          Output($"{modelRoot.EntityContainerAccess.ToString().ToLower()} partial class {modelRoot.EntityContainerName} : {baseClass}");
          Output("{");
-
 
          if (classesWithTables?.Any() == true)
             WriteDbSetsEF6(modelRoot);
@@ -315,7 +340,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("OnModelCreatingImpl(modelBuilder);");
          NL();
 
-         Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
+         if (!string.IsNullOrEmpty(modelRoot.DatabaseSchema))
+            Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
 
          List<string> segments = new List<string>();
 
@@ -345,7 +371,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             {
                if (modelRoot.InheritanceStrategy != CodeStrategy.TablePerConcreteType || !modelClass.IsAbstract)
                {
-                  segments.Add(modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
+                  segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
                                      ? $"ToTable(\"{modelClass.TableName}\")"
                                      : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
                }

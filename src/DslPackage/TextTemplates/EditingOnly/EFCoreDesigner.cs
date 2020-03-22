@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Security;
 // ReSharper disable RedundantNameQualifier
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
@@ -13,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.0.0
+      // EFDesigner v2.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -52,13 +50,30 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          WriteDbContextEFCore(modelRoot);
       }
 
+      string[] SpatialTypesEFCore
+      {
+         get
+         {
+            return new[] {   
+                               "Geometry"
+                             , "GeometryPoint"
+                             , "GeometryLineString"
+                             , "GeometryPolygon"
+                             , "GeometryCollection"
+                             , "GeometryMultiPoint"
+                             , "GeometryMultiLineString"
+                             , "GeometryMultiPolygon"
+                         };
+         }
+      }
+
       List<string> GetAdditionalUsingStatementsEFCore(ModelRoot modelRoot)
       {
          List<string> result = new List<string>();
          List<string> attributeTypes = modelRoot.Classes.SelectMany(c => c.Attributes).Select(a => a.Type).Distinct().ToList();
 
-         if (attributeTypes.Any(t => t.IndexOf("Geometry", StringComparison.Ordinal) > -1 || t.IndexOf("Geography", StringComparison.Ordinal) > -1))
-            result.Add("using System.Data.Entity.Spatial;");
+         if (attributeTypes.Intersect(modelRoot.SpatialTypes).Any())
+            result.Add("using NetTopologySuite.Geometries;");
 
          return result;
       }
@@ -117,15 +132,18 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          switch (modelRoot.InheritanceStrategy)
          {
             case CodeStrategy.TablePerType:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType).OrderBy(x => x.Name).ToArray();
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.GenerateCode).OrderBy(x => x.Name).ToArray();
+
                break;
 
             case CodeStrategy.TablePerConcreteType:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract).OrderBy(x => x.Name).ToArray();
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && !mc.IsAbstract && mc.GenerateCode).OrderBy(x => x.Name).ToArray();
+
                break;
 
             case CodeStrategy.TablePerHierarchy:
-               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null).OrderBy(x => x.Name).ToArray();
+               classesWithTables = modelRoot.Classes.Where(mc => !mc.IsDependentType && mc.Superclass == null && mc.GenerateCode).OrderBy(x => x.Name).ToArray();
+
                break;
          }
 
@@ -255,7 +273,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("OnModelCreatingImpl(modelBuilder);");
          NL();
 
-         Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
+         if (!string.IsNullOrEmpty(modelRoot.DatabaseSchema))
+            Output($"modelBuilder.HasDefaultSchema(\"{modelRoot.DatabaseSchema}\");");
 
          List<Association> visited = new List<Association>();
          List<string> foreignKeyColumns = new List<string>();
@@ -267,7 +286,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             NL();
 
             // class level
-            segments.Add($"modelBuilder.{(modelClass.IsDependentType ? "Owned" : "Entity")}<{modelClass.FullName}>()");
+            bool isDependent = modelClass.IsDependentType;
+            segments.Add($"modelBuilder.{(isDependent ? "Owned" : "Entity")}<{modelClass.FullName}>()");
 
             foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
                segments.Add($"Ignore(t => t.{transient.Name})");
@@ -280,7 +300,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                if (classesWithTables.Contains(modelClass))
                {
-                  segments.Add(modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
+                  segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
                                     ? $"ToTable(\"{modelClass.TableName}\")"
                                     : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
 
@@ -383,6 +403,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             // Source and Target are accidents of where the user started drawing the association.
 
             // navigation properties
+
             // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
                                                                            .OfType<UnidirectionalAssociation>()

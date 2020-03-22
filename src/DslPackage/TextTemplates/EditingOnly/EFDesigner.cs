@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.0.0
+      // EFDesigner v2.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -44,32 +44,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                , "GeometryPoint"
                , "GeometryPolygon"
                , "String"
-               };
-         }
-      }
-
-      string[] SpatialTypes
-      {
-         get
-         {
-            return new[]
-                     {
-                 "Geography"
-               , "GeographyCollection"
-               , "GeographyLineString"
-               , "GeographyMultiLineString"
-               , "GeographyMultiPoint"
-               , "GeographyMultiPolygon"
-               , "GeographyPoint"
-               , "GeographyPolygon"
-               , "Geometry"
-               , "GeometryCollection"
-               , "GeometryLineString"
-               , "GeometryMultiLineString"
-               , "GeometryMultiPoint"
-               , "GeometryMultiPolygon"
-               , "GeometryPoint"
-               , "GeometryPolygon"
                };
          }
       }
