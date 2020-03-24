@@ -113,20 +113,21 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
 
                case "SourceMultiplicity":
-                  Multiplicity sourceMultiplicity = (Multiplicity)e.NewValue;
+                  Multiplicity currentSourceMultiplicity = (Multiplicity)e.NewValue;
+                  Multiplicity priorSourceMultiplicity = (Multiplicity)e.OldValue;
 
                   // change unidirectional source cardinality
                   // if target is dependent
                   //    source cardinality is 0..1 or 1
-                  if (element.Target.IsDependentType && sourceMultiplicity == Multiplicity.ZeroMany)
+                  if (element.Target.IsDependentType && currentSourceMultiplicity == Multiplicity.ZeroMany)
                   {
                      errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
 
                      break;
                   }
 
-                  if ((sourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One)
-                   || (sourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
+                  if ((currentSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One)
+                   || (currentSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
                   {
                      if (element.SourceRole != EndpointRole.NotSet)
                         element.SourceRole = EndpointRole.NotSet;
@@ -143,6 +144,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (element.Dependent == null)
                      element.FKPropertyName = null;
+
+                  if (((priorSourceMultiplicity == Multiplicity.ZeroOne || priorSourceMultiplicity == Multiplicity.ZeroMany) && currentSourceMultiplicity == Multiplicity.One) || 
+                      ((currentSourceMultiplicity == Multiplicity.ZeroOne || currentSourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
+                     doForeignKeyFixup = true;
 
                   break;
 
@@ -192,20 +197,21 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
 
                case "TargetMultiplicity":
-                  Multiplicity newTargetMultiplicity = (Multiplicity)e.NewValue;
+                  Multiplicity currentTargetMultiplicity = (Multiplicity)e.NewValue;
+                  Multiplicity priorTargetMultiplicity = (Multiplicity)e.OldValue;
 
                   // change unidirectional target cardinality
                   // if target is dependent
                   //    target cardinality must be 0..1 or 1
-                  if (element.Target.IsDependentType && newTargetMultiplicity == Multiplicity.ZeroMany)
+                  if (element.Target.IsDependentType && currentTargetMultiplicity == Multiplicity.ZeroMany)
                   {
                      errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
 
                      break;
                   }
 
-                  if ((element.SourceMultiplicity == Multiplicity.One && newTargetMultiplicity == Multiplicity.One)
-                   || (element.SourceMultiplicity == Multiplicity.ZeroOne && newTargetMultiplicity == Multiplicity.ZeroOne))
+                  if ((element.SourceMultiplicity == Multiplicity.One && currentTargetMultiplicity == Multiplicity.One)
+                   || (element.SourceMultiplicity == Multiplicity.ZeroOne && currentTargetMultiplicity == Multiplicity.ZeroOne))
                   {
                      if (element.SourceRole != EndpointRole.NotSet)
                         element.SourceRole = EndpointRole.NotSet;
@@ -222,6 +228,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   if (element.Dependent == null)
                      element.FKPropertyName = null;
+
+                  if (((priorTargetMultiplicity == Multiplicity.ZeroOne || priorTargetMultiplicity == Multiplicity.ZeroMany) && currentTargetMultiplicity == Multiplicity.One) || 
+                      ((currentTargetMultiplicity == Multiplicity.ZeroOne || currentTargetMultiplicity == Multiplicity.ZeroMany) && priorTargetMultiplicity == Multiplicity.One))
+                     doForeignKeyFixup = true;
 
                   break;
 

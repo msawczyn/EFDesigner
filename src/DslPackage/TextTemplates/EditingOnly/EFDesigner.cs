@@ -221,6 +221,46 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          return requiredParameterNames;
       }
 
+      List<string[]> GetConstructorParameterCombinations(ModelClass modelClass)
+      {
+         List<string[]> result = new List<string[]>();
+
+            requiredParameters.AddRange(modelClass.AllRequiredAttributes
+                                                   .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
+                                                            && !x.IsConcurrencyToken
+                                                            && (x.SetterVisibility == SetterAccessModifier.Public)
+                                                            && string.IsNullOrEmpty(x.InitialValue))
+                                                   .Select(x => $"{x.FQPrimitiveType} {x.Name.ToLower()}"));
+
+            // don't use 1..1 associations in constructor parameters. Becomes a Catch-22 scenario.
+            requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
+                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                            || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+                                                   .Select(x => $"{x.ClassType.FullName} {x.PropertyName.ToLower()}"));
+            requiredParameters.AddRange(modelClass.AllRequiredAttributes
+                                                   .Where(x => (!x.IsIdentity || x.IdentityType == IdentityType.Manual)
+                                                            && !x.IsConcurrencyToken
+                                                            && (x.SetterVisibility == SetterAccessModifier.Public)
+                                                            && !string.IsNullOrEmpty(x.InitialValue))
+                                                   .Select(x =>
+                                                            {
+                                                               string quote = x.PrimitiveType == "string"
+                                                                           ? "\""
+                                                                           : x.PrimitiveType == "char"
+                                                                              ? "'"
+                                                                              : string.Empty;
+
+                                                               string value = FullyQualified(modelClass.ModelRoot, quote.Length > 0
+                                                                                                                         ? x.InitialValue.Trim(quote[0])
+                                                                                                                         : x.InitialValue);
+
+                                                               return $"{x.FQPrimitiveType} {x.Name.ToLower()} = {quote}{value}{quote}";
+                                                            }));
+         }
+
+         return requiredParameters;
+      }
+
       List<string> GetRequiredParameters(ModelClass modelClass, bool? haveDefaults, bool? publicOnly = null)
       {
          List<string> requiredParameters = new List<string>();
@@ -511,6 +551,18 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          Output("}");
          NL();
+
+         if (visibility != "public")
+         {
+            Output("/// <summary>");
+            Output("/// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.");
+            Output("/// </summary>");
+            Output($"public static {modelClass.Name} Create{modelClass.Name}Unsafe()");
+            Output("{");
+            Output("return new {modelClass.Name}();")
+            Output("}");
+            NL();
+         }
 
          /***********************************************************************/
          // Constructor with required parameters (if necessary)
