@@ -18,7 +18,7 @@ namespace Sawczyn.EFDesigner.EFModel
       [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
       public const string CompanyName = @"Michael Sawczyn";
       [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-      public const string ProductVersion = "2.0.0.2";
+      public const string ProductVersion = "2.0.0.3";
 
       // Menu definitions
       public static readonly global::System.ComponentModel.Design.CommandID EFModelDiagramMenu = new global::System.ComponentModel.Design.CommandID(new global::System.Guid(EFModelCommandSetId), 0x10000);
