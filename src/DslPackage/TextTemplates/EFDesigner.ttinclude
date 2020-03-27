@@ -515,7 +515,7 @@
             Output("/// </summary>");
             Output($"public static {modelClass.Name} Create{modelClass.Name}Unsafe()");
             Output("{");
-            Output("return new {modelClass.Name}();")
+            Output($"return new {modelClass.Name}();");
             Output("}");
             NL();
          }
