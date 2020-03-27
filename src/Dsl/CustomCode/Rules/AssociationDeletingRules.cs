@@ -18,9 +18,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         ModelAttribute[] fkProperties = element.Dependent.AllAttributes.Where(x => x.IsForeignKeyFor == element.Id).ToArray();
-         
-         if (fkProperties.Any())
+         ModelAttribute[] fkProperties = element.Dependent?.AllAttributes?.Where(x => x.IsForeignKeyFor == element.Id).ToArray();
+
+         if (fkProperties?.Any() == true)
          {
             WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
 

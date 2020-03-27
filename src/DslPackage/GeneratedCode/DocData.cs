@@ -381,11 +381,11 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             string diagramFileNameOld = fileName + this.DiagramExtension.TrimEnd('x');
             if (System.IO.File.Exists(diagramFileNameOld))
-               modelRoot = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.LoadModelAndDiagram(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, this.ValidationController, this.SerializerLocator); // HACK: MEXEDGE
+               modelRoot = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.LoadModelAndDiagram(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileNameOld, schemaResolver, this.ValidationController, this.SerializerLocator); 
          }
 
          if (modelRoot == null)
-            modelRoot = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, this.ValidationController, this.SerializerLocator); // HACK: MEXEDGE
+            modelRoot = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, this.ValidationController, this.SerializerLocator); 
 
          // Report serialization messages.
          this.SuspendErrorListRefresh();

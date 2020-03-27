@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.0.1
+      // EFDesigner v2.0.0.2
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -509,8 +509,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
                            string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.Source.Name}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
-                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
+                           string suffix1 = association.Source == association.Target ? "A" : "";
+                           string suffix2 = association.Source == association.Target ? "B" : "";
+                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
+                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
 
                            segments.Add(modelClass == association.Source
                                              ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
@@ -623,8 +625,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
                            string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.SourcePropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
-                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
+                           string suffix1 = association.Source == association.Target ? "A" : "";
+                           string suffix2 = association.Source == association.Target ? "B" : "";
+                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
+                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
 
                            segments.Add(modelClass == association.Source
                                              ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"

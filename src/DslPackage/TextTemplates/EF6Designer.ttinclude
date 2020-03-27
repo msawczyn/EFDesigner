@@ -495,8 +495,10 @@
                         if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
                            string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.Source.Name}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
-                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
+                           string suffix1 = association.Source == association.Target ? "A" : "";
+                           string suffix2 = association.Source == association.Target ? "B" : "";
+                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
+                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
 
                            segments.Add(modelClass == association.Source
                                              ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
@@ -609,8 +611,10 @@
                         if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
                            string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.SourcePropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}""").ToList());
-                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}""").ToList());
+                           string suffix1 = association.Source == association.Target ? "A" : "";
+                           string suffix2 = association.Source == association.Target ? "B" : "";
+                           string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
+                           string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
 
                            segments.Add(modelClass == association.Source
                                              ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"

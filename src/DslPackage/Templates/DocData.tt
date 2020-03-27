@@ -429,11 +429,11 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          {
             string diagramFileNameOld = fileName + this.DiagramExtension.TrimEnd('x');
             if (System.IO.File.Exists(diagramFileNameOld))
-               modelRoot = <#= this.Dsl.GetFullName(true) #>SerializationHelper.Instance.LoadModelAndDiagram(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, <#= needLoadValidation ? "this.ValidationController" : "null /* no load-time validation */" #>, this.SerializerLocator); // HACK: MEXEDGE
+               modelRoot = <#= this.Dsl.GetFullName(true) #>SerializationHelper.Instance.LoadModelAndDiagram(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileNameOld, schemaResolver, <#= needLoadValidation ? "this.ValidationController" : "null /* no load-time validation */" #>, this.SerializerLocator); 
          }
 
          if (modelRoot == null)
-            modelRoot = <#= this.Dsl.GetFullName(true) #>SerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, <#= needLoadValidation ? "this.ValidationController" : "null /* no load-time validation */" #>, this.SerializerLocator); // HACK: MEXEDGE
+            modelRoot = <#= this.Dsl.GetFullName(true) #>SerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, <#= needLoadValidation ? "this.ValidationController" : "null /* no load-time validation */" #>, this.SerializerLocator); 
 <#
    }
    else
