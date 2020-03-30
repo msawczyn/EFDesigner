@@ -86,9 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AllFeatureModel.efmodel" />
-    <None Include="AllFeatureModel.efmodel.diagram">
-      <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
-    </None>
     <None Include="Generated\Context\Placeholder.txt" />
   </ItemGroup>
   <ItemGroup>

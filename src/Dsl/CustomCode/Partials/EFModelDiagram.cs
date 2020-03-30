@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    public partial class EFModelDiagram: IHasStore
@@ -14,7 +16,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public override void OnInitialize()
       {
          base.OnInitialize();
-         ModelRoot modelRoot = Store.ElementDirectory.AllElements.OfType<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.GetAll<ModelRoot>().FirstOrDefault();
 
          // because we can hide elements, line routing looks odd when it thinks it's jumping over lines
          // that really aren't visible. Since replacing the routing algorithm is too hard (impossible?)
@@ -52,7 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             base.OnDragDrop(diagramDragEventArgs);
          }
-         catch (ArgumentException e)
+         catch (ArgumentException)
          {
             // ignore. byproduct of multiple diagrams
          }
@@ -80,7 +82,7 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   base.OnDragDrop(diagramDragEventArgs);
                }
-               catch (ArgumentException e)
+               catch (ArgumentException)
                {
                   // ignore. byproduct of multiple diagrams
                }

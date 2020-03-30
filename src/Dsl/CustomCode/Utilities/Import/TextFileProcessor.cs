@@ -188,7 +188,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             string className = classDecl.Identifier.Text;
             ModelRoot modelRoot = Store.ModelRoot();
-            ModelClass modelClass = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == className);
+            ModelClass modelClass = Store.GetAll<ModelClass>().FirstOrDefault(c => c.Name == className);
             modelClass.Attributes.Clear();
 
             foreach (PropertyDeclarationSyntax propertyDecl in classDecl.DescendantNodes().OfType<PropertyDeclarationSyntax>())
@@ -467,7 +467,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          string namespaceName = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace;
 
-         if (Store.Get<ModelClass>().Any(c => c.Name == enumName) || Store.Get<ModelEnum>().Any(c => c.Name == enumName))
+         if (Store.GetAll<ModelClass>().Any(c => c.Name == enumName) || Store.GetAll<ModelEnum>().Any(c => c.Name == enumName))
          {
             ErrorDisplay.Show($"'{enumName}' already exists in model.");
 
@@ -569,7 +569,7 @@ namespace Sawczyn.EFDesigner.EFModel
          List<string> customInterfaces = new List<string>();
          try
          {
-            result = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == className);
+            result = Store.GetAll<ModelClass>().FirstOrDefault(c => c.Name == className);
 
             if (result == null)
             {
@@ -690,7 +690,7 @@ namespace Sawczyn.EFDesigner.EFModel
             if (namespaceDecl == null && classDecl.Parent is NamespaceDeclarationSyntax classDeclParent)
                namespaceDecl = classDeclParent;
 
-            if (Store.Get<ModelEnum>().Any(c => c.Name == className))
+            if (Store.GetAll<ModelEnum>().Any(c => c.Name == className))
             {
                ErrorDisplay.Show($"'{className}' already exists in model as an Enum.");
 

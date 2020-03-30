@@ -40,14 +40,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (string.IsNullOrWhiteSpace(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
                   errorMessage = "Name must be a valid .NET identifier";
-               else if (store.Get<ModelClass>().Any(x => x.Name == element.Name))
+               else if (store.GetAll<ModelClass>().Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by a class";
-               else if (store.Get<ModelEnum>().Except(new[] {element}).Any(x => x.Name == element.Name))
+               else if (store.GetAll<ModelEnum>().Except(new[] {element}).Any(x => x.Name == element.Name))
                   errorMessage = "Enum name already in use by another enum";
                else
                {
                   // rename type names for ModelAttributes that reference this enum
-                  foreach (ModelAttribute modelAttribute in store.Get<ModelAttribute>().Where(a => a.Type == (string)e.OldValue))
+                  foreach (ModelAttribute modelAttribute in store.GetAll<ModelAttribute>().Where(a => a.Type == (string)e.OldValue))
                      modelAttribute.Type = element.Name;
                }
 

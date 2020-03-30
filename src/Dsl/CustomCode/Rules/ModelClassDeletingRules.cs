@@ -25,7 +25,7 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (ModelAttribute attribute in element.Attributes)
             attribute.SetLocks(Locks.None);
 
-         List<Generalization> generalizations = store.Get<Generalization>().Where(g => g.Superclass == element).ToList();
+         List<Generalization> generalizations = store.GetAll<Generalization>().Where(g => g.Superclass == element).ToList();
 
          if (generalizations.Any())
          {

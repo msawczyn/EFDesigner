@@ -86,6 +86,36 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public List<ModelClass> AllSuperclasses
+      {
+         get
+         {
+            List<ModelClass> result = new List<ModelClass>();
+            ModelClass s = Superclass;
+
+            while (s != null)
+            {
+               result.Add(s);
+               s = s.Superclass;
+            }
+
+            return result;
+         }
+      }
+
+      public List<ModelClass> AllSubclasses
+      {
+         get
+         {
+            List<ModelClass> result = Store.GetAll<ModelClass>().Where(x => x.Superclass == this).ToList();
+
+            for (int i = 0; i < result.Count; i++)
+               result.AddRange(Store.GetAll<ModelClass>().Where(x => x.Superclass == result[i]));
+
+            return result;
+         }
+      }
+
       /// <summary>
       /// Names of all properties in the class
       /// </summary>
@@ -95,10 +125,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             List<string> result = AllAttributes.Select(a => a.Name).ToList();
 
-            result.AddRange(AllNavigationProperties().Select(np => np.PropertyName));
-
-            //if (Superclass != null)
-            //   result.AddRange(Superclass.AllPropertyNames);
+            result.AddRange(AllNavigationProperties().Where(np => !string.IsNullOrEmpty(np.PropertyName)).Select(np => np.PropertyName));
 
             return result;
          }
@@ -772,11 +799,11 @@ namespace Sawczyn.EFDesigner.EFModel
                                                          ModelAttribute.ImplementNotifyDomainPropertyId, 
                                                          ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
          TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Store.ElementDirectory.AllElements.OfType<Association>().Where(a => a.Source?.FullName == FullName),
+                                                         Store.GetAll<Association>().Where(a => a.Source?.FullName == FullName),
                                                          Association.TargetImplementNotifyDomainPropertyId, 
                                                          Association.IsTargetImplementNotifyTrackingDomainPropertyId);
          TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Store.ElementDirectory.AllElements.OfType<BidirectionalAssociation>().Where(a => a.Target?.FullName == FullName),
+                                                         Store.GetAll<BidirectionalAssociation>().Where(a => a.Target?.FullName == FullName),
                                                          BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, 
                                                          BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId);
       }

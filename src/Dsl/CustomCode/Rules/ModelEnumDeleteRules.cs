@@ -31,7 +31,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          using (Transaction t1 = store.TransactionManager.BeginTransaction("Remove enum properties"))
          {
-            foreach (ModelAttribute modelAttribute in store.ElementDirectory.AllElements.OfType<ModelAttribute>().Where(a => a.Type == fullName))
+            foreach (ModelAttribute modelAttribute in store.GetAll<ModelAttribute>().Where(a => a.Type == fullName))
                modelAttribute.Delete();
 
             t1.Commit();

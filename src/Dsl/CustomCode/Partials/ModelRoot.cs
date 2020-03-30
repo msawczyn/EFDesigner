@@ -312,7 +312,7 @@ namespace Sawczyn.EFDesigner.EFModel
       protected virtual void OnCollectionClassChanged(string oldValue, string newValue)
       {
          TrackingHelper.UpdateTrackingCollectionProperty(Store,
-                                                         Store.Get<Association>().ToList(),
+                                                         Store.GetAll<Association>().ToList(),
                                                          Association.CollectionClassDomainPropertyId,
                                                          Association.IsCollectionClassTrackingDomainPropertyId);
       }

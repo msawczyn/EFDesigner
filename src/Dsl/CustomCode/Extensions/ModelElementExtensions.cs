@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
@@ -28,7 +29,7 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 
          if (diagram != null)
          {
-            result = diagram.Store.ElementDirectory.AllElements.OfType<ShapeElement>().FirstOrDefault(x => x.ModelElement == element && x.Diagram == diagram);
+            result = diagram.Store.GetAll<ShapeElement>().FirstOrDefault(x => x.ModelElement == element && x.Diagram == diagram);
 
             // If the model element is in a compartment the result should be null? Check for Compartment type just in case
             if (result == null || result is Compartment)
@@ -80,10 +81,32 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 
       public static ModelRoot ModelRoot(this Store store)
       {
-         return store.Get<ModelRoot>().FirstOrDefault();
+         return store.GetAll<ModelRoot>().FirstOrDefault();
       }
 
-      public static IEnumerable<T> Get<T>(this Store store)
+      public static List<(string propertyName, object thisValue, object otherValue)> GetDifferences<T>(this T This, T Other) where T:ModelElement
+      {
+         List<(string propertyName, object thisValue, object otherValue)> result = new List<(string propertyName, object thisValue, object otherValue)>();
+         ReadOnlyCollection<DomainPropertyInfo> domainProperties = This.GetDomainClass().AllDomainProperties;
+
+         foreach (DomainPropertyInfo domainProperty in domainProperties)
+         {
+            object thisProperty = domainProperty.GetValue(This);
+            object otherProperty = domainProperty.GetValue(Other);
+
+            if (thisProperty == null && otherProperty == null)
+               continue;
+
+            if (thisProperty != null && otherProperty != null && thisProperty.Equals(otherProperty))
+               continue;
+
+            result.Add((domainProperty.Name, thisProperty, otherProperty));
+         }
+
+         return result;
+      }
+
+      public static IEnumerable<T> GetAll<T>(this Store store)
       {
          return store.ElementDirectory.AllElements.OfType<T>();
       }

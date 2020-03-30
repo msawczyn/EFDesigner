@@ -134,10 +134,10 @@ namespace Sawczyn.EFDesigner.EFModel
          Store store = modelRoot.Store;
          List<string> errorMessages = new List<string>();
 
-         foreach (Association association in store.Get<Association>().ToList())
+         foreach (Association association in store.GetAll<Association>().ToList())
             errorMessages.AddRange(GetErrors(association));
 
-         foreach (ModelClass modelClass in store.Get<ModelClass>().ToList())
+         foreach (ModelClass modelClass in store.GetAll<ModelClass>().ToList())
          {
             errorMessages.AddRange(GetErrors(modelClass));
 

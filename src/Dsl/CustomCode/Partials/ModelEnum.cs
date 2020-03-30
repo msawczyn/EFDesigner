@@ -20,7 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>true if used, false otherwise</returns>
       public static bool IsUsed(ModelEnum modelEnum)
       {
-         return modelEnum.ModelRoot.Store.ElementDirectory.AllElements.OfType<ModelAttribute>().Any(a => a.Type == modelEnum.Name);
+         return modelEnum.ModelRoot.Store.GetAll<ModelAttribute>().Any(a => a.Type == modelEnum.Name);
       }
 
       /// <summary>

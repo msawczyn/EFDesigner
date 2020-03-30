@@ -27,7 +27,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          ModelDiagramData.OpenDiagram?.Invoke(element);
-         element.SetDiagram(store.ElementDirectory.AllElements.OfType<EFModelDiagram>().FirstOrDefault(d => d.Name == element.Name));
+         element.SetDiagram(store.GetAll<EFModelDiagram>().FirstOrDefault(d => d.Name == element.Name));
       }
    }
 }

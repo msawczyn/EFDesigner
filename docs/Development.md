@@ -14,54 +14,14 @@ Just make sure that's been activated. If you're new to the Modeling SDK, Microso
 In order to modify the attribute parser, you'll want to get the [Gold Parsing System](http://goldparser.org/), an excellent free
 product for creating LALR parsers in C#. Documentation on the parsing engine is provided at the Gold site.
 
-## Special Note
-
-There's currently a bug in the templates used in DSL generation in the SDK. You'll need to fix it to make
-things work.
-
-First, find the DSL Tools text templates. In my installation, they're located at
-
-```
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\Extensions\Microsoft\DSL SDK\DSL Designer\15.0\TextTemplates
-```
-
-But the `Enterprise` part of that path is there because I'm running Visual Studio Enterprise ... ymmv.
-
-In the `Dsl` folder you'll find `SerializationHelper.tt`. Open it in your favorite text editor.
-
-On line 617 you'll see
-
-```
-this.OnPostLoadModel(serializationResult, partition, fileName, modelRoot);
-```
-
-change that to
-
-```
-this.OnPostLoadModel(serializationResult, partition, location, modelRoot);
-```
-
-The bug got introduced when the load process got expanded to load from a stream rather than from
-just a file. The parameter name of the surrounding function got changed, but this call didn't and,
-from the looks of it, test code coverage never caused this to get used in generation. 
-
-You'll have to make this change every time the SDK gets updated. It was [reported in March of 2017](https://developercommunity.visualstudio.com/content/problem/37185/vs2017-dsl-tools-error-in-serializationhelpertt.html)
-and [again in October of the same year](https://developercommunity.visualstudio.com/content/problem/128359/dslmodeling-error-in-generatedcode-of-serializatio.html) 
-but is still a problem.
-
-If you have *other* any problems compiling the code, please add an issue to the 
-[GitHub issues list](https://github.com/msawczyn/EFDesigner/issues).
-
-And if you'd like to contribute but aren't a programmer, there's still room for you!
-The project docs (the thing you're reading) could certainly be improved - it would be
-great if qualified writers could help.
-
 ## Project Structure
 
 Nothing unique about the DSL; you'll see the two standard projects (Dsl and DslPackage) along with
-a Dsl.Tests project for (a handful of) unit tests.
+a Sandcastle project for the API help and a folder called `Metadata Parsing` that holds console-mode applications
+for parsing assemblies in both .NET Core and .NET Framework and consuming EF6 and EFCore metadata. Those
+are the parsers that you invoke when you drop an assembly onto the design surface for import.
 
-In the Dsl project, the `Custom Code` folder holds handwritten extensions, and the 
+In the Dsl and DslPackage projects, the `Custom Code` folder holds handwritten extensions, and the 
 `Generated Code` folder the T4 outputs. `Custom Code` is further broken down into categories
 of code, so finding things shouldn't be too difficult.
 

@@ -377,10 +377,10 @@ namespace Sawczyn.EFDesigner.EFModel
             existing.SetFKMods(element);
          }
 
-         // create new properties
-         foreach (string propertyName in add)
+         // create new properties if they don't already exist
+         foreach (string propertyName in add.Where(n => element.Dependent.Attributes.All(a => a.Name != n)))
             element.Dependent.Attributes.Add(new ModelAttribute(element.Store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName)));
-
+         
          // make a pass through and fixup the types, summaries, etc. based on the principal's identity attributes
          ModelAttribute[] principalIdentityAttributes = element.Principal.AllIdentityAttributes.ToArray();
          string summaryBoilerplate = element.GetSummaryBoilerplate();

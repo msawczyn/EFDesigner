@@ -29,7 +29,7 @@ namespace Sawczyn.EFDesigner.EFModel
             ModelClass src = superclass;
             while (src != null)
             {
-               associations.AddRange(store.Get<Association>().Where(a => a.Source == src || a.Target == src));
+               associations.AddRange(store.GetAll<Association>().Where(a => a.Source == src || a.Target == src));
                src = src.Superclass;
             }
 

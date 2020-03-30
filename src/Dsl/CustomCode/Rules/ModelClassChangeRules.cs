@@ -49,7 +49,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (current.Name.ToLowerInvariant() != "paste" &&
                       (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
                      errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
-                  else if (store.Get<ModelClass>()
+                  else if (store.GetAll<ModelClass>()
                                 .Except(new[] {element})
                                 .Any(x => x.DbSetName == newDbSetName))
                      errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
@@ -114,7 +114,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
 
                   // dependent type can't be source in an association
-                  if (store.Get<UnidirectionalAssociation>()
+                  if (store.GetAll<UnidirectionalAssociation>()
                            .Any(a => a.Source == element))
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it references other classes");
@@ -122,7 +122,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      break;
                   }
 
-                  if (store.Get<BidirectionalAssociation>()
+                  if (store.GetAll<BidirectionalAssociation>()
                            .Any(a => a.Source == element || a.Target == element))
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it's in a bidirectional association");
@@ -130,7 +130,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      break;
                   }
 
-                  if (store.Get<Association>()
+                  if (store.GetAll<Association>()
                            .Any(a => a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
                   {
                      errorMessages.Add($"Can't make {element.Name} a dependent class since it's the target of a 0..* association");
@@ -226,7 +226,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (string.IsNullOrEmpty(newTableName))
                      element.TableName = MakeDefaultName(element.Name);
 
-                  if (store.Get<ModelClass>()
+                  if (store.GetAll<ModelClass>()
                            .Except(new[] {element})
                            .Any(x => x.TableName == newTableName))
                      errorMessages.Add($"Table name '{newTableName}' already in use");

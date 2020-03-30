@@ -76,7 +76,7 @@ namespace Sawczyn.EFDesigner.EFModel
             case "ExposeForeignKeys":
                if (!element.ExposeForeignKeys)
                {
-                  foreach (Association association in element.Store.ElementDirectory.AllElements.OfType<Association>()
+                  foreach (Association association in element.Store.GetAll<Association>()
                                                              .Where(a => (a.SourceRole == EndpointRole.Dependent || a.TargetRole == EndpointRole.Dependent)
                                                                       && !string.IsNullOrWhiteSpace(a.FKPropertyName)))
                      association.FKPropertyName = null;

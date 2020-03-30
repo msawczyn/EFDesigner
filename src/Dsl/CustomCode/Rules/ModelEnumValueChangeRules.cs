@@ -54,7 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   string oldInitialValue = $"{modelEnum.Name}.{e.OldValue}";
                   string newInitialValue = $"{modelEnum.Name}.{e.NewValue}";
 
-                  foreach (ModelAttribute modelAttribute in store.Get<ModelAttribute>().Where(a => a.InitialValue == oldInitialValue))
+                  foreach (ModelAttribute modelAttribute in store.GetAll<ModelAttribute>().Where(a => a.InitialValue == oldInitialValue))
                      modelAttribute.InitialValue = newInitialValue;
                }
 

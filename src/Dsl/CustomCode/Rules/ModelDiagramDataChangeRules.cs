@@ -40,7 +40,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
-               if (store.ElementDirectory.AllElements.OfType<ModelDiagramData>().Where(d => d != element).Any(d => d.Name == e.NewValue.ToString()))
+               if (store.GetAll<ModelDiagramData>().Where(d => d != element).Any(d => d.Name == e.NewValue.ToString()))
                {
                   errorMessages.Add("Diagram must have a unique name");
                   break;

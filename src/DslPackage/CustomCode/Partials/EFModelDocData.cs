@@ -359,7 +359,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void ValidateAll()
       {
          ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;
-         Store.Get<IDisplaysWarning>().ToList().ForEach(e => e.ResetWarning());
+         Store.GetAll<IDisplaysWarning>().ToList().ForEach(e => e.ResetWarning());
          ValidationController?.ClearMessages();
          ValidationController?.Validate(Store.ElementDirectory.AllElements, allCategories);
       }

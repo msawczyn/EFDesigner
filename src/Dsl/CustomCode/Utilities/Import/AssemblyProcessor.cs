@@ -90,7 +90,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ProcessClasses(modelRoot, rootData.Classes);
          ProcessEnumerations(modelRoot, rootData.Enumerations);
 
-         foreach (Association association in modelRoot.Store.ElementDirectory.AllElements.OfType<Association>())
+         foreach (Association association in modelRoot.Store.GetAll<Association>())
          {
             AssociationChangedRules.SetEndpointRoles(association);
             AssociationChangedRules.FixupForeignKeys(association);
@@ -223,7 +223,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          foreach (ModelUnidirectionalAssociation data in unidirectionalAssociations)
          {
-            UnidirectionalAssociation existing = Store.Get<UnidirectionalAssociation>()
+            UnidirectionalAssociation existing = Store.GetAll<UnidirectionalAssociation>()
                                                       .FirstOrDefault(x => x.Target.Name == data.TargetClassName
                                                                         && x.Source.Name == data.SourceClassName
                                                                         && x.Source.Name == modelClass.Name // just to be sure
@@ -240,8 +240,8 @@ namespace Sawczyn.EFDesigner.EFModel
                continue;
             }
 
-            ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
-            ModelClass target = Store.Get<ModelClass>().FirstOrDefault(c => c.FullName == data.TargetClassFullName);
+            ModelClass source = Store.GetAll<ModelClass>().FirstOrDefault(c => c.FullName == data.SourceClassFullName);
+            ModelClass target = Store.GetAll<ModelClass>().FirstOrDefault(c => c.FullName == data.TargetClassFullName);
 
             if (source == null || target == null || source.FullName != modelClass.FullName)
                continue;
@@ -273,13 +273,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
          foreach (ModelBidirectionalAssociation data in bidirectionalAssociations)
          {
-            BidirectionalAssociation existing = Store.Get<BidirectionalAssociation>()
+            BidirectionalAssociation existing = Store.GetAll<BidirectionalAssociation>()
                                                      .FirstOrDefault(x => x.Target.Name == data.TargetClassName
                                                                        && x.Source.Name == data.SourceClassName
                                                                        && x.Source.Name == modelClass.Name // just to be sure
                                                                        && x.TargetPropertyName == data.TargetPropertyName
                                                                        && x.SourcePropertyName == data.SourcePropertyName)
-                                             ?? Store.Get<BidirectionalAssociation>()
+                                             ?? Store.GetAll<BidirectionalAssociation>()
                                                      .FirstOrDefault(x => x.Source.Name == data.TargetClassName
                                                                        && x.Target.Name == data.SourceClassName
                                                                        && x.Target.Name == modelClass.Name // just to be sure
@@ -297,8 +297,8 @@ namespace Sawczyn.EFDesigner.EFModel
                continue;
             }
 
-            ModelClass source = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == data.SourceClassName);
-            ModelClass target = Store.Get<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName);
+            ModelClass source = Store.GetAll<ModelClass>().FirstOrDefault(c => c.Name == data.SourceClassName);
+            ModelClass target = Store.GetAll<ModelClass>().FirstOrDefault(c => c.Name == data.TargetClassName);
 
             if (source == null || target == null || source.FullName != modelClass.FullName)
                continue;

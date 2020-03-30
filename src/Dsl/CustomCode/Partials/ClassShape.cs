@@ -108,7 +108,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (modelAttribute != null && modelAttribute.IsForeignKeyFor != Guid.Empty)
             {
-               Association association = modelAttribute.Store.ElementDirectory.AllElements.OfType<Association>().FirstOrDefault(x => x.Id == modelAttribute.IsForeignKeyFor);
+               Association association = modelAttribute.Store.GetAll<Association>().FirstOrDefault(x => x.Id == modelAttribute.IsForeignKeyFor);
 
                if (association != null)
                   return $"FK for [{association.GetDisplayText()}]";

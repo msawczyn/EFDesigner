@@ -9,6 +9,8 @@
   <HelpKINode Title="AllPropertyNames property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllPropertyNames.htm" />
   <HelpKINode Title="AllRequiredAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllRequiredAttributes.htm" />
   <HelpKINode Title="AllRequiredNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_AllRequiredNavigationProperties.htm" />
+  <HelpKINode Title="AllSubclasses property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllSubclasses.htm" />
+  <HelpKINode Title="AllSuperclasses property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllSuperclasses.htm" />
   <HelpKINode Title="Ask enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_AutomaticAction.htm" />
   <HelpKINode Title="Association class">
     <HelpKINode Title="Association Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Association.htm" />
@@ -302,9 +304,9 @@
   <HelpKINode Title="Generalization.Superclass property" Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Superclass.htm" />
   <HelpKINode Title="GenerateCode property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_GenerateCode.htm" />
   <HelpKINode Title="GenerateCodeDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_GenerateCodeDomainPropertyId.htm" />
-  <HelpKINode Title="Get(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
-  <HelpKINode Title="Get&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
   <HelpKINode Title="GetActiveDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetActiveDiagram.htm" />
+  <HelpKINode Title="GetAll(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetAll__1.htm" />
+  <HelpKINode Title="GetAll&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetAll__1.htm" />
   <HelpKINode Title="GetAttribute method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_GetAttribute.htm" />
   <HelpKINode Title="GetAttributeArguments method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions_GetAttributeArguments.htm" />
   <HelpKINode Title="GetBidirectionalSources method" Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetBidirectionalSources.htm" />
@@ -312,6 +314,9 @@
   <HelpKINode Title="GetChoice method" Url="html/M_Sawczyn_EFDesigner_ChoiceDisplay_GetChoice.htm" />
   <HelpKINode Title="GetCompartment method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetCompartment.htm" />
   <HelpKINode Title="GetCurrentDiagram field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GetCurrentDiagram.htm" />
+  <HelpKINode Title="GetDiagrams method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetDiagrams.htm" />
+  <HelpKINode Title="GetDifferences(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetDifferences__1.htm" />
+  <HelpKINode Title="GetDifferences&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetDifferences__1.htm" />
   <HelpKINode Title="GetDisplayText method">
     <HelpKINode Title="Association.GetDisplayText Method " Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetDisplayText.htm" />
     <HelpKINode Title="BidirectionalAssociation.GetDisplayText Method " Url="html/M_Sawczyn_EFDesigner_EFModel_BidirectionalAssociation_GetDisplayText.htm" />
@@ -349,6 +354,10 @@
   <HelpKINode Title="GetTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_Association_GetTargets.htm" />
   <HelpKINode Title="GetUnidirectionalSources method" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetUnidirectionalSources.htm" />
   <HelpKINode Title="GetUnidirectionalTargets method" Url="html/M_Sawczyn_EFDesigner_EFModel_UnidirectionalAssociation_GetUnidirectionalTargets.htm" />
+  <HelpKINode Title="GridColor property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_GridColor.htm" />
+  <HelpKINode Title="GridColorDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GridColorDomainPropertyId.htm" />
+  <HelpKINode Title="GridSize property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_GridSize.htm" />
+  <HelpKINode Title="GridSizeDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GridSizeDomainPropertyId.htm" />
   <HelpKINode Title="GuidToBytesConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="GuidToStringConverter enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ValueConverter.htm" />
   <HelpKINode Title="HasAssociationNamed method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_HasAssociationNamed.htm" />
@@ -400,6 +409,12 @@
   <HelpKINode Title="LayoutDiagram method" Url="html/M_Sawczyn_EFDesigner_ModelDisplay_LayoutDiagram.htm" />
   <HelpKINode Title="LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
   <HelpKINode Title="List enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_CollectionType.htm" />
+  <HelpKINode Title="ListExtensions class">
+    <HelpKINode Title="ListExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_ListExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Extensions_ListExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ListExtensions.Synchronize(Of T, U) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ListExtensions_Synchronize__2.htm" />
+  <HelpKINode Title="ListExtensions.Synchronize&lt;T, U&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ListExtensions_Synchronize__2.htm" />
   <HelpKINode Title="LocalNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_LocalNavigationProperties.htm" />
   <HelpKINode Title="LocateInDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_LocateInDiagram.htm" />
   <HelpKINode Title="MajorMinorVersion property" Url="html/P_Sawczyn_EFDesigner_EFModel_NuGetDisplay_MajorMinorVersion.htm" />
@@ -462,6 +477,8 @@
   <HelpKINode Title="ModelClass.AllPropertyNames property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllPropertyNames.htm" />
   <HelpKINode Title="ModelClass.AllRequiredAttributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllRequiredAttributes.htm" />
   <HelpKINode Title="ModelClass.AllRequiredNavigationProperties method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelClass_AllRequiredNavigationProperties.htm" />
+  <HelpKINode Title="ModelClass.AllSubclasses property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllSubclasses.htm" />
+  <HelpKINode Title="ModelClass.AllSuperclasses property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AllSuperclasses.htm" />
   <HelpKINode Title="ModelClass.Attributes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Attributes.htm" />
   <HelpKINode Title="ModelClass.AutoPropertyDefault property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_AutoPropertyDefault.htm" />
   <HelpKINode Title="ModelClass.AutoPropertyDefaultDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelClass_AutoPropertyDefaultDomainPropertyId.htm" />
@@ -517,10 +534,12 @@
     <HelpKINode Title="ModelElementExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions.htm" />
   </HelpKINode>
-  <HelpKINode Title="ModelElementExtensions.Get(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
-  <HelpKINode Title="ModelElementExtensions.Get&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_Get__1.htm" />
   <HelpKINode Title="ModelElementExtensions.GetActiveDiagram method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetActiveDiagram.htm" />
+  <HelpKINode Title="ModelElementExtensions.GetAll(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetAll__1.htm" />
+  <HelpKINode Title="ModelElementExtensions.GetAll&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetAll__1.htm" />
   <HelpKINode Title="ModelElementExtensions.GetCompartment method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetCompartment.htm" />
+  <HelpKINode Title="ModelElementExtensions.GetDifferences(Of T) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetDifferences__1.htm" />
+  <HelpKINode Title="ModelElementExtensions.GetDifferences&lt;T&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetDifferences__1.htm" />
   <HelpKINode Title="ModelElementExtensions.GetDisplayText method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetDisplayText.htm" />
   <HelpKINode Title="ModelElementExtensions.GetFirstShapeElement method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_GetFirstShapeElement.htm" />
   <HelpKINode Title="ModelElementExtensions.InvalidateDiagrams method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions_InvalidateDiagrams.htm" />
@@ -606,7 +625,12 @@
   <HelpKINode Title="ModelRoot.FileNameMarker property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FileNameMarker.htm" />
   <HelpKINode Title="ModelRoot.FullName property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_FullName.htm" />
   <HelpKINode Title="ModelRoot.GetCurrentDiagram field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GetCurrentDiagram.htm" />
+  <HelpKINode Title="ModelRoot.GetDiagrams method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetDiagrams.htm" />
   <HelpKINode Title="ModelRoot.GetEntityFrameworkPackageVersionNum method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_GetEntityFrameworkPackageVersionNum.htm" />
+  <HelpKINode Title="ModelRoot.GridColor property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_GridColor.htm" />
+  <HelpKINode Title="ModelRoot.GridColorDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GridColorDomainPropertyId.htm" />
+  <HelpKINode Title="ModelRoot.GridSize property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_GridSize.htm" />
+  <HelpKINode Title="ModelRoot.GridSizeDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_GridSizeDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.InheritanceStrategy property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_InheritanceStrategy.htm" />
   <HelpKINode Title="ModelRoot.IsValidCLRType method" Url="html/M_Sawczyn_EFDesigner_EFModel_ModelRoot_IsValidCLRType.htm" />
   <HelpKINode Title="ModelRoot.LazyLoadingEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_LazyLoadingEnabled.htm" />
@@ -619,7 +643,11 @@
   <HelpKINode Title="ModelRoot.PluralizationService field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_PluralizationService.htm" />
   <HelpKINode Title="ModelRoot.ProxyGenerationEnabled property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ProxyGenerationEnabled.htm" />
   <HelpKINode Title="ModelRoot.ShowCascadeDeletes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowCascadeDeletes.htm" />
+  <HelpKINode Title="ModelRoot.ShowGrid property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowGrid.htm" />
+  <HelpKINode Title="ModelRoot.ShowGridDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowGridDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.ShowWarningsInDesigner property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowWarningsInDesigner.htm" />
+  <HelpKINode Title="ModelRoot.SnapToGrid property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_SnapToGrid.htm" />
+  <HelpKINode Title="ModelRoot.SnapToGridDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_SnapToGridDomainPropertyId.htm" />
   <HelpKINode Title="ModelRoot.SpatialTypes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_SpatialTypes.htm" />
   <HelpKINode Title="ModelRoot.StructNamespace property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_StructNamespace.htm" />
   <HelpKINode Title="ModelRoot.StructNamespaceDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_StructNamespaceDomainPropertyId.htm" />
@@ -787,6 +815,7 @@
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.EnumValueType enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_EnumValueType.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions namespace" Url="html/N_Sawczyn_EFDesigner_EFModel_Extensions.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions.DiagramViewExtensions class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_DiagramViewExtensions.htm" />
+  <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions.ListExtensions class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_ListExtensions.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions.ModelElementExtensions class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_ModelElementExtensions.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.Extensions.SyntaxNodeExtensions class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions.htm" />
   <HelpKINode Title="Sawczyn.EFDesigner.EFModel.ForeignKeyOwner enumeration" Url="html/T_Sawczyn_EFDesigner_EFModel_ForeignKeyOwner.htm" />
@@ -829,7 +858,11 @@
     <HelpKINode Title="WarningDisplay.Show Method " Url="html/M_Sawczyn_EFDesigner_WarningDisplay_Show.htm" />
   </HelpKINode>
   <HelpKINode Title="ShowCascadeDeletes property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowCascadeDeletes.htm" />
+  <HelpKINode Title="ShowGrid property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowGrid.htm" />
+  <HelpKINode Title="ShowGridDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowGridDomainPropertyId.htm" />
   <HelpKINode Title="ShowWarningsInDesigner property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_ShowWarningsInDesigner.htm" />
+  <HelpKINode Title="SnapToGrid property" Url="html/P_Sawczyn_EFDesigner_EFModel_ModelRoot_SnapToGrid.htm" />
+  <HelpKINode Title="SnapToGridDomainPropertyId field" Url="html/F_Sawczyn_EFDesigner_EFModel_ModelRoot_SnapToGridDomainPropertyId.htm" />
   <HelpKINode Title="Source enumeration member" Url="html/T_Sawczyn_EFDesigner_EFModel_ForeignKeyOwner.htm" />
   <HelpKINode Title="Source property">
     <HelpKINode Title="Association.Source Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Association_Source.htm" />
@@ -884,6 +917,8 @@
     <HelpKINode Title="Generalization.Superclass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_Generalization_Superclass.htm" />
     <HelpKINode Title="ModelClass.Superclass Property " Url="html/P_Sawczyn_EFDesigner_EFModel_ModelClass_Superclass.htm" />
   </HelpKINode>
+  <HelpKINode Title="Synchronize(Of T, U) method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ListExtensions_Synchronize__2.htm" />
+  <HelpKINode Title="Synchronize&lt;T, U&gt; method" Url="html/M_Sawczyn_EFDesigner_EFModel_Extensions_ListExtensions_Synchronize__2.htm" />
   <HelpKINode Title="SyntaxNodeExtensions class">
     <HelpKINode Title="SyntaxNodeExtensions Class" Url="html/T_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Sawczyn_EFDesigner_EFModel_Extensions_SyntaxNodeExtensions.htm" />
