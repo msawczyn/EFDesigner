@@ -162,7 +162,7 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>Currently focused document view</summary>
-      protected DiagramDocView CurrentDocView
+      public DiagramDocView CurrentDocView
       {
          get
          {
@@ -202,7 +202,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot.GetCurrentDiagram = GetCurrentDiagram;
          ModelDiagramData.OpenDiagram = DisplayDiagram;
          ModelDiagramData.CloseDiagram = CloseDiagram;
-         //ModelAttribute.GetDefaultStringLength = GetDefaultStringLength;
+         ModelDiagramData.RenameWindow = RenameWindow;
 
          // set to the project's namespace if no namespace set
          if (string.IsNullOrEmpty(modelRoot.Namespace))
@@ -288,55 +288,55 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
 
-         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("Diagrams"))
-         {
-            List<EFModelDiagram> diagrams = Store.ElementDirectory.FindElements<EFModelDiagram>().ToList();
+         //using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("Diagrams"))
+         //{
+         //   List<EFModelDiagram> diagrams = Store.ElementDirectory.FindElements<EFModelDiagram>().ToList();
 
-            RuleManager ruleManager = Store.RuleManager;
+         //   RuleManager ruleManager = Store.RuleManager;
 
-            try
-            {
-               ruleManager.DisableRule(typeof(ModelDiagramDataAddRules));
-               ruleManager.DisableRule(typeof(ModelDiagramDataDeleteRules));
-               ruleManager.DisableRule(typeof(ModelDiagramDataChangeRules));
+         //   try
+         //   {
+         //      ruleManager.DisableRule(typeof(ModelDiagramDataAddRules));
+         //      ruleManager.DisableRule(typeof(ModelDiagramDataDeleteRules));
+         //      ruleManager.DisableRule(typeof(ModelDiagramDataChangeRules));
 
-               modelRoot.Diagrams.Clear();
-               List<ModelDiagramData> matched = new List<ModelDiagramData>();
+         //      //modelRoot.Diagrams.Clear();
+         //      //List<ModelDiagramData> matched = new List<ModelDiagramData>();
 
-               string defaultDiagramName = Path.GetFileNameWithoutExtension(FileName).ToLower();
+         //      //string defaultDiagramName = Path.GetFileNameWithoutExtension(FileName).ToLower();
 
-               // don't show the default diagram - it's hands-off for the user
-               foreach (EFModelDiagram efModelDiagram in diagrams.Where(d => d.Name.ToLower() != defaultDiagramName))
-               {
-                  ModelDiagramData diagramDataObject = modelRoot.Diagrams.FirstOrDefault(d => d.Name == efModelDiagram.Name);
+         //      // don't show the default diagram - it's hands-off for the user
+         //      //foreach (EFModelDiagram efModelDiagram in diagrams/*.Where(d => d.Name.ToLower() != defaultDiagramName)*/)
+         //      //{
+         //      //   ModelDiagramData diagramDataObject = modelRoot.Diagrams.FirstOrDefault(d => d.Name == efModelDiagram.Name);
 
-                  if (diagramDataObject == null)
-                  {
-                     diagramDataObject = new ModelDiagramData(Store, new PropertyAssignment(ModelDiagramData.NameDomainPropertyId, efModelDiagram.Name));
-                     modelRoot.Diagrams.Add(diagramDataObject);
-                  }
+         //      //   if (diagramDataObject == null)
+         //      //   {
+         //      //      diagramDataObject = new ModelDiagramData(Store, new PropertyAssignment(ModelDiagramData.NameDomainPropertyId, efModelDiagram.Name));
+         //      //      modelRoot.Diagrams.Add(diagramDataObject);
+         //      //   }
 
-                  matched.Add(diagramDataObject);
-                  diagramDataObject.SetDiagram(efModelDiagram);
-               }
+         //      //   matched.Add(diagramDataObject);
+         //      //   diagramDataObject.SetDiagram(efModelDiagram);
+         //      //}
 
-               for (int index = 0; index < modelRoot.Diagrams.Count; index++)
-               {
-                  ModelDiagramData diagramDataObject = modelRoot.Diagrams[index];
+         //      //for (int index = 0; index < modelRoot.Diagrams.Count; index++)
+         //      //{
+         //      //   ModelDiagramData diagramDataObject = modelRoot.Diagrams[index];
 
-                  if (matched.All(d => d.Name != diagramDataObject.Name))
-                     modelRoot.Diagrams.RemoveAt(index--);
-               }
+         //      //   if (matched.All(d => d.Name != diagramDataObject.Name))
+         //      //      modelRoot.Diagrams.RemoveAt(index--);
+         //      //}
 
-               tx.Commit();
-            }
-            finally
-            {
-               ruleManager.EnableRule(typeof(ModelDiagramDataAddRules));
-               ruleManager.EnableRule(typeof(ModelDiagramDataDeleteRules));
-               ruleManager.EnableRule(typeof(ModelDiagramDataChangeRules));
-            }
-         }
+         //      tx.Commit();
+         //   }
+         //   finally
+         //   {
+         //      ruleManager.EnableRule(typeof(ModelDiagramDataAddRules));
+         //      ruleManager.EnableRule(typeof(ModelDiagramDataDeleteRules));
+         //      ruleManager.EnableRule(typeof(ModelDiagramDataChangeRules));
+         //   }
+         //}
 
          SetDocDataDirty(0);
       }
@@ -354,6 +354,12 @@ namespace Sawczyn.EFDesigner.EFModel
       private void CloseDiagram(EFModelDiagram diagram)
       {
          DocViews.OfType<EFModelDocView>().FirstOrDefault(d => d.Diagram == diagram)?.Frame?.CloseFrame((uint)__FRAMECLOSE.FRAMECLOSE_SaveIfDirty);
+      }
+
+      private void RenameWindow(EFModelDiagram diagram)
+      {
+         DocViews.OfType<EFModelDocView>().FirstOrDefault(d => d.Diagram == diagram)?.Frame
+                ?.SetProperty((int)__VSFPROPID.VSFPROPID_EditorCaption, $" [{diagram.Name}]");
       }
 
       private void ValidateAll()

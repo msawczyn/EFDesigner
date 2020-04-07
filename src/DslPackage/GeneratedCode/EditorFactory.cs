@@ -10,6 +10,7 @@
 using VSShellInterop = global::Microsoft.VisualStudio.Shell.Interop;
 using DslShell = global::Microsoft.VisualStudio.Modeling.Shell;
 using MexModeling = global::Mexedge.VisualStudio.Modeling;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -66,14 +67,18 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override DslShell::ModelingDocView CreateDocView(DslShell::ModelingDocData docData, string physicalView, out string editorCaption)
       {
          // Create the view type supported by this editor.
-         editorCaption = " [Default]";
          MexModeling::ViewContext viewContext;
-         if (MexModeling::ViewContext.TryParse(physicalView, out viewContext))
-         {
-            editorCaption = string.Format(" [{0}]", viewContext.DiagramName);
-            return new EFModelDocView(docData, this.ServiceProvider, viewContext.DiagramName);
-         }
-         return new EFModelDocView(docData, this.ServiceProvider, string.Empty);
+
+         string displayName = MexModeling::ViewContext.TryParse(physicalView, out viewContext)
+                                 ? string.IsNullOrEmpty(viewContext.DiagramName) ? docData.Store.ModelRoot().GetFileName() : viewContext.DiagramName
+                                 : string.IsNullOrEmpty(physicalView) ? docData.Store.ModelRoot().GetFileName() : physicalView;
+
+         string docViewName = MexModeling::ViewContext.TryParse(physicalView, out viewContext)
+                                 ? displayName
+                                 : physicalView;
+
+         editorCaption = $" [{displayName}]";
+         return new EFModelDocView(docData, this.ServiceProvider, docViewName);
       }
    }
 }

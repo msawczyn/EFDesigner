@@ -26,8 +26,11 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          EFModelDiagram diagram = element.GetDiagram();
-         ModelDiagramData.CloseDiagram?.Invoke(diagram);
-         diagram.Delete();
+         if (diagram != null)
+         {
+            ModelDiagramData.CloseDiagram?.Invoke(diagram);
+            diagram.Delete();
+         }
       }
    }
 }

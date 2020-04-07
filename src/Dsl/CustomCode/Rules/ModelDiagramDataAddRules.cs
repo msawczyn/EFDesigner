@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using EnvDTE;
+﻿using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 
@@ -27,7 +21,8 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          ModelDiagramData.OpenDiagram?.Invoke(element);
-         element.SetDiagram(store.GetAll<EFModelDiagram>().FirstOrDefault(d => d.Name == element.Name));
+         if (element.GetDiagram() == null)
+            element.SetDiagram(store.GetAll<EFModelDiagram>().FirstOrDefault(d => d.Name == store.ModelRoot().GetFileName()));
       }
    }
 }

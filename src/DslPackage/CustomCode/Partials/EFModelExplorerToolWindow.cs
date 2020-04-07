@@ -24,7 +24,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   case ModelDiagramData modelDiagramData:
                      // user selected a diagram. Open it.
                      EFModelDocData docData = (EFModelDocData)TreeContainer.ModelingDocData;
-                     docData.OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
+                     
+                     if (docData.CurrentDocView.CurrentDiagram.Name == modelDiagramData.GetDiagram().Name)
+                        docData.CurrentDocView.Show();
+                     else
+                        docData.OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
 
                      break;
 

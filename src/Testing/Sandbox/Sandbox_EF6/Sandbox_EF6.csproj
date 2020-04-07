@@ -67,6 +67,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="EFModel1.efmodel" />
+    <None Include="EFModel1.efmodel.diagramx">
+      <DependentUpon>EFModel1.efmodel</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

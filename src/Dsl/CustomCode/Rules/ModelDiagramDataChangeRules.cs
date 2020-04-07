@@ -1,6 +1,4 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
@@ -34,24 +32,32 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (e.DomainProperty.Name)
          {
             case "Name":
-               if (string.IsNullOrWhiteSpace(e.NewValue?.ToString()))
+               EFModelDiagram diagram = element.GetDiagram();
+
+               if (diagram != null && string.IsNullOrWhiteSpace(diagram.Name))
+               {
+                  errorMessages.Add("Can't change default diagram name");
+                  break;
+               }
+
+               if (string.IsNullOrWhiteSpace(element.Name))
                {
                   errorMessages.Add("Diagram must have a name");
                   break;
                }
 
-               if (store.GetAll<ModelDiagramData>().Where(d => d != element).Any(d => d.Name == e.NewValue.ToString()))
+               if (store.GetAll<ModelDiagramData>().Except(new[] {element}).Any(d => d.Name == element.Name))
                {
                   errorMessages.Add("Diagram must have a unique name");
                   break;
                }
 
-               EFModelDiagram diagram = element.GetDiagram();
                if (diagram != null)
                {
-                  ModelDiagramData.CloseDiagram?.Invoke(diagram);
-                  diagram.Name = element.Name = e.NewValue.ToString();
+                  diagram.Name = element.Name;
+                  ModelDiagramData.RenameWindow(diagram);
                }
+
                break;
          }
 

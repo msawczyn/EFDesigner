@@ -349,15 +349,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       protected virtual global::Sawczyn.EFDesigner.EFModel.EFModelDiagram GetDiagram(MexModeling::ViewContext viewContext)
       {
-         return this.GetDiagrams().SingleOrDefault(item => item.Name.Equals(viewContext.DiagramName, global::System.StringComparison.Ordinal));
+         IEnumerable<EFModelDiagram> allDiagrams = GetDiagrams();
+
+         return allDiagrams.SingleOrDefault(item => item.Name.Equals(viewContext.DiagramName, global::System.StringComparison.Ordinal));
       }
 
       private IEnumerable<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram> GetDiagrams()
       {
-         if(null == this.RootElement)
+         if (this.RootElement == null)
             return null;
-
-         return this.Store.ElementDirectory.FindElements<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram>();
+         
+         return Store.DefaultPartitionForClass(EFModelDiagram.DomainClassId).ElementDirectory.FindElements<global::Sawczyn.EFDesigner.EFModel.EFModelDiagram>();
       }
 
       /// <summary>
@@ -387,12 +389,17 @@ namespace Sawczyn.EFDesigner.EFModel
          if (modelRoot == null)
             modelRoot = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.LoadModelAndDiagrams(serializationResult, this.GetModelPartition(), fileName, this.GetDiagramPartition(), diagramFileName, schemaResolver, this.ValidationController, this.SerializerLocator); 
 
+         modelRoot.SetFileName(fileName);
+
          // Report serialization messages.
          this.SuspendErrorListRefresh();
          try
          {
             foreach (DslModeling::SerializationMessage serializationMessage in serializationResult)
-               this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
+            {
+               if (!serializationMessage.Message.Contains("Cannot find a schema that defines target namespace"))
+                  this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
+            }
          }
          finally
          {
@@ -613,7 +620,6 @@ namespace Sawczyn.EFDesigner.EFModel
             throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
          }
 
-         //TODO: don't fetch the default diagram. It's already showing
          DslDiagrams::Diagram diagram = this.GetDiagram(modelingViewContext);
 
          if (diagram == null)

@@ -447,5 +447,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion Namespace tracking property
 
+      private string filename;
+
+      public void SetFileName(string fileName)
+      {
+         filename = fileName;
+      }
+
+      public string GetFileName()
+      {
+         return filename;
+      }
    }
 }

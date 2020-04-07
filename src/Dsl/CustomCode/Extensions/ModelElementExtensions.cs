@@ -108,7 +108,7 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 
       public static IEnumerable<T> GetAll<T>(this Store store)
       {
-         return store.ElementDirectory.AllElements.OfType<T>();
+         return store?.ElementDirectory?.AllElements?.OfType<T>() ?? new T[0];
       }
 
       public static bool LocateInDiagram(this ModelElement element)

@@ -164,6 +164,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                      .OfType<Association>()
                                      .Where(a => a.Dependent == element && !string.IsNullOrEmpty(a.FKPropertyName))
                                      .SelectMany(association => association.FKPropertyName.Split(',')
+                                                                           .Where(propertyName => element.Attributes.Any(attr => attr.Name == propertyName))
                                                                            .Select(propertyName => new
                                                                                                    {
                                                                                                          Assoc = association
