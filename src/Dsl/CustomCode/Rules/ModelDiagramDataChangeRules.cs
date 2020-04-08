@@ -55,7 +55,7 @@ namespace Sawczyn.EFDesigner.EFModel
                if (diagram != null)
                {
                   diagram.Name = element.Name;
-                  ModelDiagramData.RenameWindow(diagram);
+                  ModelDiagramData.CloseDiagram(diagram);
                }
 
                break;

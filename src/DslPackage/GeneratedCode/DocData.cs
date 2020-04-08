@@ -15,6 +15,7 @@ using VSShellInterop = global::Microsoft.VisualStudio.Shell.Interop;
 using MexModeling = global::Mexedge.VisualStudio.Modeling;
 using global::System.Linq;
 using global::System.Collections.Generic;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -216,9 +217,7 @@ namespace Sawczyn.EFDesigner.EFModel
          get
          {
             if (this.extensionLocator == null)
-            {
                this.extensionLocator = CreateExtensionLocator();
-            }
 
             return this.extensionLocator;
          }
@@ -232,9 +231,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // If we don't have an MEF ExportProvider, we won't be able to locate
          // any extensions
          if (this.ExportProvider == null)
-         {
             return null;
-         }
 
          return new DslModeling::StandardExtensionLocator(this.ExportProvider);
       }
@@ -475,7 +472,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // Enable CompartmentItems events.
          if (this.Store != null) 
          {
-            foreach (var diagram in this.GetDiagrams())
+            foreach (EFModelDiagram diagram in this.GetDiagrams())
                diagram.SubscribeCompartmentItemsEvents();
          }
       }
@@ -489,9 +486,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // If a silent check then use a temporary ValidationController that is not connected to the error list to avoid any unwanted UI updates
          DslShell::VsValidationController vc = allowUserInterface ? this.ValidationController : this.CreateValidationController();
          if (vc == null)
-         {
             return true;
-         }
 
          // We check Load category first, because any violation in this category will cause the saved file to be unloadable justifying a special 
          // error message. If the Load category passes, we then check the normal Save category, and give the normal warning message if necessary.
@@ -526,9 +521,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // Otherwise VS will never ask the subordinate to save itself.
          DslShell::DocumentSavedEventArgs savedEventArgs = e as DslShell::DocumentSavedEventArgs;
          if (savedEventArgs != null && this.ServiceProvider != null)
-         {
             this.NotifySubordinateDocumentSaved(savedEventArgs.OldFileName, savedEventArgs.NewFileName);
-         }
       }
 
       /// <summary>
@@ -542,9 +535,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                VSShellInterop::IVsRunningDocumentTable rdt = (VSShellInterop.IVsRunningDocumentTable)this.ServiceProvider.GetService(typeof(VSShellInterop::SVsRunningDocumentTable));
                if (rdt != null && this.diagramDocumentLockHolder != null && this.diagramDocumentLockHolder.SubordinateDocData != null)
-               {
                   global::Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(rdt.NotifyOnAfterSave(this.diagramDocumentLockHolder.SubordinateDocData.Cookie));
-               }
             }
          }
       }
@@ -563,7 +554,7 @@ namespace Sawczyn.EFDesigner.EFModel
          //    Except DO save the diagram on SaveAs if there isn't currently a diagram as there won't be a subordinate document yet to save it.
 
          bool saveAs = global::System.StringComparer.OrdinalIgnoreCase.Compare(fileName, this.FileName) != 0;
-         var diagrams = this.GetDiagrams().ToArray();
+         EFModelDiagram[] diagrams = this.GetDiagrams().ToArray();
 
          if (diagrams.Length > 0 && (!saveAs || this.diagramDocumentLockHolder == null))
          {
@@ -587,9 +578,7 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             foreach (DslModeling::SerializationMessage serializationMessage in serializationResult)
-            {
                this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
-            }
          }
          finally
          {
@@ -597,10 +586,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          if (serializationResult.Failed)
-         {
-            // Save failed.
             throw new global::System.InvalidOperationException(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetString("CannotSaveDocument"));
-         }
 
          CleanupOldDiagramFiles();
       }
@@ -616,23 +602,17 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          if (string.IsNullOrEmpty(modelingViewContext.DiagramName))
-         {
             throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
-         }
 
          DslDiagrams::Diagram diagram = this.GetDiagram(modelingViewContext);
 
          if (diagram == null)
          {
             if (modelingViewContext.DiagramType == null)
-            {
                throw new global::System.ArgumentException("the type of the diagram to open must be specified.");
-            }
 
             if (!(modelingViewContext.DiagramType.IsSubclassOf(typeof(DslDiagrams::Diagram))))
-            {
                throw new global::System.ArgumentException("the type of the diagram to open must inherit from Microsoft.VisualStudio.Modeling.Diagrams.Diagram class.");
-            }
          
             // No diagram associated with specified name, so create and set the name
             DslModeling::ModelElement rootElement = modelingViewContext.RootElement ?? this.RootElement;
@@ -645,18 +625,17 @@ namespace Sawczyn.EFDesigner.EFModel
                   
                // Set the ModelElement associated with the newly created diagram.
                diagram.ModelElement = rootElement;
-               if(diagram is global::Sawczyn.EFDesigner.EFModel.EFModelDiagram eFModelDiagram)
-               {
-                  EFModelSynchronizationHelper.FixUp(eFModelDiagram);
-                  //foreach (DslDiagrams::ShapeElement childShape in eFModelDiagram.NestedChildShapes)
-                  //   childShape.Hide();
-               }                
-
+               Store.GetAll<ModelDiagramData>().FirstOrDefault(d => d.Name == diagram.Name)?.SetDiagram((EFModelDiagram)diagram);
                t1.Commit();
             }
          }
 
-         base.OpenView(logicalView, viewContext);
+         EFModelDocView existingView = DocViews.OfType<EFModelDocView>().FirstOrDefault(v => v.Diagram.Name == diagram.Name);
+
+         if (existingView != null)
+            existingView.Show();
+         else
+            base.OpenView(logicalView, viewContext);
       }
       /// <summary>
       /// Mark that the document has changed and thus a new backup should be created
@@ -669,11 +648,8 @@ namespace Sawczyn.EFDesigner.EFModel
          base.MarkDocumentChangedForBackup();
 
          // Also mark the subordinate document as changed
-         if (this.diagramDocumentLockHolder != null &&
-            this.diagramDocumentLockHolder.SubordinateDocData != null)
-         {
+         if (this.diagramDocumentLockHolder != null && this.diagramDocumentLockHolder.SubordinateDocData != null)
             this.diagramDocumentLockHolder.SubordinateDocData.MarkDocumentChangedForBackup();
-         }
       }
       
       #region Diagram file management
@@ -694,7 +670,7 @@ namespace Sawczyn.EFDesigner.EFModel
          // In this case, the only subordinate is the diagram.
          DslModeling::SerializationResult serializationResult = new DslModeling::SerializationResult();
 
-         var diagrams = this.GetDiagrams().ToArray();
+         EFModelDiagram[] diagrams = this.GetDiagrams().ToArray();
          if (diagrams.Length > 0)
          {
             try
@@ -714,9 +690,7 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             foreach (DslModeling::SerializationMessage serializationMessage in serializationResult)
-            {
                this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
-            }
          }
          finally
          {
@@ -760,9 +734,7 @@ namespace Sawczyn.EFDesigner.EFModel
             global::Sawczyn.EFDesigner.EFModel.ModelRoot modelRoot = this.RootElement as global::Sawczyn.EFDesigner.EFModel.ModelRoot;
             string modelFile = string.Empty;
             if (modelRoot != null)
-            {
                modelFile = global::Sawczyn.EFDesigner.EFModel.EFModelSerializationHelper.Instance.GetSerializedModelString(modelRoot, this.Encoding);
-            }
             return modelFile;
          }
       }
@@ -775,12 +747,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       protected internal virtual DslModeling::Partition GetModelPartition()
       {
-         if (this.Store != null)
-         {
-            return this.Store.DefaultPartition;
-         }
-         
-         return null;
+         return Store?.DefaultPartition;
       }
 
       /// <summary>

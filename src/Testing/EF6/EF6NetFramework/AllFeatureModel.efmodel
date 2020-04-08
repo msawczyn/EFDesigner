@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.3" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" exposeForeignKeys="false" gridColor="" gridSize="0" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.4" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" exposeForeignKeys="false" gridColor="" gridSize="0" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <comments>
     <comment Id="6c97fea5-bf5f-48eb-b6b8-64295fef6da0" text="d ds ds f43rfdxfrrfb vcxbxczxzx zxvef vfds vc " />
     <comment Id="d4c635c2-a3f0-4db6-bed4-4213f9985ab9" text="d ds ds f43rfdxfrrfb vcxbxczxzx zxvef vfds vc " />
@@ -358,11 +358,11 @@
     </modelRootHasClasses>
   </classes>
   <diagrams>
-    <modelRootHasModelDiagrams Id="679fa7ab-b73a-4d0d-9198-9ba96b9f39b3">
-      <modelDiagramData name="Diagram1" />
+    <modelRootHasModelDiagrams Id="77cb5a1c-b229-4767-a44a-cb341fc4ed89">
+      <modelDiagramData name="AllFeatureModel" />
     </modelRootHasModelDiagrams>
-    <modelRootHasModelDiagrams Id="c7397b11-f5ac-4ff3-8ec4-8bf4d7d912f3">
-      <modelDiagramData name="Diagram2" />
+    <modelRootHasModelDiagrams Id="831e5e22-b135-4f49-8fb1-75c6e520bf12">
+      <modelDiagramData name="Diagram1" />
     </modelRootHasModelDiagrams>
   </diagrams>
 </modelRoot>

@@ -66,18 +66,13 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </summary>
       protected override DslShell::ModelingDocView CreateDocView(DslShell::ModelingDocData docData, string physicalView, out string editorCaption)
       {
-         // Create the view type supported by this editor.
-         MexModeling::ViewContext viewContext;
+         string filename = System.IO.Path.GetFileNameWithoutExtension(docData.FileName);
 
-         string displayName = MexModeling::ViewContext.TryParse(physicalView, out viewContext)
-                                 ? string.IsNullOrEmpty(viewContext.DiagramName) ? docData.Store.ModelRoot().GetFileName() : viewContext.DiagramName
-                                 : string.IsNullOrEmpty(physicalView) ? docData.Store.ModelRoot().GetFileName() : physicalView;
+         string docViewName = MexModeling::ViewContext.TryParse(physicalView, out MexModeling::ViewContext viewContext)
+                                 ? string.IsNullOrEmpty(viewContext.DiagramName) ? filename : viewContext.DiagramName
+                                 : string.IsNullOrEmpty(physicalView) ? filename : physicalView;
 
-         string docViewName = MexModeling::ViewContext.TryParse(physicalView, out viewContext)
-                                 ? displayName
-                                 : physicalView;
-
-         editorCaption = $" [{displayName}]";
+         editorCaption = $" [{docViewName}]";
          return new EFModelDocView(docData, this.ServiceProvider, docViewName);
       }
    }

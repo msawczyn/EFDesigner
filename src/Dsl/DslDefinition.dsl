@@ -718,7 +718,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a17c8f41-4a5b-40a1-9f77-71346c428207" Description="Truncated Text property for Explorer display" Name="ShortText" DisplayName="Short Text" Kind="Calculated" IsElementName="true" IsBrowsable="false">
+        <DomainProperty Id="a17c8f41-4a5b-40a1-9f77-71346c428207" Description="Truncated Text property for Explorer display" Name="ShortText" DisplayName="Short Text" Kind="Calculated" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

@@ -20,6 +20,7 @@ using VSShellInterop = global::Microsoft.VisualStudio.Shell.Interop;
 using MexModeling = global::Mexedge.VisualStudio.Modeling;
 using global::System.Linq;
 using global::System.Collections.Generic;
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 {
@@ -227,9 +228,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          get
          {
             if (this.extensionLocator == null)
-            {
                this.extensionLocator = CreateExtensionLocator();
-            }
 
             return this.extensionLocator;
          }
@@ -243,9 +242,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          // If we don't have an MEF ExportProvider, we won't be able to locate
          // any extensions
          if (this.ExportProvider == null)
-         {
             return null;
-         }
 
          return new DslModeling::StandardExtensionLocator(this.ExportProvider);
       }
@@ -554,7 +551,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          // Enable CompartmentItems events.
          if (this.Store != null) 
          {
-            foreach (var diagram in this.GetDiagrams())
+            foreach (EFModelDiagram diagram in this.GetDiagrams())
                diagram.SubscribeCompartmentItemsEvents();
          }
 <#
@@ -575,9 +572,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          // If a silent check then use a temporary ValidationController that is not connected to the error list to avoid any unwanted UI updates
          DslShell::VsValidationController vc = allowUserInterface ? this.ValidationController : this.CreateValidationController();
          if (vc == null)
-         {
             return true;
-         }
 
          // We check Load category first, because any violation in this category will cause the saved file to be unloadable justifying a special 
          // error message. If the Load category passes, we then check the normal Save category, and give the normal warning message if necessary.
@@ -617,9 +612,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          // Otherwise VS will never ask the subordinate to save itself.
          DslShell::DocumentSavedEventArgs savedEventArgs = e as DslShell::DocumentSavedEventArgs;
          if (savedEventArgs != null && this.ServiceProvider != null)
-         {
             this.NotifySubordinateDocumentSaved(savedEventArgs.OldFileName, savedEventArgs.NewFileName);
-         }
       }
 
       /// <summary>
@@ -633,9 +626,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
             {
                VSShellInterop::IVsRunningDocumentTable rdt = (VSShellInterop.IVsRunningDocumentTable)this.ServiceProvider.GetService(typeof(VSShellInterop::SVsRunningDocumentTable));
                if (rdt != null && this.diagramDocumentLockHolder != null && this.diagramDocumentLockHolder.SubordinateDocData != null)
-               {
                   global::Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(rdt.NotifyOnAfterSave(this.diagramDocumentLockHolder.SubordinateDocData.Cookie));
-               }
             }
          }
       }
@@ -661,7 +652,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          //    Except DO save the diagram on SaveAs if there isn't currently a diagram as there won't be a subordinate document yet to save it.
 
          bool saveAs = global::System.StringComparer.OrdinalIgnoreCase.Compare(fileName, this.FileName) != 0;
-         var diagrams = this.GetDiagrams().ToArray();
+         EFModelDiagram[] diagrams = this.GetDiagrams().ToArray();
 
          if (diagrams.Length > 0 && (!saveAs || this.diagramDocumentLockHolder == null))
          {
@@ -694,9 +685,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          try
          {
             foreach (DslModeling::SerializationMessage serializationMessage in serializationResult)
-            {
                this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
-            }
          }
          finally
          {
@@ -704,10 +693,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          }
 
          if (serializationResult.Failed)
-         {
-            // Save failed.
             throw new global::System.InvalidOperationException(<#= this.Dsl.GetFullName(true) #>DomainModel.SingletonResourceManager.GetString("CannotSaveDocument"));
-         }
 
          CleanupOldDiagramFiles();
       }
@@ -723,23 +709,17 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          }
 
          if (string.IsNullOrEmpty(modelingViewContext.DiagramName))
-         {
             throw new global::System.ArgumentException("the name of the diagram to open cannot be empty.");
-         }
 
          DslDiagrams::Diagram diagram = this.GetDiagram(modelingViewContext);
 
          if (diagram == null)
          {
             if (modelingViewContext.DiagramType == null)
-            {
                throw new global::System.ArgumentException("the type of the diagram to open must be specified.");
-            }
 
             if (!(modelingViewContext.DiagramType.IsSubclassOf(typeof(DslDiagrams::Diagram))))
-            {
                throw new global::System.ArgumentException("the type of the diagram to open must inherit from Microsoft.VisualStudio.Modeling.Diagrams.Diagram class.");
-            }
          
             // No diagram associated with specified name, so create and set the name
             DslModeling::ModelElement rootElement = modelingViewContext.RootElement ?? this.RootElement;
@@ -752,21 +732,20 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
                   
                // Set the ModelElement associated with the newly created diagram.
                diagram.ModelElement = rootElement;
+               Store.GetAll<ModelDiagramData>().FirstOrDefault(d => d.Name == diagram.Name)?.SetDiagram((EFModelDiagram)diagram);
 <#
-    var l_diagramVariable = string.Concat(designer.Diagram.Name.Substring(0,1).ToLower(), designer.Diagram.Name.Substring(1));
+    string l_diagramVariable = string.Concat(designer.Diagram.Name.Substring(0,1).ToLower(), designer.Diagram.Name.Substring(1));
 #>
-               if(diagram is <#= designer.Diagram.GetFullName(true) #> <#= l_diagramVariable #>)
-               {
-                  <#= this.DslLibrary.Name #>SynchronizationHelper.FixUp(<#= l_diagramVariable #>);
-                  //foreach (DslDiagrams::ShapeElement childShape in <#= l_diagramVariable #>.NestedChildShapes)
-                  //   childShape.Hide();
-               }                
-
                t1.Commit();
             }
          }
 
-         base.OpenView(logicalView, viewContext);
+         EFModelDocView existingView = DocViews.OfType<EFModelDocView>().FirstOrDefault(v => v.Diagram.Name == diagram.Name);
+
+         if (existingView != null)
+            existingView.Show();
+         else
+            base.OpenView(logicalView, viewContext);
       }
 <#
    if(designer != null)
@@ -783,11 +762,8 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          base.MarkDocumentChangedForBackup();
 
          // Also mark the subordinate document as changed
-         if (this.diagramDocumentLockHolder != null &&
-            this.diagramDocumentLockHolder.SubordinateDocData != null)
-         {
+         if (this.diagramDocumentLockHolder != null && this.diagramDocumentLockHolder.SubordinateDocData != null)
             this.diagramDocumentLockHolder.SubordinateDocData.MarkDocumentChangedForBackup();
-         }
       }
       
       #region Diagram file management
@@ -808,7 +784,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          // In this case, the only subordinate is the diagram.
          DslModeling::SerializationResult serializationResult = new DslModeling::SerializationResult();
 
-         var diagrams = this.GetDiagrams().ToArray();
+         EFModelDiagram[] diagrams = this.GetDiagrams().ToArray();
          if (diagrams.Length > 0)
          {
             try
@@ -828,9 +804,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
          try
          {
             foreach (DslModeling::SerializationMessage serializationMessage in serializationResult)
-            {
                this.AddErrorListItem(new DslShell::SerializationErrorListItem(this.ServiceProvider, serializationMessage));
-            }
          }
          finally
          {
@@ -877,9 +851,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
             <#= this.Dsl.Editor.RootClass.GetFullName(true) #> modelRoot = this.RootElement as <#= this.Dsl.Editor.RootClass.GetFullName(true) #>;
             string modelFile = string.Empty;
             if (modelRoot != null)
-            {
                modelFile = <#= this.Dsl.GetFullName(true) #>SerializationHelper.Instance.GetSerializedModelString(modelRoot, this.Encoding);
-            }
             return modelFile;
          }
       }
@@ -892,12 +864,7 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
       /// </summary>
       protected internal virtual DslModeling::Partition GetModelPartition()
       {
-         if (this.Store != null)
-         {
-            return this.Store.DefaultPartition;
-         }
-         
-         return null;
+         return Store?.DefaultPartition;
       }
 <#
    if (designer != null)

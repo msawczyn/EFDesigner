@@ -24,17 +24,27 @@ namespace Sawczyn.EFDesigner.EFModel
                   case ModelDiagramData modelDiagramData:
                      // user selected a diagram. Open it.
                      EFModelDocData docData = (EFModelDocData)TreeContainer.ModelingDocData;
+                     //EFModelDiagram selectedDiagram = modelDiagramData.GetDiagram();
                      
-                     if (docData.CurrentDocView.CurrentDiagram.Name == modelDiagramData.GetDiagram().Name)
-                        docData.CurrentDocView.Show();
-                     else
-                        docData.OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
+
+                     //if (selectedDiagram != null)
+                     //{
+                     //   EFModelDocView docView = DocData.DocViews.OfType<EFModelDocView>().FirstOrDefault(v => v.Diagram.Name == selectedDiagram.Name);
+                     //   if (docView != null)
+                     //   {
+                     //      docView.Show();
+                     //      break;
+                     //   }
+                     //}
+
+                     docData.OpenView(Constants.LogicalView, new Mexedge.VisualStudio.Modeling.ViewContext(modelDiagramData.Name, typeof(EFModelDiagram), docData.RootElement));
 
                      break;
 
                   case ModelClass modelClass:
                      // user selected a class. If it's in the current diagram, find it, center it and make it visible
-                     modelClass.LocateInDiagram(true);
+                     if (!modelClass.LocateInDiagram(true))
+                        break;
 
                      // then fix up the compartments since they might need it
                      ModelElement[] classElements = {modelClass};
@@ -99,7 +109,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   case ModelEnum modelEnum:
                      // user selected an enum. Find it in the current diagram, center it and make it visible
-                     modelEnum.LocateInDiagram(true);
+                     if (!modelEnum.LocateInDiagram(true))
+                        break;
 
                      // then fix up the compartment since it might need it
                      ModelElement[] enumElements = {modelEnum};
@@ -108,6 +119,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      break;
                }
+
+               // make sure the explorer window is still visible
+               Show();
 
                t.Commit();
             }

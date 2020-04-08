@@ -366,7 +366,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	                  data = FixupDiagramData(diagram);
 	
 	               if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName))
-	                  data.SetIsDefault();
+	                  data.SetLocks(Locks.All);
 	            }
 	         }
 	      }
@@ -387,7 +387,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	            data = FixupDiagramData(diagram);
 	
 	         if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName))
-	            data.SetIsDefault();
+	            data.SetLocks(Locks.All);
 	      }
 	
 	      modelRoot.Store
