@@ -79,7 +79,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       // the following is based on code at https://stackoverflow.com/questions/44876242/center-a-dsl-shape-on-diagram-screen
 
-      public static bool LocateInDiagram(this ModelElement element, bool ensureVisible)
+      public static bool LocateInActiveDiagram(this ModelElement element, bool ensureVisible)
       {
          DiagramView diagramView = element.GetActiveDiagramView();
          return diagramView != null && diagramView.SelectModelElement(element, ensureVisible);

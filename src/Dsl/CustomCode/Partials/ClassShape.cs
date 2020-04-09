@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
@@ -370,5 +371,6 @@ namespace Sawczyn.EFDesigner.EFModel
             ErrorDisplay.Show($"Can't open generated file for {modelClass.Name}");
          }
       }
+
    }
 }

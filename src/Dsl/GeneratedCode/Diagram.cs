@@ -193,10 +193,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <remarks>
 		/// Always return true, since we assume there is only one diagram per model file for DSL scenarios.
 		/// </remarks>
-		protected override bool ShouldAddShapeForElement(DslModeling::ModelElement element)
-		{
-		   return true;
-		}
+		//protected override bool ShouldAddShapeForElement(DslModeling::ModelElement element)
+		//{
+		//   return true;
+		//}
 		
 		internal bool ShouldSupport(DslModeling::ModelElement element) // HACK : MEXEDGE
 		{

@@ -139,6 +139,7 @@
     <Compile Include="CustomCode\Name Providers\ModelDiagramDataNameProvider.cs" />
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Domain Types\Namespaces.cs" />
+    <Compile Include="CustomCode\Partials\FixUpAllDiagrams.cs" />
     <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\BidirectionalAssociationAddRules.cs" />

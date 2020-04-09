@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
+using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
@@ -16,7 +17,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public override void OnInitialize()
       {
          base.OnInitialize();
-         ModelRoot modelRoot = Store.GetAll<ModelRoot>().FirstOrDefault();
+         ModelRoot modelRoot = Store.ModelRoot();
 
          // because we can hide elements, line routing looks odd when it thinks it's jumping over lines
          // that really aren't visible. Since replacing the routing algorithm is too hard (impossible?)
@@ -28,6 +29,18 @@ namespace Sawczyn.EFDesigner.EFModel
          GridColor = modelRoot?.GridColor ?? Color.Gainsboro;
          SnapToGrid = modelRoot?.SnapToGrid ?? true;
          GridSize = modelRoot?.GridSize ?? 0.125;
+
+      }
+
+      /// <summary>
+      /// Called during view fixup to ask the parent whether a shape should be created for the given child element.
+      /// </summary>
+      /// <remarks>
+      /// Always return true, since we assume there is only one diagram per model file for DSL scenarios.
+      /// </remarks>
+      protected override bool ShouldAddShapeForElement(ModelElement element)
+      {
+         return base.ShouldAddShapeForElement(element) || NestedChildShapes.Any(s => s.ModelElement == element);
       }
 
       public static bool IsDropping { get; private set; }
@@ -36,8 +49,15 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          base.OnDragOver(diagramDragEventArgs);
 
-         if (diagramDragEventArgs.Effect == DragDropEffects.None && IsAcceptableDropItem(diagramDragEventArgs))
+         if (diagramDragEventArgs.Handled)
+            return;
+
+         if (diagramDragEventArgs.Data.GetData(typeof(ModelElement)) is ModelElement)
+            diagramDragEventArgs.Effect = DragDropEffects.Move;
+         else if (IsAcceptableDropItem(diagramDragEventArgs))
             diagramDragEventArgs.Effect = DragDropEffects.Copy;
+         else
+            diagramDragEventArgs.Effect = DragDropEffects.None;
       }
 
       private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
@@ -48,15 +68,29 @@ namespace Sawczyn.EFDesigner.EFModel
          return IsDropping;
       }
 
+      public bool DropTarget { get; private set; }
       public override void OnDragDrop(DiagramDragEventArgs diagramDragEventArgs)
       {
          try
          {
+            DropTarget = true;
             base.OnDragDrop(diagramDragEventArgs);
          }
          catch (ArgumentException)
          {
             // ignore. byproduct of multiple diagrams
+         }
+         finally
+         {
+            DropTarget = false;
+         }
+
+         // came from model explorer?
+         if (diagramDragEventArgs.Effect == DragDropEffects.Move && diagramDragEventArgs.Data.GetData(typeof(ModelElement)) is ModelElement element)
+         {
+            FixUpAllDiagrams.FixUp(this, Store.ModelRoot(), element);
+
+            return;
          }
 
          if (IsDropping)
@@ -105,6 +139,47 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IsDropping = false;
          base.OnMouseUp(e);
+      }
+
+      /// <summary>
+      /// Called when a key is pressed when the Diagram itself has the focus.
+      /// </summary>
+      /// <param name="e">A DiagramKeyEventArgs that contains event data.</param>
+      public override void OnKeyDown(DiagramKeyEventArgs e)
+      {
+         //using (Transaction t = Store.TransactionManager.BeginTransaction("Diagram.OnKeyDown"))
+         //{
+            
+         //   if (e.KeyCode == Keys.Delete)
+         //   {
+         //      SelectedShapesCollection selection = FocusedDiagramView.Selection;
+
+         //      string message = selection.Count == 1
+         //                          ? "Delete multiple elements from model? Are you sure?"
+         //                          : "Delete element from model? Are you sure?";
+
+         //      if (e.Control && BooleanQuestionDisplay.Show(message) == true)
+         //      {
+         //         foreach (ModelElement modelElement in selection.RepresentedElements)
+         //            modelElement.Delete();
+         //         t.Commit();
+         //         e.Handled = true;
+         //      }
+         //      else if (!e.Control)
+         //      {
+         //         foreach (DiagramItem diagramItem in selection)
+         //         {
+         //            if (diagramItem.Shape is NodeShape nodeShape)
+         //               nodeShape.Delete();
+         //         }
+                  
+         //         t.Commit();
+         //         e.Handled = true;
+         //      }
+         //   }
+         //}
+
+         base.OnKeyDown(e);
       }
    }
 }

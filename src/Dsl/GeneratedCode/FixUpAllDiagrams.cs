@@ -10,37 +10,39 @@
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
+using System.Collections.Generic;
+using System.Linq;
 
 [module: global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Scope = "type", Target = "Sawczyn.EFDesigner.EFModel.EFModelDiagram")]
 
 namespace Sawczyn.EFDesigner.EFModel
 {
 	
-		/// <summary>
-		/// Double derived implementation for the rule that initiates view fixup when an element that has an associated shape is added to the model.
-		/// This now enables the DSL author to everride the SkipFixUp() method 
-		/// </summary>
-		internal partial class FixUpAllDiagramsBase : DslModeling::AddRule
-		{
-			protected virtual bool SkipFixup(DslModeling::ModelElement childElement)
-			{
-				return childElement.IsDeleted;
-			}
-		}
+	   /// <summary>
+	   /// Double derived implementation for the rule that initiates view fixup when an element that has an associated shape is added to the model.
+	   /// This now enables the DSL author to everride the SkipFixUp() method 
+	   /// </summary>
+	   internal partial class FixUpAllDiagramsBase : DslModeling::AddRule
+	   {
+	      protected virtual bool SkipFixup(DslModeling::ModelElement childElement)
+	      {
+	         return childElement.IsDeleted;
+	      }
+	   }
 	
-		/// <summary>
-		/// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
-		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnum), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		internal sealed partial class FixUpAllDiagrams : FixUpAllDiagramsBase
-		{
-			public static void FixUp(DslDiagrams::Diagram diagram, DslModeling::ModelElement existingParent, DslModeling::ModelElement newChild)
+	   /// <summary>
+	   /// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
+	   /// </summary>
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelClass), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.ModelEnum), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   [DslModeling::RuleOn(typeof(global::Sawczyn.EFDesigner.EFModel.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+	   internal sealed partial class FixUpAllDiagrams : FixUpAllDiagramsBase
+	   {
+	      public static void FixUp(DslDiagrams::Diagram diagram, DslModeling::ModelElement existingParent, DslModeling::ModelElement newChild)
 	        {
 	            if (existingParent == null)
 	            {
@@ -52,15 +54,15 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	            if (!existingParent.IsDeleted && !newChild.IsDeleted)
 	            {
-	                foreach (var subject in DslModeling::DomainRoleInfo.GetElementLinks<DslDiagrams::PresentationViewsSubject>(existingParent, DslDiagrams::PresentationViewsSubject.SubjectDomainRoleId))
+	                foreach (DslDiagrams::PresentationViewsSubject subject in DslModeling::DomainRoleInfo.GetElementLinks<DslDiagrams::PresentationViewsSubject>(existingParent, DslDiagrams::PresentationViewsSubject.SubjectDomainRoleId))
 	                {
-	                    var presentation = subject.Presentation as DslDiagrams::ShapeElement;
+	                    DslDiagrams::ShapeElement presentation = subject.Presentation as DslDiagrams::ShapeElement;
 	                    if (presentation != null && presentation.Diagram == diagram)
 	                    {
-	                        var newChildShape = presentation.FixUpChildShapes(newChild);
+	                        DslDiagrams::ShapeElement newChildShape = presentation.FixUpChildShapes(newChild);
 	                        if (newChildShape != null)
 	                        {
-	                            var dgm = newChildShape.Diagram;
+	                            DslDiagrams::Diagram dgm = newChildShape.Diagram;
 	                            if (dgm != null && dgm == diagram)
 	                            {
 	                                dgm.FixUpDiagramSelection(newChildShape);
@@ -70,51 +72,53 @@ namespace Sawczyn.EFDesigner.EFModel
 	                }
 	            }
 	        }
-		
-			public static void FixUp(DslDiagrams::Diagram diagram, DslModeling::ModelElement element)
-			{
-				DslModeling::ModelElement parentElement;
-				if(element is DslModeling::ElementLink)
-				{
-					parentElement = GetParentForRelationship(diagram, (DslModeling::ElementLink)element);
-				} else
-				if(element is global::Sawczyn.EFDesigner.EFModel.ModelClass)
-				{
-					parentElement = GetParentForModelClass((global::Sawczyn.EFDesigner.EFModel.ModelClass)element);
-				} else
-				if(element is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
-				{
-					parentElement = GetParentForModelEnum((global::Sawczyn.EFDesigner.EFModel.ModelEnum)element);
-				} else
-				if(element is global::Sawczyn.EFDesigner.EFModel.Comment)
-				{
-					parentElement = GetParentForComment((global::Sawczyn.EFDesigner.EFModel.Comment)element);
-				} else
-				{
-					parentElement = null;
-				}
-				
-				if(parentElement != null)
-				{
-					FixUp(diagram, parentElement, element);
-				}
-			}
-		
-			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-			public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
-			{
-				if(e == null) throw new global::System.ArgumentNullException("e");
-			
-				var childElement = e.ModelElement;
-				if (this.SkipFixup(childElement))
-					return;
-					
-				var l_diagrams = e.ModelElement.Store.ElementDirectory.FindElements<DslDiagrams::Diagram>();
-	            foreach(var diagram in l_diagrams)
-	            {
-	                FixUp(diagram, childElement);
-	            }
-			}
+	   
+	      public static void FixUp(DslDiagrams::Diagram diagram, DslModeling::ModelElement element)
+	      {
+	         DslModeling::ModelElement parentElement;
+	         if(element is DslModeling::ElementLink)
+	         {
+	            parentElement = GetParentForRelationship(diagram, (DslModeling::ElementLink)element);
+	         } else
+	         if(element is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+	         {
+	            parentElement = GetParentForModelClass((global::Sawczyn.EFDesigner.EFModel.ModelClass)element);
+	         } else
+	         if(element is global::Sawczyn.EFDesigner.EFModel.ModelEnum)
+	         {
+	            parentElement = GetParentForModelEnum((global::Sawczyn.EFDesigner.EFModel.ModelEnum)element);
+	         } else
+	         if(element is global::Sawczyn.EFDesigner.EFModel.Comment)
+	         {
+	            parentElement = GetParentForComment((global::Sawczyn.EFDesigner.EFModel.Comment)element);
+	         } else
+	         {
+	            parentElement = null;
+	         }
+	         
+	         if(parentElement != null)
+	         {
+	            FixUp(diagram, parentElement, element);
+	         }
+	      }
+	   
+	      [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+	      public override void ElementAdded(DslModeling::ElementAddedEventArgs e)
+	      {
+	         if (e == null)
+	            throw new global::System.ArgumentNullException("e");
+	
+	         var childElement = e.ModelElement;
+	
+	         if (this.SkipFixup(childElement))
+	            return;
+	
+	         IEnumerable<EFModelDiagram> diagrams = e.ModelElement.Store.ElementDirectory.FindElements<EFModelDiagram>().Where(d => d.ShouldSupport(childElement));
+	
+	         foreach (EFModelDiagram diagram in diagrams)
+	            FixUp(diagram, childElement);
+	      }
+	
 			public static global::Sawczyn.EFDesigner.EFModel.ModelRoot GetParentForModelClass( global::Sawczyn.EFDesigner.EFModel.ModelClass root )
 			{
 				// Segments 0 and 1
@@ -136,7 +140,7 @@ namespace Sawczyn.EFDesigner.EFModel
 				if ( result == null ) return null;
 				return result;
 			}
-			private static DslModeling::ModelElement GetParentForRelationship(DslDiagrams::Diagram diagram, DslModeling::ElementLink elementLink)
+	      private static DslModeling::ModelElement GetParentForRelationship(DslDiagrams::Diagram diagram, DslModeling::ElementLink elementLink)
 	        {
 	            global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::ModelElement> linkedElements = elementLink.LinkedElements;
 	
@@ -219,5 +223,5 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 	            return null;
 	        }
-		}
+	   }
 	}

@@ -365,7 +365,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	               if (diagram != null)
 	                  data = FixupDiagramData(diagram);
 	
-	               if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName))
+	               if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName).Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries).First())
 	                  data.SetLocks(Locks.All);
 	            }
 	         }

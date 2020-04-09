@@ -68,3 +68,19 @@
 //      }
 //   }
 //}
+
+using System.Windows.Forms;
+
+namespace Sawczyn.EFDesigner.EFModel
+{
+   partial class EFModelExplorer
+   {
+      /// <summary>Raises the <see cref="E:System.Windows.Forms.Control.KeyDown" /> event.</summary>
+      /// <param name="e">A <see cref="T:System.Windows.Forms.KeyEventArgs" /> that contains the event data. </param>
+      protected override void OnKeyDown(KeyEventArgs e)
+      {
+         base.OnKeyDown(e);
+      }
+   }
+
+}

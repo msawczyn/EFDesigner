@@ -1,16 +1,17 @@
-﻿//using Microsoft.VisualStudio.Modeling.Diagrams;
+﻿using Microsoft.VisualStudio.Modeling.Diagrams;
 
-//namespace Sawczyn.EFDesigner.EFModel
-//{
-//   public partial class UnidirectionalConnector
-//   {
-//      public override bool HasToolTip => true;
+namespace Sawczyn.EFDesigner.EFModel
+{
+   partial class ClassShape
+   {
+      /// <summary>Called when a key is pressed.</summary>
+      /// <param name="e">A DiagramKeyEventArgs that contains event data.</param>
+      public override void OnKeyDown(DiagramKeyEventArgs e)
+      {
+         base.OnKeyDown(e);
+      }
+   }
 
-//      public override string GetToolTipText(DiagramItem item)
-//      {
-//         return item.Shape.ModelElement is Association association
-//                   ? association.GetDisplayText()
-//                   : string.Empty;
-//      }
-//   }
-//}
+
+}
+
