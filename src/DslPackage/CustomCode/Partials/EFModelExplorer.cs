@@ -78,31 +78,44 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>Virtual method to process the menu Delete operation</summary>
       protected override void ProcessOnMenuDeleteCommand()
       {
-         if (SelectedElement is ModelDiagramData diagramData)
+         TreeNode diagramRoot = ObjectModelBrowser.SelectedNode?.Parent;
+
+         switch (SelectedElement)
          {
-            if (BooleanQuestionDisplay.Show($"About to permanently delete diagram named {diagramData.Name} - are you sure?") == true)
+            case ModelDiagramData diagramData:
             {
+               if (BooleanQuestionDisplay.Show($"About to permanently delete diagram named {diagramData.Name} - are you sure?") == true)
+               {
+                  base.ProcessOnMenuDeleteCommand();
+                  ObjectModelBrowser.SelectedNode = null;
+               }
+
+               break;
+            }
+
+            case ModelEnum modelEnum:
+            {
+               string fullName = modelEnum.FullName.Split('.').Last();
+
+               if (!ModelEnum.IsUsed(modelEnum)
+                || BooleanQuestionDisplay.Show($"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") == true)
+
+               {
+                  base.ProcessOnMenuDeleteCommand();
+                  ObjectModelBrowser.SelectedNode = null;
+               }
+
+               break;
+            }
+
+            default:
                base.ProcessOnMenuDeleteCommand();
                ObjectModelBrowser.SelectedNode = null;
-            }
-         }
-         else if (SelectedElement is ModelEnum modelEnum)
-         {
-            string fullName = modelEnum.FullName.Split('.').Last();
 
-            if (!ModelEnum.IsUsed(modelEnum)
-             || BooleanQuestionDisplay.Show($"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") == true)
+               break;
+         }
 
-            {
-               base.ProcessOnMenuDeleteCommand();
-               ObjectModelBrowser.SelectedNode = null;
-            }
-         }
-         else
-         {
-            base.ProcessOnMenuDeleteCommand();
-            ObjectModelBrowser.SelectedNode = null;
-         }
+         diagramRoot?.Expand();
       }
    }
 

@@ -88,6 +88,15 @@
             </Strings>
          </Button>
 
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidRemoveShape" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Remove from Diagram</ButtonText>
+               <CommandName>RemoveFromDiagram</CommandName>
+            </Strings>
+         </Button>
+
          <Button guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" priority="0x0100" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
@@ -209,20 +218,22 @@
    </Commands>
 
    <KeyBindings>
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidFind"              editor="guidEditor" key1="F" mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram"     editor="guidEditor" key1="L" mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"         editor="guidEditor" key1="H" mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"         editor="guidEditor" key1="S" mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"      editor="guidEditor" key1="G" mod1="CONTROL" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"         editor="guidEditor" key1="N" mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" editor="guidEditor" key1="C" mod1="CONTROL ALT" />
-      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       editor="guidEditor" key1="I" mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidFind"              editor="guidEditor" key1="F"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram"     editor="guidEditor" key1="L"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidRemoveShape"       editor="guidEditor" key1="VK_DELETE" mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"         editor="guidEditor" key1="H"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"         editor="guidEditor" key1="S"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"      editor="guidEditor" key1="G"         mod1="CONTROL" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidLoadNuGet"         editor="guidEditor" key1="N"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidAddCodeProperties" editor="guidEditor" key1="C"         mod1="CONTROL ALT" />
+      <KeyBinding guid="guidEFDiagramMenuCmdSet" id="cmdidSaveAsImage"       editor="guidEditor" key1="I"         mod1="CONTROL" />
    </KeyBindings>
 
    <VisibilityConstraints>
       <!-- Ensures the command is only loaded for this DSL -->
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidFind"              context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidLayoutDiagram"     context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidRemoveShape"       context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidHideShape"         context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidShowShape"         context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidGenerateCode"      context="guidEditor"/>
@@ -253,6 +264,7 @@
          <IDSymbol name="cmdidCollapseSelected"  value="0x0001B"/>
          <IDSymbol name="cmdidMergeAssociations" value="0x0001C"/>
          <IDSymbol name="cmdidSplitAssociation"  value="0x0001D"/>
+         <IDSymbol name="cmdidRemoveShape"       value="0x0001E"/>
 
          <IDSymbol name="menuidSelect"           value="0x1100"/>
          <IDSymbol name="grpidSelect"            value="0x1150"/>

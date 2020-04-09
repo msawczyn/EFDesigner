@@ -42,6 +42,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidCollapseSelected = 0x001B;
       private const int cmdidMergeAssociations = 0x001C;
       private const int cmdidSplitAssociation = 0x001D;
+      private const int cmdidRemoveShape = 0x001E;
 
       private const int cmdidSelectClasses = 0x0101;
       private const int cmdidSelectEnums = 0x0102;
@@ -86,6 +87,11 @@ namespace Sawczyn.EFDesigner.EFModel
             new DynamicStatusMenuCommand(OnStatusShowShape, OnMenuShowShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidShowShape));
 
          commands.Add(showShapeCommand);
+
+         DynamicStatusMenuCommand removeShapeCommand =
+            new DynamicStatusMenuCommand(OnStatusRemoveShape, OnMenuRemoveShape, new CommandID(guidEFDiagramMenuCmdSet, cmdidRemoveShape));
+
+         commands.Add(removeShapeCommand);
 
          DynamicStatusMenuCommand generateCodeCommand =
             new DynamicStatusMenuCommand(OnStatusGenerateCode, OnMenuGenerateCode, new CommandID(guidEFDiagramMenuCmdSet, cmdidGenerateCode));
@@ -371,6 +377,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnMenuGenerateCode(object sender, EventArgs e)
       {
          EFModelDocData.GenerateCode();
+         CurrentDocView.Frame.Show();
       }
 
       #endregion Generate Code
@@ -426,11 +433,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnMenuHideShape(object sender, EventArgs e)
       {
-         NodeShape firstShape = CurrentSelection.OfType<NodeShape>().FirstOrDefault();
+         Store store = CurrentSelection.OfType<NodeShape>().FirstOrDefault()?.Store;
 
-         if (firstShape != null)
+         if (store != null)
          {
-            using (Transaction tx = firstShape.Store.TransactionManager.BeginTransaction("HideShapes"))
+            using (Transaction tx = store.TransactionManager.BeginTransaction("HideShapes"))
             {
                foreach (ClassShape shape in CurrentSelection.OfType<ClassShape>())
                   shape.Visible = false;
@@ -444,6 +451,34 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Hide Shape
+
+      #region Remove Shape
+      private void OnStatusRemoveShape(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+            command.Visible = command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
+      }
+
+      private void OnMenuRemoveShape(object sender, EventArgs e)
+      {
+         Store store = CurrentSelection.OfType<NodeShape>().FirstOrDefault()?.Store;
+
+         if (store != null)
+         {
+            using (Transaction tx = store.TransactionManager.BeginTransaction("HideShapes"))
+            {
+               foreach (ClassShape shape in CurrentSelection.OfType<ClassShape>())
+                  shape.Delete();
+
+               foreach (EnumShape shape in CurrentSelection.OfType<EnumShape>())
+                  shape.Delete();
+
+               tx.Commit();
+            }
+         }
+      }
+
+      #endregion Remove Shape
 
       #region Expand Selected Shapes
 

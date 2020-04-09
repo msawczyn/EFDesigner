@@ -140,46 +140,5 @@ namespace Sawczyn.EFDesigner.EFModel
          IsDropping = false;
          base.OnMouseUp(e);
       }
-
-      /// <summary>
-      /// Called when a key is pressed when the Diagram itself has the focus.
-      /// </summary>
-      /// <param name="e">A DiagramKeyEventArgs that contains event data.</param>
-      public override void OnKeyDown(DiagramKeyEventArgs e)
-      {
-         //using (Transaction t = Store.TransactionManager.BeginTransaction("Diagram.OnKeyDown"))
-         //{
-            
-         //   if (e.KeyCode == Keys.Delete)
-         //   {
-         //      SelectedShapesCollection selection = FocusedDiagramView.Selection;
-
-         //      string message = selection.Count == 1
-         //                          ? "Delete multiple elements from model? Are you sure?"
-         //                          : "Delete element from model? Are you sure?";
-
-         //      if (e.Control && BooleanQuestionDisplay.Show(message) == true)
-         //      {
-         //         foreach (ModelElement modelElement in selection.RepresentedElements)
-         //            modelElement.Delete();
-         //         t.Commit();
-         //         e.Handled = true;
-         //      }
-         //      else if (!e.Control)
-         //      {
-         //         foreach (DiagramItem diagramItem in selection)
-         //         {
-         //            if (diagramItem.Shape is NodeShape nodeShape)
-         //               nodeShape.Delete();
-         //         }
-                  
-         //         t.Commit();
-         //         e.Handled = true;
-         //      }
-         //   }
-         //}
-
-         base.OnKeyDown(e);
-      }
    }
 }

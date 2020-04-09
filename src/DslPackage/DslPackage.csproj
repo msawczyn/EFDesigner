@@ -148,7 +148,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomCode\Partials\Constants.cs" />
-    <Compile Include="CustomCode\Partials\EFModelClipboardCommandSet.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocData.cs" />
     <Compile Include="CustomCode\Extensions\ProjectExtensions.cs" />
     <Compile Include="CustomCode\Partials\EFModelDocView.cs" />
