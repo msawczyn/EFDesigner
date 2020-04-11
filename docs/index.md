@@ -5,8 +5,8 @@
 
 <table width="100%"><tr><td align="left" width="100%" style="background-color: lightyellow">
 Please be aware that this document is currently being updated for v2.0. 
-Information here is a mix between 2.0 (unreleased) features and the current 1.3x version.<br/>
-Everything will be updated before the official 2.0 release and this message will be removed.
+Information here is a mix between 2.0 features and the older 1.3x version.<br/>
+Updates are in progress and, when done, this message will be removed.
 </td></tr></table>
 
 This Visual Studio 2019 IDE extension adds a new file type (.efmodel) that allows for visual 
