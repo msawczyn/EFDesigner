@@ -247,7 +247,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("HideConnectors"))
             {
-               // hide any connectors that may have been hidden due to hidden shapes
+               // hide any connectors that shouldn't be visible because their nodes are hidden
                foreach (GeneralizationConnector connector in generalizationConnectors)
                   connector.Hide();
 
@@ -288,63 +288,8 @@ namespace Sawczyn.EFDesigner.EFModel
             tx.Commit();
          }
 
-         //using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("Diagrams"))
-         //{
-         //   List<EFModelDiagram> diagrams = Store.ElementDirectory.FindElements<EFModelDiagram>().ToList();
-
-         //   RuleManager ruleManager = Store.RuleManager;
-
-         //   try
-         //   {
-         //      ruleManager.DisableRule(typeof(ModelDiagramDataAddRules));
-         //      ruleManager.DisableRule(typeof(ModelDiagramDataDeleteRules));
-         //      ruleManager.DisableRule(typeof(ModelDiagramDataChangeRules));
-
-         //      //modelRoot.Diagrams.Clear();
-         //      //List<ModelDiagramData> matched = new List<ModelDiagramData>();
-
-         //      //string defaultDiagramName = Path.GetFileNameWithoutExtension(FileName).ToLower();
-
-         //      // don't show the default diagram - it's hands-off for the user
-         //      //foreach (EFModelDiagram efModelDiagram in diagrams/*.Where(d => d.Name.ToLower() != defaultDiagramName)*/)
-         //      //{
-         //      //   ModelDiagramData diagramDataObject = modelRoot.Diagrams.FirstOrDefault(d => d.Name == efModelDiagram.Name);
-
-         //      //   if (diagramDataObject == null)
-         //      //   {
-         //      //      diagramDataObject = new ModelDiagramData(Store, new PropertyAssignment(ModelDiagramData.NameDomainPropertyId, efModelDiagram.Name));
-         //      //      modelRoot.Diagrams.Add(diagramDataObject);
-         //      //   }
-
-         //      //   matched.Add(diagramDataObject);
-         //      //   diagramDataObject.SetDiagram(efModelDiagram);
-         //      //}
-
-         //      //for (int index = 0; index < modelRoot.Diagrams.Count; index++)
-         //      //{
-         //      //   ModelDiagramData diagramDataObject = modelRoot.Diagrams[index];
-
-         //      //   if (matched.All(d => d.Name != diagramDataObject.Name))
-         //      //      modelRoot.Diagrams.RemoveAt(index--);
-         //      //}
-
-         //      tx.Commit();
-         //   }
-         //   finally
-         //   {
-         //      ruleManager.EnableRule(typeof(ModelDiagramDataAddRules));
-         //      ruleManager.EnableRule(typeof(ModelDiagramDataDeleteRules));
-         //      ruleManager.EnableRule(typeof(ModelDiagramDataChangeRules));
-         //   }
-         //}
-
          SetDocDataDirty(0);
       }
-
-      //private int? GetDefaultStringLength()
-      //{
-      //   return EFModelPackage.Options.DefaultStringLength;
-      //}
 
       private void DisplayDiagram(ModelDiagramData diagramData)
       {
@@ -386,7 +331,6 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (!ModelRoot.BatchUpdating && modelElement is IDisplaysWarning displaysWarningElement)
          {
-            StatusDisplay.Show($"Validating {modelElement.GetDisplayText()}");
             displaysWarningElement.ResetWarning();
 
             ValidationCategories allCategories = ValidationCategories.Menu | ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Custom | ValidationCategories.Load;

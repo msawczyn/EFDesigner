@@ -806,14 +806,14 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string attribGridSize = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "gridSize");
 	         if (attribGridSize != null)
 	         {
-	            global::System.Double valueOfGridSize;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Double>(serializationContext, attribGridSize, out valueOfGridSize))
+	            global::System.Int16 valueOfGridSize;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int16>(serializationContext, attribGridSize, out valueOfGridSize))
 	            {
 	               instanceOfModelRoot.GridSize = valueOfGridSize;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "gridSize", typeof(global::System.Double), attribGridSize);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "gridSize", typeof(global::System.Int16), attribGridSize);
 	            }
 	         }
 	      }
@@ -1941,7 +1941,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "snapToGrid", serializedPropValue);
 	            }
@@ -1954,17 +1954,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridColor", serializedPropValue);
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, string.Empty) != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridColor", serializedPropValue);
+	            }
 	         }
 	      }
 	      // GridSize
 	      if (!serializationContext.Result.Failed)
 	      {
-	         global::System.Double propValue = instanceOfModelRoot.GridSize;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Double>(serializationContext, propValue);
+	         global::System.Int16 propValue = instanceOfModelRoot.GridSize;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int16>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridSize", serializedPropValue);
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridSize", serializedPropValue);
+	            }
 	         }
 	      }
 	   }

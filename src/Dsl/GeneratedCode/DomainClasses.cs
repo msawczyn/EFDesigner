@@ -3456,7 +3456,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for SnapToGrid
 		/// </summary>
-		private global::System.Boolean snapToGridPropertyStorage = true;
+		private global::System.Boolean snapToGridPropertyStorage;
 		
 		/// <summary>
 		/// Gets or sets the value of SnapToGrid domain property.
@@ -3465,7 +3465,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/SnapToGrid.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/SnapToGrid.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/SnapToGrid.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainObjectId("6d82895b-7648-4c95-a0b8-f9f796e34003")]
 		public global::System.Boolean SnapToGrid
 		{
@@ -3633,7 +3632,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for GridSize
 		/// </summary>
-		private global::System.Double gridSizePropertyStorage;
+		private global::System.Int16 gridSizePropertyStorage;
 		
 		/// <summary>
 		/// Gets or sets the value of GridSize domain property.
@@ -3643,7 +3642,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("e4121eca-2a99-4d3c-8159-1784fdb72d28")]
-		public global::System.Double GridSize
+		public global::System.Int16 GridSize
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -3659,7 +3658,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Value handler for the ModelRoot.GridSize domain property.
 		/// </summary>
-		internal sealed partial class GridSizePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Double>
+		internal sealed partial class GridSizePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Int16>
 		{
 			private GridSizePropertyHandler() { }
 		
@@ -3685,7 +3684,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.Double GetValue(ModelRoot element)
+			public override sealed global::System.Int16 GetValue(ModelRoot element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.gridSizePropertyStorage;
@@ -3696,13 +3695,12 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelRoot element, global::System.Double newValue)
+			public override sealed void SetValue(ModelRoot element, global::System.Int16 newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				global::System.Double oldValue = GetValue(element);
-				// double type precision is guaranteed only to 15th digit.
-				if (global::System.Math.Abs(newValue - oldValue) > 1e-15)
+				global::System.Int16 oldValue = GetValue(element);
+				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.gridSizePropertyStorage = newValue;

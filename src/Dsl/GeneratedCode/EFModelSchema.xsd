@@ -316,7 +316,7 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: GridSize -->
-        <xsd:attribute name="gridSize" type="xsd:double" >
+        <xsd:attribute name="gridSize" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Size of display grid units, in inches</xsd:documentation>
           </xsd:annotation>

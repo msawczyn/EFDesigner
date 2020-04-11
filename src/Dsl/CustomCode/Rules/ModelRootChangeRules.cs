@@ -104,7 +104,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "GridSize":
                foreach (EFModelDiagram diagram in element.GetDiagrams())
-                  diagram.GridSize = (float)e.NewValue;
+                  diagram.GridSize = (double)e.NewValue;
 
                redraw = true;
 

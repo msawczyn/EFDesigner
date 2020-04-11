@@ -428,7 +428,10 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusHideShape(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-            command.Visible = command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
+         {
+            command.Visible = true;
+            command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
+         }
       }
 
       private void OnMenuHideShape(object sender, EventArgs e)
@@ -456,7 +459,12 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusRemoveShape(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-            command.Visible = command.Enabled = CurrentSelection.OfType<ClassShape>().Any() || CurrentSelection.OfType<EnumShape>().Any();
+         {
+            command.Visible = true;
+
+            command.Enabled = CurrentSelection.OfType<ClassShape>().Any()
+                           || CurrentSelection.OfType<EnumShape>().Any();
+         }
       }
 
       private void OnMenuRemoveShape(object sender, EventArgs e)
@@ -471,6 +479,9 @@ namespace Sawczyn.EFDesigner.EFModel
                   shape.Delete();
 
                foreach (EnumShape shape in CurrentSelection.OfType<EnumShape>())
+                  shape.Delete();
+
+               foreach (CommentShape shape in CurrentSelection.OfType<CommentShape>())
                   shape.Delete();
 
                tx.Commit();
@@ -541,7 +552,10 @@ namespace Sawczyn.EFDesigner.EFModel
       private void OnStatusLayoutDiagram(object sender, EventArgs e)
       {
          if (sender is MenuCommand command)
-            command.Visible = command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
+         {
+            command.Visible = true;
+            command.Enabled = IsDiagramSelected() && !IsCurrentDiagramEmpty();
+         }
       }
 
       private void OnMenuLayoutDiagram(object sender, EventArgs e)
