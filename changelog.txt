@@ -4,7 +4,7 @@
    - Added ability to specify foreign key properties (See https://github.com/msawczyn/EFDesigner/issues/55)
    - Foreign key properties have a unique glyph so they can be easily picked out of the crowd
    - Foreign key properties that are primary keys also have a unique but different glyph
-   - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
+   - Completely restructured assembly parsers; they now cleanly handle all valid combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")

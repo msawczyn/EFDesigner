@@ -25,13 +25,14 @@ to your generated code are retained across subsequent generations.
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home.
 The goal was to duplicate at least those features and, in addition, 
 add all the little things that *should* have been there. Things like: 
-- **_import existing source code and compiled assemblies directly into the model_**
-- the ability to show and hide parts of the model
-- easy customization of generated output
-- class and enumeration nodes that can be colored to visually group the model
-- different concerns being generated into different subdirectories (entities, enums, dbcontext)
-- entities by default generated as partial classes so the default code can be easily modified
-- string length, index flags, required attributes and other properties being available in the designer
+*   importing entities from C# source, or existing DbContext definitions (including their entities) from compiled EF6 or EFCore assemblies
+*   multiple views of your model to highlight important aspects of your design
+*   the ability to show and hide parts of the model
+*   easy customization of generated output by editing or even replacing the T4 templates
+*   entities by default generated as partial classes so the generated code can be easily extended
+*   class and enumeration nodes that can be colored to visually group the model
+*   different concerns being generated into different subdirectories (entities, enums, dbcontext)
+*   string length, index flags, required attributes and other properties being available in the designer
 
 and many other nice-to-have bits.
 
@@ -50,13 +51,13 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.0** (next version)
+**2.0.0** 
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - Added ability to specify foreign key properties (See https://github.com/msawczyn/EFDesigner/issues/55)
    - Foreign key properties have a unique glyph so they can be easily picked out of the crowd
    - Foreign key properties that are primary keys also have a unique but different glyph
-   - Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
+   - Completely restructured assembly parsers; they now cleanly handle all valid combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")

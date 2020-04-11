@@ -12,6 +12,7 @@ If you are used to the EF visual modeling that comes with Visual Studio, you'll 
 at least those features and, in addition, add all the little things that _should_ have been there. Things like:
 
 *   importing entities from C# source, or existing DbContext definitions (including their entities) from compiled EF6 or EFCore assemblies
+*   multiple views of your model to highlight important aspects of your design
 *   the ability to show and hide parts of the model
 *   easy customization of generated output by editing or even replacing the T4 templates
 *   entities by default generated as partial classes so the generated code can be easily extended
@@ -25,13 +26,13 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**2.0.0** (next version, [RC3 now available on Github](https://github.com/msawczyn/EFDesigner/releases/tag/v2.0.0.0-rc3))
+**2.0.0** 
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - **[NEW]** Added ability to specify foreign key properties  (See https://github.com/msawczyn/EFDesigner/issues/55)
    - **[NEW]** Foreign key properties have a unique glyph so they can be easily picked out of the crowd
    - **[NEW]** Foreign key properties that are primary keys also have a unique but different glyph
-   - **[NEW]** Completely restructured assembly parsers; they now cleanly handle all combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
+   - **[NEW]** Completely restructured assembly parsers; they now cleanly handle all valid combinations of EF6/EFCore2/EFCore3 and .NETCore2/.NETCore3/.NETFramework
    - **[NEW]** Modified assembly parsers to find declared foreign keys and add them to the model appropriately
    - **[NEW]** Added options dialog (Tools/Options/Entity Framework Visual Editor)
    - **[NEW]** Added use of GraphViz for model layout (if installed and path is added to "Tools/Options/Entity Framework Visual Editor")
