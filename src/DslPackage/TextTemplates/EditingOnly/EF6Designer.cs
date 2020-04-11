@@ -22,10 +22,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.0.2
-      // Copyright (c) 2017-2020 Michael Sawczyn
-      // https://github.com/msawczyn/EFDesigner
-
       /**************************************************
        * EF6-specific code generation methods
        */
