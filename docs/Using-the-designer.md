@@ -162,7 +162,7 @@ to generate the code, then you'll go there.
 
 <img align="right" src="images/Explorer.jpg" hspace="10" vspace="10">
 
-When you have a design surface open Visual Studio will give you a new window under View / Other Windows / Entity Model Explorer.
+When you have a design surface open, Visual Studio will give you a new window under View / Other Windows / Entity Model Explorer.
 It's a tree view of the diagrams, classes and enumerations in your model. 
 
 Selecting any class will show you the attributes of that class, as well as selecting that element on the design surface and 

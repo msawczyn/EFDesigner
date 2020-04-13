@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 using Microsoft.VisualStudio.Modeling;
@@ -15,16 +16,16 @@ namespace Sawczyn.EFDesigner.EFModel
       partial void Init()
       {
          ObjectModelBrowser.NodeMouseDoubleClick += ObjectModelBrowser_OnNodeMouseDoubleClick;
-         ObjectModelBrowser.DragEnter += ObjectModelBrowser_OnDragEnter;
-         ObjectModelBrowser.DragOver += ObjectModelBrowser_OnDragOver;
+         //ObjectModelBrowser.DragEnter += ObjectModelBrowser_OnDragEnter;
+         //ObjectModelBrowser.DragOver += ObjectModelBrowser_OnDragOver;
          ObjectModelBrowser.ItemDrag += ObjectModelBrowser_OnItemDrag;
       }
 
-      private void ObjectModelBrowser_OnDragOver(object sender, DragEventArgs e)
-      {
-         if (e.Data.GetDataPresent(typeof(ModelElement)))
-            e.Effect = e.AllowedEffect;
-      }
+      //private void ObjectModelBrowser_OnDragOver(object sender, DragEventArgs e)
+      //{
+      //   if (e.Data.GetDataPresent(typeof(ModelElement)))
+      //      e.Effect = e.AllowedEffect;
+      //}
 
       private void ObjectModelBrowser_OnItemDrag(object sender, ItemDragEventArgs e)
       {
@@ -32,10 +33,10 @@ namespace Sawczyn.EFDesigner.EFModel
             DoDragDrop(elementNode.RepresentedElement, DragDropEffects.Copy);
       }
 
-      private void ObjectModelBrowser_OnDragEnter(object sender, DragEventArgs e)
-      {
-         e.Effect = e.AllowedEffect;
-      }
+      //private void ObjectModelBrowser_OnDragEnter(object sender, DragEventArgs e)
+      //{
+      //   e.Effect = e.AllowedEffect;
+      //}
 
       /// <summary>
       ///    Method to insert the incoming node into the TreeNodeCollection. This allows the derived class to change the sorting behavior.
@@ -56,21 +57,18 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void ObjectModelBrowser_OnNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
       {
-         switch (e.Node)
+         e.Node.Expand();
+
+         if (e.Node is ExplorerTreeNode elementNode)
          {
-            case RoleGroupTreeNode roleNode:
-               roleNode.Expand();
+            ModelElement element = elementNode.RepresentedElement;
 
-               break;
-
-            case ExplorerTreeNode elementNode:
+            if (ModelingDocData is EFModelDocData docData)
             {
-               ModelElement element = elementNode.RepresentedElement;
-               Diagram diagram = element.GetActiveDiagramView()?.Diagram;
-               ModelRoot parent = element.Store.ModelRoot();
-               FixUpAllDiagrams.FixUp(diagram, parent, element);
+               Diagram diagram = docData.CurrentDocView?.CurrentDiagram;
 
-               break;
+               if (diagram != null && diagram is EFModelDiagram efModelDiagram)
+                  efModelDiagram.AddExistingModelElement(element);
             }
          }
       }

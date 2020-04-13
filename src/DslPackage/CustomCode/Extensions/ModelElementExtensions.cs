@@ -81,7 +81,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static bool LocateInActiveDiagram(this ModelElement element, bool ensureVisible)
       {
-         DiagramView diagramView = element.GetActiveDiagramView();
+         DiagramView diagramView = element?.GetActiveDiagramView();
          return diagramView != null && diagramView.SelectModelElement(element, ensureVisible);
       }
 

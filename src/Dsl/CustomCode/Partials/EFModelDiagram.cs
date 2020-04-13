@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,10 +41,15 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </remarks>
       protected override bool ShouldAddShapeForElement(ModelElement element)
       {
-         return base.ShouldAddShapeForElement(element) || NestedChildShapes.Any(s => s.ModelElement == element);
+         bool result = ForceAddShape
+                    || base.ShouldAddShapeForElement(element)
+                    || NestedChildShapes.Any(s => s.ModelElement == element)
+                    || (element is ElementLink link && NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).Intersect(link.LinkedElements).Count() == 2);
+         return result;
       }
 
       public static bool IsDropping { get; private set; }
+      public bool ForceAddShape { get; set; }
 
       public override void OnDragOver(DiagramDragEventArgs diagramDragEventArgs)
       {
@@ -52,14 +58,19 @@ namespace Sawczyn.EFDesigner.EFModel
          if (diagramDragEventArgs.Handled)
             return;
 
-         if (diagramDragEventArgs.Data.GetData(typeof(ModelElement)) is ModelElement)
-            diagramDragEventArgs.Effect = DragDropEffects.Move;
-         else if (IsAcceptableDropItem(diagramDragEventArgs))
+         if (diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelEnum") is ModelEnum
+          || diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelClass") is ModelClass
+          || IsAcceptableDropItem(diagramDragEventArgs))
             diagramDragEventArgs.Effect = DragDropEffects.Copy;
          else
             diagramDragEventArgs.Effect = DragDropEffects.None;
       }
 
+      /// <summary>
+      /// Used for dropping data originating outside of VStudio
+      /// </summary>
+      /// <param name="diagramDragEventArgs"></param>
+      /// <returns></returns>
       private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
       {
          IsDropping = (diagramDragEventArgs.Data.GetData("Text") is string filename && File.Exists(filename)) || 
@@ -68,32 +79,58 @@ namespace Sawczyn.EFDesigner.EFModel
          return IsDropping;
       }
 
-      public bool DropTarget { get; private set; }
+      public ShapeElement AddExistingModelElement(ModelElement element)
+      {
+         if (NestedChildShapes.All(s => s.ModelElement != element))
+         {
+            using (Transaction t = element.Store.TransactionManager.BeginTransaction())
+            {
+               try
+               {
+                  ForceAddShape = true;
+                  FixUpAllDiagrams.FixUp(this, element);
+
+                  // find all element links that are attached to our element where both elements are in the diagram but the link isn't already in the diagram
+                  List<ElementLink> elementLinks = element.Store.GetAll<ElementLink>()
+                                                          .Where(link => link.LinkedElements.Contains(element)
+                                                                      && NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).Intersect(link.LinkedElements).Count() == 2
+                                                                      && !NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).Contains(link))
+                                                          .ToList();
+
+                  foreach (ElementLink elementLink in elementLinks)
+                     FixUpAllDiagrams.FixUp(this, elementLink);
+
+                  t.Commit();
+               }
+               finally
+               {
+                  ForceAddShape = false;
+               }
+            }
+         }
+         
+         return NestedChildShapes.FirstOrDefault(s => s.ModelElement == element);
+      }
+
       public override void OnDragDrop(DiagramDragEventArgs diagramDragEventArgs)
       {
-         try
-         {
-            DropTarget = true;
-            base.OnDragDrop(diagramDragEventArgs);
-         }
-         catch (ArgumentException)
-         {
-            // ignore. byproduct of multiple diagrams
-         }
-         finally
-         {
-            DropTarget = false;
-         }
-
          // came from model explorer?
-         if (diagramDragEventArgs.Effect == DragDropEffects.Move && diagramDragEventArgs.Data.GetData(typeof(ModelElement)) is ModelElement element)
+         ModelElement element = (diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelClass") as ModelElement)
+                             ?? (diagramDragEventArgs.Data.GetData("Sawczyn.EFDesigner.EFModel.ModelEnum") as ModelElement);
+
+         if (element != null)
          {
-            FixUpAllDiagrams.FixUp(this, Store.ModelRoot(), element);
+               ShapeElement newShape = AddExistingModelElement(element);
 
-            return;
+               using (Transaction t = element.Store.TransactionManager.BeginTransaction())
+               {
+                  if (newShape is NodeShape nodeShape)
+                     nodeShape.Location = diagramDragEventArgs.MousePosition;
+
+                  t.Commit();
+               }
          }
-
-         if (IsDropping)
+         else if (IsDropping)
          {
             string[] missingFiles = null;
 
@@ -110,17 +147,6 @@ namespace Sawczyn.EFDesigner.EFModel
                FileDropHelper.HandleMultiDrop(Store, existingFiles);
                missingFiles = filenames.Except(existingFiles).ToArray();
             }
-            else
-            {
-               try
-               {
-                  base.OnDragDrop(diagramDragEventArgs);
-               }
-               catch (ArgumentException)
-               {
-                  // ignore. byproduct of multiple diagrams
-               }
-            }
 
             if (missingFiles != null && missingFiles.Any())
             {
@@ -128,9 +154,20 @@ namespace Sawczyn.EFDesigner.EFModel
                   missingFiles[missingFiles.Length - 1] = "and " + missingFiles[missingFiles.Length - 1];
                ErrorDisplay.Show($"Can't find files {string.Join(", ", missingFiles)}");
             }
-         }
 
-         IsDropping = false;
+            IsDropping = false;
+         }
+         else
+         {
+            try
+            {
+               base.OnDragDrop(diagramDragEventArgs);
+            }
+            catch (ArgumentException)
+            {
+               // ignore. byproduct of multiple diagrams
+            }
+         }
       }
 
       /// <summary>Called by the control's OnMouseUp().</summary>
