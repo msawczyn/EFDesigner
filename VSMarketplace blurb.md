@@ -26,6 +26,13 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**2.0.1**
+   - **[NEW]** Added count of elements in model explorer tree
+   - **[NEW]** Comments can also be hidden like classes and enumerations
+   - Fix: Changing String Column Name Clears Max Length Property (See https://github.com/msawczyn/EFDesigner/issues/173)
+   - Fix: Dropping external files creates elements but not shapes on diagram (See https://github.com/msawczyn/EFDesigner/issues/150)
+   - Fix: VS Crash (See https://github.com/msawczyn/EFDesigner/issues/177)
+
 **2.0.0** 
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - **[NEW]** It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.

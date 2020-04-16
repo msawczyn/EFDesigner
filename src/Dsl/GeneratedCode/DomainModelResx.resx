@@ -3066,7 +3066,7 @@
     <comment>DisplayName for DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/FillColor.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Fill color for shape</value>
     <comment>Description for DomainProperty &apos;FillColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/FillColor.DisplayName" xml:space="preserve">
@@ -3078,7 +3078,7 @@
     <comment>Category for DomainProperty &apos;FillColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/TextColor.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Color of the shape&apos;s text</value>
     <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/TextColor.DisplayName" xml:space="preserve">
@@ -3090,7 +3090,7 @@
     <comment>Category for DomainProperty &apos;TextColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineColor.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Color of the shape&apos;s outline</value>
     <comment>Description for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineColor.DisplayName" xml:space="preserve">
@@ -3102,7 +3102,7 @@
     <comment>Category for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineDashStyle.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.ClassShape.Outline Dash Style</value>
+    <value>Line style for the shape&apos;s outline</value>
     <comment>Description for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineDashStyle.DisplayName" xml:space="preserve">
@@ -3114,7 +3114,7 @@
     <comment>Category for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/Visible.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.ClassShape.Visible</value>
+    <value>If true, shape is visible.</value>
     <comment>Description for DomainProperty &apos;Visible&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/Visible.DisplayName" xml:space="preserve">
@@ -3126,12 +3126,16 @@
     <comment>Category for DomainProperty &apos;Visible&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineThickness.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.ClassShape.Outline Thickness</value>
+    <value>Thickness, in inches, of the shapes&apos;s outline</value>
     <comment>Description for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineThickness.DisplayName" xml:space="preserve">
     <value>Outline Thickness</value>
     <comment>DisplayName for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;ClassShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ClassShape/OutlineThickness.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;ClassShape&apos;</comment>
   </data>
   <data name="ClassShapeAttributesCompartmentTitle" xml:space="preserve">
     <value>Properties</value>
@@ -3157,6 +3161,78 @@
     <value>Comment Box Shape</value>
     <comment>DisplayName for DomainClass &apos;CommentBoxShape&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.Description" xml:space="preserve">
+    <value>Fill color for shape</value>
+    <comment>Description for DomainProperty &apos;FillColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.DisplayName" xml:space="preserve">
+    <value>Fill Color</value>
+    <comment>DisplayName for DomainProperty &apos;FillColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;FillColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.Description" xml:space="preserve">
+    <value>Color of the shape&apos;s outline</value>
+    <comment>Description for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.DisplayName" xml:space="preserve">
+    <value>Outline Color</value>
+    <comment>DisplayName for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.Description" xml:space="preserve">
+    <value>Color of the shape&apos;s text</value>
+    <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.DisplayName" xml:space="preserve">
+    <value>Text Color</value>
+    <comment>DisplayName for DomainProperty &apos;TextColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;TextColor&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineDashStyle.Description" xml:space="preserve">
+    <value>Line style for the shape&apos;s outline</value>
+    <comment>Description for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineDashStyle.DisplayName" xml:space="preserve">
+    <value>Outline Dash Style</value>
+    <comment>DisplayName for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineDashStyle.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineThickness.Description" xml:space="preserve">
+    <value>Thickness, in inches, of the shapes&apos;s outline</value>
+    <comment>Description for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineThickness.DisplayName" xml:space="preserve">
+    <value>Outline Thickness</value>
+    <comment>DisplayName for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineThickness.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/Visible.Description" xml:space="preserve">
+    <value>If true, shape is visible.</value>
+    <comment>Description for DomainProperty &apos;Visible&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/Visible.DisplayName" xml:space="preserve">
+    <value>Visible</value>
+    <comment>DisplayName for DomainProperty &apos;Visible&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.CommentBoxShape/Visible.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;Visible&apos; on DomainClass &apos;CommentBoxShape&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EnumShape&apos;</comment>
@@ -3166,7 +3242,7 @@
     <comment>DisplayName for DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/FillColor.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Fill color for shape</value>
     <comment>Description for DomainProperty &apos;FillColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/FillColor.DisplayName" xml:space="preserve">
@@ -3178,7 +3254,7 @@
     <comment>Category for DomainProperty &apos;FillColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/TextColor.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Color of the shape&apos;s text</value>
     <comment>Description for DomainProperty &apos;TextColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/TextColor.DisplayName" xml:space="preserve">
@@ -3190,7 +3266,7 @@
     <comment>Category for DomainProperty &apos;TextColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineColor.Description" xml:space="preserve">
-    <value>No description available</value>
+    <value>Color of the shape&apos;s outline</value>
     <comment>Description for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineColor.DisplayName" xml:space="preserve">
@@ -3202,7 +3278,7 @@
     <comment>Category for DomainProperty &apos;OutlineColor&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/Visible.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.EnumShape.Visible</value>
+    <value>If true, shape is visible.</value>
     <comment>Description for DomainProperty &apos;Visible&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/Visible.DisplayName" xml:space="preserve">
@@ -3214,20 +3290,28 @@
     <comment>Category for DomainProperty &apos;Visible&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Thickness</value>
+    <value>Thickness, in inches, of the shapes&apos;s outline</value>
     <comment>Description for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.DisplayName" xml:space="preserve">
     <value>Outline Thickness</value>
     <comment>DisplayName for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;OutlineThickness&apos; on DomainClass &apos;EnumShape&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Dash Style</value>
+    <value>Line style for the shape&apos;s outline</value>
     <comment>Description for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.DisplayName" xml:space="preserve">
     <value>Outline Dash Style</value>
     <comment>DisplayName for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;EnumShape&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.Category" xml:space="preserve">
+    <value>Display</value>
+    <comment>Category for DomainProperty &apos;OutlineDashStyle&apos; on DomainClass &apos;EnumShape&apos;</comment>
   </data>
   <data name="EnumShapeValuesCompartmentTitle" xml:space="preserve">
     <value>Values</value>

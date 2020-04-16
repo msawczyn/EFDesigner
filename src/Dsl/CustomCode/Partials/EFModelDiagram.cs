@@ -42,9 +42,11 @@ namespace Sawczyn.EFDesigner.EFModel
       protected override bool ShouldAddShapeForElement(ModelElement element)
       {
          bool result = ForceAddShape
+                    || IsDropping
                     || base.ShouldAddShapeForElement(element)
                     || NestedChildShapes.Any(s => s.ModelElement == element)
                     || (element is ElementLink link && NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).Intersect(link.LinkedElements).Count() == 2);
+
          return result;
       }
 

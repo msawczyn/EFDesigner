@@ -51,7 +51,16 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.0** 
+**2.0.1**
+   - Added count of elements in model explorer tree
+   - Comments can also be hidden like classes and enumerations
+   - Fix: Changing String Column Name Clears Max Length Property (See https://github.com/msawczyn/EFDesigner/issues/173)
+   - Fix: Dropping external files creates elements but not shapes on diagram (See https://github.com/msawczyn/EFDesigner/issues/150)
+   - Fix: VS Crash (See https://github.com/msawczyn/EFDesigner/issues/177)
+
+<details>
+<summary><b>2.0.0</b></summary>
+
    - **Dropped support for Visual Studio 2017**; was getting to be too much to keep the tool viable for that Visual Studio version.
    - It's now possible to have multiple diagrams for the same model, each showing a different view and synchronized as the model changes. Perfect for helping to understand large models.
    - Added ability to specify foreign key properties (See https://github.com/msawczyn/EFDesigner/issues/55)
@@ -78,6 +87,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix: Now escaping XML comment text properly
    - Fix: Issue with GeographyPoint: System.Data.Entities.Spatial not found for .Net Core 3.1 (See https://github.com/msawczyn/EFDesigner/issues/159)
    - Fix: HasDefaultSchema doesn't work with MySql (See https://github.com/msawczyn/EFDesigner/issues/160)
+
+</details>
 
 <details>
 <summary><b>1.3.0.12</b></summary>

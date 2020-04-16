@@ -20410,7 +20410,10 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "visible", serializedPropValue);
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "visible", serializedPropValue);
+	            }
 	         }
 	      }
 	      // OutlineThickness
@@ -20600,7 +20603,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      #endregion
 	
 	      // Read properties serialized as XML attributes.
-	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	      ReadPropertiesFromAttributes(serializationContext, element, reader);
 	
 	      // Read nested XML elements.
 	      if (!serializationContext.Result.Failed)
@@ -20632,6 +20635,129 @@ namespace Sawczyn.EFDesigner.EFModel
 	      DslModeling::SerializationUtilities.Skip(reader);
 	   }
 	
+	
+	   /// <summary>
+	   /// This method deserializes all properties that are serialized as XML attributes.
+	   /// </summary>
+	   /// <remarks>
+	   /// Because this method only handles properties serialized as XML attributes, the passed-in reader shouldn't be moved inside this method.
+	   /// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
+	   /// </remarks>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">In-memory CommentBoxShape instance that will get the deserialized data.</param>
+	   /// <param name="reader">XmlReader to read serialized data from.</param>
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+	   {
+	      // Always call the base class so any extensions are deserialized
+	      base.ReadPropertiesFromAttributes(serializationContext, element, reader);
+	
+	      CommentBoxShape instanceOfCommentBoxShape = element as CommentBoxShape;
+	      global::System.Diagnostics.Debug.Assert(instanceOfCommentBoxShape != null, "Expecting an instance of CommentBoxShape");
+	
+	      // FillColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribFillColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "fillColor");
+	         if (attribFillColor != null)
+	         {
+	            global::System.Drawing.Color valueOfFillColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribFillColor, out valueOfFillColor))
+	            {
+	               instanceOfCommentBoxShape.FillColor = valueOfFillColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "fillColor", typeof(global::System.Drawing.Color), attribFillColor);
+	            }
+	         }
+	      }
+	      // OutlineColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribOutlineColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outlineColor");
+	         if (attribOutlineColor != null)
+	         {
+	            global::System.Drawing.Color valueOfOutlineColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribOutlineColor, out valueOfOutlineColor))
+	            {
+	               instanceOfCommentBoxShape.OutlineColor = valueOfOutlineColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outlineColor", typeof(global::System.Drawing.Color), attribOutlineColor);
+	            }
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribTextColor = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "textColor");
+	         if (attribTextColor != null)
+	         {
+	            global::System.Drawing.Color valueOfTextColor;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribTextColor, out valueOfTextColor))
+	            {
+	               instanceOfCommentBoxShape.TextColor = valueOfTextColor;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "textColor", typeof(global::System.Drawing.Color), attribTextColor);
+	            }
+	         }
+	      }
+	      // OutlineDashStyle
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribOutlineDashStyle = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outlineDashStyle");
+	         if (attribOutlineDashStyle != null)
+	         {
+	            global::System.Drawing.Drawing2D.DashStyle valueOfOutlineDashStyle;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Drawing2D.DashStyle>(serializationContext, attribOutlineDashStyle, out valueOfOutlineDashStyle))
+	            {
+	               instanceOfCommentBoxShape.OutlineDashStyle = valueOfOutlineDashStyle;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outlineDashStyle", typeof(global::System.Drawing.Drawing2D.DashStyle), attribOutlineDashStyle);
+	            }
+	         }
+	      }
+	      // OutlineThickness
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribOutlineThickness = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "outlineThickness");
+	         if (attribOutlineThickness != null)
+	         {
+	            global::System.Single valueOfOutlineThickness;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Single>(serializationContext, attribOutlineThickness, out valueOfOutlineThickness))
+	            {
+	               instanceOfCommentBoxShape.OutlineThickness = valueOfOutlineThickness;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "outlineThickness", typeof(global::System.Single), attribOutlineThickness);
+	            }
+	         }
+	      }
+	      // Visible
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribVisible = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "visible");
+	         if (attribVisible != null)
+	         {
+	            global::System.Boolean valueOfVisible;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribVisible, out valueOfVisible))
+	            {
+	               instanceOfCommentBoxShape.Visible = valueOfVisible;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "visible", typeof(global::System.Boolean), attribVisible);
+	            }
+	         }
+	      }
+	   }
 	
 	   /// <summary>
 	   /// This methods deserializes nested XML elements inside the passed-in element.
@@ -21023,9 +21149,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 	      // Write out element Id.
 	      writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
-	
-	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
-	
+	      WritePropertiesAsAttributes(serializationContext, element, writer);
 	      // Write out any extension data if this is the root element
 	      if (rootElementSettings != null && !serializationContext.Result.Failed)
 	      {
@@ -21039,6 +21163,86 @@ namespace Sawczyn.EFDesigner.EFModel
 	      }
 	
 	      writer.WriteEndElement();
+	   }
+	
+	   /// <summary>
+	   /// Write all properties that need to be serialized as XML attributes.
+	   /// </summary>
+	   /// <param name="serializationContext">Serialization context.</param>
+	   /// <param name="element">CommentBoxShape instance to be serialized.</param>
+	   /// <param name="writer">XmlWriter to write serialized data to.</param> 
+	   [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+	   protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+	   {
+	      // Always call the base class so any extensions are serialized
+	      base.WritePropertiesAsAttributes(serializationContext, element, writer);
+	
+	      CommentBoxShape instanceOfCommentBoxShape = element as CommentBoxShape;
+	      global::System.Diagnostics.Debug.Assert(instanceOfCommentBoxShape != null, "Expecting an instance of CommentBoxShape");
+	
+	      // FillColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfCommentBoxShape.FillColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "fillColor", serializedPropValue);
+	         }
+	      }
+	      // OutlineColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfCommentBoxShape.OutlineColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outlineColor", serializedPropValue);
+	         }
+	      }
+	      // TextColor
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Color propValue = instanceOfCommentBoxShape.TextColor;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "textColor", serializedPropValue);
+	         }
+	      }
+	      // OutlineDashStyle
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Drawing.Drawing2D.DashStyle propValue = instanceOfCommentBoxShape.OutlineDashStyle;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Drawing2D.DashStyle>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outlineDashStyle", serializedPropValue);
+	         }
+	      }
+	      // OutlineThickness
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Single propValue = instanceOfCommentBoxShape.OutlineThickness;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Single>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "outlineThickness", serializedPropValue);
+	         }
+	      }
+	      // Visible
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfCommentBoxShape.Visible;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "visible", serializedPropValue);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -21833,7 +22037,10 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "visible", serializedPropValue);
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "visible", serializedPropValue);
+	            }
 	         }
 	      }
 	      // OutlineThickness

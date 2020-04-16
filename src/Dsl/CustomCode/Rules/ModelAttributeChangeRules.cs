@@ -202,54 +202,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "Name":
             {
-               string newName = (string)e.NewValue;
+               if (string.IsNullOrEmpty(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
+                  errorMessages.Add($"{modelClass.Name}: Property name '{element.Name}' isn't a valid .NET identifier");
 
-               if (string.IsNullOrEmpty(newName))
-                  errorMessages.Add("Name must be a valid .NET identifier");
-               else
-               {
-                  ParseResult fragment;
-
-                  try
-                  {
-                     fragment = ModelAttribute.Parse(modelRoot, newName);
-
-                     if (fragment == null)
-                        errorMessages.Add($"{modelClass.Name}: Could not parse entry '{newName}'");
-                     else
-                     {
-                        if (string.IsNullOrEmpty(fragment.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(fragment.Name))
-                           errorMessages.Add($"{modelClass.Name}: Property name '{fragment.Name}' isn't a valid .NET identifier");
-                        else if (modelClass.AllAttributes.Except(new[] { element }).Any(x => x.Name == fragment.Name))
-                           errorMessages.Add($"{modelClass.Name}: Property name '{fragment.Name}' already in use");
-                        else if (modelClass.AllNavigationProperties().Any(p => p.PropertyName == fragment.Name))
-                           errorMessages.Add($"{modelClass.Name}: Property name '{fragment.Name}' already in use");
-                        else
-                        {
-                           element.Name = fragment.Name;
-
-                           if (fragment.Type != null)
-                              element.Type = fragment.Type;
-
-                           if (fragment.Required != null)
-                              element.Required = fragment.Required.Value;
-
-                           element.MaxLength = fragment.MaxLength;
-                           element.MinLength = fragment.MinLength ?? 0;
-
-                           if (fragment.InitialValue != null)
-                              element.InitialValue = fragment.InitialValue;
-
-                           if (fragment.IsIdentity)
-                              element.IsIdentity = true; // don't reset to false if not entered as part of name
-                        }
-                     }
-                  }
-                  catch (Exception exception)
-                  {
-                     errorMessages.Add($"{modelClass.Name}: Could not parse entry '{newName}': {exception.Message}");
-                  }
-               }
+               if (modelClass.AllAttributes.Except(new[] {element}).Any(x => x.Name == element.Name)
+                || modelClass.AllNavigationProperties().Any(p => p.PropertyName == element.Name))
+                  errorMessages.Add($"{modelClass.Name}: Property name '{element.Name}' already in use");
             }
 
             break;

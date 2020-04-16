@@ -448,6 +448,9 @@ namespace Sawczyn.EFDesigner.EFModel
                foreach (EnumShape shape in CurrentSelection.OfType<EnumShape>())
                   shape.Visible = false;
 
+               foreach (CommentBoxShape shape in CurrentSelection.OfType<CommentBoxShape>())
+                  shape.Visible = false;
+
                tx.Commit();
             }
          }
@@ -462,6 +465,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             command.Visible = true;
 
+            // don't check for CommentBoxShape - they can't be removed from the diagram, only deleted
             command.Enabled = CurrentSelection.OfType<ClassShape>().Any()
                            || CurrentSelection.OfType<EnumShape>().Any();
          }
@@ -475,15 +479,14 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             using (Transaction tx = store.TransactionManager.BeginTransaction("HideShapes"))
             {
+               // note that we're deleting the shape, not the represented model element
                foreach (ClassShape shape in CurrentSelection.OfType<ClassShape>())
                   shape.Delete();
 
                foreach (EnumShape shape in CurrentSelection.OfType<EnumShape>())
                   shape.Delete();
 
-               foreach (CommentShape shape in CurrentSelection.OfType<CommentShape>())
-                  shape.Delete();
-
+               // don't check for CommentBoxShape - they can't be removed from the diagram, only deleted
                tx.Commit();
             }
          }

@@ -183,6 +183,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandExtensionRegistrar.tt</DependentUpon>
     </Compile>
+    <Compile Include="MefExtension\PackageExtensionEnablement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackageExtensionEnablement.tt</DependentUpon>
+    </Compile>
     <Compile Include="MefExtension\ValidationExtensionRegistrar.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -306,11 +311,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelExplorer.cs</LastGenOutput>
     </None>
-    <Compile Include="MefExtension\PackageExtensionEnablement.cs">
-      <DependentUpon>PackageExtensionEnablement.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="MefExtension\ValidationExtensionEnablement.cs">
       <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
       <AutoGen>True</AutoGen>

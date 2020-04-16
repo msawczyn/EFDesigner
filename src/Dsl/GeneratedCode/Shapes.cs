@@ -631,7 +631,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of FillColor domain property.
-		/// No description available
+		/// Fill color for shape
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ClassShape/FillColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ClassShape/FillColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -721,7 +721,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of TextColor domain property.
-		/// No description available
+		/// Color of the shape's text
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ClassShape/TextColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ClassShape/TextColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -812,7 +812,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of OutlineColor domain property.
-		/// No description available
+		/// Color of the shape's outline
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ClassShape/OutlineColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ClassShape/OutlineColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -903,7 +903,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of OutlineDashStyle domain property.
-		/// Description for Sawczyn.EFDesigner.EFModel.ClassShape.Outline Dash Style
+		/// Line style for the shape's outline
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ClassShape/OutlineDashStyle.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ClassShape/OutlineDashStyle.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -994,11 +994,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of Visible domain property.
-		/// Description for Sawczyn.EFDesigner.EFModel.ClassShape.Visible
+		/// If true, shape is visible.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ClassShape/Visible.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ClassShape/Visible.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ClassShape/Visible.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("2e283376-63d0-454e-9e56-fc6d8cb56689")]
 		public global::System.Boolean Visible
@@ -1084,9 +1085,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of OutlineThickness domain property.
-		/// Description for Sawczyn.EFDesigner.EFModel.ClassShape.Outline Thickness
+		/// Thickness, in inches, of the shapes's outline
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ClassShape/OutlineThickness.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ClassShape/OutlineThickness.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ClassShape/OutlineThickness.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
@@ -1365,6 +1367,133 @@ namespace Sawczyn.EFDesigner.EFModel
 			}
 		}
 		#endregion
+		#region Custom storage for shape properties that appear in the property grid
+		/// <summary>
+		/// Custom storage for domain property OutlineColor.
+		/// </summary>
+		private global::System.Drawing.Color GetOutlineColorValue()
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings != null && settings.IsOverridden(DslDiagrams::PenSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromArgb(255, 204, 204, 102);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineColor.
+		/// </summary>
+		private void SetOutlineColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ShapeOutline, settings);
+			this.Invalidate();
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private global::System.Drawing.Color GetFillColorValue()
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeBackground);
+			if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromArgb(255, 255, 255, 204);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private void SetFillColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeBackground);
+			if(settings == null) settings = new DslDiagrams::BrushSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ShapeBackground, settings);
+			this.Invalidate();
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private global::System.Drawing.Color GetTextColorValue()
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings != null && settings.IsOverridden(DslDiagrams::BrushSettingsFlags.Color))
+			{
+				return settings.Color;
+			}
+			return global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.Black);
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property FillColor.
+		/// </summary>
+		private void SetTextColorValue(global::System.Drawing.Color newValue)
+		{
+			DslDiagrams::BrushSettings settings = this.StyleSet.GetOverriddenBrushSettings(DslDiagrams::DiagramBrushes.ShapeText);
+			if(settings == null) settings = new DslDiagrams::BrushSettings();
+			settings.Color = newValue;
+			this.StyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ShapeText, settings);
+			this.Invalidate();
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineDashStyle.
+		/// </summary>
+		private global::System.Drawing.Drawing2D.DashStyle GetOutlineDashStyleValue()
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings != null && settings.IsOverridden(DslDiagrams::PenSettingsFlags.DashStyle))
+			{
+				return settings.DashStyle;
+			}
+			return global::System.Drawing.Drawing2D.DashStyle.Solid;
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineDashStyle.
+		/// </summary>
+		private void SetOutlineDashStyleValue(global::System.Drawing.Drawing2D.DashStyle newValue)
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.DashStyle = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ShapeOutline, settings);
+			this.Invalidate();
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineThickness.
+		/// </summary>
+		private float GetOutlineThicknessValue()
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings != null && settings.IsOverridden(DslDiagrams::PenSettingsFlags.Width))
+			{
+				return settings.Width;
+			}
+			return 0.01f;
+		}
+		
+		/// <summary>
+		/// Custom storage for domain property OutlineThickness.
+		/// </summary>
+		private void SetOutlineThicknessValue(float newValue)
+		{
+			DslDiagrams::PenSettings settings = this.StyleSet.GetOverriddenPenSettings(DslDiagrams::DiagramPens.ShapeOutline);
+			if(settings == null) settings = new DslDiagrams::PenSettings();
+			settings.Width = newValue;
+			this.StyleSet.OverridePen(DslDiagrams::DiagramPens.ShapeOutline, settings);
+			this.Invalidate();
+		}
+		
+		#endregion
 		#region Decorators
 		/// <summary>
 		/// Initialize the collection of shape fields associated with this shape type.
@@ -1433,6 +1562,548 @@ namespace Sawczyn.EFDesigner.EFModel
 			: base(partition, propertyAssignments)
 		{
 		}
+		#endregion
+		#region FillColor domain property code
+		
+		/// <summary>
+		/// FillColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid FillColorDomainPropertyId = new global::System.Guid(0x276258af, 0x085d, 0x4201, 0xb3, 0xe8, 0xfb, 0x26, 0xa2, 0xd6, 0xef, 0xc4);
+		
+		/// <summary>
+		/// Gets or sets the value of FillColor domain property.
+		/// Fill color for shape
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/FillColor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("276258af-085d-4201-b3e8-fb26a2d6efc4")]
+		public global::System.Drawing.Color FillColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return FillColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				FillColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentBoxShape.FillColor domain property.
+		/// </summary>
+		internal sealed partial class FillColorPropertyHandler : DslModeling::DomainPropertyValueHandler<CommentBoxShapeBase, global::System.Drawing.Color>
+		{
+			private FillColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentBoxShape.FillColor domain property value handler.
+			/// </summary>
+			public static readonly FillColorPropertyHandler Instance = new FillColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentBoxShape.FillColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return FillColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(CommentBoxShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for FillColor because its Kind is
+				// set to CustomStorage. Please provide the GetFillColorValue()
+				// method on the domain class.
+				return element.GetFillColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentBoxShapeBase element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for FillColor because its Kind is
+					// set to CustomStorage. Please provide the SetFillColorValue()
+					// method on the domain class.
+					element.SetFillColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region OutlineColor domain property code
+		
+		/// <summary>
+		/// OutlineColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid OutlineColorDomainPropertyId = new global::System.Guid(0xb83f02a5, 0x312b, 0x4fa4, 0x86, 0x2a, 0x93, 0xe7, 0xd5, 0x17, 0x66, 0xe5);
+		
+		/// <summary>
+		/// Gets or sets the value of OutlineColor domain property.
+		/// Color of the shape's outline
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineColor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("b83f02a5-312b-4fa4-862a-93e7d51766e5")]
+		public global::System.Drawing.Color OutlineColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return OutlineColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				OutlineColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentBoxShape.OutlineColor domain property.
+		/// </summary>
+		internal sealed partial class OutlineColorPropertyHandler : DslModeling::DomainPropertyValueHandler<CommentBoxShapeBase, global::System.Drawing.Color>
+		{
+			private OutlineColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentBoxShape.OutlineColor domain property value handler.
+			/// </summary>
+			public static readonly OutlineColorPropertyHandler Instance = new OutlineColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentBoxShape.OutlineColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return OutlineColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(CommentBoxShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for OutlineColor because its Kind is
+				// set to CustomStorage. Please provide the GetOutlineColorValue()
+				// method on the domain class.
+				return element.GetOutlineColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentBoxShapeBase element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for OutlineColor because its Kind is
+					// set to CustomStorage. Please provide the SetOutlineColorValue()
+					// method on the domain class.
+					element.SetOutlineColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region TextColor domain property code
+		
+		/// <summary>
+		/// TextColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TextColorDomainPropertyId = new global::System.Guid(0xba60eaf8, 0xceb3, 0x4542, 0xa8, 0x9e, 0x65, 0xf6, 0x9b, 0x9d, 0xcb, 0xc3);
+		
+		/// <summary>
+		/// Gets or sets the value of TextColor domain property.
+		/// Color of the shape's text
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/TextColor.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("ba60eaf8-ceb3-4542-a89e-65f69b9dcbc3")]
+		public global::System.Drawing.Color TextColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return TextColorPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TextColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentBoxShape.TextColor domain property.
+		/// </summary>
+		internal sealed partial class TextColorPropertyHandler : DslModeling::DomainPropertyValueHandler<CommentBoxShapeBase, global::System.Drawing.Color>
+		{
+			private TextColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentBoxShape.TextColor domain property value handler.
+			/// </summary>
+			public static readonly TextColorPropertyHandler Instance = new TextColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentBoxShape.TextColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TextColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(CommentBoxShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for TextColor because its Kind is
+				// set to CustomStorage. Please provide the GetTextColorValue()
+				// method on the domain class.
+				return element.GetTextColorValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentBoxShapeBase element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for TextColor because its Kind is
+					// set to CustomStorage. Please provide the SetTextColorValue()
+					// method on the domain class.
+					element.SetTextColorValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region OutlineDashStyle domain property code
+		
+		/// <summary>
+		/// OutlineDashStyle domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid OutlineDashStyleDomainPropertyId = new global::System.Guid(0xe3459214, 0x9d50, 0x4fe5, 0xb9, 0x9f, 0xcd, 0x18, 0x89, 0x89, 0x85, 0x47);
+		
+		/// <summary>
+		/// Gets or sets the value of OutlineDashStyle domain property.
+		/// Line style for the shape's outline
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineDashStyle.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineDashStyle.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineDashStyle.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("e3459214-9d50-4fe5-b99f-cd1889898547")]
+		public global::System.Drawing.Drawing2D.DashStyle OutlineDashStyle
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return OutlineDashStylePropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				OutlineDashStylePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentBoxShape.OutlineDashStyle domain property.
+		/// </summary>
+		internal sealed partial class OutlineDashStylePropertyHandler : DslModeling::DomainPropertyValueHandler<CommentBoxShapeBase, global::System.Drawing.Drawing2D.DashStyle>
+		{
+			private OutlineDashStylePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentBoxShape.OutlineDashStyle domain property value handler.
+			/// </summary>
+			public static readonly OutlineDashStylePropertyHandler Instance = new OutlineDashStylePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentBoxShape.OutlineDashStyle domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return OutlineDashStyleDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Drawing2D.DashStyle GetValue(CommentBoxShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for OutlineDashStyle because its Kind is
+				// set to CustomStorage. Please provide the GetOutlineDashStyleValue()
+				// method on the domain class.
+				return element.GetOutlineDashStyleValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentBoxShapeBase element, global::System.Drawing.Drawing2D.DashStyle newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Drawing2D.DashStyle oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for OutlineDashStyle because its Kind is
+					// set to CustomStorage. Please provide the SetOutlineDashStyleValue()
+					// method on the domain class.
+					element.SetOutlineDashStyleValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region OutlineThickness domain property code
+		
+		/// <summary>
+		/// OutlineThickness domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid OutlineThicknessDomainPropertyId = new global::System.Guid(0x47b0cf2f, 0x0712, 0x480f, 0xbd, 0xf7, 0xd2, 0x7c, 0xfb, 0xd8, 0xdb, 0x3e);
+		
+		/// <summary>
+		/// Gets or sets the value of OutlineThickness domain property.
+		/// Thickness, in inches, of the shapes's outline
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineThickness.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineThickness.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/OutlineThickness.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("47b0cf2f-0712-480f-bdf7-d27cfbd8db3e")]
+		public global::System.Single OutlineThickness
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return OutlineThicknessPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				OutlineThicknessPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentBoxShape.OutlineThickness domain property.
+		/// </summary>
+		internal sealed partial class OutlineThicknessPropertyHandler : DslModeling::DomainPropertyValueHandler<CommentBoxShapeBase, global::System.Single>
+		{
+			private OutlineThicknessPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentBoxShape.OutlineThickness domain property value handler.
+			/// </summary>
+			public static readonly OutlineThicknessPropertyHandler Instance = new OutlineThicknessPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentBoxShape.OutlineThickness domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return OutlineThicknessDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Single GetValue(CommentBoxShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for OutlineThickness because its Kind is
+				// set to CustomStorage. Please provide the GetOutlineThicknessValue()
+				// method on the domain class.
+				return element.GetOutlineThicknessValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentBoxShapeBase element, global::System.Single newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Single oldValue = GetValue(element);
+				// float type precision is guaranteed only to 7th digit.
+				if (global::System.Math.Abs(newValue - oldValue) > 1e-7)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for OutlineThickness because its Kind is
+					// set to CustomStorage. Please provide the SetOutlineThicknessValue()
+					// method on the domain class.
+					element.SetOutlineThicknessValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region Visible domain property code
+		
+		/// <summary>
+		/// Visible domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid VisibleDomainPropertyId = new global::System.Guid(0x8604c11f, 0x3053, 0x4b68, 0x9c, 0x10, 0x72, 0x2a, 0x0a, 0xaa, 0x3b, 0x1f);
+		
+		/// <summary>
+		/// Gets or sets the value of Visible domain property.
+		/// If true, shape is visible.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/Visible.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/Visible.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.CommentBoxShape/Visible.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("8604c11f-3053-4b68-9c10-722a0aaa3b1f")]
+		public global::System.Boolean Visible
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return VisiblePropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				VisiblePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the CommentBoxShape.Visible domain property.
+		/// </summary>
+		internal sealed partial class VisiblePropertyHandler : DslModeling::DomainPropertyValueHandler<CommentBoxShapeBase, global::System.Boolean>
+		{
+			private VisiblePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the CommentBoxShape.Visible domain property value handler.
+			/// </summary>
+			public static readonly VisiblePropertyHandler Instance = new VisiblePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the CommentBoxShape.Visible domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return VisibleDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(CommentBoxShapeBase element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for Visible because its Kind is
+				// set to CustomStorage. Please provide the GetVisibleValue()
+				// method on the domain class.
+				return element.GetVisibleValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(CommentBoxShapeBase element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for Visible because its Kind is
+					// set to CustomStorage. Please provide the SetVisibleValue()
+					// method on the domain class.
+					element.SetVisibleValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
 		#endregion
 	}
 	/// <summary>
@@ -1991,7 +2662,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of FillColor domain property.
-		/// No description available
+		/// Fill color for shape
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/FillColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.EnumShape/FillColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -2081,7 +2752,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of TextColor domain property.
-		/// No description available
+		/// Color of the shape's text
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/TextColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.EnumShape/TextColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -2172,7 +2843,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of OutlineColor domain property.
-		/// No description available
+		/// Color of the shape's outline
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineColor.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineColor.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
@@ -2263,11 +2934,12 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of Visible domain property.
-		/// Description for Sawczyn.EFDesigner.EFModel.EnumShape.Visible
+		/// If true, shape is visible.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/Visible.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.EnumShape/Visible.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumShape/Visible.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("53db1f2a-6349-411e-b28a-08a6f8ed36aa")]
 		public global::System.Boolean Visible
@@ -2353,9 +3025,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of OutlineThickness domain property.
-		/// Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Thickness
+		/// Thickness, in inches, of the shapes's outline
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineThickness.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
@@ -2444,9 +3117,10 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 		/// <summary>
 		/// Gets or sets the value of OutlineDashStyle domain property.
-		/// Description for Sawczyn.EFDesigner.EFModel.EnumShape.Outline Dash Style
+		/// Line style for the shape's outline
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.EnumShape/OutlineDashStyle.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
