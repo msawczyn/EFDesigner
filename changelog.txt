@@ -4,6 +4,7 @@
    - Fix: Changing String Column Name Clears Max Length Property (See https://github.com/msawczyn/EFDesigner/issues/173)
    - Fix: Dropping external files creates elements but not shapes on diagram (See https://github.com/msawczyn/EFDesigner/issues/150)
    - Fix: VS Crash (See https://github.com/msawczyn/EFDesigner/issues/177)
+   - Fix: Attributes only show up on diagram where they were added (See https://github.com/msawczyn/EFDesigner/issues/179)
 
 2.0.0
    - Dropped support for Visual Studio 2017; was getting to be too much to keep the tool viable for that Visual Studio version.

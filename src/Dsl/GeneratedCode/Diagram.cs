@@ -1011,22 +1011,22 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)
 	         {
 	            global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
-	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
 	         {
 	            global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
-	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
 	         {
 	            global::System.Collections.IEnumerable elements = GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ModelElement);
-	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
 	         {
 	            global::System.Collections.IEnumerable elements = GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
-	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	            UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly, false);
 	         }
 	      }
 	      
@@ -1095,29 +1095,31 @@ namespace Sawczyn.EFDesigner.EFModel
 	      /// <param name="shapeType">The type of shape that needs updating</param>
 	      /// <param name="compartmentName">The name of the compartment to update</param>
 	      /// <param name="repaintOnly">If true, the method will only invalidate the shape for a repaint, without re-initializing the shape.</param>
-	      internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly)
+	      /// <param name="currentDiagramOnly">If true, the method will only add the shape for the active diagram.</param>
+	      internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly, bool currentDiagramOnly = true)
 	      {
 	         DslModeling.Transaction transaction = null;
-	
+	   
 	         try
 	         {
 	            foreach (DslModeling::ModelElement element in elements)
 	            {
-	               transaction = transaction ?? element.Store.TransactionManager.BeginTransaction("UpdateCompartments");
-	
-	               IEnumerable<DslDiagrams::CompartmentShape> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element).OfType<DslDiagrams::CompartmentShape>();
 	               Microsoft.VisualStudio.Modeling.Diagrams.Diagram currentDiagram = ModelRoot.GetCurrentDiagram?.Invoke();
-	               if (currentDiagram == null) continue;
-	
-	               foreach (DslDiagrams::CompartmentShape compartmentShape in pels.Where(p => p.Diagram == currentDiagram))
+	               if (currentDiagramOnly && currentDiagram == null) return;
+	   
+	               IEnumerable<DslDiagrams::CompartmentShape> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element).OfType<DslDiagrams::CompartmentShape>();
+	               foreach (DslDiagrams::CompartmentShape compartmentShape in pels .Where(p => !currentDiagramOnly || p.Diagram == currentDiagram))
 	               {
 	                  if (repaintOnly)
 	                     compartmentShape.Invalidate();
 	                  else
+	                  {
+	                     transaction = transaction ?? element.Store.TransactionManager.BeginTransaction("UpdateCompartments");
 	                     compartmentShape.GetCompartmentMappings().FirstOrDefault(m => m.CompartmentId==compartmentName)?.InitializeCompartmentShape(compartmentShape);
+	                  }
 	               }
 	            }
-	
+	   
 	            transaction?.Commit();
 	            transaction = null;
 	         }
@@ -1153,22 +1155,22 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)
 	         {
 	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ModelElement);
-	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.Association)
 	         {
 	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ModelElement);
-	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)
 	         {
 	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ModelElement);
-	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)
 	         {
 	            global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ModelElement);
-	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly, false);
 	         }
 	      }
 	   }
@@ -1196,7 +1198,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelAttribute && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelAttribute.NameDomainPropertyId)
 	         {
 	            global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.ModelElement);
-	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelClass && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId)
 	         {
@@ -1207,7 +1209,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	               global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)element);
 	               list.AddRange(rootElements);
 	            }
-	            CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelClass && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelClass.NameDomainPropertyId)
 	         {
@@ -1218,12 +1220,12 @@ namespace Sawczyn.EFDesigner.EFModel
 	               global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)element);
 	               list.AddRange(rootElements);
 	            }
-	            CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(list, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly, false);
 	         }
 	         if(e.ModelElement is global::Sawczyn.EFDesigner.EFModel.ModelEnumValue && e.DomainProperty.Id == global::Sawczyn.EFDesigner.EFModel.ModelEnumValue.NameDomainPropertyId)
 	         {
 	            global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartment((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.ModelElement);
-	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
+	            CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly, false);
 	         }
 	      }
 	   }
@@ -1253,20 +1255,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	         {
 	            if(e.DomainRole.IsSource)
 	            {
-	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)e.OldRolePlayer);
-	               //foreach(DslModeling::ModelElement element in oldElements)
-	               //{
-	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-	               //   foreach(DslDiagrams::PresentationElement pel in pels)
-	               //   {
-	               //      global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
-	               //      if(compartmentShape != null)
-	               //      {
-	               //         compartmentShape.GetCompartmentMappings()[0].InitializeCompartmentShape(compartmentShape);
-	               //      }
-	               //   }
-	               //}
-	               
 	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ClassHasAttributes)e.ElementLink);
 	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AttributesCompartment", repaintOnly);
 	            }
@@ -1280,20 +1268,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	         {
 	            if(e.DomainRole.IsSource)
 	            {
-	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.Association)e.OldRolePlayer);
-	               //foreach(DslModeling::ModelElement element in oldElements)
-	               //{
-	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-	               //   foreach(DslDiagrams::PresentationElement pel in pels)
-	               //   {
-	               //      global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
-	               //      if(compartmentShape != null)
-	               //      {
-	               //         compartmentShape.GetCompartmentMappings()[1].InitializeCompartmentShape(compartmentShape);
-	               //      }
-	               //   }
-	               //}
-	               
 	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAssociationsCompartment((global::Sawczyn.EFDesigner.EFModel.Association)e.ElementLink);
 	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "AssociationsCompartment", repaintOnly);
 	            }
@@ -1302,20 +1276,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	         {
 	            if(!e.DomainRole.IsSource)
 	            {
-	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.OldRolePlayer);
-	               //foreach(DslModeling::ModelElement element in oldElements)
-	               //{
-	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-	               //   foreach(DslDiagrams::PresentationElement pel in pels)
-	               //   {
-	               //      global::Sawczyn.EFDesigner.EFModel.ClassShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.ClassShape;
-	               //      if(compartmentShape != null)
-	               //      {
-	               //         compartmentShape.GetCompartmentMappings()[2].InitializeCompartmentShape(compartmentShape);
-	               //      }
-	               //   }
-	               //}
-	               
 	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeSourcesCompartment((global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation)e.ElementLink);
 	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.ClassShape), "SourcesCompartment", repaintOnly);
 	            }
@@ -1324,20 +1284,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	         {
 	            if(e.DomainRole.IsSource)
 	            {
-	               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumValue)e.OldRolePlayer);
-	               //foreach(DslModeling::ModelElement element in oldElements)
-	               //{
-	               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-	               //   foreach(DslDiagrams::PresentationElement pel in pels)
-	               //   {
-	               //      global::Sawczyn.EFDesigner.EFModel.EnumShape compartmentShape = pel as global::Sawczyn.EFDesigner.EFModel.EnumShape;
-	               //      if(compartmentShape != null)
-	               //      {
-	               //         compartmentShape.GetCompartmentMappings()[0].InitializeCompartmentShape(compartmentShape);
-	               //      }
-	               //   }
-	               //}
-	               
 	               global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelEnumForEnumShapeValuesCompartmentFromLastLink((global::Sawczyn.EFDesigner.EFModel.ModelEnumHasValues)e.ElementLink);
 	               CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Sawczyn.EFDesigner.EFModel.EnumShape), "ValuesCompartment", repaintOnly);
 	            }

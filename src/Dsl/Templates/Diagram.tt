@@ -501,7 +501,7 @@ namespace <#= namespaceString #>
 <#
             }
 #>
-            UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+            UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly, false);
          }
 <#
          }
@@ -590,29 +590,31 @@ namespace <#= namespaceString #>
       /// <param name="shapeType">The type of shape that needs updating</param>
       /// <param name="compartmentName">The name of the compartment to update</param>
       /// <param name="repaintOnly">If true, the method will only invalidate the shape for a repaint, without re-initializing the shape.</param>
-      internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly)
+      /// <param name="currentDiagramOnly">If true, the method will only add the shape for the active diagram.</param>
+      internal static void UpdateCompartments(global::System.Collections.IEnumerable elements, global::System.Type shapeType, string compartmentName, bool repaintOnly, bool currentDiagramOnly = true)
       {
          DslModeling.Transaction transaction = null;
-
+   
          try
          {
             foreach (DslModeling::ModelElement element in elements)
             {
-               transaction = transaction ?? element.Store.TransactionManager.BeginTransaction("UpdateCompartments");
-
-               IEnumerable<DslDiagrams::CompartmentShape> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element).OfType<DslDiagrams::CompartmentShape>();
                Microsoft.VisualStudio.Modeling.Diagrams.Diagram currentDiagram = ModelRoot.GetCurrentDiagram?.Invoke();
-               if (currentDiagram == null) continue;
-
-               foreach (DslDiagrams::CompartmentShape compartmentShape in pels.Where(p => p.Diagram == currentDiagram))
+               if (currentDiagramOnly && currentDiagram == null) return;
+   
+               IEnumerable<DslDiagrams::CompartmentShape> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element).OfType<DslDiagrams::CompartmentShape>();
+               foreach (DslDiagrams::CompartmentShape compartmentShape in pels .Where(p => !currentDiagramOnly || p.Diagram == currentDiagram))
                {
                   if (repaintOnly)
                      compartmentShape.Invalidate();
                   else
+                  {
+                     transaction = transaction ?? element.Store.TransactionManager.BeginTransaction("UpdateCompartments");
                      compartmentShape.GetCompartmentMappings().FirstOrDefault(m => m.CompartmentId==compartmentName)?.InitializeCompartmentShape(compartmentShape);
+                  }
                }
             }
-
+   
             transaction?.Commit();
             transaction = null;
          }
@@ -674,7 +676,7 @@ namespace <#= namespaceString #>
 <#
             }
 #>
-            CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+            CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly, false);
          }
 <#
          }
@@ -738,14 +740,14 @@ namespace <#= namespaceString #>
                global::System.Collections.ICollection rootElements  = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name.Replace('@','_') #>((<#= data.DisplayedElementName #>)element);
                list.AddRange(rootElements);
             }
-            CompartmentItemAddRule.UpdateCompartments(list, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+            CompartmentItemAddRule.UpdateCompartments(list, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly, false);
 <#
                   }
                   else
                   {
 #>
             global::System.Collections.IEnumerable elements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>((<#= data.DisplayedElementName #>)e.ModelElement);
-            CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly);
+            CompartmentItemAddRule.UpdateCompartments(elements, typeof(<#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>), "<#= data.Map.Compartment.Name #>", repaintOnly, false);
 <#
                   }
 #>
@@ -811,20 +813,6 @@ namespace <#= namespaceString #>
             }
 #>
             {
-               //global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.Get<#= data.Map.ShapeMap.Class.Name.Replace('@','_') #>For<#= data.Map.ShapeMap.BaseShape.Name.Replace('@','_') #><#= data.Map.Compartment.Name #>FromLastLink((<#= data.DisplayedElementName #>)e.OldRolePlayer);
-               //foreach(DslModeling::ModelElement element in oldElements)
-               //{
-               //   DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-               //   foreach(DslDiagrams::PresentationElement pel in pels)
-               //   {
-               //      <#= data.Map.ShapeMap.BaseShape.GetFullName(true) #> compartmentShape = pel as <#= data.Map.ShapeMap.BaseShape.GetFullName(true) #>;
-               //      if(compartmentShape != null)
-               //      {
-               //         compartmentShape.GetCompartmentMappings()[<#= data.Map.ShapeMap.CompartmentMaps.IndexOf(data.Map) #>].InitializeCompartmentShape(compartmentShape);
-               //      }
-               //   }
-               //}
-               
 <#
             if(data.LastSegmentIsElement)
             {

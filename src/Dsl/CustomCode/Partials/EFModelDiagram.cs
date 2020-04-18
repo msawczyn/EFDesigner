@@ -41,11 +41,24 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </remarks>
       protected override bool ShouldAddShapeForElement(ModelElement element)
       {
-         bool result = ForceAddShape
-                    || IsDropping
-                    || base.ShouldAddShapeForElement(element)
-                    || NestedChildShapes.Any(s => s.ModelElement == element)
-                    || (element is ElementLink link && NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).Intersect(link.LinkedElements).Count() == 2);
+         ModelElement parent = null;
+
+         // for attributes and enum values, the we should add the shape if its parent is on the diagram
+         if (element is ModelAttribute modelAttribute)
+            parent = modelAttribute.ModelClass;
+
+         if (element is ModelEnumValue enumValue)
+            parent = enumValue.Enum;
+
+         bool result =
+            ForceAddShape // we've made the decision somewhere else that this shape should be added 
+         || IsDropping // we're dropping a file from Solution Explorer or File Explorer
+         || base.ShouldAddShapeForElement(element) // the built-in rules say to do this
+         || NestedChildShapes.Any(s => s.ModelElement == element) // the serialized diagram has this element present (other rules should prevent duplication)
+         || (parent != null && NestedChildShapes.Any(s => s.ModelElement == parent)) // the element's parent is on this diagram
+         || (element is ElementLink link && NestedChildShapes.Select(nestedShape => nestedShape.ModelElement)
+                                                             .Intersect(link.LinkedElements)
+                                                             .Count() == 2); // adding a link and both of the linkk's end nodes are in this diagram
 
          return result;
       }
