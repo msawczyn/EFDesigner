@@ -53,6 +53,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 **2.0.1**
    - Added count of elements in model explorer tree
+   - Added ability to search the model explorer for class and attribute names
    - Comments can also be hidden like classes and enumerations
    - Fix: Changing String Column Name Clears Max Length Property (See https://github.com/msawczyn/EFDesigner/issues/173)
    - Fix: Dropping external files creates elements but not shapes on diagram (See https://github.com/msawczyn/EFDesigner/issues/150)

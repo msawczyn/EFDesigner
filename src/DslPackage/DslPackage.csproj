@@ -101,6 +101,7 @@
     <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.11.0" />
     <Reference Include="Microsoft.VisualStudio.TextTemplating$(T4VersionSuffix)" />
     <Reference Include="Microsoft.VisualStudio.TextTemplating.VSHost$(T4VersionSuffix)" />
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -125,6 +126,7 @@
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomCode\AddCodeForm.cs">
@@ -139,6 +141,7 @@
     <Compile Include="CustomCode\ChooseForm.Designer.cs">
       <DependentUpon>ChooseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomCode\Extensions\TreeViewExtensions.cs" />
     <Compile Include="CustomCode\LayoutCommands.cs" />
     <Compile Include="CustomCode\CommandSet.cs" />
     <Compile Include="CustomCode\Extensions\ModelClassExtensions.cs" />

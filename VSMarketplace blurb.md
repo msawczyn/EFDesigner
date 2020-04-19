@@ -28,6 +28,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **2.0.1**
    - **[NEW]** Added count of elements in model explorer tree
+   - **[NEW]** Added ability to search the model explorer for class and attribute names
    - **[NEW]** Comments can also be hidden like classes and enumerations
    - Fix: Changing String Column Name Clears Max Length Property (See https://github.com/msawczyn/EFDesigner/issues/173)
    - Fix: Dropping external files creates elements but not shapes on diagram (See https://github.com/msawczyn/EFDesigner/issues/150)

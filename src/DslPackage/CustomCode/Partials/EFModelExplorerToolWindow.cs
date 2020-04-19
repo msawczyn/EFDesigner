@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 
+using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -114,5 +117,6 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
       }
+
    }
 }
