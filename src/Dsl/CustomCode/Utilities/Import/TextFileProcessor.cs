@@ -398,7 +398,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (compliment == null)
                {
-                  UnidirectionalAssociation _ =
+                  UnidirectionalAssociation element =
                      new UnidirectionalAssociation(Store,
                                                    new[]
                                                    {
@@ -414,12 +414,13 @@ namespace Sawczyn.EFDesigner.EFModel
                                                       new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary),
                                                       new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
                                                    });
+                  AssociationChangedRules.SetEndpointRoles(element);
                }
                else
                {
                   compliment.Delete();
 
-                  BidirectionalAssociation _ =
+                  BidirectionalAssociation element =
                      new BidirectionalAssociation(Store,
                                                   new[]
                                                   {
@@ -438,6 +439,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                      new PropertyAssignment(Association.TargetSummaryDomainPropertyId, xmlDocumentation.Summary),
                                                      new PropertyAssignment(Association.TargetDescriptionDomainPropertyId, xmlDocumentation.Description)
                                                   });
+                  AssociationChangedRules.SetEndpointRoles(element);
                }
             }
          }

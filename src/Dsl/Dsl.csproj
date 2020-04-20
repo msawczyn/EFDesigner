@@ -142,12 +142,10 @@
     <Compile Include="CustomCode\Partials\CommentBoxShapeBase.cs" />
     <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
-    <Compile Include="CustomCode\Rules\BidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataChangeRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataDeleteRules.cs" />
     <Compile Include="CustomCode\Rules\ModelEnumDeleteRules.cs" />
-    <Compile Include="CustomCode\Rules\UnidirectionalAssociationAddRules.cs" />
     <Compile Include="CustomCode\ModelElement Interfaces\IHasStore.cs" />
     <Compile Include="CustomCode\Type Converters\MaxLengthTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\MinLengthTypeConverter.cs" />

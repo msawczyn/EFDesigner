@@ -10,7 +10,6 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(AssociationAddRules),
          typeof(AssociationChangedRules),
          typeof(AssociationDeletingRules),
-         typeof(BidirectionalAssociationAddRule),
          typeof(GeneralizationAddRules),
          typeof(GeneralizationChangeRules),
          typeof(GeneralizationDeletingRules),
@@ -26,8 +25,7 @@ namespace Sawczyn.EFDesigner.EFModel
          typeof(ModelEnumDeleteRules),
          typeof(ModelEnumValueAddRules),
          typeof(ModelEnumValueChangeRules),
-         typeof(ModelRootChangeRules),
-         typeof(UnidirectionalAssociationAddRule)
+         typeof(ModelRootChangeRules)
       };
 
       protected override Type[] GetCustomDomainModelTypes()

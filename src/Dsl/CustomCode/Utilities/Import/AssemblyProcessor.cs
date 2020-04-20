@@ -264,6 +264,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                        new PropertyAssignment(Association.SourceRoleDomainPropertyId, ConvertRole(data.SourceRole)), 
                                                        new PropertyAssignment(Association.TargetRoleDomainPropertyId, ConvertRole(data.TargetRole)), 
                                                     });
+            AssociationChangedRules.SetEndpointRoles(element);
          }
       }
 
@@ -324,6 +325,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                       new PropertyAssignment(BidirectionalAssociation.SourceSummaryDomainPropertyId, data.SourceSummary),
                                                       new PropertyAssignment(BidirectionalAssociation.SourceDescriptionDomainPropertyId, data.SourceDescription),
                                                    });
+            AssociationChangedRules.SetEndpointRoles(element);
          }
       }
 

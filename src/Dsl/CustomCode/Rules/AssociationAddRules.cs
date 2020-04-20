@@ -4,7 +4,8 @@ using Microsoft.VisualStudio.Modeling;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   [RuleOn(typeof(Association), FireTime = TimeToFire.Inline)]
+   [RuleOn(typeof(UnidirectionalAssociation), FireTime = TimeToFire.Inline)]
+   [RuleOn(typeof(BidirectionalAssociation), FireTime = TimeToFire.Inline)]
    internal class AssociationAddRules : AddRule
    {
       public override void ElementAdded(ElementAddedEventArgs e)
@@ -69,6 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          AssociationChangedRules.SetEndpointRoles(element);
+         PresentationHelper.UpdateAssociationDisplay(element);
       }
    }
 }

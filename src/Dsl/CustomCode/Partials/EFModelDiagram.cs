@@ -88,8 +88,10 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
       {
-         IsDropping = (diagramDragEventArgs.Data.GetData("Text") is string filename && File.Exists(filename)) || 
-                      (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames && filenames.All(File.Exists));
+         IsDropping = (diagramDragEventArgs.Data.GetData("Text") is string filenames1
+                    && filenames1.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries) is string[] filenames2
+                    && filenames2.All(File.Exists))
+                   || (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames3 && filenames3.All(File.Exists));
 
          return IsDropping;
       }
@@ -148,25 +150,29 @@ namespace Sawczyn.EFDesigner.EFModel
          else if (IsDropping)
          {
             string[] missingFiles = null;
+            string[] filenames;
 
             if (diagramDragEventArgs.Data.GetData("Text") is string filename)
+               filenames = filename.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+            else if (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames1)
+               filenames = filenames1;
+            else
             {
-               if (!File.Exists(filename)) 
-                  missingFiles = new[] {filename};
-               else
-                  FileDropHelper.HandleDrop(Store, filename);
-            }
-            else if (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames)
-            {
-               string[] existingFiles = filenames.Where(File.Exists).ToArray();
-               FileDropHelper.HandleMultiDrop(Store, existingFiles);
-               missingFiles = filenames.Except(existingFiles).ToArray();
+               ErrorDisplay.Show($"Unexpected error dropping files. Please create an issue in Github.");
+               IsDropping = false;
+
+               return;
             }
 
-            if (missingFiles != null && missingFiles.Any())
+            string[] existingFiles = filenames.Where(File.Exists).ToArray();
+            FileDropHelper.HandleMultiDrop(Store, existingFiles);
+            missingFiles = filenames.Except(existingFiles).ToArray();
+
+            if (missingFiles.Any())
             {
                if (missingFiles.Length > 1)
                   missingFiles[missingFiles.Length - 1] = "and " + missingFiles[missingFiles.Length - 1];
+
                ErrorDisplay.Show($"Can't find files {string.Join(", ", missingFiles)}");
             }
 
