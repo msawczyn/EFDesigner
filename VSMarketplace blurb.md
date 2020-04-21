@@ -1,4 +1,6 @@
-This Visual Studio 2019 extension is an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
+This Visual Studio 2019 extension is the easiest way to add a consistently correct Entity Framework (EF6 or EFCore) model to your project. 
+
+It's an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
 of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in 
 the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design.
 
@@ -7,6 +9,8 @@ the visual model, as is the ability to add text blocks to explain potentially ar
 While giving you complete control over how the code is generated you'll be able to create, out of the box, sophisticated, 
 consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using 
 partial classes, any additions you make to your generated code are retained across subsequent generations.
+The designer doesn't need to be present to use the the code that's generated - it's standard C#, using the code-first, fluent API - so the tool doesn't
+become a dependency to your project.
 
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home. The goal was to duplicate 
 at least those features and, in addition, add all the little things that _should_ have been there. Things like:
@@ -65,6 +69,7 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fix: HasDefaultSchema doesn't work with MySql (See https://github.com/msawczyn/EFDesigner/issues/160)
 
 **1.3.0.12** 
+   - **Last version supporting Visual Studio 2017**
    - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)
    - Fix: Designer Drag/Drop Interpreter fails (See https://github.com/msawczyn/EFDesigner/issues/128 and https://github.com/msawczyn/EFDesigner/issues/132)
    - Fix: Enumerations generated into entity directory rather than enumeration directory
