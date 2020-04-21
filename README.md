@@ -51,7 +51,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.1**
+**2.0.2**
    - Added count of elements in model explorer tree
    - Added ability to search the model explorer for class and attribute names
    - Comments can also be hidden like classes and enumerations
@@ -59,6 +59,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix: Dropping external files creates elements but not shapes on diagram (See https://github.com/msawczyn/EFDesigner/issues/150)
    - Fix: VS Crash (See https://github.com/msawczyn/EFDesigner/issues/177)
    - Fix: Attributes only show up on diagram where they were added (See https://github.com/msawczyn/EFDesigner/issues/179)
+   - Fix: EFDesigner 2.0.1 won't create entities in the efmodel for existing poco .cs files (See https://github.com/msawczyn/EFDesigner/issues/182)
 
 <details>
 <summary><b>2.0.0</b></summary>

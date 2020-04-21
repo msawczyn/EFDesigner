@@ -258,7 +258,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (elementNode?.Parent is EFModelRoleGroupTreeNode groupNode)
          {
-            groupNode.Text = groupNode.GetNodeText(offset);
+            groupNode.Text = groupNode.GetNodeText(element);
             Invalidate();
          }
       }
@@ -283,16 +283,22 @@ namespace Sawczyn.EFDesigner.EFModel
             return ProvideNodeText();
          }
 
-         internal string GetNodeText(int offset)
-         {
-            return $"{displayTextBase} ({Nodes.Count + offset})";
-         }
+         //internal string GetNodeText(int offset)
+         //{
+         //   return $"{displayTextBase} ({Nodes.Count + offset})";
+         //}
 
          /// <summary>Suppply the text for the node</summary>
          /// <returns>The text for the node</returns>
          protected override string ProvideNodeText()
          {
             return $"{displayTextBase} ({Nodes.Count})";
+         }
+
+         public string GetNodeText(ModelElement member)
+         {
+            int count = member.Store.ElementDirectory.FindElements(member.GetDomainClass()).Count;
+            return $"{displayTextBase} ({count})";
          }
       }
 
