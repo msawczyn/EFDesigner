@@ -12,15 +12,17 @@ Model and generate code for both Entity Framework v6.x and Entity Framework Core
 <img src="https://msawczyn.github.io/EFDesigner/images/Designer.jpg">
 </td></tr></tbody></table>
 
-This Visual Studio 2019 extension is an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most
-importantly, **visual** design of persistent classes. Inheritance, unidirectional and bidirectional 
-associations are all supported. Enumerations are also included in the visual model, as is the 
-ability to add text blocks to explain potentially arcane parts of your design.
+This Visual Studio 2019 extension is the easiest way to add a consistently correct Entity Framework (EF6 or EFCore) model to your project. 
 
-While giving you complete control over how the code is generated you'll be able to, out of the box,
-create sophisticated, consistent and **correct** Entity Framework code that can be regenerated when 
-your model changes. And, since the code is written using partial classes, any changes you make
-to your generated code are retained across subsequent generations.
+It's an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
+of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in 
+the visual model, as is the ability to add text blocks to explain potentially arcane parts of your design.
+
+While giving you complete control over how the code is generated you'll be able to create, out of the box, sophisticated, 
+consistent and **correct** Entity Framework code that can be regenerated when your model changes. And, since the code is written using 
+partial classes, any additions you make to your generated code are retained across subsequent generations.
+The designer doesn't need to be present to use the the code that's generated - it generates standard C#, using the code-first, fluent API - so the tool doesn't
+become a dependency to your project.
 
 If you are used to the EF visual modeling that comes with Visual Studio, you'll be pretty much at home.
 The goal was to duplicate at least those features and, in addition, 

@@ -261,11 +261,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Serializer.tt</DependentUpon>
     </Compile>
-    <Compile Include="GeneratedCode\SynchronizationHelper.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SynchronizationHelper.tt</DependentUpon>
-    </Compile>
     <Compile Include="MefExtension\GestureExtensionController.cs">
       <DependentUpon>GestureExtensionController.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -384,7 +379,6 @@
     </Content>
     <Content Include="GeneratedCode\SynchronizationHelper.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SynchronizationHelper.cs</LastGenOutput>
     </Content>
     <None Include="Templates\MonikerAmbiguityValidation.tt" />
     <None Include="Templates\Diagram.tt" />

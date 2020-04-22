@@ -412,6 +412,8 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelRoot.TransformOnSave)
                GenerateCode(((DocumentSavedEventArgs)e).NewFileName);
 
+            CurrentDocView?.CurrentDesigner?.Focus();
+
             // add other post-save processing as needed
          }
       }

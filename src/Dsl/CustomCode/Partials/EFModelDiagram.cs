@@ -54,11 +54,9 @@ namespace Sawczyn.EFDesigner.EFModel
             ForceAddShape // we've made the decision somewhere else that this shape should be added 
          || IsDropping // we're dropping a file from Solution Explorer or File Explorer
          || base.ShouldAddShapeForElement(element) // the built-in rules say to do this
-         || NestedChildShapes.Any(s => s.ModelElement == element) // the serialized diagram has this element present (other rules should prevent duplication)
-         || (parent != null && NestedChildShapes.Any(s => s.ModelElement == parent)) // the element's parent is on this diagram
-         || (element is ElementLink link && NestedChildShapes.Select(nestedShape => nestedShape.ModelElement)
-                                                             .Intersect(link.LinkedElements)
-                                                             .Count() == 2); // adding a link and both of the linkk's end nodes are in this diagram
+         || DisplayedElements.Contains(element) // the serialized diagram has this element present (other rules should prevent duplication)
+         || (parent != null && DisplayedElements.Contains(parent)) // the element's parent is on this diagram
+         || (element is ElementLink link && link.LinkedElements.All(linkedElement => DisplayedElements.Contains(linkedElement))); // adding a link and both of the linkk's end nodes are in this diagram
 
          return result;
       }
@@ -96,6 +94,8 @@ namespace Sawczyn.EFDesigner.EFModel
          return IsDropping;
       }
 
+      private List<ModelElement> DisplayedElements => NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).ToList();
+
       public ShapeElement AddExistingModelElement(ModelElement element)
       {
          if (NestedChildShapes.All(s => s.ModelElement != element))
@@ -107,11 +107,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   ForceAddShape = true;
                   FixUpAllDiagrams.FixUp(this, element);
 
-                  // find all element links that are attached to our element where both elements are in the diagram but the link isn't already in the diagram
+                  // find all element links that are attached to our element where the ends are in the diagram but the link isn't already in the diagram
                   List<ElementLink> elementLinks = element.Store.GetAll<ElementLink>()
                                                           .Where(link => link.LinkedElements.Contains(element)
-                                                                      && NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).Intersect(link.LinkedElements).Count() == 2
-                                                                      && !NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).Contains(link))
+                                                                      && link.LinkedElements.All(linkedElement => DisplayedElements.Contains(linkedElement))
+                                                                      && !DisplayedElements.Contains(link))
                                                           .ToList();
 
                   foreach (ElementLink elementLink in elementLinks)
