@@ -3710,6 +3710,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ShowForeignKeyPropertyNames domain property code
+		
+		/// <summary>
+		/// ShowForeignKeyPropertyNames domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ShowForeignKeyPropertyNamesDomainPropertyId = new global::System.Guid(0x1b587ac8, 0x01a1, 0x4758, 0xbd, 0xec, 0x42, 0xe1, 0x08, 0x6e, 0x76, 0x22);
+		
+		/// <summary>
+		/// Storage for ShowForeignKeyPropertyNames
+		/// </summary>
+		private global::System.Boolean showForeignKeyPropertyNamesPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of ShowForeignKeyPropertyNames domain property.
+		/// If true, will show declared foreign key property names (if any) on the
+		/// association ends
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowForeignKeyPropertyNames.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/ShowForeignKeyPropertyNames.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("1b587ac8-01a1-4758-bdec-42e1086e7622")]
+		public global::System.Boolean ShowForeignKeyPropertyNames
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return showForeignKeyPropertyNamesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ShowForeignKeyPropertyNamesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.ShowForeignKeyPropertyNames domain property.
+		/// </summary>
+		internal sealed partial class ShowForeignKeyPropertyNamesPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private ShowForeignKeyPropertyNamesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.ShowForeignKeyPropertyNames domain property value handler.
+			/// </summary>
+			public static readonly ShowForeignKeyPropertyNamesPropertyHandler Instance = new ShowForeignKeyPropertyNamesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.ShowForeignKeyPropertyNames domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ShowForeignKeyPropertyNamesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.showForeignKeyPropertyNamesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.showForeignKeyPropertyNamesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

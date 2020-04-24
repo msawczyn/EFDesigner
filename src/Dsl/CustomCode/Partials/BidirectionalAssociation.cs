@@ -13,7 +13,7 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private string GetSourcePropertyNameDisplayValue()
       {
-         return TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
+         return TargetRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName) && Target.ModelRoot.ShowForeignKeyPropertyNames
                    ? $"{SourcePropertyName}\n[{string.Join(", ", GetForeignKeyPropertyNames().Select(n => $"{Target.Name}.{n.Trim()}"))}]"
                    : SourcePropertyName;
       }

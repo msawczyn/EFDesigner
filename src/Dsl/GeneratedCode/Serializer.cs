@@ -817,6 +817,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // ShowForeignKeyPropertyNames
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribShowForeignKeyPropertyNames = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "showForeignKeyPropertyNames");
+	         if (attribShowForeignKeyPropertyNames != null)
+	         {
+	            global::System.Boolean valueOfShowForeignKeyPropertyNames;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribShowForeignKeyPropertyNames, out valueOfShowForeignKeyPropertyNames))
+	            {
+	               instanceOfModelRoot.ShowForeignKeyPropertyNames = valueOfShowForeignKeyPropertyNames;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "showForeignKeyPropertyNames", typeof(global::System.Boolean), attribShowForeignKeyPropertyNames);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -1970,6 +1987,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridSize", serializedPropValue);
+	            }
+	         }
+	      }
+	      // ShowForeignKeyPropertyNames
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.ShowForeignKeyPropertyNames;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showForeignKeyPropertyNames", serializedPropValue);
 	            }
 	         }
 	      }

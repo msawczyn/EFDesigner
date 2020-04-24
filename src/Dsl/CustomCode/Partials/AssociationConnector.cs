@@ -17,9 +17,12 @@ namespace Sawczyn.EFDesigner.EFModel
          AssociateValueWith(Store, Association.TargetDeleteActionDomainPropertyId);
          AssociateValueWith(Store, Association.SourceMultiplicityDomainPropertyId);
          AssociateValueWith(Store, Association.TargetMultiplicityDomainPropertyId);
+         AssociateValueWith(Store, Association.SourceMultiplicityDisplayDomainPropertyId);
+         AssociateValueWith(Store, Association.TargetMultiplicityDisplayDomainPropertyId);
          AssociateValueWith(Store, Association.NameDomainPropertyId);
          AssociateValueWith(Store, Association.FKPropertyNameDomainPropertyId);
          AssociateValueWith(Store, Association.PersistentDomainPropertyId);
+         AssociateValueWith(Store, ModelRoot.ShowForeignKeyPropertyNamesDomainPropertyId);
       }
 
       public override bool HasToolTip => true;

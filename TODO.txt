@@ -1,9 +1,0 @@
-T4:  Implement entity splitting
-
-DSL: Context menu items should apply to model explorer as well as diagram
-
-T4:  Use HTML5Type in code generation
-
-DSL: Add DeleteType enum to ModelClass (soft, hard)
-T4:  Implement soft delete where marked in model
-

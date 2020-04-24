@@ -71,6 +71,10 @@ namespace Sawczyn.EFDesigner.EFModel
          return FKPropertyName?.Split(',').Select(n => n.Trim()).ToArray() ?? new string[0];
       }
 
+      /// <summary>
+      /// How this association should be shown in string representation
+      /// </summary>
+      /// <returns></returns>
       public virtual string GetDisplayText()
       {
          return $"{Source.Name}.{TargetPropertyName} --> {Target.Name}";
@@ -88,7 +92,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string GetTargetPropertyNameDisplayValue()
       {
-         return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName)
+         return SourceRole == EndpointRole.Dependent && !string.IsNullOrWhiteSpace(FKPropertyName) && Source.ModelRoot.ShowForeignKeyPropertyNames
                    ? $"{TargetPropertyName}\n[{string.Join(", ", GetForeignKeyPropertyNames().Select(n => $"{Source.Name}.{n.Trim()}"))}]"
                    : TargetPropertyName;
       }

@@ -1,4 +1,5 @@
 2.0.3
+   - Added ability to hide foreign key property names on association lines
    - Fix: Self-associations don't appear when existing class is added to new diagram
    - Fix: Diagram no longer loses focus after its saved
 

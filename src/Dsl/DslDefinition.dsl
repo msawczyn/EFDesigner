@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" Build="2" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" Build="3" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -303,6 +303,11 @@
         <DomainProperty Id="e4121eca-2a99-4d3c-8159-1784fdb72d28" Description="Size of display grid units, in inches" Name="GridSize" DisplayName="Grid Size" DefaultValue="0" Category="Designer">
           <Type>
             <ExternalTypeMoniker Name="/System/Int16" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="1b587ac8-01a1-4758-bdec-42e1086e7622" Description="If true, will show declared foreign key property names (if any) on the association ends" Name="ShowForeignKeyPropertyNames" DisplayName="Show Foreign Key Property Names" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1987,6 +1992,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="gridSize">
             <DomainPropertyMoniker Name="ModelRoot/GridSize" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="showForeignKeyPropertyNames">
+            <DomainPropertyMoniker Name="ModelRoot/ShowForeignKeyPropertyNames" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
