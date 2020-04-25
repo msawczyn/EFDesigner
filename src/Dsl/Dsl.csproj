@@ -246,6 +246,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FixUpAllDiagrams.tt</DependentUpon>
     </Compile>
+    <Compile Include="GeneratedCode\MultiplicityValidation.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiplicityValidation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedCode\PropertiesGrid.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PropertiesGrid.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneratedCode\SerializationHelper.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -337,17 +347,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HelpKeywordHelper.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GeneratedCode\MultiplicityValidation.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MultiplicityValidation.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GeneratedCode\PropertiesGrid.cs">
-      <DependentUpon>PropertiesGrid.tt</DependentUpon>
-      <SubType>Code</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="GeneratedCode\Shapes.cs">
       <DependentUpon>Shapes.tt</DependentUpon>
@@ -514,7 +513,6 @@
     <Content Include="Resources\UnidirectionTool.bmp" />
     <None Include="GeneratedCode\Serializer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Serializer.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\Shapes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

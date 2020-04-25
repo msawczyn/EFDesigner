@@ -204,7 +204,7 @@ namespace Sawczyn.EFDesigner.EFModel
                Diagram diagram = docData.CurrentDocView?.CurrentDiagram;
 
                if (diagram != null && diagram is EFModelDiagram efModelDiagram)
-                  efModelDiagram.AddExistingModelElement(element);
+                  EFModelDiagram.AddExistingModelElement(efModelDiagram, element);
             }
          }
       }
