@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -18,80 +19,6 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       private readonly List<Type> nodeEventHandlersAdded = new List<Type>();
 
-      #region Search
-
-      private ElementHost SearchControlHost;
-
-      //private System.Windows.Forms.Integration.ElementHost SearchControlHost;
-
-      /// <summary>
-      /// Perform initializaton.  ToolWindow base class set frame properties here.
-      /// </summary>
-      protected void InitSearch()
-      {
-         IVsWindowSearchHostFactory windowSearchHostFactory = ServiceProvider.GetService(typeof(SVsWindowSearchHostFactory)) as IVsWindowSearchHostFactory;
-         IVsWindowSearchHost windowSearchHost = windowSearchHostFactory.CreateWindowSearchHost(SearchControlHost);
-         windowSearchHost.SetupSearch(this);
-         windowSearchHost.Activate();
-      }
-
-      /// <summary>Creates a new search task object. The task is cold-started - Start() needs to be called on the task object to begin the search.</summary>
-      /// <param name="dwCookie">The search cookie.</param>
-      /// <param name="pSearchQuery">The search query.</param>
-      /// <param name="pSearchCallback">The search callback.</param>
-      /// <returns>The search task.</returns>
-      public IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
-      {
-         return new ModelExplorerSearchTask(this, dwCookie, pSearchQuery, pSearchCallback);
-      }
-
-      /// <summary>Clears the search result, for example, after the user has cleared the content of the search edit box.</summary>
-      public void ClearSearch()
-      {
-         RefreshBrowserView();
-      }
-
-      /// <summary>Allows the window search host to obtain overridable search options.</summary>
-      /// <param name="pSearchSettings">The search options.</param>
-      public void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
-      {
-         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, (uint)10000);
-         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchStartDelay, (uint)250);
-         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search model");
-      }
-
-      /// <summary>Allows the window to preview some keydown events that can be used to navigate between the search results or take action on them</summary>
-      /// <param name="dwNavigationKey">The navigation <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSSEARCHNAVIGATIONKEY" />.</param>
-      /// <param name="dwModifiers">The key <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSUIACCELMODIFIERS" />.</param>
-      /// <returns>True if the event was handled, otherwise false.</returns>
-      public bool OnNavigationKeyDown(uint dwNavigationKey, uint dwModifiers)
-      {
-         return false;
-      }
-
-      /// <summary>Determines whether the search should be enabled for the window. </summary>
-      /// <returns>True if search should be enabled, otherwise false.</returns>
-      public bool SearchEnabled => true;
-
-      /// <summary>Gets the GUID of the search provider. For a tool window search provider, if the category is not returned the tool window guid will be used by default.</summary>
-      /// <returns>The GUID.</returns>
-      public Guid Category => Guid.Empty;
-
-      /// <summary>Returns an interface that can be used to enumerate search filters. </summary>
-      /// <returns>The search filters.</returns>
-      public IVsEnumWindowSearchFilters SearchFiltersEnum => null;
-
-      /// <summary>Allows the window search host to obtain overridable search options.</summary>
-      /// <returns>The search options.</returns>
-      public IVsEnumWindowSearchOptions SearchOptionsEnum => null;
-
-      #endregion Search
-
-      private void AddedHandler(object sender, ElementAddedEventArgs e)
-      {
-         UpdateRoleGroupNode(e.ModelElement, 1);
-      }
-
       public override RoleGroupTreeNode CreateRoleGroupTreeNode(DomainRoleInfo targetRoleInfo)
       {
          if (targetRoleInfo == null)
@@ -101,9 +28,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (!nodeEventHandlersAdded.Contains(representedType))
          {
-            DomainClassInfo diagramInfo = ModelingDocData.Store.DomainDataDirectory.FindDomainClass(representedType);
-            ModelingDocData.Store.EventManagerDirectory.ElementAdded.Add(diagramInfo, new EventHandler<ElementAddedEventArgs>(AddedHandler));
-            ModelingDocData.Store.EventManagerDirectory.ElementDeleted.Add(diagramInfo, new EventHandler<ElementDeletedEventArgs>(DeletedHandler));
+            DomainClassInfo domainClassInfo = ModelingDocData.Store.DomainDataDirectory.FindDomainClass(representedType);
+            ModelingDocData.Store.EventManagerDirectory.ElementAdded.Add(domainClassInfo, new EventHandler<ElementAddedEventArgs>(AddedHandler));
+            ModelingDocData.Store.EventManagerDirectory.ElementDeleted.Add(domainClassInfo, new EventHandler<ElementDeletedEventArgs>(DeletedHandler));
+            ModelingDocData.Store.EventManagerDirectory.ElementPropertyChanged.Add(domainClassInfo, new EventHandler<ElementPropertyChangedEventArgs>(ChangedHandler));
             nodeEventHandlersAdded.Add(representedType);
          }
 
@@ -115,14 +43,28 @@ namespace Sawczyn.EFDesigner.EFModel
          return roleGroupTreeNode;
       }
 
+      private void ChangedHandler(object sender, ElementPropertyChangedEventArgs e)
+      {
+         if (FindNodeForElement(e.ModelElement) is EFModelElementTreeNode treeNode)
+            treeNode.Update();
+      }
+
+      private void AddedHandler(object sender, ElementAddedEventArgs e)
+      {
+         UpdateRoleGroupNode(e.ModelElement);
+      }
+
       private void DeletedHandler(object sender, ElementDeletedEventArgs e)
       {
-         UpdateRoleGroupNode(e.ModelElement, -1);
+         UpdateRoleGroupNode(e.ModelElement);
       }
 
       partial void Init()
       {
-         //// shoehorn the search widget into the list
+         foreach (KeyValuePair<string, Image> image in ClassShape.PropertyImages)
+            ObjectModelBrowser.ImageList.Images.Add(image.Key, image.Value);
+
+         // shoehorn the search widget into the list
          SuspendLayout();
 
          Controls.Remove(ObjectModelBrowser);
@@ -130,9 +72,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          Controls.Add(SearchControlHost = new ElementHost
                                           {
-                                             Location = new System.Drawing.Point(3, label.Height)
+                                             Location = new Point(3, label.Height)
                                            , Name = "SearchControlHost"
-                                           , Size = new System.Drawing.Size(Width, 25)
+                                           , Size = new Size(Width, 25)
                                            , Dock = DockStyle.Top
                                            , Padding = new Padding(0, 3, 0, 0)
                                            , TabIndex = 1
@@ -143,7 +85,7 @@ namespace Sawczyn.EFDesigner.EFModel
          SearchControlHost.BringToFront();
 
          ObjectModelBrowser.TabIndex = 2;
-         ObjectModelBrowser.Location = new System.Drawing.Point(3, label.Height);
+         ObjectModelBrowser.Location = new Point(3, label.Height);
          Controls.Add(ObjectModelBrowser);
          ObjectModelBrowser.BringToFront();
 
@@ -174,7 +116,9 @@ namespace Sawczyn.EFDesigner.EFModel
             base.InsertTreeNode(siblingNodes, node);
 
          if (node.Parent is EFModelRoleGroupTreeNode roleNode)
-            roleNode.Text = roleNode.GetNodeText();
+            roleNode.UpdateNodeText();
+
+         Invalidate();
       }
 
       private void ObjectModelBrowser_OnItemDrag(object sender, ItemDragEventArgs e)
@@ -242,55 +186,86 @@ namespace Sawczyn.EFDesigner.EFModel
          diagramRoot?.Expand();
       }
 
-      private void UpdateRoleGroupNode(ModelElement element, int offset)
+      private void UpdateRoleGroupNode(ModelElement element)
       {
          ExplorerTreeNode elementNode = FindNodeForElement(element);
 
-         if (elementNode?.Parent is EFModelRoleGroupTreeNode groupNode)
+         if (elementNode?.Parent is EFModelRoleGroupTreeNode roleNode)
          {
-            groupNode.Text = groupNode.GetNodeText(element);
+            roleNode.UpdateNodeText();
             Invalidate();
          }
       }
 
-      public class EFModelRoleGroupTreeNode : RoleGroupTreeNode
+      #region Search
+
+      private ElementHost SearchControlHost;
+
+      //private System.Windows.Forms.Integration.ElementHost SearchControlHost;
+
+      /// <summary>
+      ///    Perform initializaton.  ToolWindow base class set frame properties here.
+      /// </summary>
+      protected void InitSearch()
       {
-         private readonly string displayTextBase;
-
-         /// <summary>Constructor</summary>
-         /// <param name="metaRole">Role represented by this node</param>
-         public EFModelRoleGroupTreeNode(DomainRoleInfo metaRole) : base(metaRole)
-         {
-            string propertyDisplayName = metaRole.OppositeDomainRole.PropertyDisplayName;
-
-            displayTextBase = !string.IsNullOrEmpty(propertyDisplayName)
-                                 ? propertyDisplayName
-                                 : metaRole.OppositeDomainRole.PropertyName;
-         }
-
-         internal string GetNodeText()
-         {
-            return ProvideNodeText();
-         }
-
-         //internal string GetNodeText(int offset)
-         //{
-         //   return $"{displayTextBase} ({Nodes.Count + offset})";
-         //}
-
-         /// <summary>Suppply the text for the node</summary>
-         /// <returns>The text for the node</returns>
-         protected override string ProvideNodeText()
-         {
-            return $"{displayTextBase} ({Nodes.Count})";
-         }
-
-         public string GetNodeText(ModelElement member)
-         {
-            int count = member.Store.ElementDirectory.FindElements(member.GetDomainClass()).Count;
-            return $"{displayTextBase} ({count})";
-         }
+         IVsWindowSearchHostFactory windowSearchHostFactory = ServiceProvider.GetService(typeof(SVsWindowSearchHostFactory)) as IVsWindowSearchHostFactory;
+         IVsWindowSearchHost windowSearchHost = windowSearchHostFactory.CreateWindowSearchHost(SearchControlHost);
+         windowSearchHost.SetupSearch(this);
+         windowSearchHost.Activate();
       }
+
+      /// <summary>Creates a new search task object. The task is cold-started - Start() needs to be called on the task object to begin the search.</summary>
+      /// <param name="dwCookie">The search cookie.</param>
+      /// <param name="pSearchQuery">The search query.</param>
+      /// <param name="pSearchCallback">The search callback.</param>
+      /// <returns>The search task.</returns>
+      public IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
+      {
+         return new ModelExplorerSearchTask(this, dwCookie, pSearchQuery, pSearchCallback);
+      }
+
+      /// <summary>Clears the search result, for example, after the user has cleared the content of the search edit box.</summary>
+      public void ClearSearch()
+      {
+         RefreshBrowserView();
+      }
+
+      /// <summary>Allows the window search host to obtain overridable search options.</summary>
+      /// <param name="pSearchSettings">The search options.</param>
+      public void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
+      {
+         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, (uint)10000);
+         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchStartDelay, (uint)250);
+         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search model");
+      }
+
+      /// <summary>Allows the window to preview some keydown events that can be used to navigate between the search results or take action on them</summary>
+      /// <param name="dwNavigationKey">
+      ///    The navigation
+      ///    <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSSEARCHNAVIGATIONKEY" />.
+      /// </param>
+      /// <param name="dwModifiers">The key <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSUIACCELMODIFIERS" />.</param>
+      /// <returns>True if the event was handled, otherwise false.</returns>
+      public bool OnNavigationKeyDown(uint dwNavigationKey, uint dwModifiers)
+      {
+         return false;
+      }
+
+      /// <summary>Determines whether the search should be enabled for the window. </summary>
+      /// <returns>True if search should be enabled, otherwise false.</returns>
+      public bool SearchEnabled => true;
+
+      /// <summary>Gets the GUID of the search provider. For a tool window search provider, if the category is not returned the tool window guid will be used by default.</summary>
+      /// <returns>The GUID.</returns>
+      public Guid Category => Guid.Empty;
+
+      /// <summary>Returns an interface that can be used to enumerate search filters. </summary>
+      /// <returns>The search filters.</returns>
+      public IVsEnumWindowSearchFilters SearchFiltersEnum => null;
+
+      /// <summary>Allows the window search host to obtain overridable search options.</summary>
+      /// <returns>The search options.</returns>
+      public IVsEnumWindowSearchOptions SearchOptionsEnum => null;
 
       internal class ModelExplorerSearchTask : VsSearchTask
       {
@@ -303,22 +278,6 @@ namespace Sawczyn.EFDesigner.EFModel
             : base(dwCookie, pSearchQuery, pSearchCallback)
          {
             this.modelExplorer = modelExplorer;
-         }
-
-         /// <summary>
-         /// Called to remove an ExplorerTreeNode from the explorer. Also removes empty attribute group nodes.
-         /// </summary>
-         /// <param name="node">Node to remove</param>
-         private void Remove(TreeNode node)
-         {
-            if (node is ExplorerTreeNode explorerNode)
-            {
-               TreeNode parent = node.Parent; // will be a group node
-               node.Remove();
-
-               if (explorerNode.RepresentedElement is ModelAttribute && parent.Nodes.Count == 0)
-                  parent.Remove();
-            }
          }
 
          protected override void OnStartSearch()
@@ -367,8 +326,8 @@ namespace Sawczyn.EFDesigner.EFModel
                // 2) there are cases where a class has no attributes. Find those group nodes and remove them, since we couldn't get to them via their attribute nodes
                List<EFModelRoleGroupTreeNode> emptyAttributeGroupNodes = treeView.GetAllNodes()
                                                                                  .OfType<EFModelRoleGroupTreeNode>()
-                                                                                 .Where(n => n.Parent is ExplorerTreeNode explorerNode 
-                                                                                          && explorerNode.RepresentedElement is ModelClass 
+                                                                                 .Where(n => n.Parent is ExplorerTreeNode explorerNode
+                                                                                          && explorerNode.RepresentedElement is ModelClass
                                                                                           && n.Nodes.Count == 0)
                                                                                  .ToList();
 
@@ -395,6 +354,112 @@ namespace Sawczyn.EFDesigner.EFModel
 
                treeView.ExpandAll();
             }
+         }
+
+         /// <summary>
+         ///    Called to remove an ExplorerTreeNode from the explorer. Also removes empty attribute group nodes.
+         /// </summary>
+         /// <param name="node">Node to remove</param>
+         private void Remove(TreeNode node)
+         {
+            if (node is ExplorerTreeNode explorerNode)
+            {
+               TreeNode parent = node.Parent; // will be a group node
+               node.Remove();
+
+               if (explorerNode.RepresentedElement is ModelAttribute && parent.Nodes.Count == 0)
+                  parent.Remove();
+            }
+         }
+      }
+
+      #endregion Search
+
+      /// <summary>Extension point for supplying user defined TreeNode.</summary>
+      /// <param name="modelElement">model element to be represented by the to be created ModelElementTreeNode in the tree view</param>
+      /// <returns></returns>
+      public override ModelElementTreeNode CreateModelElementTreeNode(ModelElement modelElement)
+      {
+         if (modelElement == null)
+            throw new ArgumentNullException(nameof(modelElement));
+
+         EFModelElementTreeNode modelElementTreeNode = new EFModelElementTreeNode(modelElement);
+
+         if (ObjectModelBrowser.ImageList != null)
+            modelElementTreeNode.DefaultImageIndex = 0;
+
+         modelElementTreeNode.UpdateNodeImage();
+
+         return modelElementTreeNode;
+      }
+
+      public class EFModelRoleGroupTreeNode : RoleGroupTreeNode
+      {
+         private readonly string displayTextBase;
+
+         /// <summary>Constructor</summary>
+         /// <param name="metaRole">Role represented by this node</param>
+         public EFModelRoleGroupTreeNode(DomainRoleInfo metaRole) : base(metaRole)
+         {
+            string propertyDisplayName = metaRole.OppositeDomainRole.PropertyDisplayName;
+
+            displayTextBase = !string.IsNullOrEmpty(propertyDisplayName)
+                                 ? propertyDisplayName
+                                 : metaRole.OppositeDomainRole.PropertyName;
+         }
+
+         internal string GetNodeText()
+         {
+            return ProvideNodeText();
+         }
+
+         /// <summary>Suppply the text for the node</summary>
+         /// <returns>The text for the node</returns>
+         protected override string ProvideNodeText()
+         {
+            return $"{displayTextBase} ({Nodes.Count})";
+         }
+      }
+
+      public class EFModelElementTreeNode : ModelElementTreeNode
+      {
+         /// <summary>Obsolete Constructor</summary>
+         /// <param name="container">ignored - retained for backwards compatibility only</param>
+         /// <param name="modelElement">ModelElement represented by this node</param>
+         [Obsolete("Use alternate constructor; 'container' parameter is no longer required")]
+         // ReSharper disable once UnusedMember.Global
+         public EFModelElementTreeNode(ModelExplorerTreeContainer container, ModelElement modelElement) : base(container, modelElement) { }
+
+         /// <summary>Initialize a new instance of ModelElementTreeNode</summary>
+         /// <param name="modelElement">ModelElement represented by this node</param>
+         public EFModelElementTreeNode(ModelElement modelElement) : base(modelElement)
+         {
+            UpdateNodeImage();
+         }
+
+         /// <summary>Suppply the text for the node</summary>
+         /// <returns>The text for the node</returns>
+         protected override string ProvideNodeText()
+         {
+            if (ModelElement is ModelAttribute attribute)
+               return attribute.ToDisplayString();
+
+            return base.ProvideNodeText();
+         }
+
+         /// <summary>
+         ///    Force an update of the node's visual representation, i.e. text and icon
+         /// </summary>
+         public override void Update()
+         {
+            base.Update();
+            UpdateNodeImage();
+         }
+
+         public void UpdateNodeImage()
+         {
+            if (RepresentedElement is ModelAttribute modelAttribute)
+               ThreadHelper.Generic.BeginInvoke(() => { SelectedImageKey = ImageKey = ClassShape.GetExplorerPropertyImageName(modelAttribute); });
          }
       }
    }

@@ -2,9 +2,9 @@
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
@@ -21,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       //internal ColorCache ColorCache = null;
 
-      private static readonly Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>> AttributeGlyphs =
+      internal static readonly Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>> AttributeGlyphs =
          new Dictionary<bool, Dictionary<SetterAccessModifier, Bitmap>>
          {
             {true, new Dictionary<SetterAccessModifier, Bitmap>
@@ -136,56 +136,123 @@ namespace Sawczyn.EFDesigner.EFModel
          return mappings;
       }
 
-      private Image GetAssociationPropertyImage(ModelElement element)
+      public static ReadOnlyDictionary<string, Image> PropertyImages =
+            new ReadOnlyDictionary<string, Image>(new Dictionary<string, Image>
+                   {
+                      {nameof(Resources.Warning)                            , Resources.Warning}
+                    , {nameof(Resources.ForeignKeyIdentity)                 , Resources.ForeignKeyIdentity}
+                    , {nameof(Resources.Identity)                           , Resources.Identity}
+                    , {nameof(Resources.ForeignKey)                         , Resources.ForeignKey}
+                    , {nameof(Resources.Spacer)                             , Resources.Spacer}
+                    , {$"[{true}][{SetterAccessModifier.Internal}]"         , AttributeGlyphs[true][SetterAccessModifier.Internal]}
+                    , {$"[{true}][{SetterAccessModifier.Protected}]"        , AttributeGlyphs[true][SetterAccessModifier.Protected]}
+                    , {$"[{true}][{SetterAccessModifier.Public}]"           , AttributeGlyphs[true][SetterAccessModifier.Public]}
+                    , {$"[{false}][{SetterAccessModifier.Internal}]"        , AttributeGlyphs[false][SetterAccessModifier.Internal]}
+                    , {$"[{false}][{SetterAccessModifier.Protected}]"       , AttributeGlyphs[false][SetterAccessModifier.Protected]}
+                    , {$"[{false}][{SetterAccessModifier.Public}]"          , AttributeGlyphs[false][SetterAccessModifier.Public]}
+                    , {$"[{Multiplicity.One}][{Multiplicity.One}]"          , AssociationGlyphs[Multiplicity.One][Multiplicity.One]}
+                    , {$"[{Multiplicity.ZeroMany}][{Multiplicity.One}]"     , AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.One]}
+                    , {$"[{Multiplicity.ZeroOne}][{Multiplicity.One}]"      , AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.One]}
+                    , {$"[{Multiplicity.One}][{Multiplicity.ZeroMany}]"     , AssociationGlyphs[Multiplicity.One][Multiplicity.ZeroMany]}
+                    , {$"[{Multiplicity.ZeroMany}][{Multiplicity.ZeroMany}]", AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.ZeroMany]}
+                    , {$"[{Multiplicity.ZeroOne}][{Multiplicity.ZeroMany}]" , AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.ZeroMany]}
+                    , {$"[{Multiplicity.One}][{Multiplicity.ZeroOne}]"      , AssociationGlyphs[Multiplicity.One][Multiplicity.ZeroOne]}
+                    , {$"[{Multiplicity.ZeroMany}][{Multiplicity.ZeroOne}]" , AssociationGlyphs[Multiplicity.ZeroMany][Multiplicity.ZeroOne]}
+                    , {$"[{Multiplicity.ZeroOne}][{Multiplicity.ZeroOne}]"  , AssociationGlyphs[Multiplicity.ZeroOne][Multiplicity.ZeroOne]}
+                   });
+
+      public static Image GetPropertyImage(ModelElement element)
       {
          ModelRoot modelRoot = element.Store.ModelRoot();
-         if (element is Association association)
-         {
-            if (modelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
-               return Resources.Warning;
 
-            return AssociationGlyphs[association.SourceMultiplicity][association.TargetMultiplicity];
+         switch (element)
+         {
+            case BidirectionalAssociation bidirectionalAssociation:
+               if (modelRoot.ShowWarningsInDesigner && bidirectionalAssociation.GetHasWarningValue())
+                  return Resources.Warning;
+
+               return AssociationGlyphs[bidirectionalAssociation.TargetMultiplicity][bidirectionalAssociation.SourceMultiplicity];
+
+            case UnidirectionalAssociation unidirectionalAssociation:
+               if (modelRoot.ShowWarningsInDesigner && unidirectionalAssociation.GetHasWarningValue())
+                  return Resources.Warning;
+
+               return AssociationGlyphs[unidirectionalAssociation.SourceMultiplicity][unidirectionalAssociation.TargetMultiplicity];
+
+            case ModelAttribute attribute:
+               if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
+                  return Resources.Warning;
+
+               if (attribute.IsIdentity && attribute.IsForeignKeyFor != Guid.Empty)
+                  return Resources.ForeignKeyIdentity;
+
+               if (attribute.IsIdentity)
+                  return Resources.Identity;
+
+               // ReSharper disable once ConvertIfStatementToReturnStatement
+               if (attribute.IsForeignKeyFor != Guid.Empty)
+                  return Resources.ForeignKey;
+
+               return AttributeGlyphs[attribute.Persistent][attribute.SetterVisibility];
          }
 
          return Resources.Spacer;
+      }
+
+      /// <summary>
+      /// Provides the well-known name of the resource image for the Model Explorer
+      /// </summary>
+      /// <param name="element">ModelElement the explorer node is representing</param>
+      /// <returns>Well-known name of the resource image for the Model Explorer</returns>
+      public static string GetExplorerPropertyImageName(ModelElement element)
+      {
+         ModelRoot modelRoot = element.Store.ModelRoot();
+
+         // note: model explorer doesn't show warning nodes
+         switch (element)
+         {
+            case BidirectionalAssociation bidirectionalAssociation:
+               return $"[{bidirectionalAssociation.TargetMultiplicity}][{bidirectionalAssociation.SourceMultiplicity}]";
+
+            case UnidirectionalAssociation unidirectionalAssociation:
+               return $"[{unidirectionalAssociation.SourceMultiplicity}][{unidirectionalAssociation.TargetMultiplicity}]";
+
+            case ModelAttribute attribute:
+               if (attribute.IsIdentity && attribute.IsForeignKeyFor != Guid.Empty)
+                  return nameof(Resources.ForeignKeyIdentity);
+
+               if (attribute.IsIdentity)
+                  return nameof(Resources.Identity);
+
+               // ReSharper disable once ConvertIfStatementToReturnStatement
+               if (attribute.IsForeignKeyFor != Guid.Empty)
+                  return nameof(Resources.ForeignKey);
+
+               return $"[{attribute.Persistent}][{attribute.SetterVisibility}]";
+         }
+
+         return nameof(Resources.Spacer);
+      }
+
+      private Image GetAssociationPropertyImage(ModelElement element)
+      {
+         return element is UnidirectionalAssociation association
+                   ? GetPropertyImage(association)
+                   : Resources.Spacer;
       }
 
       private Image GetSourcesPropertyImage(ModelElement element)
       {
-         ModelRoot modelRoot = element.Store.ModelRoot();
-         if (element is BidirectionalAssociation association)
-         {
-            if (modelRoot.ShowWarningsInDesigner && association.GetHasWarningValue())
-               return Resources.Warning;
-
-            return AssociationGlyphs[association.TargetMultiplicity][association.SourceMultiplicity];
-         }
-
-         return Resources.Spacer;
+         return element is BidirectionalAssociation association
+                   ? GetPropertyImage(association)
+                   : Resources.Spacer;
       }
 
       private Image GetAttributePropertyImage(ModelElement element)
       {
-         ModelRoot modelRoot = element.Store.ModelRoot();
-         if (element is ModelAttribute attribute)
-         {
-            if (modelRoot.ShowWarningsInDesigner && attribute.GetHasWarningValue())
-               return Resources.Warning;
-
-            if (attribute.IsIdentity && attribute.IsForeignKeyFor != Guid.Empty)
-               return Resources.ForeignKeyIdentity;
-
-            if (attribute.IsIdentity)
-               return Resources.Identity;
-
-            // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (attribute.IsForeignKeyFor != Guid.Empty)
-               return Resources.ForeignKey;
-
-            return AttributeGlyphs[attribute.Persistent][attribute.SetterVisibility];
-         }
-
-         return Resources.Spacer;
+         return element is ModelAttribute attribute
+                   ? GetPropertyImage(attribute)
+                   : Resources.Spacer;
       }
 
       #region Drag/drop model attributes

@@ -53,7 +53,16 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.2**
+**2.0.3**
+   - Added ability to hide foreign key property names on association connectors in diagrams
+   - Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
+   - Fix: Self-associations didn't appear when existing class is added to new diagram from the Model Explorer
+   - Fix: Diagram no longer loses focus after its saved
+   - Fix: Errors when copy/paste between diagrams in same model
+
+<details>
+<summary><b>2.02</b></summary>
+
    - Added count of elements in model explorer tree
    - Added ability to search the model explorer for class and attribute names
    - Comments can also be hidden like classes and enumerations
@@ -62,6 +71,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix: VS Crash (See https://github.com/msawczyn/EFDesigner/issues/177)
    - Fix: Attributes only show up on diagram where they were added (See https://github.com/msawczyn/EFDesigner/issues/179)
    - Fix: EFDesigner 2.0.1 won't create entities in the efmodel for existing poco .cs files (See https://github.com/msawczyn/EFDesigner/issues/182)
+
+</details>
 
 <details>
 <summary><b>2.0.0</b></summary>

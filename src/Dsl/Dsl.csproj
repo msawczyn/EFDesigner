@@ -140,6 +140,7 @@
     <Compile Include="CustomCode\Partials\AssociationConnector.cs" />
     <Compile Include="CustomCode\Domain Types\Namespaces.cs" />
     <Compile Include="CustomCode\Partials\CommentBoxShapeBase.cs" />
+    <Compile Include="CustomCode\Partials\EFModelDomainModel.cs" />
     <Compile Include="CustomCode\Partials\ModelDiagramData.cs" />
     <Compile Include="CustomCode\Rules\AssociationDeletingRules.cs" />
     <Compile Include="CustomCode\Rules\ModelDiagramDataAddRules.cs" />
@@ -385,13 +386,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SynchronizationHelper.cs</LastGenOutput>
     </Content>
-    <None Include="Templates\MonikerAmbiguityValidation.tt" />
-    <None Include="Templates\Diagram.tt" />
-    <None Include="Templates\DomainClassSerializer.tt" />
-    <None Include="Templates\DomainModel.tt" />
-    <None Include="Templates\DomainModelCodeGenerator.tt" />
-    <None Include="Templates\DomainSerializer.tt" />
-    <None Include="Templates\ToolboxHelper.tt" />
+    <Content Include="Resources\AbstractEntityGlyph.png" />
+    <Content Include="Resources\Calculated.png" />
+    <Content Include="Resources\CalculatedInternal.png" />
+    <Content Include="Resources\CalculatedProtected.png" />
     <Content Include="Resources\cardinality-0-0.png" />
     <Content Include="Resources\cardinality-0-1.png" />
     <Content Include="Resources\cardinality-0-many.png" />
@@ -403,16 +401,30 @@
     <Content Include="Resources\cardinality-many-many.png" />
     <Content Include="Resources\Enumerator_16x.png" />
     <Content Include="Resources\EnumItem_16x.png" />
-    <None Include="Resources\Move.cur" />
-    <Content Include="Resources\EnumValue.bmp" />
     <Content Include="Resources\EnumValue.png" />
     <Content Include="Resources\ForeignKey.png" />
     <Content Include="Resources\ForeignKeyIdentity.png" />
+    <Content Include="Resources\Identity.png" />
+    <Content Include="Resources\Internal.png" />
     <Content Include="Resources\KeyRight_left_16x.png" />
     <Content Include="Resources\No.png" />
+    <Content Include="Resources\Protected.png" />
+    <Content Include="Resources\Public.png" />
     <Content Include="Resources\ShowDiagramPane_16x.png" />
+    <Content Include="Resources\Spacer.png" />
     <Content Include="Resources\TransientClass.png" />
     <Content Include="Resources\Warning.png" />
+    <Content Include="Resources\ForeignKeyIdentity.pdn" />
+    <None Include="Templates\MonikerAmbiguityValidation.tt" />
+    <None Include="Templates\Diagram.tt" />
+    <None Include="Templates\DomainClassSerializer.tt" />
+    <None Include="Templates\DomainModel.tt" />
+    <None Include="Templates\DomainModelCodeGenerator.tt" />
+    <None Include="Templates\DomainSerializer.tt" />
+    <None Include="Templates\ToolboxHelper.tt" />
+    <Content Include="Resources\Move.cur" />
+    <Content Include="Resources\EnumValue.bmp" />
+    <Content Include="Resources\Public.bmp" />
     <None Include="DslDefinition.dsl.diagram">
       <DependentUpon>DslDefinition.dsl</DependentUpon>
     </None>
@@ -490,29 +502,21 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GestureExtensionEnablement.cs</LastGenOutput>
     </Content>
-    <Content Include="Resources\AbstractEntityGlyph.png" />
     <Content Include="Resources\Association.bmp" />
     <Content Include="Resources\AssociationLinkTool.bmp" />
     <Content Include="Resources\AssociationTool.bmp" />
     <Content Include="Resources\Attribute.bmp" />
-    <Content Include="Resources\Calculated.png" />
-    <Content Include="Resources\CalculatedInternal.png" />
-    <Content Include="Resources\CalculatedProtected.png" />
     <Content Include="Resources\CommentLinkTool.bmp" />
     <Content Include="Resources\CommentTool.bmp" />
     <Content Include="Resources\EntityGlyph.bmp" />
     <Content Include="Resources\EnumTool.bmp" />
     <Content Include="Resources\File.ico" />
     <Content Include="Resources\GeneralizationTool.bmp" />
-    <Content Include="Resources\Internal.png" />
     <Content Include="Resources\MultipleAssociationTool.bmp" />
-    <Content Include="Resources\Identity.png" />
-    <Content Include="Resources\Protected.png" />
-    <Content Include="Resources\Public.png" />
-    <Content Include="Resources\Spacer.png" />
     <Content Include="Resources\UnidirectionTool.bmp" />
     <None Include="GeneratedCode\Serializer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Serializer.cs</LastGenOutput>
     </None>
     <None Include="GeneratedCode\Shapes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

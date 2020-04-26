@@ -629,6 +629,10 @@
     <value>Show Foreign Key Property Names</value>
     <comment>DisplayName for DomainProperty &apos;ShowForeignKeyPropertyNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowForeignKeyPropertyNames.Category" xml:space="preserve">
+    <value>Designer</value>
+    <comment>Category for DomainProperty &apos;ShowForeignKeyPropertyNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>

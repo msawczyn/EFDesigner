@@ -30,6 +30,13 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**2.0.3**
+   - **[NEW]** Added ability to hide foreign key property names on association connectors in diagrams
+   - **[NEW]** Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
+   - Fix: Self-associations didn't appear when existing class is added to new diagram from the Model Explorer
+   - Fix: Diagram no longer loses focus after its saved
+   - Fix: Errors when copy/paste between diagrams in same model
+
 **2.0.2**
    - **[NEW]** Added count of elements in model explorer tree
    - **[NEW]** Added ability to search the model explorer for class and attribute names

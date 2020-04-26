@@ -305,7 +305,7 @@
             <ExternalTypeMoniker Name="/System/Int16" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="1b587ac8-01a1-4758-bdec-42e1086e7622" Description="If true, will show declared foreign key property names (if any) on the association ends" Name="ShowForeignKeyPropertyNames" DisplayName="Show Foreign Key Property Names" DefaultValue="true">
+        <DomainProperty Id="1b587ac8-01a1-4758-bdec-42e1086e7622" Description="If true, will show declared foreign key property names (if any) on the association ends" Name="ShowForeignKeyPropertyNames" DisplayName="Show Foreign Key Property Names" DefaultValue="true" Category="Designer">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
