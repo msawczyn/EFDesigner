@@ -53,15 +53,15 @@ from that diagram but not from the model. They will still be on other diagrams t
 They'll be completely removed from your model and all diagrams _without confirmation_. If you make a mistake, you can undo the operation in the normal 
 way (`Edit/Undo` or `Ctrl-Z`).
 
-### Dragging between diagrams ###
+### Moving between diagrams ###
 
-You can copy elements in a diagram (default hot key: `Ctrl-C`) and paste it (default hot key: `Ctrl-V`) into another diagram _in the same model_. 
+You can **copy** elements in a diagram (default hot key: `Ctrl-C`) and **paste** them (default hot key: `Ctrl-V`) into another diagram _in the same model_. 
 Relative position information won't be copied over, and the pasted elements will be selected after the paste operation.
 
-If you cut elements from a diagram, you are effectively deleting the element from the model, the same as if you copied then then deleted them. Pasting them
-creates new elements but be aware that some connectors may not be pasted, depending on the elements you cut and stored in the clipboard.
+If you **cut** elements from a diagram, you are effectively copying the element into the clipboard and then deleting it from the model. You can then paste them in
+another diagram in the same model just like a copy operation.
 
-Copying elements between diagrams that live in different models isn't supported, but is a feature in the backlog that is being considered for
+Copying elements between diagrams that live in _different_ models isn't supported, but is a feature in the backlog that is being considered for
 future implementation.
 
 ### Next Step 
