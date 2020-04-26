@@ -58,38 +58,45 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             Cursor.Current = Cursors.WaitCursor;
+            IEnumerable<ShapeElement> shapeElements = diagram.NestedChildShapes.Where(s => s.IsVisible);
 
-            using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
-            {
-               List<DotNode> vertices = diagram.NestedChildShapes
-                                               .Where(s => s.IsVisible)
-                                               .OfType<NodeShape>()
-                                               .Select(node => new DotNode {Shape = node})
-                                               .ToList();
-
-               List<DotEdge> edges = diagram.NestedChildShapes
-                                            .Where(s => s.IsVisible)
-                                            .OfType<BinaryLinkShape>()
-                                            .Select(link => new DotEdge
-                                                            {
-                                                               Shape = link
-                                                             , Source = vertices.Single(vertex => vertex.Shape.Id == link.FromShape.Id)
-                                                             , Target = vertices.Single(vertex => vertex.Shape.Id == link.ToShape.Id)
-                                                            })
-                                            .ToList();
-
-               // use graphviz as the default if available
-               if (File.Exists(EFModelPackage.Options.DotExePath))
-                  DoGraphvizLayout(vertices, edges, diagram);
-               else
-                  DoStandardLayout(edges.Select(edge => edge.Shape).ToList(), diagram);
-
-               tx.Commit();
-            }
+            LayoutDiagram(diagram, shapeElements);
          }
          finally
          {
             Cursor.Current = Cursors.Default;
+         }
+      }
+
+      internal static void LayoutDiagram(EFModelDiagram diagram, IEnumerable<ShapeElement> shapeElements)
+      {
+         using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
+         {
+            List<DotNode> vertices = shapeElements
+                                    .OfType<NodeShape>()
+                                    .Select(node => new DotNode
+                                                    {
+                                                       Shape = node
+                                                    })
+                                    .ToList();
+
+            List<DotEdge> edges = shapeElements
+                                 .OfType<BinaryLinkShape>()
+                                 .Select(link => new DotEdge
+                                                 {
+                                                    Shape = link
+                                                  , Source = vertices.Single(vertex => vertex.Shape.Id == link.FromShape.Id)
+                                                  , Target = vertices.Single(vertex => vertex.Shape.Id == link.ToShape.Id)
+                                                 })
+                                 .ToList();
+
+            // use graphviz as the default if available
+            if (File.Exists(EFModelPackage.Options.DotExePath))
+               DoGraphvizLayout(vertices, edges, diagram);
+            else
+               DoStandardLayout(edges.Select(edge => edge.Shape).ToList(), diagram);
+
+            tx.Commit();
          }
       }
 

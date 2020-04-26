@@ -13,7 +13,6 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -499,10 +498,22 @@ namespace <#= CodeGenerationUtilities.GetPackageNamespace(this.Dsl) #>
 
                   using (DslModeling.Transaction t = store.TransactionManager.BeginTransaction("Pasting existing elements"))
                   {
-                     // paste classes and comments first, then enums and connectors, because connectors rely on classes and enums don't have dependencies
-                     modelClasses.ForEach(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e));
-                     comments.ForEach(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e));
-                     everythingElse.ForEach(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e));
+                     List<DslDiagrams.ShapeElement> newShapes = new List<DslDiagrams.ShapeElement>();
+                     // paste classes and comments first to ensure that any possible connector end is present before the connectors arrive
+                     newShapes.AddRange(modelClasses.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
+                     newShapes.AddRange(comments.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
+                     newShapes.AddRange(everythingElse.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
+
+                     currentDiagram.AutoLayoutShapeElements(newShapes,
+                                                            Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.VGRoutingStyle.VGRouteTreeNS,
+                                                            Microsoft.VisualStudio.Modeling.Diagrams.GraphObject.PlacementValueStyle.VGPlaceSN, 
+                                                            true);
+
+                     currentDiagram.ActiveDiagramView.Selection.Clear();
+
+                     foreach (DslDiagrams.ShapeElement shapeElement in newShapes)
+                        currentDiagram.ActiveDiagramView.Selection.Add(new DslDiagrams.DiagramItem(shapeElement));
+
                      t.Commit();
 
                      return true;

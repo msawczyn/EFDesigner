@@ -181,7 +181,7 @@ can display any subset of your model to help create a laser focus on those thing
 Add a diagram by right-clicking the model explorer and selecting (oddly enough) "Add New Diagram". You'll get an empty design surface
 with a default name that you can change in the Property window. 
 
-We'll go into more details of multiple diagrams later. 
+We'll go into [more details of diagrams](Diagrams) later. 
 
 ### Generating Code
 
@@ -200,6 +200,6 @@ property on the design surface will default all the other output directories, an
 Solution Explorer tree when you generate your code files.
 
 ### Next Step 
-[Persistent entities](Entities)
+[Diagrams](Diagrams)
 
 

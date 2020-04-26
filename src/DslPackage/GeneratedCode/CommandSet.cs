@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -424,17 +423,26 @@ namespace Sawczyn.EFDesigner.EFModel
                   List<ModelClass> modelClasses = modelElements.OfType<ModelClass>().ToList();
                   List<Comment> comments = modelElements.OfType<Comment>().ToList();
                   List<DslModeling.ModelElement> everythingElse = modelElements.Except(modelClasses).Except(comments).ToList();
+                  List<DslDiagrams.ShapeElement> newShapes = new List<DslDiagrams.ShapeElement>();
 
-                  using (DslModeling.Transaction t = store.TransactionManager.BeginTransaction("Pasting existing elements"))
+                  using (DslModeling.Transaction t = store.TransactionManager.BeginTransaction())
                   {
-                     // paste classes and comments first, then enums and connectors, because connectors rely on classes and enums don't have dependencies
-                     modelClasses.ForEach(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e));
-                     comments.ForEach(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e));
-                     everythingElse.ForEach(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e));
-                     t.Commit();
 
-                     return true;
+                     // paste classes and comments first to ensure that any possible connector end is present before the connectors arrive
+                     newShapes.AddRange(modelClasses.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
+                     newShapes.AddRange(comments.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
+                     newShapes.AddRange(everythingElse.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
+                     t.Commit();
                   }
+
+                  using (DslModeling.Transaction t = store.TransactionManager.BeginTransaction())
+                  {
+                     Commands.LayoutDiagram(currentDiagram, newShapes);
+                     t.Commit();
+                  }
+
+                  currentDiagram.Invalidate();
+                  return true;
                }
             }
          }

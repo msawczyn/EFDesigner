@@ -55,11 +55,8 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="pSearchSettings">The search options.</param>
       public void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
       {
-         //Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchUseMRU, true);
          Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, (uint)10000);
-         //Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchStartType, (uint)VSSEARCHSTARTTYPE.SST_INSTANT);
          Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchStartDelay, (uint)250);
-         //Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchTrimsWhitespaces, true);
          Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search model");
       }
 
@@ -132,23 +129,16 @@ namespace Sawczyn.EFDesigner.EFModel
          Control label = Controls[0];
 
          Controls.Add(SearchControlHost = new ElementHost
-         {
-            Location = new System.Drawing.Point(3, label.Height)
-                                           ,
-            Name = "SearchControlHost"
-                                           ,
-            Size = new System.Drawing.Size(Width, 25)
-                                           ,
-            Dock = DockStyle.Top
-                                           ,
-            Padding = new Padding(0, 3, 0, 0)
-                                           ,
-            TabIndex = 1
-                                           ,
-            Text = ""
-                                           ,
-            Child = null
-         });
+                                          {
+                                             Location = new System.Drawing.Point(3, label.Height)
+                                           , Name = "SearchControlHost"
+                                           , Size = new System.Drawing.Size(Width, 25)
+                                           , Dock = DockStyle.Top
+                                           , Padding = new Padding(0, 3, 0, 0)
+                                           , TabIndex = 1
+                                           , Text = ""
+                                           , Child = null
+                                          });
 
          SearchControlHost.BringToFront();
 
