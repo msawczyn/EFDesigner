@@ -26,6 +26,8 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       #region Identifiers
 
+      // Designer menu items
+
       // ReSharper disable once UnusedMember.Local
       private const int grpidEFDiagram = 0x01001;
 
@@ -50,7 +52,13 @@ namespace Sawczyn.EFDesigner.EFModel
       private const int cmdidSelectUnidir = 0x0104;
       private const int cmdidSelectBidir = 0x0105;
 
-      private readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
+      // Model Explorer menu items
+
+      internal const int cmdidExpandAll = 0x00201;
+      internal const int cmdidCollapseAll = 0x00202;
+
+      internal static readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
+      internal static readonly Guid guidMenuExplorerExpandCollapse = new Guid("922EC20C-4054-4E96-8C10-2405A1F91486");
 
       #endregion Identifiers
 

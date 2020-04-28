@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -18,6 +20,296 @@ namespace Sawczyn.EFDesigner.EFModel
    internal partial class EFModelExplorer : IVsWindowSearch
    {
       private readonly List<Type> nodeEventHandlersAdded = new List<Type>();
+
+      #region Context Menu 
+
+      /// <summary>
+      /// Adds command handlers for commands that appear in the context menu.  Base implementation
+      /// will only add command handlers if a handler is not already registered, to allow derived
+      /// classes to override handling of a particular command.  For this reason, derived classes
+      /// should add commands first before calling the base class.
+      /// </summary>
+      /// <param name="menuCommandService">IMenuCommandService to which commands should be added.</param>
+      public override void AddCommandHandlers(IMenuCommandService menuCommandService)
+      {
+         DynamicStatusMenuCommand expandCommand =
+            new DynamicStatusMenuCommand(OnStatusExpandAll, OnMenuExpandAll, new CommandID(EFModelCommandSet.guidMenuExplorerExpandCollapse, EFModelCommandSet.cmdidExpandAll));
+         menuCommandService.AddCommand(expandCommand);
+
+         DynamicStatusMenuCommand collapseCommand =
+            new DynamicStatusMenuCommand(OnStatusCollapseAll, OnMenuCollapseAll, new CommandID(EFModelCommandSet.guidMenuExplorerExpandCollapse, EFModelCommandSet.cmdidCollapseAll));
+         menuCommandService.AddCommand(collapseCommand);
+
+         base.AddCommandHandlers(menuCommandService);
+      }
+
+      private void OnStatusExpandAll(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = ObjectModelBrowser.Nodes.Count > 0;
+         }
+      }
+
+      private void OnMenuExpandAll(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+            ObjectModelBrowser.ExpandAll();
+      }
+
+      private void OnStatusCollapseAll(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            command.Enabled = ObjectModelBrowser.Nodes.Count > 0;
+         }
+      }
+
+      private void OnMenuCollapseAll(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+            ObjectModelBrowser.CollapseAll();
+      }
+
+      #endregion Context Menu
+
+      #region Search
+
+      private ElementHost SearchControlHost;
+
+      //private System.Windows.Forms.Integration.ElementHost SearchControlHost;
+
+      /// <summary>
+      ///    Perform initializaton.  ToolWindow base class set frame properties here.
+      /// </summary>
+      protected void InitSearch()
+      {
+         IVsWindowSearchHostFactory windowSearchHostFactory = ServiceProvider.GetService(typeof(SVsWindowSearchHostFactory)) as IVsWindowSearchHostFactory;
+         IVsWindowSearchHost windowSearchHost = windowSearchHostFactory.CreateWindowSearchHost(SearchControlHost);
+         windowSearchHost.SetupSearch(this);
+         windowSearchHost.Activate();
+      }
+
+      /// <summary>Creates a new search task object. The task is cold-started - Start() needs to be called on the task object to begin the search.</summary>
+      /// <param name="dwCookie">The search cookie.</param>
+      /// <param name="pSearchQuery">The search query.</param>
+      /// <param name="pSearchCallback">The search callback.</param>
+      /// <returns>The search task.</returns>
+      public IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
+      {
+         return new ModelExplorerSearchTask(this, dwCookie, pSearchQuery, pSearchCallback);
+      }
+
+      /// <summary>Clears the search result, for example, after the user has cleared the content of the search edit box.</summary>
+      public void ClearSearch()
+      {
+         ThreadHelper.Generic.BeginInvoke(() =>
+                                          {
+                                             try
+                                             {
+                                                Cursor.Current = Cursors.WaitCursor;
+                                                ObjectModelBrowser.BeginUpdate();
+                                                RefreshBrowserView();
+                                                ObjectModelBrowser.CollapseAll();
+                                                ObjectModelBrowser.EndUpdate();
+                                             }
+                                             finally
+                                             {
+                                                Cursor.Current = Cursors.Default;
+                                             }
+                                          });
+      }
+
+      /// <summary>Allows the window search host to obtain overridable search options.</summary>
+      /// <param name="pSearchSettings">The search options.</param>
+      public void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
+      {
+         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, (uint)10000);
+         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchStartDelay, (uint)250);
+         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search model");
+      }
+
+      /// <summary>Allows the window to preview some keydown events that can be used to navigate between the search results or take action on them</summary>
+      /// <param name="dwNavigationKey">
+      ///    The navigation
+      ///    <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSSEARCHNAVIGATIONKEY" />.
+      /// </param>
+      /// <param name="dwModifiers">The key <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSUIACCELMODIFIERS" />.</param>
+      /// <returns>True if the event was handled, otherwise false.</returns>
+      public bool OnNavigationKeyDown(uint dwNavigationKey, uint dwModifiers)
+      {
+         return false;
+      }
+
+      /// <summary>Determines whether the search should be enabled for the window. </summary>
+      /// <returns>True if search should be enabled, otherwise false.</returns>
+      public bool SearchEnabled => true;
+
+      /// <summary>Gets the GUID of the search provider. For a tool window search provider, if the category is not returned the tool window guid will be used by default.</summary>
+      /// <returns>The GUID.</returns>
+      public Guid Category => Guid.Empty;
+
+      /// <summary>Returns an interface that can be used to enumerate search filters. </summary>
+      /// <returns>The search filters.</returns>
+      public IVsEnumWindowSearchFilters SearchFiltersEnum => null;
+
+      /// <summary>Allows the window search host to obtain overridable search options.</summary>
+      /// <returns>The search options.</returns>
+      public IVsEnumWindowSearchOptions SearchOptionsEnum => null;
+
+      internal class ModelExplorerSearchTask : VsSearchTask
+      {
+         private readonly EFModelExplorer modelExplorer;
+
+         public ModelExplorerSearchTask(EFModelExplorer modelExplorer
+                                      , uint dwCookie
+                                      , IVsSearchQuery pSearchQuery
+                                      , IVsSearchCallback pSearchCallback)
+            : base(dwCookie, pSearchQuery, pSearchCallback)
+         {
+            this.modelExplorer = modelExplorer;
+         }
+
+         protected override void OnStartSearch()
+         {
+            // note that this will be run from a background thread. Must context switch to the UI thread to manipulate the tree.
+            // use ThreadHelper.Generic.BeginInvoke for that 
+
+            TreeView treeView = modelExplorer.ObjectModelBrowser;
+            List<string> searchTexts = SearchUtilities.ExtractSearchTokens(SearchQuery).Select(token => token.ParsedTokenText).ToList();
+
+            if (!searchTexts.Any())
+            {
+               ThreadHelper.Generic.BeginInvoke(() =>
+                                                {
+                                                   try
+                                                   {
+                                                      Cursor.Current = Cursors.WaitCursor;
+                                                      treeView.SelectedNode = null;
+                                                      treeView.BeginUpdate();
+                                                      modelExplorer.RefreshBrowserView();
+                                                      treeView.CollapseAll();
+                                                      treeView.EndUpdate();
+                                                   }
+                                                   finally
+                                                   {
+                                                      Cursor.Current = Cursors.Default;
+                                                   }
+                                                });
+            }
+            else
+            {
+               ThreadHelper.Generic.BeginInvoke(() =>
+                                                {
+                                                   try
+                                                   {
+                                                      Cursor.Current = Cursors.WaitCursor;
+                                                      treeView.SelectedNode = null;
+                                                      treeView.BeginUpdate();
+                                                      modelExplorer.RefreshBrowserView();
+                                                      PerformSearch(treeView);
+                                                      treeView.EndUpdate();
+                                                   }
+                                                   finally
+                                                   {
+                                                      Cursor.Current = Cursors.Default;
+                                                   }
+                                                });
+            }
+
+            SearchResults = (uint)treeView.GetAllNodes().Count(n => n is ExplorerTreeNode explorerNode && explorerNode.RepresentedElement != null);
+
+            // Call to base will report completion
+            base.OnStartSearch();
+         }
+
+         private void PerformSearch(TreeView treeView)
+         {
+            List<string> searchTexts = SearchUtilities.ExtractSearchTokens(SearchQuery).Select(token => token.ParsedTokenText).ToList();
+
+            // if nothing to search for, everything's a hit
+            if (!searchTexts.Any())
+            {
+               modelExplorer.ClearSearch();
+
+               return;
+            }
+
+            treeView.BeginUpdate();
+
+            // prune tree to remove non-hits. We don't search the diagram branch. Work is depth-first
+
+            // 1) remove attribute and enum value nodes that aren't matches. This removes attribute group nodes when necessary
+            List<ExplorerTreeNode> leafNodes = treeView.GetAllNodes()
+                                                       .OfType<ExplorerTreeNode>()
+                                                       .Where(n => n.RepresentedElement is ModelAttribute
+                                                                || n.RepresentedElement is ModelEnumValue)
+                                                       .ToList();
+
+            foreach (ExplorerTreeNode node in leafNodes.Where(node => searchTexts.All(t => node.Text.IndexOf(t, StringComparison.CurrentCultureIgnoreCase) == -1)))
+               Remove(node);
+
+            // 2) there are cases where a class has no attributes and an enum has no values.
+            //    Find those group nodes and remove them, since we couldn't get to them via their child nodes
+            List<EFModelRoleGroupTreeNode> emptyChildGroupNodes = treeView.GetAllNodes()
+                                                                          .OfType<EFModelRoleGroupTreeNode>()
+                                                                          .Where(groupNode => groupNode.Parent is ExplorerTreeNode elementNode
+                                                                                           && (elementNode.RepresentedElement is ModelClass
+                                                                                            || elementNode.RepresentedElement is ModelEnum)
+                                                                                           && groupNode.Nodes.Count == 0)
+                                                                          .ToList();
+
+            foreach (EFModelRoleGroupTreeNode emptyChildGroupNode in emptyChildGroupNodes)
+               emptyChildGroupNode.Remove();
+
+            // 3) remove childless class and enum nodes that aren't matches.
+            //    Ignore those with children since we can't remove them - their children are matches
+            List<ExplorerTreeNode> classNodes = treeView.GetAllNodes()
+                                                        .OfType<ExplorerTreeNode>()
+                                                        .Where(elementNode => (elementNode.RepresentedElement is ModelClass
+                                                                            || elementNode.RepresentedElement is ModelEnum)
+                                                                           && elementNode.Nodes.Count == 0)
+                                                        .ToList();
+
+            foreach (ExplorerTreeNode node in classNodes.Where(node => searchTexts.All(t => node.Text.IndexOf(t, StringComparison.CurrentCultureIgnoreCase) == -1)))
+               Remove(node);
+
+            // 4) update the text on all group nodes left in the tree (except for the root)
+            List<EFModelRoleGroupTreeNode> groupNodes = treeView.GetAllNodes()
+                                                                .OfType<EFModelRoleGroupTreeNode>()
+                                                                .Where(n => n != treeView.Nodes[0])
+                                                                .ToList();
+
+            foreach (EFModelRoleGroupTreeNode groupNode in groupNodes)
+               groupNode.Text = groupNode.GetNodeText();
+
+            treeView.ExpandAll();
+
+            treeView.EndUpdate();
+
+         }
+
+         /// <summary>
+         ///    Called to remove an ExplorerTreeNode from the explorer. Also removes empty parent group nodes.
+         /// </summary>
+         /// <param name="node">Node to remove</param>
+         private void Remove(TreeNode node)
+         {
+            if (node is ExplorerTreeNode elementNode)
+            {
+               EFModelRoleGroupTreeNode groupNode = node.Parent as EFModelRoleGroupTreeNode; 
+               elementNode.Remove();
+
+               if (groupNode.Nodes.Count == 0 && (elementNode.RepresentedElement is ModelAttribute 
+                                               || elementNode.RepresentedElement is ModelEnumValue))
+                  groupNode.Remove();
+            }
+         }
+      }
+
+      #endregion Search
 
       public override RoleGroupTreeNode CreateRoleGroupTreeNode(DomainRoleInfo targetRoleInfo)
       {
@@ -107,18 +399,19 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="node"></param>
       public override void InsertTreeNode(TreeNodeCollection siblingNodes, ExplorerTreeNode node)
       {
-         if (node.Text.StartsWith("Diagrams") && node is EFModelRoleGroupTreeNode)
+         base.InsertTreeNode(siblingNodes, node);
+
+         // sorting Diagrams first. Normally would be alpha ordering
+         EFModelRoleGroupTreeNode diagramNode = siblingNodes.OfType<EFModelRoleGroupTreeNode>().FirstOrDefault(n => n.Text.StartsWith("Diagrams"));
+
+         if (diagramNode != null && siblingNodes.IndexOf(diagramNode) != 0)
          {
-            // sorting Diagrams first. Normally would be alpha ordering
-            siblingNodes.Insert(0, node);
+            diagramNode.Remove();
+            siblingNodes.Insert(0, diagramNode);
          }
-         else
-            base.InsertTreeNode(siblingNodes, node);
 
          if (node.Parent is EFModelRoleGroupTreeNode roleNode)
             roleNode.UpdateNodeText();
-
-         Invalidate();
       }
 
       private void ObjectModelBrowser_OnItemDrag(object sender, ItemDragEventArgs e)
@@ -196,184 +489,6 @@ namespace Sawczyn.EFDesigner.EFModel
             Invalidate();
          }
       }
-
-      #region Search
-
-      private ElementHost SearchControlHost;
-
-      //private System.Windows.Forms.Integration.ElementHost SearchControlHost;
-
-      /// <summary>
-      ///    Perform initializaton.  ToolWindow base class set frame properties here.
-      /// </summary>
-      protected void InitSearch()
-      {
-         IVsWindowSearchHostFactory windowSearchHostFactory = ServiceProvider.GetService(typeof(SVsWindowSearchHostFactory)) as IVsWindowSearchHostFactory;
-         IVsWindowSearchHost windowSearchHost = windowSearchHostFactory.CreateWindowSearchHost(SearchControlHost);
-         windowSearchHost.SetupSearch(this);
-         windowSearchHost.Activate();
-      }
-
-      /// <summary>Creates a new search task object. The task is cold-started - Start() needs to be called on the task object to begin the search.</summary>
-      /// <param name="dwCookie">The search cookie.</param>
-      /// <param name="pSearchQuery">The search query.</param>
-      /// <param name="pSearchCallback">The search callback.</param>
-      /// <returns>The search task.</returns>
-      public IVsSearchTask CreateSearch(uint dwCookie, IVsSearchQuery pSearchQuery, IVsSearchCallback pSearchCallback)
-      {
-         return new ModelExplorerSearchTask(this, dwCookie, pSearchQuery, pSearchCallback);
-      }
-
-      /// <summary>Clears the search result, for example, after the user has cleared the content of the search edit box.</summary>
-      public void ClearSearch()
-      {
-         RefreshBrowserView();
-      }
-
-      /// <summary>Allows the window search host to obtain overridable search options.</summary>
-      /// <param name="pSearchSettings">The search options.</param>
-      public void ProvideSearchSettings(IVsUIDataSource pSearchSettings)
-      {
-         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.ControlMaxWidth, (uint)10000);
-         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchStartDelay, (uint)250);
-         Utilities.SetValue(pSearchSettings, SearchSettingsDataSource.PropertyNames.SearchWatermark, "Search model");
-      }
-
-      /// <summary>Allows the window to preview some keydown events that can be used to navigate between the search results or take action on them</summary>
-      /// <param name="dwNavigationKey">
-      ///    The navigation
-      ///    <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSSEARCHNAVIGATIONKEY" />.
-      /// </param>
-      /// <param name="dwModifiers">The key <see cref="T:Microsoft.VisualStudio.Shell.Interop.__VSUIACCELMODIFIERS" />.</param>
-      /// <returns>True if the event was handled, otherwise false.</returns>
-      public bool OnNavigationKeyDown(uint dwNavigationKey, uint dwModifiers)
-      {
-         return false;
-      }
-
-      /// <summary>Determines whether the search should be enabled for the window. </summary>
-      /// <returns>True if search should be enabled, otherwise false.</returns>
-      public bool SearchEnabled => true;
-
-      /// <summary>Gets the GUID of the search provider. For a tool window search provider, if the category is not returned the tool window guid will be used by default.</summary>
-      /// <returns>The GUID.</returns>
-      public Guid Category => Guid.Empty;
-
-      /// <summary>Returns an interface that can be used to enumerate search filters. </summary>
-      /// <returns>The search filters.</returns>
-      public IVsEnumWindowSearchFilters SearchFiltersEnum => null;
-
-      /// <summary>Allows the window search host to obtain overridable search options.</summary>
-      /// <returns>The search options.</returns>
-      public IVsEnumWindowSearchOptions SearchOptionsEnum => null;
-
-      internal class ModelExplorerSearchTask : VsSearchTask
-      {
-         private readonly EFModelExplorer modelExplorer;
-
-         public ModelExplorerSearchTask(EFModelExplorer modelExplorer
-                                      , uint dwCookie
-                                      , IVsSearchQuery pSearchQuery
-                                      , IVsSearchCallback pSearchCallback)
-            : base(dwCookie, pSearchQuery, pSearchCallback)
-         {
-            this.modelExplorer = modelExplorer;
-         }
-
-         protected override void OnStartSearch()
-         {
-            // note that this will be run from a background thread. Must context switch to the UI thread to manipulate the tree.
-            // use ThreadHelper.Generic.BeginInvoke for that 
-
-            TreeView treeView = modelExplorer.ObjectModelBrowser;
-
-            ThreadHelper.Generic.BeginInvoke(() =>
-                                             {
-                                                modelExplorer.RefreshBrowserView();
-                                                treeView.SelectedNode = null;
-                                                PerformSearch(treeView);
-                                             });
-
-            SearchResults = (uint)treeView.GetAllNodes().Count(n => n is ExplorerTreeNode explorerNode && explorerNode.RepresentedElement != null);
-
-            // Call to base will report completion
-            base.OnStartSearch();
-         }
-
-         private void PerformSearch(TreeView treeView)
-         {
-            List<string> searchTexts = SearchUtilities.ExtractSearchTokens(SearchQuery).Select(token => token.ParsedTokenText).ToList();
-
-            // if nothing to search for, everything's a hit
-            if (searchTexts.Any())
-            {
-               // prune tree to remove non-hits
-
-               // 1) remove attribute and diagram nodes that aren't matches. This removes attribute group nodes when necessary
-               List<ExplorerTreeNode> diagramNodes = treeView.GetAllNodes()
-                                                             .OfType<ExplorerTreeNode>()
-                                                             .Where(n => n.RepresentedElement is ModelDiagramData)
-                                                             .ToList();
-
-               List<ExplorerTreeNode> attributeNodes = treeView.GetAllNodes()
-                                                               .OfType<ExplorerTreeNode>()
-                                                               .Where(n => n.RepresentedElement is ModelAttribute)
-                                                               .ToList();
-
-               foreach (ExplorerTreeNode node in attributeNodes.Union(diagramNodes).Where(node => searchTexts.All(t => node.Text.IndexOf(t, StringComparison.CurrentCultureIgnoreCase) == -1)))
-                  Remove(node);
-
-               // 2) there are cases where a class has no attributes. Find those group nodes and remove them, since we couldn't get to them via their attribute nodes
-               List<EFModelRoleGroupTreeNode> emptyAttributeGroupNodes = treeView.GetAllNodes()
-                                                                                 .OfType<EFModelRoleGroupTreeNode>()
-                                                                                 .Where(n => n.Parent is ExplorerTreeNode explorerNode
-                                                                                          && explorerNode.RepresentedElement is ModelClass
-                                                                                          && n.Nodes.Count == 0)
-                                                                                 .ToList();
-
-               foreach (EFModelRoleGroupTreeNode emptyAttributeGroupNode in emptyAttributeGroupNodes)
-                  emptyAttributeGroupNode.Remove();
-
-               // 3) remove childless class nodes that aren't matches. 
-               List<ExplorerTreeNode> classNodes = treeView.GetAllNodes()
-                                                           .OfType<ExplorerTreeNode>()
-                                                           .Where(n => n.RepresentedElement is ModelClass)
-                                                           .ToList();
-
-               foreach (ExplorerTreeNode node in classNodes.Where(node => node.Nodes.Count == 0 && searchTexts.All(t => node.Text.IndexOf(t, StringComparison.CurrentCultureIgnoreCase) == -1)))
-                  Remove(node);
-
-               // 4) update the text on all group nodes left in the tree
-               List<EFModelRoleGroupTreeNode> groupNodes = treeView.GetAllNodes()
-                                                                   .OfType<EFModelRoleGroupTreeNode>()
-                                                                   .Where(n => n != treeView.Nodes[0])
-                                                                   .ToList();
-
-               foreach (EFModelRoleGroupTreeNode groupNode in groupNodes)
-                  groupNode.Text = groupNode.GetNodeText();
-
-               treeView.ExpandAll();
-            }
-         }
-
-         /// <summary>
-         ///    Called to remove an ExplorerTreeNode from the explorer. Also removes empty attribute group nodes.
-         /// </summary>
-         /// <param name="node">Node to remove</param>
-         private void Remove(TreeNode node)
-         {
-            if (node is ExplorerTreeNode explorerNode)
-            {
-               TreeNode parent = node.Parent; // will be a group node
-               node.Remove();
-
-               if (explorerNode.RepresentedElement is ModelAttribute && parent.Nodes.Count == 0)
-                  parent.Remove();
-            }
-         }
-      }
-
-      #endregion Search
 
       /// <summary>Extension point for supplying user defined TreeNode.</summary>
       /// <param name="modelElement">model element to be represented by the to be created ModelElementTreeNode in the tree view</param>

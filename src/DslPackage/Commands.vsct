@@ -214,6 +214,24 @@
             </Strings>
          </Button>
 
+         <Button guid="guidMenuExplorerExpandCollapse" id="cmdidExpandAll" priority="0x0902" type="Button">
+            <Parent guid="guidCommonModelingMenu" id="grpidExplorerMenuGroup"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Expand all</ButtonText>
+               <CommandName>ExplorerExpandAll</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidMenuExplorerExpandCollapse" id="cmdidCollapseAll" priority="0x0902" type="Button">
+            <Parent guid="guidCommonModelingMenu" id="grpidExplorerMenuGroup"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Collapse all</ButtonText>
+               <CommandName>ExplorerCollapseAll</CommandName>
+            </Strings>
+         </Button>
+         
       </Buttons>
    </Commands>
 
@@ -248,32 +266,40 @@
    </VisibilityConstraints>
 
    <Symbols>
-      <GuidSymbol name="guidEFDiagramMenuCmdSet" value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
-         <IDSymbol name="grpidEFDiagram" value="0x01001"/>
+      <GuidSymbol name="guidMenuExplorerExpandCollapse"  value="{922EC20C-4054-4E96-8C10-2405A1F91486}" >
+         <IDSymbol name="cmdidExpandAll"                 value="0x00201"/>
+         <IDSymbol name="cmdidCollapseAll"               value="0x00202"/>
+      </GuidSymbol>
 
-         <IDSymbol name="cmdidFind"              value="0x00011"/>
-         <IDSymbol name="cmdidLayoutDiagram"     value="0x00012"/>
-         <IDSymbol name="cmdidHideShape"         value="0x00013"/>
-         <IDSymbol name="cmdidShowShape"         value="0x00014"/>
-         <IDSymbol name="cmdidGenerateCode"      value="0x00015"/>
-         <IDSymbol name="cmdidAddCodeProperties" value="0x00016"/>
-         <IDSymbol name="cmdidSaveAsImage"       value="0x00017"/>
-         <IDSymbol name="cmdidLoadNuGet"         value="0x00018"/>
-         <IDSymbol name="cmdidAddCodeValues"     value="0x00019"/>
-         <IDSymbol name="cmdidExpandSelected"    value="0x0001A"/>
-         <IDSymbol name="cmdidCollapseSelected"  value="0x0001B"/>
-         <IDSymbol name="cmdidMergeAssociations" value="0x0001C"/>
-         <IDSymbol name="cmdidSplitAssociation"  value="0x0001D"/>
-         <IDSymbol name="cmdidRemoveShape"       value="0x0001E"/>
+      <GuidSymbol name="guidEFDiagramMenuCmdSet"         value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
+         <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>
+         <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>
 
-         <IDSymbol name="menuidSelect"           value="0x1100"/>
-         <IDSymbol name="grpidSelect"            value="0x1150"/>
+         <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>
+
+         <IDSymbol name="cmdidFind"                      value="0x00011"/>
+         <IDSymbol name="cmdidLayoutDiagram"             value="0x00012"/>
+         <IDSymbol name="cmdidHideShape"                 value="0x00013"/>
+         <IDSymbol name="cmdidShowShape"                 value="0x00014"/>
+         <IDSymbol name="cmdidGenerateCode"              value="0x00015"/>
+         <IDSymbol name="cmdidAddCodeProperties"         value="0x00016"/>
+         <IDSymbol name="cmdidSaveAsImage"               value="0x00017"/>
+         <IDSymbol name="cmdidLoadNuGet"                 value="0x00018"/>
+         <IDSymbol name="cmdidAddCodeValues"             value="0x00019"/>
+         <IDSymbol name="cmdidExpandSelected"            value="0x0001A"/>
+         <IDSymbol name="cmdidCollapseSelected"          value="0x0001B"/>
+         <IDSymbol name="cmdidMergeAssociations"         value="0x0001C"/>
+         <IDSymbol name="cmdidSplitAssociation"          value="0x0001D"/>
+         <IDSymbol name="cmdidRemoveShape"               value="0x0001E"/>
+
+         <IDSymbol name="menuidSelect"                   value="0x01100"/>
+         <IDSymbol name="grpidSelect"                    value="0x01150"/>
     
-         <IDSymbol name="cmdidSelectClasses"     value="0x0101"/>
-         <IDSymbol name="cmdidSelectEnums"       value="0x0102"/>
-         <IDSymbol name="cmdidSelectAssocs"      value="0x0103"/>
-         <IDSymbol name="cmdidSelectUnidir"      value="0x0104"/>
-         <IDSymbol name="cmdidSelectBidir"       value="0x0105"/>
+         <IDSymbol name="cmdidSelectClasses"             value="0x00101"/>
+         <IDSymbol name="cmdidSelectEnums"               value="0x00102"/>
+         <IDSymbol name="cmdidSelectAssocs"              value="0x00103"/>
+         <IDSymbol name="cmdidSelectUnidir"              value="0x00104"/>
+         <IDSymbol name="cmdidSelectBidir"               value="0x00105"/>
       </GuidSymbol>
    </Symbols>
 </CommandTable>
