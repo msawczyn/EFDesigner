@@ -109,7 +109,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (errorMessage != null)
          {
             current.Rollback();
-            ErrorDisplay.Show(errorMessage);
+            ErrorDisplay.Show(store, errorMessage);
          }
       }
    }

@@ -13,7 +13,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public partial class EFModelDiagram: IHasStore
+   public partial class EFModelDiagram : IHasStore
    {
       public override void OnInitialize()
       {
@@ -87,7 +87,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private bool IsAcceptableDropItem(DiagramDragEventArgs diagramDragEventArgs)
       {
          IsDropping = (diagramDragEventArgs.Data.GetData("Text") is string filenames1
-                    && filenames1.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries) is string[] filenames2
+                    && filenames1.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries) is string[] filenames2
                     && filenames2.All(File.Exists))
                    || (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames3 && filenames3.All(File.Exists));
 
@@ -101,34 +101,34 @@ namespace Sawczyn.EFDesigner.EFModel
          if (diagram == null)
             return null;
 
-         if (diagram.NestedChildShapes.All(s => s.ModelElement != element))
+         if (diagram.NestedChildShapes.Any(s => s.ModelElement == element))
+            return null;
+
+         using (Transaction t = element.Store.TransactionManager.BeginTransaction())
          {
-            using (Transaction t = element.Store.TransactionManager.BeginTransaction())
+            try
             {
-               try
-               {
-                  diagram.ForceAddShape = true;
-                  FixUpAllDiagrams.FixUp(diagram, element);
+               diagram.ForceAddShape = true;
+               FixUpAllDiagrams.FixUp(diagram, element);
 
-                  // find all element links that are attached to our element where the ends are in the diagram but the link isn't already in the diagram
-                  List<ElementLink> elementLinks = element.Store.GetAll<ElementLink>()
-                                                          .Where(link => link.LinkedElements.Contains(element)
-                                                                      && link.LinkedElements.All(linkedElement => diagram.DisplayedElements.Contains(linkedElement))
-                                                                      && !diagram.DisplayedElements.Contains(link))
-                                                          .ToList();
+               // find all element links that are attached to our element where the ends are in the diagram but the link isn't already in the diagram
+               List<ElementLink> elementLinks = element.Store.GetAll<ElementLink>()
+                                                       .Where(link => link.LinkedElements.Contains(element)
+                                                                   && link.LinkedElements.All(linkedElement => diagram.DisplayedElements.Contains(linkedElement))
+                                                                   && !diagram.DisplayedElements.Contains(link))
+                                                       .ToList();
 
-                  foreach (ElementLink elementLink in elementLinks)
-                     FixUpAllDiagrams.FixUp(diagram, elementLink);
+               foreach (ElementLink elementLink in elementLinks)
+                  FixUpAllDiagrams.FixUp(diagram, elementLink);
 
-                  t.Commit();
-               }
-               finally
-               {
-                  diagram.ForceAddShape = false;
-               }
+               t.Commit();
+            }
+            finally
+            {
+               diagram.ForceAddShape = false;
             }
          }
-         
+
          return diagram.NestedChildShapes.FirstOrDefault(s => s.ModelElement == element);
       }
 
@@ -140,8 +140,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (element != null)
          {
-               ShapeElement newShape = AddExistingModelElement(this, element);
+            ShapeElement newShape = AddExistingModelElement(this, element);
 
+            if (newShape != null)
+            {
                using (Transaction t = element.Store.TransactionManager.BeginTransaction("Moving pasted shapes"))
                {
                   if (newShape is NodeShape nodeShape)
@@ -149,6 +151,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   t.Commit();
                }
+            }
          }
          else
          {
@@ -157,12 +160,12 @@ namespace Sawczyn.EFDesigner.EFModel
                string[] filenames;
 
                if (diagramDragEventArgs.Data.GetData("Text") is string filename)
-                  filenames = filename.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+                  filenames = filename.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
                else if (diagramDragEventArgs.Data.GetData("FileDrop") is string[] filenames1)
                   filenames = filenames1;
                else
                {
-                  ErrorDisplay.Show($"Unexpected error dropping files. Please create an issue in Github.");
+                  ErrorDisplay.Show(Store, "Unexpected error dropping files. Please create an issue in Github.");
                   IsDropping = false;
 
                   return;
@@ -177,7 +180,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (missingFiles.Length > 1)
                      missingFiles[missingFiles.Length - 1] = "and " + missingFiles[missingFiles.Length - 1];
 
-                  ErrorDisplay.Show($"Can't find files {string.Join(", ", missingFiles)}");
+                  ErrorDisplay.Show(Store, $"Can't find files {string.Join(", ", missingFiles)}");
                }
 
                IsDropping = false;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -32,15 +31,66 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="menuCommandService">IMenuCommandService to which commands should be added.</param>
       public override void AddCommandHandlers(IMenuCommandService menuCommandService)
       {
+         DynamicStatusMenuCommand gotoCodeCommand =
+            new DynamicStatusMenuCommand(OnStatusGoToCode, OnMenuGoToCode, new CommandID(EFModelCommandSet.guidMenuExplorerCmdSet, EFModelCommandSet.cmdidGoToCode));
+         menuCommandService.AddCommand(gotoCodeCommand);
+
          DynamicStatusMenuCommand expandCommand =
-            new DynamicStatusMenuCommand(OnStatusExpandAll, OnMenuExpandAll, new CommandID(EFModelCommandSet.guidMenuExplorerExpandCollapse, EFModelCommandSet.cmdidExpandAll));
+            new DynamicStatusMenuCommand(OnStatusExpandAll, OnMenuExpandAll, new CommandID(EFModelCommandSet.guidMenuExplorerCmdSet, EFModelCommandSet.cmdidExpandAll));
          menuCommandService.AddCommand(expandCommand);
 
          DynamicStatusMenuCommand collapseCommand =
-            new DynamicStatusMenuCommand(OnStatusCollapseAll, OnMenuCollapseAll, new CommandID(EFModelCommandSet.guidMenuExplorerExpandCollapse, EFModelCommandSet.cmdidCollapseAll));
+            new DynamicStatusMenuCommand(OnStatusCollapseAll, OnMenuCollapseAll, new CommandID(EFModelCommandSet.guidMenuExplorerCmdSet, EFModelCommandSet.cmdidCollapseAll));
          menuCommandService.AddCommand(collapseCommand);
 
          base.AddCommandHandlers(menuCommandService);
+      }
+
+      private void OnStatusGoToCode(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+
+            command.Enabled = ObjectModelBrowser.SelectedNode is EFModelElementTreeNode elementNode
+                           && (elementNode.RepresentedElement is ModelClass
+                            || elementNode.RepresentedElement is ModelEnum
+                            || elementNode.RepresentedElement is ModelAttribute
+                            || elementNode.RepresentedElement is ModelEnumValue);
+         }
+      }
+
+      private void OnMenuGoToCode(object sender, EventArgs e)
+      {
+         if (ObjectModelBrowser.SelectedNode is EFModelElementTreeNode elementNode)
+         {
+            switch (elementNode.RepresentedElement)
+            {
+               case ModelClass modelClass:
+                  if (!EFModelDocData.OpenFileFor(modelClass))
+                     EFModelDocData.ShowError(modelClass.Store, $"Can't open generated file for {modelClass.Name}");
+
+                  break;
+
+               case ModelAttribute modelAttribute:
+                  if (!EFModelDocData.OpenFileFor(modelAttribute.ModelClass))
+                     EFModelDocData.ShowError(modelAttribute.Store, $"Can't open generated file for {modelAttribute.ModelClass.Name}");
+
+                  break;
+
+               case ModelEnum modelEnum:
+                  if (!EFModelDocData.OpenFileFor(modelEnum))
+                     EFModelDocData.ShowError(modelEnum.Store, $"Can't open generated file for {modelEnum.Name}");
+
+                  break;
+
+               case ModelEnumValue modelEnumValue:
+                  if (!EFModelDocData.OpenFileFor(modelEnumValue.Enum))
+                     EFModelDocData.ShowError(modelEnumValue.Store, $"Can't open generated file for {modelEnumValue.Enum.Name}");
+
+                  break;
+            }
+         }
       }
 
       private void OnStatusExpandAll(object sender, EventArgs e)
@@ -54,7 +104,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnMenuExpandAll(object sender, EventArgs e)
       {
-         if (sender is MenuCommand command)
+         if (sender is MenuCommand)
             ObjectModelBrowser.ExpandAll();
       }
 
@@ -69,7 +119,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private void OnMenuCollapseAll(object sender, EventArgs e)
       {
-         if (sender is MenuCommand command)
+         if (sender is MenuCommand)
             ObjectModelBrowser.CollapseAll();
       }
 
@@ -445,7 +495,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             case ModelDiagramData diagramData:
             {
-               if (BooleanQuestionDisplay.Show($"About to permanently delete diagram named {diagramData.Name} - are you sure?") == true)
+               if (BooleanQuestionDisplay.Show(diagramData.Store, $"About to permanently delete diagram named {diagramData.Name} - are you sure?") == true)
                {
                   base.ProcessOnMenuDeleteCommand();
                   ObjectModelBrowser.SelectedNode = null;
@@ -459,8 +509,7 @@ namespace Sawczyn.EFDesigner.EFModel
                string fullName = modelEnum.FullName.Split('.').Last();
 
                if (!ModelEnum.IsUsed(modelEnum)
-                || BooleanQuestionDisplay.Show($"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") == true)
-
+                || BooleanQuestionDisplay.Show(modelEnum.Store, $"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") == true)
                {
                   base.ProcessOnMenuDeleteCommand();
                   ObjectModelBrowser.SelectedNode = null;

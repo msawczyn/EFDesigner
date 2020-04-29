@@ -1,4 +1,6 @@
-﻿namespace Sawczyn.EFDesigner
+﻿using System;
+
+namespace Sawczyn.EFDesigner
 {
    /// <summary>
    /// This helps keep UI interaction out of our DSL project proper. DslPackage calls RegisterDisplayHandler with a method that shows the MessageBox
@@ -6,16 +8,16 @@
    /// </summary>
    public static class ErrorDisplay
    {
-      public delegate void ErrorVisualizer(string message);
+      public delegate void ErrorVisualizer(IServiceProvider serviceProvider, string message);
       private static ErrorVisualizer ErrorVisualizerMethod;
 
-      public static void Show(string message)
+      public static void Show(IServiceProvider serviceProvider, string message)
       {
          if (ErrorVisualizerMethod != null)
          {
             try
             {
-               ErrorVisualizerMethod(message);
+               ErrorVisualizerMethod(serviceProvider, message);
             }
             catch
             {

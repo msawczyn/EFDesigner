@@ -36,7 +36,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          catch (Exception e)
          {
-            ErrorDisplay.Show(e.Message);
+            ErrorDisplay.Show(store, e.Message);
          }
          finally
          {
@@ -73,7 +73,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          catch (Exception e)
          {
-            ErrorDisplay.Show(e.Message);
+            ErrorDisplay.Show(store, e.Message);
          }
          finally
          {

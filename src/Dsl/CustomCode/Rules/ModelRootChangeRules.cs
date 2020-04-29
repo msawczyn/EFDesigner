@@ -178,7 +178,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (errorMessages.Any())
          {
             current.Rollback();
-            ErrorDisplay.Show(string.Join("\n", errorMessages));
+            ErrorDisplay.Show(store, string.Join("\n", errorMessages));
          }
 
          if (redraw)

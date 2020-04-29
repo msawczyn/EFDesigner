@@ -87,7 +87,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (errorMessage != null)
          {
             currentTransaction.Rollback();
-            ErrorDisplay.Show(errorMessage);
+            ErrorDisplay.Show(store, errorMessage);
          }
       }
    }

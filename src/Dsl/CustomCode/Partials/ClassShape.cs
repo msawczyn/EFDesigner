@@ -427,7 +427,14 @@ namespace Sawczyn.EFDesigner.EFModel
             if (OpenCodeFile(modelClass))
                return;
 
-            if (ExecCodeGeneration != null && BooleanQuestionDisplay.Show($"Can't open generated file for {modelClass.Name}. It may not have been generated yet. Do you want to generate the code now?") == true)
+            if (!modelClass.GenerateCode)
+            {
+               ErrorDisplay.Show(Store, $"{modelClass.Name} has its GenerateCode property set to false. No file available to open.");
+
+               return;
+            }
+
+            if (ExecCodeGeneration != null && BooleanQuestionDisplay.Show(Store, $"Can't open generated file for {modelClass.Name}. It may not have been generated yet. Do you want to generate the code now?") == true)
             {
                ExecCodeGeneration();
 
@@ -435,7 +442,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   return;
             }
 
-            ErrorDisplay.Show($"Can't open generated file for {modelClass.Name}");
+            ErrorDisplay.Show(Store, $"Can't open generated file for {modelClass.Name}");
          }
       }
 

@@ -244,6 +244,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
             return "WarningGlyph";
 
+         if (!GenerateCode)
+            return "NoGenGlyph";
+
          // ReSharper disable once ConvertIfStatementToReturnStatement
          if (IsAbstract)
             return "AbstractEntityGlyph";

@@ -214,7 +214,18 @@
             </Strings>
          </Button>
 
-         <Button guid="guidMenuExplorerExpandCollapse" id="cmdidExpandAll" priority="0x0902" type="Button">
+         <!-- Model explorer menu -->
+
+         <Button guid="guidMenuExplorerCmdSet" id="cmdidGoToCode" priority="0x0901" type="Button">
+            <Parent guid="guidCommonModelingMenu" id="grpidExplorerMenuGroup"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Go to code</ButtonText>
+               <CommandName>GoToCode</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidMenuExplorerCmdSet" id="cmdidExpandAll" priority="0x0902" type="Button">
             <Parent guid="guidCommonModelingMenu" id="grpidExplorerMenuGroup"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -223,7 +234,7 @@
             </Strings>
          </Button>
 
-         <Button guid="guidMenuExplorerExpandCollapse" id="cmdidCollapseAll" priority="0x0902" type="Button">
+         <Button guid="guidMenuExplorerCmdSet" id="cmdidCollapseAll" priority="0x0902" type="Button">
             <Parent guid="guidCommonModelingMenu" id="grpidExplorerMenuGroup"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
@@ -266,10 +277,15 @@
    </VisibilityConstraints>
 
    <Symbols>
-      <GuidSymbol name="guidMenuExplorerExpandCollapse"  value="{922EC20C-4054-4E96-8C10-2405A1F91486}" >
+      <!-- Model explorer menu -->
+
+      <GuidSymbol name="guidMenuExplorerCmdSet"          value="{922EC20C-4054-4E96-8C10-2405A1F91486}" >
+         <IDSymbol name="cmdidGoToCode"                  value="0x00203"/>
          <IDSymbol name="cmdidExpandAll"                 value="0x00201"/>
          <IDSymbol name="cmdidCollapseAll"               value="0x00202"/>
       </GuidSymbol>
+      
+      <!-- Diagram menu -->
 
       <GuidSymbol name="guidEFDiagramMenuCmdSet"         value="{31178ecb-5da7-46cc-bd4a-ce4e5420bd3e}" >
          <IDSymbol name="grpidEFDiagram"                 value="0x01001"/>

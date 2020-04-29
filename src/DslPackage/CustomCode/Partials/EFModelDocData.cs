@@ -22,8 +22,6 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 
 using VSLangProj;
 
-using RuleManager = Microsoft.VisualStudio.Modeling.RuleManager;
-
 namespace Sawczyn.EFDesigner.EFModel
 {
    [SuppressMessage("ReSharper", "RemoveRedundantBraces")]
@@ -98,23 +96,30 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="modelClass"></param>
       internal static bool OpenFileFor(ModelClass modelClass)
       {
-         Project activeProject = ActiveProject;
-
-         if (activeProject != null)
+         try
          {
-            string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
-            Debug.Assert(projectDirectory != null, nameof(projectDirectory) + " != null");
-            string filename = Path.Combine(projectDirectory, modelClass.GetRelativeFileName());
+            Project activeProject = ActiveProject;
 
-            if (File.Exists(filename))
+            if (activeProject != null)
             {
-               Dte.ItemOperations.OpenFile(filename);
+               string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
+               string filename = Path.Combine(projectDirectory, modelClass.GetRelativeFileName());
 
-               return true;
+               if (File.Exists(filename))
+               {
+                  Dte.ItemOperations.OpenFile(filename);
+
+                  return true;
+               }
             }
-         }
 
-         return false;
+            return false;
+         }
+         catch (Exception e)
+         {
+            Debug.WriteLine("Error opening file. " + e.Message);
+            return false;
+         }
       }
 
       /// <summary>
@@ -123,23 +128,31 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="modelEnum"></param>
       internal static bool OpenFileFor(ModelEnum modelEnum)
       {
-         Project activeProject = ActiveProject;
-
-         if (activeProject != null)
+         try
          {
-            string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
-            Debug.Assert(projectDirectory != null, nameof(projectDirectory) + " != null");
-            string filename = Path.Combine(projectDirectory, modelEnum.GetRelativeFileName());
+            Project activeProject = ActiveProject;
 
-            if (File.Exists(filename))
+            if (activeProject != null)
             {
-               Dte.ItemOperations.OpenFile(filename);
+               string projectDirectory = Path.GetDirectoryName(activeProject.FullName);
+               Debug.Assert(projectDirectory != null, nameof(projectDirectory) + " != null");
+               string filename = Path.Combine(projectDirectory, modelEnum.GetRelativeFileName());
 
-               return true;
+               if (File.Exists(filename))
+               {
+                  Dte.ItemOperations.OpenFile(filename);
+
+                  return true;
+               }
             }
-         }
 
-         return false;
+            return false;
+         }
+         catch (Exception e)
+         {
+            Debug.WriteLine("Error opening file. " + e.Message);
+            return false;
+         }
       }
 
       private IMonitorSelectionService monitorSelection;
@@ -340,37 +353,47 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private DialogResult ShowQuestionBox(string question)
+      internal static DialogResult ShowQuestionBox(IServiceProvider serviceProvider, string question)
       {
-         return PackageUtility.ShowMessageBox(ServiceProvider, 
+         return PackageUtility.ShowMessageBox(serviceProvider, 
                                               question, 
                                               OLEMSGBUTTON.OLEMSGBUTTON_YESNO, 
                                               OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND, 
                                               OLEMSGICON.OLEMSGICON_QUERY);
       }
 
-      private bool ShowBooleanQuestionBox(string question)
+      internal static bool ShowBooleanQuestionBox(IServiceProvider serviceProvider, string question)
       {
-         return ShowQuestionBox(question) == DialogResult.Yes;
+         return ShowQuestionBox(serviceProvider, question) == DialogResult.Yes;
       }
 
       // ReSharper disable once UnusedMember.Local
-      private void ShowMessage(string message)
+      internal static void ShowMessage(string message)
       {
          Messages.AddMessage(message);
       }
 
-      private void ShowWarning(string message)
+      internal static void ShowWarning(string message)
       {
          Messages.AddWarning(message);
       }
 
-      private void ShowStatus(string message)
+      internal static void ShowStatus(string message)
       {
          Messages.AddStatus(message);
       }
 
-      private string GetChoice(string title, IEnumerable<string> choices)
+      internal static void ShowError(IServiceProvider serviceProvider, string message)
+      {
+         Messages.AddError(message);
+         PackageUtility.ShowMessageBox(serviceProvider, 
+                                       message, 
+                                       OLEMSGBUTTON.OLEMSGBUTTON_OK, 
+                                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, 
+                                       OLEMSGICON.OLEMSGICON_CRITICAL);
+      }
+
+      internal static string GetChoice(string title, IEnumerable<string> choices)
       {
          return Messages.GetChoice(title, choices);
       }
@@ -381,16 +404,6 @@ namespace Sawczyn.EFDesigner.EFModel
          elements.OfType<IDisplaysWarning>().ToList().ForEach(e => e.ResetWarning());
 
          return elements;
-      }
-
-      private void ShowError(string message)
-      {
-         Messages.AddError(message);
-         PackageUtility.ShowMessageBox(ServiceProvider, 
-                                       message, 
-                                       OLEMSGBUTTON.OLEMSGBUTTON_OK, 
-                                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, 
-                                       OLEMSGICON.OLEMSGICON_CRITICAL);
       }
 
       /// <summary>

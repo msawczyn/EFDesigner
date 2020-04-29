@@ -396,58 +396,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="args">not used</param>
       private void OnMenuPaste(object sender, global::System.EventArgs args)
       {
-            if (!PasteShapes())
-               ProcessOnMenuPasteCommand();
-      }
-
-      private bool PasteShapes()
-      {
-         // Get prototypes from clipboard, if they exist
-         IDataObject dataObject = Clipboard.GetDataObject();
-         DslModeling.ElementGroupPrototype elementGroupPrototype = DslModeling.ElementOperations.GetElementGroupPrototype(ServiceProvider, dataObject);
-
-         if (CurrentModelingDocView is EFModelDocView efModelDocView && efModelDocView.Diagram is EFModelDiagram currentDiagram && currentDiagram?.Store != null)
-         {
-            if (elementGroupPrototype != null && currentDiagram != null)
-            {
-               DslModeling.Store store = efModelDocView.Diagram.Store;
-
-               // get matching elements from the store
-               List<DslModeling.ModelElement> modelElements = elementGroupPrototype.ProtoElements
-                                                                                   .Select(p => store.ElementDirectory.FindElement(p.ElementId))
-                                                                                   .Where(e => e != null)
-                                                                                   .ToList();
-
-               if (modelElements.Any())
-               {
-                  List<ModelClass> modelClasses = modelElements.OfType<ModelClass>().ToList();
-                  List<Comment> comments = modelElements.OfType<Comment>().ToList();
-                  List<DslModeling.ModelElement> everythingElse = modelElements.Except(modelClasses).Except(comments).ToList();
-                  List<DslDiagrams.ShapeElement> newShapes = new List<DslDiagrams.ShapeElement>();
-
-                  using (DslModeling.Transaction t = store.TransactionManager.BeginTransaction())
-                  {
-
-                     // paste classes and comments first to ensure that any possible connector end is present before the connectors arrive
-                     newShapes.AddRange(modelClasses.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
-                     newShapes.AddRange(comments.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
-                     newShapes.AddRange(everythingElse.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
-                     t.Commit();
-                  }
-
-                  using (DslModeling.Transaction t = store.TransactionManager.BeginTransaction())
-                  {
-                     Commands.LayoutDiagram(currentDiagram, newShapes);
-                     t.Commit();
-                  }
-
-                  currentDiagram.Invalidate();
-                  return true;
-               }
-            }
-         }
-
-         return false;
+         this.ProcessOnMenuPasteCommand();
       }
    }
 }

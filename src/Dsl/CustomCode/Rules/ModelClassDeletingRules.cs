@@ -33,7 +33,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                  ? $"Push {element.Name} attributes and associations down its to its subclass?"
                                  : $"Push {element.Name} attributes and associations down its to {generalizations.Count} subclasses?";
 
-            if (BooleanQuestionDisplay.Show(question) == true)
+            if (BooleanQuestionDisplay.Show(store, question) == true)
             {
                foreach (ModelClass subclass in generalizations.Select(g => g.Subclass))
                   element.PushDown(subclass);

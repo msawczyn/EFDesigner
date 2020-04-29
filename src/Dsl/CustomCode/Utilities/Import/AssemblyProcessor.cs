@@ -41,7 +41,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          catch (Exception e)
          {
-            ErrorDisplay.Show($"Error procesing assembly: {e.Message}");
+            ErrorDisplay.Show(Store, $"Error procesing assembly: {e.Message}");
          }
          finally
          {
@@ -73,7 +73,7 @@ namespace Sawczyn.EFDesigner.EFModel
                return DoProcessing(outputFilename);
          }
 
-         ErrorDisplay.Show($"Error processing assembly. See {Path.ChangeExtension(outputFilename, "log")} for further information");
+         ErrorDisplay.Show(Store, $"Error processing assembly. See {Path.ChangeExtension(outputFilename, "log")} for further information");
 
          return false;
       }

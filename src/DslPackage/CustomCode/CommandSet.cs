@@ -29,36 +29,37 @@ namespace Sawczyn.EFDesigner.EFModel
       // Designer menu items
 
       // ReSharper disable once UnusedMember.Local
-      private const int grpidEFDiagram = 0x01001;
+      private const int grpidEFDiagram         = 0x01001;
 
-      private const int cmdidFind = 0x0011;
-      private const int cmdidLayoutDiagram = 0x0012;
-      private const int cmdidHideShape = 0x0013;
-      private const int cmdidShowShape = 0x0014;
-      private const int cmdidGenerateCode = 0x0015;
+      private const int cmdidFind              = 0x0011;
+      private const int cmdidLayoutDiagram     = 0x0012;
+      private const int cmdidHideShape         = 0x0013;
+      private const int cmdidShowShape         = 0x0014;
+      private const int cmdidGenerateCode      = 0x0015;
       private const int cmdidAddCodeProperties = 0x0016;
-      private const int cmdidSaveAsImage = 0x0017;
-      private const int cmdidLoadNuGet = 0x0018;
-      private const int cmdidAddCodeValues = 0x0019;
-      private const int cmdidExpandSelected = 0x001A;
-      private const int cmdidCollapseSelected = 0x001B;
+      private const int cmdidSaveAsImage       = 0x0017;
+      private const int cmdidLoadNuGet         = 0x0018;
+      private const int cmdidAddCodeValues     = 0x0019;
+      private const int cmdidExpandSelected    = 0x001A;
+      private const int cmdidCollapseSelected  = 0x001B;
       private const int cmdidMergeAssociations = 0x001C;
-      private const int cmdidSplitAssociation = 0x001D;
-      private const int cmdidRemoveShape = 0x001E;
+      private const int cmdidSplitAssociation  = 0x001D;
+      private const int cmdidRemoveShape       = 0x001E;
 
-      private const int cmdidSelectClasses = 0x0101;
-      private const int cmdidSelectEnums = 0x0102;
-      private const int cmdidSelectAssocs = 0x0103;
-      private const int cmdidSelectUnidir = 0x0104;
-      private const int cmdidSelectBidir = 0x0105;
+      private const int cmdidSelectClasses     = 0x0101;
+      private const int cmdidSelectEnums       = 0x0102;
+      private const int cmdidSelectAssocs      = 0x0103;
+      private const int cmdidSelectUnidir      = 0x0104;
+      private const int cmdidSelectBidir       = 0x0105;
 
       // Model Explorer menu items
 
-      internal const int cmdidExpandAll = 0x00201;
-      internal const int cmdidCollapseAll = 0x00202;
+      internal const int cmdidExpandAll        = 0x0201;
+      internal const int cmdidCollapseAll      = 0x0202;
+      internal const int cmdidGoToCode         = 0x0203;
 
       internal static readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
-      internal static readonly Guid guidMenuExplorerExpandCollapse = new Guid("922EC20C-4054-4E96-8C10-2405A1F91486");
+      internal static readonly Guid guidMenuExplorerCmdSet = new Guid("922EC20C-4054-4E96-8C10-2405A1F91486");
 
       #endregion Identifiers
 
@@ -172,7 +173,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                string fullName = modelEnum.FullName.Split('.').Last();
 
-               if (BooleanQuestionDisplay.Show($"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") != true)
+               if (BooleanQuestionDisplay.Show(enumShape.Store, $"{fullName} is used as an entity property. Deleting the enumeration will remove those properties. Are you sure?") != true)
                   return;
             }
          }

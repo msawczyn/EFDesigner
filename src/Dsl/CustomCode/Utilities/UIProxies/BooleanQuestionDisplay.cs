@@ -1,4 +1,6 @@
-﻿namespace Sawczyn.EFDesigner
+﻿using System;
+
+namespace Sawczyn.EFDesigner
 {
    /// <summary>
    /// This helps keep UI interaction out of our DSL project proper. DslPackage calls RegisterDisplayHandler with a method that shows the MessageBox
@@ -6,16 +8,16 @@
    /// </summary>
    public static class BooleanQuestionDisplay
    {
-      public delegate bool QuestionVisualizer(string message);
+      public delegate bool QuestionVisualizer(IServiceProvider serviceProvider, string message);
       private static QuestionVisualizer QuestionVisualizerMethod;
 
-      public static bool? Show(string message)
+      public static bool? Show(IServiceProvider serviceProvider, string message)
       {
          if (QuestionVisualizerMethod != null)
          {
             try
             {
-               return QuestionVisualizerMethod(message);
+               return QuestionVisualizerMethod(serviceProvider, message);
             }
             catch
             {

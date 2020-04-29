@@ -67,6 +67,9 @@
             <modelClassMoniker Id="f404d58b-7fe6-40ff-a9b2-504134346522" />
           </unidirectionalAssociation>
         </unidirectionalTargets>
+        <attributes>
+          <modelAttribute Id="846aae9f-e370-49fc-9eda-8df1dd081989" type="Int32" initialValue="12" required="true" maxLength="-1" indexed="false" indexedUnique="false" stringType="None" name="abc" autoProperty="true" minLength="0" columnName="abc" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" />
+        </attributes>
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="ccd7230f-b342-4a25-90a6-6f1db7f40ff6">

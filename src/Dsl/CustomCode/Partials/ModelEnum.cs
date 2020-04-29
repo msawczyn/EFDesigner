@@ -31,6 +31,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </value>
       public string FullName => string.IsNullOrWhiteSpace(EffectiveNamespace) ? $"global::{Name}" : $"global::{EffectiveNamespace}.{Name}";
 
+      // ReSharper disable once UnusedMember.Global
       public string GetDisplayText()
       {
          return Name;
@@ -70,9 +71,14 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>The type of glyph that should be displayed</returns>
       protected string GetGlyphTypeValue()
       {
-         return ModelRoot.ShowWarningsInDesigner && GetHasWarningValue()
-                   ? "WarningGlyph"
-                   : "EnumGlyph";
+         if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
+            return "WarningGlyph";
+
+         // ReSharper disable once ConvertIfStatementToReturnStatement
+         if (!GenerateCode)
+            return "NoGenGlyph";
+
+         return "EnumGlyph";
       }
 
       #endregion
@@ -115,6 +121,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// Output location for generated code. Takes overrides into account.
       /// </summary>
       [Browsable(false)]
+      // ReSharper disable once UnusedMember.Global
       public string EffectiveOutputDirectory
       {
          get

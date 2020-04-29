@@ -66,7 +66,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (errorMessages.Any())
          {
             currentTransaction.Rollback();
-            ErrorDisplay.Show(string.Join("\n", errorMessages));
+            ErrorDisplay.Show(store, string.Join("\n", errorMessages));
          }
       }
    }

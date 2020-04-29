@@ -167,7 +167,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          catch
          {
-            ErrorDisplay.Show("Error interpreting " + filename);
+            ErrorDisplay.Show(Store, "Error interpreting " + filename);
 
             return false;
          }
@@ -471,7 +471,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (Store.GetAll<ModelClass>().Any(c => c.Name == enumName) || Store.GetAll<ModelEnum>().Any(c => c.Name == enumName))
          {
-            ErrorDisplay.Show($"'{enumName}' already exists in model.");
+            ErrorDisplay.Show(Store, $"'{enumName}' already exists in model.");
 
             // ReSharper disable once ExpressionIsAlwaysNull
             return;
@@ -658,7 +658,7 @@ namespace Sawczyn.EFDesigner.EFModel
                superClass = modelRoot.Classes.FirstOrDefault(c => c.Name == baseName);
 
                // if it's not in the model, we just don't know. Ask the user
-               if (superClass == null && (KnownClasses.Contains(baseName) || BooleanQuestionDisplay.Show($"For class {className}, is {baseName} the base class?") == true))
+               if (superClass == null && (KnownClasses.Contains(baseName) || BooleanQuestionDisplay.Show(Store, $"For class {className}, is {baseName} the base class?") == true))
                {
                   string[] nameparts = baseName.Split('.');
 
@@ -684,7 +684,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             if (className == null)
             {
-               ErrorDisplay.Show("Can't find class name");
+               ErrorDisplay.Show(Store, "Can't find class name");
 
                return false;
             }
@@ -694,14 +694,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (Store.GetAll<ModelEnum>().Any(c => c.Name == className))
             {
-               ErrorDisplay.Show($"'{className}' already exists in model as an Enum.");
+               ErrorDisplay.Show(Store, $"'{className}' already exists in model as an Enum.");
 
                return false;
             }
 
             if (classDecl.TypeParameterList != null)
             {
-               ErrorDisplay.Show($"Can't add generic class '{className}'.");
+               ErrorDisplay.Show(Store, $"Can't add generic class '{className}'.");
 
                return false;
             }
