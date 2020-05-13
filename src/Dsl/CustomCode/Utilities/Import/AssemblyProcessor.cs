@@ -26,8 +26,10 @@ namespace Sawczyn.EFDesigner.EFModel
          Store = store;
       }
 
-      private bool DoProcessing(string outputFilename)
+      private bool DoProcessing(string outputFilename, out List<ModelElement> newElements)
       {
+         newElements = new List<ModelElement>();
+
          try
          {
             using (StreamReader sr = new StreamReader(outputFilename))
@@ -35,7 +37,7 @@ namespace Sawczyn.EFDesigner.EFModel
                string json = sr.ReadToEnd();
                ParsingModels.ModelRoot rootData = JsonConvert.DeserializeObject<ParsingModels.ModelRoot>(json);
 
-               ProcessRootData(rootData);
+               newElements = ProcessRootData(rootData);
                return true;
             }
          }
@@ -52,11 +54,12 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 
-      public bool Process(string filename)
+      public bool Process(string filename, out List<ModelElement> newElements)
       {
          if (filename == null)
             throw new ArgumentNullException(nameof(filename));
 
+         newElements = new List<ModelElement>();
          string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
          StatusDisplay.Show("Detecting .NET and EF versions");
 
@@ -70,7 +73,7 @@ namespace Sawczyn.EFDesigner.EFModel
          foreach (string path in paths)
          {
             if (TryParseAssembly(filename, path, outputFilename) == 0)
-               return DoProcessing(outputFilename);
+               return DoProcessing(outputFilename, out newElements);
          }
 
          ErrorDisplay.Show(Store, $"Error processing assembly. See {Path.ChangeExtension(outputFilename, "log")} for further information");
@@ -80,30 +83,35 @@ namespace Sawczyn.EFDesigner.EFModel
 
 #region ModelRoot
 
-      private void ProcessRootData(ParsingModels.ModelRoot rootData)
+      private List<ModelElement> ProcessRootData(ParsingModels.ModelRoot rootData)
       {
+         List<ModelElement> result = new List<ModelElement>();
          ModelRoot modelRoot = Store.ModelRoot();
 
          modelRoot.EntityContainerName = rootData.EntityContainerName;
          modelRoot.Namespace = rootData.Namespace;
 
-         ProcessClasses(modelRoot, rootData.Classes);
-         ProcessEnumerations(modelRoot, rootData.Enumerations);
+         result.AddRange(ProcessClasses(modelRoot, rootData.Classes));
+         result.AddRange(ProcessEnumerations(modelRoot, rootData.Enumerations));
 
          foreach (Association association in modelRoot.Store.GetAll<Association>())
          {
             AssociationChangedRules.SetEndpointRoles(association);
             AssociationChangedRules.FixupForeignKeys(association);
          }
+
+         return result;
       }
 
       #endregion
 
       #region Classes
 
-      private void ProcessClasses(ModelRoot modelRoot, List<ParsingModels.ModelClass> classDataList)
+      private List<ModelElement> ProcessClasses(ModelRoot modelRoot, List<ParsingModels.ModelClass> classDataList)
       {
+         List<ModelElement> result = new List<ModelElement>();
          RemoveDuplicateBidirectionalAssociations(classDataList);
+         Dictionary<string, List<ModelClass>> baseClasses = new Dictionary<string, List<ModelClass>>();
 
          foreach (ParsingModels.ModelClass data in classDataList)
          {
@@ -119,11 +127,11 @@ namespace Sawczyn.EFDesigner.EFModel
                                         new PropertyAssignment(ModelClass.CustomAttributesDomainPropertyId, data.CustomAttributes),
                                         new PropertyAssignment(ModelClass.CustomInterfacesDomainPropertyId, data.CustomInterfaces),
                                         new PropertyAssignment(ModelClass.IsAbstractDomainPropertyId, data.IsAbstract),
-                                        new PropertyAssignment(ModelClass.BaseClassDomainPropertyId, data.BaseClass),
                                         new PropertyAssignment(ModelClass.TableNameDomainPropertyId, data.TableName),
                                         new PropertyAssignment(ModelClass.IsDependentTypeDomainPropertyId, data.IsDependentType));
 
                modelRoot.Classes.Add(element);
+               result.Add(element);
             }
             else
             {
@@ -132,14 +140,44 @@ namespace Sawczyn.EFDesigner.EFModel
                element.CustomAttributes = data.CustomAttributes;
                element.CustomInterfaces = data.CustomInterfaces;
                element.IsAbstract = data.IsAbstract;
-               element.BaseClass = data.BaseClass;
                element.TableName = data.TableName;
                element.IsDependentType = data.IsDependentType;
+            }
+
+            // if base class exists and isn't in the list yet, we can't hook it up to this class
+            // so we'll defer base class linkage for all classes until we're sure they're all in the model
+            if (!string.IsNullOrEmpty(data.BaseClass))
+            {
+               if (!baseClasses.ContainsKey(data.BaseClass))
+                  baseClasses.Add(data.BaseClass, new List<ModelClass>());
+               baseClasses[data.BaseClass].Add(element);
             }
 
             ProcessProperties(element, data.Properties);
          }
 
+         // now we can fixup the generalization links
+         foreach (string baseClassName in baseClasses.Keys)
+         {
+            foreach (ModelClass subClass in baseClasses[baseClassName])
+            {
+               ModelClass superClass = modelRoot.Classes.FirstOrDefault(s => s.Name == baseClassName);
+
+               if (superClass == null)
+               {
+                  // we couldn't find the superclass, so we'll assume it's external to this assembly
+                  superClass = new ModelClass(Store,
+                                              new PropertyAssignment(ModelClass.NameDomainPropertyId, subClass.BaseClass),
+                                              new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, subClass.Namespace),
+                                              new PropertyAssignment(ModelClass.GenerateCodeDomainPropertyId, false));
+                  modelRoot.Classes.Add(superClass);
+               }
+               else
+                  subClass.Superclass = superClass;
+
+               subClass.BaseClass = baseClassName;
+            }
+         }
 
          // classes are all created, so we can work the associations
          foreach (ParsingModels.ModelClass data in classDataList)
@@ -147,6 +185,8 @@ namespace Sawczyn.EFDesigner.EFModel
             ProcessUnidirectionalAssociations(data);
             ProcessBidirectionalAssociations(data);
          }
+
+         return result;
       }
 
       private static void RemoveDuplicateBidirectionalAssociations(List<ParsingModels.ModelClass> classDataList)
@@ -333,8 +373,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region Enumerations
 
-      private void ProcessEnumerations(ModelRoot modelRoot, List<ParsingModels.ModelEnum> enumDataList)
+      private List<ModelElement> ProcessEnumerations(ModelRoot modelRoot, List<ParsingModels.ModelEnum> enumDataList)
       {
+         List<ModelElement> result = new List<ModelElement>();
+
          foreach (ParsingModels.ModelEnum data in enumDataList)
          {
             StatusDisplay.Show($"Processing {data.FullName}");
@@ -348,6 +390,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                        new PropertyAssignment(ModelEnum.CustomAttributesDomainPropertyId, data.CustomAttributes),
                                        new PropertyAssignment(ModelEnum.IsFlagsDomainPropertyId, data.IsFlags));
                modelRoot.Enums.Add(element);
+               result.Add(element);
             }
             else
             {
@@ -362,6 +405,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
             ProcessEnumerationValues(element, data.Values);
          }
+
+         return result;
       }
 
       private void ProcessEnumerationValues(ModelEnum modelEnum, List<ParsingModels.ModelEnumValue> enumValueList)

@@ -19,37 +19,13 @@ namespace Sawczyn.EFDesigner.EFModel
       public const int CANNOT_FIND_APPROPRIATE_CONSTRUCTOR = 5;
       public const int AMBIGUOUS_REQUEST = 6;
 
-      public static void HandleDrop(Store store, string filename)
+      public static IEnumerable<ModelElement> HandleMultiDrop(Store store, IEnumerable<string> filenames)
       {
-         if (store == null || filename == null)
-            return;
-
-         try
-         {
-            StatusDisplay.Show($"Reading {filename}");
-
-            AssemblyProcessor assemblyProcessor = new AssemblyProcessor(store);
-            TextFileProcessor textFileProcessor = new TextFileProcessor(store);
-            textFileProcessor.LoadCache(filename);
-
-            Process(store, filename, assemblyProcessor, textFileProcessor);
-         }
-         catch (Exception e)
-         {
-            ErrorDisplay.Show(store, e.Message);
-         }
-         finally
-         {
-            StatusDisplay.Show(string.Empty);
-         }
-      }
-
-      public static void HandleMultiDrop(Store store, IEnumerable<string> filenames)
-      {
+         List<ModelElement> newElements = new List<ModelElement>();
          List<string> filenameList = filenames?.ToList();
 
          if (store == null || filenameList == null)
-            return;
+            return newElements;
 
          try
          {
@@ -69,7 +45,7 @@ namespace Sawczyn.EFDesigner.EFModel
             }
 
             foreach (string filename in filenameList)
-               Process(store, filename, assemblyProcessor, textFileProcessor);
+               newElements.AddRange(Process(store, filename, assemblyProcessor, textFileProcessor));
          }
          catch (Exception e)
          {
@@ -79,6 +55,8 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             StatusDisplay.Show(string.Empty);
          }
+
+         return newElements;
       }
 
       private static bool IsAssembly(string filename)
@@ -95,45 +73,40 @@ namespace Sawczyn.EFDesigner.EFModel
          return true;
       }
 
-      private static void Process(Store store, string filename, AssemblyProcessor assemblyProcessor, TextFileProcessor textFileProcessor)
+      private static IEnumerable<ModelElement> Process(Store store, string filename, AssemblyProcessor assemblyProcessor, TextFileProcessor textFileProcessor)
       {
+         List<ModelElement> newElements;
+         Cursor prev = Cursor.Current;
+
          try
          {
             Cursor.Current = Cursors.WaitCursor;
             ModelRoot.BatchUpdating = true;
 
-            if (IsAssembly(filename))
+            using (Transaction tx = store.TransactionManager.BeginTransaction("Process drop"))
             {
-               using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped assembly"))
-               {
-                  if (assemblyProcessor.Process(filename))
-                  {
-                     StatusDisplay.Show("Creating diagram elements. This might take a while...");
-                     tx.Commit();
+               bool processingResult = IsAssembly(filename)
+                                          ? assemblyProcessor.Process(filename, out newElements)
+                                          : textFileProcessor.Process(filename, out newElements);
 
-                     ModelDisplay.LayoutDiagram(store.ModelRoot().GetActiveDiagram() as EFModelDiagram);
-                  }
-               }
-            }
-            else
-            {
-               using (Transaction tx = store.TransactionManager.BeginTransaction("Process dropped class"))
+               if (processingResult)
                {
-                  if (textFileProcessor.Process(filename))
-                  {
-                     StatusDisplay.Show("Creating diagram elements. This might take a while...");
-                     tx.Commit();
-                  }
+                  StatusDisplay.Show("Creating diagram elements. This might take a while...");
+                  tx.Commit();
                }
+               else
+                  newElements = new List<ModelElement>();
             }
          }
          finally
          {
-            Cursor.Current = Cursors.Default;
+            Cursor.Current = prev;
             ModelRoot.BatchUpdating = false;
 
             StatusDisplay.Show("");
          }
+
+         return newElements;
       }
    }
 }

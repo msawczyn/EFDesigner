@@ -424,5 +424,34 @@ namespace Sawczyn.EFDesigner.EFModel
          IsTargetImplementNotifyTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
+
+      internal sealed partial class SourceMultiplicityPropertyHandler
+      {
+         /// <summary>Called after property value has been changed.</summary>
+         /// <param name="element">Element which owns the property.</param>
+         /// <param name="oldValue">Old value of the property.</param>
+         /// <param name="newValue">New value of the property.</param>
+         protected override void OnValueChanged(Association element, Multiplicity oldValue, Multiplicity newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback)
+               element.Store.DomainDataDirectory. GetDomainProperty(SourceMultiplicityDisplayDomainPropertyId) .NotifyValueChange(element);
+         }
+      }
+
+      internal sealed partial class TargetMultiplicityPropertyHandler
+      {
+         /// <summary>Called after property value has been changed.</summary>
+         /// <param name="element">Element which owns the property.</param>
+         /// <param name="oldValue">Old value of the property.</param>
+         /// <param name="newValue">New value of the property.</param>
+         protected override void OnValueChanged(Association element, Multiplicity oldValue, Multiplicity newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback)
+               element.Store.DomainDataDirectory. GetDomainProperty(TargetMultiplicityDisplayDomainPropertyId) .NotifyValueChange(element);
+         }
+      }
+
    }
 }

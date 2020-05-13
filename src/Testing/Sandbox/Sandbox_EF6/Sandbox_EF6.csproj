@@ -41,20 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EFModel1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFModel1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EFModel11.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFModel1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Generated\Context\Context.generated.cs" />
-    <Compile Include="Generated\Context\ContextDatabaseInitializer.generated.cs" />
-    <Compile Include="Generated\Context\ContextDbMigrationConfiguration.generated.cs" />
-    <Compile Include="Generated\Entities\Entity1.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +70,7 @@
     <Content Include="Custom\Structs\Placeholder.txt" />
     <Content Include="EFModel1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EFModel11.cs</LastGenOutput>
+      <LastGenOutput>EFModel1.cs</LastGenOutput>
     </Content>
     <Content Include="Generated\Context\Placeholder.txt" />
     <Content Include="Generated\Entities\Placeholder.txt" />

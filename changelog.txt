@@ -4,6 +4,7 @@
    - Fix: Self-associations didn't appear when existing class is added to new diagram from the Model Explorer
    - Fix: Diagram no longer loses focus after its saved
    - Fix: Errors when copy/paste between diagrams in same model
+   - Fix: Generalization links weren't being handled property when reverse engineering a compiled assembly
 
 2.0.2
    - Added count of elements in model explorer tree

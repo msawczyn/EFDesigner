@@ -154,7 +154,7 @@ namespace Sawczyn.EFDesigner.EFModel
                case "SourcePropertyName":
                   string sourcePropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
 
-                  if (EFModelDiagram.IsDropping && sourcePropertyNameErrorMessage != null)
+                  if (EFModelDiagram.IsDroppingExternal && sourcePropertyNameErrorMessage != null)
                      element.Delete();
                   else
                      errorMessages.Add(sourcePropertyNameErrorMessage);
@@ -244,7 +244,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                   string targetPropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
 
-                  if (EFModelDiagram.IsDropping && targetPropertyNameErrorMessage != null)
+                  if (EFModelDiagram.IsDroppingExternal && targetPropertyNameErrorMessage != null)
                      element.Delete();
                   else
                      errorMessages.Add(targetPropertyNameErrorMessage);
@@ -339,7 +339,9 @@ namespace Sawczyn.EFDesigner.EFModel
          // if no FKs, remove all the attributes for this element
          if (string.IsNullOrEmpty(element.FKPropertyName) || element.Dependent == null)
          {
-            WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
+            if (fkProperties.Any())
+               WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
+
             foreach (ModelAttribute attribute in fkProperties)
             {
                attribute.ClearFKMods(string.Empty);

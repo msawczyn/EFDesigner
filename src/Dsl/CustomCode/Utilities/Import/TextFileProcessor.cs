@@ -100,10 +100,12 @@ namespace Sawczyn.EFDesigner.EFModel
          return new List<string>();
       }
 
-      public bool Process(string filename)
+      public bool Process(string filename, out List<ModelElement> newElements)
       {
          if (string.IsNullOrEmpty(filename))
             throw new ArgumentNullException(nameof(filename));
+
+         newElements = new List<ModelElement>();
 
          try
          {
@@ -127,15 +129,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
                // keep this order: enums, classes, class properties
 
-               foreach (EnumDeclarationSyntax enumDecl in enumDecls)
-                  ProcessEnum(enumDecl);
+               newElements.AddRange(enumDecls.Select(d => ProcessEnum(d)).Where(e=> e != null));
 
                List<ModelClass> processedClasses = new List<ModelClass>();
                List<ClassDeclarationSyntax> badClasses = new List<ClassDeclarationSyntax>();
 
                foreach (ClassDeclarationSyntax classDecl in classDecls)
                {
-                  ModelClass modelClass = ProcessClass(classDecl);
+                  ModelClass modelClass = ProcessClass(classDecl, newElements);
+
                   if (modelClass == null)
                      badClasses.Add(classDecl);
                   else
@@ -180,11 +182,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (classDecl == null)
             throw new ArgumentNullException(nameof(classDecl));
 
-         Transaction tx = Store.TransactionManager.CurrentTransaction == null
-                             ? Store.TransactionManager.BeginTransaction()
-                             : null;
-
-         try
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("processing properties"))
          {
             string className = classDecl.Identifier.Text;
             ModelRoot modelRoot = Store.ModelRoot();
@@ -203,7 +201,8 @@ namespace Sawczyn.EFDesigner.EFModel
                AccessorDeclarationSyntax setAccessor = (AccessorDeclarationSyntax)propertyDecl.DescendantNodes().FirstOrDefault(node => node.IsKind(SyntaxKind.SetAccessorDeclaration));
 
                // if there's no getAccessor, why are we bothering?
-               if (getAccessor == null) continue;
+               if (getAccessor == null)
+                  continue;
 
                string propertyName = propertyDecl.Identifier.ToString();
                string propertyType = propertyDecl.Type.ToString();
@@ -214,7 +213,13 @@ namespace Sawczyn.EFDesigner.EFModel
                // TODO: this really isn't a good assumption. Fix later
                if (propertyDecl.ChildNodes().OfType<GenericNameSyntax>().Any())
                {
-                  ProcessAsList(propertyDecl, className, propertyName, propertyType, modelRoot, modelClass);
+                  ProcessAsList(propertyDecl
+                              , className
+                              , propertyName
+                              , propertyType
+                              , modelRoot
+                              , modelClass);
+
                   continue;
                }
 
@@ -222,14 +227,14 @@ namespace Sawczyn.EFDesigner.EFModel
                if (target != null)
                {
                   ProcessAssociation(modelClass, target, propertyDecl);
+
                   continue;
                }
 
                bool propertyShowsNullable = propertyDecl.DescendantNodes().OfType<NullableTypeSyntax>().Any();
 
                // is the property type something we don't know about?
-               if (!modelRoot.IsValidCLRType(propertyType) &&
-                   ProcessUnknownType(propertyType, propertyShowsNullable, modelRoot, modelClass, propertyDecl))
+               if (!modelRoot.IsValidCLRType(propertyType) && ProcessUnknownType(propertyType, propertyShowsNullable, modelRoot, modelClass, propertyDecl))
                   continue;
 
                // if we're here, it's just a property (CLR or enum)
@@ -237,13 +242,13 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   // ReSharper disable once UseObjectOrCollectionInitializer
                   ModelAttribute modelAttribute = new ModelAttribute(Store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName))
-                  {
-                     Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?'),
-                     Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyShowsNullable,
-                     Indexed = propertyDecl.HasAttribute("IndexedAttribute"),
-                     IsIdentity = propertyDecl.HasAttribute("KeyAttribute"),
-                     Virtual = propertyDecl.DescendantTokens().Any(t => t.IsKind(SyntaxKind.VirtualKeyword))
-                  };
+                                                  {
+                                                     Type = ModelAttribute.ToCLRType(propertyDecl.Type.ToString()).Trim('?')
+                                                   , Required = propertyDecl.HasAttribute("RequiredAttribute") || !propertyShowsNullable
+                                                   , Indexed = propertyDecl.HasAttribute("IndexedAttribute")
+                                                   , IsIdentity = propertyDecl.HasAttribute("KeyAttribute")
+                                                   , Virtual = propertyDecl.DescendantTokens().Any(t => t.IsKind(SyntaxKind.VirtualKeyword))
+                                                  };
 
                   if (modelAttribute.Type.ToLower() == "string")
                   {
@@ -251,13 +256,17 @@ namespace Sawczyn.EFDesigner.EFModel
                      AttributeArgumentSyntax maxLength = maxLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (maxLength != null)
-                        modelAttribute.MaxLength = int.TryParse(maxLength.Expression.ToString(), out int _max) ? (int?)_max : null;
+                        modelAttribute.MaxLength = int.TryParse(maxLength.Expression.ToString(), out int _max)
+                                                      ? (int?)_max
+                                                      : null;
 
                      AttributeSyntax minLengthAttribute = propertyDecl.GetAttribute("MinLengthAttribute");
                      AttributeArgumentSyntax minLength = minLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (minLength != null)
-                        modelAttribute.MinLength = int.TryParse(minLength.Expression.ToString(), out int _min) ? _min : 0;
+                        modelAttribute.MinLength = int.TryParse(minLength.Expression.ToString(), out int _min)
+                                                      ? _min
+                                                      : 0;
                   }
                   else
                   {
@@ -272,7 +281,8 @@ namespace Sawczyn.EFDesigner.EFModel
                      modelAttribute.ReadOnly = true;
                   }
 
-                  modelAttribute.AutoProperty = !getAccessor.DescendantNodes().Any(node => node.IsKind(SyntaxKind.Block)) && !setAccessor.DescendantNodes().Any(node => node.IsKind(SyntaxKind.Block));
+                  modelAttribute.AutoProperty = !getAccessor.DescendantNodes().Any(node => node.IsKind(SyntaxKind.Block))
+                                             && !setAccessor.DescendantNodes().Any(node => node.IsKind(SyntaxKind.Block));
 
                   modelAttribute.SetterVisibility = setAccessor.Modifiers.Any(m => m.ToString() == "protected")
                                                        ? SetterAccessModifier.Protected
@@ -287,6 +297,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      modelAttribute.ColumnName = columnAttribute.GetAttributeArguments().First().Expression.ToString().Trim('"');
 
                      string columnType = columnAttribute.GetNamedArgumentValue("TypeName");
+
                      if (columnType != null)
                         modelAttribute.ColumnType = columnType;
                   }
@@ -302,16 +313,8 @@ namespace Sawczyn.EFDesigner.EFModel
                   WarningDisplay.Show($"Could not parse '{className}.{propertyDecl.Identifier}'.");
                }
             }
-         }
-         catch
-         {
-            tx = null;
 
-            throw;
-         }
-         finally
-         {
-            tx?.Commit();
+            tx.Commit();
          }
 
          void ProcessAsList(PropertyDeclarationSyntax propertyDecl, string className, string propertyName, string propertyType, ModelRoot modelRoot, ModelClass modelClass)
@@ -367,11 +370,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (propertyDecl == null)
             throw new ArgumentNullException(nameof(propertyDecl));
 
-         Transaction tx = Store.TransactionManager.CurrentTransaction == null
-                             ? Store.TransactionManager.BeginTransaction()
-                             : null;
-
-         try
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("processing associations"))
          {
             string propertyName = propertyDecl.Identifier.ToString();
 
@@ -442,21 +441,12 @@ namespace Sawczyn.EFDesigner.EFModel
                   AssociationChangedRules.SetEndpointRoles(element);
                }
             }
-         }
-         catch
-         {
-            tx.Rollback();
-            tx = null;
 
-            throw;
-         }
-         finally
-         {
-            tx?.Commit();
+            tx.Commit();
          }
       }
 
-      private void ProcessEnum([NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      private ModelEnum ProcessEnum([NotNull] EnumDeclarationSyntax enumDecl, NamespaceDeclarationSyntax namespaceDecl = null)
       {
          if (enumDecl == null)
             throw new ArgumentNullException(nameof(enumDecl));
@@ -467,27 +457,25 @@ namespace Sawczyn.EFDesigner.EFModel
          if (namespaceDecl == null && enumDecl.Parent is NamespaceDeclarationSyntax enumDeclParent)
             namespaceDecl = enumDeclParent;
 
-         string namespaceName = namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace;
+         string namespaceName = namespaceDecl?.Name.ToString() ?? modelRoot.Namespace;
 
          if (Store.GetAll<ModelClass>().Any(c => c.Name == enumName) || Store.GetAll<ModelEnum>().Any(c => c.Name == enumName))
          {
             ErrorDisplay.Show(Store, $"'{enumName}' already exists in model.");
 
             // ReSharper disable once ExpressionIsAlwaysNull
-            return;
+            return null;
          }
 
-         Transaction tx = Store.TransactionManager.CurrentTransaction == null
-                             ? Store.TransactionManager.BeginTransaction()
-                             : null;
+         ModelEnum result;
 
-         try
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("processing enumerations"))
          {
-            ModelEnum result = new ModelEnum(Store
-                                           , new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName)
-                                           , new PropertyAssignment(ModelEnum.NamespaceDomainPropertyId, namespaceName)
-                                           , new PropertyAssignment(ModelEnum.IsFlagsDomainPropertyId, enumDecl.HasAttribute("Flags")));
-
+            result = new ModelEnum(Store
+                                 , new PropertyAssignment(ModelEnum.NameDomainPropertyId, enumName)
+                                 , new PropertyAssignment(ModelEnum.NamespaceDomainPropertyId, namespaceName)
+                                 , new PropertyAssignment(ModelEnum.IsFlagsDomainPropertyId, enumDecl.HasAttribute("Flags")));
+            
             SimpleBaseTypeSyntax baseTypeSyntax = enumDecl.DescendantNodes().OfType<SimpleBaseTypeSyntax>().FirstOrDefault();
 
             if (baseTypeSyntax != null)
@@ -538,20 +526,13 @@ namespace Sawczyn.EFDesigner.EFModel
             result.Description = xmlDocumentation.Description;
 
             modelRoot.Enums.Add(result);
+            tx.Commit();
          }
-         catch
-         {
-            tx = null;
 
-            throw;
-         }
-         finally
-         {
-            tx?.Commit();
-         }
+         return result;
       }
 
-      private ModelClass ProcessClass([NotNull] ClassDeclarationSyntax classDecl, NamespaceDeclarationSyntax namespaceDecl = null)
+      private ModelClass ProcessClass([NotNull] ClassDeclarationSyntax classDecl, List<ModelElement> newElements, NamespaceDeclarationSyntax namespaceDecl = null)
       {
          ModelClass result;
 
@@ -577,9 +558,10 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                result = new ModelClass(Store
                                      , new PropertyAssignment(ModelClass.NameDomainPropertyId, className)
-                                     , new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, namespaceDecl?.Name?.ToString() ?? modelRoot.Namespace)
+                                     , new PropertyAssignment(ModelClass.NamespaceDomainPropertyId, namespaceDecl?.Name.ToString() ?? modelRoot.Namespace)
                                      , new PropertyAssignment(ModelClass.IsAbstractDomainPropertyId, classDecl.DescendantNodes().Any(n => n.Kind() == SyntaxKind.AbstractKeyword)));
 
+               newElements.Add(result);
                modelRoot.Classes.Add(result);
             }
 

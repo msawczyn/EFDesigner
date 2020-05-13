@@ -202,6 +202,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          ErrorDisplay.RegisterDisplayHandler(ShowError);
          WarningDisplay.RegisterDisplayHandler(ShowWarning);
+         MessageDisplay.RegisterDisplayHandler(ShowMessage);
          BooleanQuestionDisplay.RegisterDisplayHandler(ShowBooleanQuestionBox);
          StatusDisplay.RegisterDisplayHandler(ShowStatus);
          ChoiceDisplay.RegisterDisplayHandler(GetChoice);

@@ -55,16 +55,11 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       internal static void LayoutDiagram(EFModelDiagram diagram)
       {
-         try
+         using (WaitCursor w = new WaitCursor())
          {
-            Cursor.Current = Cursors.WaitCursor;
             IEnumerable<ShapeElement> shapeElements = diagram.NestedChildShapes.Where(s => s.IsVisible);
 
             LayoutDiagram(diagram, shapeElements);
-         }
-         finally
-         {
-            Cursor.Current = Cursors.Default;
          }
       }
 

@@ -187,6 +187,8 @@
     <Compile Include="CustomCode\Utilities\Import\XMLDocumentation.cs" />
     <Compile Include="CustomCode\Domain Types\OutputLocations.cs" />
     <Compile Include="CustomCode\Utilities\PropertyDefaults.cs" />
+    <Compile Include="CustomCode\Utilities\SafeTransaction.cs" />
+    <Compile Include="CustomCode\Utilities\UIProxies\MessageDisplay.cs" />
     <Compile Include="CustomCode\Utilities\UIProxies\ModelDisplay.cs" />
     <Compile Include="CustomCode\Utilities\ModelMigration.cs" />
     <Compile Include="CustomCode\Utilities\Nuget\NuGetHelper.cs" />

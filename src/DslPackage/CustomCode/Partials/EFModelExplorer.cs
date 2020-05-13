@@ -157,17 +157,12 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ThreadHelper.Generic.BeginInvoke(() =>
                                           {
-                                             try
+                                             using (WaitCursor w = new WaitCursor())
                                              {
-                                                Cursor.Current = Cursors.WaitCursor;
                                                 ObjectModelBrowser.BeginUpdate();
                                                 RefreshBrowserView();
                                                 ObjectModelBrowser.CollapseAll();
                                                 ObjectModelBrowser.EndUpdate();
-                                             }
-                                             finally
-                                             {
-                                                Cursor.Current = Cursors.Default;
                                              }
                                           });
       }
@@ -234,18 +229,13 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                ThreadHelper.Generic.BeginInvoke(() =>
                                                 {
-                                                   try
+                                                   using (WaitCursor w = new WaitCursor())
                                                    {
-                                                      Cursor.Current = Cursors.WaitCursor;
                                                       treeView.SelectedNode = null;
                                                       treeView.BeginUpdate();
                                                       modelExplorer.RefreshBrowserView();
                                                       treeView.CollapseAll();
                                                       treeView.EndUpdate();
-                                                   }
-                                                   finally
-                                                   {
-                                                      Cursor.Current = Cursors.Default;
                                                    }
                                                 });
             }
@@ -253,18 +243,13 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                ThreadHelper.Generic.BeginInvoke(() =>
                                                 {
-                                                   try
+                                                   using (WaitCursor w = new WaitCursor())
                                                    {
-                                                      Cursor.Current = Cursors.WaitCursor;
                                                       treeView.SelectedNode = null;
                                                       treeView.BeginUpdate();
                                                       modelExplorer.RefreshBrowserView();
                                                       PerformSearch(treeView);
                                                       treeView.EndUpdate();
-                                                   }
-                                                   finally
-                                                   {
-                                                      Cursor.Current = Cursors.Default;
                                                    }
                                                 });
             }
@@ -581,7 +566,7 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <returns>The text for the node</returns>
          protected override string ProvideNodeText()
          {
-            return $"{displayTextBase} ({Nodes.Count})";
+            return $"{displayTextBase} ({Nodes.Cast<ExplorerTreeNode>().Count(n => !n.RepresentedElement.IsDeleted)})";
          }
       }
 
