@@ -336,6 +336,12 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                       .Union(element.Target.Attributes.Where(x => x.IsForeignKeyFor == element.Id))
                                                                       .ToList();
 
+         // EF6 can't have declared foreign keys for 1..1 / 0-1..1 / 1..0-1 / 0-1..0-1 relationships
+         if (element.Source.ModelRoot.EntityFrameworkVersion == EFVersion.EF6
+          && element.SourceMultiplicity != Multiplicity.ZeroMany
+          && element.TargetMultiplicity != Multiplicity.ZeroMany)
+            element.FKPropertyName = null;
+
          // if no FKs, remove all the attributes for this element
          if (string.IsNullOrEmpty(element.FKPropertyName) || element.Dependent == null)
          {

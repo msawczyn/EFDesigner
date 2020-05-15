@@ -32,6 +32,12 @@ namespace Sawczyn.EFDesigner.EFModel
              || (association.SourceRole != EndpointRole.Dependent && association.TargetRole != EndpointRole.Dependent))
                propertyDescriptors.Remove("FKPropertyName");
 
+            // EF6 can't have declared foreign keys for 1..1 / 0-1..1 / 1..0-1 / 0-1..0-1 relationships
+            if (association.Source.ModelRoot.EntityFrameworkVersion == EFVersion.EF6
+             && association.SourceMultiplicity != Multiplicity.ZeroMany
+             && association.TargetMultiplicity != Multiplicity.ZeroMany)
+               propertyDescriptors.Remove("FKPropertyName");
+            
             // only display roles for 1..1 and 0-1..0-1 associations
             if ((association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One)
              && (association.SourceMultiplicity != Multiplicity.ZeroOne || association.TargetMultiplicity != Multiplicity.ZeroOne))
