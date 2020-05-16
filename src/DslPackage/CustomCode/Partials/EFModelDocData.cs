@@ -221,18 +221,18 @@ namespace Sawczyn.EFDesigner.EFModel
          // set to the project's namespace if no namespace set
          if (string.IsNullOrEmpty(modelRoot.Namespace))
          {
-            using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("SetDefaultNamespace"))
+            using (Transaction tx = Store.TransactionManager.BeginTransaction("SetDefaultNamespace"))
             {
                modelRoot.Namespace = ActiveProject.Properties.Item("DefaultNamespace")?.Value as string;
                tx.Commit();
             }
          }
 
-         ReadOnlyCollection<Association> associations = modelRoot.Store.ElementDirectory.FindElements<Association>();
+         ReadOnlyCollection<Association> associations = Store.ElementDirectory.FindElements<Association>();
 
          if (associations.Any())
          {
-            using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("StyleConnectors"))
+            using (Transaction tx = Store.TransactionManager.BeginTransaction("StyleConnectors"))
             {
                // style association connectors if needed
                foreach (Association association in associations)
@@ -245,21 +245,40 @@ namespace Sawczyn.EFDesigner.EFModel
 
                tx.Commit();
             }
+
+            // in prior versions, we accidentally allowed EF6 1-1 associations to have defined foreign keys
+            // but EF6 doesn't support that. Fix that now.
+            if (modelRoot.EntityFrameworkVersion == EFVersion.EF6)
+            {
+               using (Transaction tx = Store.TransactionManager.BeginTransaction())
+               {
+                  Store.ElementDirectory
+                       .AllElements
+                       .OfType<Association>()
+                       .Where(a => a.SourceMultiplicity != Multiplicity.ZeroMany
+                                && a.TargetMultiplicity != Multiplicity.ZeroMany
+                                && !string.IsNullOrEmpty(a.FKPropertyName))
+                       .ToList()
+                       .ForEach(a => a.FKPropertyName = null);
+
+                  tx.Commit();
+               }
+            }
+
+
          }
 
-         List<GeneralizationConnector> generalizationConnectors = modelRoot.Store
-                                                                           .ElementDirectory
-                                                                           .FindElements<GeneralizationConnector>()
-                                                                           .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
+         List<GeneralizationConnector> generalizationConnectors = Store.ElementDirectory
+                                                                       .FindElements<GeneralizationConnector>()
+                                                                       .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
 
-         List<AssociationConnector> associationConnectors = modelRoot.Store
-                                                                     .ElementDirectory
-                                                                     .FindElements<AssociationConnector>()
-                                                                     .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
+         List<AssociationConnector> associationConnectors = Store.ElementDirectory
+                                                                 .FindElements<AssociationConnector>()
+                                                                 .Where(x => !x.FromShape.IsVisible || !x.ToShape.IsVisible).ToList();
 
          if (generalizationConnectors.Any() || associationConnectors.Any())
          {
-            using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("HideConnectors"))
+            using (Transaction tx = Store.TransactionManager.BeginTransaction("HideConnectors"))
             {
                // hide any connectors that shouldn't be visible because their nodes are hidden
                foreach (GeneralizationConnector connector in generalizationConnectors)
@@ -272,15 +291,15 @@ namespace Sawczyn.EFDesigner.EFModel
             }
          }
 
-         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("SetClassVisuals"))
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("SetClassVisuals"))
          {
-            foreach (ModelClass modelClass in modelRoot.Store.ElementDirectory.FindElements<ModelClass>())
+            foreach (ModelClass modelClass in Store.ElementDirectory.FindElements<ModelClass>())
                PresentationHelper.UpdateClassDisplay(modelClass);
 
             tx.Commit();
          }
 
-         using (Transaction tx = modelRoot.Store.TransactionManager.BeginTransaction("ValidateOnChanges"))
+         using (Transaction tx = Store.TransactionManager.BeginTransaction("ValidateOnChanges"))
          {
             // validate classes that show warnings, so that we can change glyphs accordingly
             List<DomainClassInfo> classesWithWarnings = Store.ElementDirectory

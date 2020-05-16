@@ -52,6 +52,26 @@ namespace Sawczyn.EFDesigner.EFModel
                if (element.EntityFrameworkVersion == EFVersion.EFCore)
                   element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
 
+               if (element.EntityFrameworkVersion == EFVersion.EF6)
+               {
+                  List<Association> associations = store.ElementDirectory
+                                                        .AllElements
+                                                        .OfType<Association>()
+                                                        .Where(a => !string.IsNullOrEmpty(a.FKPropertyName) && a.SourceMultiplicity != Multiplicity.ZeroMany && a.TargetMultiplicity != Multiplicity.ZeroMany)
+                                                        .ToList();
+
+                  string message = $"This will remove declared foreign key properties from {associations.Count} association{(associations.Count == 1 ? "" : "s")}. Are you sure?";
+
+                  if (associations.Any() && BooleanQuestionDisplay.Show(store, message) == true)
+                  {
+                     foreach (Association association in associations)
+                     {
+                        association.FKPropertyName = null;
+                        AssociationChangedRules.FixupForeignKeys(association);
+                     }
+                  }
+               }
+
                ModelRoot.ExecuteValidator?.Invoke();
 
                break;
@@ -79,7 +99,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   foreach (Association association in element.Store.GetAll<Association>()
                                                              .Where(a => (a.SourceRole == EndpointRole.Dependent || a.TargetRole == EndpointRole.Dependent)
                                                                       && !string.IsNullOrWhiteSpace(a.FKPropertyName)))
+                  {
                      association.FKPropertyName = null;
+                     AssociationChangedRules.FixupForeignKeys(association);
+                  }
                }
 
                break;

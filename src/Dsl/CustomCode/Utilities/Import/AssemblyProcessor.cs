@@ -263,6 +263,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
          foreach (ModelUnidirectionalAssociation data in unidirectionalAssociations)
          {
+            if (Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 
+             && data.SourceMultiplicity != ParsingModels.Multiplicity.ZeroMany 
+             && data.TargetMultiplicity != ParsingModels.Multiplicity.ZeroMany)
+            {
+               data.ForeignKey = null;
+            }
+
             UnidirectionalAssociation existing = Store.GetAll<UnidirectionalAssociation>()
                                                       .FirstOrDefault(x => x.Target.Name == data.TargetClassName
                                                                         && x.Source.Name == data.SourceClassName
@@ -314,6 +321,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
          foreach (ModelBidirectionalAssociation data in bidirectionalAssociations)
          {
+            if (Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 && data.SourceMultiplicity != ParsingModels.Multiplicity.ZeroMany && data.TargetMultiplicity != ParsingModels.Multiplicity.ZeroMany)
+               data.ForeignKey = null;
+
             BidirectionalAssociation existing = Store.GetAll<BidirectionalAssociation>()
                                                      .FirstOrDefault(x => x.Target.Name == data.TargetClassName
                                                                        && x.Source.Name == data.SourceClassName

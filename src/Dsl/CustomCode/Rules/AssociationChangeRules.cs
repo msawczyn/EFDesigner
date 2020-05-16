@@ -87,7 +87,15 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                case "FKPropertyName":
                {
-                  ValidateForeignKeyNames(element, errorMessages);
+                  if (element.Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 
+                   && element.SourceMultiplicity != Multiplicity.ZeroMany 
+                   && element.TargetMultiplicity != Multiplicity.ZeroMany)
+                  {
+                     element.FKPropertyName = null;
+                     doForeignKeyFixup = true;
+                  }                  
+                  else
+                     ValidateForeignKeyNames(element, errorMessages);
 
                   if (!errorMessages.Any())
                      doForeignKeyFixup = true;
@@ -143,7 +151,18 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.TargetDeleteAction = DeleteAction.Default;
 
                   if (element.Dependent == null)
+                  {
                      element.FKPropertyName = null;
+                     doForeignKeyFixup = true;
+                  }
+
+                  if (element.Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 
+                   && element.SourceMultiplicity != Multiplicity.ZeroMany 
+                   && element.TargetMultiplicity != Multiplicity.ZeroMany)
+                  {
+                     element.FKPropertyName = null;
+                     doForeignKeyFixup = true;
+                  }                  
 
                   if (((priorSourceMultiplicity == Multiplicity.ZeroOne || priorSourceMultiplicity == Multiplicity.ZeroMany) && currentSourceMultiplicity == Multiplicity.One) || 
                       ((currentSourceMultiplicity == Multiplicity.ZeroOne || currentSourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
@@ -227,10 +246,21 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.TargetDeleteAction = DeleteAction.Default;
 
                   if (element.Dependent == null)
+                  {
                      element.FKPropertyName = null;
+                     doForeignKeyFixup = true;
+                  }
 
+                  if (element.Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 
+                   && element.SourceMultiplicity != Multiplicity.ZeroMany 
+                   && element.TargetMultiplicity != Multiplicity.ZeroMany)
+                  {
+                     element.FKPropertyName = null;
+                     doForeignKeyFixup = true;
+                  }   
+                  
                   if (((priorTargetMultiplicity == Multiplicity.ZeroOne || priorTargetMultiplicity == Multiplicity.ZeroMany) && currentTargetMultiplicity == Multiplicity.One) || 
-                      ((currentTargetMultiplicity == Multiplicity.ZeroOne || currentTargetMultiplicity == Multiplicity.ZeroMany) && priorTargetMultiplicity == Multiplicity.One))
+                             ((currentTargetMultiplicity == Multiplicity.ZeroOne || currentTargetMultiplicity == Multiplicity.ZeroMany) && priorTargetMultiplicity == Multiplicity.One))
                      doForeignKeyFixup = true;
 
                   break;
@@ -337,10 +367,13 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                       .ToList();
 
          // EF6 can't have declared foreign keys for 1..1 / 0-1..1 / 1..0-1 / 0-1..0-1 relationships
-         if (element.Source.ModelRoot.EntityFrameworkVersion == EFVersion.EF6
+         if (!string.IsNullOrEmpty(element.FKPropertyName)
+          && element.Source.ModelRoot.EntityFrameworkVersion == EFVersion.EF6
           && element.SourceMultiplicity != Multiplicity.ZeroMany
           && element.TargetMultiplicity != Multiplicity.ZeroMany)
+         {
             element.FKPropertyName = null;
+         }
 
          // if no FKs, remove all the attributes for this element
          if (string.IsNullOrEmpty(element.FKPropertyName) || element.Dependent == null)
