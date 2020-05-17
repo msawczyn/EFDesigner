@@ -2,7 +2,7 @@
 
 ## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 
-Model and generate code for both Entity Framework v6.x and Entity Framework Core >= 2.0
+Model and generate code for both Entity Framework v6.x and Entity Framework Core 2.0 and 2.1
 
 **[Install with NuGet](https://docs.microsoft.com/en-us/visualstudio/ide/finding-and-using-visual-studio-extensions) from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
 
