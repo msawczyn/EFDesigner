@@ -16,9 +16,9 @@
 // https://raw.github.com/damieng/DamienGKit
 // http://damieng.com/blog/2009/11/06/multiple-outputs-from-t4-made-easy-revisited
 
-   /**************************************************
-   * Support for creating multiple output files from a single T4
-   */
+/**************************************************
+* Support for creating multiple output files from a single T4
+*/
 
 class Manager
 {

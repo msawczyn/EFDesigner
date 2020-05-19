@@ -15,9 +15,17 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      // EFDesigner v2.0.4.0
+      // Copyright (c) 2017-2020 Michael Sawczyn
+      // https://github.com/msawczyn/EFDesigner
+      //
+      // based on code from
+      // https://raw.github.com/damieng/DamienGKit
+      // http://damieng.com/blog/2009/11/06/multiple-outputs-from-t4-made-easy-revisited
+
       /**************************************************
-       * Support for creating multiple output files from a single T4
-       */
+      * Support for creating multiple output files from a single T4
+      */
 
       class Manager
       {
@@ -160,7 +168,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             if (name == null)
                throw new ArgumentNullException(nameof(name));
 
-            CurrentBlock = new Block {Name = name};
+            CurrentBlock = new Block { Name = name };
          }
 
          private class Block

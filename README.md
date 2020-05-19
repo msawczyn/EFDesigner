@@ -2,7 +2,7 @@
 
 ## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 
-Model and generate code for both Entity Framework v6.x and Entity Framework Core >= 2.0
+Model and generate code for both Entity Framework v6.x and Entity Framework Core 2.0 and 2.1
 
 **[Install with NuGet](https://docs.microsoft.com/en-us/visualstudio/ide/finding-and-using-visual-studio-extensions) from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
 
@@ -53,12 +53,26 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.3**
+**2.0.4**
+   - Added ability to hide foreign key property names on association connectors in diagrams
+   - Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
+   - Sped up reverse engineering a compiled assembly. As a consequence, the diagram is no longer updated when the assembly is imported (but that tended to ruin the diagram anyway)
+   - Fix: Self-associations didn't appear when existing class is added to new diagram from the Model Explorer
+   - Fix: Diagram no longer loses focus after its saved
+   - Fix: Errors when copy/paste between diagrams in same model
+   - Fix: Generalization links weren't being handled property when reverse engineering a compiled assembly
+   - Fix: Under certain circumstances, declared foreign keys could erroneously be created for EF6 1-1 relationships. EF6 doesn't support this.
+
+<details>
+<summary><b>2.03</b></summary>
+
    - Added ability to hide foreign key property names on association connectors in diagrams
    - Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
    - Fix: Self-associations didn't appear when existing class is added to new diagram from the Model Explorer
    - Fix: Diagram no longer loses focus after its saved
    - Fix: Errors when copy/paste between diagrams in same model
+
+</details>
 
 <details>
 <summary><b>2.02</b></summary>

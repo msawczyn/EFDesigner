@@ -12,6 +12,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      // EFDesigner v2.0.4.0
+      // Copyright (c) 2017-2020 Michael Sawczyn
+      // https://github.com/msawczyn/EFDesigner
+
+      // this bit is based on EntityFramework Reverse POCO Code First Generator
+      // Copyright (C) Simon Hughes 2012
+      // https://github.com/sjh37/EntityFramework-Reverse-POCO-Code-First-Generator
+      //
+
       /**************************************************
        * Interactions with Visual Studio
        */
@@ -106,7 +115,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          return targetProjectItem;
       }
 
-      public DTE GetDTE()
+      public EnvDTE.DTE GetDTE()
       {
          IServiceProvider serviceProvider = (IServiceProvider)Host;
 
@@ -131,15 +140,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          try
          {
             FileInfo info = new FileInfo(fullProjectName);
-
-            return info.Directory != null
-                      ? info.Directory.FullName
-                      : string.Empty;
+            return info.Directory != null ? info.Directory.FullName : string.Empty;
          }
          catch
          {
             WriteLine("// Project " + fullProjectName + " excluded.");
-
             return string.Empty;
          }
       }

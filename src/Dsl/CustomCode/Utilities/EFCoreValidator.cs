@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
+#pragma warning disable 1591
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -49,6 +50,43 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion ModelClass
 
+      #region ModelEnum
+
+      public static IEnumerable<string> GetErrors(ModelEnum element)
+      {
+         return new string[0];
+
+         // for later
+
+         //ModelRoot modelRoot = element.ModelRoot;
+         //Store store = modelRoot.Store;
+         //List<string> errorMessages = new List<string>();
+
+         //if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+         //{
+
+         //}
+
+         //return errorMessages;
+      }
+
+      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelEnum element)
+      {
+         //ModelRoot modelRoot = element.ModelRoot;
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
+         //   }
+
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
+      }
+
+      #endregion ModelEnum
+
       #region ModelAttribute
 
       public static IEnumerable<string> GetErrors(ModelAttribute element)
@@ -78,7 +116,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
                   break;
 
-               // add more as needed
+                  // add more as needed
             }
 
             if (shouldRemove)
@@ -145,6 +183,9 @@ namespace Sawczyn.EFDesigner.EFModel
                errorMessages.AddRange(GetErrors(modelAttribute));
          }
 
+         foreach (ModelEnum modelEnum in store.GetAll<ModelEnum>().ToList())
+            errorMessages.AddRange(GetErrors(modelEnum));
+
          return errorMessages;
       }
 
@@ -157,7 +198,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
       {
          ModelRoot modelRoot = element;
-         
+
          for (int index = 0; index < propertyDescriptors.Count; index++)
          {
             bool shouldRemove = false;
