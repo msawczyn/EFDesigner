@@ -1,5 +1,6 @@
-2.0.5
+2.4.1
    - Fix: ensure glyphs in association compartments are visible
+   - Fix: overly-aggressive pruning in foreign keys
 
 2.0.4
    - Added ability to hide foreign key property names on association connectors in diagrams

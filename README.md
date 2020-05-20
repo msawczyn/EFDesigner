@@ -53,7 +53,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.4**
+**2.0.4.1**
    - Added ability to hide foreign key property names on association connectors in diagrams
    - Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
    - Sped up reverse engineering a compiled assembly. As a consequence, the diagram is no longer updated when the assembly is imported (but that tended to ruin the diagram anyway)
@@ -62,6 +62,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix: Errors when copy/paste between diagrams in same model
    - Fix: Generalization links weren't being handled property when reverse engineering a compiled assembly
    - Fix: Under certain circumstances, declared foreign keys could erroneously be created for EF6 1-1 relationships. EF6 doesn't support this.
+   - Fix: ensure glyphs in association compartments are visible
+   - Fix: overly-aggressive pruning in foreign keys
 
 <details>
 <summary><b>2.03</b></summary>

@@ -30,7 +30,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**2.0.4**
+**2.0.4.1**
    - **[NEW]** Added ability to hide foreign key property names on association connectors in diagrams
    - **[NEW]** Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
    - **[NEW]** Sped up reverse engineering a compiled assembly. As a consequence, the diagram is no longer updated when the assembly is imported (but that tended to ruin the diagram anyway)
@@ -39,6 +39,8 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fix: Errors when copy/paste between diagrams in same model
    - Fix: Generalization links weren't being handled property when reverse engineering a compiled assembly
    - Fix: Under certain circumstances, declared foreign keys could erroneously be created for EF6 1-1 relationships. EF6 doesn't support this.
+   - Fix: ensure glyphs in association compartments are visible
+   - Fix: overly-aggressive pruning in foreign keys
 
 **2.0.3**
    - **[NEW]** Added ability to hide foreign key property names on association connectors in diagrams
