@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("2.0.4.0")]
-[assembly: AssemblyFileVersion("2.0.4.0")]
+[assembly: AssemblyFileVersion("2.0.4.*")]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]
 

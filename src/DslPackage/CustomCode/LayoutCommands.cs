@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
@@ -15,19 +14,6 @@ using QuickGraph.Graphviz.Dot;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public class FileDotEngine : IDotEngine
-   {    
-      public string Run(GraphvizImageType imageType, string dot, string outputFileName)
-      {
-         using (StreamWriter writer = new StreamWriter(outputFileName))
-         {
-            writer.Write(dot);    
-         }
-
-         return Path.GetFileName(outputFileName);
-      }
-   }
-
    public class DotEngine : IDotEngine
    {    
       public string Run(GraphvizImageType imageType, string dot, string outputFileName)
@@ -46,7 +32,6 @@ namespace Sawczyn.EFDesigner.EFModel
    public class DotEdge : IEdge<DotNode>
    {
       public BinaryLinkShape Shape { get; set; }
-      public List<(double X, double Y)> EndPoints { get; } = new List<(double X, double Y)>();
       public DotNode Source { get; set; }
       public DotNode Target { get; set; }
    }
@@ -55,7 +40,7 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       internal static void LayoutDiagram(EFModelDiagram diagram)
       {
-         using (WaitCursor w = new WaitCursor())
+         using (WaitCursor _ = new WaitCursor())
          {
             IEnumerable<ShapeElement> shapeElements = diagram.NestedChildShapes.Where(s => s.IsVisible);
 
@@ -67,15 +52,14 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          using (Transaction tx = diagram.Store.TransactionManager.BeginTransaction("ModelAutoLayout"))
          {
-            List<DotNode> vertices = shapeElements
+            List<ShapeElement> shapeList = shapeElements.ToList();
+
+            List<DotNode> vertices = shapeList
                                     .OfType<NodeShape>()
-                                    .Select(node => new DotNode
-                                                    {
-                                                       Shape = node
-                                                    })
+                                    .Select(node => new DotNode {Shape = node})
                                     .ToList();
 
-            List<DotEdge> edges = shapeElements
+            List<DotEdge> edges = shapeList
                                  .OfType<BinaryLinkShape>()
                                  .Select(link => new DotEdge
                                                  {
@@ -114,10 +98,6 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedParameter.Local
       private static void DoGraphvizLayout(List<DotNode> vertices, List<DotEdge> edges, EFModelDiagram diagram)
       {
-         // ************************************************************************
-         // keep the diagram parameter for when we support multiple diagrams
-         // ************************************************************************
-
          // set up to be a bidirectional graph with the edges we found
          BidirectionalGraph<DotNode, DotEdge> graph = edges.ToBidirectionalGraph<DotNode, DotEdge>(true);
 

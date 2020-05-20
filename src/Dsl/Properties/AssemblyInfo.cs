@@ -34,6 +34,7 @@ using System.Runtime.ConstrainedExecution;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("2.0.4.0")]
+[assembly: AssemblyFileVersion("2.0.4.*")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]

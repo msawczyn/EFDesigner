@@ -126,12 +126,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // Each item in the each compartment will call the appropriate method to determine its icon.
          // This happens any time the element's presentation element invalidates.
-         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "AttributesCompartment"))
-            mapping.ImageGetter = GetAttributePropertyImage;
-         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "AssociationsCompartment"))
-            mapping.ImageGetter = GetAssociationPropertyImage;
-         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>().Where(m => m.CompartmentId == "SourcesCompartment"))
-            mapping.ImageGetter = GetSourcesPropertyImage;
+         foreach (ElementListCompartmentMapping mapping in mappings.OfType<ElementListCompartmentMapping>())
+            mapping.ImageGetter = GetPropertyImage; 
 
          return mappings;
       }
@@ -232,27 +228,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          return nameof(Resources.Spacer);
-      }
-
-      private Image GetAssociationPropertyImage(ModelElement element)
-      {
-         return element is UnidirectionalAssociation association
-                   ? GetPropertyImage(association)
-                   : Resources.Spacer;
-      }
-
-      private Image GetSourcesPropertyImage(ModelElement element)
-      {
-         return element is BidirectionalAssociation association
-                   ? GetPropertyImage(association)
-                   : Resources.Spacer;
-      }
-
-      private Image GetAttributePropertyImage(ModelElement element)
-      {
-         return element is ModelAttribute attribute
-                   ? GetPropertyImage(attribute)
-                   : Resources.Spacer;
       }
 
       #region Drag/drop model attributes
