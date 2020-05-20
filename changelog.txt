@@ -1,3 +1,6 @@
+2.0.5
+   - Fix: ensure glyphs in association compartments are visible
+
 2.0.4
    - Added ability to hide foreign key property names on association connectors in diagrams
    - Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer

@@ -378,10 +378,12 @@ namespace Sawczyn.EFDesigner.EFModel
          // if no FKs, remove all the attributes for this element
          if (string.IsNullOrEmpty(element.FKPropertyName) || element.Dependent == null)
          {
-            if (fkProperties.Any())
-               WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
+            List<ModelAttribute> unnecessaryProperties = fkProperties.Where(x => !x.IsIdentity).ToList();
 
-            foreach (ModelAttribute attribute in fkProperties)
+            if (unnecessaryProperties.Any())
+               WarningDisplay.Show($"{element.GetDisplayText()} doesn't specify defined foreign keys. Removing foreign key attribute(s) {string.Join(", ", unnecessaryProperties.Select(x => x.GetDisplayText()))}");
+
+            foreach (ModelAttribute attribute in unnecessaryProperties)
             {
                attribute.ClearFKMods(string.Empty);
                attribute.Delete();
@@ -400,7 +402,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // remove extras
          if (removeList.Any())
-            WarningDisplay.Show($"Removing unnecessary foreign key attribute(s) {string.Join(", ", removeList.Select(x => x.GetDisplayText()))}");
+            WarningDisplay.Show($"{element.GetDisplayText()} has extra foreign keys. Removing unnecessary foreign key attribute(s) {string.Join(", ", removeList.Select(x => x.GetDisplayText()))}");
 
          for (int index = 0; index < removeList.Count; index++)
          {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
 
@@ -18,13 +19,13 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
-         ModelAttribute[] fkProperties = element.Dependent?.AllAttributes?.Where(x => x.IsForeignKeyFor == element.Id).ToArray();
+         List<ModelAttribute> unnecessaryProperties = element.Dependent?.AllAttributes?.Where(x => x.IsForeignKeyFor == element.Id && !x.IsIdentity).ToList();
 
-         if (fkProperties?.Any() == true)
+         if (unnecessaryProperties?.Any() != true)
          {
-            WarningDisplay.Show($"Removing foreign key attribute(s) {string.Join(", ", fkProperties.Select(x => x.GetDisplayText()))}");
+            WarningDisplay.Show($"{element.GetDisplayText()} doesn't specify defined foreign keys. Removing foreign key attribute(s) {string.Join(", ", unnecessaryProperties.Select(x => x.GetDisplayText()))}");
 
-            foreach (ModelAttribute fkProperty in fkProperties)
+            foreach (ModelAttribute fkProperty in unnecessaryProperties)
             {
                fkProperty.ClearFKMods();
                fkProperty.ModelClass.Attributes.Remove(fkProperty);
