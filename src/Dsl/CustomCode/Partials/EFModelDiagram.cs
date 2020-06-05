@@ -97,7 +97,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return IsDroppingExternal;
       }
 
-      private List<ModelElement> DisplayedElements => NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).ToList();
+      internal List<ModelElement> DisplayedElements => NestedChildShapes.Select(nestedShape => nestedShape.ModelElement).ToList();
 
       public static ShapeElement AddExistingModelElement(EFModelDiagram diagram, ModelElement element)
       {
@@ -124,6 +124,8 @@ namespace Sawczyn.EFDesigner.EFModel
                FixUpAllDiagrams.FixUp(diagram, elementLink);
 
             t.Commit();
+
+            // TODO: Color the tree node green and move it to the green group at the top
 
             return diagram.NestedChildShapes.FirstOrDefault(s => s.ModelElement == element);
          }

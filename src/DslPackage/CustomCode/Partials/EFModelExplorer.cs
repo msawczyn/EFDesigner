@@ -19,6 +19,9 @@ namespace Sawczyn.EFDesigner.EFModel
    internal partial class EFModelExplorer : IVsWindowSearch
    {
       private readonly List<Type> nodeEventHandlersAdded = new List<Type>();
+      private EFModelRoleGroupTreeNode DiagramRoleNode { get; set; }
+      private EFModelRoleGroupTreeNode ClassRoleNode { get; set; }
+      private EFModelRoleGroupTreeNode EnumRoleNode { get; set; }
 
       #region Context Menu 
 
@@ -362,10 +365,26 @@ namespace Sawczyn.EFDesigner.EFModel
             nodeEventHandlersAdded.Add(representedType);
          }
 
-         RoleGroupTreeNode roleGroupTreeNode = new EFModelRoleGroupTreeNode(targetRoleInfo);
+         EFModelRoleGroupTreeNode roleGroupTreeNode = new EFModelRoleGroupTreeNode(targetRoleInfo);
 
          if (ObjectModelBrowser.ImageList != null)
             roleGroupTreeNode.DefaultImageIndex = 1;
+
+         switch (targetRoleInfo.DisplayName)
+         {
+            case "Diagrams":
+               DiagramRoleNode = roleGroupTreeNode;
+
+               break;
+            case "Enums":
+               EnumRoleNode = roleGroupTreeNode;
+
+               break;
+            case "Classes":
+               ClassRoleNode = roleGroupTreeNode;
+
+               break;
+         }
 
          return roleGroupTreeNode;
       }
@@ -434,7 +453,13 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="node"></param>
       public override void InsertTreeNode(TreeNodeCollection siblingNodes, ExplorerTreeNode node)
       {
+         // TODO: find current diagram and, if node.RepresentedElement is on that diagram, color it green
          base.InsertTreeNode(siblingNodes, node);
+
+         // TODO: if it's representing a ModelClass or ModelEnum,
+         //    remove it from the tree
+         //    if it's green, it's sorted in the green bunch at the top (note: could be size 0 now if this is first green node)
+         //    if it's not green, it's sorted in the not green bunch at the bottom (same note)
 
          // sorting Diagrams first. Normally would be alpha ordering
          EFModelRoleGroupTreeNode diagramNode = siblingNodes.OfType<EFModelRoleGroupTreeNode>().FirstOrDefault(n => n.Text.StartsWith("Diagrams"));
@@ -455,21 +480,57 @@ namespace Sawczyn.EFDesigner.EFModel
             DoDragDrop(elementNode.RepresentedElement, DragDropEffects.Copy);
       }
 
+      private EFModelDiagram CurrentDiagram => (ModelingDocData as EFModelDocData)?.CurrentDocView?.CurrentDiagram as EFModelDiagram;
+
       private void ObjectModelBrowser_OnNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
       {
          if (e.Node is ExplorerTreeNode elementNode && elementNode.RepresentedElement != null)
          {
             ModelElement element = elementNode.RepresentedElement;
+            EFModelDiagram.AddExistingModelElement(CurrentDiagram, element);
+         }
+      }
 
-            if (ModelingDocData is EFModelDocData docData)
+      public void SortAndColorTree()
+      {
+         {
+            List<EFModelElementTreeNode> classNodes = ObjectModelBrowser.GetAllNodes().OfType<EFModelElementTreeNode>().Where(n => n.RepresentedElement is ModelClass).ToList();
+            List<EFModelElementTreeNode> enumNodes = ObjectModelBrowser.GetAllNodes().OfType<EFModelElementTreeNode>().Where(n => n.RepresentedElement is ModelEnum).ToList();
+
+            List<ModelClass> classesInDiagram = CurrentDiagram.DisplayedElements.OfType<ModelClass>().ToList();
+            List<ModelEnum> enumsInDiagram = CurrentDiagram.DisplayedElements.OfType<ModelEnum>().ToList();
+
+            ObjectModelBrowser.BeginUpdate();
+
+            try
             {
-               Diagram diagram = docData.CurrentDocView?.CurrentDiagram;
+               foreach (EFModelElementTreeNode classNode in classNodes)
+               {
+                  ModelClass classNodeRepresentedElement = (ModelClass)classNode.RepresentedElement;
+                  
+                  classNode.ForeColor = classesInDiagram.Remove(classNodeRepresentedElement)
+                                           ? Color.ForestGreen
+                                           : Color.Black;
+               }
 
-               if (diagram != null && diagram is EFModelDiagram efModelDiagram)
-                  EFModelDiagram.AddExistingModelElement(efModelDiagram, element);
+               foreach (EFModelElementTreeNode enumNode in enumNodes)
+               {
+                  ModelEnum enumNodeRepresentedElement = (ModelEnum)enumNode.RepresentedElement;
+
+                  enumNode.ForeColor = enumsInDiagram.Remove(enumNodeRepresentedElement)
+                                          ? Color.ForestGreen
+                                          : Color.Black;
+
+                  enumsInDiagram.Remove(enumNodeRepresentedElement);
+               }
+            }
+            finally
+            {
+               ObjectModelBrowser.EndUpdate();
             }
          }
       }
+
 
       /// <summary>Virtual method to process the menu Delete operation</summary>
       protected override void ProcessOnMenuDeleteCommand()
@@ -550,7 +611,7 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <param name="metaRole">Role represented by this node</param>
          public EFModelRoleGroupTreeNode(DomainRoleInfo metaRole) : base(metaRole)
          {
-            string propertyDisplayName = metaRole.OppositeDomainRole.PropertyDisplayName;
+            string propertyDisplayName = metaRole.DisplayName; // metaRole.OppositeDomainRole.PropertyDisplayName;
 
             displayTextBase = !string.IsNullOrEmpty(propertyDisplayName)
                                  ? propertyDisplayName
@@ -566,7 +627,10 @@ namespace Sawczyn.EFDesigner.EFModel
          /// <returns>The text for the node</returns>
          protected override string ProvideNodeText()
          {
-            return $"{displayTextBase} ({Nodes.Cast<ExplorerTreeNode>().Count(n => !n.RepresentedElement.IsDeleted)})";
+            int count = Nodes.Cast<ExplorerTreeNode>().Count(n => !n.RepresentedElement.IsDeleted);
+
+            // when first loaded, if only one diagram, display says there's zero diagrams. Fix this.
+            return $"{displayTextBase} ({(Text == "Diagrams" && count == 0 ? 1 : count)})";
          }
       }
 

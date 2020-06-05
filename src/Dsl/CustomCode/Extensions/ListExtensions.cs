@@ -37,5 +37,16 @@ namespace Sawczyn.EFDesigner.EFModel.Extensions
 
          return (add, remove);
       }
+
+      /// <summary>
+      /// Determines if the collection is a null reference or doesn't contain any elements
+      /// </summary>
+      /// <typeparam name="T">Type of item contained in the collection</typeparam>
+      /// <param name="collection">The collection to interrogate</param>
+      /// <returns>true if the reference is null or if the collection is empty, false otherwise</returns>
+      public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
+      {
+         return collection == null || !collection.Any();
+      }
    }
 }

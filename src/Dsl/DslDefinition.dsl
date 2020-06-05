@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" Build="4" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" Build="5" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -1128,7 +1128,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="f531650c-f0d4-47a2-be7c-c3a564194629" Description="" Name="ModelRootHasComments" DisplayName="Model Root Has Comments" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
+    <DomainRelationship Id="f531650c-f0d4-47a2-be7c-c3a564194629" Description="" Name="ModelRootHasComments" DisplayName="Comments" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
       <Source>
         <DomainRole Id="ab8f00b5-d976-4ffa-b9da-be285acbbe91" Description="" Name="ModelRoot" DisplayName="Model Root" PropertyName="Comments" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Comments">
           <RolePlayer>
@@ -1244,7 +1244,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="7937b5d4-2003-470b-9140-051f2dcd8dd0" Description="Relationship rooting ModelEnum domain entities to the tree" Name="ModelRootHasEnums" DisplayName="Model Root Has Enums" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
+    <DomainRelationship Id="7937b5d4-2003-470b-9140-051f2dcd8dd0" Description="Relationship rooting ModelEnum domain entities to the tree" Name="ModelRootHasEnums" DisplayName="Enums" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
       <Source>
         <DomainRole Id="a613cf7f-477b-4842-b1c2-9586977463f8" Description="No description available" Name="ModelRoot" DisplayName="Model Root" PropertyName="Enums" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Enums">
           <RolePlayer>
@@ -1276,7 +1276,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="08ff1339-a992-4ffe-b350-6ba2eab5d7a4" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses" Name="ModelRootHasClasses" DisplayName="Model Root Has Classes" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
+    <DomainRelationship Id="08ff1339-a992-4ffe-b350-6ba2eab5d7a4" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses" Name="ModelRootHasClasses" DisplayName="Classes" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
       <Source>
         <DomainRole Id="435f6b0f-d7e3-43c3-8b08-0f2a95ddd755" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasClasses.ModelRoot" Name="ModelRoot" DisplayName="Model Root" PropertyName="Classes" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Classes">
           <RolePlayer>
@@ -1346,7 +1346,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="bbdf2307-a6c2-4cf5-b2d9-290b94558d42" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams" Name="ModelRootHasModelDiagrams" DisplayName="Model Root Has Model Diagrams" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
+    <DomainRelationship Id="bbdf2307-a6c2-4cf5-b2d9-290b94558d42" Description="Description for Sawczyn.EFDesigner.EFModel.ModelRootHasModelDiagrams" Name="ModelRootHasModelDiagrams" DisplayName="Diagrams" Namespace="Sawczyn.EFDesigner.EFModel" IsEmbedding="true">
       <Source>
         <DomainRole Id="76e3ca2c-137a-4b7f-a61b-cfb0e4fe5590" Description="" Name="ModelRoot" DisplayName="Model Root" PropertyName="Diagrams" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Diagrams">
           <RolePlayer>
