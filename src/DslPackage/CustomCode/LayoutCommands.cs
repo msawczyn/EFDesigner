@@ -8,9 +8,9 @@ using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
-using QuickGraph;
-using QuickGraph.Graphviz;
-using QuickGraph.Graphviz.Dot;
+using QuikGraph;
+using QuikGraph.Graphviz;
+using QuikGraph.Graphviz.Dot;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -31,6 +31,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
    public class DotEdge : IEdge<DotNode>
    {
+      public DotEdge(DotNode source, DotNode target)
+      {
+         Source = source;
+         Target = target;
+      }
+
       public BinaryLinkShape Shape { get; set; }
       public DotNode Source { get; set; }
       public DotNode Target { get; set; }
@@ -56,16 +62,15 @@ namespace Sawczyn.EFDesigner.EFModel
 
             List<DotNode> vertices = shapeList
                                     .OfType<NodeShape>()
-                                    .Select(node => new DotNode {Shape = node})
+                                    .Select(node => new DotNode { Shape = node })
                                     .ToList();
 
             List<DotEdge> edges = shapeList
                                  .OfType<BinaryLinkShape>()
-                                 .Select(link => new DotEdge
+                                 .Select(link => new DotEdge(vertices.Single(vertex => vertex.Shape.Id == link.FromShape.Id),
+                                                             vertices.Single(vertex => vertex.Shape.Id == link.ToShape.Id))
                                                  {
                                                     Shape = link
-                                                  , Source = vertices.Single(vertex => vertex.Shape.Id == link.FromShape.Id)
-                                                  , Target = vertices.Single(vertex => vertex.Shape.Id == link.ToShape.Id)
                                                  })
                                  .ToList();
 
@@ -107,32 +112,31 @@ namespace Sawczyn.EFDesigner.EFModel
          // we'll process as Graphviz
          GraphvizAlgorithm<DotNode, DotEdge> graphviz = new GraphvizAlgorithm<DotNode, DotEdge>(graph);
          graphviz.GraphFormat.NodeSeparation = 1.0;
+         graphviz.GraphFormat.Splines = GraphvizSplineType.Ortho;
          graphviz.CommonVertexFormat.Shape = GraphvizVertexShape.Record;
 
          // labels will be the Id of the underlying Shape
          graphviz.FormatVertex += (sender, args) =>
                                   {
-                                     args.VertexFormatter.Label = args.Vertex.Shape.ModelElement is ModelClass modelClass
+                                     args.VertexFormat.Label = args.Vertex.Shape.ModelElement is ModelClass modelClass
                                                                      ? modelClass.Name
                                                                      : args.Vertex.Shape.ModelElement is ModelEnum modelEnum
                                                                         ? modelEnum.Name
                                                                         : args.Vertex.Shape.ModelElement.Id.ToString();
-                                     args.VertexFormatter.FixedSize = true;
-                                     args.VertexFormatter.Size = new GraphvizSizeF((float)args.Vertex.Shape.Size.Width, 
+                                     args.VertexFormat.FixedSize = true;
+                                     args.VertexFormat.Size = new GraphvizSizeF((float)args.Vertex.Shape.Size.Width, 
                                                                                    (float)args.Vertex.Shape.Size.Height);
 
-                                     args.VertexFormatter.Label = args.Vertex.Shape.Id.ToString();
+                                     args.VertexFormat.Label = args.Vertex.Shape.Id.ToString();
                                   };
 
          graphviz.FormatEdge += (sender, args) =>
                                 {
-                                   args.EdgeFormatter.Label.Value = args.Edge.Shape.Id.ToString();
+                                   args.EdgeFormat.Label.Value = args.Edge.Shape.Id.ToString();
                                 };
          // generate the commands
          string dotCommands = graphviz.Generate(new DotEngine(), null);
 
-         // splines doesn't appear to be available in the QuickGraph implementation for GraphViz
-         dotCommands = dotCommands.Replace("nodesep=1", "graph [splines=ortho, nodesep=1] ");
          Debug.WriteLine(dotCommands);
 
          ProcessStartInfo dotStartInfo = new ProcessStartInfo(EFModelPackage.Options.DotExePath, "-T plain")
