@@ -1,4 +1,7 @@
-2.4.1
+2.0.5
+   - Provide option to save diagrams as uncompressed XML to facilitate version control
+
+2.0.4.1
    - Fix: ensure glyphs in association compartments are visible
    - Fix: overly-aggressive pruning in foreign keys
 
