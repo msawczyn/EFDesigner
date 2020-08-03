@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2019.6.24.0" projectFile="C:\Code\EFDesigner\src\EFDesigner.APIHelp\EFDesigner.APIHelp.shfbproj" started="8/3/2020 1:33:52 AM">
+<buildStep step="Initializing">
+Finding tools...
+The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\&#39;
+Locating components in the following folder(s):
+    C:\Code\EFDesigner\src\EFDesigner.APIHelp
+    C:\ProgramData\EWSoftware\Sandcastle Help File Builder\Components and Plug-Ins\
+    C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
+Using framework reflection data for &#39;.NET Framework 4.7.2&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NETFramework&#39;
+Using presentation style &#39;VS2013&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013&#39;
+Loading and initializing plug-ins...
+Lightweight Website Style Version 2019.6.24.0
+Copyright &#169; 2006-2019, Eric Woodruff, All Rights Reserved
+Portions Copyright &#169; 2014, Sam Harwell, All Rights Reserved
+-------------------------------
+Clearing any prior web/markdown output...
+</buildStep>
+<buildStep step="ValidatingDocumentationSources">
+Validating and copying documentation source information
+Source: C:\Code\EFDesigner\src\Dsl\Dsl.csproj
+    Found project &#39;C:\Code\EFDesigner\src\Dsl\Dsl.csproj&#39;
+
+Parsing project files
+    Found assembly &#39;C:\Code\EFDesigner\src\Dsl\bin\Release\Sawczyn.EFDesigner.EFModel.Dsl.dll&#39;
+
+References to include:
+    envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+    GOLD Engine
+    Microsoft.Data.ConnectionUI
+    Microsoft.Data.ConnectionUI.Dialog
+    Microsoft.VisualStudio.Modeling.Sdk.15.0
+    Microsoft.VisualStudio.Modeling.Sdk.Diagrams.15.0
+    Microsoft.VisualStudio.Modeling.SDK.Integration.15.0, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+    Microsoft.VisualStudio.TextTemplating.15.0
+    Microsoft.VisualStudio.TextTemplating.Interfaces.10.0
+    Microsoft.VisualStudio.TextTemplating.Interfaces.11.0
+    Microsoft.VisualStudio.TextTemplating.Modeling.15.0
+    Newtonsoft.Json
+    SQLitePCLRaw.batteries_v2
+    SQLitePCLRaw.core
+    SQLitePCLRaw.nativelibrary
+    SQLitePCLRaw.provider.dynamic_cdecl
+    System.AppContext
+    System.Buffers
+    System.Console
+    System.Diagnostics.FileVersionInfo
+    System.Diagnostics.StackTrace
+    System.IO
+    System.IO.FileSystem
+    System.IO.FileSystem.Primitives
+    System.Linq
+    System.Linq.Expressions
+    System.Memory
+    System.Numerics.Vectors
+    System.Reflection
+    System.Runtime
+    System.Runtime.CompilerServices.Unsafe
+    System.Runtime.Extensions
+    System.Runtime.InteropServices
+    System.Security.Cryptography.Algorithms
+    System.Security.Cryptography.Encoding
+    System.Security.Cryptography.Primitives
+    System.Security.Cryptography.X509Certificates
+    System.Spatial
+    System.Text.Encoding.CodePages
+    System.Threading.Tasks.Extensions
+    System.Threading.Thread
+    System.ValueTuple
+    System.Xml.ReaderWriter
+    System.Xml.XmlDocument
+    System.Xml.XPath
+    System.Xml.XPath.XDocument
+
+Copying XML comments files
+    C:\Code\EFDesigner\src\Dsl\bin\Release\Sawczyn.EFDesigner.EFModel.Dsl.xml -&gt; C:\Code\EFDesigner\docs\api\Working\Sawczyn.EFDesigner.EFModel.Dsl.xml
+</buildStep>
+<buildStep step="GenerateSharedContent">
+Generating shared content files (en-US, English (United States))...
+<plugIn name="Lightweight Website Style" behavior="After" priority="1000">
+</plugIn>    Last step completed in 00:00:00.0330
+</buildStep>
+<buildStep step="GenerateApiFilter">
+Generating API filter for MRefBuilder...
+    Last step completed in 00:00:00.0610
+</buildStep>
+<buildStep step="GenerateReflectionInfo">
+Generating reflection information...
+[C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - GenerateRefInfo.proj]
+Build started 8/3/2020 1:33:58 AM.
+Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateRefInfo.proj&quot; on node 1 (default targets).
+PrepareForBuild:
+  Creating directory &quot;obj\Debug\&quot;.
+GenerateBindingRedirects:
+  No suggested binding redirects from ResolveAssemblyReferences.
+GenerateRefInfo:
+  MRefBuilder (v2019.6.24.0)
+  Copyright c 2006-2019, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
+  Found a current program database (PDB) file for &#39;C:\Code\EFDesigner\src\Dsl\bin\Release\Sawczyn.EFDesigner.EFModel.Dsl.dll&#39;.
+  Loaded 1 assemblies for reflection and 128 dependency assemblies.
+MRefBuilder : warning : Ignoring unresolved assembly reference: System.Net.Http (System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a) required by Sawczyn.EFDesigner.EFModel.Dsl [C:\Code\EFDesigner\docs\api\Working\GenerateRefInfo.proj]
+  Source code location not found for Sawczyn.EFDesigner.EFModel.AutomaticAction
+  Source code location not found for Sawczyn.EFDesigner.EFModel.CodeStrategy
+  Source code location not found for Sawczyn.EFDesigner.EFModel.CollectionType
+  Source code location not found for Sawczyn.EFDesigner.EFModel.Concurrency
+  Source code location not found for Sawczyn.EFDesigner.EFModel.ConcurrencyOverride
+  Source code location not found for Sawczyn.EFDesigner.EFModel.ContainerAccess
+  Source code location not found for Sawczyn.EFDesigner.EFModel.DatabaseInitializerKind
+  Source code location not found for Sawczyn.EFDesigner.EFModel.DatabaseKind
+  Source code location not found for Sawczyn.EFDesigner.EFModel.DBWorkflow
+  Source code location not found for Sawczyn.EFDesigner.EFModel.DeleteAction
+  Source code location not found for Sawczyn.EFDesigner.EFModel.EFVersion
+  Source code location not found for Sawczyn.EFDesigner.EFModel.EndpointRole
+  Source code location not found for Sawczyn.EFDesigner.EFModel.EnumValueType
+  Source code location not found for Sawczyn.EFDesigner.EFModel.ForeignKeyOwner
+  Source code location not found for Sawczyn.EFDesigner.EFModel.HTML5Type
+  Source code location not found for Sawczyn.EFDesigner.EFModel.IdentityType
+  Source code location not found for Sawczyn.EFDesigner.EFModel.InheritanceModifier
+  Source code location not found for Sawczyn.EFDesigner.EFModel.SetterAccessModifier
+  Source code location not found for Sawczyn.EFDesigner.EFModel.TypeAccessModifier
+  Wrote information on 3 namespaces, 39 types, and 335 members
+  Copying file from &quot;C:\Code\EFDesigner\docs\api\Working\reflection.org&quot; to &quot;C:\Code\EFDesigner\docs\api\Working\reflection.all&quot;.
+  XslTransform (v2019.6.24.0)
+  Copyright c 2006-2019, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\MergeDuplicates.xsl&#39;.
+Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateRefInfo.proj&quot; (default targets).
+    Last step completed in 00:00:45.9850
+</buildStep>
+<buildStep step="TransformReflectionInfo">
+Transforming reflection output...
+[C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - TransformManifest.proj]
+Build started 8/3/2020 1:34:44 AM.
+Project &quot;C:\Code\EFDesigner\docs\api\Working\TransformManifest.proj&quot; on node 1 (default targets).
+TransformManifest:
+  XslTransform (v2019.6.24.0)
+  Copyright c 2006-2019, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\\ProductionTransforms\ApplyVSDocModel.xsl&#39;.
+  Copying file from &quot;C:\Code\EFDesigner\docs\api\Working\reflection.xml&quot; to &quot;C:\Code\EFDesigner\docs\api\Working\reflection.nofilenames&quot;.
+  XslTransform (v2019.6.24.0)
+  Copyright c 2006-2019, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\AddFilenames.xsl&#39;.
+  XslTransform (v2019.6.24.0)
+  Copyright c 2006-2019, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\ReflectionToManifest.xsl&#39;.
+Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\TransformManifest.proj&quot; (default targets).
+    Last step completed in 00:00:01.1400
+</buildStep>
+<buildStep step="GenerateNamespaceSummaries">
+Generating namespace summary information...
+    Last step completed in 00:00:00.1800
+</buildStep>
+<buildStep step="GenerateInheritedDocumentation">
+Generating inherited documentation...
+[C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - GenerateInheritedDocs.proj]
+Sandcastle Help File Builder and Tools, version 2019.6.24.0
+Copyright c 2006-2019, Eric Woodruff, All Rights Reserved
+E-Mail: Eric@EWoodruff.us
+
+Reflection information will be retrieved from &#39;reflection.xml&#39;
+Inherited documentation will be written to &#39;_InheritedDocs_.xml&#39;
+Indexing C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\*.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\System.Threading.Tasks.Extensions.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\System.Runtime.CompilerServices.Unsafe.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\System.Text.Encoding.CodePages.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\System.Spatial.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\System.Numerics.Vectors.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\System.Memory.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\System.Buffers.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\Newtonsoft.Json.xml
+Indexing C:\Code\EFDesigner\docs\api\Working\Sawczyn.EFDesigner.EFModel.Dsl.xml
+Indexed 165046 members in 136 file(s).  9 file(s) to scan for &lt;inheritdoc /&gt; tags.
+Merging inherited documentation...
+
+
+Documentation merged successfully
+    Last step completed in 00:00:02.1600
+</buildStep>
+<buildStep step="CopyConceptualContent">
+Copying conceptual content...
+Copying standard token shared content file...
+Checking for other token files...
+Checking for code snippets files...
+Copying images and creating the media map file...
+Generating conceptual topic files
+    Parsing topic file &#39;C:\Code\EFDesigner\src\EFDesigner.APIHelp\Content\Welcome.aml&#39;
+    C:\Code\EFDesigner\src\EFDesigner.APIHelp\Content\Welcome.aml -&gt; C:\Code\EFDesigner\docs\api\Working\ddueXml\ed2e64f5-b23e-43ae-9e32-0311b0630eef.xml
+    Last step completed in 00:00:00.0500
+</buildStep>
+<buildStep step="CreateConceptualTopicConfigs">
+Creating conceptual topic configuration files...
+    Companion files
+    _ContentMetadata_.xml
+    Merging topic IDs into manifest.xml
+    Last step completed in 00:00:00.0230
+</buildStep>
+<buildStep step="CopyAdditionalContent">
+Copying additional content files...
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\Help.png -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\Help.png
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\styles\branding-Help1.css -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\styles\branding-Help1.css
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\styles\branding-HelpViewer.css -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\styles\branding-HelpViewer.css
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\styles\branding-Website.css -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\styles\branding-Website.css
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\styles\branding.css -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\styles\branding.css
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\VSMarketLogo.png -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\VSMarketLogo.png
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\TocCollapsed.gif -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\TocCollapsed.gif
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\TocExpanded.gif -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\TocExpanded.gif
+C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\Search.png -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\Search.png
+    Last step completed in 00:00:00.0490
+</buildStep>
+<buildStep step="MergeTablesOfContents">
+Merging conceptual and additional tables of contents...
+    Last step completed in 00:00:00.0070
+</buildStep>
+<buildStep step="GenerateIntermediateTableOfContents">
+Generating intermediate table of contents file...
+[C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - GenerateIntermediateTOC.proj]
+Build started 8/3/2020 1:34:47 AM.
+Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateIntermediateTOC.proj&quot; on node 1 (default targets).
+GenerateIntermediateTOC:
+  XslTransform (v2019.6.24.0)
+  Copyright c 2006-2019, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
+  Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\\ProductionTransforms\CreateVSToc.xsl&#39;.
+Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateIntermediateTOC.proj&quot; (default targets).
+Generating conceptual content intermediate TOC file...
+    Last step completed in 00:00:00.5310
+</buildStep>
+<buildStep step="CreateBuildAssemblerConfigs">
+Creating Sandcastle configuration files...
+    sandcastle.config
+    Last step completed in 00:00:00.7300
+</buildStep>
+<buildStep step="MergeCustomConfigs">
+Merging custom build component configurations
+C:\Code\EFDesigner\docs\api\Working\sandcastle.config
+  Updating reference topic configurations.
+    Added configuration for &#39;API Token Resolution&#39; before &#39;Show Missing Documentation Component&#39; (instance 1)
+    Replaced configuration for &#39;Copy From Index Component&#39; (instance 3) with configuration for &#39;Comments Index Data (ESENT Cache)&#39;
+    Replaced configuration for &#39;Copy From Index Component&#39; (instance 1) with configuration for &#39;Reflection Index Data (ESENT Cache)&#39;
+    Replaced configuration for &#39;Resolve Reference Links Component&#39; (instance 1) with configuration for &#39;Resolve Reference Links (ESENT Cache)&#39;
+    Replaced configuration for &#39;Resolve Reference Links Component&#39; (instance 1) with configuration for &#39;Resolve Reference Links (ESENT Cache)&#39;
+    Replaced configuration for &#39;Resolve Reference Links Component&#39; (instance 1) with configuration for &#39;Resolve Reference Links (ESENT Cache)&#39;
+    Replaced configuration for &#39;Syntax Component&#39; (instance 1) with configuration for &#39;Syntax Component&#39;
+    Replacing default configuration for &#39;Code Block Component&#39; with the custom configuration
+  Updating conceptual topic configurations.
+    Skipping component &#39;API Token Resolution&#39;, not used in conceptual build
+    Skipping component &#39;Comments Index Data (ESENT Cache)&#39;, not used in conceptual build
+    Skipping component &#39;Reflection Index Data (ESENT Cache)&#39;, not used in conceptual build
+    Replaced configuration for &#39;Resolve Reference Links Component&#39; (instance 1) with configuration for &#39;Resolve Reference Links (ESENT Cache)&#39;
+    Replaced configuration for &#39;Resolve Reference Links Component&#39; (instance 1) with configuration for &#39;Resolve Reference Links (ESENT Cache)&#39;
+    Replaced configuration for &#39;Resolve Reference Links Component&#39; (instance 1) with configuration for &#39;Resolve Reference Links (ESENT Cache)&#39;
+    Replacing default configuration for &#39;Syntax Component&#39; with the custom configuration
+    Replacing default configuration for &#39;Code Block Component&#39; with the custom configuration
+    Removing unused ExampleComponent.
+    Last step completed in 00:00:00.0680
+</buildStep>
+<buildStep step="BuildTopics">
+Building help topics...
+[C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - BuildTopics.proj]
+Build started 8/3/2020 1:34:49 AM.
+Project &quot;C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj&quot; on node 1 (default targets).
+BuildTopics:
+  BuildAssembler (v2019.6.24.0)
+  Copyright c 2006-2019, Microsoft Corporation, All Rights Reserved.
+  Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
+  Loading configuration...
+BuildAssembler : error :  [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+BuildAssembler : error : ESentResolveReferenceLinksComponent: Primary index is corrupt. The database must be defragmented [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+BuildAssembler : error :  [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+BuildAssembler : error : BuildAssemblerCore: An unexpected error occurred while attempting to create the build component &#39;Resolve Reference Links (ESENT Cache)&#39;. The error message is: See log for details [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+BuildAssembler : error :  [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+BuildAssembler : error : BuildAssemblerCore: An unexpected error occurred while attempting to create the build component &#39;Multi-format Output Component&#39;. The error message is: See log for details [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+BuildAssembler : error :  [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+BuildAssembler : error : BuildAssemblerCore: An unexpected error occurred while attempting to create the build component &#39;Switch Component&#39;. The error message is: See log for details [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
+Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj&quot; (default targets) -- FAILED.
+    Last step completed in 00:00:03.0560
+</buildStep>
+<buildStep step="Failed">
+
+SHFB: Error BE0065: BUILD FAILED: Unexpected error detected in last build step.  See build log for details.
+   at SandcastleBuilder.Utils.BuildEngine.TaskRunner.Run(String processFilename, String targetFile, String arguments)
+   at SandcastleBuilder.Utils.BuildEngine.TaskRunner.RunProject(String projectFile, Boolean minimalOutput)
+   at SandcastleBuilder.Utils.BuildEngine.BuildProcess.Build()
+
+</buildStep>
+</shfbBuild>
