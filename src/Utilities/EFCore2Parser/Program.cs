@@ -105,6 +105,14 @@ namespace EFCore3Parser
             log.Error("   (required) OutputFileName          - path to create JSON file of results");
             log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
             log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
+            log.Error("Result codes:");
+            log.Error("   0   Success");
+            log.Error("   1   Bad argument count");
+            log.Error("   2   Cannot load assembly");
+            log.Error("   3   Cannot write output file");
+            log.Error("   4   Cannot create DbContext");
+            log.Error("   5   Cannot find appropriate constructor");
+            log.Error("   6   Ambiguous request");
             log.Error("");
 
             if (ex != null)

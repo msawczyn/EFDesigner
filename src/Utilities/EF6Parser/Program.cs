@@ -103,8 +103,26 @@ namespace EF6Parser
             log.Error("   (required) OutputFileName          - path to create JSON file of results");
             log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
             log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
+            log.Error("Result codes:");
+            log.Error("   0   Success");
+            log.Error("   1   Bad argument count");
+            log.Error("   2   Cannot load assembly");
+            log.Error("   3   Cannot write output file");
+            log.Error("   4   Cannot create DbContext");
+            log.Error("   5   Cannot find appropriate constructor");
+            log.Error("   6   Ambiguous request");
             log.Error("");
 
+            /*
+             *       public const int SUCCESS = 0;
+      public const int BAD_ARGUMENT_COUNT = 1;
+      public const int CANNOT_LOAD_ASSEMBLY = 2;
+      public const int CANNOT_WRITE_OUTPUTFILE = 3;
+      public const int CANNOT_CREATE_DBCONTEXT = 4;
+      public const int CANNOT_FIND_APPROPRIATE_CONSTRUCTOR = 5;
+      public const int AMBIGUOUS_REQUEST = 6;
+
+             */
             if (ex != null)
             {
                log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
