@@ -1,5 +1,6 @@
 2.0.5
    - Provide option to save diagrams as uncompressed XML to facilitate version control
+   - Enhanced error reporting for assembly import errors
 
 2.0.4.1
    - Fix: ensure glyphs in association compartments are visible
