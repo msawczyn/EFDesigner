@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shfbBuild product="Sandcastle Help File Builder and Tools" version="2019.6.24.0" projectFile="C:\Code\EFDesigner\src\EFDesigner.APIHelp\EFDesigner.APIHelp.shfbproj" started="8/3/2020 1:33:52 AM">
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2019.6.24.0" projectFile="C:\Code\EFDesigner\src\EFDesigner.APIHelp\EFDesigner.APIHelp.shfbproj" started="8/3/2020 2:33:47 PM">
 <buildStep step="Initializing">
 Finding tools...
 The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\&#39;
@@ -78,16 +78,16 @@ Copying XML comments files
 <buildStep step="GenerateSharedContent">
 Generating shared content files (en-US, English (United States))...
 <plugIn name="Lightweight Website Style" behavior="After" priority="1000">
-</plugIn>    Last step completed in 00:00:00.0330
+</plugIn>    Last step completed in 00:00:00.0390
 </buildStep>
 <buildStep step="GenerateApiFilter">
 Generating API filter for MRefBuilder...
-    Last step completed in 00:00:00.0610
+    Last step completed in 00:00:00.1040
 </buildStep>
 <buildStep step="GenerateReflectionInfo">
 Generating reflection information...
 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - GenerateRefInfo.proj]
-Build started 8/3/2020 1:33:58 AM.
+Build started 8/3/2020 2:33:54 PM.
 Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateRefInfo.proj&quot; on node 1 (default targets).
 PrepareForBuild:
   Creating directory &quot;obj\Debug\&quot;.
@@ -126,12 +126,12 @@ MRefBuilder : warning : Ignoring unresolved assembly reference: System.Net.Http 
   Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
   Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\MergeDuplicates.xsl&#39;.
 Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateRefInfo.proj&quot; (default targets).
-    Last step completed in 00:00:45.9850
+    Last step completed in 00:00:46.8680
 </buildStep>
 <buildStep step="TransformReflectionInfo">
 Transforming reflection output...
 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - TransformManifest.proj]
-Build started 8/3/2020 1:34:44 AM.
+Build started 8/3/2020 2:34:40 PM.
 Project &quot;C:\Code\EFDesigner\docs\api\Working\TransformManifest.proj&quot; on node 1 (default targets).
 TransformManifest:
   XslTransform (v2019.6.24.0)
@@ -148,11 +148,11 @@ TransformManifest:
   Portions Copyright c 2006-2019, Eric Woodruff, All Rights Reserved.
   Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\ReflectionToManifest.xsl&#39;.
 Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\TransformManifest.proj&quot; (default targets).
-    Last step completed in 00:00:01.1400
+    Last step completed in 00:00:01.1740
 </buildStep>
 <buildStep step="GenerateNamespaceSummaries">
 Generating namespace summary information...
-    Last step completed in 00:00:00.1800
+    Last step completed in 00:00:00.1750
 </buildStep>
 <buildStep step="GenerateInheritedDocumentation">
 Generating inherited documentation...
@@ -178,7 +178,7 @@ Merging inherited documentation...
 
 
 Documentation merged successfully
-    Last step completed in 00:00:02.1600
+    Last step completed in 00:00:02.4890
 </buildStep>
 <buildStep step="CopyConceptualContent">
 Copying conceptual content...
@@ -189,14 +189,14 @@ Copying images and creating the media map file...
 Generating conceptual topic files
     Parsing topic file &#39;C:\Code\EFDesigner\src\EFDesigner.APIHelp\Content\Welcome.aml&#39;
     C:\Code\EFDesigner\src\EFDesigner.APIHelp\Content\Welcome.aml -&gt; C:\Code\EFDesigner\docs\api\Working\ddueXml\ed2e64f5-b23e-43ae-9e32-0311b0630eef.xml
-    Last step completed in 00:00:00.0500
+    Last step completed in 00:00:00.0810
 </buildStep>
 <buildStep step="CreateConceptualTopicConfigs">
 Creating conceptual topic configuration files...
     Companion files
     _ContentMetadata_.xml
     Merging topic IDs into manifest.xml
-    Last step completed in 00:00:00.0230
+    Last step completed in 00:00:00.0190
 </buildStep>
 <buildStep step="CopyAdditionalContent">
 Copying additional content files...
@@ -209,16 +209,16 @@ C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\VSMarketLogo.png -&gt; C:\Code\E
 C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\TocCollapsed.gif -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\TocCollapsed.gif
 C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\TocExpanded.gif -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\TocExpanded.gif
 C:\Code\EFDesigner\src\EFDesigner.APIHelp\icons\Search.png -&gt; C:\Code\EFDesigner\docs\api\Working\Output\Website\icons\Search.png
-    Last step completed in 00:00:00.0490
+    Last step completed in 00:00:00.0690
 </buildStep>
 <buildStep step="MergeTablesOfContents">
 Merging conceptual and additional tables of contents...
-    Last step completed in 00:00:00.0070
+    Last step completed in 00:00:00.0080
 </buildStep>
 <buildStep step="GenerateIntermediateTableOfContents">
 Generating intermediate table of contents file...
 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - GenerateIntermediateTOC.proj]
-Build started 8/3/2020 1:34:47 AM.
+Build started 8/3/2020 2:34:44 PM.
 Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateIntermediateTOC.proj&quot; on node 1 (default targets).
 GenerateIntermediateTOC:
   XslTransform (v2019.6.24.0)
@@ -227,12 +227,12 @@ GenerateIntermediateTOC:
   Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\\ProductionTransforms\CreateVSToc.xsl&#39;.
 Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\GenerateIntermediateTOC.proj&quot; (default targets).
 Generating conceptual content intermediate TOC file...
-    Last step completed in 00:00:00.5310
+    Last step completed in 00:00:00.6090
 </buildStep>
 <buildStep step="CreateBuildAssemblerConfigs">
 Creating Sandcastle configuration files...
     sandcastle.config
-    Last step completed in 00:00:00.7300
+    Last step completed in 00:00:01.0360
 </buildStep>
 <buildStep step="MergeCustomConfigs">
 Merging custom build component configurations
@@ -256,12 +256,12 @@ C:\Code\EFDesigner\docs\api\Working\sandcastle.config
     Replacing default configuration for &#39;Syntax Component&#39; with the custom configuration
     Replacing default configuration for &#39;Code Block Component&#39; with the custom configuration
     Removing unused ExampleComponent.
-    Last step completed in 00:00:00.0680
+    Last step completed in 00:00:00.0660
 </buildStep>
 <buildStep step="BuildTopics">
 Building help topics...
 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe - BuildTopics.proj]
-Build started 8/3/2020 1:34:49 AM.
+Build started 8/3/2020 2:34:46 PM.
 Project &quot;C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj&quot; on node 1 (default targets).
 BuildTopics:
   BuildAssembler (v2019.6.24.0)
@@ -277,7 +277,7 @@ BuildAssembler : error : BuildAssemblerCore: An unexpected error occurred while 
 BuildAssembler : error :  [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
 BuildAssembler : error : BuildAssemblerCore: An unexpected error occurred while attempting to create the build component &#39;Switch Component&#39;. The error message is: See log for details [C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj]
 Done Building Project &quot;C:\Code\EFDesigner\docs\api\Working\BuildTopics.proj&quot; (default targets) -- FAILED.
-    Last step completed in 00:00:03.0560
+    Last step completed in 00:00:03.0950
 </buildStep>
 <buildStep step="Failed">
 
