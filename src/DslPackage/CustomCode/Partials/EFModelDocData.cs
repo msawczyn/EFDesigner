@@ -214,6 +214,7 @@ namespace Sawczyn.EFDesigner.EFModel
          EnumShape.ExecCodeGeneration = GenerateCode;
          ModelRoot.ExecuteValidator = ValidateAll;
          ModelRoot.GetCurrentDiagram = GetCurrentDiagram;
+         ModelRoot.WriteDiagramAsBinary = () => EFModelPackage.Options.SaveDiagramsCompressed;
          ModelDiagramData.OpenDiagram = DisplayDiagram;
          ModelDiagramData.CloseDiagram = CloseDiagram;
          ModelDiagramData.RenameWindow = RenameWindow;

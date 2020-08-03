@@ -10,6 +10,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO.Packaging;
+using System.Xml.Linq;
+
 using Microsoft.VisualStudio.Modeling.Immutability;
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslValidation = global::Microsoft.VisualStudio.Modeling.Validation;
@@ -23,18 +26,17 @@ namespace Sawczyn.EFDesigner.EFModel
 	{
 	   protected virtual bool IsValid(string diagramsFileName)
 	   {
-	      var l_fileInfo = new global::System.IO.FileInfo(diagramsFileName);
-	        return (l_fileInfo.Exists && (l_fileInfo.Length > 10));
+	      FileInfo fileInfo = new global::System.IO.FileInfo(diagramsFileName);
+	        return (fileInfo.Exists && (fileInfo.Length > 10));
 	   }
 	   
 	   private DslModeling::DomainClassXmlSerializer GetSerializer(DslModeling::Store store, string localName)
 	    {
-	      var directory = this.GetDirectory(store);
+	      DslModeling::DomainXmlSerializerDirectory directory = this.GetDirectory(store);
 	      switch (localName)
 	        {
 	            case "wpfdiagram":
-	                //return this.GetDirectory(store).GetSerializer(WPFDiagram.DomainClassId);
-	            return null;
+	                return null;
 	            default:
 	                return this.GetDirectory(store).GetSerializer(EFModelDiagram.DomainClassId);
 	        }
@@ -42,8 +44,8 @@ namespace Sawczyn.EFDesigner.EFModel
 	   
 	   private DslModeling::DomainClassXmlSerializer GetSerializer(DslDiagrams::Diagram diagram)
 	    {
-	      var directory = this.GetDirectory(diagram.Store);
-	      var diagramSerializer = directory.GetSerializer(diagram.GetDomainClass().Id) ?? directory.GetSerializer(EFModelDiagram.DomainClassId);
+	      DslModeling::DomainXmlSerializerDirectory directory = this.GetDirectory(diagram.Store);
+	      DslModeling::DomainClassXmlSerializer diagramSerializer = directory.GetSerializer(diagram.GetDomainClass().Id) ?? directory.GetSerializer(EFModelDiagram.DomainClassId);
 	      return diagramSerializer;
 	   }
 	   
@@ -86,13 +88,13 @@ namespace Sawczyn.EFDesigner.EFModel
 	      #endregion
 	   
 	      global::System.IO.MemoryStream newFileContent = new global::System.IO.MemoryStream();
-	      var directory = this.GetDirectory(diagram.Store);
+	      DslModeling::DomainXmlSerializerDirectory directory = this.GetDirectory(diagram.Store);
 	      DslModeling::SerializationContext serializationContext = new DslModeling::SerializationContext(directory, diagramFileName, serializationResult);
 	      this.InitializeSerializationContext(diagram.Partition, serializationContext, false);
 	      // MonikerResolver shouldn't be required in Save operation, so not calling SetupMonikerResolver() here.
 	      serializationContext.WriteOptionalPropertiesWithDefaultValue = writeOptionalPropertiesWithDefaultValue;
 	      global::System.Xml.XmlWriterSettings settings = EFModelSerializationHelper.Instance.CreateXmlWriterSettings(serializationContext, true, encoding);
-	      var diagramSerializer = GetSerializer(diagram);	
+	      DslModeling::DomainClassXmlSerializer diagramSerializer = GetSerializer(diagram);	
 	      
 	      using (global::System.Xml.XmlWriter writer = global::System.Xml.XmlWriter.Create(newFileContent, settings))
 	      {
@@ -149,7 +151,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	      #endregion
 	      
 	      DslDiagrams::Diagram diagram = null;
-	      var diagramName = string.Empty;
+	      string diagramName = string.Empty;
 	   
 	      // Ensure there is an outer transaction spanning both model and diagram load, so moniker resolution works properly.
 	      if (!diagramPartition.Store.TransactionActive)
@@ -164,12 +166,12 @@ namespace Sawczyn.EFDesigner.EFModel
 	        }
 	      else
 	      {
-	         var directory = this.GetDirectory(diagramPartition.Store);
-	         var localName = string.Empty;
-	         var localSettings = EFModelSerializationHelper.Instance.CreateXmlReaderSettings(null, false);
+	         DslModeling::DomainXmlSerializerDirectory directory = this.GetDirectory(diagramPartition.Store);
+	         string localName = string.Empty;
+	         global::System.Xml.XmlReaderSettings localSettings = EFModelSerializationHelper.Instance.CreateXmlReaderSettings(null, false);
 	         try
 	         {
-	            using (var reader = global::System.Xml.XmlReader.Create(diagramStream, localSettings))
+	            using (global::System.Xml.XmlReader reader = global::System.Xml.XmlReader.Create(diagramStream, localSettings))
 	              {
 	                  reader.MoveToContent();
 	                  localName = reader.LocalName;
@@ -187,7 +189,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	            );
 	         }
 	         
-	         var diagramSerializer = directory.GetSerializer(EFModelDiagram.DomainClassId) ?? this.GetSerializer(diagramPartition.Store, localName);		
+	         DslModeling::DomainClassXmlSerializer diagramSerializer = directory.GetSerializer(EFModelDiagram.DomainClassId) ?? this.GetSerializer(diagramPartition.Store, localName);		
 	         global::System.Diagnostics.Debug.Assert(diagramSerializer != null, "Cannot find serializer for " + diagramName);
 	         
 	         if (diagramSerializer != null)
@@ -200,52 +202,52 @@ namespace Sawczyn.EFDesigner.EFModel
 		
 	               using (DslModeling::Transaction postT = diagramPartition.Store.TransactionManager.BeginTransaction("PostLoad Model and Diagram", true, transactionContext))
 	               {
-		
-		            using (DslModeling::Transaction t = diagramPartition.Store.TransactionManager.BeginTransaction("LoadDiagram", true, transactionContext))
-		            {
-		               // Ensure there is some content in the file. Blank (or almost blank, to account for encoding header bytes, etc.)
-		               // files will cause a new diagram to be created and returned 
-		               if (diagramStream.Length > 5)
-		               {
-		                  global::System.Xml.XmlReaderSettings settings = EFModelSerializationHelper.Instance.CreateXmlReaderSettings(serializationContext, false);
-		                  try
-		                  {
-		                     using (global::System.Xml.XmlReader reader = global::System.Xml.XmlReader.Create(diagramStream, settings))
-		                     {
-		                        reader.MoveToContent();
-		                        diagram = diagramSerializer.TryCreateInstance(serializationContext, reader, diagramPartition) as DslDiagrams::Diagram;
-		                        if (diagram != null)
-		                        {
-		                           this.ReadRootElement(serializationContext, diagramSerializer, diagram, reader, schemaResolver);
-		                        }
-		                     }
-		                  }
-		                  catch (global::System.Xml.XmlException xEx)
-		                  {
-		                     DslModeling::SerializationUtilities.AddMessage(
-		                        serializationContext,
-		                        DslModeling::SerializationMessageKind.Error,
-		                        xEx
-		                     );
-		                  }
-		                  if (serializationResult.Failed)
-		                  {	
-		                     // Serialization error encountered, rollback the transaction.
-		                     diagram = null;
-		                     t.Rollback();
-		                  }
-		               }
-		            
-		               if(diagram == null && !serializationResult.Failed)
-		               {
-		                  // Create diagram if it doesn't exist
-		                  diagram = this.CreateDiagramHelper(diagramPartition, modelRoot);
-		               }
-		               
-		               if (t.IsActive)
-		                  t.Commit();
-		            } // End inner Tx
-		
+			
+			            using (DslModeling::Transaction t = diagramPartition.Store.TransactionManager.BeginTransaction("LoadDiagram", true, transactionContext))
+			            {
+			               // Ensure there is some content in the file. Blank (or almost blank, to account for encoding header bytes, etc.)
+			               // files will cause a new diagram to be created and returned 
+			               if (diagramStream.Length > 5)
+			               {
+			                  global::System.Xml.XmlReaderSettings settings = EFModelSerializationHelper.Instance.CreateXmlReaderSettings(serializationContext, false);
+			                  try
+			                  {
+			                     using (global::System.Xml.XmlReader reader = global::System.Xml.XmlReader.Create(diagramStream, settings))
+			                     {
+			                        reader.MoveToContent();
+			                        diagram = diagramSerializer.TryCreateInstance(serializationContext, reader, diagramPartition) as DslDiagrams::Diagram;
+			                        if (diagram != null)
+			                        {
+			                           this.ReadRootElement(serializationContext, diagramSerializer, diagram, reader, schemaResolver);
+			                        }
+			                     }
+			                  }
+			                  catch (global::System.Xml.XmlException xEx)
+			                  {
+			                     DslModeling::SerializationUtilities.AddMessage(
+			                        serializationContext,
+			                        DslModeling::SerializationMessageKind.Error,
+			                        xEx
+			                     );
+			                  }
+			                  if (serializationResult.Failed)
+			                  {	
+			                     // Serialization error encountered, rollback the transaction.
+			                     diagram = null;
+			                     t.Rollback();
+			                  }
+			               }
+			            
+			               if(diagram == null && !serializationResult.Failed)
+			               {
+			                  // Create diagram if it doesn't exist
+			                  diagram = this.CreateDiagramHelper(diagramPartition, modelRoot);
+			               }
+			               
+			               if (t.IsActive)
+			                  t.Commit();
+			            } // End inner Tx
+			
 	
 	                  // Fire PostLoad customization code whether Load succeeded or not
 	                  // Provide a method in a partial class with the following signature:
@@ -347,26 +349,56 @@ namespace Sawczyn.EFDesigner.EFModel
 	      
 	      if (IsValid(diagramsFileName))
 	      {
-	         using (var pkgOutputDoc = global::System.IO.Packaging.Package.Open(diagramsFileName, global::System.IO.FileMode.Open, global::System.IO.FileAccess.Read))
+	         try
 	         {
-	            foreach (var packagePart in pkgOutputDoc.GetParts())
+	            using (global::System.IO.Packaging.Package pkgOutputDoc = global::System.IO.Packaging.Package.Open(diagramsFileName, global::System.IO.FileMode.Open, global::System.IO.FileAccess.Read))
 	            {
-	               EFModelDiagram diagram = this.LoadDiagram(serializationResult
+	               foreach (global::System.IO.Packaging.PackagePart packagePart in pkgOutputDoc.GetParts())
+	               {
+	                  EFModelDiagram diagram = this.LoadDiagram(serializationResult
+	                                                               , modelPartition
+	                                                               , modelFileName
+	                                                               , diagramsFileName
+	                                                               , modelRoot
+	                                                               , diagramsPartition
+	                                                               , packagePart.GetStream(global::System.IO.FileMode.Open, global::System.IO.FileAccess.Read)
+	                                                               , schemaResolver
+	                                                               , validationController
+	                                                               , serializerLocator) as EFModelDiagram;
+	
+	                  if (diagram != null)
+	                     data = FixupDiagramData(diagram);
+	
+	                  if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName).Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries).First())
+	                     data.SetLocks(Locks.All);
+	               }
+	            }
+	         }
+	         catch (FileFormatException)
+	         {
+	            XDocument xmlDocument = XDocument.Load(diagramsFileName);
+	
+	            foreach (XElement element in xmlDocument.Root.Elements())
+	            {
+	                using (MemoryStream stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" + element)))
+	                {
+	                    EFModelDiagram diagram = this.LoadDiagram(serializationResult
 	                                                            , modelPartition
 	                                                            , modelFileName
 	                                                            , diagramsFileName
 	                                                            , modelRoot
 	                                                            , diagramsPartition
-	                                                            , packagePart.GetStream(global::System.IO.FileMode.Open, global::System.IO.FileAccess.Read)
+	                                                            , stream
 	                                                            , schemaResolver
 	                                                            , validationController
 	                                                            , serializerLocator) as EFModelDiagram;
-	
-	               if (diagram != null)
-	                  data = FixupDiagramData(diagram);
-	
-	               if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName).Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries).First())
-	                  data.SetLocks(Locks.All);
+	    
+	                    if (diagram != null)
+	                    data = FixupDiagramData(diagram);
+	    
+	                    if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName).Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries).First())
+	                    data.SetLocks(Locks.All);
+	                }
 	            }
 	         }
 	      }
@@ -406,7 +438,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	   
 	         if (diagramData == null)
 	            modelRoot.Diagrams.Add(diagramData = new ModelDiagramData(modelRoot.Store.DefaultPartition
-	                                                                     , new DslModeling.PropertyAssignment(ModelDiagramData.NameDomainPropertyId, diagram.Name)));
+	                                                                     , new DslModeling::PropertyAssignment(ModelDiagramData.NameDomainPropertyId, diagram.Name)));
 	   
 	         diagramData.SetDiagram(diagram);
 	         return diagramData;
@@ -440,15 +472,15 @@ namespace Sawczyn.EFDesigner.EFModel
 	         return;
 	         
 	      // Save the model file first
-	      var modelFileContent = this.InternalSaveModel(serializationResult, modelRoot, modelFileName, encoding, writeOptionalPropertiesWithDefaultValue);
+	      MemoryStream modelFileContent = this.InternalSaveModel(serializationResult, modelRoot, modelFileName, encoding, writeOptionalPropertiesWithDefaultValue);
 	      if (serializationResult.Failed)
 	      {
 	         modelFileContent.Close();
 	         return;
 	      }
 	      
-	      var memoryStreamDictionary = new Dictionary<global::System.IO.MemoryStream, string>();
-	      foreach (var diagram in diagrams)
+	      Dictionary<global::System.IO.MemoryStream, string> memoryStreamDictionary = new Dictionary<global::System.IO.MemoryStream, string>();
+	      foreach (DslDiagrams::Diagram diagram in diagrams)
 	      {
 	         if (string.IsNullOrEmpty(diagram.Name))
 	         {
@@ -480,20 +512,38 @@ namespace Sawczyn.EFDesigner.EFModel
 	   
 	   private static void WriteDiagramFile(string diagramsFileName, Dictionary<global::System.IO.MemoryStream, string> memoryStreamDictionary)
 	   {
-	      using (var pkgOutputDoc = global::System.IO.Packaging.Package.Open(diagramsFileName, global::System.IO.FileMode.Create, global::System.IO.FileAccess.ReadWrite))
+	      if (ModelRoot.WriteDiagramAsBinary())
 	      {
-	         foreach (var memoryStream in memoryStreamDictionary.Keys)
+	         using (var pkgOutputDoc = global::System.IO.Packaging.Package.Open(diagramsFileName, global::System.IO.FileMode.Create, global::System.IO.FileAccess.ReadWrite))
 	         {
-	            var bytes = memoryStream.ToArray();
-	            var uri = global::System.IO.Packaging.PackUriHelper.CreatePartUri(new Uri(string.Format("/diagrams/{0}", memoryStreamDictionary[memoryStream]), UriKind.Relative));
-	            var part = pkgOutputDoc.CreatePart(uri, global::System.Net.Mime.MediaTypeNames.Text.Xml, global::System.IO.Packaging.CompressionOption.Maximum);
-	
-	            using (var partStream = part.GetStream(global::System.IO.FileMode.Create, global::System.IO.FileAccess.Write))
+	            foreach (var memoryStream in memoryStreamDictionary.Keys)
 	            {
-	               partStream.Write(bytes, 0, bytes.Length);
+	               byte[] bytes = memoryStream.ToArray();
+	               Uri uri = global::System.IO.Packaging.PackUriHelper.CreatePartUri(new Uri(string.Format("/diagrams/{0}", memoryStreamDictionary[memoryStream]), UriKind.Relative));
+	               PackagePart part = pkgOutputDoc.CreatePart(uri, global::System.Net.Mime.MediaTypeNames.Text.Xml, global::System.IO.Packaging.CompressionOption.Maximum);
+	   
+	               using (var partStream = part.GetStream(global::System.IO.FileMode.Create, global::System.IO.FileAccess.Write))
+	               {
+	                  partStream.Write(bytes, 0, bytes.Length);
+	               }
 	            }
-	         }
-	      }
+	        }
+	     }
+	     else
+	     {
+	        string header = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
+	        global::System.Text.StringBuilder buffer = new global::System.Text.StringBuilder(header);
+	        buffer.Append("<eFModelDiagrams>");
+	   
+	        foreach (var memoryStream in memoryStreamDictionary.Keys)
+	        {
+	           string diagramXml = global::System.Text.Encoding.UTF8.GetString(memoryStream.ToArray()).Substring(header.Length);
+	           buffer.Append(diagramXml);
+	        }
+	   
+	        buffer.Append("\r\n</eFModelDiagrams>\r\n");
+	        File.WriteAllText(diagramsFileName, buffer.ToString());
+	     }
 	   }
 	      
 	   internal virtual void SaveDiagrams(DslModeling::SerializationResult serializationResult, DslDiagrams::Diagram[] diagrams, string diagramsFileName, global::System.Text.Encoding encoding, bool writeOptionalPropertiesWithDefaultValue)
@@ -512,19 +562,18 @@ namespace Sawczyn.EFDesigner.EFModel
 	         
 	      var memoryStreamDictionary = new Dictionary<global::System.IO.MemoryStream, string>();
 	      foreach (var diagram in diagrams)
-	        {
-	         // HACK : Add validation rule on Diagram Name (!string.IsNullOrEmpty && Unique )
-	            if (string.IsNullOrEmpty(diagram.Name))
-	            {
-	                throw new ArgumentException("Each diagram must have a name", "diagrams");
-	            }
-	            memoryStreamDictionary.Add(this.InternalSaveDiagram(serializationResult, diagram, diagramsFileName, encoding, writeOptionalPropertiesWithDefaultValue), diagram.Name);
-	            if (serializationResult.Failed)
-	            {
-	                memoryStreamDictionary.Keys.ToList<global::System.IO.MemoryStream>().ForEach(memoryStream => memoryStream.Close());
-	                return;
-	            }
-	        }
+	      {
+	         if (string.IsNullOrEmpty(diagram.Name))
+	         {
+	            throw new ArgumentException("Each diagram must have a name", "diagrams");
+	         }
+	         memoryStreamDictionary.Add(this.InternalSaveDiagram(serializationResult, diagram, diagramsFileName, encoding, writeOptionalPropertiesWithDefaultValue), diagram.Name);
+	         if (serializationResult.Failed)
+	         {
+	             memoryStreamDictionary.Keys.ToList<global::System.IO.MemoryStream>().ForEach(memoryStream => memoryStream.Close());
+	             return;
+	         }
+	      }
 	      WriteDiagramFile(diagramsFileName, memoryStreamDictionary);
 	   }
 	}

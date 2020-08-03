@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Drawing.Design;
+using System.Windows.Forms.Design;
+
+using Microsoft.VisualStudio.Shell;
 
 namespace Sawczyn.EFDesigner.EFModel.DslPackage
 {
-   public class OptionsPage : Microsoft.VisualStudio.Shell.DialogPage
+   public class OptionsPage : DialogPage
    {
       [Category("Display")]
       [DisplayName("GraphViz dot.exe path")]
       [Description("Path to the GraphViz dot.exe file, if present")]
-      [Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+      [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
       public string DotExePath { get; set; }
 
-      //[Category("Code Generation")]
-      //[DisplayName("Default string length")]
-      //[Description("Initial length of all string properties. Can be blank for no default")]
-      //public int? DefaultStringLength { get; set; }
+      [Category("File")]
+      [DisplayName("Save diagram using legacy binary format")]
+      [Description("If true, .diagramx files will be saved in compressed format. If false, they will not.")]
+      public bool SaveDiagramsCompressed { get; set; }
    }
 }

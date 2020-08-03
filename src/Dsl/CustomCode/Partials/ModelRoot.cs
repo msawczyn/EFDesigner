@@ -27,6 +27,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Func<Diagram> GetCurrentDiagram;
 
+      public static Func<bool> WriteDiagramAsBinary = () => false;
+
       static ModelRoot()
       {
          try
