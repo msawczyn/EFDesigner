@@ -49,40 +49,34 @@ namespace Sawczyn.EFDesigner.EFModel
          return false;
       }
 
-      public bool Process(string filename, out List<ModelElement> newElements)
+      public bool Process(string inputFile, out List<ModelElement> newElements)
       {
          try
          {
-            if (filename == null)
-               throw new ArgumentNullException(nameof(filename));
+            if (inputFile == null)
+               throw new ArgumentNullException(nameof(inputFile));
 
             newElements = new List<ModelElement>();
             string outputFilename = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
             string logFilename = Path.ChangeExtension(outputFilename, "log");
             StatusDisplay.Show("Detecting .NET and EF versions");
 
-            string[] paths =
+            string[] parsers =
             {
                @"Parsers\EF6Parser.exe"
              , @"Parsers\EFCore2Parser.exe"
              , @"Parsers\EFCore3Parser.exe"
             };
 
-            foreach (string path in paths)
+            Dictionary<string,bool> contexts = new Dictionary<string, bool>();
+            foreach (string parserPath in parsers)
             {
-               int parseResult = TryParseAssembly(filename, path, outputFilename);
-
-               if (parseResult == 0)
-                  return DoProcessing(outputFilename, out newElements);
-               else
-               {
-                  WarningDisplay.Show(Path.GetFileNameWithoutExtension(path));
-                  string[] logEntries = File.ReadAllLines(logFilename);
-
-                  foreach (string logEntry in logEntries)
-                     WarningDisplay.Show(logEntry);
-               }
+               if (TryParse(inputFile, ref newElements, parserPath, outputFilename, logFilename, contexts))
+                  return true;
             }
+
+            foreach (string logEntry in File.ReadAllLines(logFilename))
+               WarningDisplay.Show(logEntry);
 
             ErrorDisplay.Show(Store, $"Error processing assembly. See Output window or {logFilename} for further information");
             return false;
@@ -91,6 +85,40 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             StatusDisplay.Show("");
          }
+      }
+
+      private bool TryParse(string assemblyPath, ref List<ModelElement> newElements, string parserPath, string outputFilename, string logFilename, Dictionary<string, bool> contexts)
+      {
+         string contextName = contexts.Any(kv => contexts[kv.Key])
+                                 ? contexts.First(kv => contexts[kv.Key]).Key
+                                 : null;
+
+         if (contexts.Any() && string.IsNullOrEmpty(contextName))
+            return false;
+
+         int parseResult = TryParseAssembly(assemblyPath, parserPath, outputFilename, contextName);
+
+         if (parseResult == 0)
+            return DoProcessing(outputFilename, out newElements);
+
+         if (!contexts.Any())
+         {
+            string dupeContextTag = "Found more than one class derived from DbContext:";
+            string dupeContextLogEntry = File.ReadAllLines(logFilename).FirstOrDefault(logEntry => logEntry.Contains(dupeContextTag));
+
+            if (dupeContextLogEntry != null)
+            {
+               IEnumerable<string> contextNames = dupeContextLogEntry.Substring(dupeContextLogEntry.IndexOf(dupeContextTag, StringComparison.InvariantCulture) + dupeContextTag.Length).Split(',')
+                                                                     .Select(s => s.Trim().Split('.').Last());
+
+               foreach (string context in contextNames)
+                  contexts.Add(context, BooleanQuestionDisplay.Show(Store, $"Found multiple DbContext classes. Process {context}?") == true);
+
+               return TryParse(assemblyPath, ref newElements, parserPath, outputFilename, logFilename, contexts);
+            }
+         }
+
+         return false;
       }
 
       #region ModelRoot
@@ -458,12 +486,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
-      private int TryParseAssembly(string filename, string parserAssembly, string outputFilename)
+      private int TryParseAssembly(string filename, string parserAssembly, string outputFilename, string contextName)
       {
          string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), parserAssembly);
          ProcessStartInfo processStartInfo = new ProcessStartInfo(path)
          {
-            Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"",
+            Arguments = $"\"{filename.Trim('\"')}\" \"{outputFilename}\"" + (!string.IsNullOrEmpty(contextName) ? $" \"{contextName}\"" : ""),
             CreateNoWindow = true,
             ErrorDialog = false,
             WindowStyle = ProcessWindowStyle.Hidden,

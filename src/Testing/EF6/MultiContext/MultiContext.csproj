@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{36A0F9F4-7576-43B5-9CCC-8A8D60A5FB9F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MultiContext</RootNamespace>
+    <AssemblyName>MultiContext</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Context1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context1\Context1.generated1.cs" />
+    <Compile Include="Context1\Context1DatabaseInitializer.generated1.cs" />
+    <Compile Include="Context1\Context1DbMigrationConfiguration.generated1.cs" />
+    <Compile Include="Context1\Entity1.generated1.cs" />
+    <Compile Include="Context1\Entity2.generated1.cs" />
+    <Compile Include="Context2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Context2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context2\Context2.generated2.cs" />
+    <Compile Include="Context2\Context2DatabaseInitializer.generated2.cs" />
+    <Compile Include="Context2\Context2DbMigrationConfiguration.generated2.cs" />
+    <Compile Include="Context2\Entity1.generated2.cs" />
+    <Compile Include="Context2\Entity2.generated2.cs" />
+    <Compile Include="Context2\Entity3.generated2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Context1.efmodel" />
+    <None Include="Context1.efmodel.diagramx">
+      <DependentUpon>Context1.efmodel</DependentUpon>
+    </None>
+    <None Include="Context2.efmodel" />
+    <None Include="Context2.efmodel.diagramx">
+      <DependentUpon>Context2.efmodel</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Context1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Context1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Context2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Context2.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

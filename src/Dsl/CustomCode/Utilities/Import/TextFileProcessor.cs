@@ -100,17 +100,17 @@ namespace Sawczyn.EFDesigner.EFModel
          return new List<string>();
       }
 
-      public bool Process(string filename, out List<ModelElement> newElements)
+      public bool Process(string inputFile, out List<ModelElement> newElements)
       {
-         if (string.IsNullOrEmpty(filename))
-            throw new ArgumentNullException(nameof(filename));
+         if (string.IsNullOrEmpty(inputFile))
+            throw new ArgumentNullException(nameof(inputFile));
 
          newElements = new List<ModelElement>();
 
          try
          {
             // read the file
-            string fileContents = File.ReadAllText(filename);
+            string fileContents = File.ReadAllText(inputFile);
 
             // parse the contents
             SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContents);
@@ -122,7 +122,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (!classDecls.Any() && !enumDecls.Any())
                {
-                  WarningDisplay.Show($"Couldn't find any classes or enums to add to the model in {filename}");
+                  WarningDisplay.Show($"Couldn't find any classes or enums to add to the model in {inputFile}");
 
                   return false;
                }
@@ -169,7 +169,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
          catch
          {
-            ErrorDisplay.Show(Store, "Error interpreting " + filename);
+            ErrorDisplay.Show(Store, "Error interpreting " + inputFile);
 
             return false;
          }
@@ -209,8 +209,8 @@ namespace Sawczyn.EFDesigner.EFModel
                ModelClass target = modelRoot.Classes.FirstOrDefault(t => t.Name == propertyType);
 
                // is the property type a generic?
-               // assume it's a list
-               // TODO: this really isn't a good assumption. Fix later
+               // assume it's a collection
+               // TODO: is this really a good assumption? Review later
                if (propertyDecl.ChildNodes().OfType<GenericNameSyntax>().Any())
                {
                   ProcessAsList(propertyDecl
@@ -227,7 +227,6 @@ namespace Sawczyn.EFDesigner.EFModel
                if (target != null)
                {
                   ProcessAssociation(modelClass, target, propertyDecl);
-
                   continue;
                }
 
@@ -256,17 +255,21 @@ namespace Sawczyn.EFDesigner.EFModel
                      AttributeArgumentSyntax maxLength = maxLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (maxLength != null)
+                     {
                         modelAttribute.MaxLength = int.TryParse(maxLength.Expression.ToString(), out int _max)
                                                       ? (int?)_max
                                                       : null;
+                     }
 
                      AttributeSyntax minLengthAttribute = propertyDecl.GetAttribute("MinLengthAttribute");
                      AttributeArgumentSyntax minLength = minLengthAttribute?.GetAttributeArguments()?.FirstOrDefault();
 
                      if (minLength != null)
+                     {
                         modelAttribute.MinLength = int.TryParse(minLength.Expression.ToString(), out int _min)
                                                       ? _min
                                                       : 0;
+                     }
                   }
                   else
                   {

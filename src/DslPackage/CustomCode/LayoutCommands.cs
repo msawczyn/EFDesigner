@@ -104,7 +104,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private static void DoGraphvizLayout(List<DotNode> vertices, List<DotEdge> edges, EFModelDiagram diagram)
       {
          // set up to be a bidirectional graph with the edges we found
-         BidirectionalGraph<DotNode, DotEdge> graph = edges.ToBidirectionalGraph<DotNode, DotEdge>(true);
+         BidirectionalGraph<DotNode, DotEdge> graph = edges.ToBidirectionalGraph<DotNode, DotEdge>();
 
          // add all the vertices that aren't connected by edges
          graph.AddVertexRange(vertices.Except(edges.Select(e => e.Source).Union(edges.Select(e => e.Target))));
@@ -135,8 +135,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                    args.EdgeFormat.Label.Value = args.Edge.Shape.Id.ToString();
                                 };
          // generate the commands
-         string dotCommands = graphviz.Generate(new DotEngine(), null);
-
+         string dotCommands = graphviz.Generate(new DotEngine(), Path.Combine(Path.GetTempPath(), Path.GetTempFileName()));
          Debug.WriteLine(dotCommands);
 
          ProcessStartInfo dotStartInfo = new ProcessStartInfo(EFModelPackage.Options.DotExePath, "-T plain")

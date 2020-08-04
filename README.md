@@ -53,7 +53,14 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.4.1**
+**2.0.5**
+   - Provide option to save diagrams as uncompressed XML to facilitate version control
+   - Enhanced error reporting for assembly import errors
+   - Assembly import can now process assemblies with more than one DbContext class
+
+<details>
+<summary><b>2.0.4.1</b></summary>
+
    - Added ability to hide foreign key property names on association connectors in diagrams
    - Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer
    - Sped up reverse engineering a compiled assembly. As a consequence, the diagram is no longer updated when the assembly is imported (but that tended to ruin the diagram anyway)
@@ -65,8 +72,10 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Fix: ensure glyphs in association compartments are visible
    - Fix: overly-aggressive pruning in foreign keys
 
+</details>
+
 <details>
-<summary><b>2.03</b></summary>
+<summary><b>2.0.3</b></summary>
 
    - Added ability to hide foreign key property names on association connectors in diagrams
    - Attribute glyphs (except for Warning glyphs) in diagrams are now reflected in Model Explorer

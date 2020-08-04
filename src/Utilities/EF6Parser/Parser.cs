@@ -29,13 +29,15 @@ namespace EF6Parser
 
       public Parser(Assembly assembly, string dbContextTypeName = null)
       {
+         Debugger.Break();
+         
          this.assembly = assembly;
          Type contextType;
 
          if (dbContextTypeName != null)
          {
             log.Debug($"dbContextTypeName parameter is {dbContextTypeName}");
-            contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName);
+            contextType = assembly.GetExportedTypes().FirstOrDefault(t => t.FullName == dbContextTypeName || t.Name == dbContextTypeName);
             log.Info($"Using contextType = {contextType.FullName}");
          }
          else

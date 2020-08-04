@@ -6,6 +6,6 @@ namespace Sawczyn.EFDesigner.EFModel
 {
    public interface IFileProcessor
    {
-      bool Process(string filename, out List<ModelElement> newElements);
+      bool Process(string inputFile, out List<ModelElement> newElements);
    }
 }
