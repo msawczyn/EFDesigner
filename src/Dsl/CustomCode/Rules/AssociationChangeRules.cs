@@ -181,6 +181,8 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
 
                case "SourceRole":
+                  if (element.SourceRole == EndpointRole.NotApplicable)
+                     element.SourceRole = EndpointRole.NotSet;
 
                   if (element.Source.IsDependentType)
                   {
@@ -282,6 +284,8 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
 
                case "TargetRole":
+                  if (element.TargetRole == EndpointRole.NotApplicable)
+                     element.TargetRole = EndpointRole.NotSet;
 
                   if (element.Target.IsDependentType && (element.SourceRole != EndpointRole.Principal || element.TargetRole != EndpointRole.Dependent))
                   {

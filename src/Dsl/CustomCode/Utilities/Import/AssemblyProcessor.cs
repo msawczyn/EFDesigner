@@ -531,9 +531,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case AssociationRole.Principal:
                return EndpointRole.Principal;
-
-            case AssociationRole.NotApplicable:
-               return EndpointRole.NotApplicable;
          }
 
          return EndpointRole.NotSet;
