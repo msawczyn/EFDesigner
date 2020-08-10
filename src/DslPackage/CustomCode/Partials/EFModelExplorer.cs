@@ -446,7 +446,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          if (node.Parent is EFModelRoleGroupTreeNode roleNode)
-            roleNode.UpdateNodeText();
+            roleNode.Text = roleNode.GetNodeText(); // not roleNode.UpdateNodeText() - too expensive
       }
 
       private void ObjectModelBrowser_OnItemDrag(object sender, ItemDragEventArgs e)
@@ -519,7 +519,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (elementNode?.Parent is EFModelRoleGroupTreeNode roleNode)
          {
-            roleNode.UpdateNodeText();
+            roleNode.Text = roleNode.GetNodeText(); // not roleNode.UpdateNodeText() - too expensive
             Invalidate();
          }
       }
