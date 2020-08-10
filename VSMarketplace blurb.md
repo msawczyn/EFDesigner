@@ -30,10 +30,11 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**2.0.5**
+**2.0.5.1**
    - **[NEW]** Provide option to save diagrams as uncompressed XML to facilitate version control
    - **[NEW]** Enhanced error reporting for assembly import errors
    - **[NEW]** Assembly import can now process assemblies with more than one DbContext class
+   - Performance improvements
 
 **2.0.4.1**
    - **[NEW]** Added ability to hide foreign key property names on association connectors in diagrams
