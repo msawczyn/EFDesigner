@@ -101,10 +101,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static ShapeElement AddExistingModelElement(EFModelDiagram diagram, ModelElement element)
       {
-         if (diagram == null)
-            return null;
-
-         if (diagram.NestedChildShapes.Any(s => s.ModelElement == element))
+         if (diagram?.NestedChildShapes?.Any(s => s.ModelElement == element) != false)
             return null;
 
          using (Transaction t = element.Store.TransactionManager.BeginTransaction("add existing model elements"))
