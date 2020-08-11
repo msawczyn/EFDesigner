@@ -53,10 +53,11 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.5.1**
+**2.0.5.2**
    - Provide option to save diagrams as uncompressed XML to facilitate version control
    - Enhanced error reporting for assembly import errors
    - Assembly import can now process assemblies with more than one DbContext class
+   - Cleaned up some ambiguities in how copy/paste was handled with multiple diagrams
    - Performance improvements
 
 <details>
