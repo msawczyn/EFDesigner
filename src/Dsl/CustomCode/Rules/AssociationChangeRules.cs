@@ -457,8 +457,8 @@ namespace Sawczyn.EFDesigner.EFModel
                switch (element.SourceMultiplicity)
                {
                   case Multiplicity.ZeroMany:
-                     element.SourceRole = EndpointRole.NotApplicable;
-                     element.TargetRole = EndpointRole.NotApplicable;
+                     element.SourceRole = EndpointRole.NotSet;
+                     element.TargetRole = EndpointRole.NotSet;
 
                      return true;
                   case Multiplicity.One:
