@@ -31,7 +31,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 **ChangeLog**
 
 **2.0.5.3**
-   - **[NEW]** Provide option to save diagrams as uncompressed XML to facilitate version control
+   - **[NEW]** Provide option to save diagrams as uncompressed XML to facilitate version control (in Tools/Options/Entity Framework Visual Editor)
    - **[NEW]** Enhanced error reporting for assembly import errors
    - **[NEW]** Assembly import can now process assemblies with more than one DbContext class
    - Cleaned up some ambiguities in how copy/paste was handled with multiple diagrams
