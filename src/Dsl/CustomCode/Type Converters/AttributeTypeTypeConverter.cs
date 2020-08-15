@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 
+using Sawczyn.EFDesigner.EFModel.Extensions;
+
 namespace Sawczyn.EFDesigner.EFModel
 {
    /// <inheritdoc />
@@ -27,16 +29,16 @@ namespace Sawczyn.EFDesigner.EFModel
          // "context.Instance"  returns the element(s) that are currently selected i.e. whose values are being shown in the property grid.   
          // Note that the user could have selected multiple objects, in which case context.Instance will be an array.  
          Store store = GetStore(context.Instance);
+         ModelRoot modelRoot = store.ModelRoot();
 
-         // if this is an identity property, there's a limited range of possibilities
-         bool useIdentityTypes = (context.Instance as ModelAttribute)?.IsIdentity == true;
+         // if this is an identity property, there's a limited range of possibilities if EF6 or EFCore before v5
+         bool useIdentityTypes = (context.Instance as ModelAttribute)?.IsIdentity == true && 
+                                 (modelRoot.EntityFrameworkVersion == EFVersion.EF6 || modelRoot.GetEntityFrameworkPackageVersionNum() < 5);
 
          List<string> values = new List<string>();
 
          if (store != null)
          {
-            ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().First();
-
             if (useIdentityTypes)
                values = new List<string>(modelRoot.ValidIdentityAttributeTypes);
             else

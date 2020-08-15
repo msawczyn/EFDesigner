@@ -193,6 +193,13 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      public bool IsValidIdentityAttributeType(string typename)
+      {
+         // EF6 is constrained as to identity types, as is EFCore before v5
+         // EFCore from v5 on has no constraints, other than what's put on by the database type
+         return (EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5) || ValidIdentityAttributeTypes.Contains(typename);
+      }
+
       public string[] ValidIdentityAttributeTypes
       {
          get

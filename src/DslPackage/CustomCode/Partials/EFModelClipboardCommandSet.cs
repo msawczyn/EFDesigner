@@ -25,19 +25,21 @@ namespace Sawczyn.EFDesigner.EFModel
             Store store = efModelDocView.Diagram.Store;
 
             List<ModelClass> modelClasses = modelElements.OfType<ModelClass>().ToList();
+            List<ModelEnum> enums = modelElements.OfType<ModelEnum>().ToList();
             List<Comment> comments = modelElements.OfType<Comment>().ToList();
             List<ModelElement> everythingElse = modelElements.Except(modelClasses).Except(comments).ToList();
             List<ShapeElement> newShapes = new List<ShapeElement>();
 
             using (Transaction t = store.TransactionManager.BeginTransaction())
             {
-               // paste classes and comments first to ensure that any possible connector end is present before the connectors arrive
+               // paste classes, enums and comments first to ensure that any possible connector end is present before the connectors arrive
                newShapes.AddRange(modelClasses.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
+               newShapes.AddRange(enums.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
                newShapes.AddRange(comments.Select(e => EFModelDiagram.AddExistingModelElement(currentDiagram, e)));
                newShapes = newShapes.Where(s => s != null).ToList();
 
-               // select and show the new or existing shape. Search, in order, classes, comments, then everything else
-               ModelElement firstElement = modelClasses.FirstOrDefault() ?? comments.FirstOrDefault() ?? everythingElse.FirstOrDefault();
+               // select and show the new or existing shape. Search, in order, classes, enums, comments, then everything else
+               ModelElement firstElement = modelClasses.FirstOrDefault() ?? enums.FirstOrDefault() ?? comments.FirstOrDefault() ?? everythingElse.FirstOrDefault();
 
                if (firstElement != null)
                   currentDiagram.ActiveDiagramView.SelectModelElement(firstElement, true);
@@ -50,11 +52,6 @@ namespace Sawczyn.EFDesigner.EFModel
                t.Commit();
             }
 
-            //using (Transaction t = store.TransactionManager.BeginTransaction())
-            //{
-            //   Commands.LayoutDiagram(currentDiagram, newShapes);
-            //   t.Commit();
-            //}
             currentDiagram.Invalidate();
 
             return true;

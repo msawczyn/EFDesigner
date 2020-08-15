@@ -143,7 +143,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      errorMessages.Add($"{modelClass.Name}.{element.Name}: Can't make {element.Name} an identity because {modelClass.Name} is a dependent type and can't have an identity property.");
                   else
                   {
-                     if (!modelRoot.ValidIdentityAttributeTypes.Contains(element.Type))
+                     if (!modelRoot.IsValidIdentityAttributeType(element.Type))
                         errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {element.Type} can't be used as identity properties.");
                      else
                      {
@@ -264,7 +264,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                if (element.IsIdentity)
                {
-                  if (!modelRoot.ValidIdentityAttributeTypes.Contains(ModelAttribute.ToCLRType(newType)))
+                  if (!modelRoot.IsValidIdentityAttributeType(ModelAttribute.ToCLRType(newType)))
                      errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {newType} can't be used as identity properties.");
                   else
                   {
