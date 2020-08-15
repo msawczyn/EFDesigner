@@ -23,8 +23,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Action ExecuteValidator { get; set; }
 
-      public static string DSLVersion { get; set; }
-
       public static Func<Diagram> GetCurrentDiagram;
 
       public static Func<bool> WriteDiagramAsBinary = () => false;
@@ -130,73 +128,99 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Class types that can be used in the model
+      /// </summary>
       public string[] ValidTypes
       {
          get
          {
-            string[] validTypes = {
-                                     "Binary",
-                                     "Boolean",
-                                     "Byte",
-                                     "byte",
-                                     "DateTime",
-                                     "DateTimeOffset",
-                                     "Decimal",
-                                     "Double",
-                                     "Guid",
-                                     "Int16",
-                                     "Int32",
-                                     "Int64",
-                                     "Single",
-                                     "String",
-                                     "Time"
-                                  };
+            List<string> validTypes = new List<string>(new[]
+                                                       {
+                                                          "Binary"
+                                                        , "Boolean"
+                                                        , "Byte"
+                                                        , "byte"
+                                                        , "DateTime"
+                                                        , "DateTimeOffset"
+                                                        , "Decimal"
+                                                        , "Double"
+                                                        , "Guid"
+                                                       });
+
+            if (EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5)
+               validTypes.Add("System.Net.IPAddress");
+
+            validTypes.AddRange(new[]
+                                {
+                                   "Int16"
+                                 , "Int32"
+                                 , "Int64"
+                                 , "Single"
+                                 , "String"
+                                 , "Time"
+                                });
 
             return validTypes.Union(SpatialTypes).ToArray();
          }
       }
 
+      /// <summary>
+      /// CLR Types that can be used in the model
+      /// </summary>
       public string[] ValidCLRTypes
       {
          get
          {
-            string[] validClrTypes = {
-                                        "Binary",
-                                        "Boolean", "Boolean?", "Nullable<Boolean>",
-                                        "Byte", "Byte?", "Nullable<Byte>",
-                                        "DateTime", "DateTime?", "Nullable<DateTime>",
-                                        "DateTimeOffset", "DateTimeOffset?", "Nullable<DateTimeOffset>",
-                                        "DbGeography",
-                                        "DbGeometry",
-                                        "Decimal", "Decimal?", "Nullable<Decimal>",
-                                        "Double", "Double?", "Nullable<Double>",
-                                        "Guid", "Guid?", "Nullable<Guid>",
-                                        "Int16", "Int16?", "Nullable<Int16>",
-                                        "Int32", "Int32?", "Nullable<Int32>",
-                                        "Int64", "Int64?", "Nullable<Int64>",
-                                        "Single", "Single?", "Nullable<Single>",
-                                        "String",
-                                        "Time",
-                                        "TimeSpan", "TimeSpan?", "Nullable<TimeSpan>",
-                                        "bool", "bool?", "Nullable<bool>",
-                                        "byte", "byte?", "Nullable<byte>",
-                                        "byte[]",
-                                        "decimal", "decimal?", "Nullable<decimal>",
-                                        "double", "double?", "Nullable<double>",
-                                        "int", "int?", "Nullable<int>",
-                                        "long", "long?", "Nullable<long>",
-                                        "short", "short?", "Nullable<short>",
-                                        "string"
-                                     };
+            List<string> validClrTypes = new List<string>(new []
+                                                          {
+                                                             "Binary",
+                                                             "Boolean", "Boolean?", "Nullable<Boolean>",
+                                                             "Byte", "Byte?", "Nullable<Byte>",
+                                                             "DateTime", "DateTime?", "Nullable<DateTime>",
+                                                             "DateTimeOffset", "DateTimeOffset?", "Nullable<DateTimeOffset>",
+                                                             "DbGeography",
+                                                             "DbGeometry",
+                                                             "Decimal", "Decimal?", "Nullable<Decimal>",
+                                                             "Double", "Double?", "Nullable<Double>",
+                                                             "Guid", "Guid?", "Nullable<Guid>"
+                                                          }); 
+            if (EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5)
+               validClrTypes.Add("System.Net.IPAddress");
+
+            validClrTypes.AddRange(new []
+                                   {
+                                      "Int16", "Int16?", "Nullable<Int16>",
+                                      "Int32", "Int32?", "Nullable<Int32>",
+                                      "Int64", "Int64?", "Nullable<Int64>",
+                                      "Single", "Single?", "Nullable<Single>",
+                                      "String",
+                                      "Time",
+                                      "TimeSpan", "TimeSpan?", "Nullable<TimeSpan>",
+                                      "bool", "bool?", "Nullable<bool>",
+                                      "byte", "byte?", "Nullable<byte>",
+                                      "byte[]",
+                                      "decimal", "decimal?", "Nullable<decimal>",
+                                      "double", "double?", "Nullable<double>",
+                                      "int", "int?", "Nullable<int>",
+                                      "long", "long?", "Nullable<long>",
+                                      "short", "short?", "Nullable<short>",
+                                      "string"
+                                   });
 
             return validClrTypes.Union(SpatialTypes).ToArray();
          }
       }
 
+      /// <summary>
+      /// Validates that the type in question can be used as an identity.
+      /// EF6 is constrained as to identity types, as is EFCore before v5.
+      /// EFCore v5+ has no constraints, other than what's put on by the database type
+      /// </summary>
+      /// <param name="typename">Name of type to check for use as identity</param>
+      /// <returns>True if valid, false otherwise</returns>
       public bool IsValidIdentityAttributeType(string typename)
       {
-         // EF6 is constrained as to identity types, as is EFCore before v5
-         // EFCore from v5 on has no constraints, other than what's put on by the database type
          return (EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5) || ValidIdentityAttributeTypes.Contains(typename);
       }
 
@@ -217,7 +241,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      internal static List<string> ValidIdentityTypeAttributesBaseList
+      private static List<string> ValidIdentityTypeAttributesBaseList
       {
          get
          {
