@@ -56,16 +56,20 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   if (element.IdentityType == IdentityType.None)
                      errorMessages.Add($"{modelClass.Name}.{element.Name}: Identity properties must have an identity type defined");
+
+                  foreach (Association association in element.ModelClass.LocalNavigationProperties()
+                                                             .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
+                                                             .Select(nav => nav.AssociationObject)
+                                                             .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
+                                                                      && a.FKPropertyName.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
+                  {
+                     foreach (ModelAttribute attribute in association.GetFKAutoIdentityErrors())
+                        errorMessages.Add($"{association.Source.Name} <=> {association.Target.Name}: FK property {attribute.Name} in {association.Dependent.FullName} is an auto-generated identity. Migration will fail.");
+                  }
                }
                else
                   element.IdentityType = IdentityType.None;
 
-               foreach (Association association in element.ModelClass.LocalNavigationProperties()
-                                                          .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
-                                                          .Select(nav => nav.AssociationObject)
-                                                          .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
-                                                                   && a.FKPropertyName.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
-                  association.CheckFKAutoIdentityErrors();
             }
 
                break;
@@ -163,7 +167,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                              .Select(nav => nav.AssociationObject)
                                                              .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
                                                                       && a.FKPropertyName.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
-                     association.CheckFKAutoIdentityErrors();
+                     association.GetFKAutoIdentityErrors();
                }
                else
                   element.IdentityType = IdentityType.None;
@@ -270,6 +274,17 @@ namespace Sawczyn.EFDesigner.EFModel
                   {
                      element.Required = true;
                      element.Persistent = true;
+
+                     // Change type of any foreign key pointing to this class
+                     IEnumerable<Association> participatingAssociations =
+                        element.ModelClass.LocalNavigationProperties()
+                               .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
+                               .Select(nav => nav.AssociationObject)
+                               .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
+                                        && a.FKPropertyName.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name));
+
+                     foreach (Association association in participatingAssociations)
+                        AssociationChangedRules.FixupForeignKeys(association);
                   }
                }
 

@@ -183,7 +183,7 @@ namespace Sawczyn.EFDesigner.EFModel
       private void FKPropertiesCannotBeStoreGeneratedIdentifiers(ValidationContext context)
       {
 
-         foreach (ModelAttribute attribute in CheckFKAutoIdentityErrors())
+         foreach (ModelAttribute attribute in GetFKAutoIdentityErrors())
          {
             context.LogError($"{Source.Name} <=> {Target.Name}: FK property {attribute.Name} in {Dependent.FullName} is an auto-generated identity. Migration will fail."
                            , "AEIdentityFK"
@@ -191,7 +191,7 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      internal IEnumerable<ModelAttribute> CheckFKAutoIdentityErrors()
+      internal IEnumerable<ModelAttribute> GetFKAutoIdentityErrors()
       {
          if (string.IsNullOrWhiteSpace(FKPropertyName))
             return new ModelAttribute[0];
