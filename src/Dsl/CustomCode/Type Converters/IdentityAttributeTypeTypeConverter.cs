@@ -70,7 +70,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          // standard values are required for EF6 or EFCore before v5
          ModelRoot modelRoot = GetStore(context.Instance).ModelRoot();
-         return modelRoot.EntityFrameworkVersion != EFVersion.EFCore || modelRoot.GetEntityFrameworkPackageVersionNum() < 5;
+         return !modelRoot.IsEFCore5Plus;
       }
    }
 }

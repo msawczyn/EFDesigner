@@ -32,8 +32,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = store.ModelRoot();
 
          // if this is an identity property, there's a limited range of possibilities if EF6 or EFCore before v5
-         bool useIdentityTypes = (context.Instance as ModelAttribute)?.IsIdentity == true && 
-                                 (modelRoot.EntityFrameworkVersion == EFVersion.EF6 || modelRoot.GetEntityFrameworkPackageVersionNum() < 5);
+         bool useIdentityTypes = (context.Instance as ModelAttribute)?.IsIdentity == true && !modelRoot.IsEFCore5Plus)
 
          List<string> values = new List<string>();
 

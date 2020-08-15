@@ -43,6 +43,8 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Global
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
 
+      public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5;
+
       [Obsolete("Use ModelRoot.Classes instead")]
       public LinkedElementCollection<ModelClass> Types => Classes;
 
@@ -148,7 +150,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                         , "Guid"
                                                        });
 
-            if (EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5)
+            if (IsEFCore5Plus)
                validTypes.Add("System.Net.IPAddress");
 
             validTypes.AddRange(new[]
@@ -185,7 +187,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                              "Double", "Double?", "Nullable<Double>",
                                                              "Guid", "Guid?", "Nullable<Guid>"
                                                           }); 
-            if (EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5)
+            if (IsEFCore5Plus)
                validClrTypes.Add("System.Net.IPAddress");
 
             validClrTypes.AddRange(new []
@@ -221,7 +223,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns>True if valid, false otherwise</returns>
       public bool IsValidIdentityAttributeType(string typename)
       {
-         return (EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5) || ValidIdentityAttributeTypes.Contains(typename);
+         return IsEFCore5Plus || ValidIdentityAttributeTypes.Contains(typename);
       }
 
       public string[] ValidIdentityAttributeTypes
@@ -275,7 +277,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      // ReSharper disable once UnusedMember.Global
       public double GetEntityFrameworkPackageVersionNum()
       {
          string[] parts = EntityFrameworkPackageVersion.Split('.');
