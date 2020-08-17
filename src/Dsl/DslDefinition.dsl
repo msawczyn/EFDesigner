@@ -681,7 +681,10 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e85447bb-4dfc-4e0a-800f-dc62d831ee25" Description="The element that will be persisted for this attribute, either the property or the backing field" Name="PersistencePoint" DisplayName="Persistence Point" DefaultValue="Property" Category="Code Generation">
+        <DomainProperty Id="e85447bb-4dfc-4e0a-800f-dc62d831ee25" Description="The element that will be persisted for this attribute, either the property or the backing field" Name="PersistencePoint" DisplayName="Persistence Point" DefaultValue="Property" Category="Code Generation" GetterAccessModifier="Private" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
+          <Attributes>
+            <ClrAttribute Name="Obsolete" />
+          </Attributes>
           <Type>
             <DomainEnumerationMoniker Name="PersistencePointType" />
           </Type>

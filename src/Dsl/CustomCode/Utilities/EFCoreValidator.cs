@@ -104,24 +104,19 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
       {
-         ModelRoot modelRoot = element.ModelClass.ModelRoot;
+         //ModelRoot modelRoot = element.ModelClass.ModelRoot;
 
-         for (int index = 0; index < propertyDescriptors.Count; index++)
-         {
-            bool shouldRemove = false;
+         //for (int index = 0; index < propertyDescriptors.Count; index++)
+         //{
+         //   bool shouldRemove = false;
 
-            switch (propertyDescriptors[index].Name)
-            {
-               case "PersistencePoint":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
-                  break;
+         //   switch (propertyDescriptors[index].Name)
+         //   {
+         //   }
 
-                  // add more as needed
-            }
-
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
-         }
+         //   if (shouldRemove)
+         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
+         //}
       }
 
       #endregion ModelAttribute
@@ -133,7 +128,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = element.Store.ModelRoot();
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot?.EntityFrameworkVersion > EFVersion.EF6)
+         if (modelRoot?.IsEFCore5Plus != true)
          {
             if ((element.SourceMultiplicity == Multiplicity.ZeroMany) &&
                 (element.TargetMultiplicity == Multiplicity.ZeroMany))
