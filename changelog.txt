@@ -1,3 +1,10 @@
+2.0.5.4
+   - Fixed inability to paste enumerations using diagram copy/paste
+   - Changing an identity property's type now changes the type of any defined foreign-key properties pointing to that identity property
+   - Added IPAddress to the list of property types for EFCore5.x
+   - Added ModelRoot.IsEFCore5Plus convenience property; can be used in custom T4 edits
+   - Can now customize backing field names for non-AutoProperty properties in preparation for EFCore5.x persistent fields
+
 2.0.5.3
    - Provide option to save diagrams as uncompressed XML to facilitate version control (in Tools/Options/Entity Framework Visual Editor)
    - Enhanced error reporting for assembly import errors
