@@ -43,7 +43,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                if (element.AutoProperty)
                {
-                  element.PersistencePoint = PersistencePointType.Property;
+                  //element.PersistencePoint = PersistencePointType.Property;
                   element.ImplementNotify = false;
                }
                else
@@ -221,13 +221,13 @@ namespace Sawczyn.EFDesigner.EFModel
 
             break;
 
-            case "PersistencePoint":
-            {
-               if ((PersistencePointType)e.NewValue == PersistencePointType.Field)
-                  element.AutoProperty = false;
-            }
+            //case "PersistencePoint":
+            //{
+            //   if ((PersistencePointType)e.NewValue == PersistencePointType.Field)
+            //      element.AutoProperty = false;
+            //}
 
-            break;
+            //break;
 
             case "Persistent":
             {

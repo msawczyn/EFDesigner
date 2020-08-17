@@ -633,6 +633,18 @@
     <value>Designer</value>
     <comment>Category for DomainProperty &apos;ShowForeignKeyPropertyNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.Description" xml:space="preserve">
+    <value>The default collation for database storage.</value>
+    <comment>Description for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.DisplayName" xml:space="preserve">
+    <value>Database Collation</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1248,6 +1260,18 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/BackingFieldName.Category" xml:space="preserve">
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;BackingFieldName&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/DatabaseCollation.Description" xml:space="preserve">
+    <value>Overrides the default database collation setting for the column that persists this attribute</value>
+    <comment>Description for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/DatabaseCollation.DisplayName" xml:space="preserve">
+    <value>Database Collation</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/DatabaseCollation.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>

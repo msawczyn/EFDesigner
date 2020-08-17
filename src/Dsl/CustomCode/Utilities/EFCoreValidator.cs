@@ -91,32 +91,40 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static IEnumerable<string> GetErrors(ModelAttribute element)
       {
-         // ReSharper disable once CollectionNeverUpdated.Local
-         List<string> errorMessages = new List<string>();
+         return new string[0];
 
-         // now handled at ModelRoot.ValidTypes
-         //ModelRoot modelRoot = element.ModelClass?.ModelRoot;
-         //if (!modelRoot.ValidTypes.Contains(element.Type))
-         //   errorMessages.Add($"{element.Type} {element.ModelClass.Name}.{element.Name}: Unsupported type");
+         // for later
 
-         return errorMessages;
+         //ModelRoot modelRoot = element.ModelRoot;
+         //Store store = modelRoot.Store;
+         //List<string> errorMessages = new List<string>();
+
+         //if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+         //{
+
+         //}
+
+         //return errorMessages;
       }
 
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
       {
-         //ModelRoot modelRoot = element.ModelClass.ModelRoot;
+         ModelRoot modelRoot = element.ModelClass.ModelRoot;
 
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
+         for (int index = 0; index < propertyDescriptors.Count; index++)
+         {
+            bool shouldRemove = false;
 
-         //   switch (propertyDescriptors[index].Name)
-         //   {
-         //   }
+            switch (propertyDescriptors[index].Name)
+            {
+               case "DatabaseCollation":
+                  shouldRemove = !modelRoot.IsEFCore5Plus;
+                  break;
+            }
 
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
+            if (shouldRemove)
+               propertyDescriptors.Remove(propertyDescriptors[index--]);
+         }
       }
 
       #endregion ModelAttribute
@@ -199,6 +207,10 @@ namespace Sawczyn.EFDesigner.EFModel
             bool shouldRemove = false;
             switch (propertyDescriptors[index].Name)
             {
+               case "DatabaseCollation":
+                  shouldRemove = !modelRoot.IsEFCore5Plus;
+                  break;
+
                case "DatabaseInitializerType":
                   shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
                   break;

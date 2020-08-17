@@ -327,6 +327,12 @@
             <xsd:documentation>If true, will show declared foreign key property names (if any) on the association ends</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DatabaseCollation -->
+        <xsd:attribute name="databaseCollation" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The default collation for database storage.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -758,6 +764,12 @@
         <xsd:attribute name="backingFieldName" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>The name of the backing field for this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DatabaseCollation -->
+        <xsd:attribute name="databaseCollation" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Overrides the default database collation setting for the column that persists this attribute</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

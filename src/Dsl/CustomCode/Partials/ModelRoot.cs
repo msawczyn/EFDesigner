@@ -43,6 +43,9 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Global
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
 
+      /// <summary>
+      /// True if the model is EFCore and the Entity Framework version is >= 5
+      /// </summary>
       public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5;
 
       [Obsolete("Use ModelRoot.Classes instead")]

@@ -310,6 +310,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="a7b8458b-ade6-4392-859b-ae2dc017c98f" Description="The default collation for database storage." Name="DatabaseCollation" DisplayName="Database Collation" DefaultValue="default" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -710,6 +715,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="ce0d2639-3b83-4ce7-820e-43456412da05" Description="The name of the backing field for this property" Name="BackingFieldName" DisplayName="Backing Field" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="349c587e-0b87-42a7-ac99-ef9648a70325" Description="Overrides the default database collation setting for the column that persists this attribute" Name="DatabaseCollation" DisplayName="Database Collation" DefaultValue="default" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -2004,6 +2014,9 @@
           <XmlPropertyData XmlName="showForeignKeyPropertyNames">
             <DomainPropertyMoniker Name="ModelRoot/ShowForeignKeyPropertyNames" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="databaseCollation">
+            <DomainPropertyMoniker Name="ModelRoot/DatabaseCollation" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
@@ -2187,6 +2200,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="backingFieldName">
             <DomainPropertyMoniker Name="ModelAttribute/BackingFieldName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="databaseCollation">
+            <DomainPropertyMoniker Name="ModelAttribute/DatabaseCollation" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

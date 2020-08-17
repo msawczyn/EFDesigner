@@ -46,15 +46,15 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelAttribute.ImplementNotify)
                propertyDescriptors.Remove("AutoProperty");
 
-            // this is about to be removed
-            propertyDescriptors.Remove("PersistencePoint");
-
-            // don't display String property modifiers unless the type is "String"
             if (modelAttribute.Type != "String")
             {
+               // don't display String property modifiers unless the type is "String"
                propertyDescriptors.Remove("MinLength");
                propertyDescriptors.Remove("MaxLength");
                propertyDescriptors.Remove("StringType");
+
+               // collation isn't relevant except for strings
+               propertyDescriptors.Remove("DatabaseCollation");
             }
 
             // don't display IndexedUnique unless the Indexed is true

@@ -3800,6 +3800,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region DatabaseCollation domain property code
+		
+		/// <summary>
+		/// DatabaseCollation domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DatabaseCollationDomainPropertyId = new global::System.Guid(0xa7b8458b, 0xade6, 0x4392, 0x85, 0x9b, 0xae, 0x2d, 0xc0, 0x17, 0xc9, 0x8f);
+		
+		/// <summary>
+		/// Storage for DatabaseCollation
+		/// </summary>
+		private global::System.String databaseCollationPropertyStorage = "default";
+		
+		/// <summary>
+		/// Gets or sets the value of DatabaseCollation domain property.
+		/// The default collation for database storage.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("default")]
+		[DslModeling::DomainObjectId("a7b8458b-ade6-4392-859b-ae2dc017c98f")]
+		public global::System.String DatabaseCollation
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return databaseCollationPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DatabaseCollationPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DatabaseCollation domain property.
+		/// </summary>
+		internal sealed partial class DatabaseCollationPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DatabaseCollationPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DatabaseCollation domain property value handler.
+			/// </summary>
+			public static readonly DatabaseCollationPropertyHandler Instance = new DatabaseCollationPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DatabaseCollation domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DatabaseCollationDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.databaseCollationPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.databaseCollationPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -8608,12 +8697,15 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// The element that will be persisted for this attribute, either the property or
 		/// the backing field
 		/// </summary>
+		[Obsolete()]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(PersistencePointType.Property)]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
 		[DslModeling::DomainObjectId("e85447bb-4dfc-4e0a-800f-dc62d831ee25")]
-		public PersistencePointType PersistencePoint
+		private PersistencePointType PersistencePoint
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -9122,6 +9214,96 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.backingFieldNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DatabaseCollation domain property code
+		
+		/// <summary>
+		/// DatabaseCollation domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DatabaseCollationDomainPropertyId = new global::System.Guid(0x349c587e, 0x0b87, 0x42a7, 0xac, 0x99, 0xef, 0x96, 0x48, 0xa7, 0x03, 0x25);
+		
+		/// <summary>
+		/// Storage for DatabaseCollation
+		/// </summary>
+		private global::System.String databaseCollationPropertyStorage = "default";
+		
+		/// <summary>
+		/// Gets or sets the value of DatabaseCollation domain property.
+		/// Overrides the default database collation setting for the column that persists
+		/// this attribute
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/DatabaseCollation.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/DatabaseCollation.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/DatabaseCollation.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("default")]
+		[DslModeling::DomainObjectId("349c587e-0b87-42a7-ac99-ef9648a70325")]
+		public global::System.String DatabaseCollation
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return databaseCollationPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DatabaseCollationPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.DatabaseCollation domain property.
+		/// </summary>
+		internal sealed partial class DatabaseCollationPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		{
+			private DatabaseCollationPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.DatabaseCollation domain property value handler.
+			/// </summary>
+			public static readonly DatabaseCollationPropertyHandler Instance = new DatabaseCollationPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.DatabaseCollation domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DatabaseCollationDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.databaseCollationPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.databaseCollationPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

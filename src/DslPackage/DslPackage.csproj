@@ -188,6 +188,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandExtensionRegistrar.tt</DependentUpon>
     </Compile>
+    <Compile Include="MefExtension\CommandExtensionVSCT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommandExtensionVSCT.vsct</DependentUpon>
+    </Compile>
     <Compile Include="MefExtension\PackageExtensionEnablement.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -202,6 +207,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
+    </Compile>
+    <Compile Include="source.extension.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
     <Compile Include="TextTemplates\EditingOnly\EF6Designer.cs" />
     <Compile Include="TextTemplates\EditingOnly\EFCoreDesigner.cs" />
