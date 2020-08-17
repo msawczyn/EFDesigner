@@ -249,6 +249,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FixUpAllDiagrams.tt</DependentUpon>
     </Compile>
+    <Compile Include="GeneratedCode\HelpKeywordHelper.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HelpKeywordHelper.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneratedCode\MultiplicityValidation.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -305,6 +310,12 @@
     </None>
     <None Include="app.config" />
     <None Include="CustomCode\ModelAttribute Parser\AttributeGrammar.egt" />
+    <None Include="GeneratedCode\EFModelSchema.xsd">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFModelSchema.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="GeneratedCode\LanguageNameSchema.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -345,11 +356,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DomainRelationships.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GeneratedCode\HelpKeywordHelper.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HelpKeywordHelper.tt</DependentUpon>
     </Compile>
     <Compile Include="GeneratedCode\Shapes.cs">
       <DependentUpon>Shapes.tt</DependentUpon>
@@ -484,14 +490,6 @@
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
       <Link>CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
-    <Content Include="GeneratedCode\EFModelSchema.xsd">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFModelSchema.tt</DependentUpon>
-      <SubType>
-      </SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="MefExtension\GestureExtensionController.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GestureExtensionController.cs</LastGenOutput>

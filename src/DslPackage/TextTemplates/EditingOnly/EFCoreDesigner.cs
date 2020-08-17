@@ -341,7 +341,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                if (!modelAttribute.AutoProperty)
                {
-                  segments.Add($"HasField(\"_{modelAttribute.Name}\")");
+                  segments.Add($"HasField(\"{modelAttribute.BackingFieldName}\")");
                   segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{(modelAttribute.PersistencePoint == PersistencePointType.Field ? "Field" : "Property")})");
                }
 

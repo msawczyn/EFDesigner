@@ -754,6 +754,12 @@
             <xsd:documentation>If present, this attribute is a foreign key for the association named by this Guid</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: BackingFieldName -->
+        <xsd:attribute name="backingFieldName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The name of the backing field for this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

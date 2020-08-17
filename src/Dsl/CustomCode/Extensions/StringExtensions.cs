@@ -18,5 +18,12 @@
 
          return result + ellipsis;
       }
+
+      public static string ToCamelCase(this string s)
+      {
+         return string.IsNullOrEmpty(s)
+                   ? s
+                   : $"{s.Substring(0, 1).ToLowerInvariant()}{(s.Length > 1 ? s.Substring(1) : string.Empty)}";
+      }
    }
 }

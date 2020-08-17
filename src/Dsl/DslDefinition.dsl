@@ -706,6 +706,11 @@
             <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="ce0d2639-3b83-4ce7-820e-43456412da05" Description="The name of the backing field for this property" Name="BackingFieldName" DisplayName="Backing Field" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -2176,6 +2181,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isForeignKeyFor">
             <DomainPropertyMoniker Name="ModelAttribute/IsForeignKeyFor" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="backingFieldName">
+            <DomainPropertyMoniker Name="ModelAttribute/BackingFieldName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -9040,6 +9040,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region BackingFieldName domain property code
+		
+		/// <summary>
+		/// BackingFieldName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid BackingFieldNameDomainPropertyId = new global::System.Guid(0xce0d2639, 0x3b83, 0x4ce7, 0x82, 0x0e, 0x43, 0x45, 0x64, 0x12, 0xda, 0x05);
+		
+		/// <summary>
+		/// Storage for BackingFieldName
+		/// </summary>
+		private global::System.String backingFieldNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of BackingFieldName domain property.
+		/// The name of the backing field for this property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/BackingFieldName.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/BackingFieldName.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/BackingFieldName.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("ce0d2639-3b83-4ce7-820e-43456412da05")]
+		public global::System.String BackingFieldName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return backingFieldNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				BackingFieldNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.BackingFieldName domain property.
+		/// </summary>
+		internal sealed partial class BackingFieldNamePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		{
+			private BackingFieldNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.BackingFieldName domain property value handler.
+			/// </summary>
+			public static readonly BackingFieldNamePropertyHandler Instance = new BackingFieldNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.BackingFieldName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return BackingFieldNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.backingFieldNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.backingFieldNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.

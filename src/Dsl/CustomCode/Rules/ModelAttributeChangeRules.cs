@@ -46,6 +46,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.PersistencePoint = PersistencePointType.Property;
                   element.ImplementNotify = false;
                }
+               else
+               {
+                  if (string.IsNullOrEmpty(element.BackingFieldName))
+                     element.BackingFieldName = $"_{element.Name.ToCamelCase()}";
+               }
             }
 
             break;

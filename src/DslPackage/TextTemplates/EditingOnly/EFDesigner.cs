@@ -930,7 +930,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output("/// <summary>");
                Output($"/// Backing field for {modelAttribute.Name}");
                Output("/// </summary>");
-               Output($"{visibility} {modelAttribute.FQPrimitiveType}{nullable} _{modelAttribute.Name};");
+               Output($"{visibility} {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.BackingFieldName};");
                Output("/// <summary>");
                Output($"/// When provided in a partial class, allows value of {modelAttribute.Name} to be changed before setting.");
                Output("/// </summary>");
@@ -982,17 +982,17 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output("{");
                Output("get");
                Output("{");
-               Output($"{modelAttribute.FQPrimitiveType}{nullable} value = _{modelAttribute.Name};");
+               Output($"{modelAttribute.FQPrimitiveType}{nullable} value = {modelAttribute.BackingFieldName};");
                Output($"Get{modelAttribute.Name}(ref value);");
-               Output($"return (_{modelAttribute.Name} = value);");
+               Output($"return ({modelAttribute.BackingFieldName} = value);");
                Output("}");
                Output($"{setterVisibility}set");
                Output("{");
-               Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = _{modelAttribute.Name};");
+               Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = {modelAttribute.BackingFieldName};");
                Output($"Set{modelAttribute.Name}(oldValue, ref value);");
                Output("if (oldValue != value)");
                Output("{");
-               Output($"_{modelAttribute.Name} = value;");
+               Output($"{modelAttribute.BackingFieldName} = value;");
 
                if (modelAttribute.ImplementNotify)
                   Output("OnPropertyChanged();");

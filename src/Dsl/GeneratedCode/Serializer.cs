@@ -4394,6 +4394,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // BackingFieldName
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribBackingFieldName = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "backingFieldName");
+	         if (attribBackingFieldName != null)
+	         {
+	            global::System.String valueOfBackingFieldName;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribBackingFieldName, out valueOfBackingFieldName))
+	            {
+	               instanceOfModelAttribute.BackingFieldName = valueOfBackingFieldName;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "backingFieldName", typeof(global::System.String), attribBackingFieldName);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -5191,6 +5208,17 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if (!serializationContext.Result.Failed)
 	         {
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isForeignKeyFor", serializedPropValue);
+	         }
+	      }
+	      // BackingFieldName
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.String propValue = instanceOfModelAttribute.BackingFieldName;
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (!string.IsNullOrEmpty(propValue))
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "backingFieldName", propValue);
+	
 	         }
 	      }
 	   }

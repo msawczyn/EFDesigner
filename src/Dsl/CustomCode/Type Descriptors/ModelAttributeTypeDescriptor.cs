@@ -46,9 +46,8 @@ namespace Sawczyn.EFDesigner.EFModel
             if (modelAttribute.ImplementNotify)
                propertyDescriptors.Remove("AutoProperty");
 
-            // don't need a persistence point type if it's not persistent
-            if (!modelAttribute.Persistent)
-               propertyDescriptors.Remove("PersistencePoint");
+            // this is about to be removed
+            propertyDescriptors.Remove("PersistencePoint");
 
             // don't display String property modifiers unless the type is "String"
             if (modelAttribute.Type != "String")
@@ -61,6 +60,10 @@ namespace Sawczyn.EFDesigner.EFModel
             // don't display IndexedUnique unless the Indexed is true
             if (!modelAttribute.Indexed)
                propertyDescriptors.Remove("IndexedUnique");
+
+            // don't display BackingField unless AutoProperty is false
+            if (modelAttribute.AutoProperty) 
+               propertyDescriptors.Remove("BackingFieldName");
 
             /********************************************************************************/
 
