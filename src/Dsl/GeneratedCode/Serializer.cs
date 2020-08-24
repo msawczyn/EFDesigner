@@ -834,20 +834,20 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // DatabaseCollation
+	      // DatabaseCollationDefault
 	      if (!serializationContext.Result.Failed)
 	      {
-	         string attribDatabaseCollation = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "databaseCollation");
-	         if (attribDatabaseCollation != null)
+	         string attribDatabaseCollationDefault = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "databaseCollationDefault");
+	         if (attribDatabaseCollationDefault != null)
 	         {
-	            global::System.String valueOfDatabaseCollation;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDatabaseCollation, out valueOfDatabaseCollation))
+	            global::System.String valueOfDatabaseCollationDefault;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDatabaseCollationDefault, out valueOfDatabaseCollationDefault))
 	            {
-	               instanceOfModelRoot.DatabaseCollation = valueOfDatabaseCollation;
+	               instanceOfModelRoot.DatabaseCollationDefault = valueOfDatabaseCollationDefault;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "databaseCollation", typeof(global::System.String), attribDatabaseCollation);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "databaseCollationDefault", typeof(global::System.String), attribDatabaseCollationDefault);
 	            }
 	         }
 	      }
@@ -2020,15 +2020,15 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // DatabaseCollation
+	      // DatabaseCollationDefault
 	      if (!serializationContext.Result.Failed)
 	      {
-	         global::System.String propValue = instanceOfModelRoot.DatabaseCollation;
+	         global::System.String propValue = instanceOfModelRoot.DatabaseCollationDefault;
 	         if (!serializationContext.Result.Failed)
 	         {
 	            if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "default") != 0))
 	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "databaseCollation", propValue);
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "databaseCollationDefault", propValue);
 	            }
 	         }
 	      }
@@ -4335,26 +4335,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // PersistencePoint
-	      if (!serializationContext.Result.Failed)
-	      {
-	         string attribPersistencePoint = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "persistencePoint");
-	         if (attribPersistencePoint != null)
-	         {
-	            PersistencePointType valueOfPersistencePoint;
-	            if (DslModeling::SerializationUtilities.TryGetValue<PersistencePointType>(serializationContext, attribPersistencePoint, out valueOfPersistencePoint))
-	            {
-	               // Non-public setter, use DomainPropertyInfo method.
-	               DslModeling::DomainPropertyInfo propInfo = instanceOfModelAttribute.Partition.DomainDataDirectory.GetDomainProperty (ModelAttribute.PersistencePointDomainPropertyId);
-	               global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelAttribute.PersistencePoint!");
-	               propInfo.SetValue(instanceOfModelAttribute, valueOfPersistencePoint);
-	            }
-	            else
-	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "persistencePoint", typeof(PersistencePointType), attribPersistencePoint);
-	            }
-	         }
-	      }
 	      // ImplementNotify
 	      if (!serializationContext.Result.Failed)
 	      {
@@ -4457,6 +4437,40 @@ namespace Sawczyn.EFDesigner.EFModel
 	            else
 	            {   // Invalid property value, ignored.
 	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "databaseCollation", typeof(global::System.String), attribDatabaseCollation);
+	            }
+	         }
+	      }
+	      // IsDatabaseCollationTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsDatabaseCollationTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isDatabaseCollationTracking");
+	         if (attribIsDatabaseCollationTracking != null)
+	         {
+	            global::System.Boolean valueOfIsDatabaseCollationTracking;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsDatabaseCollationTracking, out valueOfIsDatabaseCollationTracking))
+	            {
+	               instanceOfModelAttribute.IsDatabaseCollationTracking = valueOfIsDatabaseCollationTracking;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isDatabaseCollationTracking", typeof(global::System.Boolean), attribIsDatabaseCollationTracking);
+	            }
+	         }
+	      }
+	      // PropertyAccessMode
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribPropertyAccessMode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "propertyAccessMode");
+	         if (attribPropertyAccessMode != null)
+	         {
+	            PropertyAccessMode valueOfPropertyAccessMode;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode>(serializationContext, attribPropertyAccessMode, out valueOfPropertyAccessMode))
+	            {
+	               instanceOfModelAttribute.PropertyAccessMode = valueOfPropertyAccessMode;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "propertyAccessMode", typeof(PropertyAccessMode), attribPropertyAccessMode);
 	            }
 	         }
 	      }
@@ -5194,22 +5208,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	
 	         }
 	      }
-	      // PersistencePoint
-	      if (!serializationContext.Result.Failed)
-	      {
-	         // Non-public getter, use DomainPropertyInfo method.
-	         DslModeling::DomainPropertyInfo propInfo = instanceOfModelAttribute.Partition.DomainDataDirectory.GetDomainProperty (ModelAttribute.PersistencePointDomainPropertyId);
-	         global::System.Diagnostics.Debug.Assert (propInfo != null, "Cannot get DomainPropertyInfo for ModelAttribute.PersistencePoint!");
-	         PersistencePointType propValue = ((PersistencePointType)propInfo.GetValue(instanceOfModelAttribute));
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PersistencePointType>(serializationContext, propValue);
-	         if (!serializationContext.Result.Failed)
-	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
-	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "persistencePoint", serializedPropValue);
-	            }
-	         }
-	      }
 	      // ImplementNotify
 	      if (!serializationContext.Result.Failed)
 	      {
@@ -5279,9 +5277,35 @@ namespace Sawczyn.EFDesigner.EFModel
 	         global::System.String propValue = instanceOfModelAttribute.DatabaseCollation;
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "default") != 0))
+	            if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "databaseCollation", propValue);
+	            }
+	         }
+	      }
+	      // IsDatabaseCollationTracking
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelAttribute.IsDatabaseCollationTracking;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isDatabaseCollationTracking", serializedPropValue);
+	            }
+	         }
+	      }
+	      // PropertyAccessMode
+	      if (!serializationContext.Result.Failed)
+	      {
+	         PropertyAccessMode propValue = instanceOfModelAttribute.PropertyAccessMode;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "PreferProperty") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessMode", serializedPropValue);
 	            }
 	         }
 	      }

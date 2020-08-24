@@ -158,7 +158,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelRoot), "GridColor", ModelRoot.GridColorDomainPropertyId, typeof(ModelRoot.GridColorPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "GridSize", ModelRoot.GridSizeDomainPropertyId, typeof(ModelRoot.GridSizePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "ShowForeignKeyPropertyNames", ModelRoot.ShowForeignKeyPropertyNamesDomainPropertyId, typeof(ModelRoot.ShowForeignKeyPropertyNamesPropertyHandler)),
-	         new DomainMemberInfo(typeof(ModelRoot), "DatabaseCollation", ModelRoot.DatabaseCollationDomainPropertyId, typeof(ModelRoot.DatabaseCollationPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "DatabaseCollationDefault", ModelRoot.DatabaseCollationDefaultDomainPropertyId, typeof(ModelRoot.DatabaseCollationDefaultPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),
@@ -206,13 +206,14 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsColumnTypeTracking", ModelAttribute.IsColumnTypeTrackingDomainPropertyId, typeof(ModelAttribute.IsColumnTypeTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "CustomAttributes", ModelAttribute.CustomAttributesDomainPropertyId, typeof(ModelAttribute.CustomAttributesPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "DisplayText", ModelAttribute.DisplayTextDomainPropertyId, typeof(ModelAttribute.DisplayTextPropertyHandler)),
-	         new DomainMemberInfo(typeof(ModelAttribute), "PersistencePoint", ModelAttribute.PersistencePointDomainPropertyId, typeof(ModelAttribute.PersistencePointPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "ImplementNotify", ModelAttribute.ImplementNotifyDomainPropertyId, typeof(ModelAttribute.ImplementNotifyPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsImplementNotifyTracking", ModelAttribute.IsImplementNotifyTrackingDomainPropertyId, typeof(ModelAttribute.IsImplementNotifyTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsAutoPropertyTracking", ModelAttribute.IsAutoPropertyTrackingDomainPropertyId, typeof(ModelAttribute.IsAutoPropertyTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsForeignKeyFor", ModelAttribute.IsForeignKeyForDomainPropertyId, typeof(ModelAttribute.IsForeignKeyForPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "BackingFieldName", ModelAttribute.BackingFieldNameDomainPropertyId, typeof(ModelAttribute.BackingFieldNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "DatabaseCollation", ModelAttribute.DatabaseCollationDomainPropertyId, typeof(ModelAttribute.DatabaseCollationPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "IsDatabaseCollationTracking", ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId, typeof(ModelAttribute.IsDatabaseCollationTrackingPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "PropertyAccessMode", ModelAttribute.PropertyAccessModeDomainPropertyId, typeof(ModelAttribute.PropertyAccessModePropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
@@ -1512,23 +1513,65 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// DomainEnumeration: PersistencePointType
-	/// Used to define whether the property or its backing field is persisted
+	/// DomainEnumeration: PropertyAccessMode
+	/// Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode
 	/// </summary>
 	[global::System.CLSCompliant(true)]
-	public enum PersistencePointType
+	public enum PropertyAccessMode
 	{
 		/// <summary>
-		/// Property
-		/// Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PersistencePointType/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Property,
-		/// <summary>
 		/// Field
-		/// Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Field
+		/// Enforces that all accesses to the property must go through the field. An
+		/// exception will be thrown if this mode is set and it is not possible to read from
+		/// or write to the field.
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PersistencePointType/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Field,
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Field = 0,
+		/// <summary>
+		/// FieldDuringConstruction
+		/// Enforces that all accesses to the property must go through the field when new
+		/// instances are being constructed. New instances are typically constructed when
+		/// entities are queried from the database. An exception will be thrown if this mode
+		/// is set and it is not possible to write to the field. All other uses of the
+		/// property will go through the property getters and setters, unless this is not
+		/// possible because, for example, the property is read-only, in which case these
+		/// accesses will also use the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/FieldDuringConstruction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		FieldDuringConstruction = 1,
+		/// <summary>
+		/// PreferField
+		/// All accesses to the property goes directly to the field, unless the field is not
+		/// known, in which as access goes through the property.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferField.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferField = 3,
+		/// <summary>
+		/// PreferFieldDuringConstruction
+		/// All accesses to the property when constructing new entity instances goes
+		/// directly to the field, unless the field is not known, in which as access goes
+		/// through the property. All other uses of the property will go through the
+		/// property getters and setters, unless this is not possible because, for example,
+		/// the property is read-only, in which case these accesses will also use the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferFieldDuringConstruction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferFieldDuringConstruction = 4,
+		/// <summary>
+		/// PreferProperty
+		/// All accesses to the property go through the property, unless there is no
+		/// property or it is missing a setter/getter, in which as access goes directly to
+		/// the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferProperty.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferProperty = 5,
+		/// <summary>
+		/// Property
+		/// Enforces that all accesses to the property must go through the property getters
+		/// and setters, even when new objects are being constructed. An exception will be
+		/// thrown if this mode is set and it is not possible to read from or write to the
+		/// property, for example because it is read-only.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Property = 2,
 	}
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" Build="5" Revision="4" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" MinorVersion="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -310,7 +310,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a7b8458b-ade6-4392-859b-ae2dc017c98f" Description="The default collation for database storage." Name="DatabaseCollation" DisplayName="Database Collation" DefaultValue="default" Category="Database">
+        <DomainProperty Id="a7b8458b-ade6-4392-859b-ae2dc017c98f" Description="The default collation for database storage." Name="DatabaseCollationDefault" DisplayName="Database Collation Default" DefaultValue="default" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -686,14 +686,6 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e85447bb-4dfc-4e0a-800f-dc62d831ee25" Description="The element that will be persisted for this attribute, either the property or the backing field" Name="PersistencePoint" DisplayName="Persistence Point" DefaultValue="Property" Category="Code Generation" GetterAccessModifier="Private" SetterAccessModifier="Private" IsBrowsable="false" IsUIReadOnly="true">
-          <Attributes>
-            <ClrAttribute Name="Obsolete" />
-          </Attributes>
-          <Type>
-            <DomainEnumerationMoniker Name="PersistencePointType" />
-          </Type>
-        </DomainProperty>
         <DomainProperty Id="dfb9a776-9fda-4565-8f78-bcac2a6fb734" Description="Should this class implement INotifyPropertyChanged?" Name="ImplementNotify" DisplayName="Implement INotifyPropertyChanged" DefaultValue="" Kind="CustomStorage" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
@@ -719,9 +711,19 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="349c587e-0b87-42a7-ac99-ef9648a70325" Description="Overrides the default database collation setting for the column that persists this attribute" Name="DatabaseCollation" DisplayName="Database Collation" DefaultValue="default" Category="Database">
+        <DomainProperty Id="349c587e-0b87-42a7-ac99-ef9648a70325" Description="Overrides the default database collation setting for the column that persists this attribute" Name="DatabaseCollation" DisplayName="Database Collation" DefaultValue="" Kind="CustomStorage" Category="Database" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="cd11a7f7-0432-4d16-98d8-5db6a98ffc8b" Description="If true, ModelAttribute.DatabaseCollation tracks ModelRoot.DatabaseCollationDefault" Name="IsDatabaseCollationTracking" DisplayName="Is Database Collation Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="PreferProperty">
+          <Type>
+            <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1582,16 +1584,20 @@
         <EnumerationLiteral Description="Ask each time if should perform the action automatically" Name="Ask" Value="2" />
       </Literals>
     </DomainEnumeration>
-    <DomainEnumeration Name="PersistencePointType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Used to define whether the property or its backing field is persisted">
-      <Literals>
-        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property" Name="Property" Value="" />
-        <EnumerationLiteral Description="Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Field" Name="Field" Value="" />
-      </Literals>
-    </DomainEnumeration>
     <ExternalType Name="Namespaces" Namespace="Sawczyn.EFDesigner.EFModel" />
     <ExternalType Name="OutputLocations" Namespace="Sawczyn.EFDesigner.EFModel" />
     <ExternalType Name="Nullable&lt;System.Int32&gt;" Namespace="System" />
     <ExternalType Name="ModelDiagramDataNameProvider" Namespace="Sawczyn.EFDesigner.EFModel" />
+    <DomainEnumeration Name="PropertyAccessMode" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode">
+      <Literals>
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field." Name="Field" Value="0" />
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="FieldDuringConstruction" Value="1" />
+        <EnumerationLiteral Description="All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property." Name="PreferField" Value="3" />
+        <EnumerationLiteral Description="All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="PreferFieldDuringConstruction" Value="4" />
+        <EnumerationLiteral Description="All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field." Name="PreferProperty" Value="5" />
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -2014,8 +2020,8 @@
           <XmlPropertyData XmlName="showForeignKeyPropertyNames">
             <DomainPropertyMoniker Name="ModelRoot/ShowForeignKeyPropertyNames" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="databaseCollation">
-            <DomainPropertyMoniker Name="ModelRoot/DatabaseCollation" />
+          <XmlPropertyData XmlName="databaseCollationDefault">
+            <DomainPropertyMoniker Name="ModelRoot/DatabaseCollationDefault" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -2183,9 +2189,6 @@
           <XmlPropertyData XmlName="displayText">
             <DomainPropertyMoniker Name="ModelAttribute/DisplayText" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="persistencePoint">
-            <DomainPropertyMoniker Name="ModelAttribute/PersistencePoint" />
-          </XmlPropertyData>
           <XmlPropertyData XmlName="implementNotify">
             <DomainPropertyMoniker Name="ModelAttribute/ImplementNotify" />
           </XmlPropertyData>
@@ -2203,6 +2206,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="databaseCollation">
             <DomainPropertyMoniker Name="ModelAttribute/DatabaseCollation" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isDatabaseCollationTracking">
+            <DomainPropertyMoniker Name="ModelAttribute/IsDatabaseCollationTracking" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="propertyAccessMode">
+            <DomainPropertyMoniker Name="ModelAttribute/PropertyAccessMode" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

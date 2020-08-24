@@ -90,7 +90,7 @@ namespace Sawczyn.EFDesigner.EFModel
                case "MultiPoint":
                case "MultiPolygon":
                case "Point":
-               case "Polygon": 
+               case "Polygon":
                   return false;
             }
 
@@ -387,7 +387,7 @@ namespace Sawczyn.EFDesigner.EFModel
          RedrawItem();
       }
 
-#region ColumnName
+      #region ColumnName
 
       /// <summary>Storage for the ColumnName property.</summary>  
       private string columnNameStorage;
@@ -471,6 +471,42 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!Store.InUndoRedoOrRollback && !this.IsLoading())
             // ReSharper disable once ArrangeRedundantParentheses
             IsImplementNotifyTracking = (implementNotifyStorage == (ModelClass?.ImplementNotify ?? false));
+      }
+
+      #endregion
+
+      #region DatabaseCollation
+
+      private string databaseCollation;
+
+      public string GetDatabaseCollationValue()
+      {
+         if (!this.IsLoading() && IsAutoPropertyTracking)
+         {
+            try
+            {
+               return ModelClass?.ModelRoot?.DatabaseCollationDefault ?? "default";
+            }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+
+               return "default";
+            }
+         }
+
+         return databaseCollation;
+
+      }
+
+      public void SetDatabaseCollationValue(string value)
+      {
+         databaseCollation = value;
+
+         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
+            IsDatabaseCollationTracking = (databaseCollation == (ModelClass?.ModelRoot?.DatabaseCollationDefault ?? "default"));
+
       }
 
       #endregion
@@ -563,6 +599,60 @@ namespace Sawczyn.EFDesigner.EFModel
       #endregion
 
       #region Tracking Properties
+
+      internal sealed partial class IsDatabaseCollationTrackingPropertyHandler
+      {
+         /// <summary>
+         ///    Called after the IsDatabaseCollationTracking property changes.
+         /// </summary>
+         /// <param name="element">The model element that has the property that changed. </param>
+         /// <param name="oldValue">The previous value of the property. </param>
+         /// <param name="newValue">The new value of the property. </param>
+         protected override void OnValueChanged(ModelAttribute element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+            if (!element.Store.InUndoRedoOrRollback && newValue)
+            {
+               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(DatabaseCollationDomainPropertyId);
+               propInfo.NotifyValueChange(element);
+            }
+         }
+
+         /// <summary>Performs the reset operation for the IsDatabaseCollationTracking property for a model element.</summary>
+         /// <param name="element">The model element that has the property to reset.</param>
+         internal void ResetValue(ModelAttribute element)
+         {
+            string calculatedValue = null;
+
+            try
+            {
+               calculatedValue = "default";
+            }
+            catch (NullReferenceException) { }
+            catch (Exception e)
+            {
+               if (CriticalException.IsCriticalException(e))
+                  throw;
+            }
+
+            if (calculatedValue != null && element.DatabaseCollation == calculatedValue)
+               element.isDatabaseCollationTrackingPropertyStorage = true;
+         }
+
+         /// <summary>
+         ///    Method to set IsDatabaseCollationTracking to false so that this instance of this tracking property is not
+         ///    storage-based.
+         /// </summary>
+         /// <param name="element">
+         ///    The element on which to reset the property value.
+         /// </param>
+         internal void PreResetValue(ModelAttribute element)
+         {
+            // Force the IsDatabaseCollationTracking property to false so that the value  
+            // of the DatabaseCollation property is retrieved from storage.  
+            element.isDatabaseCollationTrackingPropertyStorage = false;
+         }
+      }
 
       internal sealed partial class IsColumnNameTrackingPropertyHandler
       {
@@ -791,6 +881,7 @@ namespace Sawczyn.EFDesigner.EFModel
          IsColumnTypeTrackingPropertyHandler.Instance.PreResetValue(this);
          IsImplementNotifyTrackingPropertyHandler.Instance.PreResetValue(this);
          IsAutoPropertyTrackingPropertyHandler.Instance.PreResetValue(this);
+         IsDatabaseCollationTrackingPropertyHandler.Instance.PreResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -805,6 +896,7 @@ namespace Sawczyn.EFDesigner.EFModel
          IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(this);
          IsImplementNotifyTrackingPropertyHandler.Instance.ResetValue(this);
          IsAutoPropertyTrackingPropertyHandler.Instance.ResetValue(this);
+         IsDatabaseCollationTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -831,7 +923,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (ModelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EFCore)
          {
-            if (Type.StartsWith("Geography")) {
+            if (Type.StartsWith("Geography"))
+            {
                context.LogError($"{ModelClass.Name}.{Name}: Geography type invalid for EF Core. Use Geometry instead.", "AEInvalidGeography", this);
                hasWarning = true;
                RedrawItem();

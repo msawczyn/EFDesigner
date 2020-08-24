@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
@@ -22,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.4.0
+      // EFDesigner v2.1.0.0
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -795,3 +794,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       }
    }
 }
+
+
+

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.4.0
+      // EFDesigner v2.1.0.0
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -342,7 +342,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                if (!modelAttribute.AutoProperty)
                {
                   segments.Add($"HasField(\"{modelAttribute.BackingFieldName}\")");
-                  segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{(modelAttribute.PersistencePoint == PersistencePointType.Field ? "Field" : "Property")})");
+                  segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{modelAttribute.PropertyAccessMode})");
                }
 
                if (!string.IsNullOrEmpty(modelAttribute.ColumnType) && modelAttribute.ColumnType.ToLowerInvariant() != "default")
@@ -351,6 +351,39 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}({(modelAttribute.MaxLength > 0 ? modelAttribute.MaxLength.ToString() : "max")})\")");
                   else
                      segments.Add($"HasColumnType(\"{modelAttribute.ColumnType}\")");
+               }
+
+               if (!string.IsNullOrEmpty(modelAttribute.InitialValue) && modelRoot.IsEFCore5Plus)
+               {
+                  // using switch statements since more exceptions will undoubtedly be created in the future
+                  switch (modelAttribute.Type)
+                  {
+                     case "DateTime":
+                        switch (modelAttribute.InitialValue)
+                        {
+                           case "DateTime.Now":
+                              segments.Add("HasDefaultValueSql(\"getdate()\")");
+
+                              break;
+
+                           case "DateTime.UtcNow":
+                              segments.Add("HasDefaultValueSql(\"getutcdate()\")");
+
+                              break;
+
+                           default:
+                              segments.Add($"HasDefaultValue(DateTime.Parse({modelAttribute.InitialValue}))");
+
+                              break;
+                        }
+
+                        break;
+
+                     default:
+                        segments.Add($"HasDefaultValue(DateTime.Parse({modelAttribute.InitialValue}))");
+
+                        break;
+                  }
                }
 
                if (modelAttribute.IsConcurrencyToken)
@@ -396,11 +429,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output($@"modelBuilder.Entity<{modelClass.FullName}>().Property<byte[]>(""Timestamp"").IsConcurrencyToken();");
 
             // Navigation endpoints are distingished as Source and Target. They are also distinguished as Principal
-            // and Dependent. How do these map?
+            // and Dependent. How do these map? Short answer: they don't. Source and Target are accidents of where the user started drawing the association.
+
+            // What matters is the Principal and Dependent classifications, so we look at those. 
             // In the case of one-to-one or zero-to-one-to-zero-to-one, it's model dependent and the user has to tell us
             // In all other cases, we can tell by the cardinalities of the associations
-            // What matters is the Principal and Dependent classifications, so we look at those. 
-            // Source and Target are accidents of where the user started drawing the association.
 
             // navigation properties
 
@@ -421,8 +454,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (association.TargetMultiplicity) // realized by property on source
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     // TODO: Implement many-to-many
-                     if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     if (modelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
                      else
                         continue;
@@ -451,11 +483,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (association.SourceMultiplicity) // realized by shadow property on target
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     // TODO: Implement many-to-many
-                     if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
                         segments.Add("WithMany()");
-                        segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                        //segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                      }
                      else
                         continue;
@@ -545,8 +576,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (association.SourceMultiplicity) // realized by property on target
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     // TODO: Implement many-to-many
-                     if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
                      else
                         continue;
@@ -571,8 +601,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (association.TargetMultiplicity) // realized by property on source
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     // TODO: Implement many-to-many
-                     if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     if (modelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
                      else
                         continue;
@@ -680,3 +709,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       }
    }
 }
+
+
+

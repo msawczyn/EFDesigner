@@ -15,7 +15,7 @@ using Sawczyn.EFDesigner.EFModel.Extensions;
 namespace Sawczyn.EFDesigner.EFModel
 {
    [ValidationState(ValidationState.Enabled)]
-   public partial class ModelRoot: IHasStore
+   public partial class ModelRoot : IHasStore
    {
       public static readonly PluralizationService PluralizationService;
 
@@ -99,7 +99,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return EntityFrameworkVersion == EFVersion.EF6 
+            return EntityFrameworkVersion == EFVersion.EF6
                          ? new[]
                            {
                                  "Geography"
@@ -177,7 +177,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            List<string> validClrTypes = new List<string>(new []
+            List<string> validClrTypes = new List<string>(new[]
                                                           {
                                                              "Binary",
                                                              "Boolean", "Boolean?", "Nullable<Boolean>",
@@ -189,11 +189,11 @@ namespace Sawczyn.EFDesigner.EFModel
                                                              "Decimal", "Decimal?", "Nullable<Decimal>",
                                                              "Double", "Double?", "Nullable<Double>",
                                                              "Guid", "Guid?", "Nullable<Guid>"
-                                                          }); 
+                                                          });
             if (IsEFCore5Plus)
                validClrTypes.Add("System.Net.IPAddress");
 
-            validClrTypes.AddRange(new []
+            validClrTypes.AddRange(new[]
                                    {
                                       "Int16", "Int16?", "Nullable<Int16>",
                                       "Int32", "Int32?", "Nullable<Int32>",
@@ -343,6 +343,29 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion DatabaseSchema tracking property
+
+      #region DatabaseCollationDefault tracking property
+
+      protected virtual void OnDatabaseCollationDefaultChanged(string oldValue, string newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Classes,
+                                                         ModelAttribute.DatabaseCollationDomainPropertyId,
+                                                         ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class DatabaseCollationDefaultPropertyHandler
+      {
+         protected override void OnValueChanged(ModelRoot element, string oldValue, string newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnDatabaseCollationDefaultChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion DatabaseCollationDefault tracking property
 
       #region DefaultCollectionClass tracking property
 

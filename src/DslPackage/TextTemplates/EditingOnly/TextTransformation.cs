@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.VisualStudio.TextTemplating;
 
@@ -23,3 +23,4 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       private void WriteLine(string format, params object[] args) { }
    }
 }
+

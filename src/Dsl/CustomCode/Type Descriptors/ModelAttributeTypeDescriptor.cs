@@ -61,9 +61,12 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!modelAttribute.Indexed)
                propertyDescriptors.Remove("IndexedUnique");
 
-            // don't display BackingField unless AutoProperty is false
-            if (modelAttribute.AutoProperty) 
+            // don't display BackingField or PropertyAccessMode unless AutoProperty is false
+            if (modelAttribute.AutoProperty)
+            {
                propertyDescriptors.Remove("BackingFieldName");
+               propertyDescriptors.Remove("PropertyAccessMode");
+            }
 
             /********************************************************************************/
 
@@ -107,6 +110,16 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                       new DisplayNameAttribute("Implement INotifyPropertyChanged")
                                                                     , new DescriptionAttribute("Should this attribute implement INotifyPropertyChanged?")
                                                                     , new CategoryAttribute("Code Generation")
+                                                                   }));
+
+            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.DatabaseCollationDomainPropertyId)
+                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId)
+                                                                 , new Attribute[]
+                                                                   {
+                                                                      new DisplayNameAttribute("Database Collation")
+                                                                    , new DescriptionAttribute("Overrides the default database collation setting for the column that persists this attribute")
+                                                                    , new CategoryAttribute("Database")
                                                                    }));
          }
 

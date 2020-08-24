@@ -327,6 +327,12 @@
             <xsd:documentation>If true, will show declared foreign key property names (if any) on the association ends</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DatabaseCollationDefault -->
+        <xsd:attribute name="databaseCollationDefault" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The default collation for database storage.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -724,12 +730,6 @@
             <xsd:documentation>Text for [Display(Name=&quot;&lt;text&gt;&quot;)] attribute</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: PersistencePoint -->
-        <xsd:attribute name="persistencePoint" type="PersistencePointType" >
-          <xsd:annotation>
-            <xsd:documentation>The element that will be persisted for this attribute, either the property or the backing field</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
         <!-- Property: ImplementNotify -->
         <xsd:attribute name="implementNotify" type="xsd:boolean" >
           <xsd:annotation>
@@ -752,6 +752,30 @@
         <xsd:attribute name="isForeignKeyFor" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>If present, this attribute is a foreign key for the association named by this Guid</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: BackingFieldName -->
+        <xsd:attribute name="backingFieldName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The name of the backing field for this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DatabaseCollation -->
+        <xsd:attribute name="databaseCollation" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Overrides the default database collation setting for the column that persists this attribute</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsDatabaseCollationTracking -->
+        <xsd:attribute name="isDatabaseCollationTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.DatabaseCollation tracks ModelRoot.DatabaseCollationDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: PropertyAccessMode -->
+        <xsd:attribute name="propertyAccessMode" type="PropertyAccessMode" >
+          <xsd:annotation>
+            <xsd:documentation>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -2222,14 +2246,39 @@
     </xsd:restriction>
   </xsd:simpleType>
   
-  <!-- Enum PersistencePointType -->
-  <xsd:simpleType name="PersistencePointType">
-    <xsd:annotation>
-      <xsd:documentation>Used to define whether the property or its backing field is persisted</xsd:documentation>
-    </xsd:annotation>
+  <!-- Enum PropertyAccessMode -->
+  <xsd:simpleType name="PropertyAccessMode">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Property"/>
-      <xsd:enumeration value="Field"/>
+      <xsd:enumeration value="Field">
+        <xsd:annotation>
+          <xsd:documentation>Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FieldDuringConstruction">
+        <xsd:annotation>
+          <xsd:documentation>Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PreferField">
+        <xsd:annotation>
+          <xsd:documentation>All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PreferFieldDuringConstruction">
+        <xsd:annotation>
+          <xsd:documentation>All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PreferProperty">
+        <xsd:annotation>
+          <xsd:documentation>All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Property">
+        <xsd:annotation>
+          <xsd:documentation>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   

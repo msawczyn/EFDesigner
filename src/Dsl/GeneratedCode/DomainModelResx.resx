@@ -633,17 +633,17 @@
     <value>Designer</value>
     <comment>Category for DomainProperty &apos;ShowForeignKeyPropertyNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollationDefault.Description" xml:space="preserve">
     <value>The default collation for database storage.</value>
-    <comment>Description for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+    <comment>Description for DomainProperty &apos;DatabaseCollationDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.DisplayName" xml:space="preserve">
-    <value>Database Collation</value>
-    <comment>DisplayName for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollationDefault.DisplayName" xml:space="preserve">
+    <value>Database Collation Default</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseCollationDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollation.Category" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/DatabaseCollationDefault.Category" xml:space="preserve">
     <value>Database</value>
-    <comment>Category for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+    <comment>Category for DomainProperty &apos;DatabaseCollationDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
@@ -1201,18 +1201,6 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;DisplayText&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Description" xml:space="preserve">
-    <value>The element that will be persisted for this attribute, either the property or the backing field</value>
-    <comment>Description for DomainProperty &apos;PersistencePoint&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.DisplayName" xml:space="preserve">
-    <value>Persistence Point</value>
-    <comment>DisplayName for DomainProperty &apos;PersistencePoint&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PersistencePoint.Category" xml:space="preserve">
-    <value>Code Generation</value>
-    <comment>Category for DomainProperty &apos;PersistencePoint&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/ImplementNotify.Description" xml:space="preserve">
     <value>Should this class implement INotifyPropertyChanged?</value>
     <comment>Description for DomainProperty &apos;ImplementNotify&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
@@ -1272,6 +1260,22 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/DatabaseCollation.Category" xml:space="preserve">
     <value>Database</value>
     <comment>Category for DomainProperty &apos;DatabaseCollation&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsDatabaseCollationTracking.Description" xml:space="preserve">
+    <value>If true, ModelAttribute.DatabaseCollation tracks ModelRoot.DatabaseCollationDefault</value>
+    <comment>Description for DomainProperty &apos;IsDatabaseCollationTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/IsDatabaseCollationTracking.DisplayName" xml:space="preserve">
+    <value>Is Database Collation Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsDatabaseCollationTracking&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Description" xml:space="preserve">
+    <value>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</value>
+    <comment>Description for DomainProperty &apos;PropertyAccessMode&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.DisplayName" xml:space="preserve">
+    <value>Property Access Mode</value>
+    <comment>DisplayName for DomainProperty &apos;PropertyAccessMode&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
@@ -3089,21 +3093,53 @@
     <value>Ask each time if should perform the action automatically</value>
     <comment>Description for EnumerationLiteral &apos;Ask&apos; on DomainEnumeration &apos;AutomaticAction&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Property.DisplayName" xml:space="preserve">
-    <value>Property</value>
-    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Property.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Property</value>
-    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Field.DisplayName" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Field.DisplayName" xml:space="preserve">
     <value>Field</value>
-    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
+    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PersistencePointType/Field.Description" xml:space="preserve">
-    <value>Description for Sawczyn.EFDesigner.EFModel.PersistencePointType.Field</value>
-    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PersistencePointType&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Field.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field.</value>
+    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/FieldDuringConstruction.DisplayName" xml:space="preserve">
+    <value>FieldDuringConstruction</value>
+    <comment>Display name for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/FieldDuringConstruction.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
+    <comment>Description for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferField.DisplayName" xml:space="preserve">
+    <value>PreferField</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferField.Description" xml:space="preserve">
+    <value>All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferFieldDuringConstruction.DisplayName" xml:space="preserve">
+    <value>PreferFieldDuringConstruction</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferFieldDuringConstruction.Description" xml:space="preserve">
+    <value>All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferProperty.DisplayName" xml:space="preserve">
+    <value>PreferProperty</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/PreferProperty.Description" xml:space="preserve">
+    <value>All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Property.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
+    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

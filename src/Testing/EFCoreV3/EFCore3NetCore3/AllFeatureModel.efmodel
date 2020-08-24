@@ -1,5 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" transformOnSave="false" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="3.1.Latest" structOutputDirectory="Generated\Entities" showWarningsInDesigner="false" layoutAlgorithmSettings="" namespaces="" outputLocations="" exposeForeignKeys="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" 
+		   dslVersion="2.0.0.0" 
+		   Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" 
+		   entityContainerName="AllFeatureModel" 
+		   namespace="Testing" 
+		   connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" 
+		   automaticMigrationsEnabled="true" 
+		   entityOutputDirectory="Generated\Entities" 
+		   contextOutputDirectory="Generated\Context" 
+		   enumOutputDirectory="Generated\Enums" 
+		   entityFrameworkVersion="EFCore" 
+		   chopMethodChains="false" 
+		   transformOnSave="false" 
+		   showCascadeDeletes="true" 
+		   databaseType="None" 
+		   warnOnMissingDocumentation="false" 
+		   entityFrameworkPackageVersion="3.1.Latest" 
+		   structOutputDirectory="Generated\Entities" 
+		   showWarningsInDesigner="false" 
+		   layoutAlgorithmSettings="" 
+		   namespaces="" 
+		   outputLocations="" 
+		   exposeForeignKeys="false" 
+		   xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <enums>
     <modelRootHasEnums Id="25a934bf-320d-4481-9801-2f7f2a920f0c">
       <modelEnum Id="d999f148-5d0f-4b8d-a3fc-5abf12f0242b" namespace="Testing" name="Enum1" outputDirectory="Generated\Enums">
