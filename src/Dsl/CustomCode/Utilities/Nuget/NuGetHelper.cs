@@ -10,7 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
         public const string PACKAGEID_EF6 = "EntityFramework";
         public const string PACKAGEID_EFCORE = "Microsoft.EntityFrameworkCore";
 
-        private const string NUGET_URL = "https://api-v2v3search-0.nuget.org/query?q={0}&prerelease=true";
+        private const string NUGET_URL = "https://api-v2v3search-0.nuget.org/query?q={0}&prerelease=true&semVerLevel=2.0.0";
         private static readonly HttpClient httpClient = new HttpClient();
 
         static NuGetHelper()
