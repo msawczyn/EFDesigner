@@ -243,9 +243,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <InstallRoot>Schemas</InstallRoot>
     </Content>
-    <None Include="EFModel.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="ReadMe - Build Events.txt" />
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>

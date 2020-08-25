@@ -1825,6 +1825,50 @@
     <value>Database</value>
     <comment>Category for DomainProperty &apos;JoinTableName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceAutoProperty.Description" xml:space="preserve">
+    <value>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
+    <comment>Description for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceAutoProperty.DisplayName" xml:space="preserve">
+    <value>Auto Property</value>
+    <comment>DisplayName for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceAutoProperty.Category" xml:space="preserve">
+    <value>End 1</value>
+    <comment>Category for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceBackingFieldName.Description" xml:space="preserve">
+    <value>The name of the backing field for this property</value>
+    <comment>Description for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceBackingFieldName.DisplayName" xml:space="preserve">
+    <value>Backing Field</value>
+    <comment>DisplayName for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceBackingFieldName.Category" xml:space="preserve">
+    <value>End 1</value>
+    <comment>Category for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/IsSourceAutoPropertyTracking.Description" xml:space="preserve">
+    <value>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</value>
+    <comment>Description for DomainProperty &apos;IsSourceAutoPropertyTracking&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/IsSourceAutoPropertyTracking.DisplayName" xml:space="preserve">
+    <value>Is Source Auto Property Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsSourceAutoPropertyTracking&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourcePropertyAccessMode.Description" xml:space="preserve">
+    <value>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</value>
+    <comment>Description for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourcePropertyAccessMode.DisplayName" xml:space="preserve">
+    <value>Source Property Access Mode</value>
+    <comment>DisplayName for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/SourcePropertyAccessMode.Category" xml:space="preserve">
+    <value>End 1</value>
+    <comment>Category for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainRole &apos;Source&apos; on DomainRelationship &apos;Association&apos;</comment>
@@ -2084,6 +2128,50 @@
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyNameDisplay.Category" xml:space="preserve">
     <value>End2</value>
     <comment>Category for DomainProperty &apos;SourcePropertyNameDisplay&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetAutoProperty.Description" xml:space="preserve">
+    <value>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
+    <comment>Description for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetAutoProperty.DisplayName" xml:space="preserve">
+    <value>Target Auto Property</value>
+    <comment>DisplayName for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetAutoProperty.Category" xml:space="preserve">
+    <value>End 2</value>
+    <comment>Category for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetBackingFieldName.Description" xml:space="preserve">
+    <value>The name of the backing field for this property</value>
+    <comment>Description for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetBackingFieldName.DisplayName" xml:space="preserve">
+    <value>Backing Field</value>
+    <comment>DisplayName for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetBackingFieldName.Category" xml:space="preserve">
+    <value>End 2</value>
+    <comment>Category for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsTargetAutoPropertyTracking.Description" xml:space="preserve">
+    <value>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</value>
+    <comment>Description for DomainProperty &apos;IsTargetAutoPropertyTracking&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsTargetAutoPropertyTracking.DisplayName" xml:space="preserve">
+    <value>Is Target Auto Property Tracking</value>
+    <comment>DisplayName for DomainProperty &apos;IsTargetAutoPropertyTracking&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetPropertyAccessMode.Description" xml:space="preserve">
+    <value>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</value>
+    <comment>Description for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetPropertyAccessMode.DisplayName" xml:space="preserve">
+    <value>Target Property Access Mode</value>
+    <comment>DisplayName for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetPropertyAccessMode.Category" xml:space="preserve">
+    <value>End 2</value>
+    <comment>Category for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/BidirectionalSource.Description" xml:space="preserve">
     <value></value>

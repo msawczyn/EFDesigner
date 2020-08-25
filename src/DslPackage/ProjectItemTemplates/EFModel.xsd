@@ -1249,6 +1249,30 @@
             <xsd:documentation>Optional name of the database table used to join the two end classes for many-to-many associations. If empty, a reasonable default name will be used.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: SourceAutoProperty -->
+        <xsd:attribute name="sourceAutoProperty" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SourceBackingFieldName -->
+        <xsd:attribute name="sourceBackingFieldName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The name of the backing field for this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsSourceAutoPropertyTracking -->
+        <xsd:attribute name="isSourceAutoPropertyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SourcePropertyAccessMode -->
+        <xsd:attribute name="sourcePropertyAccessMode" type="PropertyAccessMode" >
+          <xsd:annotation>
+            <xsd:documentation>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1469,6 +1493,30 @@
         </xsd:attribute>
         <!-- Property: IsSourceImplementNotifyTracking -->
         <xsd:attribute name="isSourceImplementNotifyTracking" type="xsd:boolean" />
+        <!-- Property: TargetAutoProperty -->
+        <xsd:attribute name="targetAutoProperty" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: TargetBackingFieldName -->
+        <xsd:attribute name="targetBackingFieldName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The name of the backing field for this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsTargetAutoPropertyTracking -->
+        <xsd:attribute name="isTargetAutoPropertyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: TargetPropertyAccessMode -->
+        <xsd:attribute name="targetPropertyAccessMode" type="PropertyAccessMode" >
+          <xsd:annotation>
+            <xsd:documentation>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

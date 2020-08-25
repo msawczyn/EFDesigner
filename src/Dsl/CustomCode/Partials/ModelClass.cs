@@ -320,51 +320,75 @@ namespace Sawczyn.EFDesigner.EFModel
          List<NavigationProperty> sourceProperties = Association.GetLinksToTargets(this)
                                                                 .Except(ignore)
                                                                 .Select(x => new NavigationProperty
-                                                                             {
-                                                                                Cardinality = x.TargetMultiplicity
-                                                                              , ClassType = x.Target
-                                                                              , AssociationObject = x
-                                                                              , PropertyName = x.TargetPropertyName
-                                                                              , Summary = x.TargetSummary
-                                                                              , Description = x.TargetDescription
-                                                                              , CustomAttributes = x.TargetCustomAttributes
-                                                                              , DisplayText = x.TargetDisplayText
-                                                                              , IsAutoProperty = true
-                                                                              , ImplementNotify = x.TargetImplementNotify
-                                                                              , FKPropertyName = x.TargetRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                                                             })
+                                                                {
+                                                                   Cardinality = x.TargetMultiplicity
+                                                                              ,
+                                                                   ClassType = x.Target
+                                                                              ,
+                                                                   AssociationObject = x
+                                                                              ,
+                                                                   PropertyName = x.TargetPropertyName
+                                                                              ,
+                                                                   Summary = x.TargetSummary
+                                                                              ,
+                                                                   Description = x.TargetDescription
+                                                                              ,
+                                                                   CustomAttributes = x.TargetCustomAttributes
+                                                                              ,
+                                                                   DisplayText = x.TargetDisplayText
+                                                                              ,
+                                                                   IsAutoProperty = true
+                                                                              ,
+                                                                   ImplementNotify = x.TargetImplementNotify
+                                                                              ,
+                                                                   FKPropertyName = x.TargetRole == EndpointRole.Principal ? x.FKPropertyName : null
+                                                                })
                                                                 .ToList();
 
          List<NavigationProperty> targetProperties = Association.GetLinksToSources(this)
                                                                 .Except(ignore)
                                                                 .OfType<BidirectionalAssociation>()
                                                                 .Select(x => new NavigationProperty
-                                                                             {
-                                                                                Cardinality = x.SourceMultiplicity
-                                                                              , ClassType = x.Source
-                                                                              , AssociationObject = x
-                                                                              , PropertyName = x.SourcePropertyName
-                                                                              , Summary = x.SourceSummary
-                                                                              , Description = x.SourceDescription
-                                                                              , CustomAttributes = x.SourceCustomAttributes
-                                                                              , DisplayText = x.SourceDisplayText
-                                                                              , IsAutoProperty = true
-                                                                              , ImplementNotify = x.SourceImplementNotify
-                                                                              , FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                                                             })
+                                                                {
+                                                                   Cardinality = x.SourceMultiplicity
+                                                                              ,
+                                                                   ClassType = x.Source
+                                                                              ,
+                                                                   AssociationObject = x
+                                                                              ,
+                                                                   PropertyName = x.SourcePropertyName
+                                                                              ,
+                                                                   Summary = x.SourceSummary
+                                                                              ,
+                                                                   Description = x.SourceDescription
+                                                                              ,
+                                                                   CustomAttributes = x.SourceCustomAttributes
+                                                                              ,
+                                                                   DisplayText = x.SourceDisplayText
+                                                                              ,
+                                                                   IsAutoProperty = true
+                                                                              ,
+                                                                   ImplementNotify = x.SourceImplementNotify
+                                                                              ,
+                                                                   FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
+                                                                })
                                                                 .ToList();
 
          targetProperties.AddRange(Association.GetLinksToSources(this)
                                               .Except(ignore)
                                               .OfType<UnidirectionalAssociation>()
                                               .Select(x => new NavigationProperty
-                                                           {
-                                                              Cardinality = x.SourceMultiplicity
-                                                            , ClassType = x.Source
-                                                            , AssociationObject = x
-                                                            , PropertyName = null
-                                                            , FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                                           }));
+                                              {
+                                                 Cardinality = x.SourceMultiplicity
+                                                            ,
+                                                 ClassType = x.Source
+                                                            ,
+                                                 AssociationObject = x
+                                                            ,
+                                                 PropertyName = null
+                                                            ,
+                                                 FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
+                                              }));
          int suffix = 0;
          foreach (NavigationProperty navigationProperty in targetProperties.Where(x => x.PropertyName == null))
          {
@@ -797,17 +821,17 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <param name="newValue">Current value</param>
       protected virtual void OnIsImplementNotifyChanged(bool oldValue, bool newValue)
       {
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
-                                                         Attributes, 
-                                                         ModelAttribute.ImplementNotifyDomainPropertyId, 
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Attributes,
+                                                         ModelAttribute.ImplementNotifyDomainPropertyId,
                                                          ModelAttribute.IsImplementNotifyTrackingDomainPropertyId);
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
                                                          Store.GetAll<Association>().Where(a => a.Source?.FullName == FullName),
-                                                         Association.TargetImplementNotifyDomainPropertyId, 
+                                                         Association.TargetImplementNotifyDomainPropertyId,
                                                          Association.IsTargetImplementNotifyTrackingDomainPropertyId);
-         TrackingHelper.UpdateTrackingCollectionProperty(Store, 
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
                                                          Store.GetAll<BidirectionalAssociation>().Where(a => a.Target?.FullName == FullName),
-                                                         BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, 
+                                                         BidirectionalAssociation.SourceImplementNotifyDomainPropertyId,
                                                          BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId);
       }
 
@@ -824,5 +848,40 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion IsImplementNotify tracking property
 
+      #region AutoPropertyDefault tracking property
+
+      /// <summary>
+      /// Updates tracking properties when the IsImplementNotify value changes
+      /// </summary>
+      /// <param name="oldValue">Prior value</param>
+      /// <param name="newValue">Current value</param>
+      protected virtual void OnAutoPropertyDefaultChanged(bool oldValue, bool newValue)
+      {
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Attributes,
+                                                         ModelAttribute.AutoPropertyDomainPropertyId,
+                                                         ModelAttribute.IsAutoPropertyTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Store.GetAll<Association>().Where(a => a.Source?.FullName == FullName),
+                                                         Association.SourceAutoPropertyDomainPropertyId,
+                                                         Association.IsSourceAutoPropertyTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Store.GetAll<BidirectionalAssociation>().Where(a => a.Target?.FullName == FullName),
+                                                         BidirectionalAssociation.TargetAutoPropertyDomainPropertyId,
+                                                         BidirectionalAssociation.IsTargetAutoPropertyTrackingDomainPropertyId);
+      }
+
+      internal sealed partial class AutoPropertyDefaultPropertyHandler
+      {
+         protected override void OnValueChanged(ModelClass element, bool oldValue, bool newValue)
+         {
+            base.OnValueChanged(element, oldValue, newValue);
+
+            if (!element.Store.InUndoRedoOrRollback)
+               element.OnAutoPropertyDefaultChanged(oldValue, newValue);
+         }
+      }
+
+      #endregion AutoPropertyDefault tracking property
    }
 }
