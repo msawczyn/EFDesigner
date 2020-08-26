@@ -21,7 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          List<ModelAttribute> unnecessaryProperties = element.Dependent?.AllAttributes?.Where(x => x.IsForeignKeyFor == element.Id && !x.IsIdentity).ToList();
 
-         if (unnecessaryProperties?.Any() != true)
+         if (unnecessaryProperties?.Any() == true)
          {
             WarningDisplay.Show($"{element.GetDisplayText()} doesn't specify defined foreign keys. Removing foreign key attribute(s) {string.Join(", ", unnecessaryProperties.Select(x => x.GetDisplayText()))}");
 
