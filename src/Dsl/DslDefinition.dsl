@@ -954,7 +954,7 @@
             <DomainEnumerationMoniker Name="Multiplicity" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="81625766-4885-46ba-a535-c3e23a7c5f88" Description="Name of the entity property that returns the value at this end" Name="TargetPropertyName" DisplayName="End1 Navigation Property" DefaultValue="" Category="End 2">
+        <DomainProperty Id="81625766-4885-46ba-a535-c3e23a7c5f88" Description="Name of the entity property that returns the value at this end" Name="TargetPropertyName" DisplayName="End2 Navigation Property" DefaultValue="" Category="End 2">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1065,7 +1065,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="637b64d2-193d-47f9-b63f-df8ccc23f900" Description="Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets." Name="TargetImplementNotify" DisplayName="Implement INotifyPropertyChanged" Kind="CustomStorage" Category="End 2" IsBrowsable="false">
+        <DomainProperty Id="637b64d2-193d-47f9-b63f-df8ccc23f900" Description="Should this end participate in INotifyPropertyChanged activities? Only valid for non-collection targets." Name="TargetImplementNotify" DisplayName="End2 Implement INotifyPropertyChanged" Kind="CustomStorage" Category="End 2" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -1095,24 +1095,14 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="eedd18c9-8636-49d8-ab8f-73a10eb6fe8c" Description="If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="SourceAutoProperty" DisplayName="Auto Property" Kind="CustomStorage" Category="End 1">
-          <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="ce1749c7-3523-4b0d-9189-214374cfea69" Description="The name of the backing field for this property" Name="SourceBackingFieldName" DisplayName="Backing Field" Category="End 1">
+        <DomainProperty Id="a922ed78-450a-42bd-87f9-c355a432a67f" Description="The name of the backing field for this property" Name="TargetBackingFieldName" DisplayName="End2 Backing Field" Category="End2">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="1a0e089c-dacd-4764-8d72-d263c5b7acd9" Description="If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault" Name="IsSourceAutoPropertyTracking" DisplayName="Is Source Auto Property Tracking" DefaultValue="true" IsBrowsable="false">
+        <DomainProperty Id="9110fead-38f5-46b5-b3b1-e9c3c6cea99b" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="End2 Property Access Mode" DefaultValue="PreferProperty" Category="End 2">
           <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="37a97e38-f1c9-4aca-80cf-a2c9da1736de" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="Source Property Access Mode" DefaultValue="PreferProperty" Category="End 1">
-          <Type>
-            <DomainEnumerationMoniker Name="PropertyAccessMode" />
+            <DomainEnumerationMoniker Name="PropertyAccessMode2" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1212,7 +1202,7 @@
         <DomainRelationshipMoniker Name="Association" />
       </BaseRelationship>
       <Properties>
-        <DomainProperty Id="1e0e43de-1ed5-42e9-9c81-8fee8d85b4cf" Description="Name of the entity property that returns the value at this end" Name="SourcePropertyName" DisplayName="End2 Navigation Property" DefaultValue="" Category="End 1">
+        <DomainProperty Id="1e0e43de-1ed5-42e9-9c81-8fee8d85b4cf" Description="Name of the entity property that returns the value at this end" Name="SourcePropertyName" DisplayName="End1 Navigation Property" DefaultValue="" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1268,24 +1258,14 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="39705988-58cb-422d-97b1-7fdda0ece83a" Description="If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property." Name="TargetAutoProperty" DisplayName="Target Auto Property" Kind="CustomStorage" Category="End 2">
+        <DomainProperty Id="4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="End 2 Property Access Mode" DefaultValue="PreferProperty" Category="End 2">
           <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
+            <DomainEnumerationMoniker Name="PropertyAccessMode1" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="58f78812-df8f-4e1a-ac5b-457006105aab" Description="The name of the backing field for this property" Name="TargetBackingFieldName" DisplayName="Backing Field" Category="End 2">
+        <DomainProperty Id="8b64e83b-9fcc-42b7-a362-9c2931de3ce2" Description="The name of the backing field for this property" Name="SourceBackingFieldName" DisplayName="End 2 Backing Field" Category="End 2">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="bf9c14bc-1204-4f3f-b10c-488a995e2bd4" Description="If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault" Name="IsTargetAutoPropertyTracking" DisplayName="Is Target Auto Property Tracking" DefaultValue="true" IsBrowsable="false">
-          <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="500ac1d8-b11d-4f5f-abfe-b044cc327e24" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="Target Property Access Mode" DefaultValue="PreferProperty" Category="End 2">
-          <Type>
-            <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1638,6 +1618,26 @@
         <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="PropertyAccessMode1" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode1">
+      <Literals>
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field." Name="Field" Value="0" />
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="FieldDuringConstruction" Value="1" />
+        <EnumerationLiteral Description="All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property." Name="PreferField" Value="3" />
+        <EnumerationLiteral Description="All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="PreferFieldDuringConstruction" Value="4" />
+        <EnumerationLiteral Description="All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field." Name="PreferProperty" Value="5" />
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
+      </Literals>
+    </DomainEnumeration>
+    <DomainEnumeration Name="PropertyAccessMode2" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode2">
+      <Literals>
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field." Name="Field" Value="0" />
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="FieldDuringConstruction" Value="1" />
+        <EnumerationLiteral Description="All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property." Name="PreferField" Value="3" />
+        <EnumerationLiteral Description="All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="PreferFieldDuringConstruction" Value="4" />
+        <EnumerationLiteral Description="All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field." Name="PreferProperty" Value="5" />
+        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -1903,17 +1903,11 @@
           <XmlPropertyData XmlName="joinTableName">
             <DomainPropertyMoniker Name="Association/JoinTableName" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="sourceAutoProperty">
-            <DomainPropertyMoniker Name="Association/SourceAutoProperty" />
+          <XmlPropertyData XmlName="targetBackingFieldName">
+            <DomainPropertyMoniker Name="Association/TargetBackingFieldName" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="sourceBackingFieldName">
-            <DomainPropertyMoniker Name="Association/SourceBackingFieldName" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="isSourceAutoPropertyTracking">
-            <DomainPropertyMoniker Name="Association/IsSourceAutoPropertyTracking" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="sourcePropertyAccessMode">
-            <DomainPropertyMoniker Name="Association/SourcePropertyAccessMode" />
+          <XmlPropertyData XmlName="targetPropertyAccessMode">
+            <DomainPropertyMoniker Name="Association/TargetPropertyAccessMode" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -2317,17 +2311,11 @@
           <XmlPropertyData XmlName="sourcePropertyNameDisplay" Representation="Ignore">
             <DomainPropertyMoniker Name="BidirectionalAssociation/SourcePropertyNameDisplay" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="targetAutoProperty">
-            <DomainPropertyMoniker Name="BidirectionalAssociation/TargetAutoProperty" />
+          <XmlPropertyData XmlName="sourcePropertyAccessMode">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourcePropertyAccessMode" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="targetBackingFieldName">
-            <DomainPropertyMoniker Name="BidirectionalAssociation/TargetBackingFieldName" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="isTargetAutoPropertyTracking">
-            <DomainPropertyMoniker Name="BidirectionalAssociation/IsTargetAutoPropertyTracking" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="targetPropertyAccessMode">
-            <DomainPropertyMoniker Name="BidirectionalAssociation/TargetPropertyAccessMode" />
+          <XmlPropertyData XmlName="sourceBackingFieldName">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourceBackingFieldName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

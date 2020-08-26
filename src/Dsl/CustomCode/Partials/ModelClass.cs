@@ -861,14 +861,6 @@ namespace Sawczyn.EFDesigner.EFModel
                                                          Attributes,
                                                          ModelAttribute.AutoPropertyDomainPropertyId,
                                                          ModelAttribute.IsAutoPropertyTrackingDomainPropertyId);
-         TrackingHelper.UpdateTrackingCollectionProperty(Store,
-                                                         Store.GetAll<Association>().Where(a => a.Source?.FullName == FullName),
-                                                         Association.SourceAutoPropertyDomainPropertyId,
-                                                         Association.IsSourceAutoPropertyTrackingDomainPropertyId);
-         TrackingHelper.UpdateTrackingCollectionProperty(Store,
-                                                         Store.GetAll<BidirectionalAssociation>().Where(a => a.Target?.FullName == FullName),
-                                                         BidirectionalAssociation.TargetAutoPropertyDomainPropertyId,
-                                                         BidirectionalAssociation.IsTargetAutoPropertyTrackingDomainPropertyId);
       }
 
       internal sealed partial class AutoPropertyDefaultPropertyHandler

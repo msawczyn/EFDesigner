@@ -235,103 +235,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      #region SourceAutoProperty tracking property
-
-      /// <summary>Storage for the SourceAutoProperty property.</summary>  
-      private bool sourceAutoPropertyStorage;
-
-      /// <summary>Gets the storage for the SourceAutoProperty property.</summary>
-      /// <returns>The SourceAutoProperty value.</returns>
-      public bool GetSourceAutoPropertyValue()
-      {
-         if (!this.IsLoading() && IsSourceAutoPropertyTracking)
-         {
-            try
-            {
-               return Source?.AutoPropertyDefault ?? true;
-            }
-            catch (NullReferenceException)
-            {
-               return true;
-            }
-            catch (Exception e)
-            {
-               if (CriticalException.IsCriticalException(e))
-                  throw;
-
-               return true;
-            }
-         }
-
-         return sourceAutoPropertyStorage;
-      }
-
-      /// <summary>Sets the storage for the SourceAutoProperty property.</summary>
-      /// <param name="value">The SourceAutoProperty value.</param>
-      public void SetSourceAutoPropertyValue(bool value)
-      {
-         sourceAutoPropertyStorage = value;
-
-         if (!Store.InUndoRedoOrRollback && !this.IsLoading())
-            IsSourceAutoPropertyTracking = (sourceAutoPropertyStorage == (Source?.AutoPropertyDefault ?? true));
-      }
-
-      internal sealed partial class IsSourceAutoPropertyTrackingPropertyHandler
-      {
-         /// <summary>
-         ///    Called after the IsSourceAutoPropertyTracking property changes.
-         /// </summary>
-         /// <param name="element">The model element that has the property that changed. </param>
-         /// <param name="oldValue">The previous value of the property. </param>
-         /// <param name="newValue">The new value of the property. </param>
-         protected override void OnValueChanged(Association element, bool oldValue, bool newValue)
-         {
-            base.OnValueChanged(element, oldValue, newValue);
-            if (!element.Store.InUndoRedoOrRollback && newValue)
-            {
-               DomainPropertyInfo propInfo = element.Store.DomainDataDirectory.GetDomainProperty(SourceAutoPropertyDomainPropertyId);
-               propInfo.NotifyValueChange(element);
-            }
-         }
-
-         /// <summary>Performs the reset operation for the IsSourceAutoPropertyTracking property for a model element.</summary>
-         /// <param name="element">The model element that has the property to reset.</param>
-         internal void ResetValue(Association element)
-         {
-            object calculatedValue = null;
-
-            try
-            {
-               calculatedValue = element.Source?.AutoPropertyDefault;
-            }
-            catch (NullReferenceException) { }
-            catch (Exception e)
-            {
-               if (CriticalException.IsCriticalException(e))
-                  throw;
-            }
-
-            if (calculatedValue != null && element.SourceAutoProperty == (bool)calculatedValue)
-               element.isSourceAutoPropertyTrackingPropertyStorage = true;
-         }
-
-         /// <summary>
-         ///    Method to set IsSourceAutoPropertyTracking to false so that this instance of this tracking property is not
-         ///    storage-based.
-         /// </summary>
-         /// <param name="element">
-         ///    The element on which to reset the property value.
-         /// </param>
-         internal void PreResetValue(Association element)
-         {
-            // Force the IsSourceAutoPropertyTracking property to false so that the value  
-            // of the SourceAutoProperty property is retrieved from storage.  
-            element.isSourceAutoPropertyTrackingPropertyStorage = false;
-         }
-      }
-
-      #endregion
-
       #region TargetImplementNotify tracking property
 
       /// <summary>Storage for the TargetImplementNotify property.</summary>  
@@ -530,7 +433,6 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IsCollectionClassTrackingPropertyHandler.Instance.PreResetValue(this);
          IsTargetImplementNotifyTrackingPropertyHandler.Instance.PreResetValue(this);
-         IsSourceAutoPropertyTrackingPropertyHandler.Instance.PreResetValue(this);
          // same with other tracking properties as they get added
       }
 
@@ -543,7 +445,6 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          IsCollectionClassTrackingPropertyHandler.Instance.ResetValue(this);
          IsTargetImplementNotifyTrackingPropertyHandler.Instance.ResetValue(this);
-         IsSourceAutoPropertyTrackingPropertyHandler.Instance.ResetValue(this);
          // same with other tracking properties as they get added
       }
 

@@ -1825,49 +1825,29 @@
     <value>Database</value>
     <comment>Category for DomainProperty &apos;JoinTableName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceAutoProperty.Description" xml:space="preserve">
-    <value>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
-    <comment>Description for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceAutoProperty.DisplayName" xml:space="preserve">
-    <value>Auto Property</value>
-    <comment>DisplayName for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceAutoProperty.Category" xml:space="preserve">
-    <value>End 1</value>
-    <comment>Category for DomainProperty &apos;SourceAutoProperty&apos; on DomainClass &apos;Association&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceBackingFieldName.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetBackingFieldName.Description" xml:space="preserve">
     <value>The name of the backing field for this property</value>
-    <comment>Description for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
+    <comment>Description for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceBackingFieldName.DisplayName" xml:space="preserve">
-    <value>Backing Field</value>
-    <comment>DisplayName for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetBackingFieldName.DisplayName" xml:space="preserve">
+    <value>End 1 Backing Field</value>
+    <comment>DisplayName for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourceBackingFieldName.Category" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetBackingFieldName.Category" xml:space="preserve">
     <value>End 1</value>
-    <comment>Category for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
+    <comment>Category for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/IsSourceAutoPropertyTracking.Description" xml:space="preserve">
-    <value>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</value>
-    <comment>Description for DomainProperty &apos;IsSourceAutoPropertyTracking&apos; on DomainClass &apos;Association&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/IsSourceAutoPropertyTracking.DisplayName" xml:space="preserve">
-    <value>Is Source Auto Property Tracking</value>
-    <comment>DisplayName for DomainProperty &apos;IsSourceAutoPropertyTracking&apos; on DomainClass &apos;Association&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourcePropertyAccessMode.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.Description" xml:space="preserve">
     <value>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</value>
-    <comment>Description for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
+    <comment>Description for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourcePropertyAccessMode.DisplayName" xml:space="preserve">
-    <value>Source Property Access Mode</value>
-    <comment>DisplayName for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.DisplayName" xml:space="preserve">
+    <value>End 1 Property Access Mode</value>
+    <comment>DisplayName for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.Association/SourcePropertyAccessMode.Category" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.Category" xml:space="preserve">
     <value>End 1</value>
-    <comment>Category for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
+    <comment>Category for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Association/Source.Description" xml:space="preserve">
     <value></value>
@@ -2129,49 +2109,29 @@
     <value>End2</value>
     <comment>Category for DomainProperty &apos;SourcePropertyNameDisplay&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetAutoProperty.Description" xml:space="preserve">
-    <value>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property.</value>
-    <comment>Description for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetAutoProperty.DisplayName" xml:space="preserve">
-    <value>Target Auto Property</value>
-    <comment>DisplayName for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetAutoProperty.Category" xml:space="preserve">
-    <value>End 2</value>
-    <comment>Category for DomainProperty &apos;TargetAutoProperty&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetBackingFieldName.Description" xml:space="preserve">
-    <value>The name of the backing field for this property</value>
-    <comment>Description for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetBackingFieldName.DisplayName" xml:space="preserve">
-    <value>Backing Field</value>
-    <comment>DisplayName for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetBackingFieldName.Category" xml:space="preserve">
-    <value>End 2</value>
-    <comment>Category for DomainProperty &apos;TargetBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsTargetAutoPropertyTracking.Description" xml:space="preserve">
-    <value>If true, ModelAttribute.AutoProperty tracks ModelClass.AutoPropertyDefault</value>
-    <comment>Description for DomainProperty &apos;IsTargetAutoPropertyTracking&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsTargetAutoPropertyTracking.DisplayName" xml:space="preserve">
-    <value>Is Target Auto Property Tracking</value>
-    <comment>DisplayName for DomainProperty &apos;IsTargetAutoPropertyTracking&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetPropertyAccessMode.Description" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.Description" xml:space="preserve">
     <value>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</value>
-    <comment>Description for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+    <comment>Description for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetPropertyAccessMode.DisplayName" xml:space="preserve">
-    <value>Target Property Access Mode</value>
-    <comment>DisplayName for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.DisplayName" xml:space="preserve">
+    <value>End 2 Property Access Mode</value>
+    <comment>DisplayName for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/TargetPropertyAccessMode.Category" xml:space="preserve">
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.Category" xml:space="preserve">
     <value>End 2</value>
-    <comment>Category for DomainProperty &apos;TargetPropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+    <comment>Category for DomainProperty &apos;SourcePropertyAccessMode&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceBackingFieldName.Description" xml:space="preserve">
+    <value>The name of the backing field for this property</value>
+    <comment>Description for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceBackingFieldName.DisplayName" xml:space="preserve">
+    <value>End 2 Backing Field</value>
+    <comment>DisplayName for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceBackingFieldName.Category" xml:space="preserve">
+    <value>End 2</value>
+    <comment>Category for DomainProperty &apos;SourceBackingFieldName&apos; on DomainClass &apos;BidirectionalAssociation&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/BidirectionalSource.Description" xml:space="preserve">
     <value></value>
@@ -3228,6 +3188,102 @@
   <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Property.Description" xml:space="preserve">
     <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
     <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Field.DisplayName" xml:space="preserve">
+    <value>Field</value>
+    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Field.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field.</value>
+    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/FieldDuringConstruction.DisplayName" xml:space="preserve">
+    <value>FieldDuringConstruction</value>
+    <comment>Display name for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/FieldDuringConstruction.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
+    <comment>Description for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferField.DisplayName" xml:space="preserve">
+    <value>PreferField</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferField.Description" xml:space="preserve">
+    <value>All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferFieldDuringConstruction.DisplayName" xml:space="preserve">
+    <value>PreferFieldDuringConstruction</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferFieldDuringConstruction.Description" xml:space="preserve">
+    <value>All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferProperty.DisplayName" xml:space="preserve">
+    <value>PreferProperty</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferProperty.Description" xml:space="preserve">
+    <value>All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Property.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
+    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Field.DisplayName" xml:space="preserve">
+    <value>Field</value>
+    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Field.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field.</value>
+    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/FieldDuringConstruction.DisplayName" xml:space="preserve">
+    <value>FieldDuringConstruction</value>
+    <comment>Display name for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/FieldDuringConstruction.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
+    <comment>Description for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferField.DisplayName" xml:space="preserve">
+    <value>PreferField</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferField.Description" xml:space="preserve">
+    <value>All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferFieldDuringConstruction.DisplayName" xml:space="preserve">
+    <value>PreferFieldDuringConstruction</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferFieldDuringConstruction.Description" xml:space="preserve">
+    <value>All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferProperty.DisplayName" xml:space="preserve">
+    <value>PreferProperty</value>
+    <comment>Display name for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferProperty.Description" xml:space="preserve">
+    <value>All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field.</value>
+    <comment>Description for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Property.Description" xml:space="preserve">
+    <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
+    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

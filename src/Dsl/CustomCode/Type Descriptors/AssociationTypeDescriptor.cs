@@ -38,7 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
              && association.SourceMultiplicity != Multiplicity.ZeroMany
              && association.TargetMultiplicity != Multiplicity.ZeroMany)
                propertyDescriptors.Remove("FKPropertyName");
-            
+
             // only display roles for 1..1 and 0-1..0-1 associations
             if ((association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One)
              && (association.SourceMultiplicity != Multiplicity.ZeroOne || association.TargetMultiplicity != Multiplicity.ZeroOne))
@@ -58,19 +58,18 @@ namespace Sawczyn.EFDesigner.EFModel
             if (association.SourceMultiplicity != Multiplicity.ZeroMany || association.TargetMultiplicity != Multiplicity.ZeroMany)
                propertyDescriptors.Remove("JoinTableName");
 
-            // don't display BackingField or PropertyAccessMode unless AutoProperty is false
-            if (association.SourceAutoProperty)
-            {
-               propertyDescriptors.Remove("SourceBackingFieldName");
-               propertyDescriptors.Remove("SourcePropertyAccessMode");
-            }
-
-            if (bidirectionalAssociation?.TargetAutoProperty != false)
+            // only show backing field and property access mode for EFCore5+ non-collection associations
+            if (!association.Source.ModelRoot.IsEFCore5Plus || association.TargetMultiplicity == Multiplicity.ZeroMany)
             {
                propertyDescriptors.Remove("TargetBackingFieldName");
                propertyDescriptors.Remove("TargetPropertyAccessMode");
             }
 
+            if (!association.Source.ModelRoot.IsEFCore5Plus || bidirectionalAssociation?.SourceMultiplicity == Multiplicity.ZeroMany)
+            {
+               propertyDescriptors.Remove("SourceBackingFieldName");
+               propertyDescriptors.Remove("SourcePropertyAccessMode");
+            }
             /********************************************************************************/
 
             //Add the descriptors for the tracking properties 
@@ -97,17 +96,6 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                                 + "Only valid for non-collection targets.")
                                                                        , new CategoryAttribute("End 2")
                                                                       }));
-       
-
-               propertyDescriptors.Add(new TrackingPropertyDescriptor(association
-                                                                    , storeDomainDataDirectory.GetDomainProperty(Association.SourceAutoPropertyDomainPropertyId)
-                                                                    , storeDomainDataDirectory.GetDomainProperty(Association.IsSourceAutoPropertyTrackingDomainPropertyId)
-                                                                    , new Attribute[]
-                                                                      {
-                                                                         new DisplayNameAttribute("Source AutoProperty")
-                                                                       , new DescriptionAttribute("Overrides default autoproperty setting")
-                                                                       , new CategoryAttribute("End 1")
-                                                                      }));
             }
 
             if (bidirectionalAssociation?.SourceMultiplicity == Multiplicity.One || bidirectionalAssociation?.SourceMultiplicity == Multiplicity.ZeroOne)
@@ -121,16 +109,6 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                        , new DescriptionAttribute("Should this end participate in INotifyPropertyChanged activities? "
                                                                                                 + "Only valid for non-collection targets.")
                                                                        , new CategoryAttribute("End 1")
-                                                                      }));
-
-               propertyDescriptors.Add(new TrackingPropertyDescriptor(association
-                                                                    , storeDomainDataDirectory.GetDomainProperty(BidirectionalAssociation.TargetAutoPropertyDomainPropertyId)
-                                                                    , storeDomainDataDirectory.GetDomainProperty(BidirectionalAssociation.IsTargetAutoPropertyTrackingDomainPropertyId)
-                                                                    , new Attribute[]
-                                                                      {
-                                                                         new DisplayNameAttribute("Target AutoProperty")
-                                                                       , new DescriptionAttribute("Overrides default autoproperty setting")
-                                                                       , new CategoryAttribute("End 2")
                                                                       }));
             }
 

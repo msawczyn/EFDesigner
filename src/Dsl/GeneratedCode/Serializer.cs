@@ -9681,71 +9681,37 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // SourceAutoProperty
+	      // TargetBackingFieldName
 	      if (!serializationContext.Result.Failed)
 	      {
-	         string attribSourceAutoProperty = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourceAutoProperty");
-	         if (attribSourceAutoProperty != null)
+	         string attribTargetBackingFieldName = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetBackingFieldName");
+	         if (attribTargetBackingFieldName != null)
 	         {
-	            global::System.Boolean valueOfSourceAutoProperty;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribSourceAutoProperty, out valueOfSourceAutoProperty))
+	            global::System.String valueOfTargetBackingFieldName;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTargetBackingFieldName, out valueOfTargetBackingFieldName))
 	            {
-	               instanceOfAssociation.SourceAutoProperty = valueOfSourceAutoProperty;
+	               instanceOfAssociation.TargetBackingFieldName = valueOfTargetBackingFieldName;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourceAutoProperty", typeof(global::System.Boolean), attribSourceAutoProperty);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetBackingFieldName", typeof(global::System.String), attribTargetBackingFieldName);
 	            }
 	         }
 	      }
-	      // SourceBackingFieldName
+	      // TargetPropertyAccessMode
 	      if (!serializationContext.Result.Failed)
 	      {
-	         string attribSourceBackingFieldName = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourceBackingFieldName");
-	         if (attribSourceBackingFieldName != null)
+	         string attribTargetPropertyAccessMode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetPropertyAccessMode");
+	         if (attribTargetPropertyAccessMode != null)
 	         {
-	            global::System.String valueOfSourceBackingFieldName;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribSourceBackingFieldName, out valueOfSourceBackingFieldName))
+	            PropertyAccessMode2 valueOfTargetPropertyAccessMode;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode2>(serializationContext, attribTargetPropertyAccessMode, out valueOfTargetPropertyAccessMode))
 	            {
-	               instanceOfAssociation.SourceBackingFieldName = valueOfSourceBackingFieldName;
+	               instanceOfAssociation.TargetPropertyAccessMode = valueOfTargetPropertyAccessMode;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourceBackingFieldName", typeof(global::System.String), attribSourceBackingFieldName);
-	            }
-	         }
-	      }
-	      // IsSourceAutoPropertyTracking
-	      if (!serializationContext.Result.Failed)
-	      {
-	         string attribIsSourceAutoPropertyTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isSourceAutoPropertyTracking");
-	         if (attribIsSourceAutoPropertyTracking != null)
-	         {
-	            global::System.Boolean valueOfIsSourceAutoPropertyTracking;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsSourceAutoPropertyTracking, out valueOfIsSourceAutoPropertyTracking))
-	            {
-	               instanceOfAssociation.IsSourceAutoPropertyTracking = valueOfIsSourceAutoPropertyTracking;
-	            }
-	            else
-	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isSourceAutoPropertyTracking", typeof(global::System.Boolean), attribIsSourceAutoPropertyTracking);
-	            }
-	         }
-	      }
-	      // SourcePropertyAccessMode
-	      if (!serializationContext.Result.Failed)
-	      {
-	         string attribSourcePropertyAccessMode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourcePropertyAccessMode");
-	         if (attribSourcePropertyAccessMode != null)
-	         {
-	            PropertyAccessMode valueOfSourcePropertyAccessMode;
-	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode>(serializationContext, attribSourcePropertyAccessMode, out valueOfSourcePropertyAccessMode))
-	            {
-	               instanceOfAssociation.SourcePropertyAccessMode = valueOfSourcePropertyAccessMode;
-	            }
-	            else
-	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourcePropertyAccessMode", typeof(PropertyAccessMode), attribSourcePropertyAccessMode);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetPropertyAccessMode", typeof(PropertyAccessMode2), attribTargetPropertyAccessMode);
 	            }
 	         }
 	      }
@@ -10306,50 +10272,27 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // SourceAutoProperty
+	      // TargetBackingFieldName
 	      if (!serializationContext.Result.Failed)
 	      {
-	         global::System.Boolean propValue = instanceOfAssociation.SourceAutoProperty;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
-	         if (!serializationContext.Result.Failed)
-	         {
-	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceAutoProperty", serializedPropValue);
-	         }
-	      }
-	      // SourceBackingFieldName
-	      if (!serializationContext.Result.Failed)
-	      {
-	         global::System.String propValue = instanceOfAssociation.SourceBackingFieldName;
+	         global::System.String propValue = instanceOfAssociation.TargetBackingFieldName;
 	         if (!serializationContext.Result.Failed)
 	         {
 	            if (!string.IsNullOrEmpty(propValue))
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceBackingFieldName", propValue);
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetBackingFieldName", propValue);
 	
 	         }
 	      }
-	      // IsSourceAutoPropertyTracking
+	      // TargetPropertyAccessMode
 	      if (!serializationContext.Result.Failed)
 	      {
-	         global::System.Boolean propValue = instanceOfAssociation.IsSourceAutoPropertyTracking;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
-	         if (!serializationContext.Result.Failed)
-	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
-	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isSourceAutoPropertyTracking", serializedPropValue);
-	            }
-	         }
-	      }
-	      // SourcePropertyAccessMode
-	      if (!serializationContext.Result.Failed)
-	      {
-	         PropertyAccessMode propValue = instanceOfAssociation.SourcePropertyAccessMode;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
+	         PropertyAccessMode2 propValue = instanceOfAssociation.TargetPropertyAccessMode;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode2>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "PreferProperty") != 0)
 	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourcePropertyAccessMode", serializedPropValue);
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetPropertyAccessMode", serializedPropValue);
 	            }
 	         }
 	      }
@@ -13870,71 +13813,37 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // TargetAutoProperty
+	      // SourcePropertyAccessMode
 	      if (!serializationContext.Result.Failed)
 	      {
-	         string attribTargetAutoProperty = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetAutoProperty");
-	         if (attribTargetAutoProperty != null)
+	         string attribSourcePropertyAccessMode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourcePropertyAccessMode");
+	         if (attribSourcePropertyAccessMode != null)
 	         {
-	            global::System.Boolean valueOfTargetAutoProperty;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribTargetAutoProperty, out valueOfTargetAutoProperty))
+	            PropertyAccessMode1 valueOfSourcePropertyAccessMode;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode1>(serializationContext, attribSourcePropertyAccessMode, out valueOfSourcePropertyAccessMode))
 	            {
-	               instanceOfBidirectionalAssociation.TargetAutoProperty = valueOfTargetAutoProperty;
+	               instanceOfBidirectionalAssociation.SourcePropertyAccessMode = valueOfSourcePropertyAccessMode;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetAutoProperty", typeof(global::System.Boolean), attribTargetAutoProperty);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourcePropertyAccessMode", typeof(PropertyAccessMode1), attribSourcePropertyAccessMode);
 	            }
 	         }
 	      }
-	      // TargetBackingFieldName
+	      // SourceBackingFieldName
 	      if (!serializationContext.Result.Failed)
 	      {
-	         string attribTargetBackingFieldName = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetBackingFieldName");
-	         if (attribTargetBackingFieldName != null)
+	         string attribSourceBackingFieldName = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourceBackingFieldName");
+	         if (attribSourceBackingFieldName != null)
 	         {
-	            global::System.String valueOfTargetBackingFieldName;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTargetBackingFieldName, out valueOfTargetBackingFieldName))
+	            global::System.String valueOfSourceBackingFieldName;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribSourceBackingFieldName, out valueOfSourceBackingFieldName))
 	            {
-	               instanceOfBidirectionalAssociation.TargetBackingFieldName = valueOfTargetBackingFieldName;
+	               instanceOfBidirectionalAssociation.SourceBackingFieldName = valueOfSourceBackingFieldName;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetBackingFieldName", typeof(global::System.String), attribTargetBackingFieldName);
-	            }
-	         }
-	      }
-	      // IsTargetAutoPropertyTracking
-	      if (!serializationContext.Result.Failed)
-	      {
-	         string attribIsTargetAutoPropertyTracking = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isTargetAutoPropertyTracking");
-	         if (attribIsTargetAutoPropertyTracking != null)
-	         {
-	            global::System.Boolean valueOfIsTargetAutoPropertyTracking;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsTargetAutoPropertyTracking, out valueOfIsTargetAutoPropertyTracking))
-	            {
-	               instanceOfBidirectionalAssociation.IsTargetAutoPropertyTracking = valueOfIsTargetAutoPropertyTracking;
-	            }
-	            else
-	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isTargetAutoPropertyTracking", typeof(global::System.Boolean), attribIsTargetAutoPropertyTracking);
-	            }
-	         }
-	      }
-	      // TargetPropertyAccessMode
-	      if (!serializationContext.Result.Failed)
-	      {
-	         string attribTargetPropertyAccessMode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetPropertyAccessMode");
-	         if (attribTargetPropertyAccessMode != null)
-	         {
-	            PropertyAccessMode valueOfTargetPropertyAccessMode;
-	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode>(serializationContext, attribTargetPropertyAccessMode, out valueOfTargetPropertyAccessMode))
-	            {
-	               instanceOfBidirectionalAssociation.TargetPropertyAccessMode = valueOfTargetPropertyAccessMode;
-	            }
-	            else
-	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetPropertyAccessMode", typeof(PropertyAccessMode), attribTargetPropertyAccessMode);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourceBackingFieldName", typeof(global::System.String), attribSourceBackingFieldName);
 	            }
 	         }
 	      }
@@ -14479,51 +14388,28 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // TargetAutoProperty
+	      // SourcePropertyAccessMode
 	      if (!serializationContext.Result.Failed)
 	      {
-	         global::System.Boolean propValue = instanceOfBidirectionalAssociation.TargetAutoProperty;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
-	         if (!serializationContext.Result.Failed)
-	         {
-	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetAutoProperty", serializedPropValue);
-	         }
-	      }
-	      // TargetBackingFieldName
-	      if (!serializationContext.Result.Failed)
-	      {
-	         global::System.String propValue = instanceOfBidirectionalAssociation.TargetBackingFieldName;
-	         if (!serializationContext.Result.Failed)
-	         {
-	            if (!string.IsNullOrEmpty(propValue))
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetBackingFieldName", propValue);
-	
-	         }
-	      }
-	      // IsTargetAutoPropertyTracking
-	      if (!serializationContext.Result.Failed)
-	      {
-	         global::System.Boolean propValue = instanceOfBidirectionalAssociation.IsTargetAutoPropertyTracking;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
-	         if (!serializationContext.Result.Failed)
-	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
-	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isTargetAutoPropertyTracking", serializedPropValue);
-	            }
-	         }
-	      }
-	      // TargetPropertyAccessMode
-	      if (!serializationContext.Result.Failed)
-	      {
-	         PropertyAccessMode propValue = instanceOfBidirectionalAssociation.TargetPropertyAccessMode;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
+	         PropertyAccessMode1 propValue = instanceOfBidirectionalAssociation.SourcePropertyAccessMode;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode1>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "PreferProperty") != 0)
 	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetPropertyAccessMode", serializedPropValue);
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourcePropertyAccessMode", serializedPropValue);
 	            }
+	         }
+	      }
+	      // SourceBackingFieldName
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.String propValue = instanceOfBidirectionalAssociation.SourceBackingFieldName;
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (!string.IsNullOrEmpty(propValue))
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceBackingFieldName", propValue);
+	
 	         }
 	      }
 	   }

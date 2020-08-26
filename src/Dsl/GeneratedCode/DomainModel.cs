@@ -259,10 +259,8 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(Association), "TargetPropertyNameDisplay", Association.TargetPropertyNameDisplayDomainPropertyId, typeof(Association.TargetPropertyNameDisplayPropertyHandler)),
 	         new DomainMemberInfo(typeof(Association), "Name", Association.NameDomainPropertyId, typeof(Association.NamePropertyHandler)),
 	         new DomainMemberInfo(typeof(Association), "JoinTableName", Association.JoinTableNameDomainPropertyId, typeof(Association.JoinTableNamePropertyHandler)),
-	         new DomainMemberInfo(typeof(Association), "SourceAutoProperty", Association.SourceAutoPropertyDomainPropertyId, typeof(Association.SourceAutoPropertyPropertyHandler)),
-	         new DomainMemberInfo(typeof(Association), "SourceBackingFieldName", Association.SourceBackingFieldNameDomainPropertyId, typeof(Association.SourceBackingFieldNamePropertyHandler)),
-	         new DomainMemberInfo(typeof(Association), "IsSourceAutoPropertyTracking", Association.IsSourceAutoPropertyTrackingDomainPropertyId, typeof(Association.IsSourceAutoPropertyTrackingPropertyHandler)),
-	         new DomainMemberInfo(typeof(Association), "SourcePropertyAccessMode", Association.SourcePropertyAccessModeDomainPropertyId, typeof(Association.SourcePropertyAccessModePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetBackingFieldName", Association.TargetBackingFieldNameDomainPropertyId, typeof(Association.TargetBackingFieldNamePropertyHandler)),
+	         new DomainMemberInfo(typeof(Association), "TargetPropertyAccessMode", Association.TargetPropertyAccessModeDomainPropertyId, typeof(Association.TargetPropertyAccessModePropertyHandler)),
 	         new DomainMemberInfo(typeof(Generalization), "Name", Generalization.NameDomainPropertyId, typeof(Generalization.NamePropertyHandler)),
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourcePropertyName", BidirectionalAssociation.SourcePropertyNameDomainPropertyId, typeof(BidirectionalAssociation.SourcePropertyNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceDescription", BidirectionalAssociation.SourceDescriptionDomainPropertyId, typeof(BidirectionalAssociation.SourceDescriptionPropertyHandler)),
@@ -272,10 +270,8 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceImplementNotify", BidirectionalAssociation.SourceImplementNotifyDomainPropertyId, typeof(BidirectionalAssociation.SourceImplementNotifyPropertyHandler)),
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "IsSourceImplementNotifyTracking", BidirectionalAssociation.IsSourceImplementNotifyTrackingDomainPropertyId, typeof(BidirectionalAssociation.IsSourceImplementNotifyTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourcePropertyNameDisplay", BidirectionalAssociation.SourcePropertyNameDisplayDomainPropertyId, typeof(BidirectionalAssociation.SourcePropertyNameDisplayPropertyHandler)),
-	         new DomainMemberInfo(typeof(BidirectionalAssociation), "TargetAutoProperty", BidirectionalAssociation.TargetAutoPropertyDomainPropertyId, typeof(BidirectionalAssociation.TargetAutoPropertyPropertyHandler)),
-	         new DomainMemberInfo(typeof(BidirectionalAssociation), "TargetBackingFieldName", BidirectionalAssociation.TargetBackingFieldNameDomainPropertyId, typeof(BidirectionalAssociation.TargetBackingFieldNamePropertyHandler)),
-	         new DomainMemberInfo(typeof(BidirectionalAssociation), "IsTargetAutoPropertyTracking", BidirectionalAssociation.IsTargetAutoPropertyTrackingDomainPropertyId, typeof(BidirectionalAssociation.IsTargetAutoPropertyTrackingPropertyHandler)),
-	         new DomainMemberInfo(typeof(BidirectionalAssociation), "TargetPropertyAccessMode", BidirectionalAssociation.TargetPropertyAccessModeDomainPropertyId, typeof(BidirectionalAssociation.TargetPropertyAccessModePropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourcePropertyAccessMode", BidirectionalAssociation.SourcePropertyAccessModeDomainPropertyId, typeof(BidirectionalAssociation.SourcePropertyAccessModePropertyHandler)),
+	         new DomainMemberInfo(typeof(BidirectionalAssociation), "SourceBackingFieldName", BidirectionalAssociation.SourceBackingFieldNameDomainPropertyId, typeof(BidirectionalAssociation.SourceBackingFieldNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(AssociationConnector), "Color", AssociationConnector.ColorDomainPropertyId, typeof(AssociationConnector.ColorPropertyHandler)),
 	         new DomainMemberInfo(typeof(AssociationConnector), "DashStyle", AssociationConnector.DashStyleDomainPropertyId, typeof(AssociationConnector.DashStylePropertyHandler)),
 	         new DomainMemberInfo(typeof(CommentBoxShape), "FillColor", CommentBoxShape.FillColorDomainPropertyId, typeof(CommentBoxShape.FillColorPropertyHandler)),
@@ -1580,6 +1576,136 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// property, for example because it is read-only.
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Property = 2,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: PropertyAccessMode1
+	/// Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode1
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum PropertyAccessMode1
+	{
+		/// <summary>
+		/// Field
+		/// Enforces that all accesses to the property must go through the field. An
+		/// exception will be thrown if this mode is set and it is not possible to read from
+		/// or write to the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Field = 0,
+		/// <summary>
+		/// FieldDuringConstruction
+		/// Enforces that all accesses to the property must go through the field when new
+		/// instances are being constructed. New instances are typically constructed when
+		/// entities are queried from the database. An exception will be thrown if this mode
+		/// is set and it is not possible to write to the field. All other uses of the
+		/// property will go through the property getters and setters, unless this is not
+		/// possible because, for example, the property is read-only, in which case these
+		/// accesses will also use the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/FieldDuringConstruction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		FieldDuringConstruction = 1,
+		/// <summary>
+		/// PreferField
+		/// All accesses to the property goes directly to the field, unless the field is not
+		/// known, in which as access goes through the property.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferField.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferField = 3,
+		/// <summary>
+		/// PreferFieldDuringConstruction
+		/// All accesses to the property when constructing new entity instances goes
+		/// directly to the field, unless the field is not known, in which as access goes
+		/// through the property. All other uses of the property will go through the
+		/// property getters and setters, unless this is not possible because, for example,
+		/// the property is read-only, in which case these accesses will also use the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferFieldDuringConstruction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferFieldDuringConstruction = 4,
+		/// <summary>
+		/// PreferProperty
+		/// All accesses to the property go through the property, unless there is no
+		/// property or it is missing a setter/getter, in which as access goes directly to
+		/// the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferProperty.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferProperty = 5,
+		/// <summary>
+		/// Property
+		/// Enforces that all accesses to the property must go through the property getters
+		/// and setters, even when new objects are being constructed. An exception will be
+		/// thrown if this mode is set and it is not possible to read from or write to the
+		/// property, for example because it is read-only.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Property = 2,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: PropertyAccessMode2
+	/// Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode2
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum PropertyAccessMode2
+	{
+		/// <summary>
+		/// Field
+		/// Enforces that all accesses to the property must go through the field. An
+		/// exception will be thrown if this mode is set and it is not possible to read from
+		/// or write to the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Field = 0,
+		/// <summary>
+		/// FieldDuringConstruction
+		/// Enforces that all accesses to the property must go through the field when new
+		/// instances are being constructed. New instances are typically constructed when
+		/// entities are queried from the database. An exception will be thrown if this mode
+		/// is set and it is not possible to write to the field. All other uses of the
+		/// property will go through the property getters and setters, unless this is not
+		/// possible because, for example, the property is read-only, in which case these
+		/// accesses will also use the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/FieldDuringConstruction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		FieldDuringConstruction = 1,
+		/// <summary>
+		/// PreferField
+		/// All accesses to the property goes directly to the field, unless the field is not
+		/// known, in which as access goes through the property.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferField.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferField = 3,
+		/// <summary>
+		/// PreferFieldDuringConstruction
+		/// All accesses to the property when constructing new entity instances goes
+		/// directly to the field, unless the field is not known, in which as access goes
+		/// through the property. All other uses of the property will go through the
+		/// property getters and setters, unless this is not possible because, for example,
+		/// the property is read-only, in which case these accesses will also use the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferFieldDuringConstruction.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferFieldDuringConstruction = 4,
+		/// <summary>
+		/// PreferProperty
+		/// All accesses to the property go through the property, unless there is no
+		/// property or it is missing a setter/getter, in which as access goes directly to
+		/// the field.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferProperty.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		PreferProperty = 5,
+		/// <summary>
+		/// Property
+		/// Enforces that all accesses to the property must go through the property getters
+		/// and setters, even when new objects are being constructed. An exception will be
+		/// thrown if this mode is set and it is not possible to read from or write to the
+		/// property, for example because it is read-only.
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Property = 2,
 	}
 }
