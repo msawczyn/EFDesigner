@@ -2344,6 +2344,188 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region TargetAutoProperty domain property code
+		
+		/// <summary>
+		/// TargetAutoProperty domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TargetAutoPropertyDomainPropertyId = new global::System.Guid(0x6b0a49d6, 0x1220, 0x4c69, 0xa7, 0xd4, 0x35, 0xfb, 0x24, 0x69, 0xbd, 0x3e);
+		
+		/// <summary>
+		/// Gets or sets the value of TargetAutoProperty domain property.
+		/// If false, generates a backing field and a partial method to hook getting and
+		/// setting the property. If true, generates a simple auto property. Only valid for
+		/// non-collection properties.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetAutoProperty.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetAutoProperty.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetAutoProperty.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("6b0a49d6-1220-4c69-a7d4-35fb2469bd3e")]
+		public global::System.Boolean TargetAutoProperty
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return TargetAutoPropertyPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TargetAutoPropertyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.TargetAutoProperty domain property.
+		/// </summary>
+		internal sealed partial class TargetAutoPropertyPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private TargetAutoPropertyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.TargetAutoProperty domain property value handler.
+			/// </summary>
+			public static readonly TargetAutoPropertyPropertyHandler Instance = new TargetAutoPropertyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.TargetAutoProperty domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TargetAutoPropertyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for TargetAutoProperty because its Kind is
+				// set to CustomStorage. Please provide the GetTargetAutoPropertyValue()
+				// method on the domain class.
+				return element.GetTargetAutoPropertyValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for TargetAutoProperty because its Kind is
+					// set to CustomStorage. Please provide the SetTargetAutoPropertyValue()
+					// method on the domain class.
+					element.SetTargetAutoPropertyValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsTargetAutoPropertyTracking domain property code
+		
+		/// <summary>
+		/// IsTargetAutoPropertyTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsTargetAutoPropertyTrackingDomainPropertyId = new global::System.Guid(0xaa5ed789, 0xf003, 0x420c, 0x94, 0x96, 0xdf, 0x03, 0x1f, 0x1b, 0x21, 0xb6);
+		
+		/// <summary>
+		/// Storage for IsTargetAutoPropertyTracking
+		/// </summary>
+		private global::System.Boolean isTargetAutoPropertyTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsTargetAutoPropertyTracking domain property.
+		/// If true, Association.TargetAutoProperty tracks ModelClass.AutoPropertyDefault
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/IsTargetAutoPropertyTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/IsTargetAutoPropertyTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("aa5ed789-f003-420c-9496-df031f1b21b6")]
+		public global::System.Boolean IsTargetAutoPropertyTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isTargetAutoPropertyTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsTargetAutoPropertyTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.IsTargetAutoPropertyTracking domain property.
+		/// </summary>
+		internal sealed partial class IsTargetAutoPropertyTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private IsTargetAutoPropertyTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.IsTargetAutoPropertyTracking domain property value handler.
+			/// </summary>
+			public static readonly IsTargetAutoPropertyTrackingPropertyHandler Instance = new IsTargetAutoPropertyTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.IsTargetAutoPropertyTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsTargetAutoPropertyTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isTargetAutoPropertyTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isTargetAutoPropertyTrackingPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a ModelClass.
@@ -4466,6 +4648,188 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.sourceBackingFieldNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region SourceAutoProperty domain property code
+		
+		/// <summary>
+		/// SourceAutoProperty domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SourceAutoPropertyDomainPropertyId = new global::System.Guid(0xd21b9158, 0x3044, 0x468d, 0x89, 0x87, 0x07, 0x3f, 0xb9, 0x97, 0x66, 0x23);
+		
+		/// <summary>
+		/// Gets or sets the value of SourceAutoProperty domain property.
+		/// If false, generates a backing field and a partial method to hook getting and
+		/// setting the property. If true, generates a simple auto property. Only valid for
+		/// non-collection properties.
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoProperty.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoProperty.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceAutoProperty.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
+		[DslModeling::DomainObjectId("d21b9158-3044-468d-8987-073fb9976623")]
+		public global::System.Boolean SourceAutoProperty
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return SourceAutoPropertyPropertyHandler.Instance.GetValue(this);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				SourceAutoPropertyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.SourceAutoProperty domain property.
+		/// </summary>
+		internal sealed partial class SourceAutoPropertyPropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.Boolean>
+		{
+			private SourceAutoPropertyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.SourceAutoProperty domain property value handler.
+			/// </summary>
+			public static readonly SourceAutoPropertyPropertyHandler Instance = new SourceAutoPropertyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.SourceAutoProperty domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SourceAutoPropertyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				// There is no storage for SourceAutoProperty because its Kind is
+				// set to CustomStorage. Please provide the GetSourceAutoPropertyValue()
+				// method on the domain class.
+				return element.GetSourceAutoPropertyValue();
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					// There is no storage for SourceAutoProperty because its Kind is
+					// set to CustomStorage. Please provide the SetSourceAutoPropertyValue()
+					// method on the domain class.
+					element.SetSourceAutoPropertyValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
+				}
+			}
+		}
+		
+		#endregion
+		#region IsSourceAutoPropertyTracking domain property code
+		
+		/// <summary>
+		/// IsSourceAutoPropertyTracking domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsSourceAutoPropertyTrackingDomainPropertyId = new global::System.Guid(0x545b091f, 0xabd0, 0x4ad4, 0x81, 0x51, 0x80, 0xc5, 0x46, 0xed, 0x10, 0x49);
+		
+		/// <summary>
+		/// Storage for IsSourceAutoPropertyTracking
+		/// </summary>
+		private global::System.Boolean isSourceAutoPropertyTrackingPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of IsSourceAutoPropertyTracking domain property.
+		/// If true, Association.SourceAutoProperty tracks ModelClass.AutoPropertyDefault
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAutoPropertyTracking.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/IsSourceAutoPropertyTracking.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("545b091f-abd0-4ad4-8151-80c546ed1049")]
+		public global::System.Boolean IsSourceAutoPropertyTracking
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isSourceAutoPropertyTrackingPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsSourceAutoPropertyTrackingPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the BidirectionalAssociation.IsSourceAutoPropertyTracking domain property.
+		/// </summary>
+		internal sealed partial class IsSourceAutoPropertyTrackingPropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, global::System.Boolean>
+		{
+			private IsSourceAutoPropertyTrackingPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the BidirectionalAssociation.IsSourceAutoPropertyTracking domain property value handler.
+			/// </summary>
+			public static readonly IsSourceAutoPropertyTrackingPropertyHandler Instance = new IsSourceAutoPropertyTrackingPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the BidirectionalAssociation.IsSourceAutoPropertyTracking domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsSourceAutoPropertyTrackingDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(BidirectionalAssociation element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isSourceAutoPropertyTrackingPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(BidirectionalAssociation element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isSourceAutoPropertyTrackingPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

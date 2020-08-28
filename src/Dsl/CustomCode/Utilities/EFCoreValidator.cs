@@ -19,7 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          return new string[0];
 
-         // for later
+         // nothing to do here
 
          //ModelRoot modelRoot = element.ModelRoot;
          //Store store = modelRoot.Store;
@@ -35,6 +35,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelClass element)
       {
+         // nothing to do here
+
          //ModelRoot modelRoot = element.ModelRoot;
          //for (int index = 0; index < propertyDescriptors.Count; index++)
          //{
@@ -56,7 +58,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          return new string[0];
 
-         // for later
+         // nothing to do here
 
          //ModelRoot modelRoot = element.ModelRoot;
          //Store store = modelRoot.Store;
@@ -72,6 +74,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelEnum element)
       {
+         // nothing to do here
+
          //ModelRoot modelRoot = element.ModelRoot;
          //for (int index = 0; index < propertyDescriptors.Count; index++)
          //{
@@ -93,9 +97,9 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          return new string[0];
 
-         // for later
+         // nothing to do here
 
-         //ModelRoot modelRoot = element.ModelRoot;
+         //ModelRoot modelRoot = element.ModelClass.ModelRoot;
          //Store store = modelRoot.Store;
          //List<string> errorMessages = new List<string>();
 
@@ -111,19 +115,11 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelRoot modelRoot = element.ModelClass.ModelRoot;
 
-         for (int index = 0; index < propertyDescriptors.Count; index++)
+         if (!modelRoot.IsEFCore5Plus)
          {
-            bool shouldRemove = false;
-
-            switch (propertyDescriptors[index].Name)
-            {
-               case "DatabaseCollation":
-                  shouldRemove = !modelRoot.IsEFCore5Plus;
-                  break;
-            }
-
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
+            propertyDescriptors.Remove("DatabaseCollation");
+            propertyDescriptors.Remove("PropertyAccessMode");
+            propertyDescriptors.Remove("BackingFieldName");
          }
       }
 
@@ -136,7 +132,7 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = element.Store.ModelRoot();
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot?.IsEFCore5Plus != true)
+         if (modelRoot != null && modelRoot.EntityFrameworkVersion == EFVersion.EFCore && !modelRoot.IsEFCore5Plus)
          {
             if ((element.SourceMultiplicity == Multiplicity.ZeroMany) &&
                 (element.TargetMultiplicity == Multiplicity.ZeroMany))
@@ -148,21 +144,21 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
       {
-         //ModelRoot modelRoot = element.Source.ModelRoot;
+         BidirectionalAssociation bidirectionalAssociation = element as BidirectionalAssociation;
 
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
-         //   switch (propertyDescriptors[index].Name)
-         //   {
+         // only show backing field and property access mode for EFCore5+ non-collection associations
+         if (!element.Source.ModelRoot.IsEFCore5Plus || element.TargetMultiplicity == Multiplicity.ZeroMany)
+         {
+            propertyDescriptors.Remove("TargetBackingFieldName");
+            propertyDescriptors.Remove("TargetPropertyAccessMode");
+         }
 
-         //      default:
-         //         break;
-         //   }
+         if (!element.Source.ModelRoot.IsEFCore5Plus || bidirectionalAssociation?.SourceMultiplicity == Multiplicity.ZeroMany)
+         {
+            propertyDescriptors.Remove("SourceBackingFieldName");
+            propertyDescriptors.Remove("SourcePropertyAccessMode");
+         }
 
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
       }
 
       #endregion Association
@@ -173,6 +169,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelRoot modelRoot = element;
          Store store = modelRoot.Store;
+
          List<string> errorMessages = new List<string>();
 
          foreach (Association association in store.GetAll<Association>().ToList())
@@ -202,44 +199,20 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelRoot modelRoot = element;
 
-         for (int index = 0; index < propertyDescriptors.Count; index++)
+         if (!modelRoot.IsEFCore5Plus)
+            propertyDescriptors.Remove("DatabaseCollation");
+
+         if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
          {
-            bool shouldRemove = false;
-            switch (propertyDescriptors[index].Name)
-            {
-               case "DatabaseCollation":
-                  shouldRemove = !modelRoot.IsEFCore5Plus;
-                  break;
+            propertyDescriptors.Remove("DatabaseInitializerType");
+            propertyDescriptors.Remove("AutomaticMigrationsEnabled");
+            propertyDescriptors.Remove("ProxyGenerationEnabled");
+            propertyDescriptors.Remove("DatabaseType");
+            propertyDescriptors.Remove("InheritanceStrategy");
 
-               case "DatabaseInitializerType":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-               case "AutomaticMigrationsEnabled":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-               case "ProxyGenerationEnabled":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-               case "DatabaseType":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-               case "InheritanceStrategy":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
-                  break;
-
-               case "LazyLoadingEnabled":
-                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1;
-                  break;
-            }
-
-            if (shouldRemove)
-               propertyDescriptors.Remove(propertyDescriptors[index--]);
+            if (modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1)
+               propertyDescriptors.Remove("LazyLoadingEnabled");
          }
-
       }
 
       #endregion ModelRoot

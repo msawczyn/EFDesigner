@@ -279,7 +279,6 @@ namespace Sawczyn.EFDesigner.EFModel
          IsDatabaseSchemaTrackingPropertyHandler.Instance.PreResetValue(this);
          IsNamespaceTrackingPropertyHandler.Instance.PreResetValue(this);
          IsOutputDirectoryTrackingPropertyHandler.Instance.PreResetValue(this);
-
          // same with other tracking properties as they get added
       }
 
@@ -861,6 +860,14 @@ namespace Sawczyn.EFDesigner.EFModel
                                                          Attributes,
                                                          ModelAttribute.AutoPropertyDomainPropertyId,
                                                          ModelAttribute.IsAutoPropertyTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Store.GetAll<Association>().Where(a => a.Source?.FullName == FullName),
+                                                         Association.TargetAutoPropertyDomainPropertyId,
+                                                         Association.IsTargetAutoPropertyTrackingDomainPropertyId);
+         TrackingHelper.UpdateTrackingCollectionProperty(Store,
+                                                         Store.GetAll<BidirectionalAssociation>().Where(a => a.Target?.FullName == FullName),
+                                                         BidirectionalAssociation.SourceAutoPropertyDomainPropertyId,
+                                                         BidirectionalAssociation.IsSourceAutoPropertyTrackingDomainPropertyId);
       }
 
       internal sealed partial class AutoPropertyDefaultPropertyHandler

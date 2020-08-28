@@ -25,7 +25,7 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             storeDomainDataDirectory = association.Store.DomainDataDirectory;
             BidirectionalAssociation bidirectionalAssociation = association as BidirectionalAssociation;
-
+            
             EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, association);
 
             // show FKPropertyName only when possible and required
@@ -58,18 +58,18 @@ namespace Sawczyn.EFDesigner.EFModel
             if (association.SourceMultiplicity != Multiplicity.ZeroMany || association.TargetMultiplicity != Multiplicity.ZeroMany)
                propertyDescriptors.Remove("JoinTableName");
 
-            // only show backing field and property access mode for EFCore5+ non-collection associations
-            if (!association.Source.ModelRoot.IsEFCore5Plus || association.TargetMultiplicity == Multiplicity.ZeroMany)
+            // only show backing field name and property access mode if not an autoproperty
+            if (association.TargetAutoProperty)
             {
                propertyDescriptors.Remove("TargetBackingFieldName");
                propertyDescriptors.Remove("TargetPropertyAccessMode");
             }
-
-            if (!association.Source.ModelRoot.IsEFCore5Plus || bidirectionalAssociation?.SourceMultiplicity == Multiplicity.ZeroMany)
+            if (bidirectionalAssociation?.SourceAutoProperty != false)
             {
                propertyDescriptors.Remove("SourceBackingFieldName");
                propertyDescriptors.Remove("SourcePropertyAccessMode");
             }
+
             /********************************************************************************/
 
             //Add the descriptors for the tracking properties 
@@ -96,6 +96,20 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                                 + "Only valid for non-collection targets.")
                                                                        , new CategoryAttribute("End 2")
                                                                       }));
+
+               if (association.Source.ModelRoot.EntityFrameworkVersion == EFVersion.EF6 || association.Source.ModelRoot.IsEFCore5Plus)
+               {
+                  propertyDescriptors.Add(new TrackingPropertyDescriptor(association
+                                                                       , storeDomainDataDirectory.GetDomainProperty(Association.TargetAutoPropertyDomainPropertyId)
+                                                                       , storeDomainDataDirectory.GetDomainProperty(Association.IsTargetAutoPropertyTrackingDomainPropertyId)
+                                                                       , new Attribute[]
+                                                                         {
+                                                                            new DisplayNameAttribute("End1 Is Auto Property")
+                                                                          , new DescriptionAttribute("If false, generates a backing field and a partial method to hook getting and setting the property. "
+                                                                                                   + "If true, generates a simple auto property. Only valid for non-collection properties.")
+                                                                          , new CategoryAttribute("End 2")
+                                                                         }));
+               }
             }
 
             if (bidirectionalAssociation?.SourceMultiplicity == Multiplicity.One || bidirectionalAssociation?.SourceMultiplicity == Multiplicity.ZeroOne)
@@ -110,6 +124,21 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                                 + "Only valid for non-collection targets.")
                                                                        , new CategoryAttribute("End 1")
                                                                       }));
+
+               if (association.Source.ModelRoot.EntityFrameworkVersion == EFVersion.EF6 || association.Source.ModelRoot.IsEFCore5Plus)
+               {
+                  propertyDescriptors.Add(new TrackingPropertyDescriptor(association
+                                                                       , storeDomainDataDirectory.GetDomainProperty(BidirectionalAssociation.SourceAutoPropertyDomainPropertyId)
+                                                                       , storeDomainDataDirectory.GetDomainProperty(BidirectionalAssociation.IsSourceAutoPropertyTrackingDomainPropertyId)
+                                                                       , new Attribute[]
+                                                                         {
+                                                                            new DisplayNameAttribute("End2 Is Auto Property")
+                                                                          , new DescriptionAttribute("If false, generates a backing field and a partial method to hook getting and setting the property. "
+                                                                                                   + "If true, generates a simple auto property. Only valid for non-collection properties.")
+                                                                          , new CategoryAttribute("End 1")
+                                                                         }));
+               }
+
             }
 
          }

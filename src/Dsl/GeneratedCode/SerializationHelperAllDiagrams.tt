@@ -408,22 +408,8 @@ public abstract partial class <#= dslName #>SerializationHelperBase
             {
                foreach (global::System.IO.Packaging.PackagePart packagePart in pkgOutputDoc.GetParts())
                {
-                  EFModelDiagram diagram = this.LoadDiagram(serializationResult
-                                                               , modelPartition
-                                                               , modelFileName
-                                                               , diagramsFileName
-                                                               , modelRoot
-                                                               , diagramsPartition
-                                                               , packagePart.GetStream(global::System.IO.FileMode.Open, global::System.IO.FileAccess.Read)
-                                                               , schemaResolver
-                                                               , validationController
-                                                               , serializerLocator) as EFModelDiagram;
-
-                  if (diagram != null)
-                     data = FixupDiagramData(diagram);
-
-                  if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName).Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries).First())
-                     data.SetLocks(Locks.All);
+                  Stream stream = packagePart.GetStream(global::System.IO.FileMode.Open, global::System.IO.FileAccess.Read);
+                  data = LoadModelDiagramData(stream);
                }
             }
          }
@@ -435,44 +421,14 @@ public abstract partial class <#= dslName #>SerializationHelperBase
             {
                 using (MemoryStream stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" + element)))
                 {
-                    EFModelDiagram diagram = this.LoadDiagram(serializationResult
-                                                            , modelPartition
-                                                            , modelFileName
-                                                            , diagramsFileName
-                                                            , modelRoot
-                                                            , diagramsPartition
-                                                            , stream
-                                                            , schemaResolver
-                                                            , validationController
-                                                            , serializerLocator) as EFModelDiagram;
-    
-                    if (diagram != null)
-                    data = FixupDiagramData(diagram);
-    
-                    if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName).Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries).First())
-                    data.SetLocks(Locks.All);
+                   data = LoadModelDiagramData(stream);
                 }
             }
          }
       }
       else
       {
-         // missing diagram file indicates we should create a new diagram.
-         EFModelDiagram diagram = this.LoadDiagram(serializationResult
-                                                   , modelPartition
-                                                   , modelFileName
-                                                   , diagramsFileName
-                                                   , modelRoot
-                                                   , diagramsPartition
-                                                   , global::System.IO.Stream.Null
-                                                   , schemaResolver
-                                                   , validationController
-                                                   , serializerLocator) as EFModelDiagram;
-         if (diagram != null)
-            data = FixupDiagramData(diagram);
-
-         if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName))
-            data.SetLocks(Locks.All);
+         data = LoadModelDiagramData(global::System.IO.Stream.Null);
       }
 
       modelRoot.Store
@@ -482,6 +438,28 @@ public abstract partial class <#= dslName #>SerializationHelperBase
                .ForEach(d => modelRoot.Diagrams.Remove(d));
 
       return modelRoot;
+
+      ModelDiagramData LoadModelDiagramData(Stream stream)
+      {
+         EFModelDiagram diagram = this.LoadDiagram(serializationResult
+                                                 , modelPartition
+                                                 , modelFileName
+                                                 , diagramsFileName
+                                                 , modelRoot
+                                                 , diagramsPartition
+                                                 , stream
+                                                 , schemaResolver
+                                                 , validationController
+                                                 , serializerLocator) as EFModelDiagram;
+
+         if (diagram != null)
+            data = FixupDiagramData(diagram);
+
+         if (diagram.Name == Path.GetFileNameWithoutExtension(diagramsFileName).Split(new[] {'.'}, StringSplitOptions.RemoveEmptyEntries).First())
+            data.SetLocks(Locks.All);
+
+         return data;
+      }
 
       ModelDiagramData FixupDiagramData(EFModelDiagram diagram)
       {

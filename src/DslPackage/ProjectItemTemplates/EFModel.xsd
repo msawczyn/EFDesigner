@@ -1261,6 +1261,18 @@
             <xsd:documentation>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: TargetAutoProperty -->
+        <xsd:attribute name="targetAutoProperty" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property. Only valid for non-collection properties.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsTargetAutoPropertyTracking -->
+        <xsd:attribute name="isTargetAutoPropertyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, Association.TargetAutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1491,6 +1503,18 @@
         <xsd:attribute name="sourceBackingFieldName" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>The name of the backing field for this property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SourceAutoProperty -->
+        <xsd:attribute name="sourceAutoProperty" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property. Only valid for non-collection properties.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsSourceAutoPropertyTracking -->
+        <xsd:attribute name="isSourceAutoPropertyTracking" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, Association.SourceAutoProperty tracks ModelClass.AutoPropertyDefault</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

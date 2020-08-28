@@ -954,7 +954,7 @@
             <DomainEnumerationMoniker Name="Multiplicity" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="81625766-4885-46ba-a535-c3e23a7c5f88" Description="Name of the entity property that returns the value at this end" Name="TargetPropertyName" DisplayName="End2 Navigation Property" DefaultValue="" Category="End 2">
+        <DomainProperty Id="81625766-4885-46ba-a535-c3e23a7c5f88" Description="Name of the entity property that returns the value at this end" Name="TargetPropertyName" DisplayName="End1 Navigation Property" DefaultValue="" Category="End 2">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1095,14 +1095,24 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a922ed78-450a-42bd-87f9-c355a432a67f" Description="The name of the backing field for this property" Name="TargetBackingFieldName" DisplayName="End2 Backing Field" Category="End2">
+        <DomainProperty Id="a922ed78-450a-42bd-87f9-c355a432a67f" Description="The name of the backing field for this property" Name="TargetBackingFieldName" DisplayName="End1 Backing Field" Category="End 2">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="9110fead-38f5-46b5-b3b1-e9c3c6cea99b" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="End2 Property Access Mode" DefaultValue="PreferProperty" Category="End 2">
+        <DomainProperty Id="9110fead-38f5-46b5-b3b1-e9c3c6cea99b" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="End1 Property Access Mode" DefaultValue="PreferProperty" Category="End 2">
           <Type>
             <DomainEnumerationMoniker Name="PropertyAccessMode2" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="6b0a49d6-1220-4c69-a7d4-35fb2469bd3e" Description="If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property. Only valid for non-collection properties." Name="TargetAutoProperty" DisplayName="End1 Is Auto Property" DefaultValue="" Kind="CustomStorage" Category="End 2" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="aa5ed789-f003-420c-9496-df031f1b21b6" Description="If true, Association.TargetAutoProperty tracks ModelClass.AutoPropertyDefault" Name="IsTargetAutoPropertyTracking" DisplayName="Is Target Auto Property Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1202,7 +1212,7 @@
         <DomainRelationshipMoniker Name="Association" />
       </BaseRelationship>
       <Properties>
-        <DomainProperty Id="1e0e43de-1ed5-42e9-9c81-8fee8d85b4cf" Description="Name of the entity property that returns the value at this end" Name="SourcePropertyName" DisplayName="End1 Navigation Property" DefaultValue="" Category="End 1">
+        <DomainProperty Id="1e0e43de-1ed5-42e9-9c81-8fee8d85b4cf" Description="Name of the entity property that returns the value at this end" Name="SourcePropertyName" DisplayName="End2 Navigation Property" DefaultValue="" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1258,14 +1268,24 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="End 2 Property Access Mode" DefaultValue="PreferProperty" Category="End 2">
+        <DomainProperty Id="4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="End 2 Property Access Mode" DefaultValue="PreferProperty" Category="End 1">
           <Type>
             <DomainEnumerationMoniker Name="PropertyAccessMode1" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8b64e83b-9fcc-42b7-a362-9c2931de3ce2" Description="The name of the backing field for this property" Name="SourceBackingFieldName" DisplayName="End 2 Backing Field" Category="End 2">
+        <DomainProperty Id="8b64e83b-9fcc-42b7-a362-9c2931de3ce2" Description="The name of the backing field for this property" Name="SourceBackingFieldName" DisplayName="End 2 Backing Field" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="d21b9158-3044-468d-8987-073fb9976623" Description="If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property. Only valid for non-collection properties." Name="SourceAutoProperty" DisplayName="End2 Is Auto Property" DefaultValue="" Kind="CustomStorage" Category="End 1" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="545b091f-abd0-4ad4-8151-80c546ed1049" Description="If true, Association.SourceAutoProperty tracks ModelClass.AutoPropertyDefault" Name="IsSourceAutoPropertyTracking" DisplayName="Is Source Auto Property Tracking" DefaultValue="true" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1909,6 +1929,12 @@
           <XmlPropertyData XmlName="targetPropertyAccessMode">
             <DomainPropertyMoniker Name="Association/TargetPropertyAccessMode" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="targetAutoProperty">
+            <DomainPropertyMoniker Name="Association/TargetAutoProperty" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isTargetAutoPropertyTracking">
+            <DomainPropertyMoniker Name="Association/IsTargetAutoPropertyTracking" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
@@ -2316,6 +2342,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="sourceBackingFieldName">
             <DomainPropertyMoniker Name="BidirectionalAssociation/SourceBackingFieldName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="sourceAutoProperty">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/SourceAutoProperty" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isSourceAutoPropertyTracking">
+            <DomainPropertyMoniker Name="BidirectionalAssociation/IsSourceAutoPropertyTracking" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
