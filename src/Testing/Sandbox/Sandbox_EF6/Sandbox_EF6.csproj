@@ -41,6 +41,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context2.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context2DatabaseInitializer.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context2DbMigrationConfiguration.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity1.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity2.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity3.generated.cs">
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -49,16 +49,15 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Generated\Context\AllFeatureModel.generated.cs" />
+    <Compile Include="Generated\Entities\Base.generated.cs" />
     <Compile Include="Generated\Entities\Entity1.generated.cs" />
     <Compile Include="Generated\Entities\Entity2.generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="EFCoreDesigner.ttinclude" />
     <None Include="EFModel.efmodel" />
-    <None Include="EFModel.efmodel.diagram">
-      <DependentUpon>EFModel.efmodel</DependentUpon>
-    </None>
     <None Include="Properties\EFModel.efmodel" />
     <None Include="Properties\EFModel.efmodel.diagram">
       <DependentUpon>EFModel.efmodel</DependentUpon>

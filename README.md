@@ -53,7 +53,13 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.5.3**
+**2.0.5.5**
+   - Fix: Foreign key crashes when reference is on the derived table (See https://github.com/msawczyn/EFDesigner/issues/212)
+   - Fixed a edge condition where an error would be thrown when deleting an association
+
+<details>
+<summary><b>2.0.5.3</b></summary>
+
    - Provide option to save diagrams as uncompressed XML to facilitate version control (in Tools/Options/Entity Framework Visual Editor)
    - Enhanced error reporting for assembly import errors
    - Assembly import can now process assemblies with more than one DbContext class

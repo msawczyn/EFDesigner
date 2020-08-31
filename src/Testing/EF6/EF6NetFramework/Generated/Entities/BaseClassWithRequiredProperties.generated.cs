@@ -32,6 +32,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static BaseClassWithRequiredProperties CreateBaseClassWithRequiredPropertiesUnsafe()
+      {
+         return new BaseClassWithRequiredProperties();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="property0"></param>
@@ -60,7 +68,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int _Id;
+      internal int ;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -79,17 +87,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = ;
             GetId(ref value);
-            return (_Id = value);
+            return ( = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = ;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+                = value;
             }
          }
       }
@@ -97,7 +105,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Property0
       /// </summary>
-      protected string _Property0;
+      protected string ;
       /// <summary>
       /// When provided in a partial class, allows value of Property0 to be changed before setting.
       /// </summary>
@@ -115,17 +123,17 @@ namespace Testing
       {
          get
          {
-            string value = _Property0;
+            string value = ;
             GetProperty0(ref value);
-            return (_Property0 = value);
+            return ( = value);
          }
          set
          {
-            string oldValue = _Property0;
+            string oldValue = ;
             SetProperty0(oldValue, ref value);
             if (oldValue != value)
             {
-               _Property0 = value;
+                = value;
             }
          }
       }

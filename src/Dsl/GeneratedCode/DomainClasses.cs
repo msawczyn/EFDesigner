@@ -11740,3 +11740,11 @@ namespace Sawczyn.EFDesigner.EFModel
 		#endregion
 	}
 }
+
+namespace Sawczyn.EFDesigner.EFModel
+{
+	partial class ModelRoot
+	{
+		public const string DSLVersion = "2.0.5.5";
+	}
+}

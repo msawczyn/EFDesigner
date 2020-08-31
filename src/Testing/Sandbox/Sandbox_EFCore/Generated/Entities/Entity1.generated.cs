@@ -34,6 +34,14 @@ namespace Sandbox
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static Entity1 CreateEntity1Unsafe()
+      {
+         return new Entity1();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="entity2"></param>
