@@ -27,7 +27,7 @@
         <elementListCompartment Id="02006da7-77a1-41e7-b235-d4945eb5ab72" absoluteBounds="2.8726166666666666, 5.215477395833334, 1.4700000000000006, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <unidirectionalConnector Id="91a45f61-f8ca-47fc-9dc9-20bd7fe98893" edgePoints="[(1.45833333333333 : 3.11742467447917); (1.45833333333333 : 4.87963185546875); (2.85761666666667 : 4.87963185546875)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
+    <unidirectionalConnector Id="91a45f61-f8ca-47fc-9dc9-20bd7fe98893" edgePoints="[(1.45833333333333 : 3.11742467447917); (1.45833333333333 : 4.87963185546875); (2.85761666666667 : 4.87963185546875)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="113, 111, 110" dashStyle="Solid">
       <unidirectionalAssociationMoniker Id="07a106c8-266b-4c4f-aa47-bbda61d2d7c3" />
       <relativeChildShapes />
       <nodes>
@@ -35,7 +35,7 @@
         <classShapeMoniker Id="6ac19c52-b8b0-4a61-a07e-3cb0a378376c" />
       </nodes>
     </unidirectionalConnector>
-    <unidirectionalConnector Id="6d233dd7-ab96-4e63-b852-24133800fbd3" edgePoints="[(6.42705 : 3.2263927734375); (6.42705 : 4.87963185546875); (4.35761666666667 : 4.87963185546875)]" fixedFrom="Algorithm" fixedTo="Algorithm" color="113, 111, 110" dashStyle="Solid">
+    <unidirectionalConnector Id="6d233dd7-ab96-4e63-b852-24133800fbd3" edgePoints="[(6.42705 : 3.2263927734375); (6.42705 : 4.87963185546875); (4.35761666666667 : 4.87963185546875)]" fixedFrom="NotFixed" fixedTo="NotFixed" color="113, 111, 110" dashStyle="Solid">
       <unidirectionalAssociationMoniker Id="e2d8a036-9264-4929-a8a7-ab0ca6042db5" />
       <relativeChildShapes />
       <nodes>
@@ -51,7 +51,7 @@
         <elementListCompartment Id="84decbb8-1618-4f18-9fab-faa194e917a5" absoluteBounds="3.1295832538604738, 2.5419141022364298, 1.4700000000000002, 0.2493896484375" name="SourcesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <generalizationConnector Id="3b4d0e89-3116-4d81-b9db-94108973a7cc" edgePoints="[(3.73609996026357 : 2.89130375067393); (3.73609996026357 : 4.19439666666667)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <generalizationConnector Id="3b4d0e89-3116-4d81-b9db-94108973a7cc" edgePoints="[(3.73609996026357 : 2.89130375067393); (3.73609996026357 : 4.19439666666667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <generalizationMoniker Id="b7682bda-3e02-4b24-a2cc-7716f774a023" />
       <nodes>
         <classShapeMoniker Id="675f43d2-e031-48da-9c84-f5935362ad0f" />

@@ -39,7 +39,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-
       // ReSharper disable once UnusedMember.Global
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
 
