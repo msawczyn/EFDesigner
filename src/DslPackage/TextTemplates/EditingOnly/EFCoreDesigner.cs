@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.4.0
+      // EFDesigner v2.0.5.5
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -54,7 +54,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       {
          get
          {
-            return new[] {   
+            return new[] {
                                "Geometry"
                              , "GeometryPoint"
                              , "GeometryLineString"
@@ -278,11 +278,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          List<Association> visited = new List<Association>();
          List<string> foreignKeyColumns = new List<string>();
+         List<string> declaredShadowProperties = new List<string>();
 
          foreach (ModelClass modelClass in modelRoot.Classes.OrderBy(x => x.Name))
          {
             segments.Clear();
             foreignKeyColumns.Clear();
+            declaredShadowProperties.Clear();
             NL();
 
             // class level
@@ -292,7 +294,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
                segments.Add($"Ignore(t => t.{transient.Name})");
 
-            if (!modelClass.IsDependentType)
+            if (!isDependent)
             {
                // note: this must come before the 'ToTable' call or there's a runtime error
                if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
@@ -305,7 +307,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                                     : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
 
                   // primary key code segments must be output last, since HasKey returns a different type
-                  List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
+                  List<ModelAttribute> identityAttributes = modelClass.AllIdentityAttributes.ToList();
 
                   if (identityAttributes.Count == 1)
                      segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
@@ -314,7 +316,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                }
             }
 
-            if (segments.Count > 1 || modelClass.IsDependentType)
+            if (segments.Count > 1 || isDependent)
             {
                if (modelRoot.ChopMethodChains)
                   OutputChopped(segments);
@@ -322,7 +324,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   Output(string.Join(".", segments) + ";");
             }
 
-            if (modelClass.IsDependentType)
+            if (isDependent)
                continue;
 
             // attribute level
@@ -421,11 +423,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (association.TargetMultiplicity) // realized by property on source
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     // TODO: Implement many-to-many
-                     if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany || association.Source.ModelRoot.IsEFCore5Plus)
                         segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-                     else
-                        continue;
 
                      break;
 
@@ -444,30 +443,34 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      //   break;
                }
 
-               string columnPrefix = association.SourceRole == EndpointRole.Dependent
-                                    ? ""
-                                    : association.Target.Name + "_";
-
                switch (association.SourceMultiplicity) // realized by shadow property on target
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     // TODO: Implement many-to-many
-                     if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
-                     {
+                     if (association.Source.ModelRoot.IsEFCore5Plus || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add("WithMany()");
-                        segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+
+                     if (association.Source.ModelRoot.IsEFCore5Plus && association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     {
+                        string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.Source.Name}_x_{association.TargetPropertyName}" : association.JoinTableName;
+                        string suffix1 = association.Source == association.Target ? "A" : "";
+                        string suffix2 = association.Source == association.Target ? "B" : "";
+                        string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
+                        string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
+
+                        segments.Add(modelClass == association.Source
+                                        ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
+                                        : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({targetMap}); x.MapRightKey({sourceMap}); }})");
                      }
-                     else
-                        continue;
+
 
                      break;
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add("WithOne()");
 
-                     segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                                       ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
-                                       : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                     //segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                     //                  ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
+                     //                  : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
                      required = true;
 
@@ -476,15 +479,29 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add("WithOne()");
 
-                     segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                                       ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
-                                       : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                     //segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                     //                  ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
+                     //                  : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
                      break;
 
                      //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
                      //   segments.Add("HasMany()");
                      //   break;
+               }
+
+               string foreignKeySegment = CreateForeignKeySegmentEFCore(association, foreignKeyColumns);
+
+               // can't include shadow properties twice
+               if (foreignKeySegment != null)
+               {
+                  if (!foreignKeySegment.Contains("MapKey"))
+                     segments.Add(foreignKeySegment);
+                  else if (!declaredShadowProperties.Contains(foreignKeySegment))
+                  {
+                     declaredShadowProperties.Add(foreignKeySegment);
+                     segments.Add(foreignKeySegment);
+                  }
                }
 
                if (required)
@@ -545,11 +562,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (association.SourceMultiplicity) // realized by property on target
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     // TODO: Implement many-to-many
-                     if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany || association.Source.ModelRoot.IsEFCore5Plus)
                         segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
-                     else
-                        continue;
 
                      break;
 
@@ -572,11 +586,21 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
                      // TODO: Implement many-to-many
-                     if (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     if (association.Source.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
-                     else
-                        continue;
 
+                     if (association.Source.ModelRoot.IsEFCore5Plus && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                     {
+                        string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.Source.Name}_x_{association.TargetPropertyName}" : association.JoinTableName;
+                        string suffix1 = association.Source == association.Target ? "A" : "";
+                        string suffix2 = association.Source == association.Target ? "B" : "";
+                        string sourceMap = string.Join(", ", association.Source.AllIdentityAttributeNames.Select(n => $@"""{association.Source.Name}_{n}{suffix1}""").ToList());
+                        string targetMap = string.Join(", ", association.Target.AllIdentityAttributeNames.Select(n => $@"""{association.Target.Name}_{n}{suffix2}""").ToList());
+
+                        segments.Add(modelClass == association.Source
+                                        ? $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({sourceMap}); x.MapRightKey({targetMap}); }})"
+                                        : $@"Map(x => {{ x.ToTable(""{tableMap}""); x.MapLeftKey({targetMap}); x.MapRightKey({sourceMap}); }})");
+                     }
                      break;
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
@@ -662,7 +686,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          {
             // shadow properties
             columnName = string.Join(", "
-                                    , principal.IdentityAttributes
+                                    , principal.AllIdentityAttributes
                                                 .Select(a => CreateShadowPropertyName(association, foreignKeyColumns, a))
                                                 .Select(s => $@"""{s.Trim()}"""));
          }
@@ -680,3 +704,4 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       }
    }
 }
+

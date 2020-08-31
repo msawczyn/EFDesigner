@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 
@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 #endif
 [assembly: AssemblyCompany("Michael Sawczyn")]
 [assembly: AssemblyProduct("EFDesigner")]
-[assembly: AssemblyCopyright("Copyright © Michael Sawczyn 2017-2020")]
+[assembly: AssemblyCopyright("Copyright � Michael Sawczyn 2017-2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,7 +33,11 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.0.5.4")]
-[assembly: AssemblyFileVersion("2.0.5.4")]
+[assembly: AssemblyVersion("2.0.5.5")]
+[assembly: AssemblyFileVersion("2.0.5.5")]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]
+
+
+
+
 

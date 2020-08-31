@@ -22,6 +22,7 @@ namespace Testing
    public partial class AllFeatureModel : DbContext
    {
       #region DbSets
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox.Base> Bases { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox.Entity1> Entity1 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox.Entity2> Entity2 { get; set; }
       #endregion DbSets
@@ -55,12 +56,13 @@ namespace Testing
 
          modelBuilder.HasDefaultSchema("dbo");
 
+         modelBuilder.Entity<global::Sandbox.Base>().ToTable("Bases").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Sandbox.Base>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+
          modelBuilder.Entity<global::Sandbox.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<global::Sandbox.Entity1>().HasOne(x => x.Entity2).WithMany().HasForeignKey("Entity2_Id");
 
-         modelBuilder.Entity<global::Sandbox.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Sandbox.Entity2>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
 
          OnModelCreatedImpl(modelBuilder);
       }

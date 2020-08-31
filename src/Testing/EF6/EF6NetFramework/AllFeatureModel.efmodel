@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.4" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" exposeForeignKeys="false" gridColor="" gridSize="0" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.5.5" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" databaseInitializerType="None" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" chopMethodChains="false" inheritanceStrategy="TablePerConcreteType" defaultCollectionClass="ObservableCollection" transformOnSave="false" showCascadeDeletes="false" databaseType="None" showWarningsInDesigner="false" exposeForeignKeys="true" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <comments>
     <comment Id="6c97fea5-bf5f-48eb-b6b8-64295fef6da0" text="d ds ds f43rfdxfrrfb vcxbxczxzx zxvef vfds vc " />
     <comment Id="d4c635c2-a3f0-4db6-bed4-4213f9985ab9" text="d ds ds f43rfdxfrrfb vcxbxczxzx zxvef vfds vc " />
@@ -125,7 +125,7 @@
           <unidirectionalAssociation Id="1876b64f-0b1a-44c2-a415-5eec03aae433" sourceMultiplicity="ZeroMany" targetMultiplicity="One" targetPropertyName="UChildRequired" collectionClass="ObservableCollection" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None" targetImplementNotify="false">
             <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
           </unidirectionalAssociation>
-          <unidirectionalAssociation Id="6df9ec96-aaf4-4df6-be00-6d5378a0acc8" sourceMultiplicity="ZeroMany" targetPropertyName="UChildCollection" collectionClass="ObservableCollection" sourceRole="NotApplicable" targetRole="NotApplicable" foreignKeyLocation="None" targetImplementNotify="false">
+          <unidirectionalAssociation Id="6df9ec96-aaf4-4df6-be00-6d5378a0acc8" sourceMultiplicity="ZeroMany" targetPropertyName="UChildCollection" collectionClass="ObservableCollection" foreignKeyLocation="None" targetImplementNotify="false">
             <modelClassMoniker Id="86517ec4-f4c9-4a04-9993-beee268aacc0" />
           </unidirectionalAssociation>
           <unidirectionalAssociation Id="09c924dc-a66e-46f4-a4fa-35699772ac7b" sourceMultiplicity="ZeroMany" targetMultiplicity="ZeroOne" targetPropertyName="UChildOptional" collectionClass="ObservableCollection" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None" targetImplementNotify="false">
@@ -171,7 +171,7 @@
           <bidirectionalAssociation Id="47d48c4e-b550-4b15-b005-8eead2a2714d" sourceMultiplicity="ZeroMany" targetMultiplicity="One" targetPropertyName="BChildRequired" collectionClass="ObservableCollection" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None" targetImplementNotify="false" sourcePropertyName="BParentCollection" sourceImplementNotify="false">
             <modelClassMoniker Id="05c388a2-e071-4862-ba4c-1e25bf10b920" />
           </bidirectionalAssociation>
-          <bidirectionalAssociation Id="c2a8b39c-e510-4281-92ab-c38053149c89" sourceMultiplicity="ZeroMany" targetPropertyName="BChildCollection" collectionClass="ObservableCollection" sourceRole="NotApplicable" targetRole="NotApplicable" foreignKeyLocation="None" targetImplementNotify="false" sourcePropertyName="BParentCollection_1" sourceImplementNotify="false">
+          <bidirectionalAssociation Id="c2a8b39c-e510-4281-92ab-c38053149c89" sourceMultiplicity="ZeroMany" targetPropertyName="BChildCollection" collectionClass="ObservableCollection" foreignKeyLocation="None" targetImplementNotify="false" sourcePropertyName="BParentCollection_1" sourceImplementNotify="false">
             <modelClassMoniker Id="05c388a2-e071-4862-ba4c-1e25bf10b920" />
           </bidirectionalAssociation>
           <bidirectionalAssociation Id="9a8e24ab-f156-496b-8682-dcaf71d2a6e5" sourceMultiplicity="ZeroMany" targetMultiplicity="ZeroOne" targetPropertyName="BChildOptional" collectionClass="ObservableCollection" sourceRole="Dependent" targetRole="Principal" foreignKeyLocation="None" targetImplementNotify="false" sourcePropertyName="BParentCollection_2" sourceImplementNotify="false">
@@ -245,6 +245,7 @@
         <attributes>
           <modelAttribute Id="e10920b8-6926-4732-a6e5-5b9d77194b43" maxLength="" indexed="false" indexedUnique="false" stringType="None" name="Property1" autoProperty="false" minLength="0" columnName="Property1" columnType="default" implementNotify="false" isAutoPropertyTracking="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" />
           <modelAttribute Id="c5d60c7e-d5d9-4f9a-8122-f5301375cf3d" maxLength="" indexed="false" indexedUnique="false" stringType="None" name="PropertyInChild" autoProperty="false" minLength="0" columnName="PropertyInChild" columnType="default" implementNotify="false" isAutoPropertyTracking="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" />
+          <modelAttribute Id="0dc12ebb-26bb-46b7-be32-78e523d1cd7c" type="Int32" isIdentity="true" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" identityType="AutoGenerated" name="Id1" autoProperty="false" minLength="0" columnName="Id1" columnType="default" implementNotify="false" isAutoPropertyTracking="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>

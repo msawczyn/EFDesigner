@@ -38,6 +38,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static UParentOptional CreateUParentOptionalUnsafe()
+      {
+         return new UParentOptional();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="uchildrequired"></param>
@@ -68,7 +76,7 @@ namespace Testing
       /// <summary>
       /// Backing field for PropertyInChild
       /// </summary>
-      protected string _PropertyInChild;
+      protected string ;
       /// <summary>
       /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
       /// </summary>
@@ -79,23 +87,23 @@ namespace Testing
       partial void GetPropertyInChild(ref string result);
 
       /// <summary>
-      /// Default value = "hello"
+      /// Default value = &quot;hello&quot;
       /// </summary>
       public string PropertyInChild
       {
          get
          {
-            string value = _PropertyInChild;
+            string value = ;
             GetPropertyInChild(ref value);
-            return (_PropertyInChild = value);
+            return ( = value);
          }
          set
          {
-            string oldValue = _PropertyInChild;
+            string oldValue = ;
             SetPropertyInChild(oldValue, ref value);
             if (oldValue != value)
             {
-               _PropertyInChild = value;
+                = value;
             }
          }
       }

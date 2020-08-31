@@ -9,7 +9,7 @@
 #><#@ import namespace="EnvDTE"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-  // EFDesigner v2.0.5.4
+  // EFDesigner v2.0.5.5
   // Copyright (c) 2017-2020 Michael Sawczyn
   // https://github.com/msawczyn/EFDesigner
 
@@ -172,3 +172,4 @@ if (activeSolutionProjects == null)
   }
 
 #>
+

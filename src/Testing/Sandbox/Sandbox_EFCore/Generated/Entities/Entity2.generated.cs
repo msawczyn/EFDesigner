@@ -21,14 +21,14 @@ using System.Runtime.CompilerServices;
 
 namespace Sandbox
 {
-   public partial class Entity2
+   public partial class Entity2: global::Sandbox.Base
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Entity2()
+      public Entity2(): base()
       {
          Init();
       }
@@ -37,12 +37,7 @@ namespace Sandbox
        * Properties
        *************************************************************************/
 
-      /// <summary>
-      /// Identity, Indexed, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public long Id { get; protected set; }
+      public string Property1 { get; set; }
 
       /*************************************************************************
        * Navigation properties

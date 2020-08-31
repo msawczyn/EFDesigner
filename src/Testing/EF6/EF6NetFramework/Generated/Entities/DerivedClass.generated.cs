@@ -32,6 +32,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static DerivedClass CreateDerivedClassUnsafe()
+      {
+         return new DerivedClass();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="property0"></param>
@@ -60,7 +68,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Property1
       /// </summary>
-      protected string _Property1;
+      protected string ;
       /// <summary>
       /// When provided in a partial class, allows value of Property1 to be changed before setting.
       /// </summary>
@@ -74,17 +82,17 @@ namespace Testing
       {
          get
          {
-            string value = _Property1;
+            string value = ;
             GetProperty1(ref value);
-            return (_Property1 = value);
+            return ( = value);
          }
          set
          {
-            string oldValue = _Property1;
+            string oldValue = ;
             SetProperty1(oldValue, ref value);
             if (oldValue != value)
             {
-               _Property1 = value;
+                = value;
             }
          }
       }
@@ -92,7 +100,7 @@ namespace Testing
       /// <summary>
       /// Backing field for PropertyInChild
       /// </summary>
-      protected string _PropertyInChild;
+      protected string ;
       /// <summary>
       /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
       /// </summary>
@@ -106,17 +114,54 @@ namespace Testing
       {
          get
          {
-            string value = _PropertyInChild;
+            string value = ;
             GetPropertyInChild(ref value);
-            return (_PropertyInChild = value);
+            return ( = value);
          }
          set
          {
-            string oldValue = _PropertyInChild;
+            string oldValue = ;
             SetPropertyInChild(oldValue, ref value);
             if (oldValue != value)
             {
-               _PropertyInChild = value;
+                = value;
+            }
+         }
+      }
+
+      /// <summary>
+      /// Backing field for Id1
+      /// </summary>
+      internal int ;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id1 to be changed before setting.
+      /// </summary>
+      partial void SetId1(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id1 to be changed before returning.
+      /// </summary>
+      partial void GetId1(ref int result);
+
+      /// <summary>
+      /// Identity, Indexed, Required
+      /// </summary>
+      [Key]
+      [Required]
+      public int Id1
+      {
+         get
+         {
+            int value = ;
+            GetId1(ref value);
+            return ( = value);
+         }
+         protected set
+         {
+            int oldValue = ;
+            SetId1(oldValue, ref value);
+            if (oldValue != value)
+            {
+                = value;
             }
          }
       }

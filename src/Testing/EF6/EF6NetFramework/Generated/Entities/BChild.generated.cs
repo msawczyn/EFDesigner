@@ -39,6 +39,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static BChild CreateBChildUnsafe()
+      {
+         return new BChild();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="bparentrequired"></param>
@@ -78,7 +86,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int _Id;
+      internal int ;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -97,17 +105,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = ;
             GetId(ref value);
-            return (_Id = value);
+            return ( = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = ;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+                = value;
             }
          }
       }

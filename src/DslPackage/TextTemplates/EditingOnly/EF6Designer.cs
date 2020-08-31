@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
@@ -22,7 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.4.0
+      // EFDesigner v2.0.5.5
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -363,29 +363,32 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
                segments.Add($"Ignore(t => t.{transient.Name})");
 
-            // note: this must come before the 'ToTable' call or there's a runtime error
-            if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
-               segments.Add("Map(x => x.MapInheritedProperties())");
-
-            if (classesWithTables.Contains(modelClass))
+            if (!isDependent)
             {
-               if (modelRoot.InheritanceStrategy != CodeStrategy.TablePerConcreteType || !modelClass.IsAbstract)
+               // note: this must come before the 'ToTable' call or there's a runtime error
+               if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
+                  segments.Add("Map(x => x.MapInheritedProperties())");
+
+               if (classesWithTables.Contains(modelClass))
                {
-                  segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
+                  if (modelRoot.InheritanceStrategy != CodeStrategy.TablePerConcreteType || !modelClass.IsAbstract)
+                  {
+                     segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
                                      ? $"ToTable(\"{modelClass.TableName}\")"
                                      : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+                  }
+
+                  // primary key code segments must be output last, since HasKey returns a different type
+                  List<ModelAttribute> identityAttributes = modelClass.AllIdentityAttributes.ToList();
+
+                  if (identityAttributes.Count == 1)
+                     segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
+                  else if (identityAttributes.Count > 1)
+                     segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
                }
-
-               // primary key code segments must be output last, since HasKey returns a different type
-               List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
-
-               if (identityAttributes.Count == 1)
-                  segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
-               else if (identityAttributes.Count > 1)
-                  segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
             }
 
-            if (segments.Count > 1)
+            if (segments.Count > 1 || isDependent)
             {
                if (modelRoot.ChopMethodChains)
                   OutputChopped(segments);
@@ -393,7 +396,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   Output(string.Join(".", segments) + ";");
             }
 
-            if (modelClass.IsDependentType)
+            if (isDependent)
                continue;
 
             // attribute level
@@ -768,7 +771,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          if (string.IsNullOrWhiteSpace(association.FKPropertyName))
          {
             columnNames = string.Join(", "
-                                    , principal.IdentityAttributes
+                                    , principal.AllIdentityAttributes
                                                 .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
 
             string[] columnNameList = columnNames.Split(',').Select(n => n.Trim()).ToArray();
@@ -795,3 +798,4 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       }
    }
 }
+

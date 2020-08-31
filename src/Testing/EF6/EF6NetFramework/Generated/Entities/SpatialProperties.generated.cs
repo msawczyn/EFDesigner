@@ -32,6 +32,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static SpatialProperties CreateSpatialPropertiesUnsafe()
+      {
+         return new SpatialProperties();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="attrgeography"></param>
@@ -130,7 +138,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      protected int _Id;
+      protected int ;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -149,17 +157,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = ;
             GetId(ref value);
-            return (_Id = value);
+            return ( = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = ;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+                = value;
             }
          }
       }
@@ -167,7 +175,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeography
       /// </summary>
-      protected DbGeography _AttrGeography;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeography to be changed before setting.
       /// </summary>
@@ -185,17 +193,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeography;
+            DbGeography value = ;
             GetAttrGeography(ref value);
-            return (_AttrGeography = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeography;
+            DbGeography oldValue = ;
             SetAttrGeography(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeography = value;
+                = value;
             }
          }
       }
@@ -203,7 +211,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyCollection
       /// </summary>
-      protected DbGeography _AttrGeographyCollection;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyCollection to be changed before setting.
       /// </summary>
@@ -221,17 +229,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeographyCollection;
+            DbGeography value = ;
             GetAttrGeographyCollection(ref value);
-            return (_AttrGeographyCollection = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeographyCollection;
+            DbGeography oldValue = ;
             SetAttrGeographyCollection(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeographyCollection = value;
+                = value;
             }
          }
       }
@@ -239,7 +247,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyLineString
       /// </summary>
-      protected DbGeography _AttrGeographyLineString;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyLineString to be changed before setting.
       /// </summary>
@@ -257,17 +265,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeographyLineString;
+            DbGeography value = ;
             GetAttrGeographyLineString(ref value);
-            return (_AttrGeographyLineString = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeographyLineString;
+            DbGeography oldValue = ;
             SetAttrGeographyLineString(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeographyLineString = value;
+                = value;
             }
          }
       }
@@ -275,7 +283,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyMultiLineString
       /// </summary>
-      protected DbGeography _AttrGeographyMultiLineString;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiLineString to be changed before setting.
       /// </summary>
@@ -293,17 +301,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeographyMultiLineString;
+            DbGeography value = ;
             GetAttrGeographyMultiLineString(ref value);
-            return (_AttrGeographyMultiLineString = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeographyMultiLineString;
+            DbGeography oldValue = ;
             SetAttrGeographyMultiLineString(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeographyMultiLineString = value;
+                = value;
             }
          }
       }
@@ -311,7 +319,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyMultiPoint
       /// </summary>
-      protected DbGeography _AttrGeographyMultiPoint;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiPoint to be changed before setting.
       /// </summary>
@@ -329,17 +337,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeographyMultiPoint;
+            DbGeography value = ;
             GetAttrGeographyMultiPoint(ref value);
-            return (_AttrGeographyMultiPoint = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeographyMultiPoint;
+            DbGeography oldValue = ;
             SetAttrGeographyMultiPoint(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeographyMultiPoint = value;
+                = value;
             }
          }
       }
@@ -347,7 +355,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyMultiPolygon
       /// </summary>
-      protected DbGeography _AttrGeographyMultiPolygon;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiPolygon to be changed before setting.
       /// </summary>
@@ -365,17 +373,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeographyMultiPolygon;
+            DbGeography value = ;
             GetAttrGeographyMultiPolygon(ref value);
-            return (_AttrGeographyMultiPolygon = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeographyMultiPolygon;
+            DbGeography oldValue = ;
             SetAttrGeographyMultiPolygon(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeographyMultiPolygon = value;
+                = value;
             }
          }
       }
@@ -383,7 +391,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyPoint
       /// </summary>
-      protected DbGeography _AttrGeographyPoint;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyPoint to be changed before setting.
       /// </summary>
@@ -401,17 +409,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeographyPoint;
+            DbGeography value = ;
             GetAttrGeographyPoint(ref value);
-            return (_AttrGeographyPoint = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeographyPoint;
+            DbGeography oldValue = ;
             SetAttrGeographyPoint(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeographyPoint = value;
+                = value;
             }
          }
       }
@@ -419,7 +427,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyPolygon
       /// </summary>
-      protected DbGeography _AttrGeographyPolygon;
+      protected DbGeography ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyPolygon to be changed before setting.
       /// </summary>
@@ -437,17 +445,17 @@ namespace Testing
       {
          get
          {
-            DbGeography value = _AttrGeographyPolygon;
+            DbGeography value = ;
             GetAttrGeographyPolygon(ref value);
-            return (_AttrGeographyPolygon = value);
+            return ( = value);
          }
          set
          {
-            DbGeography oldValue = _AttrGeographyPolygon;
+            DbGeography oldValue = ;
             SetAttrGeographyPolygon(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeographyPolygon = value;
+                = value;
             }
          }
       }
@@ -455,7 +463,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometry
       /// </summary>
-      protected DbGeometry _AttrGeometry;
+      protected DbGeometry ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometry to be changed before setting.
       /// </summary>
@@ -473,17 +481,17 @@ namespace Testing
       {
          get
          {
-            DbGeometry value = _AttrGeometry;
+            DbGeometry value = ;
             GetAttrGeometry(ref value);
-            return (_AttrGeometry = value);
+            return ( = value);
          }
          set
          {
-            DbGeometry oldValue = _AttrGeometry;
+            DbGeometry oldValue = ;
             SetAttrGeometry(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeometry = value;
+                = value;
             }
          }
       }
@@ -491,7 +499,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryCollection
       /// </summary>
-      protected DbGeometry _AttrGeometryCollection;
+      protected DbGeometry ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryCollection to be changed before setting.
       /// </summary>
@@ -509,17 +517,17 @@ namespace Testing
       {
          get
          {
-            DbGeometry value = _AttrGeometryCollection;
+            DbGeometry value = ;
             GetAttrGeometryCollection(ref value);
-            return (_AttrGeometryCollection = value);
+            return ( = value);
          }
          set
          {
-            DbGeometry oldValue = _AttrGeometryCollection;
+            DbGeometry oldValue = ;
             SetAttrGeometryCollection(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeometryCollection = value;
+                = value;
             }
          }
       }
@@ -527,7 +535,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryLineString
       /// </summary>
-      protected DbGeometry _AttrGeometryLineString;
+      protected DbGeometry ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryLineString to be changed before setting.
       /// </summary>
@@ -545,17 +553,17 @@ namespace Testing
       {
          get
          {
-            DbGeometry value = _AttrGeometryLineString;
+            DbGeometry value = ;
             GetAttrGeometryLineString(ref value);
-            return (_AttrGeometryLineString = value);
+            return ( = value);
          }
          set
          {
-            DbGeometry oldValue = _AttrGeometryLineString;
+            DbGeometry oldValue = ;
             SetAttrGeometryLineString(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeometryLineString = value;
+                = value;
             }
          }
       }
@@ -563,7 +571,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryMultiLineString
       /// </summary>
-      protected DbGeometry _AttrGeometryMultiLineString;
+      protected DbGeometry ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiLineString to be changed before setting.
       /// </summary>
@@ -581,17 +589,17 @@ namespace Testing
       {
          get
          {
-            DbGeometry value = _AttrGeometryMultiLineString;
+            DbGeometry value = ;
             GetAttrGeometryMultiLineString(ref value);
-            return (_AttrGeometryMultiLineString = value);
+            return ( = value);
          }
          set
          {
-            DbGeometry oldValue = _AttrGeometryMultiLineString;
+            DbGeometry oldValue = ;
             SetAttrGeometryMultiLineString(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeometryMultiLineString = value;
+                = value;
             }
          }
       }
@@ -599,7 +607,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryMultiPoint
       /// </summary>
-      protected DbGeometry _AttrGeometryMultiPoint;
+      protected DbGeometry ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiPoint to be changed before setting.
       /// </summary>
@@ -617,17 +625,17 @@ namespace Testing
       {
          get
          {
-            DbGeometry value = _AttrGeometryMultiPoint;
+            DbGeometry value = ;
             GetAttrGeometryMultiPoint(ref value);
-            return (_AttrGeometryMultiPoint = value);
+            return ( = value);
          }
          set
          {
-            DbGeometry oldValue = _AttrGeometryMultiPoint;
+            DbGeometry oldValue = ;
             SetAttrGeometryMultiPoint(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeometryMultiPoint = value;
+                = value;
             }
          }
       }
@@ -635,7 +643,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryMultiPolygon
       /// </summary>
-      protected DbGeometry _AttrGeometryMultiPolygon;
+      protected DbGeometry ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiPolygon to be changed before setting.
       /// </summary>
@@ -653,17 +661,17 @@ namespace Testing
       {
          get
          {
-            DbGeometry value = _AttrGeometryMultiPolygon;
+            DbGeometry value = ;
             GetAttrGeometryMultiPolygon(ref value);
-            return (_AttrGeometryMultiPolygon = value);
+            return ( = value);
          }
          set
          {
-            DbGeometry oldValue = _AttrGeometryMultiPolygon;
+            DbGeometry oldValue = ;
             SetAttrGeometryMultiPolygon(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeometryMultiPolygon = value;
+                = value;
             }
          }
       }
@@ -671,7 +679,7 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryPoint
       /// </summary>
-      protected DbGeometry _AttrGeometryPoint;
+      protected DbGeometry ;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryPoint to be changed before setting.
       /// </summary>
@@ -689,17 +697,17 @@ namespace Testing
       {
          get
          {
-            DbGeometry value = _AttrGeometryPoint;
+            DbGeometry value = ;
             GetAttrGeometryPoint(ref value);
-            return (_AttrGeometryPoint = value);
+            return ( = value);
          }
          set
          {
-            DbGeometry oldValue = _AttrGeometryPoint;
+            DbGeometry oldValue = ;
             SetAttrGeometryPoint(oldValue, ref value);
             if (oldValue != value)
             {
-               _AttrGeometryPoint = value;
+                = value;
             }
          }
       }
