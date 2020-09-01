@@ -21,6 +21,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      #region Template
+
       // EFDesigner v2.1.0.0
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
@@ -792,6 +794,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          return $"HasForeignKey(p => {columnNames})";
       }
+      #endregion Template      
    }
 }
 

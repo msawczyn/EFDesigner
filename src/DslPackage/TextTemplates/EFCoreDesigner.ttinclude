@@ -51,7 +51,7 @@
       {
          get
          {
-            return new[] {   
+            return new[] {
                                "Geometry"
                              , "GeometryPoint"
                              , "GeometryLineString"
@@ -704,5 +704,6 @@
                      ? $"HasForeignKey<{dependent.FullName}>({columnName})"
                      : $"HasForeignKey({columnName})";
       }
-
+      
 #>
+
