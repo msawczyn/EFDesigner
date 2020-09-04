@@ -50,20 +50,24 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      private const string ERROR = "Error";
+      private const string WARNING = "Warning";
+
       public static void AddError(string message)
       {
-         AddMessage(message, "Error");
+         AddMessage(message, ERROR);
       }
 
       public static void AddWarning(string message)
       {
-         AddMessage(message, "Warning");
+         AddMessage(message, WARNING);
       }
 
       public static void AddMessage(string message, string prefix = null)
       {
          OutputWindowPane?.OutputString($"{(string.IsNullOrWhiteSpace(prefix) ? "" : prefix + ": ")}{message}{(message.EndsWith("\n") ? "" : "\n")}");
-         OutputWindowPane?.Activate();
+         if (prefix == ERROR || prefix == WARNING)
+            OutputWindowPane?.Activate();
       }
 
       public static string LastStatusMessage

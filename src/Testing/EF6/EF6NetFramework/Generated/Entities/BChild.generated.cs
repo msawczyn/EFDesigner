@@ -86,7 +86,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int ;
+      internal int _id;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -105,17 +105,17 @@ namespace Testing
       {
          get
          {
-            int value = ;
+            int value = _id;
             GetId(ref value);
-            return ( = value);
+            return (_id = value);
          }
          protected set
          {
-            int oldValue = ;
+            int oldValue = _id;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _id = value;
             }
          }
       }

@@ -144,7 +144,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="0b0ccc1d-e8ea-4dab-9517-b7412cda307e" Description="If true, will trigger code generation when the file is saved. If false, code generation will have to be triggered manually." Name="TransformOnSave" DisplayName="Genereate Code on Save" DefaultValue="true" Category="Code Generation">
+        <DomainProperty Id="0b0ccc1d-e8ea-4dab-9517-b7412cda307e" Description="If true, will trigger code generation when the file is saved. If false, code generation will have to be triggered manually." Name="TransformOnSave" DisplayName="Generate Code on Save" DefaultValue="true" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -706,7 +706,7 @@
             <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="ce0d2639-3b83-4ce7-820e-43456412da05" Description="The name of the backing field for this property" Name="BackingFieldName" DisplayName="Backing Field" Category="Code Generation">
+        <DomainProperty Id="ce0d2639-3b83-4ce7-820e-43456412da05" Description="The name of the backing field for this property" Name="BackingFieldName" DisplayName="Backing Field" Kind="CustomStorage" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -721,7 +721,14 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="PreferProperty">
+        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="Property">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(PropertyAccessModeTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
             <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
@@ -1095,14 +1102,21 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a922ed78-450a-42bd-87f9-c355a432a67f" Description="The name of the backing field for this property" Name="TargetBackingFieldName" DisplayName="End1 Backing Field" Category="End 2">
+        <DomainProperty Id="a922ed78-450a-42bd-87f9-c355a432a67f" Description="The name of the backing field for this property" Name="TargetBackingFieldName" DisplayName="End1 Backing Field" Kind="CustomStorage" Category="End 2">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="9110fead-38f5-46b5-b3b1-e9c3c6cea99b" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="End1 Property Access Mode" DefaultValue="PreferProperty" Category="End 2">
+        <DomainProperty Id="9110fead-38f5-46b5-b3b1-e9c3c6cea99b" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="End1 Property Access Mode" DefaultValue="Property" Category="End 2">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(PropertyAccessModeTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
-            <DomainEnumerationMoniker Name="PropertyAccessMode2" />
+            <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="6b0a49d6-1220-4c69-a7d4-35fb2469bd3e" Description="If false, generates a backing field and a partial method to hook getting and setting the property. If true, generates a simple auto property. Only valid for non-collection properties." Name="TargetAutoProperty" DisplayName="End1 Is Auto Property" DefaultValue="" Kind="CustomStorage" Category="End 2" IsBrowsable="false">
@@ -1268,12 +1282,19 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="End 2 Property Access Mode" DefaultValue="PreferProperty" Category="End 1">
+        <DomainProperty Id="4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="End 2 Property Access Mode" DefaultValue="Property" Category="End 1">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(PropertyAccessModeTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
-            <DomainEnumerationMoniker Name="PropertyAccessMode1" />
+            <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8b64e83b-9fcc-42b7-a362-9c2931de3ce2" Description="The name of the backing field for this property" Name="SourceBackingFieldName" DisplayName="End 2 Backing Field" Category="End 1">
+        <DomainProperty Id="8b64e83b-9fcc-42b7-a362-9c2931de3ce2" Description="The name of the backing field for this property" Name="SourceBackingFieldName" DisplayName="End 2 Backing Field" Kind="CustomStorage" Category="End 1">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1629,26 +1650,6 @@
     <ExternalType Name="Nullable&lt;System.Int32&gt;" Namespace="System" />
     <ExternalType Name="ModelDiagramDataNameProvider" Namespace="Sawczyn.EFDesigner.EFModel" />
     <DomainEnumeration Name="PropertyAccessMode" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode">
-      <Literals>
-        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field." Name="Field" Value="0" />
-        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="FieldDuringConstruction" Value="1" />
-        <EnumerationLiteral Description="All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property." Name="PreferField" Value="3" />
-        <EnumerationLiteral Description="All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="PreferFieldDuringConstruction" Value="4" />
-        <EnumerationLiteral Description="All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field." Name="PreferProperty" Value="5" />
-        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
-      </Literals>
-    </DomainEnumeration>
-    <DomainEnumeration Name="PropertyAccessMode1" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode1">
-      <Literals>
-        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field." Name="Field" Value="0" />
-        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="FieldDuringConstruction" Value="1" />
-        <EnumerationLiteral Description="All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property." Name="PreferField" Value="3" />
-        <EnumerationLiteral Description="All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="PreferFieldDuringConstruction" Value="4" />
-        <EnumerationLiteral Description="All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field." Name="PreferProperty" Value="5" />
-        <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
-      </Literals>
-    </DomainEnumeration>
-    <DomainEnumeration Name="PropertyAccessMode2" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.PropertyAccessMode2">
       <Literals>
         <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field." Name="Field" Value="0" />
         <EnumerationLiteral Description="Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field." Name="FieldDuringConstruction" Value="1" />

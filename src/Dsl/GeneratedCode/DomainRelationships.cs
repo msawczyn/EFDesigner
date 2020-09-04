@@ -2174,24 +2174,20 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static readonly global::System.Guid TargetBackingFieldNameDomainPropertyId = new global::System.Guid(0xa922ed78, 0x450a, 0x42bd, 0x87, 0xf9, 0xc3, 0x55, 0xa4, 0x32, 0xa6, 0x7f);
 		
 		/// <summary>
-		/// Storage for TargetBackingFieldName
-		/// </summary>
-		private global::System.String targetBackingFieldNamePropertyStorage = string.Empty;
-		
-		/// <summary>
 		/// Gets or sets the value of TargetBackingFieldName domain property.
 		/// The name of the backing field for this property
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetBackingFieldName.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetBackingFieldName.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetBackingFieldName.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("a922ed78-450a-42bd-87f9-c355a432a67f")]
 		public global::System.String TargetBackingFieldName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return targetBackingFieldNamePropertyStorage;
+				return TargetBackingFieldNamePropertyHandler.Instance.GetValue(this);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
@@ -2231,7 +2227,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed global::System.String GetValue(Association element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.targetBackingFieldNamePropertyStorage;
+				// There is no storage for TargetBackingFieldName because its Kind is
+				// set to CustomStorage. Please provide the GetTargetBackingFieldNameValue()
+				// method on the domain class.
+				return element.GetTargetBackingFieldNameValue();
 			}
 		
 			/// <summary>
@@ -2247,8 +2246,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.targetBackingFieldNamePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
+					// There is no storage for TargetBackingFieldName because its Kind is
+					// set to CustomStorage. Please provide the SetTargetBackingFieldNameValue()
+					// method on the domain class.
+					element.SetTargetBackingFieldNameValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}
 		}
@@ -2264,19 +2266,20 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for TargetPropertyAccessMode
 		/// </summary>
-		private PropertyAccessMode2 targetPropertyAccessModePropertyStorage = PropertyAccessMode2.PreferProperty;
+		private PropertyAccessMode targetPropertyAccessModePropertyStorage = PropertyAccessMode.Property;
 		
 		/// <summary>
 		/// Gets or sets the value of TargetPropertyAccessMode domain property.
 		/// Defines how EF reads and write this property or its backing field. See 
 		/// https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode
 		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(PropertyAccessModeTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(PropertyAccessMode2.PreferProperty)]
+		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.Property)]
 		[DslModeling::DomainObjectId("9110fead-38f5-46b5-b3b1-e9c3c6cea99b")]
-		public PropertyAccessMode2 TargetPropertyAccessMode
+		public PropertyAccessMode TargetPropertyAccessMode
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -2292,7 +2295,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Value handler for the Association.TargetPropertyAccessMode domain property.
 		/// </summary>
-		internal sealed partial class TargetPropertyAccessModePropertyHandler : DslModeling::DomainPropertyValueHandler<Association, PropertyAccessMode2>
+		internal sealed partial class TargetPropertyAccessModePropertyHandler : DslModeling::DomainPropertyValueHandler<Association, PropertyAccessMode>
 		{
 			private TargetPropertyAccessModePropertyHandler() { }
 		
@@ -2318,7 +2321,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed PropertyAccessMode2 GetValue(Association element)
+			public override sealed PropertyAccessMode GetValue(Association element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.targetPropertyAccessModePropertyStorage;
@@ -2329,11 +2332,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(Association element, PropertyAccessMode2 newValue)
+			public override sealed void SetValue(Association element, PropertyAccessMode newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				PropertyAccessMode2 oldValue = GetValue(element);
+				PropertyAccessMode oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
@@ -4486,19 +4489,20 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for SourcePropertyAccessMode
 		/// </summary>
-		private PropertyAccessMode1 sourcePropertyAccessModePropertyStorage = PropertyAccessMode1.PreferProperty;
+		private PropertyAccessMode sourcePropertyAccessModePropertyStorage = PropertyAccessMode.Property;
 		
 		/// <summary>
 		/// Gets or sets the value of SourcePropertyAccessMode domain property.
 		/// Defines how EF reads and write this property or its backing field. See 
 		/// https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode
 		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(PropertyAccessModeTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(PropertyAccessMode1.PreferProperty)]
+		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.Property)]
 		[DslModeling::DomainObjectId("4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d")]
-		public PropertyAccessMode1 SourcePropertyAccessMode
+		public PropertyAccessMode SourcePropertyAccessMode
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -4514,7 +4518,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Value handler for the BidirectionalAssociation.SourcePropertyAccessMode domain property.
 		/// </summary>
-		internal sealed partial class SourcePropertyAccessModePropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, PropertyAccessMode1>
+		internal sealed partial class SourcePropertyAccessModePropertyHandler : DslModeling::DomainPropertyValueHandler<BidirectionalAssociation, PropertyAccessMode>
 		{
 			private SourcePropertyAccessModePropertyHandler() { }
 		
@@ -4540,7 +4544,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed PropertyAccessMode1 GetValue(BidirectionalAssociation element)
+			public override sealed PropertyAccessMode GetValue(BidirectionalAssociation element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.sourcePropertyAccessModePropertyStorage;
@@ -4551,11 +4555,11 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(BidirectionalAssociation element, PropertyAccessMode1 newValue)
+			public override sealed void SetValue(BidirectionalAssociation element, PropertyAccessMode newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				PropertyAccessMode1 oldValue = GetValue(element);
+				PropertyAccessMode oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
@@ -4574,24 +4578,20 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static readonly global::System.Guid SourceBackingFieldNameDomainPropertyId = new global::System.Guid(0x8b64e83b, 0x9fcc, 0x42b7, 0xa3, 0x62, 0x9c, 0x29, 0x31, 0xde, 0x3c, 0xe2);
 		
 		/// <summary>
-		/// Storage for SourceBackingFieldName
-		/// </summary>
-		private global::System.String sourceBackingFieldNamePropertyStorage = string.Empty;
-		
-		/// <summary>
 		/// Gets or sets the value of SourceBackingFieldName domain property.
 		/// The name of the backing field for this property
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceBackingFieldName.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceBackingFieldName.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourceBackingFieldName.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("8b64e83b-9fcc-42b7-a362-9c2931de3ce2")]
 		public global::System.String SourceBackingFieldName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return sourceBackingFieldNamePropertyStorage;
+				return SourceBackingFieldNamePropertyHandler.Instance.GetValue(this);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
@@ -4631,7 +4631,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed global::System.String GetValue(BidirectionalAssociation element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.sourceBackingFieldNamePropertyStorage;
+				// There is no storage for SourceBackingFieldName because its Kind is
+				// set to CustomStorage. Please provide the GetSourceBackingFieldNameValue()
+				// method on the domain class.
+				return element.GetSourceBackingFieldNameValue();
 			}
 		
 			/// <summary>
@@ -4647,8 +4650,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.sourceBackingFieldNamePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
+					// There is no storage for SourceBackingFieldName because its Kind is
+					// set to CustomStorage. Please provide the SetSourceBackingFieldNameValue()
+					// method on the domain class.
+					element.SetSourceBackingFieldNameValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}
 		}

@@ -17,7 +17,7 @@ using System.Data.Entity.Infrastructure.Annotations;
 namespace Testing
 {
    /// <inheritdoc/>
-   public partial class AllFeatureModel : System.Data.Entity.DbContext
+   public partial class AllFeatureModel : DbContext
    {
       #region DbSets
       public virtual System.Data.Entity.DbSet<global::Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }

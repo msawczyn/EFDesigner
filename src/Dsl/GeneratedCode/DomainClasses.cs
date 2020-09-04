@@ -9047,24 +9047,20 @@ namespace Sawczyn.EFDesigner.EFModel
 		public static readonly global::System.Guid BackingFieldNameDomainPropertyId = new global::System.Guid(0xce0d2639, 0x3b83, 0x4ce7, 0x82, 0x0e, 0x43, 0x45, 0x64, 0x12, 0xda, 0x05);
 		
 		/// <summary>
-		/// Storage for BackingFieldName
-		/// </summary>
-		private global::System.String backingFieldNamePropertyStorage = string.Empty;
-		
-		/// <summary>
 		/// Gets or sets the value of BackingFieldName domain property.
 		/// The name of the backing field for this property
 		/// </summary>
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/BackingFieldName.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/BackingFieldName.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/BackingFieldName.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.CustomStorage)]
 		[DslModeling::DomainObjectId("ce0d2639-3b83-4ce7-820e-43456412da05")]
 		public global::System.String BackingFieldName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return backingFieldNamePropertyStorage;
+				return BackingFieldNamePropertyHandler.Instance.GetValue(this);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
@@ -9104,7 +9100,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed global::System.String GetValue(ModelAttribute element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.backingFieldNamePropertyStorage;
+				// There is no storage for BackingFieldName because its Kind is
+				// set to CustomStorage. Please provide the GetBackingFieldNameValue()
+				// method on the domain class.
+				return element.GetBackingFieldNameValue();
 			}
 		
 			/// <summary>
@@ -9120,8 +9119,11 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.backingFieldNamePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
+					// There is no storage for BackingFieldName because its Kind is
+					// set to CustomStorage. Please provide the SetBackingFieldNameValue()
+					// method on the domain class.
+					element.SetBackingFieldNameValue(newValue);
+					ValueChanged(element, oldValue, GetValue(element));
 				}
 			}
 		}
@@ -9320,16 +9322,17 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for PropertyAccessMode
 		/// </summary>
-		private PropertyAccessMode propertyAccessModePropertyStorage = PropertyAccessMode.PreferProperty;
+		private PropertyAccessMode propertyAccessModePropertyStorage = PropertyAccessMode.Property;
 		
 		/// <summary>
 		/// Gets or sets the value of PropertyAccessMode domain property.
 		/// Defines how EF reads and write this property or its backing field. See 
 		/// https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode
 		/// </summary>
+		[System.ComponentModel.TypeConverter(typeof(PropertyAccessModeTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.PreferProperty)]
+		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.Property)]
 		[DslModeling::DomainObjectId("fcbce627-878c-468f-84a5-b0e5deedacb0")]
 		public PropertyAccessMode PropertyAccessMode
 		{

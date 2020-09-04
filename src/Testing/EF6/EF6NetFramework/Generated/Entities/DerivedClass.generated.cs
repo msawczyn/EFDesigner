@@ -68,7 +68,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Property1
       /// </summary>
-      protected string ;
+      protected string _property1;
       /// <summary>
       /// When provided in a partial class, allows value of Property1 to be changed before setting.
       /// </summary>
@@ -82,17 +82,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _property1;
             GetProperty1(ref value);
-            return ( = value);
+            return (_property1 = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _property1;
             SetProperty1(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _property1 = value;
             }
          }
       }
@@ -100,7 +100,7 @@ namespace Testing
       /// <summary>
       /// Backing field for PropertyInChild
       /// </summary>
-      protected string ;
+      protected string _propertyInChild;
       /// <summary>
       /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
       /// </summary>
@@ -114,17 +114,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _propertyInChild;
             GetPropertyInChild(ref value);
-            return ( = value);
+            return (_propertyInChild = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _propertyInChild;
             SetPropertyInChild(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _propertyInChild = value;
             }
          }
       }
@@ -132,7 +132,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id1
       /// </summary>
-      internal int ;
+      internal int _id1;
       /// <summary>
       /// When provided in a partial class, allows value of Id1 to be changed before setting.
       /// </summary>
@@ -151,17 +151,17 @@ namespace Testing
       {
          get
          {
-            int value = ;
+            int value = _id1;
             GetId1(ref value);
-            return ( = value);
+            return (_id1 = value);
          }
          protected set
          {
-            int oldValue = ;
+            int oldValue = _id1;
             SetId1(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _id1 = value;
             }
          }
       }

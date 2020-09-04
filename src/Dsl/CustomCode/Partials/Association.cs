@@ -13,6 +13,30 @@ namespace Sawczyn.EFDesigner.EFModel
    [ValidationState(ValidationState.Enabled)]
    public partial class Association : IDisplaysWarning, IHasStore
    {
+      #region Value changed handlers
+
+      //partial class FKPropertyNamePropertyHandler
+      //{
+      //   protected override void OnValueChanged(Association element, string oldValue, string newValue)
+      //   {
+      //      base.OnValueChanged(element, oldValue, newValue);
+
+      //      ModelRoot modelRoot = element.Store.ModelRoot();
+
+      //      if (!element.Store.InUndoRedoOrRollback)
+      //      {
+      //         if (modelRoot.EntityFrameworkVersion == EFVersion.EF6 && element.SourceMultiplicity != Multiplicity.ZeroMany && element.TargetMultiplicity != Multiplicity.ZeroMany && newValue != null)
+      //         {
+      //            element.FKPropertyName = null;
+      //            AssociationChangedRules.FixupForeignKeys(element);
+      //         }
+      //      }
+      //   }
+
+      //}
+
+      #endregion
+
       /// <summary>
       /// Gets a human-readable value for source multiplicity
       /// </summary>
@@ -87,6 +111,25 @@ namespace Sawczyn.EFDesigner.EFModel
       public virtual string GetDisplayText()
       {
          return $"{Source.Name}.{TargetPropertyName} --> {Target.Name}";
+      }
+
+      internal string _targetBackingFieldName;
+
+      internal string TargetBackingFieldNameDefault =>
+         string.IsNullOrEmpty(TargetPropertyName)
+            ? string.Empty
+            : $"_{TargetPropertyName.Substring(0, 1).ToLowerInvariant()}{TargetPropertyName.Substring(1)}";
+
+      protected string GetTargetBackingFieldNameValue()
+      {
+         return string.IsNullOrEmpty(_targetBackingFieldName)
+                   ? TargetBackingFieldNameDefault
+                   : (_targetBackingFieldName ?? string.Empty);
+      }
+
+      protected void SetTargetBackingFieldNameValue(string value)
+      {
+         _targetBackingFieldName = value;
       }
 
       private string GetNameValue()

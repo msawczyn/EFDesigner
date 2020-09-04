@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v
+//     Produced by Entity Framework Visual Editor v2.1.0.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -126,13 +126,17 @@ namespace Sandbox
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Sandbox.Entity2>()
+                     .Property(t => t.Foo)
+                     .IsRequired()
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
+         modelBuilder.Entity<global::Sandbox.Entity2>()
                      .HasMany(x => x.Entity4)
                      .WithRequired()
-                     .Map(x => x.MapKey("Entity2.Entity4_Id"));
+                     .HasForeignKey(p => p.Bar);
          modelBuilder.Entity<global::Sandbox.Entity2>()
                      .HasRequired(x => x.Entity5)
                      .WithMany(x => x.Entity2)
-                     .Map(x => x.MapKey("Entity5_Id"));
+                     .HasForeignKey(p => p.Foo);
 
          modelBuilder.Entity<global::Sandbox.Entity3>()
                      .ToTable("Entity3")
@@ -150,9 +154,13 @@ namespace Sandbox
                      .IsRequired()
                      .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Sandbox.Entity4>()
-                     .HasRequired(x => x.Entity3)
+                     .Property(t => t.xx)
+                     .IsRequired()
+                     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
+         modelBuilder.Entity<global::Sandbox.Entity4>()
+                     .HasMany(x => x.Entity3)
                      .WithMany(x => x.Entity4)
-                     .Map(x => x.MapKey("Entity3_Id"));
+                     .Map(x => { x.ToTable("Entity3_x_Entity4"); x.MapLeftKey("Entity4_Id"); x.MapRightKey("Entity3_Id"); });
 
          modelBuilder.Entity<global::Sandbox.Entity5>()
                      .ToTable("Entity5")

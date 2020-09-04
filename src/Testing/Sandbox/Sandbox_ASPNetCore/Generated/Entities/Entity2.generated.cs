@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v
+//     Produced by Entity Framework Visual Editor v2.1.0.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -39,11 +39,22 @@ namespace Sandbox
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static Entity2 CreateEntity2Unsafe()
+      {
+         return new Entity2();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
+      /// <param name="foo">Foreign key for Entity5.Entity2 &lt;--&gt; Entity2.Entity5. </param>
       /// <param name="entity5"></param>
-      public Entity2(global::Sandbox.Entity5 entity5)
+      public Entity2(int foo, global::Sandbox.Entity5 entity5)
       {
+         this.Foo = foo;
+
          if (entity5 == null) throw new ArgumentNullException(nameof(entity5));
          this.Entity5 = entity5;
 
@@ -55,10 +66,11 @@ namespace Sandbox
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
+      /// <param name="foo">Foreign key for Entity5.Entity2 &lt;--&gt; Entity2.Entity5. </param>
       /// <param name="entity5"></param>
-      public static Entity2 Create(global::Sandbox.Entity5 entity5)
+      public static Entity2 Create(int foo, global::Sandbox.Entity5 entity5)
       {
-         return new Entity2(entity5);
+         return new Entity2(foo, entity5);
       }
 
       /*************************************************************************
@@ -71,6 +83,13 @@ namespace Sandbox
       [Key]
       [Required]
       public int Id { get; protected set; }
+
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for Entity5.Entity2 &lt;--&gt; Entity2.Entity5. 
+      /// </summary>
+      [Required]
+      public int Foo { get; set; }
 
       /*************************************************************************
        * Navigation properties

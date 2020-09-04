@@ -38,6 +38,26 @@ namespace Sawczyn.EFDesigner.EFModel
          return $"{Source.Name}.{TargetPropertyName} <--> {Target.Name}.{SourcePropertyName}";
       }
 
+      internal string _sourceBackingFieldName;
+
+      internal string SourceBackingFieldNameDefault =>
+         string.IsNullOrEmpty(SourcePropertyName)
+            ? string.Empty
+            : $"_{SourcePropertyName.Substring(0, 1).ToLowerInvariant()}{SourcePropertyName.Substring(1)}";
+
+       private string GetSourceBackingFieldNameValue()
+      {
+         return string.IsNullOrEmpty(_sourceBackingFieldName)
+                   ? SourceBackingFieldNameDefault
+                   : (_sourceBackingFieldName ?? string.Empty);
+      }
+
+      private void SetSourceBackingFieldNameValue(string value)
+      {
+         _sourceBackingFieldName = value;
+      }
+
+
       #region SourceImplementNotify tracking property
 
       /// <summary>Storage for the SourceImplementNotify property.</summary>  

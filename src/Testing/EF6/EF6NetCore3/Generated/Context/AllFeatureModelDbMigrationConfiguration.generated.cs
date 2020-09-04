@@ -9,10 +9,10 @@
 
 using System.Data.Entity.Migrations;
 
-namespace Testing
+namespace Migrations
 {
    /// <inheritdoc/>
-   public sealed partial class AllFeatureModelDbMigrationConfiguration : DbMigrationsConfiguration<AllFeatureModel>
+   public sealed partial class AllFeatureModelDbMigrationConfiguration : DbMigrationsConfiguration<Testing.AllFeatureModel>
    {
       partial void Init();
 

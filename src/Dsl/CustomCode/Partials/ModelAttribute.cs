@@ -31,6 +31,25 @@ namespace Sawczyn.EFDesigner.EFModel
          return $"{ModelClass.Name}.{Name}";
       }
 
+      internal string _backingFieldName;
+
+      internal string BackingFieldNameDefault =>
+         string.IsNullOrEmpty(Name)
+            ? string.Empty
+            : $"_{Name.Substring(0, 1).ToLowerInvariant()}{Name.Substring(1)}";
+
+      private string GetBackingFieldNameValue()
+      {
+         return string.IsNullOrEmpty(_backingFieldName)
+                   ? BackingFieldNameDefault
+                   : (_backingFieldName ?? string.Empty);
+      }
+
+      private void SetBackingFieldNameValue(string value)
+      {
+         _backingFieldName = value;
+      }
+
       #region Warning display
 
       // set as methods to avoid issues around serialization

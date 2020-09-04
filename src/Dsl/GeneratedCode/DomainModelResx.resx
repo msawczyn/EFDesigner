@@ -366,7 +366,7 @@
     <comment>Description for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.DisplayName" xml:space="preserve">
-    <value>Genereate Code on Save</value>
+    <value>Generate Code on Save</value>
     <comment>DisplayName for DomainProperty &apos;TransformOnSave&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/TransformOnSave.Category" xml:space="preserve">
@@ -3228,102 +3228,6 @@
   <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Property.Description" xml:space="preserve">
     <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
     <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Field.DisplayName" xml:space="preserve">
-    <value>Field</value>
-    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Field.Description" xml:space="preserve">
-    <value>Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field.</value>
-    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/FieldDuringConstruction.DisplayName" xml:space="preserve">
-    <value>FieldDuringConstruction</value>
-    <comment>Display name for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/FieldDuringConstruction.Description" xml:space="preserve">
-    <value>Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
-    <comment>Description for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferField.DisplayName" xml:space="preserve">
-    <value>PreferField</value>
-    <comment>Display name for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferField.Description" xml:space="preserve">
-    <value>All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property.</value>
-    <comment>Description for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferFieldDuringConstruction.DisplayName" xml:space="preserve">
-    <value>PreferFieldDuringConstruction</value>
-    <comment>Display name for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferFieldDuringConstruction.Description" xml:space="preserve">
-    <value>All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
-    <comment>Description for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferProperty.DisplayName" xml:space="preserve">
-    <value>PreferProperty</value>
-    <comment>Display name for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/PreferProperty.Description" xml:space="preserve">
-    <value>All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field.</value>
-    <comment>Description for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Property.DisplayName" xml:space="preserve">
-    <value>Property</value>
-    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode1/Property.Description" xml:space="preserve">
-    <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
-    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode1&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Field.DisplayName" xml:space="preserve">
-    <value>Field</value>
-    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Field.Description" xml:space="preserve">
-    <value>Enforces that all accesses to the property must go through the field. An exception will be thrown if this mode is set and it is not possible to read from or write to the field.</value>
-    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/FieldDuringConstruction.DisplayName" xml:space="preserve">
-    <value>FieldDuringConstruction</value>
-    <comment>Display name for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/FieldDuringConstruction.Description" xml:space="preserve">
-    <value>Enforces that all accesses to the property must go through the field when new instances are being constructed. New instances are typically constructed when entities are queried from the database. An exception will be thrown if this mode is set and it is not possible to write to the field. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
-    <comment>Description for EnumerationLiteral &apos;FieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferField.DisplayName" xml:space="preserve">
-    <value>PreferField</value>
-    <comment>Display name for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferField.Description" xml:space="preserve">
-    <value>All accesses to the property goes directly to the field, unless the field is not known, in which as access goes through the property.</value>
-    <comment>Description for EnumerationLiteral &apos;PreferField&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferFieldDuringConstruction.DisplayName" xml:space="preserve">
-    <value>PreferFieldDuringConstruction</value>
-    <comment>Display name for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferFieldDuringConstruction.Description" xml:space="preserve">
-    <value>All accesses to the property when constructing new entity instances goes directly to the field, unless the field is not known, in which as access goes through the property. All other uses of the property will go through the property getters and setters, unless this is not possible because, for example, the property is read-only, in which case these accesses will also use the field.</value>
-    <comment>Description for EnumerationLiteral &apos;PreferFieldDuringConstruction&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferProperty.DisplayName" xml:space="preserve">
-    <value>PreferProperty</value>
-    <comment>Display name for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/PreferProperty.Description" xml:space="preserve">
-    <value>All accesses to the property go through the property, unless there is no property or it is missing a setter/getter, in which as access goes directly to the field.</value>
-    <comment>Description for EnumerationLiteral &apos;PreferProperty&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Property.DisplayName" xml:space="preserve">
-    <value>Property</value>
-    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyAccessMode2/Property.Description" xml:space="preserve">
-    <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
-    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode2&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

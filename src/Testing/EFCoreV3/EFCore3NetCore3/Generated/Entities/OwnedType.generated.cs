@@ -59,7 +59,7 @@ namespace Testing
       /// <summary>
       /// Backing field for SingleAttr
       /// </summary>
-      protected Single? _SingleAttr;
+      protected Single? _singleAttr;
       /// <summary>
       /// When provided in a partial class, allows value of SingleAttr to be changed before setting.
       /// </summary>
@@ -73,17 +73,17 @@ namespace Testing
       {
          get
          {
-            Single? value = _SingleAttr;
+            Single? value = _singleAttr;
             GetSingleAttr(ref value);
-            return (_SingleAttr = value);
+            return (_singleAttr = value);
          }
          set
          {
-            Single? oldValue = _SingleAttr;
+            Single? oldValue = _singleAttr;
             SetSingleAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _SingleAttr = value;
+               _singleAttr = value;
             }
          }
       }

@@ -33,6 +33,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static AllPropertyTypesOptional CreateAllPropertyTypesOptionalUnsafe()
+      {
+         return new AllPropertyTypesOptional();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="id1"></param>
@@ -61,7 +69,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int _Id;
+      internal int _id;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -80,17 +88,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = _id;
             GetId(ref value);
-            return (_Id = value);
+            return (_id = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = _id;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+               _id = value;
             }
          }
       }
@@ -98,7 +106,7 @@ namespace Testing
       /// <summary>
       /// Backing field for BinaryAttr
       /// </summary>
-      protected byte[] _BinaryAttr;
+      protected byte[] _binaryAttr;
       /// <summary>
       /// When provided in a partial class, allows value of BinaryAttr to be changed before setting.
       /// </summary>
@@ -112,17 +120,17 @@ namespace Testing
       {
          get
          {
-            byte[] value = _BinaryAttr;
+            byte[] value = _binaryAttr;
             GetBinaryAttr(ref value);
-            return (_BinaryAttr = value);
+            return (_binaryAttr = value);
          }
          set
          {
-            byte[] oldValue = _BinaryAttr;
+            byte[] oldValue = _binaryAttr;
             SetBinaryAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _BinaryAttr = value;
+               _binaryAttr = value;
             }
          }
       }
@@ -130,7 +138,7 @@ namespace Testing
       /// <summary>
       /// Backing field for BooleanAttr
       /// </summary>
-      protected bool? _BooleanAttr;
+      protected bool? _booleanAttr;
       /// <summary>
       /// When provided in a partial class, allows value of BooleanAttr to be changed before setting.
       /// </summary>
@@ -144,17 +152,17 @@ namespace Testing
       {
          get
          {
-            bool? value = _BooleanAttr;
+            bool? value = _booleanAttr;
             GetBooleanAttr(ref value);
-            return (_BooleanAttr = value);
+            return (_booleanAttr = value);
          }
          set
          {
-            bool? oldValue = _BooleanAttr;
+            bool? oldValue = _booleanAttr;
             SetBooleanAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _BooleanAttr = value;
+               _booleanAttr = value;
             }
          }
       }
@@ -162,7 +170,7 @@ namespace Testing
       /// <summary>
       /// Backing field for ByteAttr
       /// </summary>
-      protected byte? _ByteAttr;
+      protected byte? _byteAttr;
       /// <summary>
       /// When provided in a partial class, allows value of ByteAttr to be changed before setting.
       /// </summary>
@@ -176,17 +184,17 @@ namespace Testing
       {
          get
          {
-            byte? value = _ByteAttr;
+            byte? value = _byteAttr;
             GetByteAttr(ref value);
-            return (_ByteAttr = value);
+            return (_byteAttr = value);
          }
          set
          {
-            byte? oldValue = _ByteAttr;
+            byte? oldValue = _byteAttr;
             SetByteAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _ByteAttr = value;
+               _byteAttr = value;
             }
          }
       }
@@ -194,7 +202,7 @@ namespace Testing
       /// <summary>
       /// Backing field for DateTimeAttr
       /// </summary>
-      protected DateTime? _DateTimeAttr;
+      protected DateTime? _dateTimeAttr;
       /// <summary>
       /// When provided in a partial class, allows value of DateTimeAttr to be changed before setting.
       /// </summary>
@@ -208,17 +216,17 @@ namespace Testing
       {
          get
          {
-            DateTime? value = _DateTimeAttr;
+            DateTime? value = _dateTimeAttr;
             GetDateTimeAttr(ref value);
-            return (_DateTimeAttr = value);
+            return (_dateTimeAttr = value);
          }
          set
          {
-            DateTime? oldValue = _DateTimeAttr;
+            DateTime? oldValue = _dateTimeAttr;
             SetDateTimeAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _DateTimeAttr = value;
+               _dateTimeAttr = value;
             }
          }
       }
@@ -226,7 +234,7 @@ namespace Testing
       /// <summary>
       /// Backing field for DateTimeOffsetAttr
       /// </summary>
-      protected DateTimeOffset? _DateTimeOffsetAttr;
+      protected DateTimeOffset? _dateTimeOffsetAttr;
       /// <summary>
       /// When provided in a partial class, allows value of DateTimeOffsetAttr to be changed before setting.
       /// </summary>
@@ -240,17 +248,17 @@ namespace Testing
       {
          get
          {
-            DateTimeOffset? value = _DateTimeOffsetAttr;
+            DateTimeOffset? value = _dateTimeOffsetAttr;
             GetDateTimeOffsetAttr(ref value);
-            return (_DateTimeOffsetAttr = value);
+            return (_dateTimeOffsetAttr = value);
          }
          set
          {
-            DateTimeOffset? oldValue = _DateTimeOffsetAttr;
+            DateTimeOffset? oldValue = _dateTimeOffsetAttr;
             SetDateTimeOffsetAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _DateTimeOffsetAttr = value;
+               _dateTimeOffsetAttr = value;
             }
          }
       }
@@ -258,7 +266,7 @@ namespace Testing
       /// <summary>
       /// Backing field for DecimalAttr
       /// </summary>
-      protected decimal? _DecimalAttr;
+      protected decimal? _decimalAttr;
       /// <summary>
       /// When provided in a partial class, allows value of DecimalAttr to be changed before setting.
       /// </summary>
@@ -272,17 +280,17 @@ namespace Testing
       {
          get
          {
-            decimal? value = _DecimalAttr;
+            decimal? value = _decimalAttr;
             GetDecimalAttr(ref value);
-            return (_DecimalAttr = value);
+            return (_decimalAttr = value);
          }
          set
          {
-            decimal? oldValue = _DecimalAttr;
+            decimal? oldValue = _decimalAttr;
             SetDecimalAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _DecimalAttr = value;
+               _decimalAttr = value;
             }
          }
       }
@@ -290,7 +298,7 @@ namespace Testing
       /// <summary>
       /// Backing field for DoubleAttr
       /// </summary>
-      protected double? _DoubleAttr;
+      protected double? _doubleAttr;
       /// <summary>
       /// When provided in a partial class, allows value of DoubleAttr to be changed before setting.
       /// </summary>
@@ -304,17 +312,17 @@ namespace Testing
       {
          get
          {
-            double? value = _DoubleAttr;
+            double? value = _doubleAttr;
             GetDoubleAttr(ref value);
-            return (_DoubleAttr = value);
+            return (_doubleAttr = value);
          }
          set
          {
-            double? oldValue = _DoubleAttr;
+            double? oldValue = _doubleAttr;
             SetDoubleAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _DoubleAttr = value;
+               _doubleAttr = value;
             }
          }
       }
@@ -322,7 +330,7 @@ namespace Testing
       /// <summary>
       /// Backing field for GuidAttr
       /// </summary>
-      protected Guid? _GuidAttr;
+      protected Guid? _guidAttr;
       /// <summary>
       /// When provided in a partial class, allows value of GuidAttr to be changed before setting.
       /// </summary>
@@ -336,17 +344,17 @@ namespace Testing
       {
          get
          {
-            Guid? value = _GuidAttr;
+            Guid? value = _guidAttr;
             GetGuidAttr(ref value);
-            return (_GuidAttr = value);
+            return (_guidAttr = value);
          }
          set
          {
-            Guid? oldValue = _GuidAttr;
+            Guid? oldValue = _guidAttr;
             SetGuidAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _GuidAttr = value;
+               _guidAttr = value;
             }
          }
       }
@@ -354,7 +362,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Int16Attr
       /// </summary>
-      protected short? _Int16Attr;
+      protected short? _int16Attr;
       /// <summary>
       /// When provided in a partial class, allows value of Int16Attr to be changed before setting.
       /// </summary>
@@ -368,17 +376,17 @@ namespace Testing
       {
          get
          {
-            short? value = _Int16Attr;
+            short? value = _int16Attr;
             GetInt16Attr(ref value);
-            return (_Int16Attr = value);
+            return (_int16Attr = value);
          }
          set
          {
-            short? oldValue = _Int16Attr;
+            short? oldValue = _int16Attr;
             SetInt16Attr(oldValue, ref value);
             if (oldValue != value)
             {
-               _Int16Attr = value;
+               _int16Attr = value;
             }
          }
       }
@@ -386,7 +394,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Int32Attr
       /// </summary>
-      protected int? _Int32Attr;
+      protected int? _int32Attr;
       /// <summary>
       /// When provided in a partial class, allows value of Int32Attr to be changed before setting.
       /// </summary>
@@ -400,17 +408,17 @@ namespace Testing
       {
          get
          {
-            int? value = _Int32Attr;
+            int? value = _int32Attr;
             GetInt32Attr(ref value);
-            return (_Int32Attr = value);
+            return (_int32Attr = value);
          }
          set
          {
-            int? oldValue = _Int32Attr;
+            int? oldValue = _int32Attr;
             SetInt32Attr(oldValue, ref value);
             if (oldValue != value)
             {
-               _Int32Attr = value;
+               _int32Attr = value;
             }
          }
       }
@@ -418,7 +426,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Int64Attr
       /// </summary>
-      protected long? _Int64Attr;
+      protected long? _int64Attr;
       /// <summary>
       /// When provided in a partial class, allows value of Int64Attr to be changed before setting.
       /// </summary>
@@ -432,17 +440,17 @@ namespace Testing
       {
          get
          {
-            long? value = _Int64Attr;
+            long? value = _int64Attr;
             GetInt64Attr(ref value);
-            return (_Int64Attr = value);
+            return (_int64Attr = value);
          }
          set
          {
-            long? oldValue = _Int64Attr;
+            long? oldValue = _int64Attr;
             SetInt64Attr(oldValue, ref value);
             if (oldValue != value)
             {
-               _Int64Attr = value;
+               _int64Attr = value;
             }
          }
       }
@@ -450,7 +458,7 @@ namespace Testing
       /// <summary>
       /// Backing field for SingleAttr
       /// </summary>
-      protected Single? _SingleAttr;
+      protected Single? _singleAttr;
       /// <summary>
       /// When provided in a partial class, allows value of SingleAttr to be changed before setting.
       /// </summary>
@@ -464,17 +472,17 @@ namespace Testing
       {
          get
          {
-            Single? value = _SingleAttr;
+            Single? value = _singleAttr;
             GetSingleAttr(ref value);
-            return (_SingleAttr = value);
+            return (_singleAttr = value);
          }
          set
          {
-            Single? oldValue = _SingleAttr;
+            Single? oldValue = _singleAttr;
             SetSingleAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _SingleAttr = value;
+               _singleAttr = value;
             }
          }
       }
@@ -482,7 +490,7 @@ namespace Testing
       /// <summary>
       /// Backing field for StringAttr
       /// </summary>
-      protected string _StringAttr;
+      protected string _stringAttr;
       /// <summary>
       /// When provided in a partial class, allows value of StringAttr to be changed before setting.
       /// </summary>
@@ -496,17 +504,17 @@ namespace Testing
       {
          get
          {
-            string value = _StringAttr;
+            string value = _stringAttr;
             GetStringAttr(ref value);
-            return (_StringAttr = value);
+            return (_stringAttr = value);
          }
          set
          {
-            string oldValue = _StringAttr;
+            string oldValue = _stringAttr;
             SetStringAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _StringAttr = value;
+               _stringAttr = value;
             }
          }
       }
@@ -514,7 +522,7 @@ namespace Testing
       /// <summary>
       /// Backing field for TimeAttr
       /// </summary>
-      protected TimeSpan? _TimeAttr;
+      protected TimeSpan? _timeAttr;
       /// <summary>
       /// When provided in a partial class, allows value of TimeAttr to be changed before setting.
       /// </summary>
@@ -528,17 +536,17 @@ namespace Testing
       {
          get
          {
-            TimeSpan? value = _TimeAttr;
+            TimeSpan? value = _timeAttr;
             GetTimeAttr(ref value);
-            return (_TimeAttr = value);
+            return (_timeAttr = value);
          }
          set
          {
-            TimeSpan? oldValue = _TimeAttr;
+            TimeSpan? oldValue = _timeAttr;
             SetTimeAttr(oldValue, ref value);
             if (oldValue != value)
             {
-               _TimeAttr = value;
+               _timeAttr = value;
             }
          }
       }
@@ -546,7 +554,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id1
       /// </summary>
-      internal int _Id1;
+      internal int _id1;
       /// <summary>
       /// When provided in a partial class, allows value of Id1 to be changed before setting.
       /// </summary>
@@ -565,17 +573,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id1;
+            int value = _id1;
             GetId1(ref value);
-            return (_Id1 = value);
+            return (_id1 = value);
          }
          set
          {
-            int oldValue = _Id1;
+            int oldValue = _id1;
             SetId1(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id1 = value;
+               _id1 = value;
             }
          }
       }

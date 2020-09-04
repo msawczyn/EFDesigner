@@ -356,6 +356,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                if (!string.IsNullOrEmpty(modelAttribute.InitialValue) && modelRoot.IsEFCore5Plus)
                {
+                  string initialValue = modelAttribute.InitialValue;
+
                   // using switch statements since more exceptions will undoubtedly be created in the future
                   switch (modelAttribute.Type)
                   {
@@ -363,26 +365,32 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                         switch (modelAttribute.InitialValue)
                         {
                            case "DateTime.Now":
-                              segments.Add("HasDefaultValueSql(\"getdate()\")");
-
+                              segments.Add("HasDefaultValue(DateTime.Now)");
+                              //segments.Add("HasDefaultValueSql(\"getdate()\")");
                               break;
 
                            case "DateTime.UtcNow":
-                              segments.Add("HasDefaultValueSql(\"getutcdate()\")");
-
+                              segments.Add("HasDefaultValue(DateTime.UtcNow)");
+                              //segments.Add("HasDefaultValueSql(\"getutcdate()\")");
                               break;
 
                            default:
+                              if (!initialValue.StartsWith("\"")) initialValue = "\"" + initialValue;
+                              if (!initialValue.EndsWith("\"")) initialValue = initialValue + "\"";
                               segments.Add($"HasDefaultValue(DateTime.Parse({modelAttribute.InitialValue}))");
-
                               break;
                         }
 
                         break;
 
-                     default:
-                        segments.Add($"HasDefaultValue(DateTime.Parse({modelAttribute.InitialValue}))");
+                     case "String":
+                        if (!initialValue.StartsWith("\"")) initialValue = "\"" + initialValue;
+                        if (!initialValue.EndsWith("\"")) initialValue = initialValue + "\"";
+                        segments.Add($"HasDefaultValue({initialValue})");
+                        break;
 
+                     default:
+                        segments.Add($"HasDefaultValue({modelAttribute.InitialValue})");
                         break;
                   }
                }
@@ -440,8 +448,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
-                                                                           .OfType<UnidirectionalAssociation>()
-                                                                           .Where(x => x.Persistent && !x.Target.IsDependentType))
+                                                                         .OfType<UnidirectionalAssociation>()
+                                                                         .Where(x => x.Persistent && !x.Target.IsDependentType))
             {
                if (visited.Contains(association))
                   continue;
@@ -472,14 +480,14 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
                      break;
 
-                     //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-                     //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
-                     //   break;
+                  //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                  //   segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+                  //   break;
                }
 
                string columnPrefix = association.SourceRole == EndpointRole.Dependent
-                                    ? ""
-                                    : association.Target.Name + "_";
+                                        ? ""
+                                        : association.Target.Name + "_";
 
                switch (association.SourceMultiplicity) // realized by shadow property on target
                {
@@ -487,6 +495,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
                         segments.Add("WithMany()");
+
                         //segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                      }
                      else
@@ -498,8 +507,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      segments.Add("WithOne()");
 
                      segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                                       ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
-                                       : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                                     ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
+                                     : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
                      required = true;
 
@@ -509,14 +518,14 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      segments.Add("WithOne()");
 
                      segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                                       ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
-                                       : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                                     ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
+                                     : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
                      break;
 
-                     //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
-                     //   segments.Add("HasMany()");
-                     //   break;
+                  //case Sawczyn.EFDesigner.EFModel.Multiplicity.OneMany:
+                  //   segments.Add("HasMany()");
+                  //   break;
                }
 
                if (required)
@@ -525,8 +534,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                if (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal)
                {
                   DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                             ? association.SourceDeleteAction
-                                             : association.TargetDeleteAction;
+                                                 ? association.SourceDeleteAction
+                                                 : association.TargetDeleteAction;
 
                   switch (deleteAction)
                   {
@@ -546,11 +555,23 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   OutputChopped(segments);
                else
                   Output(string.Join(".", segments) + ";");
+
+               if (!association.TargetAutoProperty && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+               {
+                  segments.Clear();
+
+                  if (modelRoot.IsEFCore5Plus)
+                  {
+                     segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName})");
+                     segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
+                     segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode})");
+                  }
+               }
             }
 
             foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
-                                                                           .OfType<UnidirectionalAssociation>()
-                                                                           .Where(x => x.Persistent && x.Target.IsDependentType))
+                                                                         .OfType<UnidirectionalAssociation>()
+                                                                         .Where(x => x.Persistent && x.Target.IsDependentType))
             {
                if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                   Output($"modelBuilder.Entity<{modelClass.FullName}>().OwnsOne(x => x.{association.TargetPropertyName});");

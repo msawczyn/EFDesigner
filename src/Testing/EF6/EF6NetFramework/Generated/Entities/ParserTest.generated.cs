@@ -67,7 +67,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      protected int ;
+      protected int _id;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -86,17 +86,17 @@ namespace Testing
       {
          get
          {
-            int value = ;
+            int value = _id;
             GetId(ref value);
-            return ( = value);
+            return (_id = value);
          }
          protected set
          {
-            int oldValue = ;
+            int oldValue = _id;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _id = value;
             }
          }
       }
@@ -104,7 +104,7 @@ namespace Testing
       /// <summary>
       /// Backing field for foo
       /// </summary>
-      protected long ;
+      protected long _foo;
       /// <summary>
       /// When provided in a partial class, allows value of foo to be changed before setting.
       /// </summary>
@@ -122,17 +122,17 @@ namespace Testing
       {
          get
          {
-            long value = ;
+            long value = _foo;
             Getfoo(ref value);
-            return ( = value);
+            return (_foo = value);
          }
          set
          {
-            long oldValue = ;
+            long oldValue = _foo;
             Setfoo(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _foo = value;
             }
          }
       }
@@ -140,7 +140,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name1
       /// </summary>
-      protected string ;
+      protected string _name1;
       /// <summary>
       /// When provided in a partial class, allows value of name1 to be changed before setting.
       /// </summary>
@@ -154,17 +154,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name1;
             Getname1(ref value);
-            return ( = value);
+            return (_name1 = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _name1;
             Setname1(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name1 = value;
             }
          }
       }
@@ -172,7 +172,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name2
       /// </summary>
-      protected string ;
+      protected string _name2;
       /// <summary>
       /// When provided in a partial class, allows value of name2 to be changed before setting.
       /// </summary>
@@ -186,17 +186,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name2;
             Getname2(ref value);
-            return ( = value);
+            return (_name2 = value);
          }
          protected set
          {
-            string oldValue = ;
+            string oldValue = _name2;
             Setname2(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name2 = value;
             }
          }
       }
@@ -204,7 +204,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name3
       /// </summary>
-      protected int? ;
+      protected int? _name3;
       /// <summary>
       /// When provided in a partial class, allows value of name3 to be changed before setting.
       /// </summary>
@@ -218,17 +218,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name3;
             Getname3(ref value);
-            return ( = value);
+            return (_name3 = value);
          }
          set
          {
-            int? oldValue = ;
+            int? oldValue = _name3;
             Setname3(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name3 = value;
             }
          }
       }
@@ -236,7 +236,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name4
       /// </summary>
-      protected int? ;
+      protected int? _name4;
       /// <summary>
       /// When provided in a partial class, allows value of name4 to be changed before setting.
       /// </summary>
@@ -250,17 +250,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name4;
             Getname4(ref value);
-            return ( = value);
+            return (_name4 = value);
          }
          protected set
          {
-            int? oldValue = ;
+            int? oldValue = _name4;
             Setname4(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name4 = value;
             }
          }
       }
@@ -268,7 +268,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name5
       /// </summary>
-      protected int? ;
+      protected int? _name5;
       /// <summary>
       /// When provided in a partial class, allows value of name5 to be changed before setting.
       /// </summary>
@@ -282,17 +282,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name5;
             Getname5(ref value);
-            return ( = value);
+            return (_name5 = value);
          }
          set
          {
-            int? oldValue = ;
+            int? oldValue = _name5;
             Setname5(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name5 = value;
             }
          }
       }
@@ -300,7 +300,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name6
       /// </summary>
-      protected int? ;
+      protected int? _name6;
       /// <summary>
       /// When provided in a partial class, allows value of name6 to be changed before setting.
       /// </summary>
@@ -314,17 +314,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name6;
             Getname6(ref value);
-            return ( = value);
+            return (_name6 = value);
          }
          protected set
          {
-            int? oldValue = ;
+            int? oldValue = _name6;
             Setname6(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name6 = value;
             }
          }
       }
@@ -332,7 +332,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name7
       /// </summary>
-      protected string ;
+      protected string _name7;
       /// <summary>
       /// When provided in a partial class, allows value of name7 to be changed before setting.
       /// </summary>
@@ -346,17 +346,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name7;
             Getname7(ref value);
-            return ( = value);
+            return (_name7 = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _name7;
             Setname7(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name7 = value;
             }
          }
       }
@@ -364,7 +364,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name8
       /// </summary>
-      protected string ;
+      protected string _name8;
       /// <summary>
       /// When provided in a partial class, allows value of name8 to be changed before setting.
       /// </summary>
@@ -378,17 +378,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name8;
             Getname8(ref value);
-            return ( = value);
+            return (_name8 = value);
          }
          protected set
          {
-            string oldValue = ;
+            string oldValue = _name8;
             Setname8(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name8 = value;
             }
          }
       }
@@ -396,7 +396,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name9
       /// </summary>
-      protected string ;
+      protected string _name9;
       /// <summary>
       /// When provided in a partial class, allows value of name9 to be changed before setting.
       /// </summary>
@@ -410,17 +410,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name9;
             Getname9(ref value);
-            return ( = value);
+            return (_name9 = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _name9;
             Setname9(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name9 = value;
             }
          }
       }
@@ -428,7 +428,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name
       /// </summary>
-      protected string ;
+      protected string _name;
       /// <summary>
       /// When provided in a partial class, allows value of name to be changed before setting.
       /// </summary>
@@ -442,17 +442,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name;
             Getname(ref value);
-            return ( = value);
+            return (_name = value);
          }
          protected set
          {
-            string oldValue = ;
+            string oldValue = _name;
             Setname(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name = value;
             }
          }
       }
@@ -460,7 +460,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name11
       /// </summary>
-      protected int? ;
+      protected int? _name11;
       /// <summary>
       /// When provided in a partial class, allows value of name11 to be changed before setting.
       /// </summary>
@@ -474,17 +474,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name11;
             Getname11(ref value);
-            return ( = value);
+            return (_name11 = value);
          }
          set
          {
-            int? oldValue = ;
+            int? oldValue = _name11;
             Setname11(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name11 = value;
             }
          }
       }
@@ -492,7 +492,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name12
       /// </summary>
-      protected int? ;
+      protected int? _name12;
       /// <summary>
       /// When provided in a partial class, allows value of name12 to be changed before setting.
       /// </summary>
@@ -506,17 +506,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name12;
             Getname12(ref value);
-            return ( = value);
+            return (_name12 = value);
          }
          protected set
          {
-            int? oldValue = ;
+            int? oldValue = _name12;
             Setname12(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name12 = value;
             }
          }
       }
@@ -524,7 +524,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name13
       /// </summary>
-      protected int? ;
+      protected int? _name13;
       /// <summary>
       /// When provided in a partial class, allows value of name13 to be changed before setting.
       /// </summary>
@@ -538,17 +538,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name13;
             Getname13(ref value);
-            return ( = value);
+            return (_name13 = value);
          }
          set
          {
-            int? oldValue = ;
+            int? oldValue = _name13;
             Setname13(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name13 = value;
             }
          }
       }
@@ -556,7 +556,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name14
       /// </summary>
-      protected int? ;
+      protected int? _name14;
       /// <summary>
       /// When provided in a partial class, allows value of name14 to be changed before setting.
       /// </summary>
@@ -570,17 +570,17 @@ namespace Testing
       {
          get
          {
-            int? value = ;
+            int? value = _name14;
             Getname14(ref value);
-            return ( = value);
+            return (_name14 = value);
          }
          protected set
          {
-            int? oldValue = ;
+            int? oldValue = _name14;
             Setname14(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name14 = value;
             }
          }
       }
@@ -588,7 +588,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name15
       /// </summary>
-      protected string ;
+      protected string _name15;
       /// <summary>
       /// When provided in a partial class, allows value of name15 to be changed before setting.
       /// </summary>
@@ -602,17 +602,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name15;
             Getname15(ref value);
-            return ( = value);
+            return (_name15 = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _name15;
             Setname15(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name15 = value;
             }
          }
       }
@@ -620,7 +620,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name16
       /// </summary>
-      protected string ;
+      protected string _name16;
       /// <summary>
       /// When provided in a partial class, allows value of name16 to be changed before setting.
       /// </summary>
@@ -634,17 +634,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name16;
             Getname16(ref value);
-            return ( = value);
+            return (_name16 = value);
          }
          protected set
          {
-            string oldValue = ;
+            string oldValue = _name16;
             Setname16(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name16 = value;
             }
          }
       }
@@ -652,7 +652,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name17
       /// </summary>
-      protected string ;
+      protected string _name17;
       /// <summary>
       /// When provided in a partial class, allows value of name17 to be changed before setting.
       /// </summary>
@@ -666,17 +666,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name17;
             Getname17(ref value);
-            return ( = value);
+            return (_name17 = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _name17;
             Setname17(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name17 = value;
             }
          }
       }
@@ -684,7 +684,7 @@ namespace Testing
       /// <summary>
       /// Backing field for name18
       /// </summary>
-      protected string ;
+      protected string _name18;
       /// <summary>
       /// When provided in a partial class, allows value of name18 to be changed before setting.
       /// </summary>
@@ -698,17 +698,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _name18;
             Getname18(ref value);
-            return ( = value);
+            return (_name18 = value);
          }
          protected set
          {
-            string oldValue = ;
+            string oldValue = _name18;
             Setname18(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _name18 = value;
             }
          }
       }

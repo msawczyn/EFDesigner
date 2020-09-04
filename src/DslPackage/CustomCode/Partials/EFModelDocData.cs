@@ -388,7 +388,6 @@ namespace Sawczyn.EFDesigner.EFModel
          return ShowQuestionBox(serviceProvider, question) == DialogResult.Yes;
       }
 
-      // ReSharper disable once UnusedMember.Local
       internal static void ShowMessage(string message)
       {
          Messages.AddMessage(message);
@@ -407,11 +406,7 @@ namespace Sawczyn.EFDesigner.EFModel
       internal static void ShowError(IServiceProvider serviceProvider, string message)
       {
          Messages.AddError(message);
-         PackageUtility.ShowMessageBox(serviceProvider, 
-                                       message, 
-                                       OLEMSGBUTTON.OLEMSGBUTTON_OK, 
-                                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST, 
-                                       OLEMSGICON.OLEMSGICON_CRITICAL);
+         PackageUtility.ShowError(serviceProvider, message);
       }
 
       internal static string GetChoice(string title, IEnumerable<string> choices)

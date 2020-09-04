@@ -19,7 +19,7 @@
    Manager manager = Manager.Create(Host, GenerationEnvironment);
    manager.FileNameMarker = ModelRoot.FileNameMarker;
 
-   if (ModelRoot.Types.OfType<ModelClass>().Any())
+   if (ModelRoot.Classes.Any())
    {
       manager.StartHeader(false);
       Output("//------------------------------------------------------------------------------");

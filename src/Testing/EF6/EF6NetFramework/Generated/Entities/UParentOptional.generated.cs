@@ -76,7 +76,7 @@ namespace Testing
       /// <summary>
       /// Backing field for PropertyInChild
       /// </summary>
-      protected string ;
+      protected string _propertyInChild;
       /// <summary>
       /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
       /// </summary>
@@ -93,17 +93,17 @@ namespace Testing
       {
          get
          {
-            string value = ;
+            string value = _propertyInChild;
             GetPropertyInChild(ref value);
-            return ( = value);
+            return (_propertyInChild = value);
          }
          set
          {
-            string oldValue = ;
+            string oldValue = _propertyInChild;
             SetPropertyInChild(oldValue, ref value);
             if (oldValue != value)
             {
-                = value;
+               _propertyInChild = value;
             }
          }
       }

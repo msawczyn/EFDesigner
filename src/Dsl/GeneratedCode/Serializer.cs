@@ -5266,9 +5266,8 @@ namespace Sawczyn.EFDesigner.EFModel
 	         global::System.String propValue = instanceOfModelAttribute.BackingFieldName;
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (!string.IsNullOrEmpty(propValue))
+	            if (propValue != null)
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "backingFieldName", propValue);
-	
 	         }
 	      }
 	      // DatabaseCollation
@@ -5303,7 +5302,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "PreferProperty") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessMode", serializedPropValue);
 	            }
@@ -9704,14 +9703,14 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string attribTargetPropertyAccessMode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "targetPropertyAccessMode");
 	         if (attribTargetPropertyAccessMode != null)
 	         {
-	            PropertyAccessMode2 valueOfTargetPropertyAccessMode;
-	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode2>(serializationContext, attribTargetPropertyAccessMode, out valueOfTargetPropertyAccessMode))
+	            PropertyAccessMode valueOfTargetPropertyAccessMode;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode>(serializationContext, attribTargetPropertyAccessMode, out valueOfTargetPropertyAccessMode))
 	            {
 	               instanceOfAssociation.TargetPropertyAccessMode = valueOfTargetPropertyAccessMode;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetPropertyAccessMode", typeof(PropertyAccessMode2), attribTargetPropertyAccessMode);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "targetPropertyAccessMode", typeof(PropertyAccessMode), attribTargetPropertyAccessMode);
 	            }
 	         }
 	      }
@@ -10312,19 +10311,18 @@ namespace Sawczyn.EFDesigner.EFModel
 	         global::System.String propValue = instanceOfAssociation.TargetBackingFieldName;
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (!string.IsNullOrEmpty(propValue))
+	            if (propValue != null)
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetBackingFieldName", propValue);
-	
 	         }
 	      }
 	      // TargetPropertyAccessMode
 	      if (!serializationContext.Result.Failed)
 	      {
-	         PropertyAccessMode2 propValue = instanceOfAssociation.TargetPropertyAccessMode;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode2>(serializationContext, propValue);
+	         PropertyAccessMode propValue = instanceOfAssociation.TargetPropertyAccessMode;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "PreferProperty") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetPropertyAccessMode", serializedPropValue);
 	            }
@@ -13879,14 +13877,14 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string attribSourcePropertyAccessMode = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "sourcePropertyAccessMode");
 	         if (attribSourcePropertyAccessMode != null)
 	         {
-	            PropertyAccessMode1 valueOfSourcePropertyAccessMode;
-	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode1>(serializationContext, attribSourcePropertyAccessMode, out valueOfSourcePropertyAccessMode))
+	            PropertyAccessMode valueOfSourcePropertyAccessMode;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode>(serializationContext, attribSourcePropertyAccessMode, out valueOfSourcePropertyAccessMode))
 	            {
 	               instanceOfBidirectionalAssociation.SourcePropertyAccessMode = valueOfSourcePropertyAccessMode;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourcePropertyAccessMode", typeof(PropertyAccessMode1), attribSourcePropertyAccessMode);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "sourcePropertyAccessMode", typeof(PropertyAccessMode), attribSourcePropertyAccessMode);
 	            }
 	         }
 	      }
@@ -14485,11 +14483,11 @@ namespace Sawczyn.EFDesigner.EFModel
 	      // SourcePropertyAccessMode
 	      if (!serializationContext.Result.Failed)
 	      {
-	         PropertyAccessMode1 propValue = instanceOfBidirectionalAssociation.SourcePropertyAccessMode;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode1>(serializationContext, propValue);
+	         PropertyAccessMode propValue = instanceOfBidirectionalAssociation.SourcePropertyAccessMode;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "PreferProperty") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourcePropertyAccessMode", serializedPropValue);
 	            }
@@ -14501,9 +14499,8 @@ namespace Sawczyn.EFDesigner.EFModel
 	         global::System.String propValue = instanceOfBidirectionalAssociation.SourceBackingFieldName;
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (!string.IsNullOrEmpty(propValue))
+	            if (propValue != null)
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceBackingFieldName", propValue);
-	
 	         }
 	      }
 	      // SourceAutoProperty

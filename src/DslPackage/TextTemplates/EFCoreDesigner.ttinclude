@@ -352,6 +352,8 @@
 
                if (!string.IsNullOrEmpty(modelAttribute.InitialValue) && modelRoot.IsEFCore5Plus)
                {
+                  string initialValue = modelAttribute.InitialValue;
+
                   // using switch statements since more exceptions will undoubtedly be created in the future
                   switch (modelAttribute.Type)
                   {
@@ -359,26 +361,32 @@
                         switch (modelAttribute.InitialValue)
                         {
                            case "DateTime.Now":
-                              segments.Add("HasDefaultValueSql(\"getdate()\")");
-
+                              segments.Add("HasDefaultValue(DateTime.Now)");
+                              //segments.Add("HasDefaultValueSql(\"getdate()\")");
                               break;
 
                            case "DateTime.UtcNow":
-                              segments.Add("HasDefaultValueSql(\"getutcdate()\")");
-
+                              segments.Add("HasDefaultValue(DateTime.UtcNow)");
+                              //segments.Add("HasDefaultValueSql(\"getutcdate()\")");
                               break;
 
                            default:
+                              if (!initialValue.StartsWith("\"")) initialValue = "\"" + initialValue;
+                              if (!initialValue.EndsWith("\"")) initialValue = initialValue + "\"";
                               segments.Add($"HasDefaultValue(DateTime.Parse({modelAttribute.InitialValue}))");
-
                               break;
                         }
 
                         break;
 
-                     default:
-                        segments.Add($"HasDefaultValue(DateTime.Parse({modelAttribute.InitialValue}))");
+                     case "String":
+                        if (!initialValue.StartsWith("\"")) initialValue = "\"" + initialValue;
+                        if (!initialValue.EndsWith("\"")) initialValue = initialValue + "\"";
+                        segments.Add($"HasDefaultValue({initialValue})");
+                        break;
 
+                     default:
+                        segments.Add($"HasDefaultValue({modelAttribute.InitialValue})");
                         break;
                   }
                }

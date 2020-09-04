@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v
+//     Produced by Entity Framework Visual Editor v2.1.0.0
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -33,22 +33,32 @@ namespace Sandbox
       /// </summary>
       protected Entity4()
       {
+         Entity3 = new System.Collections.Generic.HashSet<global::Sandbox.Entity3>();
+
          Init();
+      }
+
+      /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static Entity4 CreateEntity4Unsafe()
+      {
+         return new Entity4();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="entity3"></param>
+      /// <param name="xx">Foreign key for Entity3.Entity4 &lt;--&gt; Entity4.Entity3. </param>
       /// <param name="_entity20"></param>
-      public Entity4(global::Sandbox.Entity3 entity3, global::Sandbox.Entity2 _entity20)
+      public Entity4(int xx, global::Sandbox.Entity2 _entity20)
       {
-         if (entity3 == null) throw new ArgumentNullException(nameof(entity3));
-         this.Entity3 = entity3;
+         this.xx = xx;
 
          if (_entity20 == null) throw new ArgumentNullException(nameof(_entity20));
          _entity20.Entity4.Add(this);
 
+         this.Entity3 = new System.Collections.Generic.HashSet<global::Sandbox.Entity3>();
 
          Init();
       }
@@ -56,11 +66,11 @@ namespace Sandbox
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="entity3"></param>
+      /// <param name="xx">Foreign key for Entity3.Entity4 &lt;--&gt; Entity4.Entity3. </param>
       /// <param name="_entity20"></param>
-      public static Entity4 Create(global::Sandbox.Entity3 entity3, global::Sandbox.Entity2 _entity20)
+      public static Entity4 Create(int xx, global::Sandbox.Entity2 _entity20)
       {
-         return new Entity4(entity3, _entity20);
+         return new Entity4(xx, _entity20);
       }
 
       /*************************************************************************
@@ -74,14 +84,18 @@ namespace Sandbox
       [Required]
       public int Id { get; protected set; }
 
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for Entity3.Entity4 &lt;--&gt; Entity4.Entity3. 
+      /// </summary>
+      [Required]
+      public int xx { get; set; }
+
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Sandbox.Entity3 Entity3 { get; set; }
+      public virtual ICollection<global::Sandbox.Entity3> Entity3 { get; protected set; }
 
    }
 }
