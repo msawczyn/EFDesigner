@@ -386,13 +386,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
             }
 
-            if (segments.Count > 1)
-            {
-               if (modelRoot.ChopMethodChains)
-                  OutputChopped(segments);
-               else
-                  Output(string.Join(".", segments) + ";");
-            }
+            Output(modelRoot, segments);
 
             if (modelClass.IsDependentType)
                continue;
@@ -432,10 +426,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   segments.Insert(0, $"modelBuilder.{(isDependent ? "ComplexType" : "Entity")}<{modelClass.FullName}>()");
                   segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
-                  if (modelRoot.ChopMethodChains)
-                     OutputChopped(segments);
-                  else
-                     Output(string.Join(".", segments) + ";");
+                  Output(modelRoot, segments);
                }
 
                if (modelAttribute.Indexed && !modelAttribute.IsIdentity)
@@ -448,12 +439,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      segments.Add("IsUnique()");
 
                   if (segments.Count > 1)
-                  {
-                     if (modelRoot.ChopMethodChains)
-                        OutputChopped(segments);
-                     else
-                        Output(string.Join(".", segments) + ";");
-                  }
+                     Output(modelRoot, segments);
                }
             }
 
@@ -576,10 +562,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
                   }
 
-                  if (modelRoot.ChopMethodChains)
-                     OutputChopped(segments);
-                  else
-                     Output(string.Join(".", segments) + ";");
+                  Output(modelRoot, segments);
                }
 
                // ReSharper disable once LoopCanBePartlyConvertedToQuery
@@ -691,10 +674,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      segments.Add($"WillCascadeOnDelete({willCascadeOnDelete})");
                   }
 
-                  if (modelRoot.ChopMethodChains)
-                     OutputChopped(segments);
-                  else
-                     Output(string.Join(".", segments) + ";");
+                  Output(modelRoot, segments);
                }
             }
          }

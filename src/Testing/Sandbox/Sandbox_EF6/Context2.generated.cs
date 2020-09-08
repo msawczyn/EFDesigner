@@ -116,6 +116,7 @@ namespace MultiContext.Context2
          modelBuilder.Entity<global::MultiContext.Context2.Entity2>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::MultiContext.Context2.Entity2>().HasMany(x => x.Entity3).WithRequired().Map(x => x.MapKey("Entity2.Entity3_Id"));
 
+         modelBuilder.Entity<global::MultiContext.Context2.Entity3>();
 
          OnModelCreatedImpl(modelBuilder);
       }

@@ -23,8 +23,6 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             storeDomainDataDirectory = modelEnum.Store.DomainDataDirectory;
 
-            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelEnum);
-
             //Add the descriptors for the tracking properties 
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelEnum

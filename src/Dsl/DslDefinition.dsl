@@ -721,7 +721,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="Property">
+        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="FieldDuringConstruction">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -1107,7 +1107,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="9110fead-38f5-46b5-b3b1-e9c3c6cea99b" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="End1 Property Access Mode" DefaultValue="Property" Category="End 2">
+        <DomainProperty Id="9110fead-38f5-46b5-b3b1-e9c3c6cea99b" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="TargetPropertyAccessMode" DisplayName="End1 Property Access Mode" DefaultValue="FieldDuringConstruction" Category="End 2">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -1282,7 +1282,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="End 2 Property Access Mode" DefaultValue="Property" Category="End 1">
+        <DomainProperty Id="4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="SourcePropertyAccessMode" DisplayName="End 2 Property Access Mode" DefaultValue="FieldDuringConstruction" Category="End 1">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>

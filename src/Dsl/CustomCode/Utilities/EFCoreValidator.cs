@@ -33,23 +33,6 @@ namespace Sawczyn.EFDesigner.EFModel
          //return errorMessages;
       }
 
-      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelClass element)
-      {
-         // nothing to do here
-
-         //ModelRoot modelRoot = element.ModelRoot;
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
-         //   switch (propertyDescriptors[index].Name)
-         //   {
-         //   }
-
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
-      }
-
       #endregion ModelClass
 
       #region ModelEnum
@@ -70,23 +53,6 @@ namespace Sawczyn.EFDesigner.EFModel
          //}
 
          //return errorMessages;
-      }
-
-      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelEnum element)
-      {
-         // nothing to do here
-
-         //ModelRoot modelRoot = element.ModelRoot;
-         //for (int index = 0; index < propertyDescriptors.Count; index++)
-         //{
-         //   bool shouldRemove = false;
-         //   switch (propertyDescriptors[index].Name)
-         //   {
-         //   }
-
-         //   if (shouldRemove)
-         //      propertyDescriptors.Remove(propertyDescriptors[index--]);
-         //}
       }
 
       #endregion ModelEnum
@@ -111,18 +77,6 @@ namespace Sawczyn.EFDesigner.EFModel
          //return errorMessages;
       }
 
-      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
-      {
-         ModelRoot modelRoot = element.ModelClass.ModelRoot;
-
-         if (!modelRoot.IsEFCore5Plus)
-         {
-            propertyDescriptors.Remove("DatabaseCollation");
-            propertyDescriptors.Remove("PropertyAccessMode");
-            propertyDescriptors.Remove("BackingFieldName");
-         }
-      }
-
       #endregion ModelAttribute
 
       #region Association
@@ -140,25 +94,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
 
          return errorMessages;
-      }
-
-      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, Association element)
-      {
-         BidirectionalAssociation bidirectionalAssociation = element as BidirectionalAssociation;
-
-         // only show backing field and property access mode for EFCore5+ non-collection associations
-         if (!element.Source.ModelRoot.IsEFCore5Plus || element.TargetMultiplicity == Multiplicity.ZeroMany)
-         {
-            propertyDescriptors.Remove("TargetBackingFieldName");
-            propertyDescriptors.Remove("TargetPropertyAccessMode");
-         }
-
-         if (!element.Source.ModelRoot.IsEFCore5Plus || bidirectionalAssociation?.SourceMultiplicity == Multiplicity.ZeroMany)
-         {
-            propertyDescriptors.Remove("SourceBackingFieldName");
-            propertyDescriptors.Remove("SourcePropertyAccessMode");
-         }
-
       }
 
       #endregion Association
@@ -189,33 +124,7 @@ namespace Sawczyn.EFDesigner.EFModel
          return errorMessages;
       }
 
-      /// <summary>
-      /// Called by TypeDescriptors to determine what should be shown in a property editor. Removing a property hides
-      /// it from the property editor in Visual Studio, nothing more.
-      /// </summary>
-      /// <param name="propertyDescriptors"></param>
-      /// <param name="element"></param>
-      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
-      {
-         ModelRoot modelRoot = element;
-
-         if (!modelRoot.IsEFCore5Plus)
-            propertyDescriptors.Remove("DatabaseCollation");
-
-         if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
-         {
-            propertyDescriptors.Remove("DatabaseInitializerType");
-            propertyDescriptors.Remove("AutomaticMigrationsEnabled");
-            propertyDescriptors.Remove("ProxyGenerationEnabled");
-            propertyDescriptors.Remove("DatabaseType");
-            propertyDescriptors.Remove("InheritanceStrategy");
-
-            if (modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1)
-               propertyDescriptors.Remove("LazyLoadingEnabled");
-         }
-      }
-
-      #endregion ModelRoot
+#endregion ModelRoot
 
    }
 }

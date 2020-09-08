@@ -52,6 +52,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V5", "V5", "{B9712341-0F3E-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore5NetCore3", "EFCoreV5\EFCore5NetCore3\EFCore5NetCore3.csproj", "{226AAF11-FE69-4779-900B-6CA9CB1E3C86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestNetCore3", "ConsoleTestNetCore3\ConsoleTestNetCore3.csproj", "{8580F892-5552-4DF5-948A-9C0A4A05DD5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,10 @@ Global
 		{226AAF11-FE69-4779-900B-6CA9CB1E3C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{226AAF11-FE69-4779-900B-6CA9CB1E3C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{226AAF11-FE69-4779-900B-6CA9CB1E3C86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8580F892-5552-4DF5-948A-9C0A4A05DD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8580F892-5552-4DF5-948A-9C0A4A05DD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8580F892-5552-4DF5-948A-9C0A4A05DD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8580F892-5552-4DF5-948A-9C0A4A05DD5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

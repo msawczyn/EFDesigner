@@ -474,9 +474,12 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             command.Visible = true;
 
-            // don't check for CommentBoxShape - they can't be removed from the diagram, only deleted
-            command.Enabled = CurrentSelection.OfType<ClassShape>().Any()
-                           || CurrentSelection.OfType<EnumShape>().Any();
+            // we'll allow removal of class and enum nodes, plus association and inheritance lines
+            command.Enabled = (CurrentSelection.Count == CurrentSelection.OfType<ClassShape>().Count()
+                                                       + CurrentSelection.OfType<EnumShape>().Count()
+                                                       + CurrentSelection.OfType<UnidirectionalConnector>().Count()
+                                                       + CurrentSelection.OfType<BidirectionalConnector>().Count()
+                                                       + CurrentSelection.OfType<GeneralizationConnector>().Count());
          }
       }
 
@@ -489,13 +492,21 @@ namespace Sawczyn.EFDesigner.EFModel
             using (Transaction tx = store.TransactionManager.BeginTransaction("HideShapes"))
             {
                // note that we're deleting the shape, not the represented model element
-               foreach (ClassShape shape in CurrentSelection.OfType<ClassShape>())
+               foreach (ClassShape shape in CurrentSelection.OfType<ClassShape>().ToList())
                   shape.Delete();
 
-               foreach (EnumShape shape in CurrentSelection.OfType<EnumShape>())
+               foreach (EnumShape shape in CurrentSelection.OfType<EnumShape>().ToList())
                   shape.Delete();
 
-               // don't check for CommentBoxShape - they can't be removed from the diagram, only deleted
+               foreach (UnidirectionalConnector shape in CurrentSelection.OfType<UnidirectionalConnector>().ToList())
+                  shape.Delete();
+
+               foreach (BidirectionalConnector shape in CurrentSelection.OfType<BidirectionalConnector>().ToList())
+                  shape.Delete();
+
+               foreach (GeneralizationConnector shape in CurrentSelection.OfType<GeneralizationConnector>().ToList())
+                  shape.Delete();
+
                tx.Commit();
             }
          }

@@ -34,6 +34,7 @@
       public string CustomAttributes { get; set; }
       public string DisplayText { get; set; }
       public bool IsAutoProperty { get; set; }
+      public string BackingFieldName { get; set; }
       public bool ImplementNotify { get; set; }
       public string FKPropertyName { get; set; }
    }

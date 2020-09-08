@@ -278,6 +278,14 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          WriteLine(string.Empty);
       }
 
+      void Output(ModelRoot modelRoot, List<string> segments)
+      {
+         if (modelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
+      }
+
       void Output(string text)
       {
          if (text.StartsWith("}"))
@@ -785,7 +793,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             if (!navigationProperty.IsCollection && !navigationProperty.IsAutoProperty)
             {
-               Output($"protected {type} _{navigationProperty.PropertyName};");
+               Output($"protected {type} {navigationProperty.BackingFieldName};");
                Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");
                Output($"partial void Get{navigationProperty.PropertyName}(ref {type} result);");
 
@@ -840,17 +848,17 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                Output("{");
                Output("get");
                Output("{");
-               Output($"{type} value = _{navigationProperty.PropertyName};");
+               Output($"{type} value = {navigationProperty.BackingFieldName};");
                Output($"Get{navigationProperty.PropertyName}(ref value);");
-               Output($"return (_{navigationProperty.PropertyName} = value);");
+               Output($"return ({navigationProperty.BackingFieldName} = value);");
                Output("}");
                Output("set");
                Output("{");
-               Output($"{type} oldValue = _{navigationProperty.PropertyName};");
+               Output($"{type} oldValue = {navigationProperty.BackingFieldName};");
                Output($"Set{navigationProperty.PropertyName}(oldValue, ref value);");
                Output("if (oldValue != value)");
                Output("{");
-               Output($"_{navigationProperty.PropertyName} = value;");
+               Output($"{navigationProperty.BackingFieldName} = value;");
 
                if (navigationProperty.ImplementNotify)
                   Output("OnPropertyChanged();");

@@ -319,58 +319,48 @@ namespace Sawczyn.EFDesigner.EFModel
          List<NavigationProperty> sourceProperties = Association.GetLinksToTargets(this)
                                                                 .Except(ignore)
                                                                 .Select(x => new NavigationProperty
-                                                                {
-                                                                   Cardinality = x.TargetMultiplicity
-                                                                              ,
-                                                                   ClassType = x.Target
-                                                                              ,
-                                                                   AssociationObject = x
-                                                                              ,
-                                                                   PropertyName = x.TargetPropertyName
-                                                                              ,
-                                                                   Summary = x.TargetSummary
-                                                                              ,
-                                                                   Description = x.TargetDescription
-                                                                              ,
-                                                                   CustomAttributes = x.TargetCustomAttributes
-                                                                              ,
-                                                                   DisplayText = x.TargetDisplayText
-                                                                              ,
-                                                                   IsAutoProperty = true
-                                                                              ,
-                                                                   ImplementNotify = x.TargetImplementNotify
-                                                                              ,
-                                                                   FKPropertyName = x.TargetRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                                                })
+                                                                             {
+                                                                                Cardinality = x.TargetMultiplicity
+                                                                              , ClassType = x.Target
+                                                                              , AssociationObject = x
+                                                                              , PropertyName = x.TargetPropertyName
+                                                                              , Summary = x.TargetSummary
+                                                                              , Description = x.TargetDescription
+                                                                              , CustomAttributes = x.TargetCustomAttributes
+                                                                              , DisplayText = x.TargetDisplayText
+                                                                              , IsAutoProperty = x.TargetAutoProperty
+                                                                              , BackingFieldName = x.TargetAutoProperty
+                                                                                                      ? null
+                                                                                                      : x.TargetBackingFieldName
+                                                                              , ImplementNotify = x.TargetImplementNotify
+                                                                              , FKPropertyName = x.TargetRole == EndpointRole.Principal
+                                                                                                    ? x.FKPropertyName
+                                                                                                    : null
+                                                                             })
                                                                 .ToList();
 
          List<NavigationProperty> targetProperties = Association.GetLinksToSources(this)
                                                                 .Except(ignore)
                                                                 .OfType<BidirectionalAssociation>()
                                                                 .Select(x => new NavigationProperty
-                                                                {
-                                                                   Cardinality = x.SourceMultiplicity
-                                                                              ,
-                                                                   ClassType = x.Source
-                                                                              ,
-                                                                   AssociationObject = x
-                                                                              ,
-                                                                   PropertyName = x.SourcePropertyName
-                                                                              ,
-                                                                   Summary = x.SourceSummary
-                                                                              ,
-                                                                   Description = x.SourceDescription
-                                                                              ,
-                                                                   CustomAttributes = x.SourceCustomAttributes
-                                                                              ,
-                                                                   DisplayText = x.SourceDisplayText
-                                                                              ,
-                                                                   IsAutoProperty = true
-                                                                              ,
-                                                                   ImplementNotify = x.SourceImplementNotify
-                                                                              ,
-                                                                   FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
-                                                                })
+                                                                             {
+                                                                                Cardinality = x.SourceMultiplicity
+                                                                              , ClassType = x.Source
+                                                                              , AssociationObject = x
+                                                                              , PropertyName = x.SourcePropertyName
+                                                                              , Summary = x.SourceSummary
+                                                                              , Description = x.SourceDescription
+                                                                              , CustomAttributes = x.SourceCustomAttributes
+                                                                              , DisplayText = x.SourceDisplayText
+                                                                              , IsAutoProperty = x.SourceAutoProperty
+                                                                              , BackingFieldName = x.SourceAutoProperty
+                                                                                                      ? null
+                                                                                                      : x.SourceBackingFieldName
+                                                                              , ImplementNotify = x.SourceImplementNotify
+                                                                              , FKPropertyName = x.SourceRole == EndpointRole.Principal
+                                                                                                    ? x.FKPropertyName
+                                                                                                    : null
+                                                                             })
                                                                 .ToList();
 
          targetProperties.AddRange(Association.GetLinksToSources(this)

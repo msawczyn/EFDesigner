@@ -5302,7 +5302,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "FieldDuringConstruction") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessMode", serializedPropValue);
 	            }
@@ -10322,7 +10322,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "FieldDuringConstruction") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "targetPropertyAccessMode", serializedPropValue);
 	            }
@@ -14487,7 +14487,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "FieldDuringConstruction") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourcePropertyAccessMode", serializedPropValue);
 	            }

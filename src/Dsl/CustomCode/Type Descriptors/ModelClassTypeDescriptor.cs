@@ -22,8 +22,6 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (ModelElement is ModelClass modelClass)
          {
-            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelClass);
-
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
 
 

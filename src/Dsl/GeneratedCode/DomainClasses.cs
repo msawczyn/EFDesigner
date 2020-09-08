@@ -9322,7 +9322,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for PropertyAccessMode
 		/// </summary>
-		private PropertyAccessMode propertyAccessModePropertyStorage = PropertyAccessMode.Property;
+		private PropertyAccessMode propertyAccessModePropertyStorage = PropertyAccessMode.FieldDuringConstruction;
 		
 		/// <summary>
 		/// Gets or sets the value of PropertyAccessMode domain property.
@@ -9332,7 +9332,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[System.ComponentModel.TypeConverter(typeof(PropertyAccessModeTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.Property)]
+		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.FieldDuringConstruction)]
 		[DslModeling::DomainObjectId("fcbce627-878c-468f-84a5-b0e5deedacb0")]
 		public PropertyAccessMode PropertyAccessMode
 		{

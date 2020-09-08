@@ -62,6 +62,8 @@ namespace Testing
          modelBuilder.Entity<global::Sandbox.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<global::Sandbox.Entity1>().HasOne(x => x.Entity2).WithMany();
+         modelBuilder.Entity<global::Sandbox.Entity1>().Metadata.FindNavigation(nameof(global::Sandbox.Entity1.Entity2)).SetField("_entity2");
+         modelBuilder.Entity<global::Sandbox.Entity1>().Metadata.FindNavigation(nameof(global::Sandbox.Entity1.Entity2)).SetPropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
 
          OnModelCreatedImpl(modelBuilder);

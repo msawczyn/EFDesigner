@@ -2266,7 +2266,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for TargetPropertyAccessMode
 		/// </summary>
-		private PropertyAccessMode targetPropertyAccessModePropertyStorage = PropertyAccessMode.Property;
+		private PropertyAccessMode targetPropertyAccessModePropertyStorage = PropertyAccessMode.FieldDuringConstruction;
 		
 		/// <summary>
 		/// Gets or sets the value of TargetPropertyAccessMode domain property.
@@ -2277,7 +2277,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Association/TargetPropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.Property)]
+		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.FieldDuringConstruction)]
 		[DslModeling::DomainObjectId("9110fead-38f5-46b5-b3b1-e9c3c6cea99b")]
 		public PropertyAccessMode TargetPropertyAccessMode
 		{
@@ -4489,7 +4489,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for SourcePropertyAccessMode
 		/// </summary>
-		private PropertyAccessMode sourcePropertyAccessModePropertyStorage = PropertyAccessMode.Property;
+		private PropertyAccessMode sourcePropertyAccessModePropertyStorage = PropertyAccessMode.FieldDuringConstruction;
 		
 		/// <summary>
 		/// Gets or sets the value of SourcePropertyAccessMode domain property.
@@ -4500,7 +4500,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.BidirectionalAssociation/SourcePropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.Property)]
+		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.FieldDuringConstruction)]
 		[DslModeling::DomainObjectId("4c6e4f43-ba09-43bf-bb1c-ca0ead535a0d")]
 		public PropertyAccessMode SourcePropertyAccessMode
 		{

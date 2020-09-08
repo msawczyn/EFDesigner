@@ -124,33 +124,38 @@ namespace Testing
       }
 
       /// <summary>
-      /// Backing field for Property1
+      /// Backing field for Property1a
       /// </summary>
-      protected string _property1;
+      protected string _property1a;
       /// <summary>
-      /// When provided in a partial class, allows value of Property1 to be changed before setting.
+      /// When provided in a partial class, allows value of Property1a to be changed before setting.
       /// </summary>
-      partial void SetProperty1(string oldValue, ref string newValue);
+      partial void SetProperty1a(string oldValue, ref string newValue);
       /// <summary>
-      /// When provided in a partial class, allows value of Property1 to be changed before returning.
+      /// When provided in a partial class, allows value of Property1a to be changed before returning.
       /// </summary>
-      partial void GetProperty1(ref string result);
+      partial void GetProperty1a(ref string result);
 
-      public string Property1
+      /// <summary>
+      /// Max length = 20
+      /// </summary>
+      [MaxLength(20)]
+      [StringLength(20)]
+      public string Property1a
       {
          get
          {
-            string value = _property1;
-            GetProperty1(ref value);
-            return (_property1 = value);
+            string value = _property1a;
+            GetProperty1a(ref value);
+            return (_property1a = value);
          }
          set
          {
-            string oldValue = _property1;
-            SetProperty1(oldValue, ref value);
+            string oldValue = _property1a;
+            SetProperty1a(oldValue, ref value);
             if (oldValue != value)
             {
-               _property1 = value;
+               _property1a = value;
             }
          }
       }

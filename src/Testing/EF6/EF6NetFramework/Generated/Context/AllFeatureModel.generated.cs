@@ -193,6 +193,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.DerivedClass>().Map(x => x.MapInheritedProperties()).ToTable("DerivedClasses").HasKey(t => t.Id1);
          modelBuilder.Entity<global::Testing.DerivedClass>().Property(t => t.Id1).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+         modelBuilder.Entity<global::Testing.HiddenEntity>();
          modelBuilder.Entity<global::Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
          modelBuilder.Entity<global::Testing.Master>().ToTable("Masters").HasKey(t => t.Id);

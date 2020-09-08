@@ -248,11 +248,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          {
             segments.Insert(0, "optionsBuilder");
 
-            if (modelRoot.ChopMethodChains)
-               OutputChopped(segments);
-            else
-               Output(string.Join(".", segments) + ";");
-
+            Output(modelRoot, segments);
             NL();
          }
 
@@ -316,12 +312,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             }
 
             if (segments.Count > 1 || modelClass.IsDependentType)
-            {
-               if (modelRoot.ChopMethodChains)
-                  OutputChopped(segments);
-               else
-                  Output(string.Join(".", segments) + ";");
-            }
+               Output(modelRoot, segments);
 
             if (modelClass.IsDependentType)
                continue;
@@ -377,7 +368,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                            default:
                               if (!initialValue.StartsWith("\"")) initialValue = "\"" + initialValue;
                               if (!initialValue.EndsWith("\"")) initialValue = initialValue + "\"";
-                              segments.Add($"HasDefaultValue(DateTime.Parse({modelAttribute.InitialValue}))");
+                              segments.Add($"HasDefaultValue(DateTime.Parse({initialValue}))");
                               break;
                         }
 
@@ -410,10 +401,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   segments.Insert(0, $"modelBuilder.{(modelClass.IsDependentType ? "Owned" : "Entity")}<{modelClass.FullName}>()");
                   segments.Insert(1, $"Property(t => t.{modelAttribute.Name})");
 
-                  if (modelRoot.ChopMethodChains)
-                     OutputChopped(segments);
-                  else
-                     Output(string.Join(".", segments) + ";");
+                  Output(modelRoot, segments);
                }
 
                if (modelAttribute.Indexed && !modelAttribute.IsIdentity)
@@ -425,10 +413,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   if (modelAttribute.IndexedUnique)
                      segments.Add("IsUnique()");
 
-                  if (modelRoot.ChopMethodChains)
-                     OutputChopped(segments);
-                  else
-                     Output(string.Join(".", segments) + ";");
+                  Output(modelRoot, segments);
                }
             }
 
@@ -551,10 +536,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   }
                }
 
-               if (modelRoot.ChopMethodChains)
-                  OutputChopped(segments);
-               else
-                  Output(string.Join(".", segments) + ";");
+               Output(modelRoot, segments);
 
                if (!association.TargetAutoProperty && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                {
@@ -565,6 +547,23 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName})");
                      segments.Add($"HasField(\"{association.TargetBackingFieldName}\")");
                      segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode})");
+
+                     Output(modelRoot, segments);
+                     segments.Clear();
+                  }
+                  else
+                  {
+                     segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().Metadata.FindNavigation(nameof({modelClass.FullName}.{association.TargetPropertyName}))");
+                     segments.Add($"SetField(\"{association.TargetBackingFieldName}\")");
+                     
+                     Output(modelRoot, segments);
+                     segments.Clear();
+
+                     segments.Add($"modelBuilder.Entity<{modelClass.FullName}>().Metadata.FindNavigation(nameof({modelClass.FullName}.{association.TargetPropertyName}))");
+                     segments.Add($"SetPropertyAccessMode(PropertyAccessMode.{association.TargetPropertyAccessMode})");
+                     
+                     Output(modelRoot, segments);
+                     segments.Clear();
                   }
                }
             }
@@ -674,10 +673,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                   }
                }
 
-               if (modelRoot.ChopMethodChains)
-                  OutputChopped(segments);
-               else
-                  Output(string.Join(".", segments) + ";");
+               Output(modelRoot, segments);
             }
          }
 

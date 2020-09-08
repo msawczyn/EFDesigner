@@ -15,7 +15,20 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (ModelElement is ModelRoot modelRoot)
          {
-            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelRoot);
+            if (!modelRoot.IsEFCore5Plus)
+               propertyDescriptors.Remove("DatabaseCollation");
+
+            if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
+            {
+               propertyDescriptors.Remove("DatabaseInitializerType");
+               propertyDescriptors.Remove("AutomaticMigrationsEnabled");
+               propertyDescriptors.Remove("ProxyGenerationEnabled");
+               propertyDescriptors.Remove("DatabaseType");
+               propertyDescriptors.Remove("InheritanceStrategy");
+
+               if (modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1)
+                  propertyDescriptors.Remove("LazyLoadingEnabled");
+            }
 
             //Add in extra custom properties here...
          }

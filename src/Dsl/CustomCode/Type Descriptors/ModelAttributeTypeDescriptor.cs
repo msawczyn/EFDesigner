@@ -23,8 +23,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (ModelElement is ModelAttribute modelAttribute)
          {
             storeDomainDataDirectory = modelAttribute.Store.DomainDataDirectory;
-
-            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelAttribute);
+            ModelRoot modelRoot = modelAttribute.ModelClass.ModelRoot;
 
             // No sense asking for initial values if we won't use them
             if (!modelAttribute.SupportsInitialValue)
@@ -57,9 +56,17 @@ namespace Sawczyn.EFDesigner.EFModel
                propertyDescriptors.Remove("DatabaseCollation");
             }
 
+            // even if it is a string, collation is only valid for EFCore5+
+            if (!modelRoot.IsEFCore5Plus)
+               propertyDescriptors.Remove("DatabaseCollation");
+
             // don't display IndexedUnique unless the Indexed is true
             if (!modelAttribute.Indexed)
                propertyDescriptors.Remove("IndexedUnique");
+
+            // EF6 doesn't support property access modes
+            if (modelRoot.EntityFrameworkVersion == EFVersion.EF6)
+               propertyDescriptors.Remove("PropertyAccessMode");
 
             // don't display BackingField or PropertyAccessMode unless AutoProperty is false
             if (modelAttribute.AutoProperty)
@@ -92,15 +99,18 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                     , new CategoryAttribute("Database")
                                                                    }));
 
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
-                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.AutoPropertyDomainPropertyId)
-                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsAutoPropertyTrackingDomainPropertyId)
-                                                                 , new Attribute[]
-                                                                   {
-                                                                      new DisplayNameAttribute("AutoProperty")
-                                                                    , new DescriptionAttribute("Overrides default autoproperty setting")
-                                                                    , new CategoryAttribute("Code Generation")
-                                                                   }));
+            if (!modelAttribute.ImplementNotify)
+            {
+               propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.AutoPropertyDomainPropertyId)
+                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsAutoPropertyTrackingDomainPropertyId)
+                                                                    , new Attribute[]
+                                                                      {
+                                                                         new DisplayNameAttribute("AutoProperty")
+                                                                       , new DescriptionAttribute("Overrides default autoproperty setting")
+                                                                       , new CategoryAttribute("Code Generation")
+                                                                      }));
+            }
 
             propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
                                                                  , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.ImplementNotifyDomainPropertyId)
@@ -112,15 +122,19 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                     , new CategoryAttribute("Code Generation")
                                                                    }));
 
-            propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
-                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.DatabaseCollationDomainPropertyId)
-                                                                 , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId)
-                                                                 , new Attribute[]
-                                                                   {
-                                                                      new DisplayNameAttribute("Database Collation")
-                                                                    , new DescriptionAttribute("Overrides the default database collation setting for the column that persists this attribute")
-                                                                    , new CategoryAttribute("Database")
-                                                                   }));
+            if (modelRoot.IsEFCore5Plus)
+            {
+               propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
+                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.DatabaseCollationDomainPropertyId)
+                                                                    , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId)
+                                                                    , new Attribute[]
+                                                                      {
+                                                                         new DisplayNameAttribute("Database Collation")
+                                                                       , new
+                                                                            DescriptionAttribute("Overrides the default database collation setting for the column that persists this attribute")
+                                                                       , new CategoryAttribute("Database")
+                                                                      }));
+            }
          }
 
          // Return the property descriptors for this element  

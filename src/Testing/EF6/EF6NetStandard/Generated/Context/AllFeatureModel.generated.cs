@@ -132,6 +132,7 @@ namespace Testing
 
          modelBuilder.HasDefaultSchema("dbo");
 
+         modelBuilder.Entity<global::Testing.AbstractBaseClass>();
 
          modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -153,6 +154,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).IsRequired();
 
+         modelBuilder.Entity<global::Testing.BaseClass>();
 
          modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -183,9 +185,12 @@ namespace Testing
          modelBuilder.Entity<global::Testing.Child>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id"));
 
+         modelBuilder.Entity<global::Testing.ConcreteDerivedClass>();
 
+         modelBuilder.Entity<global::Testing.ConcreteDerivedClassWithRequiredProperties>();
          modelBuilder.Entity<global::Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired();
 
+         modelBuilder.Entity<global::Testing.DerivedClass>();
 
          modelBuilder.Entity<global::Testing.HiddenEntity>().ToTable("HiddenEntities").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -213,6 +218,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
          modelBuilder.Entity<global::Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
 
+         modelBuilder.Entity<global::Testing.UParentOptional>();
          modelBuilder.Entity<global::Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent();
          modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey());
          modelBuilder.Entity<global::Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional();
