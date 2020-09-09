@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-preview.8.20407.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-preview.8.20407.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EFCore5NetCore3\EFCore5NetCore3.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="sqlcmd -S .\sqlexpress -Q &quot;EXEC msdb.dbo.sp_delete_database_backuphistory @database_name = N'Test'&quot;&#xD;&#xA;sqlcmd -S .\sqlexpress -Q &quot;ALTER DATABASE [Test] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE&quot;&#xD;&#xA;sqlcmd -S .\sqlexpress -Q &quot;DROP DATABASE [Test]&quot;&#xD;&#xA;sqlcmd -S .\sqlexpress -Q &quot;CREATE DATABASE [Test]&quot;&#xD;&#xA;" />
+  </Target>
+
+</Project>

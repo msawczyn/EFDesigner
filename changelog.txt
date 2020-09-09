@@ -5,10 +5,10 @@
       - Added IPAddress to the list of property types
       - Added ability to specify both default database collation and a collation override at the property level 
       - Added ModelRoot.IsEFCore5Plus convenience property. It can be used in custom T4 edits
-      - Many-to-many associations are now allowed 
+      - Many-to-many associations are now allowed if EFCore >= v5
       - Any property type can now be used as an identity 
       - Can now customize backing field names for non-AutoProperty properties 
-      - Properties with backing fields (i.e., not auto-properties) can now choose how EF will read/write those values (see https://docs.microsoft.com/en-us/ef/core/modeling/backing-field).
+      - Properties with backing fields (i.e., non-AutoProperty properties) can now choose how EF will read/write those values (see https://docs.microsoft.com/en-us/ef/core/modeling/backing-field).
 
 2.0.5.5
    - Fix: Foreign key crashes when reference is on the derived table (See https://github.com/msawczyn/EFDesigner/issues/212)

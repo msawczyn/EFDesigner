@@ -83,7 +83,28 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual global::Testing.BChild BChildOptional { get; set; }
+      protected global::Testing.BChild _bChildOptional;
+      partial void SetBChildOptional(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+      partial void GetBChildOptional(ref global::Testing.BChild result);
+
+      public virtual global::Testing.BChild BChildOptional
+      {
+         get
+         {
+            global::Testing.BChild value = _bChildOptional;
+            GetBChildOptional(ref value);
+            return (_bChildOptional = value);
+         }
+         set
+         {
+            global::Testing.BChild oldValue = _bChildOptional;
+            SetBChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _bChildOptional = value;
+            }
+         }
+      }
 
       /// <summary>
       /// Required
