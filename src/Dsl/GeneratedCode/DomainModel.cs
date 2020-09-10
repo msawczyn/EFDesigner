@@ -215,6 +215,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelAttribute), "DatabaseCollation", ModelAttribute.DatabaseCollationDomainPropertyId, typeof(ModelAttribute.DatabaseCollationPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsDatabaseCollationTracking", ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId, typeof(ModelAttribute.IsDatabaseCollationTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "PropertyAccessMode", ModelAttribute.PropertyAccessModeDomainPropertyId, typeof(ModelAttribute.PropertyAccessModePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "ExposeAs", ModelAttribute.ExposeAsDomainPropertyId, typeof(ModelAttribute.ExposeAsPropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
@@ -1582,5 +1583,29 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyAccessMode/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		Property = 2,
+	}
+}
+namespace Sawczyn.EFDesigner.EFModel
+{
+	/// <summary>
+	/// DomainEnumeration: PropertyExposure
+	/// How the code generator will present this property to Entity Framework (EFCore5+
+	/// only)
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum PropertyExposure
+	{
+		/// <summary>
+		/// Property
+		/// Generated code will create and use this attribute as a .NET property,
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyExposure/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Property,
+		/// <summary>
+		/// Field
+		/// Generated code will create and use this attribute as a .NET field
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyExposure/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Field,
 	}
 }

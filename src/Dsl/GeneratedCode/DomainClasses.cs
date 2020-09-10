@@ -9491,6 +9491,95 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region ExposeAs domain property code
+		
+		/// <summary>
+		/// ExposeAs domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ExposeAsDomainPropertyId = new global::System.Guid(0x247afa44, 0x837d, 0x4472, 0x94, 0xc7, 0x74, 0xf3, 0x19, 0xc1, 0x05, 0x10);
+		
+		/// <summary>
+		/// Storage for ExposeAs
+		/// </summary>
+		private PropertyExposure exposeAsPropertyStorage = PropertyExposure.Property;
+		
+		/// <summary>
+		/// Gets or sets the value of ExposeAs domain property.
+		/// How should this property be exposed in code?
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ExposeAs.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ExposeAs.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ExposeAs.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(PropertyExposure.Property)]
+		[DslModeling::DomainObjectId("247afa44-837d-4472-94c7-74f319c10510")]
+		public PropertyExposure ExposeAs
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return exposeAsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ExposeAsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelAttribute.ExposeAs domain property.
+		/// </summary>
+		internal sealed partial class ExposeAsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, PropertyExposure>
+		{
+			private ExposeAsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelAttribute.ExposeAs domain property value handler.
+			/// </summary>
+			public static readonly ExposeAsPropertyHandler Instance = new ExposeAsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelAttribute.ExposeAs domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ExposeAsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed PropertyExposure GetValue(ModelAttribute element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.exposeAsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelAttribute element, PropertyExposure newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				PropertyExposure oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.exposeAsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region ModelClass opposite domain role accessor
 		/// <summary>
 		/// Gets or sets ModelClass.

@@ -4501,6 +4501,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // ExposeAs
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribExposeAs = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "exposeAs");
+	         if (attribExposeAs != null)
+	         {
+	            PropertyExposure valueOfExposeAs;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyExposure>(serializationContext, attribExposeAs, out valueOfExposeAs))
+	            {
+	               instanceOfModelAttribute.ExposeAs = valueOfExposeAs;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "exposeAs", typeof(PropertyExposure), attribExposeAs);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -5332,6 +5349,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "FieldDuringConstruction") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessMode", serializedPropValue);
+	            }
+	         }
+	      }
+	      // ExposeAs
+	      if (!serializationContext.Result.Failed)
+	      {
+	         PropertyExposure propValue = instanceOfModelAttribute.ExposeAs;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyExposure>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "exposeAs", serializedPropValue);
 	            }
 	         }
 	      }

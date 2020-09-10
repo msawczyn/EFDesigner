@@ -738,6 +738,11 @@
             <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="247afa44-837d-4472-94c7-74f319c10510" Description="How should this property be exposed in code?" Name="ExposeAs" DisplayName="Expose As" DefaultValue="Property" Category="Code Generation">
+          <Type>
+            <DomainEnumerationMoniker Name="PropertyExposure" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="e2c13b26-0944-4b6c-89b5-bb95c500f515" Description="" Name="Comment" DisplayName="Comment" Namespace="Sawczyn.EFDesigner.EFModel">
@@ -1664,6 +1669,12 @@
         <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="PropertyExposure" Namespace="Sawczyn.EFDesigner.EFModel" Description="How the code generator will present this property to Entity Framework (EFCore5+ only)">
+      <Literals>
+        <EnumerationLiteral Description="Generated code will create and use this attribute as a .NET property," Name="Property" Value="" />
+        <EnumerationLiteral Description="Generated code will create and use this attribute as a .NET field" Name="Field" Value="" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="8055f08f-3d3a-435f-8b47-7afcd0e051bd" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Sawczyn.EFDesigner.EFModel" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" TextColor="White" ExposesTextColor="true" FillColor="0, 122, 204" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" ExposesOutlineColorAsProperty="true" ExposesFillColorAsProperty="true" ExposesOutlineDashStyleAsProperty="true" ExposesOutlineThicknessAsProperty="true" Geometry="Rectangle">
@@ -2293,6 +2304,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="propertyAccessMode">
             <DomainPropertyMoniker Name="ModelAttribute/PropertyAccessMode" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="exposeAs">
+            <DomainPropertyMoniker Name="ModelAttribute/ExposeAs" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

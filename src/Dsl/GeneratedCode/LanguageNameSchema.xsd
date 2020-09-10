@@ -784,6 +784,12 @@
             <xsd:documentation>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: ExposeAs -->
+        <xsd:attribute name="exposeAs" type="PropertyExposure" >
+          <xsd:annotation>
+            <xsd:documentation>How should this property be exposed in code?</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -2331,6 +2337,25 @@
       <xsd:enumeration value="Property">
         <xsd:annotation>
           <xsd:documentation>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum PropertyExposure -->
+  <xsd:simpleType name="PropertyExposure">
+    <xsd:annotation>
+      <xsd:documentation>How the code generator will present this property to Entity Framework (EFCore5+ only)</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Property">
+        <xsd:annotation>
+          <xsd:documentation>Generated code will create and use this attribute as a .NET property,</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Field">
+        <xsd:annotation>
+          <xsd:documentation>Generated code will create and use this attribute as a .NET field</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>
