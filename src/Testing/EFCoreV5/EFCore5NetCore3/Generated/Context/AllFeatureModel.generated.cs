@@ -28,6 +28,8 @@ namespace Testing
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BackingFieldTester> BackingFieldTesters { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BackingFieldTesterChild> BackingFieldTesterChilds { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BaseClass> BaseClasses { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BChild> BChilds { get; set; }
@@ -116,6 +118,19 @@ namespace Testing
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired().HasField("_singleAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).IsRequired().HasField("_stringAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired().HasField("_timeAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().ToTable("BackingFieldTesters").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().Property(t => t.Property1_FDC).HasField("_property1_FDC").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().HasOne(x => x.ToBackingFieldOnConstruction).WithOne().HasForeignKey<global::Testing.BackingFieldTester>("BackingFieldTesterChild_ToBackingFieldOnConstruction_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().Navigation(x => x.ToBackingFieldOnConstruction).HasField("_toBackingFieldOnConstruction").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().HasOne(x => x.ToBackingFieldAlways).WithOne().HasForeignKey<global::Testing.BackingFieldTester>("BackingFieldTesterChild_ToBackingFieldAlways_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().Navigation(x => x.ToBackingFieldAlways).HasField("_toBackingFieldAlways").UsePropertyAccessMode(PropertyAccessMode.PreferField);
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().HasOne(x => x.ToProperty).WithOne().HasForeignKey<global::Testing.BackingFieldTester>("BackingFieldTesterChild_ToProperty_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.BackingFieldTester>().Navigation(x => x.ToProperty).HasField("_toProperty").UsePropertyAccessMode(PropertyAccessMode.PreferProperty);
+
+         modelBuilder.Entity<global::Testing.BackingFieldTesterChild>().ToTable("BackingFieldTesterChilds").HasKey(t => t.Id);
+         modelBuilder.Entity<global::Testing.BackingFieldTesterChild>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
 
 
          modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);

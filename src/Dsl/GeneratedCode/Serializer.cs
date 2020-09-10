@@ -851,6 +851,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // PropertyAccessModeDefault
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribPropertyAccessModeDefault = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "propertyAccessModeDefault");
+	         if (attribPropertyAccessModeDefault != null)
+	         {
+	            PropertyAccessMode valueOfPropertyAccessModeDefault;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyAccessMode>(serializationContext, attribPropertyAccessModeDefault, out valueOfPropertyAccessModeDefault))
+	            {
+	               instanceOfModelRoot.PropertyAccessModeDefault = valueOfPropertyAccessModeDefault;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "propertyAccessModeDefault", typeof(PropertyAccessMode), attribPropertyAccessModeDefault);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2030,6 +2047,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "databaseCollationDefault", propValue);
 	            }
+	         }
+	      }
+	      // PropertyAccessModeDefault
+	      if (!serializationContext.Result.Failed)
+	      {
+	         PropertyAccessMode propValue = instanceOfModelRoot.PropertyAccessModeDefault;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyAccessMode>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessModeDefault", serializedPropValue);
 	         }
 	      }
 	   }

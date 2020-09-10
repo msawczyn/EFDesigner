@@ -3889,6 +3889,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region PropertyAccessModeDefault domain property code
+		
+		/// <summary>
+		/// PropertyAccessModeDefault domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PropertyAccessModeDefaultDomainPropertyId = new global::System.Guid(0x51108d30, 0x911e, 0x496c, 0x9b, 0x41, 0x99, 0xd2, 0x97, 0xf2, 0x87, 0xc3);
+		
+		/// <summary>
+		/// Storage for PropertyAccessModeDefault
+		/// </summary>
+		private PropertyAccessMode propertyAccessModeDefaultPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of PropertyAccessModeDefault domain property.
+		/// Default property access mode for backing fields
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("51108d30-911e-496c-9b41-99d297f287c3")]
+		public PropertyAccessMode PropertyAccessModeDefault
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return propertyAccessModeDefaultPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PropertyAccessModeDefaultPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.PropertyAccessModeDefault domain property.
+		/// </summary>
+		internal sealed partial class PropertyAccessModeDefaultPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, PropertyAccessMode>
+		{
+			private PropertyAccessModeDefaultPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.PropertyAccessModeDefault domain property value handler.
+			/// </summary>
+			public static readonly PropertyAccessModeDefaultPropertyHandler Instance = new PropertyAccessModeDefaultPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.PropertyAccessModeDefault domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PropertyAccessModeDefaultDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed PropertyAccessMode GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.propertyAccessModeDefaultPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, PropertyAccessMode newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				PropertyAccessMode oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.propertyAccessModeDefaultPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -9331,6 +9419,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[System.ComponentModel.TypeConverter(typeof(PropertyAccessModeTypeConverter))]
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(PropertyAccessMode.FieldDuringConstruction)]
 		[DslModeling::DomainObjectId("fcbce627-878c-468f-84a5-b0e5deedacb0")]

@@ -159,6 +159,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelRoot), "GridSize", ModelRoot.GridSizeDomainPropertyId, typeof(ModelRoot.GridSizePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "ShowForeignKeyPropertyNames", ModelRoot.ShowForeignKeyPropertyNamesDomainPropertyId, typeof(ModelRoot.ShowForeignKeyPropertyNamesPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "DatabaseCollationDefault", ModelRoot.DatabaseCollationDefaultDomainPropertyId, typeof(ModelRoot.DatabaseCollationDefaultPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelRoot), "PropertyAccessModeDefault", ModelRoot.PropertyAccessModeDefaultDomainPropertyId, typeof(ModelRoot.PropertyAccessModeDefaultPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "DatabaseSchema", ModelClass.DatabaseSchemaDomainPropertyId, typeof(ModelClass.DatabaseSchemaPropertyHandler)),

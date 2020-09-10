@@ -315,6 +315,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="51108d30-911e-496c-9b41-99d297f287c3" Description="Default property access mode for backing fields" Name="PropertyAccessModeDefault" DisplayName="Property Access Mode Default" Category="Code Generation">
+          <Type>
+            <DomainEnumerationMoniker Name="PropertyAccessMode" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -721,7 +726,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="FieldDuringConstruction">
+        <DomainProperty Id="fcbce627-878c-468f-84a5-b0e5deedacb0" Description="Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode" Name="PropertyAccessMode" DisplayName="Property Access Mode" DefaultValue="FieldDuringConstruction" Category="Code Generation">
           <Attributes>
             <ClrAttribute Name="System.ComponentModel.TypeConverter">
               <Parameters>
@@ -2095,6 +2100,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="databaseCollationDefault">
             <DomainPropertyMoniker Name="ModelRoot/DatabaseCollationDefault" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="propertyAccessModeDefault">
+            <DomainPropertyMoniker Name="ModelRoot/PropertyAccessModeDefault" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

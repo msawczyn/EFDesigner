@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+
+using Testing;
 
 namespace EFCore3NetStandard_NetCore3Test
 {
@@ -6,7 +9,10 @@ namespace EFCore3NetStandard_NetCore3Test
    {
       static void Main(string[] args)
       {
-         Console.WriteLine("Hello World!");
+         using (AllFeatureModel model = new AllFeatureModel())
+         {
+            Console.WriteLine(model.BaseClasses.Count());
+         }
       }
    }
 }

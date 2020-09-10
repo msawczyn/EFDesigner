@@ -645,6 +645,18 @@
     <value>Database</value>
     <comment>Category for DomainProperty &apos;DatabaseCollationDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.Description" xml:space="preserve">
+    <value>Default property access mode for backing fields</value>
+    <comment>Description for DomainProperty &apos;PropertyAccessModeDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.DisplayName" xml:space="preserve">
+    <value>Property Access Mode Default</value>
+    <comment>DisplayName for DomainProperty &apos;PropertyAccessModeDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/PropertyAccessModeDefault.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;PropertyAccessModeDefault&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
@@ -1276,6 +1288,10 @@
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.DisplayName" xml:space="preserve">
     <value>Property Access Mode</value>
     <comment>DisplayName for DomainProperty &apos;PropertyAccessMode&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyAccessMode.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;PropertyAccessMode&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>

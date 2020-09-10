@@ -51,14 +51,7 @@ namespace Sawczyn.EFDesigner.EFModel
                propertyDescriptors.Remove("MinLength");
                propertyDescriptors.Remove("MaxLength");
                propertyDescriptors.Remove("StringType");
-
-               // collation isn't relevant except for strings
-               propertyDescriptors.Remove("DatabaseCollation");
             }
-
-            // even if it is a string, collation is only valid for EFCore5+
-            if (!modelRoot.IsEFCore5Plus)
-               propertyDescriptors.Remove("DatabaseCollation");
 
             // don't display IndexedUnique unless the Indexed is true
             if (!modelAttribute.Indexed)
@@ -122,7 +115,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                     , new CategoryAttribute("Code Generation")
                                                                    }));
 
-            if (modelRoot.IsEFCore5Plus)
+            if (modelRoot.IsEFCore5Plus && modelAttribute.Type == "String")
             {
                propertyDescriptors.Add(new TrackingPropertyDescriptor(modelAttribute
                                                                     , storeDomainDataDirectory.GetDomainProperty(ModelAttribute.DatabaseCollationDomainPropertyId)
@@ -130,8 +123,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                     , new Attribute[]
                                                                       {
                                                                          new DisplayNameAttribute("Database Collation")
-                                                                       , new
-                                                                            DescriptionAttribute("Overrides the default database collation setting for the column that persists this attribute")
+                                                                       , new DescriptionAttribute("Overrides the default database collation setting for the column that persists this attribute")
                                                                        , new CategoryAttribute("Database")
                                                                       }));
             }

@@ -333,6 +333,12 @@
             <xsd:documentation>The default collation for database storage.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: PropertyAccessModeDefault -->
+        <xsd:attribute name="propertyAccessModeDefault" type="PropertyAccessMode" >
+          <xsd:annotation>
+            <xsd:documentation>Default property access mode for backing fields</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

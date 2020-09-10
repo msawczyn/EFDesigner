@@ -17,9 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="AllFeatureModel.efmodel.diagram">
-      <DependentUpon>AllFeatureModel.efmodel</DependentUpon>
-    </None>
     <None Update="AllFeatureModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
@@ -36,6 +33,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
