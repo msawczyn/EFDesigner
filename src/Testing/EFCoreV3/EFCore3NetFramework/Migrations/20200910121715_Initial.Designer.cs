@@ -10,7 +10,7 @@ using Testing;
 namespace EFCore3NetFramework.Migrations
 {
     [DbContext(typeof(AllFeatureModel))]
-    [Migration("20200115122508_Initial")]
+    [Migration("20200910121715_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace EFCore3NetFramework.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -419,17 +419,17 @@ namespace EFCore3NetFramework.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UChildOptional_Id")
+                    b.Property<int?>("UChildOptionalId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UChildRequired_Id")
+                    b.Property<int?>("UChildRequiredId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UChildOptional_Id");
+                    b.HasIndex("UChildOptionalId");
 
-                    b.HasIndex("UChildRequired_Id");
+                    b.HasIndex("UChildRequiredId");
 
                     b.ToTable("UParentCollections");
                 });
@@ -566,37 +566,42 @@ namespace EFCore3NetFramework.Migrations
                 {
                     b.HasOne("Testing.BParentOptional", "BParentOptional_1")
                         .WithMany("BChildCollection")
-                        .HasForeignKey("BParentOptional_1_Id");
+                        .HasForeignKey("BParentOptional_1_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Testing.BParentOptional", "BParentOptional_2")
                         .WithOne("BChildOptional")
-                        .HasForeignKey("Testing.BChild", "BParentOptional_2_Id");
+                        .HasForeignKey("Testing.BChild", "BParentOptional_2_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Testing.BParentRequired", "BParentRequired_1")
                         .WithOne("BChildRequired")
                         .HasForeignKey("Testing.BChild", "BParentRequired_1_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Testing.BParentRequired", "BParentRequired_2")
                         .WithMany("BChildCollection")
-                        .HasForeignKey("BParentRequired_2_Id");
+                        .HasForeignKey("BParentRequired_2_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Testing.BParentRequired", "BParentRequired")
                         .WithOne("BChildOptional")
-                        .HasForeignKey("Testing.BChild", "BParentRequired_Id");
+                        .HasForeignKey("Testing.BChild", "BParentRequired_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Testing.BParentCollection", b =>
                 {
                     b.HasOne("Testing.BChild", "BChildOptional")
                         .WithMany("BParentCollection_2")
-                        .HasForeignKey("BChildOptional_Id");
+                        .HasForeignKey("BChildOptional_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Testing.BChild", "BChildRequired")
                         .WithMany("BParentCollection")
                         .HasForeignKey("BChildRequired_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -605,7 +610,7 @@ namespace EFCore3NetFramework.Migrations
                     b.HasOne("Testing.BChild", "BChildRequired")
                         .WithOne("BParentOptional")
                         .HasForeignKey("Testing.BParentOptional", "BChildRequired_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -614,7 +619,7 @@ namespace EFCore3NetFramework.Migrations
                     b.HasOne("Testing.Master", null)
                         .WithMany("Children")
                         .HasForeignKey("Child_Children_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Testing.Child", "Parent")
@@ -627,13 +632,13 @@ namespace EFCore3NetFramework.Migrations
                     b.HasOne("Testing.UParentOptional", null)
                         .WithMany("UChildCollection")
                         .HasForeignKey("UChild_UChildCollection_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Testing.UParentRequired", null)
                         .WithMany("UChildCollection")
                         .HasForeignKey("UChild_UChildCollection_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -641,11 +646,12 @@ namespace EFCore3NetFramework.Migrations
                 {
                     b.HasOne("Testing.UChild", "UChildOptional")
                         .WithMany()
-                        .HasForeignKey("UChildOptional_Id");
+                        .HasForeignKey("UChildOptionalId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Testing.UChild", "UChildRequired")
                         .WithMany()
-                        .HasForeignKey("UChildRequired_Id");
+                        .HasForeignKey("UChildRequiredId");
                 });
 
             modelBuilder.Entity("Testing.UParentRequired", b =>
@@ -653,13 +659,13 @@ namespace EFCore3NetFramework.Migrations
                     b.HasOne("Testing.UChild", "UChildOptional")
                         .WithOne()
                         .HasForeignKey("Testing.UParentRequired", "UChild_UChildOptional_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Testing.UChild", "UChildRequired")
                         .WithOne()
                         .HasForeignKey("Testing.UParentRequired", "UChild_UChildRequired_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -667,11 +673,13 @@ namespace EFCore3NetFramework.Migrations
                 {
                     b.HasOne("Testing.UChild", "UChildRequired")
                         .WithOne()
-                        .HasForeignKey("Testing.UParentOptional", "UChildRequired_Id");
+                        .HasForeignKey("Testing.UParentOptional", "UChildRequired_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Testing.UChild", "UChildOptional")
                         .WithOne()
-                        .HasForeignKey("Testing.UParentOptional", "UChild_UChildOptional_Id");
+                        .HasForeignKey("Testing.UParentOptional", "UChild_UChildOptional_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

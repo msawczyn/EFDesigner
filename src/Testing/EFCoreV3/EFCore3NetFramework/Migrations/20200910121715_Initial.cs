@@ -176,7 +176,7 @@ namespace EFCore3NetFramework.Migrations
                         principalSchema: "dbo",
                         principalTable: "Masters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Children_Children_Parent_Id",
                         column: x => x.Parent_Id,
@@ -251,7 +251,7 @@ namespace EFCore3NetFramework.Migrations
                         principalSchema: "dbo",
                         principalTable: "BParentRequireds",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_BChilds_BParentRequireds_BParentRequired_2_Id",
                         column: x => x.BParentRequired_2_Id,
@@ -321,22 +321,22 @@ namespace EFCore3NetFramework.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UChildRequired_Id = table.Column<int>(nullable: true),
-                    UChildOptional_Id = table.Column<int>(nullable: true)
+                    UChildRequiredId = table.Column<int>(nullable: true),
+                    UChildOptionalId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UParentCollections", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UParentCollections_UChilds_UChildOptional_Id",
-                        column: x => x.UChildOptional_Id,
+                        name: "FK_UParentCollections_UChilds_UChildOptionalId",
+                        column: x => x.UChildOptionalId,
                         principalSchema: "dbo",
                         principalTable: "UChilds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UParentCollections_UChilds_UChildRequired_Id",
-                        column: x => x.UChildRequired_Id,
+                        name: "FK_UParentCollections_UChilds_UChildRequiredId",
+                        column: x => x.UChildRequiredId,
                         principalSchema: "dbo",
                         principalTable: "UChilds",
                         principalColumn: "Id",
@@ -362,14 +362,14 @@ namespace EFCore3NetFramework.Migrations
                         principalSchema: "dbo",
                         principalTable: "UChilds",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UParentRequireds_UChilds_UChild_UChildRequired_Id",
                         column: x => x.UChild_UChildRequired_Id,
                         principalSchema: "dbo",
                         principalTable: "UChilds",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -461,16 +461,16 @@ namespace EFCore3NetFramework.Migrations
                 column: "UChild_UChildCollection_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UParentCollections_UChildOptional_Id",
+                name: "IX_UParentCollections_UChildOptionalId",
                 schema: "dbo",
                 table: "UParentCollections",
-                column: "UChildOptional_Id");
+                column: "UChildOptionalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UParentCollections_UChildRequired_Id",
+                name: "IX_UParentCollections_UChildRequiredId",
                 schema: "dbo",
                 table: "UParentCollections",
-                column: "UChildRequired_Id");
+                column: "UChildRequiredId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UParentRequireds_UChild_UChildOptional_Id",
@@ -504,7 +504,7 @@ namespace EFCore3NetFramework.Migrations
                 principalSchema: "dbo",
                 principalTable: "BChilds",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_BParentOptionals_BChilds_BChildRequired_Id",
@@ -514,7 +514,7 @@ namespace EFCore3NetFramework.Migrations
                 principalSchema: "dbo",
                 principalTable: "BChilds",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_UChilds_HiddenEntities_UChild_UChildCollection_Id",
@@ -524,7 +524,7 @@ namespace EFCore3NetFramework.Migrations
                 principalSchema: "dbo",
                 principalTable: "HiddenEntities",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_UChilds_UParentRequireds_UChild_UChildCollection_Id",
@@ -534,7 +534,7 @@ namespace EFCore3NetFramework.Migrations
                 principalSchema: "dbo",
                 principalTable: "UParentRequireds",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

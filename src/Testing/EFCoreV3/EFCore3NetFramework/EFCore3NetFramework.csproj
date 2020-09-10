@@ -46,7 +46,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Custom\Context\AllFeatureModel.cs" />
+    <Compile Include="Context\AllFeatureModel.cs" />
     <Compile Include="Generated\Context\AllFeatureModel.generated.cs" />
     <Compile Include="Generated\Entities\AbstractBaseClass.generated.cs" />
     <Compile Include="Generated\Entities\AllPropertyTypesOptional.generated.cs" />
@@ -71,9 +71,9 @@
     <Compile Include="Generated\Entities\UParentOptional.generated.cs" />
     <Compile Include="Generated\Entities\UParentRequired.generated.cs" />
     <Compile Include="Generated\Enums\Enum1.generated.cs" />
-    <Compile Include="Migrations\20200115122508_Initial.cs" />
-    <Compile Include="Migrations\20200115122508_Initial.designer.cs">
-      <DependentUpon>20200115122508_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\20200910121715_Initial.cs" />
+    <Compile Include="Migrations\20200910121715_Initial.designer.cs">
+      <DependentUpon>20200910121715_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AllFeatureModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,15 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Generated\Context\Placeholder.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Custom\Structs\Placeholder.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Custom\Enums\Placeholder.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Custom\Entities\Placeholder.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -131,5 +122,6 @@
       <Version>3.1.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Testing;
 
 namespace EFCore3NetFramework_Test
 {
@@ -10,6 +9,11 @@ namespace EFCore3NetFramework_Test
    {
       static void Main(string[] args)
       {
+         using (AllFeatureModel model = new AllFeatureModel())
+         {
+            Console.WriteLine(model.BaseClasses.Count());
+         }
       }
    }
 }
+
