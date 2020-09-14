@@ -1,5 +1,5 @@
-[Reflection.Assembly]::Load("EnvDTE")                                               
-$DTE.ExecuteCommand("TextTransformation.TransformAllTemplates") 
+# [Reflection.Assembly]::Load("EnvDTE")                                               
+# $DTE.ExecuteCommand("TextTransformation.TransformAllTemplates")
 
 $xml = (get-content Dsl\DslDefinition.dsl -Raw)
 

@@ -193,11 +193,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PackageExtensionEnablement.tt</DependentUpon>
     </Compile>
-    <Compile Include="MefExtension\ValidationExtensionEnablement.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
-    </Compile>
     <Compile Include="MefExtension\ValidationExtensionRegistrar.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,13 +202,6 @@
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="MefExtension\CommandExtensionVSCT.vsct">
-      <Generator>VsctGenerator</Generator>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CommandExtensionVSCT.tt</DependentUpon>
-      <LastGenOutput>CommandExtensionVSCT.cs</LastGenOutput>
     </Content>
     <Content Include="MefExtension\PackageExtensionEnablement.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -250,11 +238,6 @@
     <Content Include="Parsers\EFCore3Parser.exe">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ProjectItemTemplates\CSharp.vstemplate">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CSharp.tt</DependentUpon>
-    </Content>
     <Content Include="ProjectItemTemplates\EFModel.xsd">
       <SubType>Designer</SubType>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -264,13 +247,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ReadMe - Build Events.txt" />
-    <None Include="source.extension.vsixmanifest">
-      <Generator>VsixManifestGenerator</Generator>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>source.extension.tt</DependentUpon>
-      <LastGenOutput>source.extension.cs</LastGenOutput>
-    </None>
     <Content Include="System.Spatial.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -281,6 +257,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="MefExtension\CommandExtensionVSCT.vsct">
+      <DependentUpon>CommandExtensionVSCT.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
     <None Include="ProjectItemTemplates\efmodel.tt">
       <Parameters>
             &lt;%3fxml version="1.0" encoding="utf-16"%3f&gt;
@@ -290,6 +271,12 @@
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>
+    </None>
+    <None Include="source.extension.vsixmanifest">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="GeneratedCode\Constants.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -328,6 +315,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelExplorer.cs</LastGenOutput>
     </None>
+    <Compile Include="MefExtension\ValidationExtensionEnablement.cs">
+      <DependentUpon>ValidationExtensionEnablement.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="GeneratedCode\EditorFactory.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -397,6 +389,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <VSItemTemplate Include="ProjectItemTemplates\CSharp.vstemplate">
+      <OutputName>EFModel</OutputName>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharp.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </VSItemTemplate>
     <Content Include="Resources\File.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

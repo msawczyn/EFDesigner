@@ -33,9 +33,17 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.0.5.5")]
-[assembly: AssemblyFileVersion("2.0.5.5")]
+[assembly: AssemblyVersion("2.0.5.6")]
+[assembly: AssemblyFileVersion("2.0.5.6")]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]
+
+
+
+
+
+
+
+
 
 
 
