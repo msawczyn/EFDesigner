@@ -6,6 +6,8 @@ using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Immutability;
 using Microsoft.VisualStudio.Modeling.Validation;
+
+using Sawczyn.EFDesigner.EFModel.Annotations;
 using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -25,30 +27,20 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <value>The name of the compartment holding this model element.</value>
       public string CompartmentName => this.GetFirstShapeElement().AccessibleName;
 
-      // ReSharper disable once UnusedMember.Global
+      /// <summary>
+      /// Short display text for this attribute
+      /// </summary>
       public string GetDisplayText()
       {
          return $"{ModelClass.Name}.{Name}";
       }
 
+
+      internal string BackingFieldNameDefault => string.IsNullOrEmpty(Name) ? string.Empty : $"_{Name.Substring(0, 1).ToLowerInvariant()}{Name.Substring(1)}";
+
       internal string _backingFieldName;
-
-      internal string BackingFieldNameDefault =>
-         string.IsNullOrEmpty(Name)
-            ? string.Empty
-            : $"_{Name.Substring(0, 1).ToLowerInvariant()}{Name.Substring(1)}";
-
-      private string GetBackingFieldNameValue()
-      {
-         return string.IsNullOrEmpty(_backingFieldName)
-                   ? BackingFieldNameDefault
-                   : (_backingFieldName ?? string.Empty);
-      }
-
-      private void SetBackingFieldNameValue(string value)
-      {
-         _backingFieldName = value;
-      }
+      private string GetBackingFieldNameValue() => string.IsNullOrEmpty(_backingFieldName) ? BackingFieldNameDefault : _backingFieldName;
+      private void SetBackingFieldNameValue(string value) => _backingFieldName = value;
 
       #region Warning display
 
@@ -377,7 +369,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (!string.IsNullOrWhiteSpace(summaryBoilerplate))
          {
-            int boilerplateLength = summaryBoilerplate?.Length ?? 0;
+            int boilerplateLength = summaryBoilerplate.Length;
             Summary = !string.IsNullOrWhiteSpace(Summary) && Summary.Length >= boilerplateLength
                             ? Summary.Substring(boilerplateLength).TrimStart('.', ' ')
                             : null;
@@ -498,6 +490,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private string databaseCollation;
 
+      /// <summary>
+      /// Getter for DatabaseCollation custom storage property
+      /// </summary>
       public string GetDatabaseCollationValue()
       {
          if (!this.IsLoading() && IsAutoPropertyTracking)
@@ -519,6 +514,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
       }
 
+      /// <summary>
+      /// Setter for DatabaseCollation custom storage property
+      /// </summary>
+      /// <param name="value"></param>
       public void SetDatabaseCollationValue(string value)
       {
          databaseCollation = value;
@@ -936,6 +935,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      [UsedImplicitly]
       private void GeographyTypeDoesNotMatchEFVersion(ValidationContext context)
       {
          if (ModelClass?.ModelRoot == null) return;
@@ -999,8 +999,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region ColumnName tracking property
 
-      // change the column name, if it's tracking the name of the property
-
+      /// <summary>
+      /// Change the column name, if it's tracking the name of the property
+      /// </summary>
+      /// <param name="oldValue"></param>
+      /// <param name="newValue"></param>
       protected virtual void OnNameChanged(string oldValue, string newValue)
       {
          // not really a "tracking property" since we're tracking in the same class, so we're handling it a bit differently
@@ -1023,6 +1026,11 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #region ColumnType tracking property
 
+      /// <summary>
+      /// Notify watchers of change to Type property
+      /// </summary>
+      /// <param name="oldValue"></param>
+      /// <param name="newValue"></param>
       protected virtual void OnTypeChanged(string oldValue, string newValue)
       {
          if (ModelClass != null)
@@ -1105,6 +1113,10 @@ namespace Sawczyn.EFDesigner.EFModel
          return result;
       }
 
+      /// <summary>
+      /// Full display name for this attribute
+      /// </summary>
+      /// <returns></returns>
       public string ToDisplayString()
       {
          string nullable = Required ? string.Empty : "?";

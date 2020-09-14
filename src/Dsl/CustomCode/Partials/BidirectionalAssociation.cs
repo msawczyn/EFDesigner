@@ -33,30 +33,19 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
+      /// <summary>
+      /// Short display text for this attribute
+      /// </summary>
       public override string GetDisplayText()
       {
          return $"{Source.Name}.{TargetPropertyName} <--> {Target.Name}.{SourcePropertyName}";
       }
 
+      internal string SourceBackingFieldNameDefault => string.IsNullOrEmpty(SourcePropertyName) ? string.Empty : $"_{SourcePropertyName.Substring(0, 1).ToLowerInvariant()}{SourcePropertyName.Substring(1)}";
+
       internal string _sourceBackingFieldName;
-
-      internal string SourceBackingFieldNameDefault =>
-         string.IsNullOrEmpty(SourcePropertyName)
-            ? string.Empty
-            : $"_{SourcePropertyName.Substring(0, 1).ToLowerInvariant()}{SourcePropertyName.Substring(1)}";
-
-       private string GetSourceBackingFieldNameValue()
-      {
-         return string.IsNullOrEmpty(_sourceBackingFieldName)
-                   ? SourceBackingFieldNameDefault
-                   : (_sourceBackingFieldName ?? string.Empty);
-      }
-
-      private void SetSourceBackingFieldNameValue(string value)
-      {
-         _sourceBackingFieldName = value;
-      }
-
+      private string GetSourceBackingFieldNameValue() => string.IsNullOrEmpty(_sourceBackingFieldName) ? SourceBackingFieldNameDefault : _sourceBackingFieldName;
+      private void SetSourceBackingFieldNameValue(string value) => _sourceBackingFieldName = value;
 
       #region SourceImplementNotify tracking property
 

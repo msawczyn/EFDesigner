@@ -105,32 +105,20 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       /// <summary>
-      /// How this association should be shown in string representation
+      /// Short display text for this attribute
       /// </summary>
-      /// <returns></returns>
       public virtual string GetDisplayText()
       {
          return $"{Source.Name}.{TargetPropertyName} --> {Target.Name}";
       }
 
+      internal string TargetBackingFieldNameDefault => string.IsNullOrEmpty(TargetPropertyName) ? string.Empty : $"_{TargetPropertyName.Substring(0, 1).ToLowerInvariant()}{TargetPropertyName.Substring(1)}";
+
+#pragma warning disable 1591
       internal string _targetBackingFieldName;
-
-      internal string TargetBackingFieldNameDefault =>
-         string.IsNullOrEmpty(TargetPropertyName)
-            ? string.Empty
-            : $"_{TargetPropertyName.Substring(0, 1).ToLowerInvariant()}{TargetPropertyName.Substring(1)}";
-
-      protected string GetTargetBackingFieldNameValue()
-      {
-         return string.IsNullOrEmpty(_targetBackingFieldName)
-                   ? TargetBackingFieldNameDefault
-                   : (_targetBackingFieldName ?? string.Empty);
-      }
-
-      protected void SetTargetBackingFieldNameValue(string value)
-      {
-         _targetBackingFieldName = value;
-      }
+      protected string GetTargetBackingFieldNameValue() => string.IsNullOrEmpty(_targetBackingFieldName) ? TargetBackingFieldNameDefault : _targetBackingFieldName;
+      protected void SetTargetBackingFieldNameValue(string value) => _targetBackingFieldName = value;
+#pragma warning restore 1591
 
       private string GetNameValue()
       {
