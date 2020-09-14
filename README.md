@@ -53,9 +53,17 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**2.0.5.5**
+**2.0.5.6**
+   - The project item templates for the model file had wandered away. They're back again. (See https://github.com/msawczyn/EFDesigner/issues/216)
+   - Fixed a problem with existing models where class-level "AutoProperty: false" caused bad code generation. (See https://github.com/msawczyn/EFDesigner/issues/215)
+
+<details>
+<summary><b>2.0.5.5</b></summary>
+
    - Fix: Foreign key crashes when reference is on the derived table (See https://github.com/msawczyn/EFDesigner/issues/212)
    - Fixed a edge condition where an error would be thrown when deleting an association
+
+</details>
 
 <details>
 <summary><b>2.0.5.3</b></summary>
@@ -65,6 +73,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
    - Assembly import can now process assemblies with more than one DbContext class
    - Cleaned up some ambiguities in how copy/paste was handled with multiple diagrams
    - Performance improvements
+
+</details>
 
 <details>
 <summary><b>2.0.4.1</b></summary>
