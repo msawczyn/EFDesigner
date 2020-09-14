@@ -926,7 +926,7 @@
                Output("/// <summary>");
                Output($"/// Backing field for {modelAttribute.Name}");
                Output("/// </summary>");
-               Output($"{visibility} {modelAttribute.FQPrimitiveType}{nullable} {modelAttribute.BackingFieldName};");
+               Output($"{visibility} {modelAttribute.FQPrimitiveType}{nullable} {(string.IsNullOrEmpty(modelAttribute.BackingFieldName) ? $"_{modelAttribute.Name}" : modelAttribute.BackingFieldName)};");
                Output("/// <summary>");
                Output($"/// When provided in a partial class, allows value of {modelAttribute.Name} to be changed before setting.");
                Output("/// </summary>");
@@ -978,17 +978,17 @@
                Output("{");
                Output("get");
                Output("{");
-               Output($"{modelAttribute.FQPrimitiveType}{nullable} value = {modelAttribute.BackingFieldName};");
+               Output($"{modelAttribute.FQPrimitiveType}{nullable} value = {(string.IsNullOrEmpty(modelAttribute.BackingFieldName) ? $"_{modelAttribute.Name}" : modelAttribute.BackingFieldName)};");
                Output($"Get{modelAttribute.Name}(ref value);");
-               Output($"return ({modelAttribute.BackingFieldName} = value);");
+               Output($"return ({(string.IsNullOrEmpty(modelAttribute.BackingFieldName) ? $"_{modelAttribute.Name}" : modelAttribute.BackingFieldName)} = value);");
                Output("}");
                Output($"{setterVisibility}set");
                Output("{");
-               Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = {modelAttribute.BackingFieldName};");
+               Output($"{modelAttribute.FQPrimitiveType}{nullable} oldValue = {(string.IsNullOrEmpty(modelAttribute.BackingFieldName) ? $"_{modelAttribute.Name}" : modelAttribute.BackingFieldName)};");
                Output($"Set{modelAttribute.Name}(oldValue, ref value);");
                Output("if (oldValue != value)");
                Output("{");
-               Output($"{modelAttribute.BackingFieldName} = value;");
+               Output($"{(string.IsNullOrEmpty(modelAttribute.BackingFieldName) ? $"_{modelAttribute.Name}" : modelAttribute.BackingFieldName)} = value;");
 
                if (modelAttribute.ImplementNotify)
                   Output("OnPropertyChanged();");

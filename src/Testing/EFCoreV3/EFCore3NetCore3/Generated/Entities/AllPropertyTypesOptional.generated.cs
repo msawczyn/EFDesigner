@@ -33,6 +33,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static AllPropertyTypesOptional CreateAllPropertyTypesOptionalUnsafe()
+      {
+         return new AllPropertyTypesOptional();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="id1"></param>

@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Testing
 {
    /// <inheritdoc/>
-   public partial class AllFeatureModel : Microsoft.EntityFrameworkCore.DbContext
+   public partial class AllFeatureModel : DbContext
    {
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
@@ -154,7 +154,7 @@ namespace Testing
 
          modelBuilder.Entity<global::Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Master>().Property(t => t.Id).IsRequired().HasField("_Id").UsePropertyAccessMode(PropertyAccessMode.Property).ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Testing.Master>().HasMany(x => x.Children).WithOne().HasForeignKey("Child_Children_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.Master>().HasMany(x => x.Children).WithOne().HasForeignKey("Master.Children_Id").IsRequired();
 
          modelBuilder.Owned<global::Testing.OwnedType>();
 
@@ -191,15 +191,15 @@ namespace Testing
          modelBuilder.Entity<global::Testing.UParentCollection>().HasOne(x => x.UChildOptional).WithMany().HasForeignKey("UChildOptional_Id");
 
          modelBuilder.Entity<global::Testing.UParentOptional>().Property(t => t.PropertyInChild).HasField("_PropertyInChild").UsePropertyAccessMode(PropertyAccessMode.Property);
-         modelBuilder.Entity<global::Testing.UParentOptional>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey<global::Testing.UParentOptional>("UChild_UChildOptional_Id");
-         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("UChild_UChildCollection_Id");
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey<global::Testing.UChild>("UParentOptional.UChildOptional_Id");
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("UParentOptional.UChildCollection_Id");
          modelBuilder.Entity<global::Testing.UParentOptional>().HasOne(x => x.UChildRequired).WithOne().HasForeignKey<global::Testing.UParentOptional>("UChildRequired_Id");
 
          modelBuilder.Entity<global::Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.UParentRequired>().Property(t => t.Id).IsRequired().HasField("_Id").UsePropertyAccessMode(PropertyAccessMode.Property).ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Testing.UParentRequired>().HasOne(x => x.UChildRequired).WithOne().HasForeignKey<global::Testing.UParentRequired>("UChild_UChildRequired_Id").IsRequired();
-         modelBuilder.Entity<global::Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("UChild_UChildCollection_Id").IsRequired();
-         modelBuilder.Entity<global::Testing.UParentRequired>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey<global::Testing.UParentRequired>("UChild_UChildOptional_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasOne(x => x.UChildRequired).WithOne().HasForeignKey<global::Testing.UChild>("UParentRequired.UChildRequired_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithOne().HasForeignKey("UParentRequired.UChildCollection_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasOne(x => x.UChildOptional).WithOne().HasForeignKey<global::Testing.UChild>("UParentRequired.UChildOptional_Id").IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }

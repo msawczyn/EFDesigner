@@ -31,6 +31,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static DerivedClass CreateDerivedClassUnsafe()
+      {
+         return new DerivedClass();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="property0"></param>

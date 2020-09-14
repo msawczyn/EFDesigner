@@ -340,7 +340,7 @@
 
                if (!modelAttribute.AutoProperty)
                {
-                  segments.Add($"HasField(\"{modelAttribute.BackingFieldName}\")");
+                  segments.Add($"HasField(\"{(string.IsNullOrEmpty(modelAttribute.BackingFieldName) ? $"_{modelAttribute.Name}" : modelAttribute.BackingFieldName)}\")");
                   segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{(modelAttribute.PersistencePoint == PersistencePointType.Field ? "Field" : "Property")})");
                }
 

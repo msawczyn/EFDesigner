@@ -17,7 +17,7 @@ using System.Data.Entity.Infrastructure.Annotations;
 namespace Testing
 {
    /// <inheritdoc/>
-   public partial class AllFeatureModel : System.Data.Entity.DbContext
+   public partial class AllFeatureModel : DbContext
    {
       #region DbSets
       public virtual System.Data.Entity.DbSet<global::Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
@@ -214,7 +214,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
 
          modelBuilder.Entity<global::Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent();
-         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey());
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey("UParentOptional.UChildCollection_Id"));
          modelBuilder.Entity<global::Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional();
 
          modelBuilder.Entity<global::Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);

@@ -31,6 +31,14 @@ namespace Testing
       }
 
       /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static UParentCollection CreateUParentCollectionUnsafe()
+      {
+         return new UParentCollection();
+      }
+
+      /// <summary>
       /// Public constructor with required data
       /// </summary>
       /// <param name="uchildrequired"></param>

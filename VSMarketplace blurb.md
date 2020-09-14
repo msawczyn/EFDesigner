@@ -32,6 +32,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **2.0.5.6**
    - The project item templates for the model file had wandered away. They're back again.
+   - Fixed a problem with existing models where class-level "AutoProperty: false" caused bad code generation.
 
 **2.0.5.5**
    - Fix: Foreign key crashes when reference is on the derived table (See https://github.com/msawczyn/EFDesigner/issues/212)
