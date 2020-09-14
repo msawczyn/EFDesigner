@@ -54,8 +54,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 ### Change Log
 
 **2.0.5.6**
-   - The project item templates for the model file had wandered away. They're back again.
-   - Fixed a problem with existing models where class-level "AutoProperty: false" caused bad code generation.
+   - The project item templates for the model file had wandered away. They're back again. (See https://github.com/msawczyn/EFDesigner/issues/216)
+   - Fixed a problem with existing models where class-level "AutoProperty: false" caused bad code generation. (See https://github.com/msawczyn/EFDesigner/issues/215)
 
 <details>
 <summary><b>2.0.5.5</b></summary>
