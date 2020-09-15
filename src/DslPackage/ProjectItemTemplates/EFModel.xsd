@@ -186,7 +186,7 @@
         <!-- Property: InheritanceStrategy -->
         <xsd:attribute name="inheritanceStrategy" type="CodeStrategy" >
           <xsd:annotation>
-            <xsd:documentation>How tables will be created/used to handle inheritance</xsd:documentation>
+            <xsd:documentation>How tables will be created and used to handle inheritance</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: DefaultCollectionClass -->

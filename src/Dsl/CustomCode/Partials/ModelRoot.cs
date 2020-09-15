@@ -153,7 +153,10 @@ namespace Sawczyn.EFDesigner.EFModel
                                                        });
 
             if (IsEFCore5Plus)
+            {
                validTypes.Add("System.Net.IPAddress");
+               validTypes.Add("System.Net.NetworkInformation.PhysicalAddress");
+            }
 
             validTypes.AddRange(new[]
                                 {

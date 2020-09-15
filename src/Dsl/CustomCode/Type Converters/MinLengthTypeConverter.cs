@@ -23,7 +23,7 @@ namespace Sawczyn.EFDesigner.EFModel {
       /// <param name="destinationType">A <see cref="T:System.Type" /> that represents the type you want to convert to. </param>
       public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
       {
-         return destinationType == typeof(int);
+         return destinationType == typeof(int) || base.CanConvertTo(context, destinationType);
       }
 
       /// <summary>Converts the given object to the type of this converter, using the specified context and culture information.</summary>

@@ -1,8 +1,9 @@
 2.1.0
    - Fixed inability to paste enumerations using diagram copy/paste
    - Changing an identity property's type now changes the type of any defined foreign-key properties pointing to that identity property
+   - Title text color didn't always change when class/enum fill color changed in the diagram
    - Changes for EFCore5.X (available when selecting EFCore output with version >= 5)
-      - Added IPAddress to the list of property types
+      - Added System.Net.IPAddress and System.Net.NetworkInformation.PhysicalAddress to the list of available property types
       - Added ability to specify both default database collation and a collation override at the property level 
       - Added ModelRoot.IsEFCore5Plus convenience property. It can be used in custom T4 edits
       - Many-to-many associations are now allowed if EFCore >= v5

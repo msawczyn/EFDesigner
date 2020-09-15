@@ -11,9 +11,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          // bright colors (a < 0.5) - black font
          // dark colors (a >= 0.5) - white font
-         int d = a < 0.5 ? 0 : 255;
 
-         return Color.FromArgb(d, d, d);
+         return a < 0.5
+                   ? Color.Black
+                   : Color.White;
       }
    }
 }

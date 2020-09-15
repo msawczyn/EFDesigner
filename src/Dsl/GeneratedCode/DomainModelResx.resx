@@ -326,7 +326,7 @@
     <comment>Category for DomainProperty &apos;ChopMethodChains&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.Description" xml:space="preserve">
-    <value>How tables will be created/used to handle inheritance</value>
+    <value>How tables will be created and used to handle inheritance</value>
     <comment>Description for DomainProperty &apos;InheritanceStrategy&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/InheritanceStrategy.DisplayName" xml:space="preserve">
