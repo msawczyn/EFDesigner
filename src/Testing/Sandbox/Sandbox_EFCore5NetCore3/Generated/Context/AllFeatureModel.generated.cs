@@ -10,6 +10,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Testing
    {
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Base> Bases { get; set; }
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Entity1> Entity1 { get; set; }
+      public virtual DbSet<Dictionary<string, object>> Entity1 => Set<Dictionary<string, object>>("Entity1");
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Entity11> Entity11 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Entity2> Entity2 { get; set; }
       #endregion DbSets
@@ -38,6 +39,10 @@ namespace Testing
       {
       }
 
+      /// <summary>
+      /// Partial method that runs as the last action in OnConfiguring.
+      /// Implement to do any custom setup for the DbContext
+      /// </summary>
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
 
       /// <inheritdoc />
@@ -48,12 +53,23 @@ namespace Testing
          CustomInit(optionsBuilder);
       }
 
+      /// <summary>
+      /// Partial method that runs as the first action in OnModelCreating.
+      /// Implement to do any custom setup prior to defining the object model in the DBContext
+      /// </summary>
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
+
+      /// <summary>
+      /// Partial method that runs as the last action in OnModelCreating.
+      /// Implement to add any custom setup or override any generated code actions when defining the object model in the DBContext
+      /// </summary>
+      /// <param name="modelBuilder"></param>
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
       /// <inheritdoc />
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
+         //System.Diagnostics.Debugger.Launch();
          base.OnModelCreating(modelBuilder);
          OnModelCreatingImpl(modelBuilder);
 
@@ -63,14 +79,13 @@ namespace Testing
          modelBuilder.Entity<global::Testing.Base>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<global::Testing.Base>().HasOne(x => x.Entity11).WithMany(x => x.Bases).HasForeignKey("Entity11_Id");
 
-         modelBuilder.Entity<global::Testing.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Property1).HasMaxLength(25);
-         modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Property2).HasMaxLength(25);
-         modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Property3).HasMaxLength(25);
-         modelBuilder.Entity<global::Testing.Entity1>().HasOne(x => x.Entity2).WithMany();
-         modelBuilder.Entity<global::Testing.Entity1>().Navigation(x => x.Entity2).HasField("_entity2").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
-         modelBuilder.Entity<global::Testing.Entity1>().HasMany(x => x.Entity2_1).WithMany(x => x.Entity1);
+         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Entity1").IndexerProperty<long>("Id").IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Entity1").IndexerProperty<string?>("Property1").HasMaxLength(25);
+         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Entity1").IndexerProperty<string?>("Property2").HasMaxLength(25);
+         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Entity1").IndexerProperty<string?>("Property3").HasMaxLength(25);
+         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Entity1").HasOne(typeof(global::Testing.Entity2), "Entity2").WithMany().HasForeignKey("Entity2_Id");
+         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Entity1").HasMany(typeof(global::Testing.Entity2), "Entity2_1").WithMany("Entity1");
+         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Entity1").ToTable("Entity1").HasKey("Id");
 
          modelBuilder.Entity<global::Testing.Entity11>().ToTable("Entity11").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Entity11>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();

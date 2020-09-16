@@ -30,7 +30,7 @@ namespace Testing
       /// </summary>
       public Entity2(): base()
       {
-         Entity1 = new System.Collections.Generic.HashSet<global::Testing.Entity1>();
+         Entity1 = new System.Collections.Generic.HashSet<Dictionary<string, object>>();
 
          Init();
       }
@@ -57,7 +57,7 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing.Entity1> Entity1 { get; protected set; }
+      public virtual ICollection<Dictionary<string, object>> Entity1 { get; protected set; }
 
    }
 }

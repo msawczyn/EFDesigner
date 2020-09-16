@@ -298,7 +298,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("}");
       }
 
-      private void WriteStandardClassBuilder(ModelRoot modelRoot, List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
+      void WriteStandardClassBuilder(ModelRoot modelRoot, List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
       {
          // class level
 
@@ -706,7 +706,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          }
       }
 
-      private void WritePropertyBagClassBuilder(ModelRoot modelRoot, List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
+      void WritePropertyBagClassBuilder(ModelRoot modelRoot, List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
       {
          // class level
 
