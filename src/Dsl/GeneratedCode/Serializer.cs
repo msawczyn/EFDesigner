@@ -2692,6 +2692,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // IsPropertyBag
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsPropertyBag = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isPropertyBag");
+	         if (attribIsPropertyBag != null)
+	         {
+	            global::System.Boolean valueOfIsPropertyBag;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsPropertyBag, out valueOfIsPropertyBag))
+	            {
+	               instanceOfModelClass.IsPropertyBag = valueOfIsPropertyBag;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isPropertyBag", typeof(global::System.Boolean), attribIsPropertyBag);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -3607,6 +3624,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateCode", serializedPropValue);
+	            }
+	         }
+	      }
+	      // IsPropertyBag
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.IsPropertyBag;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isPropertyBag", serializedPropValue);
 	            }
 	         }
 	      }

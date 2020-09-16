@@ -23,8 +23,11 @@ namespace Sawczyn.EFDesigner.EFModel
          if (ModelElement is ModelClass modelClass)
          {
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
+            ModelRoot modelRoot = modelClass.ModelRoot;
 
-
+            // no property bags if pre-EFCore5
+            if (!modelRoot.IsEFCore5Plus)
+               propertyDescriptors.Remove("IsPropertyBag");
 
             //Add the descriptors for the tracking properties 
 

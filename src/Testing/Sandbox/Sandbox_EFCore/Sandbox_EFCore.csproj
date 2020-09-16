@@ -69,7 +69,6 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Custom\Context\Placeholder.txt" />
     <Content Include="Custom\Entities\Placeholder.txt" />
     <Content Include="Custom\Enums\Placeholder.txt" />
     <Content Include="Custom\Structs\Placeholder.txt" />

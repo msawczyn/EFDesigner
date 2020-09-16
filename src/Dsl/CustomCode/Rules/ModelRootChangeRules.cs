@@ -46,29 +46,67 @@ namespace Sawczyn.EFDesigner.EFModel
 
                break;
 
+            case "EntityFrameworkPackageVersion":
+
+               if (element.EntityFrameworkVersion == EFVersion.EFCore)
+               {
+                  if (element.IsEFCore5Plus)
+                  {
+                     if (element.InheritanceStrategy == CodeStrategy.TablePerConcreteType)
+                        element.InheritanceStrategy = CodeStrategy.TablePerType;
+                  }
+                  else
+                  {
+                     element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+                     store.ElementDirectory.AllElements.OfType<ModelClass>().Where(c => c.IsPropertyBag).ToList().ForEach(c => c.IsPropertyBag = false);
+                  }
+               }
+
+               break;
+
             case "EntityFrameworkVersion":
                element.EntityFrameworkPackageVersion = "Latest";
 
-               if (element.EntityFrameworkVersion == EFVersion.EFCore)
-                  element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
-
-               if (element.EntityFrameworkVersion == EFVersion.EF6)
+               switch (element.EntityFrameworkVersion)
                {
-                  List<Association> associations = store.ElementDirectory
-                                                        .AllElements
-                                                        .OfType<Association>()
-                                                        .Where(a => !string.IsNullOrEmpty(a.FKPropertyName) && a.SourceMultiplicity != Multiplicity.ZeroMany && a.TargetMultiplicity != Multiplicity.ZeroMany)
-                                                        .ToList();
-
-                  string message = $"This will remove declared foreign key properties from {associations.Count} association{(associations.Count == 1 ? "" : "s")}. Are you sure?";
-
-                  if (associations.Any() && BooleanQuestionDisplay.Show(store, message) == true)
+                  case EFVersion.EFCore:
                   {
-                     foreach (Association association in associations)
+                     if (element.IsEFCore5Plus)
                      {
-                        association.FKPropertyName = null;
-                        AssociationChangedRules.FixupForeignKeys(association);
+                        if (element.InheritanceStrategy == CodeStrategy.TablePerConcreteType)
+                           element.InheritanceStrategy = CodeStrategy.TablePerType;
                      }
+                     else
+                     {
+                        element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+                        store.ElementDirectory.AllElements.OfType<ModelClass>().Where(c => c.IsPropertyBag).ToList().ForEach(c => c.IsPropertyBag = false);
+                     }
+
+                     break;
+                  }
+
+                  case EFVersion.EF6:
+                  {
+                     store.ElementDirectory.AllElements.OfType<ModelClass>().Where(c => c.IsPropertyBag).ToList().ForEach(c => c.IsPropertyBag = false);
+
+                     List<Association> associations = store.ElementDirectory
+                                                           .AllElements
+                                                           .OfType<Association>()
+                                                           .Where(a => !string.IsNullOrEmpty(a.FKPropertyName) && a.SourceMultiplicity != Multiplicity.ZeroMany && a.TargetMultiplicity != Multiplicity.ZeroMany)
+                                                           .ToList();
+
+                     string message = $"This will remove declared foreign key properties from {associations.Count} association{(associations.Count == 1 ? "" : "s")}. Are you sure?";
+
+                     if (associations.Any() && BooleanQuestionDisplay.Show(store, message) == true)
+                     {
+                        foreach (Association association in associations)
+                        {
+                           association.FKPropertyName = null;
+                           AssociationChangedRules.FixupForeignKeys(association);
+                        }
+                     }
+
+                     break;
                   }
                }
 
@@ -135,8 +173,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "InheritanceStrategy":
 
-               if ((element.EntityFrameworkVersion != EFVersion.EF6) && (!element.IsEFCore5Plus))
-                  element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+               if (element.EntityFrameworkVersion == EFVersion.EFCore)
+               {
+                  if (element.IsEFCore5Plus && element.InheritanceStrategy == CodeStrategy.TablePerConcreteType)
+                     element.InheritanceStrategy = CodeStrategy.TablePerType;
+
+                  if (!element.IsEFCore5Plus)
+                     element.InheritanceStrategy = CodeStrategy.TablePerHierarchy;
+               }
 
                break;
 

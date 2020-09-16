@@ -6114,6 +6114,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region IsPropertyBag domain property code
+		
+		/// <summary>
+		/// IsPropertyBag domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsPropertyBagDomainPropertyId = new global::System.Guid(0x6d12879a, 0x6e9d, 0x4a6f, 0x9e, 0x4b, 0x5c, 0xf2, 0x84, 0x7a, 0x74, 0xf3);
+		
+		/// <summary>
+		/// Storage for IsPropertyBag
+		/// </summary>
+		private global::System.Boolean isPropertyBagPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsPropertyBag domain property.
+		/// If true, this class will be implemented as Dictionary<string, object>
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsPropertyBag.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsPropertyBag.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsPropertyBag.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6d12879a-6e9d-4a6f-9e4b-5cf2847a74f3")]
+		public global::System.Boolean IsPropertyBag
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isPropertyBagPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsPropertyBagPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.IsPropertyBag domain property.
+		/// </summary>
+		internal sealed partial class IsPropertyBagPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private IsPropertyBagPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.IsPropertyBag domain property value handler.
+			/// </summary>
+			public static readonly IsPropertyBagPropertyHandler Instance = new IsPropertyBagPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.IsPropertyBag domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsPropertyBagDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isPropertyBagPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isPropertyBagPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>

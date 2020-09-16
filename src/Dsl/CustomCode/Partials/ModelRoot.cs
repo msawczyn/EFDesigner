@@ -45,7 +45,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <summary>
       /// True if the model is EFCore and the Entity Framework version is >= 5
       /// </summary>
-      public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5;
+      public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && (EntityFrameworkPackageVersion == "Latest" || GetEntityFrameworkPackageVersionNum() >= 5);
 
       [Obsolete("Use ModelRoot.Classes instead")]
       public LinkedElementCollection<ModelClass> Types => Classes;

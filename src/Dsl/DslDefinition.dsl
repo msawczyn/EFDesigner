@@ -500,6 +500,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="6d12879a-6e9d-4a6f-9e4b-5cf2847a74f3" Description="If true, this class will be implemented as Dictionary&lt;string, object&gt;" Name="IsPropertyBag" DisplayName="Is Property Bag" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -2202,6 +2207,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="generateCode">
             <DomainPropertyMoniker Name="ModelClass/GenerateCode" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isPropertyBag">
+            <DomainPropertyMoniker Name="ModelClass/IsPropertyBag" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

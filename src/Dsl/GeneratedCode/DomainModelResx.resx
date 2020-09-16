@@ -901,6 +901,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPropertyBag.Description" xml:space="preserve">
+    <value>If true, this class will be implemented as Dictionary&lt;string, object&gt;</value>
+    <comment>Description for DomainProperty &apos;IsPropertyBag&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPropertyBag.DisplayName" xml:space="preserve">
+    <value>Is Property Bag</value>
+    <comment>DisplayName for DomainProperty &apos;IsPropertyBag&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsPropertyBag.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IsPropertyBag&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>

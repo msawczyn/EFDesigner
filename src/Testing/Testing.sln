@@ -68,6 +68,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFCore3NetStandard", "EFCor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFCore3NetFramework", "EFCore3NetFramework", "{412ACCF7-125B-4FD4-8DC7-347FAF4B2DAA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox_EFCore5NetCore3", "Sandbox\Sandbox_EFCore5NetCore3\Sandbox_EFCore5NetCore3.csproj", "{0B54239C-C55A-4162-BAB5-2846092C4003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,10 @@ Global
 		{7F1A533A-FB5F-4A5D-8B47-62A73C8C3FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F1A533A-FB5F-4A5D-8B47-62A73C8C3FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F1A533A-FB5F-4A5D-8B47-62A73C8C3FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B54239C-C55A-4162-BAB5-2846092C4003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B54239C-C55A-4162-BAB5-2846092C4003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B54239C-C55A-4162-BAB5-2846092C4003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B54239C-C55A-4162-BAB5-2846092C4003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,6 +198,7 @@ Global
 		{7F1A533A-FB5F-4A5D-8B47-62A73C8C3FDD} = {41E92E98-3FE9-419B-AE11-5B8223E09419}
 		{41E92E98-3FE9-419B-AE11-5B8223E09419} = {2A2E6B71-F9C0-42A2-8081-FDC5EC525DA9}
 		{412ACCF7-125B-4FD4-8DC7-347FAF4B2DAA} = {2A2E6B71-F9C0-42A2-8081-FDC5EC525DA9}
+		{0B54239C-C55A-4162-BAB5-2846092C4003} = {FA680FE6-5105-42DF-9F2D-AE96FAC16E77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1564741-D3E6-4EFB-B1A8-82190DB1A31C}
