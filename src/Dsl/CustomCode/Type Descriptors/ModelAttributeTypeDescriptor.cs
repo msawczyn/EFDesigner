@@ -57,15 +57,63 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!modelAttribute.Indexed)
                propertyDescriptors.Remove("IndexedUnique");
 
-            // EF6 doesn't support property access modes
+            // EF6 doesn't support various attribute features
             if (modelRoot.EntityFrameworkVersion == EFVersion.EF6)
+            {
                propertyDescriptors.Remove("PropertyAccessMode");
+               propertyDescriptors.Remove("PropertyType");
+            }
 
             // don't display BackingField or PropertyAccessMode unless AutoProperty is false
             if (modelAttribute.AutoProperty)
             {
                propertyDescriptors.Remove("BackingFieldName");
                propertyDescriptors.Remove("PropertyAccessMode");
+            }
+
+            // Lots goes away for computed and database-computed properties
+            if (modelAttribute.PropertyType == PropertyType.Computed)
+            {
+               propertyDescriptors.Remove("AutoProperty");
+               propertyDescriptors.Remove("BackingFieldName");
+               propertyDescriptors.Remove("ColumnName");
+               propertyDescriptors.Remove("ColumnType");
+               propertyDescriptors.Remove("DatabaseCollation");
+               propertyDescriptors.Remove("IdentityType");
+               propertyDescriptors.Remove("Indexed");
+               propertyDescriptors.Remove("IndexedUnique");
+               propertyDescriptors.Remove("InitialValue");
+               propertyDescriptors.Remove("IsConcurrencyToken");
+               propertyDescriptors.Remove("IsIdentity");
+               propertyDescriptors.Remove("MinLength");
+               propertyDescriptors.Remove("MaxLength");
+               propertyDescriptors.Remove("Persistent");
+               propertyDescriptors.Remove("PropertyAccessMode");
+               propertyDescriptors.Remove("Required");
+
+            }
+            else if (modelAttribute.PropertyType == PropertyType.DatabaseComputed)
+            {
+               propertyDescriptors.Remove("AutoProperty");
+               propertyDescriptors.Remove("BackingFieldName");
+               propertyDescriptors.Remove("ColumnName");
+               propertyDescriptors.Remove("ColumnType");
+               propertyDescriptors.Remove("DatabaseCollation");
+               propertyDescriptors.Remove("IdentityType");
+               propertyDescriptors.Remove("Indexed");
+               propertyDescriptors.Remove("IndexedUnique");
+               propertyDescriptors.Remove("InitialValue");
+               propertyDescriptors.Remove("IsConcurrencyToken");
+               propertyDescriptors.Remove("IsIdentity");
+               propertyDescriptors.Remove("MinLength");
+               propertyDescriptors.Remove("MaxLength");
+               propertyDescriptors.Remove("Persistent");
+               propertyDescriptors.Remove("PropertyAccessMode");
+               propertyDescriptors.Remove("Required");
+
+               propertyDescriptors.Remove("ImplementNotify");
+               propertyDescriptors.Remove("ReadOnly");
+               propertyDescriptors.Remove("SetterVisibility");
             }
 
             /********************************************************************************/

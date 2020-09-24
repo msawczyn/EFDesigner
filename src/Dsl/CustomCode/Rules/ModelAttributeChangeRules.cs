@@ -53,7 +53,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
             }
 
-            break;
+               break;
 
             case "IdentityType":
             {
@@ -88,7 +88,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.AutoProperty = false;
             }
 
-            break;
+               break;
 
             case "Indexed":
             {
@@ -102,7 +102,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.Persistent = true;
             }
 
-            break;
+               break;
 
             case "InitialValue":
             {
@@ -119,7 +119,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   errorMessages.Add($"{modelClass.Name}.{element.Name}: {newInitialValue} isn't a valid value for {element.Type}");
             }
 
-            break;
+               break;
 
             case "IsAbstract":
             {
@@ -127,7 +127,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   modelClass.IsAbstract = true;
             }
 
-            break;
+               break;
 
             case "IsConcurrencyToken":
             {
@@ -142,7 +142,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
             }
 
-            break;
+               break;
 
             case "IsIdentity":
             {
@@ -178,7 +178,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.IdentityType = IdentityType.None;
             }
 
-            break;
+               break;
 
             case "MinLength":
             {
@@ -192,7 +192,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength cannot be greater than MaxLength");
             }
 
-            break;
+               break;
 
             case "MaxLength":
             {
@@ -207,7 +207,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
             }
 
-            break;
+               break;
 
             case "Name":
             {
@@ -219,15 +219,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   errorMessages.Add($"{modelClass.Name}: Property name '{element.Name}' already in use");
             }
 
-            break;
-
-            //case "PersistencePoint":
-            //{
-            //   if ((PersistencePointType)e.NewValue == PersistencePointType.Field)
-            //      element.AutoProperty = false;
-            //}
-
-            //break;
+               break;
 
             case "Persistent":
             {
@@ -244,7 +236,62 @@ namespace Sawczyn.EFDesigner.EFModel
                }
             }
 
-            break;
+               break;
+
+            case "PropertyType":
+            {
+               if (!modelRoot.IsEFCore5Plus && element.PropertyType == PropertyType.DatabaseComputed)
+                  element.PropertyType = PropertyType.Computed;
+
+               switch (element.PropertyType)
+               {
+                  case PropertyType.Normal:
+                     break;
+
+                  case PropertyType.Computed:
+                     element.AutoProperty = false;
+                     element.BackingFieldName = null;
+                     element.IdentityType = IdentityType.None;
+                     element.Indexed = false;
+                     element.IndexedUnique = false;
+                     element.InitialValue = null;
+                     element.IsConcurrencyToken = false;
+                     element.IsIdentity = false;
+                     element.Persistent = false;
+                     element.PropertyAccessMode = PropertyAccessMode.Property;
+                     element.Required = false;
+
+                     ModelAttribute.IsColumnNameTrackingPropertyHandler.Instance.ResetValue(element);
+                     ModelAttribute.IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(element);
+                     ModelAttribute.IsDatabaseCollationTrackingPropertyHandler.Instance.ResetValue(element);
+
+                     break;
+
+                  case PropertyType.DatabaseComputed:
+                     element.AutoProperty = false;
+                     element.BackingFieldName = null;
+                     element.IdentityType = IdentityType.None;
+                     element.Indexed = false;
+                     element.IndexedUnique = false;
+                     element.InitialValue = null;
+                     element.IsConcurrencyToken = false;
+                     element.IsIdentity = false;
+                     element.Persistent = false;
+                     element.PropertyAccessMode = PropertyAccessMode.Property;
+                     element.Required = false;
+
+                     element.ImplementNotify = false;
+                     element.ReadOnly = true;
+
+                     ModelAttribute.IsColumnNameTrackingPropertyHandler.Instance.ResetValue(element);
+                     ModelAttribute.IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(element);
+                     ModelAttribute.IsDatabaseCollationTrackingPropertyHandler.Instance.ResetValue(element);
+
+                     break;
+               }
+            }
+
+               break;
 
             case "ReadOnly":
             {
@@ -252,7 +299,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.ReadOnly = false;
             }
 
-            break;
+               break;
 
             case "Required":
             {
@@ -265,7 +312,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
             }
 
-            break;
+               break;
 
             case "Type":
             {
@@ -303,9 +350,6 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   if (!element.IsValidInitialValue(newType))
                      element.InitialValue = null;
-
-                  //if (!modelClass.Store.InSerializationTransaction && !element.MaxLength.HasValue)
-                  //   element.MaxLength = ModelAttribute.GetDefaultStringLength?.Invoke();
                }
 
                if (element.IsConcurrencyToken)
@@ -315,7 +359,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.InitialValue = null;
             }
 
-            break;
+               break;
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();

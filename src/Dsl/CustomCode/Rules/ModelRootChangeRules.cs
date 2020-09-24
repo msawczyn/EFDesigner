@@ -95,7 +95,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                            .Where(a => !string.IsNullOrEmpty(a.FKPropertyName) && a.SourceMultiplicity != Multiplicity.ZeroMany && a.TargetMultiplicity != Multiplicity.ZeroMany)
                                                            .ToList();
 
-                     string message = $"This will remove declared foreign key properties from {associations.Count} association{(associations.Count == 1 ? "" : "s")}. Are you sure?";
+                     string message = $"This will remove declared foreign key properties from {associations.Count} 1-1 association{(associations.Count == 1 ? "" : "s")}. Are you sure?";
 
                      if (associations.Any() && BooleanQuestionDisplay.Show(store, message) == true)
                      {
@@ -104,6 +104,20 @@ namespace Sawczyn.EFDesigner.EFModel
                            association.FKPropertyName = null;
                            AssociationChangedRules.FixupForeignKeys(association);
                         }
+                     }
+
+                     List<ModelAttribute> attributes = store.ElementDirectory
+                                                            .AllElements
+                                                            .OfType<ModelAttribute>()
+                                                            .Where(a => a.PropertyType == PropertyType.DatabaseComputed)
+                                                            .ToList();
+
+                     message = $"This will change {attributes.Count} class attribute{(attributes.Count == 1 ? "" : "s")} from DatabaseComputed to Computed. Are you sure?";
+
+                     if (attributes.Any() && BooleanQuestionDisplay.Show(store, message) == true)
+                     {
+                        foreach (ModelAttribute modelAttribute in attributes)
+                           modelAttribute.PropertyType = PropertyType.Computed;
                      }
 
                      break;

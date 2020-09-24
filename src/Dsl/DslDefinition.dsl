@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" MinorVersion="1" Revision="1" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9987f227-3d05-49b7-b151-857879f5dfb8" Description="Entity Framework visual editor for EF6, EFCore and beyond." Name="EFModel" DisplayName="Entity Framework Visual Editor" Namespace="Sawczyn.EFDesigner.EFModel" MajorVersion="2" MinorVersion="1" Revision="2" ProductName="EFDesigner" CompanyName="Michael Sawczyn" PackageGuid="56bbe1ba-aaee-4883-848f-e3c8656f8db2" PackageNamespace="Sawczyn.EFDesigner.EFModel" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="95532cb8-3452-4b09-a654-aeb2e2d0b3ad" Description="" Name="ModelRoot" DisplayName="Entity Model" Namespace="Sawczyn.EFDesigner.EFModel">
       <CustomTypeDescriptor>
@@ -748,9 +748,16 @@
             <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="247afa44-837d-4472-94c7-74f319c10510" Description="How should this property be exposed in code?" Name="ExposeAs" DisplayName="Expose As" DefaultValue="Property" Category="Code Generation">
+        <DomainProperty Id="59390752-b103-4f33-b4c1-bef6cda81562" Description="Normal persistant property, computed property or property computed at the database" Name="PropertyType" DisplayName="Property Type" DefaultValue="Normal" Category="Code Generation">
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.TypeConverter">
+              <Parameters>
+                <AttributeParameter Value="typeof(PropertyTypeTypeConverter)" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
           <Type>
-            <DomainEnumerationMoniker Name="PropertyExposure" />
+            <DomainEnumerationMoniker Name="PropertyType" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1679,10 +1686,11 @@
         <EnumerationLiteral Description="Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only." Name="Property" Value="2" />
       </Literals>
     </DomainEnumeration>
-    <DomainEnumeration Name="PropertyExposure" Namespace="Sawczyn.EFDesigner.EFModel" Description="How the code generator will present this property to Entity Framework (EFCore5+ only)">
+    <DomainEnumeration Name="PropertyType" Namespace="Sawczyn.EFDesigner.EFModel" Description="Description for Sawczyn.EFDesigner.EFModel.PropertyType">
       <Literals>
-        <EnumerationLiteral Description="Generated code will create and use this attribute as a .NET property," Name="Property" Value="" />
-        <EnumerationLiteral Description="Generated code will create and use this attribute as a .NET field" Name="Field" Value="" />
+        <EnumerationLiteral Description="This is a normal persistant property" Name="Normal" Value="0" />
+        <EnumerationLiteral Description="This property is not persisted, but computed at runtime" Name="Computed" Value="1" />
+        <EnumerationLiteral Description="This property is readonly and created by the database" Name="DatabaseComputed" Value="2" />
       </Literals>
     </DomainEnumeration>
   </Types>
@@ -2318,8 +2326,8 @@
           <XmlPropertyData XmlName="propertyAccessMode">
             <DomainPropertyMoniker Name="ModelAttribute/PropertyAccessMode" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="exposeAs">
-            <DomainPropertyMoniker Name="ModelAttribute/ExposeAs" />
+          <XmlPropertyData XmlName="propertyType">
+            <DomainPropertyMoniker Name="ModelAttribute/PropertyType" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

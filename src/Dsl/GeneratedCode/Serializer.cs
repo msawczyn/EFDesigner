@@ -4531,20 +4531,20 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // ExposeAs
+	      // PropertyType
 	      if (!serializationContext.Result.Failed)
 	      {
-	         string attribExposeAs = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "exposeAs");
-	         if (attribExposeAs != null)
+	         string attribPropertyType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "propertyType");
+	         if (attribPropertyType != null)
 	         {
-	            PropertyExposure valueOfExposeAs;
-	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyExposure>(serializationContext, attribExposeAs, out valueOfExposeAs))
+	            PropertyType valueOfPropertyType;
+	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyType>(serializationContext, attribPropertyType, out valueOfPropertyType))
 	            {
-	               instanceOfModelAttribute.ExposeAs = valueOfExposeAs;
+	               instanceOfModelAttribute.PropertyType = valueOfPropertyType;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "exposeAs", typeof(PropertyExposure), attribExposeAs);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "propertyType", typeof(PropertyType), attribPropertyType);
 	            }
 	         }
 	      }
@@ -5382,16 +5382,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // ExposeAs
+	      // PropertyType
 	      if (!serializationContext.Result.Failed)
 	      {
-	         PropertyExposure propValue = instanceOfModelAttribute.ExposeAs;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyExposure>(serializationContext, propValue);
+	         PropertyType propValue = instanceOfModelAttribute.PropertyType;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyType>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Property") != 0)
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Normal") != 0)
 	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "exposeAs", serializedPropValue);
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyType", serializedPropValue);
 	            }
 	         }
 	      }

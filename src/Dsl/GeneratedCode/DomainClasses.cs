@@ -9580,61 +9580,63 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region ExposeAs domain property code
+		#region PropertyType domain property code
 		
 		/// <summary>
-		/// ExposeAs domain property Id.
+		/// PropertyType domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid ExposeAsDomainPropertyId = new global::System.Guid(0x247afa44, 0x837d, 0x4472, 0x94, 0xc7, 0x74, 0xf3, 0x19, 0xc1, 0x05, 0x10);
+		public static readonly global::System.Guid PropertyTypeDomainPropertyId = new global::System.Guid(0x59390752, 0xb103, 0x4f33, 0xb4, 0xc1, 0xbe, 0xf6, 0xcd, 0xa8, 0x15, 0x62);
 		
 		/// <summary>
-		/// Storage for ExposeAs
+		/// Storage for PropertyType
 		/// </summary>
-		private PropertyExposure exposeAsPropertyStorage = PropertyExposure.Property;
+		private PropertyType propertyTypePropertyStorage = PropertyType.Normal;
 		
 		/// <summary>
-		/// Gets or sets the value of ExposeAs domain property.
-		/// How should this property be exposed in code?
+		/// Gets or sets the value of PropertyType domain property.
+		/// Normal persistant property, computed property or property computed at the
+		/// database
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ExposeAs.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ExposeAs.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/ExposeAs.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(PropertyExposure.Property)]
-		[DslModeling::DomainObjectId("247afa44-837d-4472-94c7-74f319c10510")]
-		public PropertyExposure ExposeAs
+		[System.ComponentModel.TypeConverter(typeof(PropertyTypeTypeConverter))]
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyType.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(PropertyType.Normal)]
+		[DslModeling::DomainObjectId("59390752-b103-4f33-b4c1-bef6cda81562")]
+		public PropertyType PropertyType
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return exposeAsPropertyStorage;
+				return propertyTypePropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				ExposeAsPropertyHandler.Instance.SetValue(this, value);
+				PropertyTypePropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelAttribute.ExposeAs domain property.
+		/// Value handler for the ModelAttribute.PropertyType domain property.
 		/// </summary>
-		internal sealed partial class ExposeAsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, PropertyExposure>
+		internal sealed partial class PropertyTypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, PropertyType>
 		{
-			private ExposeAsPropertyHandler() { }
+			private PropertyTypePropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelAttribute.ExposeAs domain property value handler.
+			/// Gets the singleton instance of the ModelAttribute.PropertyType domain property value handler.
 			/// </summary>
-			public static readonly ExposeAsPropertyHandler Instance = new ExposeAsPropertyHandler();
+			public static readonly PropertyTypePropertyHandler Instance = new PropertyTypePropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelAttribute.ExposeAs domain property.
+			/// Gets the Id of the ModelAttribute.PropertyType domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return ExposeAsDomainPropertyId;
+					return PropertyTypeDomainPropertyId;
 				}
 			}
 			
@@ -9643,10 +9645,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed PropertyExposure GetValue(ModelAttribute element)
+			public override sealed PropertyType GetValue(ModelAttribute element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.exposeAsPropertyStorage;
+				return element.propertyTypePropertyStorage;
 			}
 		
 			/// <summary>
@@ -9654,15 +9656,15 @@ namespace Sawczyn.EFDesigner.EFModel
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, PropertyExposure newValue)
+			public override sealed void SetValue(ModelAttribute element, PropertyType newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				PropertyExposure oldValue = GetValue(element);
+				PropertyType oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.exposeAsPropertyStorage = newValue;
+					element.propertyTypePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -12015,6 +12017,6 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "2.1.0.1";
+		public const string DSLVersion = "2.1.0.2";
 	}
 }

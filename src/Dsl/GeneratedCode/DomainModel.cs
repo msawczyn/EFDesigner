@@ -216,7 +216,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelAttribute), "DatabaseCollation", ModelAttribute.DatabaseCollationDomainPropertyId, typeof(ModelAttribute.DatabaseCollationPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsDatabaseCollationTracking", ModelAttribute.IsDatabaseCollationTrackingDomainPropertyId, typeof(ModelAttribute.IsDatabaseCollationTrackingPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "PropertyAccessMode", ModelAttribute.PropertyAccessModeDomainPropertyId, typeof(ModelAttribute.PropertyAccessModePropertyHandler)),
-	         new DomainMemberInfo(typeof(ModelAttribute), "ExposeAs", ModelAttribute.ExposeAsDomainPropertyId, typeof(ModelAttribute.ExposeAsPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelAttribute), "PropertyType", ModelAttribute.PropertyTypeDomainPropertyId, typeof(ModelAttribute.PropertyTypePropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 	         new DomainMemberInfo(typeof(Comment), "ShortText", Comment.ShortTextDomainPropertyId, typeof(Comment.ShortTextPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelEnum), "ValueType", ModelEnum.ValueTypeDomainPropertyId, typeof(ModelEnum.ValueTypePropertyHandler)),
@@ -1589,24 +1589,29 @@ namespace Sawczyn.EFDesigner.EFModel
 namespace Sawczyn.EFDesigner.EFModel
 {
 	/// <summary>
-	/// DomainEnumeration: PropertyExposure
-	/// How the code generator will present this property to Entity Framework (EFCore5+
-	/// only)
+	/// DomainEnumeration: PropertyType
+	/// Description for Sawczyn.EFDesigner.EFModel.PropertyType
 	/// </summary>
 	[global::System.CLSCompliant(true)]
-	public enum PropertyExposure
+	public enum PropertyType
 	{
 		/// <summary>
-		/// Property
-		/// Generated code will create and use this attribute as a .NET property,
+		/// Normal
+		/// This is a normal persistant property
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyExposure/Property.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Property,
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyType/Normal.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Normal = 0,
 		/// <summary>
-		/// Field
-		/// Generated code will create and use this attribute as a .NET field
+		/// Computed
+		/// This property is not persisted, but computed at runtime
 		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyExposure/Field.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		Field,
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyType/Computed.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		Computed = 1,
+		/// <summary>
+		/// DatabaseComputed
+		/// This property is readonly and created by the database
+		/// </summary>
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.PropertyType/DatabaseComputed.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		DatabaseComputed = 2,
 	}
 }

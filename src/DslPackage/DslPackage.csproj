@@ -440,7 +440,7 @@
 dotnet publish -c $(ConfigurationName) -r win-x64 -f netcoreapp3.1 --nologo --no-self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true "$(SolutionDir)Utilities\EF6Parser\EF6Parser.csproj"
 dotnet publish -c $(ConfigurationName) -r win-x64 -f netcoreapp3.1 --nologo --no-self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true "$(SolutionDir)Utilities\EFCore2Parser\EFCore2Parser.csproj"
 dotnet publish -c $(ConfigurationName) -r win-x64 -f netcoreapp3.1 --nologo --no-self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true "$(SolutionDir)Utilities\EFCore3Parser\EFCore3Parser.csproj"
-
+dotnet publish -c $(ConfigurationName) -r win-x64 -f netcoreapp3.1 --nologo --no-self-contained -o $(ProjectDir)Parsers /p:PublishSingleFile=true "$(SolutionDir)Utilities\EFCore5Parser\EFCore5Parser.csproj"
 if "$(ConfigurationName)"=="Release" del "$(ProjectDir)Parsers\*.pdb
 </PreBuildEvent>
   </PropertyGroup>

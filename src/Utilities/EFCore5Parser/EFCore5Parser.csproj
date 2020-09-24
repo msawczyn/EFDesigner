@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+   <PropertyGroup>
+      <OutputType>Exe</OutputType>
+      <TargetFramework>netcoreapp3.1</TargetFramework>
+      <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+      <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+      <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+   </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+      <DefineConstants>DEBUG;TRACE</DefineConstants>
+   </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Configuration)'=='Release'">
+      <DefineConstants />
+   </PropertyGroup>
+
+   <ItemGroup>
+      <PackageReference Include="log4net" Version="2.0.11" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.1.20451.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.0-rc.1.20451.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.0-rc.1.20451.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0-rc.1.20451.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.0-rc.1.20451.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0-rc.1.20451.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="2.0.0-preview1-final" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-rc.1.20451.13" />
+   </ItemGroup>
+
+   <ItemGroup>
+      <ProjectReference Include="..\ParsingModels\ParsingModels.csproj" />
+   </ItemGroup>
+
+   <ItemGroup>
+      <Resource Include="log4net.config">
+         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
+   </ItemGroup>
+
+   <ItemGroup>
+      <Compile Update="Resources.Designer.cs">
+         <DependentUpon>Resources.resx</DependentUpon>
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+      </Compile>
+   </ItemGroup>
+
+   <ItemGroup>
+      <EmbeddedResource Update="Resources.resx">
+         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+         <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+   </ItemGroup>
+
+</Project>
