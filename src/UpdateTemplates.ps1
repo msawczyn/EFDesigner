@@ -1,4 +1,4 @@
-[regex]::Replace((get-content src\DslPackage\TextTemplates\EditingOnly\EF6Designer.cs -Raw), '(?s)^.+#region Template[\r\n]+(.+)#endregion Template.+$', '<#@ assembly name="System.Core"
+[regex]::Replace((get-content DslPackage\TextTemplates\EditingOnly\EF6Designer.cs -Raw), '(?s)^.+#region Template[\r\n]+(.+)#endregion Template.+$', '<#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
@@ -10,9 +10,9 @@
 #><#+
 $1
 #>
-') | set-content src\DslPackage\TextTemplates\EF6Designer.ttinclude
+') | set-content DslPackage\TextTemplates\EF6Designer.ttinclude
 
-[regex]::Replace((get-content src\DslPackage\TextTemplates\EditingOnly\EFCoreDesigner.cs -Raw), '(?s)^.+#region Template[\r\n]+(.+)#endregion Template.+$', '<#@ assembly name="System.Core"
+[regex]::Replace((get-content DslPackage\TextTemplates\EditingOnly\EFCoreDesigner.cs -Raw), '(?s)^.+#region Template[\r\n]+(.+)#endregion Template.+$', '<#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
@@ -24,9 +24,9 @@ $1
 #><#+
 $1
 #>
-') | set-content src\DslPackage\TextTemplates\EFCoreDesigner.ttinclude
+') | set-content DslPackage\TextTemplates\EFCoreDesigner.ttinclude
 
-[regex]::Replace((get-content src\DslPackage\TextTemplates\EditingOnly\EFDesigner.cs -Raw), '(?s)^.+#region Template[\r\n]+(.+)#endregion Template.+$', '<#@ assembly name="System.Core"
+[regex]::Replace((get-content DslPackage\TextTemplates\EditingOnly\EFDesigner.cs -Raw), '(?s)^.+#region Template[\r\n]+(.+)#endregion Template.+$', '<#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
@@ -38,4 +38,4 @@ $1
 #><#+
 $1
 #>
-') | set-content src\DslPackage\TextTemplates\EFDesigner.ttinclude
+') | set-content DslPackage\TextTemplates\EFDesigner.ttinclude

@@ -550,6 +550,12 @@
             <xsd:documentation>If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsPropertyBag -->
+        <xsd:attribute name="isPropertyBag" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this class will be implemented as Dictionary&lt;string, object&gt;</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
