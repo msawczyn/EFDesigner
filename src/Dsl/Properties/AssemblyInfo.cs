@@ -22,13 +22,15 @@ using System.Runtime.ConstrainedExecution;
 [assembly: AssemblyCulture("")]
 [assembly: System.Resources.NeutralResourcesLanguage("en")]
 
-[assembly: AssemblyVersion("2.1.0.0")]
-[assembly: AssemblyFileVersion("2.1.0.0")]
+[assembly: AssemblyVersion("2.1.0.2")]
+[assembly: AssemblyFileVersion("2.1.0.2")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]
 
 [assembly: InternalsVisibleTo("Sawczyn.EFDesigner.EFModel.DslPackage, PublicKey=00240000048000009400000006020000002400005253413100040000010001006B3838060EB00642AFEBAF62BCF85AD8BC0743AADC6CFA7EA389DCF853B85157A5A618B494B8DCA7A99D3E49880D68B58D4C75051C2B5E0FFDCC622C34D78CA73E81C0554740474824926DFD6E4451B4A8F674426BB9CDE6C8684151667DDF87ED0CE8161CB8400CD024CE1C9529CF83F94363C8ACF1A75692AC04F5DB4AE7AB")]
+
+
 
 
 

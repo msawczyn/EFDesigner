@@ -1305,18 +1305,6 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;PropertyAccessMode&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyType.Description" xml:space="preserve">
-    <value>Normal persistant property, computed property or property computed at the database</value>
-    <comment>Description for DomainProperty &apos;PropertyType&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyType.DisplayName" xml:space="preserve">
-    <value>Property Type</value>
-    <comment>DisplayName for DomainProperty &apos;PropertyType&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute/PropertyType.Category" xml:space="preserve">
-    <value>Code Generation</value>
-    <comment>Category for DomainProperty &apos;PropertyType&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>
@@ -3269,29 +3257,21 @@
     <value>Enforces that all accesses to the property must go through the property getters and setters, even when new objects are being constructed. An exception will be thrown if this mode is set and it is not possible to read from or write to the property, for example because it is read-only.</value>
     <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyAccessMode&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyType/Normal.DisplayName" xml:space="preserve">
-    <value>Normal</value>
-    <comment>Display name for EnumerationLiteral &apos;Normal&apos; on DomainEnumeration &apos;PropertyType&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyExposure/Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>Display name for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyExposure&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyType/Normal.Description" xml:space="preserve">
-    <value>This is a normal persistant property</value>
-    <comment>Description for EnumerationLiteral &apos;Normal&apos; on DomainEnumeration &apos;PropertyType&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyExposure/Property.Description" xml:space="preserve">
+    <value>Generated code will create and use this attribute as a .NET property,</value>
+    <comment>Description for EnumerationLiteral &apos;Property&apos; on DomainEnumeration &apos;PropertyExposure&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyType/Computed.DisplayName" xml:space="preserve">
-    <value>Computed</value>
-    <comment>Display name for EnumerationLiteral &apos;Computed&apos; on DomainEnumeration &apos;PropertyType&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyExposure/Field.DisplayName" xml:space="preserve">
+    <value>Field</value>
+    <comment>Display name for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyExposure&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyType/Computed.Description" xml:space="preserve">
-    <value>This property is not persisted, but computed at runtime</value>
-    <comment>Description for EnumerationLiteral &apos;Computed&apos; on DomainEnumeration &apos;PropertyType&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyType/DatabaseComputed.DisplayName" xml:space="preserve">
-    <value>DatabaseComputed</value>
-    <comment>Display name for EnumerationLiteral &apos;DatabaseComputed&apos; on DomainEnumeration &apos;PropertyType&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.PropertyType/DatabaseComputed.Description" xml:space="preserve">
-    <value>This property is readonly and created by the database</value>
-    <comment>Description for EnumerationLiteral &apos;DatabaseComputed&apos; on DomainEnumeration &apos;PropertyType&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.PropertyExposure/Field.Description" xml:space="preserve">
+    <value>Generated code will create and use this attribute as a .NET field</value>
+    <comment>Description for EnumerationLiteral &apos;Field&apos; on DomainEnumeration &apos;PropertyExposure&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ClassShape.Description" xml:space="preserve">
     <value></value>

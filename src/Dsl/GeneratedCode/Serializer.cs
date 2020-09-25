@@ -4531,23 +4531,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // PropertyType
-	      if (!serializationContext.Result.Failed)
-	      {
-	         string attribPropertyType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "propertyType");
-	         if (attribPropertyType != null)
-	         {
-	            PropertyType valueOfPropertyType;
-	            if (DslModeling::SerializationUtilities.TryGetValue<PropertyType>(serializationContext, attribPropertyType, out valueOfPropertyType))
-	            {
-	               instanceOfModelAttribute.PropertyType = valueOfPropertyType;
-	            }
-	            else
-	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "propertyType", typeof(PropertyType), attribPropertyType);
-	            }
-	         }
-	      }
 	   }
 	
 	   /// <summary>
@@ -5379,19 +5362,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "FieldDuringConstruction") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessMode", serializedPropValue);
-	            }
-	         }
-	      }
-	      // PropertyType
-	      if (!serializationContext.Result.Failed)
-	      {
-	         PropertyType propValue = instanceOfModelAttribute.PropertyType;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<PropertyType>(serializationContext, propValue);
-	         if (!serializationContext.Result.Failed)
-	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Normal") != 0)
-	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyType", serializedPropValue);
 	            }
 	         }
 	      }
