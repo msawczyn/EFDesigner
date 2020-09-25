@@ -153,7 +153,6 @@
     <Compile Include="CustomCode\Type Converters\MinLengthTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\EndpointRoleTypeConverter.cs" />
     <Compile Include="CustomCode\Type Converters\PropertyAccessModeTypeConverter.cs" />
-    <Compile Include="CustomCode\Type Converters\PropertyTypeTypeConverter.cs" />
     <Compile Include="CustomCode\Type Descriptors\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\Partials\BidirectionalAssociation.cs" />
     <Compile Include="CustomCode\Connection Builders\BidirectionalAssociationBuilder.cs" />

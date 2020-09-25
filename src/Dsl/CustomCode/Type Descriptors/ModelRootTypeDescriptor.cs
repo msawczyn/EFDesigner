@@ -24,7 +24,6 @@ namespace Sawczyn.EFDesigner.EFModel
                propertyDescriptors.Remove("AutomaticMigrationsEnabled");
                propertyDescriptors.Remove("ProxyGenerationEnabled");
                propertyDescriptors.Remove("DatabaseType");
-               propertyDescriptors.Remove("InheritanceStrategy");
 
                if (modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1)
                   propertyDescriptors.Remove("LazyLoadingEnabled");

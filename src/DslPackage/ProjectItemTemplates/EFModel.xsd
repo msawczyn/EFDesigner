@@ -550,6 +550,12 @@
             <xsd:documentation>If true (the default), code will be generated for this class. If false, it is assumed to be referenced from another assembly.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsPropertyBag -->
+        <xsd:attribute name="isPropertyBag" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this class will be implemented as Dictionary&lt;string, object&gt;</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -782,12 +788,6 @@
         <xsd:attribute name="propertyAccessMode" type="PropertyAccessMode" >
           <xsd:annotation>
             <xsd:documentation>Defines how EF reads and write this property or its backing field. See  https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: PropertyType -->
-        <xsd:attribute name="propertyType" type="PropertyType" >
-          <xsd:annotation>
-            <xsd:documentation>Normal persistant property, computed property or property computed at the database</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -2342,22 +2342,20 @@
     </xsd:restriction>
   </xsd:simpleType>
   
-  <!-- Enum PropertyType -->
-  <xsd:simpleType name="PropertyType">
+  <!-- Enum PropertyExposure -->
+  <xsd:simpleType name="PropertyExposure">
+    <xsd:annotation>
+      <xsd:documentation>How the code generator will present this property to Entity Framework (EFCore5+ only)</xsd:documentation>
+    </xsd:annotation>
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Normal">
+      <xsd:enumeration value="Property">
         <xsd:annotation>
-          <xsd:documentation>This is a normal persistant property</xsd:documentation>
+          <xsd:documentation>Generated code will create and use this attribute as a .NET property,</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
-      <xsd:enumeration value="Computed">
+      <xsd:enumeration value="Field">
         <xsd:annotation>
-          <xsd:documentation>This property is not persisted, but computed at runtime</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="DatabaseComputed">
-        <xsd:annotation>
-          <xsd:documentation>This property is readonly and created by the database</xsd:documentation>
+          <xsd:documentation>Generated code will create and use this attribute as a .NET field</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

@@ -106,20 +106,6 @@ namespace Sawczyn.EFDesigner.EFModel
                         }
                      }
 
-                     List<ModelAttribute> attributes = store.ElementDirectory
-                                                            .AllElements
-                                                            .OfType<ModelAttribute>()
-                                                            .Where(a => a.PropertyType == PropertyType.DatabaseComputed)
-                                                            .ToList();
-
-                     message = $"This will change {attributes.Count} class attribute{(attributes.Count == 1 ? "" : "s")} from DatabaseComputed to Computed. Are you sure?";
-
-                     if (attributes.Any() && BooleanQuestionDisplay.Show(store, message) == true)
-                     {
-                        foreach (ModelAttribute modelAttribute in attributes)
-                           modelAttribute.PropertyType = PropertyType.Computed;
-                     }
-
                      break;
                   }
                }

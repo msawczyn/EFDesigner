@@ -40,324 +40,269 @@ namespace Sawczyn.EFDesigner.EFModel
          switch (e.DomainProperty.Name)
          {
             case "AutoProperty":
-            {
-               if (element.AutoProperty)
                {
-                  //element.PersistencePoint = PersistencePointType.Property;
-                  element.ImplementNotify = false;
+                  if (element.AutoProperty)
+                  {
+                     //element.PersistencePoint = PersistencePointType.Property;
+                     element.ImplementNotify = false;
+                  }
+                  else
+                  {
+                     if (string.IsNullOrEmpty(element.BackingFieldName))
+                        element.BackingFieldName = $"_{element.Name.ToCamelCase()}";
+                  }
                }
-               else
-               {
-                  if (string.IsNullOrEmpty(element.BackingFieldName))
-                     element.BackingFieldName = $"_{element.Name.ToCamelCase()}";
-               }
-            }
 
                break;
 
             case "IdentityType":
-            {
-               if (element.IsIdentity)
                {
-                  if (element.IdentityType == IdentityType.None)
-                     errorMessages.Add($"{modelClass.Name}.{element.Name}: Identity properties must have an identity type defined");
-
-                  foreach (Association association in element.ModelClass.LocalNavigationProperties()
-                                                             .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
-                                                             .Select(nav => nav.AssociationObject)
-                                                             .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
-                                                                      && a.FKPropertyName.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
+                  if (element.IsIdentity)
                   {
-                     foreach (ModelAttribute attribute in association.GetFKAutoIdentityErrors())
-                        errorMessages.Add($"{association.Source.Name} <=> {association.Target.Name}: FK property {attribute.Name} in {association.Dependent.FullName} is an auto-generated identity. Migration will fail.");
-                  }
-               }
-               else
-                  element.IdentityType = IdentityType.None;
+                     if (element.IdentityType == IdentityType.None)
+                        errorMessages.Add($"{modelClass.Name}.{element.Name}: Identity properties must have an identity type defined");
 
-            }
+                     foreach (Association association in element.ModelClass.LocalNavigationProperties()
+                                                                .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
+                                                                .Select(nav => nav.AssociationObject)
+                                                                .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
+                                                                         && a.FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
+                     {
+                        foreach (ModelAttribute attribute in association.GetFKAutoIdentityErrors())
+                           errorMessages.Add($"{association.Source.Name} <=> {association.Target.Name}: FK property {attribute.Name} in {association.Dependent.FullName} is an auto-generated identity. Migration will fail.");
+                     }
+                  }
+                  else
+                     element.IdentityType = IdentityType.None;
+
+               }
 
                break;
 
             case "ImplementNotify":
-            {
-               if (element.IsIdentity)
-                  element.ImplementNotify = false;
+               {
+                  if (element.IsIdentity)
+                     element.ImplementNotify = false;
 
-               if (element.ImplementNotify)
-                  element.AutoProperty = false;
-            }
+                  if (element.ImplementNotify)
+                     element.AutoProperty = false;
+               }
 
                break;
 
             case "Indexed":
-            {
-               if (element.IsIdentity)
-                  element.Indexed = true;
+               {
+                  if (element.IsIdentity)
+                     element.Indexed = true;
 
-               if (element.IsConcurrencyToken)
-                  element.Indexed = false;
+                  if (element.IsConcurrencyToken)
+                     element.Indexed = false;
 
-               if (element.Indexed)
-                  element.Persistent = true;
-            }
+                  if (element.Indexed)
+                     element.Persistent = true;
+               }
 
                break;
 
             case "InitialValue":
-            {
-               string newInitialValue = (string)e.NewValue;
+               {
+                  string newInitialValue = (string)e.NewValue;
 
-               if (string.IsNullOrEmpty(newInitialValue))
-                  break;
+                  if (string.IsNullOrEmpty(newInitialValue))
+                     break;
 
-               // if the property is an Enum and the user just typed the name of the Enum value without the Enum type name, help them out
-               if (element.ModelClass.ModelRoot.Enums.Any(x => x.Name == element.Type) && !newInitialValue.Contains("."))
-                  newInitialValue = element.InitialValue = $"{element.Type}.{newInitialValue}";
+                  // if the property is an Enum and the user just typed the name of the Enum value without the Enum type name, help them out
+                  if (element.ModelClass.ModelRoot.Enums.Any(x => x.Name == element.Type) && !newInitialValue.Contains("."))
+                     newInitialValue = element.InitialValue = $"{element.Type}.{newInitialValue}";
 
-               if (!element.IsValidInitialValue(null, newInitialValue))
-                  errorMessages.Add($"{modelClass.Name}.{element.Name}: {newInitialValue} isn't a valid value for {element.Type}");
-            }
+                  if (!element.IsValidInitialValue(null, newInitialValue))
+                     errorMessages.Add($"{modelClass.Name}.{element.Name}: {newInitialValue} isn't a valid value for {element.Type}");
+               }
 
                break;
 
             case "IsAbstract":
-            {
-               if ((bool)e.NewValue)
-                  modelClass.IsAbstract = true;
-            }
+               {
+                  if ((bool)e.NewValue)
+                     modelClass.IsAbstract = true;
+               }
 
                break;
 
             case "IsConcurrencyToken":
-            {
-               bool newIsConcurrencyToken = (bool)e.NewValue;
-
-               if (newIsConcurrencyToken)
                {
-                  element.IsIdentity = false;
-                  element.Persistent = true;
-                  element.Required = true;
-                  element.Type = "Binary";
+                  bool newIsConcurrencyToken = (bool)e.NewValue;
+
+                  if (newIsConcurrencyToken)
+                  {
+                     element.IsIdentity = false;
+                     element.Persistent = true;
+                     element.Required = true;
+                     element.Type = "Binary";
+                  }
                }
-            }
 
                break;
 
             case "IsIdentity":
-            {
-               if ((bool)e.NewValue)
                {
-                  if (element.ModelClass.IsDependentType)
-                     errorMessages.Add($"{modelClass.Name}.{element.Name}: Can't make {element.Name} an identity because {modelClass.Name} is a dependent type and can't have an identity property.");
-                  else
+                  if ((bool)e.NewValue)
                   {
-                     if (!modelRoot.IsValidIdentityAttributeType(element.Type))
-                        errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {element.Type} can't be used as identity properties.");
+                     if (element.ModelClass.IsDependentType)
+                        errorMessages.Add($"{modelClass.Name}.{element.Name}: Can't make {element.Name} an identity because {modelClass.Name} is a dependent type and can't have an identity property.");
                      else
                      {
-                        element.IsConcurrencyToken = false;
-                        element.Indexed = true;
-                        element.IndexedUnique = true;
-                        element.Persistent = true;
-                        element.Required = true;
+                        if (!modelRoot.IsValidIdentityAttributeType(element.Type))
+                           errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {element.Type} can't be used as identity properties.");
+                        else
+                        {
+                           element.IsConcurrencyToken = false;
+                           element.Indexed = true;
+                           element.IndexedUnique = true;
+                           element.Persistent = true;
+                           element.Required = true;
 
-                        if (element.IdentityType == IdentityType.None)
-                           element.IdentityType = IdentityType.AutoGenerated;
+                           if (element.IdentityType == IdentityType.None)
+                              element.IdentityType = IdentityType.AutoGenerated;
+                        }
                      }
-                  }
 
-                  foreach (Association association in element.ModelClass.LocalNavigationProperties()
-                                                             .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
-                                                             .Select(nav => nav.AssociationObject)
-                                                             .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
-                                                                      && a.FKPropertyName.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
-                     association.GetFKAutoIdentityErrors();
+                     foreach (Association association in element.ModelClass.LocalNavigationProperties()
+                                                                .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
+                                                                .Select(nav => nav.AssociationObject)
+                                                                .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
+                                                                         && a.FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name)))
+                        association.GetFKAutoIdentityErrors();
+                  }
+                  else
+                     element.IdentityType = IdentityType.None;
                }
-               else
-                  element.IdentityType = IdentityType.None;
-            }
 
                break;
 
             case "MinLength":
-            {
-               int minLengthValue = (int)e.NewValue;
+               {
+                  int minLengthValue = (int)e.NewValue;
 
-               if (element.Type != "String")
-                  element.MinLength = 0;
-               else if (minLengthValue < 0)
-                  errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength must be zero or a positive number");
-               else if (element.MaxLength > 0 && minLengthValue > element.MaxLength)
-                  errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength cannot be greater than MaxLength");
-            }
+                  if (element.Type != "String")
+                     element.MinLength = 0;
+                  else if (minLengthValue < 0)
+                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength must be zero or a positive number");
+                  else if (element.MaxLength > 0 && minLengthValue > element.MaxLength)
+                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength cannot be greater than MaxLength");
+               }
 
                break;
 
             case "MaxLength":
-            {
-               if (element.Type != "String")
-                  element.MaxLength = null;
-               else
                {
-                  int? maxLengthValue = (int?)e.NewValue;
+                  if (element.Type != "String")
+                     element.MaxLength = null;
+                  else
+                  {
+                     int? maxLengthValue = (int?)e.NewValue;
 
-                  if (maxLengthValue > 0 && element.MinLength > maxLengthValue)
-                     errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength cannot be greater than MaxLength");
+                     if (maxLengthValue > 0 && element.MinLength > maxLengthValue)
+                        errorMessages.Add($"{modelClass.Name}.{element.Name}: MinLength cannot be greater than MaxLength");
+                  }
                }
-            }
 
                break;
 
             case "Name":
-            {
-               if (string.IsNullOrEmpty(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
-                  errorMessages.Add($"{modelClass.Name}: Property name '{element.Name}' isn't a valid .NET identifier");
+               {
+                  if (string.IsNullOrEmpty(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
+                     errorMessages.Add($"{modelClass.Name}: Property name '{element.Name}' isn't a valid .NET identifier");
 
-               if (modelClass.AllAttributes.Except(new[] {element}).Any(x => x.Name == element.Name)
-                || modelClass.AllNavigationProperties().Any(p => p.PropertyName == element.Name))
-                  errorMessages.Add($"{modelClass.Name}: Property name '{element.Name}' already in use");
-            }
+                  if (modelClass.AllAttributes.Except(new[] { element }).Any(x => x.Name == element.Name)
+                   || modelClass.AllNavigationProperties().Any(p => p.PropertyName == element.Name))
+                     errorMessages.Add($"{modelClass.Name}: Property name '{element.Name}' already in use");
+               }
 
                break;
 
             case "Persistent":
-            {
-               bool newPersistent = (bool)e.NewValue;
-
-               if (!newPersistent)
                {
-                  element.IsIdentity = false;
-                  element.Indexed = false;
-                  element.IndexedUnique = false;
-                  element.IdentityType = IdentityType.None;
-                  element.IsConcurrencyToken = false;
-                  element.Virtual = false;
-               }
-            }
+                  bool newPersistent = (bool)e.NewValue;
 
-               break;
-
-            case "PropertyType":
-            {
-               if (!modelRoot.IsEFCore5Plus && element.PropertyType == PropertyType.DatabaseComputed)
-                  element.PropertyType = PropertyType.Computed;
-
-               switch (element.PropertyType)
-               {
-                  case PropertyType.Normal:
-                     break;
-
-                  case PropertyType.Computed:
-                     element.AutoProperty = false;
-                     element.BackingFieldName = null;
-                     element.IdentityType = IdentityType.None;
+                  if (!newPersistent)
+                  {
+                     element.IsIdentity = false;
                      element.Indexed = false;
                      element.IndexedUnique = false;
-                     element.InitialValue = null;
-                     element.IsConcurrencyToken = false;
-                     element.IsIdentity = false;
-                     element.Persistent = false;
-                     element.PropertyAccessMode = PropertyAccessMode.Property;
-                     element.Required = false;
-
-                     ModelAttribute.IsColumnNameTrackingPropertyHandler.Instance.ResetValue(element);
-                     ModelAttribute.IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(element);
-                     ModelAttribute.IsDatabaseCollationTrackingPropertyHandler.Instance.ResetValue(element);
-
-                     break;
-
-                  case PropertyType.DatabaseComputed:
-                     element.AutoProperty = false;
-                     element.BackingFieldName = null;
                      element.IdentityType = IdentityType.None;
-                     element.Indexed = false;
-                     element.IndexedUnique = false;
-                     element.InitialValue = null;
                      element.IsConcurrencyToken = false;
-                     element.IsIdentity = false;
-                     element.Persistent = false;
-                     element.PropertyAccessMode = PropertyAccessMode.Property;
-                     element.Required = false;
-
-                     element.ImplementNotify = false;
-                     element.ReadOnly = true;
-
-                     ModelAttribute.IsColumnNameTrackingPropertyHandler.Instance.ResetValue(element);
-                     ModelAttribute.IsColumnTypeTrackingPropertyHandler.Instance.ResetValue(element);
-                     ModelAttribute.IsDatabaseCollationTrackingPropertyHandler.Instance.ResetValue(element);
-
-                     break;
+                     element.Virtual = false;
+                  }
                }
-            }
 
                break;
 
             case "ReadOnly":
-            {
-               if (!element.Persistent || element.SetterVisibility != SetterAccessModifier.Public)
-                  element.ReadOnly = false;
-            }
+               {
+                  if (!element.Persistent || element.SetterVisibility != SetterAccessModifier.Public)
+                     element.ReadOnly = false;
+               }
 
                break;
 
             case "Required":
-            {
-               bool newRequired = (bool)e.NewValue;
-
-               if (!newRequired)
                {
-                  if (element.IsIdentity || element.IsConcurrencyToken)
-                     element.Required = true;
+                  bool newRequired = (bool)e.NewValue;
+
+                  if (!newRequired)
+                  {
+                     if (element.IsIdentity || element.IsConcurrencyToken)
+                        element.Required = true;
+                  }
                }
-            }
 
                break;
 
             case "Type":
-            {
-               string newType = (string)e.NewValue;
-
-               if (element.IsIdentity)
                {
-                  if (!modelRoot.IsValidIdentityAttributeType(ModelAttribute.ToCLRType(newType)))
-                     errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {newType} can't be used as identity properties.");
+                  string newType = (string)e.NewValue;
+
+                  if (element.IsIdentity)
+                  {
+                     if (!modelRoot.IsValidIdentityAttributeType(ModelAttribute.ToCLRType(newType)))
+                        errorMessages.Add($"{modelClass.Name}.{element.Name}: Properties of type {newType} can't be used as identity properties.");
+                     else
+                     {
+                        element.Required = true;
+                        element.Persistent = true;
+
+                        // Change type of any foreign key pointing to this class
+                        IEnumerable<Association> participatingAssociations =
+                           element.ModelClass.LocalNavigationProperties()
+                                  .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
+                                  .Select(nav => nav.AssociationObject)
+                                  .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
+                                           && a.FKPropertyName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name));
+
+                        foreach (Association association in participatingAssociations)
+                           AssociationChangedRules.FixupForeignKeys(association);
+                     }
+                  }
+
+                  if (newType != "String")
+                  {
+                     element.MaxLength = null;
+                     element.MinLength = 0;
+                     element.StringType = HTML5Type.None;
+                  }
                   else
                   {
-                     element.Required = true;
-                     element.Persistent = true;
-
-                     // Change type of any foreign key pointing to this class
-                     IEnumerable<Association> participatingAssociations =
-                        element.ModelClass.LocalNavigationProperties()
-                               .Where(nav => nav.AssociationObject.Dependent == element.ModelClass)
-                               .Select(nav => nav.AssociationObject)
-                               .Where(a => !string.IsNullOrWhiteSpace(a.FKPropertyName)
-                                        && a.FKPropertyName.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Any(n => n.Trim() == element.Name));
-
-                     foreach (Association association in participatingAssociations)
-                        AssociationChangedRules.FixupForeignKeys(association);
+                     if (!element.IsValidInitialValue(newType))
+                        element.InitialValue = null;
                   }
-               }
 
-               if (newType != "String")
-               {
-                  element.MaxLength = null;
-                  element.MinLength = 0;
-                  element.StringType = HTML5Type.None;
-               }
-               else
-               {
-                  if (!element.IsValidInitialValue(newType))
+                  if (element.IsConcurrencyToken)
+                     element.Type = "Binary";
+
+                  if (!element.SupportsInitialValue)
                      element.InitialValue = null;
                }
-
-               if (element.IsConcurrencyToken)
-                  element.Type = "Binary";
-
-               if (!element.SupportsInitialValue)
-                  element.InitialValue = null;
-            }
 
                break;
          }
