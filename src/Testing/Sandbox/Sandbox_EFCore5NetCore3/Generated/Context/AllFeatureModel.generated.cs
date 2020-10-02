@@ -63,6 +63,10 @@ namespace Testing
          modelBuilder.Entity<global::Testing.Base>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<global::Testing.Base>().HasOne(x => x.Entity11).WithMany(x => x.Bases).HasForeignKey("Entity11_Id");
 
+         modelBuilder.Owned<global::Testing.Dependent>();
+         modelBuilder.Owned<global::Testing.Dependent>().Property(t => t.Id).IsRequired();
+         modelBuilder.Entity<global::Testing.Dependent>().HasIndex(t => t.Id).IsUnique();
+
          modelBuilder.Entity<global::Testing.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Property1).HasMaxLength(25);

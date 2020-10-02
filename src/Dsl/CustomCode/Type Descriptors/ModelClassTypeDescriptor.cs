@@ -27,7 +27,12 @@ namespace Sawczyn.EFDesigner.EFModel
 
             // no property bags if pre-EFCore5
             if (!modelRoot.IsEFCore5Plus)
+            {
                propertyDescriptors.Remove("IsPropertyBag");
+
+               if (modelClass.IsDependentType && modelRoot.EntityFrameworkVersion == EFVersion.EF6)
+                  propertyDescriptors.Remove("TableName");
+            }
 
             //Add the descriptors for the tracking properties 
 

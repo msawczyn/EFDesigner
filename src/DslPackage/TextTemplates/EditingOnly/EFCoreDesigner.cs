@@ -302,39 +302,35 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       {
          // class level
 
-         bool isDependent = modelClass.IsDependentType;
-         segments.Add($"modelBuilder.{(isDependent ? "Owned" : "Entity")}<{modelClass.FullName}>()");
+         segments.Add($"modelBuilder.{(modelClass.IsDependentType ? "Owned" : "Entity")}<{modelClass.FullName}>()");
 
          foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
             segments.Add($"Ignore(t => t.{transient.Name})");
 
-         if (!modelClass.IsDependentType)
+         // note: this must come before the 'ToTable' call or there's a runtime error
+         if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
+            segments.Add("Map(x => x.MapInheritedProperties())");
+
+         if (classesWithTables.Contains(modelClass))
          {
-            // note: this must come before the 'ToTable' call or there's a runtime error
-            if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
-               segments.Add("Map(x => x.MapInheritedProperties())");
+            segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
+                            ? $"ToTable(\"{modelClass.TableName}\")"
+                            : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
 
-            if (classesWithTables.Contains(modelClass))
-            {
-               segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
-                               ? $"ToTable(\"{modelClass.TableName}\")"
-                               : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+            // primary key code segments must be output last, since HasKey returns a different type
+            List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
 
-               // primary key code segments must be output last, since HasKey returns a different type
-               List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
-
-               if (identityAttributes.Count == 1)
-                  segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
-               else if (identityAttributes.Count > 1)
-                  segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
-            }
+            if (identityAttributes.Count == 1)
+               segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
+            else if (identityAttributes.Count > 1)
+               segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
          }
 
          if (segments.Count > 1 || modelClass.IsDependentType)
             Output(modelRoot, segments);
 
-         if (modelClass.IsDependentType)
-            return;
+         //if (modelClass.IsDependentType)
+         //   return;
 
          // attribute level
          foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypesEFCore.Contains(x.Type)))
@@ -463,7 +459,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          // ReSharper disable once LoopCanBePartlyConvertedToQuery
          foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
                                                                       .OfType<UnidirectionalAssociation>()
-                                                                      .Where(x => x.Persistent && !x.Target.IsDependentType))
+                                                                      .Where(x => x.Persistent))
          {
             if (visited.Contains(association))
                continue;
@@ -597,15 +593,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             }
          }
 
-         foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
-                                                                      .OfType<UnidirectionalAssociation>()
-                                                                      .Where(x => x.Persistent && x.Target.IsDependentType))
-         {
-            if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-               Output($"modelBuilder.Entity<{modelClass.FullName}>().OwnsOne(x => x.{association.TargetPropertyName});");
-            else
-               Output($"// Dependent 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
-         }
+         //foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
+         //                                                             .OfType<UnidirectionalAssociation>()
+         //                                                             .Where(x => x.Persistent))
+         //{
+         //   if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+         //      Output($"modelBuilder.Entity<{modelClass.FullName}>().OwnsOne(x => x.{association.TargetPropertyName});");
+         //   else
+         //      Output($"// Dependent 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
+         //}
 
          // ReSharper disable once LoopCanBePartlyConvertedToQuery
          foreach (BidirectionalAssociation association in Association.GetLinksToSources(modelClass)
@@ -710,8 +706,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       {
          // class level
 
-         bool isDependent = modelClass.IsDependentType;
-         segments.Add($"modelBuilder.{(isDependent ? "Owned" : "Entity")}<{modelClass.FullName}>()");
+         segments.Add($"modelBuilder.{(modelClass.IsDependentType ? "Owned" : "Entity")}<{modelClass.FullName}>()");
 
          foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
             segments.Add($"Ignore(t => t.{transient.Name})");
@@ -740,9 +735,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          if (segments.Count > 1 || modelClass.IsDependentType)
             Output(modelRoot, segments);
-
-         if (modelClass.IsDependentType)
-            return;
 
          // attribute level
          foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypesEFCore.Contains(x.Type)))
@@ -871,7 +863,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          // ReSharper disable once LoopCanBePartlyConvertedToQuery
          foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
                                                                       .OfType<UnidirectionalAssociation>()
-                                                                      .Where(x => x.Persistent && !x.Target.IsDependentType))
+                                                                      .Where(x => x.Persistent))
          {
             if (visited.Contains(association))
                continue;
@@ -1005,15 +997,15 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             }
          }
 
-         foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
-                                                                      .OfType<UnidirectionalAssociation>()
-                                                                      .Where(x => x.Persistent && x.Target.IsDependentType))
-         {
-            if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-               Output($"modelBuilder.Entity<{modelClass.FullName}>().OwnsOne(x => x.{association.TargetPropertyName});");
-            else
-               Output($"// Dependent 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
-         }
+         //foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
+         //                                                             .OfType<UnidirectionalAssociation>()
+         //                                                             .Where(x => x.Persistent && x.Target.IsDependentType))
+         //{
+         //   if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
+         //      Output($"modelBuilder.Entity<{modelClass.FullName}>().OwnsOne(x => x.{association.TargetPropertyName});");
+         //   else
+         //      Output($"// Dependent 1-many association seen ({association.TargetPropertyName}). Code generation still unsupported in designer.");
+         //}
 
          // ReSharper disable once LoopCanBePartlyConvertedToQuery
          foreach (BidirectionalAssociation association in Association.GetLinksToSources(modelClass)

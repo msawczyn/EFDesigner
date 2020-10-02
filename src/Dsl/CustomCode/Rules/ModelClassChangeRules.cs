@@ -32,208 +32,228 @@ namespace Sawczyn.EFDesigner.EFModel
 
          switch (e.DomainProperty.Name)
          {
-            case "DbSetName":
-            {
-               string newDbSetName = (string)e.NewValue;
-
-               if (element.IsDependentType)
+            case "BaseClass":
                {
-                  if (!string.IsNullOrEmpty(newDbSetName))
-                     element.DbSetName = string.Empty;
-               }
-               else
-               {
-                  if (string.IsNullOrEmpty(newDbSetName))
-                     element.DbSetName = MakeDefaultName(element.Name);
-
-                  if (current.Name.ToLowerInvariant() != "paste" &&
-                      (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
-                     errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
-                  else if (store.GetAll<ModelClass>()
-                                .Except(new[] {element})
-                                .Any(x => x.DbSetName == newDbSetName))
-                     errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
-               }
-
-               break;
-            }
-
-            case "ImplementNotify":
-            {
-               bool newImplementNotify = (bool)e.NewValue;
-
-               if (newImplementNotify)
-               {
-                  List<string> nameList = element.Attributes.Where(x => x.AutoProperty).Select(x => x.Name).ToList();
-                  if (nameList.Any())
+                  if (element.IsDependentType)
                   {
-                     string names = nameList.Count > 1
-                                       ? string.Join(", ", nameList.Take(nameList.Count - 1)) + " and " + nameList.Last()
-                                       : nameList.First();
+                     errorMessages.Add($"Can't give {element.Name} a base class since it's a dependent type");
 
-                     string verb = nameList.Count > 1
-                                      ? "is an autoproperty"
-                                      : "are autoproperties";
-
-                     WarningDisplay.Show($"{names} {verb}, so will not participate in INotifyPropertyChanged messages");
+                     break;
                   }
-               }
-
-               PresentationHelper.UpdateClassDisplay(element);
-
-               break;
-            }
-
-            case "IsAbstract":
-            {
-               bool newIsAbstract = (bool)e.NewValue;
-
-               if (newIsAbstract && element.IsDependentType)
-               {
-                  errorMessages.Add($"Can't make {element.Name} abstract since it's a dependent type");
 
                   break;
                }
 
-               PresentationHelper.UpdateClassDisplay(element);
+            case "DbSetName":
+               {
+                  string newDbSetName = (string)e.NewValue;
 
-               break;
-            }
+                  if (element.IsDependentType)
+                  {
+                     if (!string.IsNullOrEmpty(newDbSetName))
+                        element.DbSetName = string.Empty;
+                  }
+                  else
+                  {
+                     if (string.IsNullOrEmpty(newDbSetName))
+                        element.DbSetName = MakeDefaultName(element.Name);
+
+                     if (current.Name.ToLowerInvariant() != "paste" &&
+                         (string.IsNullOrWhiteSpace(newDbSetName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newDbSetName)))
+                        errorMessages.Add($"DbSet name '{newDbSetName}' isn't a valid .NET identifier.");
+                     else if (store.GetAll<ModelClass>()
+                                   .Except(new[] { element })
+                                   .Any(x => x.DbSetName == newDbSetName))
+                        errorMessages.Add($"DbSet name '{newDbSetName}' already in use");
+                  }
+
+                  break;
+               }
+
+            case "ImplementNotify":
+               {
+                  bool newImplementNotify = (bool)e.NewValue;
+
+                  if (newImplementNotify)
+                  {
+                     List<string> nameList = element.Attributes.Where(x => x.AutoProperty).Select(x => x.Name).ToList();
+                     if (nameList.Any())
+                     {
+                        string names = nameList.Count > 1
+                                          ? string.Join(", ", nameList.Take(nameList.Count - 1)) + " and " + nameList.Last()
+                                          : nameList.First();
+
+                        string verb = nameList.Count > 1
+                                         ? "is an autoproperty"
+                                         : "are autoproperties";
+
+                        WarningDisplay.Show($"{names} {verb}, so will not participate in INotifyPropertyChanged messages");
+                     }
+                  }
+
+                  PresentationHelper.UpdateClassDisplay(element);
+
+                  break;
+               }
+
+            case "IsAbstract":
+               {
+                  bool newIsAbstract = (bool)e.NewValue;
+
+                  if (newIsAbstract && element.IsDependentType)
+                  {
+                     errorMessages.Add($"Can't make {element.Name} abstract since it's a dependent type");
+
+                     break;
+                  }
+
+                  PresentationHelper.UpdateClassDisplay(element);
+
+                  break;
+               }
 
             case "IsDependentType":
-            {
-               bool newIsDependentType = (bool)e.NewValue;
-
-               if (newIsDependentType)
                {
-                  if (element.IsAbstract)
-                  {
-                     errorMessages.Add($"Can't make {element.Name} a dependent class since it's abstract");
+                  bool newIsDependentType = (bool)e.NewValue;
 
-                     break;
+                  if (newIsDependentType)
+                  {
+                     if (element.BaseClass != null)
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it has a base class");
+
+                        break;
+                     }
+
+                     if (element.IsAbstract)
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it's abstract");
+
+                        break;
+                     }
+
+                     // dependent type can't be source in an association
+                     if (store.GetAll<Association>().Any(a => a.Source == element))
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it references other classes");
+
+                        break;
+                     }
+
+                     if (store.GetAll<BidirectionalAssociation>().Any(a => a.Source == element || a.Target == element))
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it's in a bidirectional association");
+
+                        break;
+                     }
+
+                     if (element.ModelRoot.EntityFrameworkVersion == EFVersion.EF6 || element.ModelRoot.GetEntityFrameworkPackageVersionNum() < 2.2)
+                     {
+                        if (store.GetAll<Association>().Any(a => a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
+                        {
+                           errorMessages.Add($"Can't make {element.Name} a dependent class since it's the target of a 0..* association");
+
+                           break;
+                        }
+
+                        foreach (ModelAttribute modelAttribute in element.AllAttributes.Where(a => a.IsIdentity))
+                           modelAttribute.IsIdentity = false;
+
+                        foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(element).OfType<UnidirectionalAssociation>())
+                        {
+                           if (association.SourceMultiplicity == Multiplicity.ZeroMany)
+                              association.SourceMultiplicity = Multiplicity.ZeroOne;
+
+                           if (association.TargetMultiplicity == Multiplicity.ZeroMany)
+                              association.TargetMultiplicity = Multiplicity.ZeroOne;
+
+                           association.TargetRole = EndpointRole.Dependent;
+                        }
+
+                        element.TableName = string.Empty;
+                     }
+
+                     element.DbSetName = string.Empty;
+                  }
+                  else
+                  {
+                     element.DbSetName = MakeDefaultName(element.Name);
+                     element.TableName = MakeDefaultName(element.Name);
                   }
 
-                  // dependent type can't be source in an association
-                  if (store.GetAll<UnidirectionalAssociation>()
-                           .Any(a => a.Source == element))
-                  {
-                     errorMessages.Add($"Can't make {element.Name} a dependent class since it references other classes");
+                  PresentationHelper.UpdateClassDisplay(element);
 
-                     break;
-                  }
-
-                  if (store.GetAll<BidirectionalAssociation>()
-                           .Any(a => a.Source == element || a.Target == element))
-                  {
-                     errorMessages.Add($"Can't make {element.Name} a dependent class since it's in a bidirectional association");
-
-                     break;
-                  }
-
-                  if (store.GetAll<Association>()
-                           .Any(a => a.Target == element && a.TargetMultiplicity == Multiplicity.ZeroMany))
-                  {
-                     errorMessages.Add($"Can't make {element.Name} a dependent class since it's the target of a 0..* association");
-
-                     break;
-                  }
-
-                  foreach (ModelAttribute modelAttribute in element.AllAttributes.Where(a => a.IsIdentity))
-                     modelAttribute.IsIdentity = false;
-
-                  foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(element).OfType<UnidirectionalAssociation>())
-                  {
-                     if (association.SourceMultiplicity == Multiplicity.ZeroMany)
-                        association.SourceMultiplicity = Multiplicity.ZeroOne;
-
-                     if (association.TargetMultiplicity == Multiplicity.ZeroMany)
-                        association.TargetMultiplicity = Multiplicity.ZeroOne;
-
-                     association.TargetRole = EndpointRole.Dependent;
-                  }
-
-                  element.TableName = string.Empty;
-                  element.DbSetName = string.Empty;
+                  break;
                }
-               else
-               {
-                  element.DbSetName = MakeDefaultName(element.Name);
-                  element.TableName = MakeDefaultName(element.Name);
-               }
-
-               PresentationHelper.UpdateClassDisplay(element);
-
-               break;
-            }
 
             case "Name":
-            {
-               string newName = (string)e.NewValue;
-
-               if (current.Name.ToLowerInvariant() != "paste" &&
-                   (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
-                  errorMessages.Add($"Class name '{newName}' isn't a valid .NET identifier.");
-
-               else if (store.ElementDirectory
-                             .AllElements
-                             .OfType<ModelClass>()
-                             .Except(new[] {element})
-                             .Any(x => x.Name == newName))
-                  errorMessages.Add($"Class name '{newName}' already in use by another class");
-
-               else if (store.ElementDirectory
-                             .AllElements
-                             .OfType<ModelEnum>()
-                             .Any(x => x.Name == newName))
-                  errorMessages.Add($"Class name '{newName}' already in use by an enum");
-
-               else if (!string.IsNullOrEmpty((string)e.OldValue))
                {
-                  string oldDefaultName = MakeDefaultName((string)e.OldValue);
-                  string newDefaultName = MakeDefaultName(newName);
+                  string newName = (string)e.NewValue;
 
-                  if (element.DbSetName == oldDefaultName)
-                     element.DbSetName = newDefaultName;
+                  if (current.Name.ToLowerInvariant() != "paste" &&
+                      (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
+                     errorMessages.Add($"Class name '{newName}' isn't a valid .NET identifier.");
 
-                  if (element.TableName == oldDefaultName)
-                     element.TableName = newDefaultName;
+                  else if (store.ElementDirectory
+                                .AllElements
+                                .OfType<ModelClass>()
+                                .Except(new[] { element })
+                                .Any(x => x.Name == newName))
+                     errorMessages.Add($"Class name '{newName}' already in use by another class");
+
+                  else if (store.ElementDirectory
+                                .AllElements
+                                .OfType<ModelEnum>()
+                                .Any(x => x.Name == newName))
+                     errorMessages.Add($"Class name '{newName}' already in use by an enum");
+
+                  else if (!string.IsNullOrEmpty((string)e.OldValue))
+                  {
+                     string oldDefaultName = MakeDefaultName((string)e.OldValue);
+                     string newDefaultName = MakeDefaultName(newName);
+
+                     if (element.DbSetName == oldDefaultName)
+                        element.DbSetName = newDefaultName;
+
+                     if (element.TableName == oldDefaultName)
+                        element.TableName = newDefaultName;
+                  }
+
+                  break;
                }
-
-               break;
-            }
 
             case "Namespace":
-            {
-               string newNamespace = (string)e.NewValue;
+               {
+                  string newNamespace = (string)e.NewValue;
 
-               if (current.Name.ToLowerInvariant() != "paste")
-                  errorMessages.Add(CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier));
+                  if (current.Name.ToLowerInvariant() != "paste")
+                     errorMessages.Add(CommonRules.ValidateNamespace(newNamespace, CodeGenerator.IsValidLanguageIndependentIdentifier));
 
-               break;
-            }
+                  break;
+               }
 
             case "TableName":
-            {
-               string newTableName = (string)e.NewValue;
-
-               if (element.IsDependentType)
                {
-                  if (!string.IsNullOrEmpty(newTableName))
-                     element.TableName = string.Empty;
-               }
-               else
-               {
-                  if (string.IsNullOrEmpty(newTableName))
-                     element.TableName = MakeDefaultName(element.Name);
+                  string newTableName = (string)e.NewValue;
 
-                  if (store.GetAll<ModelClass>()
-                           .Except(new[] {element})
-                           .Any(x => x.TableName == newTableName))
-                     errorMessages.Add($"Table name '{newTableName}' already in use");
-               }
+                  if (element.IsDependentType)
+                  {
+                     if (!string.IsNullOrEmpty(newTableName))
+                        element.TableName = string.Empty;
+                  }
+                  else
+                  {
+                     if (string.IsNullOrEmpty(newTableName))
+                        element.TableName = MakeDefaultName(element.Name);
 
-               break;
-            }
+                     if (store.GetAll<ModelClass>()
+                              .Except(new[] { element })
+                              .Any(x => x.TableName == newTableName))
+                        errorMessages.Add($"Table name '{newTableName}' already in use");
+                  }
+
+                  break;
+               }
          }
 
          errorMessages = errorMessages.Where(m => m != null).ToList();

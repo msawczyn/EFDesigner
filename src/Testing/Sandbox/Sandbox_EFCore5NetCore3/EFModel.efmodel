@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.1.0.0" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.;Initial Catalog=Sandbox;Integrated Security=True" automaticMigrationsEnabled="false" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" defaultIdentityType="Int64" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="5.0.Latest" structOutputDirectory="Generated\Structs" showWarningsInDesigner="false" exposeForeignKeys="true" propertyAccessModeDefault="Field" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.1.0.2" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.;Initial Catalog=Sandbox;Integrated Security=True" automaticMigrationsEnabled="false" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" defaultIdentityType="Int64" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="5.0.Latest" structOutputDirectory="Generated\Structs" showWarningsInDesigner="false" exposeForeignKeys="true" propertyAccessModeDefault="Field" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <classes>
     <modelRootHasClasses Id="d81a366e-ae88-411e-aaac-319314e6dd96">
       <modelClass Id="0f66385b-c568-4e69-8745-e44437f7e48d" tableName="Entity1" databaseSchema="dbo" namespace="Testing" dbSetName="Entity1" name="Entity1" isOutputDirectoryTracking="false">
@@ -54,6 +54,13 @@
             <modelClassMoniker Id="d4e7b02a-8f7b-4ed6-88af-4261f9d1809d" />
           </bidirectionalAssociation>
         </bidirectionalTargets>
+      </modelClass>
+    </modelRootHasClasses>
+    <modelRootHasClasses Id="0b7dfe1d-d49d-4272-94da-f28f73e1ea36">
+      <modelClass Id="18647810-e2d5-4705-ad39-06c9cf9ef925" databaseSchema="dbo" namespace="Testing" name="Dependent" isDependentType="true" outputDirectory="Generated\Structs">
+        <attributes>
+          <modelAttribute Id="110ba606-e78b-4845-9e52-2f2301794065" type="Int64" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" name="Id" autoProperty="true" minLength="0" columnName="Id" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_id" databaseCollation="default" />
+        </attributes>
       </modelClass>
     </modelRootHasClasses>
   </classes>
