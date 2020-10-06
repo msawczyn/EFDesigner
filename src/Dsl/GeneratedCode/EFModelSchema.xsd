@@ -556,6 +556,12 @@
             <xsd:documentation>If true, this class will be implemented as Dictionary&lt;string, object&gt;</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsMappedToSqlQuery -->
+        <xsd:attribute name="isMappedToSqlQuery" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this entity is mapped to a defining query that will be added to the partial class for this type. For more information, see https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew#map-entity-types-to-queries</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

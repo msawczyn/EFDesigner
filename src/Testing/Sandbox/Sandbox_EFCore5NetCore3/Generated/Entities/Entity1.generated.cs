@@ -30,6 +30,7 @@ namespace Testing
       /// </summary>
       protected Entity1()
       {
+         Entity11 = new System.Collections.Generic.HashSet<global::Testing.Entity11>();
          Entity2_1 = new System.Collections.Generic.HashSet<global::Testing.Entity2>();
 
          Init();
@@ -52,6 +53,7 @@ namespace Testing
          if (entity2 == null) throw new ArgumentNullException(nameof(entity2));
          this.Entity2 = entity2;
 
+         this.Entity11 = new System.Collections.Generic.HashSet<global::Testing.Entity11>();
          this.Entity2_1 = new System.Collections.Generic.HashSet<global::Testing.Entity2>();
 
          Init();
@@ -102,31 +104,12 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      protected global::Testing.Entity2 _entity2;
-      partial void SetEntity2(global::Testing.Entity2 oldValue, ref global::Testing.Entity2 newValue);
-      partial void GetEntity2(ref global::Testing.Entity2 result);
-
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.Entity2 Entity2
-      {
-         get
-         {
-            global::Testing.Entity2 value = _entity2;
-            GetEntity2(ref value);
-            return (_entity2 = value);
-         }
-         set
-         {
-            global::Testing.Entity2 oldValue = _entity2;
-            SetEntity2(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _entity2 = value;
-            }
-         }
-      }
+      public virtual global::Testing.Entity2 Entity2 { get; set; }
+
+      public virtual ICollection<global::Testing.Entity11> Entity11 { get; protected set; }
 
       public virtual ICollection<global::Testing.Entity2> Entity2_1 { get; protected set; }
 

@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v2.0.5.6
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace MultiContext.Context2
+namespace Sandbox_EFCore5NetCore3_Test
 {
    public partial class Entity1
    {
@@ -33,7 +33,7 @@ namespace MultiContext.Context2
       /// </summary>
       public Entity1()
       {
-         Entity3 = new System.Collections.Generic.HashSet<global::MultiContext.Context2.Entity3>();
+         Entity2 = new System.Collections.Generic.HashSet<global::Sandbox_EFCore5NetCore3_Test.Entity2>();
 
          Init();
       }
@@ -43,21 +43,17 @@ namespace MultiContext.Context2
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Required
+      /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
       public int Id { get; protected set; }
 
-      public string Property1 { get; set; }
-
-      public string Property2 { get; set; }
-
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::MultiContext.Context2.Entity3> Entity3 { get; protected set; }
+      public virtual ICollection<global::Sandbox_EFCore5NetCore3_Test.Entity2> Entity2 { get; protected set; }
 
    }
 }

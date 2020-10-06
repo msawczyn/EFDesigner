@@ -10,7 +10,7 @@ namespace Sawczyn.EFDesigner.EFModel
    {
       public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
-         Store store = GetStore(context);
+         Store store = GetStore(context.Instance);
          DTE dte = store?.GetService(typeof(DTE)) as DTE;
          Array projects = dte?.ActiveSolutionProjects as Array;
 

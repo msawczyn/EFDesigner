@@ -913,6 +913,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;IsPropertyBag&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Description" xml:space="preserve">
+    <value>If true, this entity is mapped to a defining query that will be added to the partial class for this type. For more information, see https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew#map-entity-types-to-queries</value>
+    <comment>Description for DomainProperty &apos;IsMappedToSqlQuery&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.DisplayName" xml:space="preserve">
+    <value>Is Mapped To Sql Query</value>
+    <comment>DisplayName for DomainProperty &apos;IsMappedToSqlQuery&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;IsMappedToSqlQuery&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
     <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>

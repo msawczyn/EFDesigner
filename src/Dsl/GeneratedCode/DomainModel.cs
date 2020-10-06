@@ -182,6 +182,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelClass), "AutoPropertyDefault", ModelClass.AutoPropertyDefaultDomainPropertyId, typeof(ModelClass.AutoPropertyDefaultPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "GenerateCode", ModelClass.GenerateCodeDomainPropertyId, typeof(ModelClass.GenerateCodePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsPropertyBag", ModelClass.IsPropertyBagDomainPropertyId, typeof(ModelClass.IsPropertyBagPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsMappedToSqlQuery", ModelClass.IsMappedToSqlQueryDomainPropertyId, typeof(ModelClass.IsMappedToSqlQueryPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),

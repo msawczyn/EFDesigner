@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v2.0.5.6
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -24,14 +24,14 @@ using System.Runtime.CompilerServices;
 
 namespace MultiContext.Context2
 {
-   public partial class Entity3: global::MultiContext.Context2.Base
+   public partial class Entity3
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      protected Entity3(): base()
+      protected Entity3()
       {
          Init();
       }
@@ -47,11 +47,14 @@ namespace MultiContext.Context2
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="_entity21"></param>
-      public Entity3(global::MultiContext.Context2.Entity2 _entity21)
+      /// <param name="fk">Foreign key for Entity2.Entity3 --&gt; Entity3. </param>
+      /// <param name="_entity20"></param>
+      public Entity3(int fk, global::MultiContext.Context2.Entity2 _entity20)
       {
-         if (_entity21 == null) throw new ArgumentNullException(nameof(_entity21));
-         _entity21.Entity3.Add(this);
+         this.Fk = fk;
+
+         if (_entity20 == null) throw new ArgumentNullException(nameof(_entity20));
+         _entity20.Entity3.Add(this);
 
 
          Init();
@@ -60,10 +63,11 @@ namespace MultiContext.Context2
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="_entity21"></param>
-      public static Entity3 Create(global::MultiContext.Context2.Entity2 _entity21)
+      /// <param name="fk">Foreign key for Entity2.Entity3 --&gt; Entity3. </param>
+      /// <param name="_entity20"></param>
+      public static Entity3 Create(int fk, global::MultiContext.Context2.Entity2 _entity20)
       {
-         return new Entity3(_entity21);
+         return new Entity3(fk, _entity20);
       }
 
       /*************************************************************************
@@ -71,6 +75,20 @@ namespace MultiContext.Context2
        *************************************************************************/
 
       public string Property1 { get; set; }
+
+      /// <summary>
+      /// Identity, Indexed, Required
+      /// </summary>
+      [Key]
+      [Required]
+      public int Id { get; protected set; }
+
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for Entity2.Entity3 --&gt; Entity3. 
+      /// </summary>
+      [Required]
+      public int Fk { get; set; }
 
       /*************************************************************************
        * Navigation properties

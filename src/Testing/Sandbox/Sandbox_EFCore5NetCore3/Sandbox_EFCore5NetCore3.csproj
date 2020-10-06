@@ -40,6 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Custom\Context\" />
+    <Folder Include="Generated\Context\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

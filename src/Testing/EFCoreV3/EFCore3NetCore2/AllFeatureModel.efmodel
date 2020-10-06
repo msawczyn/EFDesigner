@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.1" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" transformOnSave="false" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="3.1.Latest" structOutputDirectory="Generated\Entities" showWarningsInDesigner="false" exposeForeignKeys="false" gridColor="" gridSize="0" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.5.6" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="AllFeatureModel" namespace="Testing" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="true" entityOutputDirectory="Generated\Entities" contextOutputDirectory="Generated\Context" enumOutputDirectory="Generated\Enums" entityFrameworkVersion="EFCore" chopMethodChains="false" transformOnSave="false" showCascadeDeletes="true" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="3.1.Latest" structOutputDirectory="Generated\Entities" showWarningsInDesigner="false" exposeForeignKeys="false" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <enums>
     <modelRootHasEnums Id="25a934bf-320d-4481-9801-2f7f2a920f0c">
       <modelEnum Id="d999f148-5d0f-4b8d-a3fc-5abf12f0242b" namespace="Testing" name="Enum1" outputDirectory="Generated\Enums">
@@ -40,7 +40,7 @@
       </modelClass>
     </modelRootHasClasses>
     <modelRootHasClasses Id="0f6f5d25-28df-4f7c-a31a-2615b0180064">
-      <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" concurrency="Optimistic" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional" outputDirectory="Custom" isOutputDirectoryTracking="false">
+      <modelClass Id="c28792a2-3f01-4609-a7bd-ae496214b7b7" tableName="AllPropertyTypesOptionals" databaseSchema="dbo" concurrency="Optimistic" namespace="Testing" dbSetName="AllPropertyTypesOptionals" name="AllPropertyTypesOptional" outputDirectory="Generated\Entities">
         <unidirectionalTargets>
           <unidirectionalAssociation Id="360cfcbe-12d2-46d5-ace2-7a329ce9548b" targetMultiplicity="ZeroOne" targetPropertyName="OwnedType" collectionClass="HashSet" sourceRole="Principal" targetRole="Dependent" foreignKeyLocation="None" targetImplementNotify="false">
             <modelClassMoniker Id="f9b35807-ab8c-4623-a371-2f4da65ae300" />
@@ -322,6 +322,9 @@
   <diagrams>
     <modelRootHasModelDiagrams Id="1118c9a9-c305-426c-9daf-0695ee844b2c">
       <modelDiagramData name="ModelDiagramData1a" />
+    </modelRootHasModelDiagrams>
+    <modelRootHasModelDiagrams Id="d51cf8bb-7667-4a94-8ca7-66b45ac93595">
+      <modelDiagramData name="AllFeatureModel" />
     </modelRootHasModelDiagrams>
   </diagrams>
 </modelRoot>

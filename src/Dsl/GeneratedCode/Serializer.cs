@@ -2709,6 +2709,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // IsMappedToSqlQuery
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsMappedToSqlQuery = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isMappedToSqlQuery");
+	         if (attribIsMappedToSqlQuery != null)
+	         {
+	            global::System.Boolean valueOfIsMappedToSqlQuery;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsMappedToSqlQuery, out valueOfIsMappedToSqlQuery))
+	            {
+	               instanceOfModelClass.IsMappedToSqlQuery = valueOfIsMappedToSqlQuery;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isMappedToSqlQuery", typeof(global::System.Boolean), attribIsMappedToSqlQuery);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -3637,6 +3654,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isPropertyBag", serializedPropValue);
+	            }
+	         }
+	      }
+	      // IsMappedToSqlQuery
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.IsMappedToSqlQuery;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isMappedToSqlQuery", serializedPropValue);
 	            }
 	         }
 	      }

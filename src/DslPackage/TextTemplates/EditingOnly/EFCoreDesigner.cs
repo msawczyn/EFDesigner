@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    partial class EditOnly
    {
       #region Template
-      // EFDesigner v2.1.0.2
+      // EFDesigner v2.1.0.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -502,11 +502,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             switch (association.SourceMultiplicity) // realized by shadow property on target
             {
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                  if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                  if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   {
                      segments.Add("WithMany()");
-
-                     //segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                  }
+                  else if (modelRoot.IsEFCore5Plus)
+                  {
+                     segments.Add($"WithMany(\"{columnPrefix}{association.TargetPropertyName}\")");
                   }
                   else
                      continue;
@@ -1151,6 +1153,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       #endregion Template      
    }
 }
+
 
 
 

@@ -67,7 +67,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Property1
       /// </summary>
-      protected string _property1;
+      protected string _Property1;
       /// <summary>
       /// When provided in a partial class, allows value of Property1 to be changed before setting.
       /// </summary>
@@ -81,17 +81,17 @@ namespace Testing
       {
          get
          {
-            string value = _property1;
+            string value = _Property1;
             GetProperty1(ref value);
-            return (_property1 = value);
+            return (_Property1 = value);
          }
          set
          {
-            string oldValue = _property1;
+            string oldValue = _Property1;
             SetProperty1(oldValue, ref value);
             if (oldValue != value)
             {
-               _property1 = value;
+               _Property1 = value;
             }
          }
       }
@@ -99,7 +99,7 @@ namespace Testing
       /// <summary>
       /// Backing field for PropertyInChild
       /// </summary>
-      protected string _propertyInChild;
+      protected string _PropertyInChild;
       /// <summary>
       /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
       /// </summary>
@@ -113,17 +113,17 @@ namespace Testing
       {
          get
          {
-            string value = _propertyInChild;
+            string value = _PropertyInChild;
             GetPropertyInChild(ref value);
-            return (_propertyInChild = value);
+            return (_PropertyInChild = value);
          }
          set
          {
-            string oldValue = _propertyInChild;
+            string oldValue = _PropertyInChild;
             SetPropertyInChild(oldValue, ref value);
             if (oldValue != value)
             {
-               _propertyInChild = value;
+               _PropertyInChild = value;
             }
          }
       }

@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v2.0.5.6
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -26,8 +26,6 @@ namespace MultiContext.Context2
    public partial class Context2 : DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Base> Bases { get; set; }
-      public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity1> Entity1 { get; set; }
       public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity2> Entity2 { get; set; }
       public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity3> Entity3 { get; set; }
       #endregion DbSets
@@ -36,7 +34,18 @@ namespace MultiContext.Context2
 
       partial void CustomInit();
 
-      #warning Default constructor not generated for Context2 since no default connection string was specified in the model
+      /// <summary>
+      /// Default connection string
+      /// </summary>
+      public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Empty;Integrated Security=True";
+      /// <inheritdoc />
+      public Context2() : base(ConnectionString)
+      {
+         Configuration.LazyLoadingEnabled = true;
+         Configuration.ProxyCreationEnabled = true;
+         System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
+         CustomInit();
+      }
 
       /// <inheritdoc />
       public Context2(string connectionString) : base(connectionString)
@@ -105,18 +114,13 @@ namespace MultiContext.Context2
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::MultiContext.Context2.Base>().ToTable("Bases").HasKey(t => t.Id);
-         modelBuilder.Entity<global::MultiContext.Context2.Base>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-         modelBuilder.Entity<global::MultiContext.Context2.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
-         modelBuilder.Entity<global::MultiContext.Context2.Entity1>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::MultiContext.Context2.Entity1>().HasMany(x => x.Entity3).WithMany().Map(x => { x.ToTable("Entity1_x_Entity3"); x.MapLeftKey("Entity1_Id"); x.MapRightKey("Entity3_Id"); });
-
          modelBuilder.Entity<global::MultiContext.Context2.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
          modelBuilder.Entity<global::MultiContext.Context2.Entity2>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::MultiContext.Context2.Entity2>().HasMany(x => x.Entity3).WithRequired().Map(x => x.MapKey("Entity2.Entity3_Id"));
+         modelBuilder.Entity<global::MultiContext.Context2.Entity2>().HasMany(x => x.Entity3).WithRequired().HasForeignKey(p => p.Fk);
 
-         modelBuilder.Entity<global::MultiContext.Context2.Entity3>();
+         modelBuilder.Entity<global::MultiContext.Context2.Entity3>().ToTable("Entity3").HasKey(t => t.Id);
+         modelBuilder.Entity<global::MultiContext.Context2.Entity3>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::MultiContext.Context2.Entity3>().Property(t => t.Fk).IsRequired().HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
 
          OnModelCreatedImpl(modelBuilder);
       }

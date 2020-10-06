@@ -64,17 +64,15 @@ namespace Testing
          modelBuilder.Entity<global::Testing.Base>().HasOne(x => x.Entity11).WithMany(x => x.Bases).HasForeignKey("Entity11_Id");
 
          modelBuilder.Owned<global::Testing.Dependent>();
-         modelBuilder.Owned<global::Testing.Dependent>().Property(t => t.Id).IsRequired();
-         modelBuilder.Entity<global::Testing.Dependent>().HasIndex(t => t.Id).IsUnique();
 
          modelBuilder.Entity<global::Testing.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Property1).HasMaxLength(25);
          modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Property2).HasMaxLength(25);
          modelBuilder.Entity<global::Testing.Entity1>().Property(t => t.Property3).HasMaxLength(25);
-         modelBuilder.Entity<global::Testing.Entity1>().HasOne(x => x.Entity2).WithMany();
-         modelBuilder.Entity<global::Testing.Entity1>().Navigation(x => x.Entity2).HasField("_entity2").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
-         modelBuilder.Entity<global::Testing.Entity1>().HasMany(x => x.Entity2_1).WithMany(x => x.Entity1);
+         modelBuilder.Entity<global::Testing.Entity1>().HasOne(x => x.Entity2).WithMany().HasForeignKey("Entity2_Id");
+         modelBuilder.Entity<global::Testing.Entity1>().HasMany(x => x.Entity11).WithMany().Map(x => { x.ToTable("Entity1_x_Entity11"); x.MapLeftKey("Entity1_Id"); x.MapRightKey("Entity11_Id"); });
+         modelBuilder.Entity<global::Testing.Entity1>().HasMany(x => x.Entity2_1).WithMany(x => x.Entity1).Map(x => { x.ToTable("Entity2_x_Entity1"); x.MapLeftKey("Entity1_Id"); x.MapRightKey("Entity2_Id"); });
 
          modelBuilder.Entity<global::Testing.Entity11>().ToTable("Entity11").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Entity11>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();

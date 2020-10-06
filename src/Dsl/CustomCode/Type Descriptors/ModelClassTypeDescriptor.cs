@@ -25,13 +25,24 @@ namespace Sawczyn.EFDesigner.EFModel
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
             ModelRoot modelRoot = modelClass.ModelRoot;
 
-            // no property bags if pre-EFCore5
+            // things unavailable if pre-EFCore5
             if (!modelRoot.IsEFCore5Plus)
             {
                propertyDescriptors.Remove("IsPropertyBag");
+               propertyDescriptors.Remove("IsMappedToSqlQuery");
 
                if (modelClass.IsDependentType && modelRoot.EntityFrameworkVersion == EFVersion.EF6)
                   propertyDescriptors.Remove("TableName");
+            }
+            else
+            {
+               if (modelClass.IsMappedToSqlQuery)
+               {
+                  propertyDescriptors.Remove("TableName");
+                  propertyDescriptors.Remove("DatabaseSchema");
+                  propertyDescriptors.Remove("Concurrency");
+                  propertyDescriptors.Remove("ImplementNotify");
+               }
             }
 
             //Add the descriptors for the tracking properties 

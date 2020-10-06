@@ -6202,6 +6202,96 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region IsMappedToSqlQuery domain property code
+		
+		/// <summary>
+		/// IsMappedToSqlQuery domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsMappedToSqlQueryDomainPropertyId = new global::System.Guid(0x9a283e38, 0x2021, 0x4a1a, 0x80, 0x6c, 0x66, 0x9a, 0x97, 0xef, 0x02, 0xb5);
+		
+		/// <summary>
+		/// Storage for IsMappedToSqlQuery
+		/// </summary>
+		private global::System.Boolean isMappedToSqlQueryPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsMappedToSqlQuery domain property.
+		/// If true, this entity is mapped to a defining query that will be added to the
+		/// partial class for this type. For more information, see
+		/// https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew#map-entity-types-to-queries
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("9a283e38-2021-4a1a-806c-669a97ef02b5")]
+		public global::System.Boolean IsMappedToSqlQuery
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isMappedToSqlQueryPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsMappedToSqlQueryPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.IsMappedToSqlQuery domain property.
+		/// </summary>
+		internal sealed partial class IsMappedToSqlQueryPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private IsMappedToSqlQueryPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.IsMappedToSqlQuery domain property value handler.
+			/// </summary>
+			public static readonly IsMappedToSqlQueryPropertyHandler Instance = new IsMappedToSqlQueryPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.IsMappedToSqlQuery domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsMappedToSqlQueryDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isMappedToSqlQueryPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isMappedToSqlQueryPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -11926,6 +12016,6 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "2.1.0.2";
+		public const string DSLVersion = "2.1.0.3";
 	}
 }

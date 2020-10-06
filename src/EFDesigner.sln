@@ -104,6 +104,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore2Parser", "Utilities\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore5Parser", "Utilities\EFCore5Parser\EFCore5Parser.csproj", "{16134D13-C0E1-416A-B689-2CBD6DD1702C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFDesigner.APIDocs", "EFDesigner.APIDocs\EFDesigner.APIDocs.csproj", "{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -252,6 +254,24 @@ Global
 		{16134D13-C0E1-416A-B689-2CBD6DD1702C}.Release|x64.Build.0 = Release|Any CPU
 		{16134D13-C0E1-416A-B689-2CBD6DD1702C}.Release|x86.ActiveCfg = Release|Any CPU
 		{16134D13-C0E1-416A-B689-2CBD6DD1702C}.Release|x86.Build.0 = Release|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Debug|x64.Build.0 = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Debug|x86.Build.0 = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.DebugDevTrace|Any CPU.ActiveCfg = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.DebugDevTrace|Any CPU.Build.0 = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.DebugDevTrace|x64.ActiveCfg = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.DebugDevTrace|x64.Build.0 = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.DebugDevTrace|x86.ActiveCfg = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.DebugDevTrace|x86.Build.0 = Debug|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Release|x64.ActiveCfg = Release|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Release|x64.Build.0 = Release|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Release|x86.ActiveCfg = Release|Any CPU
+		{745A0B9F-2BC3-4717-AAEF-585C8BE1FC07}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

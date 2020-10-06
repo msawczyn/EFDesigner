@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v2.0.5.6
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -22,16 +22,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace MultiContext.Context2
+namespace Sandbox_EFCore5NetCore3_Test
 {
-   public partial class Base
+   public partial class Entity2
    {
       partial void Init();
 
       /// <summary>
       /// Default constructor
       /// </summary>
-      public Base()
+      public Entity2()
       {
          Init();
       }
@@ -46,6 +46,18 @@ namespace MultiContext.Context2
       [Key]
       [Required]
       public int Id { get; protected set; }
+
+      /// <summary>
+      /// Indexed
+      /// Foreign key for Entity1.Entity2 &lt;--&gt; Entity2.Entity1. 
+      /// </summary>
+      public int? FK { get; set; }
+
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
+
+      public virtual global::Sandbox_EFCore5NetCore3_Test.Entity1 Entity1 { get; set; }
 
    }
 }

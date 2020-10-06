@@ -186,6 +186,62 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
+            case "IsMappedToSqlQuery":
+               {
+                  if ((bool)e.NewValue)
+                  {
+                     // Restrictions:
+                     // =================================
+                     // Cannot have a key defined.
+                     if (element.Attributes.Any(x => x.IsIdentity))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has identity attributes. Set their 'Is Identity' property to false first.");
+
+                     // Only support a subset of navigation mapping capabilities, specifically:
+                     //    - They may never act as the principal end of a relationship.
+                     foreach (Association association in store.ElementDirectory.AllElements
+                                                              .OfType<Association>()
+                                                              .Where(a => a.Principal == element))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it is the principal end of an association with {association.Dependent.Name} ({association.GetDisplayText()})");
+
+                     //    - They may not have navigations to owned entities
+                     foreach (Association association in store.ElementDirectory.AllElements
+                                                                            .OfType<Association>()
+                                                                            .Where(a => a.Source == element && a.Target.IsDependentType))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has an association to the dependent type {association.Target.Name} ({association.GetDisplayText()})");
+
+                     foreach (BidirectionalAssociation association in store.ElementDirectory.AllElements
+                                                                            .OfType<BidirectionalAssociation>()
+                                                                            .Where(a => a.Target == element && a.Source.IsDependentType))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has an association to the dependent type {association.Source.Name} ({association.GetDisplayText()})");
+
+                     //    - They can only contain reference navigation properties pointing to regular entities.
+                     foreach (Association association in store.ElementDirectory.AllElements
+                                                              .OfType<Association>()
+                                                              .Where(a => a.TargetMultiplicity == Multiplicity.ZeroMany))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has an zero-to-many association to {association.Target.Name} ({association.GetDisplayText()}). Only to-one or to-zero-or-one associations are allowed. ");
+
+                     foreach (BidirectionalAssociation association in store.ElementDirectory.AllElements
+                                                                           .OfType<BidirectionalAssociation>()
+                                                                           .Where(a => a.SourceMultiplicity == Multiplicity.ZeroMany))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has an zero-to-many association to {association.Source.Name} ({association.GetDisplayText()}). Only to-one or to-zero-or-one associations are allowed. ");
+
+                     //    - Entities cannot contain navigation properties to keyless entity types.
+                     foreach (Association association in store.ElementDirectory.AllElements
+                                                              .OfType<Association>()
+                                                              .Where(a => a.Source == element && a.Target.IsMappedToSqlQuery))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has an association to the sql-mapped type {association.Target.Name} ({association.GetDisplayText()})");
+
+                     foreach (BidirectionalAssociation association in store.ElementDirectory.AllElements
+                                                                           .OfType<BidirectionalAssociation>()
+                                                                           .Where(a => a.Target == element && a.Source.IsMappedToSqlQuery))
+                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has an association to the sql-mapped type {association.Source.Name} ({association.GetDisplayText()})");
+
+                     foreach (ModelAttribute attribute in element.Attributes)
+                        attribute.ReadOnly = true;
+                  }
+
+                  break;
+               }
             case "Name":
                {
                   string newName = (string)e.NewValue;

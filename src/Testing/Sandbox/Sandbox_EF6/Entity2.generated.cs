@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v2.0.5.6
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -50,10 +50,6 @@ namespace MultiContext.Context2
       public int Id { get; protected set; }
 
       public string Property1 { get; set; }
-
-      public string Property2 { get; set; }
-
-      public string Property3 { get; set; }
 
       /*************************************************************************
        * Navigation properties
