@@ -22,11 +22,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
          if (ModelElement is ModelClass modelClass)
          {
-            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelClass);
-
             storeDomainDataDirectory = modelClass.Store.DomainDataDirectory;
-
-
 
             //Add the descriptors for the tracking properties 
 

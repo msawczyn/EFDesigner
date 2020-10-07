@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.5.6
+      // EFDesigner v2.0.5.7
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -285,7 +285,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          WriteLine(text);
 
          if (text.EndsWith("{"))
-            PushIndent("   ");
+            PushIndent(ModelRoot.UseTabs() ? "\t" : "   ");
       }
 
       void Output(string template, params object[] items)
@@ -1037,8 +1037,3 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       }
    }
 }
-
-
-
-
-

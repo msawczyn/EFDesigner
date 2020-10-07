@@ -17,6 +17,11 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, modelRoot);
 
+            if (!modelRoot.ShowGrid)
+            {
+               propertyDescriptors.Remove("GridColor");
+            }
+
             //Add in extra custom properties here...
          }
 

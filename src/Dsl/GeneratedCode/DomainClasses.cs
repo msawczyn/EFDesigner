@@ -3622,94 +3622,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region GridSize domain property code
-		
-		/// <summary>
-		/// GridSize domain property Id.
-		/// </summary>
-		public static readonly global::System.Guid GridSizeDomainPropertyId = new global::System.Guid(0xe4121eca, 0x2a99, 0x4d3c, 0x81, 0x59, 0x17, 0x84, 0xfd, 0xb7, 0x2d, 0x28);
-		
-		/// <summary>
-		/// Storage for GridSize
-		/// </summary>
-		private global::System.Int16 gridSizePropertyStorage;
-		
-		/// <summary>
-		/// Gets or sets the value of GridSize domain property.
-		/// Size of display grid units, in inches
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainObjectId("e4121eca-2a99-4d3c-8159-1784fdb72d28")]
-		public global::System.Int16 GridSize
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return gridSizePropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				GridSizePropertyHandler.Instance.SetValue(this, value);
-			}
-		}
-		/// <summary>
-		/// Value handler for the ModelRoot.GridSize domain property.
-		/// </summary>
-		internal sealed partial class GridSizePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Int16>
-		{
-			private GridSizePropertyHandler() { }
-		
-			/// <summary>
-			/// Gets the singleton instance of the ModelRoot.GridSize domain property value handler.
-			/// </summary>
-			public static readonly GridSizePropertyHandler Instance = new GridSizePropertyHandler();
-		
-			/// <summary>
-			/// Gets the Id of the ModelRoot.GridSize domain property.
-			/// </summary>
-			public sealed override global::System.Guid DomainPropertyId
-			{
-				[global::System.Diagnostics.DebuggerStepThrough]
-				get
-				{
-					return GridSizeDomainPropertyId;
-				}
-			}
-			
-			/// <summary>
-			/// Gets a strongly-typed value of the property on specified element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <returns>Property value.</returns>
-			public override sealed global::System.Int16 GetValue(ModelRoot element)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.gridSizePropertyStorage;
-			}
-		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelRoot element, global::System.Int16 newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				global::System.Int16 oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.gridSizePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
-		}
-		
-		#endregion
 		#region ShowForeignKeyPropertyNames domain property code
 		
 		/// <summary>
@@ -11474,6 +11386,6 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "2.0.5.6";
+		public const string DSLVersion = "2.0.5.7";
 	}
 }

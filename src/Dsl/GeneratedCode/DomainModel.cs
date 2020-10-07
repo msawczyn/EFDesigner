@@ -156,7 +156,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelRoot), "ShowGrid", ModelRoot.ShowGridDomainPropertyId, typeof(ModelRoot.ShowGridPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "SnapToGrid", ModelRoot.SnapToGridDomainPropertyId, typeof(ModelRoot.SnapToGridPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "GridColor", ModelRoot.GridColorDomainPropertyId, typeof(ModelRoot.GridColorPropertyHandler)),
-	         new DomainMemberInfo(typeof(ModelRoot), "GridSize", ModelRoot.GridSizeDomainPropertyId, typeof(ModelRoot.GridSizePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelRoot), "ShowForeignKeyPropertyNames", ModelRoot.ShowForeignKeyPropertyNamesDomainPropertyId, typeof(ModelRoot.ShowForeignKeyPropertyNamesPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "TableName", ModelClass.TableNameDomainPropertyId, typeof(ModelClass.TableNamePropertyHandler)),

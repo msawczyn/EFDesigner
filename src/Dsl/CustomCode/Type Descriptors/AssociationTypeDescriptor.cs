@@ -25,8 +25,6 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             storeDomainDataDirectory = association.Store.DomainDataDirectory;
 
-            EFCoreValidator.AdjustEFCoreProperties(propertyDescriptors, association);
-
             // show FKPropertyName only when possible and required
             if (!association.Source.ModelRoot.ExposeForeignKeys
              || (association.SourceRole != EndpointRole.Dependent && association.TargetRole != EndpointRole.Dependent))

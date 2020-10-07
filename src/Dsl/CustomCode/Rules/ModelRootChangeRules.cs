@@ -1,4 +1,5 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -122,14 +123,6 @@ namespace Sawczyn.EFDesigner.EFModel
                   diagram.GridColor = (Color)e.NewValue;
 
                redraw = true; 
-
-               break;
-
-            case "GridSize":
-               foreach (EFModelDiagram diagram in element.GetDiagrams())
-                  diagram.GridSize = (double)e.NewValue/10.0;
-
-               redraw = true;
 
                break;
 

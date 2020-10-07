@@ -173,6 +173,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Constants.tt</DependentUpon>
     </Compile>
+    <Compile Include="GeneratedCode\DocView.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocView.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneratedCode\ModelExplorerToolWindow.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -295,11 +300,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DocView.cs</LastGenOutput>
     </None>
-    <Compile Include="GeneratedCode\DocView.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DocView.tt</DependentUpon>
-    </Compile>
     <Compile Include="GeneratedCode\EditorFactory.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
