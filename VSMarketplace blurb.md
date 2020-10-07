@@ -30,6 +30,10 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**2.0.5.7**
+   - **[NEW]** Added ability to select tabs or spaces for indentation in generated code (Tools/Options/Entity Framework Visual Editor/Visual Editor Options) (See https://github.com/msawczyn/EFDesigner/issues/221)
+   - Fixed an issue with changing visual grid size on design surface.
+
 **2.0.5.6**
    - The project item templates for the model file had wandered away. They're back again. (See https://github.com/msawczyn/EFDesigner/issues/216)
    - Fixed a problem with existing models where class-level "AutoProperty: false" caused bad code generation. (See https://github.com/msawczyn/EFDesigner/issues/215)

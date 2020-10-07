@@ -15,7 +15,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
-      // EFDesigner v2.0.5.6
+      // EFDesigner v2.0.5.7
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
       //
@@ -47,7 +47,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          private string fileNameMarker;
 
-         private string FileNameMarker
+         public string FileNameMarker
          {
             get
             {
@@ -371,8 +371,3 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       }
    }
 }
-
-
-
-
-

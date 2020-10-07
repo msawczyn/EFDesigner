@@ -27,6 +27,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Func<bool> WriteDiagramAsBinary = () => false;
 
+      public static Func<bool> UseTabs = () => false;
+
       static ModelRoot()
       {
          try
@@ -42,7 +44,7 @@ namespace Sawczyn.EFDesigner.EFModel
       // ReSharper disable once UnusedMember.Global
       public string FullName => string.IsNullOrWhiteSpace(Namespace) ? $"global::{EntityContainerName}" : $"global::{Namespace}.{EntityContainerName}";
 
-      public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && GetEntityFrameworkPackageVersionNum() >= 5;
+      public bool IsEFCore5Plus => EntityFrameworkVersion == EFVersion.EFCore && (EntityFrameworkPackageVersion == "Latest" || GetEntityFrameworkPackageVersionNum() >= 5);
 
       [Obsolete("Use ModelRoot.Classes instead")]
       public LinkedElementCollection<ModelClass> Types => Classes;
@@ -56,6 +58,22 @@ namespace Sawczyn.EFDesigner.EFModel
                .OfType<EFModelDiagram>()
                .ToArray();
       }
+
+      #region Filename
+
+      private string filename;
+
+      public void SetFileName(string fileName)
+      {
+         filename = fileName;
+      }
+
+      public string GetFileName()
+      {
+         return filename;
+      }
+
+      #endregion 
 
       #region OutputLocations
 
@@ -271,8 +289,9 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return NuGetHelper.NuGetPackageDisplay.FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion &&
-                                                                           x.DisplayVersion == EntityFrameworkPackageVersion);
+            return NuGetHelper.NuGetPackageDisplay
+                              .FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion 
+                                                && x.DisplayVersion == EntityFrameworkPackageVersion);
          }
       }
 
@@ -479,17 +498,5 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Namespace tracking property
-
-      private string filename;
-
-      public void SetFileName(string fileName)
-      {
-         filename = fileName;
-      }
-
-      public string GetFileName()
-      {
-         return filename;
-      }
    }
 }

@@ -18,5 +18,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage
       [DisplayName("Save diagram using legacy binary format")]
       [Description("If true, .diagramx files will be saved in compressed format. If false, they will not.")]
       public bool SaveDiagramsCompressed { get; set; }
+
+      [Category("Code Generation")]
+      [DisplayName("Indent with tabs instead of spaces")]
+      [Description("If true, code will be generated using tabs and obey the editor's tab width")]
+      public bool UseTabs { get; set; }
    }
 }

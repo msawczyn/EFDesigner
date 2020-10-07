@@ -8,7 +8,7 @@
 #><#@ import namespace="System.Linq" 
 #><#@ import namespace="System.Security"
 #><#+
-      // EFDesigner v2.0.5.6
+      // EFDesigner v2.0.5.7
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -340,7 +340,7 @@
 
                if (!modelAttribute.AutoProperty)
                {
-                  segments.Add($"HasField(\"{(string.IsNullOrEmpty(modelAttribute.BackingFieldName) ? $"_{modelAttribute.Name}" : modelAttribute.BackingFieldName)}\")");
+                  segments.Add($"HasField(\"{modelAttribute.BackingFieldName}\")");
                   segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{(modelAttribute.PersistencePoint == PersistencePointType.Field ? "Field" : "Property")})");
                }
 
@@ -701,9 +701,3 @@
       }
 
 #>
-
-
-
-
-
-

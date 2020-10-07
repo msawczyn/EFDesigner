@@ -315,12 +315,6 @@
             <xsd:documentation>Color for designer grid</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: GridSize -->
-        <xsd:attribute name="gridSize" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Size of display grid units, in inches</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
         <!-- Property: ShowForeignKeyPropertyNames -->
         <xsd:attribute name="showForeignKeyPropertyNames" type="xsd:boolean" >
           <xsd:annotation>

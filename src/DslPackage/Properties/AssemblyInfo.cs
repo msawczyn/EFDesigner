@@ -21,11 +21,13 @@ using System.Runtime.ConstrainedExecution;
 [assembly: AssemblyCulture("")]
 [assembly: System.Resources.NeutralResourcesLanguage("en")]
 
-[assembly: AssemblyVersion("2.0.5.6")]
-[assembly: AssemblyFileVersion("2.0.5.6")]
+[assembly: AssemblyVersion("2.0.5.7")]
+[assembly: AssemblyFileVersion("2.0.5.7")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 [assembly: ReliabilityContract(Consistency.MayCorruptProcess, Cer.None)]
+
+
 
 
 

@@ -609,18 +609,6 @@
     <value>Designer</value>
     <comment>Category for DomainProperty &apos;GridColor&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Description" xml:space="preserve">
-    <value>Size of display grid units, in inches</value>
-    <comment>Description for DomainProperty &apos;GridSize&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.DisplayName" xml:space="preserve">
-    <value>Grid Size</value>
-    <comment>DisplayName for DomainProperty &apos;GridSize&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Category" xml:space="preserve">
-    <value>Designer</value>
-    <comment>Category for DomainProperty &apos;GridSize&apos; on DomainClass &apos;ModelRoot&apos;</comment>
-  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ShowForeignKeyPropertyNames.Description" xml:space="preserve">
     <value>If true, will show declared foreign key property names (if any) on the association ends</value>
     <comment>Description for DomainProperty &apos;ShowForeignKeyPropertyNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
