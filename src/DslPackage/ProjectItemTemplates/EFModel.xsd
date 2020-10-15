@@ -339,6 +339,12 @@
             <xsd:documentation>Default property access mode for backing fields</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: UseTabs -->
+        <xsd:attribute name="useTabs" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, will generate code with tabs instead of spaces for indentation</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
