@@ -325,6 +325,11 @@
             <DomainEnumerationMoniker Name="PropertyAccessMode" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="56d5d7e6-c806-422f-b906-f12e2b6d89fc" Description="If true, will generate code with tabs instead of spaces for indentation" Name="UseTabs" DisplayName="Use Tabs" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -2124,6 +2129,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="propertyAccessModeDefault">
             <DomainPropertyMoniker Name="ModelRoot/PropertyAccessModeDefault" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="useTabs">
+            <DomainPropertyMoniker Name="ModelRoot/UseTabs" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

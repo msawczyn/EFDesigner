@@ -800,6 +800,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // GridSize
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribGridSize = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "gridSize");
+	         if (attribGridSize != null)
+	         {
+	            global::System.Int16 valueOfGridSize;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int16>(serializationContext, attribGridSize, out valueOfGridSize))
+	            {
+	               instanceOfModelRoot.GridSize = valueOfGridSize;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "gridSize", typeof(global::System.Int16), attribGridSize);
+	            }
+	         }
+	      }
 	      // ShowForeignKeyPropertyNames
 	      if (!serializationContext.Result.Failed)
 	      {
@@ -814,23 +831,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	            else
 	            {   // Invalid property value, ignored.
 	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "showForeignKeyPropertyNames", typeof(global::System.Boolean), attribShowForeignKeyPropertyNames);
-	            }
-	         }
-	      }
-	      // UseTabs
-	      if (!serializationContext.Result.Failed)
-	      {
-	         string attribUseTabs = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "useTabs");
-	         if (attribUseTabs != null)
-	         {
-	            global::System.Boolean valueOfUseTabs;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribUseTabs, out valueOfUseTabs))
-	            {
-	               instanceOfModelRoot.UseTabs = valueOfUseTabs;
-	            }
-	            else
-	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "useTabs", typeof(global::System.Boolean), attribUseTabs);
 	            }
 	         }
 	      }
@@ -865,6 +865,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            else
 	            {   // Invalid property value, ignored.
 	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "propertyAccessModeDefault", typeof(PropertyAccessMode), attribPropertyAccessModeDefault);
+	            }
+	         }
+	      }
+	      // UseTabs
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribUseTabs = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "useTabs");
+	         if (attribUseTabs != null)
+	         {
+	            global::System.Boolean valueOfUseTabs;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribUseTabs, out valueOfUseTabs))
+	            {
+	               instanceOfModelRoot.UseTabs = valueOfUseTabs;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "useTabs", typeof(global::System.Boolean), attribUseTabs);
 	            }
 	         }
 	      }
@@ -2011,6 +2028,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // GridSize
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Int16 propValue = instanceOfModelRoot.GridSize;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int16>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "gridSize", serializedPropValue);
+	            }
+	         }
+	      }
 	      // ShowForeignKeyPropertyNames
 	      if (!serializationContext.Result.Failed)
 	      {
@@ -2021,19 +2051,6 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showForeignKeyPropertyNames", serializedPropValue);
-	            }
-	         }
-	      }
-	      // UseTabs
-	      if (!serializationContext.Result.Failed)
-	      {
-	         global::System.Boolean propValue = instanceOfModelRoot.UseTabs;
-	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
-	         if (!serializationContext.Result.Failed)
-	         {
-	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
-	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "useTabs", serializedPropValue);
 	            }
 	         }
 	      }
@@ -2057,6 +2074,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	         if (!serializationContext.Result.Failed)
 	         {
 	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "propertyAccessModeDefault", serializedPropValue);
+	         }
+	      }
+	      // UseTabs
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.UseTabs;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "useTabs", serializedPropValue);
+	            }
 	         }
 	      }
 	   }

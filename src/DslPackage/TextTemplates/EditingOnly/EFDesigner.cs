@@ -294,7 +294,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          WriteLine(text);
 
          if (text.EndsWith("{"))
-            PushIndent("   ");
+            PushIndent(ModelRoot.UseTabs ? "\t" : "   ");
       }
 
       void Output(string template, params object[] items)
