@@ -3623,94 +3623,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region GridSize domain property code
-		
-		/// <summary>
-		/// GridSize domain property Id.
-		/// </summary>
-		public static readonly global::System.Guid GridSizeDomainPropertyId = new global::System.Guid(0xe4121eca, 0x2a99, 0x4d3c, 0x81, 0x59, 0x17, 0x84, 0xfd, 0xb7, 0x2d, 0x28);
-		
-		/// <summary>
-		/// Storage for GridSize
-		/// </summary>
-		private global::System.Int16 gridSizePropertyStorage;
-		
-		/// <summary>
-		/// Gets or sets the value of GridSize domain property.
-		/// Size of display grid units, in inches
-		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GridSize.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainObjectId("e4121eca-2a99-4d3c-8159-1784fdb72d28")]
-		public global::System.Int16 GridSize
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return gridSizePropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				GridSizePropertyHandler.Instance.SetValue(this, value);
-			}
-		}
-		/// <summary>
-		/// Value handler for the ModelRoot.GridSize domain property.
-		/// </summary>
-		internal sealed partial class GridSizePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Int16>
-		{
-			private GridSizePropertyHandler() { }
-		
-			/// <summary>
-			/// Gets the singleton instance of the ModelRoot.GridSize domain property value handler.
-			/// </summary>
-			public static readonly GridSizePropertyHandler Instance = new GridSizePropertyHandler();
-		
-			/// <summary>
-			/// Gets the Id of the ModelRoot.GridSize domain property.
-			/// </summary>
-			public sealed override global::System.Guid DomainPropertyId
-			{
-				[global::System.Diagnostics.DebuggerStepThrough]
-				get
-				{
-					return GridSizeDomainPropertyId;
-				}
-			}
-			
-			/// <summary>
-			/// Gets a strongly-typed value of the property on specified element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <returns>Property value.</returns>
-			public override sealed global::System.Int16 GetValue(ModelRoot element)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.gridSizePropertyStorage;
-			}
-		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelRoot element, global::System.Int16 newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				global::System.Int16 oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.gridSizePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
-		}
-		
-		#endregion
 		#region ShowForeignKeyPropertyNames domain property code
 		
 		/// <summary>
@@ -3795,6 +3707,94 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.showForeignKeyPropertyNamesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region UseTabs domain property code
+		
+		/// <summary>
+		/// UseTabs domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UseTabsDomainPropertyId = new global::System.Guid(0xc37804d1, 0x29d0, 0x4390, 0xa5, 0x2d, 0x9a, 0x9d, 0x3d, 0xd7, 0x94, 0x36);
+		
+		/// <summary>
+		/// Storage for UseTabs
+		/// </summary>
+		private global::System.Boolean useTabsPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of UseTabs domain property.
+		/// If true, will generate code with tabs instead of spaces for indentation
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c37804d1-29d0-4390-a52d-9a9d3dd79436")]
+		public global::System.Boolean UseTabs
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return useTabsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UseTabsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.UseTabs domain property.
+		/// </summary>
+		internal sealed partial class UseTabsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private UseTabsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.UseTabs domain property value handler.
+			/// </summary>
+			public static readonly UseTabsPropertyHandler Instance = new UseTabsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.UseTabs domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UseTabsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.useTabsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.useTabsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

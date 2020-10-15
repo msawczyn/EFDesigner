@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+
 using Microsoft.VisualStudio.Modeling;
 
 using Sawczyn.EFDesigner.EFModel.Extensions;
+
 #pragma warning disable 1591
 
 namespace Sawczyn.EFDesigner.EFModel
@@ -13,68 +15,29 @@ namespace Sawczyn.EFDesigner.EFModel
    /// </summary>
    public static class EFCoreValidator
    {
-      #region ModelClass
-
-      public static IEnumerable<string> GetErrors(ModelClass element)
-      {
-         return new string[0];
-
-         // nothing to do here
-
-         //ModelRoot modelRoot = element.ModelRoot;
-         //Store store = modelRoot.Store;
-         //List<string> errorMessages = new List<string>();
-
-         //if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
-         //{
-
-         //}
-
-         //return errorMessages;
-      }
-
-      #endregion ModelClass
-
-      #region ModelEnum
-
-      public static IEnumerable<string> GetErrors(ModelEnum element)
-      {
-         return new string[0];
-
-         // nothing to do here
-
-         //ModelRoot modelRoot = element.ModelRoot;
-         //Store store = modelRoot.Store;
-         //List<string> errorMessages = new List<string>();
-
-         //if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
-         //{
-
-         //}
-
-         //return errorMessages;
-      }
-
-      #endregion ModelEnum
-
       #region ModelAttribute
 
-      public static IEnumerable<string> GetErrors(ModelAttribute element)
+      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelAttribute element)
       {
-         return new string[0];
+         ModelRoot modelRoot = element.ModelClass.ModelRoot;
 
-         // nothing to do here
+         for (int index = 0; index < propertyDescriptors.Count; index++)
+         {
+            bool shouldRemove = false;
 
-         //ModelRoot modelRoot = element.ModelClass.ModelRoot;
-         //Store store = modelRoot.Store;
-         //List<string> errorMessages = new List<string>();
+            switch (propertyDescriptors[index].Name)
+            {
+               case "PersistencePoint":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EF6;
 
-         //if (modelRoot.EntityFrameworkVersion == EFVersion.EFCore)
-         //{
+                  break;
 
-         //}
+                  // add more as needed
+            }
 
-         //return errorMessages;
+            if (shouldRemove)
+               propertyDescriptors.Remove(propertyDescriptors[index--]);
+         }
       }
 
       #endregion ModelAttribute
@@ -86,10 +49,9 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot modelRoot = element.Store.ModelRoot();
          List<string> errorMessages = new List<string>();
 
-         if (modelRoot != null && modelRoot.EntityFrameworkVersion == EFVersion.EFCore && !modelRoot.IsEFCore5Plus)
+         if (modelRoot?.EntityFrameworkVersion == EFVersion.EFCore && modelRoot?.IsEFCore5Plus == false)
          {
-            if ((element.SourceMultiplicity == Multiplicity.ZeroMany) &&
-                (element.TargetMultiplicity == Multiplicity.ZeroMany))
+            if ((element.SourceMultiplicity == Multiplicity.ZeroMany) && (element.TargetMultiplicity == Multiplicity.ZeroMany))
                errorMessages.Add($"EFCore does not support many-to-many associations (found one between {element.Source.Name} and {element.Target.Name})");
          }
 
@@ -104,27 +66,66 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          ModelRoot modelRoot = element;
          Store store = modelRoot.Store;
-
          List<string> errorMessages = new List<string>();
 
          foreach (Association association in store.GetAll<Association>().ToList())
             errorMessages.AddRange(GetErrors(association));
 
-         foreach (ModelClass modelClass in store.GetAll<ModelClass>().ToList())
-         {
-            errorMessages.AddRange(GetErrors(modelClass));
-
-            foreach (ModelAttribute modelAttribute in modelClass.Attributes)
-               errorMessages.AddRange(GetErrors(modelAttribute));
-         }
-
-         foreach (ModelEnum modelEnum in store.GetAll<ModelEnum>().ToList())
-            errorMessages.AddRange(GetErrors(modelEnum));
-
          return errorMessages;
       }
 
-#endregion ModelRoot
+      /// <summary>
+      ///    Called by TypeDescriptors to determine what should be shown in a property editor. Removing a property hides
+      ///    it from the property editor in Visual Studio, nothing more.
+      /// </summary>
+      /// <param name="propertyDescriptors"></param>
+      /// <param name="element"></param>
+      public static void AdjustEFCoreProperties(PropertyDescriptorCollection propertyDescriptors, ModelRoot element)
+      {
+         ModelRoot modelRoot = element;
 
+         for (int index = 0; index < propertyDescriptors.Count; index++)
+         {
+            bool shouldRemove = false;
+
+            switch (propertyDescriptors[index].Name)
+            {
+               case "DatabaseInitializerType":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
+
+                  break;
+
+               case "AutomaticMigrationsEnabled":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
+
+                  break;
+
+               case "ProxyGenerationEnabled":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
+
+                  break;
+
+               case "DatabaseType":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore;
+
+                  break;
+
+               case "InheritanceStrategy":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore && !modelRoot.IsEFCore5Plus;
+
+                  break;
+
+               case "LazyLoadingEnabled":
+                  shouldRemove = modelRoot.EntityFrameworkVersion == EFVersion.EFCore && modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1;
+
+                  break;
+            }
+
+            if (shouldRemove)
+               propertyDescriptors.Remove(propertyDescriptors[index--]);
+         }
+      }
+
+      #endregion ModelRoot
    }
 }

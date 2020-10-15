@@ -47,7 +47,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          private string fileNameMarker;
 
-         private string FileNameMarker
+         public string FileNameMarker
          {
             get
             {
@@ -371,8 +371,3 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       }
    }
 }
-
-
-
-
-

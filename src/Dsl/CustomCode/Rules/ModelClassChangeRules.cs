@@ -28,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel
          if (Equals(e.NewValue, e.OldValue))
             return;
 
-         List<string> errorMessages = EFCoreValidator.GetErrors(element).ToList();
+         List<string> errorMessages = new List<string>();
 
          switch (e.DomainProperty.Name)
          {

@@ -29,8 +29,6 @@ namespace Sawczyn.EFDesigner.EFModel
          ShowGrid = modelRoot?.ShowGrid ?? true;
          GridColor = modelRoot?.GridColor ?? Color.Gainsboro;
          SnapToGrid = modelRoot?.SnapToGrid ?? true;
-         GridSize = modelRoot?.GridSize ?? 0.125;
-
       }
 
       /// <summary>

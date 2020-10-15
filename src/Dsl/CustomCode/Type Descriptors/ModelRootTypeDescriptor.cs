@@ -29,6 +29,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   propertyDescriptors.Remove("LazyLoadingEnabled");
             }
 
+            if (!modelRoot.ShowGrid)
+            {
+               propertyDescriptors.Remove("GridColor");
+            }
+
             //Add in extra custom properties here...
          }
 

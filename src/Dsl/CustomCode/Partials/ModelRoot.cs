@@ -23,9 +23,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Action ExecuteValidator { get; set; }
 
-      public static Func<Diagram> GetCurrentDiagram;
+      public static Func<Diagram> GetCurrentDiagram { get; set; }
 
-      public static Func<bool> WriteDiagramAsBinary = () => false;
+      public static Func<bool> WriteDiagramAsBinary { get; set; } = () => false;
 
       static ModelRoot()
       {
@@ -59,6 +59,22 @@ namespace Sawczyn.EFDesigner.EFModel
                .OfType<EFModelDiagram>()
                .ToArray();
       }
+
+      #region Filename
+
+      private string filename;
+
+      public void SetFileName(string fileName)
+      {
+         filename = fileName;
+      }
+
+      public string GetFileName()
+      {
+         return filename;
+      }
+
+      #endregion 
 
       #region OutputLocations
 
@@ -277,8 +293,9 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
-            return NuGetHelper.NuGetPackageDisplay.FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion &&
-                                                                           x.DisplayVersion == EntityFrameworkPackageVersion);
+            return NuGetHelper.NuGetPackageDisplay
+                              .FirstOrDefault(x => x.EFVersion == EntityFrameworkVersion 
+                                                && x.DisplayVersion == EntityFrameworkPackageVersion);
          }
       }
 
@@ -508,17 +525,5 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Namespace tracking property
-
-      private string filename;
-
-      public void SetFileName(string fileName)
-      {
-         filename = fileName;
-      }
-
-      public string GetFileName()
-      {
-         return filename;
-      }
    }
 }
