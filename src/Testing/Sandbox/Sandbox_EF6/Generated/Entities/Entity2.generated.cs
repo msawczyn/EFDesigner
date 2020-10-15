@@ -24,43 +24,43 @@ using System.Runtime.CompilerServices;
 
 namespace MultiContext.Context2
 {
-   public partial class Entity2
-   {
-      partial void Init();
+	public partial class Entity2
+	{
+		partial void Init();
 
-      /// <summary>
-      /// Default constructor
-      /// </summary>
-      public Entity2()
-      {
-         Entity3 = new System.Collections.Generic.HashSet<global::MultiContext.Context2.Entity3>();
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public Entity2()
+		{
+			Entity3 = new System.Collections.Generic.HashSet<global::MultiContext.Context2.Entity3>();
 
-         Init();
-      }
+			Init();
+		}
 
-      /*************************************************************************
-       * Properties
-       *************************************************************************/
+		/*************************************************************************
+		 * Properties
+		 *************************************************************************/
 
-      /// <summary>
-      /// Identity, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id { get; protected set; }
+		/// <summary>
+		/// Identity, Required
+		/// </summary>
+		[Key]
+		[Required]
+		public int Id { get; protected set; }
 
-      public string Property1 { get; set; }
+		public string Property1 { get; set; }
 
-      public string Property2 { get; set; }
+		public string Property2 { get; set; }
 
-      public string Property3 { get; set; }
+		public string Property3 { get; set; }
 
-      /*************************************************************************
-       * Navigation properties
-       *************************************************************************/
+		/*************************************************************************
+		 * Navigation properties
+		 *************************************************************************/
 
-      public virtual ICollection<global::MultiContext.Context2.Entity3> Entity3 { get; protected set; }
+		public virtual ICollection<global::MultiContext.Context2.Entity3> Entity3 { get; protected set; }
 
-   }
+	}
 }
 

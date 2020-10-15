@@ -305,6 +305,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c37804d1-29d0-4390-a52d-9a9d3dd79436" Description="If true, will generate code with tabs instead of spaces for indentation" Name="UseTabs" DisplayName="Use Tabs" DefaultValue="false" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1992,6 +1997,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="showForeignKeyPropertyNames">
             <DomainPropertyMoniker Name="ModelRoot/ShowForeignKeyPropertyNames" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="useTabs">
+            <DomainPropertyMoniker Name="ModelRoot/UseTabs" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

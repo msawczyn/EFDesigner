@@ -84,8 +84,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel1.cs</LastGenOutput>
     </Content>
-    <Content Include="Generated\Context\Placeholder.txt" />
-    <Content Include="Generated\Entities\Placeholder.txt" />
     <Content Include="Generated\Enums\Placeholder.txt" />
     <Content Include="Generated\Structs\Placeholder.txt" />
   </ItemGroup>

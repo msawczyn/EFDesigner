@@ -17,8 +17,8 @@ using System.Data.Entity;
 
 namespace MultiContext.Context2
 {
-   /// <inheritdoc/>
-   public partial class Context2DatabaseInitializer : MigrateDatabaseToLatestVersion<MultiContext.Context2.Context2, MultiContext.Migrations.Context2DbMigrationConfiguration>
-   {
-   }
+	/// <inheritdoc/>
+	public partial class Context2DatabaseInitializer : MigrateDatabaseToLatestVersion<MultiContext.Context2.Context2, MultiContext.Migrations.Context2DbMigrationConfiguration>
+	{
+	}
 }

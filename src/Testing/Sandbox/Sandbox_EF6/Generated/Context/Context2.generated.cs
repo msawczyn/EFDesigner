@@ -22,102 +22,102 @@ using System.Data.Entity.Infrastructure.Annotations;
 
 namespace MultiContext.Context2
 {
-   /// <inheritdoc/>
-   public partial class Context2 : DbContext
-   {
-      #region DbSets
-      public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Base> Bases { get; set; }
-      public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity1> Entity1 { get; set; }
-      public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity2> Entity2 { get; set; }
-      public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity3> Entity3 { get; set; }
-      #endregion DbSets
+	/// <inheritdoc/>
+	public partial class Context2 : DbContext
+	{
+		#region DbSets
+		public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Base> Bases { get; set; }
+		public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity1> Entity1 { get; set; }
+		public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity2> Entity2 { get; set; }
+		public virtual System.Data.Entity.DbSet<global::MultiContext.Context2.Entity3> Entity3 { get; set; }
+		#endregion DbSets
 
-      #region Constructors
+		#region Constructors
 
-      partial void CustomInit();
+		partial void CustomInit();
 
-      #warning Default constructor not generated for Context2 since no default connection string was specified in the model
+		#warning Default constructor not generated for Context2 since no default connection string was specified in the model
 
-      /// <inheritdoc />
-      public Context2(string connectionString) : base(connectionString)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
-         CustomInit();
-      }
+		/// <inheritdoc />
+		public Context2(string connectionString) : base(connectionString)
+		{
+			Configuration.LazyLoadingEnabled = true;
+			Configuration.ProxyCreationEnabled = true;
+			System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
+			CustomInit();
+		}
 
-      /// <inheritdoc />
-      public Context2(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
-         CustomInit();
-      }
+		/// <inheritdoc />
+		public Context2(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
+		{
+			Configuration.LazyLoadingEnabled = true;
+			Configuration.ProxyCreationEnabled = true;
+			System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
+			CustomInit();
+		}
 
-      /// <inheritdoc />
-      public Context2(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
-         CustomInit();
-      }
+		/// <inheritdoc />
+		public Context2(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
+		{
+			Configuration.LazyLoadingEnabled = true;
+			Configuration.ProxyCreationEnabled = true;
+			System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
+			CustomInit();
+		}
 
-      /// <inheritdoc />
-      public Context2(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
-         CustomInit();
-      }
+		/// <inheritdoc />
+		public Context2(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
+		{
+			Configuration.LazyLoadingEnabled = true;
+			Configuration.ProxyCreationEnabled = true;
+			System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
+			CustomInit();
+		}
 
-      /// <inheritdoc />
-      public Context2(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
-         CustomInit();
-      }
+		/// <inheritdoc />
+		public Context2(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
+		{
+			Configuration.LazyLoadingEnabled = true;
+			Configuration.ProxyCreationEnabled = true;
+			System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
+			CustomInit();
+		}
 
-      /// <inheritdoc />
-      public Context2(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
-         CustomInit();
-      }
+		/// <inheritdoc />
+		public Context2(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
+		{
+			Configuration.LazyLoadingEnabled = true;
+			Configuration.ProxyCreationEnabled = true;
+			System.Data.Entity.Database.SetInitializer<Context2>(new Context2DatabaseInitializer());
+			CustomInit();
+		}
 
-      #endregion Constructors
+		#endregion Constructors
 
-      partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
-      partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+		partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
+		partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
 
-      /// <inheritdoc />
-      protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
-      {
-         base.OnModelCreating(modelBuilder);
-         OnModelCreatingImpl(modelBuilder);
+		/// <inheritdoc />
+		protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+			OnModelCreatingImpl(modelBuilder);
 
-         modelBuilder.HasDefaultSchema("dbo");
+			modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::MultiContext.Context2.Base>().ToTable("Bases").HasKey(t => t.Id);
-         modelBuilder.Entity<global::MultiContext.Context2.Base>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			modelBuilder.Entity<global::MultiContext.Context2.Base>().ToTable("Bases").HasKey(t => t.Id);
+			modelBuilder.Entity<global::MultiContext.Context2.Base>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-         modelBuilder.Entity<global::MultiContext.Context2.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
-         modelBuilder.Entity<global::MultiContext.Context2.Entity1>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::MultiContext.Context2.Entity1>().HasMany(x => x.Entity3).WithMany().Map(x => { x.ToTable("Entity1_x_Entity3"); x.MapLeftKey("Entity1_Id"); x.MapRightKey("Entity3_Id"); });
+			modelBuilder.Entity<global::MultiContext.Context2.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
+			modelBuilder.Entity<global::MultiContext.Context2.Entity1>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			modelBuilder.Entity<global::MultiContext.Context2.Entity1>().HasMany(x => x.Entity3).WithMany().Map(x => { x.ToTable("Entity1_x_Entity3"); x.MapLeftKey("Entity1_Id"); x.MapRightKey("Entity3_Id"); });
 
-         modelBuilder.Entity<global::MultiContext.Context2.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
-         modelBuilder.Entity<global::MultiContext.Context2.Entity2>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::MultiContext.Context2.Entity2>().HasMany(x => x.Entity3).WithRequired().Map(x => x.MapKey("Entity2.Entity3_Id"));
+			modelBuilder.Entity<global::MultiContext.Context2.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
+			modelBuilder.Entity<global::MultiContext.Context2.Entity2>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			modelBuilder.Entity<global::MultiContext.Context2.Entity2>().HasMany(x => x.Entity3).WithRequired().Map(x => x.MapKey("Entity2.Entity3_Id"));
 
 
-         OnModelCreatedImpl(modelBuilder);
-      }
-   }
+			OnModelCreatedImpl(modelBuilder);
+		}
+	}
 }

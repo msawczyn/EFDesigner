@@ -215,7 +215,6 @@ namespace Sawczyn.EFDesigner.EFModel
          ModelRoot.ExecuteValidator = ValidateAll;
          ModelRoot.GetCurrentDiagram = GetCurrentDiagram;
          ModelRoot.WriteDiagramAsBinary = () => EFModelPackage.Options.SaveDiagramsCompressed;
-         ModelRoot.UseTabs = () => EFModelPackage.Options.UseTabs;
          ModelDiagramData.OpenDiagram = DisplayDiagram;
          ModelDiagramData.CloseDiagram = CloseDiagram;
          ModelDiagramData.RenameWindow = RenameWindow;

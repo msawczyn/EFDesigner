@@ -17,17 +17,17 @@ using System.Data.Entity.Migrations;
 
 namespace MultiContext.Migrations
 {
-   /// <inheritdoc/>
-   public sealed partial class Context2DbMigrationConfiguration : DbMigrationsConfiguration<MultiContext.Context2.Context2>
-   {
-      partial void Init();
+	/// <inheritdoc/>
+	public sealed partial class Context2DbMigrationConfiguration : DbMigrationsConfiguration<MultiContext.Context2.Context2>
+	{
+		partial void Init();
 
-      /// <inheritdoc/>
-      public Context2DbMigrationConfiguration()
-      {
-         AutomaticMigrationsEnabled = false;
-         AutomaticMigrationDataLossAllowed = false;
-         Init();
-      }
-   }
+		/// <inheritdoc/>
+		public Context2DbMigrationConfiguration()
+		{
+			AutomaticMigrationsEnabled = false;
+			AutomaticMigrationDataLossAllowed = false;
+			Init();
+		}
+	}
 }

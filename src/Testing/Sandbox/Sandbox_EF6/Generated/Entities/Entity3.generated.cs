@@ -24,58 +24,58 @@ using System.Runtime.CompilerServices;
 
 namespace MultiContext.Context2
 {
-   public partial class Entity3: global::MultiContext.Context2.Base
-   {
-      partial void Init();
+	public partial class Entity3: global::MultiContext.Context2.Base
+	{
+		partial void Init();
 
-      /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
-      /// </summary>
-      protected Entity3(): base()
-      {
-         Init();
-      }
+		/// <summary>
+		/// Default constructor. Protected due to required properties, but present because EF needs it.
+		/// </summary>
+		protected Entity3(): base()
+		{
+			Init();
+		}
 
-      /// <summary>
-      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
-      /// </summary>
-      public static Entity3 CreateEntity3Unsafe()
-      {
-         return new Entity3();
-      }
+		/// <summary>
+		/// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+		/// </summary>
+		public static Entity3 CreateEntity3Unsafe()
+		{
+			return new Entity3();
+		}
 
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="_entity21"></param>
-      public Entity3(global::MultiContext.Context2.Entity2 _entity21)
-      {
-         if (_entity21 == null) throw new ArgumentNullException(nameof(_entity21));
-         _entity21.Entity3.Add(this);
+		/// <summary>
+		/// Public constructor with required data
+		/// </summary>
+		/// <param name="_entity21"></param>
+		public Entity3(global::MultiContext.Context2.Entity2 _entity21)
+		{
+			if (_entity21 == null) throw new ArgumentNullException(nameof(_entity21));
+			_entity21.Entity3.Add(this);
 
 
-         Init();
-      }
+			Init();
+		}
 
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="_entity21"></param>
-      public static Entity3 Create(global::MultiContext.Context2.Entity2 _entity21)
-      {
-         return new Entity3(_entity21);
-      }
+		/// <summary>
+		/// Static create function (for use in LINQ queries, etc.)
+		/// </summary>
+		/// <param name="_entity21"></param>
+		public static Entity3 Create(global::MultiContext.Context2.Entity2 _entity21)
+		{
+			return new Entity3(_entity21);
+		}
 
-      /*************************************************************************
-       * Properties
-       *************************************************************************/
+		/*************************************************************************
+		 * Properties
+		 *************************************************************************/
 
-      public string Property1 { get; set; }
+		public string Property1 { get; set; }
 
-      /*************************************************************************
-       * Navigation properties
-       *************************************************************************/
+		/*************************************************************************
+		 * Navigation properties
+		 *************************************************************************/
 
-   }
+	}
 }
 

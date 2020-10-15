@@ -817,6 +817,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // UseTabs
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribUseTabs = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "useTabs");
+	         if (attribUseTabs != null)
+	         {
+	            global::System.Boolean valueOfUseTabs;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribUseTabs, out valueOfUseTabs))
+	            {
+	               instanceOfModelRoot.UseTabs = valueOfUseTabs;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "useTabs", typeof(global::System.Boolean), attribUseTabs);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -1970,6 +1987,19 @@ namespace Sawczyn.EFDesigner.EFModel
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "showForeignKeyPropertyNames", serializedPropValue);
+	            }
+	         }
+	      }
+	      // UseTabs
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.UseTabs;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "useTabs", serializedPropValue);
 	            }
 	         }
 	      }

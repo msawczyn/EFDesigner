@@ -24,29 +24,29 @@ using System.Runtime.CompilerServices;
 
 namespace MultiContext.Context2
 {
-   public partial class Base
-   {
-      partial void Init();
+	public partial class Base
+	{
+		partial void Init();
 
-      /// <summary>
-      /// Default constructor
-      /// </summary>
-      public Base()
-      {
-         Init();
-      }
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public Base()
+		{
+			Init();
+		}
 
-      /*************************************************************************
-       * Properties
-       *************************************************************************/
+		/*************************************************************************
+		 * Properties
+		 *************************************************************************/
 
-      /// <summary>
-      /// Identity, Indexed, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id { get; protected set; }
+		/// <summary>
+		/// Identity, Indexed, Required
+		/// </summary>
+		[Key]
+		[Required]
+		public int Id { get; protected set; }
 
-   }
+	}
 }
 

@@ -23,11 +23,9 @@ namespace Sawczyn.EFDesigner.EFModel
 
       public static Action ExecuteValidator { get; set; }
 
-      public static Func<Diagram> GetCurrentDiagram;
+      public static Func<Diagram> GetCurrentDiagram { get; set; }
 
-      public static Func<bool> WriteDiagramAsBinary = () => false;
-
-      public static Func<bool> UseTabs = () => false;
+      public static Func<bool> WriteDiagramAsBinary { get; set; } = () => false;
 
       static ModelRoot()
       {

@@ -3712,6 +3712,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region UseTabs domain property code
+		
+		/// <summary>
+		/// UseTabs domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UseTabsDomainPropertyId = new global::System.Guid(0xc37804d1, 0x29d0, 0x4390, 0xa5, 0x2d, 0x9a, 0x9d, 0x3d, 0xd7, 0x94, 0x36);
+		
+		/// <summary>
+		/// Storage for UseTabs
+		/// </summary>
+		private global::System.Boolean useTabsPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of UseTabs domain property.
+		/// If true, will generate code with tabs instead of spaces for indentation
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c37804d1-29d0-4390-a52d-9a9d3dd79436")]
+		public global::System.Boolean UseTabs
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return useTabsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UseTabsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.UseTabs domain property.
+		/// </summary>
+		internal sealed partial class UseTabsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private UseTabsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.UseTabs domain property value handler.
+			/// </summary>
+			public static readonly UseTabsPropertyHandler Instance = new UseTabsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.UseTabs domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UseTabsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.useTabsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.useTabsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

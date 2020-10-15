@@ -621,6 +621,18 @@
     <value>Designer</value>
     <comment>Category for DomainProperty &apos;ShowForeignKeyPropertyNames&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.Description" xml:space="preserve">
+    <value>If true, will generate code with tabs instead of spaces for indentation</value>
+    <comment>Description for DomainProperty &apos;UseTabs&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.DisplayName" xml:space="preserve">
+    <value>Use Tabs</value>
+    <comment>DisplayName for DomainProperty &apos;UseTabs&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/UseTabs.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;UseTabs&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>
