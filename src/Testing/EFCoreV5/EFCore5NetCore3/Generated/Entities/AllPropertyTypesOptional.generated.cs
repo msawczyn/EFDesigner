@@ -34,7 +34,6 @@ namespace Testing
       protected AllPropertyTypesOptional()
       {
          OwnedTypeCollection = new System.Collections.Generic.HashSet<global::Testing.OwnedType>();
-         OwnedTypeOptional = new global::Testing.OwnedType();
          OwnedTypeRequired = new global::Testing.OwnedType();
 
          Init();

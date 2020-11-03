@@ -2658,7 +2658,7 @@
       <LinkConnectDirective>
         <DomainRelationshipMoniker Name="UnidirectionalAssociation" />
         <SourceDirectives>
-          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true">
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
             <AcceptingClass>
               <DomainClassMoniker Name="ModelClass" />
             </AcceptingClass>
@@ -2677,7 +2677,7 @@
       <LinkConnectDirective>
         <DomainRelationshipMoniker Name="BidirectionalAssociation" />
         <SourceDirectives>
-          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true">
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
             <AcceptingClass>
               <DomainClassMoniker Name="ModelClass" />
             </AcceptingClass>

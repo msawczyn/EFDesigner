@@ -283,12 +283,12 @@
 
       void Output(string text)
       {
-         if (text.StartsWith("}"))
+         if (text.StartsWith("}") || text.EndsWith("}"))
             PopIndent();
 
          WriteLine(text);
 
-         if (text.EndsWith("{"))
+         if (text.StartsWith("{") || text.EndsWith("{"))
             PushIndent(ModelRoot.UseTabs ? "\t" : "   ");
       }
 
@@ -695,7 +695,10 @@
          }
 
          foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
-                                                                     .Where(x => x.AssociationObject.Persistent && x.ClassType.IsDependentType && !x.IsCollection && !x.ConstructorParameterOnly))
+                                                                     .Where(x => x.AssociationObject.Persistent 
+                                                                     && x.ClassType.IsDependentType && (modelClass.ModelRoot.IsEFCore5Plus || x.Required)
+                                                                     && !x.IsCollection 
+                                                                     && !x.ConstructorParameterOnly))
          {
             Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
             ++lineCount;

@@ -178,6 +178,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DocView.tt</DependentUpon>
     </Compile>
+    <Compile Include="GeneratedCode\GeneratedVSCT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratedVSCT.vsct</DependentUpon>
+    </Compile>
     <Compile Include="GeneratedCode\ModelExplorerToolWindow.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -204,6 +209,13 @@
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
     <Compile Include="VSPackage.Designer.cs" />
+    <Content Include="GeneratedCode\GeneratedVSCT.vsct">
+      <Generator>VsctGenerator</Generator>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratedVSCT.tt</DependentUpon>
+      <LastGenOutput>GeneratedVSCT.cs</LastGenOutput>
+    </Content>
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -410,11 +422,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GeneratedVSCT.vsct</LastGenOutput>
     </None>
-    <Content Include="GeneratedCode\GeneratedVSCT.vsct">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GeneratedVSCT.tt</DependentUpon>
-    </Content>
     <None Include="ProjectItemTemplates\CSharp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CSharp.vstemplate</LastGenOutput>

@@ -574,6 +574,18 @@
             <xsd:documentation>If true, this class won&apos;t be involved in database migrations</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsDatabaseView -->
+        <xsd:attribute name="isDatabaseView" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this class is persisted in a view in the database</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ViewName -->
+        <xsd:attribute name="viewName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The name of the database view persisting this class</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
