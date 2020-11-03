@@ -25,6 +25,13 @@ namespace Sawczyn.EFDesigner.EFModel
             storeDomainDataDirectory = modelAttribute.Store.DomainDataDirectory;
             ModelRoot modelRoot = modelAttribute.ModelClass.ModelRoot;
 
+            // keyless classes don't get identities
+            if (modelAttribute.ModelClass.IsKeylessType())
+            {
+               propertyDescriptors.Remove("IsIdentity");
+               propertyDescriptors.Remove("IdentityType");
+            }
+
             // No sense asking for initial values if we won't use them
             if (!modelAttribute.SupportsInitialValue)
                propertyDescriptors.Remove("InitialValue");

@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v2.1.0.4
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -33,7 +33,9 @@ namespace Testing
       /// </summary>
       protected AllPropertyTypesOptional()
       {
-         OwnedType = new global::Testing.OwnedType();
+         OwnedTypeCollection = new System.Collections.Generic.HashSet<global::Testing.OwnedType>();
+         OwnedTypeOptional = new global::Testing.OwnedType();
+         OwnedTypeRequired = new global::Testing.OwnedType();
 
          Init();
       }
@@ -54,7 +56,9 @@ namespace Testing
       {
          this.Id1 = id1;
 
-         this.OwnedType = new global::Testing.OwnedType();
+         this.OwnedTypeOptional = new global::Testing.OwnedType();
+         this.OwnedTypeRequired = new global::Testing.OwnedType();
+         this.OwnedTypeCollection = new System.Collections.Generic.HashSet<global::Testing.OwnedType>();
 
          Init();
       }
@@ -604,28 +608,35 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      protected global::Testing.OwnedType _ownedType;
-      partial void SetOwnedType(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
-      partial void GetOwnedType(ref global::Testing.OwnedType result);
+      protected global::Testing.OwnedType _ownedTypeOptional;
+      partial void SetOwnedTypeOptional(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
+      partial void GetOwnedTypeOptional(ref global::Testing.OwnedType result);
 
-      public virtual global::Testing.OwnedType OwnedType
+      public virtual global::Testing.OwnedType OwnedTypeOptional
       {
          get
          {
-            global::Testing.OwnedType value = _ownedType;
-            GetOwnedType(ref value);
-            return (_ownedType = value);
+            global::Testing.OwnedType value = _ownedTypeOptional;
+            GetOwnedTypeOptional(ref value);
+            return (_ownedTypeOptional = value);
          }
          set
          {
-            global::Testing.OwnedType oldValue = _ownedType;
-            SetOwnedType(oldValue, ref value);
+            global::Testing.OwnedType oldValue = _ownedTypeOptional;
+            SetOwnedTypeOptional(oldValue, ref value);
             if (oldValue != value)
             {
-               _ownedType = value;
+               _ownedTypeOptional = value;
             }
          }
       }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Testing.OwnedType OwnedTypeRequired { get; set; }
+
+      public virtual ICollection<global::Testing.OwnedType> OwnedTypeCollection { get; protected set; }
 
    }
 }

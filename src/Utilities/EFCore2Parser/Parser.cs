@@ -17,7 +17,7 @@ using ParsingModels;
 // ReSharper disable UseObjectOrCollectionInitializer
 #pragma warning disable IDE0017 // Simplify object initialization
 
-namespace EFCore3Parser
+namespace EFCore2Parser
 {
    public class Parser
    {

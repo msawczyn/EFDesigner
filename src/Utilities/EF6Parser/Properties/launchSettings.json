@@ -2,7 +2,8 @@
   "profiles": {
     "EF6Parser": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\micha\\Downloads\\Dinaris.PsycheAdmin.EFDAL.dll\" c:\\temp\\parsertest.json"
+      "commandLineArgs": "\"C:\\Code\\_Clients\\AWH\\IH\\Include.Domain\\bin\\Debug\\net48\\Include.Domain.dll\" c:\\temp\\parsertest.json",
+      "workingDirectory": "C:\\Code\\_Clients\\AWH\\IH\\Include.Domain\\bin\\Debug\\net48"
     }
   }
 }

@@ -12,6 +12,7 @@
       - Can now customize backing field names for non-AutoProperty properties 
       - Properties with backing fields (i.e., non-AutoProperty properties) can now choose how EF will read/write those values (see https://docs.microsoft.com/en-us/ef/core/modeling/backing-field).
       - Added support for keyless entity types created by defining queries
+      - Added support for keyless entity types persisted in views
 
 2.0.5.7
    - Added ability to select tabs or spaces for indentation in generated code (Tools/Options/Entity Framework Visual Editor/Visual Editor Options) (See https://github.com/msawczyn/EFDesigner/issues/221)

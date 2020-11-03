@@ -562,10 +562,16 @@
             <xsd:documentation>If true, this class will be implemented as Dictionary&lt;string, object&gt;</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: IsMappedToSqlQuery -->
-        <xsd:attribute name="isMappedToSqlQuery" type="xsd:boolean" >
+        <!-- Property: IsQueryType -->
+        <xsd:attribute name="isQueryType" type="xsd:boolean" >
           <xsd:annotation>
-            <xsd:documentation>If true, this entity is mapped to a defining query that will be added to the partial class for this type. For more information, see https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew#map-entity-types-to-queries</xsd:documentation>
+            <xsd:documentation>If true, this class is defined by a SQL query that must be implemented in a partial method. See comments in generated code for more information.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ExcludeFromMigrations -->
+        <xsd:attribute name="excludeFromMigrations" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, this class won&apos;t be involved in database migrations</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1854,20 +1860,6 @@
       <xsd:enumeration value="ZeroMany"/>
       <xsd:enumeration value="One"/>
       <xsd:enumeration value="ZeroOne"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-  
-  <!-- Enum DBWorkflow -->
-  <xsd:simpleType name="DBWorkflow">
-    <xsd:annotation>
-      <xsd:documentation>No description available</xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="TablePerTypeStrategy">
-        <xsd:annotation>
-          <xsd:documentation>No description available</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   

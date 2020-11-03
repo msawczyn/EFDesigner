@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -33,14 +32,14 @@ namespace EF6Parser
          {
             string inputPath = args[0];
             string outputPath = args[1];
-
+          
             GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "").TrimEnd('.');
             ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, GetLogStream());
 
             log.Info($"Starting {Assembly.GetEntryAssembly().Location}");
             log.Info($"Log file at {GlobalContext.Properties["LogPath"]}.log");
-        
+
             string contextClassName = args.Length == 3 ? args[2] : null;
 
             using (StreamWriter output = new StreamWriter(outputPath))
@@ -68,7 +67,13 @@ namespace EF6Parser
                   }
                   catch (Exception ex)
                   {
-                     log.Error(ex.Message);
+                     Exception e = ex;
+                     do
+                     {
+                        log.Error(e.Message);
+                        e = e.InnerException;
+                     } while (e != null);
+
                      Exit(CANNOT_CREATE_DBCONTEXT, ex);
                   }
 
@@ -113,26 +118,12 @@ namespace EF6Parser
             log.Error("   6   Ambiguous request");
             log.Error("");
 
-            /*
-             *       public const int SUCCESS = 0;
-      public const int BAD_ARGUMENT_COUNT = 1;
-      public const int CANNOT_LOAD_ASSEMBLY = 2;
-      public const int CANNOT_WRITE_OUTPUTFILE = 3;
-      public const int CANNOT_CREATE_DBCONTEXT = 4;
-      public const int CANNOT_FIND_APPROPRIATE_CONSTRUCTOR = 5;
-      public const int AMBIGUOUS_REQUEST = 6;
-
-             */
             if (ex != null)
-            {
                log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
 
-               //Console.Error.WriteLine($"\n{ex.Message}");
-            }
-
             log.Error($"Exiting with return code {returnCode}");
-         }
-
+         }         
+         
          Environment.Exit(returnCode);
       }
 

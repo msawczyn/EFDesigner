@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
@@ -20,6 +21,7 @@ namespace Sawczyn.EFDesigner.EFModel
       public static readonly PluralizationService PluralizationService;
 
       internal static bool BatchUpdating = false;
+      internal static string InstallationDirectory { get; set; }
 
       public static Action ExecuteValidator { get; set; }
 
@@ -32,6 +34,7 @@ namespace Sawczyn.EFDesigner.EFModel
          try
          {
             PluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
+            InstallationDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(ModelRoot)).Location);
          }
          catch (NotImplementedException)
          {

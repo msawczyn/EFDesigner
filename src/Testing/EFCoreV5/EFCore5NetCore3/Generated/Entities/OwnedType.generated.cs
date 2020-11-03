@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v2.1.0.4
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -33,17 +33,30 @@ namespace Testing
       /// </summary>
       public OwnedType()
       {
+         // NOTE: This class has one-to-one associations with OwnedType.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
+      /// <param name="id"></param>
       /// <param name="_allpropertytypesoptional0"></param>
-      public OwnedType(global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
+      /// <param name="_allpropertytypesoptional2"></param>
+      public OwnedType(int id, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional2)
       {
+         // NOTE: This class has one-to-one associations with OwnedType.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
+         this.Id = id;
+
          if (_allpropertytypesoptional0 == null) throw new ArgumentNullException(nameof(_allpropertytypesoptional0));
-         _allpropertytypesoptional0.OwnedType = this;
+         _allpropertytypesoptional0.OwnedTypeOptional = this;
+
+         if (_allpropertytypesoptional2 == null) throw new ArgumentNullException(nameof(_allpropertytypesoptional2));
+         _allpropertytypesoptional2.OwnedTypeCollection.Add(this);
 
 
          Init();
@@ -52,10 +65,12 @@ namespace Testing
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
+      /// <param name="id"></param>
       /// <param name="_allpropertytypesoptional0"></param>
-      public static OwnedType Create(global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0)
+      /// <param name="_allpropertytypesoptional2"></param>
+      public static OwnedType Create(int id, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional2)
       {
-         return new OwnedType(_allpropertytypesoptional0);
+         return new OwnedType(id, _allpropertytypesoptional0, _allpropertytypesoptional2);
       }
 
       /*************************************************************************
@@ -90,6 +105,42 @@ namespace Testing
             if (oldValue != value)
             {
                _singleAttr = value;
+            }
+         }
+      }
+
+      /// <summary>
+      /// Backing field for Id
+      /// </summary>
+      internal int _id;
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before setting.
+      /// </summary>
+      partial void SetId(int oldValue, ref int newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Id to be changed before returning.
+      /// </summary>
+      partial void GetId(ref int result);
+
+      /// <summary>
+      /// Indexed, Required
+      /// </summary>
+      [Required]
+      public int Id
+      {
+         get
+         {
+            int value = _id;
+            GetId(ref value);
+            return (_id = value);
+         }
+         set
+         {
+            int oldValue = _id;
+            SetId(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _id = value;
             }
          }
       }

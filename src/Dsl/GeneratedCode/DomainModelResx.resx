@@ -925,17 +925,53 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;IsPropertyBag&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Description" xml:space="preserve">
-    <value>If true, this entity is mapped to a defining query that will be added to the partial class for this type. For more information, see https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew#map-entity-types-to-queries</value>
-    <comment>Description for DomainProperty &apos;IsMappedToSqlQuery&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsQueryType.Description" xml:space="preserve">
+    <value>If true, this class is defined by a SQL query that must be implemented in a partial method. See comments in generated code for more information.</value>
+    <comment>Description for DomainProperty &apos;IsQueryType&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.DisplayName" xml:space="preserve">
-    <value>Is Mapped To Sql Query</value>
-    <comment>DisplayName for DomainProperty &apos;IsMappedToSqlQuery&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsQueryType.DisplayName" xml:space="preserve">
+    <value>Is Query Type</value>
+    <comment>DisplayName for DomainProperty &apos;IsQueryType&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
-  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Category" xml:space="preserve">
-    <value>Code Generation</value>
-    <comment>Category for DomainProperty &apos;IsMappedToSqlQuery&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsQueryType.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsQueryType&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ExcludeFromMigrations.Description" xml:space="preserve">
+    <value>If true, this class won&apos;t be involved in database migrations</value>
+    <comment>Description for DomainProperty &apos;ExcludeFromMigrations&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ExcludeFromMigrations.DisplayName" xml:space="preserve">
+    <value>Exclude From Migrations</value>
+    <comment>DisplayName for DomainProperty &apos;ExcludeFromMigrations&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ExcludeFromMigrations.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;ExcludeFromMigrations&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDatabaseView.Description" xml:space="preserve">
+    <value>If true, this class is persisted in a view in the database</value>
+    <comment>Description for DomainProperty &apos;IsDatabaseView&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDatabaseView.DisplayName" xml:space="preserve">
+    <value>Is Database View</value>
+    <comment>DisplayName for DomainProperty &apos;IsDatabaseView&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/IsDatabaseView.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsDatabaseView&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ViewName.Description" xml:space="preserve">
+    <value>The name of the database view persisting this class</value>
+    <comment>Description for DomainProperty &apos;ViewName&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ViewName.DisplayName" xml:space="preserve">
+    <value>View Name</value>
+    <comment>DisplayName for DomainProperty &apos;ViewName&apos; on DomainClass &apos;ModelClass&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelClass/ViewName.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;ViewName&apos; on DomainClass &apos;ModelClass&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelAttribute.Description" xml:space="preserve">
     <value>An attribute of a class.</value>
@@ -2552,14 +2588,6 @@
   <data name="Sawczyn.EFDesigner.EFModel.Multiplicity/ZeroOne.Description" xml:space="preserve">
     <value></value>
     <comment>Description for EnumerationLiteral &apos;ZeroOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.DBWorkflow/TablePerTypeStrategy.DisplayName" xml:space="preserve">
-    <value>TablePerTypeStrategy</value>
-    <comment>Display name for EnumerationLiteral &apos;TablePerTypeStrategy&apos; on DomainEnumeration &apos;DBWorkflow&apos;</comment>
-  </data>
-  <data name="Sawczyn.EFDesigner.EFModel.DBWorkflow/TablePerTypeStrategy.Description" xml:space="preserve">
-    <value>No description available</value>
-    <comment>Description for EnumerationLiteral &apos;TablePerTypeStrategy&apos; on DomainEnumeration &apos;DBWorkflow&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ContainerAccess/Public.DisplayName" xml:space="preserve">
     <value>Public</value>

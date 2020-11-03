@@ -29,20 +29,27 @@ namespace Sawczyn.EFDesigner.EFModel
             if (!modelRoot.IsEFCore5Plus)
             {
                propertyDescriptors.Remove("IsPropertyBag");
-               propertyDescriptors.Remove("IsMappedToSqlQuery");
+               propertyDescriptors.Remove("IsQueryType");
+               propertyDescriptors.Remove("ExcludeFromMigrations");
+               propertyDescriptors.Remove("IsDatabaseView");
+               propertyDescriptors.Remove("ViewName");
 
                if (modelClass.IsDependentType && modelRoot.EntityFrameworkVersion == EFVersion.EF6)
                   propertyDescriptors.Remove("TableName");
             }
             else
             {
-               if (modelClass.IsMappedToSqlQuery)
+               if (modelClass.IsQueryType)
                {
                   propertyDescriptors.Remove("TableName");
                   propertyDescriptors.Remove("DatabaseSchema");
                   propertyDescriptors.Remove("Concurrency");
-                  propertyDescriptors.Remove("ImplementNotify");
                }
+
+               if (modelClass.IsDatabaseView)
+                  propertyDescriptors.Remove("TableName");
+               else
+                  propertyDescriptors.Remove("ViewName");
             }
 
             //Add the descriptors for the tracking properties 

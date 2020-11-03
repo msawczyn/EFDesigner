@@ -183,7 +183,10 @@ namespace Sawczyn.EFDesigner.EFModel
 	         new DomainMemberInfo(typeof(ModelClass), "AutoPropertyDefault", ModelClass.AutoPropertyDefaultDomainPropertyId, typeof(ModelClass.AutoPropertyDefaultPropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "GenerateCode", ModelClass.GenerateCodeDomainPropertyId, typeof(ModelClass.GenerateCodePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelClass), "IsPropertyBag", ModelClass.IsPropertyBagDomainPropertyId, typeof(ModelClass.IsPropertyBagPropertyHandler)),
-	         new DomainMemberInfo(typeof(ModelClass), "IsMappedToSqlQuery", ModelClass.IsMappedToSqlQueryDomainPropertyId, typeof(ModelClass.IsMappedToSqlQueryPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsQueryType", ModelClass.IsQueryTypeDomainPropertyId, typeof(ModelClass.IsQueryTypePropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "ExcludeFromMigrations", ModelClass.ExcludeFromMigrationsDomainPropertyId, typeof(ModelClass.ExcludeFromMigrationsPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "IsDatabaseView", ModelClass.IsDatabaseViewDomainPropertyId, typeof(ModelClass.IsDatabaseViewPropertyHandler)),
+	         new DomainMemberInfo(typeof(ModelClass), "ViewName", ModelClass.ViewNameDomainPropertyId, typeof(ModelClass.ViewNamePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 	         new DomainMemberInfo(typeof(ModelAttribute), "IsIdentity", ModelAttribute.IsIdentityDomainPropertyId, typeof(ModelAttribute.IsIdentityPropertyHandler)),
@@ -800,23 +803,6 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// </summary>
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.Multiplicity/ZeroOne.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		ZeroOne = 2,
-	}
-}
-namespace Sawczyn.EFDesigner.EFModel
-{
-	/// <summary>
-	/// DomainEnumeration: DBWorkflow
-	/// No description available
-	/// </summary>
-	[global::System.CLSCompliant(true)]
-	public enum DBWorkflow
-	{
-		/// <summary>
-		/// TablePerTypeStrategy
-		/// No description available
-		/// </summary>
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.DBWorkflow/TablePerTypeStrategy.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		TablePerTypeStrategy = 0,
 	}
 }
 namespace Sawczyn.EFDesigner.EFModel

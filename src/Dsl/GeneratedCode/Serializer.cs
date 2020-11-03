@@ -2739,20 +2739,71 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // IsMappedToSqlQuery
+	      // IsQueryType
 	      if (!serializationContext.Result.Failed)
 	      {
-	         string attribIsMappedToSqlQuery = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isMappedToSqlQuery");
-	         if (attribIsMappedToSqlQuery != null)
+	         string attribIsQueryType = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isQueryType");
+	         if (attribIsQueryType != null)
 	         {
-	            global::System.Boolean valueOfIsMappedToSqlQuery;
-	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsMappedToSqlQuery, out valueOfIsMappedToSqlQuery))
+	            global::System.Boolean valueOfIsQueryType;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsQueryType, out valueOfIsQueryType))
 	            {
-	               instanceOfModelClass.IsMappedToSqlQuery = valueOfIsMappedToSqlQuery;
+	               instanceOfModelClass.IsQueryType = valueOfIsQueryType;
 	            }
 	            else
 	            {   // Invalid property value, ignored.
-	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isMappedToSqlQuery", typeof(global::System.Boolean), attribIsMappedToSqlQuery);
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isQueryType", typeof(global::System.Boolean), attribIsQueryType);
+	            }
+	         }
+	      }
+	      // ExcludeFromMigrations
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribExcludeFromMigrations = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "excludeFromMigrations");
+	         if (attribExcludeFromMigrations != null)
+	         {
+	            global::System.Boolean valueOfExcludeFromMigrations;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribExcludeFromMigrations, out valueOfExcludeFromMigrations))
+	            {
+	               instanceOfModelClass.ExcludeFromMigrations = valueOfExcludeFromMigrations;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "excludeFromMigrations", typeof(global::System.Boolean), attribExcludeFromMigrations);
+	            }
+	         }
+	      }
+	      // IsDatabaseView
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribIsDatabaseView = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isDatabaseView");
+	         if (attribIsDatabaseView != null)
+	         {
+	            global::System.Boolean valueOfIsDatabaseView;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsDatabaseView, out valueOfIsDatabaseView))
+	            {
+	               instanceOfModelClass.IsDatabaseView = valueOfIsDatabaseView;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isDatabaseView", typeof(global::System.Boolean), attribIsDatabaseView);
+	            }
+	         }
+	      }
+	      // ViewName
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribViewName = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "viewName");
+	         if (attribViewName != null)
+	         {
+	            global::System.String valueOfViewName;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribViewName, out valueOfViewName))
+	            {
+	               instanceOfModelClass.ViewName = valueOfViewName;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "viewName", typeof(global::System.String), attribViewName);
 	            }
 	         }
 	      }
@@ -3687,17 +3738,51 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
-	      // IsMappedToSqlQuery
+	      // IsQueryType
 	      if (!serializationContext.Result.Failed)
 	      {
-	         global::System.Boolean propValue = instanceOfModelClass.IsMappedToSqlQuery;
+	         global::System.Boolean propValue = instanceOfModelClass.IsQueryType;
 	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 	         if (!serializationContext.Result.Failed)
 	         {
 	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 	            {   // No need to write the value out if it's the same as default value.
-	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isMappedToSqlQuery", serializedPropValue);
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isQueryType", serializedPropValue);
 	            }
+	         }
+	      }
+	      // ExcludeFromMigrations
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.ExcludeFromMigrations;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "excludeFromMigrations", serializedPropValue);
+	         }
+	      }
+	      // IsDatabaseView
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelClass.IsDatabaseView;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+	            {   // No need to write the value out if it's the same as default value.
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isDatabaseView", serializedPropValue);
+	            }
+	         }
+	      }
+	      // ViewName
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.String propValue = instanceOfModelClass.ViewName;
+	         if (!serializationContext.Result.Failed)
+	         {
+	            if (!string.IsNullOrEmpty(propValue))
+	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "viewName", propValue);
+	
 	         }
 	      }
 	   }

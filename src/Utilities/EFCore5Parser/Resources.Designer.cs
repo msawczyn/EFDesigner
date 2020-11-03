@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EFCore3Parser {
+namespace EFCore5Parser {
     using System;
     
     

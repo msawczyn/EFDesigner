@@ -86,224 +86,250 @@ namespace Sawczyn.EFDesigner.EFModel
             switch (e.DomainProperty.Name)
             {
                case "FKPropertyName":
-               {
-                  if (element.Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 
-                   && element.SourceMultiplicity != Multiplicity.ZeroMany 
-                   && element.TargetMultiplicity != Multiplicity.ZeroMany)
                   {
-                     element.FKPropertyName = null;
-                     doForeignKeyFixup = true;
-                  }                  
-                  else
-                     ValidateForeignKeyNames(element, errorMessages);
+                     if (store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6
+                      && element.SourceMultiplicity != Multiplicity.ZeroMany
+                      && element.TargetMultiplicity != Multiplicity.ZeroMany)
+                     {
+                        element.FKPropertyName = null;
+                        doForeignKeyFixup = true;
+                     }
+                     else
+                        ValidateForeignKeyNames(element, errorMessages);
 
-                  if (!errorMessages.Any())
-                     doForeignKeyFixup = true;
-               }
+                     if (!errorMessages.Any())
+                        doForeignKeyFixup = true;
+                  }
 
-               break;
+                  break;
 
                case "SourceCustomAttributes":
-
-                  if (bidirectionalAssociation != null && !string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceCustomAttributes))
                   {
-                     bidirectionalAssociation.SourceCustomAttributes = $"[{bidirectionalAssociation.SourceCustomAttributes.Trim('[', ']')}]";
-                     CheckSourceForDisplayText(bidirectionalAssociation);
+                     if (bidirectionalAssociation != null && !string.IsNullOrWhiteSpace(bidirectionalAssociation.SourceCustomAttributes))
+                     {
+                        bidirectionalAssociation.SourceCustomAttributes = $"[{bidirectionalAssociation.SourceCustomAttributes.Trim('[', ']')}]";
+                        CheckSourceForDisplayText(bidirectionalAssociation);
+                     }
                   }
 
                   break;
 
                case "SourceDisplayText":
-
-                  if (bidirectionalAssociation != null)
-                     CheckSourceForDisplayText(bidirectionalAssociation);
+                  {
+                     if (bidirectionalAssociation != null)
+                        CheckSourceForDisplayText(bidirectionalAssociation);
+                  }
 
                   break;
 
                case "SourceMultiplicity":
-                  Multiplicity currentSourceMultiplicity = (Multiplicity)e.NewValue;
-                  Multiplicity priorSourceMultiplicity = (Multiplicity)e.OldValue;
-
-                  // change unidirectional source cardinality
-                  // if target is dependent
-                  //    source cardinality is 0..1 or 1
-                  if (element.Target.IsDependentType && currentSourceMultiplicity == Multiplicity.ZeroMany)
                   {
-                     errorMessages.Add($"Can't have a 0..* association from {element.Target.Name} to dependent type {element.Source.Name}");
+                     Multiplicity currentSourceMultiplicity = (Multiplicity)e.NewValue;
+                     Multiplicity priorSourceMultiplicity = (Multiplicity)e.OldValue;
 
-                     break;
+                     // EFCore < v5 can't have required dependents
+                     if (element.Source.IsDependentType && currentSourceMultiplicity == Multiplicity.One && !store.ModelRoot().IsEFCore5Plus)
+                     {
+                        errorMessages.Add($"Can't have a required association from {element.Source.Name} to principal type {element.Target.Name} in versions < EFCore5");
+                        break;
+                     }
+
+                     // change unidirectional source cardinality
+                     // if target is dependent
+                     //    source cardinality is 0..1 or, if EFCore 5+, 1
+                     if (element.Source.IsDependentType && currentSourceMultiplicity == Multiplicity.ZeroMany)
+                     {
+                        errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to principal type {element.Target.Name}");
+                        break;
+                     }
+
+                     if ((element.TargetMultiplicity == Multiplicity.One && currentSourceMultiplicity == Multiplicity.One)
+                      || (element.TargetMultiplicity == Multiplicity.ZeroOne && currentSourceMultiplicity == Multiplicity.ZeroOne))
+                     {
+                        if (element.SourceRole != EndpointRole.NotSet)
+                           element.SourceRole = EndpointRole.NotSet;
+
+                        if (element.TargetRole != EndpointRole.NotSet)
+                           element.TargetRole = EndpointRole.NotSet;
+                     }
+                     else
+                        SetEndpointRoles(element);
+
+                     // cascade delete behavior could now be illegal. Reset to default
+                     element.SourceDeleteAction = DeleteAction.Default;
+                     element.TargetDeleteAction = DeleteAction.Default;
+
+                     if (element.Dependent == null)
+                     {
+                        element.FKPropertyName = null;
+                        doForeignKeyFixup = true;
+                     }
+
+                     if (store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6
+                      && element.SourceMultiplicity != Multiplicity.ZeroMany
+                      && element.TargetMultiplicity != Multiplicity.ZeroMany)
+                     {
+                        element.FKPropertyName = null;
+                        doForeignKeyFixup = true;
+                     }
+
+                     if (((priorSourceMultiplicity == Multiplicity.ZeroOne || priorSourceMultiplicity == Multiplicity.ZeroMany) && currentSourceMultiplicity == Multiplicity.One)
+                      || ((currentSourceMultiplicity == Multiplicity.ZeroOne || currentSourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
+                        doForeignKeyFixup = true;
                   }
-
-                  if ((currentSourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One)
-                   || (currentSourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
-                  {
-                     if (element.SourceRole != EndpointRole.NotSet)
-                        element.SourceRole = EndpointRole.NotSet;
-
-                     if (element.TargetRole != EndpointRole.NotSet)
-                        element.TargetRole = EndpointRole.NotSet;
-                  }
-                  else
-                     SetEndpointRoles(element);
-
-                  // cascade delete behavior could now be illegal. Reset to default
-                  element.SourceDeleteAction = DeleteAction.Default;
-                  element.TargetDeleteAction = DeleteAction.Default;
-
-                  if (element.Dependent == null)
-                  {
-                     element.FKPropertyName = null;
-                     doForeignKeyFixup = true;
-                  }
-
-                  if (element.Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 
-                   && element.SourceMultiplicity != Multiplicity.ZeroMany 
-                   && element.TargetMultiplicity != Multiplicity.ZeroMany)
-                  {
-                     element.FKPropertyName = null;
-                     doForeignKeyFixup = true;
-                  }                  
-
-                  if (((priorSourceMultiplicity == Multiplicity.ZeroOne || priorSourceMultiplicity == Multiplicity.ZeroMany) && currentSourceMultiplicity == Multiplicity.One) || 
-                      ((currentSourceMultiplicity == Multiplicity.ZeroOne || currentSourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
-                     doForeignKeyFixup = true;
 
                   break;
 
                case "SourcePropertyName":
-                  string sourcePropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
+                  {
+                     string sourcePropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Target, (string)e.NewValue);
 
-                  if (EFModelDiagram.IsDroppingExternal && sourcePropertyNameErrorMessage != null)
-                     element.Delete();
-                  else
-                     errorMessages.Add(sourcePropertyNameErrorMessage);
+                     if (EFModelDiagram.IsDroppingExternal && sourcePropertyNameErrorMessage != null)
+                        element.Delete();
+                     else
+                        errorMessages.Add(sourcePropertyNameErrorMessage);
+                  }
 
                   break;
 
                case "SourceRole":
-                  if (element.SourceRole == EndpointRole.NotApplicable)
-                     element.SourceRole = EndpointRole.NotSet;
+                  {
+                     if (element.SourceRole == EndpointRole.NotApplicable)
+                        element.SourceRole = EndpointRole.NotSet;
 
-                  if (element.Source.IsDependentType)
-                  {
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
-                  }
-                  else if (!SetEndpointRoles(element))
-                  {
-                     if (element.SourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
+                     if (element.Source.IsDependentType)
+                     {
+                        element.SourceRole = EndpointRole.Dependent;
                         element.TargetRole = EndpointRole.Principal;
-                     else if (element.SourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
-                        element.TargetRole = EndpointRole.Dependent;
-                  }
+                     }
+                     else if (!SetEndpointRoles(element))
+                     {
+                        if (element.SourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
+                           element.TargetRole = EndpointRole.Principal;
+                        else if (element.SourceRole == EndpointRole.Principal && element.TargetRole != EndpointRole.Dependent)
+                           element.TargetRole = EndpointRole.Dependent;
+                     }
 
-                  doForeignKeyFixup = true;
+                     doForeignKeyFixup = true;
+                  }
 
                   break;
 
                case "TargetCustomAttributes":
-
-                  if (!string.IsNullOrWhiteSpace(element.TargetCustomAttributes))
                   {
-                     element.TargetCustomAttributes = $"[{element.TargetCustomAttributes.Trim('[', ']')}]";
-                     CheckTargetForDisplayText(element);
+                     if (!string.IsNullOrWhiteSpace(element.TargetCustomAttributes))
+                     {
+                        element.TargetCustomAttributes = $"[{element.TargetCustomAttributes.Trim('[', ']')}]";
+                        CheckTargetForDisplayText(element);
+                     }
                   }
 
                   break;
 
                case "TargetDisplayText":
-
-                  CheckTargetForDisplayText(element);
+                  {
+                     CheckTargetForDisplayText(element);
+                  }
 
                   break;
 
                case "TargetMultiplicity":
-                  Multiplicity currentTargetMultiplicity = (Multiplicity)e.NewValue;
-                  Multiplicity priorTargetMultiplicity = (Multiplicity)e.OldValue;
-
-                  // change unidirectional target cardinality
-                  // if target is dependent
-                  //    target cardinality must be 0..1 or 1
-                  if (element.Target.IsDependentType && currentTargetMultiplicity == Multiplicity.ZeroMany)
                   {
-                     errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+                     Multiplicity currentTargetMultiplicity = (Multiplicity)e.NewValue;
+                     Multiplicity priorTargetMultiplicity = (Multiplicity)e.OldValue;
 
-                     break;
+                     // change unidirectional target cardinality
+                     // if target is dependent
+                     //    target cardinality must be 0..1 or, if EFCore5+, 1
+                     if (element.Target.IsDependentType && currentTargetMultiplicity == Multiplicity.ZeroMany)
+                     {
+                        errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+
+                        break;
+                     }
+
+                     if (element.Target.IsDependentType && currentTargetMultiplicity == Multiplicity.One && !store.ModelRoot().IsEFCore5Plus)
+                     {
+                        errorMessages.Add($"Can't have a required association from {element.Source.Name} to dependent type {element.Target.Name} in versions < EFCore5");
+                     }
+
+                     if ((element.SourceMultiplicity == Multiplicity.One && currentTargetMultiplicity == Multiplicity.One)
+                      || (element.SourceMultiplicity == Multiplicity.ZeroOne && currentTargetMultiplicity == Multiplicity.ZeroOne))
+                     {
+                        if (element.SourceRole != EndpointRole.NotSet)
+                           element.SourceRole = EndpointRole.NotSet;
+
+                        if (element.TargetRole != EndpointRole.NotSet)
+                           element.TargetRole = EndpointRole.NotSet;
+                     }
+                     else
+                        SetEndpointRoles(element);
+
+                     // cascade delete behavior could now be illegal. Reset to default
+                     element.SourceDeleteAction = DeleteAction.Default;
+                     element.TargetDeleteAction = DeleteAction.Default;
+
+                     if (element.Dependent == null)
+                     {
+                        element.FKPropertyName = null;
+                        doForeignKeyFixup = true;
+                     }
+
+                     if (store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6
+                      && element.SourceMultiplicity != Multiplicity.ZeroMany
+                      && element.TargetMultiplicity != Multiplicity.ZeroMany)
+                     {
+                        element.FKPropertyName = null;
+                        doForeignKeyFixup = true;
+                     }
+
+                     if (((priorTargetMultiplicity == Multiplicity.ZeroOne || priorTargetMultiplicity == Multiplicity.ZeroMany) && currentTargetMultiplicity == Multiplicity.One)
+                      || ((currentTargetMultiplicity == Multiplicity.ZeroOne || currentTargetMultiplicity == Multiplicity.ZeroMany) && priorTargetMultiplicity == Multiplicity.One))
+                        doForeignKeyFixup = true;
                   }
-
-                  if ((element.SourceMultiplicity == Multiplicity.One && currentTargetMultiplicity == Multiplicity.One)
-                   || (element.SourceMultiplicity == Multiplicity.ZeroOne && currentTargetMultiplicity == Multiplicity.ZeroOne))
-                  {
-                     if (element.SourceRole != EndpointRole.NotSet)
-                        element.SourceRole = EndpointRole.NotSet;
-
-                     if (element.TargetRole != EndpointRole.NotSet)
-                        element.TargetRole = EndpointRole.NotSet;
-                  }
-                  else
-                     SetEndpointRoles(element);
-
-                  // cascade delete behavior could now be illegal. Reset to default
-                  element.SourceDeleteAction = DeleteAction.Default;
-                  element.TargetDeleteAction = DeleteAction.Default;
-
-                  if (element.Dependent == null)
-                  {
-                     element.FKPropertyName = null;
-                     doForeignKeyFixup = true;
-                  }
-
-                  if (element.Store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 
-                   && element.SourceMultiplicity != Multiplicity.ZeroMany 
-                   && element.TargetMultiplicity != Multiplicity.ZeroMany)
-                  {
-                     element.FKPropertyName = null;
-                     doForeignKeyFixup = true;
-                  }   
-                  
-                  if (((priorTargetMultiplicity == Multiplicity.ZeroOne || priorTargetMultiplicity == Multiplicity.ZeroMany) && currentTargetMultiplicity == Multiplicity.One) || 
-                             ((currentTargetMultiplicity == Multiplicity.ZeroOne || currentTargetMultiplicity == Multiplicity.ZeroMany) && priorTargetMultiplicity == Multiplicity.One))
-                     doForeignKeyFixup = true;
 
                   break;
 
                case "TargetPropertyName":
+                  {
+                     // if we're creating an association via drag/drop, it's possible the existing property name
+                     // is the same as the default property name. The default doesn't get created until the transaction is 
+                     // committed, so the drop's action will cause a name clash. Remove the clashing property, but
+                     // only if drag/drop.
 
-                  // if we're creating an association via drag/drop, it's possible the existing property name
-                  // is the same as the default property name. The default doesn't get created until the transaction is 
-                  // committed, so the drop's action will cause a name clash. Remove the clashing property, but
-                  // only if drag/drop.
+                     string targetPropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
 
-                  string targetPropertyNameErrorMessage = ValidateAssociationIdentifier(element, element.Source, (string)e.NewValue);
-
-                  if (EFModelDiagram.IsDroppingExternal && targetPropertyNameErrorMessage != null)
-                     element.Delete();
-                  else
-                     errorMessages.Add(targetPropertyNameErrorMessage);
+                     if (EFModelDiagram.IsDroppingExternal && targetPropertyNameErrorMessage != null)
+                        element.Delete();
+                     else
+                        errorMessages.Add(targetPropertyNameErrorMessage);
+                  }
 
                   break;
 
                case "TargetRole":
-                  if (element.TargetRole == EndpointRole.NotApplicable)
-                     element.TargetRole = EndpointRole.NotSet;
+                  {
+                     if (element.TargetRole == EndpointRole.NotApplicable)
+                        element.TargetRole = EndpointRole.NotSet;
 
-                  if (element.Target.IsDependentType && (element.SourceRole != EndpointRole.Principal || element.TargetRole != EndpointRole.Dependent))
-                  {
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
-                     doForeignKeyFixup = true;
-                  }
-                  else if (!SetEndpointRoles(element))
-                  {
-                     if (element.TargetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
+                     if (element.Target.IsDependentType && (element.SourceRole != EndpointRole.Principal || element.TargetRole != EndpointRole.Dependent))
                      {
                         element.SourceRole = EndpointRole.Principal;
+                        element.TargetRole = EndpointRole.Dependent;
                         doForeignKeyFixup = true;
                      }
-                     else if (element.TargetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
+                     else if (!SetEndpointRoles(element))
                      {
-                        element.SourceRole = EndpointRole.Dependent;
-                        doForeignKeyFixup = true;
+                        if (element.TargetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
+                        {
+                           element.SourceRole = EndpointRole.Principal;
+                           doForeignKeyFixup = true;
+                        }
+                        else if (element.TargetRole == EndpointRole.Principal && element.SourceRole != EndpointRole.Dependent)
+                        {
+                           element.SourceRole = EndpointRole.Dependent;
+                           doForeignKeyFixup = true;
+                        }
                      }
                   }
 
@@ -326,49 +352,11 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      private static void ValidateForeignKeyNames(Association element, List<string> errorMessages)
-      {
-         if (!string.IsNullOrWhiteSpace(element.FKPropertyName))
-         {
-            string[] foreignKeyPropertyNames = element.GetForeignKeyPropertyNames();
-            string tag = $"({element.Source.Name}:{element.Target.Name})";
-
-            if (element.Dependent == null)
-            {
-               errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
-               return;
-            }
-
-            int propertyCount = foreignKeyPropertyNames.Length;
-            int identityCount = element.Principal.AllIdentityAttributes.Count();
-
-            if (propertyCount != identityCount)
-            {
-               errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, "
-                               + $"since {element.Principal.Name} has {identityCount} identity properties. Found {propertyCount} instead");
-            }
-
-            // validate names
-            foreach (string propertyName in foreignKeyPropertyNames)
-            {
-               if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
-                  errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
-
-               if (element.Dependent.AllAttributes.Except(element.Dependent.Attributes).Any(a => a.Name == propertyName))
-                  errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {element.Dependent.Name}");
-            }
-
-            // ensure no FKs are autogenerated identities
-            errorMessages.AddRange(element.GetFKAutoIdentityErrors()
-                                          .Select(attribute => $"{attribute.Name} in {element.Dependent.FullName} is an auto-generated identity. Migration will fail."));
-         }
-      }
-
       public static void FixupForeignKeys(Association element)
       {
          List<ModelAttribute> fkProperties = element.Source.Attributes.Where(x => x.IsForeignKeyFor == element.Id)
-                                                                      .Union(element.Target.Attributes.Where(x => x.IsForeignKeyFor == element.Id))
-                                                                      .ToList();
+                                                    .Union(element.Target.Attributes.Where(x => x.IsForeignKeyFor == element.Id))
+                                                    .ToList();
 
          // EF6 can't have declared foreign keys for 1..1 / 0-1..1 / 1..0-1 / 0-1..0-1 relationships
          if (!string.IsNullOrEmpty(element.FKPropertyName)
@@ -427,19 +415,19 @@ namespace Sawczyn.EFDesigner.EFModel
          // create new properties if they don't already exist
          foreach (string propertyName in add.Where(n => element.Dependent.Attributes.All(a => a.Name != n)))
             element.Dependent.Attributes.Add(new ModelAttribute(element.Store, new PropertyAssignment(ModelAttribute.NameDomainPropertyId, propertyName)));
-         
+
          // make a pass through and fixup the types, summaries, etc. based on the principal's identity attributes
          ModelAttribute[] principalIdentityAttributes = element.Principal.AllIdentityAttributes.ToArray();
          string summaryBoilerplate = element.GetSummaryBoilerplate();
 
          for (int index = 0; index < currentForeignKeyPropertyNames.Length; index++)
          {
-            ModelAttribute fkProperty = element.Dependent.Attributes.First(x=>x.Name == currentForeignKeyPropertyNames[index]);
+            ModelAttribute fkProperty = element.Dependent.Attributes.First(x => x.Name == currentForeignKeyPropertyNames[index]);
             ModelAttribute idProperty = principalIdentityAttributes[index];
 
             bool required = element.Dependent == element.Source
-                                    ? element.TargetMultiplicity == Multiplicity.One
-                                    : element.SourceMultiplicity == Multiplicity.One;
+                               ? element.TargetMultiplicity == Multiplicity.One
+                               : element.SourceMultiplicity == Multiplicity.One;
 
             fkProperty.SetFKMods(element
                                , summaryBoilerplate
@@ -461,11 +449,13 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TargetRole = EndpointRole.NotSet;
 
                      return true;
+
                   case Multiplicity.One:
                      element.SourceRole = EndpointRole.Principal;
                      element.TargetRole = EndpointRole.Dependent;
 
                      return true;
+
                   case Multiplicity.ZeroOne:
                      element.SourceRole = EndpointRole.Principal;
                      element.TargetRole = EndpointRole.Dependent;
@@ -474,6 +464,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                break;
+
             case Multiplicity.One:
 
                switch (element.SourceMultiplicity)
@@ -483,9 +474,11 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TargetRole = EndpointRole.Principal;
 
                      return true;
+
                   case Multiplicity.One:
 
                      return false;
+
                   case Multiplicity.ZeroOne:
                      element.SourceRole = EndpointRole.Dependent;
                      element.TargetRole = EndpointRole.Principal;
@@ -494,6 +487,7 @@ namespace Sawczyn.EFDesigner.EFModel
                }
 
                break;
+
             case Multiplicity.ZeroOne:
 
                switch (element.SourceMultiplicity)
@@ -503,11 +497,13 @@ namespace Sawczyn.EFDesigner.EFModel
                      element.TargetRole = EndpointRole.Principal;
 
                      return true;
+
                   case Multiplicity.One:
                      element.SourceRole = EndpointRole.Principal;
                      element.TargetRole = EndpointRole.Dependent;
 
                      return true;
+
                   case Multiplicity.ZeroOne:
 
                      return false;
@@ -524,12 +520,51 @@ namespace Sawczyn.EFDesigner.EFModel
          if (string.IsNullOrWhiteSpace(identifier) || !CodeGenerator.IsValidLanguageIndependentIdentifier(identifier))
             return $"{identifier} isn't a valid .NET identifier";
 
-         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass ??
-                                          targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
+         ModelClass offendingModelClass = targetedClass.AllAttributes.FirstOrDefault(x => x.Name == identifier)?.ModelClass
+                                       ?? targetedClass.AllNavigationProperties(association).FirstOrDefault(x => x.PropertyName == identifier)?.ClassType;
 
          return offendingModelClass != null
                    ? $"Duplicate symbol {identifier} in {offendingModelClass.Name}"
                    : null;
+      }
+
+      private static void ValidateForeignKeyNames(Association element, List<string> errorMessages)
+      {
+         if (!string.IsNullOrWhiteSpace(element.FKPropertyName))
+         {
+            string[] foreignKeyPropertyNames = element.GetForeignKeyPropertyNames();
+            string tag = $"({element.Source.Name}:{element.Target.Name})";
+
+            if (element.Dependent == null)
+            {
+               errorMessages.Add($"{tag} can't have foreign keys defined; no dependent role found");
+
+               return;
+            }
+
+            int propertyCount = foreignKeyPropertyNames.Length;
+            int identityCount = element.Principal.AllIdentityAttributes.Count();
+
+            if (propertyCount != identityCount)
+            {
+               errorMessages.Add($"{tag} foreign key must have zero or {identityCount} {(identityCount == 1 ? "property" : "properties")} defined, "
+                               + $"since {element.Principal.Name} has {identityCount} identity properties. Found {propertyCount} instead");
+            }
+
+            // validate names
+            foreach (string propertyName in foreignKeyPropertyNames)
+            {
+               if (!CodeGenerator.IsValidLanguageIndependentIdentifier(propertyName))
+                  errorMessages.Add($"{tag} FK property name '{propertyName}' isn't a valid .NET identifier");
+
+               if (element.Dependent.AllAttributes.Except(element.Dependent.Attributes).Any(a => a.Name == propertyName))
+                  errorMessages.Add($"{tag} FK property name '{propertyName}' is used in a base class of {element.Dependent.Name}");
+            }
+
+            // ensure no FKs are autogenerated identities
+            errorMessages.AddRange(element.GetFKAutoIdentityErrors()
+                                          .Select(attribute => $"{attribute.Name} in {element.Dependent.FullName} is an auto-generated identity. Migration will fail."));
+         }
       }
    }
 }

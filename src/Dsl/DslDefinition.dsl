@@ -510,9 +510,24 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="9a283e38-2021-4a1a-806c-669a97ef02b5" Description="If true, this entity is mapped to a defining query that will be added to the partial class for this type. For more information, see https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew#map-entity-types-to-queries" Name="IsMappedToSqlQuery" DisplayName="Is Mapped To Sql Query" DefaultValue="false" Category="Code Generation">
+        <DomainProperty Id="9b6ae5c9-fe3f-4b3c-9a76-291d58fde1eb" Description="If true, this class is defined by a SQL query that must be implemented in a partial method. See comments in generated code for more information." Name="IsQueryType" DisplayName="Is Query Type" DefaultValue="false" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="37b0398e-caf1-45d7-acf4-8a44ddcb8543" Description="If true, this class won't be involved in database migrations" Name="ExcludeFromMigrations" DisplayName="Exclude From Migrations" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2d01c28f-20f9-4e44-aaf6-27b5d1541b5f" Description="If true, this class is persisted in a view in the database" Name="IsDatabaseView" DisplayName="Is Database View" DefaultValue="false" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="0b8d7bf1-3927-40e6-b0aa-81a8b7dddacb" Description="The name of the database view persisting this class" Name="ViewName" DisplayName="View Name" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1507,11 +1522,6 @@
         <EnumerationLiteral Description="" Name="ZeroOne" Value="2" />
       </Literals>
     </DomainEnumeration>
-    <DomainEnumeration Name="DBWorkflow" Namespace="Sawczyn.EFDesigner.EFModel" Description="No description available">
-      <Literals>
-        <EnumerationLiteral Description="No description available" Name="TablePerTypeStrategy" Value="0" />
-      </Literals>
-    </DomainEnumeration>
     <DomainEnumeration Name="ContainerAccess" Namespace="Sawczyn.EFDesigner.EFModel" Description="">
       <Literals>
         <EnumerationLiteral Description="" Name="Public" Value="1" />
@@ -2219,8 +2229,17 @@
           <XmlPropertyData XmlName="isPropertyBag">
             <DomainPropertyMoniker Name="ModelClass/IsPropertyBag" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="isMappedToSqlQuery">
-            <DomainPropertyMoniker Name="ModelClass/IsMappedToSqlQuery" />
+          <XmlPropertyData XmlName="isQueryType">
+            <DomainPropertyMoniker Name="ModelClass/IsQueryType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="excludeFromMigrations">
+            <DomainPropertyMoniker Name="ModelClass/ExcludeFromMigrations" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isDatabaseView">
+            <DomainPropertyMoniker Name="ModelClass/IsDatabaseView" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="viewName">
+            <DomainPropertyMoniker Name="ModelClass/ViewName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

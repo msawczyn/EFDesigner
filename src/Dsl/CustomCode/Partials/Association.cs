@@ -49,6 +49,8 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       public string GetTargetMultiplicityDisplayValue() => MultiplicityDisplayValue(TargetMultiplicity);
 
+      public bool LinksDependentType => Source.IsDependentType || Target.IsDependentType;
+
       private static string MultiplicityDisplayValue(Multiplicity multiplicity)
       {
          switch (multiplicity)

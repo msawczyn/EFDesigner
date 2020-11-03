@@ -6290,62 +6290,61 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
-		#region IsMappedToSqlQuery domain property code
+		#region IsQueryType domain property code
 		
 		/// <summary>
-		/// IsMappedToSqlQuery domain property Id.
+		/// IsQueryType domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid IsMappedToSqlQueryDomainPropertyId = new global::System.Guid(0x9a283e38, 0x2021, 0x4a1a, 0x80, 0x6c, 0x66, 0x9a, 0x97, 0xef, 0x02, 0xb5);
+		public static readonly global::System.Guid IsQueryTypeDomainPropertyId = new global::System.Guid(0x9b6ae5c9, 0xfe3f, 0x4b3c, 0x9a, 0x76, 0x29, 0x1d, 0x58, 0xfd, 0xe1, 0xeb);
 		
 		/// <summary>
-		/// Storage for IsMappedToSqlQuery
+		/// Storage for IsQueryType
 		/// </summary>
-		private global::System.Boolean isMappedToSqlQueryPropertyStorage;
+		private global::System.Boolean isQueryTypePropertyStorage;
 		
 		/// <summary>
-		/// Gets or sets the value of IsMappedToSqlQuery domain property.
-		/// If true, this entity is mapped to a defining query that will be added to the
-		/// partial class for this type. For more information, see
-		/// https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew#map-entity-types-to-queries
+		/// Gets or sets the value of IsQueryType domain property.
+		/// If true, this class is defined by a SQL query that must be implemented in a
+		/// partial method. See comments in generated code for more information.
 		/// </summary>
-		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsMappedToSqlQuery.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainObjectId("9a283e38-2021-4a1a-806c-669a97ef02b5")]
-		public global::System.Boolean IsMappedToSqlQuery
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsQueryType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsQueryType.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsQueryType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("9b6ae5c9-fe3f-4b3c-9a76-291d58fde1eb")]
+		public global::System.Boolean IsQueryType
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return isMappedToSqlQueryPropertyStorage;
+				return isQueryTypePropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				IsMappedToSqlQueryPropertyHandler.Instance.SetValue(this, value);
+				IsQueryTypePropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelClass.IsMappedToSqlQuery domain property.
+		/// Value handler for the ModelClass.IsQueryType domain property.
 		/// </summary>
-		internal sealed partial class IsMappedToSqlQueryPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		internal sealed partial class IsQueryTypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
 		{
-			private IsMappedToSqlQueryPropertyHandler() { }
+			private IsQueryTypePropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelClass.IsMappedToSqlQuery domain property value handler.
+			/// Gets the singleton instance of the ModelClass.IsQueryType domain property value handler.
 			/// </summary>
-			public static readonly IsMappedToSqlQueryPropertyHandler Instance = new IsMappedToSqlQueryPropertyHandler();
+			public static readonly IsQueryTypePropertyHandler Instance = new IsQueryTypePropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelClass.IsMappedToSqlQuery domain property.
+			/// Gets the Id of the ModelClass.IsQueryType domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return IsMappedToSqlQueryDomainPropertyId;
+					return IsQueryTypeDomainPropertyId;
 				}
 			}
 			
@@ -6357,7 +6356,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			public override sealed global::System.Boolean GetValue(ModelClass element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.isMappedToSqlQueryPropertyStorage;
+				return element.isQueryTypePropertyStorage;
 			}
 		
 			/// <summary>
@@ -6373,7 +6372,271 @@ namespace Sawczyn.EFDesigner.EFModel
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.isMappedToSqlQueryPropertyStorage = newValue;
+					element.isQueryTypePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ExcludeFromMigrations domain property code
+		
+		/// <summary>
+		/// ExcludeFromMigrations domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ExcludeFromMigrationsDomainPropertyId = new global::System.Guid(0x37b0398e, 0xcaf1, 0x45d7, 0xac, 0xf4, 0x8a, 0x44, 0xdd, 0xcb, 0x85, 0x43);
+		
+		/// <summary>
+		/// Storage for ExcludeFromMigrations
+		/// </summary>
+		private global::System.Boolean excludeFromMigrationsPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of ExcludeFromMigrations domain property.
+		/// If true, this class won't be involved in database migrations
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/ExcludeFromMigrations.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/ExcludeFromMigrations.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/ExcludeFromMigrations.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("37b0398e-caf1-45d7-acf4-8a44ddcb8543")]
+		public global::System.Boolean ExcludeFromMigrations
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return excludeFromMigrationsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ExcludeFromMigrationsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.ExcludeFromMigrations domain property.
+		/// </summary>
+		internal sealed partial class ExcludeFromMigrationsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private ExcludeFromMigrationsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.ExcludeFromMigrations domain property value handler.
+			/// </summary>
+			public static readonly ExcludeFromMigrationsPropertyHandler Instance = new ExcludeFromMigrationsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.ExcludeFromMigrations domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ExcludeFromMigrationsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.excludeFromMigrationsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.excludeFromMigrationsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsDatabaseView domain property code
+		
+		/// <summary>
+		/// IsDatabaseView domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsDatabaseViewDomainPropertyId = new global::System.Guid(0x2d01c28f, 0x20f9, 0x4e44, 0xaa, 0xf6, 0x27, 0xb5, 0xd1, 0x54, 0x1b, 0x5f);
+		
+		/// <summary>
+		/// Storage for IsDatabaseView
+		/// </summary>
+		private global::System.Boolean isDatabaseViewPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsDatabaseView domain property.
+		/// If true, this class is persisted in a view in the database
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsDatabaseView.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsDatabaseView.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/IsDatabaseView.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("2d01c28f-20f9-4e44-aaf6-27b5d1541b5f")]
+		public global::System.Boolean IsDatabaseView
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isDatabaseViewPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsDatabaseViewPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.IsDatabaseView domain property.
+		/// </summary>
+		internal sealed partial class IsDatabaseViewPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.Boolean>
+		{
+			private IsDatabaseViewPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.IsDatabaseView domain property value handler.
+			/// </summary>
+			public static readonly IsDatabaseViewPropertyHandler Instance = new IsDatabaseViewPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.IsDatabaseView domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsDatabaseViewDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isDatabaseViewPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isDatabaseViewPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ViewName domain property code
+		
+		/// <summary>
+		/// ViewName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ViewNameDomainPropertyId = new global::System.Guid(0x0b8d7bf1, 0x3927, 0x40e6, 0xb0, 0xaa, 0x81, 0xa8, 0xb7, 0xdd, 0xda, 0xcb);
+		
+		/// <summary>
+		/// Storage for ViewName
+		/// </summary>
+		private global::System.String viewNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of ViewName domain property.
+		/// The name of the database view persisting this class
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelClass/ViewName.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelClass/ViewName.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelClass/ViewName.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("0b8d7bf1-3927-40e6-b0aa-81a8b7dddacb")]
+		public global::System.String ViewName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return viewNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ViewNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelClass.ViewName domain property.
+		/// </summary>
+		internal sealed partial class ViewNamePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.String>
+		{
+			private ViewNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelClass.ViewName domain property value handler.
+			/// </summary>
+			public static readonly ViewNamePropertyHandler Instance = new ViewNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelClass.ViewName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ViewNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelClass element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.viewNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelClass element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.viewNamePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

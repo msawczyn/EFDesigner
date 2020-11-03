@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -7,7 +6,7 @@ using log4net;
 using log4net.Config;
 using log4net.Repository;
 
-namespace EFCore3Parser
+namespace EFCore5Parser
 {
    internal class Program
    {
@@ -59,17 +58,23 @@ namespace EFCore3Parser
                   catch (MissingMethodException ex)
                   {
                      log.Error(ex.Message);
-                     Exit(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR);
+                     Exit(CANNOT_FIND_APPROPRIATE_CONSTRUCTOR, ex);
                   }
                   catch (AmbiguousMatchException ex)
                   {
                      log.Error(ex.Message);
-                     Exit(AMBIGUOUS_REQUEST);
+                     Exit(AMBIGUOUS_REQUEST, ex);
                   }
                   catch (Exception ex)
                   {
-                     log.Error(ex.Message);
-                     Exit(CANNOT_CREATE_DBCONTEXT);
+                     Exception e = ex;
+                     do
+                     {
+                        log.Error(e.Message);
+                        e = e.InnerException;
+                     } while (e != null);
+
+                     Exit(CANNOT_CREATE_DBCONTEXT, ex);
                   }
 
                   output.Write(parser?.Process());
@@ -79,14 +84,14 @@ namespace EFCore3Parser
                catch (Exception ex)
                {
                   log.Error(ex.Message);
-                  Exit(CANNOT_LOAD_ASSEMBLY);
+                  Exit(CANNOT_LOAD_ASSEMBLY, ex);
                }
             }
          }
          catch (Exception ex)
          {
             log.Error(ex.Message);
-            Exit(CANNOT_WRITE_OUTPUTFILE);
+            Exit(CANNOT_WRITE_OUTPUTFILE, ex);
          }
 
          log.Info("Success");
@@ -114,15 +119,11 @@ namespace EFCore3Parser
             log.Error("");
 
             if (ex != null)
-            {
                log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
 
-               //Console.Error.WriteLine($"\n{ex.Message}");
-            }
-
             log.Error($"Exiting with return code {returnCode}");
-         }
-
+         }         
+         
          Environment.Exit(returnCode);
       }
 

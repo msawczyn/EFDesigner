@@ -449,6 +449,8 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       private string GetBaseClassValue() => Superclass?.Name;
 
+      internal bool IsKeylessType() => IsDependentType || IsQueryType || IsDatabaseView;
+
       /// <summary>
       /// Sets the superclass to the class with the supplied name, if it exists. Sets to null if can't be found.
       /// </summary>
@@ -483,8 +485,54 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      private void OwnedTypeCannotHaveABaseClass(ValidationContext context)
+      {
+         if (ModelRoot == null) return;
+         if (IsDependentType && Superclass != null)
+            context.LogError($"Can't make {Name} a dependent class since it has a base class", "MCEOwnedHasBaseClass", this);
+      }
 
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      private void OwnedTypeCannotHaveASubclass(ValidationContext context)
+      {
+         if (ModelRoot == null) return;
+         if (IsDependentType && Subclasses.Any())
+            context.LogError($"Can't make {Name} a dependent class since it has subclass(es) {string.Join(", ", Subclasses.Select(s => s.Name))}", "MCEOwnedHasSubclass", this);
+      }
+
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      private void OwnedTypeCannotBeAbstract(ValidationContext context)
+      {
+         if (ModelRoot == null) return;
+         if (IsDependentType && IsAbstract)
+            context.LogError($"Can't make {Name} a dependent class since it's abstract", "MCEOwnedIsAbstract", this);
+      }
+
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      private void OwnedTypeCannotBePrincipal(ValidationContext context)
+      {
+         if (ModelRoot == null) return;
+
+         List<Association> principalAssociations = ModelRoot.Store.GetAll<Association>().Where(a => a.Principal == this).ToList();
+
+         if (IsDependentType && principalAssociations.Any())
+         {
+            string badAssociations = string.Join(", ", principalAssociations.Select(a => a.GetDisplayText()));
+            context.LogError($"Can't make {Name} a dependent class since it's the principal end in: {badAssociations}", "MCEOwnedIsPrincipal", this);
+         }
+      }
+
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Menu)]
+      private void OwnedTypeCannotBeInBidirectionalAssociation(ValidationContext context)
+      {
+         if (ModelRoot == null) return;
+
+         if (IsDependentType && !ModelRoot.IsEFCore5Plus && ModelRoot.Store.GetAll<BidirectionalAssociation>().Any(a => a.Source == this || a.Target == this))
+            context.LogError($"Can't make {Name} a dependent class since it's part of a bidirectional association", "MCEOwnedInBidirectional", this);
+      }
+
+      [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       private void AttributesCannotBeNamedSameAsEnclosingClass(ValidationContext context)
       {
          if (ModelRoot == null) return;
@@ -498,7 +546,7 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (ModelRoot == null) return;
 
-         if (!IsDependentType && !AllIdentityAttributes.Any())
+         if (!IsDependentType && !IsQueryType && !AllIdentityAttributes.Any())
             context.LogError($"{Name}: Class has no identity property in inheritance chain", "MCENoIdentity", this);
       }
 
@@ -514,7 +562,7 @@ namespace Sawczyn.EFDesigner.EFModel
             {
                if (modelClass.Attributes.Any(x => x.IsIdentity))
                {
-                  context.LogWarning($"{modelClass.Name}: Identity attribute in derived class {Name} becomes a composite key", "MCWDerivedIdentity", this);
+                  context.LogWarning($"{modelClass.Name}: Identity attribute(s) in derived class {Name} become a composite key", "MCWDerivedIdentity", this);
                   hasWarning = true;
                   RedrawItem();
                   return;
