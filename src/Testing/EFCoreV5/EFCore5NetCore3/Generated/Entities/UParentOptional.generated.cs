@@ -137,34 +137,34 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
+   public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
 
-      protected global::Testing.UChild _uChildRequired;
-      partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
-      partial void GetUChildRequired(ref global::Testing.UChild result);
+   protected global::Testing.UChild _uChildRequired;
+   partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+   partial void GetUChildRequired(ref global::Testing.UChild result);
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Testing.UChild UChildRequired
+   /// <summary>
+   /// Required
+   /// </summary>
+   public virtual global::Testing.UChild UChildRequired
+   {
+      get
       {
-         get
+         global::Testing.UChild value = _uChildRequired;
+         GetUChildRequired(ref value);
+         return (_uChildRequired = value);
+      }
+      set
+      {
+         global::Testing.UChild oldValue = _uChildRequired;
+         SetUChildRequired(oldValue, ref value);
+         if (oldValue != value)
          {
-            global::Testing.UChild value = _uChildRequired;
-            GetUChildRequired(ref value);
-            return (_uChildRequired = value);
-         }
-         set
-         {
-            global::Testing.UChild oldValue = _uChildRequired;
-            SetUChildRequired(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _uChildRequired = value;
-            }
+            _uChildRequired = value;
          }
       }
-
    }
+
+}
 }
 

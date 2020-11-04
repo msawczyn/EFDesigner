@@ -695,9 +695,9 @@
          }
 
          foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
-                                                                     .Where(x => x.AssociationObject.Persistent 
+                                                                     .Where(x => x.AssociationObject.Persistent
                                                                      && x.ClassType.IsDependentType && (modelClass.ModelRoot.IsEFCore5Plus || x.Required)
-                                                                     && !x.IsCollection 
+                                                                     && !x.IsCollection
                                                                      && !x.ConstructorParameterOnly))
          {
             Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");

@@ -141,31 +141,31 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
+   public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
 
-      protected global::Testing.UChild _uChildOptional;
-      partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
-      partial void GetUChildOptional(ref global::Testing.UChild result);
+   protected global::Testing.UChild _uChildOptional;
+   partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+   partial void GetUChildOptional(ref global::Testing.UChild result);
 
-      public virtual global::Testing.UChild UChildOptional
+   public virtual global::Testing.UChild UChildOptional
+   {
+      get
       {
-         get
+         global::Testing.UChild value = _uChildOptional;
+         GetUChildOptional(ref value);
+         return (_uChildOptional = value);
+      }
+      set
+      {
+         global::Testing.UChild oldValue = _uChildOptional;
+         SetUChildOptional(oldValue, ref value);
+         if (oldValue != value)
          {
-            global::Testing.UChild value = _uChildOptional;
-            GetUChildOptional(ref value);
-            return (_uChildOptional = value);
-         }
-         set
-         {
-            global::Testing.UChild oldValue = _uChildOptional;
-            SetUChildOptional(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _uChildOptional = value;
-            }
+            _uChildOptional = value;
          }
       }
-
    }
+
+}
 }
 

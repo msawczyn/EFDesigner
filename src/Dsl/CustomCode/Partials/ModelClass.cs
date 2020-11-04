@@ -449,7 +449,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       private string GetBaseClassValue() => Superclass?.Name;
 
-      internal bool IsKeylessType() => IsDependentType || IsQueryType || IsDatabaseView;
+      internal bool IsKeylessType() => IsQueryType || IsDatabaseView;
 
       /// <summary>
       /// Sets the superclass to the class with the supplied name, if it exists. Sets to null if can't be found.

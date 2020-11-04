@@ -29,11 +29,40 @@ namespace Testing
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public QueryEntity()
+      protected QueryEntity()
       {
          Init();
+      }
+
+      /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static QueryEntity CreateQueryEntityUnsafe()
+      {
+         return new QueryEntity();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="id"></param>
+      public QueryEntity(int id)
+      {
+         this.Id = id;
+
+
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="id"></param>
+      public static QueryEntity Create(int id)
+      {
+         return new QueryEntity(id);
       }
 
       /*************************************************************************
@@ -41,12 +70,11 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Identity, Indexed, Required
+      /// Indexed, Required
       /// </summary>
-      [Key]
       [Required]
-      public int Id { get; protected set; }
+   public int Id { get; set; }
 
-   }
+}
 }
 

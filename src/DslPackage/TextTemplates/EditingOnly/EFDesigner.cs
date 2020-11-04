@@ -288,12 +288,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
       void Output(string text)
       {
-         if (text.StartsWith("}"))
+         if (text.StartsWith("}") || text.EndsWith("}"))
             PopIndent();
 
          WriteLine(text);
-
-         if (text.EndsWith("{"))
+         if (text.StartsWith("{") || text.EndsWith("{"))
             PushIndent(ModelRoot.UseTabs ? "\t" : "   ");
       }
 
@@ -692,16 +691,20 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          }
 
          foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
-                                                                     .Where(x => x.AssociationObject.Persistent && (x.IsCollection || x.ClassType.IsDependentType) && !x.ConstructorParameterOnly))
+                                                                     .Where(x => x.AssociationObject.Persistent && x.IsCollection && !x.ConstructorParameterOnly))
          {
-            if (navigationProperty.ClassType.IsDependentType)
-               Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
-            else
-            {
-               string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
-               Output($"{navigationProperty.PropertyName} = new {collectionType}();");
-            }
+            string collectionType = GetFullContainerName(navigationProperty.AssociationObject.CollectionClass, navigationProperty.ClassType.FullName);
+            Output($"{navigationProperty.PropertyName} = new {collectionType}();");
+            ++lineCount;
+         }
 
+         foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
+                                                                     .Where(x => x.AssociationObject.Persistent
+                                                                     && x.ClassType.IsDependentType && (modelClass.ModelRoot.IsEFCore5Plus || x.Required)
+                                                                     && !x.IsCollection
+                                                                     && !x.ConstructorParameterOnly))
+         {
+            Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
             ++lineCount;
          }
 

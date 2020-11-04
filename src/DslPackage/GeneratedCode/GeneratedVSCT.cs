@@ -20,9 +20,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.GeneratedCode
 
         public const string guidEditorString = "4e135186-c9c4-4b55-8959-217a3e025622";
         public static Guid guidEditor = new Guid(guidEditorString);
-
-        public const string menuIconString = "c82a69a9-a8ec-4902-b1a2-03cf60b193a1";
-        public static Guid menuIcon = new Guid(menuIconString);
     }
     /// <summary>
     /// Helper class that encapsulates all CommandIDs uses across VS Package.
@@ -34,6 +31,5 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.GeneratedCode
         public const int grpidExplorerCopyPaste = 0x30000;
         public const int menuidExplorer = 0x10001;
         public const int cmdidViewExplorer = 0x0001;
-        public const int menuIcon1 = 0x0001;
     }
 }

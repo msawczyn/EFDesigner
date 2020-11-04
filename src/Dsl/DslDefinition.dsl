@@ -2655,7 +2655,7 @@
   </ExplorerBehavior>
   <ConnectionBuilders>
     <ConnectionBuilder Name="UnidirectionalAssociationBuilder">
-      <LinkConnectDirective>
+      <LinkConnectDirective UsesCustomConnect="true">
         <DomainRelationshipMoniker Name="UnidirectionalAssociation" />
         <SourceDirectives>
           <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
@@ -2663,18 +2663,28 @@
               <DomainClassMoniker Name="ModelClass" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
+            <AcceptingClass>
+              <DomainClassMoniker Name="ModelAttribute" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
-          <RolePlayerConnectDirective>
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
             <AcceptingClass>
               <DomainClassMoniker Name="ModelClass" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
+            <AcceptingClass>
+              <DomainClassMoniker Name="ModelAttribute" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
     <ConnectionBuilder Name="BidirectionalAssociationBuilder">
-      <LinkConnectDirective>
+      <LinkConnectDirective UsesCustomConnect="true">
         <DomainRelationshipMoniker Name="BidirectionalAssociation" />
         <SourceDirectives>
           <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
@@ -2682,11 +2692,21 @@
               <DomainClassMoniker Name="ModelClass" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
+            <AcceptingClass>
+              <DomainClassMoniker Name="ModelAttribute" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
-          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true">
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
             <AcceptingClass>
               <DomainClassMoniker Name="ModelClass" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+          <RolePlayerConnectDirective UsesRoleSpecificCustomAccept="true" UsesRoleSpecificCustomConnect="true">
+            <AcceptingClass>
+              <DomainClassMoniker Name="ModelAttribute" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>

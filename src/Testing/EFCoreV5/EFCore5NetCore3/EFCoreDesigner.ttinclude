@@ -315,17 +315,20 @@
          {
             if (modelClass.IsQueryType)
             {
-				Output($"// There is no table defined for {modelClass.Name} because its IsQueryType value is");
-				Output($"// set to 'true'. Please provide the Get{modelClass.Name}SqlQuery()");
-				Output($"// method on the DBContext class.");
-                Output($"// private string Get{modelClass.Name}SqlQuery()");
-                Output("// {");
-                Output($"// return the defining SQL query that pulls all the properties for {modelClass.FullName}");
-                Output("// }");
+               Output("/*"); 
+               Output($"There is no table defined for {modelClass.Name} because its IsQueryType value is set to 'true'.");
+               Output($"Please provide the Get{modelClass.Name}SqlQuery() method in the DBContext class.");
+               NL();
+               Output($"private string Get{modelClass.Name}SqlQuery()");
+               Output("{");
+               Output($"// return the defining SQL query that pulls all the properties for {modelClass.FullName}");
+               Output("}");
+               Output("*/");
 
-                segments.Add($"ToSqlQuery(Get{modelClass.Name}SqlQuery())")
+               segments.Add($"ToSqlQuery(Get{modelClass.Name}SqlQuery())");
             }
             else if (!modelClass.IsDependentType)
+            {
                segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
                                ? $"ToTable(\"{modelClass.TableName}\")"
                                : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
@@ -337,6 +340,7 @@
                segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
             else if (identityAttributes.Count > 1)
                segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
+            }
          }
 
          if (segments.Count > 1 || modelClass.IsDependentType)

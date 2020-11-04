@@ -110,12 +110,60 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
+            case "IsDatabaseView":
+               {
+                  bool newIsView = (bool)e.NewValue;
+
+                  if (newIsView)
+                  {
+                     if (element.IsDependentType)
+                     {
+                        errorMessages.Add($"Can't base {element.Name} off a view since it's a dependent type");
+
+                        break;
+                     }
+
+                     if (element.IsQueryType)
+                     {
+                        errorMessages.Add($"Can't base {element.Name} off a view since it's a query type");
+
+                        break;
+                     }
+
+                     if (string.IsNullOrEmpty(element.ViewName))
+                        element.ViewName = element.TableName;
+
+                     if (string.IsNullOrEmpty(element.ViewName))
+                        element.ViewName = MakeDefaultTableAndSetName(element.Name);
+
+                     if (modelRoot.IsEFCore5Plus)
+                        VerifyKeylessTypeEFCore5();
+                     else
+                        VerifyKeylessType();
+                  }
+                  break;
+               }
+
             case "IsDependentType":
                {
                   bool newIsDependentType = (bool)e.NewValue;
 
                   if (newIsDependentType)
                   {
+                     if (element.IsDatabaseView)
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it's backed by a database view");
+
+                        break;
+                     }
+
+                     if (element.IsQueryType)
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it's a query type");
+
+                        break;
+                     }
+
                      if (element.BaseClass != null)
                      {
                         errorMessages.Add($"Can't make {element.Name} a dependent class since it has a base class");
@@ -198,119 +246,18 @@ namespace Sawczyn.EFDesigner.EFModel
                {
                   if ((bool)e.NewValue)
                   {
+                     if (element.IsDependentType)
+                     {
+                        errorMessages.Add($"Can't make {element.Name} a query type since it's a dependent class");
+                        break;
+                     }
+
                      if (modelRoot.EntityFrameworkVersion == EFVersion.EF6)
                         element.IsQueryType = false;
                      else if (modelRoot.IsEFCore5Plus)
-                     {
-                        // TODO: Find definitive documentation on query type restrictions in EFCore5+
-                        // Restrictions:
-                        // =================================
-                        // Cannot have a key defined.
-                        List<string> allIdentityAttributeNames = element.AllIdentityAttributeNames.ToList();
-
-                        if (allIdentityAttributeNames.Any())
-                           errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has identity attribute(s) {string.Join(", ", allIdentityAttributeNames)}. Set their 'Is Identity' property to false first.");
-
-                        // Only support a subset of navigation mapping capabilities, specifically:
-                        //    - They may never act as the principal end of a relationship.
-                        string badAssociations = string.Join(", "
-                                                           , store.ElementDirectory.AllElements
-                                                                  .OfType<Association>()
-                                                                  .Where(a => a.Principal == element)
-                                                                  .Select(a => a.GetDisplayText()));
-
-                        if (!string.IsNullOrEmpty(badAssociations))
-                           errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it is the principal end of association(s) {badAssociations}.");
-
-                        //    - They may not have navigations to owned entities 
-                        badAssociations = string.Join(", "
-                                                    , store.ElementDirectory.AllElements
-                                                           .OfType<Association>()
-                                                           .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsDependentType)
-                                                                    || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsDependentType)
-                                                                    || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsDependentType))
-                                                           .Select(a => a.GetDisplayText()));
-
-                        if (!string.IsNullOrEmpty(badAssociations))
-                           errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association(s) to dependent type(s) in {badAssociations}.");
-
-                        //    - Entities cannot contain navigation properties to query types.
-                        badAssociations = string.Join(", "
-                                                    , store.ElementDirectory.AllElements
-                                                           .OfType<Association>()
-                                                           .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsQueryType)
-                                                                    || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsQueryType)
-                                                                    || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsQueryType))
-                                                           .Select(a => a.GetDisplayText()));
-
-                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association to sql-mapped type(s) in {badAssociations}.");
-
-                        //    - They can only contain reference navigation properties pointing to regular entities.
-                        badAssociations = string.Join(", "
-                                                    , store.ElementDirectory.AllElements
-                                                           .OfType<Association>()
-                                                           .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.TargetMultiplicity == Multiplicity.ZeroMany)
-                                                                    || (a is BidirectionalAssociation b && b.Source == element && b.TargetMultiplicity == Multiplicity.ZeroMany)
-                                                                    || (a is BidirectionalAssociation c && c.Target == element && c.SourceMultiplicity == Multiplicity.ZeroMany))
-                                                           .Select(a => a.GetDisplayText()));
-
-                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has zero-to-many association(s) in {badAssociations}. Only to-one or to-zero-or-one associations are allowed. ");
-                     }
+                        VerifyKeylessTypeEFCore5();
                      else
-                     {
-                        // Restrictions:
-                        // =================================
-                        // Cannot have a key defined.
-                        List<string> allIdentityAttributeNames = element.AllIdentityAttributeNames.ToList();
-
-                        if (allIdentityAttributeNames.Any())
-                           errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has identity attribute(s) {string.Join(", ", allIdentityAttributeNames)}. Set their 'Is Identity' property to false first.");
-
-                        // Only support a subset of navigation mapping capabilities, specifically:
-                        //    - They may never act as the principal end of a relationship.
-                        string badAssociations = string.Join(", "
-                                                           , store.ElementDirectory.AllElements
-                                                                  .OfType<Association>()
-                                                                  .Where(a => a.Principal == element)
-                                                                  .Select(a => a.GetDisplayText()));
-
-                        if (!string.IsNullOrEmpty(badAssociations))
-                           errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it is the principal end of association(s) {badAssociations}.");
-
-                        //    - They may not have navigations to owned entities 
-                        badAssociations = string.Join(", "
-                                                    , store.ElementDirectory.AllElements
-                                                           .OfType<Association>()
-                                                           .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsDependentType)
-                                                                    || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsDependentType)
-                                                                    || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsDependentType))
-                                                           .Select(a => a.GetDisplayText()));
-
-                        if (!string.IsNullOrEmpty(badAssociations))
-                           errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association(s) to dependent type(s) in {badAssociations}.");
-
-                        //    - Entities cannot contain navigation properties to query types.
-                        badAssociations = string.Join(", "
-                                                    , store.ElementDirectory.AllElements
-                                                           .OfType<Association>()
-                                                           .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsQueryType)
-                                                                    || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsQueryType)
-                                                                    || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsQueryType))
-                                                           .Select(a => a.GetDisplayText()));
-
-                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association to sql-mapped type(s) in {badAssociations}.");
-
-                        //    - They can only contain reference navigation properties pointing to regular entities.
-                        badAssociations = string.Join(", "
-                                                    , store.ElementDirectory.AllElements
-                                                           .OfType<Association>()
-                                                           .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.TargetMultiplicity == Multiplicity.ZeroMany)
-                                                                    || (a is BidirectionalAssociation b && b.Source == element && b.TargetMultiplicity == Multiplicity.ZeroMany)
-                                                                    || (a is BidirectionalAssociation c && c.Target == element && c.SourceMultiplicity == Multiplicity.ZeroMany))
-                                                           .Select(a => a.GetDisplayText()));
-
-                        errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has zero-to-many association(s) in {badAssociations}. Only to-one or to-zero-or-one associations are allowed. ");
-                     }
+                        VerifyKeylessType();
                   }
 
                   break;
@@ -363,22 +310,51 @@ namespace Sawczyn.EFDesigner.EFModel
 
             case "TableName":
                {
-                  string newTableName = (string)e.NewValue;
-
-                  if (element.IsDependentType)
+                  if (!element.IsDatabaseView)
                   {
-                     if (!string.IsNullOrEmpty(newTableName))
-                        element.TableName = string.Empty;
+                     string newTableName = (string)e.NewValue;
+
+                     if (element.IsDependentType)
+                     {
+                        if (!modelRoot.IsEFCore5Plus && !string.IsNullOrEmpty(newTableName))
+                           element.TableName = string.Empty;
+                     }
+                     else
+                     {
+                        if (string.IsNullOrEmpty(newTableName))
+                           element.TableName = MakeDefaultTableAndSetName(element.Name);
+
+                        if (store.GetAll<ModelClass>()
+                                 .Except(new[] { element })
+                                 .Any(x => x.TableName == newTableName))
+                           errorMessages.Add($"Table name '{newTableName}' already in use");
+                     }
                   }
-                  else
-                  {
-                     if (string.IsNullOrEmpty(newTableName))
-                        element.TableName = MakeDefaultTableAndSetName(element.Name);
 
-                     if (store.GetAll<ModelClass>()
-                              .Except(new[] { element })
-                              .Any(x => x.TableName == newTableName))
-                        errorMessages.Add($"Table name '{newTableName}' already in use");
+                  break;
+               }
+
+            case "ViewName":
+               {
+                  if (element.IsDatabaseView)
+                  {
+                     string newViewName = (string)e.NewValue;
+
+                     if (element.IsDependentType)
+                     {
+                        if (!modelRoot.IsEFCore5Plus && !string.IsNullOrEmpty(newViewName))
+                           element.TableName = string.Empty;
+                     }
+                     else
+                     {
+                        if (string.IsNullOrEmpty(newViewName))
+                           element.TableName = MakeDefaultTableAndSetName(element.Name);
+
+                        if (store.GetAll<ModelClass>()
+                                 .Except(new[] { element })
+                                 .Any(x => x.TableName == newViewName))
+                           errorMessages.Add($"Table name '{newViewName}' already in use");
+                     }
                   }
 
                   break;
@@ -391,6 +367,111 @@ namespace Sawczyn.EFDesigner.EFModel
          {
             current.Rollback();
             ErrorDisplay.Show(store, string.Join("\n", errorMessages));
+         }
+
+         void VerifyKeylessTypeEFCore5()
+         {
+            // TODO: Find definitive documentation on query type restrictions in EFCore5+
+            // Restrictions:
+            // =================================
+            // Cannot have a key defined.
+            List<string> allIdentityAttributeNames = element.AllIdentityAttributeNames.ToList();
+
+            if (allIdentityAttributeNames.Any())
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has identity attribute(s) {string.Join(", ", allIdentityAttributeNames)}. Set their 'Is Identity' property to false first.");
+
+            // Only support a subset of navigation mapping capabilities, specifically:
+            //    - They may never act as the principal end of a relationship.
+            string badAssociations = string.Join(", "
+                                               , store.ElementDirectory.AllElements
+                                                      .OfType<Association>()
+                                                      .Where(a => a.Principal == element)
+                                                      .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it is the principal end of association(s) {badAssociations}.");
+
+            //    - They may not have navigations to owned entities 
+            badAssociations = string.Join(", "
+                                        , store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsDependentType) || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsDependentType) || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsDependentType))
+                                               .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association(s) to dependent type(s) in {badAssociations}.");
+
+            //    - Entities cannot contain navigation properties to query types.
+            badAssociations = string.Join(", "
+                                        , store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsQueryType) || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsQueryType) || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsQueryType))
+                                               .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association to sql-mapped type(s) in {badAssociations}.");
+
+            //    - They can only contain reference navigation properties pointing to regular entities.
+            badAssociations = string.Join(", "
+                                        , store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.TargetMultiplicity == Multiplicity.ZeroMany) || (a is BidirectionalAssociation b && b.Source == element && b.TargetMultiplicity == Multiplicity.ZeroMany) || (a is BidirectionalAssociation c && c.Target == element && c.SourceMultiplicity == Multiplicity.ZeroMany))
+                                               .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has zero-to-many association(s) in {badAssociations}. Only to-one or to-zero-or-one associations are allowed. ");
+         }
+
+         void VerifyKeylessType()
+         {
+            // Restrictions:
+            // =================================
+            // Cannot have a key defined.
+            List<string> allIdentityAttributeNames = element.AllIdentityAttributeNames.ToList();
+
+            if (allIdentityAttributeNames.Any())
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has identity attribute(s) {string.Join(", ", allIdentityAttributeNames)}. Set their 'Is Identity' property to false first.");
+
+            // Only support a subset of navigation mapping capabilities, specifically:
+            //    - They may never act as the principal end of a relationship.
+            string badAssociations = string.Join(", "
+                                               , store.ElementDirectory.AllElements
+                                                      .OfType<Association>()
+                                                      .Where(a => a.Principal == element)
+                                                      .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it is the principal end of association(s) {badAssociations}.");
+
+            //    - They may not have navigations to owned entities 
+            badAssociations = string.Join(", "
+                                        , store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsDependentType) || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsDependentType) || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsDependentType))
+                                               .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association(s) to dependent type(s) in {badAssociations}.");
+
+            //    - Entities cannot contain navigation properties to query types.
+            badAssociations = string.Join(", "
+                                        , store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.Target.IsQueryType) || (a is BidirectionalAssociation b && b.Source == element && b.Target.IsQueryType) || (a is BidirectionalAssociation c && c.Target == element && c.Source.IsQueryType))
+                                               .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has association to sql-mapped type(s) in {badAssociations}.");
+
+            //    - They can only contain reference navigation properties pointing to regular entities.
+            badAssociations = string.Join(", "
+                                        , store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => (a is UnidirectionalAssociation && a.Source == element && a.TargetMultiplicity == Multiplicity.ZeroMany) || (a is BidirectionalAssociation b && b.Source == element && b.TargetMultiplicity == Multiplicity.ZeroMany) || (a is BidirectionalAssociation c && c.Target == element && c.SourceMultiplicity == Multiplicity.ZeroMany))
+                                               .Select(a => a.GetDisplayText()));
+
+            if (!string.IsNullOrEmpty(badAssociations))
+               errorMessages.Add($"{element.Name} can't be mapped to a Sql query since it has zero-to-many association(s) in {badAssociations}. Only to-one or to-zero-or-one associations are allowed. ");
          }
       }
 

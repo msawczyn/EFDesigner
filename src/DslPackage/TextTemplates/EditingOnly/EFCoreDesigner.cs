@@ -301,9 +301,8 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       private void WriteStandardClassBuilder(ModelRoot modelRoot, List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
       {
          // class level
-
          if (modelClass.IsDependentType)
-            segments.Add($"modelBuilder.Owned<{modelClass.FullName}>();");
+            segments.Add($"modelBuilder.Owned<{modelClass.FullName}>()");
          else
          {
             segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
@@ -318,7 +317,20 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
          if (classesWithTables.Contains(modelClass))
          {
-            if (!modelClass.IsDependentType)
+            if (modelClass.IsQueryType)
+            {
+               Output($"// There is no table defined for {modelClass.Name} because its IsQueryType value is");
+               Output($"// set to 'true'. Please provide the Get{modelClass.Name}SqlQuery()");
+               Output($"// method on the DBContext class.");
+               Output($"// private string Get{modelClass.Name}SqlQuery()");
+               Output("// {");
+               Output($"// return the defining SQL query that pulls all the properties for {modelClass.FullName}");
+               Output("// }");
+
+               segments.Add($"ToSqlQuery(Get{modelClass.Name}SqlQuery())");
+            }
+            else if (!modelClass.IsDependentType)
+            {
                segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
                                ? $"ToTable(\"{modelClass.TableName}\")"
                                : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
@@ -330,6 +342,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
             else if (identityAttributes.Count > 1)
                segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
+            }
          }
 
          if (segments.Count > 1 || modelClass.IsDependentType)

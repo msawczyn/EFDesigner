@@ -1,6 +1,9 @@
 ﻿using System.Data.Entity.Design.PluralizationServices;
+using System.Linq;
 
 using Microsoft.VisualStudio.Modeling;
+
+using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
@@ -21,16 +24,84 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          // add unidirectional
-         //    source can't be dependent (connection builder handles this)
+         //    if not EFCore5+, source can't be dependent (connection builder handles this)
          // if target is dependent,
-         //    source cardinality is 0..1
-         //    target cardinality is 0..1 
+         //    source cardinality is 1
+         //    target cardinality is 1 
          //    source is principal
-         if (element is UnidirectionalAssociation && element.Target.IsDependentType)
+         if (store.ModelRoot().IsEFCore5Plus)
          {
-            element.TargetMultiplicity = Multiplicity.ZeroOne;
-            element.SourceRole = EndpointRole.Principal;
-            element.TargetRole = EndpointRole.Dependent;
+            if (element is UnidirectionalAssociation)
+            {
+               if (element.Target.IsDependentType)
+               {
+                  if (element.Target.AllIdentityAttributes.Any())
+                  {
+                     element.SourceMultiplicity = Multiplicity.One;
+                     element.TargetMultiplicity = Multiplicity.ZeroMany;
+                  }
+                  else
+                  {
+                     element.SourceMultiplicity = Multiplicity.One;
+                     element.TargetMultiplicity = Multiplicity.One;
+                  }
+
+                  element.SourceRole = EndpointRole.Principal;
+                  element.TargetRole = EndpointRole.Dependent;
+               }
+            }
+            else if (element is BidirectionalAssociation)
+            {
+
+            }
+         }
+         else if (store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6)
+         {
+            if (element is UnidirectionalAssociation)
+            {
+               if (element.Target.IsDependentType)
+               {
+                  if (element.Target.AllIdentityAttributes.Any())
+                  {
+                     element.SourceMultiplicity = Multiplicity.One;
+                     element.TargetMultiplicity = Multiplicity.ZeroOne;
+                  }
+                  else
+                  {
+                     element.SourceMultiplicity = Multiplicity.One;
+                     element.TargetMultiplicity = Multiplicity.One;
+                  }
+
+                  element.SourceRole = EndpointRole.Principal;
+                  element.TargetRole = EndpointRole.Dependent;
+               }
+            }
+            else if (element is BidirectionalAssociation)
+            {
+
+            }
+         }
+         else
+         {
+               if (element is UnidirectionalAssociation)
+               {
+
+               }
+               else if (element is BidirectionalAssociation)
+               {
+
+               }
+         }
+
+         if (element is UnidirectionalAssociation)
+         {
+            if (element.Target.IsDependentType)
+            {
+               element.SourceMultiplicity = Multiplicity.One;
+               element.TargetMultiplicity = Multiplicity.One;
+               element.SourceRole = EndpointRole.NotSet;
+               element.TargetRole = EndpointRole.NotSet;
+            }
          }
 
          // add bidirectional

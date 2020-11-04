@@ -14,5 +14,10 @@ namespace Testing
       {
          optionsBuilder.UseSqlServer(ConnectionString);
       }
+
+      private string GetQueryEntitySqlQuery()
+      {
+         return "";
+      }
    }
 }

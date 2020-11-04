@@ -35,6 +35,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				// }
 				return CanAcceptModelClassAsSource((global::Sawczyn.EFDesigner.EFModel.ModelClass)candidate);
 			}
+			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+			{ 
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelAttributeAsSource(ModelAttribute candidate)
+				// {
+				// }
+				return CanAcceptModelAttributeAsSource((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidate);
+			}
 			else
 				return false;
 		}
@@ -50,7 +58,19 @@ namespace Sawczyn.EFDesigner.EFModel
 			if (candidate == null) return false;
 			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelClass)
 			{ 
-				return true;
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelClassAsTarget(ModelClass candidate)
+				// {
+				// }
+				return CanAcceptModelClassAsTarget((global::Sawczyn.EFDesigner.EFModel.ModelClass)candidate);
+			}
+			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+			{ 
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelAttributeAsTarget(ModelAttribute candidate)
+				// {
+				// }
+				return CanAcceptModelAttributeAsTarget((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidate);
 			}
 			else
 				return false;
@@ -100,6 +120,42 @@ namespace Sawczyn.EFDesigner.EFModel
 						if(!CanAcceptModelClassAndModelClassAsSourceAndTarget(sourceModelClass, targetModelClass)) return false;
 						return true;
 					}
+					else if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						global::Sawczyn.EFDesigner.EFModel.ModelClass sourceModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateSource;
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute targetModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateTarget;
+						// Add a custom method to your code with the following signature:
+						// private static bool CanAcceptModelClassAndModelAttributeAsSourceAndTarget(ModelClass sourceModelClass, ModelAttribute targetModelAttribute)
+						// {
+						// }
+						if(!CanAcceptModelClassAndModelAttributeAsSourceAndTarget(sourceModelClass, targetModelAttribute)) return false;
+						return true;
+					}
+				}
+				if (candidateSource is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+				{
+					if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+					{
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute sourceModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateSource;
+						global::Sawczyn.EFDesigner.EFModel.ModelClass targetModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateTarget;
+						// Add a custom method to your code with the following signature:
+						// private static bool CanAcceptModelAttributeAndModelClassAsSourceAndTarget(ModelAttribute sourceModelAttribute, ModelClass targetModelClass)
+						// {
+						// }
+						if(!CanAcceptModelAttributeAndModelClassAsSourceAndTarget(sourceModelAttribute, targetModelClass)) return false;
+						return true;
+					}
+					else if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute sourceModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateSource;
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute targetModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateTarget;
+						// Add a custom method to your code with the following signature:
+						// private static bool CanAcceptModelAttributeAndModelAttributeAsSourceAndTarget(ModelAttribute sourceModelAttribute, ModelAttribute targetModelAttribute)
+						// {
+						// }
+						if(!CanAcceptModelAttributeAndModelAttributeAsSourceAndTarget(sourceModelAttribute, targetModelAttribute)) return false;
+						return true;
+					}
 				}
 				
 			}
@@ -133,14 +189,38 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (target is global::Sawczyn.EFDesigner.EFModel.ModelClass)
 					{
-						global::Sawczyn.EFDesigner.EFModel.ModelClass sourceAccepted = (global::Sawczyn.EFDesigner.EFModel.ModelClass)source;
-						global::Sawczyn.EFDesigner.EFModel.ModelClass targetAccepted = (global::Sawczyn.EFDesigner.EFModel.ModelClass)target;
-						DslModeling::ElementLink result = new global::Sawczyn.EFDesigner.EFModel.UnidirectionalAssociation(sourceAccepted, targetAccepted);
-						if (DslModeling::DomainClassInfo.HasNameProperty(result))
-						{
-							DslModeling::DomainClassInfo.SetUniqueName(result);
-						}
-						return result;
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
+					}
+					else if (target is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
+					}
+				}
+				if (source is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+				{
+					if (target is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+					{
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
+					}
+					else if (target is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
 					}
 				}
 				
@@ -173,6 +253,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				// }
 				return CanAcceptModelClassAsSource((global::Sawczyn.EFDesigner.EFModel.ModelClass)candidate);
 			}
+			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+			{ 
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelAttributeAsSource(ModelAttribute candidate)
+				// {
+				// }
+				return CanAcceptModelAttributeAsSource((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidate);
+			}
 			else
 				return false;
 		}
@@ -193,6 +281,14 @@ namespace Sawczyn.EFDesigner.EFModel
 				// {
 				// }
 				return CanAcceptModelClassAsTarget((global::Sawczyn.EFDesigner.EFModel.ModelClass)candidate);
+			}
+			else if (candidate is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+			{ 
+				// Add a custom method to your code with the following signature:
+				// private static bool CanAcceptModelAttributeAsTarget(ModelAttribute candidate)
+				// {
+				// }
+				return CanAcceptModelAttributeAsTarget((global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidate);
 			}
 			else
 				return false;
@@ -242,6 +338,42 @@ namespace Sawczyn.EFDesigner.EFModel
 						if(!CanAcceptModelClassAndModelClassAsSourceAndTarget(sourceModelClass, targetModelClass)) return false;
 						return true;
 					}
+					else if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						global::Sawczyn.EFDesigner.EFModel.ModelClass sourceModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateSource;
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute targetModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateTarget;
+						// Add a custom method to your code with the following signature:
+						// private static bool CanAcceptModelClassAndModelAttributeAsSourceAndTarget(ModelClass sourceModelClass, ModelAttribute targetModelAttribute)
+						// {
+						// }
+						if(!CanAcceptModelClassAndModelAttributeAsSourceAndTarget(sourceModelClass, targetModelAttribute)) return false;
+						return true;
+					}
+				}
+				if (candidateSource is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+				{
+					if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+					{
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute sourceModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateSource;
+						global::Sawczyn.EFDesigner.EFModel.ModelClass targetModelClass = (global::Sawczyn.EFDesigner.EFModel.ModelClass)candidateTarget;
+						// Add a custom method to your code with the following signature:
+						// private static bool CanAcceptModelAttributeAndModelClassAsSourceAndTarget(ModelAttribute sourceModelAttribute, ModelClass targetModelClass)
+						// {
+						// }
+						if(!CanAcceptModelAttributeAndModelClassAsSourceAndTarget(sourceModelAttribute, targetModelClass)) return false;
+						return true;
+					}
+					else if (candidateTarget is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute sourceModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateSource;
+						global::Sawczyn.EFDesigner.EFModel.ModelAttribute targetModelAttribute = (global::Sawczyn.EFDesigner.EFModel.ModelAttribute)candidateTarget;
+						// Add a custom method to your code with the following signature:
+						// private static bool CanAcceptModelAttributeAndModelAttributeAsSourceAndTarget(ModelAttribute sourceModelAttribute, ModelAttribute targetModelAttribute)
+						// {
+						// }
+						if(!CanAcceptModelAttributeAndModelAttributeAsSourceAndTarget(sourceModelAttribute, targetModelAttribute)) return false;
+						return true;
+					}
 				}
 				
 			}
@@ -275,14 +407,38 @@ namespace Sawczyn.EFDesigner.EFModel
 				{
 					if (target is global::Sawczyn.EFDesigner.EFModel.ModelClass)
 					{
-						global::Sawczyn.EFDesigner.EFModel.ModelClass sourceAccepted = (global::Sawczyn.EFDesigner.EFModel.ModelClass)source;
-						global::Sawczyn.EFDesigner.EFModel.ModelClass targetAccepted = (global::Sawczyn.EFDesigner.EFModel.ModelClass)target;
-						DslModeling::ElementLink result = new global::Sawczyn.EFDesigner.EFModel.BidirectionalAssociation(sourceAccepted, targetAccepted);
-						if (DslModeling::DomainClassInfo.HasNameProperty(result))
-						{
-							DslModeling::DomainClassInfo.SetUniqueName(result);
-						}
-						return result;
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
+					}
+					else if (target is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
+					}
+				}
+				if (source is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+				{
+					if (target is global::Sawczyn.EFDesigner.EFModel.ModelClass)
+					{
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
+					}
+					else if (target is global::Sawczyn.EFDesigner.EFModel.ModelAttribute)
+					{
+						// Add a custom method to your code with the following signature:
+						// private static ElementLink ConnectSourceToTarget(ModelElement source, ModelElement target)
+						// {
+						// }
+						return ConnectSourceToTarget(source, target);
 					}
 				}
 				

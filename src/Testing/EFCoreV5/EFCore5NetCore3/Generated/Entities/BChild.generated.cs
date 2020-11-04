@@ -167,28 +167,28 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.BParentRequired BParentRequired { get; set; }
+   public virtual global::Testing.BParentRequired BParentRequired { get; set; }
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Testing.BParentRequired BParentRequired_1 { get; set; }
+   /// <summary>
+   /// Required
+   /// </summary>
+public virtual global::Testing.BParentRequired BParentRequired_1 { get; set; }
 
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
+/// <summary>
+/// Required
+/// </summary>
+public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; protected set; }
+public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; protected set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; protected set; }
+public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; protected set; }
 
-      public virtual global::Testing.BParentOptional BParentOptional { get; set; }
+public virtual global::Testing.BParentOptional BParentOptional { get; set; }
 
-      public virtual global::Testing.BParentOptional BParentOptional_1 { get; set; }
+public virtual global::Testing.BParentOptional BParentOptional_1 { get; set; }
 
-      public virtual global::Testing.BParentOptional BParentOptional_2 { get; set; }
+public virtual global::Testing.BParentOptional BParentOptional_2 { get; set; }
 
-   }
+}
 }
 

@@ -29,46 +29,15 @@ namespace Testing
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// Default constructor
       /// </summary>
-      protected AllPropertyTypesOptional()
+      public AllPropertyTypesOptional()
       {
          OwnedTypeCollection = new System.Collections.Generic.HashSet<global::Testing.OwnedType>();
+         OwnedTypeOptional = new global::Testing.OwnedType();
          OwnedTypeRequired = new global::Testing.OwnedType();
 
          Init();
-      }
-
-      /// <summary>
-      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
-      /// </summary>
-      public static AllPropertyTypesOptional CreateAllPropertyTypesOptionalUnsafe()
-      {
-         return new AllPropertyTypesOptional();
-      }
-
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="id1"></param>
-      public AllPropertyTypesOptional(int id1)
-      {
-         this.Id1 = id1;
-
-         this.OwnedTypeOptional = new global::Testing.OwnedType();
-         this.OwnedTypeRequired = new global::Testing.OwnedType();
-         this.OwnedTypeCollection = new System.Collections.Generic.HashSet<global::Testing.OwnedType>();
-
-         Init();
-      }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="id1"></param>
-      public static AllPropertyTypesOptional Create(int id1)
-      {
-         return new AllPropertyTypesOptional(id1);
       }
 
       /*************************************************************************
@@ -561,82 +530,45 @@ namespace Testing
       }
 
       /// <summary>
-      /// Backing field for Id1
-      /// </summary>
-      internal int _id1;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id1 to be changed before setting.
-      /// </summary>
-      partial void SetId1(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id1 to be changed before returning.
-      /// </summary>
-      partial void GetId1(ref int result);
-
-      /// <summary>
-      /// Identity, Indexed, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public int Id1
-      {
-         get
-         {
-            int value = _id1;
-            GetId1(ref value);
-            return (_id1 = value);
-         }
-         set
-         {
-            int oldValue = _id1;
-            SetId1(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _id1 = value;
-            }
-         }
-      }
-
-      /// <summary>
       /// Concurrency token
       /// </summary>
       [Timestamp]
-      public Byte[] Timestamp { get; set; }
+   public Byte[] Timestamp { get; set; }
 
-      /*************************************************************************
-       * Navigation properties
-       *************************************************************************/
+   /*************************************************************************
+    * Navigation properties
+    *************************************************************************/
 
-      protected global::Testing.OwnedType _ownedTypeOptional;
-      partial void SetOwnedTypeOptional(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
-      partial void GetOwnedTypeOptional(ref global::Testing.OwnedType result);
+   protected global::Testing.OwnedType _ownedTypeOptional;
+   partial void SetOwnedTypeOptional(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
+   partial void GetOwnedTypeOptional(ref global::Testing.OwnedType result);
 
-      public virtual global::Testing.OwnedType OwnedTypeOptional
+   public virtual global::Testing.OwnedType OwnedTypeOptional
+   {
+      get
       {
-         get
+         global::Testing.OwnedType value = _ownedTypeOptional;
+         GetOwnedTypeOptional(ref value);
+         return (_ownedTypeOptional = value);
+      }
+      set
+      {
+         global::Testing.OwnedType oldValue = _ownedTypeOptional;
+         SetOwnedTypeOptional(oldValue, ref value);
+         if (oldValue != value)
          {
-            global::Testing.OwnedType value = _ownedTypeOptional;
-            GetOwnedTypeOptional(ref value);
-            return (_ownedTypeOptional = value);
-         }
-         set
-         {
-            global::Testing.OwnedType oldValue = _ownedTypeOptional;
-            SetOwnedTypeOptional(oldValue, ref value);
-            if (oldValue != value)
-            {
-               _ownedTypeOptional = value;
-            }
+            _ownedTypeOptional = value;
          }
       }
-
-      /// <summary>
-      /// Required
-      /// </summary>
-      public virtual global::Testing.OwnedType OwnedTypeRequired { get; set; }
-
-      public virtual ICollection<global::Testing.OwnedType> OwnedTypeCollection { get; protected set; }
-
    }
+
+   /// <summary>
+   /// Required
+   /// </summary>
+public virtual global::Testing.OwnedType OwnedTypeRequired { get; set; }
+
+public virtual ICollection<global::Testing.OwnedType> OwnedTypeCollection { get; protected set; }
+
+}
 }
 

@@ -68,6 +68,7 @@ namespace Sawczyn.EFDesigner.EFModel
             return;
 
          Store store = element.Store;
+         ModelRoot modelRoot = store.ModelRoot();
          Transaction current = store.TransactionManager.CurrentTransaction;
 
          if (current.IsSerializing || ModelRoot.BatchUpdating)
@@ -240,17 +241,38 @@ namespace Sawczyn.EFDesigner.EFModel
 
                      // change unidirectional target cardinality
                      // if target is dependent
-                     //    target cardinality must be 0..1 or, if EFCore5+, 1
-                     if (element.Target.IsDependentType && currentTargetMultiplicity == Multiplicity.ZeroMany)
+                     //    target cardinality must be
+                     //       EF6: 1
+                     //       EFCore2: 1
+                     //       EFCore3: 1 or 0..1
+                     //       EFCore5: 1 or 0..1 if no Id, 0..* if Id
+                     if (element.Target.IsDependentType)
                      {
-                        errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name}");
+                        if (element.SourceMultiplicity != Multiplicity.One)
+                           element.SourceMultiplicity = Multiplicity.One;
 
-                        break;
-                     }
+                        if (modelRoot.EntityFrameworkVersion == EFVersion.EF6 || modelRoot.GetEntityFrameworkPackageVersionNum() < 3)
+                        {
+                           if (element.TargetMultiplicity != Multiplicity.One)
+                           {
+                              errorMessages.Add($"The association from {element.Source.Name} to {element.Target.Name} must be 1..1");
+                              break;
+                           }
+                        }
 
-                     if (element.Target.IsDependentType && currentTargetMultiplicity == Multiplicity.One && !store.ModelRoot().IsEFCore5Plus)
-                     {
-                        errorMessages.Add($"Can't have a required association from {element.Source.Name} to dependent type {element.Target.Name} in versions < EFCore5");
+                        if (!modelRoot.IsEFCore5Plus)
+                        {
+                           if (element.TargetMultiplicity != Multiplicity.One && element.TargetMultiplicity != Multiplicity.ZeroOne)
+                              errorMessages.Add($"The association from {element.Source.Name} to {element.Target.Name} must be 1..1 or 1..0-1");
+
+                           break;
+                        }
+
+                        if (element.TargetMultiplicity == Multiplicity.ZeroMany && !element.Target.AllIdentityAttributes.Any())
+                        {
+                           errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to dependent type {element.Target.Name} without {element.Target.Name} having an identity property");
+                           break;
+                        }
                      }
 
                      if ((element.SourceMultiplicity == Multiplicity.One && currentTargetMultiplicity == Multiplicity.One)
