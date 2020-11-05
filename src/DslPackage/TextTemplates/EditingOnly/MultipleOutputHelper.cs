@@ -15,6 +15,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      #region Template
       // EFDesigner v2.1.0.4
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
@@ -27,7 +28,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       * Support for creating multiple output files from a single T4
       */
 
-      class Manager
+      public class Manager
       {
          private readonly List<Block> files = new List<Block>();
          private readonly Block footer = new Block();
@@ -313,7 +314,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             private Dictionary<ProjectItem, List<string>> GetTargetState(string[] fileNames)
             {
-               Dictionary<ProjectItem, List<string>> result = new Dictionary<ProjectItem, List<string>> {{templateProjectItem, new List<string>()}};
+               Dictionary<ProjectItem, List<string>> result = new Dictionary<ProjectItem, List<string>> { { templateProjectItem, new List<string>() } };
 
                foreach (string fileName in fileNames)
                {
@@ -369,5 +370,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             }
          }
       }
+      #endregion
    }
 }

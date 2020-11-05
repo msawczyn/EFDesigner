@@ -130,9 +130,13 @@ namespace EFCore5Parser
       private static Stream GetLogStream()
       {
          MemoryStream stream = new MemoryStream();
-         StreamWriter writer = new StreamWriter(stream);
-         writer.Write(Resources.Log4netConfig);
-         writer.Flush();
+
+         using (StreamWriter writer = new StreamWriter(stream, leaveOpen: true))
+         {
+            writer.Write(Resources.Log4netConfig);
+            writer.Flush();
+         }
+
          stream.Position = 0;
          return stream;
       }

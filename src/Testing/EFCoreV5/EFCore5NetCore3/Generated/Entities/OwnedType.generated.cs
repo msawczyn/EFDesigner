@@ -42,12 +42,15 @@ namespace Testing
       /// <summary>
       /// Public constructor with required data
       /// </summary>
+      /// <param name="ownedtypeoptionalid">Foreign key for AllPropertyTypesOptional.OwnedTypeOptional --&gt; OwnedType. </param>
       /// <param name="_allpropertytypesoptional0"></param>
       /// <param name="_allpropertytypesoptional2"></param>
-      public OwnedType(global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional2)
+      public OwnedType(int ownedtypeoptionalid, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional2)
       {
          // NOTE: This class has one-to-one associations with OwnedType.
          // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
+         this.OwnedTypeOptionalId = ownedtypeoptionalid;
 
          if (_allpropertytypesoptional0 == null) throw new ArgumentNullException(nameof(_allpropertytypesoptional0));
          _allpropertytypesoptional0.OwnedTypeOptional = this;
@@ -62,11 +65,12 @@ namespace Testing
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
+      /// <param name="ownedtypeoptionalid">Foreign key for AllPropertyTypesOptional.OwnedTypeOptional --&gt; OwnedType. </param>
       /// <param name="_allpropertytypesoptional0"></param>
       /// <param name="_allpropertytypesoptional2"></param>
-      public static OwnedType Create(global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional2)
+      public static OwnedType Create(int ownedtypeoptionalid, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional0, global::Testing.AllPropertyTypesOptional _allpropertytypesoptional2)
       {
-         return new OwnedType(_allpropertytypesoptional0, _allpropertytypesoptional2);
+         return new OwnedType(ownedtypeoptionalid, _allpropertytypesoptional0, _allpropertytypesoptional2);
       }
 
       /*************************************************************************
@@ -141,6 +145,13 @@ namespace Testing
             }
          }
       }
+
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for AllPropertyTypesOptional.OwnedTypeOptional --&gt; OwnedType. 
+      /// </summary>
+      [Required]
+      public int OwnedTypeOptionalId { get; set; }
 
       /*************************************************************************
        * Navigation properties

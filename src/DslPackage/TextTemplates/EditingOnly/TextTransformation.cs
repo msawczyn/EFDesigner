@@ -11,16 +11,20 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       /**************************************************
        * Common methods used in formatting generated code
        */
+      partial class EFModelGenerator
+      {
+         protected Sawczyn.EFDesigner.EFModel.ModelRoot ModelRoot;
 
-      private ITextTemplatingEngineHost Host { get; set; }
+         private ITextTemplatingEngineHost Host { get; set; }
 
-      private string PopIndent() { return string.Empty; }
+         private string PopIndent() { return string.Empty; }
 
-      private void PushIndent(string indent) { }
+         private void PushIndent(string indent) { }
 
-      private void WriteLine(string textToAppend) { }
+         private void WriteLine(string textToAppend) { }
 
-      private void WriteLine(string format, params object[] args) { }
+         private void WriteLine(string format, params object[] args) { }
+      }
    }
 }
 

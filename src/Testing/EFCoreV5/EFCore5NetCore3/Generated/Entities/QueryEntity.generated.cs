@@ -73,8 +73,8 @@ namespace Testing
       /// Indexed, Required
       /// </summary>
       [Required]
-   public int Id { get; set; }
+      public int Id { get; set; }
 
-}
+   }
 }
 

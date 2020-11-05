@@ -109,10 +109,10 @@ namespace Testing
       /// <summary>
       /// Required
       /// </summary>
-   public virtual global::Testing.BChild BChildRequired { get; set; }
+      public virtual global::Testing.BChild BChildRequired { get; set; }
 
-public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
 
-}
+   }
 }
 

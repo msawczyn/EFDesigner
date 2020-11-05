@@ -533,42 +533,42 @@ namespace Testing
       /// Concurrency token
       /// </summary>
       [Timestamp]
-   public Byte[] Timestamp { get; set; }
+      public Byte[] Timestamp { get; set; }
 
-   /*************************************************************************
-    * Navigation properties
-    *************************************************************************/
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
 
-   protected global::Testing.OwnedType _ownedTypeOptional;
-   partial void SetOwnedTypeOptional(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
-   partial void GetOwnedTypeOptional(ref global::Testing.OwnedType result);
+      protected global::Testing.OwnedType _ownedTypeOptional;
+      partial void SetOwnedTypeOptional(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
+      partial void GetOwnedTypeOptional(ref global::Testing.OwnedType result);
 
-   public virtual global::Testing.OwnedType OwnedTypeOptional
-   {
-      get
+      public virtual global::Testing.OwnedType OwnedTypeOptional
       {
-         global::Testing.OwnedType value = _ownedTypeOptional;
-         GetOwnedTypeOptional(ref value);
-         return (_ownedTypeOptional = value);
-      }
-      set
-      {
-         global::Testing.OwnedType oldValue = _ownedTypeOptional;
-         SetOwnedTypeOptional(oldValue, ref value);
-         if (oldValue != value)
+         get
          {
-            _ownedTypeOptional = value;
+            global::Testing.OwnedType value = _ownedTypeOptional;
+            GetOwnedTypeOptional(ref value);
+            return (_ownedTypeOptional = value);
+         }
+         set
+         {
+            global::Testing.OwnedType oldValue = _ownedTypeOptional;
+            SetOwnedTypeOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _ownedTypeOptional = value;
+            }
          }
       }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Testing.OwnedType OwnedTypeRequired { get; set; }
+
+      public virtual ICollection<global::Testing.OwnedType> OwnedTypeCollection { get; protected set; }
+
    }
-
-   /// <summary>
-   /// Required
-   /// </summary>
-public virtual global::Testing.OwnedType OwnedTypeRequired { get; set; }
-
-public virtual ICollection<global::Testing.OwnedType> OwnedTypeCollection { get; protected set; }
-
-}
 }
 

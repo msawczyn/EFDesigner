@@ -1202,12 +1202,17 @@
          }
       }
 
-      string CreateForeignKeySegmentEFCore(Association association, List<string> foreignKeyColumns)
+      string CreateForeignKeySegmentEF6(Association association, List<string> foreignKeyColumns)
       {
          // foreign key definitions always go in the table representing the Dependent end of the association
          // if there is no dependent end (i.e., many-to-many), there are no foreign keys
          ModelClass principal;
          ModelClass dependent;
+
+         // declaring foreign keys can only happen on ..n multiplicities
+         // otherwise, primary keys are required to be used, and the framework takes care of that
+         if (association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+            return null;
 
          if (association.SourceRole == EndpointRole.Dependent)
          {
@@ -1222,26 +1227,36 @@
          else
             return null;
 
-         string columnName;
+         string columnNames;
 
+         // shadow properties
          if (string.IsNullOrWhiteSpace(association.FKPropertyName))
          {
-            // shadow properties
-            columnName = string.Join(", ", principal.IdentityAttributes
-                                                    .Select(a => CreateShadowPropertyName(association, foreignKeyColumns, a))
-                                                    .Select(s => $@"""{s.Trim()}"""));
-         }
-         else
-         {
-            // defined properties
-            foreignKeyColumns.AddRange(association.FKPropertyName.Split(','));
-            columnName = string.Join(", ", association.FKPropertyName.Split(',').Select(s => $@"""{s.Trim()}"""));
+            columnNames = string.Join(", "
+                                    , principal.IdentityAttributes
+                                                .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
+
+            string[] columnNameList = columnNames.Split(',').Select(n => n.Trim()).ToArray();
+            string[] dependentPropertyNames = dependent.AllPropertyNames.ToArray();
+
+            int existingPropertyCount = columnNameList.Intersect(dependentPropertyNames).Count();
+
+            if (existingPropertyCount > 0)
+            {
+               return existingPropertyCount == 1
+                           ? $"HasForeignKey(p => {columnNames})"
+                           : $"HasForeignKey(p => new {{ {string.Join(", ", columnNameList.Select(n => $"p.{n}"))} }}";
+            }
+            else
+               return $"Map(x => x.MapKey({columnNames}))";
          }
 
-         return association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-               && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                     ? $"HasForeignKey<{dependent.FullName}>({columnName})"
-                     : $"HasForeignKey({columnName})";
+         // defined properties
+         columnNames = association.FKPropertyName.Contains(",")
+                           ? $"new {{ {string.Join(", ", association.FKPropertyName.Split(',').Select(n => $"p.{n.Trim()}"))} }}"
+                           : $"p.{association.FKPropertyName.Trim()}";
+
+         return $"HasForeignKey(p => {columnNames})";
       }
       
 #>

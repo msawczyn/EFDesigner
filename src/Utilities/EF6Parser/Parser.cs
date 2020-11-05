@@ -58,9 +58,11 @@ namespace EF6Parser
             }
 
             contextType = types[0];
+
             log.Info($"Using contextType = {contextType.FullName}");
          }
 
+         DbConfiguration.LoadConfiguration(contextType);
          ConstructorInfo constructor = contextType.GetConstructor(new[] {typeof(string)});
 
          // ReSharper disable once UnthrowableException

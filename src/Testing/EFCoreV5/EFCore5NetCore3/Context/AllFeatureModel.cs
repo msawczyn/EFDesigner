@@ -17,7 +17,7 @@ namespace Testing
 
       private string GetQueryEntitySqlQuery()
       {
-         return "";
+         return "SELECT * FROM Foo";
       }
    }
 }

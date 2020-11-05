@@ -119,13 +119,13 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-   public virtual ICollection<global::Testing.Child> Children { get; protected set; }
+      public virtual ICollection<global::Testing.Child> Children { get; protected set; }
 
-   /// <summary>
-   /// Required
-   /// </summary>
-public virtual global::Testing.Child Parent { get; set; }
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Testing.Child Parent { get; set; }
 
-}
+   }
 }
 

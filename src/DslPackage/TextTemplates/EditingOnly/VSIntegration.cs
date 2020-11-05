@@ -6,12 +6,20 @@ using System.Linq;
 
 using EnvDTE;
 
+using Microsoft.VisualStudio.TextTemplating;
+
 namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 {
    [SuppressMessage("ReSharper", "UnusedMember.Local")]
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
    partial class EditOnly
    {
+      protected Sawczyn.EFDesigner.EFModel.ModelRoot ModelRoot;
+      private ITextTemplatingEngineHost Host { get; set; }
+      private void WriteLine(string textToAppend) { }
+
+      #region Template
+
       // EFDesigner v2.1.0.4
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
@@ -173,10 +181,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                yield return subProject;
          }
       }
+
+      #endregion
    }
 }
-
-
-
-
-
