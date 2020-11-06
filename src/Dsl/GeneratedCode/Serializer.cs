@@ -1823,7 +1823,7 @@ namespace Sawczyn.EFDesigner.EFModel
 	         global::System.String propValue = instanceOfModelRoot.DefaultIdentityType;
 	         if (!serializationContext.Result.Failed)
 	         {
-	            if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "Int32") != 0))
+	            if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "Int64") != 0))
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "defaultIdentityType", propValue);
 	            }

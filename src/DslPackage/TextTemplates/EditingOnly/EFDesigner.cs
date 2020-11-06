@@ -13,7 +13,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    partial class EditOnly
    {
       #region Template
-      // EFDesigner v2.1.0.4
+      // EFDesigner v3.0.0.0
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -55,7 +55,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                               ? association.TargetPropertyName
                               : association is BidirectionalAssociation b
                                  ? b.SourcePropertyName
-                                 : $"{association.Source.Name}.{association.TargetPropertyName}";
+                                 : $"{association.Source.Name}_{association.TargetPropertyName}";
 
          string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
 
@@ -1054,5 +1054,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       #endregion Template      
    }
 }
+
+
 
 

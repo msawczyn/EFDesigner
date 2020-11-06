@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using Testing;
+using EFCore5NetCore3;
 
 namespace ConsoleTestNetCore3
 {
@@ -9,10 +9,7 @@ namespace ConsoleTestNetCore3
    {
       static void Main(string[] args)
       {
-         using (AllFeatureModel model = new AllFeatureModel())
-         {
-            Console.WriteLine(model.Masters.Count());
-         }
+        
       }
    }
 }

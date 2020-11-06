@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AllFeatureModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="AllFeatureModel.efmodel" />
+    <None Remove="AllFeatureModel.efmodel.diagramx" />
+    <None Remove="AllFeatureModel.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.2.20475.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-rc.2.20475.6">
       <PrivateAssets>all</PrivateAssets>
@@ -19,27 +29,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="AllFeatureModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="AllFeatureModel.cs">
+    <Folder Include="Generated\BidirectionalAssociations\" />
+    <Folder Include="Generated\UnidirectionalAssociations\" />
+    <Folder Include="Migrations\BidirectionalAssociations\" />
+    <Folder Include="Migrations\UnidirectionalAssociations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="BidirectionalAssociationTestContext.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AllFeatureModel.tt</DependentUpon>
+      <DependentUpon>BidirectionalAssociationTestContext.tt</DependentUpon>
+    </Compile>
+    <Compile Update="UnidirectionalAssociations.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnidirectionalAssociations.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Generated\Enums\" />
-    <Folder Include="Migrations\" />
+    <None Update="BidirectionalAssociationTestContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BidirectionalAssociationTestContext.cs</LastGenOutput>
+    </None>
+    <None Update="UnidirectionalAssociations.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UnidirectionalAssociations.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -25,16 +25,13 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </returns>
       public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
-         if (!GetStandardValuesSupported(context))
-            return null;
-
          Store store = GetStore(context.Instance);
 
          List<string> values = new List<string>();
 
          if (store != null)
          {
-            ModelRoot modelRoot = store.ElementDirectory.FindElements<ModelRoot>().First();
+            ModelRoot modelRoot = store.ModelRoot();
             values = new List<string>(modelRoot.ValidIdentityAttributeTypes);
          }
 
@@ -54,7 +51,9 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </returns>
       public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
       {
-         return GetStandardValuesSupported(context);
+         // standard values are required for EF6 or EFCore before v5
+         ModelRoot modelRoot = GetStore(context.Instance).ModelRoot();
+         return !modelRoot.IsEFCore5Plus;
       }
 
       /// <summary>
@@ -68,9 +67,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// </returns>
       public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
       {
-         // standard values are required for EF6 or EFCore before v5
-         ModelRoot modelRoot = GetStore(context.Instance).ModelRoot();
-         return !modelRoot.IsEFCore5Plus;
+         return true;
       }
    }
 }

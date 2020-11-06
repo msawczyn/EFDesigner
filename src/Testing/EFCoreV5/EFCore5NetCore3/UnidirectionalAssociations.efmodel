@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.1.0.5" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="UnidirectionalAssociations" namespace="EFCore5NetCore3" automaticMigrationsEnabled="false" entityFrameworkVersion="EFCore" inheritanceStrategy="TablePerType" transformOnSave="false" showCascadeDeletes="false" databaseType="None" exposeForeignKeys="false" propertyAccessModeDefault="Field" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+  <diagrams>
+    <modelRootHasModelDiagrams Id="ed37620e-280e-45ea-bd09-22ae95a9cdf9">
+      <modelDiagramData />
+    </modelRootHasModelDiagrams>
+  </diagrams>
+</modelRoot>

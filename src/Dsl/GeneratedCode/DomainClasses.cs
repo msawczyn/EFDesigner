@@ -1848,7 +1848,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		/// <summary>
 		/// Storage for DefaultIdentityType
 		/// </summary>
-		private global::System.String defaultIdentityTypePropertyStorage = "Int32";
+		private global::System.String defaultIdentityTypePropertyStorage = "Int64";
 		
 		/// <summary>
 		/// Gets or sets the value of DefaultIdentityType domain property.
@@ -1858,7 +1858,7 @@ namespace Sawczyn.EFDesigner.EFModel
 		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/DefaultIdentityType.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue("Int32")]
+		[global::System.ComponentModel.DefaultValue("Int64")]
 		[DslModeling::DomainObjectId("07688b4c-ba00-4e51-9abd-7353a4df233d")]
 		public global::System.String DefaultIdentityType
 		{
@@ -12367,6 +12367,6 @@ namespace Sawczyn.EFDesigner.EFModel
 {
 	partial class ModelRoot
 	{
-		public const string DSLVersion = "2.1.0.5";
+		public const string DSLVersion = "3.0.0.0";
 	}
 }

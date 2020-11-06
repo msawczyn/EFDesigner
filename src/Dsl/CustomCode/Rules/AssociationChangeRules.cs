@@ -178,12 +178,13 @@ namespace Sawczyn.EFDesigner.EFModel
                       || ((currentSourceMultiplicity == Multiplicity.ZeroOne || currentSourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
                         doForeignKeyFixup = true;
 
-                     if (store.ModelRoot().IsEFCore5Plus && currentSourceMultiplicity == Multiplicity.ZeroMany && element.TargetMultiplicity == Multiplicity.ZeroMany)
+                     if (store.ModelRoot().IsEFCore5Plus 
+                      && element is UnidirectionalAssociation 
+                      && currentSourceMultiplicity == Multiplicity.ZeroMany 
+                      && element.TargetMultiplicity == Multiplicity.ZeroMany)
                      {
                         string message = "Many-to-many unidirectional associations are not yet supported in Entity Framework Core due to conflicts with change tracking proxies.";
                         errorMessages.Add(message);
-
-                        break;
                      }
                   }
 

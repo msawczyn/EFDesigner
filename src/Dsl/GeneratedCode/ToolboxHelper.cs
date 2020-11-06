@@ -46,35 +46,35 @@ namespace Sawczyn.EFDesigner.EFModel
       /// See the MSDN documentation for the ToolboxItemFilterAttribute class for more information on toolbox
       /// item filters.
       /// </remarks>
-      public const string ToolboxFilterString = "EFModel.2.1";
+      public const string ToolboxFilterString = "EFModel.3.0";
       /// <summary>
       /// Toolbox item filter string used to identify ModelClass element tool.
       /// </summary>
-      public const string ModelClassFilterString = "ModelClass.2.1";
+      public const string ModelClassFilterString = "ModelClass.3.0";
       /// <summary>
       /// Toolbox item filter string used to identify UnidirectionalAssociation connector tool.
       /// </summary>
-      public const string UnidirectionalAssociationFilterString = "UnidirectionalAssociation.2.1";
+      public const string UnidirectionalAssociationFilterString = "UnidirectionalAssociation.3.0";
       /// <summary>
       /// Toolbox item filter string used to identify BidirectionalAssociation connector tool.
       /// </summary>
-      public const string BidirectionalAssociationFilterString = "BidirectionalAssociation.2.1";
+      public const string BidirectionalAssociationFilterString = "BidirectionalAssociation.3.0";
       /// <summary>
       /// Toolbox item filter string used to identify Generalization connector tool.
       /// </summary>
-      public const string GeneralizationFilterString = "Generalization.2.1";
+      public const string GeneralizationFilterString = "Generalization.3.0";
       /// <summary>
       /// Toolbox item filter string used to identify Comment element tool.
       /// </summary>
-      public const string CommentFilterString = "Comment.2.1";
+      public const string CommentFilterString = "Comment.3.0";
       /// <summary>
       /// Toolbox item filter string used to identify CommentLink connector tool.
       /// </summary>
-      public const string CommentLinkFilterString = "CommentLink.2.1";
+      public const string CommentLinkFilterString = "CommentLink.3.0";
       /// <summary>
       /// Toolbox item filter string used to identify Enumeration element tool.
       /// </summary>
-      public const string EnumerationFilterString = "Enumeration.2.1";
+      public const string EnumerationFilterString = "Enumeration.3.0";
 
    
       private global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem> toolboxItemCache = new global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem>();
