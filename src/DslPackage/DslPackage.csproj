@@ -209,12 +209,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
-    <Compile Include="TextTemplates\EditingOnly\EF6Designer.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFCoreDesigner.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFDesigner.cs" />
-    <Compile Include="TextTemplates\EditingOnly\MultipleOutputHelper.cs" />
-    <Compile Include="TextTemplates\EditingOnly\TextTransformation.cs" />
-    <Compile Include="TextTemplates\EditingOnly\VSIntegration.cs" />
     <Compile Include="VSPackage.Designer.cs" />
     <Content Include="GeneratedCode\GeneratedVSCT.vsct">
       <Generator>VsctGenerator</Generator>
@@ -375,7 +369,6 @@
     <Content Include="TextTemplates\EFDesigner.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="TextTemplates\EditingOnly\_ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dsl\Dsl.csproj">
