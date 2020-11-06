@@ -288,11 +288,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
       void Output(string text)
       {
-         if (text.StartsWith("}") || text.EndsWith("}"))
+         if (text == "}")
             PopIndent();
 
          WriteLine(text);
-         if (text.StartsWith("{") || text.EndsWith("{"))
+         if (text == "{")
             PushIndent(ModelRoot.UseTabs ? "\t" : "   ");
       }
 
@@ -341,7 +341,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          Output("using System.ComponentModel.DataAnnotations.Schema;");
          Output("using System.Linq;");
          Output("using System.Runtime.CompilerServices;");
-         List<string> additionalUsings = GetAdditionalUsingStatementsEF6(modelClass.ModelRoot);
+
+         List<string> additionalUsings =
+            modelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EF6
+               ? GetAdditionalUsingStatementsEF6(modelClass.ModelRoot)
+               : GetAdditionalUsingStatementsEFCore(modelClass.ModelRoot);
 
          if (additionalUsings.Any())
             Output(string.Join("\n", additionalUsings));
@@ -1050,4 +1054,5 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       #endregion Template      
    }
 }
+
 

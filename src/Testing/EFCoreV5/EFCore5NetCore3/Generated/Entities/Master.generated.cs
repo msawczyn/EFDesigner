@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.4
+//     Produced by Entity Framework Visual Editor v2.1.0.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -29,13 +29,44 @@ namespace Testing
       partial void Init();
 
       /// <summary>
-      /// Default constructor
+      /// Default constructor. Protected due to required properties, but present because EF needs it.
       /// </summary>
-      public Master()
+      protected Master()
       {
-         Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
+         ToMany = new System.Collections.Generic.HashSet<global::Testing.Detail>();
 
          Init();
+      }
+
+      /// <summary>
+      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
+      /// </summary>
+      public static Master CreateMasterUnsafe()
+      {
+         return new Master();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="toone"></param>
+      public Master(global::Testing.Detail toone)
+      {
+         if (toone == null) throw new ArgumentNullException(nameof(toone));
+         this.ToOne = toone;
+
+         this.ToMany = new System.Collections.Generic.HashSet<global::Testing.Detail>();
+
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="toone"></param>
+      public static Master Create(global::Testing.Detail toone)
+      {
+         return new Master(toone);
       }
 
       /*************************************************************************
@@ -43,48 +74,61 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Backing field for Id
-      /// </summary>
-      internal int _id;
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before setting.
-      /// </summary>
-      partial void SetId(int oldValue, ref int newValue);
-      /// <summary>
-      /// When provided in a partial class, allows value of Id to be changed before returning.
-      /// </summary>
-      partial void GetId(ref int result);
-
-      /// <summary>
       /// Identity, Indexed, Required
       /// </summary>
       [Key]
       [Required]
-      public int Id
+      public int Id { get; protected set; }
+
+      /// <summary>
+      /// Backing field for Property1_FDC
+      /// </summary>
+      protected int? _property1_FDC;
+      /// <summary>
+      /// When provided in a partial class, allows value of Property1_FDC to be changed before setting.
+      /// </summary>
+      partial void SetProperty1_FDC(int? oldValue, ref int? newValue);
+      /// <summary>
+      /// When provided in a partial class, allows value of Property1_FDC to be changed before returning.
+      /// </summary>
+      partial void GetProperty1_FDC(ref int? result);
+
+      public int? Property1_FDC
       {
          get
          {
-            int value = _id;
-            GetId(ref value);
-            return (_id = value);
+            int? value = _property1_FDC;
+            GetProperty1_FDC(ref value);
+            return (_property1_FDC = value);
          }
-         protected set
+         set
          {
-            int oldValue = _id;
-            SetId(oldValue, ref value);
+            int? oldValue = _property1_FDC;
+            SetProperty1_FDC(oldValue, ref value);
             if (oldValue != value)
             {
-               _id = value;
+               _property1_FDC = value;
             }
          }
       }
+
+      public int? Property2_FA { get; set; }
+
+      public int? Property3_PA { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-   public virtual ICollection<global::Testing.Child> Children { get; protected set; }
+      public virtual ICollection<global::Testing.Detail> ToMany { get; protected set; }
 
-}
+      public virtual global::Testing.Detail ToZeroOrOne { get; set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::Testing.Detail ToOne { get; set; }
+
+   }
 }
 

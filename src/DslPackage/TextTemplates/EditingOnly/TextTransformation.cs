@@ -11,6 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       /**************************************************
        * Common methods used in formatting generated code
        */
+      private ModelRoot ModelRoot { get; set; }
 
       private ITextTemplatingEngineHost Host { get; set; }
 

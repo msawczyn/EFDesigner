@@ -131,7 +131,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      // EFCore < v5 can't have required dependents
                      if (element.Source.IsDependentType && currentSourceMultiplicity == Multiplicity.One && !store.ModelRoot().IsEFCore5Plus)
                      {
-                        errorMessages.Add($"Can't have a required association from {element.Source.Name} to principal type {element.Target.Name} in versions < EFCore5");
+                        errorMessages.Add($"Can't have a required association from dependent type {element.Source.Name} to principal type {element.Target.Name} in versions < EFCore5");
                         break;
                      }
 
@@ -140,7 +140,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      //    source cardinality is 0..1 or, if EFCore 5+, 1
                      if (element.Source.IsDependentType && currentSourceMultiplicity == Multiplicity.ZeroMany)
                      {
-                        errorMessages.Add($"Can't have a 0..* association from {element.Source.Name} to principal type {element.Target.Name}");
+                        errorMessages.Add($"Can't have a 0..* association from dependent type {element.Source.Name} to principal type {element.Target.Name}");
                         break;
                      }
 
@@ -177,6 +177,14 @@ namespace Sawczyn.EFDesigner.EFModel
                      if (((priorSourceMultiplicity == Multiplicity.ZeroOne || priorSourceMultiplicity == Multiplicity.ZeroMany) && currentSourceMultiplicity == Multiplicity.One)
                       || ((currentSourceMultiplicity == Multiplicity.ZeroOne || currentSourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
                         doForeignKeyFixup = true;
+
+                     if (store.ModelRoot().IsEFCore5Plus && currentSourceMultiplicity == Multiplicity.ZeroMany && element.TargetMultiplicity == Multiplicity.ZeroMany)
+                     {
+                        string message = "Many-to-many unidirectional associations are not yet supported in Entity Framework Core due to conflicts with change tracking proxies.";
+                        errorMessages.Add(message);
+
+                        break;
+                     }
                   }
 
                   break;

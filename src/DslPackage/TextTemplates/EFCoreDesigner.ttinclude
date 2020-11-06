@@ -35,14 +35,6 @@
             WriteEnum(modelEnum);
          }
 
-         // DatabaseInitializer not yet supported in EF Core
-         // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer{fileNameMarker}.cs"));
-         // WriteDatabaseInitializerEFCore(modelRoot);
-
-         // MigrationConfiguration not yet supported in EF Core
-         // manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration{fileNameMarker}.cs"));
-         // WriteMigrationConfigurationEFCore(modelRoot);
-
          manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}{fileNameMarker}.cs"));
          WriteDbContextEFCore(modelRoot);
       }
@@ -74,51 +66,6 @@
 
          return result;
       }
-
-      // Revisit if/when supported in EFCore
-
-      // void WriteDatabaseInitializerEFCore(ModelRoot modelRoot)
-      // {
-      //    Output("using System.Data.Entity;");
-      //    NL();
-      // 
-      //    BeginNamespace(modelRoot.Namespace);
-      // 
-      //    if (modelRoot.DatabaseInitializerType == DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
-      //       Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : MigrateDatabaseToLatestVersion<{modelRoot.EntityContainerName}, {modelRoot.EntityContainerName}DbMigrationConfiguration>");
-      //    else
-      //       Output($"public partial class {modelRoot.EntityContainerName}DatabaseInitializer : {modelRoot.DatabaseInitializerType}<{modelRoot.EntityContainerName}>");
-      // 
-      //    Output("{");
-      //    Output("}");
-      //    EndNamespace(modelRoot.Namespace);
-      // }
-      // 
-      // void WriteMigrationConfigurationEFCore(ModelRoot modelRoot)
-      // {
-      //    //if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.MigrateDatabaseToLatestVersion)
-      //    //   return;
-      // 
-      //    Output("using System.Data.Entity.Migrations;");
-      //    NL();
-      // 
-      //    BeginNamespace(modelRoot.Namespace);
-      //    Output("public sealed partial class {0}DbMigrationConfiguration : DbMigrationsConfiguration<{0}>", modelRoot.EntityContainerName);
-      // 
-      //    Output("{");
-      //    Output("partial void Init();");
-      //    NL();
-      // 
-      //    Output("public {0}DbMigrationConfiguration()", modelRoot.EntityContainerName);
-      //    Output("{");
-      //    Output("AutomaticMigrationsEnabled = {0};", modelRoot.AutomaticMigrationsEnabled.ToString().ToLower());
-      //    Output("AutomaticMigrationDataLossAllowed = false;");
-      //    Output("Init();");
-      //    Output("}");
-      // 
-      //    Output("}");
-      //    EndNamespace(modelRoot.Namespace);
-      // }
 
       void WriteDbContextEFCore(ModelRoot modelRoot)
       {
@@ -297,9 +244,9 @@
       private void WriteStandardClassBuilder(ModelRoot modelRoot, List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
       {
          // class level
-         if (modelClass.IsDependentType)
-            segments.Add($"modelBuilder.Owned<{modelClass.FullName}>()");
-         else
+         //if (modelClass.IsDependentType)
+         //   segments.Add($"modelBuilder.Owned<{modelClass.FullName}>()");
+         //else
          {
             segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 
@@ -325,26 +272,29 @@
 
                segments.Add($"ToSqlQuery(Get{modelClass.Name}SqlQuery())");
             }
-            else if (!modelClass.IsDependentType)
+            else //if (!modelClass.IsDependentType)
             {
-               segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
-                               ? $"ToTable(\"{modelClass.TableName}\")"
-                               : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+               if (!string.IsNullOrEmpty(modelClass.TableName))
+               {
+                  segments.Add(string.IsNullOrEmpty(modelClass.DatabaseSchema) || modelClass.DatabaseSchema == modelClass.ModelRoot.DatabaseSchema
+                                  ? $"ToTable(\"{modelClass.TableName}\")"
+                                  : $"ToTable(\"{modelClass.TableName}\", \"{modelClass.DatabaseSchema}\")");
+               }
 
-            // primary key code segments must be output last, since HasKey returns a different type
-            List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
+               // primary key code segments must be output last, since HasKey returns a different type
+               List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
 
-            if (identityAttributes.Count == 1)
-               segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
-            else if (identityAttributes.Count > 1)
-               segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
+               if (identityAttributes.Count == 1)
+                  segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
+               else if (identityAttributes.Count > 1)
+                  segments.Add($"HasKey(t => new {{ t.{string.Join(", t.", identityAttributes.Select(ia => ia.Name))} }})");
             }
          }
 
          if (segments.Count > 1 || modelClass.IsDependentType)
             Output(modelRoot, segments);
 
-         if (!modelClass.IsDependentType)
+         //if (!modelClass.IsDependentType)
          {
             // attribute level
             foreach (ModelAttribute modelAttribute in modelClass.Attributes.Where(x => x.Persistent && !SpatialTypesEFCore.Contains(x.Type)))
@@ -470,17 +420,20 @@
          // In all other cases, we can tell by the cardinalities of the associations
 
          // navigation properties
-         DefineEFCoreUnidirectionalAssociations(modelRoot, segments, modelClass, visited);
+         DefineEFCoreUnidirectionalAssociations(modelRoot, segments, modelClass, visited, foreignKeyColumns);
          DefineEFCoreBidirectionalAssociations(modelRoot, segments, modelClass, visited, foreignKeyColumns);
       }
 
-      private void DefineEFCoreUnidirectionalAssociations(ModelRoot modelRoot, List<string> segments, ModelClass modelClass, List<Association> visited)
+      private void DefineEFCoreUnidirectionalAssociations(ModelRoot modelRoot, List<string> segments, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
       {
          // ReSharper disable once LoopCanBePartlyConvertedToQuery
          foreach (UnidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
                                                                       .OfType<UnidirectionalAssociation>()
                                                                       .Where(x => x.Persistent && !visited.Contains(x)))
          {
+            if (visited.Contains(association))
+               continue;
+
             visited.Add(association);
 
             segments.Clear();
@@ -536,15 +489,15 @@
                   if (association.Target.IsDependentType)
                   {
                      segments.Add("WithOwner()");
-                     segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                     //segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                   }
                   else
                   {
                      segments.Add("WithOne()");
 
-                     segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                                     ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
-                                     : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                     //segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                     //                ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
+                     //                : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                   }
 
                   required = true;
@@ -556,15 +509,15 @@
                   {
                      segments.Add("WithOwner()");
 
-                     segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                     //segments.Add($"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                   }
                   else
                   {
                      segments.Add("WithOne()");
 
-                     segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
-                                     ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
-                                     : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
+                     //segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                     //                ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
+                     //                : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
                   }
 
                   break;
@@ -573,6 +526,11 @@
                   //   segments.Add("HasMany()");
                   //   break;
             }
+
+            string foreignKeySegment = CreateForeignKeySegmentEFCore(association, foreignKeyColumns);
+
+            if (foreignKeySegment != null)
+               segments.Add(foreignKeySegment);
 
             if (required && !modelRoot.IsEFCore5Plus)
                segments.Add("IsRequired()");
@@ -1243,5 +1201,4 @@
       }
       
 #>
-
 

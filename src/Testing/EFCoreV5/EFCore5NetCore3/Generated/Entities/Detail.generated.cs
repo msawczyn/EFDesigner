@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.4
+//     Produced by Entity Framework Visual Editor v2.1.0.5
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -24,45 +24,16 @@ using System.Runtime.CompilerServices;
 
 namespace Testing
 {
-   public partial class QueryEntity
+   public partial class Detail
    {
       partial void Init();
 
       /// <summary>
-      /// Default constructor. Protected due to required properties, but present because EF needs it.
+      /// Default constructor
       /// </summary>
-      protected QueryEntity()
+      public Detail()
       {
          Init();
-      }
-
-      /// <summary>
-      /// Replaces default constructor, since it's protected. Caller assumes responsibility for setting all required values before saving.
-      /// </summary>
-      public static QueryEntity CreateQueryEntityUnsafe()
-      {
-         return new QueryEntity();
-      }
-
-      /// <summary>
-      /// Public constructor with required data
-      /// </summary>
-      /// <param name="id"></param>
-      public QueryEntity(int id)
-      {
-         this.Id = id;
-
-
-         Init();
-      }
-
-      /// <summary>
-      /// Static create function (for use in LINQ queries, etc.)
-      /// </summary>
-      /// <param name="id"></param>
-      public static QueryEntity Create(int id)
-      {
-         return new QueryEntity(id);
       }
 
       /*************************************************************************
@@ -70,11 +41,16 @@ namespace Testing
        *************************************************************************/
 
       /// <summary>
-      /// Indexed, Required
+      /// Identity, Indexed, Required
       /// </summary>
+      [Key]
       [Required]
-   public int Id { get; set; }
+      public int Id { get; protected set; }
 
-}
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
+
+   }
 }
 

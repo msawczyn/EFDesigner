@@ -11,7 +11,7 @@ namespace ConsoleTestNetCore3
       {
          using (AllFeatureModel model = new AllFeatureModel())
          {
-            Console.WriteLine(model.BaseClasses.Count());
+            Console.WriteLine(model.Masters.Count());
          }
       }
    }

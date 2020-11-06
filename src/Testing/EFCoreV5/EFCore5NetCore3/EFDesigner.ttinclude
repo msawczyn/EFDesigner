@@ -50,7 +50,7 @@
                               ? association.TargetPropertyName
                               : association is BidirectionalAssociation b
                                  ? b.SourcePropertyName
-                                 : $"{association.Source.Name}.{association.TargetPropertyName}";
+                                 : $"{association.Source.Name}_{association.TargetPropertyName}";
 
          string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
 
@@ -283,12 +283,11 @@
 
       void Output(string text)
       {
-         if (text.StartsWith("}") || text.EndsWith("}"))
+         if (text == "}")
             PopIndent();
 
          WriteLine(text);
-
-         if (text.StartsWith("{") || text.EndsWith("{"))
+         if (text == "{")
             PushIndent(ModelRoot.UseTabs ? "\t" : "   ");
       }
 
@@ -337,7 +336,11 @@
          Output("using System.ComponentModel.DataAnnotations.Schema;");
          Output("using System.Linq;");
          Output("using System.Runtime.CompilerServices;");
-         List<string> additionalUsings = GetAdditionalUsingStatementsEF6(modelClass.ModelRoot);
+
+         List<string> additionalUsings =
+            modelClass.ModelRoot.EntityFrameworkVersion == EFVersion.EF6
+               ? GetAdditionalUsingStatementsEF6(modelClass.ModelRoot)
+               : GetAdditionalUsingStatementsEFCore(modelClass.ModelRoot);
 
          if (additionalUsings.Any())
             Output(string.Join("\n", additionalUsings));
@@ -1045,5 +1048,4 @@
       }
       
 #>
-
 
