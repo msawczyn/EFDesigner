@@ -33,10 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Generated\BidirectionalAssociations\" />
-    <Folder Include="Generated\UnidirectionalAssociations\" />
-    <Folder Include="Migrations\BidirectionalAssociations\" />
-    <Folder Include="Migrations\UnidirectionalAssociations\" />
+    <Folder Include="Generated\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,10 +43,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>BidirectionalAssociationTestContext.tt</DependentUpon>
     </Compile>
-    <Compile Update="UnidirectionalAssociations.cs">
+    <Compile Update="UnidirectionalAssociationTestContext.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>UnidirectionalAssociations.tt</DependentUpon>
+      <DependentUpon>UnidirectionalAssociationTestContext.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -57,9 +55,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BidirectionalAssociationTestContext.cs</LastGenOutput>
     </None>
-    <None Update="UnidirectionalAssociations.tt">
+    <None Update="UnidirectionalAssociationTestContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UnidirectionalAssociations.cs</LastGenOutput>
+      <LastGenOutput>UnidirectionalAssociationTestContext.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

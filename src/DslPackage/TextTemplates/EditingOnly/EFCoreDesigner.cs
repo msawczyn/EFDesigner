@@ -268,7 +268,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             {
                Output($"// There is no table defined for {modelClass.Name} because its IsQueryType value is");
                Output($"// set to 'true'. Please provide the {modelRoot.FullName}.Get{modelClass.Name}SqlQuery() method in the partial class.");
-               Output($"// ");
+               Output("// ");
                Output($"// private string Get{modelClass.Name}SqlQuery()");
                Output("// {");
                Output($"//    return the defining SQL query that pulls all the properties for {modelClass.FullName}");
@@ -429,11 +429,11 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          DefineEFCoreBidirectionalAssociations(modelClass, visited, segments, foreignKeyColumns, declaredShadowProperties);
       }
 
-      private void DefineEFCoreUnidirectionalAssociations(ModelClass modelClass, 
-                                                          List<Association> visited, 
-                                                          List<string> segments, 
-                                                          List<string> foreignKeyColumns,
-                                                          List<string> declaredShadowProperties)
+      private void DefineEFCoreUnidirectionalAssociations(ModelClass modelClass,
+                                                         List<Association> visited,
+                                                         List<string> segments,
+                                                         List<string> foreignKeyColumns,
+                                                         List<string> declaredShadowProperties)
       {
          ModelRoot modelRoot = modelClass.ModelRoot;
 
@@ -474,15 +474,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             switch (association.SourceMultiplicity) // realized by property on target, but no property on target
             {
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+                  segments.Add("WithMany()");
 
                   if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   {
-                     string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.Source.Name}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                     segments.Add($"WithMany(\"{tableMap}\")"); // workaround for lack of CollectionNavigationBuilder.WithMany(). Tracked by https://github.com/dotnet/efcore/issues/3864 
+                     string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
                      segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
                   }
-                  else
-                     segments.Add("WithMany()");
 
                   break;
 
@@ -500,10 +498,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             string foreignKeySegment = CreateForeignKeySegmentEFCore(association, foreignKeyColumns);
             if (!string.IsNullOrEmpty(foreignKeySegment))
-                segments.Add(foreignKeySegment);
+               segments.Add(foreignKeySegment);
 
             if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-                segments.Add("IsRequired()");
+               segments.Add("IsRequired()");
 
             if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
             {
@@ -514,7 +512,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (deleteAction)
                {
                   case DeleteAction.None:
-                     segments.Add("OnDelete(DeleteBehavior.Restrict)");
+                     segments.Add("OnDelete(DeleteBehavior.NoAction)");
 
                      break;
 
@@ -528,13 +526,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             Output(modelRoot, segments);
 
             if (modelClass.ModelRoot.IsEFCore5Plus && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One && association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-                Output($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName}).IsRequired();");
+               Output($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName}).IsRequired();");
          }
       }
 
-      private void DefineEFCoreBidirectionalAssociations(ModelClass modelClass, 
-                                                         List<Association> visited, 
-                                                         List<string> segments, 
+      private void DefineEFCoreBidirectionalAssociations(ModelClass modelClass,
+                                                         List<Association> visited,
+                                                         List<string> segments,
                                                          List<string> foreignKeyColumns,
                                                          List<string> declaredShadowProperties)
       {
@@ -577,7 +575,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             switch (association.SourceMultiplicity) // realized by property on target, but no property on target
             {
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                  segments.Add($"WithMany(x => x.{association.SourcePropertyName})"); 
+                  segments.Add($"WithMany(x => x.{association.SourcePropertyName})");
 
                   if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   {
@@ -601,10 +599,10 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
 
             string foreignKeySegment = CreateForeignKeySegmentEFCore(association, foreignKeyColumns);
             if (!string.IsNullOrEmpty(foreignKeySegment))
-                segments.Add(foreignKeySegment);
+               segments.Add(foreignKeySegment);
 
             if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-                segments.Add("IsRequired()");
+               segments.Add("IsRequired()");
 
             if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
             {
@@ -615,7 +613,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (deleteAction)
                {
                   case DeleteAction.None:
-                     segments.Add("OnDelete(DeleteBehavior.Restrict)");
+                     segments.Add("OnDelete(DeleteBehavior.NoAction)");
 
                      break;
 
@@ -629,7 +627,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             Output(modelRoot, segments);
 
             if (modelClass.ModelRoot.IsEFCore5Plus && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One && association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-                Output($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName}).IsRequired();");
+               Output($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName}).IsRequired();");
          }
       }
 
@@ -886,7 +884,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (deleteAction)
                {
                   case DeleteAction.None:
-                     segments.Add("OnDelete(DeleteBehavior.Restrict)");
+                     segments.Add("OnDelete(DeleteBehavior.NoAction)");
 
                      break;
 
@@ -1014,7 +1012,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                switch (deleteAction)
                {
                   case DeleteAction.None:
-                     segments.Add("OnDelete(DeleteBehavior.Restrict)");
+                     segments.Add("OnDelete(DeleteBehavior.NoAction)");
 
                      break;
 
@@ -1068,7 +1066,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          if (string.IsNullOrEmpty(columnName))
             return null;
 
-         bool useGeneric = association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && 
+         bool useGeneric = association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany &&
                            association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany;
 
          return useGeneric

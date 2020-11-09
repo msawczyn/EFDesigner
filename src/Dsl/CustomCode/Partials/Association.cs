@@ -169,6 +169,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
       #endregion
 
+      [ValidationMethod(ValidationCategories.Save | ValidationCategories.Menu)]
+      private void UnidirectionalManyToManyUnsupported(ValidationContext context)
+      {
+         ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
+         if (modelRoot.IsEFCore5Plus
+          && this is UnidirectionalAssociation
+          && SourceMultiplicity == Multiplicity.ZeroMany
+          && TargetMultiplicity == Multiplicity.ZeroMany)
+            context.LogError($"{Source.Name} <=> {Target.Name}: Many-to-many unidirectional associations are not yet supported in Entity Framework Core.", "AEUnidirectionalManyToMany", this);
+      }
+
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]
       // ReSharper disable once UnusedMember.Local
       private void SummaryDescriptionIsEmpty(ValidationContext context)

@@ -168,14 +168,14 @@ namespace Sawczyn.EFDesigner.EFModel
                       || ((element.SourceMultiplicity == Multiplicity.ZeroOne || element.SourceMultiplicity == Multiplicity.ZeroMany) && (Multiplicity)e.OldValue == Multiplicity.One))
                         doForeignKeyFixup = true;
 
-                     //if (store.ModelRoot().IsEFCore5Plus 
-                     // && element is UnidirectionalAssociation 
-                     // && element.SourceMultiplicity == Multiplicity.ZeroMany 
-                     // && element.TargetMultiplicity == Multiplicity.ZeroMany)
-                     //{
-                     //   string message = "Many-to-many unidirectional associations are not yet supported in Entity Framework Core due to conflicts with change tracking proxies.";
-                     //   errorMessages.Add(message);
-                     //}
+                     if (store.ModelRoot().IsEFCore5Plus
+                      && element is UnidirectionalAssociation
+                      && element.SourceMultiplicity == Multiplicity.ZeroMany
+                      && element.TargetMultiplicity == Multiplicity.ZeroMany)
+                     {
+                        string message = "Many-to-many unidirectional associations are not yet supported in Entity Framework Core.";
+                        errorMessages.Add(message);
+                     }
                   }
 
                   break;
