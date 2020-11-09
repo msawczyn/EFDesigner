@@ -554,7 +554,7 @@
     <comment>Description for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.DisplayName" xml:space="preserve">
-    <value>Expose Foreign Keys</value>
+    <value>Allow Modeled Foreign Keys</value>
     <comment>DisplayName for DomainProperty &apos;ExposeForeignKeys&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/ExposeForeignKeys.Category" xml:space="preserve">

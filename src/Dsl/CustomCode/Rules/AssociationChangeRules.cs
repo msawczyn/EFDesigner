@@ -50,13 +50,6 @@ namespace Sawczyn.EFDesigner.EFModel
          }
       }
 
-      //internal static bool IsProcessingChange => ProcessingChangeCount > 0;
-
-      ///// <summary>
-      ///// Number of times the ElementPropertyChanged method has been recursed into
-      ///// </summary>
-      //private static int ProcessingChangeCount { get; set; }
-
       /// <inheritdoc />
       public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
       {
@@ -125,11 +118,8 @@ namespace Sawczyn.EFDesigner.EFModel
 
                case "SourceMultiplicity":
                   {
-                     Multiplicity currentSourceMultiplicity = (Multiplicity)e.NewValue;
-                     Multiplicity priorSourceMultiplicity = (Multiplicity)e.OldValue;
-
                      // EFCore < v5 can't have required dependents
-                     if (element.Source.IsDependentType && currentSourceMultiplicity == Multiplicity.One && !store.ModelRoot().IsEFCore5Plus)
+                     if (element.Source.IsDependentType && element.SourceMultiplicity == Multiplicity.One && !store.ModelRoot().IsEFCore5Plus)
                      {
                         errorMessages.Add($"Can't have a required association from dependent type {element.Source.Name} to principal type {element.Target.Name} in versions < EFCore5");
                         break;
@@ -138,14 +128,14 @@ namespace Sawczyn.EFDesigner.EFModel
                      // change unidirectional source cardinality
                      // if target is dependent
                      //    source cardinality is 0..1 or, if EFCore 5+, 1
-                     if (element.Source.IsDependentType && currentSourceMultiplicity == Multiplicity.ZeroMany)
+                     if (element.Source.IsDependentType && element.SourceMultiplicity == Multiplicity.ZeroMany)
                      {
                         errorMessages.Add($"Can't have a 0..* association from dependent type {element.Source.Name} to principal type {element.Target.Name}");
                         break;
                      }
 
-                     if ((element.TargetMultiplicity == Multiplicity.One && currentSourceMultiplicity == Multiplicity.One)
-                      || (element.TargetMultiplicity == Multiplicity.ZeroOne && currentSourceMultiplicity == Multiplicity.ZeroOne))
+                     if ((element.TargetMultiplicity == Multiplicity.One && element.SourceMultiplicity == Multiplicity.One)
+                      || (element.TargetMultiplicity == Multiplicity.ZeroOne && element.SourceMultiplicity == Multiplicity.ZeroOne))
                      {
                         if (element.SourceRole != EndpointRole.NotSet)
                            element.SourceRole = EndpointRole.NotSet;
@@ -166,7 +156,7 @@ namespace Sawczyn.EFDesigner.EFModel
                         doForeignKeyFixup = true;
                      }
 
-                     if (store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6
+                     if ((store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 || store.ModelRoot().IsEFCore5Plus)
                       && element.SourceMultiplicity != Multiplicity.ZeroMany
                       && element.TargetMultiplicity != Multiplicity.ZeroMany)
                      {
@@ -174,18 +164,18 @@ namespace Sawczyn.EFDesigner.EFModel
                         doForeignKeyFixup = true;
                      }
 
-                     if (((priorSourceMultiplicity == Multiplicity.ZeroOne || priorSourceMultiplicity == Multiplicity.ZeroMany) && currentSourceMultiplicity == Multiplicity.One)
-                      || ((currentSourceMultiplicity == Multiplicity.ZeroOne || currentSourceMultiplicity == Multiplicity.ZeroMany) && priorSourceMultiplicity == Multiplicity.One))
+                     if ((((Multiplicity)e.OldValue == Multiplicity.ZeroOne || (Multiplicity)e.OldValue == Multiplicity.ZeroMany) && element.SourceMultiplicity == Multiplicity.One)
+                      || ((element.SourceMultiplicity == Multiplicity.ZeroOne || element.SourceMultiplicity == Multiplicity.ZeroMany) && (Multiplicity)e.OldValue == Multiplicity.One))
                         doForeignKeyFixup = true;
 
-                     if (store.ModelRoot().IsEFCore5Plus 
-                      && element is UnidirectionalAssociation 
-                      && currentSourceMultiplicity == Multiplicity.ZeroMany 
-                      && element.TargetMultiplicity == Multiplicity.ZeroMany)
-                     {
-                        string message = "Many-to-many unidirectional associations are not yet supported in Entity Framework Core due to conflicts with change tracking proxies.";
-                        errorMessages.Add(message);
-                     }
+                     //if (store.ModelRoot().IsEFCore5Plus 
+                     // && element is UnidirectionalAssociation 
+                     // && element.SourceMultiplicity == Multiplicity.ZeroMany 
+                     // && element.TargetMultiplicity == Multiplicity.ZeroMany)
+                     //{
+                     //   string message = "Many-to-many unidirectional associations are not yet supported in Entity Framework Core due to conflicts with change tracking proxies.";
+                     //   errorMessages.Add(message);
+                     //}
                   }
 
                   break;
@@ -245,10 +235,7 @@ namespace Sawczyn.EFDesigner.EFModel
 
                case "TargetMultiplicity":
                   {
-                     Multiplicity currentTargetMultiplicity = (Multiplicity)e.NewValue;
-                     Multiplicity priorTargetMultiplicity = (Multiplicity)e.OldValue;
-
-                     // change unidirectional target cardinality
+                     // change unidirectional target cardinality for dependent types
                      // if target is dependent
                      //    target cardinality must be
                      //       EF6: 1
@@ -284,8 +271,8 @@ namespace Sawczyn.EFDesigner.EFModel
                         }
                      }
 
-                     if ((element.SourceMultiplicity == Multiplicity.One && currentTargetMultiplicity == Multiplicity.One)
-                      || (element.SourceMultiplicity == Multiplicity.ZeroOne && currentTargetMultiplicity == Multiplicity.ZeroOne))
+                     if ((element.SourceMultiplicity == Multiplicity.One && element.TargetMultiplicity == Multiplicity.One)
+                      || (element.SourceMultiplicity == Multiplicity.ZeroOne && element.TargetMultiplicity == Multiplicity.ZeroOne))
                      {
                         if (element.SourceRole != EndpointRole.NotSet)
                            element.SourceRole = EndpointRole.NotSet;
@@ -306,7 +293,7 @@ namespace Sawczyn.EFDesigner.EFModel
                         doForeignKeyFixup = true;
                      }
 
-                     if (store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6
+                     if ((store.ModelRoot().EntityFrameworkVersion == EFVersion.EF6 || store.ModelRoot().IsEFCore5Plus)
                       && element.SourceMultiplicity != Multiplicity.ZeroMany
                       && element.TargetMultiplicity != Multiplicity.ZeroMany)
                      {
@@ -314,10 +301,19 @@ namespace Sawczyn.EFDesigner.EFModel
                         doForeignKeyFixup = true;
                      }
 
-                     if (((priorTargetMultiplicity == Multiplicity.ZeroOne || priorTargetMultiplicity == Multiplicity.ZeroMany) && currentTargetMultiplicity == Multiplicity.One)
-                      || ((currentTargetMultiplicity == Multiplicity.ZeroOne || currentTargetMultiplicity == Multiplicity.ZeroMany) && priorTargetMultiplicity == Multiplicity.One))
+                     if ((((Multiplicity)e.OldValue == Multiplicity.ZeroOne || (Multiplicity)e.OldValue == Multiplicity.ZeroMany) && element.TargetMultiplicity == Multiplicity.One)
+                      || ((element.TargetMultiplicity == Multiplicity.ZeroOne || element.TargetMultiplicity == Multiplicity.ZeroMany) && (Multiplicity)e.OldValue == Multiplicity.One))
                         doForeignKeyFixup = true;
                   }
+
+                  //if (store.ModelRoot().IsEFCore5Plus 
+                  // && element is UnidirectionalAssociation 
+                  // && element.SourceMultiplicity == Multiplicity.ZeroMany 
+                  // && element.TargetMultiplicity == Multiplicity.ZeroMany)
+                  //{
+                  //   string message = "Many-to-many unidirectional associations are not yet supported in Entity Framework Core due to conflicts with change tracking proxies.";
+                  //   errorMessages.Add(message);
+                  //}
 
                   break;
 

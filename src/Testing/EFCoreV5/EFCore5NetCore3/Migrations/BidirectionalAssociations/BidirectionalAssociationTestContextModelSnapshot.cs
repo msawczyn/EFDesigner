@@ -48,7 +48,7 @@ namespace EFCore5NetCore3.Migrations.BidirectionalAssociations
                     b.Property<long>("B_Id")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("C_Id")
+                    b.Property<long?>("C_Id")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -149,19 +149,19 @@ namespace EFCore5NetCore3.Migrations.BidirectionalAssociations
                     b.HasOne("EFCore5NetCore3.Master", "A")
                         .WithOne("ToOneDetail1")
                         .HasForeignKey("EFCore5NetCore3.Detail1", "A_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("EFCore5NetCore3.Master", "B")
                         .WithOne("ToZeroOrOneDetail1")
                         .HasForeignKey("EFCore5NetCore3.Detail1", "B_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("EFCore5NetCore3.Master", "C")
                         .WithMany("ToManyDetail1")
                         .HasForeignKey("C_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("A");

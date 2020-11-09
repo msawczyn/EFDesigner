@@ -8,7 +8,7 @@
 #><#@ import namespace="System.Linq" 
 #><#@ import namespace="System.Security"
 #><#+
-      // EFDesigner v2.1.0.5
+      // EFDesigner v3.0.0.0
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -503,12 +503,9 @@
 
             if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
             {
-               //DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-               //                               ? association.SourceDeleteAction
-               //                               : association.TargetDeleteAction;
                DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                              ? association.TargetDeleteAction
-                                              : association.SourceDeleteAction;
+                                              ? association.SourceDeleteAction
+                                              : association.TargetDeleteAction;
 
                switch (deleteAction)
                {
@@ -607,12 +604,9 @@
 
             if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
             {
-               //DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-               //                               ? association.SourceDeleteAction
-               //                               : association.TargetDeleteAction;
                DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                              ? association.TargetDeleteAction
-                                              : association.SourceDeleteAction;
+                                              ? association.SourceDeleteAction
+                                              : association.TargetDeleteAction;
 
                switch (deleteAction)
                {
@@ -881,12 +875,9 @@
 
             if (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal)
             {
-               //DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-               //                               ? association.SourceDeleteAction
-               //                               : association.TargetDeleteAction;
                DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                              ? association.TargetDeleteAction
-                                              : association.SourceDeleteAction;
+                                              ? association.SourceDeleteAction
+                                              : association.TargetDeleteAction;
 
                switch (deleteAction)
                {
@@ -944,6 +935,7 @@
 
             visited.Add(association);
 
+            // TODO: fix cascade delete
             bool required = false;
 
             segments.Clear();
@@ -1011,12 +1003,10 @@
 
             if (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal)
             {
-               //DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-               //                               ? association.SourceDeleteAction
-               //                               : association.TargetDeleteAction;
                DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                              ? association.TargetDeleteAction
-                                              : association.SourceDeleteAction;
+                                              ? association.SourceDeleteAction
+                                              : association.TargetDeleteAction;
+
                switch (deleteAction)
                {
                   case DeleteAction.None:

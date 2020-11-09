@@ -280,7 +280,7 @@
             <ExternalTypeMoniker Name="OutputLocations" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="6f74414d-8d1d-4776-9e5e-76087d2be937" Description="Allow foreign key properties to be available in the POCO entities (recommended: false)" Name="ExposeForeignKeys" DisplayName="Expose Foreign Keys" Category="Code Generation">
+        <DomainProperty Id="6f74414d-8d1d-4776-9e5e-76087d2be937" Description="Allow foreign key properties to be available in the POCO entities (recommended: false)" Name="ExposeForeignKeys" DisplayName="Allow Modeled Foreign Keys" Category="Code Generation">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
