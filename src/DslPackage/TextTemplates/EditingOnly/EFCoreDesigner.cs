@@ -12,7 +12,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
    partial class EditOnly
    {
       #region Template
-      // EFDesigner v3.0.0.0
+      // EFDesigner v3.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -500,9 +500,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
             if (!string.IsNullOrEmpty(foreignKeySegment))
                segments.Add(foreignKeySegment);
 
-            if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-               segments.Add("IsRequired()");
-
             if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
             {
                DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
@@ -522,6 +519,9 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                      break;
                }
             }
+
+            if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
+               segments.Add("IsRequired()");
 
             Output(modelRoot, segments);
 
@@ -1076,6 +1076,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
       #endregion Template      
    }
 }
+
 
 
 

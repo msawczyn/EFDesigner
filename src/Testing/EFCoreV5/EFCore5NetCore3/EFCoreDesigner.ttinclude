@@ -470,19 +470,15 @@
             switch (association.SourceMultiplicity) // realized by property on target, but no property on target
             {
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                  continue;
+                  segments.Add("WithMany()");
 
-                  // not supported yet in EFCore5Plus
-                  // segments.Add($"WithMany()");
-                  // 
-                  // if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && 
-                  //    !string.IsNullOrEmpty(association.JoinTableName))
-                  // {
-                  //   // string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                  //    segments.Add($"UsingEntity(x => x.ToTable(\"{association.JoinTableName}\"))");
-                  // }
-                  //
-                  //break;
+                  if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                  {
+                     string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
+                     segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
+                  }
+
+                  break;
 
                case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                   segments.Add("WithOne()");
@@ -499,9 +495,6 @@
             string foreignKeySegment = CreateForeignKeySegmentEFCore(association, foreignKeyColumns);
             if (!string.IsNullOrEmpty(foreignKeySegment))
                segments.Add(foreignKeySegment);
-
-            if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-               segments.Add("IsRequired()");
 
             if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
             {
@@ -522,6 +515,9 @@
                      break;
                }
             }
+
+            if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
+               segments.Add("IsRequired()");
 
             Output(modelRoot, segments);
 
@@ -577,11 +573,10 @@
                case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
                   segments.Add($"WithMany(x => x.{association.SourcePropertyName})");
 
-                  if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany &&
-                     !string.IsNullOrEmpty(association.JoinTableName))
+                  if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                   {
-                     //string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                     segments.Add($"UsingEntity(x => x.ToTable(\"{association.JoinTableName}\"))");
+                     string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
+                     segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
                   }
 
                   break;
