@@ -38,16 +38,43 @@
       Output("//------------------------------------------------------------------------------");
       NL();
 
+      EFModelGenerator generator;
+
       switch (ModelRoot.EntityFrameworkVersion)
       {
          case EFVersion.EF6:
-            GenerateEF6(manager, this.ModelRoot);
+         {
+            generator = new EF6ModelGenerator(modelRoot);
             break;
+         }
+
          case EFVersion.EFCore:
-            GenerateEFCore(manager, this.ModelRoot);
+         {
+            switch ((int)modelRoot.GetEntityFrameworkPackageVersionNum())
+            {
+               case 2:
+                  generator = new EFCore2ModelGenerator(modelRoot);
+                  break;
+
+               case 3:
+                  generator = new EFCore3ModelGenerator(modelRoot);
+                  break;
+
+               case 5:
+                  generator = new EFCore5ModelGenerator(modelRoot);
+                  break;
+
+               default:
+                  throw new InvalidOperationException("Unsupported EFCore version");
+            }
             break;
+         }
+
+         default:
+            throw new InvalidOperationException("Unsupported Entity Framework version");
       }
 
+      generator.Generate(manager);
    }
 
    manager.Process(true);

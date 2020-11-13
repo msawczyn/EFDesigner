@@ -209,19 +209,47 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
-    <Compile Include="TextTemplates\Legacy\EditingOnly\EF6Designer.cs" />
-    <Compile Include="TextTemplates\Legacy\EditingOnly\EFCoreDesigner.cs" />
-    <Compile Include="TextTemplates\Legacy\EditingOnly\EFDesigner.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EF6Designer.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFCoreDesigner.cs" />
+    <Compile Include="TextTemplates\EditingOnly\EFDesigner.cs" />
+    <Content Include="TextTemplates\EF6Designer.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EF6ModelGenerator.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFCore2ModelGenerator.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFCore3ModelGenerator.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFCore5ModelGenerator.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFCoreDesigner.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFCoreModelGenerator.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFDesigner.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFModelFileManager.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="TextTemplates\EFModelGenerator.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Compile Include="TextTemplates\EditingOnly\EF6ModelGenerator.cs" />
     <Compile Include="TextTemplates\EditingOnly\EFCore2ModelGenerator.cs" />
     <Compile Include="TextTemplates\EditingOnly\EFCore3ModelGenerator.cs" />
     <Compile Include="TextTemplates\EditingOnly\EFCore5ModelGenerator.cs" />
     <Compile Include="TextTemplates\EditingOnly\EFCoreModelGenerator.cs" />
     <Compile Include="TextTemplates\EditingOnly\EFModelGenerator.cs" />
-    <Compile Include="TextTemplates\Legacy\EditingOnly\MultipleOutputHelper.cs" />
     <Compile Include="TextTemplates\EditingOnly\EFModelFileManager.cs" />
-    <Compile Include="TextTemplates\Legacy\EditingOnly\TextTransformation.cs" />
-    <Compile Include="TextTemplates\Legacy\EditingOnly\VSIntegration.cs" />
+    <Compile Include="TextTemplates\EditingOnly\VSIntegration.cs" />
     <Compile Include="VSPackage.Designer.cs" />
     <Content Include="GeneratedCode\GeneratedVSCT.vsct">
       <Generator>VsctGenerator</Generator>
@@ -367,12 +395,9 @@
     <None Include="Templates\Package.tt" />
     <Content Include="Templates\CommandSet.tt" />
     <None Include="Templates\ModelExplorer.tt" />
-    <None Include="TextTemplates\Legacy\EditingOnly\_ReadMe.md" />
-    <Content Include="TextTemplates\Legacy\EF6Designer.ttinclude" />
-    <Content Include="TextTemplates\Legacy\EFCoreDesigner.ttinclude" />
-    <Content Include="TextTemplates\Legacy\EFDesigner.ttinclude" />
-    <Content Include="TextTemplates\Legacy\MultipleOutputHelper.ttinclude" />
-    <Content Include="TextTemplates\Legacy\VSIntegration.ttinclude" />
+    <Content Include="TextTemplates\VSIntegration.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dsl\Dsl.csproj">

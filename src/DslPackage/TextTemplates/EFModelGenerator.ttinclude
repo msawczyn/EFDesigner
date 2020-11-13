@@ -1,17 +1,58 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Security;
-using System.Text;
+﻿<#@ assembly name="System.Core"
+#><#@ assembly name="System.Data.Linq"
+#><#@ assembly name="EnvDTE"
+#><#@ assembly name="System.Xml"
+#><#@ assembly name="System.Xml.Linq"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.IO"
+#><#@ import namespace="System.Linq" 
+#><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
+#><#@ import namespace="System.Diagnostics.CodeAnalysis" 
+#><#+
+      public void GenerateEF6(EFModelFileManager manager, ModelRoot modelRoot)
+      {
+         if (modelRoot.EntityFrameworkVersion != EFVersion.EF6)
+            throw new InvalidOperationException("Wrong generator selected");
 
-using Microsoft.VisualStudio.TextTemplating;
+         EFModelGenerator generator = new EF6ModelGenerator(modelRoot);
+         generator.Generate(manager);
+      }
 
-namespace Sawczyn.EFDesigner.EFModel.EditingOnly
-{
-   // ReSharper disable once UnusedMember.Global
-   public partial class HostingEnvironment
-   {
-      #region Template
+      public void GenerateEFCore(EFModelFileManager manager, ModelRoot modelRoot)
+      {
+         if (modelRoot.EntityFrameworkVersion != EFVersion.EFCore)
+            throw new InvalidOperationException("Wrong generator selected");
+
+         EFModelGenerator generator;
+         switch ((int)modelRoot.GetEntityFrameworkPackageVersionNum())
+         {
+            case 2:
+               generator = new EFCore2ModelGenerator(modelRoot);
+
+               break;
+
+            case 3:
+               generator = new EFCore3ModelGenerator(modelRoot);
+
+               break;
+
+            case 5:
+               generator = new EFCore5ModelGenerator(modelRoot);
+
+               break;
+
+            default:
+               throw new InvalidOperationException("Unsupported EFCore version");
+         }
+
+         generator.Generate(manager);
+      }
+
+      public class Manager : EFModelFileManager
+      {
+         protected Manager(ITextTemplatingEngineHost host, StringBuilder template) : base(host, template) { }
+      }
+
       public abstract class EFModelGenerator
       {
          public abstract void Generate(EFModelFileManager efModelFileManager);
@@ -1071,7 +1112,4 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return string.Join(".", nsParts);
          }
       }
-      #endregion
-   }
-
-}
+#>

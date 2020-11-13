@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\changelog.txt = ..\changelog.txt
 		..\README.md = ..\README.md
 		..\UpdateTemplates.ps1 = ..\UpdateTemplates.ps1
-		UpdateVersion.ps1 = UpdateVersion.ps1
+		..\UpdateVersion.ps1 = ..\UpdateVersion.ps1
 		..\VSMarketplace blurb.md = ..\VSMarketplace blurb.md
 	EndProjectSection
 EndProject
