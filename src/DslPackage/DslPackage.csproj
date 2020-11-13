@@ -209,9 +209,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationExtensionRegistrar.tt</DependentUpon>
     </Compile>
-    <Compile Include="TextTemplates\EditingOnly\EF6Designer.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFCoreDesigner.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFDesigner.cs" />
     <Content Include="TextTemplates\EF6Designer.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -242,14 +239,6 @@
     <Content Include="TextTemplates\EFModelGenerator.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Compile Include="TextTemplates\EditingOnly\EF6ModelGenerator.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFCore2ModelGenerator.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFCore3ModelGenerator.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFCore5ModelGenerator.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFCoreModelGenerator.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFModelGenerator.cs" />
-    <Compile Include="TextTemplates\EditingOnly\EFModelFileManager.cs" />
-    <Compile Include="TextTemplates\EditingOnly\VSIntegration.cs" />
     <Compile Include="VSPackage.Designer.cs" />
     <Content Include="GeneratedCode\GeneratedVSCT.vsct">
       <Generator>VsctGenerator</Generator>
@@ -395,6 +384,9 @@
     <None Include="Templates\Package.tt" />
     <Content Include="Templates\CommandSet.tt" />
     <None Include="Templates\ModelExplorer.tt" />
+    <Content Include="TextTemplates\MultipleOutputHelper.ttinclude">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="TextTemplates\VSIntegration.ttinclude">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

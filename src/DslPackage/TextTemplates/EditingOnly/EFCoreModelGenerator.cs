@@ -1085,6 +1085,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             DefineBidirectionalAssociations(modelClass, visited, segments, foreignKeyColumns, declaredShadowProperties);
          }
       }
-      #endregion
+      #endregion Template
    }
 }

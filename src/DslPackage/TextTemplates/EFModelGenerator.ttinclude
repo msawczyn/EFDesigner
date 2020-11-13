@@ -1,4 +1,12 @@
-﻿<#@ assembly name="System.Core"
+<#@ include file="EF6ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore2ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore3ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore5ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCoreModelGenerator.ttinclude" once="true"
+#><#@ include file="EFModelFileManager.ttinclude" once="true"
+#><#@ include file="EFModelGenerator.ttinclude" once="true"
+#><#@ include file="VSIntegrations.ttinclude" once="true"
+#><#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
@@ -6,53 +14,8 @@
 #><#@ import namespace="System.Collections.Generic"
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" 
-#><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
-#><#@ import namespace="System.Diagnostics.CodeAnalysis" 
+#><#@ import namespace="System.Security"
 #><#+
-      public void GenerateEF6(EFModelFileManager manager, ModelRoot modelRoot)
-      {
-         if (modelRoot.EntityFrameworkVersion != EFVersion.EF6)
-            throw new InvalidOperationException("Wrong generator selected");
-
-         EFModelGenerator generator = new EF6ModelGenerator(modelRoot);
-         generator.Generate(manager);
-      }
-
-      public void GenerateEFCore(EFModelFileManager manager, ModelRoot modelRoot)
-      {
-         if (modelRoot.EntityFrameworkVersion != EFVersion.EFCore)
-            throw new InvalidOperationException("Wrong generator selected");
-
-         EFModelGenerator generator;
-         switch ((int)modelRoot.GetEntityFrameworkPackageVersionNum())
-         {
-            case 2:
-               generator = new EFCore2ModelGenerator(modelRoot);
-
-               break;
-
-            case 3:
-               generator = new EFCore3ModelGenerator(modelRoot);
-
-               break;
-
-            case 5:
-               generator = new EFCore5ModelGenerator(modelRoot);
-
-               break;
-
-            default:
-               throw new InvalidOperationException("Unsupported EFCore version");
-         }
-
-         generator.Generate(manager);
-      }
-
-      public class Manager : EFModelFileManager
-      {
-         protected Manager(ITextTemplatingEngineHost host, StringBuilder template) : base(host, template) { }
-      }
-
       public abstract class EFModelGenerator
       {
          public abstract void Generate(EFModelFileManager efModelFileManager);
@@ -1112,4 +1075,5 @@
             return string.Join(".", nsParts);
          }
       }
+      
 #>

@@ -1,4 +1,12 @@
-﻿<#@ assembly name="System.Core"
+<#@ include file="EF6ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore2ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore3ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore5ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCoreModelGenerator.ttinclude" once="true"
+#><#@ include file="EFModelFileManager.ttinclude" once="true"
+#><#@ include file="EFModelGenerator.ttinclude" once="true"
+#><#@ include file="VSIntegrations.ttinclude" once="true"
+#><#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
@@ -6,8 +14,7 @@
 #><#@ import namespace="System.Collections.Generic"
 #><#@ import namespace="System.IO"
 #><#@ import namespace="System.Linq" 
-#><#@ import namespace="System.Data.Entity.Design.PluralizationServices" 
-#><#@ import namespace="System.Diagnostics.CodeAnalysis" 
+#><#@ import namespace="System.Security"
 #><#+
       // EFDesigner v3.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
@@ -786,4 +793,5 @@
             return $"HasForeignKey(p => {columnNames})";
          }
       }
+      
 #>

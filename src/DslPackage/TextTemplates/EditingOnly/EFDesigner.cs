@@ -68,6 +68,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       {
          protected Manager(ITextTemplatingEngineHost host, StringBuilder template) : base(host, template) { }
       }
-      #endregion
+      #endregion Template
    }
 }

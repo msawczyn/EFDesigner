@@ -787,7 +787,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return $"HasForeignKey(p => {columnNames})";
          }
       }
-      #endregion
+      #endregion Template
    }
 
 }

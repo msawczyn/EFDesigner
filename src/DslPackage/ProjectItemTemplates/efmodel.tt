@@ -3,11 +3,7 @@
 <#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" #>  
 <#@ assembly name="System.Data.Entity.Design.dll" 
 #><#@ assembly name="EnvDTE"
-#><#@ include file="MultipleOutputHelper.ttinclude" once="true"
-#><#@ include file="VSIntegration.ttinclude" once="true"
 #><#@ include file="EFDesigner.ttinclude" once="true"
-#><#@ include file="EF6Designer.ttinclude" once="true"
-#><#@ include file="EFCoreDesigner.ttinclude" once="true"
 #><#@ output extension=".cs" 
 #><#@ import namespace="System.Linq" 
 #><#@ import namespace="System" 

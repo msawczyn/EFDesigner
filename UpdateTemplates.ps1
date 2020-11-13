@@ -1,6 +1,14 @@
-$search = '(?s)^.+#region Template[\r\n]+(.+)#endregion Template.+$'
+$search = '(?s)^.*#region Template[\r\n]+(.+)#endregion Template.*$'
 
-$replace = '<#@ assembly name="System.Core"
+$replace = '<#@ include file="EF6ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore2ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore3ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCore5ModelGenerator.ttinclude" once="true"
+#><#@ include file="EFCoreModelGenerator.ttinclude" once="true"
+#><#@ include file="EFModelFileManager.ttinclude" once="true"
+#><#@ include file="EFModelGenerator.ttinclude" once="true"
+#><#@ include file="VSIntegrations.ttinclude" once="true"
+#><#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
@@ -24,7 +32,8 @@ $files =
    'EFCoreModelGenerator',
    'EFModelFileManager',
    'EFModelGenerator',
-   'VSIntegrations'
+   'VSIntegration',
+   'MultipleOutputHelper'
    
 foreach ($f in $files) {
    [regex]::Replace((get-content src\DslPackage\TextTemplates\EditingOnly\$f.cs -Raw), $search, $replace) | set-content src\DslPackage\TextTemplates\$f.ttinclude

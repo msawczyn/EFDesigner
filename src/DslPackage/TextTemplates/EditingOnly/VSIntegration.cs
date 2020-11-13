@@ -174,6 +174,6 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                yield return subProject;
          }
       }
-      #endregion
+      #endregion Template
    }
 }

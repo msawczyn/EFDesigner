@@ -20,7 +20,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return null;
          }
       }
-      #endregion
+      #endregion Template
    }
 
 }

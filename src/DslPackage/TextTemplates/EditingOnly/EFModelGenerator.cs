@@ -1071,7 +1071,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return string.Join(".", nsParts);
          }
       }
-      #endregion
+      #endregion Template
    }
 
 }
