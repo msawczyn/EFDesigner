@@ -6,13 +6,14 @@ using System.Linq;
 
 using EnvDTE;
 
-namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
+namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 {
    [SuppressMessage("ReSharper", "UnusedMember.Local")]
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-   public partial class HostingEnvironment
+   public partial class GeneratedTextTransformation
    {
       #region Template
+
       // EFDesigner v3.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
@@ -116,7 +117,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          return targetProjectItem;
       }
 
-      public EnvDTE.DTE GetDTE()
+      public DTE GetDTE()
       {
          IServiceProvider serviceProvider = (IServiceProvider)Host;
 
@@ -141,11 +142,13 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
          try
          {
             FileInfo info = new FileInfo(fullProjectName);
+
             return info.Directory != null ? info.Directory.FullName : string.Empty;
          }
          catch
          {
             WriteLine("// Project " + fullProjectName + " excluded.");
+
             return string.Empty;
          }
       }
@@ -174,6 +177,7 @@ namespace Sawczyn.EFDesigner.EFModel.DslPackage.TextTemplates.EditingOnly
                yield return subProject;
          }
       }
+
       #endregion Template
    }
 }

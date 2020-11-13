@@ -5,16 +5,23 @@
 #><#@ include file="EFCoreModelGenerator.ttinclude" once="true"
 #><#@ include file="EFModelFileManager.ttinclude" once="true"
 #><#@ include file="EFModelGenerator.ttinclude" once="true"
-#><#@ include file="VSIntegrations.ttinclude" once="true"
+#><#@ include file="VSIntegration.ttinclude" once="true"
 #><#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
 #><#@ assembly name="System.Xml.Linq"
-#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System"
 #><#@ import namespace="System.IO"
-#><#@ import namespace="System.Linq" 
+#><#@ import namespace="System.Globalization"
+#><#@ import namespace="System.Linq"
 #><#@ import namespace="System.Security"
+#><#@ import namespace="System.Text"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.Diagnostics.CodeAnalysis"
+#><#@ import namespace="EnvDTE"
+#><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
+#><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
       // EFDesigner v3.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
@@ -22,13 +29,15 @@
 
       public class EFCore5ModelGenerator : EFCoreModelGenerator
       {
-         public EFCore5ModelGenerator(ModelRoot modelRoot) : base(modelRoot) { }
+         public EFCore5ModelGenerator(GeneratedTextTransformation host) : base(host) { }
 
-         public override void Generate(EFModelFileManager efModelFileManager) { }
+         public override void Generate(Manager efModelFileManager) { }
+
          protected override List<string> GetAdditionalUsingStatements()
          {
             return null;
          }
       }
+
       
 #>

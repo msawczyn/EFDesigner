@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 using EnvDTE;
@@ -12,14 +12,15 @@ using Microsoft.VisualStudio.TextTemplating;
 namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 {
    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-   public partial class HostingEnvironment
+   public partial class GeneratedTextTransformation
    {
       #region Template
+
       // EFDesigner v3.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
-      public class EFModelFileManager
+      public class Manager
       {
          private readonly List<Block> files = new List<Block>();
          private readonly Block footer = new Block();
@@ -30,14 +31,14 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
          private Block currentBlock;
 
-         protected EFModelFileManager(ITextTemplatingEngineHost host, StringBuilder template)
+         private string fileNameMarker;
+
+         protected Manager(ITextTemplatingEngineHost host, StringBuilder template)
          {
             this.host = host;
             this.template = template;
-            this.fileNameMarker = ".generated";
+            fileNameMarker = ".generated";
          }
-
-         private string fileNameMarker;
 
          public string FileNameMarker
          {
@@ -81,11 +82,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
-         public static EFModelFileManager Create(ITextTemplatingEngineHost host, StringBuilder template)
+         public static Manager Create(ITextTemplatingEngineHost host, StringBuilder template)
          {
             return host is IServiceProvider
                       ? new VSManager(host, template)
-                      : new EFModelFileManager(host, template);
+                      : new Manager(host, template);
          }
 
          protected virtual void CreateFile(string fileName, string content)
@@ -172,7 +173,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      , Length;
          }
 
-         private class VSManager : EFModelFileManager
+         private class VSManager : Manager
          {
             private readonly DTE dte;
             private readonly ProjectItem templateProjectItem;
@@ -361,7 +362,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
       }
+
       #endregion Template
    }
-
 }

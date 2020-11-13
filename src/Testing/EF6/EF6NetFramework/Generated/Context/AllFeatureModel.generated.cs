@@ -4,6 +4,12 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor v3.0.0.1
+//     Source:                    https://github.com/msawczyn/EFDesigner
+//     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
+//     Documentation:             https://msawczyn.github.io/EFDesigner/
+//     License (MIT):             https://github.com/msawczyn/EFDesigner/blob/master/LICENSE
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -198,7 +204,7 @@ namespace Testing
 
          modelBuilder.Entity<global::Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Master>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.Master>().HasMany(x => x.Children).WithRequired().Map(x => x.MapKey("Master.Children_Id"));
+         modelBuilder.Entity<global::Testing.Master>().HasMany(x => x.Children).WithRequired().Map(x => x.MapKey("Master_Children_Id"));
 
          modelBuilder.Entity<global::Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -227,7 +233,7 @@ namespace Testing
          modelBuilder.Entity<global::Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.UParentRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Testing.UParentRequired>().HasRequired(x => x.UChildRequired).WithRequiredDependent();
-         modelBuilder.Entity<global::Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithRequired().Map(x => x.MapKey("UParentRequired.UChildCollection_Id"));
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithRequired().Map(x => x.MapKey("UParentRequired_UChildCollection_Id"));
          modelBuilder.Entity<global::Testing.UParentRequired>().HasOptional(x => x.UChildOptional).WithRequired().WillCascadeOnDelete(true);
 
          OnModelCreatedImpl(modelBuilder);

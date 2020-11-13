@@ -2,7 +2,7 @@
 
 namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 {
-   public partial class HostingEnvironment
+   public partial class GeneratedTextTransformation
    {
       #region Template
       // EFDesigner v3.0.0.1
@@ -11,15 +11,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
       public class EFCore3ModelGenerator : EFCoreModelGenerator
       {
-         public EFCore3ModelGenerator(ModelRoot modelRoot) : base(modelRoot) { }
+         public EFCore3ModelGenerator(GeneratedTextTransformation host) : base(host) { }
 
-         public override void Generate(EFModelFileManager efModelFileManager) { }
+         public override void Generate(Manager efModelFileManager) { }
+
          protected override List<string> GetAdditionalUsingStatements()
          {
             return null;
          }
       }
+
       #endregion Template
    }
-
 }

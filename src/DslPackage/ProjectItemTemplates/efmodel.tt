@@ -40,28 +40,25 @@
       {
          case EFVersion.EF6:
          {
-            generator = new EF6ModelGenerator(modelRoot);
+            generator = new EF6ModelGenerator(this);
             break;
          }
 
          case EFVersion.EFCore:
          {
-            switch ((int)modelRoot.GetEntityFrameworkPackageVersionNum())
+            switch ((int)ModelRoot.GetEntityFrameworkPackageVersionNum())
             {
                case 2:
-                  generator = new EFCore2ModelGenerator(modelRoot);
+                  generator = new EFCore2ModelGenerator(this);
                   break;
 
                case 3:
-                  generator = new EFCore3ModelGenerator(modelRoot);
-                  break;
-
-               case 5:
-                  generator = new EFCore5ModelGenerator(modelRoot);
+                  generator = new EFCore3ModelGenerator(this);
                   break;
 
                default:
-                  throw new InvalidOperationException("Unsupported EFCore version");
+                  generator = new EFCore5ModelGenerator(this);
+                  break;
             }
             break;
          }

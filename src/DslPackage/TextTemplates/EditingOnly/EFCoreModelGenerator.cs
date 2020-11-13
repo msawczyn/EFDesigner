@@ -8,16 +8,17 @@ using System.Linq;
 
 namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 {
-   public partial class HostingEnvironment
+   public partial class GeneratedTextTransformation
    {
       #region Template
+
       // EFDesigner v3.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
       public abstract class EFCoreModelGenerator : EFModelGenerator
       {
-         protected EFCoreModelGenerator(ModelRoot modelRoot) : base(modelRoot) { }
+         protected EFCoreModelGenerator(GeneratedTextTransformation host) : base(host) { }
 
          protected string[] SpatialTypes
          {
@@ -78,7 +79,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (string.IsNullOrEmpty(columnName))
                return null;
 
-            bool useGeneric = association.SourceMultiplicity != Multiplicity.ZeroMany && association.TargetMultiplicity != Multiplicity.ZeroMany;
+            bool useGeneric = association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany;
 
             return useGeneric
                       ? $"HasForeignKey<{dependent.FullName}>({columnName})"
@@ -109,18 +110,18 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.TargetMultiplicity) // realized by property on source
                {
-                  case Multiplicity.ZeroMany:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
                      segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
                      required = (modelClass == association.Principal);
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
 
                      break;
@@ -128,10 +129,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.SourceMultiplicity) // realized by property on target, but no property on target
                {
-                  case Multiplicity.ZeroMany:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
                      segments.Add($"WithMany(x => x.{association.SourcePropertyName})");
 
-                     if (association.TargetMultiplicity == Multiplicity.ZeroMany)
+                     if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
                         string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
                         segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
@@ -139,13 +140,13 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add($"WithOne(x => x.{association.SourcePropertyName})");
                      required = (modelClass == association.Principal);
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add($"WithOne(x => x.{association.SourcePropertyName})");
 
                      break;
@@ -156,7 +157,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (!string.IsNullOrEmpty(foreignKeySegment))
                   segments.Add(foreignKeySegment);
 
-               if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One))
+               if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
                   segments.Add("IsRequired()");
 
                if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
@@ -181,7 +182,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                Output(segments);
 
-               if (modelClass.ModelRoot.IsEFCore5Plus && association.SourceMultiplicity == Multiplicity.One && association.TargetMultiplicity == Multiplicity.One)
+               if (modelClass.ModelRoot.IsEFCore5Plus && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One && association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                   Output($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName}).IsRequired();");
             }
          }
@@ -210,18 +211,18 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.TargetMultiplicity) // realized by property on source
                {
-                  case Multiplicity.ZeroMany:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
                      segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
                      required = (modelClass == association.Principal);
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
 
                      break;
@@ -229,10 +230,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.SourceMultiplicity) // realized by property on target, but no property on target
                {
-                  case Multiplicity.ZeroMany:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
                      segments.Add("WithMany()");
 
-                     if (association.TargetMultiplicity == Multiplicity.ZeroMany)
+                     if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
                         string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
                         segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
@@ -240,13 +241,13 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add("WithOne()");
                      required = (modelClass == association.Principal);
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add("WithOne()");
 
                      break;
@@ -277,17 +278,17 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   }
                }
 
-               if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One))
+               if (required && (modelClass.ModelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
                   segments.Add("IsRequired()");
 
                Output(segments);
 
-               if (modelClass.ModelRoot.IsEFCore5Plus && association.SourceMultiplicity == Multiplicity.One && association.TargetMultiplicity == Multiplicity.One)
+               if (modelClass.ModelRoot.IsEFCore5Plus && association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One && association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                   Output($"modelBuilder.Entity<{modelClass.FullName}>().Navigation(x => x.{association.TargetPropertyName}).IsRequired();");
             }
          }
 
-         public override void Generate(EFModelFileManager manager)
+         public override void Generate(Manager manager)
          {
             // Entities
             string fileNameMarker = string.IsNullOrEmpty(modelRoot.FileNameMarker) ? string.Empty : $".{modelRoot.FileNameMarker}";
@@ -674,21 +675,21 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.TargetMultiplicity) // realized by property on source
                {
-                  case Multiplicity.ZeroMany:
-                     if (modelRoot.IsEFCore5Plus || association.SourceMultiplicity != Multiplicity.ZeroMany)
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+                     if (modelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
                      else
                         continue;
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
                      required = (modelClass == association.Principal);
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
 
                      break;
@@ -704,8 +705,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.SourceMultiplicity) // realized by shadow property on target
                {
-                  case Multiplicity.ZeroMany:
-                     if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Multiplicity.ZeroMany)
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+                     if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
                         segments.Add("WithMany()");
 
@@ -716,10 +717,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add("WithOne()");
 
-                     segments.Add(association.TargetMultiplicity != Multiplicity.ZeroMany
+                     segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
                                      ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
                                      : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
@@ -727,10 +728,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add("WithOne()");
 
-                     segments.Add(association.TargetMultiplicity != Multiplicity.ZeroMany
+                     segments.Add(association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
                                      ? $"HasForeignKey<{association.Source.FullName}>(\"{columnPrefix}{association.TargetPropertyName}_Id\")"
                                      : $"HasForeignKey(\"{columnPrefix}{association.TargetPropertyName}_Id\")");
 
@@ -766,7 +767,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                Output(segments);
 
-               if (!association.TargetAutoProperty && association.TargetMultiplicity != Multiplicity.ZeroMany)
+               if (!association.TargetAutoProperty && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                {
                   segments.Clear();
 
@@ -814,21 +815,21 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.SourceMultiplicity) // realized by property on target
                {
-                  case Multiplicity.ZeroMany:
-                     if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Multiplicity.ZeroMany)
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+                     if (modelRoot.IsEFCore5Plus || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add($"HasMany(x => x.{association.SourcePropertyName})");
                      else
                         continue;
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add($"HasOne(x => x.{association.SourcePropertyName})");
                      required = (modelClass == association.Principal);
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add($"HasOne(x => x.{association.SourcePropertyName})");
 
                      break;
@@ -840,21 +841,21 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                switch (association.TargetMultiplicity) // realized by property on source
                {
-                  case Multiplicity.ZeroMany:
-                     if (modelRoot.IsEFCore5Plus || association.SourceMultiplicity != Multiplicity.ZeroMany)
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
+                     if (modelRoot.IsEFCore5Plus || association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         segments.Add($"WithMany(x => x.{association.TargetPropertyName})");
                      else
                         continue;
 
                      break;
 
-                  case Multiplicity.One:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                      segments.Add($"WithOne(x => x.{association.TargetPropertyName})");
                      required = (modelClass == association.Principal);
 
                      break;
 
-                  case Multiplicity.ZeroOne:
+                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                      segments.Add($"WithOne(x => x.{association.TargetPropertyName})");
 
                      break;
@@ -1085,6 +1086,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             DefineBidirectionalAssociations(modelClass, visited, segments, foreignKeyColumns, declaredShadowProperties);
          }
       }
+
       #endregion Template
    }
 }

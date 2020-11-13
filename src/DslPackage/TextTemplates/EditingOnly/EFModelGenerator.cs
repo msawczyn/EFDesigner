@@ -1,28 +1,91 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System;
 using System.Security;
-using System.Text;
-
-using Microsoft.VisualStudio.TextTemplating;
+// ReSharper disable RedundantNameQualifier
 
 namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 {
    // ReSharper disable once UnusedMember.Global
-   public partial class HostingEnvironment
+   public partial class GeneratedTextTransformation
    {
       #region Template
+      protected void NL()
+      {
+         WriteLine(string.Empty);
+      }
+
+      protected void Output(List<string> segments)
+      {
+         if (ModelRoot.ChopMethodChains)
+            OutputChopped(segments);
+         else
+            Output(string.Join(".", segments) + ";");
+      }
+
+      protected void Output(string text)
+      {
+         if (text == "}")
+            PopIndent();
+
+         WriteLine(text);
+
+         if (text == "{")
+            PushIndent(ModelRoot.UseTabs ? "\t" : "   ");
+      }
+
+      protected void Output(string template, params object[] items)
+      {
+         string text = string.Format(template, items);
+         Output(text);
+      }
+
+      protected void OutputChopped(IEnumerable<string> segments)
+      {
+         string[] segmentArray = segments?.ToArray() ?? new string[0];
+
+         if (!segmentArray.Any())
+            return;
+
+         int indent = segmentArray[0].IndexOf('.');
+
+         if (indent == -1)
+         {
+            if (segmentArray.Length > 1)
+            {
+               segmentArray[0] = $"{segmentArray[0]}.{segmentArray[1]}";
+               indent = segmentArray[0].IndexOf('.');
+               segmentArray = segmentArray.Where((source, index) => index != 1).ToArray();
+            }
+         }
+
+         for (int index = 1; index < segmentArray.Length; ++index)
+            segmentArray[index] = $"{new string(' ', indent)}.{segmentArray[index]}";
+
+         if (!segmentArray[segmentArray.Length - 1].Trim().EndsWith(";"))
+            segmentArray[segmentArray.Length - 1] = segmentArray[segmentArray.Length - 1] + ";";
+
+         foreach (string segment in segmentArray)
+            Output(segment);
+      }
+
       public abstract class EFModelGenerator
       {
-         public abstract void Generate(EFModelFileManager efModelFileManager);
-         protected abstract List<string> GetAdditionalUsingStatements();
+         protected EFModelGenerator(GeneratedTextTransformation host)
+         {
+            this.host = host;
+            modelRoot = host.ModelRoot;
+         }
 
          protected ModelRoot modelRoot { get; set; }
+         protected GeneratedTextTransformation host { get; set; }
 
-         protected EFModelGenerator(ModelRoot modelRoot)
-         {
-            this.modelRoot = modelRoot;
-         }
+         // implementations delegated to the surrounding GeneratedTextTransformation for backward compatability
+         protected void NL() { host.NL(); }
+         protected void Output(List<string> segments) { host.Output(segments); }
+         protected void Output(string text) { host.Output(text); }
+         protected void Output(string template, params object[] items) { host.Output(template, items); }
+         protected void OutputChopped(IEnumerable<string> segments) { host.OutputChopped(segments); }
 
          protected static string[] NonNullableTypes
          {
@@ -52,24 +115,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
-         protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
-         {
-            string shadowNameBase = association.SourceRole == EndpointRole.Dependent
-                                       ? association.TargetPropertyName
-                                       : association is BidirectionalAssociation b
-                                          ? b.SourcePropertyName
-                                          : $"{association.Source.Name}_{association.TargetPropertyName}";
-
-            string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
-
-            int index = 0;
-
-            while (foreignKeyColumns.Contains(shadowPropertyName))
-               shadowPropertyName = $"{shadowNameBase}{++index}_{identityAttribute.Name}";
-
-            return shadowPropertyName;
-         }
-
          protected bool AllSuperclassesAreNullOrAbstract(ModelClass modelClass)
          {
             ModelClass superClass = modelClass.Superclass;
@@ -94,6 +139,24 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
+         protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
+         {
+            string shadowNameBase = association.SourceRole == EndpointRole.Dependent
+                                       ? association.TargetPropertyName
+                                       : association is BidirectionalAssociation b
+                                          ? b.SourcePropertyName
+                                          : $"{association.Source.Name}_{association.TargetPropertyName}";
+
+            string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
+
+            int index = 0;
+
+            while (foreignKeyColumns.Contains(shadowPropertyName))
+               shadowPropertyName = $"{shadowNameBase}{++index}_{identityAttribute.Name}";
+
+            return shadowPropertyName;
+         }
+
          protected void EndNamespace(string ns)
          {
             if (!string.IsNullOrEmpty(ns))
@@ -114,6 +177,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                       ? $"{modelEnum.FullName}.{parts.Last()}"
                       : typeName;
          }
+
+         public abstract void Generate(Manager efModelFileManager);
 
          protected void GeneratePropertyAnnotations(ModelAttribute modelAttribute)
          {
@@ -146,6 +211,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (!string.IsNullOrWhiteSpace(modelAttribute.DisplayText))
                Output($"[Display(Name=\"{modelAttribute.DisplayText}\")]");
          }
+
+         protected abstract List<string> GetAdditionalUsingStatements();
 
          protected string GetFullContainerName(string containerType, string payloadType)
          {
@@ -200,6 +267,15 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return result;
          }
 
+         protected string GetMigrationNamespace()
+         {
+            List<string> nsParts = modelRoot.Namespace.Split('.').ToList();
+            nsParts = nsParts.Take(nsParts.Count - 1).ToList();
+            nsParts.Add("Migrations");
+
+            return string.Join(".", nsParts);
+         }
+
          protected List<string> GetRequiredParameterNames(ModelClass modelClass, bool? publicOnly = null)
          {
             List<string> requiredParameterNames = modelClass.AllRequiredAttributes
@@ -211,8 +287,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                             .ToList();
 
             requiredParameterNames.AddRange(modelClass.AllRequiredNavigationProperties()
-                                                      .Where(np => np.AssociationObject.SourceMultiplicity != Multiplicity.One
-                                                                || np.AssociationObject.TargetMultiplicity != Multiplicity.One)
+                                                      .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                                || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                       .Select(x => x.PropertyName.ToLower()));
 
             requiredParameterNames.AddRange(modelClass.AllRequiredAttributes
@@ -240,8 +316,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                // don't use 1..1 associations in constructor parameters. Becomes a Catch-22 scenario.
                requiredParameters.AddRange(modelClass.AllRequiredNavigationProperties()
-                                                     .Where(np => np.AssociationObject.SourceMultiplicity != Multiplicity.One
-                                                               || np.AssociationObject.TargetMultiplicity != Multiplicity.One)
+                                                     .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                               || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                      .Select(x => $"{x.ClassType.FullName} {x.PropertyName.ToLower()}"));
             }
 
@@ -274,65 +350,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected bool IsNullable(ModelAttribute modelAttribute)
          {
             return !modelAttribute.Required && !modelAttribute.IsIdentity && !modelAttribute.IsConcurrencyToken && !NonNullableTypes.Contains(modelAttribute.Type);
-         }
-
-         protected void NL()
-         {
-            WriteLine(string.Empty);
-         }
-
-         protected void Output(List<string> segments)
-         {
-            if (modelRoot.ChopMethodChains)
-               OutputChopped(segments);
-            else
-               Output(string.Join(".", segments) + ";");
-         }
-
-         protected void Output(string text)
-         {
-            if (text == "}")
-               PopIndent();
-
-            WriteLine(text);
-
-            if (text == "{")
-               PushIndent(modelRoot.UseTabs ? "\t" : "   ");
-         }
-
-         protected void Output(string template, params object[] items)
-         {
-            string text = string.Format(template, items);
-            Output(text);
-         }
-
-         protected void OutputChopped(IEnumerable<string> segments)
-         {
-            string[] segmentArray = segments?.ToArray() ?? new string[0];
-
-            if (!segmentArray.Any())
-               return;
-
-            int indent = segmentArray[0].IndexOf('.');
-
-            if (indent == -1)
-            {
-               if (segmentArray.Length > 1)
-               {
-                  segmentArray[0] = $"{segmentArray[0]}.{segmentArray[1]}";
-                  indent = segmentArray[0].IndexOf('.');
-                  segmentArray = segmentArray.Where((source, index) => index != 1).ToArray();
-               }
-            }
-
-            for (int index = 1; index < segmentArray.Length; ++index)
-               segmentArray[index] = $"{new string(' ', indent)}.{segmentArray[index]}";
-
-            if (!segmentArray[segmentArray.Length - 1].Trim().EndsWith(";"))
-               segmentArray[segmentArray.Length - 1] = segmentArray[segmentArray.Length - 1] + ";";
-
-            foreach (string segment in segmentArray)
-               Output(segment);
          }
 
          protected void WriteClass(ModelClass modelClass)
@@ -454,8 +471,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
 
             bool hasOneToOneAssociations = modelClass.AllRequiredNavigationProperties()
-                                                     .Any(np => np.AssociationObject.SourceMultiplicity == Multiplicity.One
-                                                             && np.AssociationObject.TargetMultiplicity != Multiplicity.One);
+                                                     .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                             && np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One);
 
             string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
                                    ? "protected"
@@ -485,8 +502,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (hasOneToOneAssociations)
             {
                List<Association> oneToOneAssociations = modelClass.AllRequiredNavigationProperties()
-                                                                  .Where(np => np.AssociationObject.SourceMultiplicity == Multiplicity.One
-                                                                            && np.AssociationObject.TargetMultiplicity == Multiplicity.One)
+                                                                  .Where(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                                            && np.AssociationObject.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
                                                                   .Select(np => np.AssociationObject)
                                                                   .ToList();
 
@@ -600,8 +617,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                }
 
                foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
-                                                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Multiplicity.One
-                                                                                             || np.AssociationObject.TargetMultiplicity != Multiplicity.One))
+                                                                                   .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                                                             || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
                {
                   string parameterName = requiredNavigationProperty.PropertyName.ToLower();
                   Output($"if ({parameterName} == null) throw new ArgumentNullException(nameof({parameterName}));");
@@ -612,7 +629,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   {
                      UnidirectionalAssociation association = requiredNavigationProperty.AssociationObject as UnidirectionalAssociation;
 
-                     Output(association.TargetMultiplicity == Multiplicity.ZeroMany
+                     Output(association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
                                ? $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName}.Add(this);"
                                : $"{requiredNavigationProperty.PropertyName}.{association.TargetPropertyName} = this;");
                   }
@@ -677,9 +694,28 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             // TODO: Add comment if available
             foreach (NavigationProperty requiredNavigationProperty in modelClass.AllRequiredNavigationProperties()
-                                                                                .Where(np => np.AssociationObject.SourceMultiplicity != Multiplicity.One
-                                                                                          || np.AssociationObject.TargetMultiplicity != Multiplicity.One))
+                                                                                .Where(np => np.AssociationObject.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
+                                                                                          || np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
                Output($@"/// <param name=""{requiredNavigationProperty.PropertyName.ToLower()}""></param>");
+         }
+
+         protected void WriteDbContextComments()
+         {
+            if (!string.IsNullOrEmpty(modelRoot.Summary))
+            {
+               Output("/// <summary>");
+               WriteCommentBody(modelRoot.Summary);
+               Output("/// </summary>");
+
+               if (!string.IsNullOrEmpty(modelRoot.Description))
+               {
+                  Output("/// <remarks>");
+                  WriteCommentBody(modelRoot.Description);
+                  Output("/// </remarks>");
+               }
+            }
+            else
+               Output("/// <inheritdoc/>");
          }
 
          protected void WriteDefaultConstructorBody(ModelClass modelClass)
@@ -1042,36 +1078,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                NL();
             }
          }
-
-         protected void WriteDbContextComments()
-         {
-            if (!string.IsNullOrEmpty(modelRoot.Summary))
-            {
-               Output("/// <summary>");
-               WriteCommentBody(modelRoot.Summary);
-               Output("/// </summary>");
-
-               if (!string.IsNullOrEmpty(modelRoot.Description))
-               {
-                  Output("/// <remarks>");
-                  WriteCommentBody(modelRoot.Description);
-                  Output("/// </remarks>");
-               }
-            }
-            else
-               Output("/// <inheritdoc/>");
-         }
-
-         protected string GetMigrationNamespace()
-         {
-            List<string> nsParts = modelRoot.Namespace.Split('.').ToList();
-            nsParts = nsParts.Take(nsParts.Count - 1).ToList();
-            nsParts.Add("Migrations");
-
-            return string.Join(".", nsParts);
-         }
       }
+
       #endregion Template
    }
-
 }

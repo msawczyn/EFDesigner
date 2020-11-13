@@ -4,6 +4,12 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor v3.0.0.1
+//     Source:                    https://github.com/msawczyn/EFDesigner
+//     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
+//     Documentation:             https://msawczyn.github.io/EFDesigner/
+//     License (MIT):             https://github.com/msawczyn/EFDesigner/blob/master/LICENSE
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -109,14 +115,56 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      protected global::Testing.BChild _bChildRequired;
+      partial void SetBChildRequired(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+      partial void GetBChildRequired(ref global::Testing.BChild result);
+
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.BChild BChildRequired { get; set; }
+      public virtual global::Testing.BChild BChildRequired
+      {
+         get
+         {
+            global::Testing.BChild value = _bChildRequired;
+            GetBChildRequired(ref value);
+            return (_bChildRequired = value);
+         }
+         set
+         {
+            global::Testing.BChild oldValue = _bChildRequired;
+            SetBChildRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _bChildRequired = value;
+            }
+         }
+      }
 
       public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
 
-      public virtual global::Testing.BChild BChildOptional { get; set; }
+      protected global::Testing.BChild _bChildOptional;
+      partial void SetBChildOptional(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+      partial void GetBChildOptional(ref global::Testing.BChild result);
+
+      public virtual global::Testing.BChild BChildOptional
+      {
+         get
+         {
+            global::Testing.BChild value = _bChildOptional;
+            GetBChildOptional(ref value);
+            return (_bChildOptional = value);
+         }
+         set
+         {
+            global::Testing.BChild oldValue = _bChildOptional;
+            SetBChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _bChildOptional = value;
+            }
+         }
+      }
 
    }
 }

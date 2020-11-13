@@ -5,22 +5,29 @@
 #><#@ include file="EFCoreModelGenerator.ttinclude" once="true"
 #><#@ include file="EFModelFileManager.ttinclude" once="true"
 #><#@ include file="EFModelGenerator.ttinclude" once="true"
-#><#@ include file="VSIntegrations.ttinclude" once="true"
+#><#@ include file="VSIntegration.ttinclude" once="true"
 #><#@ assembly name="System.Core"
 #><#@ assembly name="System.Data.Linq"
 #><#@ assembly name="EnvDTE"
 #><#@ assembly name="System.Xml"
 #><#@ assembly name="System.Xml.Linq"
-#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System"
 #><#@ import namespace="System.IO"
-#><#@ import namespace="System.Linq" 
+#><#@ import namespace="System.Globalization"
+#><#@ import namespace="System.Linq"
 #><#@ import namespace="System.Security"
+#><#@ import namespace="System.Text"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.Diagnostics.CodeAnalysis"
+#><#@ import namespace="EnvDTE"
+#><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
+#><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
       // EFDesigner v3.0.0.1
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
-      public class EFModelFileManager
+      public class Manager
       {
          private readonly List<Block> files = new List<Block>();
          private readonly Block footer = new Block();
@@ -31,14 +38,14 @@
 
          private Block currentBlock;
 
-         protected EFModelFileManager(ITextTemplatingEngineHost host, StringBuilder template)
+         private string fileNameMarker;
+
+         protected Manager(ITextTemplatingEngineHost host, StringBuilder template)
          {
             this.host = host;
             this.template = template;
-            this.fileNameMarker = ".generated";
+            fileNameMarker = ".generated";
          }
-
-         private string fileNameMarker;
 
          public string FileNameMarker
          {
@@ -82,11 +89,11 @@
             }
          }
 
-         public static EFModelFileManager Create(ITextTemplatingEngineHost host, StringBuilder template)
+         public static Manager Create(ITextTemplatingEngineHost host, StringBuilder template)
          {
             return host is IServiceProvider
                       ? new VSManager(host, template)
-                      : new EFModelFileManager(host, template);
+                      : new Manager(host, template);
          }
 
          protected virtual void CreateFile(string fileName, string content)
@@ -173,7 +180,7 @@
                      , Length;
          }
 
-         private class VSManager : EFModelFileManager
+         private class VSManager : Manager
          {
             private readonly DTE dte;
             private readonly ProjectItem templateProjectItem;
@@ -362,5 +369,6 @@
             }
          }
       }
+
       
 #>

@@ -4,6 +4,12 @@
 //
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
+//
+//     Produced by Entity Framework Visual Editor v3.0.0.1
+//     Source:                    https://github.com/msawczyn/EFDesigner
+//     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
+//     Documentation:             https://msawczyn.github.io/EFDesigner/
+//     License (MIT):             https://github.com/msawczyn/EFDesigner/blob/master/LICENSE
 // </auto-generated>
 //------------------------------------------------------------------------------
 
@@ -112,20 +118,62 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      protected global::Testing.UChild _uChildOptional;
+      partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildOptional(ref global::Testing.UChild result);
+
       /// <summary>
       /// x
       /// </summary>
-      public virtual global::Testing.UChild UChildOptional { get; set; }
+      public virtual global::Testing.UChild UChildOptional
+      {
+         get
+         {
+            global::Testing.UChild value = _uChildOptional;
+            GetUChildOptional(ref value);
+            return (_uChildOptional = value);
+         }
+         set
+         {
+            global::Testing.UChild oldValue = _uChildOptional;
+            SetUChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _uChildOptional = value;
+            }
+         }
+      }
 
       /// <summary>
       /// h
       /// </summary>
       public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
 
+      protected global::Testing.UChild _uChildRequired;
+      partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildRequired(ref global::Testing.UChild result);
+
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.UChild UChildRequired { get; set; }
+      public virtual global::Testing.UChild UChildRequired
+      {
+         get
+         {
+            global::Testing.UChild value = _uChildRequired;
+            GetUChildRequired(ref value);
+            return (_uChildRequired = value);
+         }
+         set
+         {
+            global::Testing.UChild oldValue = _uChildRequired;
+            SetUChildRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _uChildRequired = value;
+            }
+         }
+      }
 
       public virtual event PropertyChangedEventHandler PropertyChanged;
 
