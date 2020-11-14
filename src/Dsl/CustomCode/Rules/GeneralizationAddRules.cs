@@ -21,6 +21,14 @@ namespace Sawczyn.EFDesigner.EFModel
          if (current.IsSerializing || ModelRoot.BatchUpdating)
             return;
 
+         if (element.Subclass.IsPropertyBag && !element.Superclass.IsPropertyBag)
+         {
+            ErrorDisplay.Show(store, $"{element.Subclass.Name} -> {element.Superclass.Name}: Since {element.Subclass.Name} is a property bag, it can't inherit from {element.Superclass.Name}, which is not a property bag.");
+            current.Rollback();
+
+            return;
+         }
+
          if (element.IsInCircularInheritance())
          {
             ErrorDisplay.Show(store, $"{element.Subclass.Name} -> {element.Superclass.Name}: That inheritance link would cause a circular reference.");

@@ -247,6 +247,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (!GenerateCode)
             return "NoGenGlyph";
 
+         if (IsPropertyBag)
+            return "DictionaryGlyph";
+
          // ReSharper disable once ConvertIfStatementToReturnStatement
          if (IsAbstract)
             return "AbstractEntityGlyph";

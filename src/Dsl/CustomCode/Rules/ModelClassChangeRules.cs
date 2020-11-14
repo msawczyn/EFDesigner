@@ -242,6 +242,20 @@ namespace Sawczyn.EFDesigner.EFModel
                   break;
                }
 
+            case "IsPropertyBag":
+               {
+                  if (element.Superclass != null && !element.Superclass.IsPropertyBag)
+                     element.Superclass.IsPropertyBag = true;
+
+                  if (element.Subclasses.Any())
+                  {
+                     foreach (ModelClass subclass in element.Subclasses)
+                        subclass.IsPropertyBag = true;
+                  }
+
+                  PresentationHelper.UpdateClassDisplay(element);
+                  break;
+               }
             case "IsQueryType":
                {
                   if ((bool)e.NewValue)

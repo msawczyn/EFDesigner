@@ -50,6 +50,9 @@ namespace Sawczyn.EFDesigner.EFModel
                   propertyDescriptors.Remove("TableName");
                else
                   propertyDescriptors.Remove("ViewName");
+
+               if (modelClass.IsPropertyBag)
+                  propertyDescriptors.Remove("IsDependentType");
             }
 
             //Add the descriptors for the tracking properties 

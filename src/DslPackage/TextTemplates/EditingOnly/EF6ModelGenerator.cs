@@ -71,36 +71,40 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             else
                return null;
 
-            string columnNames;
+            string[] columnNameList = null;
 
             // shadow properties
             if (string.IsNullOrWhiteSpace(association.FKPropertyName))
             {
-               columnNames = string.Join(", "
-                                       , principal.IdentityAttributes
-                                                  .Select(a => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, a)}\""));
+               columnNameList = principal.IdentityAttributes
+                                         .Select(identityAttribute => CreateShadowPropertyName(association, foreignKeyColumns, identityAttribute))
+                                         .ToArray();
+            }
+            else
+            {
+               columnNameList = association.FKPropertyName
+                                           .Split(',')
+                                           .Select(name => name.Trim())
+                                           .ToArray();
 
-               string[] columnNameList = columnNames.Split(',').Select(n => n.Trim()).ToArray();
-               string[] dependentPropertyNames = dependent.AllPropertyNames.ToArray();
-
-               int existingPropertyCount = columnNameList.Intersect(dependentPropertyNames).Count();
-
-               if (existingPropertyCount > 0)
-               {
-                  return existingPropertyCount == 1
-                            ? $"HasForeignKey(p => {columnNames})"
-                            : $"HasForeignKey(p => new {{ {string.Join(", ", columnNameList.Select(n => $"p.{n}"))} }}";
-               }
-
-               return $"Map(x => x.MapKey({columnNames}))";
+               foreignKeyColumns.AddRange(columnNameList);
             }
 
-            // defined properties
-            columnNames = association.FKPropertyName.Contains(",")
-                             ? $"new {{ {string.Join(", ", association.FKPropertyName.Split(',').Select(n => $"p.{n.Trim()}"))} }}"
-                             : $"p.{association.FKPropertyName.Trim()}";
+            if (!columnNameList.Any())
+               return null;
 
-            return $"HasForeignKey(p => {columnNames})";
+            string[] dependentPropertyNames = dependent.AllPropertyNames.ToArray();
+
+            int existingPropertyCount = columnNameList.Intersect(dependentPropertyNames).Count();
+
+            if (existingPropertyCount > 0)
+            {
+               return existingPropertyCount == 1
+                         ? $"HasForeignKey(p => {columnNameList[0]})"
+                         : $"HasForeignKey(p => new {{ {string.Join(", ", columnNameList.Select(n => $"p.{n}"))} }}";
+            }
+
+            return $"Map(x => x.MapKey({string.Join(", ", columnNameList.Select(n => $"\"{n}\""))}))";
          }
 
          [SuppressMessage("ReSharper", "RedundantNameQualifier")]

@@ -330,6 +330,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			field7.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeNoGenGlyphDefaultImage"));
 			shapeFields.Add(field7);
 			
+			DslDiagrams::ImageField field8 = new DslDiagrams::ImageField("DictionaryGlyph");
+			field8.DefaultImage = DslDiagrams::ImageHelper.GetImage(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel.SingletonResourceManager.GetObject("ClassShapeDictionaryGlyphDefaultImage"));
+			shapeFields.Add(field8);
+			
 		}
 		
 		/// <summary>
@@ -368,6 +372,10 @@ namespace Sawczyn.EFDesigner.EFModel
 			DslDiagrams::ShapeField field7 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "NoGenGlyph");
 			DslDiagrams::Decorator decorator7 = new DslDiagrams::ShapeDecorator(field7, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator7);
+				
+			DslDiagrams::ShapeField field8 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "DictionaryGlyph");
+			DslDiagrams::Decorator decorator8 = new DslDiagrams::ShapeDecorator(field8, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
+			decorators.Add(decorator8);
 				
 		}
 		

@@ -409,6 +409,7 @@
     <Content Include="Resources\cardinality-many-0.png" />
     <Content Include="Resources\cardinality-many-1.png" />
     <Content Include="Resources\cardinality-many-many.png" />
+    <Content Include="Resources\Dictionary_16x.png" />
     <Content Include="Resources\Enumerator_16x.png" />
     <Content Include="Resources\EnumItem_16x.png" />
     <Content Include="Resources\EnumValue.png" />

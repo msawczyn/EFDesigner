@@ -30,13 +30,6 @@
       public class EFCore2ModelGenerator : EFCoreModelGenerator
       {
          public EFCore2ModelGenerator(GeneratedTextTransformation host) : base(host) { }
-
-         public override void Generate(Manager efModelFileManager) { }
-
-         protected override List<string> GetAdditionalUsingStatements()
-         {
-            return null;
-         }
       }
 
       

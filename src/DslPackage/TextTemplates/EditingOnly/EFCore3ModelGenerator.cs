@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Sawczyn.EFDesigner.EFModel.EditingOnly
+﻿namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 {
    public partial class GeneratedTextTransformation
    {
@@ -12,13 +10,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       public class EFCore3ModelGenerator : EFCoreModelGenerator
       {
          public EFCore3ModelGenerator(GeneratedTextTransformation host) : base(host) { }
-
-         public override void Generate(Manager efModelFileManager) { }
-
-         protected override List<string> GetAdditionalUsingStatements()
-         {
-            return null;
-         }
       }
 
       #endregion Template

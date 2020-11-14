@@ -227,7 +227,7 @@ namespace Testing
 
          modelBuilder.Entity<global::Testing.UParentOptional>().Map(x => x.MapInheritedProperties()).ToTable("UParentOptionals");
          modelBuilder.Entity<global::Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent();
-         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey());
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional();
          modelBuilder.Entity<global::Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional();
 
          modelBuilder.Entity<global::Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
