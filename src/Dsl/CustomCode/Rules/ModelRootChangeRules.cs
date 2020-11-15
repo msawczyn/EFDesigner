@@ -96,7 +96,7 @@ namespace Sawczyn.EFDesigner.EFModel
                                                            .Where(a => !string.IsNullOrEmpty(a.FKPropertyName) && a.SourceMultiplicity != Multiplicity.ZeroMany && a.TargetMultiplicity != Multiplicity.ZeroMany)
                                                            .ToList();
 
-                     string message = $"This will remove declared foreign key properties from {associations.Count} 1-1 association{(associations.Count == 1 ? "" : "s")}. Are you sure?";
+                     string message = $"This will remove declared foreign key properties from {associations.Count} one-to-one association{(associations.Count == 1 ? "" : "s")}. Are you sure?";
 
                      if (associations.Any() && BooleanQuestionDisplay.Show(store, message) == true)
                      {

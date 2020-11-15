@@ -21,6 +21,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             OutputChopped(segments);
          else
             Output(string.Join(".", segments) + ";");
+
+         segments.Clear();
       }
 
       protected void Output(string text)
@@ -40,7 +42,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          Output(text);
       }
 
-      protected void OutputChopped(IEnumerable<string> segments)
+      protected void OutputChopped(List<string> segments)
       {
          string[] segmentArray = segments?.ToArray() ?? new string[0];
 
@@ -67,6 +69,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
          foreach (string segment in segmentArray)
             Output(segment);
+
+         segments.Clear();
       }
 
       public abstract class EFModelGenerator
@@ -85,7 +89,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected void Output(List<string> segments) { host.Output(segments); }
          protected void Output(string text) { host.Output(text); }
          protected void Output(string template, params object[] items) { host.Output(template, items); }
-         protected void OutputChopped(IEnumerable<string> segments) { host.OutputChopped(segments); }
+         protected void OutputChopped(List<string> segments) { host.OutputChopped(segments); }
 
          protected static string[] NonNullableTypes
          {
@@ -141,11 +145,14 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
          protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
          {
-            string shadowNameBase = association.SourceRole == EndpointRole.Dependent
-                                       ? association.TargetPropertyName
-                                       : association is BidirectionalAssociation b
-                                          ? b.SourcePropertyName
-                                          : $"{association.Source.Name}_{association.TargetPropertyName}";
+            string shadowNameBase;
+
+            if (association.SourceRole == EndpointRole.Dependent)
+               shadowNameBase = association.TargetPropertyName;
+            else if (association is BidirectionalAssociation b)
+               shadowNameBase = b.SourcePropertyName;
+            else
+               shadowNameBase = $"{association.Source.Name}_{association.TargetPropertyName}";
 
             string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
 
@@ -352,7 +359,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return !modelAttribute.Required && !modelAttribute.IsIdentity && !modelAttribute.IsConcurrencyToken && !NonNullableTypes.Contains(modelAttribute.Type);
          }
 
-         protected void WriteClass(ModelClass modelClass)
+         protected virtual void WriteClass(ModelClass modelClass)
          {
             Output("using System;");
             Output("using System.Collections.Generic;");

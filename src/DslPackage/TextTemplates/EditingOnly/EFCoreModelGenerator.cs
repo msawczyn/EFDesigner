@@ -37,52 +37,44 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
-         protected string CreateForeignKeySegment(Association association, List<string> foreignKeyColumns)
+         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
+         protected virtual IEnumerable<string> GetForeignKeys(Association association, List<string> foreignKeyColumns)
          {
+            IEnumerable<string> result = null;
+
             // foreign key definitions always go in the table representing the Dependent end of the association
             // if there is no dependent end (i.e., many-to-many), there are no foreign keys
-            ModelClass principal;
-            ModelClass dependent;
+            ModelClass principal = association.Principal;
+            ModelClass dependent = association.Dependent;
 
-            if (association.SourceRole == EndpointRole.Dependent)
+            if (principal != null && dependent != null)
             {
-               dependent = association.Source;
-               principal = association.Target;
+               if (string.IsNullOrWhiteSpace(association.FKPropertyName))
+                  result = principal.IdentityAttributes.Select(identity => CreateShadowPropertyName(association, foreignKeyColumns, identity));
+               else
+               {
+                  // defined properties
+                  result = association.FKPropertyName.Split(',').Select(prop => prop.Trim());
+                  foreignKeyColumns.AddRange(result);
+               }
             }
-            else if (association.TargetRole == EndpointRole.Dependent)
-            {
-               dependent = association.Target;
-               principal = association.Source;
-            }
-            else
+
+            return result;
+         }
+
+         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
+         protected virtual string CreateForeignKeySegment(Association association, List<string> foreignKeyColumns)
+         {
+            if (association.Principal == null || association.Dependent == null)
                return null;
 
-            string columnNames;
+            IEnumerable<string> foreignKeys = GetForeignKeys(association, foreignKeyColumns).Select(x => $"{'"'}{x}{'"'}");
+            string keyList = string.Join(",", foreignKeys);
 
-            if (string.IsNullOrWhiteSpace(association.FKPropertyName))
-            {
-               // shadow properties
-               columnNames = string.Join(", "
-                                      , principal.IdentityAttributes
-                                                 .Select(identityAttribute => $"\"{CreateShadowPropertyName(association, foreignKeyColumns, identityAttribute)}\""));
-            }
-            else
-            {
-               // defined properties
-               foreignKeyColumns.AddRange(association.FKPropertyName.Split(','));
-               columnNames = string.Join(", ", association.FKPropertyName.Split(',').Select(s => $@"""{s.Trim()}"""));
-            }
-
-            if (string.IsNullOrEmpty(columnNames))
-               return null;
-
-            bool useGeneric = association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany &&
-                              association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany;
-
-            return useGeneric
-                      ? $"HasForeignKey<{dependent.FullName}>({columnNames})"
-                      : $"HasForeignKey({columnNames})";
+            return association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany 
+                || association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                      ? $"HasForeignKey({keyList})"
+                      : $"HasForeignKey({'"'}{association.Dependent.Name}{'"'}, {keyList})";
          }
 
          [SuppressMessage("ReSharper", "RedundantNameQualifier")]
@@ -110,18 +102,18 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                switch (association.TargetMultiplicity) // realized by property on source
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     segments.Add($"HasMany(x => x.{association.TargetPropertyName})");
+                     segments.Add($"HasMany({'"'}{association.Target.Name}{'"'}, {'"'}{association.TargetPropertyName}{'"'})");
 
                      break;
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                     segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
+                     segments.Add($"HasOne({'"'}{association.Target.Name}{'"'}, {'"'}{association.TargetPropertyName}{'"'})");
                      required = (modelClass == association.Principal);
 
                      break;
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                     segments.Add($"HasOne(x => x.{association.TargetPropertyName})");
+                     segments.Add($"HasOne({'"'}{association.Target.Name}{'"'}, {'"'}{association.TargetPropertyName}{'"'})");
 
                      break;
                }
@@ -129,7 +121,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                switch (association.SourceMultiplicity) // realized by property on target, but no property on target
                {
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     segments.Add($"WithMany(x => x.{association.SourcePropertyName})");
+                     segments.Add($"WithMany({'"'}{association.SourcePropertyName}{'"'})");
 
                      if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                      {
@@ -140,13 +132,13 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      break;
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                     segments.Add($"WithOne(x => x.{association.SourcePropertyName})");
+                     segments.Add($"WithOne({'"'}{association.SourcePropertyName}{'"'})");
                      required = (modelClass == association.Principal);
 
                      break;
 
                   case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                     segments.Add($"WithOne(x => x.{association.SourcePropertyName})");
+                     segments.Add($"WithOne({'"'}{association.SourcePropertyName}{'"'})");
 
                      break;
                }
@@ -156,10 +148,12 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (!string.IsNullOrEmpty(foreignKeySegment))
                   segments.Add(foreignKeySegment);
 
-               if (required && (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
+               if (required && (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One 
+                             || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
                   segments.Add("IsRequired()");
 
-               if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
+               if (!association.LinksDependentType && (association.TargetRole == EndpointRole.Principal 
+                                                    || association.SourceRole == EndpointRole.Principal))
                {
                   DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
                                                  ? association.SourceDeleteAction
@@ -286,10 +280,14 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             // Entities
             string fileNameMarker = string.IsNullOrEmpty(modelRoot.FileNameMarker) ? string.Empty : $".{modelRoot.FileNameMarker}";
 
-            foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode && !e.IsPropertyBag))
+            foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
             {
                manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}{fileNameMarker}.cs"));
-               WriteClass(modelClass);
+
+               if (modelClass.IsPropertyBag)
+                  WritePropertyBagComments(modelClass);
+               else
+                  WriteClass(modelClass);
             }
 
             // Enums
@@ -302,6 +300,27 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}{fileNameMarker}.cs"));
             WriteDbContext();
+         }
+
+         protected void WritePropertyBagComments(ModelClass modelClass)
+         {
+            Output("/*");
+
+            Output($"{modelClass.Name} is a property bag, implemented by Dictionary<string, object>, therefore it doesn't have a class generated for it");
+            Output("As a convenience, this file documents the strings that can be used as indexers and the type of property they have been configured to contain.");
+            NL();
+            Output("Those indexers are:");
+
+            foreach (ModelAttribute modelAttribute in modelClass.AllAttributes)
+               Output($"   [\"{modelAttribute.Name}\"] - {modelAttribute.CLRType}{(modelAttribute.IsIdentity ? ", Key" : "")}{(modelAttribute.Required ? ", Required" : "")}");
+
+            foreach (NavigationProperty navigationProperty in modelClass.AllNavigationProperties())
+            {
+               string type = navigationProperty.IsCollection ? $"ICollection<{navigationProperty.ClassType.FullName}>" : navigationProperty.ClassType.FullName;
+               Output($"   [\"{navigationProperty.PropertyName}\"] - {type}{(navigationProperty.Required ? ", Required" : "")}");
+            }
+
+            Output("*/");
          }
 
          protected override List<string> GetAdditionalUsingStatements()
@@ -425,6 +444,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   Output($"{modelRoot.DbSetAccess.ToString().ToLower()} virtual Microsoft.EntityFrameworkCore.DbSet<{modelClass.FullName}> {dbSetName} {{ get; set; }}");
             }
 
+            NL();
             Output("#endregion DbSets");
             NL();
          }
@@ -488,7 +508,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                foreignKeyColumns.Clear();
                NL();
 
-               WriteStandardClassBuilder(segments, classesWithTables, modelClass, visited, foreignKeyColumns);
+               WriteStandardClass(segments, classesWithTables, modelClass, visited, foreignKeyColumns);
             }
          }
 
@@ -554,7 +574,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
-         protected void WriteStandardClassBuilder(List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
+         protected void WriteStandardClass(List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
          {
             segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 

@@ -11,14 +11,10 @@ namespace ConsoleTestNetCore3
    {
       static void Main(string[] args)
       {
-         //using (BidirectionalAssociationTestContext context = new BidirectionalAssociationTestContext())
-         //{
-         //   context.Database.Migrate();
-         //}
-         //using (UnidirectionalAssociationTestContext context = new UnidirectionalAssociationTestContext())
-         //{
-         //   context.Database.Migrate();
-         //}
+         using (TestContext context = new TestContext())
+         {
+            context.Database.Migrate();
+         }
       }
    }
 }

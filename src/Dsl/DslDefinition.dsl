@@ -100,7 +100,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for validation and generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EF6" Category="Code Generation">
+        <DomainProperty Id="b4e314ff-3c4b-4e1e-8309-8d35dacdc19e" Description="Version of Entity Framework for validation and generated code" Name="EntityFrameworkVersion" DisplayName="Entity Framework Version" DefaultValue="EFCore" Category="Code Generation">
           <Type>
             <DomainEnumerationMoniker Name="EFVersion" />
           </Type>
@@ -505,7 +505,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="6d12879a-6e9d-4a6f-9e4b-5cf2847a74f3" Description="If true, this class will be implemented as Dictionary&lt;string, object&gt;" Name="IsPropertyBag" DisplayName="Is Property Bag" DefaultValue="false" Category="Code Generation">
+        <DomainProperty Id="6d12879a-6e9d-4a6f-9e4b-5cf2847a74f3" Description="If true, this class will be implemented as Dictionary&lt;string, object&gt;" Name="IsPropertyBag" DisplayName="Is Property Bag" DefaultValue="false" Category="Code Generation" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>

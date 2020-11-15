@@ -204,6 +204,9 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          get
          {
+            if (IsPropertyBag)
+               return "System.Collections.Generic.Dictionary<string, object>";
+
             return string.IsNullOrWhiteSpace(EffectiveNamespace)
                       ? $"global::{Name}"
                       : $"global::{EffectiveNamespace}.{Name}";

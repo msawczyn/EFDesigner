@@ -24,23 +24,29 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                NL();
 
                if (modelClass.IsPropertyBag)
-                  WritePropertyBagClassBuilder(segments, classesWithTables, modelClass, visited, foreignKeyColumns);
+                  WritePropertyBagClass(segments, classesWithTables, modelClass, visited, foreignKeyColumns);
                else
-                  WriteStandardClassBuilder(segments, classesWithTables, modelClass, visited, foreignKeyColumns);
+                  WriteStandardClass(segments, classesWithTables, modelClass, visited, foreignKeyColumns);
             }
          }
 
          [SuppressMessage("ReSharper", "RedundantNameQualifier")]
-         protected void WritePropertyBagClassBuilder(List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
+         protected void WritePropertyBagClass(List<string> segments, ModelClass[] classesWithTables, ModelClass modelClass, List<Association> visited, List<string> foreignKeyColumns)
          {
-            // class level
             string declaration = $"modelBuilder.SharedTypeEntity<Dictionary<string, object>>(\"{modelClass.Name}\")";
+
+            // Since this is a property bag, we write the attributes first to give EF a notion of what they are. It can't look at the class and find out.
+            WriteModelAttributes(segments, modelClass);
+
+            // shadow concurrency token, if necessary
+            bool hasDefinedConcurrencyToken = modelClass.AllAttributes.Any(x => x.IsConcurrencyToken);
+
+            if (!hasDefinedConcurrencyToken && modelClass.EffectiveConcurrency == ConcurrencyOverride.Optimistic)
+               Output($"{declaration}.IndexerProperty<byte[]>(\"Timestamp\").IsConcurrencyToken();");
+
+            // class level
             segments.Add(declaration);
 
-            foreach (ModelAttribute transient in modelClass.Attributes.Where(x => !x.Persistent))
-               segments.Add($"Ignore(t => t.{transient.Name})");
-
-            // note: this must come before the 'ToTable' call or there's a runtime error
             if (modelRoot.InheritanceStrategy == CodeStrategy.TablePerConcreteType && modelClass.Superclass != null)
                segments.Add("Map(x => x.MapInheritedProperties())");
 
@@ -59,16 +65,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   segments.Add($"HasKey(\"{string.Join(", t.", identityAttributes.Select(ia => ia.Name))}\")");
             }
 
-            if (segments.Count > 1)
-               Output(segments);
-
-            // attribute level
-            WriteModelAttributes(segments, modelClass);
-
-            bool hasDefinedConcurrencyToken = modelClass.AllAttributes.Any(x => x.IsConcurrencyToken);
-
-            if (!hasDefinedConcurrencyToken && modelClass.EffectiveConcurrency == ConcurrencyOverride.Optimistic)
-               Output($"{declaration}.IndexerProperty<byte[]>(\"Timestamp\").IsConcurrencyToken();");
+            Output(segments);
 
             // Navigation endpoints are distingished as Source and Target. They are also distinguished as Principal
             // and Dependent. How do these map? Short answer: they don't. Source and Target are accidents of where the user started drawing the association.
@@ -220,119 +217,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          }
 
          [SuppressMessage("ReSharper", "RedundantNameQualifier")]
-         protected override void DefineBidirectionalAssociations(ModelClass modelClass
-                                             , List<Association> visited
-                                             , List<string> segments
-                                             , List<string> foreignKeyColumns
-                                             , List<string> declaredShadowProperties)
-         {
-            string declaration = modelClass.IsPropertyBag
-                                    ? $"modelBuilder.SharedTypeEntity<Dictionary<string, object>>(\"{modelClass.Name}\")"
-                                    : $"modelBuilder.Entity<{modelClass.FullName}>()";
-
-            // ReSharper disable once LoopCanBePartlyConvertedToQuery
-            foreach (BidirectionalAssociation association in Association.GetLinksToTargets(modelClass)
-                                                                        .OfType<BidirectionalAssociation>()
-                                                                        .Where(x => x.Persistent && !x.Target.IsDependentType))
-            {
-               if (visited.Contains(association))
-                  continue;
-
-               visited.Add(association);
-
-               bool required = false;
-
-               segments.Clear();
-               segments.Add(declaration);
-
-               string targetProperty = modelClass.IsPropertyBag 
-                                             ? $"\"{association.TargetPropertyName}\"" 
-                                             : $"x => x.{association.TargetPropertyName}";
-
-               string sourceProperty = modelClass.IsPropertyBag 
-                                          ? $"\"{association.SourcePropertyName}\"" 
-                                          : $"x => x.{association.SourcePropertyName}";
-
-               switch (association.TargetMultiplicity) // realized by property on source
-               {
-                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     segments.Add($"HasMany({targetProperty})");
-
-                     break;
-
-                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                     segments.Add($"HasOne({targetProperty})");
-                     required = (modelClass == association.Principal);
-
-                     break;
-
-                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                     segments.Add($"HasOne({targetProperty})");
-
-                     break;
-               }
-
-               switch (association.SourceMultiplicity) // realized by property on target, but no property on target
-               {
-                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                     segments.Add($"WithMany({sourceProperty})");
-
-                     if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
-                     {
-                        string tableMap = string.IsNullOrEmpty(association.JoinTableName) ? $"{association.TargetPropertyName}_x_{association.TargetPropertyName}" : association.JoinTableName;
-                        segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
-                     }
-
-                     break;
-
-                  case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                     segments.Add($"WithOne({sourceProperty})");
-                     required = (modelClass == association.Principal);
-
-                     break;
-
-                  case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                     segments.Add($"WithOne({sourceProperty})");
-
-                     break;
-               }
-
-               string foreignKeySegment = CreateForeignKeySegment(association, foreignKeyColumns);
-
-               if (!string.IsNullOrEmpty(foreignKeySegment))
-                  segments.Add(foreignKeySegment);
-
-               if (required)
-                  segments.Add("IsRequired()");
-
-               if ((association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal) && !association.LinksDependentType)
-               {
-                  DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                                 ? association.SourceDeleteAction
-                                                 : association.TargetDeleteAction;
-
-                  switch (deleteAction)
-                  {
-                     case DeleteAction.None:
-                        segments.Add("OnDelete(DeleteBehavior.NoAction)");
-
-                        break;
-
-                     case DeleteAction.Cascade:
-                        segments.Add("OnDelete(DeleteBehavior.Cascade)");
-
-                        break;
-                  }
-               }
-
-               Output(segments);
-
-               if (association.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One && association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-                  Output($"{declaration}.Navigation({targetProperty}).IsRequired();");
-            }
-         }
-
-         [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          protected override void DefineUnidirectionalAssociations(ModelClass modelClass
                                                   , List<Association> visited
                                                   , List<string> segments
@@ -355,7 +239,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                bool required = false;
 
-               string targetProperty = modelClass.IsPropertyBag 
+               string targetProperty = association.Source.IsPropertyBag 
                                           ? $"\"{association.TargetPropertyName}\"" 
                                           : $"x => x.{association.TargetPropertyName}";
 
