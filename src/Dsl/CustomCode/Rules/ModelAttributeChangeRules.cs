@@ -149,7 +149,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   if ((bool)e.NewValue)
                   {
                      if (element.ModelClass.IsDependentType)
-                        errorMessages.Add($"{modelClass.Name}.{element.Name}: Can't make {element.Name} an identity because {modelClass.Name} is a dependent type and can't have an identity property.");
+                     {
+                        if (!modelRoot.IsEFCore5Plus)
+                           errorMessages.Add($"{modelClass.Name}.{element.Name}: Can't make {element.Name} an identity because {modelClass.Name} is a dependent type and can't have an identity property.");
+                     }             
                      else
                      {
                         if (!modelRoot.IsValidIdentityAttributeType(element.Type))

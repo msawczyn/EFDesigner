@@ -49,7 +49,7 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       public string GetTargetMultiplicityDisplayValue() => MultiplicityDisplayValue(TargetMultiplicity);
 
-      public bool LinksDependentType => Source.IsDependentType || Target.IsDependentType;
+      public bool Is(Multiplicity a, Multiplicity b) => (SourceMultiplicity == a && TargetMultiplicity == b) || (SourceMultiplicity == b && TargetMultiplicity == a);
 
       private static string MultiplicityDisplayValue(Multiplicity multiplicity)
       {
@@ -170,14 +170,31 @@ namespace Sawczyn.EFDesigner.EFModel
       #endregion
 
       [ValidationMethod(ValidationCategories.Save | ValidationCategories.Menu)]
-      private void UnidirectionalManyToManyUnsupported(ValidationContext context)
+      private void DetectUnsupportedCardinalities(ValidationContext context)
       {
          ModelRoot modelRoot = Store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-         if (modelRoot.IsEFCore5Plus
-          && this is UnidirectionalAssociation
-          && SourceMultiplicity == Multiplicity.ZeroMany
-          && TargetMultiplicity == Multiplicity.ZeroMany)
-            context.LogError($"{Source.Name} <=> {Target.Name}: Many-to-many unidirectional associations are not yet supported in Entity Framework Core.", "AEUnidirectionalManyToMany", this);
+
+         if (Source.IsDependentType)
+         {
+            if (!modelRoot.IsEFCore5Plus)
+            {
+               if (SourceMultiplicity != Multiplicity.One || TargetMultiplicity != Multiplicity.ZeroOne)
+                  context.LogError($"The association from {Source.Name} to {Target.Name} must be 1..0-1", "AEUnsupportedMultiplicity", this);
+            }
+         }
+         else if (Target.IsDependentType)
+         {
+            if (!modelRoot.IsEFCore5Plus)
+            {
+               if (TargetMultiplicity != Multiplicity.One || SourceMultiplicity != Multiplicity.ZeroOne)
+                  context.LogError($"The association from {Target.Name} to {Source.Name} must be 1..0-1", "AEUnsupportedMultiplicity", this);
+            }
+         }
+         else
+         {
+            if (modelRoot.IsEFCore5Plus && this is UnidirectionalAssociation u && Is(Multiplicity.ZeroMany, Multiplicity.ZeroMany))
+               context.LogError($"{GetDisplayText()}: Many-to-many unidirectional associations are not yet supported in Entity Framework Core.", "AEUnsupportedMultiplicity", this);
+         }
       }
 
       [ValidationMethod(ValidationCategories.Open | ValidationCategories.Save | ValidationCategories.Menu)]

@@ -24,6 +24,12 @@ namespace EFCore5NetCore3
    /// <inheritdoc/>
    public partial class TestContext : DbContext
    {
+      #region DbSets
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::EFCore5NetCore3.Detail3> Detail3 { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::EFCore5NetCore3.Master> Masters { get; set; }
+
+      #endregion DbSets
+
       /// <summary>
       /// Default connection string
       /// </summary>
@@ -47,11 +53,7 @@ namespace EFCore5NetCore3
       partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
       partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Dictionary<string, object>> Detail1 => Set<Dictionary<string, object>>("Detail1");
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Dictionary<string, object>> Detail2 => Set<Dictionary<string, object>>("Detail2");
-      public virtual Microsoft.EntityFrameworkCore.DbSet<Dictionary<string, object>> Detail3 => Set<Dictionary<string, object>>("Detail3");
-      public virtual Microsoft.EntityFrameworkCore.DbSet<global::EFCore5NetCore3.Master> Masters { get; set; }
-
+      /// <inheritdoc />
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
@@ -59,82 +61,48 @@ namespace EFCore5NetCore3
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail1").IndexerProperty<Int64>("Id").IsRequired();
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail1").IndexerProperty<String>("Property1");
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail1").ToTable("Detail1").HasKey("Id");
+         modelBuilder.Owned<global::EFCore5NetCore3.Detail1>();
 
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail2").IndexerProperty<Int64>("Id").IsRequired();
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail2").IndexerProperty<String>("Property1");
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail2").ToTable("Detail2").HasKey("Id");
+         modelBuilder.Owned<global::EFCore5NetCore3.Detail2>();
 
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail3").IndexerProperty<Int64>("Id").IsRequired();
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail3").IndexerProperty<String>("Property1");
-         modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Detail3").ToTable("Detail3").HasKey("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Detail3>().ToTable("Detail3").HasKey(t => t.Id);
+         modelBuilder.Entity<global::EFCore5NetCore3.Detail3>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
 
          modelBuilder.Entity<global::EFCore5NetCore3.Master>().ToTable("Masters").HasKey(t => t.Id);
          modelBuilder.Entity<global::EFCore5NetCore3.Master>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
-            .HasOne("Detail1", "ToZeroOrOneDetail1")
-            .WithOne("B")
-            .HasForeignKey("Detail1", "B_Id")
-            .IsRequired()
-            .OnDelete(DeleteBehavior.NoAction);
-
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
-            .HasOne("Detail1", "ToOneDetail1")
-            .WithOne("A")
-            .HasForeignKey("Detail1", "A_Id")
-            .IsRequired()
-            .OnDelete(DeleteBehavior.NoAction);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Navigation(x => x.ToOneDetail1).IsRequired();
-
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
-            .HasMany("Detail1", "ToManyDetail1")
-            .WithOne("C")
-            .HasForeignKey("Detail1", "C_Id")
-            .IsRequired()
-            .OnDelete(DeleteBehavior.NoAction);
-
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
-            .HasOne("Detail2", "ToZeroOrOneDetail2").WithOne("B")
-            .HasForeignKey("Detail2", "B_Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
-            .HasMany("Detail2", "ToManyDetail2").WithOne("C")
-            .HasForeignKey("Detail2", "C_Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
-            .HasOne("Detail2", "ToOneDetail2").WithOne("A")
-            .HasForeignKey("Detail2", "A_Id");
-
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasOne("Detail3", "ToZeroOrOneDetail3").WithMany("B");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasOne("Detail3", "ToOneDetail3").WithMany("A");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasMany("Detail3", "ToManyDetail3").WithMany("C").UsingEntity(x => x.ToTable("ToManyDetail3_x_ToManyDetail3"));
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasIndex(t => t.Fb);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Property(t => t.Fa).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasIndex(t => t.Fa);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasOne<global::EFCore5NetCore3.Detail3>(p => p.ToZeroOrOneDetail3).WithMany().HasForeignKey(k => k.Fb);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasOne<global::EFCore5NetCore3.Detail3>(p => p.ToOneDetail3).WithMany().HasForeignKey(k => k.Fa);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Id).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Fa).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Fb).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Fc).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Property1);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Id).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Fa).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Fb).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Fc).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Property1);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Navigation(p => p.ToOneDetail1).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail1).WithOwner("Master_ToManyDetail1").HasForeignKey("Master_ToManyDetail1Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail1).Property<int>("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail1).HasKey("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Id).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Fc);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Fb);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Property1);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail2).WithOwner("Master_ToManyDetail2").HasForeignKey("Master_ToManyDetail2Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail2).Property<int>("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail2).HasKey("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Id).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Fc);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Fb);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Property1);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Navigation(p => p.ToOneDetail2).IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }
-
-      //public virtual Microsoft.EntityFrameworkCore.DbSet<Dictionary<string, object>> Products => Set<Dictionary<string, object>>("Product");
-      //public virtual Microsoft.EntityFrameworkCore.DbSet<Dictionary<string, object>> Categories => Set<Dictionary<string, object>>("Category");
-
-      //public DbSet<Dictionary<string, object>> Products => Set<Dictionary<string, object>>("Product");
-      //public DbSet<Dictionary<string, object>> Categories => Set<Dictionary<string, object>>("Category");
-
-      //protected override void OnModelCreating(ModelBuilder modelBuilder)
-      //{
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Category").IndexerProperty<string>("Description");
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Category").IndexerProperty<int>("Id");
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Category").IndexerProperty<string>("Name").IsRequired();
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Category").ToTable("Category").HasKey("Id");
-
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product").IndexerProperty<int>("Id");
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product").IndexerProperty<string>("Name").IsRequired();
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product").IndexerProperty<string>("Description");
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product").IndexerProperty<decimal>("Price");
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product").IndexerProperty<int?>("CategoryId");
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product").ToTable("Product").HasKey("Id");
-
-      //   modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product").HasOne("Category", null).WithMany();
-      //}
-
    }
 }

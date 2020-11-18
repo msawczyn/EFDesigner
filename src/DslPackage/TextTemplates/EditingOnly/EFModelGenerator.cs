@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security;
 // ReSharper disable RedundantNameQualifier
@@ -143,23 +144,38 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
+         [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
          protected static string CreateShadowPropertyName(Association association, List<string> foreignKeyColumns, ModelAttribute identityAttribute)
          {
-            string shadowNameBase;
+            string GetShadowPropertyName(string nameBase)
+            {
+               if (association.SourceRole == EndpointRole.Dependent)
+                  return $"{nameBase}{identityAttribute.Name}";
 
-            if (association.SourceRole == EndpointRole.Dependent)
-               shadowNameBase = association.TargetPropertyName;
-            else if (association is BidirectionalAssociation b)
-               shadowNameBase = b.SourcePropertyName;
-            else
-               shadowNameBase = $"{association.Source.Name}_{association.TargetPropertyName}";
+               if (association is BidirectionalAssociation)
+                  return $"{nameBase}{identityAttribute.Name}";
 
-            string shadowPropertyName = $"{shadowNameBase}_{identityAttribute.Name}";
+               return $"{nameBase}_{identityAttribute.Name}";
+            }
+
+            string GetShadowPropertyNameBase()
+            {
+               if (association.SourceRole == EndpointRole.Dependent)
+                  return association.TargetPropertyName;
+
+               if (association is BidirectionalAssociation b)
+                  return b.SourcePropertyName;
+
+               return $"{association.Source.Name}_{association.TargetPropertyName}";
+            }
+
+            string shadowNameBase = GetShadowPropertyNameBase();
+            string shadowPropertyName = GetShadowPropertyName(shadowNameBase);
 
             int index = 0;
 
             while (foreignKeyColumns.Contains(shadowPropertyName))
-               shadowPropertyName = $"{shadowNameBase}{++index}_{identityAttribute.Name}";
+               shadowPropertyName = GetShadowPropertyName($"{shadowNameBase}{++index}");
 
             return shadowPropertyName;
          }
@@ -756,7 +772,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             foreach (NavigationProperty navigationProperty in modelClass.LocalNavigationProperties()
                                                                         .Where(x => x.AssociationObject.Persistent
-                                                                                 && x.ClassType.IsDependentType
                                                                                  && (modelRoot.IsEFCore5Plus || x.Required)
                                                                                  && !x.IsCollection
                                                                                  && !x.ConstructorParameterOnly))

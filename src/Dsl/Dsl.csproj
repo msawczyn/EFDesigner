@@ -277,8 +277,8 @@
       <DependentUpon>SerializationHelperAllDiagrams.tt</DependentUpon>
     </Compile>
     <Compile Include="GeneratedCode\Serializer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Serializer.tt</DependentUpon>
     </Compile>
     <Compile Include="GeneratedCode\SynchronizationHelper.cs">

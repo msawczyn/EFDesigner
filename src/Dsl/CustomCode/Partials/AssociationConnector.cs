@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.Modeling.Diagrams;
-using Sawczyn.EFDesigner.EFModel.Extensions;
 
 namespace Sawczyn.EFDesigner.EFModel
 {
-   public abstract partial class AssociationConnector: IHasStore
+   public abstract partial class AssociationConnector : IHasStore
    {
       /// <summary>
       /// Initializes style set resources for this shape type
@@ -38,6 +37,70 @@ namespace Sawczyn.EFDesigner.EFModel
                    ? association.GetDisplayText()
                    : string.Empty;
       }
+
+      /// <summary>
+      /// Gets or sets the decorator on the From end of the relationship.
+      /// </summary>
+      /// <value>LinkDecorator representing the decorator on this end on the BinaryLinkShape</value>
+      public override LinkDecorator DecoratorFrom
+      {
+         get
+         {
+            Association association = (Association)ModelElement;
+
+            if (association.Target.IsDependentType)
+            {
+               LinkDecorator decorator = (association.SourceMultiplicity == Multiplicity.One ? LinkDecorator.DecoratorFilledDiamond : LinkDecorator.DecoratorEmptyDiamond);
+
+               if (base.DecoratorFrom != decorator)
+                  SetDecorators(decorator, new SizeD(0.15,0.15), DecoratorTo, DefaultDecoratorSize, true);
+            }
+            else
+            {
+               if (base.DecoratorFrom != null)
+                  SetDecorators(null, DefaultDecoratorSize, DecoratorTo, DefaultDecoratorSize, true);
+            }
+
+            return base.DecoratorFrom;
+         }
+         set
+         {
+            base.DecoratorFrom = value;
+         }
+      }
+
+      /// <summary>
+      /// Gets or sets the decorator on the To end of the relationship.
+      /// </summary>
+      /// <value>LinkDecorator representing the decorator on this end on the BinaryLinkShape</value>
+      public override LinkDecorator DecoratorTo 
+      {
+         get
+         {
+            Association association = (Association)ModelElement;
+
+            if (association.Source.IsDependentType)
+            {
+               LinkDecorator decorator = (association.TargetMultiplicity == Multiplicity.One ? LinkDecorator.DecoratorFilledDiamond : LinkDecorator.DecoratorEmptyDiamond);
+               if (base.DecoratorTo != decorator)
+                  SetDecorators(DecoratorFrom, DefaultDecoratorSize, decorator, new SizeD(0.15,0.15), true);
+            }
+            else
+            {
+               if (association is UnidirectionalAssociation && base.DecoratorTo != LinkDecorator.DecoratorEmptyArrow)
+                  SetDecorators(DecoratorFrom, DefaultDecoratorSize, LinkDecorator.DecoratorEmptyArrow, new SizeD(0.1,0.1), true);
+               else if (association is BidirectionalAssociation && base.DecoratorTo != null)
+                  SetDecorators(null, DefaultDecoratorSize, null, DefaultDecoratorSize, true);
+            }
+
+            return base.DecoratorTo;
+         }
+         set
+         {
+            base.DecoratorTo = value;
+         }
+      }
+
 
       /// <summary>Called when a property changes.</summary>
       /// <param name="e">An EventArgs that contains the event data.</param>

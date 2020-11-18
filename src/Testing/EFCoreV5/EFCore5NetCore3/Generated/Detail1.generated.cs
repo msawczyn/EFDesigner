@@ -13,14 +13,112 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-/*
-Detail1 is a property bag, implemented by Dictionary<string, object>, therefore it doesn't have a class generated for it
-As a convenience, this file documents the strings that can be used as indexers and the type of property they have been configured to contain.
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
-Those indexers are:
-   ["Property1"] - String
-   ["Id"] - Int64, Key, Required
-   ["B"] - global::EFCore5NetCore3.Master, Required
-   ["A"] - global::EFCore5NetCore3.Master, Required
-   ["C"] - global::EFCore5NetCore3.Master, Required
-*/
+namespace EFCore5NetCore3
+{
+   public partial class Detail1
+   {
+      partial void Init();
+
+      /// <summary>
+      /// Default constructor
+      /// </summary>
+      public Detail1()
+      {
+         // NOTE: This class has one-to-one associations with Detail1.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
+         Init();
+      }
+
+      /// <summary>
+      /// Public constructor with required data
+      /// </summary>
+      /// <param name="fa">Foreign key for Master.ToOneDetail1 --&gt; Detail1. </param>
+      /// <param name="fb">Foreign key for Master.ToZeroOrOneDetail1 --&gt; Detail1. </param>
+      /// <param name="fc">Foreign key for Master.ToManyDetail1 --&gt; Detail1. </param>
+      /// <param name="_master0"></param>
+      /// <param name="_master2"></param>
+      public Detail1(long fa, long fb, long fc, global::EFCore5NetCore3.Master _master0, global::EFCore5NetCore3.Master _master2)
+      {
+         // NOTE: This class has one-to-one associations with Detail1.
+         // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
+
+         this.Fa = fa;
+
+         this.Fb = fb;
+
+         this.Fc = fc;
+
+         if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
+         _master0.ToZeroOrOneDetail1 = this;
+
+         if (_master2 == null) throw new ArgumentNullException(nameof(_master2));
+         _master2.ToManyDetail1.Add(this);
+
+
+         Init();
+      }
+
+      /// <summary>
+      /// Static create function (for use in LINQ queries, etc.)
+      /// </summary>
+      /// <param name="fa">Foreign key for Master.ToOneDetail1 --&gt; Detail1. </param>
+      /// <param name="fb">Foreign key for Master.ToZeroOrOneDetail1 --&gt; Detail1. </param>
+      /// <param name="fc">Foreign key for Master.ToManyDetail1 --&gt; Detail1. </param>
+      /// <param name="_master0"></param>
+      /// <param name="_master2"></param>
+      public static Detail1 Create(long fa, long fb, long fc, global::EFCore5NetCore3.Master _master0, global::EFCore5NetCore3.Master _master2)
+      {
+         return new Detail1(fa, fb, fc, _master0, _master2);
+      }
+
+      /*************************************************************************
+       * Properties
+       *************************************************************************/
+
+      /// <summary>
+      /// Identity, Indexed, Required
+      /// </summary>
+      [Key]
+      [Required]
+      public long Id { get; protected set; }
+
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for Master.ToOneDetail1 --&gt; Detail1. 
+      /// </summary>
+      [Required]
+      public long Fa { get; set; }
+
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for Master.ToZeroOrOneDetail1 --&gt; Detail1. 
+      /// </summary>
+      [Required]
+      public long Fb { get; set; }
+
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for Master.ToManyDetail1 --&gt; Detail1. 
+      /// </summary>
+      [Required]
+      public long Fc { get; set; }
+
+      public string Property1 { get; set; }
+
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
+
+   }
+}
+

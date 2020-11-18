@@ -33,9 +33,14 @@ namespace EFCore5NetCore3
       /// </summary>
       protected Master()
       {
-         ToManyDetail1 = new System.Collections.Generic.HashSet<System.Collections.Generic.Dictionary<string, object>>();
-         ToManyDetail2 = new System.Collections.Generic.HashSet<System.Collections.Generic.Dictionary<string, object>>();
-         ToManyDetail3 = new System.Collections.Generic.HashSet<System.Collections.Generic.Dictionary<string, object>>();
+         ToManyDetail1 = new System.Collections.Generic.HashSet<global::EFCore5NetCore3.Detail1>();
+         ToManyDetail2 = new System.Collections.Generic.HashSet<global::EFCore5NetCore3.Detail2>();
+         ToZeroOrOneDetail1 = new global::EFCore5NetCore3.Detail1();
+         ToOneDetail1 = new global::EFCore5NetCore3.Detail1();
+         ToZeroOrOneDetail3 = new global::EFCore5NetCore3.Detail3();
+         ToOneDetail3 = new global::EFCore5NetCore3.Detail3();
+         ToZeroOrOneDetail2 = new global::EFCore5NetCore3.Detail2();
+         ToOneDetail2 = new global::EFCore5NetCore3.Detail2();
 
          Init();
       }
@@ -51,19 +56,25 @@ namespace EFCore5NetCore3
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="toonedetail2"></param>
+      /// <param name="fa">Foreign key for Master.ToOneDetail3 --&gt; Detail3. </param>
       /// <param name="toonedetail3"></param>
-      public Master(System.Collections.Generic.Dictionary<string, object> toonedetail2, System.Collections.Generic.Dictionary<string, object> toonedetail3)
+      /// <param name="toonedetail2"></param>
+      public Master(long fa, global::EFCore5NetCore3.Detail3 toonedetail3, global::EFCore5NetCore3.Detail2 toonedetail2)
       {
-         if (toonedetail2 == null) throw new ArgumentNullException(nameof(toonedetail2));
-         this.ToOneDetail2 = toonedetail2;
+         this.Fa = fa;
 
          if (toonedetail3 == null) throw new ArgumentNullException(nameof(toonedetail3));
          this.ToOneDetail3 = toonedetail3;
 
-         this.ToManyDetail1 = new System.Collections.Generic.HashSet<System.Collections.Generic.Dictionary<string, object>>();
-         this.ToManyDetail2 = new System.Collections.Generic.HashSet<System.Collections.Generic.Dictionary<string, object>>();
-         this.ToManyDetail3 = new System.Collections.Generic.HashSet<System.Collections.Generic.Dictionary<string, object>>();
+         if (toonedetail2 == null) throw new ArgumentNullException(nameof(toonedetail2));
+         this.ToOneDetail2 = toonedetail2;
+
+         this.ToZeroOrOneDetail1 = new global::EFCore5NetCore3.Detail1();
+         this.ToOneDetail1 = new global::EFCore5NetCore3.Detail1();
+         this.ToManyDetail1 = new System.Collections.Generic.HashSet<global::EFCore5NetCore3.Detail1>();
+         this.ToZeroOrOneDetail2 = new global::EFCore5NetCore3.Detail2();
+         this.ToManyDetail2 = new System.Collections.Generic.HashSet<global::EFCore5NetCore3.Detail2>();
+         this.ToOneDetail2 = new global::EFCore5NetCore3.Detail2();
 
          Init();
       }
@@ -71,11 +82,12 @@ namespace EFCore5NetCore3
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="toonedetail2"></param>
+      /// <param name="fa">Foreign key for Master.ToOneDetail3 --&gt; Detail3. </param>
       /// <param name="toonedetail3"></param>
-      public static Master Create(System.Collections.Generic.Dictionary<string, object> toonedetail2, System.Collections.Generic.Dictionary<string, object> toonedetail3)
+      /// <param name="toonedetail2"></param>
+      public static Master Create(long fa, global::EFCore5NetCore3.Detail3 toonedetail3, global::EFCore5NetCore3.Detail2 toonedetail2)
       {
-         return new Master(toonedetail2, toonedetail3);
+         return new Master(fa, toonedetail3, toonedetail2);
       }
 
       /*************************************************************************
@@ -89,36 +101,49 @@ namespace EFCore5NetCore3
       [Required]
       public long Id { get; protected set; }
 
+      /// <summary>
+      /// Indexed
+      /// Foreign key for Master.ToZeroOrOneDetail3 --&gt; Detail3. 
+      /// </summary>
+      public long? Fb { get; set; }
+
+      public string Property1 { get; set; }
+
+      /// <summary>
+      /// Indexed, Required
+      /// Foreign key for Master.ToOneDetail3 --&gt; Detail3. 
+      /// </summary>
+      [Required]
+      public long Fa { get; set; }
+
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
 
-      public virtual System.Collections.Generic.Dictionary<string, object> ToZeroOrOneDetail1 { get; set; }
+      public virtual global::EFCore5NetCore3.Detail1 ToZeroOrOneDetail1 { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual System.Collections.Generic.Dictionary<string, object> ToOneDetail1 { get; set; }
+      public virtual global::EFCore5NetCore3.Detail1 ToOneDetail1 { get; set; }
 
-      public virtual ICollection<System.Collections.Generic.Dictionary<string, object>> ToManyDetail1 { get; protected set; }
+      public virtual ICollection<global::EFCore5NetCore3.Detail1> ToManyDetail1 { get; protected set; }
 
-      public virtual System.Collections.Generic.Dictionary<string, object> ToZeroOrOneDetail2 { get; set; }
-
-      public virtual ICollection<System.Collections.Generic.Dictionary<string, object>> ToManyDetail2 { get; protected set; }
+      public virtual global::EFCore5NetCore3.Detail3 ToZeroOrOneDetail3 { get; set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual System.Collections.Generic.Dictionary<string, object> ToOneDetail2 { get; set; }
+      public virtual global::EFCore5NetCore3.Detail3 ToOneDetail3 { get; set; }
 
-      public virtual System.Collections.Generic.Dictionary<string, object> ToZeroOrOneDetail3 { get; set; }
+      public virtual global::EFCore5NetCore3.Detail2 ToZeroOrOneDetail2 { get; set; }
+
+      public virtual ICollection<global::EFCore5NetCore3.Detail2> ToManyDetail2 { get; protected set; }
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual System.Collections.Generic.Dictionary<string, object> ToOneDetail3 { get; set; }
-
-      public virtual ICollection<System.Collections.Generic.Dictionary<string, object>> ToManyDetail3 { get; protected set; }
+      public virtual global::EFCore5NetCore3.Detail2 ToOneDetail2 { get; set; }
 
    }
 }

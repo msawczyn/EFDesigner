@@ -13,14 +13,46 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-/*
-Detail3 is a property bag, implemented by Dictionary<string, object>, therefore it doesn't have a class generated for it
-As a convenience, this file documents the strings that can be used as indexers and the type of property they have been configured to contain.
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
-Those indexers are:
-   ["Property1"] - String
-   ["Id"] - Int64, Key, Required
-   ["B"] - ICollection<global::EFCore5NetCore3.Master>
-   ["A"] - ICollection<global::EFCore5NetCore3.Master>
-   ["C"] - ICollection<global::EFCore5NetCore3.Master>
-*/
+namespace EFCore5NetCore3
+{
+   public partial class Detail3
+   {
+      partial void Init();
+
+      /// <summary>
+      /// Default constructor
+      /// </summary>
+      public Detail3()
+      {
+         Init();
+      }
+
+      /*************************************************************************
+       * Properties
+       *************************************************************************/
+
+      /// <summary>
+      /// Identity, Indexed, Required
+      /// </summary>
+      [Key]
+      [Required]
+      public long Id { get; protected set; }
+
+      public string Property1 { get; set; }
+
+      /*************************************************************************
+       * Navigation properties
+       *************************************************************************/
+
+   }
+}
+

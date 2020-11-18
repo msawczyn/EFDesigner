@@ -17,6 +17,13 @@ namespace Sawczyn.EFDesigner.EFModel
    public partial class ModelClass : IModelElementWithCompartments, IDisplaysWarning, IHasStore
    {
       [Browsable(false)]
+      public bool IsEntity() => !IsDependentType && !IsKeylessType();
+      [Browsable(false)]
+      public bool IsDependent() => IsDependentType;
+      [Browsable(false)]
+      public bool IsKeyless() => IsKeylessType();
+
+      [Browsable(false)]
       public string DefaultNamespace
       {
          get

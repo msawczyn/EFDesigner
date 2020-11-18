@@ -171,6 +171,14 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                                                        , Attr = element.Attributes.FirstOrDefault(attr => attr.Name == propertyName)
                                                                                                    })))
             data.Attr.IsForeignKeyFor = data.Assoc.Id;
+
+         // ensure any associations have the correct end for composition ownership
+         foreach (AssociationConnector connector in element.Store.ElementDirectory
+                                                           .AllElements.OfType<Association>()
+                                                           .Where(a => a.Dependent == element)
+                                                           .SelectMany(association => PresentationViewsSubject.GetPresentation(association)
+                                                                                                              .OfType<AssociationConnector>()))
+            connector.Invalidate();
       }
    }
 }
