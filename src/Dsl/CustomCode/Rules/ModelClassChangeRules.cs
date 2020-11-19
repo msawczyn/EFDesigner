@@ -263,6 +263,10 @@ namespace Sawczyn.EFDesigner.EFModel
                   element.TableName = MakeDefaultTableAndSetName(element.Name);
                }
 
+               // Remove any foreign keys in any incoming or outgoing associations
+               foreach (Association association in Association.GetLinksToTargets(element).Union(Association.GetLinksToSources(element)).Distinct())
+                  association.FKPropertyName = null;
+
                PresentationHelper.UpdateClassDisplay(element);
 
                break;

@@ -115,12 +115,30 @@
             </Strings>
          </Button>
          
-         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidCollapseSelected" priority="0x0100" type="Button">
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation" priority="0x0100" type="Button">
             <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-               <ButtonText>Collapse Selected Elements</ButtonText>
-               <CommandName>CollapseSelected</CommandName>
+               <ButtonText>Split Bidirectional Association</ButtonText>
+               <CommandName>SplitAssociation</CommandName>
+            </Strings>
+         </Button>
+
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidAddForeignKeys" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Add Foreign Key Properties</ButtonText>
+               <CommandName>AddForeignKeys</CommandName>
+            </Strings>
+         </Button>
+         
+         <Button guid="guidEFDiagramMenuCmdSet" id="cmdidDelForeignKeys" priority="0x0100" type="Button">
+            <Parent guid="guidEFDiagramMenuCmdSet" id="grpidEFDiagram"/>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+            <Strings>
+               <ButtonText>Remove Foreign Key Properties</ButtonText>
+               <CommandName>RemoveForeignKeys</CommandName>
             </Strings>
          </Button>
 
@@ -274,6 +292,8 @@
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidCollapseSelected"  context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidMergeAssociations" context="guidEditor"/>
       <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidSplitAssociation"  context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidAddForeignKeys"    context="guidEditor"/>
+      <VisibilityItem guid="guidEFDiagramMenuCmdSet" id="cmdidDelForeignKeys"    context="guidEditor"/>
    </VisibilityConstraints>
 
    <Symbols>
@@ -307,6 +327,8 @@
          <IDSymbol name="cmdidMergeAssociations"         value="0x0001C"/>
          <IDSymbol name="cmdidSplitAssociation"          value="0x0001D"/>
          <IDSymbol name="cmdidRemoveShape"               value="0x0001E"/>
+         <IDSymbol name="cmdidAddForeignKeys"            value="0x0001F"/>
+         <IDSymbol name="cmdidDelForeignKeys"            value="0x00020"/>
 
          <IDSymbol name="menuidSelect"                   value="0x01100"/>
          <IDSymbol name="grpidSelect"                    value="0x01150"/>

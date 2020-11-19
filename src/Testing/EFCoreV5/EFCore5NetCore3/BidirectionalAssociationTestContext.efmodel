@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="3.0.0.1" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="TestContext" namespace="EFCore5NetCore3" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="false" contextOutputDirectory="Generated" inheritanceStrategy="TablePerType" transformOnSave="false" showCascadeDeletes="false" databaseType="None" warnOnMissingDocumentation="false" entityFrameworkPackageVersion="5.0.0" showWarningsInDesigner="false" exposeForeignKeys="true" propertyAccessModeDefault="Field" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="3.0.0.1" Id="cba47279-0950-4257-bb2c-e4d5e72a52a4" entityContainerName="TestContext" namespace="EFCore5NetCore3" connectionString="Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True" automaticMigrationsEnabled="false" contextOutputDirectory="Generated" inheritanceStrategy="TablePerType" showCascadeDeletes="false" databaseType="None" warnOnMissingDocumentation="false" showWarningsInDesigner="false" exposeForeignKeys="true" propertyAccessModeDefault="Field" xmlns="http://schemas.microsoft.com/dsltools/EFModel">
   <classes>
     <modelRootHasClasses Id="1a0fc2f8-03c2-486c-9ad8-1ef463fbe565">
       <modelClass Id="69079b8b-4043-41fa-a8ea-2c7bbbb3e8e5" tableName="Masters" databaseSchema="dbo" namespace="EFCore5NetCore3" dbSetName="Masters" name="Master" isOutputDirectoryTracking="false" excludeFromMigrations="false">
@@ -46,7 +46,6 @@
       <modelClass Id="ce7d6b57-b3fd-40a6-aacc-1e2c1224be04" tableName="Detail2" databaseSchema="dbo" namespace="EFCore5NetCore3" name="Detail2" isDependentType="true" isOutputDirectoryTracking="false" excludeFromMigrations="false">
         <attributes>
           <modelAttribute Id="13a1744e-69a0-48b3-a863-9761aa419462" maxLength="" indexed="false" indexedUnique="false" stringType="None" name="Property1" autoProperty="true" minLength="0" columnName="Property1" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_property1" databaseCollation="default" />
-          <modelAttribute Id="25946ebf-633c-4f3d-8fa5-2aff13d96b56" type="Int64" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" name="Id" autoProperty="true" minLength="0" columnName="Id" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_id" databaseCollation="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>
@@ -54,7 +53,6 @@
       <modelClass Id="743fa9b7-086b-4461-bfd0-66b97496bfde" tableName="Detail1" databaseSchema="dbo" namespace="EFCore5NetCore3" name="Detail1" isDependentType="true" isOutputDirectoryTracking="false" excludeFromMigrations="false">
         <attributes>
           <modelAttribute Id="5e4e2c6e-b746-47e9-860e-0c726a97aaf7" maxLength="" indexed="false" indexedUnique="false" stringType="None" name="Property1" autoProperty="true" minLength="0" columnName="Property1" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_property1" databaseCollation="default" />
-          <modelAttribute Id="70c2faae-b077-42b2-8f03-29484d3f5f21" type="Int64" required="true" maxLength="" indexed="true" indexedUnique="true" stringType="None" name="Id" autoProperty="true" minLength="0" columnName="Id" columnType="default" implementNotify="false" isForeignKeyFor="00000000-0000-0000-0000-000000000000" backingFieldName="_id" databaseCollation="default" />
         </attributes>
       </modelClass>
     </modelRootHasClasses>

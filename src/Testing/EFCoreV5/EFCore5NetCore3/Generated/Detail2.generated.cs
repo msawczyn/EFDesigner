@@ -33,6 +33,9 @@ namespace EFCore5NetCore3
       /// </summary>
       public Detail2()
       {
+         B = global::EFCore5NetCore3.Master.CreateMasterUnsafe();
+         C = global::EFCore5NetCore3.Master.CreateMasterUnsafe();
+
          Init();
       }
 
@@ -40,30 +43,15 @@ namespace EFCore5NetCore3
        * Properties
        *************************************************************************/
 
-      /// <summary>
-      /// Identity, Indexed, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public long Id { get; protected set; }
-
-      /// <summary>
-      /// Indexed
-      /// Foreign key for Master.ToManyDetail2 --&gt; Detail2. 
-      /// </summary>
-      public long? Fc { get; set; }
-
-      /// <summary>
-      /// Indexed
-      /// Foreign key for Master.ToZeroOrOneDetail2 --&gt; Detail2. 
-      /// </summary>
-      public long? Fb { get; set; }
-
       public string Property1 { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      public virtual global::EFCore5NetCore3.Master B { get; set; }
+
+      public virtual global::EFCore5NetCore3.Master C { get; set; }
 
    }
 }

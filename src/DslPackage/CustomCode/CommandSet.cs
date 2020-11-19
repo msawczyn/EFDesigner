@@ -29,34 +29,36 @@ namespace Sawczyn.EFDesigner.EFModel
       // Designer menu items
 
       // ReSharper disable once UnusedMember.Local
-      private const int grpidEFDiagram         = 0x01001;
+      private const int grpidEFDiagram = 0x01001;
 
-      private const int cmdidFind              = 0x0011;
-      private const int cmdidLayoutDiagram     = 0x0012;
-      private const int cmdidHideShape         = 0x0013;
-      private const int cmdidShowShape         = 0x0014;
-      private const int cmdidGenerateCode      = 0x0015;
+      private const int cmdidFind = 0x0011;
+      private const int cmdidLayoutDiagram = 0x0012;
+      private const int cmdidHideShape = 0x0013;
+      private const int cmdidShowShape = 0x0014;
+      private const int cmdidGenerateCode = 0x0015;
       private const int cmdidAddCodeProperties = 0x0016;
-      private const int cmdidSaveAsImage       = 0x0017;
-      private const int cmdidLoadNuGet         = 0x0018;
-      private const int cmdidAddCodeValues     = 0x0019;
-      private const int cmdidExpandSelected    = 0x001A;
-      private const int cmdidCollapseSelected  = 0x001B;
+      private const int cmdidSaveAsImage = 0x0017;
+      private const int cmdidLoadNuGet = 0x0018;
+      private const int cmdidAddCodeValues = 0x0019;
+      private const int cmdidExpandSelected = 0x001A;
+      private const int cmdidCollapseSelected = 0x001B;
       private const int cmdidMergeAssociations = 0x001C;
-      private const int cmdidSplitAssociation  = 0x001D;
-      private const int cmdidRemoveShape       = 0x001E;
+      private const int cmdidSplitAssociation = 0x001D;
+      private const int cmdidRemoveShape = 0x001E;
+      private const int cmdidAddForeignKeys = 0x001F;
+      private const int cmdidDelForeignKeys = 0x0020;
 
-      private const int cmdidSelectClasses     = 0x0101;
-      private const int cmdidSelectEnums       = 0x0102;
-      private const int cmdidSelectAssocs      = 0x0103;
-      private const int cmdidSelectUnidir      = 0x0104;
-      private const int cmdidSelectBidir       = 0x0105;
+      private const int cmdidSelectClasses = 0x0101;
+      private const int cmdidSelectEnums = 0x0102;
+      private const int cmdidSelectAssocs = 0x0103;
+      private const int cmdidSelectUnidir = 0x0104;
+      private const int cmdidSelectBidir = 0x0105;
 
       // Model Explorer menu items
 
-      internal const int cmdidExpandAll        = 0x0201;
-      internal const int cmdidCollapseAll      = 0x0202;
-      internal const int cmdidGoToCode         = 0x0203;
+      internal const int cmdidExpandAll = 0x0201;
+      internal const int cmdidCollapseAll = 0x0202;
+      internal const int cmdidGoToCode = 0x0203;
 
       internal static readonly Guid guidEFDiagramMenuCmdSet = new Guid("31178ecb-5da7-46cc-bd4a-ce4e5420bd3e");
       internal static readonly Guid guidMenuExplorerCmdSet = new Guid("922EC20C-4054-4E96-8C10-2405A1F91486");
@@ -102,6 +104,16 @@ namespace Sawczyn.EFDesigner.EFModel
 
          commands.Add(removeShapeCommand);
 
+         DynamicStatusMenuCommand addForeignKeysCommand =
+            new DynamicStatusMenuCommand(OnStatusAddForeignKeys, OnMenuAddForeignKeys, new CommandID(guidEFDiagramMenuCmdSet, cmdidAddForeignKeys));
+
+         commands.Add(addForeignKeysCommand);
+
+         DynamicStatusMenuCommand removeForeignKeysCommand =
+            new DynamicStatusMenuCommand(OnStatusRemoveForeignKeys, OnMenuRemoveForeignKeys, new CommandID(guidEFDiagramMenuCmdSet, cmdidDelForeignKeys));
+
+         commands.Add(removeForeignKeysCommand);
+
          DynamicStatusMenuCommand generateCodeCommand =
             new DynamicStatusMenuCommand(OnStatusGenerateCode, OnMenuGenerateCode, new CommandID(guidEFDiagramMenuCmdSet, cmdidGenerateCode));
 
@@ -112,8 +124,10 @@ namespace Sawczyn.EFDesigner.EFModel
 
          commands.Add(saveAsImageCommand);
 
+#pragma warning disable 612
          DynamicStatusMenuCommand loadNuGetCommand =
             new DynamicStatusMenuCommand(OnStatusLoadNuGet, OnMenuLoadNuGet, new CommandID(guidEFDiagramMenuCmdSet, cmdidLoadNuGet));
+#pragma warning restore 612
 
          commands.Add(loadNuGetCommand);
 
@@ -187,9 +201,6 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            command.Visible = true;
-            command.Enabled = true;
-
             // until we can figure out how we want to do this
             command.Visible = false;
             command.Enabled = false;
@@ -371,6 +382,90 @@ namespace Sawczyn.EFDesigner.EFModel
       }
 
       #endregion Add Properties
+
+      #region Add Foreign Keys
+
+      private void OnStatusAddForeignKeys(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            Store store = CurrentEFModelDocData.Store;
+
+            command.Visible = true;
+
+            IEnumerable<Association> associations = store.ElementDirectory.AllElements
+                                                         .OfType<Association>()
+                                                         .Where(a => a.Principal?.AllIdentityAttributes?.Any() == true
+                                                                  && string.IsNullOrEmpty(a.FKPropertyName));
+
+            command.Enabled = store != null && associations.Any();
+         }
+      }
+
+      private void OnMenuAddForeignKeys(object sender, EventArgs e)
+      {
+         Store store = CurrentEFModelDocData.Store;
+         List<Association> associations = store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => a.Principal?.AllIdentityAttributes?.Any() == true
+                                                        && string.IsNullOrEmpty(a.FKPropertyName))
+                                               .ToList();
+
+         if (BooleanQuestionDisplay.Show(store, $"This will add defined foreign key properties to the {associations.Count} associations that don't have them. Are you sure?") == true)
+         {
+            using (Transaction tx = store.TransactionManager.BeginTransaction("Add Foreign Keys"))
+            {
+               foreach (Association association in associations)
+                  association.FKPropertyName = string.Join(",", association.GetForeignKeyPropertyNames());
+
+               tx.Commit();
+            }
+         }
+      }
+
+      #endregion Add Foreign Keys
+
+      #region Remove Foreign Keys
+
+      private void OnStatusRemoveForeignKeys(object sender, EventArgs e)
+      {
+         if (sender is MenuCommand command)
+         {
+            command.Visible = true;
+            Store store = CurrentEFModelDocData.Store;
+
+            command.Visible = true;
+
+            IEnumerable<Association> associations = store.ElementDirectory.AllElements
+                                                         .OfType<Association>()
+                                                         .Where(a => a.Principal?.AllIdentityAttributes?.Any() == true
+                                                                  && !string.IsNullOrEmpty(a.FKPropertyName));
+
+            command.Enabled = store != null && associations.Any();
+         }
+      }
+
+      private void OnMenuRemoveForeignKeys(object sender, EventArgs e)
+      {
+         Store store = CurrentEFModelDocData.Store;
+         List<Association> associations = store.ElementDirectory.AllElements
+                                               .OfType<Association>()
+                                               .Where(a => !string.IsNullOrEmpty(a.FKPropertyName))
+                                               .ToList();
+
+         if (BooleanQuestionDisplay.Show(store, $"This will remove the {associations.Count} defined foreign key properties in the model. Are you sure?") == true)
+         {
+            using (Transaction tx = store.TransactionManager.BeginTransaction("Remove Foreign Keys"))
+            {
+               foreach (Association association in associations)
+                  association.FKPropertyName = null;
+
+               tx.Commit();
+            }
+         }
+      }
+
+      #endregion Remove Foreign Keys
 
       #region Generate Code
 
@@ -686,8 +781,8 @@ namespace Sawczyn.EFDesigner.EFModel
       {
          if (sender is MenuCommand command)
          {
-            Store store = CurrentDocData.Store;
-            ModelRoot modelRoot = store.ModelRoot();
+            //Store store = CurrentDocData.Store;
+            //ModelRoot modelRoot = store.ModelRoot();
             command.Visible = false; // modelRoot != null && CurrentDocData is EFModelDocData && IsDiagramSelected();
             command.Enabled = false; // IsDiagramSelected() && ModelRoot.CanLoadNugetPackages;
          }

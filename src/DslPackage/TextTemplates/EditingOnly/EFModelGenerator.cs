@@ -482,6 +482,15 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             }
          }
 
+         protected string GetDefaultConstructorVisibility(ModelClass modelClass)
+         {
+            bool hasRequiredParameters = GetRequiredParameters(modelClass, false).Any();
+            string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
+                                   ? "protected"
+                                   : "public";
+            return visibility;
+         }
+
          protected void WriteConstructor(ModelClass modelClass)
          {
             Output("partial void Init();");
@@ -497,9 +506,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                      .Any(np => np.AssociationObject.SourceMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.One
                                                              && np.AssociationObject.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One);
 
-            string visibility = (hasRequiredParameters || modelClass.IsAbstract) && !modelClass.IsDependentType
-                                   ? "protected"
-                                   : "public";
+            string visibility = GetDefaultConstructorVisibility(modelClass);
 
             if (visibility == "public")
             {
@@ -776,7 +783,10 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                  && !x.IsCollection
                                                                                  && !x.ConstructorParameterOnly))
             {
-               Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
+               if (GetDefaultConstructorVisibility(navigationProperty.ClassType) == "public")
+                  Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
+               else
+                  Output($"{navigationProperty.PropertyName} = {navigationProperty.ClassType.FullName}.Create{navigationProperty.ClassType.Name}Unsafe();");
                ++lineCount;
             }
 

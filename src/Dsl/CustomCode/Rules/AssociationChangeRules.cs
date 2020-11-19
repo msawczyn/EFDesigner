@@ -147,12 +147,13 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (element.SourceRole == EndpointRole.NotApplicable)
                      element.SourceRole = EndpointRole.NotSet;
 
-                  if (element.Source.IsDependentType)
-                  {
-                     element.SourceRole = EndpointRole.Dependent;
-                     element.TargetRole = EndpointRole.Principal;
-                  }
-                  else if (!SetEndpointRoles(element))
+                  //if (element.Source.IsDependentType)
+                  //{
+                  //   element.SourceRole = EndpointRole.Dependent;
+                  //   element.TargetRole = EndpointRole.Principal;
+                  //}
+                  //else 
+                  if (!SetEndpointRoles(element))
                   {
                      if (element.SourceRole == EndpointRole.Dependent && element.TargetRole != EndpointRole.Principal)
                         element.TargetRole = EndpointRole.Principal;
@@ -220,13 +221,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   if (element.TargetRole == EndpointRole.NotApplicable)
                      element.TargetRole = EndpointRole.NotSet;
 
-                  if (element.Target.IsDependentType && (element.SourceRole != EndpointRole.Principal || element.TargetRole != EndpointRole.Dependent))
-                  {
-                     element.SourceRole = EndpointRole.Principal;
-                     element.TargetRole = EndpointRole.Dependent;
-                     doForeignKeyFixup = true;
-                  }
-                  else if (!SetEndpointRoles(element))
+                  //if (element.Target.IsDependentType && (element.SourceRole != EndpointRole.Principal || element.TargetRole != EndpointRole.Dependent))
+                  //{
+                  //   element.SourceRole = EndpointRole.Principal;
+                  //   element.TargetRole = EndpointRole.Dependent;
+                  //   doForeignKeyFixup = true;
+                  //}
+                  //else 
+                  if (!SetEndpointRoles(element))
                   {
                      if (element.TargetRole == EndpointRole.Dependent && element.SourceRole != EndpointRole.Principal)
                      {
@@ -262,35 +264,14 @@ namespace Sawczyn.EFDesigner.EFModel
 
       private bool ValidateMultiplicity(Association element, ModelRoot modelRoot, List<string> errorMessages, Store store, ref bool doForeignKeyFixup)
       {
-         if (element.Source.IsDependentType)
+         if (!element.AllCardinalitiesAreValid(out string errorMessage))
          {
-            if (!modelRoot.IsEFCore5Plus)
-            {
-               if (element.SourceMultiplicity != Multiplicity.One || element.TargetMultiplicity != Multiplicity.ZeroOne)
-               {
-                  errorMessages.Add($"The association from {element.Source.Name} to {element.Target.Name} must be 1..0-1");
-                  return false;
-               }
-            }
+            errorMessages.Add(errorMessage);
+            return false;
          }
-         else if (element.Target.IsDependentType)
+
+         if (!element.Source.IsDependentType && !element.Target.IsDependentType)
          {
-            if (!modelRoot.IsEFCore5Plus)
-            {
-               if (element.TargetMultiplicity != Multiplicity.One || element.SourceMultiplicity != Multiplicity.ZeroOne)
-               {
-                  errorMessages.Add($"The association from {element.Target.Name} to {element.Source.Name} must be 1..0-1");
-                  return false;
-               }
-            }
-         }
-         else
-         {
-            if (modelRoot.IsEFCore5Plus && element is UnidirectionalAssociation u && element.Is(Multiplicity.ZeroMany, Multiplicity.ZeroMany))
-            {
-               errorMessages.Add($"{element.GetDisplayText()}: Many-to-many unidirectional associations are not yet supported in Entity Framework Core.");
-               return false;
-            }
 
             if (element.Is(Multiplicity.One, Multiplicity.One) || element.Is(Multiplicity.ZeroOne, Multiplicity.ZeroOne))
             {

@@ -38,6 +38,10 @@ namespace Sawczyn.EFDesigner.EFModel
              && association.TargetMultiplicity != Multiplicity.ZeroMany)
                propertyDescriptors.Remove("FKPropertyName");
 
+            // no FKs for aggregates
+            if (association.Source.IsDependentType || association.Target.IsDependentType)
+               propertyDescriptors.Remove("FKPropertyName");
+
             // only display roles for 1..1 and 0-1..0-1 associations
             if ((association.SourceMultiplicity != Multiplicity.One || association.TargetMultiplicity != Multiplicity.One)
              && (association.SourceMultiplicity != Multiplicity.ZeroOne || association.TargetMultiplicity != Multiplicity.ZeroOne))

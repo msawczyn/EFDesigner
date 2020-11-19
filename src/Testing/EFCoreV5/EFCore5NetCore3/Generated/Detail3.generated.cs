@@ -33,12 +33,18 @@ namespace EFCore5NetCore3
       /// </summary>
       public Detail3()
       {
+         B = new System.Collections.Generic.HashSet<global::EFCore5NetCore3.Master>();
+         A = new System.Collections.Generic.HashSet<global::EFCore5NetCore3.Master>();
+         C = new System.Collections.Generic.HashSet<global::EFCore5NetCore3.Master>();
+
          Init();
       }
 
       /*************************************************************************
        * Properties
        *************************************************************************/
+
+      public string Property1 { get; set; }
 
       /// <summary>
       /// Identity, Indexed, Required
@@ -47,11 +53,15 @@ namespace EFCore5NetCore3
       [Required]
       public long Id { get; protected set; }
 
-      public string Property1 { get; set; }
-
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      public virtual ICollection<global::EFCore5NetCore3.Master> B { get; protected set; }
+
+      public virtual ICollection<global::EFCore5NetCore3.Master> A { get; protected set; }
+
+      public virtual ICollection<global::EFCore5NetCore3.Master> C { get; protected set; }
 
    }
 }

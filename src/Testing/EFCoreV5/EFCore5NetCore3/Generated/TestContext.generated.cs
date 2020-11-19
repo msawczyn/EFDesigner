@@ -45,8 +45,6 @@ namespace EFCore5NetCore3
       /// <inheritdoc />
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
-         optionsBuilder.UseLazyLoadingProxies();
-
          CustomInit(optionsBuilder);
       }
 
@@ -65,42 +63,79 @@ namespace EFCore5NetCore3
 
          modelBuilder.Owned<global::EFCore5NetCore3.Detail2>();
 
-         modelBuilder.Entity<global::EFCore5NetCore3.Detail3>().ToTable("Detail3").HasKey(t => t.Id);
-         modelBuilder.Entity<global::EFCore5NetCore3.Detail3>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::EFCore5NetCore3.Detail3>()
+                     .ToTable("Detail3")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::EFCore5NetCore3.Detail3>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .ValueGeneratedOnAdd();
 
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().ToTable("Masters").HasKey(t => t.Id);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasIndex(t => t.Fb);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Property(t => t.Fa).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasIndex(t => t.Fa);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasOne<global::EFCore5NetCore3.Detail3>(p => p.ToZeroOrOneDetail3).WithMany().HasForeignKey(k => k.Fb);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().HasOne<global::EFCore5NetCore3.Detail3>(p => p.ToOneDetail3).WithMany().HasForeignKey(k => k.Fa);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Id).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Fa).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Fb).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Fc).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail1).Property(p => p.Property1);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Id).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Fa).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Fb).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Fc).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail1).Property(p => p.Property1);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Navigation(p => p.ToOneDetail1).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail1).WithOwner("Master_ToManyDetail1").HasForeignKey("Master_ToManyDetail1Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail1).Property<int>("Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail1).HasKey("Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Id).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Fc);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Fb);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToZeroOrOneDetail2).Property(p => p.Property1);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail2).WithOwner("Master_ToManyDetail2").HasForeignKey("Master_ToManyDetail2Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail2).Property<int>("Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsMany(p => p.ToManyDetail2).HasKey("Id");
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Id).IsRequired();
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Fc);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Fb);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().OwnsOne(p => p.ToOneDetail2).Property(p => p.Property1);
-         modelBuilder.Entity<global::EFCore5NetCore3.Master>().Navigation(p => p.ToOneDetail2).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .ToTable("Masters")
+                     .HasKey(t => t.Id);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .Property(t => t.Id)
+                     .IsRequired()
+                     .ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .HasOne<global::EFCore5NetCore3.Detail3>(p => p.ToZeroOrOneDetail3)
+                     .WithMany(p => p.B)
+                     .HasForeignKey("ToZeroOrOneDetail3Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .HasOne<global::EFCore5NetCore3.Detail3>(p => p.ToOneDetail3)
+                     .WithMany(p => p.A)
+                     .HasForeignKey("ToOneDetail3Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .HasMany<global::EFCore5NetCore3.Detail3>(p => p.ToManyDetail3)
+                     .WithMany(p => p.C)
+                     .UsingEntity(x => x.ToTable("Detail3_C_x_Master_ToManyDetail3"));
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsOne(p => p.ToZeroOrOneDetail1)
+                     .WithOwner(p => p.B);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsOne(p => p.ToZeroOrOneDetail1)
+                     .ToTable("Detail1");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsOne(p => p.ToOneDetail1)
+                     .WithOwner(p => p.A);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsOne(p => p.ToOneDetail1)
+                     .ToTable("Detail1");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .Navigation(p => p.ToOneDetail1).IsRequired();
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail1)
+                     .ToTable("Detail1");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail1)
+                     .WithOwner("C")
+                     .HasForeignKey("CId");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail1)
+                     .Property<int>("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail1)
+                     .HasKey("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsOne(p => p.ToZeroOrOneDetail2)
+                     .WithOwner(p => p.B);
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsOne(p => p.ToZeroOrOneDetail2)
+                     .ToTable("Detail2");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail2)
+                     .ToTable("Detail2");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail2)
+                     .WithOwner("C")
+                     .HasForeignKey("CId");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail2)
+                     .Property<int>("Id");
+         modelBuilder.Entity<global::EFCore5NetCore3.Master>()
+                     .OwnsMany(p => p.ToManyDetail2)
+                     .HasKey("Id");
 
          OnModelCreatedImpl(modelBuilder);
       }

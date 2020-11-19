@@ -163,7 +163,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      string[] filenames;
 
                      if (diagramDragEventArgs.Data.GetData("Text") is string concatenatedFilenames)
-                        filenames = concatenatedFilenames.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+                        filenames = concatenatedFilenames.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
                      else if (diagramDragEventArgs.Data.GetData("FileDrop") is string[] droppedFilenames)
                         filenames = droppedFilenames;
                      else
@@ -187,70 +187,14 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                   finally
                   {
-                     // TODO: how to add shapes to the current diagram without taking forever? The trick is disabling line routing, but how?
-                     #region Come back to this later
+                     if (newElements != null)
+                     {
+                        string message = $"Created {newElements.Count} new elements that have been added to the Model Explorer. "
+                                       + $"Do you want these added to the current diagram as well? It could take a while.";
 
-                     //if (newElements != null)
-                     //{
-                        // add to the active diagram
-                        //int elementCount = newElements.Count;
-                        //List<ShapeElement> newShapes = new List<ShapeElement>();
-
-                        //using (Transaction t = Store.TransactionManager.BeginTransaction("adding diagram elements"))
-                        //{
-                        //   for (int index = 0; index < elementCount; index++)
-                        //   {
-                        //      ModelElement newElement = newElements[index];
-                        //      StatusDisplay.Show($"Adding element {index + 1} of {elementCount}");
-
-                        //      ForceAddShape = true;
-                        //      FixUpAllDiagrams.FixUp(this, newElement);
-                        //      newShapes.Add(newElement.GetFirstShapeElement());
-                        //      ForceAddShape = false;
-                        //   }
-
-                        //   t.Commit();
-                        //}
-
-                        //using (Transaction t = Store.TransactionManager.BeginTransaction("adding diagram links"))
-                        //{
-                        //   for (int index = 0; index < elementCount; index++)
-                        //   {
-                        //      ModelElement newElement = newElements[index];
-                        //      StatusDisplay.Show($"Linking {index + 1} of {elementCount}");
-
-                        //      // find all element links that are attached to our element where the ends are in the diagram but the link isn't already in the diagram
-                        //      List<ElementLink> elementLinks = Store.GetAll<ElementLink>()
-                        //                                            .Where(link => link.LinkedElements.Contains(newElement)
-                        //                                                        && link.LinkedElements.All(linkedElement => DisplayedElements.Contains(linkedElement))
-                        //                                                        && !DisplayedElements.Contains(link))
-                        //                                            .ToList();
-
-                        //      foreach (ElementLink elementLink in elementLinks)
-                        //      {
-                        //         BinaryLinkShape linkShape = CreateChildShape(elementLink) as BinaryLinkShape;
-                        //         newShapes.Add(linkShape);
-                        //         NestedChildShapes.Add(linkShape);
-
-                        //         switch (elementLink)
-                        //         {
-                        //            case Association a:
-                        //               linkShape.FromShape = a.Source.GetFirstShapeElement() as NodeShape;
-                        //               linkShape.ToShape = a.Target.GetFirstShapeElement() as NodeShape;
-                        //               break;
-                        //            case Generalization g:
-                        //               linkShape.FromShape = g.Subclass.GetFirstShapeElement() as NodeShape;
-                        //               linkShape.ToShape = g.Superclass.GetFirstShapeElement() as NodeShape;
-                        //               break;
-                        //         }
-                        //      }
-                        //   }
-
-                        //   AutoLayoutShapeElements(newShapes);
-                        //   t.Commit();
-                        //}
-                     //}
-                     #endregion
+                        if (BooleanQuestionDisplay.Show(Store, message) == true)
+                           AddElementsToActiveDiagram(newElements);
+                     }
 
                      IsDroppingExternal = false;
                   }
@@ -300,6 +244,70 @@ namespace Sawczyn.EFDesigner.EFModel
                messageParts.Add($"{enumCount} enums");
 
             return $"Import dropped files: added {(messageParts.Count > 1 ? string.Join(", ", messageParts.Take(messageParts.Count - 1)) + " and " + messageParts.Last() : messageParts.First())}";
+         }
+      }
+
+      private void AddElementsToActiveDiagram(List<ModelElement> newElements)
+      {
+         // TODO: Needs sped up
+         int elementCount = newElements.Count;
+         List<ShapeElement> newShapes = new List<ShapeElement>();
+
+         using (Transaction t = Store.TransactionManager.BeginTransaction("adding diagram elements"))
+         {
+            for (int index = 0; index < elementCount; index++)
+            {
+               ModelElement newElement = newElements[index];
+               StatusDisplay.Show($"Adding element {index + 1} of {elementCount}");
+
+               ForceAddShape = true;
+               FixUpAllDiagrams.FixUp(this, newElement);
+               newShapes.Add(newElement.GetFirstShapeElement());
+               ForceAddShape = false;
+            }
+
+            t.Commit();
+         }
+
+         using (Transaction t = Store.TransactionManager.BeginTransaction("adding diagram links"))
+         {
+            for (int index = 0; index < elementCount; index++)
+            {
+               ModelElement newElement = newElements[index];
+               StatusDisplay.Show($"Linking {index + 1} of {elementCount}");
+
+               // find all element links that are attached to our element where the ends are in the diagram but the link isn't already in the diagram
+               List<ElementLink> elementLinks = Store.GetAll<ElementLink>()
+                                                     .Where(link => link.LinkedElements.Contains(newElement)
+                                                                 && link.LinkedElements.All(linkedElement => DisplayedElements.Contains(linkedElement))
+                                                                 && !DisplayedElements.Contains(link))
+                                                     .ToList();
+
+               foreach (ElementLink elementLink in elementLinks)
+               {
+                  BinaryLinkShape linkShape = CreateChildShape(elementLink) as BinaryLinkShape;
+                  newShapes.Add(linkShape);
+                  NestedChildShapes.Add(linkShape);
+
+                  switch (elementLink)
+                  {
+                     case Association a:
+                        linkShape.FromShape = a.Source.GetFirstShapeElement() as NodeShape;
+                        linkShape.ToShape = a.Target.GetFirstShapeElement() as NodeShape;
+
+                        break;
+
+                     case Generalization g:
+                        linkShape.FromShape = g.Subclass.GetFirstShapeElement() as NodeShape;
+                        linkShape.ToShape = g.Superclass.GetFirstShapeElement() as NodeShape;
+
+                        break;
+                  }
+               }
+            }
+
+            AutoLayoutShapeElements(newShapes);
+            t.Commit();
          }
       }
 

@@ -36,33 +36,28 @@ namespace EFCore5NetCore3
          // NOTE: This class has one-to-one associations with Detail1.
          // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
 
+         B = global::EFCore5NetCore3.Master.CreateMasterUnsafe();
+         A = global::EFCore5NetCore3.Master.CreateMasterUnsafe();
+         C = global::EFCore5NetCore3.Master.CreateMasterUnsafe();
+
          Init();
       }
 
       /// <summary>
       /// Public constructor with required data
       /// </summary>
-      /// <param name="fa">Foreign key for Master.ToOneDetail1 --&gt; Detail1. </param>
-      /// <param name="fb">Foreign key for Master.ToZeroOrOneDetail1 --&gt; Detail1. </param>
-      /// <param name="fc">Foreign key for Master.ToManyDetail1 --&gt; Detail1. </param>
-      /// <param name="_master0"></param>
-      /// <param name="_master2"></param>
-      public Detail1(long fa, long fb, long fc, global::EFCore5NetCore3.Master _master0, global::EFCore5NetCore3.Master _master2)
+      /// <param name="b"></param>
+      /// <param name="c"></param>
+      public Detail1(global::EFCore5NetCore3.Master b, global::EFCore5NetCore3.Master c)
       {
          // NOTE: This class has one-to-one associations with Detail1.
          // One-to-one associations are not validated in constructors since this causes a scenario where each one must be constructed before the other.
 
-         this.Fa = fa;
+         if (b == null) throw new ArgumentNullException(nameof(b));
+         this.B = b;
 
-         this.Fb = fb;
-
-         this.Fc = fc;
-
-         if (_master0 == null) throw new ArgumentNullException(nameof(_master0));
-         _master0.ToZeroOrOneDetail1 = this;
-
-         if (_master2 == null) throw new ArgumentNullException(nameof(_master2));
-         _master2.ToManyDetail1.Add(this);
+         if (c == null) throw new ArgumentNullException(nameof(c));
+         this.C = c;
 
 
          Init();
@@ -71,53 +66,37 @@ namespace EFCore5NetCore3
       /// <summary>
       /// Static create function (for use in LINQ queries, etc.)
       /// </summary>
-      /// <param name="fa">Foreign key for Master.ToOneDetail1 --&gt; Detail1. </param>
-      /// <param name="fb">Foreign key for Master.ToZeroOrOneDetail1 --&gt; Detail1. </param>
-      /// <param name="fc">Foreign key for Master.ToManyDetail1 --&gt; Detail1. </param>
-      /// <param name="_master0"></param>
-      /// <param name="_master2"></param>
-      public static Detail1 Create(long fa, long fb, long fc, global::EFCore5NetCore3.Master _master0, global::EFCore5NetCore3.Master _master2)
+      /// <param name="b"></param>
+      /// <param name="c"></param>
+      public static Detail1 Create(global::EFCore5NetCore3.Master b, global::EFCore5NetCore3.Master c)
       {
-         return new Detail1(fa, fb, fc, _master0, _master2);
+         return new Detail1(b, c);
       }
 
       /*************************************************************************
        * Properties
        *************************************************************************/
 
-      /// <summary>
-      /// Identity, Indexed, Required
-      /// </summary>
-      [Key]
-      [Required]
-      public long Id { get; protected set; }
-
-      /// <summary>
-      /// Indexed, Required
-      /// Foreign key for Master.ToOneDetail1 --&gt; Detail1. 
-      /// </summary>
-      [Required]
-      public long Fa { get; set; }
-
-      /// <summary>
-      /// Indexed, Required
-      /// Foreign key for Master.ToZeroOrOneDetail1 --&gt; Detail1. 
-      /// </summary>
-      [Required]
-      public long Fb { get; set; }
-
-      /// <summary>
-      /// Indexed, Required
-      /// Foreign key for Master.ToManyDetail1 --&gt; Detail1. 
-      /// </summary>
-      [Required]
-      public long Fc { get; set; }
-
       public string Property1 { get; set; }
 
       /*************************************************************************
        * Navigation properties
        *************************************************************************/
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::EFCore5NetCore3.Master B { get; set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::EFCore5NetCore3.Master A { get; set; }
+
+      /// <summary>
+      /// Required
+      /// </summary>
+      public virtual global::EFCore5NetCore3.Master C { get; set; }
 
    }
 }

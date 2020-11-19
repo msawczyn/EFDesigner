@@ -165,6 +165,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      {
                         segments.Add(baseSegment);
                         segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
+                        segments.Add($"ToTable(\"{(string.IsNullOrEmpty(association.Target.TableName) ? association.Target.Name : association.Target.TableName)}\")");
+                        Output(segments);
+
+                        segments.Add(baseSegment);
+                        segments.Add($"OwnsMany(p => p.{association.TargetPropertyName})");
                         segments.Add($"WithOwner(\"{association.SourcePropertyName}\")");
                         segments.Add($"HasForeignKey(\"{association.SourcePropertyName}Id\")");
                         Output(segments);
@@ -190,8 +195,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      {
                         segments.Add(baseSegment);
                         segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                        segments.Add($"ToTable(\"{association.Target.Name}\")");
+                        segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
                         Output(segments);
+
+                        if (!string.IsNullOrEmpty(association.Target.TableName))
+                        {
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
+                           segments.Add($"ToTable(\"{association.Target.TableName}\")");
+                           Output(segments);
+                        }
 
                         foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
                         {
@@ -222,8 +235,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      {
                         segments.Add(baseSegment);
                         segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
-                        segments.Add($"ToTable(\"{association.Target.Name}\")");
+                        segments.Add($"WithOwner(p => p.{association.SourcePropertyName})");
                         Output(segments);
+
+                        if (!string.IsNullOrEmpty(association.Target.TableName))
+                        {
+                           segments.Add(baseSegment);
+                           segments.Add($"OwnsOne(p => p.{association.TargetPropertyName})");
+                           segments.Add($"ToTable(\"{association.Target.TableName}\")");
+                           Output(segments);
+                        }
 
                         foreach (ModelAttribute modelAttribute in association.Target.AllAttributes)
                         {

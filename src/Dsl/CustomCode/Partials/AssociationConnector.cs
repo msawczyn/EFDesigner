@@ -38,6 +38,7 @@ namespace Sawczyn.EFDesigner.EFModel
                    : string.Empty;
       }
 
+
       /// <summary>
       /// Gets or sets the decorator on the From end of the relationship.
       /// </summary>
@@ -50,15 +51,17 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (association.Target.IsDependentType)
             {
-               LinkDecorator decorator = (association.SourceMultiplicity == Multiplicity.One ? LinkDecorator.DecoratorFilledDiamond : LinkDecorator.DecoratorEmptyDiamond);
+               LinkDecorator decorator = association.SourceMultiplicity == Multiplicity.One 
+                                            ? LinkDecorator.DecoratorFilledDiamond 
+                                            : LinkDecorator.DecoratorEmptyDiamond;
 
                if (base.DecoratorFrom != decorator)
-                  SetDecorators(decorator, new SizeD(0.15,0.15), DecoratorTo, DefaultDecoratorSize, true);
+                  SetDecorators(decorator, new SizeD(0.15,0.15), base.DecoratorTo, DefaultDecoratorSize, true);
             }
             else
             {
                if (base.DecoratorFrom != null)
-                  SetDecorators(null, DefaultDecoratorSize, DecoratorTo, DefaultDecoratorSize, true);
+                  SetDecorators(null, DefaultDecoratorSize, base.DecoratorTo, DefaultDecoratorSize, true);
             }
 
             return base.DecoratorFrom;
@@ -81,16 +84,27 @@ namespace Sawczyn.EFDesigner.EFModel
 
             if (association.Source.IsDependentType)
             {
-               LinkDecorator decorator = (association.TargetMultiplicity == Multiplicity.One ? LinkDecorator.DecoratorFilledDiamond : LinkDecorator.DecoratorEmptyDiamond);
+               LinkDecorator decorator = association.TargetMultiplicity == Multiplicity.One 
+                                            ? LinkDecorator.DecoratorFilledDiamond 
+                                            : LinkDecorator.DecoratorEmptyDiamond;
+             
                if (base.DecoratorTo != decorator)
-                  SetDecorators(DecoratorFrom, DefaultDecoratorSize, decorator, new SizeD(0.15,0.15), true);
+                  SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, decorator, new SizeD(0.15,0.15), true);
             }
             else
             {
-               if (association is UnidirectionalAssociation && base.DecoratorTo != LinkDecorator.DecoratorEmptyArrow)
-                  SetDecorators(DecoratorFrom, DefaultDecoratorSize, LinkDecorator.DecoratorEmptyArrow, new SizeD(0.1,0.1), true);
-               else if (association is BidirectionalAssociation && base.DecoratorTo != null)
-                  SetDecorators(null, DefaultDecoratorSize, null, DefaultDecoratorSize, true);
+               switch (association)
+               {
+                  case UnidirectionalAssociation _ when base.DecoratorTo != LinkDecorator.DecoratorEmptyArrow:
+                     SetDecorators(base.DecoratorFrom, DefaultDecoratorSize, LinkDecorator.DecoratorEmptyArrow, DefaultDecoratorSize, true);
+
+                     break;
+
+                  case BidirectionalAssociation _ when base.DecoratorTo != null:
+                     SetDecorators(null, DefaultDecoratorSize, null, DefaultDecoratorSize, true);
+
+                     break;
+               }
             }
 
             return base.DecoratorTo;
