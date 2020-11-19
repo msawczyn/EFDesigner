@@ -423,6 +423,7 @@
     <Content Include="Resources\Public.png" />
     <Content Include="Resources\ShowDiagramPane_16x.png" />
     <Content Include="Resources\Spacer.png" />
+    <Content Include="Resources\SQL.png" />
     <Content Include="Resources\TransientClass.png" />
     <Content Include="Resources\Warning.png" />
     <Content Include="Resources\ForeignKeyIdentity.pdn" />

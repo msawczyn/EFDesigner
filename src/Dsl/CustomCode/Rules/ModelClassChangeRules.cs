@@ -194,7 +194,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      break;
                   }
 
-                  List<UnidirectionalAssociation> entityTargets = store.GetAll<UnidirectionalAssociation>().Where(a => !a.Target.IsDependentType).ToList();
+                  List<UnidirectionalAssociation> entityTargets = store.GetAll<UnidirectionalAssociation>().Where(a => a.Source == element && !a.Target.IsDependentType).ToList();
 
                   if (entityTargets.Any())
                   {
@@ -222,7 +222,7 @@ namespace Sawczyn.EFDesigner.EFModel
                      if (bidirectionalAssociations.Any())
                      {
                         string badAssociations = string.Join(", ", entityTargets.Select(a => a.GetDisplayText()));
-                        errorMessages.Add($"Can't make {element.Name} a dependent class since it has bidirectional associations without ownership cardinality in: {badAssociations}. The other end must be a single, required reference.");
+                        errorMessages.Add($"Can't make {element.Name} a dependent class since it has bidirectional associations without 1 or 0/1 ownership multiplicity in: {badAssociations}. The other end must be a single, required reference.");
 
                         break;
                      }

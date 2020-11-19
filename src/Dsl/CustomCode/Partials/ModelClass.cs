@@ -254,6 +254,9 @@ namespace Sawczyn.EFDesigner.EFModel
          if (ModelRoot.ShowWarningsInDesigner && GetHasWarningValue())
             return "WarningGlyph";
 
+         if (IsQueryType)
+            return "SQLGlyph";
+
          if (!GenerateCode)
             return "NoGenGlyph";
 
