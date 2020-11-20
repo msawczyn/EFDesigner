@@ -32,6 +32,9 @@ namespace Testing
 
          BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
          BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
+         BParentRequired = new global::Testing.BParentRequired();
+         BParentRequired_1 = new global::Testing.BParentRequired();
+         BParentRequired_2 = new global::Testing.BParentRequired();
 
          Init();
       }
@@ -83,7 +86,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int _Id;
+      internal int _id;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -102,17 +105,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = _id;
             GetId(ref value);
-            return (_Id = value);
+            return (_id = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = _id;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+               _id = value;
             }
          }
       }
@@ -136,9 +139,9 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; protected set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; protected set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
       public virtual global::Testing.BParentOptional BParentOptional { get; set; }
 

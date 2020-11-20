@@ -86,13 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AllFeatureModel.efmodel" />
-    <None Include="Generated\Context\Placeholder.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Generated\Entities\Placeholder.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Generated\Enums\Placeholder.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Generated\Structs\Placeholder.txt" />

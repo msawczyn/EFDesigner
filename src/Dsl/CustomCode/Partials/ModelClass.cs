@@ -345,13 +345,10 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                               , CustomAttributes = x.TargetCustomAttributes
                                                                               , DisplayText = x.TargetDisplayText
                                                                               , IsAutoProperty = x.TargetAutoProperty
-                                                                              , BackingFieldName = x.TargetAutoProperty
-                                                                                                      ? null
-                                                                                                      : x.TargetBackingFieldName
+                                                                              , BackingFieldName = x.TargetAutoProperty ? null : x.TargetBackingFieldName
+                                                                              , BackingFieldPropertyAccessMode =  x.TargetAutoProperty ? null : x.TargetPropertyAccessMode.ToString()
                                                                               , ImplementNotify = x.TargetImplementNotify
-                                                                              , FKPropertyName = x.TargetRole == EndpointRole.Principal
-                                                                                                    ? x.FKPropertyName
-                                                                                                    : null
+                                                                              , FKPropertyName = x.TargetRole == EndpointRole.Principal ? x.FKPropertyName : null
                                                                              })
                                                                 .ToList();
 
@@ -369,13 +366,10 @@ namespace Sawczyn.EFDesigner.EFModel
                                                                               , CustomAttributes = x.SourceCustomAttributes
                                                                               , DisplayText = x.SourceDisplayText
                                                                               , IsAutoProperty = x.SourceAutoProperty
-                                                                              , BackingFieldName = x.SourceAutoProperty
-                                                                                                      ? null
-                                                                                                      : x.SourceBackingFieldName
+                                                                              , BackingFieldName = x.SourceAutoProperty ? null : x.SourceBackingFieldName
+                                                                              , BackingFieldPropertyAccessMode =  x.SourceAutoProperty ? null : x.SourcePropertyAccessMode.ToString()
                                                                               , ImplementNotify = x.SourceImplementNotify
-                                                                              , FKPropertyName = x.SourceRole == EndpointRole.Principal
-                                                                                                    ? x.FKPropertyName
-                                                                                                    : null
+                                                                              , FKPropertyName = x.SourceRole == EndpointRole.Principal ? x.FKPropertyName : null
                                                                              })
                                                                 .ToList();
 

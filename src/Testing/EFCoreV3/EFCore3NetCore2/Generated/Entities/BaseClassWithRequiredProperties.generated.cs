@@ -67,7 +67,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int _Id;
+      internal int _id;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -86,17 +86,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = _id;
             GetId(ref value);
-            return (_Id = value);
+            return (_id = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = _id;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+               _id = value;
             }
          }
       }
@@ -104,7 +104,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Property0
       /// </summary>
-      protected string _Property0;
+      protected string _property0;
       /// <summary>
       /// When provided in a partial class, allows value of Property0 to be changed before setting.
       /// </summary>
@@ -122,17 +122,17 @@ namespace Testing
       {
          get
          {
-            string value = _Property0;
+            string value = _property0;
             GetProperty0(ref value);
-            return (_Property0 = value);
+            return (_property0 = value);
          }
          set
          {
-            string oldValue = _Property0;
+            string oldValue = _property0;
             SetProperty0(oldValue, ref value);
             if (oldValue != value)
             {
-               _Property0 = value;
+               _property0 = value;
             }
          }
       }

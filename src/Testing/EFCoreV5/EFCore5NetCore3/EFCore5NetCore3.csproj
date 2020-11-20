@@ -5,13 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="AllFeatureModel.cs" />
+    <None Remove="AllFeatureModel.tt" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="AllFeatureModel.efmodel" />
-    <None Remove="AllFeatureModel.efmodel.diagramx" />
-    <None Remove="AllFeatureModel.tt" />
+    <Content Include="AllFeatureModel.tt">
+      <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -34,10 +35,18 @@
 
   <ItemGroup>
     <Folder Include="Generated\" />
+    <Folder Include="Generated\Context\" />
+    <Folder Include="Generated\Entities\" />
+    <Folder Include="Generated\Enums\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AllFeatureModel.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AllFeatureModel.tt</DependentUpon>
+    </Compile>
     <Compile Update="BidirectionalAssociationTestContext.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

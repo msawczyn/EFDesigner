@@ -32,6 +32,9 @@ namespace Testing
 
          BParentCollection = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
          BParentCollection_2 = new System.Collections.Generic.HashSet<global::Testing.BParentCollection>();
+         BParentRequired = new global::Testing.BParentRequired();
+         BParentRequired_1 = new global::Testing.BParentRequired();
+         BParentRequired_2 = new global::Testing.BParentRequired();
 
          Init();
       }
@@ -136,9 +139,9 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; protected set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; protected set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
       public virtual global::Testing.BParentOptional BParentOptional { get; set; }
 

@@ -29,6 +29,7 @@ namespace Testing
       {
          PropertyInChild = "hello";
          UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
+         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }
@@ -72,7 +73,7 @@ namespace Testing
       /// <summary>
       /// Backing field for PropertyInChild
       /// </summary>
-      protected string _PropertyInChild;
+      protected string _propertyInChild;
       /// <summary>
       /// When provided in a partial class, allows value of PropertyInChild to be changed before setting.
       /// </summary>
@@ -89,17 +90,17 @@ namespace Testing
       {
          get
          {
-            string value = _PropertyInChild;
+            string value = _propertyInChild;
             GetPropertyInChild(ref value);
-            return (_PropertyInChild = value);
+            return (_propertyInChild = value);
          }
          set
          {
-            string oldValue = _PropertyInChild;
+            string oldValue = _propertyInChild;
             SetPropertyInChild(oldValue, ref value);
             if (oldValue != value)
             {
-               _PropertyInChild = value;
+               _propertyInChild = value;
             }
          }
       }
@@ -110,7 +111,7 @@ namespace Testing
 
       public virtual global::Testing.UChild UChildOptional { get; set; }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
       /// <summary>
       /// Required

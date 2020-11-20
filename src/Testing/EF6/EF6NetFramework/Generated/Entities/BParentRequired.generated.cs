@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.0.1
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -35,6 +35,7 @@ namespace Testing
       public BParentRequired()
       {
          BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
+         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
 
          Init();
       }
@@ -133,7 +134,18 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
+      protected ICollection<global::Testing.BChild> _bChildCollection;
+      public virtual ICollection<global::Testing.BChild> BChildCollection
+      {
+         get
+         {
+            return _bChildCollection;
+         }
+         private set
+         {
+            _bChildCollection = value;
+         }
+      }
 
    }
 }

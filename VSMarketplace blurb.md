@@ -30,6 +30,38 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
+**3.0.0.preview2** (get it at https://github.com/msawczyn/EFDesigner/releases/tag/v3.0.0.preview2)
+   - Bugfixes
+   - Unfinished
+      - Regression testing for importing compiled assemblies
+
+**3.0.0.preview1** (get it at https://github.com/msawczyn/EFDesigner/releases/tag/v3.0.0.preview1)
+   - **[NEW]** Support for EFCore5.X (available when selecting EFCore output with version >= 5)
+      - **[NEW]** Added System.Net.IPAddress and System.Net.NetworkInformation.PhysicalAddress to the list of available property types
+      - **[NEW]** Added ability to specify both default database collation and a collation override at the property level 
+      - **[NEW]** Many-to-many bidirectional associations are now allowed 
+      - **[NEW]** Any property type can now be used as an identity 
+      - **[NEW]** Can now customize backing field names for non-AutoProperty properties 
+      - **[NEW]** Properties with backing fields (i.e., non-AutoProperty properties) can now choose how EF will read/write those values (see https://docs.microsoft.com/en-us/ef/core/modeling/backing-field).
+      - **[NEW]** Added support for keyless entity types created by defining queries
+      - **[NEW]** Added support for keyless entity types coming from database views
+   - Enhancements and Fixes
+      - Fixed inability to paste enumerations using diagram copy/paste
+      - Changing an identity property's type now changes the type of any defined foreign-key properties pointing to that identity property
+      - Title text color didn't always change when class/enum fill color changed in the diagram
+      - Selecting tabs or spaces for indentation in generated code has been moved to a property on the designer surface.
+      - Added ModelRoot.IsEFCore5Plus convenience property. It can be used in custom T4 edits
+      - **[NEW]** Added ability to globally add and remove exposed foreign key properties to all modeled entities (via menu command) (see https://github.com/msawczyn/EFDesigner/issues/223)
+      - **[NEW]** Added ability to choose to place newly imported model elements on the diagram where they were dropped. Caution: this can be EXTREMELY slow for large imports. (see https://github.com/msawczyn/EFDesigner/issues/225)
+   - Possibly breaking changes
+      - T4 template structure has been changed drastically to simplify managing code generation for the various EF versions.
+        If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
+        object-oriented, T4 structure. Updating the the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
+        at https://msawczyn.github.io/EFDesigner/Customizing.html
+   - Unfinished
+      - Regression testing for EF6, EFCore2 and EFCore3 code generation
+      - Regression testing for importing compiled assemblies
+
 **2.0.5.7**
    - **[NEW]** Added ability to select tabs or spaces for indentation in generated code (Tools/Options/Entity Framework Visual Editor/Visual Editor Options) (See https://github.com/msawczyn/EFDesigner/issues/221)
    - Fixed an issue with changing visual grid size on design surface.

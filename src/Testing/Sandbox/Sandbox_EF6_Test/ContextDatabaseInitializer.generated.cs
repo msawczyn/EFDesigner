@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.0.5.6
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -18,7 +18,7 @@ using System.Data.Entity;
 namespace Sandbox_EF6_Test
 {
    /// <inheritdoc/>
-   public partial class ContextDatabaseInitializer : MigrateDatabaseToLatestVersion<Context, Migrations.ContextDbMigrationConfiguration>
+   public partial class ContextDatabaseInitializer : MigrateDatabaseToLatestVersion<Sandbox_EF6_Test.Context, Migrations.ContextDbMigrationConfiguration>
    {
    }
 }

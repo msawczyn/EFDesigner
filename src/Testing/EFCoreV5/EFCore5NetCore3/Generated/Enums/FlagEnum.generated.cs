@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.1.0.0
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -13,21 +13,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity.Migrations;
+using System;
 
-namespace MultiContext.Migrations
+namespace Testing
 {
-   /// <inheritdoc/>
-   public sealed partial class Context1DbMigrationConfiguration : DbMigrationsConfiguration<MultiContext.Context1.Context1>
+   [Flags]
+   public enum FlagEnum : Int32
    {
-      partial void Init();
-
-      /// <inheritdoc/>
-      public Context1DbMigrationConfiguration()
-      {
-         AutomaticMigrationsEnabled = false;
-         AutomaticMigrationDataLossAllowed = false;
-         Init();
-      }
+      Value1 = 1,
+      Value2 = 2,
+      Value3 = 4,
+      Value5 = 8
    }
 }

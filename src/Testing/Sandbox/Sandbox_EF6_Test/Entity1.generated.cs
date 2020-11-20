@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.0.5.6
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -53,7 +53,18 @@ namespace Sandbox_EF6_Test
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Sandbox_EF6_Test.Entity2> Entity2 { get; protected set; }
+      protected ICollection<global::Sandbox_EF6_Test.Entity2> _entity2;
+      public virtual ICollection<global::Sandbox_EF6_Test.Entity2> Entity2
+      {
+         get
+         {
+            return _entity2;
+         }
+         private set
+         {
+            _entity2 = value;
+         }
+      }
 
    }
 }

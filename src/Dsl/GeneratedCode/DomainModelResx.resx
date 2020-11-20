@@ -669,6 +669,18 @@
     <value>Code Generation</value>
     <comment>Category for DomainProperty &apos;UseTabs&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateDbContextFactory.Description" xml:space="preserve">
+    <value>If true, a DbContextFactory-derived class will be generated for the project</value>
+    <comment>Description for DomainProperty &apos;GenerateDbContextFactory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateDbContextFactory.DisplayName" xml:space="preserve">
+    <value>Generate Db Context Factory</value>
+    <comment>DisplayName for DomainProperty &apos;GenerateDbContextFactory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateDbContextFactory.Category" xml:space="preserve">
+    <value>Code Generation</value>
+    <comment>Category for DomainProperty &apos;GenerateDbContextFactory&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Sawczyn.EFDesigner.EFModel.ModelClass.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelClass&apos;</comment>

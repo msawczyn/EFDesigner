@@ -27,8 +27,6 @@ namespace Testing
       /// </summary>
       protected AllPropertyTypesOptional()
       {
-         OwnedType = new global::Testing.OwnedType();
-
          Init();
       }
 
@@ -598,7 +596,28 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual global::Testing.OwnedType OwnedType { get; set; }
+      protected global::Testing.OwnedType _ownedType;
+      partial void SetOwnedType(global::Testing.OwnedType oldValue, ref global::Testing.OwnedType newValue);
+      partial void GetOwnedType(ref global::Testing.OwnedType result);
+
+      public virtual global::Testing.OwnedType OwnedType
+      {
+         get
+         {
+            global::Testing.OwnedType value = _ownedType;
+            GetOwnedType(ref value);
+            return (_ownedType = value);
+         }
+         set
+         {
+            global::Testing.OwnedType oldValue = _ownedType;
+            SetOwnedType(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _ownedType = value;
+            }
+         }
+      }
 
    }
 }

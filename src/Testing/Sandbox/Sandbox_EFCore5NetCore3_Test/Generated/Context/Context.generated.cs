@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.0.5.6
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -27,6 +27,7 @@ namespace Sandbox_EFCore5NetCore3_Test
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity1> Entity1 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox_EFCore5NetCore3_Test.Entity2> Entity2 { get; set; }
+
       #endregion DbSets
 
       /// <summary>
@@ -60,11 +61,11 @@ namespace Sandbox_EFCore5NetCore3_Test
 
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity1>().HasMany<global::Sandbox_EFCore5NetCore3_Test.Entity2>(p => p.Entity2).WithOne(p => p.Entity1).HasForeignKey(k => k.FK);
 
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
          modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().HasIndex(t => t.FK);
-         modelBuilder.Entity<global::Sandbox_EFCore5NetCore3_Test.Entity2>().HasOne(x => x.Entity1).WithMany(x => x.Entity2).HasForeignKey("FK");
 
          OnModelCreatedImpl(modelBuilder);
       }

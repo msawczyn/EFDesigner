@@ -1,4 +1,9 @@
-3.0.preview1
+3.0.0.preview2
+   - Bugfixes
+   - Unfinished
+      - Regression testing for importing compiled assemblies
+
+3.0.0.preview1
    - New support EFCore5.X (available when selecting EFCore output with version >= 5)
       - Added System.Net.IPAddress and System.Net.NetworkInformation.PhysicalAddress to the list of available property types
       - Added ability to specify both default database collation and a collation override at the property level 

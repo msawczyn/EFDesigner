@@ -28,6 +28,7 @@ namespace Testing
       public UParentRequired()
       {
          UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
+         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }
@@ -103,7 +104,18 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
+      protected ICollection<global::Testing.UChild> _uChildCollection;
+      public virtual ICollection<global::Testing.UChild> UChildCollection
+      {
+         get
+         {
+            return _uChildCollection;
+         }
+         private set
+         {
+            _uChildCollection = value;
+         }
+      }
 
       protected global::Testing.UChild _uChildOptional;
       partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);

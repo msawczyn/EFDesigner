@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.0.1
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -170,12 +170,12 @@ namespace Testing
          modelBuilder.Entity<global::Testing.BChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired).WithOptional(x => x.BChildOptional);
          modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired_1).WithRequiredPrincipal(x => x.BChildRequired);
-         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentRequired_2_Id"));
-         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentRequired_2Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequiredId"));
          modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_1).WithMany(x => x.BChildCollection).Map(x => { x.ToTable("BParentCollection_1_x_BChildCollection"); x.MapLeftKey("BChild_Id"); x.MapRightKey("BParentCollection_Id"); });
-         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BChildOptional_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BChildOptionalId"));
          modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional).WithRequired(x => x.BChildRequired);
-         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentOptional_1_Id"));
+         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentOptional_1Id"));
          modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional_2).WithOptionalPrincipal(x => x.BChildOptional);
 
          modelBuilder.Entity<global::Testing.BParentCollection>().ToTable("BParentCollections").HasKey(t => t.Id);
@@ -189,7 +189,7 @@ namespace Testing
 
          modelBuilder.Entity<global::Testing.Child>().ToTable("Children").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.Child>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id"));
+         modelBuilder.Entity<global::Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("ParentId"));
 
          modelBuilder.Entity<global::Testing.ConcreteDerivedClass>().Map(x => x.MapInheritedProperties()).ToTable("ConcreteDerivedClasses");
 
@@ -221,9 +221,9 @@ namespace Testing
 
          modelBuilder.Entity<global::Testing.UParentCollection>().ToTable("UParentCollections").HasKey(t => t.Id);
          modelBuilder.Entity<global::Testing.UParentCollection>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.UParentCollection>().HasRequired(x => x.UChildRequired).WithMany().Map(x => x.MapKey("UChildRequired_Id"));
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasRequired(x => x.UChildRequired).WithMany().Map(x => x.MapKey("UChildRequiredId"));
          modelBuilder.Entity<global::Testing.UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
-         modelBuilder.Entity<global::Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptionalId"));
 
          modelBuilder.Entity<global::Testing.UParentOptional>().Map(x => x.MapInheritedProperties()).ToTable("UParentOptionals");
          modelBuilder.Entity<global::Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent();

@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "EFCore3Parser": {
+    "EFCore5Parser": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\micha\\Downloads\\Dinaris.PsycheAdmin.EFDAL.dll\" c:\\temp\\parsertest.txt"
+      "commandLineArgs": "\"C:\\Code\\EFDesigner\\src\\Testing\\EFCoreV5\\EFCore5NetCore3\\bin\\Debug\\netcoreapp3.1\\EFCore5NetCore3.dll\"  c:\\temp\\parsertest.txt"
     }
   }
 }

@@ -860,6 +860,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             EndNamespace(modelEnum.EffectiveNamespace);
          }
 
+         [SuppressMessage("ReSharper", "ConvertIfStatementToConditionalTernaryExpression")]
          protected void WriteNavigationProperties(ModelClass modelClass)
          {
             if (!modelClass.LocalNavigationProperties().Any(x => x.AssociationObject.Persistent))
@@ -876,13 +877,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                 ? $"ICollection<{navigationProperty.ClassType.FullName}>"
                                 : navigationProperty.ClassType.FullName;
 
-               if (!navigationProperty.IsCollection && !navigationProperty.IsAutoProperty)
+               if (!navigationProperty.IsAutoProperty)
                {
                   Output($"protected {type} {navigationProperty.BackingFieldName};");
-                  Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");
-                  Output($"partial void Get{navigationProperty.PropertyName}(ref {type} result);");
+                  if (!navigationProperty.IsCollection)
+                  {
+                     Output($"partial void Set{navigationProperty.PropertyName}({type} oldValue, ref {type} newValue);");
+                     Output($"partial void Get{navigationProperty.PropertyName}(ref {type} result);");
 
-                  NL();
+                     NL();
+                  }
                }
 
                List<string> comments = new List<string>();
@@ -923,11 +927,28 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                if (!string.IsNullOrWhiteSpace(navigationProperty.DisplayText))
                   Output($"[Display(Name=\"{navigationProperty.DisplayText}\")]");
 
-               if (navigationProperty.IsCollection)
-                  Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; protected set; }}");
-               else if (navigationProperty.IsAutoProperty)
-                  Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; set; }}");
-               else
+               if (navigationProperty.IsAutoProperty)
+               {
+                  if (navigationProperty.IsCollection)
+                     Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; private set; }}");
+                  else
+                     Output($"public virtual {type} {navigationProperty.PropertyName} {{ get; set; }}");
+               }
+               else if (navigationProperty.IsCollection)
+               {
+                  Output($"public virtual {type} {navigationProperty.PropertyName}");
+                  Output("{");
+                  Output("get");
+                  Output("{");
+                  Output($"return {navigationProperty.BackingFieldName};");
+                  Output("}");
+                  Output("private set");
+                  Output("{");
+                  Output($"{navigationProperty.BackingFieldName} = value;");
+                  Output("}");
+                  Output("}");
+               }
+               else 
                {
                   Output($"public virtual {type} {navigationProperty.PropertyName}");
                   Output("{");

@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
+using NetTopologySuite.Geometries;
 
 namespace Testing
 {
@@ -29,6 +29,8 @@ namespace Testing
       public BParentRequired()
       {
          BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
+         BChildOptional = global::Testing.BChild.CreateBChildUnsafe();
+         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
 
          Init();
       }
@@ -85,7 +87,7 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
 
    }
 }

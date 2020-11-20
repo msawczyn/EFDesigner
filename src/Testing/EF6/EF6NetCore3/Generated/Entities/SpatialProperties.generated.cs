@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
+using NetTopologySuite.Geometries;
 
 namespace Testing
 {
@@ -57,7 +57,7 @@ namespace Testing
       /// <param name="attrgeometrymultipoint"></param>
       /// <param name="attrgeometrymultipolygon"></param>
       /// <param name="attrgeometrypoint"></param>
-      public SpatialProperties(DbGeography attrgeography, DbGeography attrgeographycollection, DbGeography attrgeographylinestring, DbGeography attrgeographymultilinestring, DbGeography attrgeographymultipoint, DbGeography attrgeographymultipolygon, DbGeography attrgeographypoint, DbGeography attrgeographypolygon, DbGeometry attrgeometry, DbGeometry attrgeometrycollection, DbGeometry attrgeometrylinestring, DbGeometry attrgeometrymultilinestring, DbGeometry attrgeometrymultipoint, DbGeometry attrgeometrymultipolygon, DbGeometry attrgeometrypoint)
+      public SpatialProperties(Geography attrgeography, GeographyCollection attrgeographycollection, GeographyLineString attrgeographylinestring, GeographyMultiLineString attrgeographymultilinestring, GeographyMultiPoint attrgeographymultipoint, GeographyMultiPolygon attrgeographymultipolygon, GeographyPoint attrgeographypoint, GeographyPolygon attrgeographypolygon, Geometry attrgeometry, GeometryCollection attrgeometrycollection, GeometryLineString attrgeometrylinestring, GeometryMultiLineString attrgeometrymultilinestring, GeometryMultiPoint attrgeometrymultipoint, GeometryMultiPolygon attrgeometrymultipolygon, GeometryPoint attrgeometrypoint)
       {
          if (attrgeography == null) throw new ArgumentNullException(nameof(attrgeography));
          this.AttrGeography = attrgeography;
@@ -126,7 +126,7 @@ namespace Testing
       /// <param name="attrgeometrymultipoint"></param>
       /// <param name="attrgeometrymultipolygon"></param>
       /// <param name="attrgeometrypoint"></param>
-      public static SpatialProperties Create(DbGeography attrgeography, DbGeography attrgeographycollection, DbGeography attrgeographylinestring, DbGeography attrgeographymultilinestring, DbGeography attrgeographymultipoint, DbGeography attrgeographymultipolygon, DbGeography attrgeographypoint, DbGeography attrgeographypolygon, DbGeometry attrgeometry, DbGeometry attrgeometrycollection, DbGeometry attrgeometrylinestring, DbGeometry attrgeometrymultilinestring, DbGeometry attrgeometrymultipoint, DbGeometry attrgeometrymultipolygon, DbGeometry attrgeometrypoint)
+      public static SpatialProperties Create(Geography attrgeography, GeographyCollection attrgeographycollection, GeographyLineString attrgeographylinestring, GeographyMultiLineString attrgeographymultilinestring, GeographyMultiPoint attrgeographymultipoint, GeographyMultiPolygon attrgeographymultipolygon, GeographyPoint attrgeographypoint, GeographyPolygon attrgeographypolygon, Geometry attrgeometry, GeometryCollection attrgeometrycollection, GeometryLineString attrgeometrylinestring, GeometryMultiLineString attrgeometrymultilinestring, GeometryMultiPoint attrgeometrymultipoint, GeometryMultiPolygon attrgeometrymultipolygon, GeometryPoint attrgeometrypoint)
       {
          return new SpatialProperties(attrgeography, attrgeographycollection, attrgeographylinestring, attrgeographymultilinestring, attrgeographymultipoint, attrgeographymultipolygon, attrgeographypoint, attrgeographypolygon, attrgeometry, attrgeometrycollection, attrgeometrylinestring, attrgeometrymultilinestring, attrgeometrymultipoint, attrgeometrymultipolygon, attrgeometrypoint);
       }
@@ -175,31 +175,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeography
       /// </summary>
-      protected DbGeography _attrGeography;
+      protected Geography _attrGeography;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeography to be changed before setting.
       /// </summary>
-      partial void SetAttrGeography(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeography(Geography oldValue, ref Geography newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeography to be changed before returning.
       /// </summary>
-      partial void GetAttrGeography(ref DbGeography result);
+      partial void GetAttrGeography(ref Geography result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeography
+      public Geography AttrGeography
       {
          get
          {
-            DbGeography value = _attrGeography;
+            Geography value = _attrGeography;
             GetAttrGeography(ref value);
             return (_attrGeography = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeography;
+            Geography oldValue = _attrGeography;
             SetAttrGeography(oldValue, ref value);
             if (oldValue != value)
             {
@@ -211,31 +211,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyCollection
       /// </summary>
-      protected DbGeography _attrGeographyCollection;
+      protected GeographyCollection _attrGeographyCollection;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyCollection to be changed before setting.
       /// </summary>
-      partial void SetAttrGeographyCollection(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeographyCollection(GeographyCollection oldValue, ref GeographyCollection newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyCollection to be changed before returning.
       /// </summary>
-      partial void GetAttrGeographyCollection(ref DbGeography result);
+      partial void GetAttrGeographyCollection(ref GeographyCollection result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeographyCollection
+      public GeographyCollection AttrGeographyCollection
       {
          get
          {
-            DbGeography value = _attrGeographyCollection;
+            GeographyCollection value = _attrGeographyCollection;
             GetAttrGeographyCollection(ref value);
             return (_attrGeographyCollection = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeographyCollection;
+            GeographyCollection oldValue = _attrGeographyCollection;
             SetAttrGeographyCollection(oldValue, ref value);
             if (oldValue != value)
             {
@@ -247,31 +247,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyLineString
       /// </summary>
-      protected DbGeography _attrGeographyLineString;
+      protected GeographyLineString _attrGeographyLineString;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyLineString to be changed before setting.
       /// </summary>
-      partial void SetAttrGeographyLineString(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeographyLineString(GeographyLineString oldValue, ref GeographyLineString newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyLineString to be changed before returning.
       /// </summary>
-      partial void GetAttrGeographyLineString(ref DbGeography result);
+      partial void GetAttrGeographyLineString(ref GeographyLineString result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeographyLineString
+      public GeographyLineString AttrGeographyLineString
       {
          get
          {
-            DbGeography value = _attrGeographyLineString;
+            GeographyLineString value = _attrGeographyLineString;
             GetAttrGeographyLineString(ref value);
             return (_attrGeographyLineString = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeographyLineString;
+            GeographyLineString oldValue = _attrGeographyLineString;
             SetAttrGeographyLineString(oldValue, ref value);
             if (oldValue != value)
             {
@@ -283,31 +283,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyMultiLineString
       /// </summary>
-      protected DbGeography _attrGeographyMultiLineString;
+      protected GeographyMultiLineString _attrGeographyMultiLineString;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiLineString to be changed before setting.
       /// </summary>
-      partial void SetAttrGeographyMultiLineString(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeographyMultiLineString(GeographyMultiLineString oldValue, ref GeographyMultiLineString newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiLineString to be changed before returning.
       /// </summary>
-      partial void GetAttrGeographyMultiLineString(ref DbGeography result);
+      partial void GetAttrGeographyMultiLineString(ref GeographyMultiLineString result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeographyMultiLineString
+      public GeographyMultiLineString AttrGeographyMultiLineString
       {
          get
          {
-            DbGeography value = _attrGeographyMultiLineString;
+            GeographyMultiLineString value = _attrGeographyMultiLineString;
             GetAttrGeographyMultiLineString(ref value);
             return (_attrGeographyMultiLineString = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeographyMultiLineString;
+            GeographyMultiLineString oldValue = _attrGeographyMultiLineString;
             SetAttrGeographyMultiLineString(oldValue, ref value);
             if (oldValue != value)
             {
@@ -319,31 +319,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyMultiPoint
       /// </summary>
-      protected DbGeography _attrGeographyMultiPoint;
+      protected GeographyMultiPoint _attrGeographyMultiPoint;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiPoint to be changed before setting.
       /// </summary>
-      partial void SetAttrGeographyMultiPoint(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeographyMultiPoint(GeographyMultiPoint oldValue, ref GeographyMultiPoint newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiPoint to be changed before returning.
       /// </summary>
-      partial void GetAttrGeographyMultiPoint(ref DbGeography result);
+      partial void GetAttrGeographyMultiPoint(ref GeographyMultiPoint result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeographyMultiPoint
+      public GeographyMultiPoint AttrGeographyMultiPoint
       {
          get
          {
-            DbGeography value = _attrGeographyMultiPoint;
+            GeographyMultiPoint value = _attrGeographyMultiPoint;
             GetAttrGeographyMultiPoint(ref value);
             return (_attrGeographyMultiPoint = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeographyMultiPoint;
+            GeographyMultiPoint oldValue = _attrGeographyMultiPoint;
             SetAttrGeographyMultiPoint(oldValue, ref value);
             if (oldValue != value)
             {
@@ -355,31 +355,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyMultiPolygon
       /// </summary>
-      protected DbGeography _attrGeographyMultiPolygon;
+      protected GeographyMultiPolygon _attrGeographyMultiPolygon;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiPolygon to be changed before setting.
       /// </summary>
-      partial void SetAttrGeographyMultiPolygon(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeographyMultiPolygon(GeographyMultiPolygon oldValue, ref GeographyMultiPolygon newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyMultiPolygon to be changed before returning.
       /// </summary>
-      partial void GetAttrGeographyMultiPolygon(ref DbGeography result);
+      partial void GetAttrGeographyMultiPolygon(ref GeographyMultiPolygon result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeographyMultiPolygon
+      public GeographyMultiPolygon AttrGeographyMultiPolygon
       {
          get
          {
-            DbGeography value = _attrGeographyMultiPolygon;
+            GeographyMultiPolygon value = _attrGeographyMultiPolygon;
             GetAttrGeographyMultiPolygon(ref value);
             return (_attrGeographyMultiPolygon = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeographyMultiPolygon;
+            GeographyMultiPolygon oldValue = _attrGeographyMultiPolygon;
             SetAttrGeographyMultiPolygon(oldValue, ref value);
             if (oldValue != value)
             {
@@ -391,31 +391,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyPoint
       /// </summary>
-      protected DbGeography _attrGeographyPoint;
+      protected GeographyPoint _attrGeographyPoint;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyPoint to be changed before setting.
       /// </summary>
-      partial void SetAttrGeographyPoint(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeographyPoint(GeographyPoint oldValue, ref GeographyPoint newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyPoint to be changed before returning.
       /// </summary>
-      partial void GetAttrGeographyPoint(ref DbGeography result);
+      partial void GetAttrGeographyPoint(ref GeographyPoint result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeographyPoint
+      public GeographyPoint AttrGeographyPoint
       {
          get
          {
-            DbGeography value = _attrGeographyPoint;
+            GeographyPoint value = _attrGeographyPoint;
             GetAttrGeographyPoint(ref value);
             return (_attrGeographyPoint = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeographyPoint;
+            GeographyPoint oldValue = _attrGeographyPoint;
             SetAttrGeographyPoint(oldValue, ref value);
             if (oldValue != value)
             {
@@ -427,31 +427,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeographyPolygon
       /// </summary>
-      protected DbGeography _attrGeographyPolygon;
+      protected GeographyPolygon _attrGeographyPolygon;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyPolygon to be changed before setting.
       /// </summary>
-      partial void SetAttrGeographyPolygon(DbGeography oldValue, ref DbGeography newValue);
+      partial void SetAttrGeographyPolygon(GeographyPolygon oldValue, ref GeographyPolygon newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeographyPolygon to be changed before returning.
       /// </summary>
-      partial void GetAttrGeographyPolygon(ref DbGeography result);
+      partial void GetAttrGeographyPolygon(ref GeographyPolygon result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeography AttrGeographyPolygon
+      public GeographyPolygon AttrGeographyPolygon
       {
          get
          {
-            DbGeography value = _attrGeographyPolygon;
+            GeographyPolygon value = _attrGeographyPolygon;
             GetAttrGeographyPolygon(ref value);
             return (_attrGeographyPolygon = value);
          }
          set
          {
-            DbGeography oldValue = _attrGeographyPolygon;
+            GeographyPolygon oldValue = _attrGeographyPolygon;
             SetAttrGeographyPolygon(oldValue, ref value);
             if (oldValue != value)
             {
@@ -463,31 +463,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometry
       /// </summary>
-      protected DbGeometry _attrGeometry;
+      protected Geometry _attrGeometry;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometry to be changed before setting.
       /// </summary>
-      partial void SetAttrGeometry(DbGeometry oldValue, ref DbGeometry newValue);
+      partial void SetAttrGeometry(Geometry oldValue, ref Geometry newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometry to be changed before returning.
       /// </summary>
-      partial void GetAttrGeometry(ref DbGeometry result);
+      partial void GetAttrGeometry(ref Geometry result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeometry AttrGeometry
+      public Geometry AttrGeometry
       {
          get
          {
-            DbGeometry value = _attrGeometry;
+            Geometry value = _attrGeometry;
             GetAttrGeometry(ref value);
             return (_attrGeometry = value);
          }
          set
          {
-            DbGeometry oldValue = _attrGeometry;
+            Geometry oldValue = _attrGeometry;
             SetAttrGeometry(oldValue, ref value);
             if (oldValue != value)
             {
@@ -499,31 +499,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryCollection
       /// </summary>
-      protected DbGeometry _attrGeometryCollection;
+      protected GeometryCollection _attrGeometryCollection;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryCollection to be changed before setting.
       /// </summary>
-      partial void SetAttrGeometryCollection(DbGeometry oldValue, ref DbGeometry newValue);
+      partial void SetAttrGeometryCollection(GeometryCollection oldValue, ref GeometryCollection newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryCollection to be changed before returning.
       /// </summary>
-      partial void GetAttrGeometryCollection(ref DbGeometry result);
+      partial void GetAttrGeometryCollection(ref GeometryCollection result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeometry AttrGeometryCollection
+      public GeometryCollection AttrGeometryCollection
       {
          get
          {
-            DbGeometry value = _attrGeometryCollection;
+            GeometryCollection value = _attrGeometryCollection;
             GetAttrGeometryCollection(ref value);
             return (_attrGeometryCollection = value);
          }
          set
          {
-            DbGeometry oldValue = _attrGeometryCollection;
+            GeometryCollection oldValue = _attrGeometryCollection;
             SetAttrGeometryCollection(oldValue, ref value);
             if (oldValue != value)
             {
@@ -535,31 +535,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryLineString
       /// </summary>
-      protected DbGeometry _attrGeometryLineString;
+      protected GeometryLineString _attrGeometryLineString;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryLineString to be changed before setting.
       /// </summary>
-      partial void SetAttrGeometryLineString(DbGeometry oldValue, ref DbGeometry newValue);
+      partial void SetAttrGeometryLineString(GeometryLineString oldValue, ref GeometryLineString newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryLineString to be changed before returning.
       /// </summary>
-      partial void GetAttrGeometryLineString(ref DbGeometry result);
+      partial void GetAttrGeometryLineString(ref GeometryLineString result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeometry AttrGeometryLineString
+      public GeometryLineString AttrGeometryLineString
       {
          get
          {
-            DbGeometry value = _attrGeometryLineString;
+            GeometryLineString value = _attrGeometryLineString;
             GetAttrGeometryLineString(ref value);
             return (_attrGeometryLineString = value);
          }
          set
          {
-            DbGeometry oldValue = _attrGeometryLineString;
+            GeometryLineString oldValue = _attrGeometryLineString;
             SetAttrGeometryLineString(oldValue, ref value);
             if (oldValue != value)
             {
@@ -571,31 +571,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryMultiLineString
       /// </summary>
-      protected DbGeometry _attrGeometryMultiLineString;
+      protected GeometryMultiLineString _attrGeometryMultiLineString;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiLineString to be changed before setting.
       /// </summary>
-      partial void SetAttrGeometryMultiLineString(DbGeometry oldValue, ref DbGeometry newValue);
+      partial void SetAttrGeometryMultiLineString(GeometryMultiLineString oldValue, ref GeometryMultiLineString newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiLineString to be changed before returning.
       /// </summary>
-      partial void GetAttrGeometryMultiLineString(ref DbGeometry result);
+      partial void GetAttrGeometryMultiLineString(ref GeometryMultiLineString result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeometry AttrGeometryMultiLineString
+      public GeometryMultiLineString AttrGeometryMultiLineString
       {
          get
          {
-            DbGeometry value = _attrGeometryMultiLineString;
+            GeometryMultiLineString value = _attrGeometryMultiLineString;
             GetAttrGeometryMultiLineString(ref value);
             return (_attrGeometryMultiLineString = value);
          }
          set
          {
-            DbGeometry oldValue = _attrGeometryMultiLineString;
+            GeometryMultiLineString oldValue = _attrGeometryMultiLineString;
             SetAttrGeometryMultiLineString(oldValue, ref value);
             if (oldValue != value)
             {
@@ -607,31 +607,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryMultiPoint
       /// </summary>
-      protected DbGeometry _attrGeometryMultiPoint;
+      protected GeometryMultiPoint _attrGeometryMultiPoint;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiPoint to be changed before setting.
       /// </summary>
-      partial void SetAttrGeometryMultiPoint(DbGeometry oldValue, ref DbGeometry newValue);
+      partial void SetAttrGeometryMultiPoint(GeometryMultiPoint oldValue, ref GeometryMultiPoint newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiPoint to be changed before returning.
       /// </summary>
-      partial void GetAttrGeometryMultiPoint(ref DbGeometry result);
+      partial void GetAttrGeometryMultiPoint(ref GeometryMultiPoint result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeometry AttrGeometryMultiPoint
+      public GeometryMultiPoint AttrGeometryMultiPoint
       {
          get
          {
-            DbGeometry value = _attrGeometryMultiPoint;
+            GeometryMultiPoint value = _attrGeometryMultiPoint;
             GetAttrGeometryMultiPoint(ref value);
             return (_attrGeometryMultiPoint = value);
          }
          set
          {
-            DbGeometry oldValue = _attrGeometryMultiPoint;
+            GeometryMultiPoint oldValue = _attrGeometryMultiPoint;
             SetAttrGeometryMultiPoint(oldValue, ref value);
             if (oldValue != value)
             {
@@ -643,31 +643,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryMultiPolygon
       /// </summary>
-      protected DbGeometry _attrGeometryMultiPolygon;
+      protected GeometryMultiPolygon _attrGeometryMultiPolygon;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiPolygon to be changed before setting.
       /// </summary>
-      partial void SetAttrGeometryMultiPolygon(DbGeometry oldValue, ref DbGeometry newValue);
+      partial void SetAttrGeometryMultiPolygon(GeometryMultiPolygon oldValue, ref GeometryMultiPolygon newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryMultiPolygon to be changed before returning.
       /// </summary>
-      partial void GetAttrGeometryMultiPolygon(ref DbGeometry result);
+      partial void GetAttrGeometryMultiPolygon(ref GeometryMultiPolygon result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeometry AttrGeometryMultiPolygon
+      public GeometryMultiPolygon AttrGeometryMultiPolygon
       {
          get
          {
-            DbGeometry value = _attrGeometryMultiPolygon;
+            GeometryMultiPolygon value = _attrGeometryMultiPolygon;
             GetAttrGeometryMultiPolygon(ref value);
             return (_attrGeometryMultiPolygon = value);
          }
          set
          {
-            DbGeometry oldValue = _attrGeometryMultiPolygon;
+            GeometryMultiPolygon oldValue = _attrGeometryMultiPolygon;
             SetAttrGeometryMultiPolygon(oldValue, ref value);
             if (oldValue != value)
             {
@@ -679,31 +679,31 @@ namespace Testing
       /// <summary>
       /// Backing field for AttrGeometryPoint
       /// </summary>
-      protected DbGeometry _attrGeometryPoint;
+      protected GeometryPoint _attrGeometryPoint;
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryPoint to be changed before setting.
       /// </summary>
-      partial void SetAttrGeometryPoint(DbGeometry oldValue, ref DbGeometry newValue);
+      partial void SetAttrGeometryPoint(GeometryPoint oldValue, ref GeometryPoint newValue);
       /// <summary>
       /// When provided in a partial class, allows value of AttrGeometryPoint to be changed before returning.
       /// </summary>
-      partial void GetAttrGeometryPoint(ref DbGeometry result);
+      partial void GetAttrGeometryPoint(ref GeometryPoint result);
 
       /// <summary>
       /// Required
       /// </summary>
       [Required]
-      public DbGeometry AttrGeometryPoint
+      public GeometryPoint AttrGeometryPoint
       {
          get
          {
-            DbGeometry value = _attrGeometryPoint;
+            GeometryPoint value = _attrGeometryPoint;
             GetAttrGeometryPoint(ref value);
             return (_attrGeometryPoint = value);
          }
          set
          {
-            DbGeometry oldValue = _attrGeometryPoint;
+            GeometryPoint oldValue = _attrGeometryPoint;
             SetAttrGeometryPoint(oldValue, ref value);
             if (oldValue != value)
             {

@@ -28,6 +28,7 @@ namespace Testing
       protected Child()
       {
          Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
+         Parent = global::Testing.Child.CreateChildUnsafe();
 
          Init();
       }
@@ -113,7 +114,7 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing.Child> Children { get; protected set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
       /// <summary>
       /// Required

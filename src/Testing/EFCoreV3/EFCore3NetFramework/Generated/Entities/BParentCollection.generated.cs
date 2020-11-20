@@ -27,6 +27,8 @@ namespace Testing
       /// </summary>
       protected BParentCollection()
       {
+         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
+
          Init();
       }
 

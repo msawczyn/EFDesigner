@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v2.0.5.6
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -55,7 +55,7 @@ namespace MultiContext.Context2
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::MultiContext.Context2.Entity3> Entity3 { get; protected set; }
+      public virtual ICollection<global::MultiContext.Context2.Entity3> Entity3 { get; private set; }
 
    }
 }

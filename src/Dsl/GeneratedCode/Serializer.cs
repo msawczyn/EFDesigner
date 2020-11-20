@@ -885,6 +885,23 @@ namespace Sawczyn.EFDesigner.EFModel
 	            }
 	         }
 	      }
+	      // GenerateDbContextFactory
+	      if (!serializationContext.Result.Failed)
+	      {
+	         string attribGenerateDbContextFactory = EFModelSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "generateDbContextFactory");
+	         if (attribGenerateDbContextFactory != null)
+	         {
+	            global::System.Boolean valueOfGenerateDbContextFactory;
+	            if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenerateDbContextFactory, out valueOfGenerateDbContextFactory))
+	            {
+	               instanceOfModelRoot.GenerateDbContextFactory = valueOfGenerateDbContextFactory;
+	            }
+	            else
+	            {   // Invalid property value, ignored.
+	               EFModelSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "generateDbContextFactory", typeof(global::System.Boolean), attribGenerateDbContextFactory);
+	            }
+	         }
+	      }
 	   }
 	
 	   /// <summary>
@@ -2087,6 +2104,16 @@ namespace Sawczyn.EFDesigner.EFModel
 	            {   // No need to write the value out if it's the same as default value.
 	               EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "useTabs", serializedPropValue);
 	            }
+	         }
+	      }
+	      // GenerateDbContextFactory
+	      if (!serializationContext.Result.Failed)
+	      {
+	         global::System.Boolean propValue = instanceOfModelRoot.GenerateDbContextFactory;
+	         string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+	         if (!serializationContext.Result.Failed)
+	         {
+	            EFModelSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateDbContextFactory", serializedPropValue);
 	         }
 	      }
 	   }

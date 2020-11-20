@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
+using NetTopologySuite.Geometries;
 
 namespace Testing
 {
@@ -29,6 +29,8 @@ namespace Testing
       protected BParentCollection()
       {
          BChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BChild>();
+         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
+         BChildOptional = global::Testing.BChild.CreateBChildUnsafe();
 
          Init();
       }
@@ -109,14 +111,67 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      protected global::Testing.BChild _bChildRequired;
+      partial void SetBChildRequired(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+      partial void GetBChildRequired(ref global::Testing.BChild result);
+
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.BChild BChildRequired { get; set; }
+      public virtual global::Testing.BChild BChildRequired
+      {
+         get
+         {
+            global::Testing.BChild value = _bChildRequired;
+            GetBChildRequired(ref value);
+            return (_bChildRequired = value);
+         }
+         set
+         {
+            global::Testing.BChild oldValue = _bChildRequired;
+            SetBChildRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _bChildRequired = value;
+            }
+         }
+      }
 
-      public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
+      protected ICollection<global::Testing.BChild> _bChildCollection;
+      public virtual ICollection<global::Testing.BChild> BChildCollection
+      {
+         get
+         {
+            return _bChildCollection;
+         }
+         private set
+         {
+            _bChildCollection = value;
+         }
+      }
 
-      public virtual global::Testing.BChild BChildOptional { get; set; }
+      protected global::Testing.BChild _bChildOptional;
+      partial void SetBChildOptional(global::Testing.BChild oldValue, ref global::Testing.BChild newValue);
+      partial void GetBChildOptional(ref global::Testing.BChild result);
+
+      public virtual global::Testing.BChild BChildOptional
+      {
+         get
+         {
+            global::Testing.BChild value = _bChildOptional;
+            GetBChildOptional(ref value);
+            return (_bChildOptional = value);
+         }
+         set
+         {
+            global::Testing.BChild oldValue = _bChildOptional;
+            SetBChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _bChildOptional = value;
+            }
+         }
+      }
 
    }
 }

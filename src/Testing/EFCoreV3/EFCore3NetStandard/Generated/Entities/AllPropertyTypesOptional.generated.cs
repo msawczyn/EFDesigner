@@ -27,8 +27,6 @@ namespace Testing
       /// </summary>
       protected AllPropertyTypesOptional()
       {
-         OwnedType = new global::Testing.OwnedType();
-
          Init();
       }
 

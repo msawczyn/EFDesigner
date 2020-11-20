@@ -47,8 +47,6 @@
       <DependentUpon>Context1.tt</DependentUpon>
     </Compile>
     <Compile Include="Context1\Context1.generated1.cs" />
-    <Compile Include="Context1\Context1DatabaseInitializer.generated1.cs" />
-    <Compile Include="Context1\Context1DbMigrationConfiguration.generated1.cs" />
     <Compile Include="Context1\Entity1.generated1.cs" />
     <Compile Include="Context1\Entity2.generated1.cs" />
     <Compile Include="Context2.cs">
@@ -57,8 +55,6 @@
       <DependentUpon>Context2.tt</DependentUpon>
     </Compile>
     <Compile Include="Context2\Context2.generated2.cs" />
-    <Compile Include="Context2\Context2DatabaseInitializer.generated2.cs" />
-    <Compile Include="Context2\Context2DbMigrationConfiguration.generated2.cs" />
     <Compile Include="Context2\Entity1.generated2.cs" />
     <Compile Include="Context2\Entity2.generated2.cs" />
     <Compile Include="Context2\Entity3.generated2.cs" />

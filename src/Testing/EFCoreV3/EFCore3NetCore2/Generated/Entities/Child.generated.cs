@@ -28,6 +28,7 @@ namespace Testing
       protected Child()
       {
          Children = new System.Collections.Generic.HashSet<global::Testing.Child>();
+         Parent = global::Testing.Child.CreateChildUnsafe();
 
          Init();
       }
@@ -75,7 +76,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int _Id;
+      internal int _id;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -94,17 +95,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = _id;
             GetId(ref value);
-            return (_Id = value);
+            return (_id = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = _id;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+               _id = value;
             }
          }
       }
@@ -113,7 +114,7 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing.Child> Children { get; protected set; }
+      public virtual ICollection<global::Testing.Child> Children { get; private set; }
 
       /// <summary>
       /// Required

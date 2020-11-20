@@ -345,6 +345,12 @@
             <xsd:documentation>If true, will generate code with tabs instead of spaces for indentation</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: GenerateDbContextFactory -->
+        <xsd:attribute name="generateDbContextFactory" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, a DbContextFactory-derived class will be generated for the project</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

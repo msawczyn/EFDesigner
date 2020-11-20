@@ -24,6 +24,7 @@ namespace Testing
       #region DbSets
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox.Entity1> Entity1 { get; set; }
       public virtual Microsoft.EntityFrameworkCore.DbSet<global::Sandbox.Entity2> Entity2 { get; set; }
+
       #endregion DbSets
 
       /// <summary>
@@ -57,7 +58,7 @@ namespace Testing
 
          modelBuilder.Entity<global::Sandbox.Entity1>().ToTable("Entity1").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox.Entity1>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-         modelBuilder.Entity<global::Sandbox.Entity1>().HasOne(x => x.Entity2).WithMany();
+         modelBuilder.Entity<global::Sandbox.Entity1>().HasOne<global::Sandbox.Entity2>(p => p.Entity2).WithMany().HasForeignKey("Entity2Id");
 
          modelBuilder.Entity<global::Sandbox.Entity2>().ToTable("Entity2").HasKey(t => t.Id);
          modelBuilder.Entity<global::Sandbox.Entity2>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();

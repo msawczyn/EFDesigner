@@ -28,6 +28,7 @@ namespace Testing
       public BParentRequired()
       {
          BChildCollection = new System.Collections.Generic.HashSet<global::Testing.BChild>();
+         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
 
          Init();
       }
@@ -39,7 +40,7 @@ namespace Testing
       /// <summary>
       /// Backing field for Id
       /// </summary>
-      internal int _Id;
+      internal int _id;
       /// <summary>
       /// When provided in a partial class, allows value of Id to be changed before setting.
       /// </summary>
@@ -58,17 +59,17 @@ namespace Testing
       {
          get
          {
-            int value = _Id;
+            int value = _id;
             GetId(ref value);
-            return (_Id = value);
+            return (_id = value);
          }
          protected set
          {
-            int oldValue = _Id;
+            int oldValue = _id;
             SetId(oldValue, ref value);
             if (oldValue != value)
             {
-               _Id = value;
+               _id = value;
             }
          }
       }
@@ -84,7 +85,7 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.BChild BChildRequired { get; set; }
 
-      public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
+      public virtual ICollection<global::Testing.BChild> BChildCollection { get; private set; }
 
    }
 }

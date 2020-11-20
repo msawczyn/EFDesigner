@@ -100,7 +100,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (existingPropertyCount > 0)
             {
                return existingPropertyCount == 1
-                         ? $"HasForeignKey(p => {columnNameList[0]})"
+                         ? $"HasForeignKey(p => p.{columnNameList[0]})"
                          : $"HasForeignKey(p => new {{ {string.Join(", ", columnNameList.Select(n => $"p.{n}"))} }}";
             }
 

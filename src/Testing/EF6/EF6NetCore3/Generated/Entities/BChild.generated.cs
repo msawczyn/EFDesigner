@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
+using NetTopologySuite.Geometries;
 
 namespace Testing
 {
@@ -34,6 +34,12 @@ namespace Testing
          BParentCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          BParentCollection_1 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
          BParentCollection_2 = new System.Collections.ObjectModel.ObservableCollection<global::Testing.BParentCollection>();
+         BParentRequired = new global::Testing.BParentRequired();
+         BParentRequired_1 = new global::Testing.BParentRequired();
+         BParentRequired_2 = new global::Testing.BParentRequired();
+         BParentOptional = global::Testing.BParentOptional.CreateBParentOptionalUnsafe();
+         BParentOptional_1 = global::Testing.BParentOptional.CreateBParentOptionalUnsafe();
+         BParentOptional_2 = global::Testing.BParentOptional.CreateBParentOptionalUnsafe();
 
          Init();
       }
@@ -139,11 +145,11 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.BParentRequired BParentRequired_2 { get; set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; protected set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection { get; private set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_1 { get; protected set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_1 { get; private set; }
 
-      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; protected set; }
+      public virtual ICollection<global::Testing.BParentCollection> BParentCollection_2 { get; private set; }
 
       public virtual global::Testing.BParentOptional BParentOptional { get; set; }
 

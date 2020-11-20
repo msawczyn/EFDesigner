@@ -4066,6 +4066,94 @@ namespace Sawczyn.EFDesigner.EFModel
 		}
 		
 		#endregion
+		#region GenerateDbContextFactory domain property code
+		
+		/// <summary>
+		/// GenerateDbContextFactory domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid GenerateDbContextFactoryDomainPropertyId = new global::System.Guid(0xebce71d1, 0x03df, 0x4975, 0xa7, 0x7e, 0xc8, 0x74, 0x88, 0x4a, 0xd6, 0xab);
+		
+		/// <summary>
+		/// Storage for GenerateDbContextFactory
+		/// </summary>
+		private global::System.Boolean generateDbContextFactoryPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of GenerateDbContextFactory domain property.
+		/// If true, a DbContextFactory-derived class will be generated for the project
+		/// </summary>
+		[DslDesign::DisplayNameResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateDbContextFactory.DisplayName", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateDbContextFactory.Category", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Sawczyn.EFDesigner.EFModel.ModelRoot/GenerateDbContextFactory.Description", typeof(global::Sawczyn.EFDesigner.EFModel.EFModelDomainModel), "Sawczyn.EFDesigner.EFModel.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("ebce71d1-03df-4975-a77e-c874884ad6ab")]
+		public global::System.Boolean GenerateDbContextFactory
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return generateDbContextFactoryPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GenerateDbContextFactoryPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.GenerateDbContextFactory domain property.
+		/// </summary>
+		internal sealed partial class GenerateDbContextFactoryPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private GenerateDbContextFactoryPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.GenerateDbContextFactory domain property value handler.
+			/// </summary>
+			public static readonly GenerateDbContextFactoryPropertyHandler Instance = new GenerateDbContextFactoryPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.GenerateDbContextFactory domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return GenerateDbContextFactoryDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.generateDbContextFactoryPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.generateDbContextFactoryPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

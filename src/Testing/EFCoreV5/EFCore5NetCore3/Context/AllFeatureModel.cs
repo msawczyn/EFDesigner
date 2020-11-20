@@ -4,11 +4,11 @@ using System.Text;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace EFCore5NetCore3
+namespace Testing
 {
-   partial class TestContext
+   partial class AllFeatureModel
    {
-      public TestContext() { }
+      public AllFeatureModel() { }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
       {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace EFCore3NetCore3_Test
 {
@@ -6,7 +7,10 @@ namespace EFCore3NetCore3_Test
    {
       static void Main(string[] args)
       {
-         Console.WriteLine("Hello World!");
+         using (Testing.AllFeatureModel context = new Testing.AllFeatureModel())
+         {
+            int x = context.UChilds.Count();
+         }
       }
    }
 }

@@ -30,6 +30,8 @@ namespace Sandbox
       /// </summary>
       protected Entity1()
       {
+         Entity2 = new global::Sandbox.Entity2();
+
          Init();
       }
 
@@ -78,10 +80,31 @@ namespace Sandbox
        * Navigation properties
        *************************************************************************/
 
+      protected global::Sandbox.Entity2 _entity2;
+      partial void SetEntity2(global::Sandbox.Entity2 oldValue, ref global::Sandbox.Entity2 newValue);
+      partial void GetEntity2(ref global::Sandbox.Entity2 result);
+
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Sandbox.Entity2 Entity2 { get; set; }
+      public virtual global::Sandbox.Entity2 Entity2
+      {
+         get
+         {
+            global::Sandbox.Entity2 value = _entity2;
+            GetEntity2(ref value);
+            return (_entity2 = value);
+         }
+         set
+         {
+            global::Sandbox.Entity2 oldValue = _entity2;
+            SetEntity2(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _entity2 = value;
+            }
+         }
+      }
 
    }
 }

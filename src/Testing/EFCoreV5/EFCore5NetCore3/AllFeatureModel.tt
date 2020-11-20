@@ -3,11 +3,7 @@
 <#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" #>  
 <#@ assembly name="System.Data.Entity.Design.dll" 
 #><#@ assembly name="EnvDTE"
-#><#@ include file="MultipleOutputHelper.ttinclude" once="true"
-#><#@ include file="VSIntegration.ttinclude" once="true"
 #><#@ include file="EFDesigner.ttinclude" once="true"
-#><#@ include file="EF6Designer.ttinclude" once="true"
-#><#@ include file="EFCoreDesigner.ttinclude" once="true"
 #><#@ output extension=".cs" 
 #><#@ import namespace="System.Linq" 
 #><#@ import namespace="System" 
@@ -38,16 +34,40 @@
       Output("//------------------------------------------------------------------------------");
       NL();
 
+      EFModelGenerator generator;
+
       switch (ModelRoot.EntityFrameworkVersion)
       {
          case EFVersion.EF6:
-            GenerateEF6(manager, this.ModelRoot);
+         {
+            generator = new EF6ModelGenerator(this);
             break;
+         }
+
          case EFVersion.EFCore:
-            GenerateEFCore(manager, this.ModelRoot);
+         {
+            switch ((int)ModelRoot.GetEntityFrameworkPackageVersionNum())
+            {
+               case 2:
+                  generator = new EFCore2ModelGenerator(this);
+                  break;
+
+               case 3:
+                  generator = new EFCore3ModelGenerator(this);
+                  break;
+
+               default:
+                  generator = new EFCore5ModelGenerator(this);
+                  break;
+            }
             break;
+         }
+
+         default:
+            throw new InvalidOperationException("Unsupported Entity Framework version");
       }
 
+      generator.Generate(manager);
    }
 
    manager.Process(true);

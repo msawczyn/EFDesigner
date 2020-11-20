@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
+using NetTopologySuite.Geometries;
 
 namespace Testing
 {
@@ -29,6 +29,8 @@ namespace Testing
       public UParentRequired()
       {
          UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
+         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
+         UChildOptional = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }
@@ -83,7 +85,7 @@ namespace Testing
       /// </summary>
       public virtual global::Testing.UChild UChildRequired { get; set; }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
       public virtual global::Testing.UChild UChildOptional { get; set; }
 

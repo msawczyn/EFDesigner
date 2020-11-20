@@ -30,6 +30,8 @@ namespace Sandbox
       /// </summary>
       protected Entity1()
       {
+         Entity2 = new global::Sandbox.Entity2();
+
          Init();
       }
 

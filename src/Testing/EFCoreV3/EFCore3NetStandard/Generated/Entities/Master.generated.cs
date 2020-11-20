@@ -77,7 +77,18 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing.Child> Children { get; protected set; }
+      protected ICollection<global::Testing.Child> _children;
+      public virtual ICollection<global::Testing.Child> Children
+      {
+         get
+         {
+            return _children;
+         }
+         private set
+         {
+            _children = value;
+         }
+      }
 
    }
 }

@@ -29,6 +29,7 @@ namespace Testing
       {
          PropertyInChild = "hello";
          UChildCollection = new System.Collections.Generic.HashSet<global::Testing.UChild>();
+         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }
@@ -110,7 +111,7 @@ namespace Testing
 
       public virtual global::Testing.UChild UChildOptional { get; set; }
 
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
 
       /// <summary>
       /// Required

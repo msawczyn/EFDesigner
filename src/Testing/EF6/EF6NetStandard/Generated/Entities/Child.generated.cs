@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Data.Entity.Spatial;
+using NetTopologySuite.Geometries;
 
 namespace Testing
 {
@@ -29,6 +29,7 @@ namespace Testing
       protected Child()
       {
          Children = new System.Collections.ObjectModel.ObservableCollection<global::Testing.Child>();
+         Parent = global::Testing.Child.CreateChildUnsafe();
 
          Init();
       }
@@ -114,12 +115,44 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing.Child> Children { get; protected set; }
+      protected ICollection<global::Testing.Child> _children;
+      public virtual ICollection<global::Testing.Child> Children
+      {
+         get
+         {
+            return _children;
+         }
+         private set
+         {
+            _children = value;
+         }
+      }
+
+      protected global::Testing.Child _parent;
+      partial void SetParent(global::Testing.Child oldValue, ref global::Testing.Child newValue);
+      partial void GetParent(ref global::Testing.Child result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.Child Parent { get; set; }
+      public virtual global::Testing.Child Parent
+      {
+         get
+         {
+            global::Testing.Child value = _parent;
+            GetParent(ref value);
+            return (_parent = value);
+         }
+         set
+         {
+            global::Testing.Child oldValue = _parent;
+            SetParent(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _parent = value;
+            }
+         }
+      }
 
    }
 }

@@ -28,6 +28,7 @@ namespace Testing
       public BParentRequired()
       {
          BChildCollection = new System.Collections.Generic.HashSet<global::Testing.BChild>();
+         BChildRequired = global::Testing.BChild.CreateBChildUnsafe();
 
          Init();
       }
@@ -126,7 +127,18 @@ namespace Testing
          }
       }
 
-      public virtual ICollection<global::Testing.BChild> BChildCollection { get; protected set; }
+      protected ICollection<global::Testing.BChild> _bChildCollection;
+      public virtual ICollection<global::Testing.BChild> BChildCollection
+      {
+         get
+         {
+            return _bChildCollection;
+         }
+         private set
+         {
+            _bChildCollection = value;
+         }
+      }
 
    }
 }

@@ -330,6 +330,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="ebce71d1-03df-4975-a77e-c874884ad6ab" Description="If true, a DbContextFactory-derived class will be generated for the project" Name="GenerateDbContextFactory" DisplayName="Generate Db Context Factory" Category="Code Generation">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -2148,6 +2153,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="useTabs">
             <DomainPropertyMoniker Name="ModelRoot/UseTabs" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="generateDbContextFactory">
+            <DomainPropertyMoniker Name="ModelRoot/GenerateDbContextFactory" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

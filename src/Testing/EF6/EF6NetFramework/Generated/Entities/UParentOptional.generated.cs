@@ -5,7 +5,7 @@
 //     Manual changes to this file may cause unexpected behavior in your application.
 //     Manual changes to this file will be overwritten if the code is regenerated.
 //
-//     Produced by Entity Framework Visual Editor v3.0.0.1
+//     Produced by Entity Framework Visual Editor v3.0.0.2
 //     Source:                    https://github.com/msawczyn/EFDesigner
 //     Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner
 //     Documentation:             https://msawczyn.github.io/EFDesigner/
@@ -39,6 +39,7 @@ namespace Testing
       {
          PropertyInChild = "hello";
          UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
+         UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
       }
@@ -144,10 +145,21 @@ namespace Testing
          }
       }
 
+      protected ICollection<global::Testing.UChild> _uChildCollection;
       /// <summary>
       /// h
       /// </summary>
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; protected set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection
+      {
+         get
+         {
+            return _uChildCollection;
+         }
+         private set
+         {
+            _uChildCollection = value;
+         }
+      }
 
       protected global::Testing.UChild _uChildRequired;
       partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);

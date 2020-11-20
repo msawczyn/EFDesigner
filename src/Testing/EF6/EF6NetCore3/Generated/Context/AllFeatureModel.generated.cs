@@ -11,8 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Testing
 {
@@ -20,214 +19,199 @@ namespace Testing
    public partial class AllFeatureModel : DbContext
    {
       #region DbSets
-      public virtual System.Data.Entity.DbSet<global::Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.BaseClass> BaseClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.BChild> BChilds { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.BParentCollection> BParentCollections { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.BParentOptional> BParentOptionals { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.BParentRequired> BParentRequireds { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.Child> Children { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.DerivedClass> DerivedClasses { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.HiddenEntity> HiddenEntities { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.Master> Masters { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.ParserTest> ParserTests { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.RenamedColumn> RenamedColumns { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.SpatialProperties> SpatialProperties { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.UChild> UChilds { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.UParentCollection> UParentCollections { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AbstractBaseClass> AbstractBaseClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AllPropertyTypesOptional> AllPropertyTypesOptionals { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.AllPropertyTypesRequired> AllPropertyTypesRequireds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BaseClass> BaseClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BaseClassWithRequiredProperties> BaseClassWithRequiredProperties { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BChild> BChilds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BParentCollection> BParentCollections { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BParentOptional> BParentOptionals { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.BParentRequired> BParentRequireds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Child> Children { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.ConcreteDerivedClass> ConcreteDerivedClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.ConcreteDerivedClassWithRequiredProperties> ConcreteDerivedClassWithRequiredProperties { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.DerivedClass> DerivedClasses { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.HiddenEntity> HiddenEntities { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.Master> Masters { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.ParserTest> ParserTests { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.RenamedColumn> RenamedColumns { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.SpatialProperties> SpatialProperties { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.UChild> UChilds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.UParentCollection> UParentCollections { get; set; }
 
       /// <summary>
       /// Repository for global::Testing.UParentOptional - x
       /// </summary>
-      public virtual System.Data.Entity.DbSet<global::Testing.UParentOptional> UParentOptionals { get; set; }
-      public virtual System.Data.Entity.DbSet<global::Testing.UParentRequired> UParentRequireds { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.UParentOptional> UParentOptionals { get; set; }
+      public virtual Microsoft.EntityFrameworkCore.DbSet<global::Testing.UParentRequired> UParentRequireds { get; set; }
+
       #endregion DbSets
-
-      #region Constructors
-
-      partial void CustomInit();
 
       /// <summary>
       /// Default connection string
       /// </summary>
       public static string ConnectionString { get; set; } = @"Data Source=.\sqlexpress;Initial Catalog=Test;Integrated Security=True";
+
       /// <inheritdoc />
-      public AllFeatureModel() : base(ConnectionString)
+      public AllFeatureModel(DbContextOptions<AllFeatureModel> options) : base(options)
       {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
-         CustomInit();
       }
 
+      partial void CustomInit(DbContextOptionsBuilder optionsBuilder);
+
       /// <inheritdoc />
-      public AllFeatureModel(string connectionString) : base(connectionString)
+      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
-         CustomInit();
+         CustomInit(optionsBuilder);
       }
 
-      /// <inheritdoc />
-      public AllFeatureModel(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model) : base(connectionString, model)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
-         CustomInit();
-      }
+      partial void OnModelCreatingImpl(ModelBuilder modelBuilder);
+      partial void OnModelCreatedImpl(ModelBuilder modelBuilder);
 
       /// <inheritdoc />
-      public AllFeatureModel(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
-         CustomInit();
-      }
-
-      /// <inheritdoc />
-      public AllFeatureModel(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection) : base(existingConnection, model, contextOwnsConnection)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
-         CustomInit();
-      }
-
-      /// <inheritdoc />
-      public AllFeatureModel(System.Data.Entity.Infrastructure.DbCompiledModel model) : base(model)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
-         CustomInit();
-      }
-
-      /// <inheritdoc />
-      public AllFeatureModel(System.Data.Entity.Core.Objects.ObjectContext objectContext, bool dbContextOwnsObjectContext) : base(objectContext, dbContextOwnsObjectContext)
-      {
-         Configuration.LazyLoadingEnabled = true;
-         Configuration.ProxyCreationEnabled = true;
-         System.Data.Entity.Database.SetInitializer<AllFeatureModel>(null);
-         CustomInit();
-      }
-
-      #endregion Constructors
-
-      partial void OnModelCreatingImpl(System.Data.Entity.DbModelBuilder modelBuilder);
-      partial void OnModelCreatedImpl(System.Data.Entity.DbModelBuilder modelBuilder);
-
-      /// <inheritdoc />
-      protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
          OnModelCreatingImpl(modelBuilder);
 
          modelBuilder.HasDefaultSchema("dbo");
 
-         modelBuilder.Entity<global::Testing.AbstractBaseClass>();
 
          modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().ToTable("AllPropertyTypesOptionals").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedNever();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.BinaryAttr).HasField("_binaryAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.BooleanAttr).HasField("_booleanAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.ByteAttr).HasField("_byteAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.DateTimeAttr).HasField("_dateTimeAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.DateTimeOffsetAttr).HasField("_dateTimeOffsetAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.DecimalAttr).HasField("_decimalAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.DoubleAttr).HasField("_doubleAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.GuidAttr).HasField("_guidAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Int16Attr).HasField("_int16Attr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Int32Attr).HasField("_int32Attr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.Int64Attr).HasField("_int64Attr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.SingleAttr).HasField("_singleAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.TimeAttr).HasField("_timeAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesOptional>().Property(t => t.StringAttr).HasField("_stringAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
          modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().ToTable("AllPropertyTypesRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BinaryAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BooleanAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.ByteAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeOffsetAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DecimalAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DoubleAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.GuidAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int16Attr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int32Attr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int64Attr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired();
-         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).IsRequired();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedNever();
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BinaryAttr).IsRequired().HasField("_binaryAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.BooleanAttr).IsRequired().HasField("_booleanAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.ByteAttr).IsRequired().HasField("_byteAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeAttr).IsRequired().HasField("_dateTimeAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DateTimeOffsetAttr).IsRequired().HasField("_dateTimeOffsetAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DecimalAttr).IsRequired().HasField("_decimalAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.DoubleAttr).IsRequired().HasField("_doubleAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.GuidAttr).IsRequired().HasField("_guidAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int16Attr).IsRequired().HasField("_int16Attr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int32Attr).IsRequired().HasField("_int32Attr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.Int64Attr).IsRequired().HasField("_int64Attr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.SingleAttr).IsRequired().HasField("_singleAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.TimeAttr).IsRequired().HasField("_timeAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.AllPropertyTypesRequired>().Property(t => t.StringAttr).IsRequired().HasField("_stringAttr").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
-         modelBuilder.Entity<global::Testing.BaseClass>();
 
          modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().ToTable("BaseClassWithRequiredProperties").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().Property(t => t.Property0).IsRequired();
+         modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.BaseClassWithRequiredProperties>().Property(t => t.Property0).IsRequired().HasField("_property0").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
          modelBuilder.Entity<global::Testing.BChild>().ToTable("BChilds").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.BChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired).WithOptional(x => x.BChildOptional);
-         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired_1).WithRequiredPrincipal(x => x.BChildRequired);
-         modelBuilder.Entity<global::Testing.BChild>().HasRequired(x => x.BParentRequired_2).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentRequired_2_Id"));
-         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection).WithRequired(x => x.BChildRequired).Map(x => x.MapKey("BChildRequired_Id"));
-         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_1).WithMany(x => x.BChildCollection).Map(x => { x.ToTable("BParentCollection_1_x_BChildCollection"); x.MapLeftKey("BChild_Id"); x.MapRightKey("BParentCollection_Id"); });
-         modelBuilder.Entity<global::Testing.BChild>().HasMany(x => x.BParentCollection_2).WithOptional(x => x.BChildOptional).Map(x => x.MapKey("BChildOptional_Id"));
-         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional).WithRequired(x => x.BChildRequired);
-         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional_1).WithMany(x => x.BChildCollection).Map(x => x.MapKey("BParentOptional_1_Id"));
-         modelBuilder.Entity<global::Testing.BChild>().HasOptional(x => x.BParentOptional_2).WithOptionalPrincipal(x => x.BChildOptional);
+         modelBuilder.Entity<global::Testing.BChild>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
 
          modelBuilder.Entity<global::Testing.BParentCollection>().ToTable("BParentCollections").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.BParentCollection>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.BParentCollection>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.BParentCollection>().HasOne<global::Testing.BChild>(p => p.BChildRequired).WithMany(p => p.BParentCollection).HasForeignKey("BChildRequiredId");
+         modelBuilder.Entity<global::Testing.BParentCollection>().HasMany<global::Testing.BChild>(p => p.BChildCollection).WithMany(p => p.BParentCollection_1).UsingEntity(x => x.ToTable("BChild_BParentCollection_1_x_BParentCollection_BChildCollection"));
+         modelBuilder.Entity<global::Testing.BParentCollection>().HasOne<global::Testing.BChild>(p => p.BChildOptional).WithMany(p => p.BParentCollection_2).HasForeignKey("BChildOptionalId");
 
          modelBuilder.Entity<global::Testing.BParentOptional>().ToTable("BParentOptionals").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.BParentOptional>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.BParentOptional>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.BParentOptional>().HasOne<global::Testing.BChild>(p => p.BChildRequired).WithOne(p => p.BParentOptional).HasForeignKey("BParentOptional", "BChildRequiredId");
+         modelBuilder.Entity<global::Testing.BParentOptional>().HasMany<global::Testing.BChild>(p => p.BChildCollection).WithOne(p => p.BParentOptional_1).HasForeignKey("BParentOptional_1Id");
+         modelBuilder.Entity<global::Testing.BParentOptional>().HasOne<global::Testing.BChild>(p => p.BChildOptional).WithOne(p => p.BParentOptional_2).HasForeignKey("BChild", "BParentOptional_2Id");
 
          modelBuilder.Entity<global::Testing.BParentRequired>().ToTable("BParentRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.BParentRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.BParentRequired>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.BParentRequired>().HasOne<global::Testing.BChild>(p => p.BChildOptional).WithOne(p => p.BParentRequired).HasForeignKey("BChild", "BParentRequiredId").IsRequired();
+         modelBuilder.Entity<global::Testing.BParentRequired>().HasOne<global::Testing.BChild>(p => p.BChildRequired).WithOne(p => p.BParentRequired_1).HasForeignKey("BChild", "BParentRequired_1Id");
+         modelBuilder.Entity<global::Testing.BParentRequired>().HasMany<global::Testing.BChild>(p => p.BChildCollection).WithOne(p => p.BParentRequired_2).HasForeignKey("BParentRequired_2Id").IsRequired();
 
          modelBuilder.Entity<global::Testing.Child>().ToTable("Children").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.Child>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.Child>().HasRequired(x => x.Parent).WithMany(x => x.Children).Map(x => x.MapKey("Parent_Id"));
+         modelBuilder.Entity<global::Testing.Child>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.Child>().HasMany<global::Testing.Child>(p => p.Children).WithOne(p => p.Parent).HasForeignKey("ParentId").IsRequired();
 
-         modelBuilder.Entity<global::Testing.ConcreteDerivedClass>();
+         modelBuilder.Entity<global::Testing.ConcreteDerivedClass>().Property(t => t.Property1).HasField("_property1").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ConcreteDerivedClass>().Property(t => t.PropertyInChild).HasField("_propertyInChild").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
-         modelBuilder.Entity<global::Testing.ConcreteDerivedClassWithRequiredProperties>();
-         modelBuilder.Entity<global::Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired();
+         modelBuilder.Entity<global::Testing.ConcreteDerivedClassWithRequiredProperties>().Property(t => t.Property1).IsRequired().HasField("_property1").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
-         modelBuilder.Entity<global::Testing.DerivedClass>();
+         modelBuilder.Entity<global::Testing.DerivedClass>().Property(t => t.Property1).HasField("_property1").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.DerivedClass>().Property(t => t.PropertyInChild).HasField("_propertyInChild").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
          modelBuilder.Entity<global::Testing.HiddenEntity>().ToTable("HiddenEntities").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.HiddenEntity>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
 
          modelBuilder.Entity<global::Testing.Master>().ToTable("Masters").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.Master>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.Master>().HasMany(x => x.Children).WithRequired().Map(x => x.MapKey("Master.Children_Id"));
+         modelBuilder.Entity<global::Testing.Master>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.Master>().HasMany<global::Testing.Child>(p => p.Children).WithOne().HasForeignKey("Master_Children_Id").IsRequired();
 
          modelBuilder.Entity<global::Testing.ParserTest>().ToTable("ParserTests").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.foo).IsRequired();
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedNever();
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.foo).IsRequired().HasField("_foo").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name1).HasField("_name1").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name2).HasField("_name2").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name3).HasField("_name3").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name4).HasField("_name4").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name5).HasField("_name5").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name6).HasField("_name6").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name7).HasField("_name7").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name8).HasField("_name8").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name9).HasField("_name9").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name).HasField("_name").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name11).HasField("_name11").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name12).HasField("_name12").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name13).HasField("_name13").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name14).HasField("_name14").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name15).HasField("_name15").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name16).HasField("_name16").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name17).HasField("_name17").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.ParserTest>().Property(t => t.name18).HasField("_name18").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
          modelBuilder.Entity<global::Testing.RenamedColumn>().ToTable("RenamedColumns").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.RenamedColumn>().Property(t => t.Id).IsRequired().HasColumnName("Foo").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.RenamedColumn>().Property(t => t.Id).IsRequired().HasColumnName("Foo").HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
 
          modelBuilder.Entity<global::Testing.SpatialProperties>().ToTable("SpatialProperties").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedNever();
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeography).IsRequired().HasField("_attrGeography").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeographyCollection).IsRequired().HasField("_attrGeographyCollection").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeographyLineString).IsRequired().HasField("_attrGeographyLineString").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeographyMultiLineString).IsRequired().HasField("_attrGeographyMultiLineString").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeographyMultiPoint).IsRequired().HasField("_attrGeographyMultiPoint").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeographyMultiPolygon).IsRequired().HasField("_attrGeographyMultiPolygon").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeographyPoint).IsRequired().HasField("_attrGeographyPoint").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.SpatialProperties>().Property(t => t.AttrGeographyPolygon).IsRequired().HasField("_attrGeographyPolygon").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
          modelBuilder.Entity<global::Testing.UChild>().ToTable("UChilds").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.UChild>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+         modelBuilder.Entity<global::Testing.UChild>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
 
          modelBuilder.Entity<global::Testing.UParentCollection>().ToTable("UParentCollections").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.UParentCollection>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.UParentCollection>().HasRequired(x => x.UChildRequired).WithMany().Map(x => x.MapKey("UChildRequired_Id"));
-         modelBuilder.Entity<global::Testing.UParentCollection>().HasMany(x => x.UChildCollection).WithMany().Map(x => { x.ToTable("UParentCollection_x_UChildCollection"); x.MapLeftKey("UParentCollection_Id"); x.MapRightKey("UChild_Id"); });
-         modelBuilder.Entity<global::Testing.UParentCollection>().HasOptional(x => x.UChildOptional).WithMany().Map(x => x.MapKey("UChildOptional_Id"));
+         modelBuilder.Entity<global::Testing.UParentCollection>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasOne<global::Testing.UChild>(p => p.UChildRequired).WithMany().HasForeignKey("UChildRequiredId");
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasMany<global::Testing.UChild>(p => p.UChildCollection).WithMany().UsingEntity(x => x.ToTable("UChild_x_UParentCollection_UChildCollection"));
+         modelBuilder.Entity<global::Testing.UParentCollection>().HasOne<global::Testing.UChild>(p => p.UChildOptional).WithMany().HasForeignKey("UChildOptionalId");
 
-         modelBuilder.Entity<global::Testing.UParentOptional>();
-         modelBuilder.Entity<global::Testing.UParentOptional>().HasOptional(x => x.UChildOptional).WithOptionalDependent();
-         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany(x => x.UChildCollection).WithOptional().Map(x => x.MapKey());
-         modelBuilder.Entity<global::Testing.UParentOptional>().HasRequired(x => x.UChildRequired).WithOptional();
+         modelBuilder.Entity<global::Testing.UParentOptional>().Property(t => t.PropertyInChild).HasField("_propertyInChild").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasOne<global::Testing.UChild>(p => p.UChildOptional).WithOne().HasForeignKey<global::Testing.UChild>();
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasMany<global::Testing.UChild>(p => p.UChildCollection).WithOne();
+         modelBuilder.Entity<global::Testing.UParentOptional>().HasOne<global::Testing.UChild>(p => p.UChildRequired).WithOne().HasForeignKey("UParentOptional", "UChildRequiredId");
 
          modelBuilder.Entity<global::Testing.UParentRequired>().ToTable("UParentRequireds").HasKey(t => t.Id);
-         modelBuilder.Entity<global::Testing.UParentRequired>().Property(t => t.Id).IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         modelBuilder.Entity<global::Testing.UParentRequired>().HasRequired(x => x.UChildRequired).WithRequiredDependent();
-         modelBuilder.Entity<global::Testing.UParentRequired>().HasMany(x => x.UChildCollection).WithRequired().Map(x => x.MapKey("UParentRequired.UChildCollection_Id"));
-         modelBuilder.Entity<global::Testing.UParentRequired>().HasOptional(x => x.UChildOptional).WithRequired().WillCascadeOnDelete(true);
+         modelBuilder.Entity<global::Testing.UParentRequired>().Property(t => t.Id).IsRequired().HasField("_id").UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction).ValueGeneratedOnAdd();
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasOne<global::Testing.UChild>(p => p.UChildRequired).WithOne().HasForeignKey("UChild", "UParentRequired_UChildRequired_Id");
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasMany<global::Testing.UChild>(p => p.UChildCollection).WithOne().HasForeignKey("UParentRequired_UChildCollection_Id").IsRequired();
+         modelBuilder.Entity<global::Testing.UParentRequired>().HasOne<global::Testing.UChild>(p => p.UChildOptional).WithOne().HasForeignKey("UChild", "UParentRequired_UChildOptional_Id").OnDelete(DeleteBehavior.Cascade).IsRequired();
 
          OnModelCreatedImpl(modelBuilder);
       }

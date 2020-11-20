@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using EFCore5NetCore3;
+using Testing;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +11,9 @@ namespace ConsoleTestNetCore3
    {
       static void Main(string[] args)
       {
-         using (TestContext context = new TestContext())
+         using (AllFeatureModel context = new AllFeatureModel())
          {
+            context.Database.EnsureDeleted();
             context.Database.Migrate();
          }
       }

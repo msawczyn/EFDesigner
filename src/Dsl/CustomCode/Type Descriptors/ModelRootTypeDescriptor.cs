@@ -28,6 +28,8 @@ namespace Sawczyn.EFDesigner.EFModel
                if (modelRoot.GetEntityFrameworkPackageVersionNum() < 2.1)
                   propertyDescriptors.Remove("LazyLoadingEnabled");
             }
+            else
+               propertyDescriptors.Remove("GenerateDbContextFactory");
 
             if (!modelRoot.ShowGrid)
             {
