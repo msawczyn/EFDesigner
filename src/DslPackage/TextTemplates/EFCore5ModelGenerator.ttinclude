@@ -23,7 +23,7 @@
 #><#@ import namespace="System.Data.Entity.Design.PluralizationServices"
 #><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
 #><#+
-      // EFDesigner v3.0.0.1
+      // EFDesigner v3.0.0.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -221,7 +221,7 @@
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -261,7 +261,7 @@
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -449,7 +449,7 @@
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -473,7 +473,7 @@
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -492,5 +492,5 @@
          }
       }
 
-
+      
 #>

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -6,9 +6,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 {
    public partial class GeneratedTextTransformation
    {
-#region Template
-
-      // EFDesigner v3.0.0.1
+      #region Template
+      // EFDesigner v3.0.0.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -206,7 +205,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -246,7 +245,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -434,7 +433,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -458,7 +457,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -477,6 +476,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          }
       }
 
-#endregion Template
+      #endregion Template
    }
 }

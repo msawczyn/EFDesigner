@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.0.1
+      // EFDesigner v3.0.0.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -720,7 +720,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   if (modelAttribute.Required)
                      segments.Add("IsRequired()");
 
-                  if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
+                  if (!string.IsNullOrEmpty(modelAttribute.ColumnName) && modelAttribute.ColumnName != modelAttribute.Name)
                      segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                   if (!string.IsNullOrEmpty(modelAttribute.ColumnType) && modelAttribute.ColumnType.ToLowerInvariant() != "default")
@@ -792,7 +792,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             Output("}");
          }
       }
-
       #endregion Template
    }
 }

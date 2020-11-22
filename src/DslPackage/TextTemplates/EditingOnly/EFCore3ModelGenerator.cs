@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -8,7 +8,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    {
       #region Template
 
-      // EFDesigner v3.0.0.1
+      // EFDesigner v3.0.0.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 

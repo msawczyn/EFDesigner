@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.0.1
+      // EFDesigner v3.0.0.3
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -81,7 +81,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             NL();
 
             BeginNamespace(modelRoot.Namespace);
-            Output("{");
             Output($"public class {modelRoot.EntityContainerName}Factory: IDesignTimeDbContextFactory<{modelRoot.EntityContainerName}>");
             Output("{");
             Output("/// <summary>Creates a new instance of a derived context.</summary>");
@@ -98,7 +97,6 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             Output("//    partial void CustomInit(DbContextOptionsBuilder optionsBuilder) => ConfigureOptions(optionsBuilder);");
             Output($"{modelRoot.EntityContainerName}.ConfigureOptions(optionsBuilder);");
             Output($"return new {modelRoot.EntityContainerName}(optionsBuilder.Options);");
-            Output("}");
             Output("}");
             Output("}");
             EndNamespace(modelRoot.Namespace);
@@ -603,7 +601,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -639,7 +637,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -819,7 +817,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
@@ -839,7 +837,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                         {
                            segments.Add($"{baseSegment}.OwnsOne(p => p.{association.TargetPropertyName}).Property(p => p.{modelAttribute.Name})");
 
-                           if (modelAttribute.ColumnName != modelAttribute.Name)
+                           if (modelAttribute.ColumnName != modelAttribute.Name && !string.IsNullOrEmpty(modelAttribute.ColumnName))
                               segments.Add($"HasColumnName(\"{modelAttribute.ColumnName}\")");
 
                            if (modelAttribute.Required)
