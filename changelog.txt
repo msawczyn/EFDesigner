@@ -1,3 +1,8 @@
+3.0.0.preview3
+   - Bugfixes
+   - Unfinished
+      - Regression testing for importing compiled assemblies
+
 3.0.0.preview2
    - Bugfixes
    - Unfinished
@@ -14,13 +19,14 @@
       - Added support for keyless entity types created by defining queries
       - Added support for keyless entity types coming from database views
    - Enhancements and Fixes
+      - Added ability to globally add and remove exposed foreign key properties to all modeled entities (via menu command) (see https://github.com/msawczyn/EFDesigner/issues/223)
+      - Added ability to choose to place newly imported model elements on the diagram where they were dropped. Caution: this can be EXTREMELY slow for large imports. (see https://github.com/msawczyn/EFDesigner/issues/225)
+      - Added composition and aggregation indicators to association connectors
       - Fixed inability to paste enumerations using diagram copy/paste
       - Changing an identity property's type now changes the type of any defined foreign-key properties pointing to that identity property
       - Title text color didn't always change when class/enum fill color changed in the diagram
       - Selecting tabs or spaces for indentation in generated code has been moved to a property on the designer surface.
       - Added ModelRoot.IsEFCore5Plus convenience property. It can be used in custom T4 edits
-      - Added ability to globally add and remove exposed foreign key properties to all modeled entities (via menu command) (see https://github.com/msawczyn/EFDesigner/issues/223)
-      - Added ability to choose to place newly imported model elements on the diagram where they were dropped. Caution: this can be EXTREMELY slow for large imports. (see https://github.com/msawczyn/EFDesigner/issues/225)
    - Possibly breaking changes
       - T4 template structure has been changed drastically to simplify managing code generation for the various EF versions.
         If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
