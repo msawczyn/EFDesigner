@@ -1758,7 +1758,7 @@
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
         <IconDecorator Name="TransientGlyph" DisplayName="Transient Glyph" DefaultIcon="Resources\TransientClass.png" />
       </ShapeHasDecorators>
-      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
+      <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0.01" VerticalOffset="0">
         <IconDecorator Name="NoGenGlyph" DisplayName="No Code Generation" DefaultIcon="Resources\No.png" />
       </ShapeHasDecorators>
       <ShapeHasDecorators Position="InnerTopLeft" HorizontalOffset="0" VerticalOffset="0">
@@ -2844,6 +2844,24 @@
             <DomainPropertyMoniker Name="ModelClass/GenerateCode" />
             <PropertyFilters>
               <PropertyFilter FilteringValue="False" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="ClassShape/SQLGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelClass/GlyphType" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="SQLGlyph" />
+            </PropertyFilters>
+          </VisibilityPropertyPath>
+        </DecoratorMap>
+        <DecoratorMap>
+          <IconDecoratorMoniker Name="ClassShape/DictionaryGlyph" />
+          <VisibilityPropertyPath>
+            <DomainPropertyMoniker Name="ModelClass/GlyphType" />
+            <PropertyFilters>
+              <PropertyFilter FilteringValue="DictionaryGlyph" />
             </PropertyFilters>
           </VisibilityPropertyPath>
         </DecoratorMap>

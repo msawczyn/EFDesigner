@@ -787,10 +787,15 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                  && !x.IsCollection
                                                                                  && !x.ConstructorParameterOnly))
             {
-               if (GetDefaultConstructorVisibility(navigationProperty.ClassType) == "public")
-                  Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
+               if (navigationProperty.ClassType.IsAbstract)
+                  Output($"Setter for {navigationProperty.ClassType.Name} {navigationProperty.PropertyName} was not created because it's abstract. This must be set before saving.");
                else
-                  Output($"{navigationProperty.PropertyName} = {navigationProperty.ClassType.FullName}.Create{navigationProperty.ClassType.Name}Unsafe();");
+               {
+                  if (GetDefaultConstructorVisibility(navigationProperty.ClassType) == "public")
+                     Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
+                  else
+                     Output($"{navigationProperty.PropertyName} = {navigationProperty.ClassType.FullName}.Create{navigationProperty.ClassType.Name}Unsafe();");
+               }
                ++lineCount;
             }
 

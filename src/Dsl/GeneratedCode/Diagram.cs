@@ -403,6 +403,14 @@ namespace Sawczyn.EFDesigner.EFModel
 		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GenerateCodeDomainPropertyId);
 		      propertyInfo.FilteringValues.Add("False");
 		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "NoGenGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("SQLGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SQLGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
+		
+		      propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Sawczyn.EFDesigner.EFModel.ModelClass.GlyphTypeDomainPropertyId);
+		      propertyInfo.FilteringValues.Add("DictionaryGlyph");
+		      DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "DictionaryGlyph").AssociateVisibilityWith(shape.Store, propertyInfo);
 		   }
 		}
 		

@@ -374,7 +374,7 @@ namespace Sawczyn.EFDesigner.EFModel
 			decorators.Add(decorator6);
 				
 			DslDiagrams::ShapeField field7 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "NoGenGlyph");
-			DslDiagrams::Decorator decorator7 = new DslDiagrams::ShapeDecorator(field7, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
+			DslDiagrams::Decorator decorator7 = new DslDiagrams::ShapeDecorator(field7, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, new DslDiagrams::PointD(0.01, 0));
 			decorators.Add(decorator7);
 				
 			DslDiagrams::ShapeField field8 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "DictionaryGlyph");

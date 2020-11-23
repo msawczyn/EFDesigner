@@ -4,16 +4,30 @@ using System.Text;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Testing
+//namespace Testing
+//{
+//   partial class AllFeatureModel
+//   {
+//      public AllFeatureModel() { }
+
+//      partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
+//      {
+//         optionsBuilder.UseSqlServer(ConnectionString);
+//      }
+
+//   }
+//}
+
+namespace EFCore5NetCore3
 {
-   partial class AllFeatureModel
+   /// <inheritdoc/>
+   public partial class TestContext 
    {
-      public AllFeatureModel() { }
+      public TestContext() { }
 
       partial void CustomInit(DbContextOptionsBuilder optionsBuilder)
       {
          optionsBuilder.UseSqlServer(ConnectionString);
       }
-
    }
 }
