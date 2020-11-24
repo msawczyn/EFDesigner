@@ -53,7 +53,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**3.0**
+**[3.0.preview3](https://github.com/msawczyn/EFDesigner/releases/tag/v3.0.0.preview3)**
    - New support EFCore5.X (available when selecting EFCore output with version >= 5)
       - Added `System.Net.IPAddress` and `System.Net.NetworkInformation.PhysicalAddress` to the list of available property types
       - Added ability to specify both default database collation and a collation override at the property level 
