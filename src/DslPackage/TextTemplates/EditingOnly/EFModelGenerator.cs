@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.0.3
+      // EFDesigner v3.0.0.4
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -788,13 +788,12 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                                                                                  && !x.ConstructorParameterOnly))
             {
                if (navigationProperty.ClassType.IsAbstract)
-                  Output($"Setter for {navigationProperty.ClassType.Name} {navigationProperty.PropertyName} was not created because it's abstract. This must be set before saving.");
+                  Output($"// Assignment of required association {navigationProperty.ClassType.Name} {navigationProperty.PropertyName} was not generated because {navigationProperty.ClassType.Name} is abstract. This must be assigned with a concrete object before saving.");
                else
                {
-                  if (GetDefaultConstructorVisibility(navigationProperty.ClassType) == "public")
-                     Output($"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();");
-                  else
-                     Output($"{navigationProperty.PropertyName} = {navigationProperty.ClassType.FullName}.Create{navigationProperty.ClassType.Name}Unsafe();");
+                  Output(GetDefaultConstructorVisibility(navigationProperty.ClassType) == "public"
+                            ? $"{navigationProperty.PropertyName} = new {navigationProperty.ClassType.FullName}();"
+                            : $"{navigationProperty.PropertyName} = {navigationProperty.ClassType.FullName}.Create{navigationProperty.ClassType.Name}Unsafe();");
                }
                ++lineCount;
             }

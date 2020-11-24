@@ -29,7 +29,11 @@ namespace Sawczyn.EFDesigner.EFModel
                   propertyDescriptors.Remove("LazyLoadingEnabled");
             }
             else
+            {
                propertyDescriptors.Remove("GenerateDbContextFactory");
+               propertyDescriptors.Remove("PropertyAccessModeDefault");
+               propertyDescriptors.Remove("DatabaseCollationDefault");
+            }
 
             if (!modelRoot.ShowGrid)
             {

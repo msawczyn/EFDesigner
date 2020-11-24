@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using NetTopologySuite.Geometries;
+using System.Data.Entity.Spatial;
 
 namespace Testing
 {
@@ -37,9 +37,6 @@ namespace Testing
          BParentRequired = new global::Testing.BParentRequired();
          BParentRequired_1 = new global::Testing.BParentRequired();
          BParentRequired_2 = new global::Testing.BParentRequired();
-         BParentOptional = global::Testing.BParentOptional.CreateBParentOptionalUnsafe();
-         BParentOptional_1 = global::Testing.BParentOptional.CreateBParentOptionalUnsafe();
-         BParentOptional_2 = global::Testing.BParentOptional.CreateBParentOptionalUnsafe();
 
          Init();
       }

@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using NetTopologySuite.Geometries;
+using System.Data.Entity.Spatial;
 
 namespace Testing
 {
@@ -33,7 +33,6 @@ namespace Testing
       {
          PropertyInChild = "hello";
          UChildCollection = new System.Collections.ObjectModel.ObservableCollection<global::Testing.UChild>();
-         UChildOptional = global::Testing.UChild.CreateUChildUnsafe();
          UChildRequired = global::Testing.UChild.CreateUChildUnsafe();
 
          Init();
@@ -114,20 +113,73 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
+      protected global::Testing.UChild _uChildOptional;
+      partial void SetUChildOptional(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildOptional(ref global::Testing.UChild result);
+
       /// <summary>
       /// x
       /// </summary>
-      public virtual global::Testing.UChild UChildOptional { get; set; }
+      public virtual global::Testing.UChild UChildOptional
+      {
+         get
+         {
+            global::Testing.UChild value = _uChildOptional;
+            GetUChildOptional(ref value);
+            return (_uChildOptional = value);
+         }
+         set
+         {
+            global::Testing.UChild oldValue = _uChildOptional;
+            SetUChildOptional(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _uChildOptional = value;
+            }
+         }
+      }
 
+      protected ICollection<global::Testing.UChild> _uChildCollection;
       /// <summary>
       /// h
       /// </summary>
-      public virtual ICollection<global::Testing.UChild> UChildCollection { get; private set; }
+      public virtual ICollection<global::Testing.UChild> UChildCollection
+      {
+         get
+         {
+            return _uChildCollection;
+         }
+         private set
+         {
+            _uChildCollection = value;
+         }
+      }
+
+      protected global::Testing.UChild _uChildRequired;
+      partial void SetUChildRequired(global::Testing.UChild oldValue, ref global::Testing.UChild newValue);
+      partial void GetUChildRequired(ref global::Testing.UChild result);
 
       /// <summary>
       /// Required
       /// </summary>
-      public virtual global::Testing.UChild UChildRequired { get; set; }
+      public virtual global::Testing.UChild UChildRequired
+      {
+         get
+         {
+            global::Testing.UChild value = _uChildRequired;
+            GetUChildRequired(ref value);
+            return (_uChildRequired = value);
+         }
+         set
+         {
+            global::Testing.UChild oldValue = _uChildRequired;
+            SetUChildRequired(oldValue, ref value);
+            if (oldValue != value)
+            {
+               _uChildRequired = value;
+            }
+         }
+      }
 
       public virtual event PropertyChangedEventHandler PropertyChanged;
 

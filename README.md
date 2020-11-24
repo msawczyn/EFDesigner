@@ -53,7 +53,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**[3.0.preview3](https://github.com/msawczyn/EFDesigner/releases/tag/v3.0.0.preview3)**
+**3.0**
    - New support EFCore5.X (available when selecting EFCore output with version >= 5)
       - Added `System.Net.IPAddress` and `System.Net.NetworkInformation.PhysicalAddress` to the list of available property types
       - Added ability to specify both default database collation and a collation override at the property level 
@@ -63,6 +63,7 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
       - Properties with backing fields (i.e., non-AutoProperty properties) can now choose how EF will read/write those values (see https://docs.microsoft.com/en-us/ef/core/modeling/backing-field).
       - Added support for keyless entity types created by defining queries
       - Added support for keyless entity types coming from database views
+   - Default code generation type is now the latest version of EFCore (currently, 5.0)
    - Added ability to globally add and remove exposed foreign key properties to all modeled entities (via menu command) (see https://github.com/msawczyn/EFDesigner/issues/223)
    - Added ability to choose to place newly imported model elements on the diagram where they were dropped. Caution: this can be EXTREMELY slow for large imports. (see https://github.com/msawczyn/EFDesigner/issues/225)
    - Added composition and aggregation indicators to association connectors
@@ -76,12 +77,14 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
         If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
         object-oriented, T4 structure. Updating the the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
         at https://msawczyn.github.io/EFDesigner/Customizing.html
-   - Unfinished:
-      - Regression testing for importing compiled assemblies
 
-**2.0.5.7**
+<details>
+<summary><b>2.0.5.7</b></summary>
+
    - Added ability to select tabs or spaces for indentation in generated code (Tools/Options/Entity Framework Visual Editor/Visual Editor Options) (See https://github.com/msawczyn/EFDesigner/issues/221)
    - Fixed an issue with changing visual grid size on design surface.
+
+</details>
 
 <details>
 <summary><b>2.0.5.6</b></summary>

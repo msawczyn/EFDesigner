@@ -30,7 +30,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 
 **ChangeLog**
 
-**3.0.0.preview3** (get it at https://github.com/msawczyn/EFDesigner/releases/tag/v3.0.0.preview3)
+**3.0**
    - **[NEW]** Support for EFCore5.X (available when selecting EFCore output with version >= 5)
       - **[NEW]** Added System.Net.IPAddress and System.Net.NetworkInformation.PhysicalAddress to the list of available property types
       - **[NEW]** Added ability to specify both default database collation and a collation override at the property level 
@@ -44,6 +44,7 @@ For comprehensive documentation, please visit [the project's documentation site]
       - **[NEW]** Added ability to globally add and remove exposed foreign key properties to all modeled entities (via menu command) (see https://github.com/msawczyn/EFDesigner/issues/223)
       - **[NEW]** Added ability to choose to place newly imported model elements on the diagram where they were dropped. Caution: this can be EXTREMELY slow for large imports. (see https://github.com/msawczyn/EFDesigner/issues/225)
       - **[NEW]** Added composition and aggregation indicators to association connectors
+      - Default code generation type is now the latest version of EFCore (currently, 5.0)
       - Fixed inability to paste enumerations using diagram copy/paste
       - Changing an identity property's type now changes the type of any defined foreign-key properties pointing to that identity property
       - Title text color didn't always change when class/enum fill color changed in the diagram
@@ -54,8 +55,6 @@ For comprehensive documentation, please visit [the project's documentation site]
         If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
         object-oriented, T4 structure. Updating the the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
         at https://msawczyn.github.io/EFDesigner/Customizing.html
-   - Unfinished
-      - Regression testing for importing compiled assemblies
 
 **2.0.5.7**
    - **[NEW]** Added ability to select tabs or spaces for indentation in generated code (Tools/Options/Entity Framework Visual Editor/Visual Editor Options) (See https://github.com/msawczyn/EFDesigner/issues/221)
@@ -132,12 +131,6 @@ For comprehensive documentation, please visit [the project's documentation site]
    - Fix: Now escaping XML comment text properly
    - Fix: Issue with GeographyPoint: System.Data.Entities.Spatial not found for .Net Core 3.1 (See https://github.com/msawczyn/EFDesigner/issues/159)
    - Fix: HasDefaultSchema doesn't work with MySql (See https://github.com/msawczyn/EFDesigner/issues/160)
-
-**1.3.0.12** 
-   - **Last version supporting Visual Studio 2017**
-   - Fix: Compilation Error after Upgrading to v1.3.0.11 (See https://github.com/msawczyn/EFDesigner/issues/129)
-   - Fix: Designer Drag/Drop Interpreter fails (See https://github.com/msawczyn/EFDesigner/issues/128 and https://github.com/msawczyn/EFDesigner/issues/132)
-   - Fix: Enumerations generated into entity directory rather than enumeration directory
 
 [Earlier changes](https://github.com/msawczyn/EFDesigner/blob/master/changelog.txt)
 

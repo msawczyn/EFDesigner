@@ -1,14 +1,4 @@
-3.0.0.preview3
-   - Bugfixes
-   - Unfinished
-      - Regression testing for importing compiled assemblies
-
-3.0.0.preview2
-   - Bugfixes
-   - Unfinished
-      - Regression testing for importing compiled assemblies
-
-3.0.0.preview1
+3.0
    - New support EFCore5.X (available when selecting EFCore output with version >= 5)
       - Added System.Net.IPAddress and System.Net.NetworkInformation.PhysicalAddress to the list of available property types
       - Added ability to specify both default database collation and a collation override at the property level 
@@ -22,6 +12,7 @@
       - Added ability to globally add and remove exposed foreign key properties to all modeled entities (via menu command) (see https://github.com/msawczyn/EFDesigner/issues/223)
       - Added ability to choose to place newly imported model elements on the diagram where they were dropped. Caution: this can be EXTREMELY slow for large imports. (see https://github.com/msawczyn/EFDesigner/issues/225)
       - Added composition and aggregation indicators to association connectors
+      - Default code generation type is now the latest version of EFCore (currently, 5.0)
       - Fixed inability to paste enumerations using diagram copy/paste
       - Changing an identity property's type now changes the type of any defined foreign-key properties pointing to that identity property
       - Title text color didn't always change when class/enum fill color changed in the diagram
@@ -32,9 +23,6 @@
         If customized T4 templates have been added to a project, they'll still work, but enhancements will continue to be made only to the new, more 
         object-oriented, T4 structure. Updating the the model's .tt file to use the new template structure is quite simple; details will be in the documentation 
         at https://msawczyn.github.io/EFDesigner/Customizing.html
-   - Unfinished
-      - Regression testing for EF6, EFCore2 and EFCore3 code generation
-      - Regression testing for importing compiled assemblies
 
 2.0.5.7
    - Added ability to select tabs or spaces for indentation in generated code (Tools/Options/Entity Framework Visual Editor/Visual Editor Options) (See https://github.com/msawczyn/EFDesigner/issues/221)

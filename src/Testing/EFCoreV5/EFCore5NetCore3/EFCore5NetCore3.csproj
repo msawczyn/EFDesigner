@@ -5,7 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BidirectionalAssociationTestContext.cs" />
+    <Compile Remove="UnidirectionalAssociationTestContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="AllFeatureModel.tt" />
+    <None Remove="BidirectionalAssociationTestContext.efmodel" />
+    <None Remove="BidirectionalAssociationTestContext.efmodel.diagramx" />
+    <None Remove="BidirectionalAssociationTestContext.tt" />
+    <None Remove="UnidirectionalAssociationTestContext.efmodel" />
+    <None Remove="UnidirectionalAssociationTestContext.efmodel.diagramx" />
+    <None Remove="UnidirectionalAssociationTestContext.tt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,27 +58,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AllFeatureModel.tt</DependentUpon>
     </Compile>
-    <Compile Update="BidirectionalAssociationTestContext.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>BidirectionalAssociationTestContext.tt</DependentUpon>
-    </Compile>
-    <Compile Update="UnidirectionalAssociationTestContext.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UnidirectionalAssociationTestContext.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="BidirectionalAssociationTestContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BidirectionalAssociationTestContext.cs</LastGenOutput>
-    </None>
-    <None Update="UnidirectionalAssociationTestContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UnidirectionalAssociationTestContext.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
 </Project>

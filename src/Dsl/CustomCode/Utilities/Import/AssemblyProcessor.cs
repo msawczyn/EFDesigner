@@ -66,6 +66,7 @@ namespace Sawczyn.EFDesigner.EFModel
                @"Parsers\EF6Parser.exe"
              , @"Parsers\EFCore2Parser.exe"
              , @"Parsers\EFCore3Parser.exe"
+             , @"Parsers\EFCore5Parser.exe"
             };
 
             Dictionary<string,bool> contexts = new Dictionary<string, bool>();

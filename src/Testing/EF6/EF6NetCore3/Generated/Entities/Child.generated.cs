@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using NetTopologySuite.Geometries;
+using System.Data.Entity.Spatial;
 
 namespace Testing
 {
@@ -115,7 +115,18 @@ namespace Testing
        * Navigation properties
        *************************************************************************/
 
-      public virtual ICollection<global::Testing.Child> Children { get; private set; }
+      protected ICollection<global::Testing.Child> _children;
+      public virtual ICollection<global::Testing.Child> Children
+      {
+         get
+         {
+            return _children;
+         }
+         private set
+         {
+            _children = value;
+         }
+      }
 
       /// <summary>
       /// Required

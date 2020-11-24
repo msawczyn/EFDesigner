@@ -187,7 +187,7 @@ namespace Sawczyn.EFDesigner.EFModel
                   }
                   finally
                   {
-                     if (newElements != null)
+                     if (newElements?.Count > 0)
                      {
                         string message = $"Created {newElements.Count} new elements that have been added to the Model Explorer. "
                                        + $"Do you want these added to the current diagram as well? It could take a while.";
