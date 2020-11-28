@@ -95,8 +95,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          protected void Output(string text) { host.Output(text); }
          protected void Output(string template, params object[] items) { host.Output(template, items); }
          protected void OutputChopped(List<string> segments) { host.OutputChopped(segments); }
+         protected void ClearIndent() { host.ClearIndent(); }
 
-         protected static string[] NonNullableTypes
+         public static string[] NonNullableTypes
          {
             get
             {
@@ -374,7 +375,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             return requiredParameters;
          }
 
-         protected bool IsNullable(ModelAttribute modelAttribute)
+         public static bool IsNullable(ModelAttribute modelAttribute)
          {
             return !modelAttribute.Required && !modelAttribute.IsIdentity && !modelAttribute.IsConcurrencyToken && !NonNullableTypes.Contains(modelAttribute.Type);
          }

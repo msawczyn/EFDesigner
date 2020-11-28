@@ -19,7 +19,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       {
          protected EFCoreModelGenerator(GeneratedTextTransformation host) : base(host) { }
 
-         protected string[] SpatialTypes
+         public static string[] SpatialTypes
          {
             get
             {
@@ -44,6 +44,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
             {
+               ClearIndent();
                manager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}{fileNameMarker}.cs"));
 
                WriteClass(modelClass);
@@ -53,15 +54,18 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             foreach (ModelEnum modelEnum in modelRoot.Enums.Where(e => e.GenerateCode))
             {
+               ClearIndent();
                manager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}{fileNameMarker}.cs"));
                WriteEnum(modelEnum);
             }
 
+            ClearIndent();
             manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}{fileNameMarker}.cs"));
             WriteDbContext();
 
             if (modelRoot.GenerateDbContextFactory)
             {
+               ClearIndent();
                manager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}Factory{fileNameMarker}.cs"));
                WriteDbContextFactory();
             }
@@ -858,33 +862,36 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          [SuppressMessage("ReSharper", "RedundantNameQualifier")]
          protected virtual string CreateForeignKeySegment(Association association, List<string> foreignKeyColumns)
          {
-            if (association.Principal == null || association.Dependent == null)
-               return null;
-
             List<string> foreignKeys = GetForeignKeys(association, foreignKeyColumns).ToList();
 
-            if (!foreignKeys.Any())
+            if (!foreignKeys.Any()) // only happens if many-to-many
                return null;
 
-            bool dependentClassRequired = (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany);
-            string keyList = string.Join(",", foreignKeys);
+            // 1-1, 1-0/1 and 0/1-0/1  
+            bool dependentClassDesignationRequired = association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany
+                                                  && association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany;
+            string result = string.Join(",", foreignKeys);
 
-            if (!foreignKeys.First().StartsWith("\""))
+            if (foreignKeys.First().StartsWith("\""))
+            {
+               // foreign keys are shadow properties
+               result = dependentClassDesignationRequired
+                           ? $"HasForeignKey({'"'}{association.Dependent.Name}{'"'}, {result})"
+                           : $"HasForeignKey({result})";
+            }
+            else
             {
                // foreign keys are real properties
-               keyList = foreignKeys.Count == 1
-                            ? $"k => {keyList}"
-                            : $"k => new {{ {keyList} }}";
+               result = foreignKeys.Count == 1
+                           ? $"k => {result}"
+                           : $"k => new {{ {result} }}";
 
-               return dependentClassRequired
-                         ? $"HasForeignKey<{association.Dependent.Name}>({keyList})"
-                         : $"HasForeignKey({keyList})";
+               result = dependentClassDesignationRequired
+                           ? $"HasForeignKey<{association.Dependent.Name}>({result})"
+                           : $"HasForeignKey({result})";
             }
 
-            // foreign keys are shadow properties
-            return dependentClassRequired
-                      ? $"HasForeignKey({'"'}{association.Dependent.Name}{'"'}, {keyList})"
-                      : $"HasForeignKey({keyList})";
+            return result;
          }
 
          [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]

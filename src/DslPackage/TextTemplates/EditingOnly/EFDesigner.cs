@@ -19,6 +19,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
       public void PushIndent(string indent) { }
 
+      public void ClearIndent() { }
+
       public void WriteLine(string textToAppend) { }
 
       #region Template

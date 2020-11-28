@@ -357,6 +357,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             foreach (ModelClass modelClass in modelRoot.Classes.Where(e => e.GenerateCode))
             {
+               ClearIndent();
                efModelFileManager.StartNewFile(Path.Combine(modelClass.EffectiveOutputDirectory, $"{modelClass.Name}{fileNameMarker}.cs"));
                WriteClass(modelClass);
             }
@@ -365,6 +366,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             foreach (ModelEnum modelEnum in modelRoot.Enums.Where(e => e.GenerateCode))
             {
+               ClearIndent();
                efModelFileManager.StartNewFile(Path.Combine(modelEnum.EffectiveOutputDirectory, $"{modelEnum.Name}{fileNameMarker}.cs"));
                WriteEnum(modelEnum);
             }
@@ -373,13 +375,16 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
             if (modelRoot.DatabaseInitializerType != DatabaseInitializerKind.None)
             {
+               ClearIndent();
                efModelFileManager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DatabaseInitializer{fileNameMarker}.cs"));
                WriteDatabaseInitializer();
             }
 
+            ClearIndent();
             efModelFileManager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}DbMigrationConfiguration{fileNameMarker}.cs"));
             WriteMigrationConfiguration();
 
+            ClearIndent();
             efModelFileManager.StartNewFile(Path.Combine(modelRoot.ContextOutputDirectory, $"{modelRoot.EntityContainerName}{fileNameMarker}.cs"));
             WriteDbContext();
          }

@@ -49,6 +49,12 @@ namespace Sawczyn.EFDesigner.EFModel
       /// <returns></returns>
       public string GetTargetMultiplicityDisplayValue() => MultiplicityDisplayValue(TargetMultiplicity);
 
+      /// <summary>
+      /// Tests for multiplicities of the association, regardless of which end they're on (e.g., a-b or b-a)
+      /// </summary>
+      /// <param name="a">First multiplicity</param>
+      /// <param name="b">Second multiplicity</param>
+      /// <returns>True if the association contains the multplicities specified, false otherwise.</returns>
       public bool Is(Multiplicity a, Multiplicity b) => (SourceMultiplicity == a && TargetMultiplicity == b) || (SourceMultiplicity == b && TargetMultiplicity == a);
 
       private static string MultiplicityDisplayValue(Multiplicity multiplicity)

@@ -308,29 +308,19 @@ namespace Sawczyn.EFDesigner.EFModel
             }
             case "Name":
             {
-               string newName = (string)e.NewValue;
+               if (current.Name.ToLowerInvariant() == "paste")
+                  return;
 
-               if (current.Name.ToLowerInvariant() != "paste" &&
-                   (string.IsNullOrWhiteSpace(newName) || !CodeGenerator.IsValidLanguageIndependentIdentifier(newName)))
-                  errorMessages.Add($"Class name '{newName}' isn't a valid .NET identifier.");
-
-               else if (store.ElementDirectory
-                             .AllElements
-                             .OfType<ModelClass>()
-                             .Except(new[] { element })
-                             .Any(x => x.Name == newName))
-                  errorMessages.Add($"Class name '{newName}' already in use by another class");
-
-               else if (store.ElementDirectory
-                             .AllElements
-                             .OfType<ModelEnum>()
-                             .Any(x => x.Name == newName))
-                  errorMessages.Add($"Class name '{newName}' already in use by an enum");
-
+               if (string.IsNullOrWhiteSpace(element.Name) || !CodeGenerator.IsValidLanguageIndependentIdentifier(element.Name))
+                  errorMessages.Add("Name must be a valid .NET identifier");
+               else if (store.GetAll<ModelClass>().Except(new[] { element }).Any(x => x.FullName == element.FullName))
+                  errorMessages.Add($"Class name '{element.FullName}' already in use by another class");
+               else if (store.GetAll<ModelEnum>().Any(x => x.FullName == element.FullName))
+                  errorMessages.Add($"Class name '{element.FullName}' already in use by an enum");
                else if (!string.IsNullOrEmpty((string)e.OldValue))
                {
                   string oldDefaultName = MakeDefaultTableAndSetName((string)e.OldValue);
-                  string newDefaultName = MakeDefaultTableAndSetName(newName);
+                  string newDefaultName = MakeDefaultTableAndSetName(element.Name);
 
                   if (element.DbSetName == oldDefaultName)
                      element.DbSetName = newDefaultName;

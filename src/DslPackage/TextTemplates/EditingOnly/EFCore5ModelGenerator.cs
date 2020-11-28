@@ -37,50 +37,61 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   visited.Add(association);
 
                   List<string> segments = new List<string>();
-                  bool required = false;
+                  bool sourceRequired = false;
+                  bool targetRequired = false;
 
                   segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 
                   switch (association.TargetMultiplicity) // realized by property on source
                   {
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                        segments.Add($"HasMany<{association.Target.FullName}>(p => p.{association.TargetPropertyName})");
+                        {
+                           segments.Add($"HasMany<{association.Target.FullName}>(p => p.{association.TargetPropertyName})");
 
-                        break;
+                           break;
+                        }
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                        segments.Add($"HasOne<{association.Target.FullName}>(p => p.{association.TargetPropertyName})");
-                        required = (modelClass == association.Principal);
+                        {
+                           segments.Add($"HasOne<{association.Target.FullName}>(p => p.{association.TargetPropertyName})");
+                           targetRequired = true;
 
-                        break;
+                           break;
+                        }
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
-                        segments.Add($"HasOne<{association.Target.FullName}>(p => p.{association.TargetPropertyName})");
+                        {
+                           segments.Add($"HasOne<{association.Target.FullName}>(p => p.{association.TargetPropertyName})");
 
-                        break;
+                           break;
+                        }
                   }
 
                   switch (association.SourceMultiplicity) // realized by property on target, but no property on target
                   {
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany:
-                        segments.Add($"WithMany(p => p.{association.SourcePropertyName})");
-
-                        if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
                         {
-                           string tableMap = string.IsNullOrEmpty(association.JoinTableName)
-                                                ? $"{association.Target.Name}_{association.SourcePropertyName}_x_{association.Source.Name}_{association.TargetPropertyName}"
-                                                : association.JoinTableName;
+                           segments.Add($"WithMany(p => p.{association.SourcePropertyName})");
 
-                           segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
+                           if (association.TargetMultiplicity == Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroMany)
+                           {
+                              string tableMap = string.IsNullOrEmpty(association.JoinTableName)
+                                                   ? $"{association.Target.Name}_{association.SourcePropertyName}_x_{association.Source.Name}_{association.TargetPropertyName}"
+                                                   : association.JoinTableName;
+
+                              segments.Add($"UsingEntity(x => x.ToTable(\"{tableMap}\"))");
+                           }
+
+                           break;
                         }
 
-                        break;
-
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
-                        segments.Add($"WithOne(p => p.{association.SourcePropertyName})");
-                        required = (modelClass == association.Principal);
+                        {
+                           segments.Add($"WithOne(p => p.{association.SourcePropertyName})");
+                           sourceRequired = true;
 
-                        break;
+                           break;
+                        }
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne:
                         segments.Add($"WithOne(p => p.{association.SourcePropertyName})");
@@ -89,36 +100,9 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   }
 
                   string foreignKeySegment = CreateForeignKeySegment(association, foreignKeyColumns);
-
+                
                   if (!string.IsNullOrEmpty(foreignKeySegment))
                      segments.Add(foreignKeySegment);
-
-                  if (!association.Source.IsDependentType
-                   && !association.Target.IsDependentType
-                   && (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal))
-                  {
-                     DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                                    ? association.SourceDeleteAction
-                                                    : association.TargetDeleteAction;
-
-                     switch (deleteAction)
-                     {
-                        case DeleteAction.None:
-                           segments.Add("OnDelete(DeleteBehavior.NoAction)");
-
-                           break;
-
-                        case DeleteAction.Cascade:
-                           segments.Add("OnDelete(DeleteBehavior.Cascade)");
-
-                           break;
-                     }
-                  }
-
-                  if (required
-                   && (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
-                    || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
-                     segments.Add("IsRequired()");
 
                   Output(segments);
 
@@ -137,6 +121,22 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      segments.Add($"UsePropertyAccessMode(PropertyAccessMode.{association.SourcePropertyAccessMode})");
                      Output(segments);
                   }
+
+                  if (targetRequired)
+                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).IsRequired();");
+
+                  if (sourceRequired)
+                     Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).IsRequired();");
+
+                  if (association.TargetDeleteAction == DeleteAction.None)
+                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).OnDelete(DeleteBehavior.NoAction);");
+                  else if (association.TargetDeleteAction == DeleteAction.Cascade)
+                     Output($"modelBuilder.Entity<{association.Source.FullName}>().Navigation(e => e.{association.TargetPropertyName}).OnDelete(DeleteBehavior.Cascade);");
+
+                  if (association.SourceDeleteAction == DeleteAction.None)
+                     Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).OnDelete(DeleteBehavior.NoAction);");
+                  else if (association.SourceDeleteAction == DeleteAction.Cascade)
+                     Output($"modelBuilder.Entity<{association.Target.FullName}>().Navigation(e => e.{association.SourcePropertyName}).OnDelete(DeleteBehavior.Cascade);");
                }
             }
 
@@ -288,7 +288,8 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   visited.Add(association);
 
                   List<string> segments = new List<string>();
-                  bool required = false;
+                  bool sourceRequired = false;
+                  bool targetRequired = false;
 
                   segments.Add($"modelBuilder.Entity<{modelClass.FullName}>()");
 
@@ -301,7 +302,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                         segments.Add($"HasOne<{association.Target.FullName}>(p => p.{association.TargetPropertyName})");
-                        required = (modelClass == association.Principal);
+                        targetRequired = true;
 
                         break;
 
@@ -329,7 +330,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                      case Sawczyn.EFDesigner.EFModel.Multiplicity.One:
                         segments.Add("WithOne()");
-                        required = (modelClass == association.Principal);
+                        sourceRequired = true;
 
                         break;
 
@@ -343,35 +344,13 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
 
                   if (!string.IsNullOrEmpty(foreignKeySegment))
                      segments.Add(foreignKeySegment);
-                  else if (association.Is(Sawczyn.EFDesigner.EFModel.Multiplicity.One, Sawczyn.EFDesigner.EFModel.Multiplicity.One)
-                        || association.Is(Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne, Sawczyn.EFDesigner.EFModel.Multiplicity.ZeroOne))
-                     segments.Add($"HasForeignKey<{association.Dependent.FullName}>()");
 
-                  if (!association.Source.IsDependentType
-                   && !association.Target.IsDependentType
-                   && (association.TargetRole == EndpointRole.Principal || association.SourceRole == EndpointRole.Principal))
-                  {
-                     DeleteAction deleteAction = association.SourceRole == EndpointRole.Principal
-                                                    ? association.SourceDeleteAction
-                                                    : association.TargetDeleteAction;
+                  if (association.TargetDeleteAction == DeleteAction.None || association.SourceDeleteAction == DeleteAction.None)
+                     segments.Add("OnDelete(DeleteBehavior.NoAction);");
+                  if (association.TargetDeleteAction == DeleteAction.Cascade || association.SourceDeleteAction == DeleteAction.Cascade)
+                     segments.Add("OnDelete(DeleteBehavior.Cascade);");
 
-                     switch (deleteAction)
-                     {
-                        case DeleteAction.None:
-                           segments.Add("OnDelete(DeleteBehavior.NoAction)");
-
-                           break;
-
-                        case DeleteAction.Cascade:
-                           segments.Add("OnDelete(DeleteBehavior.Cascade)");
-
-                           break;
-                     }
-                  }
-
-                  if (required
-                   && (association.SourceMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One
-                    || association.TargetMultiplicity != Sawczyn.EFDesigner.EFModel.Multiplicity.One))
+                  if (sourceRequired || targetRequired)
                      segments.Add("IsRequired()");
 
                   Output(segments);
