@@ -44,7 +44,7 @@ namespace EFCore3Parser
             // ReSharper disable once UnthrowableException
             if (types.Count == 0)
             {
-               log.Error($"No DBContext found in {assembly.Location}");
+               log.Error($"No usable DBContext found in {assembly.FullName}");
                throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
             }
             

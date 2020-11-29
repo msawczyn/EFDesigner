@@ -11,7 +11,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
    public partial class GeneratedTextTransformation
    {
       #region Template
-      // EFDesigner v3.0.0.4
+      // EFDesigner v3.0.0.5
       // Copyright (c) 2017-2020 Michael Sawczyn
       // https://github.com/msawczyn/EFDesigner
 
@@ -164,7 +164,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      }
 
                      // primary key code segments must be output last, since HasKey returns a different type
-                     List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
+                     List<ModelAttribute> identityAttributes = modelClass.AllIdentityAttributes.ToList();
 
                      if (identityAttributes.Count == 1)
                         segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
@@ -909,7 +909,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (principal != null && dependent != null)
             {
                if (string.IsNullOrWhiteSpace(association.FKPropertyName))
-                  result = principal.IdentityAttributes.Select(identity => $"{'"'}{CreateShadowPropertyName(association, foreignKeyColumns, identity)}{'"'}");
+                  result = principal.AllIdentityAttributes.Select(identity => $"{'"'}{CreateShadowPropertyName(association, foreignKeyColumns, identity)}{'"'}");
                else
                {
                   // defined properties
@@ -925,3 +925,5 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
       #endregion Template
    }
 }
+
+

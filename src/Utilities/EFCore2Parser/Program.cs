@@ -1,17 +1,19 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 
 using log4net;
 using log4net.Config;
 using log4net.Repository;
 
+using Microsoft.Extensions.DependencyModel;
+
 namespace EFCore2Parser
 {
    internal class Program
    {
-      private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
       public const int SUCCESS = 0;
       public const int BAD_ARGUMENT_COUNT = 1;
       public const int CANNOT_LOAD_ASSEMBLY = 2;
@@ -19,6 +21,65 @@ namespace EFCore2Parser
       public const int CANNOT_CREATE_DBCONTEXT = 4;
       public const int CANNOT_FIND_APPROPRIATE_CONSTRUCTOR = 5;
       public const int AMBIGUOUS_REQUEST = 6;
+      private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+      private static Assembly Context_Resolving(AssemblyLoadContext context, AssemblyName assemblyName)
+      {
+         // avoid loading *.resources dlls, because of: https://github.com/dotnet/coreclr/issues/8416
+         if (assemblyName.Name.EndsWith("resources"))
+            return null;
+
+         // check cached assemblies first
+         RuntimeLibrary library = DependencyContext.Default.RuntimeLibraries.FirstOrDefault(runtimeLibrary => runtimeLibrary.Name == assemblyName.Name);
+
+         if (library != null)
+            return context.LoadFromAssemblyName(new AssemblyName(library.Name));
+
+         // try gac
+         string[] foundDlls = Directory.GetFileSystemEntries(Environment.ExpandEnvironmentVariables("%windir%\\Microsoft.NET\\assembly"), $"{assemblyName.Name}.dll", SearchOption.AllDirectories);
+
+         return foundDlls.Any() ? context.LoadFromAssemblyPath(foundDlls[0]) : null;
+      }
+
+      private static void Exit(int returnCode, Exception ex = null)
+      {
+         if (returnCode != 0)
+         {
+            log.Error($"Usage: {typeof(Program).Assembly.GetName().Name} InputFileName OutputFileName [FullyQualifiedClassName]");
+            log.Error("where");
+            log.Error("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
+            log.Error("   (required) OutputFileName          - path to create JSON file of results");
+            log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
+            log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
+            log.Error("Result codes:");
+            log.Error("   0   Success");
+            log.Error("   1   Bad argument count");
+            log.Error("   2   Cannot load assembly");
+            log.Error("   3   Cannot write output file");
+            log.Error("   4   Cannot create DbContext");
+            log.Error("   5   Cannot find appropriate constructor");
+            log.Error("   6   Ambiguous request");
+            log.Error("");
+
+            if (ex != null)
+               log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
+
+            log.Error($"Exiting with return code {returnCode}");
+         }
+
+         Environment.Exit(returnCode);
+      }
+
+      private static Stream GetLogStream()
+      {
+         MemoryStream stream = new MemoryStream();
+         StreamWriter writer = new StreamWriter(stream);
+         writer.Write(Resources.Log4netConfig);
+         writer.Flush();
+         stream.Position = 0;
+
+         return stream;
+      }
 
       private static int Main(string[] args)
       {
@@ -32,7 +93,7 @@ namespace EFCore2Parser
          {
             string inputPath = args[0];
             string outputPath = args[1];
-          
+
             GlobalContext.Properties["LogPath"] = Path.ChangeExtension(outputPath, "").TrimEnd('.');
             ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, GetLogStream());
@@ -46,14 +107,19 @@ namespace EFCore2Parser
             {
                try
                {
+                  if (!File.Exists(inputPath))
+                     throw new FileNotFoundException($"Can't find {inputPath}", inputPath);
+
                   log.Info($"Loading {inputPath}");
-                  Assembly assembly = Assembly.LoadFrom(inputPath);
+                  Environment.CurrentDirectory = Path.GetDirectoryName(inputPath);
+                  Assembly assembly = TryLoadFrom(inputPath);
                   Parser parser = null;
 
                   try
                   {
                      parser = new Parser(assembly, contextClassName);
                   }
+
                   // ReSharper disable once UncatchableException
                   catch (MissingMethodException ex)
                   {
@@ -68,6 +134,7 @@ namespace EFCore2Parser
                   catch (Exception ex)
                   {
                      Exception e = ex;
+
                      do
                      {
                         log.Error(e.Message);
@@ -95,46 +162,25 @@ namespace EFCore2Parser
          }
 
          log.Info("Success");
+
          return SUCCESS;
       }
 
-      private static void Exit(int returnCode, Exception ex = null)
+      private static Assembly TryLoadFrom(string inputPath)
       {
-         if (returnCode != 0)
+         AssemblyLoadContext context = new AssemblyLoadContext("EFCore5Parser");
+         context.Resolving += Context_Resolving;
+
+         try
          {
-            log.Error($"Usage: {typeof(Program).Assembly.GetName().Name} InputFileName OutputFileName [FullyQualifiedClassName]");
-            log.Error("where");
-            log.Error("   (required) InputFileName           - path of assembly containing EF6 DbContext to parse");
-            log.Error("   (required) OutputFileName          - path to create JSON file of results");
-            log.Error("   (optional) FullyQualifiedClassName - fully-qualified name of DbContext class to process, if more than one available.");
-            log.Error("                                        DbContext class must have a constructor that accepts one parameter of type DbContextOptions<>");
-            log.Error("Result codes:");
-            log.Error("   0   Success");
-            log.Error("   1   Bad argument count");
-            log.Error("   2   Cannot load assembly");
-            log.Error("   3   Cannot write output file");
-            log.Error("   4   Cannot create DbContext");
-            log.Error("   5   Cannot find appropriate constructor");
-            log.Error("   6   Ambiguous request");
-            log.Error("");
+            return context.LoadFromAssemblyPath(inputPath);
+         }
+         catch
+         {
+            string altPath = Path.ChangeExtension(inputPath, "dll");
 
-            if (ex != null)
-               log.Error($"Caught {ex.GetType().Name} - {ex.Message}");
-
-            log.Error($"Exiting with return code {returnCode}");
-         }         
-         
-         Environment.Exit(returnCode);
-      }
-
-      private static Stream GetLogStream()
-      {
-         MemoryStream stream = new MemoryStream();
-         StreamWriter writer = new StreamWriter(stream);
-         writer.Write(Resources.Log4netConfig);
-         writer.Flush();
-         stream.Position = 0;
-         return stream;
+            return context.LoadFromAssemblyPath(altPath);
+         }
       }
    }
 }

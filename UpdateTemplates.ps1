@@ -43,6 +43,10 @@ $files =
    'MultipleOutputHelper'
    
 foreach ($f in $files) {
-   [regex]::Replace((get-content src\DslPackage\TextTemplates\EditingOnly\$f.cs -Raw), $search, $replace) | set-content src\DslPackage\TextTemplates\$f.ttinclude
+   try {
+      [regex]::Replace((get-content src\DslPackage\TextTemplates\EditingOnly\$f.cs -Raw), $search, $replace) | set-content src\DslPackage\TextTemplates\$f.ttinclude
+   } catch {
+      "** Did not process $f"
+   }
 }
 

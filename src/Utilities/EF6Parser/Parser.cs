@@ -27,7 +27,7 @@ namespace EF6Parser
       private readonly DbContext dbContext;
       private readonly MetadataWorkspace metadata;
 
-      public Parser(Assembly assembly, string dbContextTypeName = null)
+      public Parser(Assembly assembly, string inputPath, string dbContextTypeName = null)
       {
          Debugger.Break();
          
@@ -47,7 +47,7 @@ namespace EF6Parser
 
             if (types.Count == 0)
             {
-               log.Error($"No usable DBContext found in {assembly.Location}");
+               log.Error($"No usable DBContext found in {assembly.FullName}");
                throw new ArgumentException("Couldn't find DbContext-derived class in assembly. Is it public?");
             }
 
