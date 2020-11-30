@@ -18,14 +18,16 @@ namespace Sawczyn.EFDesigner.EFModel
          using (DataConnectionDialog dialog = new DataConnectionDialog())
          {
             DataSource.AddStandardDataSources(dialog);
+            dialog.SelectedDataSource = DataSource.SqlDataSource;
+            dialog.SelectedDataProvider = DataProvider.SqlDataProvider;
 
-            if (string.IsNullOrEmpty((string)value))
-            {
-               dialog.SelectedDataSource = DataSource.SqlDataSource;
-               dialog.SelectedDataProvider = DataProvider.SqlDataProvider;
-            }
-            else
-               dialog.ConnectionString = value.ToString();
+            //if (string.IsNullOrEmpty((string)value))
+            //{
+            //   dialog.SelectedDataSource = DataSource.SqlDataSource;
+            //   dialog.SelectedDataProvider = DataProvider.SqlDataProvider;
+            //}
+            //else
+               //dialog.ConnectionString = value.ToString();
 
             return DataConnectionDialog.Show(dialog) == DialogResult.OK ? dialog.ConnectionString : value;
          }

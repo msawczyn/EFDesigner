@@ -345,13 +345,13 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                   if (!string.IsNullOrEmpty(foreignKeySegment))
                      segments.Add(foreignKeySegment);
 
+                  if (sourceRequired || targetRequired)
+                     segments.Add("IsRequired()");
+
                   if (association.TargetDeleteAction == DeleteAction.None || association.SourceDeleteAction == DeleteAction.None)
                      segments.Add("OnDelete(DeleteBehavior.NoAction);");
                   if (association.TargetDeleteAction == DeleteAction.Cascade || association.SourceDeleteAction == DeleteAction.Cascade)
                      segments.Add("OnDelete(DeleteBehavior.Cascade);");
-
-                  if (sourceRequired || targetRequired)
-                     segments.Add("IsRequired()");
 
                   Output(segments);
 

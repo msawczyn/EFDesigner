@@ -112,32 +112,32 @@ namespace EFCore2NetCore2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BParentOptional_1_Id");
+                    b.Property<int?>("BParentOptional_1Id");
 
-                    b.Property<int?>("BParentOptional_2_Id");
+                    b.Property<int?>("BParentOptional_2Id");
 
-                    b.Property<int>("BParentRequired_1_Id");
+                    b.Property<int>("BParentRequiredId");
 
-                    b.Property<int?>("BParentRequired_2_Id");
+                    b.Property<int?>("BParentRequired_1Id");
 
-                    b.Property<int?>("BParentRequired_Id");
+                    b.Property<int>("BParentRequired_2Id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BParentOptional_1_Id");
+                    b.HasIndex("BParentOptional_1Id");
 
-                    b.HasIndex("BParentOptional_2_Id")
+                    b.HasIndex("BParentOptional_2Id")
                         .IsUnique()
-                        .HasFilter("[BParentOptional_2_Id] IS NOT NULL");
+                        .HasFilter("[BParentOptional_2Id] IS NOT NULL");
 
-                    b.HasIndex("BParentRequired_1_Id")
+                    b.HasIndex("BParentRequiredId")
                         .IsUnique();
 
-                    b.HasIndex("BParentRequired_2_Id");
-
-                    b.HasIndex("BParentRequired_Id")
+                    b.HasIndex("BParentRequired_1Id")
                         .IsUnique()
-                        .HasFilter("[BParentRequired_Id] IS NOT NULL");
+                        .HasFilter("[BParentRequired_1Id] IS NOT NULL");
+
+                    b.HasIndex("BParentRequired_2Id");
 
                     b.ToTable("BChilds");
                 });
@@ -148,15 +148,15 @@ namespace EFCore2NetCore2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BChildOptional_Id");
+                    b.Property<int?>("BChildOptionalId");
 
-                    b.Property<int>("BChildRequired_Id");
+                    b.Property<int?>("BChildRequiredId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BChildOptional_Id");
+                    b.HasIndex("BChildOptionalId");
 
-                    b.HasIndex("BChildRequired_Id");
+                    b.HasIndex("BChildRequiredId");
 
                     b.ToTable("BParentCollections");
                 });
@@ -167,12 +167,13 @@ namespace EFCore2NetCore2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BChildRequired_Id");
+                    b.Property<int?>("BChildRequiredId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BChildRequired_Id")
-                        .IsUnique();
+                    b.HasIndex("BChildRequiredId")
+                        .IsUnique()
+                        .HasFilter("[BChildRequiredId] IS NOT NULL");
 
                     b.ToTable("BParentOptionals");
                 });
@@ -213,15 +214,15 @@ namespace EFCore2NetCore2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Child_Children_Id");
+                    b.Property<int>("Master_Children_Id");
 
-                    b.Property<int?>("Parent_Id");
+                    b.Property<int>("ParentId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Child_Children_Id");
+                    b.HasIndex("Master_Children_Id");
 
-                    b.HasIndex("Parent_Id");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Children");
                 });
@@ -320,11 +321,32 @@ namespace EFCore2NetCore2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UChild_UChildCollection_Id");
+                    b.Property<int?>("UParentOptional_UChildCollection_Id");
+
+                    b.Property<int?>("UParentOptional_UChildOptional_Id");
+
+                    b.Property<int>("UParentRequired_UChildCollection_Id");
+
+                    b.Property<int>("UParentRequired_UChildOptional_Id");
+
+                    b.Property<int?>("UParentRequired_UChildRequired_Id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UChild_UChildCollection_Id");
+                    b.HasIndex("UParentOptional_UChildCollection_Id");
+
+                    b.HasIndex("UParentOptional_UChildOptional_Id")
+                        .IsUnique()
+                        .HasFilter("[UParentOptional_UChildOptional_Id] IS NOT NULL");
+
+                    b.HasIndex("UParentRequired_UChildCollection_Id");
+
+                    b.HasIndex("UParentRequired_UChildOptional_Id")
+                        .IsUnique();
+
+                    b.HasIndex("UParentRequired_UChildRequired_Id")
+                        .IsUnique()
+                        .HasFilter("[UParentRequired_UChildRequired_Id] IS NOT NULL");
 
                     b.ToTable("UChilds");
                 });
@@ -335,15 +357,15 @@ namespace EFCore2NetCore2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UChildOptional_Id");
+                    b.Property<int?>("UChildOptionalId");
 
-                    b.Property<int?>("UChildRequired_Id");
+                    b.Property<int?>("UChildRequiredId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UChildOptional_Id");
+                    b.HasIndex("UChildOptionalId");
 
-                    b.HasIndex("UChildRequired_Id");
+                    b.HasIndex("UChildRequiredId");
 
                     b.ToTable("UParentCollections");
                 });
@@ -354,17 +376,7 @@ namespace EFCore2NetCore2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UChild_UChildOptional_Id");
-
-                    b.Property<int>("UChild_UChildRequired_Id");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UChild_UChildOptional_Id")
-                        .IsUnique();
-
-                    b.HasIndex("UChild_UChildRequired_Id")
-                        .IsUnique();
 
                     b.ToTable("UParentRequireds");
                 });
@@ -389,17 +401,11 @@ namespace EFCore2NetCore2.Migrations
 
                     b.Property<string>("PropertyInChild");
 
-                    b.Property<int?>("UChildRequired_Id");
+                    b.Property<int?>("UChildRequiredId");
 
-                    b.Property<int?>("UChild_UChildOptional_Id");
-
-                    b.HasIndex("UChildRequired_Id")
+                    b.HasIndex("UChildRequiredId")
                         .IsUnique()
-                        .HasFilter("[UChildRequired_Id] IS NOT NULL");
-
-                    b.HasIndex("UChild_UChildOptional_Id")
-                        .IsUnique()
-                        .HasFilter("[UChild_UChildOptional_Id] IS NOT NULL");
+                        .HasFilter("[UChildRequiredId] IS NOT NULL");
 
                     b.HasDiscriminator().HasValue("UParentOptional");
                 });
@@ -466,104 +472,99 @@ namespace EFCore2NetCore2.Migrations
                 {
                     b.HasOne("Testing.BParentOptional", "BParentOptional_1")
                         .WithMany("BChildCollection")
-                        .HasForeignKey("BParentOptional_1_Id");
+                        .HasForeignKey("BParentOptional_1Id");
 
                     b.HasOne("Testing.BParentOptional", "BParentOptional_2")
                         .WithOne("BChildOptional")
-                        .HasForeignKey("Testing.BChild", "BParentOptional_2_Id");
-
-                    b.HasOne("Testing.BParentRequired", "BParentRequired_1")
-                        .WithOne("BChildRequired")
-                        .HasForeignKey("Testing.BChild", "BParentRequired_1_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Testing.BParentRequired", "BParentRequired_2")
-                        .WithMany("BChildCollection")
-                        .HasForeignKey("BParentRequired_2_Id");
+                        .HasForeignKey("Testing.BChild", "BParentOptional_2Id");
 
                     b.HasOne("Testing.BParentRequired", "BParentRequired")
                         .WithOne("BChildOptional")
-                        .HasForeignKey("Testing.BChild", "BParentRequired_Id");
+                        .HasForeignKey("Testing.BChild", "BParentRequiredId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Testing.BParentRequired", "BParentRequired_1")
+                        .WithOne("BChildRequired")
+                        .HasForeignKey("Testing.BChild", "BParentRequired_1Id");
+
+                    b.HasOne("Testing.BParentRequired", "BParentRequired_2")
+                        .WithMany("BChildCollection")
+                        .HasForeignKey("BParentRequired_2Id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Testing.BParentCollection", b =>
                 {
                     b.HasOne("Testing.BChild", "BChildOptional")
                         .WithMany("BParentCollection_2")
-                        .HasForeignKey("BChildOptional_Id");
+                        .HasForeignKey("BChildOptionalId");
 
                     b.HasOne("Testing.BChild", "BChildRequired")
                         .WithMany("BParentCollection")
-                        .HasForeignKey("BChildRequired_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BChildRequiredId");
                 });
 
             modelBuilder.Entity("Testing.BParentOptional", b =>
                 {
                     b.HasOne("Testing.BChild", "BChildRequired")
                         .WithOne("BParentOptional")
-                        .HasForeignKey("Testing.BParentOptional", "BChildRequired_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Testing.BParentOptional", "BChildRequiredId");
                 });
 
             modelBuilder.Entity("Testing.Child", b =>
                 {
                     b.HasOne("Testing.Master")
                         .WithMany("Children")
-                        .HasForeignKey("Child_Children_Id")
+                        .HasForeignKey("Master_Children_Id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Testing.Child", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("Parent_Id");
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Testing.UChild", b =>
                 {
                     b.HasOne("Testing.UParentOptional")
                         .WithMany("UChildCollection")
-                        .HasForeignKey("UChild_UChildCollection_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UParentOptional_UChildCollection_Id");
+
+                    b.HasOne("Testing.UParentOptional")
+                        .WithOne("UChildOptional")
+                        .HasForeignKey("Testing.UChild", "UParentOptional_UChildOptional_Id");
 
                     b.HasOne("Testing.UParentRequired")
                         .WithMany("UChildCollection")
-                        .HasForeignKey("UChild_UChildCollection_Id")
+                        .HasForeignKey("UParentRequired_UChildCollection_Id")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Testing.UParentRequired")
+                        .WithOne("UChildOptional")
+                        .HasForeignKey("Testing.UChild", "UParentRequired_UChildOptional_Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Testing.UParentRequired")
+                        .WithOne("UChildRequired")
+                        .HasForeignKey("Testing.UChild", "UParentRequired_UChildRequired_Id");
                 });
 
             modelBuilder.Entity("Testing.UParentCollection", b =>
                 {
                     b.HasOne("Testing.UChild", "UChildOptional")
                         .WithMany()
-                        .HasForeignKey("UChildOptional_Id");
+                        .HasForeignKey("UChildOptionalId");
 
                     b.HasOne("Testing.UChild", "UChildRequired")
                         .WithMany()
-                        .HasForeignKey("UChildRequired_Id");
-                });
-
-            modelBuilder.Entity("Testing.UParentRequired", b =>
-                {
-                    b.HasOne("Testing.UChild", "UChildOptional")
-                        .WithOne()
-                        .HasForeignKey("Testing.UParentRequired", "UChild_UChildOptional_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Testing.UChild", "UChildRequired")
-                        .WithOne()
-                        .HasForeignKey("Testing.UParentRequired", "UChild_UChildRequired_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UChildRequiredId");
                 });
 
             modelBuilder.Entity("Testing.UParentOptional", b =>
                 {
                     b.HasOne("Testing.UChild", "UChildRequired")
                         .WithOne()
-                        .HasForeignKey("Testing.UParentOptional", "UChildRequired_Id");
-
-                    b.HasOne("Testing.UChild", "UChildOptional")
-                        .WithOne()
-                        .HasForeignKey("Testing.UParentOptional", "UChild_UChildOptional_Id");
+                        .HasForeignKey("Testing.UParentOptional", "UChildRequiredId");
                 });
 #pragma warning restore 612, 618
         }

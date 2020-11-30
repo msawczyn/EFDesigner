@@ -895,11 +895,12 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
          }
 
          [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
+         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
          protected virtual IEnumerable<string> GetForeignKeys(Association association, List<string> foreignKeyColumns)
          {
             // final collection of foreign key property names, real or shadow
             // shadow properties will be double quoted, real properties won't
-            IEnumerable<string> result = null;
+            IEnumerable<string> result = new List<string>();
 
             // foreign key definitions always go in the table representing the Dependent end of the association
             // if there is no dependent end (i.e., many-to-many), there are no foreign keys
@@ -909,11 +910,11 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
             if (principal != null && dependent != null)
             {
                if (string.IsNullOrWhiteSpace(association.FKPropertyName))
-                  result = principal.AllIdentityAttributes.Select(identity => $"{'"'}{CreateShadowPropertyName(association, foreignKeyColumns, identity)}{'"'}");
+                  result = principal.AllIdentityAttributes.Select(identity => $"{'"'}{CreateShadowPropertyName(association, foreignKeyColumns, identity)}{'"'}").ToList();
                else
                {
                   // defined properties
-                  result = association.FKPropertyName.Split(',').Select(prop => "k." + prop.Trim());
+                  result = association.FKPropertyName.Split(',').Select(prop => "k." + prop.Trim()).ToList();
                   foreignKeyColumns.AddRange(result);
                }
             }

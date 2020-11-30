@@ -2,7 +2,7 @@
 
 ## Entity Framework visual design surface and code-first code generation for EF6, EFCore and beyond.
 
-Model and generate code for both Entity Framework v6.x and Entity Framework Core 2.0 and 2.1
+Model and generate code for both Entity Framework v6.x and Entity Framework Core 2.x, 3.x and 5.
 
 **[Install with NuGet](https://docs.microsoft.com/en-us/visualstudio/ide/finding-and-using-visual-studio-extensions) from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)**
 
@@ -53,8 +53,8 @@ to <a href="https://www.jetbrains.com/?from=EFDesigner"><img src="https://msawcz
 
 ### Change Log
 
-**[3.0.preview3](https://github.com/msawczyn/EFDesigner/releases/tag/v3.0.0.preview3)**
-   - New support EFCore5.X (available when selecting EFCore output with version >= 5)
+**3.0**
+   - Now supports EFCore5.X 
       - Added `System.Net.IPAddress` and `System.Net.NetworkInformation.PhysicalAddress` to the list of available property types
       - Added ability to specify both default database collation and a collation override at the property level 
       - Many-to-many bidirectional associations are now allowed 

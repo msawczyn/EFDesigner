@@ -31,7 +31,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 **ChangeLog**
 
 **3.0**
-   - **[NEW]** Support for EFCore5.X (available when selecting EFCore output with version >= 5)
+   - **[NEW]** Now supports EFCore5.X 
       - **[NEW]** Added System.Net.IPAddress and System.Net.NetworkInformation.PhysicalAddress to the list of available property types
       - **[NEW]** Added ability to specify both default database collation and a collation override at the property level 
       - **[NEW]** Many-to-many bidirectional associations are now allowed 
