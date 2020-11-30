@@ -1,0 +1,41 @@
+entityframework6\add-migration Initial -ProjectName EF6NetCore3 -StartupProjectName EF6NetCore3 -Force
+entityframework6\add-migration Initial -ProjectName EF6NetFramework -StartupProjectName EF6NetFramework -Force
+entityframeworkcore\add-migration Initial -Project EFCore2NetCore2 -StartupProject EFCore2NetCore2 -Force
+entityframeworkcore\add-migration Initial -Project EFCore2NetCore3 -StartupProject EFCore2NetCore3 -Force
+entityframeworkcore\add-migration Initial -Project EFCore2NetFramework -StartupProject EFCore2NetFramework -Force
+entityframeworkcore\add-migration Initial -Project EFCore3NetCore2 -StartupProject EFCore3NetCore2 -Force
+entityframeworkcore\add-migration Initial -Project EFCore3NetCore3 -StartupProject EFCore3NetCore3 -Force
+entityframeworkcore\add-migration Initial -Project EFCore3NetFramework -StartupProject EFCore3NetFramework -Force
+entityframeworkcore\add-migration Initial -Project EFCore5NetCore3 -StartupProject EFCore5NetCore3 -Force
+entityframeworkcore\add-migration Initial -Project EFCore5Net5 -StartupProject EFCore5Net5 -Force
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframework6\update-database -ProjectName EF6NetCore3 -StartupProjectName EF6NetCore3
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframework6\update-database -ProjectName EF6NetFramework -StartupProjectName EF6NetFramework
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore2NetCore2 -StartupProject EFCore2NetCore2
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore2NetCore3 -StartupProject EFCore2NetCore3
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore2NetFramework -StartupProject EFCore2NetFramework
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore3NetCore2 -StartupProject EFCore3NetCore2
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore3NetCore3 -StartupProject EFCore3NetCore3
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore3NetFramework -StartupProject EFCore3NetFramework
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore5NetCore3 -StartupProject EFCore5NetCore3
+
+sqlcmd -s "(localdb)\MSSQLLocalDb" -i "RecreateTest.sql"
+entityframeworkcore\update-database -Project EFCore5Net5 -StartupProject EFCore5Net5
+

@@ -4,8 +4,8 @@
 -->
 
 <table width="100%"><tr><td align="left" width="100%" style="background-color: lightyellow">
-Please be aware that this document is currently being updated for v2.0. 
-Information here is a mix between 2.0 features and the older 1.3x version.<br/>
+Please be aware that this document is currently being updated for v3.0. 
+Information here is a mix between 3.0 features and the older 2.x version.<br/>
 Updates are in progress and, when done, this message will be removed.
 </td></tr></table>
 

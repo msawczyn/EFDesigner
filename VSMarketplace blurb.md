@@ -1,4 +1,4 @@
-This Visual Studio 2019 extension is the easiest way to add a consistently correct Entity Framework (EF6 or EFCore) model to your project. 
+This Visual Studio 2019 extension is the easiest way to add a consistently correct Entity Framework model to your project with support for EF6, EFCore2, EFCore3 and EFCore5.
 
 It's an opinionated code generator, adding a new file type (.efmodel) that allows for fast, easy and, most importantly, **visual** design 
 of persistent classes. Inheritance, unidirectional and bidirectional associations are all supported. Enumerations are also included in 
@@ -31,7 +31,7 @@ For comprehensive documentation, please visit [the project's documentation site]
 **ChangeLog**
 
 **3.0**
-   - **[NEW]** Support for EFCore5.X (available when selecting EFCore output with version >= 5)
+   - **[NEW]** Now supports EFCore5.X 
       - **[NEW]** Added System.Net.IPAddress and System.Net.NetworkInformation.PhysicalAddress to the list of available property types
       - **[NEW]** Added ability to specify both default database collation and a collation override at the property level 
       - **[NEW]** Many-to-many bidirectional associations are now allowed 

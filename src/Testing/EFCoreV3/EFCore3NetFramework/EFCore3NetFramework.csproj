@@ -71,9 +71,9 @@
     <Compile Include="Generated\Entities\UParentOptional.generated.cs" />
     <Compile Include="Generated\Entities\UParentRequired.generated.cs" />
     <Compile Include="Generated\Enums\Enum1.generated.cs" />
-    <Compile Include="Migrations\20200910121715_Initial.cs" />
-    <Compile Include="Migrations\20200910121715_Initial.designer.cs">
-      <DependentUpon>20200910121715_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\20201129233738_Initial.cs" />
+    <Compile Include="Migrations\20201129233738_Initial.designer.cs">
+      <DependentUpon>20201129233738_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AllFeatureModelModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +83,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AllFeatureModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Migrations\placeholder.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AllFeatureModel.efmodel" />
