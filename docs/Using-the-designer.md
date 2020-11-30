@@ -19,7 +19,7 @@ Three files will be added to your project: MyModel.efmodel, MyModel.efmodel.diag
 - The .efmodel.diagramx file holds the details of the visual representations of your design, defining what you see on the screen
 - The .tt file is a [T4 template](https://docs.microsoft.com/en-us/visualstudio/modeling/code-generation-and-t4-text-templates?view=vs-2019), the entry point into code generation. Other T4 templates were installed, but those are in a common location where your Visual Studio extensions reside
 
-Should you decide to rename these files later, **it's important that the file names stay in sync**. In fact, if you do rename them, you'll need to make a manual edit to the .tt to let it know the name of the .efmodel file, since it needs to find that when you want to generate code. That's in line 17 of the .tt file, but we'll talk more about that later.
+Should you decide to rename these files later, **it's important that the file names stay in sync**. In fact, if you do rename them, you'll need to make a manual edit to the .tt to let it know the name of the .efmodel file, since it needs to find that when you want to generate code. That's in line 13 of the .tt file (line 17 for legacy projects), but we'll talk more about that later.
 
 &nbsp;
 

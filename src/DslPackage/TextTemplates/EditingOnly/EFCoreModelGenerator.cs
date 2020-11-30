@@ -164,7 +164,7 @@ namespace Sawczyn.EFDesigner.EFModel.EditingOnly
                      }
 
                      // primary key code segments must be output last, since HasKey returns a different type
-                     List<ModelAttribute> identityAttributes = modelClass.AllIdentityAttributes.ToList();
+                     List<ModelAttribute> identityAttributes = modelClass.IdentityAttributes.ToList();
 
                      if (identityAttributes.Count == 1)
                         segments.Add($"HasKey(t => t.{identityAttributes[0].Name})");
